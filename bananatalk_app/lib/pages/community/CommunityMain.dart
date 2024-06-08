@@ -7,7 +7,7 @@ class CommunityMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Swipe'),
+        child: Text('Community'),
       ),
     );
   }
