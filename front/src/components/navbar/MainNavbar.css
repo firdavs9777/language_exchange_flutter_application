@@ -1,0 +1,89 @@
+/* MainNavbar.css */
+
+.navbar {
+    justify-content: space-between;
+    background-color: #071a28;
+}
+
+.custom-nav-link {
+    padding: 10px;
+    margin: 10px;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    gap: 10px;
+}
+
+.menu a {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+
+.logo {
+    height: 85px;
+    padding-left: 20px;
+    /* Adjust the height as needed */
+    width: auto;
+    /* Maintain aspect ratio */
+}
+
+.logo-container {
+    margin-right: auto;
+    /* Push the logo to the left */
+}
+
+.menu-toggle {
+    display: none;
+}
+
+
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .navbar {
+        display: block;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        margin: auto;
+    }
+
+    .menu.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .menu-toggle {
+        display: inline-block;
+
+    }
+    .logo {
+margin: auto;
+        /* Maintain aspect ratio */
+    }
+
+    .menu-toggle a {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: #333;
+        text-align: center;
+    }
+}
+

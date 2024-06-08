@@ -1,0 +1,65 @@
+.homeMain {
+
+    justify-content: space-around;
+    .left {
+        flex: 35%;
+        text-align: center;
+        justify-content: center;
+        .slogan {
+            font-weight: bold;
+            font-size: 40px;
+
+            .language {
+                color: #723BCF;
+                display: block;
+            }
+
+            .learning {
+                color: #723BCF;
+                display: block;
+            }
+        }
+
+        .description {
+            font-size: 24px;
+            color: #000000;
+
+            .bananatalk {
+                color: #FF0B0B;
+            }
+        }
+
+        .register {
+            border-radius: 20px;
+            background-color: #F14E87;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 18px;
+            min-width: 140px;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1;
+            min-height: 50px;
+        }
+    }
+
+    .right {
+        justify-content: center;
+        flex: 65%;
+        text-align: center;
+
+        .homeImg {
+            height: 400px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        .homeImg {
+            height: 300px;
+        }
+    }
+}
