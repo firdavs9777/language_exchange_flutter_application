@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -24,9 +26,12 @@ class RegisterTwo extends ConsumerStatefulWidget {
 }
 
 class _RegisterTwoState extends ConsumerState<RegisterTwo> {
+  String? _selectedGender;
+  final List<String> _genders = ['Male', 'Female', 'Other'];
   late TextEditingController _bioController;
   String? _nativelanguage;
   String? _language_to_learn;
+
   // String? _imageUrl;
 
   late TextEditingController _birthDate;
@@ -34,6 +39,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
 // List of available languages
   List<String> _languages = [];
+  List<File> _selectedImages = [];
 
   @override
   void initState() {
@@ -77,12 +83,59 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.gallery);
-    print(pickedImage);
-    setState(() {
-      _imageFile = pickedImage;
-    });
+    final pickedFiles = await _picker.pickMultiImage();
+
+    if (pickedFiles != null) {
+      setState(() {
+        _selectedImages
+            .addAll(pickedFiles.map((pickedFile) => File(pickedFile.path)));
+      });
+    }
+  }
+
+  void submit() async {
+    // Split birth date to extract year, month, and day
+    List<String> dateParts = _birthDate.text.split('.');
+    String year = dateParts[0];
+    String month = dateParts[1];
+    String day = dateParts[2];
+    // Create a User object with the provided data
+    User user = User(
+      name: widget.name,
+      password: widget.password,
+      email: widget.email,
+      bio: _bioController.text,
+      gender: _selectedGender.toString(),
+      image: _imageFile.toString(),
+      // Note: Ensure this is the correct way to represent the image path
+      birth_day: day,
+      birth_month: month,
+      birth_year: year,
+      native_language: _nativelanguage.toString(),
+      language_to_learn: _language_to_learn.toString(),
+    );
+
+    // Register the user using the authServiceProvider
+    final user_response = await ref.read(authServiceProvider).register(user);
+    print(user_response.id);
+
+    await ref
+        .read(authServiceProvider)
+        .uploadUserPhoto(user_response.id, _selectedImages);
+
+    ref.refresh(authServiceProvider);
+    // Registration successful, navigate to the TabsScreen
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (ctx) => const TabsScreen(),
+    ));
+
+    // Show a success message if needed
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Registration Successful!'),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -207,6 +260,41 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       }).toList(),
                     ),
                   ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      isDense: true,
+                      menuMaxHeight: 400,
+                      value: _selectedGender,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedGender = newValue;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        labelText: 'Gender(Required)',
+                        hintText: 'Select your gender',
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      items: _genders
+                          .map<DropdownMenuItem<String>>((String gender) {
+                        return DropdownMenuItem<String>(
+                          value: gender,
+                          child: Text(
+                            gender,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -257,30 +345,49 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     readOnly: true,
                     onTap: _pickImage,
                   ),
-                  SizedBox(width: 10),
-                  // IconButton(
-                  //   onPressed: _pickImage,
-                  //   icon: Icon(Icons.photo),
-                  //   tooltip: 'Pick Image',
-                  // ),
-                  if (_imageFile != null)
+                  if (_selectedImages.isEmpty)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Image.file(
-                            File(_imageFile!.path),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      child: Center(
+                          child: Text(
+                              'Images will appear here, please press profile image')),
+                    ),
+                  if (_selectedImages.isNotEmpty)
+                    GridView.builder(
+                      shrinkWrap:
+                          true, // Allow the GridView to shrink and expand
+                      physics:
+                          NeverScrollableScrollPhysics(), // Disable scrolling of GridView to use the parent scroll
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        childAspectRatio: 1,
                       ),
+                      itemCount: _selectedImages.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index < _selectedImages.length) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.file(
+                              _selectedImages[index],
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        } else {
+                          return GestureDetector(
+                            onTap: _pickImage,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                color: Colors.grey[200],
+                                child: const Icon(Icons.add, size: 50),
+                              ),
+                            ),
+                          );
+                        }
+                      },
                     ),
                   SizedBox(
                     height: 20,
@@ -323,10 +430,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         child: SizedBox(
                           width: 120,
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => TabsScreen()));
-                            },
+                            onPressed: submit,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueAccent,
                               shape: RoundedRectangleBorder(

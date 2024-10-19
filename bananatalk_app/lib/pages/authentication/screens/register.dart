@@ -1,6 +1,6 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
-import 'package:bananatalk_app/providers/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,6 +39,13 @@ class _RegisterState extends State<Register> {
   }
 
   void submit() {
+    final emailPattern = r'^[^@]+@[^@]+\.[^@]+';
+    final emailRegex = RegExp(emailPattern);
+
+    final passwordPattern =
+        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$';
+    final passwordRegex = RegExp(passwordPattern);
+
     if (_nameController.text.isEmpty ||
         _emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
@@ -51,6 +58,28 @@ class _RegisterState extends State<Register> {
       );
       return;
     }
+
+    if (!emailRegex.hasMatch(_emailController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter a valid email address.'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    if (!passwordRegex.hasMatch(_passwordController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Password must be at least 8 characters long and contain both letters and numbers.'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
     if (_passwordController.text != _passwordConfirmController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -59,13 +88,13 @@ class _RegisterState extends State<Register> {
         ),
       );
       return;
-    } else {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (ctx) => RegisterTwo(
-              name: _nameController.text,
-              email: _emailController.text,
-              password: _passwordController.text)));
     }
+
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => RegisterTwo(
+            name: _nameController.text,
+            email: _emailController.text,
+            password: _passwordController.text)));
   }
 
   @override
@@ -187,7 +216,7 @@ class _RegisterState extends State<Register> {
                         suffixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
-                              _obscureText_two = !_obscureText;
+                              _obscureText_two = !_obscureText_two;
                             });
                           },
                           child: Icon(

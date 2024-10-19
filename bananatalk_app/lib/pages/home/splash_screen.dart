@@ -1,28 +1,42 @@
 // import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 // import 'package:bananatalk_app/pages/welcome.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    final authService = ref.read(authServiceProvider); // Corrected syntax
+    bool isAuthenticated = authService.isLoggedIn;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(Duration(seconds: 2), () {
+      if (isAuthenticated) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => TabsScreen()));
+      } else {
+        // Navigate to login page if not authenticated
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomePage()));
+      }
+
       // Navigate to the home screen after 3 seconds
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(builder: (context) => HomePage()),
+      // );
     });
   }
 
@@ -51,23 +65,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             SizedBox(height: 20),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-      ),
-      body: Center(
-        child: Text(
-          'Welcome Home!',
-          style: TextStyle(fontSize: 24),
         ),
       ),
     );

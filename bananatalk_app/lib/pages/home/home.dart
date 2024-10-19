@@ -1,6 +1,7 @@
 // import 'package:bananatalk/features/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -63,28 +64,18 @@ class _HomePageState extends State<HomePage> {
                       MediaQuery.of(context)
                           .size
                           .width, // 90% of the screen width
-                  child: ElevatedButton(
-                    onPressed: () => {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (ctx) => Register()))
+                  child: BananaButton(
+                    text: 'Create an Account',
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (ctx) =>
+                                Register()), // Make sure you have the Register screen imported
+                      );
                     },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF31A062)),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              8), // Set your custom border radius
-                        ),
-                      ), // Set your custom background color
-                    ),
-                    child: Text(
-                      'Create an Account',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17),
-                    ),
+                    color: Color(0xFF31A062),
+                    textColor: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
               ),
@@ -94,29 +85,23 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 45.0,
-                  width: 0.9 *
-                      MediaQuery.of(context)
-                          .size
-                          .width, // 90% of the screen width
-                  child: TextButton(
-                    onPressed: () => {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) => const Login()))
-                    },
-                    style: ButtonStyle(
-
-                        // Set your custom background color
-                        ),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          color: Color(0xFF31A062),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17),
-                    ),
-                  ),
-                ),
+                    height: 45.0,
+                    width: 0.9 *
+                        MediaQuery.of(context)
+                            .size
+                            .width, // 90% of the screen width
+                    child: BananaButton(
+                      text: 'Login',
+                      elevation: 0,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      textColor: Color(0xFF31A062),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (ctx) => const Login()));
+                      },
+                      color: Colors.transparent,
+                    )),
               ),
             ],
           ),
