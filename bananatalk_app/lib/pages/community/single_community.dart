@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SingleCommunity extends ConsumerStatefulWidget {
   final Community community;
@@ -23,9 +24,16 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   @override
   void initState() {
     super.initState();
-    userId = ref.read(authServiceProvider).userId; // Use ref.read in initState
-    isFollower = widget.community.followers
-        .contains(userId); // Set isFollower only once here
+    _initializeUserState();
+  }
+
+  Future<void> _initializeUserState() async {
+    final prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('userId') ?? '';
+    print(userId);
+    setState(() {
+      isFollower = widget.community.followers.contains(userId);
+    });
   }
 
   int calculateAge(String birthYear) {
@@ -48,7 +56,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         SnackBar(content: Text('You followed ${widget.community.name}')),
       );
     } catch (e) {
-      print('Failed to follow user: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to follow user')),
       );
@@ -96,7 +103,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
           SnackBar(content: Text('You unfollowed ${widget.community.name}')),
         );
       } catch (e) {
-        print('Failed to unfollow user: $e');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to unfollow user')),
         );

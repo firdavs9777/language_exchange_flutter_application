@@ -9,4 +9,5 @@ class Endpoints {
   static String userUrl = "user";
   static String senderUrl = "senders";
   static String usersURL = "auth/users";
+  static String countriesURL = "https://restcountries.com/v3.1/all";
 }

@@ -12,25 +12,36 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterTwo extends ConsumerStatefulWidget {
+  final String name;
+  final String email;
+  final String password;
+  final String bio;
+  final String gender;
+  final String nativeLanguage;
+  final String languageToLearn;
+  final String birthDate;
+
   const RegisterTwo(
       {super.key,
       required this.name,
       required this.email,
-      required this.password});
-  final String name;
-  final String email;
-  final String password;
+      required this.password,
+      this.bio = '',
+      this.gender = '',
+      this.nativeLanguage = '',
+      this.languageToLearn = '',
+      this.birthDate = ''});
 
   @override
   ConsumerState<RegisterTwo> createState() => _RegisterTwoState();
 }
 
 class _RegisterTwoState extends ConsumerState<RegisterTwo> {
-  String? _selectedGender;
-  final List<String> _genders = ['Male', 'Female', 'Other'];
+  late String? _selectedGender;
+  final List<String?> _genders = ['Male', 'Female'];
   late TextEditingController _bioController;
-  String? _nativelanguage;
-  String? _language_to_learn;
+  late String? _nativelanguage;
+  late String? _language_to_learn;
 
   // String? _imageUrl;
 
@@ -44,9 +55,19 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   @override
   void initState() {
     super.initState();
-    _bioController = TextEditingController();
-    // _language_to_learn = TextEditingController();
-    _birthDate = TextEditingController();
+    print(widget.bio);
+    print(widget.birthDate);
+    _bioController = TextEditingController(text: widget.bio);
+    _language_to_learn =
+        widget.languageToLearn.isNotEmpty ? widget.languageToLearn : null;
+
+    _birthDate = TextEditingController(
+        text: widget.birthDate.isNotEmpty
+            ? widget.birthDate
+            : DateFormat('yyyy.MM.dd').format(DateTime.now()));
+    _nativelanguage =
+        widget.nativeLanguage.isNotEmpty ? widget.nativeLanguage : null;
+    _selectedGender = widget.gender.isNotEmpty ? widget.gender : null;
     _image = TextEditingController();
     // ref.watch(authStatesProvider);
     fetchLanguages(); // Fetch languages when the widget initializes
@@ -65,7 +86,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   void fetchLanguages() async {
     final response =
-        await http.get(Uri.parse('http://localhost:5002/api/v1/languages'));
+        await http.get(Uri.parse('http://localhost:5003/api/v1/languages'));
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
@@ -99,7 +120,68 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     String year = dateParts[0];
     String month = dateParts[1];
     String day = dateParts[2];
-    // Create a User object with the provided data
+    DateTime birthDate =
+        DateTime(int.parse(year), int.parse(month), int.parse(day));
+    DateTime today = DateTime.now();
+    // Calculate the preliminary age
+    int age = today.year - birthDate.year;
+    // Adjust the age if the birthday hasn't occurred yet this year
+    if (today.month < birthDate.month ||
+        (today.month == birthDate.month && today.day < birthDate.day)) {
+      age--;
+    }
+    if (_bioController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Please include your bio'),
+        duration: const Duration(seconds: 3),
+      ));
+      return;
+    }
+    if (_nativelanguage == null || _nativelanguage.toString().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please register your native language'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+    if (_language_to_learn == null || _language_to_learn.toString().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please register the language you want to learn'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+    if (_selectedGender == null || _selectedGender.toString().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select your gender'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+    if (age <= 18) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You should be at least 18 to register'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+    if (_selectedImages.length < 2) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please register at least 2 images'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
     User user = User(
       name: widget.name,
       password: widget.password,
@@ -107,35 +189,53 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       bio: _bioController.text,
       gender: _selectedGender.toString(),
       image: _imageFile.toString(),
-      // Note: Ensure this is the correct way to represent the image path
       birth_day: day,
       birth_month: month,
       birth_year: year,
       native_language: _nativelanguage.toString(),
       language_to_learn: _language_to_learn.toString(),
     );
-
-    // Register the user using the authServiceProvider
-    final user_response = await ref.read(authServiceProvider).register(user);
-    print(user_response.id);
-
-    await ref
-        .read(authServiceProvider)
-        .uploadUserPhoto(user_response.id, _selectedImages);
-
-    ref.refresh(authServiceProvider);
-    // Registration successful, navigate to the TabsScreen
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (ctx) => const TabsScreen(),
-    ));
-
-    // Show a success message if needed
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Registration Successful!'),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    try {
+      final user_response = await ref.read(authServiceProvider).register(user);
+      await ref
+          .read(authServiceProvider)
+          .uploadUserPhoto(user_response.id, _selectedImages);
+      // Show a success message if needed
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registration Successful!'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      // Registration successful, navigate to the TabsScreen
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (ctx) => const TabsScreen(),
+      ));
+    } catch (error) {
+      String errorMessage = 'An unknown error occurred';
+      if (error is Exception &&
+          error.toString().contains('Duplicate field value')) {
+        errorMessage =
+            'Duplicate field value entered. Please use unique values.';
+      } else if (error.toString().contains('Exception: Failed to register:')) {
+        try {
+          final parsedError = error
+              .toString()
+              .replaceAll('Exception: Failed to register: ', '');
+          final Map<String, dynamic> errorJson = jsonDecode(parsedError);
+          errorMessage = errorJson['error'] ?? errorMessage;
+        } catch (_) {
+          errorMessage = 'An error occurred during registration.';
+        }
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $errorMessage'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -199,7 +299,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       value: _nativelanguage,
                       onChanged: (newValue) {
                         setState(() {
-                          _nativelanguage = newValue;
+                          _nativelanguage = newValue!;
                         });
                       },
                       decoration: InputDecoration(
@@ -210,7 +310,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         ),
                         labelText: 'Native Language(Required)',
                         hintText: 'Select your native language',
-                        prefixIcon: Icon(Icons.chat),
+                        prefixIcon: const Icon(Icons.chat),
                       ),
                       items: _languages
                           .map<DropdownMenuItem<String>>((String language) {
@@ -236,7 +336,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       value: _language_to_learn,
                       onChanged: (newValue) {
                         setState(() {
-                          _language_to_learn = newValue;
+                          _language_to_learn = newValue!;
                         });
                       },
                       decoration: InputDecoration(
@@ -250,11 +350,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         prefixIcon: Icon(Icons.language),
                       ),
                       items: _languages
-                          .map<DropdownMenuItem<String>>((String language) {
+                          .map<DropdownMenuItem<String>>((String? language) {
                         return DropdownMenuItem<String>(
                           value: language,
                           child: Text(
-                            language,
+                            language ?? 'Select Language',
                           ),
                         );
                       }).toList(),
@@ -271,7 +371,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       value: _selectedGender,
                       onChanged: (newValue) {
                         setState(() {
-                          _selectedGender = newValue;
+                          _selectedGender = newValue!;
                         });
                       },
                       decoration: InputDecoration(
@@ -285,11 +385,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         prefixIcon: Icon(Icons.person),
                       ),
                       items: _genders
-                          .map<DropdownMenuItem<String>>((String gender) {
+                          .map<DropdownMenuItem<String>>((String? gender) {
                         return DropdownMenuItem<String>(
                           value: gender,
                           child: Text(
-                            gender,
+                            gender ?? 'Select gender',
                           ),
                         );
                       }).toList(),
@@ -301,31 +401,42 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                   TextFormField(
                     controller: _birthDate,
                     decoration: InputDecoration(
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        hintText: 'Birth Date',
-                        prefixIcon: Icon(Icons.date_range)),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      hintText: 'Birth Date',
+                      prefixIcon: Icon(Icons.date_range),
+                    ),
                     readOnly: true,
                     onTap: () async {
+                      DateTime initialDate = DateTime.now();
+
+                      // Parse the initial date if the field already has a value
+                      if (_birthDate.text.isNotEmpty) {
+                        try {
+                          initialDate =
+                              DateFormat('yyyy.MM.dd').parse(_birthDate.text);
+                        } catch (e) {
+                          initialDate = DateTime.now();
+                        }
+                      }
+                      // Show the date picker
                       DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: initialDate,
                         firstDate: DateTime(1900),
                         lastDate: DateTime(2100),
                       );
+
+                      // If the date is picked, update the controller text
                       if (pickedDate != null) {
-                        String formattedDate =
-                            DateFormat('yyyy.MM.dd').format(pickedDate);
                         setState(() {
-                          _birthDate.text = formattedDate;
+                          _birthDate.text =
+                              DateFormat('yyyy.MM.dd').format(pickedDate);
                         });
                       }
-                    },
-                    onChanged: (value) {
-                      // Update name variable
                     },
                   ),
                   SizedBox(
@@ -401,8 +512,60 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                           width: 120,
                           child: ElevatedButton(
                             onPressed: () {
+                              if (_bioController.text.isEmpty) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text(
+                                      'Please include your bio, and then go to previous page'),
+                                  duration: const Duration(seconds: 3),
+                                ));
+                                return;
+                              }
+                              if (_nativelanguage == null ||
+                                  _nativelanguage.toString().isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Please register your native language and then go to previous page'),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                                return;
+                              }
+                              if (_language_to_learn == null ||
+                                  _language_to_learn.toString().isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Please register the language you want to learn, and then go to previous page'),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                                return;
+                              }
+                              if (_selectedGender == null ||
+                                  _selectedGender.toString().isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Please select your gender and then go to previous page'),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                                return;
+                              }
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => Register()));
+                                  builder: (ctx) => Register(
+                                      userName: widget.name,
+                                      userEmail: widget.email,
+                                      userPassword: widget.password,
+                                      userBio: _bioController.text,
+                                      userNativeLang:
+                                          _nativelanguage.toString(),
+                                      userLearnLang:
+                                          _language_to_learn.toString(),
+                                      userGender: _selectedGender.toString(),
+                                      userBirthDate: _birthDate.text)));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepOrange,

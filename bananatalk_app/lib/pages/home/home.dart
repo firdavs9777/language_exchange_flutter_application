@@ -1,6 +1,4 @@
-// import 'package:bananatalk/features/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
-import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,55 +51,55 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
-                height: 45,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Container(
                   height: 45.0,
-                  width: 0.9 *
-                      MediaQuery.of(context)
-                          .size
-                          .width, // 90% of the screen width
+                  width: 0.8 *
+                      MediaQuery.of(context).size.width, // 90% of screen width
                   child: BananaButton(
-                    text: 'Create an Account',
+                    text: 'Sign In with Facebook',
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (ctx) =>
-                                Register()), // Make sure you have the Register screen imported
-                      );
+                      // Implement your Facebook login logic here
                     },
-                    color: Color(0xFF31A062),
+                    color: Color(0xFF1877F2), // Facebook blue color
                     textColor: Color(0xFFFFFFFF),
                     borderRadius: BorderRadius.circular(8),
+                    icon: Icon(
+                      Icons
+                          .facebook, // You can also use a custom image if needed
+                      color: Colors.white,
+                      size: 24.0,
+                    ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
-                    height: 45.0,
-                    width: 0.9 *
-                        MediaQuery.of(context)
-                            .size
-                            .width, // 90% of the screen width
-                    child: BananaButton(
-                      text: 'Login',
-                      elevation: 0,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      textColor: Color(0xFF31A062),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (ctx) => const Login()));
-                      },
-                      color: Colors.transparent,
-                    )),
+                  height: 45.0,
+                  width: 0.8 *
+                      MediaQuery.of(context).size.width, // 90% of screen width
+                  child: BananaButton(
+                    text: 'Sign in with Email',
+                    onPressed: () {
+                      // Implement your Facebook login logic here
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (ctx) =>
+                                Login()), // Make sure you have the Register screen imported
+                      );
+                    },
+                    color: Colors.black87, // Facebook blue color
+                    textColor: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(8),
+                    icon: Icon(
+                      Icons.email, // You can also use a custom image if needed
+                      color: Colors.white,
+                      size: 24.0,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

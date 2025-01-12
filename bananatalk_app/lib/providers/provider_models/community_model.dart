@@ -63,8 +63,8 @@ class Community {
                 ? List<String>.from(json['followers'])
                 : <String>[]) ??
             [],
-        followings: (json['followings'] != null
-                ? List<String>.from(json['followings'])
+        followings: (json['following'] != null
+                ? List<String>.from(json['following'])
                 : <String>[]) ??
             [],
         createdAt: json['createdAt'],

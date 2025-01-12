@@ -21,7 +21,7 @@ class Moments {
   final String description;
   final List<String> images;
   final List<String>? likedUsers;
-  final List<String>? comments;
+  final List<Comment>? comments; // Changed to handle Comment type inline
   final List<String> imageUrls;
   final int likeCount;
   final int commentCount;
@@ -49,20 +49,51 @@ class Moments {
               createdAt: '',
               version: 0,
               followers: [''],
-              followings: ['']),
+              followings: [''],
+            ),
       description: json['description'] ?? '',
       images: List<String>.from(json['images']),
-      imageUrls: List<String>.from(json['imageUrls']),
-      // Handle null case for followings
+      imageUrls: json['imageUrls'] != null
+          ? List<String>.from(json['imageUrls'].whereType<String>())
+          : [],
       likeCount: json['likeCount'] ?? 0,
-      commentCount: json['commentCount'] ?? 0, // Default to 0 if null
+      commentCount: json['commentCount'] ?? 0,
       likedUsers: json['likedUsers'] != null
           ? List<String>.from(json['likedUsers'])
           : null,
-      // comments: json['comments'] != null
-      //     ? List<String>.from(json['comments'])
-      //     : null, // Handle null case for likedUsers
+      comments: json['comments'] != null
+          ? (json['comments'] as List<dynamic>) // Cast to List<dynamic>
+              .expand((innerList) =>
+                  List.from(innerList)) // Flatten the nested lists
+              .map((x) => Comment.fromJson(
+                  x as Map<String, dynamic>)) // Convert to Comment objects
+              .toList()
+          : null,
       createdAt: DateTime.parse(json['createdAt']),
+    );
+  }
+}
+
+class Comment {
+  const Comment({
+    required this.text,
+    required this.userId,
+    required this.momentId,
+    required this.createdAt,
+  });
+
+  final String text;
+  final String userId;
+  final String momentId;
+  final DateTime createdAt;
+
+  factory Comment.fromJson(Map<String, dynamic> json) {
+    return Comment(
+      text: json['text'] ?? '',
+      userId: json['user'] ?? '',
+      momentId: json['moment'] ?? '',
+      createdAt:
+          DateTime.parse(json['createdAt'] ?? '1970-01-01T00:00:00.000Z'),
     );
   }
 }

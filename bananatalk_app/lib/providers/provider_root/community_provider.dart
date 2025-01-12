@@ -43,6 +43,8 @@ class CommunityService {
   }
 
   Future<void> followUser({required userId, required targetUserId}) async {
+    print(userId);
+    print(targetUserId);
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/follow/$targetUserId');
     try {
@@ -88,6 +90,17 @@ class CommunityService {
       print(response);
     } catch (error) {
       print('Error when unfollowing the user: $error');
+      throw Exception('Failed to call the api: $error');
+    }
+  }
+
+  Future<void> getCountriesList() async {
+    final url = Uri.parse('${Endpoints.countriesURL}');
+    try {
+      final response = await http.get(url);
+      print(response);
+    } catch (error) {
+      print('Error when getting countries list $error');
       throw Exception('Failed to call the api: $error');
     }
   }

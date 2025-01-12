@@ -29,7 +29,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     if (_selectedPageIndex == 1) {
       activePageTitle = 'Chat';
-      activePage = CommunityMain();
+      activePage = const CommunityMain();
     } else if (_selectedPageIndex == 2) {
       activePageTitle = 'Moments';
       activePage = MomentsMain();

@@ -5,8 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  final String userName;
+  final String userEmail;
+  final String userPassword;
+  final String userBio;
+  final String? userGender;
+  final String? userNativeLang;
+  final String? userLearnLang;
+  final String userBirthDate;
 
+  const Register(
+      {super.key,
+      this.userName = '',
+      this.userEmail = '',
+      this.userPassword = '',
+      this.userBio = '',
+      this.userGender = '',
+      this.userNativeLang = '',
+      this.userLearnLang = '',
+      this.userBirthDate = ''});
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -22,10 +39,11 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
-    _passwordController = TextEditingController();
-    _emailController = TextEditingController();
-    _passwordConfirmController = TextEditingController();
+    _nameController = TextEditingController(text: widget.userName);
+    _passwordController = TextEditingController(text: widget.userPassword);
+    _emailController = TextEditingController(text: widget.userEmail);
+    _passwordConfirmController =
+        TextEditingController(text: widget.userPassword);
     // ref.watch(authStatesProvider);
   }
 
@@ -92,9 +110,15 @@ class _RegisterState extends State<Register> {
 
     Navigator.of(context).push(MaterialPageRoute(
         builder: (ctx) => RegisterTwo(
-            name: _nameController.text,
-            email: _emailController.text,
-            password: _passwordController.text)));
+              name: _nameController.text,
+              email: _emailController.text,
+              password: _passwordController.text,
+              bio: widget.userBio,
+              gender: widget.userGender ?? 'Male',
+              nativeLanguage: widget.userNativeLang ?? 'English',
+              languageToLearn: widget.userLearnLang ?? 'Korean',
+              birthDate: widget.userBirthDate,
+            )));
   }
 
   @override
@@ -272,7 +296,8 @@ class _RegisterState extends State<Register> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      // Implement your forgot password logic here
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (ctx) => Login()));
                     },
                     child: Text('Already have an account?'),
                   ),

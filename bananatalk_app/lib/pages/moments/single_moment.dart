@@ -150,19 +150,21 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             child: Text(
                               widget.moment.title,
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           SizedBox(height: 10),
                           // Display Description
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              widget.moment.description,
-                              style: TextStyle(
-                                fontSize: 18,
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                widget.moment.description,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                           ),

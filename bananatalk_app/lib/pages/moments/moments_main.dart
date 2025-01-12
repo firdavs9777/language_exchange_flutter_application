@@ -18,25 +18,6 @@ class MomentsMain extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Moments'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(
-                        builder: (ctx) => const CreateMoment()))
-                    .then((_) {
-                  ref.refresh(momentsProvider);
-                });
-              },
-              icon: const Icon(
-                Icons.add,
-                size: 34,
-              ),
-            ),
-          ),
-        ],
       ),
       body: RefreshIndicator(
         onRefresh: refresh,
@@ -57,6 +38,19 @@ class MomentsMain extends ConsumerWidget {
           },
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, stack) => Center(child: Text('Error: $error $stack')),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx) => const CreateMoment()))
+              .then((_) {
+            ref.refresh(momentsProvider);
+          });
+        },
+        child: const Icon(
+          Icons.add,
+          size: 34,
         ),
       ),
     );

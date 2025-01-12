@@ -10,6 +10,7 @@ class BananaButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final BorderSide? borderSide;
   final BorderRadiusGeometry? borderRadius;
+  final Widget? icon; // Add the icon parameter
 
   const BananaButton({
     super.key,
@@ -22,6 +23,7 @@ class BananaButton extends StatelessWidget {
     this.padding,
     this.borderSide,
     this.borderRadius,
+    this.icon, // Accept the icon parameter
   });
 
   @override
@@ -37,10 +39,23 @@ class BananaButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-            color: textColor, fontWeight: FontWeight.bold, fontSize: 17),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null) ...[
+            icon!, // Display the icon if it's provided
+            SizedBox(width: 8), // Add some space between the icon and the text
+          ],
+          Text(
+            text,
+            style: textStyle ??
+                TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+          ),
+        ],
       ),
     );
   }

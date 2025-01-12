@@ -25,8 +25,8 @@ class MomentsService {
   }
 
   Future<List<Moments>> getMomentsUser({required id}) async {
-    final response = await http.get(
-        Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/user/${id}'));
+    final response = await http
+        .get(Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/user/$id'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> momentsList =
@@ -50,7 +50,6 @@ class MomentsService {
     // print(userId);
     String? token = prefs.getString('token');
     String? userId = prefs.getString('userId');
-    print('Helloooooo $userId');
     final response = await http.post(
       url,
       headers: {
@@ -80,6 +79,30 @@ class MomentsService {
           data['data']); // Assuming 'data' is a map representing the new moment
     } else {
       throw Exception('Failed to create moment');
+    }
+  }
+
+  Future<Map<String, dynamic>> deleteUserMoment({required String id}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // print(userId);
+    String? token = prefs.getString('token');
+    final response = await http.delete(
+      (Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id')),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return {
+        "success": data['success'],
+        "data": {},
+        "message": data['message'],
+      };
+    } else {
+      throw Exception('Failed to delete moment');
     }
   }
 
