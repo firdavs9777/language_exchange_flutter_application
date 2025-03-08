@@ -25,14 +25,16 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     ref.refresh(userProvider);
   }
 
-  Future<void> _redirect() async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const ProfileEdit()));
-  }
-
   int _calculateAge(String birthYear) {
     final currentYear = DateTime.now().year;
     return currentYear - int.parse(birthYear);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.refresh(userProvider);
   }
 
   @override
@@ -83,8 +85,16 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () {
-                      _redirect();
+                    onTap: () async {
+                      await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileEdit(
+                                      userName: user.name,
+                                      mbti: user.mbti,
+                                      bloodType: user.bloodType,
+                                      location: user.location)))
+                          .then((_) => ref.watch(userProvider));
                     },
                     child: Row(
                       children: [
@@ -157,7 +167,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                                 builder: (context) =>
                                     ProfileFollowings(id: user.id),
                               ),
-                            ).then((_) => _refresh());
+                            ).then((_) => ref.watch(userProvider));
                           },
                         ),
                         _buildStatCard(
@@ -171,7 +181,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                                 builder: (context) =>
                                     ProfileFollowers(id: user.id),
                               ),
-                            ).then((_) => _refresh());
+                            ).then((_) => ref.watch(userProvider));
                           },
                         ),
                         _buildMomentsStat(context, user),

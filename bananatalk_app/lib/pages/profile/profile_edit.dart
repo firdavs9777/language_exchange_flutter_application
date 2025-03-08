@@ -1,21 +1,73 @@
 import 'package:bananatalk_app/pages/profile/profile_blood_type.dart';
 import 'package:bananatalk_app/pages/profile/profile_hometown.dart';
 import 'package:bananatalk_app/pages/profile/profile_mbti.dart';
+import 'package:bananatalk_app/pages/profile/profile_name_set.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod package
 
-class ProfileEdit extends StatefulWidget {
-  const ProfileEdit({super.key});
+class ProfileEdit extends ConsumerStatefulWidget {
+  final String userName;
+  final String mbti;
+  final String bloodType;
+  final Location location;
+
+  const ProfileEdit(
+      {super.key,
+      required this.userName,
+      required this.mbti,
+      required this.bloodType,
+      required this.location});
 
   @override
-  State<ProfileEdit> createState() => _ProfileEditState();
+  ConsumerState<ProfileEdit> createState() => _ProfileEditState();
 }
 
-class _ProfileEditState extends State<ProfileEdit> {
+class _ProfileEditState extends ConsumerState<ProfileEdit> {
+  late String selectedName;
+  late String selectedMBTI;
+  late String selectedBloodType;
+  @override
+  void initState() {
+    super.initState();
+    selectedName = widget.userName.isEmpty ? "Not Set" : widget.userName;
+    selectedMBTI = widget.mbti.isEmpty ? "Not Set" : widget.mbti;
+    selectedBloodType = widget.bloodType.isEmpty ? 'Not Set' : widget.bloodType;
+  }
+
+  void updateMBTI(String newMBTI) {
+    setState(() {
+      selectedMBTI = newMBTI;
+    });
+  }
+
+  void updateUserName(String newUserName) {
+    setState(() {
+      selectedName = newUserName;
+    });
+  }
+
+  void updateBloodType(String newBloodType) {
+    setState(() {
+      selectedBloodType = newBloodType;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Access the provider data using ref.watch() within the ConsumerStatefulWidget
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Profile'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // This is the back button icon
+          onPressed: () {
+            ref.refresh(userProvider);
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -23,11 +75,12 @@ class _ProfileEditState extends State<ProfileEdit> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Personal Information',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'About Me',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
             Card(
               color: Colors.white,
@@ -37,8 +90,78 @@ class _ProfileEditState extends State<ProfileEdit> {
                 borderRadius: BorderRadius.circular(0),
               ),
               child: ListTile(
-                contentPadding:
-                    const EdgeInsets.all(16), // Add padding inside the card
+                contentPadding: const EdgeInsets.all(16),
+                leading: CircleAvatar(
+                  child: const Icon(
+                    Icons
+                        .person, // Change this to something related to MBTI, e.g., icon for ENTP
+                    color: Colors.white,
+                  ),
+                ),
+                title: Text(
+                  'My name',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.black,
+                  ),
+                ),
+                subtitle: Text(
+                  selectedName,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 22,
+                  color: Colors.grey[600], // Subtle gray color for the arrow
+                ),
+                onTap: () async {
+                  final String updatedUserName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileNameSet(
+                            userName: selectedName,
+                          ),
+                        ),
+                      ) ??
+                      selectedName;
+                  updateUserName(updatedUserName);
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Language',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Personal Information',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.white,
+              elevation: 1,
+              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(16),
                 leading: CircleAvatar(
                   child: const Icon(
                     Icons
@@ -55,7 +178,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                 ),
                 subtitle: Text(
-                  'ENTP',
+                  selectedMBTI,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -67,11 +190,17 @@ class _ProfileEditState extends State<ProfileEdit> {
                   size: 22,
                   color: Colors.grey[600], // Subtle gray color for the arrow
                 ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MBTIEdit()));
+                onTap: () async {
+                  final String updatedMbtiType = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MBTIEdit(
+                            currentMBTI: selectedMBTI,
+                          ),
+                        ),
+                      ) ??
+                      selectedMBTI;
+                  updateMBTI(updatedMbtiType);
                 },
               ),
             ),
@@ -83,14 +212,11 @@ class _ProfileEditState extends State<ProfileEdit> {
                 borderRadius: BorderRadius.circular(0),
               ),
               child: ListTile(
-                contentPadding:
-                    const EdgeInsets.all(16), // Add padding inside the card
+                contentPadding: const EdgeInsets.all(16),
                 leading: CircleAvatar(
-                  backgroundColor:
-                      Colors.blueAccent, // Background color for the avatar
+                  backgroundColor: Colors.blueAccent,
                   child: const Icon(
-                    Icons
-                        .bloodtype, // Change this to something related to MBTI, e.g., icon for ENTP
+                    Icons.bloodtype,
                     color: Colors.white,
                   ),
                 ),
@@ -103,7 +229,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                 ),
                 subtitle: Text(
-                  'Type A',
+                  selectedBloodType,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -115,11 +241,16 @@ class _ProfileEditState extends State<ProfileEdit> {
                   size: 22,
                   color: Colors.grey[600], // Subtle gray color for the arrow
                 ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonBloodType()));
+                onTap: () async {
+                  final String updatedBloodType = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PersonBloodType(
+                              currentSelectedBloodType: selectedBloodType),
+                        ),
+                      ) ??
+                      selectedBloodType;
+                  updateBloodType(updatedBloodType);
                 },
               ),
             ),
@@ -130,14 +261,11 @@ class _ProfileEditState extends State<ProfileEdit> {
                 borderRadius: BorderRadius.circular(0),
               ),
               child: ListTile(
-                contentPadding:
-                    const EdgeInsets.all(16), // Add padding inside the card
+                contentPadding: const EdgeInsets.all(16),
                 leading: CircleAvatar(
-                  backgroundColor:
-                      Colors.blueAccent, // Background color for the avatar
+                  backgroundColor: Colors.blueAccent,
                   child: const Icon(
-                    Icons
-                        .home_filled, // Change this to something related to MBTI, e.g., icon for ENTP
+                    Icons.home_filled,
                     color: Colors.white,
                   ),
                 ),
@@ -150,7 +278,8 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                 ),
                 subtitle: Text(
-                  'Earth',
+                  widget.location
+                      .formattedAddress, // Replace with actual hometown data from the provider if needed
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -164,10 +293,22 @@ class _ProfileEditState extends State<ProfileEdit> {
                 ),
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfileHometownEdit()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileHometownEdit(),
+                    ),
+                  );
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Interests',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],

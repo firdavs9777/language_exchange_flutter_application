@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileHometownEdit extends StatefulWidget {
-  const ProfileHometownEdit({super.key});
+  const ProfileHometownEdit({Key? key}) : super(key: key);
 
   @override
   State<ProfileHometownEdit> createState() => _ProfileHometownEditState();
@@ -14,12 +14,13 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
   List<String> regions = [];
   String? selectedCountry;
   String? selectedCountryFlag;
+  String? selectedRegion;
   bool isLoading = true;
   String? errorMessage;
 
   // Fetching countries list
   Future<void> getCountriesList() async {
-    final url = Uri.parse('https://restcountries.com/v3.1/all'); // API URL
+    final url = Uri.parse('https://restcountries.com/v3.1/all');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -32,8 +33,7 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
                     'code': item['cca2'] as String,
                   })
               .toList()
-            ..sort((a, b) =>
-                a['name']!.compareTo(b['name']!)); // Sort alphabetically
+            ..sort((a, b) => a['name']!.compareTo(b['name']!));
           isLoading = false;
         });
       } else {
@@ -48,28 +48,24 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
   }
 
   // Fetching regions based on selected country
-  Future<void> getRegions(String countryName) async {
-    final url =
-        Uri.parse('https://country-regions.p.rapidapi.com/country-regions');
-    const headers = {
-      'Content-Type': 'application/json',
-      'x-rapidapi-host': 'country-regions.p.rapidapi.com',
-      'x-rapidapi-key':
-          '240fa8cf42msh227fd27272c6a4ep134022jsn23d109a5c9db', // Replace with your API key
-    };
+  Future<void> getRegions() async {
+    if (selectedCountry == null) return;
 
-    final body = json.encode({'countryName': countryName});
-
+    final encodedCountry = Uri.encodeQueryComponent(selectedCountry!);
+    final url = Uri.parse(
+        'https://countriesnow.space/api/v0.1/countries/cities/q?country=$encodedCountry');
     try {
-      final response = await http.post(url, headers: headers, body: body);
-      print(response);
+      final response = await http.get(url);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        setState(() {
-          regions = List<String>.from(data[
-              'regions']); // Assuming the response contains a 'regions' array
-          isLoading = false;
-        });
+        if (data['data'] != null) {
+          setState(() {
+            regions = List<String>.from(data['data']);
+            isLoading = false;
+          });
+        } else {
+          throw Exception('Invalid data format');
+        }
       } else {
         throw Exception('Failed to load regions');
       }
@@ -91,7 +87,8 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile Hometown'),
+        title: const Text('Edit Hometown'),
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -111,18 +108,27 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
                       const Text(
                         'Select Your Hometown',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 16),
-                      DropdownButton<Map<String, String>>(
+                      const SizedBox(height: 20),
+                      DropdownButtonFormField<Map<String, String>>(
                         value: selectedCountry != null
                             ? countries.firstWhere(
                                 (country) => country['name'] == selectedCountry,
+                                orElse: () => countries.first,
                               )
                             : null,
-                        hint: const Text('Select a country'),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 12),
+                          labelText: 'Country',
+                          labelStyle: const TextStyle(fontSize: 16),
+                        ),
                         isExpanded: true,
                         items: countries.map((country) {
                           return DropdownMenuItem(
@@ -151,58 +157,83 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
                           setState(() {
                             selectedCountry = value!['name'];
                             selectedCountryFlag = value['flag'];
-                            // Fetch regions after country selection
-                            // getRegions(value['name']!);
+                            selectedRegion = null;
+                            regions.clear();
+                            isLoading = true;
+                            getRegions();
                           });
                         },
                       ),
-                      const SizedBox(height: 16),
-                      if (selectedCountry != null)
-                        Row(
-                          children: [
-                            if (selectedCountryFlag != null)
-                              Image.network(
-                                selectedCountryFlag!,
-                                width: 32,
-                                height: 32,
-                                fit: BoxFit.cover,
-                              ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'Selected Country: $selectedCountry',
-                              style: const TextStyle(fontSize: 16),
+                      const SizedBox(height: 20),
+                      if (regions.isNotEmpty)
+                        DropdownButtonFormField<String>(
+                          value: selectedRegion,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                          ],
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 12),
+                            labelText: 'Region',
+                            labelStyle: const TextStyle(fontSize: 16),
+                          ),
+                          isExpanded: true,
+                          items: regions.map((region) {
+                            return DropdownMenuItem(
+                              value: region,
+                              child: Text(region),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedRegion = value;
+                            });
+                          },
                         ),
-                      const SizedBox(height: 16),
-                      // if (regions.isNotEmpty)
-                      //   Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       const Text(
-                      //         'Select a Region:',
-                      //         style: TextStyle(
-                      //           fontSize: 16,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(height: 8),
-                      //       DropdownButton<String>(
-                      //         hint: const Text('Select a region'),
-                      //         isExpanded: true,
-                      //         items: regions.map((region) {
-                      //           return DropdownMenuItem(
-                      //             value: region,
-                      //             child: Text(region),
-                      //           );
-                      //         }).toList(),
-                      //         onChanged: (value) {
-                      //           // You can handle region selection here
-                      //           print('Selected region: $value');
-                      //         },
-                      //       ),
-                      //     ],
-                      //   ),
+                      const SizedBox(height: 30),
+                      Spacer(),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed:
+                              selectedCountry != null && selectedRegion != null
+                                  ? () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text('Confirmation'),
+                                          content: Text(
+                                            'Your hometown is set to $selectedCountry, $selectedRegion.',
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                            foregroundColor: Colors.black,
+                            minimumSize: const Size(double.infinity, 20),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 20,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          child: const Text(
+                            'Confirm',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
       ),

@@ -28,7 +28,6 @@ class ProfileMoments extends ConsumerWidget {
             return Center(child: Text('No moments found.'));
           } else {
             List<Moments> moments = snapshot.data!;
-            print(moments);
             return ListView.builder(
               itemCount: moments.length,
               itemBuilder: (context, index) {

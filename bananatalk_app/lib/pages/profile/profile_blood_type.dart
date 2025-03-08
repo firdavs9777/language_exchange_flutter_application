@@ -1,13 +1,16 @@
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PersonBloodType extends StatefulWidget {
-  const PersonBloodType({super.key});
+class PersonBloodType extends ConsumerStatefulWidget {
+  final String currentSelectedBloodType;
+  const PersonBloodType({super.key, required this.currentSelectedBloodType});
 
   @override
-  State<PersonBloodType> createState() => _PersonBloodTypeState();
+  _PersonBloodTypeState createState() => _PersonBloodTypeState();
 }
 
-class _PersonBloodTypeState extends State<PersonBloodType> {
+class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
   // List of blood types
   final List<String> bloodTypes = [
     'Type A',
@@ -21,7 +24,14 @@ class _PersonBloodTypeState extends State<PersonBloodType> {
   ];
 
   // Variable to store the selected blood type
-  String? selectedBloodType;
+  late String selectedBloodType;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedBloodType = widget.currentSelectedBloodType;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +94,16 @@ class _PersonBloodTypeState extends State<PersonBloodType> {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (selectedBloodType != null) {
-                    // Save the selected blood type (For now, just show a message)
+                    await ref
+                        .read(authServiceProvider)
+                        .updateUserBloodType(bloodType: selectedBloodType);
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Saved: $selectedBloodType')),
                     );
+                    Navigator.of(context).pop(selectedBloodType);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -97,13 +111,14 @@ class _PersonBloodTypeState extends State<PersonBloodType> {
                     );
                   }
                 },
-                child: const Text('Save'),
                 style: ElevatedButton.styleFrom(
-                  minimumSize:
-                      const Size(double.infinity, 50), // Full-width button
+                  backgroundColor: Colors.amber,
+                  foregroundColor: Colors.black,
+                  minimumSize: const Size(double.infinity, 50),
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   textStyle: const TextStyle(fontSize: 16),
                 ),
+                child: const Text('Save'),
               ),
             ),
           ],

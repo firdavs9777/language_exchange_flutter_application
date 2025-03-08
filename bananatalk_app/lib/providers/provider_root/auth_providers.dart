@@ -69,10 +69,8 @@ class AuthService {
       final prefs = await SharedPreferences.getInstance();
       // Check for 201 Created status code
       isLoggedIn = true;
-      final data = json.decode(response.body);
+      final data = jsonDecode(response.body);
       token = data['token'];
-      print(token);
-
       prefs.setString('token', data['token'].toString());
       prefs.setString('userId', data['user']['_id'].toString());
       return Community.fromJson(data['user']);
@@ -84,7 +82,6 @@ class AuthService {
 
   Future<Community> getLoggedInUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(token);
     //Return String
 
     final url = Uri.parse('${Endpoints.baseURL}auth/me');
@@ -99,10 +96,63 @@ class AuthService {
       final data = json.decode(response.body);
       String userId = data['data']['_id'];
       await prefs.setString('userId', userId);
-      print(userId);
       return Community.fromJson(data['data']);
     } else {
-      throw Exception('Failed to load comments');
+      throw Exception('Failed to load user info');
+    }
+  }
+
+  Future<Community> updateUserMbti({required mbti}) async {
+    final url =
+        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final response = await http.put(
+      url,
+      body: json.encode({'mbti': mbti}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['data']);
+    } else {
+      throw Exception('Failed to register: ${response.body}');
+    }
+  }
+
+  Future<Community> updateUserBloodType({required bloodType}) async {
+    final url =
+        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final response = await http.put(
+      url,
+      body: json.encode({'bloodType': bloodType}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['data']);
+    } else {
+      throw Exception('Failed to register: ${response.body}');
+    }
+  }
+
+  Future<Community> updateUserName({required userName}) async {
+    final url =
+        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final response = await http.put(
+      url,
+      body: json.encode({'name': userName}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return Community.fromJson(data['data']);
+    } else {
+      throw Exception('Failed to register: ${response.body}');
     }
   }
 
@@ -113,8 +163,6 @@ class AuthService {
       throw Exception('There is no token, please check');
     }
 
-    print(token);
-    print(id);
     final url = Uri.parse('${Endpoints.baseURL}auth/users/$id/followers');
     final response = await http.get(
       url,
@@ -128,7 +176,7 @@ class AuthService {
       final List<dynamic> followersList = data['followers'];
       List<Community> followers =
           followersList.map((json) => Community.fromJson(json)).toList();
-      print(followers);
+
       return followers;
     } else {
       throw Exception('Failed to load comments');
@@ -155,7 +203,7 @@ class AuthService {
       final List<dynamic> followersList = data['following'];
       List<Community> followings =
           followersList.map((json) => Community.fromJson(json)).toList();
-      print(followings);
+
       return followings;
     } else {
       throw Exception('Failed to load ');
@@ -163,7 +211,6 @@ class AuthService {
   }
 
   Future<void> uploadUserPhoto(String userId, List<File> imageFiles) async {
-    print(userId);
     final url =
         Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId/photo');
     final request = http.MultipartRequest('PUT', url);
@@ -179,18 +226,11 @@ class AuthService {
     }
     try {
       final response = await request.send();
-      print(response);
       if (response.statusCode == 200) {
-        print("Uploaded!");
       } else {
-        print("Upload failed with status: ${response.statusCode}");
-        response.stream.transform(utf8.decoder).listen((value) {
-          print(value);
-        });
+        response.stream.transform(utf8.decoder).listen((value) {});
       }
-    } catch (e) {
-      print("Error uploading file: $e");
-    }
+    } catch (e) {}
   }
 }
 
