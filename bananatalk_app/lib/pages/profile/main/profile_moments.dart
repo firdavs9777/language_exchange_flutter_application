@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/profile/profile_single_moment.dart';
+import 'package:bananatalk_app/pages/profile/about/profile_single_moment.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/material.dart';

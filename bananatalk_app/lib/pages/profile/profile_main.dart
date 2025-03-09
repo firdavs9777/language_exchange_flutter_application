@@ -1,9 +1,9 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
-import 'package:bananatalk_app/pages/profile/profile_edit.dart';
-import 'package:bananatalk_app/pages/profile/profile_followers.dart';
-import 'package:bananatalk_app/pages/profile/profile_followings.dart';
-import 'package:bananatalk_app/pages/profile/profile_left_drawer.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_edit_main.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_followers.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_followings.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_left_drawer.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/pages/profile/profile_moments.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_moments.dart';
 
 class ProfileMain extends ConsumerStatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
@@ -87,14 +87,17 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   GestureDetector(
                     onTap: () async {
                       await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileEdit(
-                                      userName: user.name,
-                                      mbti: user.mbti,
-                                      bloodType: user.bloodType,
-                                      location: user.location)))
-                          .then((_) => ref.watch(userProvider));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileEdit(
+                                    nativeLanguage: user.native_language,
+                                    languageToLearn: user.language_to_learn,
+                                    userName: user.name,
+                                    mbti: user.mbti,
+                                    bloodType: user.bloodType,
+                                    location: user.location,
+                                    gender: user.gender,
+                                  ))).then((_) => ref.watch(userProvider));
                     },
                     child: Row(
                       children: [

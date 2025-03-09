@@ -22,12 +22,12 @@ class _CommunityMainState extends ConsumerState<CommunityMain> {
     'maxAge': 100,
     'gender': null,
     'nativeLanguage': null,
-  }; // To store selected filters
+  };
 
   @override
   void initState() {
     super.initState();
-    _initializeUserId(); // Initialize userId from SharedPreferences
+    _initializeUserId();
   }
 
   Future<void> _initializeUserId() async {
@@ -48,7 +48,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain> {
         builder: (context) => CommunityFilter(
             onApplyFilters: (filters) {
               setState(() {
-                _filters = filters; // Store selected filters
+                _filters = filters;
               });
             },
             initialFilters: _filters),
@@ -75,101 +75,97 @@ class _CommunityMainState extends ConsumerState<CommunityMain> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Community'),
+        title: const Text('Community',
+            style: TextStyle(fontWeight: FontWeight.w600)), // Bold title
         actions: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    _filterSearch();
-                  },
-                  icon: const Icon(Icons.filter_list))
-            ],
+          IconButton(
+            onPressed: _filterSearch,
+            icon: const Icon(Icons.filter_list),
           ),
         ],
+        elevation: 1, // Subtle shadow
+        // White background
       ),
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: communityAsyncValue.when(
           data: (communities) {
-            // Filter out the community with the logged-in user's ID
             final filteredCommunities = communities.where((community) {
               if (community.id == userId) return false;
-
-              // Apply age filter
-              // if (_filters['minAge'] != null &&
-              //     community.birth_year < _filters['minAge']) return false;
-              // if (_filters['maxAge'] != null &&
-              //     community.age > _filters['maxAge']) return false;
-
-              // Apply gender filter
               if (_filters['gender'] != null &&
                   _filters['gender'] != community.gender) return false;
-
-              // Apply language filter
               if (_filters['language'] != null &&
                   _filters['language'] != community.native_language)
                 return false;
-
               return true;
             }).toList();
 
-            return ListView.builder(
+            return ListView.separated(
+              // Use ListView.separated for dividers
               itemCount: filteredCommunities.length,
+              separatorBuilder: (context, index) =>
+                  const Divider(height: 1), // Add dividers
               itemBuilder: (context, index) {
                 final community = filteredCommunities[index];
-                return Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: community.imageUrls.isNotEmpty
-                          ? NetworkImage(community.imageUrls[0])
-                          : const AssetImage(
-                                  'assets/images/logo_no_background.png')
-                              as ImageProvider,
-                    ),
-                    title: Text(
-                      community.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            community.bio,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.black.withOpacity(0.6),
-                            ),
+                return InkWell(
+                  // Add InkWell for tap effect
+                  onTap: () {
+                    redirect(community.id);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 12.0), // Increase padding
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 30, // Increase avatar size
+                          backgroundImage: community.imageUrls.isNotEmpty
+                              ? NetworkImage(community.imageUrls[0])
+                              : const AssetImage(
+                                      'assets/images/logo_no_background.png')
+                                  as ImageProvider,
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                community.name,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18), // Bold name
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                community.bio,
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.grey[600]), // Soft bio text
+                                maxLines: 2, // Limit bio lines
+                                overflow: TextOverflow
+                                    .ellipsis, // Ellipsis for long bio
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Icon(Icons.translate,
+                                      size: 16,
+                                      color: Colors.blueGrey), // Language icon
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Native: ${community.native_language}, Learning: ${community.language_to_learn}',
+                                    style: const TextStyle(fontSize: 12.0),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 4.0),
-                          Text(
-                            'Native in ${community.native_language}',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.black.withOpacity(0.6),
-                            ),
-                          ),
-                          const SizedBox(height: 2.0),
-                          Text(
-                            'Learning ${community.language_to_learn}',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.black.withOpacity(0.6),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                        const Icon(Icons.chevron_right,
+                            color: Colors.grey), // Arrow icon
+                      ],
                     ),
-                    onTap: () {
-                      redirect(community.id);
-                    },
                   ),
                 );
               },

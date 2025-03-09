@@ -1,6 +1,6 @@
 import 'package:bananatalk_app/pages/moments/action_widget.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
-import 'package:bananatalk_app/pages/profile/profile_moment_edit.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_moment_edit.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 
 import 'package:flutter/material.dart';
