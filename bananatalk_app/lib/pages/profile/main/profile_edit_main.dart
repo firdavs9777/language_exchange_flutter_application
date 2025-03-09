@@ -56,9 +56,10 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     });
   }
 
-  void updateUserName(String newUserName) {
+  void updateUserName(String newUserName, String selectedGenderVal) {
     setState(() {
       selectedName = newUserName;
+      selectedGender = selectedGenderVal;
     });
   }
 
@@ -105,49 +106,59 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   borderRadius: BorderRadius.circular(0),
                 ),
                 child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    child: const Icon(
-                      Icons
-                          .person, // Change this to something related to MBTI, e.g., icon for ENTP
-                      color: Colors.white,
+                    contentPadding: const EdgeInsets.all(16),
+                    leading: CircleAvatar(
+                      child: const Icon(
+                        Icons
+                            .person, // Change this to something related to MBTI, e.g., icon for ENTP
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  title: Text(
-                    'Name',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
+                    title: Text(
+                      'Name',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    selectedName,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                    subtitle: Text(
+                      selectedName,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 22,
-                    color: Colors.grey[600], // Subtle gray color for the arrow
-                  ),
-                  onTap: () async {
-                    final String updatedUserName = await Navigator.push(
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 22,
+                      color:
+                          Colors.grey[600], // Subtle gray color for the arrow
+                    ),
+                    onTap: () async {
+                      final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProfileInfoSet(
-                              userName: selectedName,
-                              gender: selectedGender,
-                            ),
-                          ),
-                        ) ??
-                        selectedGender;
-                    updateUserName(updatedUserName);
-                  },
-                ),
+                              builder: (context) => ProfileInfoSet(
+                                  userName: selectedName,
+                                  gender: selectedGender)));
+                      updateUserName(result['userName'], result['gender']);
+
+                      // if (result != null && result is Map<String, String>) {
+                      //   final String updatedUserName =
+                      //       result['userName'] ?? selectedName;
+                      //   final String updatedGender =
+                      //       result['gender'] ?? selectedGender;
+                      //   updateUserName(updatedUserName, updatedGender);
+                      //
+                      //   setState(() {
+                      //     selectedName =
+                      //         result['userName'] ?? selectedName.toString();
+                      //   });
+                      //   print(selectedName);
+                      // Update the userProvider with the new data
+                    }),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),

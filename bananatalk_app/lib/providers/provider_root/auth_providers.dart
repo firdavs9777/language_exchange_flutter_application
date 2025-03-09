@@ -138,12 +138,12 @@ class AuthService {
     }
   }
 
-  Future<Community> updateUserName({required userName}) async {
+  Future<Community> updateUserName({required userName, required gender}) async {
     final url =
         Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
     final response = await http.put(
       url,
-      body: json.encode({'name': userName}),
+      body: json.encode({'name': userName, 'gender': gender}),
       headers: {
         'Content-Type': 'application/json',
       },

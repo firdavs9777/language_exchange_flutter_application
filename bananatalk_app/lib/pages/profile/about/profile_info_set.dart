@@ -32,7 +32,17 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Profile Name')),
+      appBar: AppBar(
+        title: const Text(
+          'Edit Profile Name',
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // This is the back button icon
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -82,12 +92,21 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await ref
-                    .read(authServiceProvider)
-                    .updateUserName(userName: _controllerName.text);
+                await ref.read(authServiceProvider).updateUserName(
+                    userName: _controllerName.text, gender: _selectedGender);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Saved: ${_controllerName.text}')),
+                  SnackBar(
+                    content: Text(
+                        'Saved: ${_controllerName.text} ${_selectedGender}'),
+                    duration: const Duration(seconds: 3), // Show for 3 seconds
+                  ),
                 );
+
+                Navigator.pop(context, {
+                  'userName': _controllerName.text,
+                  'gender': _selectedGender
+                });
+
                 // Navigator.of(context).pop(_controllerName.text);
               },
               style: ElevatedButton.styleFrom(
