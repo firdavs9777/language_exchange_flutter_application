@@ -102,6 +102,37 @@ class AuthService {
     }
   }
 
+  Future<String> sendEmailCode({required email}) async {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.sendCode}');
+    final response = await http.post(url, body: {'email': email});
+    if (response.statusCode == 200) {
+      return 'Verification code sent';
+    } else {
+      throw Exception('Failed to find user email');
+    }
+  }
+
+  Future<String> verifyEmailCode({required email, required code}) async {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.verifyEmailCode}');
+    final response = await http.post(url, body: {'email': email, 'code': code});
+    if (response.statusCode == 200) {
+      return 'Verification code successully verified';
+    } else {
+      throw Exception('Failed to verify email, please try one more time');
+    }
+  }
+
+  Future<String> resetPassword({required email, required newPassword}) async {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.resetPassword}');
+    final response = await http
+        .post(url, body: {'email': email, 'newPassword': newPassword});
+    if (response.statusCode == 200) {
+      return 'Password reset successfully';
+    } else {
+      throw Exception('Failed to reset password, please try one more time');
+    }
+  }
+
   Future<Community> updateUserMbti({required mbti}) async {
     final url =
         Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
