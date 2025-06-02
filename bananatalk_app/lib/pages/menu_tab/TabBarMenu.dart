@@ -1,4 +1,3 @@
-import 'package:bananatalk_app/pages/chat/chat_list.dart';
 import 'package:bananatalk_app/pages/chat/chat_main.dart';
 import 'package:bananatalk_app/pages/moments/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
@@ -24,11 +23,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var activePageTitle = 'Swipe';
-    Widget activePage = ChatList();
+    var activePageTitle = 'ChatList';
+    Widget activePage = ChatMain();
 
     if (_selectedPageIndex == 1) {
-      activePageTitle = 'Chat';
+      activePageTitle = 'Community';
       activePage = const CommunityMain();
     } else if (_selectedPageIndex == 2) {
       activePageTitle = 'Moments';

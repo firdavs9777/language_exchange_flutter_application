@@ -50,6 +50,7 @@ class MessageService {
           '${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.senderUrl}/$id'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print(data);
 
         if (data['success']) {
           return (data['data'] as List)
