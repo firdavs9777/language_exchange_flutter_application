@@ -11,7 +11,8 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // import your pages
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // import your pages
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -101,7 +102,9 @@ class LeftDrawer extends ConsumerWidget {
               MaterialPageRoute(builder: (context) => const ProfileTheme()),
             );
           }),
-          buildMenuItem(context, Icons.logout, 'Logout', () {
+          buildMenuItem(context, Icons.logout, 'Logout', () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.clear();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const Login()),
@@ -117,7 +120,7 @@ class LeftDrawer extends ConsumerWidget {
     BuildContext context,
     IconData icon,
     String title,
-    Function onTap,
+    VoidCallback onTap,
   ) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -132,7 +135,7 @@ class LeftDrawer extends ConsumerWidget {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         trailing: Icon(Icons.arrow_forward, color: Colors.blueAccent),
-        onTap: () => onTap(),
+        onTap: onTap,
       ),
     );
   }

@@ -99,6 +99,54 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     }
   }
 
+  void _navigateToChat() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => ChatScreen(
+          userId: widget.community.id,
+          userName: widget.community.name,
+          profilePicture: widget.community.imageUrls.isNotEmpty
+              ? widget.community.imageUrls[0]
+              : null,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOut,
+            )),
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    );
+  }
+
+  void _makeVideoCall() {
+    // Implement video call functionality
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Video call with ${widget.community.name} initiated'),
+        backgroundColor: Colors.blue[600],
+      ),
+    );
+  }
+
+  void _makeVoiceCall() {
+    // Implement voice call functionality
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Voice call with ${widget.community.name} initiated'),
+        backgroundColor: Colors.green[600],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,6 +154,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         title: Text(
             '${widget.community.name}, ${calculateAge(widget.community.birth_year)}'),
         elevation: 1,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -131,55 +181,159 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   },
                   child: Hero(
                     tag: 'profile_${widget.community.id}',
-                    child: CircleAvatar(
-                      radius: 80,
-                      backgroundImage: widget.community.imageUrls.isNotEmpty
-                          ? NetworkImage(widget.community.imageUrls[0])
-                          : const AssetImage(
-                                  'assets/images/logo_no_background.png')
-                              as ImageProvider,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundImage: widget.community.imageUrls.isNotEmpty
+                            ? NetworkImage(widget.community.imageUrls[0])
+                            : const AssetImage(
+                                    'assets/images/logo_no_background.png')
+                                as ImageProvider,
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
               Center(
-                child: Text(widget.community.name,
-                    style: const TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.bold)),
+                child: Text(
+                  widget.community.name,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: Text(
+                  '${calculateAge(widget.community.birth_year)} years old',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
+
+              // Action buttons row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _buildActionButton(Icons.video_call, 'Video',
-                      Colors.blue[600]!, () {}), // Adjusted color
-                  _buildActionButton(Icons.call, 'Call', Colors.blue[600]!,
-                      () {}), // Adjusted color
-                  _buildActionButton(Icons.message, 'Message',
-                      Colors.blue[600]!, () {}), // Adjusted color
+                  _buildActionButton(
+                    Icons.video_call,
+                    'Video',
+                    Colors.blue[600]!,
+                    _makeVideoCall,
+                  ),
+                  _buildActionButton(
+                    Icons.call,
+                    'Call',
+                    Colors.green[600]!,
+                    _makeVoiceCall,
+                  ),
+                  _buildActionButton(
+                    Icons.message,
+                    'Message',
+                    Colors.purple[600]!,
+                    _navigateToChat,
+                  ),
                   _buildActionButton(
                     isFollower ? Icons.check_circle : Icons.person_add,
                     isFollower ? 'Following' : 'Follow',
-                    isFollower
-                        ? Colors.green[600]!
-                        : Colors.blue[600]!, // Adjusted color
+                    isFollower ? Colors.green[600]! : Colors.blue[600]!,
                     isFollower
                         ? () => unFollowUser(userId, widget.community.id)
                         : () => followUser(userId, widget.community.id),
                   ),
                 ],
               ),
+
+              const SizedBox(height: 20),
+
+              // Stats section
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[200]!),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildStatItem(
+                      '${widget.community.followers.length}',
+                      'Followers',
+                      Icons.people,
+                    ),
+                    Container(
+                      height: 40,
+                      width: 1,
+                      color: Colors.grey[300],
+                    ),
+                    _buildStatItem(
+                      '${widget.community.followings?.length ?? 0}',
+                      'Following',
+                      Icons.person_add,
+                    ),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 16),
               const Divider(color: Colors.grey),
-              _buildCard(Icons.person, 'Bio', widget.community.bio,
-                  Colors.blue[600]!), // Adjusted color
+
               _buildCard(
-                  Icons.language,
-                  'Languages',
-                  'Native: ${widget.community.native_language}\nLearning: ${widget.community.language_to_learn}',
-                  Colors.blue[600]!), // Adjusted color
+                Icons.person,
+                'Bio',
+                widget.community.bio.isNotEmpty
+                    ? widget.community.bio
+                    : 'No bio available yet.',
+                Colors.blue[600]!,
+              ),
+
+              _buildCard(
+                Icons.language,
+                'Languages',
+                'Native: ${widget.community.native_language}\nLearning: ${widget.community.language_to_learn}',
+                Colors.green[600]!,
+              ),
+
               const SizedBox(height: 16),
+
+              // Quick chat button
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: ElevatedButton.icon(
+                  onPressed: _navigateToChat,
+                  icon: const Icon(Icons.chat_bubble_outline),
+                  label:
+                      Text('Start Conversation with ${widget.community.name}'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple[600],
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 2,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -191,13 +345,56 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       IconData icon, String label, Color color, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
-      child: Column(
-        children: [
-          Icon(icon, color: color),
-          const SizedBox(height: 4),
-          Text(label, style: TextStyle(color: color)),
-        ],
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: color, size: 24),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildStatItem(String value, String label, IconData icon) {
+    return Column(
+      children: [
+        Icon(icon, color: Colors.blue[600], size: 24),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 
@@ -214,15 +411,34 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
           children: <Widget>[
             Row(
               children: [
-                Icon(icon, color: iconColor),
-                const SizedBox(width: 8),
-                Text(title,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w600)),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: iconColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(icon, color: iconColor, size: 20),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(content, style: TextStyle(color: Colors.grey[700])),
+            const SizedBox(height: 12),
+            Text(
+              content,
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontSize: 15,
+                height: 1.4,
+              ),
+            ),
           ],
         ),
       ),
