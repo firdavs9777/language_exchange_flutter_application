@@ -27,7 +27,7 @@ class ChatPartner {
     this.unreadCount = 0,
     this.lastMessageTime,
     this.imageUrls = const [],
-    this.status = 'offline',
+    this.status = 'online',
     this.lastSeen,
   });
 
