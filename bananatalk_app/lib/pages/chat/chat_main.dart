@@ -214,6 +214,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
       _socket?.onDisconnect((_) {
         print('❌ Disconnected from socket server');
       });
+      _socket?.on('onlineUsers', (data) {
+        print('👥 Received online users: $data');
+        if (data is List) {
+          for (var userData in data) {
+            _handleStatusUpdate(userData);
+          }
+        }
+      });
 
       _socket?.onConnectError((err) {
         print('❌ Connection error: $err');
@@ -360,6 +368,39 @@ class _ChatMainState extends ConsumerState<ChatMain>
       _processChatPartnersWithStatus();
     } catch (e) {
       print('❌ Error handling status update: $e');
+    }
+  }
+
+  String _getStatusText(String status, DateTime? lastSeen) {
+    switch (status.toLowerCase()) {
+      case 'online':
+        return 'Online';
+      case 'away':
+        return 'Away';
+      case 'busy':
+      case 'dnd':
+        return 'Busy';
+      case 'recently online':
+        return 'Recently online';
+      case 'offline':
+      default:
+        if (lastSeen != null) {
+          final now = DateTime.now();
+          final difference = now.difference(lastSeen);
+
+          if (difference.inMinutes < 1) {
+            return 'Just now';
+          } else if (difference.inMinutes < 60) {
+            return '${difference.inMinutes}m ago';
+          } else if (difference.inHours < 24) {
+            return '${difference.inHours}h ago';
+          } else if (difference.inDays < 7) {
+            return '${difference.inDays}d ago';
+          } else {
+            return 'Long time ago';
+          }
+        }
+        return 'Offline';
     }
   }
 
@@ -1029,6 +1070,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                             ),
                           ],
                         ),
+
                         const SizedBox(width: 16),
                         // Content
                         Expanded(
