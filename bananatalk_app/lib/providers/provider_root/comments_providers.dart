@@ -38,8 +38,10 @@ class CommentsService {
         'Authorization': 'Bearer $token'
       },
     );
+    print(response);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
+      print(data);
       return Comments.fromJson(
           data['data']); // Assuming 'data' is a map representing the new moment
     } else {

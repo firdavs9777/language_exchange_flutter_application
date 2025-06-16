@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +76,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
   String? _activeUserId;
   IO.Socket? _socket;
   Map<String, Map<String, dynamic>> _userStatuses = {};
+  Map<String, bool> _typingUsers = {};
+  Timer? _typingTimer;
+  Timer? _sendTypingTimer;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -157,7 +162,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
       );
 
       _socket?.onConnect((_) {
-        print('✅ Connected to socket server');
         // Request status updates for all chat partners
         if (_chatPartners.isNotEmpty && _socket != null) {
           _socket!.emit('requestStatusUpdates',
@@ -178,14 +182,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       // Handle status updates
-      _socket?.on('statusUpdate', (data) {
-        print('📊 Status update: $data');
-        _handleStatusUpdate(data);
+      _socket?.on('typing', (data) {
+        print('⌨️ User typing event received: $data');
+        _handleUserTyping(data);
       });
 
       // Handle user typing indicators
       _socket?.on('userTyping', (data) {
-        print('⌨️ User typing: $data');
+        print('⌨️ User typing event received: $data');
         _handleUserTyping(data);
       });
 
@@ -225,9 +229,30 @@ class _ChatMainState extends ConsumerState<ChatMain>
       _socket?.connect();
     } catch (e) {
       print('❌ Socket initialization error: $e');
+    }
+  }
+
+  void _handleUserTyping(dynamic data) {
+    try {
+      final String userId = data['userId'].toString() ?? '';
+      final bool isTyping = data['isTyping'] ?? true;
+      if (userId.isEmpty || userId == _currentUserId) {
+        return;
+      }
       setState(() {
-        _error = 'Socket initialization error: $e';
+        _typingUsers[userId] = true;
+        print('✅ User $userId started typing');
       });
+      _typingTimer?.cancel();
+      _typingTimer = Timer(const Duration(seconds: 5), () {
+        setState(() {
+          _typingUsers[userId] = false;
+          print('⏰ Typing timeout for user $userId');
+        });
+      });
+      print('✅ User $userId started typing');
+    } catch (e) {
+      print('❌ Error handling typing event: $e');
     }
   }
 
@@ -357,11 +382,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     } catch (e) {
       print('❌ Error handling bulk status update: $e');
     }
-  }
-
-  void _handleUserTyping(dynamic data) {
-    // Handle typing indicators if needed
-    print('User ${data['userId']} is typing...');
   }
 
   void _handleUserStoppedTyping(dynamic data) {
@@ -732,14 +752,18 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.blue.withOpacity(0.1),
-                      Colors.purple.withOpacity(0.1),
+                      const Color(0xFF6366F1).withOpacity(0.2),
+                      const Color(0xFF8B5CF6).withOpacity(0.2),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(40),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.1),
+                    width: 1,
+                  ),
                 ),
                 child: Icon(
-                  Icons.search_off,
+                  Icons.search_off_rounded,
                   size: 40,
                   color: Colors.grey[400],
                 ),
@@ -748,9 +772,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
               Text(
                 'No matching conversations',
                 style: TextStyle(
-                  color: Colors.grey[600],
+                  color: Colors.grey[300],
                   fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 8),
@@ -779,14 +803,21 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 height: 100,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF6366F1).withOpacity(0.3),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
                 ),
                 child: const Icon(
-                  Icons.chat_bubble_outline,
+                  Icons.chat_bubble_outline_rounded,
                   size: 50,
                   color: Colors.white,
                 ),
@@ -795,7 +826,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               Text(
                 'No conversations yet',
                 style: TextStyle(
-                  color: Colors.grey[600],
+                  color: Colors.grey[300],
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
@@ -822,26 +853,43 @@ class _ChatMainState extends ConsumerState<ChatMain>
         child: ListView.builder(
           itemCount: displayPartners.length,
           physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           itemBuilder: (context, index) {
             final partner = displayPartners[index];
             bool isActive = _activeUserId == partner.id;
 
             return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20),
                 gradient: isActive
                     ? const LinearGradient(
-                        colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                        colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       )
+                    : null,
+                color: isActive ? null : const Color(0xFF1A1A1D),
+                border: Border.all(
+                  color: isActive
+                      ? Colors.transparent
+                      : Colors.white.withOpacity(0.08),
+                  width: 1,
+                ),
+                boxShadow: isActive
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFF6366F1).withOpacity(0.3),
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
                     : null,
               ),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(20),
                   onTap: () =>
                       _onSelectUser(partner.id, partner.name, partner.avatar),
                   child: Container(
@@ -860,10 +908,16 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                     ? null
                                     : const LinearGradient(
                                         colors: [
-                                          Color(0xFF667eea),
-                                          Color(0xFF764ba2)
+                                          Color(0xFF6366F1),
+                                          Color(0xFF8B5CF6)
                                         ],
                                       ),
+                                border: isActive
+                                    ? Border.all(
+                                        color: Colors.white.withOpacity(0.3),
+                                        width: 2,
+                                      )
+                                    : null,
                               ),
                               child: partner.avatar != null &&
                                       partner.avatar!.isNotEmpty
@@ -882,8 +936,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                             decoration: const BoxDecoration(
                                               gradient: LinearGradient(
                                                 colors: [
-                                                  Color(0xFF667eea),
-                                                  Color(0xFF764ba2)
+                                                  Color(0xFF6366F1),
+                                                  Color(0xFF8B5CF6)
                                                 ],
                                               ),
                                             ),
@@ -910,7 +964,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                             width: 56,
                                             height: 56,
                                             decoration: BoxDecoration(
-                                              color: Colors.grey[200],
+                                              color: const Color(0xFF2A2A2D),
                                               borderRadius:
                                                   BorderRadius.circular(28),
                                             ),
@@ -920,7 +974,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                                 height: 24,
                                                 child:
                                                     CircularProgressIndicator(
-                                                        strokeWidth: 2),
+                                                  strokeWidth: 2,
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    Color(0xFF6366F1),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           );
@@ -942,16 +1002,28 @@ class _ChatMainState extends ConsumerState<ChatMain>
                             ),
                             // Status indicator
                             Positioned(
-                              bottom: 2,
-                              right: 2,
+                              bottom: 0,
+                              right: 0,
                               child: Container(
-                                width: 16,
-                                height: 16,
+                                width: 18,
+                                height: 18,
                                 decoration: BoxDecoration(
                                   color: _getStatusColor(partner.status),
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: isActive
+                                        ? Colors.white
+                                        : const Color(0xFF1A1A1D),
+                                    width: 3,
+                                  ),
+                                  borderRadius: BorderRadius.circular(9),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: _getStatusColor(partner.status)
+                                          .withOpacity(0.5),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -973,7 +1045,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         fontSize: 16,
                                         color: isActive
                                             ? Colors.white
-                                            : Colors.black87,
+                                            : Colors.grey[200],
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -995,20 +1067,25 @@ class _ChatMainState extends ConsumerState<ChatMain>
                               Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      partner.lastMessage ?? 'No messages yet',
-                                      style: TextStyle(
-                                        color: isActive
-                                            ? Colors.white.withOpacity(0.9)
-                                            : Colors.grey[600],
-                                        fontSize: 14,
-                                        fontWeight: partner.unreadCount > 0
-                                            ? FontWeight.w500
-                                            : FontWeight.w400,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
+                                    child: _typingUsers[partner.id] == true
+                                        ? _buildTypingIndicator()
+                                        : Text(
+                                            partner.lastMessage ??
+                                                'No messages yet',
+                                            style: TextStyle(
+                                              color: isActive
+                                                  ? Colors.white
+                                                      .withOpacity(0.8)
+                                                  : Colors.grey[400],
+                                              fontSize: 14,
+                                              fontWeight:
+                                                  partner.unreadCount > 0
+                                                      ? FontWeight.w500
+                                                      : FontWeight.w400,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
                                   ),
                                   if (partner.unreadCount > 0)
                                     Container(
@@ -1018,10 +1095,30 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: isActive
-                                            ? Colors.white
-                                            : Colors.red,
+                                        gradient: isActive
+                                            ? const LinearGradient(
+                                                colors: [
+                                                  Colors.white,
+                                                  Colors.white
+                                                ],
+                                              )
+                                            : const LinearGradient(
+                                                colors: [
+                                                  Color(0xFFEF4444),
+                                                  Color(0xFFDC2626),
+                                                ],
+                                              ),
                                         borderRadius: BorderRadius.circular(12),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: isActive
+                                                ? Colors.white.withOpacity(0.3)
+                                                : const Color(0xFFEF4444)
+                                                    .withOpacity(0.3),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
                                       ),
                                       child: Text(
                                         partner.unreadCount > 99
@@ -1029,7 +1126,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                             : partner.unreadCount.toString(),
                                         style: TextStyle(
                                           color: isActive
-                                              ? Colors.red
+                                              ? const Color(0xFF6366F1)
                                               : Colors.white,
                                           fontSize: 11,
                                           fontWeight: FontWeight.bold,
@@ -1049,6 +1146,25 @@ class _ChatMainState extends ConsumerState<ChatMain>
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildTypingIndicator() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'typing',
+            style: TextStyle(
+              color: Colors.grey[400],
+              fontSize: 12,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -1073,74 +1189,132 @@ class _ChatMainState extends ConsumerState<ChatMain>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: const Color(0xFF0A0A0B), // Deep dark background
       appBar: AppBar(
-        title: const Text(
-          'Messages',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
+        title: ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [
+              Color(0xFF6366F1), // Indigo
+              Color(0xFF8B5CF6), // Purple
+              Color(0xFFEC4899), // Pink
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: const Text(
+            'Messages',
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 28,
+              color: Colors.white,
+              letterSpacing: -0.5,
+            ),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        shadowColor: Colors.black.withOpacity(0.1),
         surfaceTintColor: Colors.transparent,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.light,
-        ),
       ),
       body: _isLoading
-          ? const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xFF667eea)),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Loading conversations...',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
+          ? Center(
+              child: Container(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF6366F1),
+                            Color(0xFF8B5CF6),
+                          ],
+                        ),
+                      ),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                          strokeWidth: 3,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 24),
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [
+                          Color(0xFF6366F1),
+                          Color(0xFF8B5CF6),
+                        ],
+                      ).createShader(bounds),
+                      child: const Text(
+                        'Loading conversations...',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           : _error.isNotEmpty
               ? Center(
                   child: Container(
                     margin: const EdgeInsets.all(32),
-                    padding: const EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
+                      color: const Color(0xFF1A1A1D),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.1),
+                        width: 1,
+                      ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
                         ),
                       ],
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 48,
-                          color: Colors.red[400],
+                        Container(
+                          width: 64,
+                          height: 64,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.red[400]!.withOpacity(0.2),
+                                Colors.red[600]!.withOpacity(0.2),
+                              ],
+                            ),
+                            border: Border.all(
+                              color: Colors.red[400]!.withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.wifi_off_rounded,
+                            size: 32,
+                            color: Colors.red[400],
+                          ),
                         ),
-                        const SizedBox(height: 16),
-                        Text(
+                        const SizedBox(height: 24),
+                        const Text(
                           'Connection Error',
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey[800],
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -1148,24 +1322,49 @@ class _ChatMainState extends ConsumerState<ChatMain>
                           _error,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.grey[600],
+                            color: Colors.grey[400],
                             fontSize: 14,
+                            height: 1.5,
                           ),
                         ),
-                        const SizedBox(height: 24),
-                        ElevatedButton.icon(
-                          onPressed: _refresh,
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Try Again'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF667eea),
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                        const SizedBox(height: 32),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color(0xFF6366F1),
+                                Color(0xFF8B5CF6),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 12,
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF6366F1).withOpacity(0.3),
+                                blurRadius: 16,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: ElevatedButton.icon(
+                            onPressed: _refresh,
+                            icon: const Icon(Icons.refresh_rounded, size: 20),
+                            label: const Text(
+                              'Try Again',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              foregroundColor: Colors.white,
+                              shadowColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
+                              ),
                             ),
                           ),
                         ),
@@ -1175,7 +1374,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 )
               : RefreshIndicator(
                   onRefresh: _refresh,
-                  color: const Color(0xFF667eea),
+                  backgroundColor: const Color(0xFF1A1A1D),
+                  color: const Color(0xFF6366F1),
                   child: Column(
                     children: [
                       _buildSearchBar(),
