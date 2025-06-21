@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
+import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   width: 0.8 *
                       MediaQuery.of(context).size.width, // 90% of screen width
                   child: BananaButton(
-                    text: 'Sign In with Facebook',
+                    BananaText: BananaText('Sign In with Facebook'),
                     onPressed: () {
                       // Implement your Facebook login logic here
                     },
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   width: 0.8 *
                       MediaQuery.of(context).size.width, // 90% of screen width
                   child: BananaButton(
-                    text: 'Sign in with Email',
+                    BananaText: BananaText('Sign in with Email'),
                     onPressed: () {
                       // Implement your Facebook login logic here
                       Navigator.of(context).push(

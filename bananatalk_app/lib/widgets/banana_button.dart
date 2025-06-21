@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BananaButton extends StatelessWidget {
-  final String text;
+  final Widget BananaText; // This should be your BananaText widget
   final VoidCallback onPressed;
   final Color? color;
   final Color? textColor;
@@ -10,11 +10,11 @@ class BananaButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final BorderSide? borderSide;
   final BorderRadiusGeometry? borderRadius;
-  final Widget? icon; // Add the icon parameter
+  final Widget? icon;
 
   const BananaButton({
     super.key,
-    required this.text,
+    required this.BananaText,
     required this.onPressed,
     this.color,
     this.textColor,
@@ -23,14 +23,14 @@ class BananaButton extends StatelessWidget {
     this.padding,
     this.borderSide,
     this.borderRadius,
-    this.icon, // Accept the icon parameter
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: color,
+        backgroundColor: color, // Updated from 'primary' (deprecated)
         elevation: elevation,
         padding: padding,
         side: borderSide,
@@ -40,21 +40,15 @@ class BananaButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Row(
+        mainAxisSize:
+            MainAxisSize.min, // Important: prevents unnecessary expansion
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null) ...[
-            icon!, // Display the icon if it's provided
-            SizedBox(width: 8), // Add some space between the icon and the text
+            icon!,
+            SizedBox(width: 8),
           ],
-          Text(
-            text,
-            style: textStyle ??
-                TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-          ),
+          BananaText, // Use the widget directly, not as text in Text()
         ],
       ),
     );

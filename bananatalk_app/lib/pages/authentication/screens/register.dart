@@ -1,8 +1,7 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Register extends StatefulWidget {
   final String userName;
@@ -70,7 +69,10 @@ class _RegisterState extends State<Register> {
         _passwordConfirmController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please fill in all fields.'),
+          content: BananaText(
+            'Please fill in all fields.',
+            BanaStyles: BananaTextStyles.warning,
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -80,7 +82,10 @@ class _RegisterState extends State<Register> {
     if (!emailRegex.hasMatch(_emailController.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please enter a valid email address.'),
+          content: BananaText(
+            'Please enter a valid email address.',
+            BanaStyles: BananaTextStyles.warning,
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -90,8 +95,10 @@ class _RegisterState extends State<Register> {
     if (!passwordRegex.hasMatch(_passwordController.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-              'Password must be at least 8 characters long and contain both letters and numbers.'),
+          content: BananaText(
+            'Password must be at least 8 characters long and contain both letters and numbers.',
+            BanaStyles: BananaTextStyles.warning,
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -101,7 +108,10 @@ class _RegisterState extends State<Register> {
     if (_passwordController.text != _passwordConfirmController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Passwords do not match.'),
+          content: BananaText(
+            'Passwords do not match.',
+            BanaStyles: BananaTextStyles.warning,
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -125,11 +135,9 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: BananaText(
           'Register',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-          ),
+          BanaStyles: BananaTextStyles.appBarTitle,
         ),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
         automaticallyImplyLeading: false,
@@ -155,14 +163,9 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     Center(
-                      child: Text(
+                      child: BananaText(
                         'Register',
-                        style: TextStyle(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                          fontSize: 22,
-                        ),
+                        BanaStyles: BananaTextStyles.heading,
                       ),
                     ),
                     SizedBox(height: 10.0),

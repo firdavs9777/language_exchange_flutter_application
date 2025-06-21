@@ -2,8 +2,8 @@ import 'package:bananatalk_app/pages/authentication/screens/forget_password.dart
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/service/authentication.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
+import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +23,6 @@ class _LoginState extends ConsumerState<Login> {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    // ref.watch(authStatesProvider);
   }
 
   @override
@@ -36,32 +35,31 @@ class _LoginState extends ConsumerState<Login> {
   bool _obscureText = true;
   void submit() async {
     try {
-      // Call the login method from the authServiceProvider
       await ref.read(authServiceProvider).login(
             email: _emailController.text,
             password: _passwordController.text,
           );
 
-      // If login is successful, navigate to the TabsScreen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (ctx) => TabsScreen()),
       );
 
-      // Show a success message if needed
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Login Successful!'),
+          content: BananaText(
+            'Login Successful!',
+            BanaStyles: BananaTextStyles.success,
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
     } catch (error) {
-      // Handle login errors
-      print('Login Error: $error');
-
-      // Show an error message if needed
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Invalid Credientals,please check it again'),
+          content: BananaText(
+            'Invalid Credientals,please check it again',
+            BanaStyles: BananaTextStyles.error,
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -74,11 +72,9 @@ class _LoginState extends ConsumerState<Login> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(
+        title: BananaText(
           'Login',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-          ),
+          BanaStyles: BananaTextStyles.title,
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.onSecondary,
@@ -98,12 +94,9 @@ class _LoginState extends ConsumerState<Login> {
                 ),
               ),
               Center(
-                child: Text(
+                child: BananaText(
                   'Login',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    fontSize: 22,
-                  ),
+                  BanaStyles: BananaTextStyles.title,
                 ),
               ),
               SizedBox(height: 16.0),
@@ -119,9 +112,9 @@ class _LoginState extends ConsumerState<Login> {
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        labelText: 'Email',
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                        label: BananaText(
+                          'Email',
+                          BanaStyles: BananaTextStyles.inputText,
                         ),
                       ),
                     ),
@@ -149,9 +142,9 @@ class _LoginState extends ConsumerState<Login> {
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        labelText: 'Password',
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                        label: BananaText(
+                          'Password',
+                          BanaStyles: BananaTextStyles.inputText,
                         ),
                       ),
                     ),
@@ -161,7 +154,10 @@ class _LoginState extends ConsumerState<Login> {
                         child: BananaButton(
                           onPressed: submit,
                           color: Color(0xFF31A062),
-                          text: 'Login',
+                          BananaText: BananaText(
+                            'Login',
+                            BanaStyles: BananaTextStyles.buttonText,
+                          ),
                           textColor: Theme.of(context).colorScheme.onPrimary,
                           padding: EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 12.0),
@@ -173,18 +169,23 @@ class _LoginState extends ConsumerState<Login> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            // Implement your forgot password logic here
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (ctx) => const ForgetPassword()));
                           },
-                          child: Text('Forgot password?'),
+                          child: BananaText(
+                            'Forgot password?',
+                            BanaStyles: BananaTextStyles.link,
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (ctx) => const Register()));
                           },
-                          child: Text('Register'),
+                          child: BananaText(
+                            'Register',
+                            BanaStyles: BananaTextStyles.link,
+                          ),
                         ),
                       ],
                     ),
