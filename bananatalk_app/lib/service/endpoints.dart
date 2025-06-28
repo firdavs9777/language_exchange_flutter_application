@@ -1,5 +1,5 @@
 class Endpoints {
-  static String baseURL = "http://localhost:5003/api/v1/";
+  static String baseURL = "https://api.banatalk.com/api/v1/";
   static String loginURL = "auth/login";
   static String sendCode = "auth/sendCodeEmail";
   static String verifyEmailCode = "auth/checkEmailCode";

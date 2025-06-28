@@ -88,7 +88,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   late Animation<Offset> _slideAnimation;
 
   // Constants - replace with your actual base URL
-  static const String BASE_URL = 'http://localhost:5003';
+  static const String BASE_URL = 'https://api.banatalk.com';
 
   @override
   void initState() {

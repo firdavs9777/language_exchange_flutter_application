@@ -134,7 +134,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     }
 
     _socket = IO.io(
-      'http://localhost:5003',
+      'https://api.banatalk.com',
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .enableAutoConnect()
