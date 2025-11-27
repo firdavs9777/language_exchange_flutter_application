@@ -198,7 +198,6 @@ class LeftDrawer extends ConsumerWidget {
                   ],
                 ),
               ),
-<<<<<<< HEAD
             ),
             const SizedBox(height: 20),
             // Quick Stats Section
