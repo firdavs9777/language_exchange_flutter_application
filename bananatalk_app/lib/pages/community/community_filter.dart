@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:bananatalk_app/service/endpoints.dart';
 
 class CommunityFilter extends StatefulWidget {
   final Function(Map<String, dynamic> filters) onApplyFilters;
@@ -16,8 +18,7 @@ class CommunityFilter extends StatefulWidget {
   State<CommunityFilter> createState() => _CommunityFilterState();
 }
 
-class _CommunityFilterState extends State<CommunityFilter>
-    with TickerProviderStateMixin {
+class _CommunityFilterState extends State<CommunityFilter> {
   late double _minAge = 18;
   late double _maxAge = 100;
   late String? _selectedGender;
@@ -27,16 +28,10 @@ class _CommunityFilterState extends State<CommunityFilter>
   String _errorMessage = '';
   final List<String> genders = ['Male', 'Female', 'Other'];
 
-  late AnimationController _slideController;
-  late AnimationController _fadeController;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _fadeAnimation;
-
   @override
   void initState() {
     super.initState();
     _initializeValues();
-    _initializeAnimations();
     fetchLanguages();
   }
 
@@ -47,53 +42,19 @@ class _CommunityFilterState extends State<CommunityFilter>
     _selectedLanguage = widget.initialFilters['nativeLanguage'];
   }
 
-  void _initializeAnimations() {
-    _slideController = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-    _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: this,
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _slideController,
-      curve: Curves.easeOut,
-    ));
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _fadeController,
-      curve: Curves.easeInOut,
-    ));
-
-    _slideController.forward();
-    _fadeController.forward();
-  }
-
-  @override
-  void dispose() {
-    _slideController.dispose();
-    _fadeController.dispose();
-    super.dispose();
-  }
-
   Future<void> fetchLanguages() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5003/api/v1/languages'),
+        Uri.parse('${Endpoints.baseURL}${Endpoints.languagesURL}'),
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body)['data'];
+        final data = json.decode(response.body);
+        List<dynamic> languagesList = data['data'] ?? [];
         setState(() {
-          _languages = data.map<String>((lang) => lang['name']).toList();
+          _languages = languagesList.map<String>((lang) {
+            return lang['name']?.toString() ?? lang.toString();
+          }).toList();
           _isLoadingLanguages = false;
         });
       } else {
@@ -131,113 +92,130 @@ class _CommunityFilterState extends State<CommunityFilter>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: _buildAppBar(),
-      body: SlideTransition(
-        position: _slideAnimation,
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 30),
-                _buildLanguageSection(),
-                const SizedBox(height: 30),
-                _buildAgeSection(),
-                const SizedBox(height: 30),
-                _buildGenderSection(),
-                const SizedBox(height: 40),
-                _buildActionButtons(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      surfaceTintColor: Colors.transparent,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-      ),
-      title: const Text(
-        'Filter Communities',
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 24,
-          color: Colors.black87,
-        ),
-      ),
-      actions: [
-        Container(
-          margin: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-          child: TextButton.icon(
-            onPressed: resetFilters,
-            icon: const Icon(Icons.refresh, size: 18),
-            label: const Text('Reset'),
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xFF667eea),
-              backgroundColor: const Color(0xFF667eea).withOpacity(0.1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            ),
+        title: const Text(
+          'Filter Communities',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            color: Colors.black87,
           ),
         ),
-      ],
+        actions: [
+          TextButton(
+            onPressed: resetFilters,
+            child: const Text(
+              'Reset',
+              style: TextStyle(
+                color: Color(0xFF00BFA5),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header Banner
+            _buildHeaderBanner(),
+            // Scrollable Content
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildLanguageSection(),
+                    const SizedBox(height: 24),
+                    _buildAgeSection(),
+                    const SizedBox(height: 24),
+                    _buildGenderSection(),
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              ),
+            ),
+            // Fixed Bottom Button
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: _applyFilters,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00BFA5),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'Apply Filters',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeaderBanner() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF667eea).withOpacity(0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(
               Icons.tune,
               color: Colors.white,
-              size: 30,
+              size: 24,
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 16),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,15 +224,15 @@ class _CommunityFilterState extends State<CommunityFilter>
                   'Find Your Perfect',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
                   'Language Partner',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -274,7 +252,7 @@ class _CommunityFilterState extends State<CommunityFilter>
           ? _buildLoadingCard()
           : _errorMessage.isNotEmpty
               ? _buildErrorCard()
-              : _buildLanguageDropdown(),
+              : _buildLanguageSelector(),
     );
   }
 
@@ -282,7 +260,7 @@ class _CommunityFilterState extends State<CommunityFilter>
     return _buildSection(
       title: 'Age Range',
       icon: Icons.cake,
-      child: _buildAgeSlider(),
+      child: _buildAgeSelector(),
     );
   }
 
@@ -290,7 +268,7 @@ class _CommunityFilterState extends State<CommunityFilter>
     return _buildSection(
       title: 'Gender Preference',
       icon: Icons.person,
-      child: _buildGenderSelection(),
+      child: _buildGenderSelector(),
     );
   }
 
@@ -304,93 +282,56 @@ class _CommunityFilterState extends State<CommunityFilter>
       children: [
         Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: Colors.white, size: 20),
-            ),
-            const SizedBox(width: 12),
+            Icon(icon, size: 20, color: const Color(0xFF00BFA5)),
+            const SizedBox(width: 8),
             Text(
               title,
               style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
                 color: Colors.black87,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         child,
       ],
     );
   }
 
-  Widget _buildLanguageDropdown() {
+  Widget _buildLanguageSelector() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[200]!),
       ),
       child: DropdownButtonFormField<String>(
         isExpanded: true,
         value: _selectedLanguage,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          hintText: 'Select native language',
+          hintStyle: TextStyle(color: Colors.grey[500]),
+        ),
         onChanged: (newValue) {
           setState(() {
             _selectedLanguage = newValue;
           });
         },
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          hintText: 'Select native language',
-          hintStyle: TextStyle(color: Colors.grey[500]),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 16,
-          ),
-          prefixIcon: Container(
-            margin: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(
-              Icons.language,
-              color: Colors.white,
-              size: 16,
-            ),
-          ),
-        ),
         items: [
           const DropdownMenuItem<String>(
             value: null,
-            child: Text(
-              'Any Language',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
+            child: Text('Any Language'),
           ),
-          ..._languages.map<DropdownMenuItem<String>>((String language) {
+          ..._languages.map<DropdownMenuItem<String>>((language) {
             return DropdownMenuItem<String>(
-              value: language,
+              value: language, // Store language name (e.g., "Korean")
               child: Text(language),
             );
           }).toList(),
@@ -399,68 +340,49 @@ class _CommunityFilterState extends State<CommunityFilter>
     );
   }
 
-  Widget _buildAgeSlider() {
+  Widget _buildAgeSelector() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[200]!),
       ),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildAgeChip('Min: ${_minAge.toInt()}', Colors.green),
-              _buildAgeChip('Max: ${_maxAge.toInt()}', Colors.blue),
+              _buildAgeButton('Min: ${_minAge.toInt()}', Colors.green[400]!),
+              _buildAgeButton('Max: ${_maxAge.toInt()}', Colors.blue[400]!),
             ],
           ),
           const SizedBox(height: 20),
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              trackHeight: 6,
-              activeTrackColor: const Color(0xFF667eea),
-              inactiveTrackColor: Colors.grey[200],
-              thumbColor: const Color(0xFF667eea),
-              overlayColor: const Color(0xFF667eea).withOpacity(0.2),
-              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
-              overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
-            ),
-            child: RangeSlider(
-              values: RangeValues(_minAge, _maxAge),
-              min: 18,
-              max: 100,
-              divisions: 82,
-              labels: RangeLabels(
-                _minAge.toInt().toString(),
-                _maxAge.toInt().toString(),
-              ),
-              onChanged: (values) {
-                setState(() {
-                  _minAge = values.start;
-                  _maxAge = values.end;
-                });
-              },
-            ),
+          RangeSlider(
+            values: RangeValues(_minAge, _maxAge),
+            min: 18,
+            max: 100,
+            divisions: 82,
+            activeColor: const Color(0xFF00BFA5),
+            inactiveColor: Colors.grey[200],
+            onChanged: (values) {
+              setState(() {
+                _minAge = values.start;
+                _maxAge = values.end;
+              });
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildAgeChip(String label, Color color) {
+  Widget _buildAgeButton(String label, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
       child: Text(
@@ -468,40 +390,32 @@ class _CommunityFilterState extends State<CommunityFilter>
         style: TextStyle(
           color: color,
           fontWeight: FontWeight.w600,
-          fontSize: 16,
+          fontSize: 14,
         ),
       ),
     );
   }
 
-  Widget _buildGenderSelection() {
+  Widget _buildGenderSelector() {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[200]!),
       ),
       child: Row(
         children: [
-          _buildGenderOption('Any', null, Icons.people),
-          ...genders.map((gender) => _buildGenderOption(
-                gender,
-                gender,
-                _getGenderIcon(gender),
-              )),
+          _buildGenderButton('Any', null, Icons.people),
+          _buildGenderButton('Male', 'Male', Icons.man),
+          _buildGenderButton('Female', 'Female', Icons.woman),
+          _buildGenderButton('Other', 'Other', Icons.person_outline),
         ],
       ),
     );
   }
 
-  Widget _buildGenderOption(String label, String? value, IconData icon) {
+  Widget _buildGenderButton(String label, String? value, IconData icon) {
     final isSelected = _selectedGender == value;
     return Expanded(
       child: GestureDetector(
@@ -510,152 +424,60 @@ class _CommunityFilterState extends State<CommunityFilter>
             _selectedGender = value;
           });
         },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+        child: Container(
           margin: const EdgeInsets.all(4),
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            gradient: isSelected
-                ? const LinearGradient(
-                    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                  )
-                : null,
-            color: isSelected ? null : Colors.grey[50],
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: isSelected
-                  ? Colors.transparent
-                  : Colors.grey.withOpacity(0.2),
-            ),
+            color: isSelected ? const Color(0xFF00BFA5) : Colors.grey[50],
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 icon,
                 color: isSelected ? Colors.white : Colors.grey[600],
-                size: 24,
+                size: 20,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               Text(
                 label,
                 style: TextStyle(
                   color: isSelected ? Colors.white : Colors.grey[700],
                   fontWeight: FontWeight.w600,
-                  fontSize: 12,
+                  fontSize: 11,
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildActionButtons() {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          height: 56,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF667eea).withOpacity(0.4),
-                blurRadius: 15,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: _applyFilters,
-              child: const Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.check, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      'Apply Filters',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          width: double.infinity,
-          height: 56,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: const Color(0xFF667eea).withOpacity(0.3),
-            ),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () => Navigator.pop(context),
-              child: const Center(
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    color: Color(0xFF667eea),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
   Widget _buildLoadingCard() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[200]!),
       ),
       child: const Row(
         children: [
-          CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF667eea)),
-            strokeWidth: 3,
+          SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+            ),
           ),
           SizedBox(width: 16),
           Text(
             'Loading languages...',
             style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+              fontSize: 14,
               color: Colors.grey,
             ),
           ),
@@ -666,45 +488,40 @@ class _CommunityFilterState extends State<CommunityFilter>
 
   Widget _buildErrorCard() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.red.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.red.withOpacity(0.2)),
+        color: Colors.red[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.red[200]!),
       ),
       child: Row(
         children: [
-          Icon(Icons.error_outline, color: Colors.red[400]),
-          const SizedBox(width: 16),
+          Icon(Icons.error_outline, color: Colors.red[400], size: 20),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               _errorMessage,
               style: TextStyle(
                 color: Colors.red[700],
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           IconButton(
-            onPressed: fetchLanguages,
-            icon: const Icon(Icons.refresh),
-            color: Colors.red[400],
+            onPressed: () {
+              setState(() {
+                _isLoadingLanguages = true;
+                _errorMessage = '';
+              });
+              fetchLanguages();
+            },
+            icon: Icon(Icons.refresh, color: Colors.red[400], size: 20),
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
           ),
         ],
       ),
     );
-  }
-
-  IconData _getGenderIcon(String gender) {
-    switch (gender.toLowerCase()) {
-      case 'male':
-        return Icons.man;
-      case 'female':
-        return Icons.woman;
-      case 'other':
-        return Icons.person_outline;
-      default:
-        return Icons.person;
-    }
   }
 }

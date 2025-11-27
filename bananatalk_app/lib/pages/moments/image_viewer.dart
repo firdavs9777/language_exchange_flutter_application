@@ -18,6 +18,7 @@ class _ImageGalleryState extends State<ImageGallery> {
   @override
   void initState() {
     super.initState();
+    print(widget.imageUrls);
     // Initialize PageController with the initial index
     _pageController = PageController(initialPage: widget.initialIndex);
     currentIndex = widget.initialIndex;

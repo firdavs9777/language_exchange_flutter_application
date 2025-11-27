@@ -19,6 +19,7 @@ class Community {
     required this.createdAt,
     required this.version,
     required this.location, // Added location
+    this.privacySettings,
   });
 
   final String id;
@@ -40,6 +41,7 @@ class Community {
   final String createdAt;
   final int version;
   final Location location; // Made location nullable here
+  final PrivacySettings? privacySettings;
 
   factory Community.fromJson(Map<String, dynamic> json) {
     return Community(
@@ -62,9 +64,14 @@ class Community {
       location: json['location'] != null
           ? Location.fromJson(json['location'])
           : Location.defaultLocation(), // Ensure location is not null
-// Mapping location field
       imageUrls: (json['imageUrls'] != null
               ? List<String>.from(json['imageUrls'])
+                  .map((url) => url.toString())
+                  .where((url) => 
+                      url.isNotEmpty && 
+                      !url.contains('placeholder') && // Filter out placeholder images
+                      !url.startsWith('placeholder_')) // Filter out placeholder_ prefix
+                  .toList()
               : <String>[]) ??
           [],
       followers: (json['followers'] != null
@@ -77,6 +84,79 @@ class Community {
           [],
       createdAt: json['createdAt'] ?? '',
       version: json['__v'] ?? 0,
+      privacySettings: json['privacySettings'] != null
+          ? PrivacySettings.fromJson(json['privacySettings'])
+          : null,
+    );
+  }
+}
+
+class PrivacySettings {
+  const PrivacySettings({
+    this.showCountryRegion = true,
+    this.showCity = true,
+    this.showAge = false,
+    this.showZodiac = true,
+    this.showOnlineStatus = false,
+    this.showGiftingLevel = true,
+    this.birthdayNotification = true,
+    this.personalizedAds = false,
+  });
+
+  final bool showCountryRegion;
+  final bool showCity;
+  final bool showAge;
+  final bool showZodiac;
+  final bool showOnlineStatus;
+  final bool showGiftingLevel;
+  final bool birthdayNotification;
+  final bool personalizedAds;
+
+  factory PrivacySettings.fromJson(Map<String, dynamic> json) {
+    return PrivacySettings(
+      showCountryRegion: json['showCountryRegion'] ?? true,
+      showCity: json['showCity'] ?? true,
+      showAge: json['showAge'] ?? false,
+      showZodiac: json['showZodiac'] ?? true,
+      showOnlineStatus: json['showOnlineStatus'] ?? false,
+      showGiftingLevel: json['showGiftingLevel'] ?? true,
+      birthdayNotification: json['birthdayNotification'] ?? true,
+      personalizedAds: json['personalizedAds'] ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'showCountryRegion': showCountryRegion,
+      'showCity': showCity,
+      'showAge': showAge,
+      'showZodiac': showZodiac,
+      'showOnlineStatus': showOnlineStatus,
+      'showGiftingLevel': showGiftingLevel,
+      'birthdayNotification': birthdayNotification,
+      'personalizedAds': personalizedAds,
+    };
+  }
+
+  PrivacySettings copyWith({
+    bool? showCountryRegion,
+    bool? showCity,
+    bool? showAge,
+    bool? showZodiac,
+    bool? showOnlineStatus,
+    bool? showGiftingLevel,
+    bool? birthdayNotification,
+    bool? personalizedAds,
+  }) {
+    return PrivacySettings(
+      showCountryRegion: showCountryRegion ?? this.showCountryRegion,
+      showCity: showCity ?? this.showCity,
+      showAge: showAge ?? this.showAge,
+      showZodiac: showZodiac ?? this.showZodiac,
+      showOnlineStatus: showOnlineStatus ?? this.showOnlineStatus,
+      showGiftingLevel: showGiftingLevel ?? this.showGiftingLevel,
+      birthdayNotification: birthdayNotification ?? this.birthdayNotification,
+      personalizedAds: personalizedAds ?? this.personalizedAds,
     );
   }
 }
@@ -115,9 +195,16 @@ class Location {
   }
 
   factory Location.fromJson(Map<String, dynamic> json) {
+    // Convert coordinates to double, handling both int and double values
+    List<double> coordinates = [];
+    if (json['coordinates'] != null) {
+      final coords = json['coordinates'] as List<dynamic>;
+      coordinates = coords.map((e) => (e as num).toDouble()).toList();
+    }
+    
     return Location(
       type: json['type'] ?? '',
-      coordinates: List<double>.from(json['coordinates'] ?? []),
+      coordinates: coordinates,
       formattedAddress: json['formattedAddress'] ?? '',
       street: json['street'] ?? '',
       city: json['city'] ?? '',
@@ -125,5 +212,14 @@ class Location {
       zipcode: json['zipcode'] ?? '',
       country: json['country'] ?? '',
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'coordinates': coordinates,
+      'formattedAddress': formattedAddress,
+      'city': city,
+      'country': country,
+    };
   }
 }

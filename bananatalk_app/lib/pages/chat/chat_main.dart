@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
+import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
@@ -67,6 +69,12 @@ class ChatMain extends ConsumerStatefulWidget {
 
 class _ChatMainState extends ConsumerState<ChatMain>
     with TickerProviderStateMixin {
+
+  ColorScheme get colorScheme => Theme.of(context).colorScheme;
+  Color get textPrimary => context.textPrimary;
+  Color get secondaryText => context.textSecondary;
+  Color get mutedText => context.textMuted;
+
   late Future<List<Message>> _messagesFuture;
   bool _isLoading = false;
   String _error = '';
@@ -87,8 +95,15 @@ class _ChatMainState extends ConsumerState<ChatMain>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
-  // Constants - replace with your actual base URL
-  static const String BASE_URL = 'https://api.banatalk.com';
+  // Get base URL from Endpoints (socket connects to root, not /api/v1/)
+  String get _baseUrl {
+    final baseUrl = Endpoints.baseURL;
+    // Remove /api/v1/ from the end to get the root URL for socket
+    if (baseUrl.endsWith('/api/v1/')) {
+      return baseUrl.substring(0, baseUrl.length - 8);
+    }
+    return baseUrl.replaceAll('/api/v1/', '');
+  }
 
   @override
   void initState() {
@@ -149,7 +164,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     try {
       _socket = IO.io(
-        BASE_URL,
+        _baseUrl,
         IO.OptionBuilder()
             .setTransports(['websocket'])
             .enableAutoConnect()
@@ -210,6 +225,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
         print('👁️ Message read: $data');
         _handleMessageRead(data);
       });
+      _socket?.on('messagesRead', (data) {
+        print('👁️ Messages read event: $data');
+        _handleMessagesRead(data);
+      });
 
       _socket?.onDisconnect((_) {
         print('❌ Disconnected from socket server');
@@ -266,87 +285,158 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
   void _handleNewMessage(dynamic data) {
     try {
-      if (!mounted) return;
+      print('📨 Processing new message: $data');
 
-      final messageData = data['message'];
-      final senderId = data['senderId'];
-      final unreadCount = data['unreadCount'] ?? 1;
+      if (data == null) return;
 
-      if (messageData == null || senderId == null) {
-        print('⚠️ Invalid message data received');
+      // Extract message from the data structure
+      // Your backend sends: { message: {...}, unreadCount: X }
+      final messageData = data['message'] ?? data;
+
+      // Extract sender info
+      final senderId = messageData['sender']?['_id']?.toString() ??
+          messageData['sender']?.toString();
+      final senderName =
+          messageData['sender']?['name']?.toString() ?? 'Unknown';
+      final senderAvatar = messageData['sender']?['image']?.toString();
+      final senderImageUrls = (messageData['sender']?['imageUrls'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [];
+
+      final messageText = messageData['message']?.toString() ?? '';
+      final createdAt = messageData['createdAt'] != null
+          ? DateTime.parse(messageData['createdAt'].toString())
+          : DateTime.now();
+
+      if (senderId == null || senderId.isEmpty) {
+        print('⚠️ No sender ID in message');
         return;
       }
 
-      // Play notification sound/haptic feedback
-      HapticFeedback.lightImpact();
+      // Don't process own messages (they're handled by messageSent event)
+      if (senderId == _currentUserId) {
+        print('ℹ️ Skipping own message');
+        return;
+      }
 
-      // Update chat partners list
+      print('✅ New message from: $senderName ($senderId)');
+
       setState(() {
-        final existingPartnerIndex =
-            _chatPartners.indexWhere((p) => p.id == senderId);
+        // Find existing chat partner
+        int partnerIndex = _chatPartners.indexWhere((p) => p.id == senderId);
 
-        if (existingPartnerIndex != -1) {
+        if (partnerIndex != -1) {
           // Update existing partner
-          final existingPartner = _chatPartners[existingPartnerIndex];
+          print('📝 Updating existing chat partner at index $partnerIndex');
+          final existingPartner = _chatPartners[partnerIndex];
           final updatedPartner = existingPartner.copyWith(
-            lastMessage: messageData['message'],
-            unreadCount: unreadCount,
-            lastMessageTime: DateTime.parse(messageData['createdAt']),
+            lastMessage: messageText,
+            lastMessageTime: createdAt,
+            unreadCount: existingPartner.unreadCount + 1,
           );
 
           // Move to top of list
-          _chatPartners.removeAt(existingPartnerIndex);
+          _chatPartners.removeAt(partnerIndex);
           _chatPartners.insert(0, updatedPartner);
+          print(
+              '✅ Moved chat to top with unread count: ${updatedPartner.unreadCount}');
         } else {
-          // Add new chat partner
-          final senderInfo = messageData['sender'];
+          // Create new chat partner
+          print('➕ Creating new chat partner');
           final newPartner = ChatPartner(
             id: senderId,
-            name: senderInfo['name'] ?? 'Unknown',
-            avatar: senderInfo['imageUrls']?.isNotEmpty == true
-                ? senderInfo['imageUrls'][0]
-                : null,
-            lastMessage: messageData['message'],
-            unreadCount: unreadCount,
-            lastMessageTime: DateTime.parse(messageData['createdAt']),
-            imageUrls: List<String>.from(senderInfo['imageUrls'] ?? []),
+            name: senderName,
+            avatar: senderAvatar,
+            lastMessage: messageText,
+            lastMessageTime: createdAt,
+            unreadCount: 1,
+            imageUrls: senderImageUrls,
+            status: 'online',
           );
+
           _chatPartners.insert(0, newPartner);
+          print('✅ Added new chat partner at top');
         }
       });
-    } catch (e) {
+
+      print('✅ Chat list updated successfully');
+    } catch (e, stackTrace) {
       print('❌ Error handling new message: $e');
+      print('Stack trace: $stackTrace');
     }
   }
 
   void _handleMessageSent(dynamic data) {
     try {
-      if (!mounted) return;
+      print('📤 Processing sent message: $data');
 
-      final messageData = data['message'];
-      final receiverId = data['receiverId'];
+      if (data == null) return;
 
-      if (messageData == null || receiverId == null) return;
+      final messageData = data['message'] ?? data;
 
-      // Update chat partners list for sent message
+      // Extract receiver info (the person you sent to)
+      final receiverId = messageData['receiver']?['_id']?.toString() ??
+          messageData['receiver']?.toString();
+      final receiverName =
+          messageData['receiver']?['name']?.toString() ?? 'Unknown';
+      final receiverAvatar = messageData['receiver']?['image']?.toString();
+      final receiverImageUrls = (messageData['receiver']?['imageUrls'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [];
+
+      final messageText = messageData['message']?.toString() ?? '';
+      final createdAt = messageData['createdAt'] != null
+          ? DateTime.parse(messageData['createdAt'].toString())
+          : DateTime.now();
+
+      if (receiverId == null || receiverId.isEmpty) {
+        print('⚠️ No receiver ID in sent message');
+        return;
+      }
+
+      print('✅ Sent message to: $receiverName ($receiverId)');
+
       setState(() {
-        final existingPartnerIndex =
-            _chatPartners.indexWhere((p) => p.id == receiverId);
+        // Find existing chat partner
+        int partnerIndex = _chatPartners.indexWhere((p) => p.id == receiverId);
 
-        if (existingPartnerIndex != -1) {
-          final existingPartner = _chatPartners[existingPartnerIndex];
+        if (partnerIndex != -1) {
+          // Update existing partner
+          print('📝 Updating existing chat partner for sent message');
+          final existingPartner = _chatPartners[partnerIndex];
           final updatedPartner = existingPartner.copyWith(
-            lastMessage: messageData['message'],
-            lastMessageTime: DateTime.parse(messageData['createdAt']),
+            lastMessage: messageText,
+            lastMessageTime: createdAt,
+            // Don't increment unread for sent messages
           );
 
           // Move to top of list
-          _chatPartners.removeAt(existingPartnerIndex);
+          _chatPartners.removeAt(partnerIndex);
           _chatPartners.insert(0, updatedPartner);
+        } else {
+          // Create new chat partner (new conversation started)
+          print('➕ Creating new chat partner for sent message');
+          final newPartner = ChatPartner(
+            id: receiverId,
+            name: receiverName,
+            avatar: receiverAvatar,
+            lastMessage: messageText,
+            lastMessageTime: createdAt,
+            unreadCount: 0,
+            imageUrls: receiverImageUrls,
+            status: 'online',
+          );
+
+          _chatPartners.insert(0, newPartner);
         }
       });
-    } catch (e) {
-      print('❌ Error handling message sent: $e');
+
+      print('✅ Chat list updated for sent message');
+    } catch (e, stackTrace) {
+      print('❌ Error handling sent message: $e');
+      print('Stack trace: $stackTrace');
     }
   }
 
@@ -428,6 +518,29 @@ class _ChatMainState extends ConsumerState<ChatMain>
   void _handleUserStoppedTyping(dynamic data) {
     // Handle stopped typing indicators if needed
     print('User ${data['userId']} stopped typing');
+  }
+
+  void _handleMessagesRead(dynamic data) {
+    try {
+      print('👁️ Messages marked as read: $data');
+
+      final readBy = data['readBy']?.toString();
+
+      if (readBy != null && readBy.isNotEmpty) {
+        setState(() {
+          // Find the chat partner and reset unread count
+          int index = _chatPartners.indexWhere((p) => p.id == readBy);
+          if (index != -1) {
+            _chatPartners[index] = _chatPartners[index].copyWith(
+              unreadCount: 0,
+            );
+            print('✅ Reset unread count for user: $readBy');
+          }
+        });
+      }
+    } catch (e) {
+      print('❌ Error handling messages read: $e');
+    }
   }
 
   void _handleMessageRead(dynamic data) {
@@ -721,7 +834,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         borderRadius: BorderRadius.circular(25.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: colorScheme.onSurface.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -733,19 +846,19 @@ class _ChatMainState extends ConsumerState<ChatMain>
         decoration: InputDecoration(
           hintText: 'Search conversations...',
           hintStyle: TextStyle(
-            color: Colors.grey[500],
+            color: mutedText,
             fontSize: 16,
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.grey[500],
+            color: mutedText,
             size: 22,
           ),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
                   icon: Icon(
                     Icons.clear,
-                    color: Colors.grey[500],
+                    color: mutedText,
                     size: 20,
                   ),
                   onPressed: () {
@@ -761,13 +874,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: Colors.grey[50],
+          fillColor: colorScheme.background,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 16,
           ),
         ),
-        style: const TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16),
         onChanged: (value) {
           setState(() {
             _searchQuery = value;
@@ -799,21 +912,21 @@ class _ChatMainState extends ConsumerState<ChatMain>
                   ),
                   borderRadius: BorderRadius.circular(40),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.1),
+                    color: colorScheme.surface.withOpacity(0.1),
                     width: 1,
                   ),
                 ),
                 child: Icon(
                   Icons.search_off_rounded,
                   size: 40,
-                  color: Colors.grey[400],
+                  color: colorScheme.outlineVariant,
                 ),
               ),
               const SizedBox(height: 24),
               Text(
                 'No matching conversations',
                 style: TextStyle(
-                  color: Colors.grey[300],
+                  color: colorScheme.outlineVariant,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
@@ -822,7 +935,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               Text(
                 'Try adjusting your search terms',
                 style: TextStyle(
-                  color: Colors.grey[500],
+                  color: mutedText,
                   fontSize: 14,
                 ),
               ),
@@ -843,7 +956,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -857,17 +970,17 @@ class _ChatMainState extends ConsumerState<ChatMain>
                     ),
                   ],
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.chat_bubble_outline_rounded,
                   size: 50,
-                  color: Colors.white,
+                  color: colorScheme.surface,
                 ),
               ),
               const SizedBox(height: 24),
               Text(
                 'No conversations yet',
                 style: TextStyle(
-                  color: Colors.grey[300],
+                  color: colorScheme.outlineVariant,
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
@@ -876,7 +989,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               Text(
                 'Start a conversation to see it appear here',
                 style: TextStyle(
-                  color: Colors.grey[500],
+                  color: mutedText,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
@@ -904,7 +1017,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 gradient: isActive
-                    ? const LinearGradient(
+                    ? LinearGradient(
                         colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -914,7 +1027,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 border: Border.all(
                   color: isActive
                       ? Colors.transparent
-                      : Colors.white.withOpacity(0.08),
+                      : colorScheme.surface.withOpacity(0.08),
                   width: 1,
                 ),
                 boxShadow: isActive
@@ -947,7 +1060,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                 borderRadius: BorderRadius.circular(28),
                                 gradient: partner.avatar != null
                                     ? null
-                                    : const LinearGradient(
+                                    : LinearGradient(
                                         colors: [
                                           Color(0xFF6366F1),
                                           Color(0xFF8B5CF6)
@@ -955,7 +1068,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                       ),
                                 border: isActive
                                     ? Border.all(
-                                        color: Colors.white.withOpacity(0.3),
+                                        color: colorScheme.surface.withOpacity(0.3),
                                         width: 2,
                                       )
                                     : null,
@@ -988,8 +1101,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                                     ? partner.name[0]
                                                         .toUpperCase()
                                                     : '?',
-                                                style: const TextStyle(
-                                                  color: Colors.white,
+                                                style: TextStyle(
+                                                  color: colorScheme.surface,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,
                                                 ),
@@ -1009,7 +1122,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                               borderRadius:
                                                   BorderRadius.circular(28),
                                             ),
-                                            child: const Center(
+                                            child: Center(
                                               child: SizedBox(
                                                 width: 24,
                                                 height: 24,
@@ -1033,8 +1146,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         partner.name.isNotEmpty
                                             ? partner.name[0].toUpperCase()
                                             : '?',
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          color: colorScheme.surface,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
@@ -1052,7 +1165,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                   color: _getStatusColor(partner.status),
                                   border: Border.all(
                                     color: isActive
-                                        ? Colors.white
+                                        ? colorScheme.surface
                                         : const Color(0xFF1A1A1D),
                                     width: 3,
                                   ),
@@ -1086,8 +1199,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16,
                                         color: isActive
-                                            ? Colors.white
-                                            : Colors.grey[200],
+                                            ? colorScheme.surface
+                                            : colorScheme.surfaceVariant,
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -1097,8 +1210,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                       _formatTime(partner.lastMessageTime!),
                                       style: TextStyle(
                                         color: isActive
-                                            ? Colors.white.withOpacity(0.8)
-                                            : Colors.grey[500],
+                                            ? colorScheme.surface.withOpacity(0.8)
+                                            : mutedText,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -1116,9 +1229,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                                 'No messages yet',
                                             style: TextStyle(
                                               color: isActive
-                                                  ? Colors.white
+                                                  ? colorScheme.surface
                                                       .withOpacity(0.8)
-                                                  : Colors.grey[400],
+                                                  : colorScheme.outlineVariant,
                                               fontSize: 14,
                                               fontWeight:
                                                   partner.unreadCount > 0
@@ -1138,13 +1251,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                       ),
                                       decoration: BoxDecoration(
                                         gradient: isActive
-                                            ? const LinearGradient(
+                                            ? LinearGradient(
                                                 colors: [
-                                                  Colors.white,
-                                                  Colors.white
+                                                  colorScheme.surface,
+                                                  colorScheme.surface
                                                 ],
                                               )
-                                            : const LinearGradient(
+                                            : LinearGradient(
                                                 colors: [
                                                   Color(0xFFEF4444),
                                                   Color(0xFFDC2626),
@@ -1154,7 +1267,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         boxShadow: [
                                           BoxShadow(
                                             color: isActive
-                                                ? Colors.white.withOpacity(0.3)
+                                                ? colorScheme.surface.withOpacity(0.3)
                                                 : const Color(0xFFEF4444)
                                                     .withOpacity(0.3),
                                             blurRadius: 8,
@@ -1169,7 +1282,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         style: TextStyle(
                                           color: isActive
                                               ? const Color(0xFF6366F1)
-                                              : Colors.white,
+                                              : colorScheme.surface,
                                           fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -1201,7 +1314,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           Text(
             'typing',
             style: TextStyle(
-              color: Colors.grey[400],
+              color: colorScheme.outlineVariant,
               fontSize: 12,
               fontStyle: FontStyle.italic,
             ),
@@ -1234,7 +1347,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       backgroundColor: const Color(0xFF0A0A0B), // Deep dark background
       appBar: AppBar(
         title: ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
+          shaderCallback: (bounds) => LinearGradient(
             colors: [
               Color(0xFF6366F1), // Indigo
               Color(0xFF8B5CF6), // Purple
@@ -1243,12 +1356,12 @@ class _ChatMainState extends ConsumerState<ChatMain>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ).createShader(bounds),
-          child: const Text(
+          child: Text(
             'Messages',
             style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 28,
-              color: Colors.white,
+              color: colorScheme.surface,
               letterSpacing: -0.5,
             ),
           ),
@@ -1269,33 +1382,33 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       height: 60,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           colors: [
                             Color(0xFF6366F1),
                             Color(0xFF8B5CF6),
                           ],
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: CircularProgressIndicator(
                           valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+                              AlwaysStoppedAnimation<Color>(colorScheme.surface),
                           strokeWidth: 3,
                         ),
                       ),
                     ),
                     const SizedBox(height: 24),
                     ShaderMask(
-                      shaderCallback: (bounds) => const LinearGradient(
+                      shaderCallback: (bounds) => LinearGradient(
                         colors: [
                           Color(0xFF6366F1),
                           Color(0xFF8B5CF6),
                         ],
                       ).createShader(bounds),
-                      child: const Text(
+                      child: Text(
                         'Loading conversations...',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: colorScheme.surface,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -1314,12 +1427,12 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       color: const Color(0xFF1A1A1D),
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                        color: Colors.white.withOpacity(0.1),
+                        color: colorScheme.surface.withOpacity(0.1),
                         width: 1,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
+                          color: colorScheme.onSurface.withOpacity(0.3),
                           blurRadius: 20,
                           offset: const Offset(0, 8),
                         ),
@@ -1351,12 +1464,12 @@ class _ChatMainState extends ConsumerState<ChatMain>
                           ),
                         ),
                         const SizedBox(height: 24),
-                        const Text(
+                        Text(
                           'Connection Error',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                            color: colorScheme.surface,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -1364,7 +1477,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                           _error,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.grey[400],
+                            color: colorScheme.outlineVariant,
                             fontSize: 14,
                             height: 1.5,
                           ),
@@ -1373,7 +1486,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            gradient: const LinearGradient(
+                            gradient: LinearGradient(
                               colors: [
                                 Color(0xFF6366F1),
                                 Color(0xFF8B5CF6),
@@ -1391,14 +1504,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
                           ),
                           child: ElevatedButton.icon(
                             onPressed: _refresh,
-                            icon: const Icon(Icons.refresh_rounded, size: 20),
-                            label: const Text(
+                            icon: Icon(Icons.refresh_rounded, size: 20),
+                            label: Text(
                               'Try Again',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.white,
+                              foregroundColor: colorScheme.surface,
                               shadowColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),

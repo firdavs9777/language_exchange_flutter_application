@@ -1,4 +1,4 @@
-package com.example.bananatalk_app
+package com.bananatalk.app
 
 import io.flutter.embedding.android.FlutterActivity
 

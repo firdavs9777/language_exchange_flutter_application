@@ -1,86 +1,129 @@
-import 'dart:convert';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
-class ProfileHometownEdit extends StatefulWidget {
-  const ProfileHometownEdit({Key? key}) : super(key: key);
+class ProfileHometownEdit extends ConsumerStatefulWidget {
+  const ProfileHometownEdit({Key? key, required String currentAddress})
+      : super(key: key);
 
   @override
-  State<ProfileHometownEdit> createState() => _ProfileHometownEditState();
+  ConsumerState<ProfileHometownEdit> createState() =>
+      _ProfileHometownEditState();
 }
 
-class _ProfileHometownEditState extends State<ProfileHometownEdit> {
-  List<Map<String, String>> countries = [];
-  List<String> regions = [];
-  String? selectedCountry;
-  String? selectedCountryFlag;
-  String? selectedRegion;
-  bool isLoading = true;
-  String? errorMessage;
+class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
+  bool isFetchingLocation = false;
+  bool isSaving = false;
+  String? country;
+  String? city;
+  double? latitude;
+  double? longitude;
 
-  // Fetching countries list
-  Future<void> getCountriesList() async {
-    final url = Uri.parse('https://restcountries.com/v3.1/all');
+  // Check location permission
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Location services are disabled. Please enable them.'),
+      ));
+      return false;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Location permissions are denied'),
+        ));
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Location permissions are permanently denied.'),
+      ));
+      return false;
+    }
+
+    return true;
+  }
+
+  // Get current location
+  Future<void> getCurrentLocation() async {
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) return;
+
+    setState(() {
+      isFetchingLocation = true;
+    });
+
     try {
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(response.body);
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      latitude = position.latitude;
+      longitude = position.longitude;
+
+      final placemarks = await placemarkFromCoordinates(latitude!, longitude!);
+
+      if (placemarks.isNotEmpty) {
+        final place = placemarks.first;
         setState(() {
-          countries = data
-              .map((item) => {
-                    'name': item['name']['common'] as String,
-                    'flag': item['flags']['png'] as String,
-                    'code': item['cca2'] as String,
-                  })
-              .toList()
-            ..sort((a, b) => a['name']!.compareTo(b['name']!));
-          isLoading = false;
+          country = place.country ?? 'Unknown';
+          city = place.locality ??
+              place.subAdministrativeArea ??
+              place.administrativeArea ??
+              'Unknown';
         });
-      } else {
-        throw Exception('Failed to load countries');
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Detected: $city, $country'),
+          backgroundColor: Colors.green,
+        ));
       }
-    } catch (error) {
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to get location: $e'),
+        backgroundColor: Colors.red,
+      ));
+    } finally {
       setState(() {
-        errorMessage = 'Error when getting countries list: $error';
-        isLoading = false;
+        isFetchingLocation = false;
       });
     }
   }
 
-  // Fetching regions based on selected country
-  Future<void> getRegions() async {
-    if (selectedCountry == null) return;
+  Future<void> saveHometown() async {
+    if (country == null || city == null) return;
 
-    final encodedCountry = Uri.encodeQueryComponent(selectedCountry!);
-    final url = Uri.parse(
-        'https://countriesnow.space/api/v0.1/countries/cities/q?country=$encodedCountry');
+    setState(() => isSaving = true);
     try {
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        if (data['data'] != null) {
-          setState(() {
-            regions = List<String>.from(data['data']);
-            isLoading = false;
-          });
-        } else {
-          throw Exception('Invalid data format');
-        }
-      } else {
-        throw Exception('Failed to load regions');
-      }
-    } catch (error) {
-      setState(() {
-        errorMessage = 'Error when getting regions: $error';
-        isLoading = false;
-      });
-    }
-  }
+      final response = await ref.read(authServiceProvider).updateUserHometown(
+            city: city!,
+            country: country!,
+            latitude: latitude,
+            longitude: longitude,
+          );
 
-  @override
-  void initState() {
-    super.initState();
-    getCountriesList();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Saved hometown: $city, $country'),
+        backgroundColor: Colors.green,
+      ));
+
+      Navigator.pop(context, '$city, $country');
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to save: $error'),
+        backgroundColor: Colors.red,
+      ));
+    } finally {
+      setState(() => isSaving = false);
+    }
   }
 
   @override
@@ -92,150 +135,78 @@ class _ProfileHometownEditState extends State<ProfileHometownEdit> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : errorMessage != null
-                ? Center(
-                    child: Text(
-                      errorMessage!,
-                      style: const TextStyle(color: Colors.red, fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Select Your Hometown',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Use Current Location',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+
+            OutlinedButton.icon(
+              onPressed: isFetchingLocation ? null : getCurrentLocation,
+              icon: isFetchingLocation
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.my_location),
+              label: Text(
+                  isFetchingLocation ? 'Detecting...' : 'Get Current Location'),
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 45),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+            const Divider(),
+
+            // Display results
+            if (country != null || city != null) ...[
+              Text('Country: ${country ?? '-'}',
+                  style: const TextStyle(fontSize: 16)),
+              Text('City: ${city ?? '-'}',
+                  style: const TextStyle(fontSize: 16)),
+              if (latitude != null && longitude != null)
+                Text(
+                  'Coordinates: ${latitude!.toStringAsFixed(4)}, ${longitude!.toStringAsFixed(4)}',
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+            ] else
+              const Text(
+                'No location detected yet.',
+                style: TextStyle(color: Colors.grey),
+              ),
+
+            const Spacer(),
+
+            ElevatedButton(
+              onPressed: (country != null && city != null && !isSaving)
+                  ? saveHometown
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber,
+                foregroundColor: Colors.black,
+                minimumSize: const Size(double.infinity, 50),
+              ),
+              child: isSaving
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                       ),
-                      const SizedBox(height: 20),
-                      DropdownButtonFormField<Map<String, String>>(
-                        value: selectedCountry != null
-                            ? countries.firstWhere(
-                                (country) => country['name'] == selectedCountry,
-                                orElse: () => countries.first,
-                              )
-                            : null,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 12),
-                          labelText: 'Country',
-                          labelStyle: const TextStyle(fontSize: 16),
-                        ),
-                        isExpanded: true,
-                        items: countries.map((country) {
-                          return DropdownMenuItem(
-                            value: country,
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  country['flag']!,
-                                  width: 24,
-                                  height: 24,
-                                  fit: BoxFit.cover,
-                                ),
-                                const SizedBox(width: 8),
-                                Flexible(
-                                  child: Text(
-                                    country['name']!,
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: false,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedCountry = value!['name'];
-                            selectedCountryFlag = value['flag'];
-                            selectedRegion = null;
-                            regions.clear();
-                            isLoading = true;
-                            getRegions();
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      if (regions.isNotEmpty)
-                        DropdownButtonFormField<String>(
-                          value: selectedRegion,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 12),
-                            labelText: 'Region',
-                            labelStyle: const TextStyle(fontSize: 16),
-                          ),
-                          isExpanded: true,
-                          items: regions.map((region) {
-                            return DropdownMenuItem(
-                              value: region,
-                              child: Text(region),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedRegion = value;
-                            });
-                          },
-                        ),
-                      const SizedBox(height: 30),
-                      Spacer(),
-                      Center(
-                        child: ElevatedButton(
-                          onPressed:
-                              selectedCountry != null && selectedRegion != null
-                                  ? () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: const Text('Confirmation'),
-                                          content: Text(
-                                            'Your hometown is set to $selectedCountry, $selectedRegion.',
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                  : null,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.amber,
-                            foregroundColor: Colors.black,
-                            minimumSize: const Size(double.infinity, 20),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 20,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          child: const Text(
-                            'Confirm',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    )
+                  : const Text('Save', style: TextStyle(fontSize: 16)),
+            ),
+          ],
+        ),
       ),
     );
   }

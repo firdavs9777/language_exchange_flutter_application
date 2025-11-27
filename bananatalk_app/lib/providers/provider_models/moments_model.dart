@@ -13,6 +13,13 @@ class Moments {
     this.comments,
     required this.likeCount,
     required this.commentCount,
+    // New fields with safe defaults
+    this.language = 'en',
+    this.category = 'general',
+    this.privacy = 'public', // ✅ Fixed
+    this.mood = '',
+    this.tags = const [], // ✅ Fixed
+    this.scheduledFor,
   });
 
   final String id;
@@ -21,16 +28,41 @@ class Moments {
   final String description;
   final List<String> images;
   final List<String>? likedUsers;
-  final List<Comment>? comments; // Changed to handle Comment type inline
+  final List<Comment>? comments;
   final List<String> imageUrls;
   final int likeCount;
   final int commentCount;
   final DateTime createdAt;
 
+  // New fields
+  final String language; // ISO 639-1 code (e.g., 'en', 'ko', 'es')
+  final String category; // e.g., 'language-learning', 'travel'
+  final String privacy; // 'public', 'friends', 'private'
+  final String mood; // e.g., 'happy', 'sad', 'excited' (can be empty)
+  final List<String> tags; // e.g., ['korean', 'study']
+  final DateTime? scheduledFor; // Optional scheduled date
+
   factory Moments.fromJson(Map<String, dynamic> json) {
+    // Helper function to safely get string with default
+    String safeString(dynamic value, String defaultValue) {
+      if (value == null) return defaultValue;
+      if (value is String) return value.isEmpty ? defaultValue : value;
+      return value.toString().isEmpty ? defaultValue : value.toString();
+    }
+
+    // Helper function to safely get list
+    List<String> safeList(dynamic value) {
+      if (value == null) return [];
+      if (value is! List) return [];
+      return value
+          .where((e) => e != null && e.toString().isNotEmpty)
+          .map((e) => e.toString())
+          .toList();
+    }
+
     return Moments(
-      id: json['_id'] ?? '',
-      title: json['title'] ?? '',
+      id: json['_id']?.toString() ?? '',
+      title: json['title']?.toString() ?? '',
       user: json['user'] != null
           ? Community.fromJson(json['user'])
           : Community(
@@ -54,26 +86,55 @@ class Moments {
               followings: [''],
               location: Location.defaultLocation(),
             ),
-      description: json['description'] ?? '',
-      images: List<String>.from(json['images']),
-      imageUrls: json['imageUrls'] != null
-          ? List<String>.from(json['imageUrls'].whereType<String>())
-          : [],
-      likeCount: json['likeCount'] ?? 0,
-      commentCount: json['commentCount'] ?? 0,
-      likedUsers: json['likedUsers'] != null
-          ? List<String>.from(json['likedUsers'])
-          : null,
+      description: json['description']?.toString() ?? '',
+      images: safeList(json['images']),
+      imageUrls: safeList(json['imageUrls']),
+
+      likeCount: json['likeCount'] is int ? json['likeCount'] : 0,
+      commentCount: json['commentCount'] is int ? json['commentCount'] : 0,
+      likedUsers:
+          json['likedUsers'] != null ? safeList(json['likedUsers']) : null,
       comments: json['comments'] != null
-          ? (json['comments'] as List<dynamic>) // Cast to List<dynamic>
-              .expand((innerList) =>
-                  List.from(innerList)) // Flatten the nested lists
-              .map((x) => Comment.fromJson(
-                  x as Map<String, dynamic>)) // Convert to Comment objects
+          ? (json['comments'] as List<dynamic>)
+              .expand((innerList) => List.from(innerList))
+              .map((x) => Comment.fromJson(x as Map<String, dynamic>))
               .toList()
           : null,
-      createdAt: DateTime.parse(json['createdAt']),
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
+          : DateTime.now(),
+
+      // Parse new fields with safe defaults
+      language: safeString(json['language'], 'en'),
+      category: safeString(json['category'], 'general'),
+      privacy: safeString(json['privacy'], 'public'),
+      mood: safeString(json['mood'], ''),
+      tags: safeList(json['tags']),
+      scheduledFor: json['scheduledFor'] != null
+          ? DateTime.tryParse(json['scheduledFor'].toString())
+          : null,
     );
+  }
+
+  // Add toJson method for completeness
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'title': title,
+      'description': description,
+      'images': images,
+      'imageUrls': imageUrls,
+      'likeCount': likeCount,
+      'commentCount': commentCount,
+      'likedUsers': likedUsers,
+      'createdAt': createdAt.toIso8601String(),
+      'language': language,
+      'category': category,
+      'privacy': privacy,
+      if (mood.isNotEmpty) 'mood': mood,
+      if (tags.isNotEmpty) 'tags': tags,
+      if (scheduledFor != null) 'scheduledFor': scheduledFor!.toIso8601String(),
+    };
   }
 }
 
@@ -92,11 +153,21 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
-      text: json['text'] ?? '',
-      userId: json['user'] ?? '',
-      momentId: json['moment'] ?? '',
-      createdAt:
-          DateTime.parse(json['createdAt'] ?? '1970-01-01T00:00:00.000Z'),
+      text: json['text']?.toString() ?? '',
+      userId: json['user']?.toString() ?? '',
+      momentId: json['moment']?.toString() ?? '',
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
+          : DateTime.now(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'user': userId,
+      'moment': momentId,
+      'createdAt': createdAt.toIso8601String(),
+    };
   }
 }

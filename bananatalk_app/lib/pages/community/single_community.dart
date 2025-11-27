@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -149,10 +150,17 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
   @override
   Widget build(BuildContext context) {
+    final calculatedAge = calculateAge(widget.community.birth_year);
+    final age = PrivacyUtils.getAge(widget.community, calculatedAge);
+    final locationText = PrivacyUtils.getLocationText(widget.community);
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            '${widget.community.name}, ${calculateAge(widget.community.birth_year)}'),
+          age != null
+              ? '${widget.community.name}, $age'
+              : widget.community.name,
+        ),
         elevation: 1,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
@@ -194,11 +202,20 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                       ),
                       child: CircleAvatar(
                         radius: 80,
+                        backgroundColor: const Color(0xFF00BFA5),
                         backgroundImage: widget.community.imageUrls.isNotEmpty
                             ? NetworkImage(widget.community.imageUrls[0])
-                            : const AssetImage(
-                                    'assets/images/logo_no_background.png')
-                                as ImageProvider,
+                            : null,
+                        child: widget.community.imageUrls.isEmpty
+                            ? Icon(
+                                Icons.person,
+                                size: 80,
+                                color: Colors.white,
+                              )
+                            : null,
+                        onBackgroundImageError: (exception, stackTrace) {
+                          // Image failed to load, will use icon fallback
+                        },
                       ),
                     ),
                   ),
@@ -215,17 +232,39 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              Center(
-                child: Text(
-                  '${calculateAge(widget.community.birth_year)} years old',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
+              if (age != null) ...[
+                const SizedBox(height: 8),
+                Center(
+                  child: Text(
+                    '$age years old',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-              ),
+              ],
+              if (locationText.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
+                      const SizedBox(width: 4),
+                      Text(
+                        locationText,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: 20),
 
               // Action buttons row

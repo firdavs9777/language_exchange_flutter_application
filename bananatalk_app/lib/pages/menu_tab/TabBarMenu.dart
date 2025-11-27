@@ -34,7 +34,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       activePage = MomentsMain();
     } else if (_selectedPageIndex == 3) {
       activePageTitle = 'Profile';
-      activePage = ProfileMain();
+      activePage = const ProfileMain();
     }
 
     return WillPopScope(

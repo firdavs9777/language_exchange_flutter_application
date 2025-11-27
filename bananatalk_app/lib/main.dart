@@ -26,43 +26,68 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
 
     return MaterialApp(
-      theme: ThemeData().copyWith(
-        colorScheme: kColorScheme,
-        appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: kColorScheme.onPrimaryContainer,
-            foregroundColor: kColorScheme.primaryContainer),
-        cardTheme: const CardTheme().copyWith(
-            color: kColorScheme.secondaryContainer,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: kLightColorScheme,
+        scaffoldBackgroundColor: kLightColorScheme.background,
+        appBarTheme: AppBarTheme(
+          backgroundColor: kLightColorScheme.surface,
+          foregroundColor: kLightColorScheme.onSurface,
+          elevation: 0,
+        ),
+        cardTheme: CardTheme(
+          color: kLightColorScheme.surface,
+          elevation: 1,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: kColorScheme.primaryContainer)),
-        textTheme: ThemeData().textTheme.copyWith(
-              bodyLarge: TextStyle(
-                color: kLightColorScheme.onSecondaryContainer,
-              ),
-              titleLarge: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kColorScheme.onSecondaryContainer,
-                  fontSize: 16),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kLightColorScheme.primary,
+            foregroundColor: kLightColorScheme.onPrimary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        textTheme: ThemeData().textTheme.apply(
+              bodyColor: kLightColorScheme.onBackground,
+              displayColor: kLightColorScheme.onBackground,
             ),
       ),
-      darkTheme: ThemeData.dark().copyWith(
-          colorScheme: kDarkColorScheme,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: kColorScheme.primaryContainer)),
-          cardTheme: const CardTheme().copyWith(
-              color: kDarkColorScheme.secondaryContainer,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
-          textTheme: TextTheme(
-              bodyLarge: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kDarkColorScheme.onSecondaryContainer),
-              titleLarge: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: kDarkColorScheme.onSecondaryContainer,
-                  fontSize: 16))),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: kDarkColorScheme,
+        scaffoldBackgroundColor: kDarkColorScheme.background,
+        appBarTheme: AppBarTheme(
+          backgroundColor: kDarkColorScheme.surface,
+          foregroundColor: kDarkColorScheme.onSurface,
+          elevation: 0,
+        ),
+        cardTheme: CardTheme(
+          color: kDarkColorScheme.surfaceVariant,
+          elevation: 1,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kDarkColorScheme.primary,
+            foregroundColor: kDarkColorScheme.onPrimary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        textTheme: ThemeData.dark().textTheme.apply(
+              bodyColor: kDarkColorScheme.onBackground,
+              displayColor: kDarkColorScheme.onBackground,
+            ),
+      ),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

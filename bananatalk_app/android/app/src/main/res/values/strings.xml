@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">BananaTalk</string>
+
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id">810869785173-aktt02a6oberoemnuce1i58jtj803sq5.apps.googleusercontent.com</string>
+
+    <!-- Facebook Login -->
+    <string name="facebook_app_id">1556850925349743</string>
+    <string name="fb_login_protocol_scheme">fb1556850925349743</string>
+    <string name="facebook_client_token">4f4f3a3f65843de17d811422356f731d</string>
+</resources>

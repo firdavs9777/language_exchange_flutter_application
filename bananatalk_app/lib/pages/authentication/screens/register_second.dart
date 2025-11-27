@@ -7,9 +7,13 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/providers/provider_models/location_modal.dart';
+import 'package:bananatalk_app/service/endpoints.dart';
 
 class RegisterTwo extends ConsumerStatefulWidget {
   final String name;
@@ -38,10 +42,24 @@ class RegisterTwo extends ConsumerStatefulWidget {
 
 class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   late String? _selectedGender;
-  final List<String?> _genders = ['Male', 'Female'];
+  // Display names for UI (capitalized)
+  final List<String?> _genders = ['Male', 'Female', 'Other'];
+  // Map display names to backend values (lowercase)
+  final Map<String, String> _genderMap = {
+    'Male': 'male',
+    'Female': 'female',
+    'Other': 'other',
+  };
   late TextEditingController _bioController;
   late String? _nativelanguage;
   late String? _language_to_learn;
+
+  bool _isFetchingLocation = false;
+  bool _isSubmitting = false; // Loading state for registration
+  String? _country;
+  String? _city;
+  double? _latitude;
+  double? _longitude;
 
   // String? _imageUrl;
 
@@ -67,7 +85,19 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             : DateFormat('yyyy.MM.dd').format(DateTime.now()));
     _nativelanguage =
         widget.nativeLanguage.isNotEmpty ? widget.nativeLanguage : null;
-    _selectedGender = widget.gender.isNotEmpty ? widget.gender : null;
+    // Convert backend gender (lowercase) to display format (capitalized) if coming from previous screen
+    if (widget.gender.isNotEmpty) {
+      // Find the display name from the backend value
+      final displayGender = _genderMap.entries
+          .firstWhere(
+            (entry) => entry.value == widget.gender.toLowerCase(),
+            orElse: () => MapEntry(widget.gender, widget.gender),
+          )
+          .key;
+      _selectedGender = displayGender;
+    } else {
+      _selectedGender = null;
+    }
     _image = TextEditingController();
     // ref.watch(authStatesProvider);
     fetchLanguages(); // Fetch languages when the widget initializes
@@ -84,19 +114,134 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     super.dispose();
   }
 
-  void fetchLanguages() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:5003/api/v1/languages'));
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Location services are disabled. Please enable them.'),
+      ));
+      return false;
+    }
 
-    if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON
-      List<dynamic> data = json.decode(response.body)['data'];
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Location permissions are denied'),
+        ));
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Location permissions are permanently denied.'),
+      ));
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> _getCurrentLocation() async {
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) return;
+
+    setState(() {
+      _isFetchingLocation = true;
+    });
+
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      _latitude = position.latitude;
+      _longitude = position.longitude;
+
+      final placemarks =
+          await placemarkFromCoordinates(_latitude!, _longitude!);
+
+      if (placemarks.isNotEmpty) {
+        final place = placemarks.first;
+        setState(() {
+          _country = place.country ?? 'Unknown';
+          _city = place.locality ??
+              place.subAdministrativeArea ??
+              place.administrativeArea ??
+              'Unknown';
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Detected: $_city, $_country'),
+          backgroundColor: Colors.green,
+        ));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to get location: $e'),
+        backgroundColor: Colors.red,
+      ));
+    } finally {
       setState(() {
-        _languages = data.map<String>((lang) => lang['name']).toList();
+        _isFetchingLocation = false;
       });
-    } else {
-      // If that call was not successful, throw an error.
-      throw Exception('Failed to load languages');
+    }
+  }
+
+  Future<void> fetchLanguages() async {
+    try {
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.languagesURL}');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON
+        final data = json.decode(response.body);
+        List<dynamic> languagesData = data['data'] ?? [];
+
+        if (mounted) {
+          setState(() {
+            _languages = languagesData
+                .map<String>((lang) => lang['name']?.toString() ?? '')
+                .where((name) => name.isNotEmpty)
+                .toList();
+          });
+        }
+      } else {
+        // If that call was not successful, show error
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  'Failed to load languages. Status: ${response.statusCode}'),
+              backgroundColor: Colors.orange,
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
+        // Set empty list as fallback
+        if (mounted) {
+          setState(() {
+            _languages = [];
+          });
+        }
+      }
+    } catch (e) {
+      // Handle network errors
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error loading languages: ${e.toString()}'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        // Set empty list as fallback
+        setState(() {
+          _languages = [];
+        });
+      }
     }
   }
 
@@ -115,6 +260,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   }
 
   void submit() async {
+    // Prevent multiple submissions
+    if (_isSubmitting) return;
+
+    setState(() {
+      _isSubmitting = true;
+    });
+
     // Split birth date to extract year, month, and day
     List<String> dateParts = _birthDate.text.split('.');
     String year = dateParts[0];
@@ -123,21 +275,32 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     DateTime birthDate =
         DateTime(int.parse(year), int.parse(month), int.parse(day));
     DateTime today = DateTime.now();
+
     // Calculate the preliminary age
     int age = today.year - birthDate.year;
+
     // Adjust the age if the birthday hasn't occurred yet this year
     if (today.month < birthDate.month ||
         (today.month == birthDate.month && today.day < birthDate.day)) {
       age--;
     }
+
+    // Validation checks
     if (_bioController.text.isEmpty) {
+      setState(() {
+        _isSubmitting = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Please include your bio'),
         duration: const Duration(seconds: 3),
       ));
       return;
     }
+
     if (_nativelanguage == null || _nativelanguage.toString().isEmpty) {
+      setState(() {
+        _isSubmitting = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please register your native language'),
@@ -146,7 +309,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       );
       return;
     }
+
     if (_language_to_learn == null || _language_to_learn.toString().isEmpty) {
+      setState(() {
+        _isSubmitting = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please register the language you want to learn'),
@@ -155,7 +322,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       );
       return;
     }
+
     if (_selectedGender == null || _selectedGender.toString().isEmpty) {
+      setState(() {
+        _isSubmitting = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please select your gender'),
@@ -164,7 +335,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       );
       return;
     }
+
     if (age <= 18) {
+      setState(() {
+        _isSubmitting = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('You should be at least 18 to register'),
@@ -173,7 +348,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       );
       return;
     }
+
     if (_selectedImages.length < 2) {
+      setState(() {
+        _isSubmitting = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please register at least 2 images'),
@@ -182,59 +361,227 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       );
       return;
     }
-    User user = User(
-      name: widget.name,
-      password: widget.password,
-      email: widget.email,
-      bio: _bioController.text,
-      gender: _selectedGender.toString(),
-      image: _imageFile.toString(),
-      birth_day: day,
-      birth_month: month,
-      birth_year: year,
-      native_language: _nativelanguage.toString(),
-      language_to_learn: _language_to_learn.toString(),
-    );
-    try {
-      final user_response = await ref.read(authServiceProvider).register(user);
-      await ref
-          .read(authServiceProvider)
-          .uploadUserPhoto(user_response.id, _selectedImages);
-      // Show a success message if needed
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Registration Successful!'),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-      // Registration successful, navigate to the TabsScreen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (ctx) => const TabsScreen(),
-      ));
-    } catch (error) {
-      String errorMessage = 'An unknown error occurred';
-      if (error is Exception &&
-          error.toString().contains('Duplicate field value')) {
-        errorMessage =
-            'Duplicate field value entered. Please use unique values.';
-      } else if (error.toString().contains('Exception: Failed to register:')) {
-        try {
-          final parsedError = error
-              .toString()
-              .replaceAll('Exception: Failed to register: ', '');
-          final Map<String, dynamic> errorJson = jsonDecode(parsedError);
-          errorMessage = errorJson['error'] ?? errorMessage;
-        } catch (_) {
-          errorMessage = 'An error occurred during registration.';
+
+    // Convert display gender to backend format (lowercase)
+    final genderValue = _selectedGender != null
+        ? _genderMap[_selectedGender] ?? _selectedGender!.toLowerCase()
+        : '';
+
+    // Check if this is an OAuth user (no password)
+    final bool isOAuthUser = widget.password.isEmpty;
+
+    if (isOAuthUser) {
+      // ========== OAuth User Profile Update ==========
+      try {
+        final url =
+            Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
+
+        final token = ref.read(authServiceProvider).token;
+
+        final response = await http.put(
+          url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({
+            'name': widget.name,
+            'gender': genderValue,
+            'bio': _bioController.text,
+            'birth_year': year,
+            'birth_month': month,
+            'birth_day': day,
+            'native_language': _nativelanguage ?? '',
+            'language_to_learn': _language_to_learn ?? '',
+            'location': {
+              'type': 'Point',
+              'coordinates': [
+                (_longitude ?? 0.0).toDouble(),
+                (_latitude ?? 0.0).toDouble(),
+              ],
+              'formattedAddress':
+                  _city != null && _country != null ? '$_city, $_country' : '',
+              'city': _city ?? '',
+              'country': _country ?? '',
+            },
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+
+          // Navigate immediately - don't wait for image upload
+          if (mounted) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (ctx) => const TabsScreen()),
+              (route) => false,
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Profile completed! Welcome to BanaTalk! 🎉'),
+                duration: const Duration(seconds: 2),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+
+          // Upload images in the background (non-blocking)
+          final userId = ref.read(authServiceProvider).userId;
+          if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+            // Fire and forget - upload in background
+            ref
+                .read(authServiceProvider)
+                .uploadUserPhoto(userId, _selectedImages)
+                .catchError((uploadError) {
+              print('Image upload error (background): $uploadError');
+              // Optionally show a notification in the new screen if needed
+            });
+          }
+        } else {
+          setState(() {
+            _isSubmitting = false;
+          });
+          final errorData = jsonDecode(response.body);
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    'Error: ${errorData['message'] ?? 'Failed to update profile'}'),
+                duration: const Duration(seconds: 3),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
+      } catch (error) {
+        setState(() {
+          _isSubmitting = false;
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: ${error.toString()}'),
+              duration: const Duration(seconds: 3),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $errorMessage'),
-          duration: const Duration(seconds: 3),
-          backgroundColor: Colors.red,
+    } else {
+      // ========== Email/Password User Registration ==========
+      User user = User(
+        name: widget.name,
+        password: widget.password,
+        email: widget.email,
+        bio: _bioController.text,
+        gender: genderValue,
+        images: [], // Empty array - images uploaded separately
+        birth_day: day,
+        birth_month: month,
+        birth_year: year,
+        native_language: _nativelanguage ?? '',
+        language_to_learn: _language_to_learn ?? '',
+        location: LocationModal(
+          type: 'Point',
+          coordinates: [
+            (_longitude ?? 0.0).toDouble(),
+            (_latitude ?? 0.0).toDouble(),
+          ],
+          formattedAddress:
+              _city != null && _country != null ? '$_city, $_country' : '',
+          city: _city ?? '',
+          country: _country ?? '',
         ),
       );
+
+      try {
+        final response = await ref.read(authServiceProvider).register(user);
+
+        if (response['success'] == true) {
+          // Extract user ID from the Community object
+          final userData = response['user'];
+          String userId = '';
+
+          if (userData != null) {
+            userId = userData.id;
+          }
+
+          // Navigate immediately - don't wait for image upload
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    Text('Registration Successful! Welcome to BanaTalk! 🎉'),
+                duration: const Duration(seconds: 2),
+                backgroundColor: Colors.green,
+              ),
+            );
+
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (ctx) => const TabsScreen()),
+              (route) => false,
+            );
+          }
+
+          // Upload images in the background (non-blocking)
+          if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+            // Fire and forget - upload in background
+            ref
+                .read(authServiceProvider)
+                .uploadUserPhoto(userId, _selectedImages)
+                .catchError((uploadError) {
+              print('Image upload error (background): $uploadError');
+              // Optionally show a notification in the new screen if needed
+            });
+          }
+        } else {
+          setState(() {
+            _isSubmitting = false;
+          });
+          // Handle registration failure
+          String errorMessage =
+              response['message'] ?? 'Registration failed. Please try again.';
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: $errorMessage'),
+              duration: const Duration(seconds: 3),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (error) {
+        setState(() {
+          _isSubmitting = false;
+        });
+        String errorMessage = 'An unknown error occurred';
+        if (error is Exception &&
+            error.toString().contains('Duplicate field value')) {
+          errorMessage =
+              'Duplicate field value entered. Please use unique values.';
+        } else if (error
+            .toString()
+            .contains('Exception: Failed to register:')) {
+          try {
+            final parsedError = error
+                .toString()
+                .replaceAll('Exception: Failed to register: ', '');
+            final Map<String, dynamic> errorJson = jsonDecode(parsedError);
+            errorMessage = errorJson['error'] ?? errorMessage;
+          } catch (_) {
+            errorMessage = 'An error occurred during registration.';
+          }
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $errorMessage'),
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -439,6 +786,34 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       }
                     },
                   ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Detect Location (Optional)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  OutlinedButton.icon(
+                    onPressed: _isFetchingLocation ? null : _getCurrentLocation,
+                    icon: _isFetchingLocation
+                        ? const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.my_location),
+                    label: Text(_isFetchingLocation
+                        ? 'Detecting...'
+                        : 'Use Current Location'),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 45),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  if (_city != null && _country != null)
+                    Text('Detected: $_city, $_country'),
                   SizedBox(
                     height: 20,
                   ),
@@ -554,6 +929,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                                 );
                                 return;
                               }
+                              // Convert display gender to backend format for passing back
+                              final genderForBackend = _selectedGender != null
+                                  ? _genderMap[_selectedGender] ??
+                                      _selectedGender!.toLowerCase()
+                                  : '';
+
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (ctx) => Register(
                                       userName: widget.name,
@@ -564,7 +945,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                                           _nativelanguage.toString(),
                                       userLearnLang:
                                           _language_to_learn.toString(),
-                                      userGender: _selectedGender.toString(),
+                                      userGender: genderForBackend,
                                       userBirthDate: _birthDate.text)));
                             },
                             style: ElevatedButton.styleFrom(
@@ -593,7 +974,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         child: SizedBox(
                           width: 120,
                           child: ElevatedButton(
-                            onPressed: submit,
+                            onPressed: _isSubmitting ? null : submit,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueAccent,
                               shape: RoundedRectangleBorder(
@@ -604,14 +985,27 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                                 vertical: 12.0,
                               ),
                             ),
-                            child: Text(
-                              'Complete',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
+                            child: _isSubmitting
+                                ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    'Complete',
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
                           ),
                         ),
                       ),

@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/pages/authentication/screens/facebook_login.dart';
+import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
@@ -17,12 +19,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        // decoration: const BoxDecoration(
-        //   gradient: LinearGradient(
-        //       colors: [Colors.deepPurple, Colors.pinkAccent],
-        //       begin: Alignment.topLeft,
-        //       end: Alignment.bottomRight),
-        // ),
         child: Center(
             child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -34,24 +30,17 @@ class _HomePageState extends State<HomePage> {
                 height: 300,
                 width: 300,
               ),
-              Text(
+              BananaText(
                 'Connect, learn, and grow with our Language Exchange app',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.lato(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+                BanaStyles: BananaTextStyles.titleLarge,
               ),
               SizedBox(
                 height: 35,
               ),
-              Text(
-                'Make global friends on BananaTalk.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+              BananaText('Make global friends on BananaTalk.',
+                  textAlign: TextAlign.center,
+                  BanaStyles: BananaTextStyles.cardTitle),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
@@ -59,22 +48,48 @@ class _HomePageState extends State<HomePage> {
                   width: 0.8 *
                       MediaQuery.of(context).size.width, // 90% of screen width
                   child: BananaButton(
-                    BananaText: BananaText('Sign In with Facebook'),
+                    BananaText: BananaText('Sign In with Google'),
                     onPressed: () {
-                      // Implement your Facebook login logic here
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (ctx) => const GoogleLogin()),
+                      );
                     },
-                    color: Color(0xFF1877F2), // Facebook blue color
+                    color: Color(0xFF4285F4), // Google blue color
                     textColor: Color(0xFFFFFFFF),
                     borderRadius: BorderRadius.circular(8),
                     icon: Icon(
-                      Icons
-                          .facebook, // You can also use a custom image if needed
+                      Icons.g_mobiledata_rounded, // Google icon
                       color: Colors.white,
-                      size: 24.0,
+                      size: 26.0,
                     ),
                   ),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(16.0),
+              //   child: Container(
+              //     height: 45.0,
+              //     width: 0.8 *
+              //         MediaQuery.of(context).size.width, // 90% of screen width
+              //     child: BananaButton(
+              //       BananaText: BananaText('Sign In with Facebook'),
+              //       onPressed: () {
+              //         Navigator.of(context).push(
+              //           MaterialPageRoute(builder: (ctx) => FacebookLogin()),
+              //         );
+              //       },
+              //       color: Color(0xFF1877F2), // Facebook blue color
+              //       textColor: Color(0xFFFFFFFF),
+              //       borderRadius: BorderRadius.circular(8),
+              //       icon: Icon(
+              //         Icons.facebook,
+              //         color: Colors.white,
+              //         size: 24.0,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -84,18 +99,15 @@ class _HomePageState extends State<HomePage> {
                   child: BananaButton(
                     BananaText: BananaText('Sign in with Email'),
                     onPressed: () {
-                      // Implement your Facebook login logic here
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (ctx) =>
-                                Login()), // Make sure you have the Register screen imported
+                        MaterialPageRoute(builder: (ctx) => Login()),
                       );
                     },
-                    color: Colors.black87, // Facebook blue color
+                    color: Colors.black87,
                     textColor: Color(0xFFFFFFFF),
                     borderRadius: BorderRadius.circular(8),
                     icon: Icon(
-                      Icons.email, // You can also use a custom image if needed
+                      Icons.email,
                       color: Colors.white,
                       size: 24.0,
                     ),

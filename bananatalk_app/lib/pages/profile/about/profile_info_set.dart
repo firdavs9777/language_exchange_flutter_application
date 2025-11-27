@@ -14,12 +14,29 @@ class ProfileInfoSet extends ConsumerStatefulWidget {
 class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
   late TextEditingController _controllerName;
   late String? _selectedGender;
-  final List<String?> _genders = ['Male', 'Female'];
+  final List<String?> _genders = ['Male', 'Female', 'Other'];
+
+  // Convert backend lowercase to display format
+  String? _convertGenderToDisplay(String? gender) {
+    if (gender == null || gender.isEmpty) return null;
+    final lowerGender = gender.toLowerCase();
+    if (lowerGender == 'male') return 'Male';
+    if (lowerGender == 'female') return 'Female';
+    if (lowerGender == 'other') return 'Other';
+    return null;
+  }
+
+  // Convert display format back to backend lowercase
+  String? _convertGenderToBackend(String? gender) {
+    if (gender == null || gender.isEmpty) return null;
+    return gender.toLowerCase();
+  }
+
   @override
   void initState() {
     super.initState();
     _controllerName = TextEditingController(text: widget.userName);
-    _selectedGender = widget.gender.isNotEmpty ? widget.gender : null;
+    _selectedGender = _convertGenderToDisplay(widget.gender);
   }
 
   @override
@@ -92,22 +109,22 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                // Convert display gender back to backend format (lowercase)
+                final backendGender = _convertGenderToBackend(_selectedGender);
                 await ref.read(authServiceProvider).updateUserName(
-                    userName: _controllerName.text, gender: _selectedGender);
+                    userName: _controllerName.text, gender: backendGender);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                        'Saved: ${_controllerName.text} ${_selectedGender}'),
+                        'Saved: ${_controllerName.text} ${_selectedGender ?? "N/A"}'),
                     duration: const Duration(seconds: 3), // Show for 3 seconds
                   ),
                 );
 
                 Navigator.pop(context, {
                   'userName': _controllerName.text,
-                  'gender': _selectedGender
+                  'gender': backendGender ?? ''
                 });
-
-                // Navigator.of(context).pop(_controllerName.text);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.amber,

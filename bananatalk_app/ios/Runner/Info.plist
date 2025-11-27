@@ -2,54 +2,108 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleDevelopmentRegion</key>
-    <string>$(DEVELOPMENT_LANGUAGE)</string>
-    <key>CFBundleDisplayName</key>
-    <string>Bananatalk App</string>
-    <key>CFBundleExecutable</key>
-    <string>$(EXECUTABLE_NAME)</string>
-    <key>CFBundleIdentifier</key>
-    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
-    <key>CFBundleName</key>
-    <string>bananatalk_app</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>CFBundleShortVersionString</key>
-    <string>$(FLUTTER_BUILD_NAME)</string>
-    <key>CFBundleVersion</key>
-    <string>$(FLUTTER_BUILD_NUMBER)</string>
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
-    <key>UILaunchStoryboardName</key>
-    <string>LaunchScreen</string>
-    <key>UIMainStoryboardFile</key>
-    <string>Main</string>
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-        <string>UIInterfaceOrientationLandscapeLeft</string>
-        <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>UISupportedInterfaceOrientations~ipad</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-        <string>UIInterfaceOrientationPortraitUpsideDown</string>
-        <string>UIInterfaceOrientationLandscapeLeft</string>
-        <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>CADisableMinimumFrameDurationOnPhone</key>
-    <true/>
-    <key>UIApplicationSupportsIndirectInputEvents</key>
-    <true/>
+   <key>CADisableMinimumFrameDurationOnPhone</key>
+   <true/>
 
-    <!-- Permissions -->
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to your location.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app needs access to your location even when not in use.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires access to your photo library for uploading images.</string>
+   <!-- Google Sign-In Configuration -->
+   <key>GIDClientID</key>
+   <string>810869785173-6jl1i1b32lghpsdq6lp92a7b1vuedoh4.apps.googleusercontent.com</string>
+
+   <!-- Facebook Configuration -->
+   <key>FacebookAppID</key>
+   <string>1556850925349743</string>
+   <key>FacebookDisplayName</key>
+   <string>BananaTalk</string>
+   <key>FacebookClientToken</key>
+   <string>4f4f3a3f65843de17d811422356f731d</string>
+
+   <!-- URL Types for Google and Facebook -->
+   <key>CFBundleURLTypes</key>
+   <array>
+      <!-- Google Sign-In URL Scheme -->
+      <dict>
+         <key>CFBundleTypeRole</key>
+         <string>Editor</string>
+         <key>CFBundleURLSchemes</key>
+         <array>
+            <string>com.googleusercontent.apps.810869785173-6jl1i1b32lghpsdq6lp92a7b1vuedoh4</string>
+         </array>
+      </dict>
+      <!-- Facebook URL Scheme -->
+      <dict>
+         <key>CFBundleTypeRole</key>
+         <string>Editor</string>
+         <key>CFBundleURLSchemes</key>
+         <array>
+            <string>fb1556850925349743</string>
+         </array>
+      </dict>
+   </array>
+
+   <!-- Facebook Query Schemes -->
+   <key>LSApplicationQueriesSchemes</key>
+   <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+   </array>
+
+   <key>CFBundleDevelopmentRegion</key>
+   <string>$(DEVELOPMENT_LANGUAGE)</string>
+   <key>CFBundleDisplayName</key>
+   <string>Bananatalk</string>
+   <key>CFBundleExecutable</key>
+   <string>$(EXECUTABLE_NAME)</string>
+   <key>CFBundleIdentifier</key>
+   <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+   <key>CFBundleInfoDictionaryVersion</key>
+   <string>6.0</string>
+   <key>CFBundleName</key>
+   <string>bananatalk_app</string>
+   <key>CFBundlePackageType</key>
+   <string>APPL</string>
+   <key>CFBundleShortVersionString</key>
+   <string>$(FLUTTER_BUILD_NAME)</string>
+   <key>CFBundleVersion</key>
+   <string>$(FLUTTER_BUILD_NUMBER)</string>
+   <key>LSRequiresIPhoneOS</key>
+   <true/>
+
+   <!-- LOCATION PERMISSIONS -->
+   <key>NSLocationWhenInUseUsageDescription</key>
+   <string>Bananatalk needs your location to tag your moments, find language partners nearby, and show local cultural events.</string>
+
+   <!-- PHOTO LIBRARY -->
+   <key>NSPhotoLibraryUsageDescription</key>
+   <string>Bananatalk needs access to your photo library to let you share photos in your moments and messages.</string>
+
+   <!-- CAMERA -->
+   <key>NSCameraUsageDescription</key>
+   <string>Bananatalk needs camera access to let you take photos for your moments and profile.</string>
+
+   <!-- MICROPHONE -->
+   <key>NSMicrophoneUsageDescription</key>
+   <string>Bananatalk needs microphone access for voice messages and language practice calls.</string>
+
+   <key>UIApplicationSupportsIndirectInputEvents</key>
+   <true/>
+   <key>UILaunchStoryboardName</key>
+   <string>LaunchScreen</string>
+   <key>UIMainStoryboardFile</key>
+   <string>Main</string>
+   <key>UISupportedInterfaceOrientations</key>
+   <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+   </array>
+   <key>UISupportedInterfaceOrientations~ipad</key>
+   <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+   </array>
 </dict>
 </plist>

@@ -1,5 +1,3 @@
-// import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
-// import 'package:bananatalk_app/pages/welcome.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -18,26 +16,32 @@ class SplashScreen extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    final authService = ref.read(authServiceProvider); // Corrected syntax
-    bool isAuthenticated = authService.isLoggedIn;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(Duration(seconds: 2), () {
-      if (isAuthenticated) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => TabsScreen()));
-      } else {
-        // Navigate to login page if not authenticated
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomePage()));
-      }
+    _initializeApp();
+  }
 
-      // Navigate to the home screen after 3 seconds
-      // Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(builder: (context) => HomePage()),
-      // );
-    });
+  Future<void> _initializeApp() async {
+    // Wait for auth initialization to complete
+    final authService = ref.read(authServiceProvider);
+    final isAuthenticated = await authService.initializeAuth();
+    
+    // Add minimum splash screen duration for better UX
+    await Future.delayed(const Duration(seconds: 2));
+    
+    if (!mounted) return;
+    
+    // Navigate based on authentication status
+    if (isAuthenticated) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const TabsScreen()),
+      );
+    } else {
+      // Navigate to login page if not authenticated
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    }
   }
 
   @override

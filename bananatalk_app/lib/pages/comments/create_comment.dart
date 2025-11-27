@@ -2,6 +2,7 @@ import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 class CreateComment extends ConsumerStatefulWidget {
   final FocusNode focusNode;
@@ -21,36 +22,60 @@ class CreateComment extends ConsumerStatefulWidget {
 
 class _CreateCommentState extends ConsumerState<CreateComment> {
   TextEditingController commentController = TextEditingController();
-  void submitComment() {
+  Future<void> submitComment() async {
     String commentText = commentController.text.trim();
-    if (commentText.isNotEmpty) {
-      // Here you can implement the logic to submit the comment to your backend or provider
-      // For example, call a function that handles the submission
-      final commentProvider = ref.watch(commentsServiceProvider).createComment(
-          title: commentText, id: widget.id); // Use ref to read the provider
-      // commentProvider.submitComment(commentText);
-      ref.refresh(commentsServiceProvider);
-      ref.refresh(commentsProvider(widget.id));
-      ref.refresh(momentsServiceProvider).getSingleMoment(id: widget.id);
-      // Clear the text field after submission
+    if (commentText.isEmpty) return;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    try {
+      // Create the comment
+      await ref.read(commentsServiceProvider).createComment(
+        title: commentText,
+        id: widget.id,
+      );
+
+      // Clear the text field after successful submission
       commentController.clear();
 
-      // Optionally, you can update the UI to reflect the new comment
-      // setState(() {
-      //   // Update any state variables or provider data if needed
-      // });
+      // Refresh comments list to show the new comment
+      ref.invalidate(commentsProvider(widget.id));
+
+      // Refresh the moment to update comment count
+      ref.invalidate(momentsServiceProvider);
+
+      // Call the callback to update comment count in parent
       widget.onCommentAdded();
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Comment added successfully'),
+          duration: const Duration(seconds: 1),
+          backgroundColor: colorScheme.primary,
+        ),
+      );
+    } catch (e) {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to add comment: ${e.toString().replaceFirst('Exception: ', '')}'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: colorScheme.error,
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final secondaryText = context.textSecondary;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: colorScheme.surfaceVariant,
         border: Border(
-          top: BorderSide(color: Colors.grey.shade300),
+          top: BorderSide(color: colorScheme.outlineVariant),
         ),
       ),
       child: Row(
@@ -59,11 +84,11 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: colorScheme.onSurface.withOpacity(0.15),
                     spreadRadius: 1,
                     blurRadius: 3,
                     offset: Offset(0, 2),
@@ -89,18 +114,25 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
               ),
             ),
           ),
-          SizedBox(width: 10),
-          if (commentController.text.trim().isNotEmpty)
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                icon: Icon(Icons.send, color: Colors.white),
-                onPressed: submitComment,
-              ),
-            ),
+          const SizedBox(width: 10),
+          ValueListenableBuilder<TextEditingValue>(
+            valueListenable: commentController,
+            builder: (context, value, child) {
+              final hasText = value.text.trim().isNotEmpty;
+              return Container(
+                decoration: BoxDecoration(
+                  color: hasText 
+                      ? colorScheme.primary
+                      : colorScheme.outlineVariant,
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.send, color: colorScheme.onPrimary),
+                  onPressed: hasText ? submitComment : null,
+                ),
+              );
+            },
+          ),
         ],
       ),
     );

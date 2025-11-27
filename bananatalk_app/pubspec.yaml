@@ -2,7 +2,7 @@ name: bananatalk_app
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 1.0.7+10
 
 environment:
   sdk: '>=3.1.4 <4.0.0'
@@ -28,6 +28,13 @@ dependencies:
   intl: ^0.17.0
   socket_io_client: ^2.0.3+1
   share_plus: ^7.2.2
+  url_launcher: ^6.2.2
+  webview_flutter: ^4.4.2
+  google_sign_in: ^6.1.6
+
+  flutter_launcher_icons: ^0.13.1
+  flutter_dotenv: ^6.0.0
+#  flutter_facebook_auth: ^7.0.1
 
 
 
@@ -36,7 +43,12 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
-
+  generate: true
   assets:
     - assets/images/
+flutter_icons:
+  android: true
+  image_path: "assets/images/"
+
+
 

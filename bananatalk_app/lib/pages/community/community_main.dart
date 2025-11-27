@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 class CommunityMain extends ConsumerStatefulWidget {
   const CommunityMain({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     with TickerProviderStateMixin {
   late String userId = '';
   String _searchQuery = '';
+  String _selectedTab = 'All'; // All, Nearby, Serious Learners, etc.
   Map<String, dynamic> _filters = {
     'minAge': 18,
     'maxAge': 100,
@@ -146,25 +148,67 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error loading community: $e'),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
     }
   }
 
-  List<Community> _getFilteredCommunities(List<Community> communities) {
+  List<Community> _getFilteredCommunities(
+    List<Community> communities,
+    String? myNativeLanguage,
+    String? myLanguageToLearn,
+  ) {
     return communities.where((community) {
       // Exclude current user
       if (community.id == userId) return false;
 
-      // Apply filters
-      if (_filters['gender'] != null && _filters['gender'] != community.gender)
-        return false;
-      if (_filters['language'] != null &&
-          _filters['language'] != community.native_language) return false;
+      // Check if native language filter is applied
+      final hasNativeLanguageFilter = _filters['nativeLanguage'] != null && 
+          _filters['nativeLanguage'].toString().isNotEmpty;
 
-      // Apply search
+      // Language Exchange Matching Logic:
+      // If no native language filter is set, use exchange matching
+      // If native language filter is set, it overrides exchange matching
+      bool isLanguageMatch = false;
+      
+      if (hasNativeLanguageFilter) {
+        // User explicitly filtered by native language - match that exactly
+        final filterLang = _filters['nativeLanguage'].toString().toLowerCase();
+        final communityLang = community.native_language.toLowerCase();
+        isLanguageMatch = filterLang == communityLang;
+      } else {
+        // No filter - use language exchange matching:
+        // Show people whose native language matches what I'm learning
+        // OR people who are learning my native language
+        if (myLanguageToLearn != null && myLanguageToLearn.isNotEmpty) {
+          // They speak what I'm learning (their native == my learning)
+          if (community.native_language.toLowerCase() == 
+              myLanguageToLearn.toLowerCase()) {
+            isLanguageMatch = true;
+          }
+        }
+        
+        if (myNativeLanguage != null && myNativeLanguage.isNotEmpty) {
+          // They're learning what I speak (their learning == my native)
+          if (community.language_to_learn.toLowerCase() == 
+              myNativeLanguage.toLowerCase()) {
+            isLanguageMatch = true;
+          }
+        }
+      }
+
+      // If no language match, exclude this community
+      if (!isLanguageMatch) return false;
+
+      // Apply additional filters
+      if (_filters['gender'] != null && 
+          _filters['gender'] != community.gender) {
+        return false;
+      }
+
+      // Apply search query
       if (_searchQuery.isNotEmpty) {
         final query = _searchQuery.toLowerCase();
         return community.name.toLowerCase().contains(query) ||
@@ -180,19 +224,32 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   @override
   Widget build(BuildContext context) {
     final communityAsyncValue = ref.watch(communityProvider);
+    final currentUserAsync = ref.watch(userProvider);
 
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: colorScheme.background,
       appBar: _buildAppBar(),
       body: Column(
         children: [
           _buildSearchBar(),
+          _buildFilterTabs(),
           Expanded(
             child: RefreshIndicator(
               onRefresh: _refresh,
-              color: const Color(0xFF667eea),
-              child: communityAsyncValue.when(
-                data: (communities) => _buildCommunityList(communities),
+              color: colorScheme.primary,
+              child: currentUserAsync.when(
+                data: (currentUser) {
+                  return communityAsyncValue.when(
+                    data: (communities) => _buildCommunityList(
+                      communities,
+                      currentUser.native_language,
+                      currentUser.language_to_learn,
+                    ),
+                    loading: () => _buildLoadingState(),
+                    error: (error, stackTrace) => _buildErrorState(error),
+                  );
+                },
                 loading: () => _buildLoadingState(),
                 error: (error, stackTrace) => _buildErrorState(error),
               ),
@@ -204,48 +261,109 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   PreferredSizeWidget _buildAppBar() {
+    final colorScheme = Theme.of(context).colorScheme;
     return AppBar(
       automaticallyImplyLeading: false,
-      title: const Text(
-        'Community',
+      backgroundColor: colorScheme.surface,
+      surfaceTintColor: Colors.transparent,
+      title: Text(
+        'Find Partners',
         style: TextStyle(
           fontWeight: FontWeight.w700,
-          fontSize: 28,
-          color: Colors.black87,
+          fontSize: 24,
+          color: context.textPrimary,
         ),
       ),
       actions: [
+        IconButton(
+          onPressed: () {
+            // Refresh action
+            _refresh();
+          },
+          icon: Icon(Icons.refresh, color: context.textPrimary),
+          tooltip: 'Refresh',
+        ),
         Container(
           margin: const EdgeInsets.only(right: 8),
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            color: colorScheme.primary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: IconButton(
             onPressed: _filterSearch,
-            icon: const Icon(Icons.tune, color: Colors.white),
-            tooltip: 'Filter Communities',
+            icon: Icon(Icons.tune, color: colorScheme.onPrimary),
+            tooltip: 'Filter & Search',
           ),
         ),
       ],
-      backgroundColor: Colors.white,
       elevation: 0,
-      surfaceTintColor: Colors.transparent,
+    );
+  }
+
+  Widget _buildFilterTabs() {
+    final tabs = ['All', 'Nearby', 'Active Now', 'New Users'];
+    
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      height: 50,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: tabs.length,
+        itemBuilder: (context, index) {
+          final tab = tabs[index];
+          final isSelected = _selectedTab == tab;
+          
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedTab = tab;
+              });
+            },
+            child: Container(
+              margin: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected 
+                    ? colorScheme.primary.withOpacity(0.15)
+                    : colorScheme.surfaceVariant,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected 
+                      ? colorScheme.primary
+                      : Colors.transparent,
+                  width: 1.5,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  tab,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                    color: isSelected 
+                        ? colorScheme.primary
+                        : context.textSecondary,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
   Widget _buildSearchBar() {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: colorScheme.shadow.withOpacity(0.08),
             blurRadius: 15,
             offset: const Offset(0, 4),
           ),
@@ -255,22 +373,20 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         controller: _searchController,
         focusNode: _searchFocusNode,
         decoration: InputDecoration(
-          hintText: 'Search communities, languages, interests...',
+          hintText: 'Search by name, language, or interests...',
           hintStyle: TextStyle(
-            color: Colors.grey[500],
+            color: context.textSecondary,
             fontSize: 16,
           ),
           prefixIcon: Container(
             margin: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-              ),
+              color: colorScheme.primary,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.search,
-              color: Colors.white,
+              color: colorScheme.onPrimary,
               size: 20,
             ),
           ),
@@ -278,7 +394,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               ? IconButton(
                   icon: Icon(
                     Icons.clear,
-                    color: Colors.grey[500],
+                    color: context.textSecondary,
                     size: 20,
                   ),
                   onPressed: () {
@@ -294,13 +410,13 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: colorScheme.surface,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 16,
           ),
         ),
-        style: const TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16, color: context.textPrimary),
         onChanged: (value) {
           setState(() {
             _searchQuery = value;
@@ -310,8 +426,16 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     );
   }
 
-  Widget _buildCommunityList(List<Community> communities) {
-    final filteredCommunities = _getFilteredCommunities(communities);
+  Widget _buildCommunityList(
+    List<Community> communities,
+    String? myNativeLanguage,
+    String? myLanguageToLearn,
+  ) {
+    final filteredCommunities = _getFilteredCommunities(
+      communities,
+      myNativeLanguage,
+      myLanguageToLearn,
+    );
 
     if (filteredCommunities.isEmpty) {
       return _buildEmptyState();
@@ -327,10 +451,12 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           itemCount: filteredCommunities.length,
           itemBuilder: (context, index) {
             final community = filteredCommunities[index];
+            final isFollowing = community.followers.contains(userId);
             return CommunityCard(
               community: community,
               onTap: () => redirect(community.id),
               animationDelay: index * 100,
+              isFollowing: isFollowing,
             );
           },
         ),
@@ -339,19 +465,20 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   Widget _buildLoadingState() {
-    return const Center(
+    final colorScheme = Theme.of(context).colorScheme;
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF667eea)),
+            valueColor: AlwaysStoppedAnimation<Color>(colorScheme.primary),
             strokeWidth: 3,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
-            'Discovering communities...',
+            'Finding language exchange partners...',
             style: TextStyle(
-              color: Colors.grey,
+              color: context.textSecondary,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -362,16 +489,17 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   Widget _buildErrorState(dynamic error) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Center(
       child: Container(
         margin: const EdgeInsets.all(32),
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: colorScheme.shadow.withOpacity(0.08),
               blurRadius: 15,
               offset: const Offset(0, 4),
             ),
@@ -386,8 +514,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.red.withOpacity(0.1),
-                    Colors.orange.withOpacity(0.1),
+                    colorScheme.error.withOpacity(0.12),
+                    colorScheme.errorContainer.withOpacity(0.1),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(40),
@@ -395,7 +523,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               child: Icon(
                 Icons.error_outline,
                 size: 40,
-                color: Colors.red[400],
+                color: colorScheme.error,
               ),
             ),
             const SizedBox(height: 20),
@@ -404,7 +532,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: Colors.grey[800],
+                color: context.textPrimary,
               ),
             ),
             const SizedBox(height: 8),
@@ -412,7 +540,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               'Failed to load communities: $error',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.grey[600],
+                color: context.textSecondary,
                 fontSize: 14,
               ),
             ),
@@ -422,8 +550,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               icon: const Icon(Icons.refresh),
               label: const Text('Try Again'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF667eea),
-                foregroundColor: Colors.white,
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -441,68 +569,84 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   Widget _buildEmptyState() {
+    final colorScheme = Theme.of(context).colorScheme;
     return FadeTransition(
       opacity: _fadeAnimation,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(60),
-              ),
-              child: const Icon(
-                Icons.people_outline,
-                size: 60,
-                color: Colors.white,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height - 200,
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          colorScheme.primary,
+                          colorScheme.secondary,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Icon(
+                      Icons.people_outline,
+                      size: 50,
+                      color: colorScheme.onPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    _searchQuery.isNotEmpty
+                        ? 'No matching communities'
+                        : 'No language exchange matches found',
+                    style: TextStyle(
+                      color: context.textPrimary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    _searchQuery.isNotEmpty
+                        ? 'Try adjusting your search or filters'
+                        : 'We\'ll show you people who speak the language you\'re learning, or who are learning your native language',
+                    style: TextStyle(
+                      color: context.textSecondary,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  if (_searchQuery.isNotEmpty) ...[
+                    const SizedBox(height: 24),
+                    TextButton.icon(
+                      onPressed: () {
+                        _searchController.clear();
+                        setState(() {
+                          _searchQuery = '';
+                        });
+                      },
+                      icon: const Icon(Icons.clear),
+                      label: const Text('Clear Search'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
-            const SizedBox(height: 30),
-            Text(
-              _searchQuery.isNotEmpty
-                  ? 'No matching communities'
-                  : 'No communities found',
-              style: TextStyle(
-                color: Colors.grey[700],
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              _searchQuery.isNotEmpty
-                  ? 'Try adjusting your search or filters'
-                  : 'Communities will appear here once available',
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            if (_searchQuery.isNotEmpty) ...[
-              const SizedBox(height: 24),
-              TextButton.icon(
-                onPressed: () {
-                  _searchController.clear();
-                  setState(() {
-                    _searchQuery = '';
-                  });
-                },
-                icon: const Icon(Icons.clear),
-                label: const Text('Clear Search'),
-                style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF667eea),
-                ),
-              ),
-            ],
-          ],
+          ),
         ),
       ),
     );

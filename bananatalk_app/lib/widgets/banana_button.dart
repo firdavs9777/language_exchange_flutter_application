@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BananaButton extends StatelessWidget {
   final Widget BananaText; // This should be your BananaText widget
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
   final Color? textColor;
   final TextStyle? textStyle;
@@ -15,7 +15,7 @@ class BananaButton extends StatelessWidget {
   const BananaButton({
     super.key,
     required this.BananaText,
-    required this.onPressed,
+    this.onPressed,
     this.color,
     this.textColor,
     this.textStyle,

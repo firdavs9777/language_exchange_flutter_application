@@ -2,6 +2,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 
@@ -12,6 +13,9 @@ class CommentsMain extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textPrimary = context.textPrimary;
+    final secondaryText = context.textSecondary;
     // Watching the commentsProvider to get the list of comments for the given id
     final commentsAsyncValue = ref.watch(commentsProvider(id));
 
@@ -77,11 +81,21 @@ class CommentsMain extends ConsumerWidget {
                               },
                               child: CircleAvatar(
                                 radius: 25,
+                                backgroundColor: const Color(0xFF00BFA5),
                                 backgroundImage: comment
                                         .user.imageUrls.isNotEmpty
                                     ? NetworkImage(comment.user.imageUrls[0])
                                     : null,
-                                backgroundColor: Colors.grey[200],
+                                child: comment.user.imageUrls.isEmpty
+                                    ? Icon(
+                                        Icons.person,
+                                        size: 25,
+                                        color: colorScheme.surface,
+                                      )
+                                    : null,
+                                onBackgroundImageError: (exception, stackTrace) {
+                                  // Image failed to load, will use icon fallback
+                                },
                               ),
                             ),
                             title: Text(
@@ -103,12 +117,12 @@ class CommentsMain extends ConsumerWidget {
                                   .toLocal()
                                   .toString()
                                   .split(' ')[0],
-                              style: TextStyle(color: Colors.grey[600]),
+                              style: TextStyle(color: secondaryText),
                             ),
                           ),
                           Divider(
                               thickness: 1,
-                              color: Colors.lightGreenAccent[300]),
+                              color: colorScheme.primary.withOpacity(0.3)),
                         ],
                       ),
                     ),

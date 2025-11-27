@@ -1,11 +1,12 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
   final String userName;
-  final String userEmail;
+  final String userEmail; // This is now pre-verified
   final String userPassword;
   final String userBio;
   final String? userGender;
@@ -13,16 +14,18 @@ class Register extends StatefulWidget {
   final String? userLearnLang;
   final String userBirthDate;
 
-  const Register(
-      {super.key,
-      this.userName = '',
-      this.userEmail = '',
-      this.userPassword = '',
-      this.userBio = '',
-      this.userGender = '',
-      this.userNativeLang = '',
-      this.userLearnLang = '',
-      this.userBirthDate = ''});
+  const Register({
+    super.key,
+    this.userName = '',
+    required this.userEmail, // Make this required since email is verified
+    this.userPassword = '',
+    this.userBio = '',
+    this.userGender = '',
+    this.userNativeLang = '',
+    this.userLearnLang = '',
+    this.userBirthDate = '',
+  });
+
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -43,7 +46,6 @@ class _RegisterState extends State<Register> {
     _emailController = TextEditingController(text: widget.userEmail);
     _passwordConfirmController =
         TextEditingController(text: widget.userPassword);
-    // ref.watch(authStatesProvider);
   }
 
   @override
@@ -56,15 +58,8 @@ class _RegisterState extends State<Register> {
   }
 
   void submit() {
-    final emailPattern = r'^[^@]+@[^@]+\.[^@]+';
-    final emailRegex = RegExp(emailPattern);
-
-    final passwordPattern =
-        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$';
-    final passwordRegex = RegExp(passwordPattern);
-
+    // Validate name and passwords only (email is already verified)
     if (_nameController.text.isEmpty ||
-        _emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _passwordConfirmController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -79,32 +74,24 @@ class _RegisterState extends State<Register> {
       return;
     }
 
-    if (!emailRegex.hasMatch(_emailController.text)) {
+    // Password validation using AuthService helper
+    final passwordValidation =
+        AuthService.validatePassword(_passwordController.text);
+    if (!passwordValidation['valid']) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter a valid email address.',
+            passwordValidation['message'] ??
+                'Password does not meet requirements.',
             BanaStyles: BananaTextStyles.warning,
           ),
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 3),
         ),
       );
       return;
     }
 
-    if (!passwordRegex.hasMatch(_passwordController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            'Password must be at least 8 characters long and contain both letters and numbers.',
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-      return;
-    }
-
+    // Password match validation
     if (_passwordController.text != _passwordConfirmController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -118,17 +105,21 @@ class _RegisterState extends State<Register> {
       return;
     }
 
-    Navigator.of(context).push(MaterialPageRoute(
+    // Navigate to next step with verified email
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (ctx) => RegisterTwo(
-              name: _nameController.text,
-              email: _emailController.text,
-              password: _passwordController.text,
-              bio: widget.userBio,
-              gender: widget.userGender ?? 'Male',
-              nativeLanguage: widget.userNativeLang ?? 'English',
-              languageToLearn: widget.userLearnLang ?? 'Korean',
-              birthDate: widget.userBirthDate,
-            )));
+          name: _nameController.text,
+          email: widget.userEmail, // Use verified email from widget
+          password: _passwordController.text,
+          bio: widget.userBio,
+          gender: widget.userGender ?? 'Male',
+          nativeLanguage: widget.userNativeLang ?? 'English',
+          languageToLearn: widget.userLearnLang ?? 'Korean',
+          birthDate: widget.userBirthDate,
+        ),
+      ),
+    );
   }
 
   @override
@@ -164,45 +155,49 @@ class _RegisterState extends State<Register> {
                     ),
                     Center(
                       child: BananaText(
-                        'Register',
+                        'Complete Your Profile',
                         BanaStyles: BananaTextStyles.heading,
                       ),
                     ),
                     SizedBox(height: 10.0),
+
+                    // Name field
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          hintText: 'Username',
-                          prefixIcon: Icon(Icons.person)),
-                      onChanged: (value) {
-                        // Update name variable
-                      },
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        hintText: 'Username',
+                        prefixIcon: Icon(Icons.person),
+                      ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+
+                    // Email field (READ-ONLY - already verified)
                     TextFormField(
                       controller: _emailController,
+                      enabled: false, // Make it read-only
                       decoration: InputDecoration(
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          hintText: 'Email',
-                          prefixIcon: Icon(Icons.email)),
-                      onChanged: (value) {
-                        // Update name variable
-                      },
+                        filled: true,
+                        fillColor: Colors.grey[300], // Show it's disabled
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        hintText: 'Email',
+                        prefixIcon: Icon(Icons.email),
+                        suffixIcon: Icon(
+                          Icons.verified,
+                          color: Colors.green,
+                        ), // Show verified icon
+                      ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+
+                    // Password field
                     TextFormField(
                       controller: _passwordController,
                       obscureText: _obscureText,
@@ -232,9 +227,9 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+
+                    // Confirm password field
                     TextFormField(
                       controller: _passwordConfirmController,
                       obscureText: _obscureText_two,
@@ -264,9 +259,8 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
+
                     SizedBox(
                       width: 200.0,
                       child: ElevatedButton(
@@ -284,9 +278,10 @@ class _RegisterState extends State<Register> {
                         child: Text(
                           'Next',
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
@@ -299,15 +294,17 @@ class _RegisterState extends State<Register> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (ctx) => Login()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => Login()),
+                      );
                     },
                     child: Text('Already have an account?'),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (ctx) => Login()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => Login()),
+                      );
                     },
                     child: Text('Login'),
                   ),

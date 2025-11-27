@@ -133,8 +133,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       return;
     }
 
+    // Get base URL from Endpoints (socket connects to root, not /api/v1/)
+    final baseUrl = Endpoints.baseURL;
+    final socketUrl = baseUrl.endsWith('/api/v1/') 
+        ? baseUrl.substring(0, baseUrl.length - 8)
+        : baseUrl.replaceAll('/api/v1/', '');
+    
     _socket = IO.io(
-      'https://api.banatalk.com',
+      socketUrl,
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .enableAutoConnect()

@@ -1,11 +1,13 @@
 import 'package:bananatalk_app/pages/profile/personal_info/profile_blood_type.dart';
+import 'package:bananatalk_app/pages/profile/personal_info/profile_bio_edit.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_hometown.dart';
+import 'package:bananatalk_app/pages/profile/personal_info/profile_language_edit.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_mbti.dart';
 import 'package:bananatalk_app/pages/profile/about/profile_info_set.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod package
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileEdit extends ConsumerStatefulWidget {
   final String userName;
@@ -15,15 +17,18 @@ class ProfileEdit extends ConsumerStatefulWidget {
   final String nativeLanguage;
   final String languageToLearn;
   final String gender;
-  const ProfileEdit(
-      {super.key,
-      required this.userName,
-      required this.mbti,
-      required this.bloodType,
-      required this.location,
-      required this.nativeLanguage,
-      required this.languageToLearn,
-      required this.gender});
+  final String bio;
+  const ProfileEdit({
+    super.key,
+    required this.userName,
+    required this.mbti,
+    required this.bloodType,
+    required this.location,
+    required this.nativeLanguage,
+    required this.languageToLearn,
+    required this.gender,
+    this.bio = '',
+  });
 
   @override
   ConsumerState<ProfileEdit> createState() => _ProfileEditState();
@@ -37,9 +42,15 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   late String selectedNativeLanguage;
   late String selectedLanguageToLearn;
   late String selectedGender;
+  late String selectedAddress;
+  late String selectedBio;
+
   @override
   void initState() {
     super.initState();
+    selectedAddress = widget.location.formattedAddress.isEmpty
+        ? "Not Set"
+        : widget.location.formattedAddress;
     selectedName = widget.userName.isEmpty ? "Not Set" : widget.userName;
     selectedMBTI = widget.mbti.isEmpty ? "Not Set" : widget.mbti;
     selectedBloodType = widget.bloodType.isEmpty ? 'Not Set' : widget.bloodType;
@@ -48,11 +59,24 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     selectedLanguageToLearn =
         widget.languageToLearn.isEmpty ? "Not Set" : widget.languageToLearn;
     selectedGender = widget.gender.isEmpty ? "Not Set" : widget.gender;
+    selectedBio = widget.bio.isEmpty ? "Not Set" : widget.bio;
   }
 
   void updateMBTI(String newMBTI) {
     setState(() {
       selectedMBTI = newMBTI;
+    });
+  }
+
+  void updateNatLang(String newNatLang) {
+    setState(() {
+      selectedNatLanguage = newNatLang;
+    });
+  }
+
+  void updateLangLearn(String newLangLearn) {
+    setState(() {
+      selectedLanguageToLearn = newLangLearn;
     });
   }
 
@@ -69,144 +93,154 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     });
   }
 
+  void updateUserAddress(String newAddress) {
+    setState(() {
+      selectedAddress = newAddress;
+    });
+  }
+
+  void updateBio(String newBio) {
+    setState(() {
+      selectedBio = newBio;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Access the provider data using ref.watch() within the ConsumerStatefulWidget
-
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // This is the back button icon
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             ref.refresh(userProvider);
             Navigator.pop(context);
           },
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'About Me',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Basic Information Section
+            _buildSectionHeader('Basic Information', Icons.person),
+            _buildEditCard(
+              context: context,
+              icon: Icons.person,
+              iconColor: Colors.blue,
+              title: 'Name & Gender',
+              subtitle: selectedName,
+              value: selectedGender != "Not Set" ? selectedGender : null,
+              onTap: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileInfoSet(
+                      userName: selectedName,
+                      gender: selectedGender,
+                    ),
                   ),
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                elevation: 1,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: ListTile(
-                    contentPadding: const EdgeInsets.all(16),
-                    leading: CircleAvatar(
-                      child: const Icon(
-                        Icons
-                            .person, // Change this to something related to MBTI, e.g., icon for ENTP
-                        color: Colors.white,
+                );
+                if (result != null) {
+                  updateUserName(result['userName'], result['gender']);
+                }
+              },
+            ),
+            const SizedBox(height: 8),
+            _buildEditCard(
+              context: context,
+              icon: Icons.description,
+              iconColor: Colors.purple,
+              title: 'Bio',
+              subtitle: selectedBio == "Not Set" 
+                  ? "Not Set" 
+                  : (selectedBio.length > 50 
+                      ? '${selectedBio.substring(0, 50)}...' 
+                      : selectedBio),
+              onTap: () async {
+                final String updatedBio = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileBioEdit(
+                          currentBio: selectedBio == "Not Set" ? '' : selectedBio,
+                        ),
                       ),
-                    ),
-                    title: Text(
-                      'Name',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black,
-                      ),
-                    ),
-                    subtitle: Text(
-                      selectedName,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 22,
-                      color:
-                          Colors.grey[600], // Subtle gray color for the arrow
-                    ),
-                    onTap: () async {
-                      final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileInfoSet(
-                                  userName: selectedName,
-                                  gender: selectedGender)));
-                      updateUserName(result['userName'], result['gender']);
+                    ) ??
+                    selectedBio;
+                if (updatedBio != selectedBio) {
+                  updateBio(updatedBio);
+                }
+              },
+            ),
+            const SizedBox(height: 8),
 
-                      // if (result != null && result is Map<String, String>) {
-                      //   final String updatedUserName =
-                      //       result['userName'] ?? selectedName;
-                      //   final String updatedGender =
-                      //       result['gender'] ?? selectedGender;
-                      //   updateUserName(updatedUserName, updatedGender);
-                      //
-                      //   setState(() {
-                      //     selectedName =
-                      //         result['userName'] ?? selectedName.toString();
-                      //   });
-                      //   print(selectedName);
-                      // Update the userProvider with the new data
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Language',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                elevation: 1,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    child: const Icon(
-                      Icons
-                          .language, // Change this to something related to MBTI, e.g., icon for ENTP
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text(
-                    'First Language',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    selectedNatLanguage,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 22,
-                    color: Colors.grey[600], // Subtle gray color for the arrow
-                  ),
+            // Language Section
+            _buildSectionHeader('Language Exchange', Icons.language),
+            _buildEditCard(
+              context: context,
+              icon: Icons.translate,
+              iconColor: Colors.blue,
+              title: 'Native Language',
+              subtitle: selectedNatLanguage,
+                  onTap: () async {
+                    final String updatedNatLang = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileLanguageEdit(
+                              initialLanguage: selectedNatLanguage,
+                              type: 'native',
+                            ),
+                          ),
+                        ) ??
+                        selectedNatLanguage;
+                if (updatedNatLang != selectedNatLanguage) {
+                    updateNatLang(updatedNatLang);
+                }
+              },
+            ),
+            const SizedBox(height: 8),
+            _buildEditCard(
+              context: context,
+              icon: Icons.school,
+              iconColor: Colors.orange,
+              title: 'Language to Learn',
+              subtitle: selectedLanguageToLearn,
+                  onTap: () async {
+                    final String updatedLangLearn = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileLanguageEdit(
+                              initialLanguage: selectedLanguageToLearn,
+                              type: 'learn',
+                            ),
+                          ),
+                        ) ??
+                        selectedLanguageToLearn;
+                if (updatedLangLearn != selectedLanguageToLearn) {
+                    updateLangLearn(updatedLangLearn);
+                }
+              },
+            ),
+            const SizedBox(height: 8),
+
+            // Personal Information Section
+            _buildSectionHeader('Personal Information', Icons.info_outline),
+            _buildEditCard(
+              context: context,
+              icon: Icons.psychology,
+              iconColor: Colors.purple,
+              title: 'MBTI',
+              subtitle: selectedMBTI,
                   onTap: () async {
                     final String updatedMbtiType = await Navigator.push(
                           context,
@@ -217,230 +251,174 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                           ),
                         ) ??
                         selectedMBTI;
+                if (updatedMbtiType != selectedMBTI) {
                     updateMBTI(updatedMbtiType);
-                  },
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                elevation: 1,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    child: const Icon(
-                      Icons
-                          .library_books_outlined, // Change this to something related to MBTI, e.g., icon for ENTP
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text(
-                    'Language to learn',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    selectedLanguageToLearn,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 22,
-                    color: Colors.grey[600], // Subtle gray color for the arrow
-                  ),
-                  onTap: () async {
-                    final String updatedMbtiType = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MBTIEdit(
-                              currentMBTI: selectedMBTI,
-                            ),
-                          ),
-                        ) ??
-                        selectedMBTI;
-                    updateMBTI(updatedMbtiType);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Personal Information',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                elevation: 1,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    child: const Icon(
-                      Icons
-                          .coffee, // Change this to something related to MBTI, e.g., icon for ENTP
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text(
-                    'My MBTI',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    selectedMBTI,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 22,
-                    color: Colors.grey[600], // Subtle gray color for the arrow
-                  ),
-                  onTap: () async {
-                    final String updatedMbtiType = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MBTIEdit(
-                              currentMBTI: selectedMBTI,
-                            ),
-                          ),
-                        ) ??
-                        selectedMBTI;
-                    updateMBTI(updatedMbtiType);
-                  },
-                ),
-              ),
-              Card(
-                elevation: 1,
-                color: Colors.white,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueAccent,
-                    child: const Icon(
-                      Icons.bloodtype,
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text(
-                    'My Blood Type',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    selectedBloodType,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 22,
-                    color: Colors.grey[600], // Subtle gray color for the arrow
-                  ),
+                }
+              },
+            ),
+            const SizedBox(height: 8),
+            _buildEditCard(
+              context: context,
+              icon: Icons.bloodtype,
+              iconColor: Colors.red,
+              title: 'Blood Type',
+              subtitle: selectedBloodType,
                   onTap: () async {
                     final String updatedBloodType = await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => PersonBloodType(
-                                currentSelectedBloodType: selectedBloodType),
+                          currentSelectedBloodType: selectedBloodType,
+                        ),
                           ),
                         ) ??
                         selectedBloodType;
+                if (updatedBloodType != selectedBloodType) {
                     updateBloodType(updatedBloodType);
-                  },
+                }
+              },
+            ),
+            const SizedBox(height: 8),
+            _buildEditCard(
+              context: context,
+              icon: Icons.location_on,
+              iconColor: Colors.green,
+              title: 'Hometown',
+              subtitle: selectedAddress,
+                  onTap: () async {
+                    final String newAddress = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileHometownEdit(
+                              currentAddress: selectedAddress,
+                            ),
+                          ),
+                        ) ??
+                        selectedAddress;
+                if (newAddress != selectedAddress) {
+                    updateUserAddress(newAddress);
+                }
+              },
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF00BFA5).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, size: 20, color: const Color(0xFF00BFA5)),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEditCard({
+    required BuildContext context,
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String subtitle,
+    String? value,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: iconColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(icon, color: iconColor, size: 24),
                 ),
-              ),
-              Card(
-                color: Colors.white,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueAccent,
-                    child: const Icon(
-                      Icons.home_filled,
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text(
-                    'My Hometown',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    widget.location
-                        .formattedAddress, // Replace with actual hometown data from the provider if needed
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 22,
-                    color: Colors.grey[600], // Subtle gray color for the arrow
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileHometownEdit(),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
                       ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Interests',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      const SizedBox(height: 4),
+                      if (value != null)
+                        Text(
+                          value,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: subtitle == "Not Set"
+                              ? Colors.grey[500]
+                              : Colors.grey[700],
+                          fontWeight: subtitle == "Not Set"
+                              ? FontWeight.normal
+                              : FontWeight.w500,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                Icon(
+                  Icons.chevron_right,
+                  color: Colors.grey[400],
+                ),
+              ],
+            ),
           ),
         ),
       ),
