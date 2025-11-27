@@ -28,6 +28,9 @@ class VipService {
       final url = Uri.parse(
           '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/vip/activate');
 
+      print('VIP Activate URL: $url');
+      print('VIP Activate Request: plan=${plan.toJson()}, payment=$paymentMethod');
+
       final response = await http.post(
         url,
         headers: _getHeaders(token),
@@ -37,19 +40,39 @@ class VipService {
         }),
       );
 
-      if (response.statusCode == 200) {
-        return {
-          'success': true,
-          'data': jsonDecode(response.body),
-        };
+      print('VIP Activate Response Status: ${response.statusCode}');
+      print('VIP Activate Response Body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        try {
+          final data = jsonDecode(response.body);
+          return {
+            'success': true,
+            'data': data,
+          };
+        } catch (e) {
+          print('JSON Parse Error: $e');
+          return {
+            'success': false,
+            'error': 'Invalid response format from server',
+          };
+        }
       } else {
-        final error = jsonDecode(response.body);
-        return {
-          'success': false,
-          'error': error['message'] ?? 'Failed to activate VIP subscription',
-        };
+        try {
+          final error = jsonDecode(response.body);
+          return {
+            'success': false,
+            'error': error['message'] ?? 'Failed to activate VIP subscription',
+          };
+        } catch (e) {
+          return {
+            'success': false,
+            'error': 'Server error: ${response.statusCode} - ${response.body}',
+          };
+        }
       }
     } catch (e) {
+      print('VIP Activate Error: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',

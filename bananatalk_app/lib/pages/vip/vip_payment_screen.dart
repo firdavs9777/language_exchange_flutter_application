@@ -54,6 +54,17 @@ class _VipPaymentScreenState extends State<VipPaymentScreen> {
       return;
     }
 
+    // Check if userId is valid
+    if (widget.userId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('User ID not found. Please log in again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     setState(() {
       isProcessing = true;
     });
@@ -72,6 +83,8 @@ class _VipPaymentScreenState extends State<VipPaymentScreen> {
     setState(() {
       isProcessing = false;
     });
+
+    if (!mounted) return;
 
     if (result['success']) {
       // Show success dialog
@@ -118,10 +131,52 @@ class _VipPaymentScreenState extends State<VipPaymentScreen> {
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(result['error'] ?? 'Payment failed'),
-          backgroundColor: Colors.red,
+      // Show detailed error message
+      final errorMessage = result['error'] ?? 'Payment failed';
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Payment Failed'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'An error occurred while processing your payment:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+                Text(errorMessage),
+                const SizedBox(height: 12),
+                const Text(
+                  'Debug Info:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  'User ID: ${widget.userId}\nPlan: ${widget.plan.name}\nPayment: $selectedPaymentMethod',
+                  style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _processPayment(); // Retry
+              },
+              child: const Text('Retry'),
+            ),
+          ],
         ),
       );
     }
