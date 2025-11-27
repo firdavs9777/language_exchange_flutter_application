@@ -12,7 +12,9 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // import your pages
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/pages/vip/vip_status_screen.dart'; // import your pages
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -100,6 +102,16 @@ class LeftDrawer extends ConsumerWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProfileTheme()),
+            );
+          }),
+          Divider(), // Add this divider
+          buildMenuItem(context, Icons.workspace_premium, 'VIP Membership', () {
+            // Check if user is already VIP - you'll need to pass user mode info
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VipPlansScreen(userId: user.id),
+              ),
             );
           }),
           buildMenuItem(context, Icons.logout, 'Logout', () async {
