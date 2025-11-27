@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -196,6 +198,7 @@ class LeftDrawer extends ConsumerWidget {
                   ],
                 ),
               ),
+<<<<<<< HEAD
             ),
             const SizedBox(height: 20),
             // Quick Stats Section
@@ -419,6 +422,26 @@ class LeftDrawer extends ConsumerWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const ProfileTheme(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+            const Divider(height: 1),
+            const SizedBox(height: 8),
+            // VIP Membership menu item
+            _buildModernMenuItem(
+              context: context,
+              icon: Icons.workspace_premium,
+              title: 'VIP Membership',
+              subtitle: 'Upgrade to premium',
+              color: Colors.amber,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VipPlansScreen(userId: user.id),
                   ),
                 );
               },
