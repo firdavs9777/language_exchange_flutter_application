@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:convert';
@@ -21,20 +22,22 @@ class AuthService extends ChangeNotifier {
   Future<bool> initializeAuth() async {
     final prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token') ?? '';
+    print(token);
+    print("here");
     refreshToken = prefs.getString('refreshToken') ?? '';
     userId = prefs.getString('userId') ?? '';
-    
+
     // If we have tokens, validate them
     if (token.isNotEmpty && userId.isNotEmpty) {
       debugPrint('🔍 Validating stored token...');
-      
+
       // Try to validate token by making a test API call
       final isValid = await _validateToken();
-      
+
       if (isValid) {
         isLoggedIn = true;
         debugPrint('✅ Token is valid - userId: $userId');
-    notifyListeners();
+        notifyListeners();
         return true;
       } else {
         // Token invalid, try to refresh
@@ -148,15 +151,15 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.loginURL}');
 
     try {
-    final response = await http.post(
-      url,
-      body: jsonEncode({'email': email, 'password': password}),
-      headers: {'Content-Type': 'application/json'},
-    );
+      final response = await http.post(
+        url,
+        body: jsonEncode({'email': email, 'password': password}),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-    print(response.body);
-    if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
+      print(response.body);
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
 
         // Handle both old and new response formats
         userId = responseData['user']?['_id'] ??
@@ -167,11 +170,11 @@ class AuthService extends ChangeNotifier {
             responseData['data']?['refreshToken'] ??
             '';
 
-      final prefs = await SharedPreferences.getInstance();
+        final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
-      isLoggedIn = true;
+        isLoggedIn = true;
         notifyListeners();
 
         return {
@@ -180,7 +183,7 @@ class AuthService extends ChangeNotifier {
           'refreshToken': refreshToken,
           'user': responseData['user'] ?? responseData['data']?['user'],
         };
-    } else {
+      } else {
         final errorData = _parseErrorResponse(response);
 
         // Handle account lockout
@@ -410,6 +413,144 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  /// Native Apple Sign-In for iOS
+  /// Sends identity token to backend for authentication
+  Future<Map<String, dynamic>> signInWithAppleNative(
+    String identityToken,
+    Map<String, dynamic> appleUser,
+  ) async {
+    try {
+      final url = Uri.parse('${Endpoints.baseURL}auth/apple/mobile');
+
+      debugPrint('🔍 Sending Apple identity token to: $url');
+
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'identityToken': identityToken,
+          'user': appleUser,
+        }),
+      );
+
+      debugPrint('📡 Response status: ${response.statusCode}');
+      debugPrint('📡 Response body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        if (data['success'] == true || data['token'] != null) {
+          final responseToken = data['token'] ?? data['data']?['token'];
+          final responseRefreshToken =
+              data['refreshToken'] ?? data['data']?['refreshToken'];
+          final responseUserId =
+              data['user']?['_id'] ?? data['data']?['user']?['_id'];
+
+          if (responseToken != null && responseUserId != null) {
+            // Store tokens
+            this.token = responseToken;
+            this.refreshToken = responseRefreshToken ?? '';
+            this.userId = responseUserId;
+            this.isLoggedIn = true;
+
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('token', responseToken);
+            if (responseRefreshToken != null) {
+              await prefs.setString('refreshToken', responseRefreshToken);
+            }
+            await prefs.setString('userId', responseUserId);
+            notifyListeners();
+
+            debugPrint('✅ Apple login successful - userId: $responseUserId');
+
+            return {
+              'success': true,
+              'token': responseToken,
+              'refreshToken': responseRefreshToken,
+              'userId': responseUserId,
+              'user': data['user'], // Return raw user data as Map
+            };
+          } else {
+            return {
+              'success': false,
+              'message': 'Missing authentication tokens in response',
+            };
+          }
+        } else {
+          return {
+            'success': false,
+            'message':
+                data['message'] ?? data['error'] ?? 'Authentication failed',
+          };
+        }
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'message': errorData['message'] ??
+              errorData['error'] ??
+              'Server error: ${response.statusCode}',
+        };
+      }
+    } catch (e) {
+      debugPrint('❌ Apple Sign-In Error: $e');
+      return {
+        'success': false,
+        'message': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Delete user account
+  Future<Map<String, dynamic>> deleteAccount({
+    String? password,
+    required String confirmText,
+  }) async {
+    final url = Uri.parse('${Endpoints.baseURL}auth/me');
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          if (password != null) 'password': password,
+          'confirmText': confirmText,
+        }),
+      );
+
+      debugPrint('Delete account response: ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        // Clear all auth data
+        await _clearAuthData();
+
+        return {
+          'success': true,
+          'message': data['message'] ?? 'Account deleted successfully',
+        };
+      } else {
+        final errorData = _parseErrorResponse(response);
+        return {
+          'success': false,
+          'message': errorData['message'] ?? 'Failed to delete account',
+        };
+      }
+    } catch (e) {
+      debugPrint('❌ Delete account error: $e');
+      return {
+        'success': false,
+        'message': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
   /// Native Google Sign-In for iOS/Android
   /// Sends ID token to backend for authentication
   /// Native Google Sign-In for iOS/Android
@@ -517,12 +658,13 @@ class AuthService extends ChangeNotifier {
         headers: {'Content-Type': 'application/json'},
       );
 
-    if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
         token = responseData['token'] ?? responseData['data']?['token'] ?? '';
-        
+
         // Update refresh token if backend returns a new one (token rotation)
-        final newRefreshToken = responseData['refreshToken'] ?? responseData['data']?['refreshToken'];
+        final newRefreshToken = responseData['refreshToken'] ??
+            responseData['data']?['refreshToken'];
         if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
           refreshToken = newRefreshToken;
         }
@@ -558,14 +700,14 @@ class AuthService extends ChangeNotifier {
 
   /// Clear all authentication data
   Future<void> _clearAuthData() async {
-      userId = '';
-      token = '';
+    userId = '';
+    token = '';
     refreshToken = '';
     isLoggedIn = false;
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('token');
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
     await prefs.remove('refreshToken');
-      await prefs.remove('userId');
+    await prefs.remove('userId');
     notifyListeners();
   }
 
@@ -594,7 +736,7 @@ class AuthService extends ChangeNotifier {
           'success': true,
           'message': 'Logged out successfully',
         };
-    } else {
+      } else {
         // Even if logout fails on server, we've cleared local data
         return {
           'success': true,
@@ -643,8 +785,8 @@ class AuthService extends ChangeNotifier {
           if (retryAfter != null) {
             message += ' Retry after $retryAfter seconds.';
           }
-        return {
-          'success': false,
+          return {
+            'success': false,
             'message': message,
             'isRateLimited': true,
             'retryAfter': retryAfter,
@@ -752,14 +894,14 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.registerURL}');
 
     try {
-    final response = await http.post(
-      url,
-      body: jsonEncode(user),
-      headers: {'Content-Type': 'application/json'},
-    );
+      final response = await http.post(
+        url,
+        body: jsonEncode(user),
+        headers: {'Content-Type': 'application/json'},
+      );
 
       print(response.body);
-    if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
 
         // Handle both old and new response formats
@@ -768,11 +910,11 @@ class AuthService extends ChangeNotifier {
         refreshToken =
             data['refreshToken'] ?? data['data']?['refreshToken'] ?? '';
 
-      final prefs = await SharedPreferences.getInstance();
+        final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
-      isLoggedIn = true;
+        isLoggedIn = true;
         notifyListeners();
 
         return {
@@ -781,7 +923,7 @@ class AuthService extends ChangeNotifier {
           'refreshToken': refreshToken,
           'user': Community.fromJson(data['user'] ?? data['data']?['user']),
         };
-    } else {
+      } else {
         final errorData = _parseErrorResponse(response);
         return {
           'success': false,
@@ -921,7 +1063,7 @@ class AuthService extends ChangeNotifier {
       );
 
       if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+        final data = jsonDecode(response.body);
 
         // Handle both old and new response formats
         userId = data['user']?['_id'] ??
@@ -1051,14 +1193,14 @@ class AuthService extends ChangeNotifier {
 
   Future<Community> updateUserBio({required String bio}) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    
+
     if (token == null) {
       throw Exception('Authentication required. Please login again.');
     }
-    
+
     final response = await http.put(
       url,
       body: json.encode({'bio': bio}),
@@ -1067,13 +1209,14 @@ class AuthService extends ChangeNotifier {
         'Authorization': 'Bearer $token',
       },
     );
-    
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return Community.fromJson(data['user'] ?? data['data']);
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ?? errorData['message'] ?? 'Failed to update bio');
+      throw Exception(
+          errorData['error'] ?? errorData['message'] ?? 'Failed to update bio');
     }
   }
 
@@ -1081,14 +1224,14 @@ class AuthService extends ChangeNotifier {
     required Map<String, bool> privacySettings,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    
+
     if (token == null) {
       throw Exception('Authentication required. Please login again.');
     }
-    
+
     final response = await http.put(
       url,
       body: json.encode({'privacySettings': privacySettings}),
@@ -1097,13 +1240,15 @@ class AuthService extends ChangeNotifier {
         'Authorization': 'Bearer $token',
       },
     );
-    
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return Community.fromJson(data['user'] ?? data['data']);
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ?? errorData['message'] ?? 'Failed to update privacy settings');
+      throw Exception(errorData['error'] ??
+          errorData['message'] ??
+          'Failed to update privacy settings');
     }
   }
 
@@ -1180,40 +1325,44 @@ class AuthService extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      
+
       // Debug: Print the response structure
       debugPrint('🔍 Followers API Response: ${response.body}');
       debugPrint('🔍 Followers Response Keys: ${data.keys.toList()}');
-      
+
       // Try different possible response structures
       List<dynamic>? followersList;
-      
+
       // Check if data is wrapped in 'data' field (like other endpoints)
       if (data['data'] != null && data['data'] is List) {
         followersList = data['data'] as List<dynamic>;
-        debugPrint('✅ Found followers in data.data: ${followersList.length} items');
-      } 
+        debugPrint(
+            '✅ Found followers in data.data: ${followersList.length} items');
+      }
       // Check if followers is directly in response
       else if (data['followers'] != null && data['followers'] is List) {
         followersList = data['followers'] as List<dynamic>;
-        debugPrint('✅ Found followers in data.followers: ${followersList.length} items');
+        debugPrint(
+            '✅ Found followers in data.followers: ${followersList.length} items');
       }
       // Check if it's a success response with data
       else if (data['success'] == true && data['data'] != null) {
         if (data['data'] is List) {
           followersList = data['data'] as List<dynamic>;
-          debugPrint('✅ Found followers in success.data: ${followersList.length} items');
+          debugPrint(
+              '✅ Found followers in success.data: ${followersList.length} items');
         } else if (data['data']['followers'] != null) {
           followersList = data['data']['followers'] as List<dynamic>?;
-          debugPrint('✅ Found followers in success.data.followers: ${followersList?.length ?? 0} items');
+          debugPrint(
+              '✅ Found followers in success.data.followers: ${followersList?.length ?? 0} items');
         }
       }
-      
+
       if (followersList == null || followersList.isEmpty) {
         debugPrint('⚠️ No followers found or empty list');
         return <Community>[];
       }
-      
+
       List<Community> followers =
           followersList.map((json) => Community.fromJson(json)).toList();
 
@@ -1222,7 +1371,9 @@ class AuthService extends ChangeNotifier {
     } else {
       final errorData = json.decode(response.body);
       debugPrint('❌ Followers API Error: ${errorData.toString()}');
-      throw Exception(errorData['error'] ?? errorData['message'] ?? 'Failed to load followers');
+      throw Exception(errorData['error'] ??
+          errorData['message'] ??
+          'Failed to load followers');
     }
   }
 
@@ -1243,40 +1394,44 @@ class AuthService extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      
+
       // Debug: Print the response structure
       debugPrint('🔍 Followings API Response: ${response.body}');
       debugPrint('🔍 Followings Response Keys: ${data.keys.toList()}');
-      
+
       // Try different possible response structures
       List<dynamic>? followingList;
-      
+
       // Check if data is wrapped in 'data' field (like other endpoints)
       if (data['data'] != null && data['data'] is List) {
         followingList = data['data'] as List<dynamic>;
-        debugPrint('✅ Found followings in data.data: ${followingList.length} items');
-      } 
+        debugPrint(
+            '✅ Found followings in data.data: ${followingList.length} items');
+      }
       // Check if following is directly in response
       else if (data['following'] != null && data['following'] is List) {
         followingList = data['following'] as List<dynamic>;
-        debugPrint('✅ Found followings in data.following: ${followingList.length} items');
+        debugPrint(
+            '✅ Found followings in data.following: ${followingList.length} items');
       }
       // Check if it's a success response with data
       else if (data['success'] == true && data['data'] != null) {
         if (data['data'] is List) {
           followingList = data['data'] as List<dynamic>;
-          debugPrint('✅ Found followings in success.data: ${followingList.length} items');
+          debugPrint(
+              '✅ Found followings in success.data: ${followingList.length} items');
         } else if (data['data']['following'] != null) {
           followingList = data['data']['following'] as List<dynamic>?;
-          debugPrint('✅ Found followings in success.data.following: ${followingList?.length ?? 0} items');
+          debugPrint(
+              '✅ Found followings in success.data.following: ${followingList?.length ?? 0} items');
         }
       }
-      
+
       if (followingList == null || followingList.isEmpty) {
         debugPrint('⚠️ No followings found or empty list');
         return <Community>[];
       }
-      
+
       List<Community> followings =
           followingList.map((json) => Community.fromJson(json)).toList();
 
@@ -1285,7 +1440,9 @@ class AuthService extends ChangeNotifier {
     } else {
       final errorData = json.decode(response.body);
       debugPrint('❌ Followings API Error: ${errorData.toString()}');
-      throw Exception(errorData['error'] ?? errorData['message'] ?? 'Failed to load followings');
+      throw Exception(errorData['error'] ??
+          errorData['message'] ??
+          'Failed to load followings');
     }
   }
 
@@ -1320,7 +1477,23 @@ final authServiceProvider = ChangeNotifierProvider((ref) {
 });
 final userProvider = FutureProvider<Community>((ref) async {
   try {
-    return await ref.read(authServiceProvider).getLoggedInUser();
+    final user = await ref.read(authServiceProvider).getLoggedInUser();
+
+    // Also fetch limits when user is fetched
+    // This ensures limits are available when user data is loaded
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId');
+      if (userId != null) {
+        // Prefetch limits (don't await to avoid blocking)
+        ref.read(userLimitsProvider(userId));
+      }
+    } catch (e) {
+      // Ignore limit fetch errors
+      debugPrint('Error prefetching limits: $e');
+    }
+
+    return user;
   } catch (e) {
     debugPrint('Error fetching user: $e');
     throw Exception('Unable to fetch user');

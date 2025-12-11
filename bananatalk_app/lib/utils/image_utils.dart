@@ -20,22 +20,33 @@ class ImageUtils {
       return '';
     }
 
+    // Decode URL if it's encoded (e.g., https%3A%2F%2F...)
+    String decodedUrl = url;
+    try {
+      if (url.contains('%')) {
+        decodedUrl = Uri.decodeComponent(url);
+      }
+    } catch (e) {
+      // If decoding fails, use original URL
+      decodedUrl = url;
+    }
+
     // If it's already a full URL (starts with http:// or https://), return as is
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return url;
+    if (decodedUrl.startsWith('http://') || decodedUrl.startsWith('https://')) {
+      return decodedUrl;
     }
 
     // If it starts with /, it's a relative path - construct full URL
-    if (url.startsWith('/')) {
-      return '$baseServerUrl$url';
+    if (decodedUrl.startsWith('/')) {
+      return '$baseServerUrl$decodedUrl';
     }
 
     // If it doesn't start with /, assume it's a filename in /uploads
     // Ensure the path starts with /uploads/
-    if (!url.startsWith('uploads/') && !url.startsWith('/uploads/')) {
-      return '$baseServerUrl/uploads/$url';
+    if (!decodedUrl.startsWith('uploads/') && !decodedUrl.startsWith('/uploads/')) {
+      return '$baseServerUrl/uploads/$decodedUrl';
     }
-    return '$baseServerUrl/$url';
+    return '$baseServerUrl/$decodedUrl';
   }
 
   /// Normalizes a list of image URLs

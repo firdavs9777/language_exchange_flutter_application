@@ -4,7 +4,13 @@ import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/widgets/report_dialog.dart';
+import 'package:bananatalk_app/services/block_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +25,7 @@ class SingleCommunity extends ConsumerStatefulWidget {
 
 class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   bool isFollower = false;
-  late String userId;
+  String userId = ''; // Initialize to empty string instead of late
 
   @override
   void initState() {
@@ -33,6 +39,41 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     setState(() {
       isFollower = widget.community.followers.contains(userId);
     });
+
+    // Check profile view limit after userId is initialized
+    _checkProfileViewLimit();
+  }
+
+  Future<void> _checkProfileViewLimit() async {
+    // Only check if viewing another user's profile
+    if (userId.isEmpty || userId == widget.community.id) {
+      return;
+    }
+
+    try {
+      final userAsync = ref.read(userProvider);
+      final user = await userAsync;
+      final limits = ref.read(currentUserLimitsProvider(userId));
+
+      if (!FeatureGate.canViewProfile(user, limits)) {
+        // Show warning but allow viewing (non-blocking)
+        if (mounted) {
+          await LimitExceededDialog.show(
+            context: context,
+            limitType: 'profileViews',
+            limitInfo: limits?.profileViews,
+            resetTime: limits?.resetTime,
+            userId: userId,
+          );
+        }
+      } else {
+        // Refresh limits after viewing (if within limit)
+        ref.refresh(userLimitsProvider(userId));
+      }
+    } catch (e) {
+      // If limit check fails, allow viewing (fail open)
+      print('Error checking profile view limits: $e');
+    }
   }
 
   int calculateAge(String birthYear) {
@@ -56,6 +97,84 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to follow user')),
       );
+    }
+  }
+
+  Future<void> _blockUser(String targetUserId, String targetUserName) async {
+    // Check if trying to block yourself
+    if (userId.isEmpty || userId == targetUserId) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Cannot block yourself'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Block User'),
+        content: Text(
+          'Are you sure you want to block $targetUserName? You will not be able to send or receive messages from this user.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Block'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true) {
+      // Show loading
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      // Block user (userId parameter is the target user to block)
+      final blockResult = await BlockService.blockUser(
+        userId: targetUserId,
+        reason: null,
+      );
+
+      // Close loading
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+
+      if (blockResult['success'] == true) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(blockResult['message'] ?? 'User blocked successfully'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          // Navigate back
+          Navigator.of(context).pop();
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(blockResult['error'] ?? 'Failed to block user'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -153,7 +272,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     final calculatedAge = calculateAge(widget.community.birth_year);
     final age = PrivacyUtils.getAge(widget.community, calculatedAge);
     final locationText = PrivacyUtils.getLocationText(widget.community);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -164,6 +283,48 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         elevation: 1,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
+        actions: [
+          if (userId.isNotEmpty && userId != widget.community.id)
+            PopupMenuButton<String>(
+              icon: const Icon(Icons.more_vert, color: Colors.black87),
+              onSelected: (value) async {
+                if (value == 'report') {
+                  showDialog(
+                    context: context,
+                    builder: (context) => ReportDialog(
+                      type: 'user',
+                      reportedId: widget.community.id,
+                      reportedUserId: widget.community.id,
+                    ),
+                  );
+                } else if (value == 'block') {
+                  await _blockUser(widget.community.id, widget.community.name);
+                }
+              },
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'report',
+                  child: Row(
+                    children: [
+                      Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
+                      SizedBox(width: 8),
+                      Text('Report User'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'block',
+                  child: Row(
+                    children: [
+                      Icon(Icons.block, color: Colors.red, size: 20),
+                      SizedBox(width: 8),
+                      Text('Block User', style: TextStyle(color: Colors.red)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -251,7 +412,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
+                      Icon(Icons.location_on,
+                          size: 16, color: Colors.grey[600]),
                       const SizedBox(width: 4),
                       Text(
                         locationText,

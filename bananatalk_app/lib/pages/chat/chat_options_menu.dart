@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/block_service.dart';
 
 class ChatOptionsMenu extends StatelessWidget {
   final String userName;
+  final String? userId;
 
-  const ChatOptionsMenu({Key? key, required this.userName}) : super(key: key);
+  const ChatOptionsMenu({Key? key, required this.userName, this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,21 +66,144 @@ class ChatOptionsMenu extends StatelessWidget {
     );
   }
 
-  void _handleMenuOption(BuildContext context, String value) {
-    final messages = {
-      'view_contact': 'View contact info',
-      'media': 'Media, links and docs',
-      'search': 'Search in conversation',
-      'mute': 'Mute notifications',
-      'wallpaper': 'Change wallpaper',
-      'block': 'Block $userName',
-    };
+  Future<void> _handleMenuOption(BuildContext context, String value) async {
+    switch (value) {
+      case 'block':
+        if (userId != null) {
+          await _showBlockDialog(context, userId!);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('User ID not available'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        break;
+      case 'view_contact':
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('View contact info for $userName')),
+        );
+        break;
+      case 'media':
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Media, links and docs')),
+        );
+        break;
+      case 'search':
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Search in conversation')),
+        );
+        break;
+      case 'mute':
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Mute notifications for $userName')),
+        );
+        break;
+      case 'wallpaper':
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Change wallpaper')),
+        );
+        break;
+      default:
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Unknown action: $value')),
+        );
+    }
+  }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(messages[value] ?? 'Unknown action'),
-        backgroundColor: value == 'block' ? Colors.red : null,
+  Future<void> _showBlockDialog(BuildContext context, String targetUserId) async {
+    // Get current user ID first to check if trying to block self
+    final prefs = await SharedPreferences.getInstance();
+    final currentUserId = prefs.getString('userId');
+
+    if (currentUserId == null) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('User ID not found'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      return;
+    }
+
+    // Check if trying to block yourself
+    if (currentUserId == targetUserId) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Cannot block yourself'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      return;
+    }
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Block User'),
+        content: Text('Are you sure you want to block $userName? You will not be able to send or receive messages from this user.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Block'),
+          ),
+        ],
       ),
     );
+
+    if (result == true) {
+
+      // Show loading
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      // Block user (userId parameter is the target user to block)
+      final blockResult = await BlockService.blockUser(
+        userId: targetUserId,
+        reason: null,
+      );
+
+      // Close loading
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+
+      if (blockResult['success'] == true) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(blockResult['message'] ?? 'User blocked successfully'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          // Navigate back to chat list
+          Navigator.of(context).pop();
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(blockResult['error'] ?? 'Failed to block user'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
   }
 }

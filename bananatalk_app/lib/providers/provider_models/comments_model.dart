@@ -20,7 +20,7 @@ class Comments {
   factory Comments.fromJson(Map<String, dynamic> json) {
     // Handle null, incomplete, or string ID user data gracefully
     Community user;
-    
+
     // Check if user is a Map (populated object)
     if (json['user'] != null && json['user'] is Map) {
       try {
@@ -30,7 +30,15 @@ class Comments {
         print('Error parsing user in comment: $e');
         final userData = json['user'] as Map<String, dynamic>?;
         user = Community(
-          id: userData?['_id']?.toString() ?? json['user']?['_id']?.toString() ?? '',
+          id: userData?['_id']?.toString() ??
+              json['user']?['_id']?.toString() ??
+              '',
+          appleId: userData?['appleId']?.toString() ??
+              json['user']?['appleId']?.toString() ??
+              '',
+          googleId: userData?['googleId']?.toString() ??
+              json['user']?['googleId']?.toString() ??
+              '',
           name: userData?['name']?.toString() ?? 'Unknown User',
           email: userData?['email']?.toString() ?? '',
           mbti: '',
@@ -55,6 +63,8 @@ class Comments {
       // User is just an ID string (not populated) - create minimal user
       user = Community(
         id: json['user'] as String,
+        appleId: '',
+        googleId: '',
         name: 'User',
         email: '',
         mbti: '',
@@ -77,6 +87,8 @@ class Comments {
     } else {
       // Create default user if user is null or unknown type
       user = Community(
+        appleId: '',
+        googleId: '',
         id: '',
         name: 'Unknown User',
         email: '',

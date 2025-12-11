@@ -1,10 +1,11 @@
+import 'package:bananatalk_app/pages/authentication/screens/apple_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/facebook_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:io' show Platform;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,6 +67,33 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+
+              if (Platform.isIOS) // ONLY SHOW ON iOS
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    height: 45.0,
+                    width: 0.8 * MediaQuery.of(context).size.width,
+                    child: BananaButton(
+                      BananaText: BananaText('Sign In with Apple'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (ctx) => const AppleLogin()),
+                        );
+                      },
+                      color: Colors.black, // Apple black color
+                      textColor: Color(0xFFFFFFFF),
+                      borderRadius: BorderRadius.circular(8),
+                      icon: Icon(
+                        Icons.apple, // Apple icon
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
+                    ),
+                  ),
+                ),
+
               // Padding(
               //   padding: const EdgeInsets.all(16.0),
               //   child: Container(

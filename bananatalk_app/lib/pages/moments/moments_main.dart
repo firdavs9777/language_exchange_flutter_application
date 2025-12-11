@@ -5,6 +5,11 @@ import 'package:bananatalk_app/pages/moments/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_utility.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -143,14 +148,97 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
-              .then((_) => _refresh());
+      floatingActionButton: FutureBuilder<String?>(
+        future: SharedPreferences.getInstance().then((prefs) => prefs.getString('userId')),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData || snapshot.data == null) {
+            return FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                    .then((_) => _refresh());
+              },
+              backgroundColor: colorScheme.primary,
+              child: Icon(Icons.add, color: colorScheme.onPrimary),
+            );
+          }
+          
+          final userId = snapshot.data!;
+          final limitsAsync = ref.watch(userLimitsProvider(userId));
+          final userAsync = ref.watch(userProvider);
+          
+          return limitsAsync.when(
+            data: (limits) {
+              return userAsync.when(
+                data: (user) {
+                  final canCreate = FeatureGate.canCreateMoment(user, limits);
+                  return FloatingActionButton(
+                    onPressed: canCreate
+                        ? () async {
+                            // Check again before navigating
+                            final currentLimits = ref.read(currentUserLimitsProvider(userId));
+                            final currentUser = await ref.read(userProvider.future);
+                            if (!FeatureGate.canCreateMoment(currentUser, currentLimits)) {
+                              if (mounted) {
+                                await LimitExceededDialog.show(
+                                  context: context,
+                                  limitType: 'moments',
+                                  limitInfo: currentLimits?.moments,
+                                  resetTime: currentLimits?.resetTime,
+                                  userId: userId,
+                                );
+                              }
+                              return;
+                            }
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                                .then((_) => _refresh());
+                          }
+                        : () async {
+                            await LimitExceededDialog.show(
+                              context: context,
+                              limitType: 'moments',
+                              limitInfo: limits.moments,
+                              resetTime: limits.resetTime,
+                              userId: userId,
+                            );
+                          },
+                    backgroundColor: canCreate ? colorScheme.primary : Colors.grey,
+                    child: Icon(Icons.add, color: colorScheme.onPrimary),
+                  );
+                },
+                loading: () => FloatingActionButton(
+                  onPressed: null,
+                  backgroundColor: Colors.grey,
+                  child: Icon(Icons.add, color: colorScheme.onPrimary),
+                ),
+                error: (error, stack) => FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                        .then((_) => _refresh());
+                  },
+                  backgroundColor: colorScheme.primary,
+                  child: Icon(Icons.add, color: colorScheme.onPrimary),
+                ),
+              );
+            },
+            loading: () => FloatingActionButton(
+              onPressed: null,
+              backgroundColor: Colors.grey,
+              child: Icon(Icons.add, color: colorScheme.onPrimary),
+            ),
+            error: (error, stack) => FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                    .then((_) => _refresh());
+              },
+              backgroundColor: colorScheme.primary,
+              child: Icon(Icons.add, color: colorScheme.onPrimary),
+            ),
+          );
         },
-        backgroundColor: colorScheme.primary,
-        child: Icon(Icons.add, color: colorScheme.onPrimary),
       ),
     );
   }

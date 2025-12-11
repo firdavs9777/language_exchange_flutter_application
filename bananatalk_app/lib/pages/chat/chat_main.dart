@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/widgets/limit_indicator.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
@@ -1078,7 +1081,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(28),
                                       child: Image.network(
-                                        partner.avatar!,
+                                        ImageUtils.normalizeImageUrl(partner.avatar),
                                         width: 56,
                                         height: 56,
                                         fit: BoxFit.cover,
@@ -1369,6 +1372,32 @@ class _ChatMainState extends ConsumerState<ChatMain>
         backgroundColor: Colors.transparent,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
+        actions: [
+          // Limit indicator for messages (only show for non-VIP)
+          if (_currentUserId != null)
+            Builder(
+              builder: (context) {
+                final limitsAsync = ref.watch(userLimitsProvider(_currentUserId!));
+                return limitsAsync.when(
+                  data: (limits) {
+                    if (limits.isVIP) {
+                      return const SizedBox.shrink();
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: LimitIndicator(
+                        limit: limits.messages,
+                        label: 'Messages',
+                        compact: true,
+                      ),
+                    );
+                  },
+                  loading: () => const SizedBox.shrink(),
+                  error: (error, stack) => const SizedBox.shrink(),
+                );
+              },
+            ),
+        ],
       ),
       body: _isLoading
           ? Center(

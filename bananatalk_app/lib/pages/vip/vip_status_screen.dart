@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VipStatusScreen extends StatefulWidget {
   final String userId;
@@ -228,7 +229,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
                   const SizedBox(height: 16),
                   _buildDetailRow(
                     'Status',
-                    subscription!.status.toUpperCase(),
+                    (subscription!.status ?? 'unknown').toUpperCase(),
                     statusColor: subscription!.status == 'active'
                         ? Colors.green
                         : Colors.orange,
@@ -249,7 +250,70 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
                     'Amount',
                     '\$${subscription!.amount}',
                   ),
+                  _buildDetailRow(
+                    'Length',
+                    _getSubscriptionLength(subscription!.plan),
+                  ),
                 ],
+              ),
+            ),
+
+            // Legal Links (required for App Store)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[200]!),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Legal Information',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton.icon(
+                            onPressed: () => _launchURL('https://banatalk.com/terms-of-use'),
+                            icon: const Icon(Icons.description_outlined, size: 18),
+                            label: const Text(
+                              'Terms of Use',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextButton.icon(
+                            onPressed: () => _launchURL('https://banatalk.com/privacy-policy'),
+                            icon: const Icon(Icons.privacy_tip_outlined, size: 18),
+                            label: const Text(
+                              'Privacy Policy',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Manage your subscription in your device Account Settings. Subscription automatically renews unless canceled at least 24 hours before the end of the current period.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[600],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -385,5 +449,46 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
         ],
       ),
     );
+  }
+
+  String _getSubscriptionLength(String plan) {
+    switch (plan.toLowerCase()) {
+      case 'monthly':
+        return '1 month';
+      case 'quarterly':
+        return '3 months';
+      case 'yearly':
+      case 'annual':
+        return '1 year';
+      default:
+        return plan;
+    }
+  }
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Could not open link'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 }

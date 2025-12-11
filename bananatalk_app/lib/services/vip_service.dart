@@ -13,6 +13,7 @@ class VipService {
   static Map<String, String> _getHeaders(String? token) {
     return {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',
     };
   }
@@ -121,7 +122,7 @@ class VipService {
     try {
       final token = await _getToken();
       final url = Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/vip/status');
+          '${Endpoints.baseURL}${Endpoints.getVipStatusURL(userId)}');
 
       final response = await http.get(
         url,
@@ -130,21 +131,156 @@ class VipService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return {
-          'success': true,
-          'data': data,
-          'vipSubscription': data['vipSubscription'] != null
-              ? VipSubscription.fromJson(data['vipSubscription'])
-              : null,
-          'vipFeatures': data['vipFeatures'] != null
-              ? VipFeatures.fromJson(data['vipFeatures'])
-              : null,
-        };
+        
+        if (data['success'] == true && data['data'] != null) {
+          final vipData = data['data'];
+          return {
+            'success': true,
+            'data': vipData,
+            'isVIP': vipData['isVIP'] ?? false,
+            'userMode': vipData['userMode'] ?? 'regular',
+            'vipSubscription': vipData['vipSubscription'] != null
+                ? VipSubscription.fromJson(vipData['vipSubscription'])
+                : null,
+            'vipFeatures': vipData['vipFeatures'] != null
+                ? VipFeatures.fromJson(vipData['vipFeatures'])
+                : null,
+          };
+        } else {
+          return {
+            'success': false,
+            'error': data['error'] ?? 'Failed to get VIP status',
+          };
+        }
       } else {
-        final error = jsonDecode(response.body);
+        final errorData = jsonDecode(response.body);
         return {
           'success': false,
-          'error': error['message'] ?? 'Failed to get VIP status',
+          'error': errorData['error'] ?? errorData['message'] ?? 'Failed to get VIP status',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  // Verify iOS purchase receipt
+  static Future<Map<String, dynamic>> verifyIOSPurchase({
+    required String receiptData,
+    String? productId,
+    String? transactionId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.iosVerifyPurchaseURL}');
+
+      final requestBody = <String, dynamic>{
+        'receiptData': receiptData,
+      };
+      
+      if (productId != null) {
+        requestBody['productId'] = productId;
+      }
+      
+      if (transactionId != null) {
+        requestBody['transactionId'] = transactionId;
+      }
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        
+        if (data['success'] == true) {
+          return {
+            'success': true,
+            'message': data['message'] ?? 'VIP subscription activated successfully',
+            'data': data['data'],
+            'plan': data['data']?['plan'],
+            'isActive': data['data']?['isActive'] ?? true,
+            'endDate': data['data']?['endDate'] != null
+                ? DateTime.parse(data['data']['endDate'])
+                : null,
+            'nextBillingDate': data['data']?['nextBillingDate'] != null
+                ? DateTime.parse(data['data']['nextBillingDate'])
+                : null,
+            'userMode': data['data']?['userMode'] ?? 'vip',
+            'vipFeatures': data['data']?['vipFeatures'] != null
+                ? VipFeatures.fromJson(data['data']['vipFeatures'])
+                : null,
+          };
+        } else {
+          return {
+            'success': false,
+            'error': data['error'] ?? data['message'] ?? 'Purchase verification failed',
+          };
+        }
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? errorData['message'] ?? 'Purchase verification failed',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  // Check iOS subscription status
+  static Future<Map<String, dynamic>> checkIOSSubscriptionStatus({
+    required String receiptData,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.iosSubscriptionStatusURL}');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({
+          'receiptData': receiptData,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        
+        if (data['success'] == true && data['data'] != null) {
+          final statusData = data['data'];
+          return {
+            'success': true,
+            'data': statusData,
+            'isActive': statusData['isActive'] ?? false,
+            'expiresDate': statusData['expiresDate'] != null
+                ? DateTime.parse(statusData['expiresDate'])
+                : null,
+            'productId': statusData['productId'],
+            'userVIPStatus': statusData['userVIPStatus'],
+          };
+        } else {
+          return {
+            'success': false,
+            'error': data['error'] ?? 'Failed to check subscription status',
+          };
+        }
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? errorData['message'] ?? 'Failed to check subscription status',
         };
       }
     } catch (e) {

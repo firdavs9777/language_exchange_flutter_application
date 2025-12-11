@@ -7,7 +7,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:bananatalk_app/services/media_service.dart';
+import 'package:bananatalk_app/services/block_service.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -123,7 +135,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Future<void> _initSocket() async {
-    if (_currentUserId == null) return;
+    if (_currentUserId == null) {
+      setState(() => _error = "User ID not found");
+      return;
+    }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -133,25 +148,32 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       return;
     }
 
-    // Get base URL from Endpoints (socket connects to root, not /api/v1/)
-    final baseUrl = Endpoints.baseURL;
-    final socketUrl = baseUrl.endsWith('/api/v1/') 
-        ? baseUrl.substring(0, baseUrl.length - 8)
-        : baseUrl.replaceAll('/api/v1/', '');
-    
-    _socket = IO.io(
-      socketUrl,
-      IO.OptionBuilder()
-          .setTransports(['websocket'])
-          .enableAutoConnect()
-          .setAuth({'token': token})
-          .setQuery({'userId': _currentUserId})
-          .setTimeout(500)
-          .build(),
-    );
+    try {
+      // Get base URL from Endpoints (socket connects to root, not /api/v1/)
+      final baseUrl = Endpoints.baseURL;
+      final socketUrl = baseUrl.endsWith('/api/v1/') 
+          ? baseUrl.substring(0, baseUrl.length - 8)
+          : baseUrl.replaceAll('/api/v1/', '');
+      
+      print('🔌 Connecting to socket: $socketUrl');
+      
+      _socket = IO.io(
+        socketUrl,
+        IO.OptionBuilder()
+            .setTransports(['websocket'])
+            .enableAutoConnect()
+            .setAuth({'token': token})
+            .setQuery({'userId': _currentUserId})
+            .setTimeout(5000) // Increased timeout
+            .build(),
+      );
 
-    _setupSocketListeners();
-    _socket?.connect();
+      _setupSocketListeners();
+      _socket?.connect();
+    } catch (e) {
+      print('❌ Error initializing socket: $e');
+      setState(() => _error = 'Failed to connect: ${e.toString()}');
+    }
   }
 
   void _setupSocketListeners() {
@@ -176,7 +198,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     _socket?.on('message', (data) {
       try {
-        final newMessage = Message.fromJson(data);
+        final messageJson = data is Map 
+            ? Map<String, dynamic>.from(data)
+            : <String, dynamic>{};
+        final newMessage = Message.fromJson(messageJson);
         _handleNewMessage(newMessage);
       } catch (e) {
         print('❌ Error parsing message: $e');
@@ -185,23 +210,46 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     _socket?.on('messageSent', (data) {
       try {
-        final messageData = data['message'];
+        final messageData = data is Map ? data['message'] : data;
         if (messageData != null) {
-          final sentMessage = Message.fromJson(messageData);
+          Map<String, dynamic> messageJson;
+          if (messageData is Map) {
+            messageJson = Map<String, dynamic>.from(messageData);
+          } else {
+            messageJson = {
+              '_id': '',
+              'sender': <String, dynamic>{},
+              'receiver': <String, dynamic>{},
+              'message': '',
+              'createdAt': DateTime.now().toIso8601String(),
+              '__v': 0,
+              'read': false,
+            };
+          }
+          final sentMessage = Message.fromJson(messageJson);
           _handleNewMessage(sentMessage);
+          setState(() {
+            _isSending = false;
+            _error = ''; // Clear any previous errors
+          });
+        } else {
           setState(() => _isSending = false);
         }
       } catch (e) {
         print('❌ Error parsing sent message: $e');
-        setState(() => _isSending = false);
+        setState(() {
+          _isSending = false;
+          _error = 'Failed to parse sent message';
+        });
       }
     });
 
     _socket?.on('newMessage', (data) {
       try {
-        final messageData = data['message'];
-        if (messageData != null) {
-          final newMessage = Message.fromJson(messageData);
+        final messageData = data is Map ? data['message'] : null;
+        if (messageData != null && messageData is Map) {
+          final messageJson = Map<String, dynamic>.from(messageData);
+          final newMessage = Message.fromJson(messageJson);
           _handleNewMessage(newMessage);
         }
       } catch (e) {
@@ -210,11 +258,79 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
 
     _socket?.on('messageError', (data) {
+      print('❌ Message error received: $data');
+      
+      String errorMessage = 'Failed to send message';
+      
+      if (data is Map) {
+        // Try to extract a user-friendly error message
+        final error = data['error'] ?? data['message'];
+        if (error != null) {
+          final errorStr = error.toString();
+          print('🔍 Parsing error: $errorStr');
+          
+          // Handle specific backend errors
+          if (errorStr.toLowerCase().contains('isblocked') || 
+              errorStr.toLowerCase().contains('blocked')) {
+            errorMessage = 'Cannot send message. User may be blocked.';
+            print('✅ Matched blocked error - showing user-friendly message');
+          } else if (errorStr.toLowerCase().contains('limit') || 
+                     errorStr.toLowerCase().contains('429')) {
+            errorMessage = 'Daily message limit reached. Please try again later.';
+          } else if (errorStr.toLowerCase().contains('not found') || 
+                     errorStr.toLowerCase().contains('404')) {
+            errorMessage = 'User not found.';
+          } else if (errorStr.toLowerCase().contains('unauthorized') || 
+                     errorStr.toLowerCase().contains('401')) {
+            errorMessage = 'Authentication failed. Please log in again.';
+          } else {
+            // For backend errors like "is not a function", show generic message
+            errorMessage = 'Failed to send message. Please try again.';
+          }
+        } else {
+          print('⚠️ No error field found in data');
+        }
+      } else if (data != null) {
+        final errorStr = data.toString();
+        if (errorStr.toLowerCase().contains('isblocked') || 
+            errorStr.toLowerCase().contains('blocked')) {
+          errorMessage = 'Cannot send message. User may be blocked.';
+        } else {
+          errorMessage = 'Failed to send message. Please try again.';
+        }
+      }
+      
+      print('📱 Showing error message to user: $errorMessage');
+      
       setState(() {
-        _error = data['message'] ?? 'Unknown error occurred';
         _isSending = false;
+        // Don't set _error here - it will block the UI
+        // Instead, show a snackbar
       });
-      if (data['originalMessage'] != null) {
+      
+      // Show error to user via snackbar (non-blocking)
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+            action: SnackBarAction(
+              label: 'Retry',
+              textColor: Colors.white,
+              onPressed: () {
+                // Retry sending if there's text in the controller
+                if (_messageController.text.trim().isNotEmpty) {
+                  _sendMessage();
+                }
+              },
+            ),
+          ),
+        );
+      }
+      
+      // Restore original message if provided
+      if (data is Map && data['originalMessage'] != null) {
         _messageController.text = data['originalMessage'];
       }
     });
@@ -287,6 +403,37 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final text = messageText ?? _messageController.text.trim();
     if (text.isEmpty || _isSending || _currentUserId == null) return;
 
+    // Check limits before sending
+    try {
+      final userAsync = ref.read(userProvider);
+      final user = await userAsync.when(
+        data: (user) => user,
+        loading: () => null,
+        error: (error, stack) {
+          print('Error loading user for limit check: $error');
+          return null;
+        },
+      );
+      
+      if (user != null) {
+        final limits = ref.read(currentUserLimitsProvider(_currentUserId!));
+
+        if (!FeatureGate.canSendMessage(user, limits)) {
+          await LimitExceededDialog.show(
+            context: context,
+            limitType: 'messages',
+            limitInfo: limits?.messages,
+            resetTime: limits?.resetTime,
+            userId: _currentUserId!,
+          );
+          return;
+        }
+      }
+    } catch (e) {
+      // If limit check fails, allow sending (fail open)
+      print('Error checking limits: $e');
+    }
+
     if (messageText == null) _messageController.clear();
     _stopTyping();
     _hidePanels();
@@ -297,17 +444,58 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
 
     try {
-      _socket?.emit('sendMessage', {
+      // Check if socket is connected
+      if (_socket == null || !_socket!.connected) {
+        throw Exception('Socket not connected. Please check your connection.');
+      }
+      
+      _socket!.emit('sendMessage', {
         'sender': _currentUserId,
         'receiver': widget.userId,
         'message': text,
         'type': messageType ?? 'text',
       });
+      
+      // Don't set _isSending to false here - wait for socket response
+      // The socket will emit 'messageSent' or 'messageError' which will handle the state
+      
+      // Refresh limits after sending (optimistically)
+      if (_currentUserId != null) {
+        // Don't await - do it in background
+        try {
+          ref.refresh(userLimitsProvider(_currentUserId!));
+        } catch (e) {
+          // Ignore errors in background refresh
+          print('Error refreshing limits: $e');
+        }
+      }
     } catch (error) {
       setState(() {
-        _error = 'Failed to send message: $error';
+        _error = 'Failed to send message: ${error.toString()}';
         _isSending = false;
       });
+      
+      // Handle 429 errors
+      if (error.toString().contains('429') || 
+          ApiErrorHandler.isLimitExceededError(error)) {
+        if (mounted) {
+          await ApiErrorHandler.handleLimitExceededError(
+            context: context,
+            error: error,
+            userId: _currentUserId,
+          );
+        }
+      } else if (mounted) {
+        // Show error snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to send message: ${error.toString()}'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+      
       if (messageText == null) _messageController.text = text;
     }
   }
@@ -316,21 +504,315 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _sendMessage(messageText: sticker, messageType: 'sticker');
   }
 
-  void _handleMediaOption(String option) {
+  Future<void> _handleMediaOption(String option) async {
     _hidePanels();
 
-    final messages = {
-      'camera': 'Camera feature coming soon!',
-      'gallery': 'Gallery feature coming soon!',
-      'document': 'Document sharing coming soon!',
-      'location': 'Location sharing coming soon!',
-      'contact': 'Contact sharing coming soon!',
-      'audio': 'Audio recording coming soon!',
-    };
+    try {
+      switch (option) {
+        case 'camera':
+          await _pickImageFromCamera();
+          break;
+        case 'gallery':
+          await _pickImageFromGallery();
+          break;
+        case 'document':
+          await _pickDocument();
+          break;
+        case 'audio':
+          await _pickAudio();
+          break;
+        case 'location':
+          await _shareLocation();
+          break;
+        case 'contact':
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Contact sharing coming soon!')),
+            );
+          }
+          break;
+        default:
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Feature coming soon: $option')),
+            );
+          }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(messages[option] ?? 'Feature coming soon!')),
-    );
+  Future<void> _pickImageFromCamera() async {
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 85, // Compress to reduce file size
+      );
+
+      if (pickedFile != null) {
+        final file = File(pickedFile.path);
+        await _sendMediaFile(file, 'image');
+      }
+    } catch (e) {
+      print('Error picking image from camera: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to take photo: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 85, // Compress to reduce file size
+      );
+
+      if (pickedFile != null) {
+        final file = File(pickedFile.path);
+        await _sendMediaFile(file, 'image');
+      }
+    } catch (e) {
+      print('Error picking image from gallery: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to pick image: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _pickDocument() async {
+    // Note: file_picker package would be needed for document picking
+    // For now, show a message
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Document picker requires file_picker package. Please add it to pubspec.yaml'),
+        ),
+      );
+    }
+    // TODO: Implement document picker when file_picker is added
+  }
+
+  Future<void> _pickAudio() async {
+    // Note: For audio recording, you might want to use a recording package
+    // For now, we'll use image_picker to pick audio files from gallery
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Audio recording feature coming soon! Use gallery to select audio files.'),
+        ),
+      );
+    }
+    // TODO: Implement audio recording/picking
+  }
+
+  Future<void> _shareLocation() async {
+    try {
+      // Request location permission
+      final permission = await Permission.location.request();
+      if (!permission.isGranted) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Location permission is required to share location'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Show loading indicator
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+
+      // Get current location
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Reverse geocode to get address
+      String? address;
+      String? placeName;
+      try {
+        final placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+        if (placemarks.isNotEmpty) {
+          final place = placemarks[0];
+          address = '${place.street}, ${place.locality}, ${place.country}';
+          placeName = place.name;
+        }
+      } catch (e) {
+        print('Error reverse geocoding: $e');
+      }
+
+      // Close loading dialog
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+
+      // Send location
+      final result = await MediaService.sendMessageWithLocation(
+        receiverId: widget.userId,
+        latitude: position.latitude,
+        longitude: position.longitude,
+        address: address,
+        placeName: placeName,
+      );
+
+      if (result['success'] == true) {
+        // Refresh messages
+        await _loadMessages();
+        // Refresh limits
+        if (_currentUserId != null) {
+          ref.refresh(userLimitsProvider(_currentUserId!));
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? 'Failed to share location'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context).pop(); // Close loading dialog if open
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to get location: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _sendMediaFile(File file, String? mediaType) async {
+    try {
+      // Basic validation (size check only - let backend validate file type)
+      final validation = MediaService.validateMediaFile(file, mediaType);
+      if (!validation['valid']) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(validation['error'] ?? 'Invalid file'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Check limits before sending
+      try {
+        final userAsync = ref.read(userProvider);
+        final user = await userAsync.when(
+          data: (user) => user,
+          loading: () => null,
+          error: (error, stack) {
+            print('Error loading user for limit check: $error');
+            return null;
+          },
+        );
+
+        if (user != null && _currentUserId != null) {
+          final limits = ref.read(currentUserLimitsProvider(_currentUserId!));
+
+          if (!FeatureGate.canSendMessage(user, limits)) {
+            await LimitExceededDialog.show(
+              context: context,
+              limitType: 'messages',
+              limitInfo: limits?.messages,
+              resetTime: limits?.resetTime,
+              userId: _currentUserId!,
+            );
+            return;
+          }
+        }
+      } catch (e) {
+        print('Error checking limits: $e');
+      }
+
+      // Show loading indicator
+      setState(() {
+        _isSending = true;
+      });
+
+      // Send media
+      final result = await MediaService.sendMessageWithMedia(
+        receiverId: widget.userId,
+        messageText: null, // Can add optional text later
+        mediaFile: file,
+        mediaType: validation['mediaType'],
+      );
+
+      setState(() {
+        _isSending = false;
+      });
+
+      if (result['success'] == true) {
+        // Refresh messages
+        await _loadMessages();
+        // Refresh limits
+        if (_currentUserId != null) {
+          ref.refresh(userLimitsProvider(_currentUserId!));
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? 'Failed to send media'),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      setState(() {
+        _isSending = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error sending media: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   void _onTyping() {
@@ -381,6 +863,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         userName: widget.userName,
         profilePicture: widget.profilePicture,
         isTyping: _otherUserTyping,
+        userId: widget.userId,
       ),
       body: GestureDetector(
         onTap: _hidePanels,

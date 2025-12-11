@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -270,8 +271,13 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   title: const Text('Report'),
                   onTap: () {
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Moment reported')),
+                    showDialog(
+                      context: context,
+                      builder: (context) => ReportDialog(
+                        type: 'moment',
+                        reportedId: widget.moment.id,
+                        reportedUserId: widget.moment.user.id,
+                      ),
                     );
                   },
                 ),

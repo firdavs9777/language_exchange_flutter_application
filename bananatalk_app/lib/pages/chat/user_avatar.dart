@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? profilePicture;
@@ -14,13 +15,17 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final normalizedUrl = profilePicture != null && profilePicture!.isNotEmpty
+        ? ImageUtils.normalizeImageUrl(profilePicture)
+        : null;
+
     return CircleAvatar(
       radius: radius,
       backgroundColor: Colors.grey[300],
-      child: profilePicture != null && profilePicture!.isNotEmpty
+      child: normalizedUrl != null && normalizedUrl.isNotEmpty
           ? ClipOval(
               child: Image.network(
-                profilePicture!,
+                normalizedUrl,
                 width: radius * 2,
                 height: radius * 2,
                 fit: BoxFit.cover,

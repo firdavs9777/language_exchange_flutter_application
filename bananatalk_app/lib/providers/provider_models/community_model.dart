@@ -1,6 +1,8 @@
 class Community {
   const Community({
     required this.id,
+    this.appleId,
+    this.googleId,
     required this.name,
     required this.email,
     required this.bio,
@@ -23,6 +25,8 @@ class Community {
   });
 
   final String id;
+  final String? appleId;
+  final String? googleId;
   final String name;
   final String gender;
   final String email;
@@ -46,6 +50,8 @@ class Community {
   factory Community.fromJson(Map<String, dynamic> json) {
     return Community(
       id: json['_id'] ?? '',
+      googleId: json['googleId'],
+      appleId: json['appleId'],
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       bio: json['bio'] ?? '',
@@ -67,10 +73,12 @@ class Community {
       imageUrls: (json['imageUrls'] != null
               ? List<String>.from(json['imageUrls'])
                   .map((url) => url.toString())
-                  .where((url) => 
-                      url.isNotEmpty && 
-                      !url.contains('placeholder') && // Filter out placeholder images
-                      !url.startsWith('placeholder_')) // Filter out placeholder_ prefix
+                  .where((url) =>
+                      url.isNotEmpty &&
+                      !url.contains(
+                          'placeholder') && // Filter out placeholder images
+                      !url.startsWith(
+                          'placeholder_')) // Filter out placeholder_ prefix
                   .toList()
               : <String>[]) ??
           [],
@@ -88,6 +96,32 @@ class Community {
           ? PrivacySettings.fromJson(json['privacySettings'])
           : null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'id': id,
+      'name': name,
+      'email': email,
+      'bio': bio,
+      'images': images,
+      'birth_day': birth_day,
+      'birth_month': birth_month,
+      'gender': gender,
+      'birth_year': birth_year,
+      'native_language': native_language,
+      'language_to_learn': language_to_learn,
+      'mbti': mbti,
+      'bloodType': bloodType,
+      'location': location.toJson(),
+      'imageUrls': imageUrls,
+      'followers': followers,
+      'following': followings,
+      'createdAt': createdAt,
+      '__v': version,
+      'privacySettings': privacySettings?.toJson(),
+    };
   }
 }
 
@@ -201,7 +235,7 @@ class Location {
       final coords = json['coordinates'] as List<dynamic>;
       coordinates = coords.map((e) => (e as num).toDouble()).toList();
     }
-    
+
     return Location(
       type: json['type'] ?? '',
       coordinates: coordinates,

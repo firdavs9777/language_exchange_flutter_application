@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -247,8 +248,13 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   title: const Text('Report'),
                   onTap: () {
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Moment reported')),
+                    showDialog(
+                      context: context,
+                      builder: (context) => ReportDialog(
+                        type: 'moment',
+                        reportedId: widget.moments.id,
+                        reportedUserId: widget.moments.user.id,
+                      ),
                     );
                   },
                 ),

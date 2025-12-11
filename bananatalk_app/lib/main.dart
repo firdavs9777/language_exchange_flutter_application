@@ -1,5 +1,4 @@
 import 'package:bananatalk_app/pages/home/splash_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,7 +28,7 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: kLightColorScheme,
-        scaffoldBackgroundColor: kLightColorScheme.background,
+        scaffoldBackgroundColor: kLightColorScheme.surface,
         appBarTheme: AppBarTheme(
           backgroundColor: kLightColorScheme.surface,
           foregroundColor: kLightColorScheme.onSurface,
@@ -53,21 +52,21 @@ class MyApp extends ConsumerWidget {
           ),
         ),
         textTheme: ThemeData().textTheme.apply(
-              bodyColor: kLightColorScheme.onBackground,
-              displayColor: kLightColorScheme.onBackground,
+              bodyColor: kLightColorScheme.onSurface,
+              displayColor: kLightColorScheme.onSurface,
             ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: kDarkColorScheme,
-        scaffoldBackgroundColor: kDarkColorScheme.background,
+        scaffoldBackgroundColor: kDarkColorScheme.surface,
         appBarTheme: AppBarTheme(
           backgroundColor: kDarkColorScheme.surface,
           foregroundColor: kDarkColorScheme.onSurface,
           elevation: 0,
         ),
         cardTheme: CardTheme(
-          color: kDarkColorScheme.surfaceVariant,
+          color: kDarkColorScheme.surface,
           elevation: 1,
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           shape: RoundedRectangleBorder(
@@ -84,8 +83,8 @@ class MyApp extends ConsumerWidget {
           ),
         ),
         textTheme: ThemeData.dark().textTheme.apply(
-              bodyColor: kDarkColorScheme.onBackground,
-              displayColor: kDarkColorScheme.onBackground,
+              bodyColor: kDarkColorScheme.onSurface,
+              displayColor: kDarkColorScheme.onSurface,
             ),
       ),
       themeMode: themeMode,

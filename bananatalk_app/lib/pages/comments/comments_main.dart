@@ -1,8 +1,10 @@
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 
@@ -112,12 +114,46 @@ class CommentsMain extends ConsumerWidget {
                                 style: TextStyle(fontSize: 18),
                               ),
                             ),
-                            trailing: Text(
-                              comment.createdAt
-                                  .toLocal()
-                                  .toString()
-                                  .split(' ')[0],
-                              style: TextStyle(color: secondaryText),
+                            trailing: PopupMenuButton<String>(
+                              icon: Icon(Icons.more_vert, color: secondaryText),
+                              onSelected: (value) async {
+                                if (value == 'report') {
+                                  final prefs = await SharedPreferences.getInstance();
+                                  final currentUserId = prefs.getString('userId');
+                                  final isOwnComment = currentUserId == comment.user.id;
+                                  
+                                  if (isOwnComment) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Cannot report your own comment'),
+                                        backgroundColor: Colors.orange,
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => ReportDialog(
+                                      type: 'comment',
+                                      reportedId: comment.id,
+                                      reportedUserId: comment.user.id,
+                                    ),
+                                  );
+                                }
+                              },
+                              itemBuilder: (context) => [
+                                const PopupMenuItem(
+                                  value: 'report',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
+                                      SizedBox(width: 8),
+                                      Text('Report'),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Divider(

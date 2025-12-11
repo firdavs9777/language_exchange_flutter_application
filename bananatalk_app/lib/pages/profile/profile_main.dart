@@ -7,12 +7,18 @@ import 'package:bananatalk_app/pages/profile/main/profile_moments.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
+import 'package:bananatalk_app/widgets/limit_indicator.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'dart:ui';
 
 class ProfileMain extends ConsumerStatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
@@ -22,15 +28,9 @@ class ProfileMain extends ConsumerStatefulWidget {
 }
 
 class _ProfileMainState extends ConsumerState<ProfileMain> {
-  ColorScheme get colorScheme => Theme.of(context).colorScheme;
-  Color get textPrimary => context.textPrimary;
-  Color get secondaryText => context.textSecondary;
-  Color get mutedText => context.textMuted;
-
   @override
   void initState() {
     super.initState();
-    // Refresh user data on init
     Future.microtask(() => ref.refresh(userProvider));
   }
 
@@ -49,74 +49,20 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     final userAsync = ref.watch(userProvider);
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: Colors.grey[50],
+      extendBodyBehindAppBar: true,
       endDrawer: Builder(
         builder: (context) {
           return userAsync.when(
             data: (user) => LeftDrawer(user: user),
-            loading: () => Center(child: CircularProgressIndicator()),
-            error: (error, stack) => Center(child: Text('Error: $error')),
+            loading: () => const Drawer(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+            error: (error, stack) => Drawer(
+              child: Center(child: Text('Error: $error')),
+            ),
           );
         },
-      ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-      ),
-        elevation: 0,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: textPrimary,
-        actions: [
-          // Edit Profile Button
-          Consumer(
-            builder: (context, ref, child) {
-              final userAsync = ref.watch(userProvider);
-              return userAsync.when(
-                data: (user) => IconButton(
-                  icon: Icon(Icons.edit),
-                  tooltip: 'Edit Profile',
-                  onPressed: () async {
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileEdit(
-                                    nativeLanguage: user.native_language,
-                                    languageToLearn: user.language_to_learn,
-                                    userName: user.name,
-                                    mbti: user.mbti,
-                                    bloodType: user.bloodType,
-                                    location: user.location,
-                                    gender: user.gender,
-                          bio: user.bio,
-                        ),
-                      ),
-                    );
-                    if (mounted) {
-                      // Force refresh to get updated data
-                      ref.invalidate(userProvider);
-                      await ref.read(userProvider.future);
-                    }
-                  },
-                ),
-                loading: () => const SizedBox.shrink(),
-                error: (error, stack) => const SizedBox.shrink(),
-              );
-            },
-          ),
-          // Menu Button
-          Builder(
-            builder: (context) => IconButton(
-              icon: Icon(Icons.menu),
-              tooltip: 'Menu',
-              onPressed: () => Scaffold.of(context).openEndDrawer(),
-            ),
-          ),
-        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -124,43 +70,94 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           await Future.delayed(const Duration(milliseconds: 500));
         },
         child: userAsync.when(
-          data: (user) => SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                _buildProfileHeader(user),
-                const SizedBox(height: 16),
-                _buildStatsSection(context, user),
-                const SizedBox(height: 24),
-                _buildLanguageSection(user),
-                const SizedBox(height: 16),
-                _buildBioSection(user),
-                const SizedBox(height: 16),
-                _buildAdditionalInfoSection(user),
-                const SizedBox(height: 16),
-                _buildMomentsPreview(context, user),
-                const SizedBox(height: 24),
-              ],
-            ),
+          data: (user) => CustomScrollView(
+            slivers: [
+              // Modern App Bar with Gradient
+              _buildModernAppBar(context),
+
+              // Profile Content
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    _buildProfileHeader(user),
+                    const SizedBox(height: 20),
+                    _buildQuickActions(context, user),
+                    const SizedBox(height: 20),
+                    _buildStatsCards(context, user),
+                    const SizedBox(height: 20),
+                    _buildLanguageCard(user),
+                    const SizedBox(height: 16),
+                    _buildAboutCard(user),
+                    const SizedBox(height: 16),
+                    _buildMomentsGrid(context, user),
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              ),
+            ],
           ),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CircularProgressIndicator()),
           error: (error, stack) => Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.error_outline, size: 48, color: colorScheme.error),
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
                 const SizedBox(height: 16),
                 Text('Error: $error'),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => ref.refresh(userProvider),
-                  child: Text('Retry'),
+                  child: const Text('Retry'),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildModernAppBar(BuildContext context) {
+    return SliverAppBar(
+      expandedHeight: 0,
+      floating: true,
+      pinned: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      flexibleSpace: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFF00BFA5).withOpacity(0.8),
+                  const Color(0xFF00897B).withOpacity(0.8),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      actions: [
+        Builder(
+          builder: (context) => IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.menu, color: Colors.white),
+            ),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+          ),
+        ),
+        const SizedBox(width: 8),
+      ],
     );
   }
 
@@ -170,393 +167,441 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     final locationText = PrivacyUtils.getLocationText(user);
 
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFF00BFA5).withOpacity(0.8),
-            const Color(0xFF00BFA5).withOpacity(0.6),
-            colorScheme.primaryContainer,
-          ],
-        ),
-      ),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Cover area
-          Container(
-            height: 180,
-            width: double.infinity,
-          ),
-          // Profile picture overlapping
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: -60,
-            child: Center(
-              child: Column(
-                      children: [
-                  GestureDetector(
-                            onTap: () {
-                              if (user.imageUrls.isNotEmpty) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ImageGallery(
-                                      imageUrls: user.imageUrls,
-                                    ),
-                                  ),
-                                );
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: colorScheme.surface,
-                          width: 4,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorScheme.onSurface.withOpacity(0.2),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                            child: CircleAvatar(
-                        radius: 60,
-                        backgroundColor: const Color(0xFF00BFA5),
-                              backgroundImage: user.imageUrls.isNotEmpty
-                            ? NetworkImage(
-                                ImageUtils.normalizeImageUrl(user.imageUrls[0]),
-                              )
-                            : null,
-                        child: user.imageUrls.isEmpty
-                            ? Icon(
-                                Icons.person,
-                                size: 60,
-                                color: colorScheme.surface,
-                              )
-                            : null,
-                        onBackgroundImageError: (exception, stackTrace) {
-                          // Image failed to load, will use icon fallback
-                        },
-                            ),
-                          ),
-                        ),
-                  const SizedBox(height: 70),
-                  // User name and info
-                        Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          user.name,
-                              style: TextStyle(
-                            fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                            color: textPrimary,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        if (age != null || locationText.isNotEmpty)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (age != null) ...[
-                                Icon(Icons.cake, size: 16, color: secondaryText),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '$age years old',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: secondaryText,
-                                  ),
-                                ),
-                                if (locationText.isNotEmpty) const SizedBox(width: 12),
-                              ],
-                              if (locationText.isNotEmpty) ...[
-                                Icon(Icons.location_on, size: 16, color: secondaryText),
-                                const SizedBox(width: 4),
-                                Flexible(
-                                  child: Text(
-                                    locationText,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: secondaryText,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ],
-                          ),
-                        const SizedBox(height: 16),
-                        // Edit button
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProfileEdit(
-                                  nativeLanguage: user.native_language,
-                                  languageToLearn: user.language_to_learn,
-                                  userName: user.name,
-                                  mbti: user.mbti,
-                                  bloodType: user.bloodType,
-                                  location: user.location,
-                                  gender: user.gender,
-                                  bio: user.bio,
-                                ),
-                              ),
-                            );
-                            if (mounted) {
-                              // Force refresh to get updated data
-                              ref.invalidate(userProvider);
-                              await ref.read(userProvider.future);
-                            }
-                          },
-                          icon: Icon(Icons.edit, size: 18),
-                          label: Text('Edit Profile'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF00BFA5),
-                            foregroundColor: colorScheme.surface,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 12,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatsSection(BuildContext context, Community user) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.onSurface.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildStatItem(
-            context: context,
-            value: user.followings.length,
-            label: 'Following',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileFollowings(id: user.id),
-                ),
-              ).then((_) {
-                if (mounted) {
-                  ref.refresh(userProvider);
-                }
-              });
-            },
-          ),
-          Container(
-            width: 1,
-            height: 40,
-            color: colorScheme.outlineVariant,
-          ),
-          _buildStatItem(
-            context: context,
-            value: user.followers.length,
-            label: 'Followers',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileFollowers(id: user.id),
-                ),
-              ).then((_) {
-                if (mounted) {
-                  ref.refresh(userProvider);
-                }
-              });
-            },
-          ),
-          Container(
-            width: 1,
-            height: 40,
-            color: colorScheme.outlineVariant,
-          ),
-          _buildMomentsStatItem(context, user),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatItem({
-    required BuildContext context,
-    required int value,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      margin: const EdgeInsets.fromLTRB(16, 80, 16, 0),
       child: Column(
         children: [
-            Text(
-              value.toString(),
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF00BFA5),
+          // Profile Picture with Gradient Border
+          GestureDetector(
+            onTap: () {
+              if (user.imageUrls.isNotEmpty) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ImageGallery(
+                      imageUrls: user.imageUrls,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF00BFA5),
+                    Color(0xFF00897B),
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF00BFA5).withOpacity(0.4),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: user.imageUrls.isNotEmpty
+                    ? CircleAvatar(
+                        radius: 64,
+                        backgroundColor: Colors.grey[200],
+                        backgroundImage: NetworkImage(
+                          ImageUtils.normalizeImageUrl(user.imageUrls[0]),
+                        ),
+                        onBackgroundImageError: (exception, stackTrace) {
+                          print('Failed to load image: $exception');
+                        },
+                      )
+                    : CircleAvatar(
+                        radius: 64,
+                        backgroundColor:
+                            const Color(0xFF00BFA5).withOpacity(0.1),
+                        child: const Icon(
+                          Icons.person,
+                          size: 64,
+                          color: Color(0xFF00BFA5),
+                        ),
+                      ),
               ),
             ),
-          const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                color: secondaryText,
-                fontWeight: FontWeight.w500,
-              ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Name
+          Text(
+            user.name,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
-          ],
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 8),
+
+          // Age and Location with Icons
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            alignment: WrapAlignment.center,
+            children: [
+              if (age != null)
+                _buildInfoChip(
+                  Icons.cake_outlined,
+                  '$age years old',
+                  Colors.purple,
+                ),
+              if (locationText.isNotEmpty)
+                _buildInfoChip(
+                  Icons.location_on_outlined,
+                  locationText,
+                  Colors.blue,
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip(IconData icon, String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: color),
+          const SizedBox(width: 6),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              color: color.withOpacity(0.9),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickActions(BuildContext context, Community user) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Expanded(
+            child: _buildActionButton(
+              icon: Icons.edit_outlined,
+              label: 'Edit Profile',
+              gradient: const LinearGradient(
+                colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+              ),
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileEdit(
+                      nativeLanguage: user.native_language,
+                      languageToLearn: user.language_to_learn,
+                      userName: user.name,
+                      mbti: user.mbti,
+                      bloodType: user.bloodType,
+                      location: user.location,
+                      gender: user.gender,
+                      bio: user.bio,
+                    ),
+                  ),
+                );
+                if (mounted) {
+                  ref.invalidate(userProvider);
+                  await ref.read(userProvider.future);
+                }
+              },
+            ),
+          ),
+          const SizedBox(width: 12),
+          FutureBuilder<String?>(
+            future: SharedPreferences.getInstance()
+                .then((prefs) => prefs.getString('userId')),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return const SizedBox.shrink();
+              final userId = snapshot.data!;
+
+              return Expanded(
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final limitsAsync = ref.watch(userLimitsProvider(userId));
+
+                    return limitsAsync.when(
+                      data: (limits) {
+                        if (limits.isVIP) {
+                          return _buildActionButton(
+                            icon: Icons.workspace_premium,
+                            label: 'VIP Active',
+                            gradient: const LinearGradient(
+                              colors: [Colors.amber, Colors.orange],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      VipPlansScreen(userId: userId),
+                                ),
+                              );
+                            },
+                          );
+                        }
+
+                        return _buildActionButton(
+                          icon: Icons.workspace_premium_outlined,
+                          label: 'Go VIP',
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.amber.shade400,
+                              Colors.orange.shade400
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    VipPlansScreen(userId: userId),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      loading: () => const SizedBox.shrink(),
+                      error: (_, __) => const SizedBox.shrink(),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required Gradient gradient,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: gradient.colors.first.withOpacity(0.3),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: Colors.white, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildMomentsStatItem(BuildContext context, Community user) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final momentsAsync = ref.watch(userMomentsProvider(user.id));
-
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfileMoments(id: user.id),
-          ),
-            ).then((_) {
-              if (mounted) {
-                // Invalidate the provider to refresh when returning
-                ref.invalidate(userMomentsProvider(user.id));
-              }
-            });
-          },
-          borderRadius: BorderRadius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: momentsAsync.when(
-              data: (moments) {
-                return Column(
-                  children: [
-                    Text(
-                      moments.length.toString(),
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF00BFA5),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Moments',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: secondaryText,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                );
+  Widget _buildStatsCards(BuildContext context, Community user) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Expanded(
+            child: _buildStatCard(
+              value: user.followers.length.toString(),
+              label: 'Followers',
+              icon: Icons.people_outline,
+              color: const Color(0xFF00BFA5),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileFollowers(id: user.id),
+                  ),
+                ).then((_) => mounted ? ref.refresh(userProvider) : null);
               },
-              loading: () => Column(
-                children: [
-                  const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Moments',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: secondaryText,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              error: (error, stack) => Column(
-                children: [
-                  Text(
-                    '0',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF00BFA5),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Moments',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: secondaryText,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
-        );
-      },
+          const SizedBox(width: 12),
+          Expanded(
+            child: _buildStatCard(
+              value: user.followings.length.toString(),
+              label: 'Following',
+              icon: Icons.person_add_outlined,
+              color: Colors.blue,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileFollowings(id: user.id),
+                  ),
+                ).then((_) => mounted ? ref.refresh(userProvider) : null);
+              },
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Consumer(
+              builder: (context, ref, child) {
+                final momentsAsync = ref.watch(userMomentsProvider(user.id));
+                return momentsAsync.when(
+                  data: (moments) => _buildStatCard(
+                    value: moments.length.toString(),
+                    label: 'Moments',
+                    icon: Icons.photo_library_outlined,
+                    color: Colors.purple,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileMoments(id: user.id),
+                        ),
+                      ).then((_) => mounted
+                          ? ref.invalidate(userMomentsProvider(user.id))
+                          : null);
+                    },
+                  ),
+                  loading: () => _buildStatCard(
+                    value: '...',
+                    label: 'Moments',
+                    icon: Icons.photo_library_outlined,
+                    color: Colors.purple,
+                    onTap: () {},
+                  ),
+                  error: (_, __) => _buildStatCard(
+                    value: '0',
+                    label: 'Moments',
+                    icon: Icons.photo_library_outlined,
+                    color: Colors.purple,
+                    onTap: () {},
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildLanguageSection(Community user) {
+  Widget _buildStatCard({
+    required String value,
+    required String label,
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 15,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, color: color, size: 24),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageCard(Community user) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.onSurface.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
@@ -566,68 +611,68 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00BFA5).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.language,
-                  color: Color(0xFF00BFA5),
+                  color: Colors.white,
                   size: 24,
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
+              const Text(
                 'Language Exchange',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: textPrimary,
+                  color: Colors.black87,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          _buildLanguageItem(
-            icon: Icons.translate,
-            label: 'Native',
-            language: user.native_language.isEmpty
-                ? 'Not set'
-                : user.native_language,
-            color: colorScheme.primary,
+          const SizedBox(height: 24),
+          _buildLanguageRow(
+            'Native Language',
+            user.native_language.isEmpty ? 'Not set' : user.native_language,
+            Icons.translate,
+            const Color(0xFF00BFA5),
           ),
-          const SizedBox(height: 12),
-          _buildLanguageItem(
-            icon: Icons.school,
-            label: 'Learning',
-            language: user.language_to_learn.isEmpty
-                ? 'Not set'
-                : user.language_to_learn,
-            color: colorScheme.secondary,
+          const SizedBox(height: 16),
+          Divider(color: Colors.grey[200]),
+          const SizedBox(height: 16),
+          _buildLanguageRow(
+            'Learning',
+            user.language_to_learn.isEmpty ? 'Not set' : user.language_to_learn,
+            Icons.school,
+            Colors.orange,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildLanguageItem({
-    required IconData icon,
-    required String label,
-    required String language,
-    required Color color,
-  }) {
+  Widget _buildLanguageRow(
+    String label,
+    String language,
+    IconData icon,
+    Color color,
+  ) {
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: color, size: 20),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -636,203 +681,178 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 label,
                 style: TextStyle(
                   fontSize: 12,
-                  color: secondaryText,
+                  color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
                 language,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: textPrimary,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
                 ),
               ),
             ],
           ),
         ),
+        Icon(Icons.check_circle, color: color, size: 20),
       ],
     );
   }
 
-  Widget _buildBioSection(Community user) {
-    if (user.bio.isEmpty) {
+  Widget _buildAboutCard(Community user) {
+    if (user.bio.isEmpty && user.mbti.isEmpty && user.bloodType.isEmpty) {
       return const SizedBox.shrink();
     }
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.onSurface.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-            Row(
-              children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  Icons.person,
-                  color: colorScheme.tertiary,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Self-Introduction',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  color: textPrimary,
-                  ),
-                ),
-              ],
-            ),
-          const SizedBox(height: 12),
-            Text(
-            user.bio,
-            style: TextStyle(
-              fontSize: 15,
-              color: textPrimary,
-              height: 1.5,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAdditionalInfoSection(Community user) {
-    final hasInfo = user.mbti.isNotEmpty ||
-        user.bloodType.isNotEmpty ||
-        (user.location.city.isNotEmpty || user.location.country.isNotEmpty);
-
-    if (!hasInfo) {
-      return const SizedBox.shrink();
-    }
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.onSurface.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.secondary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+          if (user.bio.isNotEmpty) ...[
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.purple.shade400, Colors.purple.shade600],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(
+                    Icons.info_outline,
+                    color: Colors.white,
+                    size: 24,
+                  ),
                 ),
-                child: Icon(
-                  Icons.info_outline,
-                  color: colorScheme.secondary,
-                  size: 24,
+                const SizedBox(width: 12),
+                const Text(
+                  'About Me',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              user.bio,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey[800],
+                height: 1.6,
               ),
-              const SizedBox(width: 12),
-              Text(
-                'Additional Info',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: textPrimary,
-                ),
             ),
           ],
-        ),
-          const SizedBox(height: 16),
-          if (user.mbti.isNotEmpty)
-            _buildInfoRow(Icons.psychology, 'MBTI', user.mbti),
-          if (user.mbti.isNotEmpty && user.bloodType.isNotEmpty)
-            const SizedBox(height: 12),
-          if (user.bloodType.isNotEmpty)
-            _buildInfoRow(Icons.favorite, 'Blood Type', user.bloodType),
+          if (user.bio.isNotEmpty &&
+              (user.mbti.isNotEmpty || user.bloodType.isNotEmpty))
+            const SizedBox(height: 24),
+          if (user.mbti.isNotEmpty || user.bloodType.isNotEmpty) ...[
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: [
+                if (user.mbti.isNotEmpty)
+                  _buildTagChip(
+                    Icons.psychology,
+                    'MBTI: ${user.mbti}',
+                    Colors.pink,
+                  ),
+                if (user.bloodType.isNotEmpty)
+                  _buildTagChip(
+                    Icons.favorite,
+                    'Blood: ${user.bloodType}',
+                    Colors.red,
+                  ),
+              ],
+            ),
+          ],
         ],
       ),
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String label, String value) {
-    return Row(
-      children: [
-        Icon(icon, size: 20, color: secondaryText),
-        const SizedBox(width: 12),
-        Text(
-          '$label: ',
-          style: TextStyle(
-            fontSize: 14,
-            color: secondaryText,
-            fontWeight: FontWeight.w500,
+  Widget _buildTagChip(IconData icon, String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: color),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: textPrimary,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _buildMomentsPreview(BuildContext context, Community user) {
+  Widget _buildMomentsGrid(BuildContext context, Community user) {
     return Consumer(
       builder: (context, ref, child) {
         final momentsAsync = ref.watch(userMomentsProvider(user.id));
 
         return momentsAsync.when(
           data: (moments) {
-            if (moments.isEmpty) {
-              return const SizedBox.shrink();
-            }
+            if (moments.isEmpty) return const SizedBox.shrink();
 
-            // Show preview of first 6 moments
-            final previewMoments = moments.take(6).toList();
+            final previewMoments = moments.take(9).toList();
 
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Recent Moments',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: textPrimary,
+                          color: Colors.black87,
                         ),
                       ),
                       TextButton(
@@ -842,25 +862,28 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                             MaterialPageRoute(
                               builder: (context) => ProfileMoments(id: user.id),
                             ),
-                          ).then((_) {
-                            if (mounted) {
-                              // Invalidate the provider to refresh when returning
-                              ref.invalidate(userMomentsProvider(user.id));
-                            }
-                          });
+                          ).then((_) => mounted
+                              ? ref.invalidate(userMomentsProvider(user.id))
+                              : null);
                         },
-                        child: Text('See All'),
+                        child: const Text(
+                          'See All',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
                       childAspectRatio: 1,
                     ),
                     itemCount: previewMoments.length,
@@ -870,59 +893,51 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                           ? ImageUtils.normalizeImageUrl(moment.imageUrls[0])
                           : null;
 
-                      return GestureDetector(
-                        onTap: () {
-                          // Navigate to moment detail
-                          // You can add navigation here if needed
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: colorScheme.surfaceVariant,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: imageUrl != null
-                                ? Image.network(
-                                    imageUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: colorScheme.outlineVariant,
-                                        child: Icon(
-                                          Icons.image_not_supported,
-                                          color: mutedText,
-                                        ),
-                                      );
-                                    },
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Container(
-                                        color: colorScheme.surfaceVariant,
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress.expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                : Container(
-                                    color: colorScheme.outlineVariant,
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: imageUrl != null
+                            ? Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: Colors.grey[200],
                                     child: Icon(
-                                      Icons.image_not_supported,
-                                      color: mutedText,
+                                      Icons.broken_image_outlined,
+                                      color: Colors.grey[400],
+                                      size: 32,
                                     ),
-                                  ),
-                          ),
-                        ),
+                                  );
+                                },
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Container(
+                                    color: Colors.grey[100],
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                            : Container(
+                                color: Colors.grey[200],
+                                child: Icon(
+                                  Icons.image_outlined,
+                                  color: Colors.grey[400],
+                                  size: 32,
+                                ),
+                              ),
                       );
                     },
                   ),
@@ -930,7 +945,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               ),
             );
           },
-          loading: () => Center(
+          loading: () => const Center(
             child: Padding(
               padding: EdgeInsets.all(24.0),
               child: CircularProgressIndicator(),

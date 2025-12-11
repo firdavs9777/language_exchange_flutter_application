@@ -1,5 +1,11 @@
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/utils/api_error_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -27,6 +33,31 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
     if (commentText.isEmpty) return;
     final colorScheme = Theme.of(context).colorScheme;
 
+    // Check limits before submitting
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId');
+      if (userId != null) {
+        final userAsync = ref.read(userProvider);
+        final user = await userAsync;
+        final limits = ref.read(currentUserLimitsProvider(userId));
+
+        if (!FeatureGate.canCreateComment(user, limits)) {
+          await LimitExceededDialog.show(
+            context: context,
+            limitType: 'comments',
+            limitInfo: limits?.comments,
+            resetTime: limits?.resetTime,
+            userId: userId,
+          );
+          return;
+        }
+      }
+    } catch (e) {
+      // If limit check fails, allow submitting (fail open)
+      print('Error checking limits: $e');
+    }
+
     try {
       // Create the comment
       await ref.read(commentsServiceProvider).createComment(
@@ -43,6 +74,17 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       // Refresh the moment to update comment count
       ref.invalidate(momentsServiceProvider);
 
+      // Refresh limits after successful creation
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final userId = prefs.getString('userId');
+        if (userId != null) {
+          ref.refresh(userLimitsProvider(userId));
+        }
+      } catch (e) {
+        print('Error refreshing limits: $e');
+      }
+
       // Call the callback to update comment count in parent
       widget.onCommentAdded();
 
@@ -55,14 +97,30 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         ),
       );
     } catch (e) {
-      // Show error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to add comment: ${e.toString().replaceFirst('Exception: ', '')}'),
-          duration: const Duration(seconds: 3),
-          backgroundColor: colorScheme.error,
-        ),
-      );
+      // Handle 429 errors
+      if (e.toString().contains('429') || 
+          ApiErrorHandler.isLimitExceededError(e)) {
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          final userId = prefs.getString('userId');
+          await ApiErrorHandler.handleLimitExceededError(
+            context: context,
+            error: e,
+            userId: userId,
+          );
+        } catch (err) {
+          print('Error handling limit error: $err');
+        }
+      } else {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to add comment: ${e.toString().replaceFirst('Exception: ', '')}'),
+            duration: const Duration(seconds: 3),
+            backgroundColor: colorScheme.error,
+          ),
+        );
+      }
     }
   }
 

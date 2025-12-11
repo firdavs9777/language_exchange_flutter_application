@@ -58,16 +58,19 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         // Use the Web client ID for Android
         clientId: Platform.isIOS ? _iosClientId : _webClientId,
       );
-      print(googleSignIn.clientId);
+      print('🔑 Using Google Client ID: ${googleSignIn.clientId}');
 
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
+        print('❌ User cancelled Google sign-in');
         setState(() {
           _isLoading = false;
         });
         return;
       }
+
+      print('✅ Google user signed in: ${googleUser.email}');
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -75,6 +78,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
       final String? idToken = googleAuth.idToken;
 
       if (idToken == null) {
+        print('❌ Failed to get ID token from Google');
         setState(() {
           _errorMessage = 'Failed to get ID token from Google';
           _isLoading = false;
@@ -82,28 +86,49 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         return;
       }
 
+      print('🎫 Got ID token, sending to backend...');
+
       final result =
           await ref.read(authServiceProvider).signInWithGoogleNative(idToken);
 
       if (result['success'] == true) {
-        // Get user data from response - use 'user' not 'userData'
+        // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
 
-        // Check profileCompleted flag from backend (not isRegistrationComplete)
-        final bool profileCompleted = user?['profileCompleted'] ?? true;
+        print('📦 Backend response user data: $user');
 
-        // Secondary check: Look for default values
-        final bool hasDefaultValues = user?['native_language'] == 'English' &&
-            user?['language_to_learn'] == 'Korean' &&
-            user?['gender'] == 'other' &&
-            user?['birth_year'] == '2000';
+        // CRITICAL FIX: Default to FALSE if not set
+        // This ensures new users must complete their profile
+        final bool profileCompleted = user?['profileCompleted'] ?? false;
 
-        // User needs to complete profile if flag is false OR has default values
+        // Secondary check: Look for placeholder/default values
+        final bool hasDefaultValues = (user?['native_language'] == null ||
+                user?['native_language'] == '' ||
+                user?['native_language'] == 'English') &&
+            (user?['language_to_learn'] == null ||
+                user?['language_to_learn'] == '' ||
+                user?['language_to_learn'] == 'Korean') &&
+            (user?['gender'] == null || user?['gender'] == 'other');
+
+        // User needs to complete profile if:
+        // 1. Backend says profile is not completed, OR
+        // 2. User has default/placeholder values
         final bool needsProfileCompletion =
             !profileCompleted || hasDefaultValues;
 
-        print(
-            '🔍 Profile check: profileCompleted=$profileCompleted, hasDefaultValues=$hasDefaultValues, needsCompletion=$needsProfileCompletion');
+        print('═══════════════════════════════════════');
+        print('🔍 PROFILE COMPLETION CHECK:');
+        print('   profileCompleted: $profileCompleted');
+        print('   hasDefaultValues: $hasDefaultValues');
+        print('   needsCompletion: $needsProfileCompletion');
+        print('───────────────────────────────────────');
+        print('📝 User Profile Data:');
+        print('   name: ${user?['name']}');
+        print('   email: ${user?['email']}');
+        print('   native_language: ${user?['native_language']}');
+        print('   language_to_learn: ${user?['language_to_learn']}');
+        print('   gender: ${user?['gender']}');
+        print('═══════════════════════════════════════');
 
         setState(() {
           _isLoading = false;
@@ -111,7 +136,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
         if (mounted) {
           if (needsProfileCompletion) {
-            // Profile not completed - redirect to RegisterTwo
+            // Profile NOT completed - redirect to RegisterTwo
+            print('❌ Profile incomplete - redirecting to RegisterTwo');
+
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (ctx) => RegisterTwo(
@@ -143,7 +170,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
               ),
             );
           } else {
-            // Profile completed - go to main app
+            // Profile IS completed - go to main app
+            print('✅ Profile complete - redirecting to main app');
+
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
             );
@@ -165,6 +194,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           }
         }
       } else {
+        print('❌ Backend authentication failed: ${result['message']}');
         setState(() {
           _errorMessage =
               result['message'] ?? 'Failed to authenticate with backend';
@@ -172,6 +202,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         });
       }
     } catch (e) {
+      print('❌ Google sign-in error: $e');
       setState(() {
         _errorMessage = 'Google sign-in error: ${e.toString()}';
         _isLoading = false;

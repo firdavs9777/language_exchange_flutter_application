@@ -3,58 +3,93 @@ class VipSubscription {
   final String plan;
   final DateTime startDate;
   final DateTime endDate;
-  final String status;
-  final double amount;
+  final bool isActive;
+  final bool autoRenew;
   final String? paymentMethod;
+  final DateTime? lastPaymentDate;
+  final DateTime? nextBillingDate;
+  final double? amount;
+  final String? status;
 
   VipSubscription({
     required this.id,
     required this.plan,
     required this.startDate,
     required this.endDate,
-    required this.status,
-    required this.amount,
+    this.isActive = true,
+    this.autoRenew = true,
     this.paymentMethod,
+    this.lastPaymentDate,
+    this.nextBillingDate,
+    this.amount,
+    this.status,
   });
 
   factory VipSubscription.fromJson(Map<String, dynamic> json) {
     return VipSubscription(
-      id: json['_id'] ?? '',
+      id: json['_id'] ?? json['id'] ?? '',
       plan: json['plan'] ?? '',
-      startDate: DateTime.parse(json['startDate']),
-      endDate: DateTime.parse(json['endDate']),
-      status: json['status'] ?? '',
-      amount: (json['amount'] ?? 0).toDouble(),
+      startDate: json['startDate'] != null
+          ? DateTime.parse(json['startDate'])
+          : DateTime.now(),
+      endDate: json['endDate'] != null
+          ? DateTime.parse(json['endDate'])
+          : DateTime.now(),
+      isActive: json['isActive'] ?? json['status'] == 'active' ?? true,
+      autoRenew: json['autoRenew'] ?? true,
       paymentMethod: json['paymentMethod'],
+      lastPaymentDate: json['lastPaymentDate'] != null
+          ? DateTime.parse(json['lastPaymentDate'])
+          : null,
+      nextBillingDate: json['nextBillingDate'] != null
+          ? DateTime.parse(json['nextBillingDate'])
+          : null,
+      amount: json['amount'] != null ? (json['amount'] as num).toDouble() : null,
+      status: json['status'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
+      'id': id,
       'plan': plan,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
-      'status': status,
-      'amount': amount,
+      'isActive': isActive,
+      'autoRenew': autoRenew,
       'paymentMethod': paymentMethod,
+      'lastPaymentDate': lastPaymentDate?.toIso8601String(),
+      'nextBillingDate': nextBillingDate?.toIso8601String(),
+      'amount': amount,
+      'status': status,
     };
   }
 }
 
 class VipFeatures {
   final bool unlimitedMessages;
+  final bool unlimitedMoments;
+  final bool unlimitedStories;
+  final bool unlimitedComments;
   final bool unlimitedProfileViews;
   final bool prioritySupport;
   final bool advancedSearch;
+  final bool translationFeature;
+  final bool customBadge;
   final bool profileBoost;
   final bool adFree;
 
   VipFeatures({
     this.unlimitedMessages = false,
+    this.unlimitedMoments = false,
+    this.unlimitedStories = false,
+    this.unlimitedComments = false,
     this.unlimitedProfileViews = false,
     this.prioritySupport = false,
     this.advancedSearch = false,
+    this.translationFeature = false,
+    this.customBadge = false,
     this.profileBoost = false,
     this.adFree = false,
   });
@@ -62,9 +97,14 @@ class VipFeatures {
   factory VipFeatures.fromJson(Map<String, dynamic> json) {
     return VipFeatures(
       unlimitedMessages: json['unlimitedMessages'] ?? false,
+      unlimitedMoments: json['unlimitedMoments'] ?? false,
+      unlimitedStories: json['unlimitedStories'] ?? false,
+      unlimitedComments: json['unlimitedComments'] ?? false,
       unlimitedProfileViews: json['unlimitedProfileViews'] ?? false,
       prioritySupport: json['prioritySupport'] ?? false,
       advancedSearch: json['advancedSearch'] ?? false,
+      translationFeature: json['translationFeature'] ?? false,
+      customBadge: json['customBadge'] ?? false,
       profileBoost: json['profileBoost'] ?? false,
       adFree: json['adFree'] ?? false,
     );
@@ -73,9 +113,14 @@ class VipFeatures {
   Map<String, dynamic> toJson() {
     return {
       'unlimitedMessages': unlimitedMessages,
+      'unlimitedMoments': unlimitedMoments,
+      'unlimitedStories': unlimitedStories,
+      'unlimitedComments': unlimitedComments,
       'unlimitedProfileViews': unlimitedProfileViews,
       'prioritySupport': prioritySupport,
       'advancedSearch': advancedSearch,
+      'translationFeature': translationFeature,
+      'customBadge': customBadge,
       'profileBoost': profileBoost,
       'adFree': adFree,
     };

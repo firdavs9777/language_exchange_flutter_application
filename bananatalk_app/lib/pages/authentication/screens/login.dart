@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bananatalk_app/pages/authentication/screens/apple_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/email_input.dart';
 import 'package:bananatalk_app/pages/authentication/screens/facebook_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/forget_password_email.dart';
@@ -315,6 +318,32 @@ class _LoginState extends ConsumerState<Login> {
                           //   ),
                           // ),
                           // Google Login Button
+
+                          if (Platform.isIOS) // ONLY SHOW ON iOS
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                height: 45.0,
+                                width: double.infinity,
+                                child: BananaButton(
+                                  BananaText: BananaText('Sign In with Apple'),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (ctx) => const AppleLogin()),
+                                    );
+                                  },
+                                  color: Colors.black, // Apple black color
+                                  textColor: Color(0xFFFFFFFF),
+                                  borderRadius: BorderRadius.circular(8),
+                                  icon: Icon(
+                                    Icons.apple, // Apple icon
+                                    color: Colors.white,
+                                    size: 24.0,
+                                  ),
+                                ),
+                              ),
+                            ),
                           Container(
                             width: double.infinity,
                             height: 50,

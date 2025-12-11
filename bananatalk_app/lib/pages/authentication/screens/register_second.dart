@@ -25,69 +25,76 @@ class RegisterTwo extends ConsumerStatefulWidget {
   final String languageToLearn;
   final String birthDate;
 
-  const RegisterTwo(
-      {super.key,
-      required this.name,
-      required this.email,
-      required this.password,
-      this.bio = '',
-      this.gender = '',
-      this.nativeLanguage = '',
-      this.languageToLearn = '',
-      this.birthDate = ''});
+  const RegisterTwo({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.password,
+    this.bio = '',
+    this.gender = '',
+    this.nativeLanguage = '',
+    this.languageToLearn = '',
+    this.birthDate = '',
+  });
 
   @override
   ConsumerState<RegisterTwo> createState() => _RegisterTwoState();
 }
 
 class _RegisterTwoState extends ConsumerState<RegisterTwo> {
+  // Character limits
+  static const int BIO_MAX_LENGTH = 300;
+  static const int BIO_MIN_LENGTH = 10;
+
   late String? _selectedGender;
-  // Display names for UI (capitalized)
   final List<String?> _genders = ['Male', 'Female', 'Other'];
-  // Map display names to backend values (lowercase)
   final Map<String, String> _genderMap = {
     'Male': 'male',
     'Female': 'female',
     'Other': 'other',
   };
+
   late TextEditingController _bioController;
   late String? _nativelanguage;
   late String? _language_to_learn;
 
   bool _isFetchingLocation = false;
-  bool _isSubmitting = false; // Loading state for registration
+  bool _isSubmitting = false;
   String? _country;
   String? _city;
   double? _latitude;
   double? _longitude;
 
-  // String? _imageUrl;
-
   late TextEditingController _birthDate;
   late TextEditingController _image;
 
-// List of available languages
   List<String> _languages = [];
   List<File> _selectedImages = [];
+
+  // Error states
+  String? _bioError;
+  String? _nativeLanguageError;
+  String? _learnLanguageError;
+  String? _genderError;
+  String? _birthDateError;
+  String? _imagesError;
 
   @override
   void initState() {
     super.initState();
-    print(widget.bio);
-    print(widget.birthDate);
     _bioController = TextEditingController(text: widget.bio);
     _language_to_learn =
         widget.languageToLearn.isNotEmpty ? widget.languageToLearn : null;
 
     _birthDate = TextEditingController(
-        text: widget.birthDate.isNotEmpty
-            ? widget.birthDate
-            : DateFormat('yyyy.MM.dd').format(DateTime.now()));
+      text: widget.birthDate.isNotEmpty
+          ? widget.birthDate
+          : DateFormat('yyyy.MM.dd').format(DateTime.now()),
+    );
     _nativelanguage =
         widget.nativeLanguage.isNotEmpty ? widget.nativeLanguage : null;
-    // Convert backend gender (lowercase) to display format (capitalized) if coming from previous screen
+
     if (widget.gender.isNotEmpty) {
-      // Find the display name from the backend value
       final displayGender = _genderMap.entries
           .firstWhere(
             (entry) => entry.value == widget.gender.toLowerCase(),
@@ -98,28 +105,32 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     } else {
       _selectedGender = null;
     }
+
     _image = TextEditingController();
-    // ref.watch(authStatesProvider);
-    fetchLanguages(); // Fetch languages when the widget initializes
+    fetchLanguages();
+
+    // Add listener to bio for real-time validation
+    _bioController.addListener(() {
+      if (_bioError != null) {
+        setState(() {
+          _bioError = null;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     _bioController.dispose();
-    // _native_language.dispose();
-    // _language_to_learn.dispose();
     _birthDate.dispose();
     _image.dispose();
-
     super.dispose();
   }
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Location services are disabled. Please enable them.'),
-      ));
+      _showErrorSnackBar('Location services are disabled. Please enable them.');
       return false;
     }
 
@@ -127,17 +138,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Location permissions are denied'),
-        ));
+        _showErrorSnackBar('Location permissions are denied');
         return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Location permissions are permanently denied.'),
-      ));
+      _showErrorSnackBar('Location permissions are permanently denied.');
       return false;
     }
 
@@ -173,16 +180,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               'Unknown';
         });
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Detected: $_city, $_country'),
-          backgroundColor: Colors.green,
-        ));
+        _showSuccessSnackBar('Location detected: $_city, $_country');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Failed to get location: $e'),
-        backgroundColor: Colors.red,
-      ));
+      _showErrorSnackBar('Failed to get location: ${e.toString()}');
     } finally {
       setState(() {
         _isFetchingLocation = false;
@@ -196,7 +197,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        // If the call to the server was successful, parse the JSON
         final data = json.decode(response.body);
         List<dynamic> languagesData = data['data'] ?? [];
 
@@ -209,35 +209,17 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           });
         }
       } else {
-        // If that call was not successful, show error
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                  'Failed to load languages. Status: ${response.statusCode}'),
-              backgroundColor: Colors.orange,
-              duration: const Duration(seconds: 3),
-            ),
-          );
-        }
-        // Set empty list as fallback
-        if (mounted) {
+          _showErrorSnackBar(
+              'Failed to load languages. Status: ${response.statusCode}');
           setState(() {
             _languages = [];
           });
         }
       }
     } catch (e) {
-      // Handle network errors
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error loading languages: ${e.toString()}'),
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 3),
-          ),
-        );
-        // Set empty list as fallback
+        _showErrorSnackBar('Error loading languages: ${e.toString()}');
         setState(() {
           _languages = [];
         });
@@ -245,29 +227,85 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     }
   }
 
-  XFile? _imageFile;
-
   Future<void> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final pickedFiles = await _picker.pickMultiImage();
+    final ImagePicker picker = ImagePicker();
+    final pickedFiles = await picker.pickMultiImage();
 
     if (pickedFiles != null) {
+      if (_selectedImages.length + pickedFiles.length > 6) {
+        _showErrorSnackBar('You can only select up to 6 images');
+        return;
+      }
+
       setState(() {
         _selectedImages
             .addAll(pickedFiles.map((pickedFile) => File(pickedFile.path)));
+        _imagesError = null;
       });
     }
   }
 
-  void submit() async {
-    // Prevent multiple submissions
-    if (_isSubmitting) return;
+  void _removeImage(int index) {
+    setState(() {
+      _selectedImages.removeAt(index);
+    });
+  }
+
+  bool _validateForm() {
+    bool isValid = true;
 
     setState(() {
-      _isSubmitting = true;
+      _bioError = null;
+      _nativeLanguageError = null;
+      _learnLanguageError = null;
+      _genderError = null;
+      _birthDateError = null;
+      _imagesError = null;
     });
 
-    // Split birth date to extract year, month, and day
+    // Bio validation
+    if (_bioController.text.trim().isEmpty) {
+      setState(() {
+        _bioError = 'Bio is required';
+      });
+      isValid = false;
+    } else if (_bioController.text.trim().length < BIO_MIN_LENGTH) {
+      setState(() {
+        _bioError = 'Bio must be at least $BIO_MIN_LENGTH characters';
+      });
+      isValid = false;
+    } else if (_bioController.text.trim().length > BIO_MAX_LENGTH) {
+      setState(() {
+        _bioError = 'Bio cannot exceed $BIO_MAX_LENGTH characters';
+      });
+      isValid = false;
+    }
+
+    // Native language validation
+    if (_nativelanguage == null || _nativelanguage.toString().isEmpty) {
+      setState(() {
+        _nativeLanguageError = 'Please select your native language';
+      });
+      isValid = false;
+    }
+
+    // Language to learn validation
+    if (_language_to_learn == null || _language_to_learn.toString().isEmpty) {
+      setState(() {
+        _learnLanguageError = 'Please select the language you want to learn';
+      });
+      isValid = false;
+    }
+
+    // Gender validation
+    if (_selectedGender == null || _selectedGender.toString().isEmpty) {
+      setState(() {
+        _genderError = 'Please select your gender';
+      });
+      isValid = false;
+    }
+
+    // Age validation
     List<String> dateParts = _birthDate.text.split('.');
     String year = dateParts[0];
     String month = dateParts[1];
@@ -276,107 +314,86 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         DateTime(int.parse(year), int.parse(month), int.parse(day));
     DateTime today = DateTime.now();
 
-    // Calculate the preliminary age
     int age = today.year - birthDate.year;
-
-    // Adjust the age if the birthday hasn't occurred yet this year
     if (today.month < birthDate.month ||
         (today.month == birthDate.month && today.day < birthDate.day)) {
       age--;
     }
 
-    // Validation checks
-    if (_bioController.text.isEmpty) {
+    if (age < 18) {
       setState(() {
-        _isSubmitting = false;
+        _birthDateError = 'You must be at least 18 years old';
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Please include your bio'),
-        duration: const Duration(seconds: 3),
-      ));
-      return;
+      isValid = false;
     }
 
-    if (_nativelanguage == null || _nativelanguage.toString().isEmpty) {
-      setState(() {
-        _isSubmitting = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please register your native language'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-      return;
-    }
-
-    if (_language_to_learn == null || _language_to_learn.toString().isEmpty) {
-      setState(() {
-        _isSubmitting = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please register the language you want to learn'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-      return;
-    }
-
-    if (_selectedGender == null || _selectedGender.toString().isEmpty) {
-      setState(() {
-        _isSubmitting = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please select your gender'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-      return;
-    }
-
-    if (age <= 18) {
-      setState(() {
-        _isSubmitting = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('You should be at least 18 to register'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-      return;
-    }
-
+    // Images validation
     if (_selectedImages.length < 2) {
       setState(() {
-        _isSubmitting = false;
+        _imagesError = 'Please select at least 2 profile images';
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please register at least 2 images'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  void submit() async {
+    if (_isSubmitting) return;
+
+    if (!_validateForm()) {
+      _showErrorSnackBar('Please fix the errors before continuing');
       return;
     }
 
-    // Convert display gender to backend format (lowercase)
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    List<String> dateParts = _birthDate.text.split('.');
+    String year = dateParts[0];
+    String month = dateParts[1];
+    String day = dateParts[2];
+
     final genderValue = _selectedGender != null
         ? _genderMap[_selectedGender] ?? _selectedGender!.toLowerCase()
         : '';
 
-    // Check if this is an OAuth user (no password)
     final bool isOAuthUser = widget.password.isEmpty;
 
     if (isOAuthUser) {
-      // ========== OAuth User Profile Update ==========
+      // OAuth User Profile Update
       try {
+        print('🔧 OAuth user completing profile...');
+
         final url =
             Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
-
         final token = ref.read(authServiceProvider).token;
+
+        final requestBody = {
+          'name': widget.name,
+          'gender': genderValue,
+          'bio': _bioController.text.trim(),
+          'birth_year': year,
+          'birth_month': month,
+          'birth_day': day,
+          'native_language': _nativelanguage ?? '',
+          'language_to_learn': _language_to_learn ?? '',
+          'profileCompleted': true,
+          'location': {
+            'type': 'Point',
+            'coordinates': [
+              (_longitude ?? 0.0).toDouble(),
+              (_latitude ?? 0.0).toDouble(),
+            ],
+            'formattedAddress':
+                _city != null && _country != null ? '$_city, $_country' : '',
+            'city': _city ?? '',
+            'country': _country ?? '',
+          },
+        };
+
+        print('📤 Sending profile update...');
 
         final response = await http.put(
           url,
@@ -384,99 +401,66 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
-          body: jsonEncode({
-            'name': widget.name,
-            'gender': genderValue,
-            'bio': _bioController.text,
-            'birth_year': year,
-            'birth_month': month,
-            'birth_day': day,
-            'native_language': _nativelanguage ?? '',
-            'language_to_learn': _language_to_learn ?? '',
-            'location': {
-              'type': 'Point',
-              'coordinates': [
-                (_longitude ?? 0.0).toDouble(),
-                (_latitude ?? 0.0).toDouble(),
-              ],
-              'formattedAddress':
-                  _city != null && _country != null ? '$_city, $_country' : '',
-              'city': _city ?? '',
-              'country': _country ?? '',
-            },
-          }),
+          body: jsonEncode(requestBody),
         );
 
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
+        print('📡 Response status: ${response.statusCode}');
 
-          // Navigate immediately - don't wait for image upload
+        if (response.statusCode == 200) {
+          print('✅ Profile update successful!');
+
           if (mounted) {
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
               (route) => false,
             );
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Profile completed! Welcome to BanaTalk! 🎉'),
-                duration: const Duration(seconds: 2),
-                backgroundColor: Colors.green,
-              ),
-            );
+            _showSuccessSnackBar('Profile completed! Welcome to BanaTalk! 🎉');
           }
 
-          // Upload images in the background (non-blocking)
+          // Upload images in background
           final userId = ref.read(authServiceProvider).userId;
           if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-            // Fire and forget - upload in background
+            print('📸 Uploading ${_selectedImages.length} images...');
             ref
                 .read(authServiceProvider)
                 .uploadUserPhoto(userId, _selectedImages)
-                .catchError((uploadError) {
-              print('Image upload error (background): $uploadError');
-              // Optionally show a notification in the new screen if needed
-            });
+                .then((_) => print('✅ Images uploaded'))
+                .catchError((error) => print('❌ Image upload error: $error'));
           }
         } else {
           setState(() {
             _isSubmitting = false;
           });
+
           final errorData = jsonDecode(response.body);
+          final errorMessage =
+              errorData['message'] ?? 'Failed to update profile';
+          print('❌ Profile update failed: $errorMessage');
+
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                    'Error: ${errorData['message'] ?? 'Failed to update profile'}'),
-                duration: const Duration(seconds: 3),
-                backgroundColor: Colors.red,
-              ),
-            );
+            _showErrorSnackBar(errorMessage);
           }
         }
       } catch (error) {
         setState(() {
           _isSubmitting = false;
         });
+        print('❌ Profile update exception: $error');
+
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: ${error.toString()}'),
-              duration: const Duration(seconds: 3),
-              backgroundColor: Colors.red,
-            ),
-          );
+          _showErrorSnackBar('Network error: ${error.toString()}');
         }
       }
     } else {
-      // ========== Email/Password User Registration ==========
+      // Email/Password User Registration
       User user = User(
         name: widget.name,
         password: widget.password,
         email: widget.email,
-        bio: _bioController.text,
+        bio: _bioController.text.trim(),
         gender: genderValue,
-        images: [], // Empty array - images uploaded separately
+        images: [],
         birth_day: day,
         birth_month: month,
         birth_year: year,
@@ -499,7 +483,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         final response = await ref.read(authServiceProvider).register(user);
 
         if (response['success'] == true) {
-          // Extract user ID from the Community object
           final userData = response['user'];
           String userId = '';
 
@@ -507,16 +490,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             userId = userData.id;
           }
 
-          // Navigate immediately - don't wait for image upload
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content:
-                    Text('Registration Successful! Welcome to BanaTalk! 🎉'),
-                duration: const Duration(seconds: 2),
-                backgroundColor: Colors.green,
-              ),
-            );
+            _showSuccessSnackBar(
+                'Registration Successful! Welcome to BanaTalk! 🎉');
 
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
@@ -524,498 +500,772 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             );
           }
 
-          // Upload images in the background (non-blocking)
           if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-            // Fire and forget - upload in background
             ref
                 .read(authServiceProvider)
                 .uploadUserPhoto(userId, _selectedImages)
-                .catchError((uploadError) {
-              print('Image upload error (background): $uploadError');
-              // Optionally show a notification in the new screen if needed
-            });
+                .catchError((error) => print('Image upload error: $error'));
           }
         } else {
           setState(() {
             _isSubmitting = false;
           });
-          // Handle registration failure
+
           String errorMessage =
               response['message'] ?? 'Registration failed. Please try again.';
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: $errorMessage'),
-              duration: const Duration(seconds: 3),
-              backgroundColor: Colors.red,
-            ),
-          );
+          _showErrorSnackBar(errorMessage);
         }
       } catch (error) {
         setState(() {
           _isSubmitting = false;
         });
+
         String errorMessage = 'An unknown error occurred';
-        if (error is Exception &&
-            error.toString().contains('Duplicate field value')) {
-          errorMessage =
-              'Duplicate field value entered. Please use unique values.';
-        } else if (error
-            .toString()
-            .contains('Exception: Failed to register:')) {
-          try {
-            final parsedError = error
-                .toString()
-                .replaceAll('Exception: Failed to register: ', '');
-            final Map<String, dynamic> errorJson = jsonDecode(parsedError);
-            errorMessage = errorJson['error'] ?? errorMessage;
-          } catch (_) {
-            errorMessage = 'An error occurred during registration.';
-          }
+        if (error.toString().contains('Duplicate field value')) {
+          errorMessage = 'Email already exists. Please use a different email.';
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $errorMessage'),
-            duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red,
-          ),
-        );
+        _showErrorSnackBar(errorMessage);
       }
     }
   }
 
+  void _showErrorSnackBar(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.error_outline, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(child: Text(message)),
+          ],
+        ),
+        backgroundColor: Colors.red.shade600,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        duration: const Duration(seconds: 4),
+      ),
+    );
+  }
+
+  void _showSuccessSnackBar(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_outline, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(child: Text(message)),
+          ],
+        ),
+        backgroundColor: Colors.green.shade600,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final bioCharCount = _bioController.text.length;
+    final bioCharRemaining = BIO_MAX_LENGTH - bioCharCount;
+
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Form(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                    width: 200,
-                    child: Image.asset(
-                      'assets/images/logo_no_background.png',
-                      height: 120,
-                      width: 180,
-                    ),
-                  ),
-                  Text(
-                    'Complete your registration',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                      fontSize: 22,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SingleChildScrollView(
-                    child: TextFormField(
-                      maxLines: 2,
-                      controller: _bioController,
-                      decoration: InputDecoration(
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          labelText: 'Bio(Required)',
-                          hintText: 'For example) I love watching movies',
-                          prefixIcon: Icon(Icons.interests)),
-                      onChanged: (value) {
-                        // Update name variable
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      isDense: true,
-                      menuMaxHeight: 400,
-                      value: _nativelanguage,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _nativelanguage = newValue!;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+      backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.grey[800]),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Center(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Theme.of(context).primaryColor,
+                            Theme.of(context).primaryColor.withOpacity(0.7),
+                          ],
                         ),
-                        labelText: 'Native Language(Required)',
-                        hintText: 'Select your native language',
-                        prefixIcon: const Icon(Icons.chat),
-                      ),
-                      items: _languages
-                          .map<DropdownMenuItem<String>>((String language) {
-                        return DropdownMenuItem<String>(
-                          value: language,
-                          child: Text(
-                            language,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      isDense: true,
-                      menuMaxHeight: 400,
-                      value: _language_to_learn,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _language_to_learn = newValue!;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        labelText: 'Language to learn(Required)',
-                        hintText: 'Korean',
-                        prefixIcon: Icon(Icons.language),
-                      ),
-                      items: _languages
-                          .map<DropdownMenuItem<String>>((String? language) {
-                        return DropdownMenuItem<String>(
-                          value: language,
-                          child: Text(
-                            language ?? 'Select Language',
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      isDense: true,
-                      menuMaxHeight: 400,
-                      value: _selectedGender,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _selectedGender = newValue!;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        labelText: 'Gender(Required)',
-                        hintText: 'Select your gender',
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                      items: _genders
-                          .map<DropdownMenuItem<String>>((String? gender) {
-                        return DropdownMenuItem<String>(
-                          value: gender,
-                          child: Text(
-                            gender ?? 'Select gender',
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _birthDate,
-                    decoration: InputDecoration(
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.3),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
                       ),
-                      hintText: 'Birth Date',
-                      prefixIcon: Icon(Icons.date_range),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'assets/images/logo_no_background.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                    readOnly: true,
-                    onTap: () async {
-                      DateTime initialDate = DateTime.now();
+                    const SizedBox(height: 20),
+                    Text(
+                      'Complete Your Profile',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Just a few more details to get started',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-                      // Parse the initial date if the field already has a value
-                      if (_birthDate.text.isNotEmpty) {
-                        try {
-                          initialDate =
-                              DateFormat('yyyy.MM.dd').parse(_birthDate.text);
-                        } catch (e) {
-                          initialDate = DateTime.now();
-                        }
-                      }
-                      // Show the date picker
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: initialDate,
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2100),
+              const SizedBox(height: 40),
+
+              // Bio field
+              _buildSectionTitle('About You'),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _bioController,
+                maxLines: 4,
+                maxLength: BIO_MAX_LENGTH,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                          _bioError != null ? Colors.red : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                          _bioError != null ? Colors.red : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _bioError != null
+                          ? Colors.red
+                          : Theme.of(context).primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  labelText: 'Bio',
+                  hintText:
+                      'Tell us about yourself... (e.g., I love traveling and learning new languages!)',
+                  hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
+                  prefixIcon: Icon(
+                    Icons.edit_note,
+                    color: _bioError != null ? Colors.red : Colors.grey[600],
+                  ),
+                  errorText: _bioError,
+                  helperText: bioCharRemaining >= 0
+                      ? '$bioCharRemaining characters remaining'
+                      : null,
+                  helperStyle: TextStyle(
+                    color: bioCharRemaining < 50
+                        ? Colors.orange
+                        : Colors.grey[600],
+                  ),
+                  counterText: '',
+                ),
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+
+              const SizedBox(height: 24),
+
+              // Language section
+              _buildSectionTitle('Languages'),
+              const SizedBox(height: 12),
+
+              // Native language
+              DropdownButtonFormField<String>(
+                value: _nativelanguage,
+                isExpanded: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _nativeLanguageError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _nativeLanguageError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _nativeLanguageError != null
+                          ? Colors.red
+                          : Theme.of(context).primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  labelText: 'Native Language',
+                  hintText: 'Select your native language',
+                  prefixIcon: Icon(
+                    Icons.language,
+                    color: _nativeLanguageError != null
+                        ? Colors.red
+                        : Colors.grey[600],
+                  ),
+                  errorText: _nativeLanguageError,
+                ),
+                items: _languages.map((String language) {
+                  return DropdownMenuItem<String>(
+                    value: language,
+                    child: Text(language),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _nativelanguage = value;
+                    _nativeLanguageError = null;
+                  });
+                },
+              ),
+
+              const SizedBox(height: 16),
+
+              // Language to learn
+              DropdownButtonFormField<String>(
+                value: _language_to_learn,
+                isExpanded: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _learnLanguageError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _learnLanguageError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _learnLanguageError != null
+                          ? Colors.red
+                          : Theme.of(context).primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  labelText: 'Language to Learn',
+                  hintText: 'Which language do you want to learn?',
+                  prefixIcon: Icon(
+                    Icons.school,
+                    color: _learnLanguageError != null
+                        ? Colors.red
+                        : Colors.grey[600],
+                  ),
+                  errorText: _learnLanguageError,
+                ),
+                items: _languages.map((String language) {
+                  return DropdownMenuItem<String>(
+                    value: language,
+                    child: Text(language),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _language_to_learn = value;
+                    _learnLanguageError = null;
+                  });
+                },
+              ),
+
+              const SizedBox(height: 24),
+
+              // Personal Info section
+              _buildSectionTitle('Personal Information'),
+              const SizedBox(height: 12),
+
+              // Gender
+              DropdownButtonFormField<String>(
+                value: _selectedGender,
+                isExpanded: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _genderError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _genderError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _genderError != null
+                          ? Colors.red
+                          : Theme.of(context).primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  labelText: 'Gender',
+                  hintText: 'Select your gender',
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: _genderError != null ? Colors.red : Colors.grey[600],
+                  ),
+                  errorText: _genderError,
+                ),
+                items: _genders.map((String? gender) {
+                  return DropdownMenuItem<String>(
+                    value: gender,
+                    child: Text(gender ?? 'Select gender'),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = value;
+                    _genderError = null;
+                  });
+                },
+              ),
+
+              const SizedBox(height: 16),
+
+              // Birth date
+              TextFormField(
+                controller: _birthDate,
+                readOnly: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _birthDateError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _birthDateError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: _birthDateError != null
+                          ? Colors.red
+                          : Theme.of(context).primaryColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  labelText: 'Birth Date',
+                  hintText: 'YYYY.MM.DD',
+                  prefixIcon: Icon(
+                    Icons.cake,
+                    color:
+                        _birthDateError != null ? Colors.red : Colors.grey[600],
+                  ),
+                  errorText: _birthDateError,
+                  suffixIcon: Icon(
+                    Icons.calendar_today,
+                    color: Colors.grey[600],
+                    size: 20,
+                  ),
+                ),
+                onTap: () async {
+                  DateTime initialDate = DateTime.now();
+
+                  if (_birthDate.text.isNotEmpty) {
+                    try {
+                      initialDate =
+                          DateFormat('yyyy.MM.dd').parse(_birthDate.text);
+                    } catch (e) {
+                      initialDate = DateTime.now();
+                    }
+                  }
+
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: initialDate,
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        child: child!,
                       );
-
-                      // If the date is picked, update the controller text
-                      if (pickedDate != null) {
-                        setState(() {
-                          _birthDate.text =
-                              DateFormat('yyyy.MM.dd').format(pickedDate);
-                        });
-                      }
                     },
+                  );
+
+                  if (pickedDate != null) {
+                    setState(() {
+                      _birthDate.text =
+                          DateFormat('yyyy.MM.dd').format(pickedDate);
+                      _birthDateError = null;
+                    });
+                  }
+                },
+              ),
+
+              const SizedBox(height: 24),
+
+              // Location section
+              _buildSectionTitle('Location (Optional)'),
+              const SizedBox(height: 12),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.location_on,
+                    color: Theme.of(context).primaryColor,
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Detect Location (Optional)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                  OutlinedButton.icon(
-                    onPressed: _isFetchingLocation ? null : _getCurrentLocation,
-                    icon: _isFetchingLocation
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Icon(Icons.my_location),
-                    label: Text(_isFetchingLocation
-                        ? 'Detecting...'
-                        : 'Use Current Location'),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 45),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                  title: _city != null && _country != null
+                      ? Text(
+                          '$_city, $_country',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        )
+                      : const Text('Detect your location'),
+                  subtitle: _city != null && _country != null
+                      ? const Text('Tap to update location')
+                      : const Text('Help others find you nearby'),
+                  trailing: _isFetchingLocation
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Icon(
+                          Icons.gps_fixed,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                  onTap: _isFetchingLocation ? null : _getCurrentLocation,
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Images section
+              _buildSectionTitle('Profile Photos (Min 2, Max 6)'),
+              const SizedBox(height: 12),
+
+              if (_selectedImages.isEmpty)
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: _imagesError != null
+                            ? Colors.red
+                            : Colors.grey.shade300,
+                        width: 2,
+                        strokeAlign: BorderSide.strokeAlignInside,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  if (_city != null && _country != null)
-                    Text('Detected: $_city, $_country'),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _image,
-                    decoration: InputDecoration(
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      hintText: 'Profile Image',
-                      prefixIcon: Icon(Icons.image_outlined),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.add_photo_alternate,
+                          size: 64,
+                          color: _imagesError != null
+                              ? Colors.red
+                              : Colors.grey[400],
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Tap to add photos',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Add at least 2 photos',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[500],
+                          ),
+                        ),
+                      ],
                     ),
-                    readOnly: true,
-                    onTap: _pickImage,
                   ),
-                  if (_selectedImages.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                          child: Text(
-                              'Images will appear here, please press profile image')),
-                    ),
-                  if (_selectedImages.isNotEmpty)
+                ),
+
+              if (_selectedImages.isNotEmpty)
+                Column(
+                  children: [
                     GridView.builder(
-                      shrinkWrap:
-                          true, // Allow the GridView to shrink and expand
-                      physics:
-                          NeverScrollableScrollPhysics(), // Disable scrolling of GridView to use the parent scroll
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        crossAxisSpacing: 8.0,
-                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
                         childAspectRatio: 1,
                       ),
-                      itemCount: _selectedImages.length + 1,
+                      itemCount: _selectedImages.length +
+                          (_selectedImages.length < 6 ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index < _selectedImages.length) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.file(
-                              _selectedImages[index],
-                              fit: BoxFit.cover,
-                            ),
+                          return Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.file(
+                                  _selectedImages[index],
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                ),
+                              ),
+                              Positioned(
+                                top: 4,
+                                right: 4,
+                                child: GestureDetector(
+                                  onTap: () => _removeImage(index),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          blurRadius: 4,
+                                        ),
+                                      ],
+                                    ),
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              if (index == 0)
+                                Positioned(
+                                  bottom: 4,
+                                  left: 4,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Text(
+                                      'Main',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           );
                         } else {
                           return GestureDetector(
                             onTap: _pickImage,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                color: Colors.grey[200],
-                                child: const Icon(Icons.add, size: 50),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.grey.shade300,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                size: 40,
+                                color: Colors.grey[400],
                               ),
                             ),
                           );
                         }
                       },
                     ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    if (_imagesError != null)
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 120,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_bioController.text.isEmpty) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(
-                                      'Please include your bio, and then go to previous page'),
-                                  duration: const Duration(seconds: 3),
-                                ));
-                                return;
-                              }
-                              if (_nativelanguage == null ||
-                                  _nativelanguage.toString().isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Please register your native language and then go to previous page'),
-                                    duration: const Duration(seconds: 3),
-                                  ),
-                                );
-                                return;
-                              }
-                              if (_language_to_learn == null ||
-                                  _language_to_learn.toString().isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Please register the language you want to learn, and then go to previous page'),
-                                    duration: const Duration(seconds: 3),
-                                  ),
-                                );
-                                return;
-                              }
-                              if (_selectedGender == null ||
-                                  _selectedGender.toString().isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Please select your gender and then go to previous page'),
-                                    duration: const Duration(seconds: 3),
-                                  ),
-                                );
-                                return;
-                              }
-                              // Convert display gender to backend format for passing back
-                              final genderForBackend = _selectedGender != null
-                                  ? _genderMap[_selectedGender] ??
-                                      _selectedGender!.toLowerCase()
-                                  : '';
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          _imagesError!,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${_selectedImages.length}/6 photos selected',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
 
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => Register(
-                                      userName: widget.name,
-                                      userEmail: widget.email,
-                                      userPassword: widget.password,
-                                      userBio: _bioController.text,
-                                      userNativeLang:
-                                          _nativelanguage.toString(),
-                                      userLearnLang:
-                                          _language_to_learn.toString(),
-                                      userGender: genderForBackend,
-                                      userBirthDate: _birthDate.text)));
+              const SizedBox(height: 40),
+
+              // Action buttons
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: _isSubmitting
+                          ? null
+                          : () {
+                              Navigator.of(context).pop();
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepOrange,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        side: BorderSide(
+                          color: Colors.grey.shade300,
+                          width: 2,
+                        ),
+                      ),
+                      child: const Text(
+                        'Previous',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: _isSubmitting ? null : submit,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: _isSubmitting
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.white,
+                                ),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 12.0,
-                              ),
-                            ),
-                            child: Text(
-                              'Previous',
+                            )
+                          : const Text(
+                              'Complete Registration',
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 120,
-                          child: ElevatedButton(
-                            onPressed: _isSubmitting ? null : submit,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 12.0,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
-                            child: _isSubmitting
-                                ? const SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                : Text(
-                                    'Complete',
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            ),
+
+              const SizedBox(height: 20),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: Colors.grey[800],
       ),
     );
   }

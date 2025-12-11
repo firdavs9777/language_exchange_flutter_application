@@ -67,6 +67,8 @@ class Moments {
           ? Community.fromJson(json['user'])
           : Community(
               id: '',
+              appleId: '',
+              googleId: '',
               name: '',
               email: '',
               mbti: '',

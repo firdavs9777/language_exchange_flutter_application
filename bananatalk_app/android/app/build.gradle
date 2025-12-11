@@ -29,9 +29,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "app.meedu.flutter_facebook_auth"
     namespace = "com.bananatalk.app"
-    compileSdk = 35  // ✅ Changed to 34
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -45,10 +44,10 @@ android {
 
     defaultConfig {
         applicationId = "com.bananatalk.app"
-        minSdk = 21
-        targetSdk = 35  // ✅ Changed to 34
-        versionCode = 103 // ✅ Change this (increment from your last version)
-        versionName = "2.0.2"  // ✅ And this
+        minSdkVersion = flutter.minSdkVersion
+        targetSdk = 36
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
         multiDexEnabled = true
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'

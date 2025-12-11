@@ -6,12 +6,14 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String userName;
   final String? profilePicture;
   final bool isTyping;
+  final String? userId; // Add userId for blocking
 
   const ChatAppBar({
     Key? key,
     required this.userName,
     this.profilePicture,
     required this.isTyping,
+    this.userId,
   }) : super(key: key);
 
   @override
@@ -71,7 +73,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           icon: const Icon(Icons.phone),
         ),
-        ChatOptionsMenu(userName: userName),
+        ChatOptionsMenu(userName: userName, userId: userId),
       ],
     );
   }

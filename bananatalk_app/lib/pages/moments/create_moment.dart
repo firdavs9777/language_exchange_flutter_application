@@ -3,6 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/utils/api_error_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -630,6 +636,31 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       return;
     }
 
+    // Check limits before creating
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId');
+      if (userId != null) {
+        final userAsync = ref.read(userProvider);
+        final user = await userAsync;
+        final limits = ref.read(currentUserLimitsProvider(userId));
+
+        if (!FeatureGate.canCreateMoment(user, limits)) {
+          await LimitExceededDialog.show(
+            context: context,
+            limitType: 'moments',
+            limitInfo: limits?.moments,
+            resetTime: limits?.resetTime,
+            userId: userId,
+          );
+          return;
+        }
+      }
+    } catch (e) {
+      // If limit check fails, allow creating (fail open)
+      print('Error checking limits: $e');
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -663,6 +694,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       ref.invalidate(momentsProvider(1));
       ref.invalidate(momentsFeedProvider);
 
+      // Refresh limits after successful creation
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final userId = prefs.getString('userId');
+        if (userId != null) {
+          ref.refresh(userLimitsProvider(userId));
+        }
+      } catch (e) {
+        print('Error refreshing limits: $e');
+      }
+
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -675,15 +717,31 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
     } catch (e) {
       if (mounted) {
-        final errorMessage = e.toString().replaceFirst('Exception: ', '');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorMessage),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 4),
-          ),
-        );
+        // Handle 429 errors
+        if (e.toString().contains('429') || 
+            ApiErrorHandler.isLimitExceededError(e)) {
+          try {
+            final prefs = await SharedPreferences.getInstance();
+            final userId = prefs.getString('userId');
+            await ApiErrorHandler.handleLimitExceededError(
+              context: context,
+              error: e,
+              userId: userId,
+            );
+          } catch (err) {
+            print('Error handling limit error: $err');
+          }
+        } else {
+          final errorMessage = e.toString().replaceFirst('Exception: ', '');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
       }
     } finally {
       if (mounted) {
