@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class AdminReportsScreen extends ConsumerStatefulWidget {
@@ -68,8 +69,8 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     if (mounted) {
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Review started'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.reviewStarted),
             backgroundColor: Colors.green,
           ),
         );
@@ -100,8 +101,8 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     if (mounted) {
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Report resolved'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.reportResolved),
             backgroundColor: Colors.green,
           ),
         );
@@ -128,8 +129,8 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     if (mounted) {
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Report dismissed'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.reportDismissed),
             backgroundColor: Colors.green,
           ),
         );
@@ -149,28 +150,28 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     return showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Select Action'),
+        title: Text(AppLocalizations.of(context)!.selectAction),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const Text('No Violation'),
+              title: Text(AppLocalizations.of(context)!.noViolation),
               onTap: () => Navigator.pop(context, 'no_violation'),
             ),
             ListTile(
-              title: const Text('Content Removed'),
+              title: Text(AppLocalizations.of(context)!.contentRemoved),
               onTap: () => Navigator.pop(context, 'content_removed'),
             ),
             ListTile(
-              title: const Text('User Warned'),
+              title: Text(AppLocalizations.of(context)!.userWarned),
               onTap: () => Navigator.pop(context, 'user_warned'),
             ),
             ListTile(
-              title: const Text('User Suspended'),
+              title: Text(AppLocalizations.of(context)!.userSuspended),
               onTap: () => Navigator.pop(context, 'user_suspended'),
             ),
             ListTile(
-              title: const Text('User Banned'),
+              title: Text(AppLocalizations.of(context)!.userBanned),
               onTap: () => Navigator.pop(context, 'user_banned'),
             ),
           ],
@@ -184,22 +185,22 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     return showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add Notes (Optional)'),
+        title: Text(AppLocalizations.of(context)!.addNotesOptional),
         content: TextField(
           controller: controller,
           maxLines: 4,
-          decoration: const InputDecoration(
-            hintText: 'Enter moderator notes...',
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.enterModeratorNotes,
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, null),
-            child: const Text('Skip'),
+            child: Text(AppLocalizations.of(context)!.skip),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, controller.text.trim()),
-            child: const Text('Add'),
+            child: Text(AppLocalizations.of(context)!.add2),
           ),
         ],
       ),
@@ -212,7 +213,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reports Management'),
+        title: Text(AppLocalizations.of(context)!.reportsManagement),
         backgroundColor: colorScheme.surface,
         foregroundColor: context.textPrimary,
         elevation: 0,
@@ -255,7 +256,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                             const SizedBox(height: 24),
                             ElevatedButton(
                               onPressed: _loadReports,
-                              child: const Text('Retry'),
+                              child: Text(AppLocalizations.of(context)!.retry),
                             ),
                           ],
                         ),
@@ -411,35 +412,35 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         trailing: PopupMenuButton(
           itemBuilder: (context) => [
             if (status == 'pending')
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'review',
                 child: Row(
                   children: [
-                    Icon(Icons.visibility, size: 20),
-                    SizedBox(width: 8),
-                    Text('Start Review'),
+                    const Icon(Icons.visibility, size: 20),
+                    const SizedBox(width: 8),
+                    Text(AppLocalizations.of(context)!.startReview),
                   ],
                 ),
               ),
             if (status == 'under_review' || status == 'pending')
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'resolve',
                 child: Row(
                   children: [
-                    Icon(Icons.check_circle, size: 20),
-                    SizedBox(width: 8),
-                    Text('Resolve'),
+                    const Icon(Icons.check_circle, size: 20),
+                    const SizedBox(width: 8),
+                    Text(AppLocalizations.of(context)!.resolve),
                   ],
                 ),
               ),
             if (status == 'pending' || status == 'under_review')
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'dismiss',
                 child: Row(
                   children: [
                     Icon(Icons.cancel, size: 20),
                     SizedBox(width: 8),
-                    Text('Dismiss'),
+                    Text(AppLocalizations.of(context)!.dismiss),
                   ],
                 ),
               ),
@@ -537,7 +538,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Filter Reports'),
+        title: Text(AppLocalizations.of(context)!.filterReports),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -545,7 +546,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               value: _selectedStatus,
               decoration: const InputDecoration(labelText: 'Status'),
               items: [
-                const DropdownMenuItem(value: null, child: Text('All')),
+                DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context)!.all)),
                 ..._statusFilters.map((s) => DropdownMenuItem(value: s, child: Text(s))),
               ],
               onChanged: (value) {
@@ -558,7 +559,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               value: _selectedType,
               decoration: const InputDecoration(labelText: 'Type'),
               items: [
-                const DropdownMenuItem(value: null, child: Text('All')),
+                DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context)!.all)),
                 ..._typeFilters.map((t) => DropdownMenuItem(value: t, child: Text(t))),
               ],
               onChanged: (value) {
@@ -571,7 +572,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               value: _selectedPriority,
               decoration: const InputDecoration(labelText: 'Priority'),
               items: [
-                const DropdownMenuItem(value: null, child: Text('All')),
+                DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context)!.all)),
                 ..._priorityFilters.map((p) => DropdownMenuItem(value: p, child: Text(p))),
               ],
               onChanged: (value) {
@@ -593,14 +594,14 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               Navigator.pop(context);
               _loadReports();
             },
-            child: const Text('Clear'),
+            child: Text(AppLocalizations.of(context)!.clear),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               _loadReports();
             },
-            child: const Text('Apply'),
+            child: Text(AppLocalizations.of(context)!.apply),
           ),
         ],
       ),

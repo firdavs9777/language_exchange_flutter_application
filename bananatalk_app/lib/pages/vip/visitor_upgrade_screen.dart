@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class VisitorUpgradeScreen extends StatelessWidget {
   final String userId;
@@ -16,7 +17,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Upgrade Your Account'),
+        title: Text(AppLocalizations.of(context)!.upgradeYourAccount),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -83,17 +84,17 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   _buildBenefitItem(
                     icon: Icons.message,
-                    title: 'More Messages',
+                    title: AppLocalizations.of(context)!.moreMessages,
                     description: 'Send up to 50 messages per day',
                   ),
                   _buildBenefitItem(
                     icon: Icons.visibility,
-                    title: 'More Profile Views',
+                    title: AppLocalizations.of(context)!.moreProfileViews,
                     description: 'View up to 100 profiles per day',
                   ),
                   _buildBenefitItem(
                     icon: Icons.person_add,
-                    title: 'Connect with Friends',
+                    title: AppLocalizations.of(context)!.connectWithFriends,
                     description: 'Add friends and build your network',
                   ),
                   _buildBenefitItem(

@@ -107,6 +107,7 @@ class MessageService {
     String? message,
     File? file,
     Map<String, dynamic>? location,
+    String? replyTo,
   }) async {
     try {
       final token = await _getToken();
@@ -119,6 +120,9 @@ class MessageService {
         request.fields['receiver'] = receiver;
         if (message != null && message.isNotEmpty) {
           request.fields['message'] = message;
+        }
+        if (replyTo != null && replyTo.isNotEmpty) {
+          request.fields['replyTo'] = replyTo;
         }
         if (location != null) {
           request.fields['location'] = jsonEncode(location);
@@ -149,6 +153,7 @@ class MessageService {
           body: jsonEncode({
             'receiver': receiver,
             if (message != null && message.isNotEmpty) 'message': message,
+            if (replyTo != null && replyTo.isNotEmpty) 'replyTo': replyTo,
             if (location != null) 'location': location,
           }),
         );

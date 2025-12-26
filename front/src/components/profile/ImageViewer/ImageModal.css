@@ -1,0 +1,21 @@
+
+
+  
+.image-uploader-modal .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Light background */
+}
+
+.carousel-item-custom {
+    text-align: center;
+}
+
+.carousel-image {
+    max-height: 500px; /* Adjust as needed */
+    width: auto;
+    object-fit: contain; /* Prevents distortion */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}

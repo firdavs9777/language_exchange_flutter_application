@@ -3,6 +3,7 @@ import 'package:bananatalk_app/pages/profile/personal_info/profile_bio_edit.dart
 import 'package:bananatalk_app/pages/profile/personal_info/profile_hometown.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_language_edit.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_mbti.dart';
+import 'package:bananatalk_app/pages/profile/personal_info/profile_picture_edit.dart';
 import 'package:bananatalk_app/pages/profile/about/profile_info_set.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -134,6 +135,35 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
           children: [
             // Basic Information Section
             _buildSectionHeader('Basic Information', Icons.person),
+            Consumer(
+              builder: (context, ref, child) {
+                final userAsync = ref.watch(userProvider);
+                return userAsync.when(
+                  data: (user) => _buildEditCard(
+                    context: context,
+                    icon: Icons.photo_camera,
+                    iconColor: const Color(0xFF00BFA5),
+                    title: 'Profile Picture',
+                    subtitle: user.imageUrls.isNotEmpty
+                        ? 'Tap to change'
+                        : 'No picture set',
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfilePictureEdit(user: user),
+                        ),
+                      );
+                      // Refresh user data after returning
+                      ref.refresh(userProvider);
+                    },
+                  ),
+                  loading: () => const SizedBox.shrink(),
+                  error: (_, __) => const SizedBox.shrink(),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
             _buildEditCard(
               context: context,
               icon: Icons.person,

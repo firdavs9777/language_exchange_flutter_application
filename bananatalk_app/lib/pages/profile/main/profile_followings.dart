@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -100,6 +101,14 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
     try {
       final community =
           await ref.read(communityServiceProvider).getSingleCommunity(id: id);
+      if (community == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('User not found')),
+          );
+        }
+        return;
+      }
       if (mounted) {
         Navigator.push(
           context,
@@ -273,24 +282,17 @@ class _UserCard extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    child: CircleAvatar(
+                    child: CachedCircleAvatar(
                       radius: 35,
                       backgroundColor: const Color(0xFF00BFA5),
-                      backgroundImage: community.imageUrls.isNotEmpty
-                          ? NetworkImage(
-                              ImageUtils.normalizeImageUrl(community.imageUrls[0]),
-                            )
+                      imageUrl: community.imageUrls.isNotEmpty
+                          ? community.imageUrls[0]
                           : null,
-                      child: community.imageUrls.isEmpty
-                          ? const Icon(
-                              Icons.person,
-                              size: 35,
-                              color: Colors.white,
-                            )
-                          : null,
-                      onBackgroundImageError: (exception, stackTrace) {
-                        // Image failed to load, will use icon fallback
-                      },
+                      errorWidget: const Icon(
+                        Icons.person,
+                        size: 35,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

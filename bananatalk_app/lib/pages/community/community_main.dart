@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -92,22 +93,22 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             CommunityFilter(
-          onApplyFilters: (filters) {
-            setState(() {
-              _filters = filters;
-            });
-          },
-          initialFilters: _filters,
-        ),
+              onApplyFilters: (filters) {
+                setState(() {
+                  _filters = filters;
+                });
+              },
+              initialFilters: _filters,
+            ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
-              end: Offset.zero,
-            ).animate(CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOut,
-            )),
+            position:
+                Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                ).animate(
+                  CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+                ),
             child: child,
           );
         },
@@ -118,8 +119,18 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
   Future<void> redirect(String id) async {
     try {
-      Community community =
-          await ref.read(communityServiceProvider).getSingleCommunity(id: id);
+      final community = await ref
+          .read(communityServiceProvider)
+          .getSingleCommunity(id: id);
+
+      if (community == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('User not found')));
+        }
+        return;
+      }
 
       Navigator.push(
         context,
@@ -130,13 +141,13 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             return FadeTransition(
               opacity: animation,
               child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(0.3, 0.0),
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeOut,
-                )),
+                position:
+                    Tween<Offset>(
+                      begin: const Offset(0.3, 0.0),
+                      end: Offset.zero,
+                    ).animate(
+                      CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                    ),
                 child: child,
               ),
             );
@@ -159,62 +170,117 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     List<Community> communities,
     String? myNativeLanguage,
     String? myLanguageToLearn,
+    Set<String> blockedUserIds,
   ) {
     return communities.where((community) {
       // Exclude current user
       if (community.id == userId) return false;
 
+      // Exclude blocked users
+      if (blockedUserIds.contains(community.id)) return false;
+
+      // Apply age filter
+      if (_filters['minAge'] != null || _filters['maxAge'] != null) {
+        try {
+          final birthYear = int.tryParse(community.birth_year);
+          final birthMonth = int.tryParse(community.birth_month);
+          final birthDay = int.tryParse(community.birth_day);
+
+          if (birthYear != null) {
+            final today = DateTime.now();
+            int age = today.year - birthYear;
+
+            // Adjust age if birthday hasn't occurred this year
+            if (birthMonth != null && birthDay != null) {
+              final thisYearBirthday = DateTime(
+                today.year,
+                birthMonth,
+                birthDay,
+              );
+              if (today.isBefore(thisYearBirthday)) {
+                age--;
+              }
+            }
+
+            final minAge = _filters['minAge'] as int?;
+            final maxAge = _filters['maxAge'] as int?;
+
+            if (minAge != null && age < minAge) return false;
+            if (maxAge != null && age > maxAge) return false;
+          }
+        } catch (e) {
+          // If age calculation fails, skip age filtering for this community
+        }
+      }
+
       // Check if native language filter is applied
-      final hasNativeLanguageFilter = _filters['nativeLanguage'] != null && 
+      final hasNativeLanguageFilter =
+          _filters['nativeLanguage'] != null &&
           _filters['nativeLanguage'].toString().isNotEmpty;
 
-      // Language Exchange Matching Logic:
-      // If no native language filter is set, use exchange matching
-      // If native language filter is set, it overrides exchange matching
+      // Language matching logic
       bool isLanguageMatch = false;
-      
+
       if (hasNativeLanguageFilter) {
-        // User explicitly filtered by native language - match that exactly
-        final filterLang = _filters['nativeLanguage'].toString().toLowerCase();
-        final communityLang = community.native_language.toLowerCase();
+        // User explicitly filtered by native language
+        final filterLang = _filters['nativeLanguage']
+            .toString()
+            .toLowerCase()
+            .trim();
+        final communityLang = (community.native_language ?? '')
+            .toLowerCase()
+            .trim();
+
+        if (communityLang.isEmpty) return false; // Skip if no language set
+
         isLanguageMatch = filterLang == communityLang;
       } else {
-        // No filter - use language exchange matching:
-        // Show people whose native language matches what I'm learning
-        // OR people who are learning my native language
+        // Language exchange matching
+        final communityNative = (community.native_language ?? '')
+            .toLowerCase()
+            .trim();
+        final communityLearning = (community.language_to_learn ?? '')
+            .toLowerCase()
+            .trim();
+
+        // Skip if community has no languages set
+        if (communityNative.isEmpty && communityLearning.isEmpty) return false;
+
         if (myLanguageToLearn != null && myLanguageToLearn.isNotEmpty) {
-          // They speak what I'm learning (their native == my learning)
-          if (community.native_language.toLowerCase() == 
-              myLanguageToLearn.toLowerCase()) {
+          // They speak what I'm learning
+          if (communityNative == myLanguageToLearn.toLowerCase().trim()) {
             isLanguageMatch = true;
           }
         }
-        
-        if (myNativeLanguage != null && myNativeLanguage.isNotEmpty) {
-          // They're learning what I speak (their learning == my native)
-          if (community.language_to_learn.toLowerCase() == 
-              myNativeLanguage.toLowerCase()) {
+
+        if (!isLanguageMatch &&
+            myNativeLanguage != null &&
+            myNativeLanguage.isNotEmpty) {
+          // They're learning what I speak
+          if (communityLearning == myNativeLanguage.toLowerCase().trim()) {
             isLanguageMatch = true;
           }
         }
       }
 
-      // If no language match, exclude this community
       if (!isLanguageMatch) return false;
 
-      // Apply additional filters
-      if (_filters['gender'] != null && 
-          _filters['gender'] != community.gender) {
-        return false;
+      // Apply gender filter
+      if (_filters['gender'] != null &&
+          _filters['gender'].toString().isNotEmpty) {
+        final filterGender = _filters['gender'].toString().toLowerCase().trim();
+        final communityGender = (community.gender ?? '').toLowerCase().trim();
+
+        if (filterGender != communityGender) return false;
       }
 
       // Apply search query
       if (_searchQuery.isNotEmpty) {
         final query = _searchQuery.toLowerCase();
-        return community.name.toLowerCase().contains(query) ||
-            community.bio.toLowerCase().contains(query) ||
-            community.native_language.toLowerCase().contains(query) ||
-            community.language_to_learn.toLowerCase().contains(query);
+        return (community.name ?? '').toLowerCase().contains(query) ||
+            (community.bio ?? '').toLowerCase().contains(query) ||
+            (community.native_language ?? '').toLowerCase().contains(query) ||
+            (community.language_to_learn ?? '').toLowerCase().contains(query);
       }
 
       return true;
@@ -241,11 +307,21 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               child: currentUserAsync.when(
                 data: (currentUser) {
                   return communityAsyncValue.when(
-                    data: (communities) => _buildCommunityList(
-                      communities,
-                      currentUser.native_language,
-                      currentUser.language_to_learn,
-                    ),
+                    data: (communities) {
+                      // Get blocked user IDs
+                      final blockedUserIdsAsync = ref.watch(
+                        blockedUserIdsProvider,
+                      );
+                      final blockedUserIds =
+                          blockedUserIdsAsync.value ?? <String>{};
+
+                      return _buildCommunityList(
+                        communities,
+                        currentUser.native_language,
+                        currentUser.language_to_learn,
+                        blockedUserIds,
+                      );
+                    },
                     loading: () => _buildLoadingState(),
                     error: (error, stackTrace) => _buildErrorState(error),
                   );
@@ -302,7 +378,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
   Widget _buildFilterTabs() {
     final tabs = ['All', 'Nearby', 'Active Now', 'New Users'];
-    
+
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       height: 50,
@@ -314,7 +390,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         itemBuilder: (context, index) {
           final tab = tabs[index];
           final isSelected = _selectedTab == tab;
-          
+
           return GestureDetector(
             onTap: () {
               setState(() {
@@ -325,14 +401,12 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               margin: const EdgeInsets.only(right: 8),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: isSelected 
+                color: isSelected
                     ? colorScheme.primary.withOpacity(0.15)
                     : colorScheme.surfaceVariant,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isSelected 
-                      ? colorScheme.primary
-                      : Colors.transparent,
+                  color: isSelected ? colorScheme.primary : Colors.transparent,
                   width: 1.5,
                 ),
               ),
@@ -342,7 +416,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected 
+                    color: isSelected
                         ? colorScheme.primary
                         : context.textSecondary,
                   ),
@@ -374,21 +448,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         focusNode: _searchFocusNode,
         decoration: InputDecoration(
           hintText: 'Search by name, language, or interests...',
-          hintStyle: TextStyle(
-            color: context.textSecondary,
-            fontSize: 16,
-          ),
+          hintStyle: TextStyle(color: context.textSecondary, fontSize: 16),
           prefixIcon: Container(
             margin: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: colorScheme.primary,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              Icons.search,
-              color: colorScheme.onPrimary,
-              size: 20,
-            ),
+            child: Icon(Icons.search, color: colorScheme.onPrimary, size: 20),
           ),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
@@ -430,11 +497,13 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     List<Community> communities,
     String? myNativeLanguage,
     String? myLanguageToLearn,
+    Set<String> blockedUserIds,
   ) {
     final filteredCommunities = _getFilteredCommunities(
       communities,
       myNativeLanguage,
       myLanguageToLearn,
+      blockedUserIds,
     );
 
     if (filteredCommunities.isEmpty) {
@@ -539,10 +608,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             Text(
               'Failed to load communities: $error',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: context.textSecondary,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: context.textSecondary, fontSize: 14),
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
@@ -589,10 +655,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                     height: 100,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          colorScheme.primary,
-                          colorScheme.secondary,
-                        ],
+                        colors: [colorScheme.primary, colorScheme.secondary],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),

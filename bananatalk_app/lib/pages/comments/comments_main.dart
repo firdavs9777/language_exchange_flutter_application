@@ -1,6 +1,9 @@
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/translated_comment_widget.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -31,12 +34,13 @@ class CommentsMain extends ConsumerWidget {
         // Handle different states of AsyncValue: data, loading, error
         data: (comments) {
           if (comments.isEmpty) {
+            final l10n = AppLocalizations.of(context)!;
             return Column(
               children: [
                 Container(
                     height: 300,
                     child:
-                        const Center(child: Text('Be the first to  comment.'))),
+                        Center(child: Text(l10n.beTheFirstToComment))),
               ],
             );
           }
@@ -47,7 +51,7 @@ class CommentsMain extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  'Comments (${comments.length})',
+                  '${AppLocalizations.of(context)!.comments} (${comments.length})',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -73,6 +77,17 @@ class CommentsMain extends ConsumerWidget {
                                     .read(communityServiceProvider)
                                     .getSingleCommunity(id: comment.user.id);
 
+                                if (community == null) {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('User not found')),
+                                    );
+                                  }
+                                  return;
+                                }
+
+                                if (!context.mounted) return;
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -81,23 +96,17 @@ class CommentsMain extends ConsumerWidget {
                                   ),
                                 );
                               },
-                              child: CircleAvatar(
+                              child: CachedCircleAvatar(
+                                imageUrl: comment.user.imageUrls.isNotEmpty
+                                    ? comment.user.imageUrls[0]
+                                    : null,
                                 radius: 25,
                                 backgroundColor: const Color(0xFF00BFA5),
-                                backgroundImage: comment
-                                        .user.imageUrls.isNotEmpty
-                                    ? NetworkImage(comment.user.imageUrls[0])
-                                    : null,
-                                child: comment.user.imageUrls.isEmpty
-                                    ? Icon(
-                                        Icons.person,
-                                        size: 25,
-                                        color: colorScheme.surface,
-                                      )
-                                    : null,
-                                onBackgroundImageError: (exception, stackTrace) {
-                                  // Image failed to load, will use icon fallback
-                                },
+                                errorWidget: Icon(
+                                  Icons.person,
+                                  size: 25,
+                                  color: colorScheme.surface,
+                                ),
                               ),
                             ),
                             title: Text(
@@ -109,9 +118,13 @@ class CommentsMain extends ConsumerWidget {
                             ),
                             subtitle: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                comment.text.toString(),
-                                style: TextStyle(fontSize: 18),
+                              child: TranslatedCommentWidget(
+                                commentId: comment.id,
+                                originalText: comment.text.toString(),
+                                originalLanguage: comment.user.native_language,
+                                existingTranslations: comment.translations.isNotEmpty
+                                    ? comment.translations
+                                    : null,
                               ),
                             ),
                             trailing: PopupMenuButton<String>(
@@ -123,9 +136,10 @@ class CommentsMain extends ConsumerWidget {
                                   final isOwnComment = currentUserId == comment.user.id;
                                   
                                   if (isOwnComment) {
+                                    final l10n = AppLocalizations.of(context)!;
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Cannot report your own comment'),
+                                      SnackBar(
+                                        content: Text(l10n.cannotReportYourOwnComment),
                                         backgroundColor: Colors.orange,
                                       ),
                                     );
@@ -143,13 +157,13 @@ class CommentsMain extends ConsumerWidget {
                                 }
                               },
                               itemBuilder: (context) => [
-                                const PopupMenuItem(
+                                PopupMenuItem(
                                   value: 'report',
                                   child: Row(
                                     children: [
                                       Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
                                       SizedBox(width: 8),
-                                      Text('Report'),
+                                      Text(AppLocalizations.of(context)!.report),
                                     ],
                                   ),
                                 ),

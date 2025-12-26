@@ -5,6 +5,8 @@ import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -259,7 +261,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
               ),
               ListTile(
                 leading: const Icon(Icons.share, color: Color(0xFF00BFA5)),
-                title: const Text('Share'),
+                title: Text(AppLocalizations.of(context)!.share),
                 onTap: () {
                   Navigator.pop(context);
                   _shareMoment();
@@ -268,7 +270,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
               if (!isOwnMoment)
                 ListTile(
                   leading: Icon(Icons.flag_outlined, color: Colors.orange[700]),
-                  title: const Text('Report'),
+                  title: Text(AppLocalizations.of(context)!.report),
                   onTap: () {
                     Navigator.pop(context);
                     showDialog(
@@ -286,7 +288,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                 ListTile(
                   leading: const Icon(Icons.delete, color: Colors.red),
                   title:
-                      const Text('Delete', style: TextStyle(color: Colors.red)),
+                      Text(AppLocalizations.of(context)!.delete, style: const TextStyle(color: Colors.red)),
                   onTap: () async {
                     Navigator.pop(context);
                     final confirmed = await showDialog<bool>(
@@ -294,18 +296,18 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       builder: (context) => AlertDialog(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16)),
-                        title: const Text('Delete Moment?'),
-                        content: const Text('This action cannot be undone.'),
+                        title: Text(AppLocalizations.of(context)!.deleteMoment),
+                        content: Text(AppLocalizations.of(context)!.thisActionCannotBeUndone),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
+                            child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                           TextButton(
                             onPressed: () => Navigator.pop(context, true),
                             style: TextButton.styleFrom(
                                 foregroundColor: Colors.red),
-                            child: const Text('Delete'),
+                            child: Text(AppLocalizations.of(context)!.delete),
                           ),
                         ],
                       ),
@@ -318,7 +320,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             .deleteUserMoment(id: widget.moment.id);
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Moment deleted')),
+                          SnackBar(content: Text(AppLocalizations.of(context)!.momentDeleted)),
                         );
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -348,9 +350,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
           icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          'Details',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.details,
+          style: const TextStyle(
             color: Colors.black87,
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -377,6 +379,15 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           .read(communityServiceProvider)
                           .getSingleCommunity(id: widget.moment.user.id);
 
+                      if (community == null) {
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('User not found')),
+                          );
+                        }
+                        return;
+                      }
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -389,22 +400,17 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
                       child: Row(
                         children: [
-                          CircleAvatar(
+                          CachedCircleAvatar(
+                            imageUrl: widget.moment.user.imageUrls.isNotEmpty
+                                ? widget.moment.user.imageUrls[0]
+                                : null,
                             radius: 24,
                             backgroundColor: Colors.grey[300],
-                            backgroundImage:
-                                widget.moment.user.imageUrls.isNotEmpty
-                                    ? NetworkImage(
-                                        widget.moment.user.imageUrls[0])
-                                    : null,
-                            child: widget.moment.user.imageUrls.isEmpty
-                                ? Icon(
-                                    Icons.person,
-                                    size: 24,
-                                    color: Colors.grey[600],
-                                  )
-                                : null,
-                            onBackgroundImageError: (exception, stackTrace) {},
+                            errorWidget: Icon(
+                              Icons.person,
+                              size: 24,
+                              color: Colors.grey[600],
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -573,7 +579,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       child: Row(
                         children: [
                           Text(
-                            '$likeCount Gifts/Likes',
+                            '$likeCount ${AppLocalizations.of(context)!.giftsLikes}',
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.grey[700],
@@ -592,7 +598,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      'Comments (${commentCount})',
+                      '${AppLocalizations.of(context)!.comments} (${commentCount})',
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -667,44 +673,21 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: ClipRRect(
+          child: CachedImageWidget(
+            imageUrl: widget.moment.imageUrls[0],
+            width: double.infinity,
+            height: 280,
+            fit: BoxFit.cover,
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              widget.moment.imageUrls[0],
+            errorWidget: Container(
               width: double.infinity,
               height: 280,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  width: double.infinity,
-                  height: 280,
-                  color: Colors.grey[200],
-                  child: const Icon(
-                    Icons.broken_image,
-                    size: 50,
-                    color: Colors.grey,
-                  ),
-                );
-              },
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  width: double.infinity,
-                  height: 280,
-                  color: Colors.grey[200],
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Color(0xFF00BFA5),
-                      ),
-                    ),
-                  ),
-                );
-              },
+              color: Colors.grey[200],
+              child: const Icon(
+                Icons.broken_image,
+                size: 50,
+                color: Colors.grey,
+              ),
             ),
           ),
         ),

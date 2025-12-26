@@ -1,0 +1,443 @@
+{
+  "greeting": "hello",
+  "community": "Community",
+  "chat": "Chat",
+  "notifications": "Notifications",
+  "moments": "Moments",
+  "language": "Language",
+  "english": "English",
+  "korean": "Korean",
+  "followers": "Followers",
+  "followings": "Followings",
+  "my_moments": "My Moments",
+  "logout": "Logout",
+  "sign_in": "Sign In",
+  "image_upload": {
+    "image_drop": "Please drop only image files",
+    "max_upload_warning": "You can only upload {{count}} more image(s).",
+    "no_images_error": "Please upload at least one image",
+    "removed_from_selection": "Image removed from selection",
+    "deleted_success": "Image deleted successfully",
+    "replaced_success": "Image replaced successfully",
+    "current_images": "Current Images",
+    "no_images_uploaded": "No images uploaded yet",
+    "new_images": "New Images",
+    "no_new_images": "No new images selected",
+    "drop_images_here": "Drop images here or",
+    "select_files": "Select Files",
+    "remaining_slots": "You can add {{count}} more {{item}}",
+    "image": "image",
+    "images": "images",
+    "cancel": "Cancel",
+    "save_changes": "Save Changes",
+    "replace_image": "Replace",
+    "delete_image": "Delete image",
+    "remove_from_selection": "Remove from selection",
+    "image_gallery": "Image Gallery "
+  },
+  "profile": {
+    "title": "My Profile",
+    "messages": {
+      "image_update_success": "Profile image updated successfully",
+      "image_update_failure": "Failed to update profile image",
+      "profile_update_success": "Profile updated successfully",
+      "profile_update_failure": "Failed to update profile",
+      "error_loading_profile": "Error loading user profile",
+      "no_profile_data": "No user profile data available",
+      "unknown_error": "An unknown error occurred",
+      "no_bio": "No bio information provided",
+      "not_specified": "Not specified"
+    },
+    "stats": {
+      "followers": "Followers",
+      "no_followers": "You don't have any followers yet.",
+      "follower_error": "Error loading followers. Please try again later.",
+      "following": "Following",
+      "no_following": "You're not following anyone yet.",
+      "following_error": "Error loading following list. Please try again later.",
+      "moments": "Moments",
+      "visitors": "Visitors"
+    },
+    "sections": {
+      "personal_info": "Personal Information",
+      "bio": "Bio",
+      "languages": "Languages"
+    },
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "gender": "Gender",
+      "birthday": "Birthday",
+      "native_language": "Native",
+      "learning": "Learning",
+      "of": "of"
+    },
+    "placeholders": {
+      "bio": "Write something about yourself",
+      "select_gender": "Select Gender",
+      "select_date": "Select Date",
+      "select_native_language": "Select Native Language",
+      "select_learning_language": "Select Language to Learn"
+    },
+    "options": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit_photo": "Edit Photo"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  },
+  "moments_section": {
+    "title": "Moments",
+    "question": "What's on your mind,",
+    "loading": "Loading",
+    "loading_moments": "Loading Moments...",
+    "error_loading": "Error loading moments",
+    "error_info": "  We couldn't load the moments. Please try again later.",
+    "retry_btn": "Retry",
+    "no_moments": "No moments",
+    "first_to_moment": "Be the first to share your special moments with the community",
+    "share_moment": "Share a Moment",
+    "moment_login_error": "Please login to like moments",
+    "moment_like_error": "Failed to update like status",
+    "moment_like": "Like",
+    "moment_comment": "Comment",
+    "moment_share": "Share",
+    "no_comments": "No comments yet. Be the first to comment!",
+    "invalidMomentId": "Invalid moment ID",
+    "loadingMoment": "Loading moment details...",
+    "noDetailsFound": "No details found",
+    "goBack": "Go Back",
+    "momentDetails": "Moment Details",
+    "pleaseLoginFirst": "Please login first",
+    "removedLike": "Removed like",
+    "likedMoment": "Liked moment",
+    "failedToUpdateLike": "Failed to update like status",
+    "emptyCommentError": "Please add a comment",
+    "commentAdded": "Comment added",
+    "failedToAddComment": "Failed to add comment",
+    "loadingComments": "Loading comments...",
+    "writeCommentPlaceholder": "Write a comment...",
+    "signInToComment": "Please sign in to add a comment",
+    "signIn": "sign in",
+    "noCommentsYet": "No comments yet. Be the first to comment!",
+    "commentsCount": "{{count}} Comments",
+    "comments": "Comments",
+    "likeButton": "Like",
+    "commentButton": "Comment",
+    "shareButton": "Share",
+    "timeAgo": {
+      "justNow": "just now",
+      "minutesAgo": "{{minutes}}m ago",
+      "hoursAgo": "{{hours}}h ago",
+      "daysAgo": "{{days}}d ago"
+    }
+  },
+  "createMoment": {
+    "title": "Create Moment",
+    "form": {
+      "titleLabel": "Title",
+      "titlePlaceholder": "Enter title",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Enter description",
+      "imagesLabel": "Upload Images",
+      "maxImagesText": "Maximum 10 images allowed",
+      "addMoreText": "Add More",
+      "submitButton": "Post",
+      "submittingButton": "Posting...",
+      "cancelButton": "Cancel"
+    },
+    "toast": {
+      "maxImagesError": "You can upload a maximum of 10 images",
+      "createSuccess": "Moment created successfully!",
+      "createError": "Failed to create moment."
+    }
+  },
+  "editMoment": {
+    "title": "Edit Moment",
+    "toast": {
+      "maxImagesError": "You can upload a maximum of 10 images",
+      "updateSuccess": "Moment updated successfully!",
+      "updateError": "Failed to update moment. Please try again.",
+      "notAuthorized": "You are not authorized to edit this moment"
+    },
+    "form": {
+      "titleLabel": "Title",
+      "titlePlaceholder": "Enter a title for your moment",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Tell us about your moment...",
+      "imagesLabel": "Images",
+      "maxImagesText": "You can upload up to 10 images (Max 5MB each)",
+      "existingImagesLabel": "Current Images",
+      "newImagesLabel": "New Images",
+      "addMoreText": "Add more",
+      "updateButton": "Update Moment",
+      "updatingButton": "Updating...",
+      "cancelButton": "Cancel"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "Enter your email",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter email",
+      "sendButton": "Send Code",
+      "sendingButton": "Sending...",
+      "successMessage": "Verification code sent successfully!",
+      "errorPrefix": "Error: "
+    },
+    "passwordReset": {
+      "successMessage": "Password reset successfully, please login!"
+    },
+    "login": {
+      "signInWithGoogle": "Sign In with Google",
+      "title": "Sign In",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter password",
+      "forgotPassword": "Forgot Password?",
+      "signInButton": "Sign In",
+      "signingInButton": "Signing In...",
+      "newUserText": "New User?",
+      "registerLink": "Register",
+      "successMessage": "Successfully logged in",
+      "invalidCredentialsError": "Invalid credentials"
+    },
+    "account": {
+      "title": "Create Your Account",
+      "name": "Name",
+      "email": "Email Address",
+      "password": "Password",
+      "passwordRequirement": "Password must be at least 8 characters long",
+      "confirmPassword": "Confirm Password",
+      "continue": "Continue",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "bio": "Bio (optional)",
+      "bioPlaceholder": "Tell us something about you",
+      "gender": "Gender",
+      "genderOptions": {
+        "select": "Select Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "birthDate": "Birth Date",
+      "nativeLanguage": "Native Language",
+      "selectLanguage": "Select Language",
+      "languageToLearn": "Language to Learn",
+      "profileImages": "Profile Images",
+      "uploadPrompt": "Click to upload profile images",
+      "selectImages": "Select Images",
+      "back": "Back",
+      "processing": "Processing..."
+    },
+    "verification": {
+      "title": "Email Verification",
+      "sentMessage": "We've sent a verification code to your email:",
+      "verificationCode": "Verification Code",
+      "codePlaceholder": "Enter the 6-digit code",
+      "verifyButton": "Verify Email",
+      "verifying": "Verifying...",
+      "resendCode": "Resend verification code",
+      "sending": "Sending...",
+      "backToProfile": "Back to Profile",
+      "successMessage": "Email verified successfully!",
+      "completePrompt": "Complete your registration by clicking the button below.",
+      "completeRegistration": "Complete Registration"
+    },
+    "progressBar": {
+      "account": "Account",
+      "profile": "Profile",
+      "verify": "Verify"
+    },
+    "toasts": {
+      "passwordMismatch": "Passwords do not match",
+      "verificationSent": "Verification code sent successfully!",
+      "sendCodeFailed": "Failed to send verification code",
+      "emailVerified": "Email verified successfully!",
+      "invalidCode": "Invalid verification code",
+      "verifyFirst": "Please verify your email first",
+      "registrationSuccess": "Registration successful!",
+      "registrationError": "Error during registration"
+    }
+  },
+  "communityMain": {
+    "title": "Language Exchange",
+    "subtitle": "Connect with language learners worldwide",
+    "stats": {
+      "activeLearners": "Active Learners",
+      "languages": "Languages",
+      "countries": "Countries"
+    },
+    "search": {
+      "placeholder": "Search by name or language...",
+      "loading": "Loading amazing language partners..."
+    },
+    "memberCard": {
+      "native": "Native",
+      "learning": "Learning",
+      "defaultBio": "Passionate language learner ready to connect!",
+      "actions": {
+        "like": "Like",
+        "message": "Message"
+      }
+    },
+    "tabs": {
+      "all": "All",
+      "popular": "Popular",
+      "new": "New"
+    },
+    "results": {
+      "showing": "Showing {{count}} amazing language partner{{plural}}",
+      "noneFound": {
+        "title": "No language partners found",
+        "message": "Try adjusting your search filters to discover more learners",
+        "resetFilters": "Reset All Filters"
+      }
+    },
+    "errors": {
+      "generic": "Something went wrong",
+      "tryAgain": "Try Again"
+    },
+    "buttons": {
+      "clearFilters": "Clear all filters"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "Invalid profile ID",
+      "profileNotFound": "Profile Not Found",
+      "profileNotFoundDesc": "This user profile doesn't exist or has been removed.",
+      "somethingWentWrong": "Oops! Something went wrong",
+      "tryAgainLater": "We couldn't load this profile. Please try again later."
+    },
+    "buttons": {
+      "backToCommunity": "Back to Community",
+      "tryAgain": "Try Again",
+      "follow": "Follow",
+      "following": "Following",
+      "startChat": "Start Chat",
+      "videoCall": "Video Call",
+      "startConversation": "Start Conversation"
+    },
+    "loading": {
+      "loadingProfile": "Loading profile...",
+      "initiatingCall": "Initiating call with {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "You need to be logged in to follow users",
+      "followSuccess": "Successfully followed!",
+      "followFailed": "Failed to follow user. Please try again.",
+      "loginToUnfollow": "You need to be logged in to unfollow users",
+      "unfollowSuccess": "Successfully unfollowed",
+      "unfollowFailed": "Failed to unfollow user. Please try again.",
+      "confirmUnfollow": "Are you sure you want to unfollow this user?",
+      "loginToChat": "You need to be logged in to start a chat",
+      "chatStarted": "Chat started successfully!",
+      "chatFailed": "Failed to start chat. Please try again.",
+      "errorOccurred": "An error occurred. Please try again."
+    },
+    "profile": {
+      "memberSince": "Member since {{date}}",
+      "yearsOld": "{{age}} years old",
+      "noPhotos": "No photos yet",
+      "aboutUser": "About {{name}}",
+      "noBio": "{{name}} hasn't added a bio yet. Start a conversation to learn more about them!",
+      "readyToPractice": "Ready to practice with {{name}}?",
+      "practiceDescription": "Start chatting and improve your language skills together!"
+    },
+    "stats": {
+      "followers": "Followers",
+      "following": "Following"
+    },
+    "language": {
+      "speaks": "Speaks",
+      "learning": "Learning",
+      "notSpecified": "Not specified"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "No photos available"
+    },
+    "navigation": {
+      "backToCommunity": "Back to Community"
+    },
+    "errors": {
+      "invalidProfileId": "Invalid profile ID",
+      "somethingWentWrong": "Oops! Something went wrong",
+      "couldNotLoadProfile": "We couldn't load this profile. Please try again later.",
+      "profileNotFound": "Profile Not Found",
+      "profileDoesNotExist": "This user profile doesn't exist or has been removed.",
+      "loadingProfile": "Loading profile..."
+    },
+    "buttons": {
+      "tryAgain": "Try Again",
+      "backToCommunity": "Back to Community"
+    },
+    "stats": {
+      "followers": "Followers",
+      "following": "Following"
+    },
+    "actions": {
+      "following": "Following",
+      "follow": "Follow",
+      "startChat": "Start Chat",
+      "videoCall": "Video Call",
+      "startConversation": "Start Conversation"
+    },
+    "languages": {
+      "speaks": "Speaks",
+      "learning": "Learning",
+      "notSpecified": "Not specified"
+    },
+    "memberInfo": {
+      "yearsOld": "years old",
+      "memberSince": "Member since"
+    },
+    "about": {
+      "aboutTitle": "About",
+      "noBioMessage": "hasn't added a bio yet. Start a conversation to learn more about them!"
+    },
+    "callToAction": {
+      "title": "Ready to practice with",
+      "subtitle": "Start chatting and improve your language skills together!"
+    },
+    "toasts": {
+      "needLogin": "You need to be logged in to",
+      "followUsers": "follow users",
+      "unfollowUsers": "unfollow users",
+      "startChat": "start a chat",
+      "failedToFollow": "Failed to follow user. Please try again.",
+      "successfullyFollowed": "Successfully followed!",
+      "successfullyUnfollowed": "Successfully unfollowed",
+      "failedToUnfollow": "Failed to unfollow user. Please try again.",
+      "failedToStartChat": "Failed to start chat. Please try again.",
+      "initiatingCall": "Initiating call with",
+      "errorOccurred": "An error occurred. Please try again."
+    },
+    "confirmations": {
+      "unfollowConfirm": "Are you sure you want to unfollow this user?"
+    },
+    "accessibility": {
+      "viewPhoto": "View photo",
+      "userPhoto": "'s photo"
+    },
+    "fallbacks": {
+      "defaultUser": "User"
+    }
+  }
+}

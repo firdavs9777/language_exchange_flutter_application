@@ -34,9 +34,16 @@ class MomentsService {
       };
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ?? 
-                     errorData['message'] ?? 
-                     'Failed to load moments');
+      final errorMessage = errorData['error'] ?? 
+                          errorData['message'] ?? 
+                          'Failed to load moments';
+      
+      // Log the actual backend error for debugging
+      print('❌ Backend error loading moments: $errorMessage');
+      print('📡 Response status: ${response.statusCode}');
+      print('📡 Response body: ${response.body}');
+      
+      throw Exception(errorMessage);
     }
   }
 

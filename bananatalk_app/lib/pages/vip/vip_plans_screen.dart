@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class VipPlansScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -40,7 +41,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
         data: (products) => _buildContent(),
         loading: () => Scaffold(
           appBar: AppBar(
-            title: const Text('Upgrade to VIP'),
+            title: Text(AppLocalizations.of(context)!.upgradeToVIP),
             elevation: 0,
           ),
           body: const Center(
@@ -49,7 +50,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
         ),
         error: (error, stack) => Scaffold(
           appBar: AppBar(
-            title: const Text('Upgrade to VIP'),
+            title: Text(AppLocalizations.of(context)!.upgradeToVIP),
             elevation: 0,
           ),
           body: Center(
@@ -58,13 +59,13 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               children: [
                 const Icon(Icons.error_outline, size: 48, color: Colors.red),
                 const SizedBox(height: 16),
-                Text('Error loading products: $error'),
+                Text('${AppLocalizations.of(context)!.errorLoadingProducts}: $error'),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     ref.refresh(iosProductsProvider);
                   },
-                  child: const Text('Retry'),
+                  child: Text(AppLocalizations.of(context)!.retry),
                 ),
               ],
             ),
@@ -144,32 +145,32 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                   const SizedBox(height: 16),
                   _buildFeatureItem(
                     icon: Icons.message,
-                    title: 'Unlimited Messages',
+                    title: AppLocalizations.of(context)!.unlimitedMessages,
                     description: 'Send unlimited messages to anyone',
                   ),
                   _buildFeatureItem(
                     icon: Icons.visibility,
-                    title: 'Unlimited Profile Views',
+                    title: AppLocalizations.of(context)!.unlimitedProfileViews,
                     description: 'View as many profiles as you want',
                   ),
                   _buildFeatureItem(
                     icon: Icons.support_agent,
-                    title: 'Priority Support',
+                    title: AppLocalizations.of(context)!.prioritySupport,
                     description: 'Get faster responses from our team',
                   ),
                   _buildFeatureItem(
                     icon: Icons.search,
-                    title: 'Advanced Search',
+                    title: AppLocalizations.of(context)!.advancedSearch,
                     description: 'Access advanced search filters',
                   ),
                   _buildFeatureItem(
                     icon: Icons.trending_up,
-                    title: 'Profile Boost',
+                    title: AppLocalizations.of(context)!.profileBoost,
                     description: 'Get more visibility in search results',
                   ),
                   _buildFeatureItem(
                     icon: Icons.block,
-                    title: 'Ad-Free Experience',
+                    title: AppLocalizations.of(context)!.adFreeExperience,
                     description: 'Enjoy the app without advertisements',
                   ),
                 ],
@@ -537,8 +538,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Could not open link'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
               backgroundColor: Colors.red,
             ),
           );
@@ -548,7 +549,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text('${AppLocalizations.of(context)!.error}: $e'),
             backgroundColor: Colors.red,
           ),
         );

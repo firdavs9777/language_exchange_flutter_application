@@ -4,19 +4,17 @@ import 'package:bananatalk_app/pages/profile/main/profile_followers.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_followings.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_left_drawer.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_moments.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_visitors_screen.dart';
+import 'package:bananatalk_app/pages/profile/personal_info/profile_picture_edit.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
-import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
-import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
-import 'package:bananatalk_app/widgets/limit_indicator.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'dart:ui';
 
@@ -58,9 +56,12 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             loading: () => const Drawer(
               child: Center(child: CircularProgressIndicator()),
             ),
-            error: (error, stack) => Drawer(
-              child: Center(child: Text('Error: $error')),
-            ),
+            error: (error, stack) {
+              final l10n = AppLocalizations.of(context)!;
+              return Drawer(
+                child: Center(child: Text('${l10n.error}: $error')),
+              );
+            },
           );
         },
       ),
@@ -97,21 +98,24 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             ],
           ),
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stack) => Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                const SizedBox(height: 16),
-                Text('Error: $error'),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => ref.refresh(userProvider),
-                  child: const Text('Retry'),
-                ),
-              ],
-            ),
-          ),
+          error: (error, stack) {
+            final l10n = AppLocalizations.of(context)!;
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  const SizedBox(height: 16),
+                  Text('${l10n.error}: $error'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => ref.refresh(userProvider),
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
@@ -151,7 +155,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.menu, color: Colors.white),
+              child: const Icon(Icons.settings, color: Colors.white),
             ),
             onPressed: () => Scaffold.of(context).openEndDrawer(),
           ),
@@ -172,64 +176,89 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
         children: [
           // Profile Picture with Gradient Border
           GestureDetector(
-            onTap: () {
-              if (user.imageUrls.isNotEmpty) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ImageGallery(
-                      imageUrls: user.imageUrls,
-                    ),
-                  ),
-                );
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilePictureEdit(user: user),
+                ),
+              );
+              // Refresh user data after returning
+              if (mounted) {
+                ref.refresh(userProvider);
               }
             },
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFF00BFA5),
-                    Color(0xFF00897B),
-                  ],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF00BFA5).withOpacity(0.4),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: user.imageUrls.isNotEmpty
-                    ? CircleAvatar(
-                        radius: 64,
-                        backgroundColor: Colors.grey[200],
-                        backgroundImage: NetworkImage(
-                          ImageUtils.normalizeImageUrl(user.imageUrls[0]),
-                        ),
-                        onBackgroundImageError: (exception, stackTrace) {
-                          print('Failed to load image: $exception');
-                        },
-                      )
-                    : CircleAvatar(
-                        radius: 64,
-                        backgroundColor:
-                            const Color(0xFF00BFA5).withOpacity(0.1),
-                        child: const Icon(
-                          Icons.person,
-                          size: 64,
-                          color: Color(0xFF00BFA5),
-                        ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF00BFA5),
+                        Color(0xFF00897B),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF00BFA5).withOpacity(0.4),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
                       ),
-              ),
+                    ],
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: user.imageUrls.isNotEmpty
+                        ? CachedCircleAvatar(
+                            imageUrl: user.imageUrls[0],
+                            radius: 64,
+                            backgroundColor: Colors.grey[200],
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            backgroundColor:
+                                const Color(0xFF00BFA5).withOpacity(0.1),
+                            child: const Icon(
+                              Icons.person,
+                              size: 64,
+                              color: Color(0xFF00BFA5),
+                            ),
+                          ),
+                  ),
+                ),
+                // Edit Icon Overlay
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00BFA5),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 3),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -257,7 +286,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               if (age != null)
                 _buildInfoChip(
                   Icons.cake_outlined,
-                  '$age years old',
+                  AppLocalizations.of(context)!.yearsOld(age.toString()),
                   Colors.purple,
                 ),
               if (locationText.isNotEmpty)
@@ -307,7 +336,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           Expanded(
             child: _buildActionButton(
               icon: Icons.edit_outlined,
-              label: 'Edit Profile',
+              label: AppLocalizations.of(context)!.editProfile,
               gradient: const LinearGradient(
                 colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
               ),
@@ -334,68 +363,69 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               },
             ),
           ),
-          const SizedBox(width: 12),
-          FutureBuilder<String?>(
-            future: SharedPreferences.getInstance()
-                .then((prefs) => prefs.getString('userId')),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return const SizedBox.shrink();
-              final userId = snapshot.data!;
+          // VIP Membership - Hidden for now
+          // const SizedBox(width: 12),
+          // FutureBuilder<String?>(
+          //   future: SharedPreferences.getInstance()
+          //       .then((prefs) => prefs.getString('userId')),
+          //   builder: (context, snapshot) {
+          //     if (!snapshot.hasData) return const SizedBox.shrink();
+          //     final userId = snapshot.data!;
 
-              return Expanded(
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    final limitsAsync = ref.watch(userLimitsProvider(userId));
+          //     return Expanded(
+          //       child: Consumer(
+          //         builder: (context, ref, child) {
+          //           final limitsAsync = ref.watch(userLimitsProvider(userId));
 
-                    return limitsAsync.when(
-                      data: (limits) {
-                        if (limits.isVIP) {
-                          return _buildActionButton(
-                            icon: Icons.workspace_premium,
-                            label: 'VIP Active',
-                            gradient: const LinearGradient(
-                              colors: [Colors.amber, Colors.orange],
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      VipPlansScreen(userId: userId),
-                                ),
-                              );
-                            },
-                          );
-                        }
+          //           return limitsAsync.when(
+          //             data: (limits) {
+          //               if (limits.isVIP) {
+          //                 return _buildActionButton(
+          //                   icon: Icons.workspace_premium,
+          //                   label: 'VIP Active',
+          //                   gradient: const LinearGradient(
+          //                     colors: [Colors.amber, Colors.orange],
+          //                   ),
+          //                   onTap: () {
+          //                     Navigator.push(
+          //                       context,
+          //                       MaterialPageRoute(
+          //                         builder: (context) =>
+          //                             VipPlansScreen(userId: userId),
+          //                       ),
+          //                     );
+          //                   },
+          //                 );
+          //               }
 
-                        return _buildActionButton(
-                          icon: Icons.workspace_premium_outlined,
-                          label: 'Go VIP',
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.amber.shade400,
-                              Colors.orange.shade400
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    VipPlansScreen(userId: userId),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      loading: () => const SizedBox.shrink(),
-                      error: (_, __) => const SizedBox.shrink(),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+          //               return _buildActionButton(
+          //                 icon: Icons.workspace_premium_outlined,
+          //                 label: 'Go VIP',
+          //                 gradient: LinearGradient(
+          //                   colors: [
+          //                     Colors.amber.shade400,
+          //                     Colors.orange.shade400
+          //                   ],
+          //                 ),
+          //                 onTap: () {
+          //                   Navigator.push(
+          //                     context,
+          //                     MaterialPageRoute(
+          //                       builder: (context) =>
+          //                           VipPlansScreen(userId: userId),
+          //                     ),
+          //                   },
+          //                 );
+          //               );
+          //             },
+          //             loading: () => const SizedBox.shrink(),
+          //             error: (_, __) => const SizedBox.shrink(),
+          //           );
+          //         },
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );
@@ -450,12 +480,15 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
   Widget _buildStatsCards(BuildContext context, Community user) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
+      child: Column(
+        children: [
+          // First row: Followers and Following
+          Row(
         children: [
           Expanded(
             child: _buildStatCard(
               value: user.followers.length.toString(),
-              label: 'Followers',
+              label: AppLocalizations.of(context)!.followers,
               icon: Icons.people_outline,
               color: const Color(0xFF00BFA5),
               onTap: () {
@@ -472,7 +505,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           Expanded(
             child: _buildStatCard(
               value: user.followings.length.toString(),
-              label: 'Following',
+              label: AppLocalizations.of(context)!.following,
               icon: Icons.person_add_outlined,
               color: Colors.blue,
               onTap: () {
@@ -485,7 +518,12 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               },
             ),
           ),
-          const SizedBox(width: 12),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // Second row: Moments and Visitors
+          Row(
+            children: [
           Expanded(
             child: Consumer(
               builder: (context, ref, child) {
@@ -493,7 +531,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 return momentsAsync.when(
                   data: (moments) => _buildStatCard(
                     value: moments.length.toString(),
-                    label: 'Moments',
+                    label: AppLocalizations.of(context)!.moments,
                     icon: Icons.photo_library_outlined,
                     color: Colors.purple,
                     onTap: () {
@@ -509,14 +547,14 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   ),
                   loading: () => _buildStatCard(
                     value: '...',
-                    label: 'Moments',
+                    label: AppLocalizations.of(context)!.moments,
                     icon: Icons.photo_library_outlined,
                     color: Colors.purple,
                     onTap: () {},
                   ),
                   error: (_, __) => _buildStatCard(
                     value: '0',
-                    label: 'Moments',
+                    label: AppLocalizations.of(context)!.moments,
                     icon: Icons.photo_library_outlined,
                     color: Colors.purple,
                     onTap: () {},
@@ -524,6 +562,64 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 );
               },
             ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FutureBuilder<Map<String, dynamic>>(
+                  future: ProfileVisitorService.getMyVisitorStats(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return _buildStatCard(
+                        value: '...',
+                        label: AppLocalizations.of(context)!.visitors,
+                        icon: Icons.visibility_outlined,
+                        color: Colors.orange,
+                        onTap: () {},
+                      );
+                    }
+
+                    // Handle errors gracefully - show 0 if backend not ready
+                    if (snapshot.hasError || !snapshot.hasData || snapshot.data?['success'] != true) {
+                      final l10n = AppLocalizations.of(context)!;
+                      return _buildStatCard(
+                        value: '0',
+                        label: l10n.visitors,
+                        icon: Icons.visibility_outlined,
+                        color: Colors.orange,
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(l10n.visitorTrackingNotAvailable),
+                              duration: const Duration(seconds: 3),
+                            ),
+                          );
+                        },
+                      );
+                    }
+
+                    final data = snapshot.data!;
+                    final stats = data['stats'];
+                    final uniqueVisitors = stats?['uniqueVisitors'] ?? 0;
+
+                    return _buildStatCard(
+                      value: uniqueVisitors.toString(),
+                      label: AppLocalizations.of(context)!.visitors,
+                      icon: Icons.visibility_outlined,
+                      color: Colors.orange,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileVisitorsScreen(userId: user.id),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -625,9 +721,9 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
-                'Language Exchange',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.languageExchange,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -637,8 +733,8 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           ),
           const SizedBox(height: 24),
           _buildLanguageRow(
-            'Native Language',
-            user.native_language.isEmpty ? 'Not set' : user.native_language,
+            AppLocalizations.of(context)!.nativeLanguage,
+            user.native_language.isEmpty ? AppLocalizations.of(context)!.notSet : user.native_language,
             Icons.translate,
             const Color(0xFF00BFA5),
           ),
@@ -646,8 +742,8 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           Divider(color: Colors.grey[200]),
           const SizedBox(height: 16),
           _buildLanguageRow(
-            'Learning',
-            user.language_to_learn.isEmpty ? 'Not set' : user.language_to_learn,
+            AppLocalizations.of(context)!.learning,
+            user.language_to_learn.isEmpty ? AppLocalizations.of(context)!.notSet : user.language_to_learn,
             Icons.school,
             Colors.orange,
           ),
@@ -742,9 +838,9 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'About Me',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.aboutMe,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
@@ -896,39 +992,17 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: imageUrl != null
-                            ? Image.network(
-                                imageUrl,
+                            ? CachedImageWidget(
+                                imageUrl: imageUrl,
                                 fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Colors.grey[200],
-                                    child: Icon(
-                                      Icons.broken_image_outlined,
-                                      color: Colors.grey[400],
-                                      size: 32,
-                                    ),
-                                  );
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Container(
-                                    color: Colors.grey[100],
-                                    child: Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
-                                        strokeWidth: 2,
-                                      ),
-                                    ),
-                                  );
-                                },
+                                errorWidget: Container(
+                                  color: Colors.grey[200],
+                                  child: Icon(
+                                    Icons.broken_image_outlined,
+                                    color: Colors.grey[400],
+                                    size: 32,
+                                  ),
+                                ),
                               )
                             : Container(
                                 color: Colors.grey[200],

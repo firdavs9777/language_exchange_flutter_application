@@ -22,6 +22,7 @@ class Community {
     required this.version,
     required this.location, // Added location
     this.privacySettings,
+    this.termsAccepted = false, // Terms of Service acceptance
   });
 
   final String id;
@@ -46,6 +47,7 @@ class Community {
   final int version;
   final Location location; // Made location nullable here
   final PrivacySettings? privacySettings;
+  final bool termsAccepted; // Terms of Service acceptance status
 
   factory Community.fromJson(Map<String, dynamic> json) {
     return Community(
@@ -95,6 +97,7 @@ class Community {
       privacySettings: json['privacySettings'] != null
           ? PrivacySettings.fromJson(json['privacySettings'])
           : null,
+      termsAccepted: json['termsAccepted'] ?? false,
     );
   }
 

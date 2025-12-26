@@ -1,6 +1,9 @@
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/services/socket_service.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:convert';
@@ -37,6 +40,12 @@ class AuthService extends ChangeNotifier {
       if (isValid) {
         isLoggedIn = true;
         debugPrint('✅ Token is valid - userId: $userId');
+        
+        // Re-enable socket reconnection for restored session
+        final socketService = SocketService();
+        socketService.enableReconnection();
+        debugPrint('✅ Socket reconnection enabled for restored session');
+        
         notifyListeners();
         return true;
       } else {
@@ -47,6 +56,12 @@ class AuthService extends ChangeNotifier {
           if (refreshResult['success'] == true) {
             isLoggedIn = true;
             debugPrint('✅ Token refreshed successfully - userId: $userId');
+            
+            // Re-enable socket reconnection for refreshed session
+            final socketService = SocketService();
+            socketService.enableReconnection();
+            debugPrint('✅ Socket reconnection enabled for refreshed session');
+            
             notifyListeners();
             return true;
           } else {
@@ -139,15 +154,16 @@ class AuthService extends ChangeNotifier {
   bool _isRateLimited(Map<String, dynamic> errorData) {
     return errorData['retryAfter'] != null ||
         errorData['statusCode'] == 429 ||
-        errorData['message']
-                ?.toString()
-                .toLowerCase()
-                .contains('too many requests') ==
+        errorData['message']?.toString().toLowerCase().contains(
+              'too many requests',
+            ) ==
             true;
   }
 
-  Future<Map<String, dynamic>> login(
-      {required String email, required String password}) async {
+  Future<Map<String, dynamic>> login({
+    required String email,
+    required String password,
+  }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.loginURL}');
 
     try {
@@ -162,11 +178,13 @@ class AuthService extends ChangeNotifier {
         final responseData = jsonDecode(response.body);
 
         // Handle both old and new response formats
-        userId = responseData['user']?['_id'] ??
+        userId =
+            responseData['user']?['_id'] ??
             responseData['data']?['user']?['_id'] ??
             '';
         token = responseData['token'] ?? responseData['data']?['token'] ?? '';
-        refreshToken = responseData['refreshToken'] ??
+        refreshToken =
+            responseData['refreshToken'] ??
             responseData['data']?['refreshToken'] ??
             '';
 
@@ -175,7 +193,32 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
         isLoggedIn = true;
+        
+        // Re-enable socket reconnection for new login
+        final socketService = SocketService();
+        socketService.enableReconnection();
+        debugPrint('✅ Socket reconnection enabled for new user');
+        
+        // Connect chat socket service
+        try {
+          final chatSocketService = ChatSocketService();
+          chatSocketService.enableReconnection();
+          await chatSocketService.connect();
+          debugPrint('✅ Chat socket connected after login');
+        } catch (e) {
+          debugPrint('⚠️ Error connecting chat socket: $e');
+        }
+        
         notifyListeners();
+
+        // Register FCM token for push notifications
+        try {
+          final notificationService = NotificationService();
+          await notificationService.registerToken(userId);
+          debugPrint('✅ FCM token registered on login');
+        } catch (e) {
+          debugPrint('⚠️ Error registering FCM token: $e');
+        }
 
         return {
           'success': true,
@@ -233,17 +276,15 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
   /// Facebook Sign-In for iOS/Android
   /// Sends access token to backend for authentication
   Future<Map<String, dynamic>> signInWithFacebookNative(
-      String accessToken) async {
+    String accessToken,
+  ) async {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/facebook/mobile');
 
@@ -251,12 +292,8 @@ class AuthService extends ChangeNotifier {
 
       final response = await http.post(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'accessToken': accessToken,
-        }),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'accessToken': accessToken}),
       );
 
       debugPrint('📡 Response status: ${response.statusCode}');
@@ -285,6 +322,12 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            
+            // Re-enable socket reconnection for new login
+            final socketService = SocketService();
+            socketService.enableReconnection();
+            debugPrint('✅ Socket reconnection enabled for Facebook login');
+            
             notifyListeners();
 
             debugPrint('✅ Facebook login successful - userId: $responseUserId');
@@ -313,17 +356,15 @@ class AuthService extends ChangeNotifier {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
-          'message': errorData['message'] ??
+          'message':
+              errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
         };
       }
     } catch (e) {
       debugPrint('❌ Facebook Sign-In Error: $e');
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
@@ -349,7 +390,8 @@ class AuthService extends ChangeNotifier {
   /// Handle Google OAuth callback and extract tokens
   /// This is called when the OAuth callback is received
   Future<Map<String, dynamic>> handleGoogleCallback(
-      Map<String, String> callbackData) async {
+    Map<String, String> callbackData,
+  ) async {
     try {
       // The backend should redirect with tokens in the callback
       // We need to extract them from the callback URL or make a request
@@ -370,6 +412,17 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
+        
+        // Connect chat socket service
+        try {
+          final chatSocketService = ChatSocketService();
+          chatSocketService.enableReconnection();
+          await chatSocketService.connect();
+          debugPrint('✅ Chat socket connected after Google callback');
+        } catch (e) {
+          debugPrint('⚠️ Error connecting chat socket: $e');
+        }
+        
         notifyListeners();
 
         return {
@@ -426,13 +479,8 @@ class AuthService extends ChangeNotifier {
 
       final response = await http.post(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'identityToken': identityToken,
-          'user': appleUser,
-        }),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'identityToken': identityToken, 'user': appleUser}),
       );
 
       debugPrint('📡 Response status: ${response.statusCode}');
@@ -461,6 +509,22 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            
+            // Re-enable socket reconnection for new login
+            final socketService = SocketService();
+            socketService.enableReconnection();
+            debugPrint('✅ Socket reconnection enabled for Apple login');
+            
+            // Connect chat socket service
+            try {
+              final chatSocketService = ChatSocketService();
+              chatSocketService.enableReconnection();
+              await chatSocketService.connect();
+              debugPrint('✅ Chat socket connected after Apple login');
+            } catch (e) {
+              debugPrint('⚠️ Error connecting chat socket: $e');
+            }
+            
             notifyListeners();
 
             debugPrint('✅ Apple login successful - userId: $responseUserId');
@@ -489,17 +553,15 @@ class AuthService extends ChangeNotifier {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
-          'message': errorData['message'] ??
+          'message':
+              errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
         };
       }
     } catch (e) {
       debugPrint('❌ Apple Sign-In Error: $e');
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
@@ -544,10 +606,7 @@ class AuthService extends ChangeNotifier {
       }
     } catch (e) {
       debugPrint('❌ Delete account error: $e');
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
@@ -563,12 +622,8 @@ class AuthService extends ChangeNotifier {
 
       final response = await http.post(
         url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'idToken': idToken,
-        }),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'idToken': idToken}),
       );
 
       debugPrint('📡 Response status: ${response.statusCode}');
@@ -597,6 +652,22 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
+            
+            // Re-enable socket reconnection for new login
+            final socketService = SocketService();
+            socketService.enableReconnection();
+            debugPrint('✅ Socket reconnection enabled for Google login');
+            
+            // Connect chat socket service
+            try {
+              final chatSocketService = ChatSocketService();
+              chatSocketService.enableReconnection();
+              await chatSocketService.connect();
+              debugPrint('✅ Chat socket connected after Google login');
+            } catch (e) {
+              debugPrint('⚠️ Error connecting chat socket: $e');
+            }
+            
             notifyListeners();
 
             debugPrint('✅ Google login successful - userId: $responseUserId');
@@ -606,8 +677,8 @@ class AuthService extends ChangeNotifier {
               'token': responseToken,
               'refreshToken': responseRefreshToken,
               'userId': responseUserId,
-              'user': data[
-                  'user'], // Return raw user data as Map, not Community object
+              'user':
+                  data['user'], // Return raw user data as Map, not Community object
             };
           } else {
             return {
@@ -626,27 +697,22 @@ class AuthService extends ChangeNotifier {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
-          'message': errorData['message'] ??
+          'message':
+              errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
         };
       }
     } catch (e) {
       debugPrint('❌ Native Google Sign-In Error: $e');
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
   /// Refresh access token using refresh token
   Future<Map<String, dynamic>> refreshAccessToken() async {
     if (refreshToken.isEmpty) {
-      return {
-        'success': false,
-        'message': 'No refresh token available',
-      };
+      return {'success': false, 'message': 'No refresh token available'};
     }
 
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.refreshTokenURL}');
@@ -663,7 +729,8 @@ class AuthService extends ChangeNotifier {
         token = responseData['token'] ?? responseData['data']?['token'] ?? '';
 
         // Update refresh token if backend returns a new one (token rotation)
-        final newRefreshToken = responseData['refreshToken'] ??
+        final newRefreshToken =
+            responseData['refreshToken'] ??
             responseData['data']?['refreshToken'];
         if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
           refreshToken = newRefreshToken;
@@ -676,11 +743,7 @@ class AuthService extends ChangeNotifier {
         }
         notifyListeners();
 
-        return {
-          'success': true,
-          'token': token,
-          'refreshToken': refreshToken,
-        };
+        return {'success': true, 'token': token, 'refreshToken': refreshToken};
       } else {
         // Refresh token expired or invalid - logout user
         await _clearAuthData();
@@ -691,29 +754,110 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
   /// Clear all authentication data
+  /// CRITICAL: Steps must be done in this order!
+  /// 1. Disconnect sockets (while still authenticated)
+  /// 2. Remove FCM token (while still authenticated)
+  /// 3. Clear auth tokens
+  /// 4. Clear storage
+  /// 5. Clear caches
   Future<void> _clearAuthData() async {
+    debugPrint('🧹 Starting complete logout cleanup...');
+    debugPrint('⚠️ Current token: ${token.substring(0, 20)}... (needed for cleanup)');
+    
+    // 1. FIRST: Disconnect all socket connections (WHILE STILL AUTHENTICATED!)
+    // This sends 'logout' event to backend which requires the token
+    try {
+      debugPrint('1️⃣ Disconnecting sockets (while authenticated)...');
+      
+      // Disconnect chat socket service
+      final chatSocketService = ChatSocketService();
+      chatSocketService.disableReconnection();
+      await chatSocketService.disconnect();
+      debugPrint('✅ Chat socket disconnected');
+      
+      // Disconnect other socket instances
+      final socketService = SocketService();
+      await socketService.disconnectAll(); // Now async and sends logout event
+      debugPrint('✅ All sockets disconnected with proper logout event');
+    } catch (e) {
+      debugPrint('⚠️ Error disconnecting sockets: $e');
+      // Continue with logout even if socket disconnect fails
+    }
+    
+    // 2. SECOND: Remove FCM token from backend (WHILE STILL AUTHENTICATED!)
+    // Backend needs valid token to remove FCM token
+    try {
+      debugPrint('2️⃣ Removing FCM token from backend (while authenticated)...');
+      final notificationService = NotificationService();
+      await notificationService.removeToken();
+      debugPrint('✅ FCM token removed from backend');
+    } catch (e) {
+      debugPrint('⚠️ Error removing FCM token: $e');
+      // Continue with logout even if FCM removal fails
+    }
+    
+    // 3. THIRD: Clear in-memory auth state (NOW it's safe to clear tokens)
+    debugPrint('3️⃣ Clearing in-memory auth state...');
     userId = '';
     token = '';
     refreshToken = '';
     isLoggedIn = false;
+    debugPrint('✅ Auth state cleared');
+    
+    // 4. FOURTH: Clear ALL SharedPreferences (user data, tokens, caches, etc.)
+    debugPrint('4️⃣ Clearing SharedPreferences...');
     final prefs = await SharedPreferences.getInstance();
+    try {
+      // Get all keys before clearing
+      final keys = prefs.getKeys();
+      debugPrint('📦 Clearing ${keys.length} SharedPreferences keys');
+      
+      // Clear all data
+      await prefs.clear();
+      
+      debugPrint('✅ All SharedPreferences cleared');
+    } catch (e) {
+      debugPrint('⚠️ Error clearing SharedPreferences: $e');
+      // Fallback: remove specific keys
     await prefs.remove('token');
     await prefs.remove('refreshToken');
     await prefs.remove('userId');
+      await prefs.remove('fcm_token');
+      await prefs.remove('savedMoments');
+      await prefs.remove('count');
+      // Remove any chat theme preferences
+      final keys = prefs.getKeys();
+      for (final key in keys) {
+        if (key.startsWith('chat_theme_')) {
+          await prefs.remove(key);
+        }
+      }
+    }
+    
+    // 5. FIFTH: Clear image cache
+    debugPrint('5️⃣ Clearing image cache...');
+    try {
+      final imageCache = PaintingBinding.instance.imageCache;
+      imageCache.clear();
+      imageCache.clearLiveImages();
+      debugPrint('✅ Image cache cleared');
+    } catch (e) {
+      debugPrint('⚠️ Error clearing image cache: $e');
+    }
+    
+    debugPrint('🎉 Logout cleanup completed successfully!');
     notifyListeners();
   }
 
   Future<Map<String, dynamic>> logout({bool logoutAll = false}) async {
     final url = Uri.parse(
-        '${Endpoints.baseURL}${logoutAll ? Endpoints.logoutAllURL : Endpoints.logoutURL}');
+      '${Endpoints.baseURL}${logoutAll ? Endpoints.logoutAllURL : Endpoints.logoutURL}',
+    );
 
     try {
       final response = await http.post(
@@ -732,24 +876,15 @@ class AuthService extends ChangeNotifier {
       await _clearAuthData();
 
       if (response.statusCode == 200) {
-        return {
-          'success': true,
-          'message': 'Logged out successfully',
-        };
+        return {'success': true, 'message': 'Logged out successfully'};
       } else {
         // Even if logout fails on server, we've cleared local data
-        return {
-          'success': true,
-          'message': 'Logged out locally',
-        };
+        return {'success': true, 'message': 'Logged out locally'};
       }
     } catch (e) {
       // Clear auth data even on error
       await _clearAuthData();
-      return {
-        'success': true,
-        'message': 'Logged out locally',
-      };
+      return {'success': true, 'message': 'Logged out locally'};
     }
   }
 
@@ -772,7 +907,7 @@ class AuthService extends ChangeNotifier {
         return {
           'success': true,
           'message': data['message'] ?? 'Verification code sent',
-          'data': data['data']
+          'data': data['data'],
         };
       } else {
         final errorData = _parseErrorResponse(response);
@@ -795,7 +930,7 @@ class AuthService extends ChangeNotifier {
 
         return {
           'success': false,
-          'message': errorData['message'] ?? 'Failed to send verification code'
+          'message': errorData['message'] ?? 'Failed to send verification code',
         };
       }
     } catch (e) {
@@ -826,12 +961,12 @@ class AuthService extends ChangeNotifier {
         return {
           'success': true,
           'message': data['message'] ?? 'Email verified successfully',
-          'data': data['data']
+          'data': data['data'],
         };
       } else {
         return {
           'success': false,
-          'message': data['error'] ?? 'Invalid or expired verification code'
+          'message': data['error'] ?? 'Invalid or expired verification code',
         };
       }
     } catch (e) {
@@ -843,10 +978,7 @@ class AuthService extends ChangeNotifier {
   /// Requirements: Minimum 8 characters, at least one uppercase, one lowercase, one number
   static Map<String, dynamic> validatePassword(String password) {
     if (password.isEmpty) {
-      return {
-        'valid': false,
-        'message': 'Password is required',
-      };
+      return {'valid': false, 'message': 'Password is required'};
     }
 
     if (password.length < 8) {
@@ -877,10 +1009,7 @@ class AuthService extends ChangeNotifier {
       };
     }
 
-    return {
-      'valid': true,
-      'message': 'Password is valid',
-    };
+    return {'valid': true, 'message': 'Password is valid'};
   }
 
   /// Validate email format
@@ -915,6 +1044,22 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
         isLoggedIn = true;
+        
+        // Re-enable socket reconnection for new registration
+        final socketService = SocketService();
+        socketService.enableReconnection();
+        debugPrint('✅ Socket reconnection enabled for new registration');
+        
+        // Connect chat socket service
+        try {
+          final chatSocketService = ChatSocketService();
+          chatSocketService.enableReconnection();
+          await chatSocketService.connect();
+          debugPrint('✅ Chat socket connected after registration');
+        } catch (e) {
+          debugPrint('⚠️ Error connecting chat socket: $e');
+        }
+        
         notifyListeners();
 
         return {
@@ -931,32 +1076,127 @@ class AuthService extends ChangeNotifier {
         };
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Network error: ${e.toString()}',
-      };
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
   Future<Community> getLoggedInUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
+
+    // Ensure token is available - get from SharedPreferences if not set in memory
+    String authToken = token;
+    if (authToken.isEmpty) {
+      authToken = prefs.getString('token') ?? '';
+      if (authToken.isNotEmpty) {
+        token = authToken; // Update in-memory token
+      }
+    }
+
+    if (authToken.isEmpty) {
+      throw Exception('Not authenticated. Please login again.');
+    }
 
     final url = Uri.parse('${Endpoints.baseURL}auth/me');
     final response = await http.get(
       url,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $authToken',
       },
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      String userId = data['data']['_id'];
+
+      // Handle different response formats
+      Map<String, dynamic>? userData;
+      if (data['data'] != null) {
+        userData = data['data'] as Map<String, dynamic>?;
+      } else if (data['user'] != null) {
+        userData = data['user'] as Map<String, dynamic>?;
+      } else if (data is Map<String, dynamic>) {
+        userData = data;
+      }
+
+      if (userData == null || userData['_id'] == null) {
+        debugPrint('❌ Invalid user data structure in response: $data');
+        throw Exception('Invalid user data received from server');
+      }
+
+      String userId = userData['_id'].toString();
       await prefs.setString('userId', userId);
-      return Community.fromJson(data['data']);
+      return Community.fromJson(userData);
     } else {
-      throw Exception('Failed to load user info');
+      final errorBody = response.body;
+      debugPrint('❌ Failed to load user info: ${response.statusCode}');
+      debugPrint('❌ Error response: $errorBody');
+      throw Exception('Failed to load user info: ${response.statusCode}');
+    }
+  }
+
+  /// Accept Terms of Service - updates backend field
+  Future<Map<String, dynamic>> acceptTerms() async {
+    try {
+      // Ensure token is available - check both memory and storage
+      String authToken = token;
+      if (authToken.isEmpty) {
+        // Try to get token from SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        authToken = prefs.getString('token') ?? '';
+        if (authToken.isEmpty) {
+          debugPrint('❌ No token found in memory or storage');
+          return {
+            'success': false,
+            'message': 'Not authenticated. Please login again.',
+          };
+        }
+        // Update in-memory token
+        token = authToken;
+        debugPrint('✅ Token loaded from storage for terms acceptance');
+      }
+
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.acceptTermsURL}');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $authToken',
+        },
+        body: jsonEncode({
+          'termsAccepted': true,
+          'termsAcceptedDate': DateTime.now().toIso8601String(),
+        }),
+      );
+      print(response);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        // Update local user data if available (don't block on errors)
+        try {
+          // Small delay to ensure backend has processed the update
+          await Future.delayed(const Duration(milliseconds: 300));
+          final updatedUser = await getLoggedInUser();
+          debugPrint('✅ User data refreshed after terms acceptance');
+        } catch (e) {
+          debugPrint(
+            '⚠️ Error refreshing user after terms acceptance (non-critical): $e',
+          );
+          // Don't fail the whole operation if we can't refresh user data
+        }
+
+        return {
+          'success': true,
+          'message': data['message'] ?? 'Terms accepted successfully',
+        };
+      } else {
+        final errorData = _parseErrorResponse(response);
+        return {
+          'success': false,
+          'message': errorData['message'] ?? 'Failed to accept terms',
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
 
@@ -991,12 +1231,12 @@ class AuthService extends ChangeNotifier {
         return {
           'success': true,
           'message': data['message'] ?? 'Reset code sent',
-          'data': data['data']
+          'data': data['data'],
         };
       } else {
         return {
           'success': false,
-          'message': data['error'] ?? 'Failed to send reset code'
+          'message': data['error'] ?? 'Failed to send reset code',
         };
       }
     } catch (e) {
@@ -1024,12 +1264,12 @@ class AuthService extends ChangeNotifier {
         return {
           'success': true,
           'message': data['message'] ?? 'Code verified',
-          'data': data['data']
+          'data': data['data'],
         };
       } else {
         return {
           'success': false,
-          'message': data['error'] ?? 'Invalid reset code'
+          'message': data['error'] ?? 'Invalid reset code',
         };
       }
     } catch (e) {
@@ -1046,10 +1286,7 @@ class AuthService extends ChangeNotifier {
     // Validate password before sending request
     final passwordValidation = validatePassword(newPassword);
     if (!passwordValidation['valid']) {
-      return {
-        'success': false,
-        'message': passwordValidation['message'],
-      };
+      return {'success': false, 'message': passwordValidation['message']};
     }
 
     final url = Uri.parse('${Endpoints.baseURL}auth/reset-password');
@@ -1057,8 +1294,11 @@ class AuthService extends ChangeNotifier {
     try {
       final response = await http.post(
         url,
-        body: jsonEncode(
-            {'email': email, 'code': code, 'newPassword': newPassword}),
+        body: jsonEncode({
+          'email': email,
+          'code': code,
+          'newPassword': newPassword,
+        }),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -1066,7 +1306,8 @@ class AuthService extends ChangeNotifier {
         final data = jsonDecode(response.body);
 
         // Handle both old and new response formats
-        userId = data['user']?['_id'] ??
+        userId =
+            data['user']?['_id'] ??
             data['user']?['id'] ??
             data['data']?['user']?['_id'] ??
             '';
@@ -1079,6 +1320,22 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
         isLoggedIn = true;
+        
+        // Re-enable socket reconnection for password reset login
+        final socketService = SocketService();
+        socketService.enableReconnection();
+        debugPrint('✅ Socket reconnection enabled after password reset');
+        
+        // Connect chat socket service
+        try {
+          final chatSocketService = ChatSocketService();
+          chatSocketService.enableReconnection();
+          await chatSocketService.connect();
+          debugPrint('✅ Chat socket connected after password reset login');
+        } catch (e) {
+          debugPrint('⚠️ Error connecting chat socket: $e');
+        }
+        
         notifyListeners();
 
         return {
@@ -1092,7 +1349,7 @@ class AuthService extends ChangeNotifier {
         final errorData = _parseErrorResponse(response);
         return {
           'success': false,
-          'message': errorData['message'] ?? 'Failed to reset password'
+          'message': errorData['message'] ?? 'Failed to reset password',
         };
       }
     } catch (e) {
@@ -1101,14 +1358,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<Community> updateUserMbti({required mbti}) async {
-    final url =
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
+    );
     final response = await http.put(
       url,
       body: json.encode({'mbti': mbti}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -1119,14 +1375,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<Community> updateUserNativeLanguage({required natLang}) async {
-    final url =
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
+    );
     final response = await http.put(
       url,
       body: json.encode({'native_language': natLang}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -1137,14 +1392,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<Community> updateUserLanguageToLearn({required langToLearn}) async {
-    final url =
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
+    );
     final response = await http.put(
       url,
       body: json.encode({'language_to_learn': langToLearn}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -1155,14 +1409,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<Community> updateUserBloodType({required bloodType}) async {
-    final url =
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
+    );
     final response = await http.put(
       url,
       body: json.encode({'bloodType': bloodType}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -1173,14 +1426,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<Community> updateUserName({required userName, required gender}) async {
-    final url =
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/${userId}');
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
+    );
     final response = await http.put(
       url,
       body: json.encode({'name': userName, 'gender': gender}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -1216,7 +1468,8 @@ class AuthService extends ChangeNotifier {
     } else {
       final errorData = json.decode(response.body);
       throw Exception(
-          errorData['error'] ?? errorData['message'] ?? 'Failed to update bio');
+        errorData['error'] ?? errorData['message'] ?? 'Failed to update bio',
+      );
     }
   }
 
@@ -1246,9 +1499,11 @@ class AuthService extends ChangeNotifier {
       return Community.fromJson(data['user'] ?? data['data']);
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ??
+      throw Exception(
+        errorData['error'] ??
           errorData['message'] ??
-          'Failed to update privacy settings');
+            'Failed to update privacy settings',
+      );
     }
   }
 
@@ -1263,22 +1518,17 @@ class AuthService extends ChangeNotifier {
     final locationData = {
       'location': {
         'type': 'Point',
-        'coordinates': [
-          longitude ?? 0.0,
-          latitude ?? 0.0,
-        ],
+        'coordinates': [longitude ?? 0.0, latitude ?? 0.0],
         'formattedAddress': '$city, $country',
         'city': city,
         'country': country,
-      }
+      },
     };
 
     final response = await http.put(
       url,
       body: jsonEncode(locationData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
 
     debugPrint('Response: ${response.statusCode}');
@@ -1298,13 +1548,15 @@ class AuthService extends ChangeNotifier {
       final userData = decoded['user'];
       if (userData == null || userData is! Map<String, dynamic>) {
         throw Exception(
-            'Missing or invalid "user" field in response: $decoded');
+          'Missing or invalid "user" field in response: $decoded',
+        );
       }
 
       return Community.fromJson(userData);
     } else {
       throw Exception(
-          'Failed to update hometown: ${response.statusCode} ${response.body}');
+        'Failed to update hometown: ${response.statusCode} ${response.body}',
+      );
     }
   }
 
@@ -1337,24 +1589,28 @@ class AuthService extends ChangeNotifier {
       if (data['data'] != null && data['data'] is List) {
         followersList = data['data'] as List<dynamic>;
         debugPrint(
-            '✅ Found followers in data.data: ${followersList.length} items');
+          '✅ Found followers in data.data: ${followersList.length} items',
+        );
       }
       // Check if followers is directly in response
       else if (data['followers'] != null && data['followers'] is List) {
         followersList = data['followers'] as List<dynamic>;
         debugPrint(
-            '✅ Found followers in data.followers: ${followersList.length} items');
+          '✅ Found followers in data.followers: ${followersList.length} items',
+        );
       }
       // Check if it's a success response with data
       else if (data['success'] == true && data['data'] != null) {
         if (data['data'] is List) {
           followersList = data['data'] as List<dynamic>;
           debugPrint(
-              '✅ Found followers in success.data: ${followersList.length} items');
+            '✅ Found followers in success.data: ${followersList.length} items',
+          );
         } else if (data['data']['followers'] != null) {
           followersList = data['data']['followers'] as List<dynamic>?;
           debugPrint(
-              '✅ Found followers in success.data.followers: ${followersList?.length ?? 0} items');
+            '✅ Found followers in success.data.followers: ${followersList?.length ?? 0} items',
+          );
         }
       }
 
@@ -1363,17 +1619,20 @@ class AuthService extends ChangeNotifier {
         return <Community>[];
       }
 
-      List<Community> followers =
-          followersList.map((json) => Community.fromJson(json)).toList();
+      List<Community> followers = followersList
+          .map((json) => Community.fromJson(json))
+          .toList();
 
       debugPrint('✅ Successfully parsed ${followers.length} followers');
       return followers;
     } else {
       final errorData = json.decode(response.body);
       debugPrint('❌ Followers API Error: ${errorData.toString()}');
-      throw Exception(errorData['error'] ??
+      throw Exception(
+        errorData['error'] ??
           errorData['message'] ??
-          'Failed to load followers');
+            'Failed to load followers',
+      );
     }
   }
 
@@ -1406,24 +1665,28 @@ class AuthService extends ChangeNotifier {
       if (data['data'] != null && data['data'] is List) {
         followingList = data['data'] as List<dynamic>;
         debugPrint(
-            '✅ Found followings in data.data: ${followingList.length} items');
+          '✅ Found followings in data.data: ${followingList.length} items',
+        );
       }
       // Check if following is directly in response
       else if (data['following'] != null && data['following'] is List) {
         followingList = data['following'] as List<dynamic>;
         debugPrint(
-            '✅ Found followings in data.following: ${followingList.length} items');
+          '✅ Found followings in data.following: ${followingList.length} items',
+        );
       }
       // Check if it's a success response with data
       else if (data['success'] == true && data['data'] != null) {
         if (data['data'] is List) {
           followingList = data['data'] as List<dynamic>;
           debugPrint(
-              '✅ Found followings in success.data: ${followingList.length} items');
+            '✅ Found followings in success.data: ${followingList.length} items',
+          );
         } else if (data['data']['following'] != null) {
           followingList = data['data']['following'] as List<dynamic>?;
           debugPrint(
-              '✅ Found followings in success.data.following: ${followingList?.length ?? 0} items');
+            '✅ Found followings in success.data.following: ${followingList?.length ?? 0} items',
+          );
         }
       }
 
@@ -1432,41 +1695,117 @@ class AuthService extends ChangeNotifier {
         return <Community>[];
       }
 
-      List<Community> followings =
-          followingList.map((json) => Community.fromJson(json)).toList();
+      List<Community> followings = followingList
+          .map((json) => Community.fromJson(json))
+          .toList();
 
       debugPrint('✅ Successfully parsed ${followings.length} followings');
       return followings;
     } else {
       final errorData = json.decode(response.body);
       debugPrint('❌ Followings API Error: ${errorData.toString()}');
-      throw Exception(errorData['error'] ??
+      throw Exception(
+        errorData['error'] ??
           errorData['message'] ??
-          'Failed to load followings');
+            'Failed to load followings',
+      );
     }
   }
 
   Future<void> uploadUserPhoto(String userId, List<File> imageFiles) async {
-    final url =
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId/photo');
-    final request = http.MultipartRequest('PUT', url);
+    try {
+      // Ensure token is available
+      String authToken = token;
+      if (authToken.isEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        authToken = prefs.getString('token') ?? '';
+        if (authToken.isEmpty) {
+          debugPrint('❌ Cannot upload photos: No authentication token');
+          throw Exception('Not authenticated. Please login again.');
+        }
+        token = authToken; // Update in-memory token
+      }
 
+      // Use POST to /photos endpoint (plural) - matches profile picture edit implementation
+      final url = Uri.parse(
+        '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/photos',
+      );
+      final request = http.MultipartRequest('POST', url);
+
+      // Add Authorization header (don't set Content-Type manually - it's set automatically)
+      request.headers['Authorization'] = 'Bearer $authToken';
+
+      // Add image files with 'photos' field name (not 'file')
     for (var imageFile in imageFiles) {
+        // Check if file exists
+        if (!await imageFile.exists()) {
+          debugPrint('❌ Image file does not exist: ${imageFile.path}');
+          continue;
+        }
+
+        // Check file size (10MB max)
+        final fileSize = await imageFile.length();
+        if (fileSize > 10 * 1024 * 1024) {
+          debugPrint('❌ Image size exceeds 10MB limit: ${imageFile.path}');
+          continue;
+        }
+
+        // Determine content type from file extension
+        final extension = imageFile.path.split('.').last.toLowerCase();
+        String? mimeType;
+        switch (extension) {
+          case 'jpg':
+          case 'jpeg':
+            mimeType = 'image/jpeg';
+            break;
+          case 'png':
+            mimeType = 'image/png';
+            break;
+          case 'gif':
+            mimeType = 'image/gif';
+            break;
+          case 'webp':
+            mimeType = 'image/webp';
+            break;
+          default:
+            debugPrint('❌ Unsupported image format: $extension');
+            continue;
+        }
+
+        // IMPORTANT: Use 'photos' field name (plural) - matches backend expectation
       request.files.add(
         await http.MultipartFile.fromPath(
-          'file',
+            'photos',
           imageFile.path,
-          contentType: MediaType('image', 'jpeg'),
+            contentType: MediaType.parse(mimeType),
         ),
       );
     }
-    try {
-      final response = await request.send();
-      if (response.statusCode == 200) {
-      } else {
-        response.stream.transform(utf8.decoder).listen((value) {});
+
+      if (request.files.isEmpty) {
+        debugPrint('❌ No valid image files to upload');
+        return;
       }
-    } catch (e) {}
+
+      debugPrint(
+        '📤 Uploading ${request.files.length} images for user $userId...',
+      );
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint('✅ Successfully uploaded ${request.files.length} images');
+      } else {
+        final errorBody = response.body;
+        debugPrint('❌ Image upload failed: ${response.statusCode}');
+        debugPrint('❌ Error response: $errorBody');
+        throw Exception('Failed to upload images: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('❌ Image upload error: $e');
+      rethrow; // Re-throw so calling code can handle it
+    }
   }
 }
 

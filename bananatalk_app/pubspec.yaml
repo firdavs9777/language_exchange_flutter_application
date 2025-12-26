@@ -2,12 +2,15 @@ name: bananatalk_app
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.7+17
+version: 1.4.1+1
 
 environment:
-  sdk: '>=3.1.4 <4.0.0'
+  sdk: '>=3.10.0 <4.0.0'  # ← UPDATE THIS LINE
+  flutter: ">=3.24.0"
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
@@ -16,6 +19,7 @@ dependencies:
   shared_preferences: ^2.2.3
   google_fonts: 6.1.0
   geolocator: ^11.1.0
+  flutter_webrtc: ^0.9.48
   permission_handler: ^11.0.1
 
   geocoding: ^3.0.0
@@ -25,17 +29,29 @@ dependencies:
   flutter_lints: ^3.0.2
   retrofit: ^4.1.0
   flutter_riverpod: ^2.4.10
-  intl: ^0.18.1
+  intl: ^0.20.2
+  timeago: ^3.6.1
   socket_io_client: ^2.0.3+1
-  share_plus: ^7.2.2
+  share_plus: ^12.0.1
+  cached_network_image: ^3.3.1
   url_launcher: ^6.2.2
   webview_flutter: ^4.4.2
   google_sign_in: ^6.1.6
 
   flutter_launcher_icons: ^0.13.1
   flutter_dotenv: ^6.0.0
-  sign_in_with_apple: ^5.0.0
+  sign_in_with_apple: ^6.0.0
   in_app_purchase: ^3.1.11
+  
+  # Firebase & Notifications
+  firebase_core: ^3.0.0
+  firebase_messaging: ^15.0.0
+  flutter_local_notifications: ^16.3.0
+  app_settings: ^5.1.1
+  device_info_plus: ^10.1.0
+  
+  # Routing
+  go_router: ^14.0.0
 
 #  flutter_facebook_auth: ^7.0.1
 
@@ -44,6 +60,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  win32: ^5.5.0
+
 flutter:
   uses-material-design: true
   generate: true

@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class EmailInput extends ConsumerStatefulWidget {
   const EmailInput({super.key});
@@ -160,7 +161,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
                   borderSide: BorderSide(color: Colors.blueAccent, width: 2),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                hintText: 'Email address',
+                hintText: AppLocalizations.of(context)!.emailAddress,
                 prefixIcon: Icon(Icons.email),
               ),
             ),

@@ -1,17 +1,23 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
+import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_settings.dart';
+import 'package:bananatalk_app/pages/profile/personal_info/profile_picture_edit.dart';
 import 'package:bananatalk_app/pages/settings/account_deletion.dart';
 import 'package:bananatalk_app/pages/settings/legal_screen.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/pages/settings/blocked_users_screen.dart';
+import 'package:bananatalk_app/pages/settings/language_settings_screen.dart';
 import 'package:bananatalk_app/pages/reports/my_reports_screen.dart';
 import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/badge_count_provider.dart';
+import 'package:bananatalk_app/providers/unread_count_provider.dart';
+import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -39,7 +45,7 @@ class LeftDrawer extends ConsumerWidget {
           child: Column(
             children: [
               // Modern Header with Profile
-              _buildModernHeader(context),
+              _buildModernHeader(context, ref),
 
               const SizedBox(height: 8),
 
@@ -52,8 +58,8 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.person_outline,
-                      title: 'Profile Settings',
-                      subtitle: 'Edit your profile information',
+                      title: AppLocalizations.of(context)!.profileSettings,
+                      subtitle: AppLocalizations.of(context)!.editYourProfileInformation,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -64,52 +70,75 @@ class LeftDrawer extends ConsumerWidget {
                       },
                     ),
 
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.workspace_premium,
-                      title: 'VIP Membership',
-                      subtitle: 'Unlock premium features',
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.amber.shade400,
-                          Colors.orange.shade400,
-                        ],
-                      ),
-                      onTap: () async {
-                        Navigator.pop(context);
-                        final prefs = await SharedPreferences.getInstance();
-                        final userId = prefs.getString('userId');
-                        if (userId != null && context.mounted) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  VipPlansScreen(userId: userId),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                    // VIP Membership - Hidden
+                    // _buildMenuItem(
+                    //   context: context,
+                    //   icon: Icons.workspace_premium,
+                    //   title: 'VIP Membership',
+                    //   subtitle: 'Unlock premium features',
+                    //   gradient: LinearGradient(
+                    //     colors: [
+                    //       Colors.amber.shade400,
+                    //       Colors.orange.shade400,
+                    //     ],
+                    //   ),
+                    //   onTap: () async {
+                    //     Navigator.pop(context);
+                    //     final prefs = await SharedPreferences.getInstance();
+                    //     final userId = prefs.getString('userId');
+                    //     if (userId != null && context.mounted) {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (context) =>
+                    //               VipPlansScreen(userId: userId),
+                    //         ),
+                    //       );
+                    //     }
+                    //   },
+                    // ),
 
                     const SizedBox(height: 16),
                     _buildSectionTitle('Preferences'),
 
                     _buildMenuItem(
                       context: context,
-                      icon: Icons.notifications_outlined,
-                      title: 'Notifications',
-                      subtitle: 'Manage notification settings',
+                      icon: Icons.block,
+                      iconColor: Colors.red,
+                      title: AppLocalizations.of(context)!.blockedUsers,
+                      subtitle: AppLocalizations.of(context)!.manageBlockedUsers,
                       onTap: () {
                         Navigator.pop(context);
-                        // Navigate to notifications
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BlockedUsersScreen(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    _buildMenuItem(
+                      context: context,
+                      icon: Icons.notifications_outlined,
+                      title: AppLocalizations.of(context)!.notifications,
+                      subtitle: AppLocalizations.of(context)!.manageNotificationSettings,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NotificationSettingsScreen(),
+                          ),
+                        );
                       },
                     ),
 
                     _buildMenuItem(
                       context: context,
                       icon: Icons.lock_outline,
-                      title: 'Privacy & Security',
-                      subtitle: 'Control your privacy',
+                      title: AppLocalizations.of(context)!.privacySecurity,
+                      subtitle: AppLocalizations.of(context)!.controlYourPrivacy,
                       onTap: () {
                         Navigator.pop(context);
                         // Navigate to privacy settings
@@ -119,19 +148,24 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.language_outlined,
-                      title: 'Language',
-                      subtitle: 'Change app language',
+                      title: AppLocalizations.of(context)!.language,
+                      subtitle: AppLocalizations.of(context)!.changeAppLanguage,
                       onTap: () {
                         Navigator.pop(context);
-                        // Navigate to language settings
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LanguageSettingsScreen(),
+                          ),
+                        );
                       },
                     ),
 
                     _buildMenuItem(
                       context: context,
                       icon: Icons.dark_mode_outlined,
-                      title: 'Appearance',
-                      subtitle: 'Theme and display settings',
+                      title: AppLocalizations.of(context)!.appearance,
+                      subtitle: AppLocalizations.of(context)!.themeAndDisplaySettings,
                       onTap: () {
                         Navigator.pop(context);
                         // Navigate to appearance settings
@@ -144,8 +178,8 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.flag_outlined,
-                      title: 'My Reports',
-                      subtitle: 'View your submitted reports',
+                      title: AppLocalizations.of(context)!.myReports,
+                      subtitle: AppLocalizations.of(context)!.viewYourSubmittedReports,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
@@ -162,8 +196,8 @@ class LeftDrawer extends ConsumerWidget {
                       _buildMenuItem(
                         context: context,
                         icon: Icons.admin_panel_settings,
-                        title: 'Reports Management',
-                        subtitle: 'Manage all reports (Admin)',
+                        title: AppLocalizations.of(context)!.reportsManagement,
+                        subtitle: AppLocalizations.of(context)!.manageAllReportsAdmin,
                         gradient: LinearGradient(
                           colors: [
                             Colors.purple.shade400,
@@ -187,8 +221,8 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.gavel_outlined,
-                      title: 'Legal & Privacy',
-                      subtitle: 'Terms, Privacy & Subscription info',
+                      title: AppLocalizations.of(context)!.legalPrivacy,
+                      subtitle: AppLocalizations.of(context)!.termsPrivacySubscriptionInfo,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
@@ -203,8 +237,8 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.help_outline,
-                      title: 'Help Center',
-                      subtitle: 'Get help and support',
+                      title: AppLocalizations.of(context)!.helpCenter,
+                      subtitle: AppLocalizations.of(context)!.getHelpAndSupport,
                       onTap: () {
                         Navigator.pop(context);
                         // Navigate to help center
@@ -214,7 +248,7 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.info_outline,
-                      title: 'About BanaTalk',
+                      title: AppLocalizations.of(context)!.aboutBanaTalk,
                       subtitle: 'Version 1.0.0',
                       onTap: () {
                         Navigator.pop(context);
@@ -225,8 +259,8 @@ class LeftDrawer extends ConsumerWidget {
                     _buildMenuItem(
                       context: context,
                       icon: Icons.delete_forever_outlined,
-                      title: 'Delete Account',
-                      subtitle: 'Permanently delete your account',
+                      title: AppLocalizations.of(context)!.deleteAccount,
+                      subtitle: AppLocalizations.of(context)!.permanentlyDeleteYourAccount,
                       gradient: LinearGradient(
                         colors: [
                           Colors.red.shade400,
@@ -255,7 +289,7 @@ class LeftDrawer extends ConsumerWidget {
     );
   }
 
-  Widget _buildModernHeader(BuildContext context) {
+  Widget _buildModernHeader(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -299,53 +333,83 @@ class LeftDrawer extends ConsumerWidget {
 
           // Profile Picture with proper null safety
           GestureDetector(
-            onTap: () {
-              // Navigate to profile
-              Navigator.push(
+            onTap: () async {
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ImageGallery(
-                    imageUrls: user.imageUrls,
-                    initialIndex: 0,
-                  ),
+                  builder: (context) => ProfilePictureEdit(user: user),
                 ),
               );
+              // Refresh user data after returning
+              if (context.mounted) {
+                ref.refresh(userProvider);
+              }
             },
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.white,
-                  width: 4,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 15,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: user.imageUrls.isNotEmpty
-                  ? CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.white,
-                      backgroundImage: NetworkImage(
-                        ImageUtils.normalizeImageUrl(user.imageUrls[0]),
-                      ),
-                      onBackgroundImageError: (exception, stackTrace) {
-                        print('Failed to load profile image: $exception');
-                      },
-                    )
-                  : CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                        color: const Color(0xFF00BFA5),
-                      ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 4,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 15,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: user.imageUrls.isNotEmpty
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.white,
+                          backgroundImage: NetworkImage(
+                            ImageUtils.normalizeImageUrl(user.imageUrls[0]),
+                          ),
+                          onBackgroundImageError: (exception, stackTrace) {
+                            print('Failed to load profile image: $exception');
+                          },
+                        )
+                      : CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.person,
+                            size: 50,
+                            color: const Color(0xFF00BFA5),
+                          ),
+                        ),
+                ),
+                // Edit Icon Overlay
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00BFA5),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 6,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -466,6 +530,7 @@ class LeftDrawer extends ConsumerWidget {
     required String subtitle,
     required VoidCallback onTap,
     Gradient? gradient,
+    Color? iconColor,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -505,9 +570,10 @@ class LeftDrawer extends ConsumerWidget {
                   ),
                   child: Icon(
                     icon,
-                    color: gradient != null
-                        ? Colors.amber.shade700
-                        : const Color(0xFF00BFA5),
+                    color: iconColor ??
+                        (gradient != null
+                            ? Colors.amber.shade700
+                            : const Color(0xFF00BFA5)),
                     size: 24,
                   ),
                 ),
@@ -709,10 +775,22 @@ class LeftDrawer extends ConsumerWidget {
                           });
 
                           try {
-                            // Perform logout
+                            // 1. Perform backend logout and clear auth data
                             await ref.read(authServiceProvider).logout();
+                            print('✅ Backend logout successful');
 
-                            print('✅ Logout successful');
+                            // 2. Stop global chat listener
+                            GlobalChatListener().stop();
+                            
+                            // 3. Reset badge counts and chat state
+                            ref.read(badgeCountProvider.notifier).reset();
+                            ref.read(chatPartnersProvider.notifier).reset();
+                            print('✅ Badge counts and chat state reset');
+
+                            // 3. Invalidate ALL Riverpod providers to reset app state
+                            ref.invalidate(userProvider);
+                            ref.invalidate(authServiceProvider);
+                            print('✅ Providers invalidated');
 
                             if (dialogContext.mounted) {
                               Navigator.pop(dialogContext); // Close dialog
@@ -721,7 +799,7 @@ class LeftDrawer extends ConsumerWidget {
                             if (context.mounted) {
                               Navigator.pop(context); // Close drawer
 
-                              // Navigate to login and clear all routes
+                              // 3. Navigate to login and clear all routes
                               Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                   builder: (context) => const Login(),
@@ -739,8 +817,8 @@ class LeftDrawer extends ConsumerWidget {
                                         color: Colors.white,
                                       ),
                                       const SizedBox(width: 12),
-                                      const Expanded(
-                                        child: Text('Logged out successfully'),
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!.loggedOutSuccessfully),
                                       ),
                                     ],
                                   ),
@@ -785,7 +863,7 @@ class LeftDrawer extends ConsumerWidget {
                                   ),
                                   duration: const Duration(seconds: 4),
                                   action: SnackBarAction(
-                                    label: 'Retry',
+                                    label: AppLocalizations.of(context)!.retry,
                                     textColor: Colors.white,
                                     onPressed: () {
                                       // Retry logout
@@ -877,9 +955,9 @@ class LeftDrawer extends ConsumerWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
-                'About BanaTalk',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.aboutBanaTalk,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),

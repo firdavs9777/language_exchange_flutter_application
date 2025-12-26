@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ForgotPasswordEmail extends ConsumerStatefulWidget {
   const ForgotPasswordEmail({super.key});
@@ -148,7 +149,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
                   borderSide: BorderSide(color: Colors.redAccent, width: 2),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                hintText: 'Email address',
+                hintText: AppLocalizations.of(context)!.emailAddress,
                 prefixIcon: Icon(Icons.email),
               ),
             ),

@@ -15,6 +15,15 @@ class ChatMessagesList extends StatelessWidget {
   final bool otherUserTyping;
   final ScrollController scrollController;
   final VoidCallback onRetry;
+  final bool isSelectionMode;
+  final Set<String> selectedMessageIds;
+  final Function(Message, bool)? onSelectionChanged;
+  final Function(Message)? onDelete;
+  final Function(Message)? onEdit;
+  final Function(Message)? onReply;
+  final Function(Message)? onPin;
+  final Function(Message)? onUnpin;
+  final Function(Message)? onForward;
 
   const ChatMessagesList({
     Key? key,
@@ -27,6 +36,15 @@ class ChatMessagesList extends StatelessWidget {
     required this.otherUserTyping,
     required this.scrollController,
     required this.onRetry,
+    this.isSelectionMode = false,
+    this.selectedMessageIds = const {},
+    this.onSelectionChanged,
+    this.onDelete,
+    this.onEdit,
+    this.onReply,
+    this.onPin,
+    this.onUnpin,
+    this.onForward,
   }) : super(key: key);
 
   @override
@@ -58,6 +76,15 @@ class ChatMessagesList extends StatelessWidget {
                 isMe: isMe,
                 otherUserName: otherUserName,
                 otherUserPicture: otherUserPicture,
+                isSelectionMode: isSelectionMode,
+                isSelected: selectedMessageIds.contains(message.id),
+                onSelectionChanged: onSelectionChanged,
+                onDelete: onDelete,
+                onEdit: onEdit,
+                onReply: onReply,
+                onPin: onPin,
+                onUnpin: onUnpin,
+                onForward: onForward,
               );
             },
           ),

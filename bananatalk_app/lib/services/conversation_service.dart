@@ -382,6 +382,230 @@ class ConversationService {
       };
     }
   }
+
+  /// Search messages in a conversation
+  Future<Map<String, dynamic>> searchMessages({
+    required String query,
+    String? conversationId,
+    String? senderId,
+    String? receiverId,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      final token = await _getToken();
+      final queryParams = {
+        'q': query,
+        if (conversationId != null) 'conversationId': conversationId,
+        if (senderId != null) 'senderId': senderId,
+        if (receiverId != null) 'receiverId': receiverId,
+        if (limit != null) 'limit': limit.toString(),
+        if (offset != null) 'offset': offset.toString(),
+      };
+      
+      final uri = Uri.parse('${Endpoints.baseURL}${Endpoints.searchMessagesURL}')
+          .replace(queryParameters: queryParams);
+
+      final response = await http.get(
+        uri,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'count': data['count'] ?? 0,
+          'data': (data['data'] as List?)
+                  ?.map((item) => Message.fromJson(item))
+                  .toList() ??
+              [],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to search messages',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Set conversation theme/wallpaper
+  Future<Map<String, dynamic>> setConversationTheme({
+    required String conversationId,
+    required Map<String, dynamic> theme,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.conversationThemeURL(conversationId)}');
+
+      final response = await http.put(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'theme': theme}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'message': data['message'] ?? 'Theme updated successfully',
+          'data': data['data'],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to update theme',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Get quick replies for a conversation
+  Future<Map<String, dynamic>> getQuickReplies({
+    required String conversationId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.quickRepliesURL(conversationId)}');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': (data['data'] as List?)
+                  ?.map((item) => QuickReply.fromJson(item))
+                  .toList() ??
+              [],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to get quick replies',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Add a quick reply to a conversation
+  Future<Map<String, dynamic>> addQuickReply({
+    required String conversationId,
+    required String text,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.quickRepliesURL(conversationId)}');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'text': text}),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': QuickReply.fromJson(data['data']),
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to add quick reply',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Delete a quick reply
+  Future<Map<String, dynamic>> deleteQuickReply({
+    required String conversationId,
+    required String replyId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.deleteQuickReplyURL(conversationId, replyId)}');
+
+      final response = await http.delete(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'message': 'Quick reply deleted',
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to delete quick reply',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+}
+
+/// Quick reply model
+class QuickReply {
+  final String id;
+  final String text;
+  final String createdBy;
+  final String createdAt;
+  final int useCount;
+
+  QuickReply({
+    required this.id,
+    required this.text,
+    required this.createdBy,
+    required this.createdAt,
+    this.useCount = 0,
+  });
+
+  factory QuickReply.fromJson(Map<String, dynamic> json) {
+    return QuickReply(
+      id: json['_id'] ?? '',
+      text: json['text'] ?? '',
+      createdBy: json['createdBy'] ?? '',
+      createdAt: json['createdAt'] ?? '',
+      useCount: json['useCount'] ?? 0,
+    );
+  }
 }
 
 class Conversation {

@@ -3,6 +3,7 @@ import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class VipStatusScreen extends StatefulWidget {
   final String userId;
@@ -51,19 +52,19 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Cancel VIP Subscription'),
+        title: Text(AppLocalizations.of(context)!.cancelVIPSubscription),
         content: const Text(
           'Are you sure you want to cancel your VIP subscription? You will lose access to all VIP features.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Keep VIP'),
+            child: Text(AppLocalizations.of(context)!.keepVIP),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Cancel Subscription'),
+            child: Text(AppLocalizations.of(context)!.cancelSubscription),
           ),
         ],
       ),
@@ -84,7 +85,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
       if (result['success']) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('VIP subscription cancelled successfully'),
+            content: Text(AppLocalizations.of(context)!.vipSubscriptionCancelledSuccessfully),
             backgroundColor: Colors.green,
           ),
         );
@@ -105,7 +106,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
     if (isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('VIP Status'),
+          title: Text(AppLocalizations.of(context)!.vipStatus),
         ),
         body: const Center(
           child: CircularProgressIndicator(),
@@ -116,7 +117,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
     if (error != null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('VIP Status'),
+          title: Text(AppLocalizations.of(context)!.vipStatus),
         ),
         body: Center(
           child: Column(
@@ -135,7 +136,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _loadVipStatus,
-                child: const Text('Retry'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),
@@ -146,10 +147,10 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
     if (subscription == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('VIP Status'),
+          title: Text(AppLocalizations.of(context)!.vipStatus),
         ),
         body: const Center(
-          child: Text('No active VIP subscription'),
+          child: Text(AppLocalizations.of(context)!.noActiveVIPSubscription),
         ),
       );
     }
@@ -335,32 +336,32 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
                     if (features!.unlimitedMessages)
                       _buildFeatureItem(
                         icon: Icons.message,
-                        title: 'Unlimited Messages',
+                        title: AppLocalizations.of(context)!.unlimitedMessages,
                       ),
                     if (features!.unlimitedProfileViews)
                       _buildFeatureItem(
                         icon: Icons.visibility,
-                        title: 'Unlimited Profile Views',
+                        title: AppLocalizations.of(context)!.unlimitedProfileViews,
                       ),
                     if (features!.prioritySupport)
                       _buildFeatureItem(
                         icon: Icons.support_agent,
-                        title: 'Priority Support',
+                        title: AppLocalizations.of(context)!.prioritySupport,
                       ),
                     if (features!.advancedSearch)
                       _buildFeatureItem(
                         icon: Icons.search,
-                        title: 'Advanced Search',
+                        title: AppLocalizations.of(context)!.advancedSearch,
                       ),
                     if (features!.profileBoost)
                       _buildFeatureItem(
                         icon: Icons.trending_up,
-                        title: 'Profile Boost',
+                        title: AppLocalizations.of(context)!.profileBoost,
                       ),
                     if (features!.adFree)
                       _buildFeatureItem(
                         icon: Icons.block,
-                        title: 'Ad-Free Experience',
+                        title: AppLocalizations.of(context)!.adFreeExperience,
                       ),
                   ],
                 ),
@@ -474,7 +475,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Could not open link'),
+              content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
               backgroundColor: Colors.red,
             ),
           );
@@ -484,7 +485,7 @@ class _VipStatusScreenState extends State<VipStatusScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text('${AppLocalizations.of(context)!.error}: $e'),
             backgroundColor: Colors.red,
           ),
         );

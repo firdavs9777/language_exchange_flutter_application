@@ -62,12 +62,12 @@ class MediaService {
 
       // Get file name
       final fileName = mediaFile.path.split('/').last;
-      
+
       // Determine MIME type from file extension
       // The backend validates based on MIME type, so we need to set it correctly
       final extension = fileName.split('.').last.toLowerCase();
       String mimeType = 'application/octet-stream'; // Default
-      
+
       // Map extensions to MIME types
       switch (extension) {
         // Images
@@ -134,7 +134,8 @@ class MediaService {
           mimeType = 'application/msword';
           break;
         case 'docx':
-          mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+          mimeType =
+              'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
           break;
         case 'txt':
           mimeType = 'text/plain';
@@ -142,18 +143,29 @@ class MediaService {
       }
 
       // Add file with explicit MIME type
+      // IMPORTANT: Backend expects field name 'attachment' not 'file'
+      // Backend route: uploadSingle('attachment', 'bananatalk/messages')
       request.files.add(
         await http.MultipartFile.fromPath(
-          'file',
+          'attachment', // ✅ FIXED: Changed from 'file' to match backend
           mediaFile.path,
           filename: fileName,
           contentType: MediaType.parse(mimeType),
         ),
       );
 
+      print('📤 Sending media message:');
+      print('  - Receiver: $receiverId');
+      print('  - File: $fileName');
+      print('  - MIME type: $mimeType');
+      print('  - Message text: ${messageText ?? "(none)"}');
+
       // Send request
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
+
+      print('📥 Response status: ${response.statusCode}');
+      print('📥 Response body: ${response.body}');
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -171,6 +183,7 @@ class MediaService {
         };
       }
     } catch (e) {
+      print('❌ Error in sendMessageWithMedia: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',
@@ -207,7 +220,8 @@ class MediaService {
         },
         body: jsonEncode({
           'receiver': receiverId,
-          if (messageText != null && messageText.isNotEmpty) 'message': messageText,
+          if (messageText != null && messageText.isNotEmpty)
+            'message': messageText,
           'location': {
             'latitude': latitude,
             'longitude': longitude,
@@ -250,9 +264,11 @@ class MediaService {
       // Determine media type
       String? detectedType = mediaType;
       if (detectedType == null) {
-        if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'heif'].contains(extension)) {
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'heif']
+            .contains(extension)) {
           detectedType = 'image';
-        } else if (['mp3', 'm4a', 'wav', 'aac', 'ogg', 'flac'].contains(extension)) {
+        } else if (['mp3', 'm4a', 'wav', 'aac', 'ogg', 'flac']
+            .contains(extension)) {
           detectedType = 'audio';
         } else if (['mp4', 'mov', 'avi', 'mkv', 'webm'].contains(extension)) {
           detectedType = 'video';
@@ -285,7 +301,8 @@ class MediaService {
         final maxSizeMB = (maxSize / (1024 * 1024)).toStringAsFixed(0);
         return {
           'valid': false,
-          'error': 'File size exceeds maximum allowed size of ${maxSizeMB}MB for $detectedType files',
+          'error':
+              'File size exceeds maximum allowed size of ${maxSizeMB}MB for $detectedType files',
         };
       }
 
@@ -306,4 +323,3 @@ class MediaService {
     }
   }
 }
-

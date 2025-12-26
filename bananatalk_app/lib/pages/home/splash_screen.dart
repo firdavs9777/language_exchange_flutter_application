@@ -1,10 +1,12 @@
-import 'package:bananatalk_app/pages/home/Home.dart';
-import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/services/notification_router.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,6 +24,31 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
+    // Initialize notification service
+    try {
+      await NotificationService().initialize(context: context);
+      
+      // Clear app badge when app opens
+      await NotificationService().clearBadge();
+      debugPrint('🔔 App badge cleared');
+      
+      // Handle notification tap (if app opened from notification)
+      FirebaseMessaging.instance.getInitialMessage().then((message) {
+        if (message != null && mounted) {
+          // Delay navigation to let the app fully initialize
+          Future.delayed(const Duration(seconds: 3), () {
+            if (mounted) {
+              NotificationRouter.handleNotification(context, message.data);
+            }
+          });
+        }
+      });
+      
+      debugPrint('✅ Notification service initialized');
+    } catch (e) {
+      debugPrint('⚠️ Error initializing notification service: $e');
+    }
+    
     // Wait for auth initialization to complete
     final authService = ref.read(authServiceProvider);
     final isAuthenticated = await authService.initializeAuth();
@@ -31,16 +58,48 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     
     if (!mounted) return;
     
+    // Check if user has accepted terms of service from backend
+    // Note: For new users, terms are shown during registration.
+    // This check is for existing users who haven't accepted yet.
+    if (isAuthenticated) {
+      try {
+        final user = await authService.getLoggedInUser();
+        final termsAccepted = user.termsAccepted;
+        
+        if (!termsAccepted) {
+          // Show terms screen - user cannot proceed without accepting
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const TermsOfServiceScreen(),
+            ),
+          );
+          
+          if (!mounted) return;
+          
+          // Re-check if terms were accepted after returning from terms screen
+          final updatedUser = await authService.getLoggedInUser();
+          if (!updatedUser.termsAccepted) {
+            // If still not accepted, user may have closed the app
+            // On next app launch, they'll see terms again (correct behavior)
+            return;
+          }
+        }
+      } catch (e) {
+        // If we can't fetch user data, redirect to login screen
+        // This handles cases where token is invalid or network issues
+        debugPrint('Error checking terms acceptance: $e');
+        if (!mounted) return;
+        context.go('/login');
+        return;
+      }
+    }
+    
     // Navigate based on authentication status
     if (isAuthenticated) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const TabsScreen()),
-      );
+      context.go('/home');
     } else {
       // Navigate to login page if not authenticated
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
+      context.go('/login');
     }
   }
 

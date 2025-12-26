@@ -11,8 +11,13 @@ class CommunityService {
           .get(Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return (data['data'] as List)
-            .map((postJson) => Community.fromJson(postJson))
+        final dataList = data['data'];
+        if (dataList == null || dataList is! List) {
+          return [];
+        }
+        return dataList
+            .where((item) => item != null && item is Map<String, dynamic>)
+            .map((postJson) => Community.fromJson(postJson as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Failed to load community: ${response.statusCode}');
@@ -23,18 +28,21 @@ class CommunityService {
     }
   }
 
-  Future<Community> getSingleCommunity({required id}) async {
+  Future<Community?> getSingleCommunity({required id}) async {
     try {
       final response = await http
           .get(Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$id'));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print(data['data']);
-        return Community.fromJson(data[
-            'data']); // Assuming 'data' is a map representing the new moment
+        final userData = data['data'];
+        if (userData == null || userData is! Map<String, dynamic>) {
+          print('Warning: User data is null or invalid for id: $id');
+          return null;
+        }
+        return Community.fromJson(userData);
       } else {
-        throw Exception('Failed to create moment');
+        throw Exception('Failed to load user: ${response.statusCode}');
       }
     } catch (error) {
       print('Error fetching community: $error');

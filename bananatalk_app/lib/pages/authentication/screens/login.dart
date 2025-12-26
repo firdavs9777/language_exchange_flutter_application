@@ -6,12 +6,15 @@ import 'package:bananatalk_app/pages/authentication/screens/facebook_login.dart'
 import 'package:bananatalk_app/pages/authentication/screens/forget_password_email.dart';
 import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class Login extends ConsumerStatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -90,6 +93,50 @@ class _LoginState extends ConsumerState<Login> {
       });
 
       if (response['success'] == true) {
+        // Check if user has accepted terms of service
+        try {
+          final user = await ref.read(authServiceProvider).getLoggedInUser();
+          if (!user.termsAccepted) {
+            // Show terms screen before entering app
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const TermsOfServiceScreen(),
+              ),
+            );
+            
+            if (!mounted) return;
+            
+            // Re-check after terms acceptance
+            final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
+            if (!updatedUser.termsAccepted) {
+              // User didn't accept terms, stay on login screen
+              return;
+            }
+          }
+        } catch (e) {
+          // If we can't fetch user data, log out and redirect to home
+          // This handles cases where token is invalid or network issues
+          debugPrint('Error checking terms after login: $e');
+          await ref.read(authServiceProvider).logout();
+          if (!mounted) return;
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (ctx) => const HomePage()),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: BananaText(
+                'Session expired. Please login again.',
+                BanaStyles: BananaTextStyles.warning,
+              ),
+              duration: const Duration(seconds: 3),
+              backgroundColor: Colors.orange,
+            ),
+          );
+          return;
+        }
+
+        if (!mounted) return;
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (ctx) => TabsScreen()),
         );
@@ -326,7 +373,7 @@ class _LoginState extends ConsumerState<Login> {
                                 height: 45.0,
                                 width: double.infinity,
                                 child: BananaButton(
-                                  BananaText: BananaText('Sign In with Apple'),
+                                  BananaText: BananaText(AppLocalizations.of(context)!.signInWithApple),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(

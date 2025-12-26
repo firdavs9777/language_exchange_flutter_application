@@ -1,5 +1,115 @@
-.footer 
-{
-    color: rgb(17, 255, 0);
-    background-color: rgb(8, 105, 242);
+/* FooterMain.scss */
+
+.footer-main {
+  background-color: #292b2c;
+  color: #f8f9fa;
+  font-size: 0.9rem;
+
+  .footer-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    color: #f8f9fa;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background-color: #ffc107;
+    }
+  }
+
+  a {
+    color: #adb5bd;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: #ffc107;
+    }
+  }
+
+  .footer-links li {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateX(3px);
+    }
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .newsletter-form {
+    max-width: 300px;
+    
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #f8f9fa;
+      
+      &::placeholder {
+        color: #adb5bd;
+        opacity: 0.7;
+      }
+      
+      &:focus {
+        box-shadow: none;
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
+    
+    .btn {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #f8f9fa;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-info li {
+    display: flex;
+    align-items: flex-start;
+    
+    i {
+      margin-top: 3px;
+      color: #ffc107;
+    }
+  }
+}
+
+/* Media query adjustments */
+@media (max-width: 767.98px) {
+  .footer-main {
+    .footer-heading {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-bottom {
+      padding: 0.75rem 0;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-main {
+    font-size: 0.85rem;
+    
+    .container-lg {
+      max-width: 1140px;
+    }
+  }
 }

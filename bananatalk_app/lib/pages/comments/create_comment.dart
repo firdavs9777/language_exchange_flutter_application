@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -91,7 +92,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Comment added successfully'),
+          content: Text(AppLocalizations.of(context)!.commentAddedSuccessfully),
           duration: const Duration(seconds: 1),
           backgroundColor: colorScheme.primary,
         ),
@@ -164,7 +165,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                   focusNode: widget.focusNode,
                   controller: commentController,
                   decoration: InputDecoration(
-                    hintText: 'Write a comment...',
+                    hintText: AppLocalizations.of(context)!.writeAComment,
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
                   ),

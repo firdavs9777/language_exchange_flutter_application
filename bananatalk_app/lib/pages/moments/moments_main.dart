@@ -3,16 +3,19 @@ import 'package:bananatalk_app/pages/moments/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_utility.dart';
+import 'package:bananatalk_app/pages/stories/stories_feed_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 final momentFilterProvider = StateProvider<MomentFilter>(
   (ref) => const MomentFilter(),
@@ -21,9 +24,20 @@ final momentFilterProvider = StateProvider<MomentFilter>(
 final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
   final momentsAsync = ref.watch(momentsFeedProvider);
   final filter = ref.watch(momentFilterProvider);
-  return momentsAsync.whenData(
-    (moments) => MomentFilterUtility.filterMoments(moments, filter),
-  );
+  final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
+
+  return momentsAsync.whenData((moments) {
+    // Get blocked user IDs
+    final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
+
+    // Filter out moments from blocked users
+    final filteredByBlock = moments.where((moment) {
+      return !blockedUserIds.contains(moment.user.id);
+    }).toList();
+
+    // Apply other filters
+    return MomentFilterUtility.filterMoments(filteredByBlock, filter);
+  });
 });
 
 class MomentsMain extends ConsumerStatefulWidget {
@@ -101,7 +115,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 controller: _searchController,
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: 'Search moments...',
+                  hintText: AppLocalizations.of(context)!.searchMoments,
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: secondaryText),
                 ),
@@ -118,7 +132,10 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
               ),
         actions: [
           IconButton(
-            icon: Icon(_showSearch ? Icons.close : Icons.search, color: textPrimary),
+            icon: Icon(
+              _showSearch ? Icons.close : Icons.search,
+              color: textPrimary,
+            ),
             onPressed: _toggleSearch,
           ),
           IconButton(
@@ -133,6 +150,17 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       ),
       body: Column(
         children: [
+          // Stories at the top
+          if (!_showSearch)
+            Container(
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+                ),
+              ),
+              child: const StoriesFeedWidget(height: 100, avatarSize: 64),
+            ),
           if (!_showSearch)
             MomentFilterBar(
               currentFilter: currentFilter,
@@ -149,24 +177,28 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         ],
       ),
       floatingActionButton: FutureBuilder<String?>(
-        future: SharedPreferences.getInstance().then((prefs) => prefs.getString('userId')),
+        future: SharedPreferences.getInstance().then(
+          (prefs) => prefs.getString('userId'),
+        ),
         builder: (context, snapshot) {
           if (!snapshot.hasData || snapshot.data == null) {
             return FloatingActionButton(
               onPressed: () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                    .push(
+                      MaterialPageRoute(builder: (_) => const CreateMoment()),
+                    )
                     .then((_) => _refresh());
               },
               backgroundColor: colorScheme.primary,
               child: Icon(Icons.add, color: colorScheme.onPrimary),
             );
           }
-          
+
           final userId = snapshot.data!;
           final limitsAsync = ref.watch(userLimitsProvider(userId));
           final userAsync = ref.watch(userProvider);
-          
+
           return limitsAsync.when(
             data: (limits) {
               return userAsync.when(
@@ -176,9 +208,16 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                     onPressed: canCreate
                         ? () async {
                             // Check again before navigating
-                            final currentLimits = ref.read(currentUserLimitsProvider(userId));
-                            final currentUser = await ref.read(userProvider.future);
-                            if (!FeatureGate.canCreateMoment(currentUser, currentLimits)) {
+                            final currentLimits = ref.read(
+                              currentUserLimitsProvider(userId),
+                            );
+                            final currentUser = await ref.read(
+                              userProvider.future,
+                            );
+                            if (!FeatureGate.canCreateMoment(
+                              currentUser,
+                              currentLimits,
+                            )) {
                               if (mounted) {
                                 await LimitExceededDialog.show(
                                   context: context,
@@ -191,7 +230,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                               return;
                             }
                             Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                                .push(
+                                  MaterialPageRoute(
+                                    builder: (_) => const CreateMoment(),
+                                  ),
+                                )
                                 .then((_) => _refresh());
                           }
                         : () async {
@@ -203,7 +246,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                               userId: userId,
                             );
                           },
-                    backgroundColor: canCreate ? colorScheme.primary : Colors.grey,
+                    backgroundColor: canCreate
+                        ? colorScheme.primary
+                        : Colors.grey,
                     child: Icon(Icons.add, color: colorScheme.onPrimary),
                   );
                 },
@@ -215,7 +260,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 error: (error, stack) => FloatingActionButton(
                   onPressed: () {
                     Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                        .push(
+                          MaterialPageRoute(
+                            builder: (_) => const CreateMoment(),
+                          ),
+                        )
                         .then((_) => _refresh());
                   },
                   backgroundColor: colorScheme.primary,
@@ -231,7 +280,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             error: (error, stack) => FloatingActionButton(
               onPressed: () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                    .push(
+                      MaterialPageRoute(builder: (_) => const CreateMoment()),
+                    )
                     .then((_) => _refresh());
               },
               backgroundColor: colorScheme.primary,
@@ -246,6 +297,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   Widget _buildMomentsList(AsyncValue<List<Moments>> momentsAsync) {
     return momentsAsync.when(
       data: (moments) {
+        print(moments);
         if (moments.isEmpty) {
           return _buildEmptyState();
         }
@@ -256,10 +308,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           padding: const EdgeInsets.only(bottom: 80),
           itemCount: moments.length,
           itemBuilder: (context, index) {
-            return MomentCard(
-              moments: moments[index],
-              onRefresh: _refresh,
-            );
+            return MomentCard(moments: moments[index], onRefresh: _refresh);
           },
         );
       },
@@ -274,15 +323,15 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline,
-                size: 64, color: context.textSecondary.withOpacity(0.6)),
+            Icon(
+              Icons.error_outline,
+              size: 64,
+              color: context.textSecondary.withOpacity(0.6),
+            ),
             const SizedBox(height: 16),
             Text(
               'Failed to load moments',
-              style: TextStyle(
-                fontSize: 16,
-                color: context.textSecondary,
-              ),
+              style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
             const SizedBox(height: 8),
             TextButton(
@@ -316,8 +365,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 isSearching
                     ? Icons.search_off
                     : currentFilter.hasActiveFilters
-                        ? Icons.filter_alt_off
-                        : Icons.chat_bubble_outline,
+                    ? Icons.filter_alt_off
+                    : Icons.chat_bubble_outline,
                 size: 80,
                 color: context.textSecondary.withOpacity(0.3),
               ),
@@ -326,8 +375,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 isSearching
                     ? 'No results found'
                     : currentFilter.hasActiveFilters
-                        ? 'No moments match your filters'
-                        : 'No moments yet',
+                    ? 'No moments match your filters'
+                    : 'No moments yet',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -339,12 +388,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 isSearching
                     ? 'Try a different search term'
                     : currentFilter.hasActiveFilters
-                        ? 'Try adjusting your filters'
-                        : 'Be the first to share a moment!',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: context.textSecondary,
-                ),
+                    ? 'Try adjusting your filters'
+                    : 'Be the first to share a moment!',
+                style: TextStyle(fontSize: 14, color: context.textSecondary),
               ),
               if (currentFilter.hasActiveFilters) ...[
                 const SizedBox(height: 16),
@@ -364,7 +410,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                       vertical: 12,
                     ),
                   ),
-                  child: const Text('Clear Filters'),
+                  child: Text(AppLocalizations.of(context)!.clearFilters),
                 ),
               ],
             ],

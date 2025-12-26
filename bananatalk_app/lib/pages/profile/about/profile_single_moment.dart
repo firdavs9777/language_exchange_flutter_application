@@ -268,6 +268,15 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     .read(communityServiceProvider)
                     .getSingleCommunity(id: moment.user.id);
 
+                if (community == null) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('User not found')),
+                    );
+                  }
+                  return;
+                }
+
                 if (mounted) {
                   Navigator.push(
                     context,

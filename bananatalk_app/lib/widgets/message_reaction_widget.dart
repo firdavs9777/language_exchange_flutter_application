@@ -92,10 +92,10 @@ class ReactionPicker extends StatelessWidget {
   final List<String>? currentReactions;
 
   const ReactionPicker({
-    super.key,
+    Key? key,
     required this.onEmojiSelected,
     this.currentReactions,
-  });
+  }) : super(key: key);
 
   static const List<String> defaultEmojis = [
     '👍',
@@ -135,7 +135,9 @@ class ReactionPicker extends StatelessWidget {
                 emoji,
                 style: TextStyle(
                   fontSize: 24,
-                  opacity: isSelected ? 0.5 : 1.0,
+                  color: isSelected 
+                      ? Colors.grey.withOpacity(0.5)
+                      : null,
                 ),
               ),
             ),

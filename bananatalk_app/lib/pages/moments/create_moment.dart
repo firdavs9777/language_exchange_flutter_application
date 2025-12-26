@@ -13,6 +13,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
   const CreateMoment({Key? key}) : super(key: key);
@@ -791,7 +792,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         ),
                       )
                     : Text(
-                        'Post',
+                        AppLocalizations.of(context)!.post,
                         style: TextStyle(
                           color: isEnabled
                               ? const Color(0xFF00BFA5)
@@ -879,7 +880,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     controller: titleController,
                     maxLength: maxTitleLength,
                     decoration: InputDecoration(
-                      hintText: 'Add a title...',
+                      hintText: AppLocalizations.of(context)!.addATitle,
                       hintStyle: TextStyle(color: Colors.grey[400]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -927,7 +928,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     maxLines: 8,
                     maxLength: maxDescriptionLength,
                     decoration: InputDecoration(
-                      hintText: "What's on your mind?",
+                      hintText: AppLocalizations.of(context)!.whatsOnYourMind,
                       hintStyle: TextStyle(color: Colors.grey[400]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -1316,13 +1317,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             children: [
               _buildBottomButton(
                 icon: Icons.photo_library_outlined,
-                label: 'Photos',
+                label: AppLocalizations.of(context)!.photos,
                 onTap: _pickImages,
                 color: const Color(0xFF00BFA5),
               ),
               _buildBottomButton(
                 icon: Icons.camera_alt_outlined,
-                label: 'Camera',
+                label: AppLocalizations.of(context)!.camera,
                 onTap: _takePhoto,
                 color: const Color(0xFF00BFA5),
               ),
@@ -1429,14 +1430,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   Widget _buildTagDialog() {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      title: const Text('Add Tags'),
+      title: Text(AppLocalizations.of(context)!.addTags),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: tagsController,
             decoration: InputDecoration(
-              hintText: 'Enter tag',
+              hintText: AppLocalizations.of(context)!.enterTag,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -1469,7 +1470,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Done'),
+          child: Text(AppLocalizations.of(context)!.done),
         ),
         ElevatedButton(
           onPressed: () {
@@ -1483,7 +1484,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF00BFA5),
           ),
-          child: const Text('Add'),
+          child: Text(AppLocalizations.of(context)!.add),
         ),
       ],
     );

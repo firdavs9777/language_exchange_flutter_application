@@ -58,18 +58,41 @@
    </array>
    <key>LSRequiresIPhoneOS</key>
    <true/>
+
+   <!-- Camera Permission -->
    <key>NSCameraUsageDescription</key>
-   <string>Bananatalk needs camera access to let you take photos for your moments and profile.</string>
+   <string>BananaTalk needs camera access for video calls and to let you take photos for your moments and profile.</string>
+
+   <!-- Microphone Permission -->
+   <key>NSMicrophoneUsageDescription</key>
+   <string>BananaTalk needs microphone access for voice and video calls, and for voice messages.</string>
+
+   <!-- Photo Library Permission -->
+   <key>NSPhotoLibraryUsageDescription</key>
+   <string>Bananatalk needs access to your photo library to let you share photos in your moments and messages.</string>
+
+   <!-- Location Permissions -->
    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
    <string>Bananatalk needs your location to tag your moments, find language partners nearby, and show local cultural events.</string>
    <key>NSLocationWhenInUseUsageDescription</key>
    <string>Bananatalk needs your location to tag your moments, find language partners nearby, and show local cultural events.</string>
-   <key>NSMicrophoneUsageDescription</key>
-   <string>Bananatalk needs microphone access for voice messages and language practice calls.</string>
-   <key>NSPhotoLibraryUsageDescription</key>
-   <string>Bananatalk needs access to your photo library to let you share photos in your moments and messages.</string>
+
+   <!-- CRITICAL: Background Modes for Calls -->
+   <key>UIBackgroundModes</key>
+   <array>
+      <string>audio</string>
+      <string>voip</string>
+      <string>fetch</string>
+      <string>remote-notification</string>
+   </array>
+
+   <!-- CRITICAL: Audio Session Category -->
+   <key>AVAudioSessionCategory</key>
+   <string>AVAudioSessionCategoryPlayAndRecord</string>
+
    <key>UIApplicationSupportsIndirectInputEvents</key>
    <true/>
+
    <key>UILaunchStoryboardName</key>
    <string>LaunchScreen</string>
    <key>UIMainStoryboardFile</key>

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ChatInputBar extends StatelessWidget {
   final TextEditingController messageController;
@@ -11,6 +13,9 @@ class ChatInputBar extends StatelessWidget {
   final VoidCallback onTyping;
   final VoidCallback onStopTyping;
   final VoidCallback onHidePanels;
+  final Message? replyingToMessage;
+  final String? otherUserName;
+  final VoidCallback? onCancelReply;
 
   const ChatInputBar({
     Key? key,
@@ -24,6 +29,9 @@ class ChatInputBar extends StatelessWidget {
     required this.onTyping,
     required this.onStopTyping,
     required this.onHidePanels,
+    this.replyingToMessage,
+    this.otherUserName,
+    this.onCancelReply,
   }) : super(key: key);
 
   @override
@@ -44,7 +52,64 @@ class ChatInputBar extends StatelessWidget {
         ],
       ),
       child: SafeArea(
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Reply preview
+            if (replyingToMessage != null)
+              Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                      width: 3,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Replying to ${otherUserName ?? "user"}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            replyingToMessage!.message ?? 
+                            (replyingToMessage!.media != null ? '📷 Media' : 'Message'),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: onCancelReply,
+                      icon: const Icon(Icons.close, size: 20),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                  ],
+                ),
+              ),
+            // Input row
+            Row(
           children: [
             // Media attachment button
             Container(
@@ -88,7 +153,7 @@ class ChatInputBar extends StatelessWidget {
                 child: TextField(
                   controller: messageController,
                   decoration: InputDecoration(
-                    hintText: 'Type a message...',
+                    hintText: AppLocalizations.of(context)!.typeAMessage,
                     hintStyle: TextStyle(
                       color: Colors.grey[500],
                       fontSize: 16,
@@ -188,6 +253,8 @@ class ChatInputBar extends StatelessWidget {
                   minimumSize: const Size(48, 48),
                 ),
               ),
+            ),
+          ],
             ),
           ],
         ),

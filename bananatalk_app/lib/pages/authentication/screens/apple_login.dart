@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
+import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +120,62 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               ),
             );
           } else {
-            // Profile completed - go to main app
+            // Profile completed - check terms before going to main app
+            // Check if user has accepted terms of service
+            try {
+              final loggedInUser = await ref.read(authServiceProvider).getLoggedInUser();
+              if (!loggedInUser.termsAccepted) {
+                // Show terms screen before entering app
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const TermsOfServiceScreen(),
+                  ),
+                );
+                
+                if (!mounted) return;
+                
+                // Re-check after terms acceptance
+                final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
+                if (!updatedUser.termsAccepted) {
+                  // User didn't accept terms, stay on login screen
+                  return;
+                }
+              }
+            } catch (e) {
+              // If we can't fetch user data, log out and redirect to home
+              debugPrint('Error checking terms after Apple login: $e');
+              await ref.read(authServiceProvider).logout();
+              if (!mounted) return;
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) => const HomePage()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: BananaText(
+                    'Session expired. Please login again.',
+                    BanaStyles: BananaTextStyles.warning,
+                  ),
+                  duration: const Duration(seconds: 3),
+                  backgroundColor: Colors.orange,
+                ),
+              );
+              return;
+            }
+
+            if (!mounted) return;
+
+            // Register FCM token for push notifications
+            try {
+              final notificationService = NotificationService();
+              final userId = ref.read(authServiceProvider).userId;
+              if (userId.isNotEmpty) {
+                await notificationService.registerToken(userId);
+                debugPrint('✅ FCM token registered after Apple login');
+              }
+            } catch (e) {
+              debugPrint('⚠️ Error registering FCM token after Apple login: $e');
+            }
+
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
             );

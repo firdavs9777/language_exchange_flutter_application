@@ -8,6 +8,7 @@ import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'dart:async';
 
 class VipPaymentScreen extends ConsumerStatefulWidget {
@@ -56,8 +57,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     // Check if userId is valid
     if (widget.userId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('User ID not found. Please log in again.'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.userIdNotFound),
           backgroundColor: Colors.red,
         ),
       );
@@ -73,8 +74,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     // For other platforms, use mockup payment
     if (selectedPaymentMethod == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select a payment method'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseSelectAPaymentMethod),
           backgroundColor: Colors.orange,
         ),
       );
@@ -264,7 +265,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
-            child: const Text('Start Exploring'),
+            child: Text(AppLocalizations.of(context)!.startExploring),
           ),
         ],
       ),
@@ -305,14 +306,14 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+            child: Text(AppLocalizations.of(context)!.close),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
               _processPayment(); // Retry
             },
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context)!.retry),
           ),
         ],
       ),
@@ -323,7 +324,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment'),
+        title: Text(AppLocalizations.of(context)!.payment),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -655,8 +656,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Could not open link'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
               backgroundColor: Colors.red,
             ),
           );
@@ -666,7 +667,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text('${AppLocalizations.of(context)!.error}: $e'),
             backgroundColor: Colors.red,
           ),
         );

@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
 class Comments {
   const Comments(
@@ -8,7 +9,8 @@ class Comments {
       required this.user,
       // required this.moment,
       required this.createdAt,
-      required this.version});
+      required this.version,
+      this.translations = const []});
 
   final String id;
   final String text;
@@ -16,6 +18,7 @@ class Comments {
   // final Moments moment;
   final DateTime createdAt;
   final int version;
+  final List<MessageTranslation> translations;
 
   factory Comments.fromJson(Map<String, dynamic> json) {
     // Handle null, incomplete, or string ID user data gracefully
@@ -119,6 +122,12 @@ class Comments {
         createdAt: json['createdAt'] != null
             ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
             : DateTime.now(),
-        version: json['__v'] is int ? json['__v'] : 0);
+        version: json['__v'] is int ? json['__v'] : 0,
+        translations: json['translations'] != null && json['translations'] is List
+            ? (json['translations'] as List)
+                .where((t) => t != null && t is Map<String, dynamic>)
+                .map((t) => MessageTranslation.fromJson(t))
+                .toList()
+            : []);
   }
 }

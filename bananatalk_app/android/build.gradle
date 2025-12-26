@@ -1,13 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.9.10'
+    ext.kotlin_version = '2.2.0'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
+        classpath 'com.android.tools.build:gradle:8.9.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.4.0'
     }
 }
 
@@ -15,6 +16,38 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null) {
+                    namespace project.group
+                }
+            }
+        }
+        
+        // Fix for flutter_local_notifications compilation error (ambiguous bigLargeIcon method)
+        if (project.name == 'flutter_local_notifications') {
+            project.tasks.withType(JavaCompile).configureEach { compileTask ->
+                compileTask.doFirst {
+                    def pluginFile = file("${project.projectDir}/src/main/java/com/dexterous/flutterlocalnotifications/FlutterLocalNotificationsPlugin.java")
+                    if (pluginFile.exists()) {
+                        def content = pluginFile.text
+                        if (content.contains('bigPictureStyle.bigLargeIcon(null);')) {
+                            content = content.replace(
+                                'bigPictureStyle.bigLargeIcon(null);',
+                                'bigPictureStyle.bigLargeIcon((android.graphics.Bitmap) null);'
+                            )
+                            pluginFile.text = content
+                            println "✅ Patched flutter_local_notifications compilation error"
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 rootProject.buildDir = '../build'

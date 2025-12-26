@@ -3,6 +3,7 @@ import 'package:bananatalk_app/pages/authentication/screens/register_second.dart
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class Register extends StatefulWidget {
   final String userName;
@@ -170,7 +171,7 @@ class _RegisterState extends State<Register> {
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        hintText: 'Username',
+                        hintText: AppLocalizations.of(context)!.username,
                         prefixIcon: Icon(Icons.person),
                       ),
                     ),
@@ -187,7 +188,7 @@ class _RegisterState extends State<Register> {
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        hintText: 'Email',
+                        hintText: AppLocalizations.of(context)!.email,
                         prefixIcon: Icon(Icons.email),
                         suffixIcon: Icon(
                           Icons.verified,
@@ -298,7 +299,7 @@ class _RegisterState extends State<Register> {
                         MaterialPageRoute(builder: (ctx) => Login()),
                       );
                     },
-                    child: Text('Already have an account?'),
+                    child: Text(AppLocalizations.of(context)!.alreadyHaveAnAccount),
                   ),
                   TextButton(
                     onPressed: () {
@@ -306,7 +307,7 @@ class _RegisterState extends State<Register> {
                         MaterialPageRoute(builder: (ctx) => Login()),
                       );
                     },
-                    child: Text('Login'),
+                    child: Text(AppLocalizations.of(context)!.login2),
                   ),
                 ],
               ),

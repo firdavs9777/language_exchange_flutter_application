@@ -1,12 +1,14 @@
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -16,11 +18,7 @@ class MomentCard extends ConsumerStatefulWidget {
   final Moments moments;
   final VoidCallback? onRefresh;
 
-  const MomentCard({
-    super.key,
-    required this.moments,
-    this.onRefresh,
-  });
+  const MomentCard({super.key, required this.moments, this.onRefresh});
 
   @override
   _MomentCardState createState() => _MomentCardState();
@@ -71,9 +69,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     if (langLower.contains('russian') || langLower == 'ru') return 'RU';
     if (langLower.contains('arabic') || langLower == 'ar') return 'AR';
     if (langLower.contains('hindi') || langLower == 'hi') return 'HI';
-    return language
-        .toUpperCase()
-        .substring(0, language.length > 2 ? 2 : language.length);
+    return language.toUpperCase().substring(
+      0,
+      language.length > 2 ? 2 : language.length,
+    );
   }
 
   String _getFlagEmoji(String language) {
@@ -236,7 +235,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               ),
               ListTile(
                 leading: const Icon(Icons.share, color: Color(0xFF00BFA5)),
-                title: const Text('Share'),
+                title: Text(AppLocalizations.of(context)!.share),
                 onTap: () {
                   Navigator.pop(context);
                   _shareMoment(context, widget.moments.id);
@@ -245,7 +244,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               if (!isOwnMoment)
                 ListTile(
                   leading: Icon(Icons.flag_outlined, color: Colors.orange[700]),
-                  title: const Text('Report'),
+                  title: Text(AppLocalizations.of(context)!.reportMoment),
                   onTap: () {
                     Navigator.pop(context);
                     showDialog(
@@ -258,41 +257,66 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     );
                   },
                 ),
+              if (!isOwnMoment)
+                ListTile(
+                  leading: Icon(
+                    Icons.report_problem,
+                    color: Colors.orange[700],
+                  ),
+                  title: Text(AppLocalizations.of(context)!.reportUser),
+                  onTap: () {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (context) => ReportDialog(
+                        type: 'user',
+                        reportedId: widget.moments.id,
+                        reportedUserId: widget.moments.user.id,
+                      ),
+                    );
+                  },
+                ),
               if (isOwnMoment) ...[
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.edit, color: Colors.blue),
-                  title: const Text('Edit'),
+                  title: Text(AppLocalizations.of(context)!.edit),
                   onTap: () {
                     Navigator.pop(context);
+                    final l10n = AppLocalizations.of(context)!;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Edit feature coming soon')),
+                      SnackBar(content: Text(l10n.editFeatureComingSoon)),
                     );
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.delete, color: Colors.red),
-                  title:
-                      const Text('Delete', style: TextStyle(color: Colors.red)),
+                  title: Text(
+                    AppLocalizations.of(context)!.delete,
+                    style: const TextStyle(color: Colors.red),
+                  ),
                   onTap: () async {
                     Navigator.pop(context);
+                    final l10n = AppLocalizations.of(context)!;
                     final confirmed = await showDialog<bool>(
                       context: context,
                       builder: (context) => AlertDialog(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        title: const Text('Delete Moment?'),
-                        content: const Text('This action cannot be undone.'),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        title: Text(l10n.deleteMoment),
+                        content: Text(l10n.thisActionCannotBeUndone),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
+                            child: Text(l10n.cancel),
                           ),
                           TextButton(
                             onPressed: () => Navigator.pop(context, true),
                             style: TextButton.styleFrom(
-                                foregroundColor: Colors.red),
-                            child: const Text('Delete'),
+                              foregroundColor: Colors.red,
+                            ),
+                            child: Text(l10n.delete),
                           ),
                         ],
                       ),
@@ -303,14 +327,15 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         await ref
                             .read(momentsServiceProvider)
                             .deleteUserMoment(id: widget.moments.id);
+                        final l10n = AppLocalizations.of(context)!;
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Moment deleted')),
+                          SnackBar(content: Text(l10n.momentDeleted)),
                         );
                         widget.onRefresh?.call();
                       } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Error: $e')),
-                        );
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text('Error: $e')));
                       }
                     }
                   },
@@ -380,9 +405,19 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      Community community = await ref
-                          .watch(communityServiceProvider)
+                      final community = await ref
+                          .read(communityServiceProvider)
                           .getSingleCommunity(id: widget.moments.user.id);
+
+                      if (community == null) {
+                        if (mounted) {
+                          final l10n = AppLocalizations.of(context)!;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.userNotFound)),
+                          );
+                        }
+                        return;
+                      }
 
                       Navigator.push(
                         context,
@@ -392,22 +427,17 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         ),
                       );
                     },
-                    child: CircleAvatar(
+                    child: CachedCircleAvatar(
+                      imageUrl: widget.moments.user.imageUrls.isNotEmpty
+                          ? widget.moments.user.imageUrls[0]
+                          : null,
                       radius: 22,
                       backgroundColor: Colors.grey[300],
-                      backgroundImage: widget.moments.user.imageUrls.isNotEmpty
-                          ? NetworkImage(
-                              widget.moments.user.imageUrls[0],
-                            )
-                          : null,
-                      child: widget.moments.user.imageUrls.isEmpty
-                          ? Icon(
-                              Icons.person,
-                              size: 22,
-                              color: Colors.grey[600],
-                            )
-                          : null,
-                      onBackgroundImageError: (exception, stackTrace) {},
+                      errorWidget: Icon(
+                        Icons.person,
+                        size: 22,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -463,7 +493,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                               ),
                               child: Text(
                                 _getLanguageCode(
-                                    widget.moments.user.native_language),
+                                  widget.moments.user.native_language,
+                                ),
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w700,
@@ -481,7 +512,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                             // Learning language with dots
                             Text(
                               _getLanguageCode(
-                                  widget.moments.user.language_to_learn),
+                                widget.moments.user.language_to_learn,
+                              ),
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w700,
@@ -527,10 +559,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       const SizedBox(height: 2),
                       Text(
                         _getRelativeTime(widget.moments.createdAt),
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey[500],
-                        ),
+                        style: TextStyle(fontSize: 11, color: Colors.grey[500]),
                       ),
                     ],
                   ),
@@ -544,13 +573,19 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    displayText,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black87,
-                      height: 1.4,
-                    ),
+                  TranslatedMomentWidget(
+                    momentId: widget.moments.id,
+                    originalText: displayText,
+                    originalLanguage: widget.moments.language,
+                    existingTranslations: widget.moments.translations.isNotEmpty
+                        ? widget.moments.translations
+                        : null,
+                    onTranslationAdded: () {
+                      // Refresh the moment to get updated translations
+                      if (widget.onRefresh != null) {
+                        widget.onRefresh!();
+                      }
+                    },
                   ),
                   if (shouldShowMore)
                     GestureDetector(
@@ -562,7 +597,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Text(
-                          isExpanded ? 'show less' : 'show more',
+                          isExpanded 
+                              ? AppLocalizations.of(context)!.showLess 
+                              : AppLocalizations.of(context)!.showMore,
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.grey[600],
@@ -643,10 +680,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             ),
 
             // Divider
-            Container(
-              height: 1,
-              color: Colors.grey[200],
-            ),
+            Container(height: 1, color: Colors.grey[200]),
           ],
         ),
       ),
@@ -704,44 +738,21 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: ClipRRect(
+          child: CachedImageWidget(
+            imageUrl: widget.moments.imageUrls[0],
+            width: double.infinity,
+            height: 280,
+            fit: BoxFit.cover,
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              widget.moments.imageUrls[0],
+            errorWidget: Container(
               width: double.infinity,
               height: 280,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  width: double.infinity,
-                  height: 280,
-                  color: Colors.grey[200],
-                  child: const Icon(
-                    Icons.broken_image,
-                    size: 50,
-                    color: Colors.grey,
-                  ),
-                );
-              },
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  width: double.infinity,
-                  height: 280,
-                  color: Colors.grey[200],
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Color(0xFF00BFA5),
-                      ),
-                    ),
-                  ),
-                );
-              },
+              color: Colors.grey[200],
+              child: const Icon(
+                Icons.broken_image,
+                size: 50,
+                color: Colors.grey,
+              ),
             ),
           ),
         ),
@@ -807,8 +818,12 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     );
   }
 
-  Widget _buildImageItem(String url, int index,
-      {bool isLastItem = false, int remainingCount = 0}) {
+  Widget _buildImageItem(
+    String url,
+    int index, {
+    bool isLastItem = false,
+    int remainingCount = 0,
+  }) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -824,37 +839,17 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.network(
-            url,
+          CachedImageWidget(
+            imageUrl: url,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                color: Colors.grey[200],
-                child: const Icon(
-                  Icons.broken_image,
-                  size: 30,
-                  color: Colors.grey,
-                ),
-              );
-            },
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Container(
-                color: Colors.grey[200],
-                child: const Center(
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Color(0xFF00BFA5),
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
+            errorWidget: Container(
+              color: Colors.grey[200],
+              child: const Icon(
+                Icons.broken_image,
+                size: 30,
+                color: Colors.grey,
+              ),
+            ),
           ),
           if (isLastItem)
             Container(

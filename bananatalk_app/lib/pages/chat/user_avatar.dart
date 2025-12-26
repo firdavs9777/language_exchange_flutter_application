@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? profilePicture;
@@ -24,18 +25,13 @@ class UserAvatar extends StatelessWidget {
       backgroundColor: Colors.grey[300],
       child: normalizedUrl != null && normalizedUrl.isNotEmpty
           ? ClipOval(
-              child: Image.network(
-                normalizedUrl,
+              child: CachedImageWidget(
+                imageUrl: normalizedUrl,
                 width: radius * 2,
                 height: radius * 2,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return _buildFallbackAvatar();
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return _buildLoadingAvatar();
-                },
+                errorWidget: _buildFallbackAvatar(),
+                placeholder: _buildLoadingAvatar(),
               ),
             )
           : _buildFallbackAvatar(),

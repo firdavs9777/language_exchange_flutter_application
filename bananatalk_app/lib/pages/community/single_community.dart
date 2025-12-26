@@ -1,16 +1,18 @@
-import 'package:bananatalk_app/pages/chat/chat_main.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
-import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
-import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/widgets/block_user_dialog.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +27,7 @@ class SingleCommunity extends ConsumerStatefulWidget {
 
 class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   bool isFollower = false;
+  bool isBlocked = false;
   String userId = ''; // Initialize to empty string instead of late
 
   @override
@@ -33,15 +36,51 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     _initializeUserState();
   }
 
+  Future<void> _checkBlockStatus() async {
+    try {
+      final result = await BlockService.checkBlockStatus(
+        userId: userId,
+        targetUserId: widget.community.id,
+      );
+
+      if (result['success'] == true) {
+        setState(() {
+          isBlocked = result['isBlocked'] ?? false;
+        });
+      }
+    } catch (e) {
+      print('Error checking block status: $e');
+    }
+  }
+
   Future<void> _initializeUserState() async {
     final prefs = await SharedPreferences.getInstance();
     userId = prefs.getString('userId') ?? '';
     setState(() {
       isFollower = widget.community.followers.contains(userId);
     });
+    if (userId.isNotEmpty && userId != widget.community.id) {
+      await _checkBlockStatus();
+      
+      // Record profile visit (don't wait for it to complete)
+      _recordProfileVisit();
+    }
 
     // Check profile view limit after userId is initialized
     _checkProfileViewLimit();
+  }
+
+  Future<void> _recordProfileVisit() async {
+    try {
+      await ProfileVisitorService.recordProfileVisit(
+        userId: widget.community.id,
+        source: 'direct', // You can track source: 'search', 'moments', 'chat', etc.
+      );
+      debugPrint('✅ Profile visit recorded');
+    } catch (e) {
+      // Silently fail - don't disrupt user experience
+      debugPrint('⚠️ Failed to record profile visit: $e');
+    }
   }
 
   Future<void> _checkProfileViewLimit() async {
@@ -81,6 +120,66 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     return currentYear - int.parse(birthYear);
   }
 
+  Future<void> _handleUnblock() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.unblockUser),
+        content:
+            Text('Are you sure you want to unblock ${widget.community.name}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(AppLocalizations.of(context)!.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.green),
+            child: Text(AppLocalizations.of(context)!.unblock),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      // Show loading
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) =>
+              const Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      final result = await BlockService.unblockUser(
+        currentUserId: userId,
+        blockedUserId: widget.community.id,
+      );
+
+      // Close loading
+      if (mounted) Navigator.of(context).pop();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['message'] ?? 'Operation completed'),
+            backgroundColor: result['success'] ? Colors.green : Colors.red,
+          ),
+        );
+
+        if (result['success']) {
+          setState(() {
+            isBlocked = false;
+          });
+          // Refresh blocked users provider
+          ref.invalidate(blockedUsersProvider);
+          ref.invalidate(blockedUserIdsProvider);
+        }
+      }
+    }
+  }
+
   void followUser(String userId, String targetUserId) async {
     try {
       await ref.read(communityServiceProvider).followUser(
@@ -97,84 +196,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to follow user')),
       );
-    }
-  }
-
-  Future<void> _blockUser(String targetUserId, String targetUserName) async {
-    // Check if trying to block yourself
-    if (userId.isEmpty || userId == targetUserId) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Cannot block yourself'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Block User'),
-        content: Text(
-          'Are you sure you want to block $targetUserName? You will not be able to send or receive messages from this user.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Block'),
-          ),
-        ],
-      ),
-    );
-
-    if (result == true) {
-      // Show loading
-      if (mounted) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => const Center(child: CircularProgressIndicator()),
-        );
-      }
-
-      // Block user (userId parameter is the target user to block)
-      final blockResult = await BlockService.blockUser(
-        userId: targetUserId,
-        reason: null,
-      );
-
-      // Close loading
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-
-      if (blockResult['success'] == true) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(blockResult['message'] ?? 'User blocked successfully'),
-              backgroundColor: Colors.green,
-            ),
-          );
-          // Navigate back
-          Navigator.of(context).pop();
-        }
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(blockResult['error'] ?? 'Failed to block user'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      }
     }
   }
 
@@ -298,7 +319,31 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     ),
                   );
                 } else if (value == 'block') {
-                  await _blockUser(widget.community.id, widget.community.name);
+                  if (userId.isNotEmpty && userId != widget.community.id) {
+                    await BlockUserDialog.show(
+                      context: context,
+                      currentUserId: userId,
+                      targetUserId: widget.community.id,
+                      targetUserName: widget.community.name,
+                      targetUserAvatar: widget.community.imageUrls.isNotEmpty
+                          ? widget.community.imageUrls[0]
+                          : null,
+                      ref: ref,
+                      onBlocked: () {
+                        // Update blocked status
+                        setState(() {
+                          isBlocked = true;
+                        });
+                        // Navigate back after blocking
+                        if (mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    );
+                  }
+                } else if (value == 'unblock') {
+                  // ADD UNBLOCK HANDLER
+                  await _handleUnblock();
                 }
               },
               itemBuilder: (context) => [
@@ -312,16 +357,30 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     ],
                   ),
                 ),
-                const PopupMenuItem(
-                  value: 'block',
-                  child: Row(
-                    children: [
-                      Icon(Icons.block, color: Colors.red, size: 20),
-                      SizedBox(width: 8),
-                      Text('Block User', style: TextStyle(color: Colors.red)),
-                    ],
+                // CONDITIONAL MENU ITEM - Show Block or Unblock
+                if (isBlocked)
+                  const PopupMenuItem(
+                    value: 'unblock',
+                    child: Row(
+                      children: [
+                        Icon(Icons.check_circle, color: Colors.green, size: 20),
+                        SizedBox(width: 8),
+                        Text('Unblock User',
+                            style: TextStyle(color: Colors.green)),
+                      ],
+                    ),
+                  )
+                else
+                  const PopupMenuItem(
+                    value: 'block',
+                    child: Row(
+                      children: [
+                        Icon(Icons.block, color: Colors.red, size: 20),
+                        SizedBox(width: 8),
+                        Text('Block User', style: TextStyle(color: Colors.red)),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
         ],

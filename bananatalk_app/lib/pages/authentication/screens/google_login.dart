@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
+import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +26,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
   // Android uses WEB client ID (NOT the Android client ID!)
   static const String _webClientId =
-      '810869785173-aktt02a6oberoemnuce1i58jtj803sq5.apps.googleusercontent.com';
+      '28446912403-2ba6tssqm95r6iu6cov7c6riv00gposo.apps.googleusercontent.com';
 
   // This is ONLY for backend validation (optional)
   static const String _androidClientId =
@@ -55,10 +58,18 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
     try {
       final googleSignIn = GoogleSignIn(
         scopes: const ['email', 'profile'],
-        // Use the Web client ID for Android
-        clientId: Platform.isIOS ? _iosClientId : _webClientId,
+        // iOS uses clientId, Android uses serverClientId
+        clientId: Platform.isIOS ? _iosClientId : null,
+        serverClientId: Platform.isAndroid ? _webClientId : null,
       );
-      print('🔑 Using Google Client ID: ${googleSignIn.clientId}');
+      print('🔑 Using Google Client ID: ${Platform.isIOS ? _iosClientId : _webClientId}');
+
+      // Sign out any previously signed-in account to force account picker
+      // This ensures the account selection popup appears when user has multiple accounts
+      await googleSignIn.signOut();
+      
+      // Small delay to ensure sign out completes
+      await Future.delayed(const Duration(milliseconds: 100));
 
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
@@ -170,8 +181,63 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
               ),
             );
           } else {
-            // Profile IS completed - go to main app
-            print('✅ Profile complete - redirecting to main app');
+            // Profile IS completed - check terms before going to main app
+            print('✅ Profile complete - checking terms acceptance');
+
+            // Check if user has accepted terms of service
+            try {
+              final loggedInUser = await ref.read(authServiceProvider).getLoggedInUser();
+              if (!loggedInUser.termsAccepted) {
+                // Show terms screen before entering app
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const TermsOfServiceScreen(),
+                  ),
+                );
+                
+                if (!mounted) return;
+                
+                // Re-check after terms acceptance
+                final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
+                if (!updatedUser.termsAccepted) {
+                  // User didn't accept terms, stay on login screen
+                  return;
+                }
+              }
+            } catch (e) {
+              // If we can't fetch user data, log out and redirect to home
+              debugPrint('Error checking terms after Google login: $e');
+              await ref.read(authServiceProvider).logout();
+              if (!mounted) return;
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) => const HomePage()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: BananaText(
+                    'Session expired. Please login again.',
+                    BanaStyles: BananaTextStyles.warning,
+                  ),
+                  duration: const Duration(seconds: 3),
+                  backgroundColor: Colors.orange,
+                ),
+              );
+              return;
+            }
+
+            if (!mounted) return;
+
+            // Register FCM token for push notifications
+            try {
+              final notificationService = NotificationService();
+              final userId = ref.read(authServiceProvider).userId;
+              if (userId.isNotEmpty) {
+                await notificationService.registerToken(userId);
+                debugPrint('✅ FCM token registered after Google login');
+              }
+            } catch (e) {
+              debugPrint('⚠️ Error registering FCM token after Google login: $e');
+            }
 
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),

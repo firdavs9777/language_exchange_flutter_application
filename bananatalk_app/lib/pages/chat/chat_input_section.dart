@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'chat_input_bar.dart';
 import 'chat_media_panel.dart';
 import 'chat_sticker_panel.dart';
@@ -18,6 +19,9 @@ class ChatInputSection extends StatelessWidget {
   final VoidCallback onStopTyping;
   final VoidCallback onHidePanels;
   final Function(String) onMediaOption;
+  final Message? replyingToMessage;
+  final String? otherUserName;
+  final VoidCallback? onCancelReply;
 
   const ChatInputSection({
     Key? key,
@@ -35,6 +39,9 @@ class ChatInputSection extends StatelessWidget {
     required this.onStopTyping,
     required this.onHidePanels,
     required this.onMediaOption,
+    this.replyingToMessage,
+    this.otherUserName,
+    this.onCancelReply,
   }) : super(key: key);
 
   @override
@@ -52,6 +59,9 @@ class ChatInputSection extends StatelessWidget {
           onTyping: onTyping,
           onStopTyping: onStopTyping,
           onHidePanels: onHidePanels,
+          replyingToMessage: replyingToMessage,
+          otherUserName: otherUserName,
+          onCancelReply: onCancelReply,
         ),
         if (showMediaPanel)
           ChatMediaPanel(

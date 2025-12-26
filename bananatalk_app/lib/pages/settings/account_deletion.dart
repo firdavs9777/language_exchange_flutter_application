@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
@@ -39,19 +40,19 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('⚠️ Final Warning'),
-        content: const Text(
-          'This action cannot be undone. All your data will be permanently deleted.\n\nAre you absolutely sure?',
+        title: Text(AppLocalizations.of(context)!.finalWarning),
+        content: Text(
+          '${AppLocalizations.of(context)!.thisActionCannotBeUndone} All your data will be permanently deleted.\n\nAre you absolutely sure?',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete Forever'),
+            child: Text(AppLocalizations.of(context)!.deleteForever),
           ),
         ],
       ),
@@ -164,7 +165,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                     controller: _passwordController,
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
-                      hintText: 'Your password',
+                      hintText: AppLocalizations.of(context)!.yourPassword,
                       helperText: 'Required for email accounts only',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
@@ -189,7 +190,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                 TextFormField(
                   controller: _confirmController,
                   decoration: InputDecoration(
-                    hintText: 'Type DELETE in capital letters',
+                    hintText: AppLocalizations.of(context)!.typeDELETEInCapitalLetters,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12)),
                     prefixIcon: const Icon(Icons.delete_forever),

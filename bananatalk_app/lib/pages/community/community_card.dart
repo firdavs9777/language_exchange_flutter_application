@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
 class CommunityCard extends StatefulWidget {
   final Community community;
@@ -128,30 +129,27 @@ class _CommunityCardState extends State<CommunityCard>
           ),
           child: ClipOval(
             child: widget.community.imageUrls.isNotEmpty
-                ? Image.network(
-                    widget.community.imageUrls[0],
+                ? CachedImageWidget(
+                    imageUrl: widget.community.imageUrls[0],
+                    width: 60,
+                    height: 60,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return _buildFallbackAvatar();
-                    },
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Container(
-                        color: Colors.grey[200],
-                        child: const Center(
-                          child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Color(0xFF00BFA5),
-                              ),
+                    errorWidget: _buildFallbackAvatar(),
+                    placeholder: Container(
+                      color: Colors.grey[200],
+                      child: const Center(
+                        child: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFF00BFA5),
                             ),
                           ),
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   )
                 : _buildFallbackAvatar(),
           ),

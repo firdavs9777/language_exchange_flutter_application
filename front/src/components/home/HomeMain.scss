@@ -1,65 +1,187 @@
-.homeMain {
-
-    justify-content: space-around;
-    .left {
-        flex: 35%;
+.home-main-section {
+    .hero-section {
+      background-color: #f8f9fa;
+      padding: 4rem 0;
+  
+      .slogan {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #333;
+        line-height: 1.2;
+  
+        .language {
+          color: #007bff;
+        }
+  
+        .learning {
+          color: #28a745;
+        }
+      }
+  
+      .description {
+        font-size: 1.25rem;
+        color: #6c757d;
+        margin: 1rem 0;
+  
+        .bananatalk {
+          font-weight: bold;
+          color: #28a745;
+        }
+      }
+  
+      .register-btn {
+        font-size: 1.25rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #007bff;
+        border: none;
+        border-radius: 0.25rem;
+        color: #fff;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+  
+      .home-img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  
+    .features-section {
+      background-color: #ffffff;
+      padding: 4rem 0;
+  
+      .features-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+      }
+  
+      .feature {
+        h3 {
+          font-size: 1.5rem;
+          color: #007bff;
+        }
+  
+        p {
+          color: #6c757d;
+        }
+      }
+    }
+  
+    .how-it-works-section {
+      background-color: #f1f1f1;
+      padding: 4rem 0;
+  
+      .section-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+      }
+  
+      .step {
+        h3 {
+          font-size: 1.25rem;
+          color: #007bff;
+        }
+  
+        p {
+          color: #6c757d;
+        }
+      }
+    }
+  
+    .pricing-section {
+      background-color: #ffffff;
+      padding: 4rem 0;
+      justify-content: center;
+      text-align: center;   
+  
+      .section-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+      }
+  
+      .pricing-card {
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        padding: 1.5rem;
         text-align: center;
-        justify-content: center;
-        .slogan {
+  
+        h3 {
+          font-size: 1.5rem;
+          color: #007bff;
+        }
+  
+        .price {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #28a745;
+        }
+  
+        .pricing-button {
+            justify-content: center;
+          display: block;
+          border-color: #007bff;
+          color: #007bff;
+          margin:20px auto;
+          padding-top: 10px;
+          &:hover {
+            background-color: #007bff;
+            color: #fff;
+          }
+        }
+      }
+    }
+  
+    .contact-section {
+      background-color: #f8f9fa;
+      .card {
+        padding-top: 10px;
+      }
+      .section-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+      }
+  
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+  
+        .form-group {
+          margin-bottom: 1.5rem;
+  
+          label {
             font-weight: bold;
-            font-size: 40px;
-
-            .language {
-                color: #723BCF;
-                display: block;
-            }
-
-            .learning {
-                color: #723BCF;
-                display: block;
-            }
+          }
+  
+          input,
+          textarea {
+            border-radius: 0.25rem;
+            border: 1px solid #ced4da;
+          }
         }
-
-        .description {
-            font-size: 24px;
-            color: #000000;
-
-            .bananatalk {
-                color: #FF0B0B;
-            }
+  
+        .contact-button {
+          width: 100%;
+          font-size: 1rem;
+          padding: 0.75rem;
+          background-color: #007bff;
+          border: none;
+          border-radius: 0.25rem;
+          color: #fff;
+          transition: background-color 0.3s ease;
+          margin-top:20px;
+          &:hover {
+            background-color: #0056b3;
+          }
         }
-
-        .register {
-            border-radius: 20px;
-            background-color: #F14E87;
-            color: #FFFFFF;
-            font-weight: bold;
-            font-size: 18px;
-            min-width: 140px;
-            max-width: 600px;
-            text-align: center;
-            line-height: 1;
-            min-height: 50px;
-        }
+      }
     }
-
-    .right {
-        justify-content: center;
-        flex: 65%;
-        text-align: center;
-
-        .homeImg {
-            height: 400px;
-        }
-    }
-
-    @media screen and (max-width: 768px) {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        .homeImg {
-            height: 300px;
-        }
-    }
-}
+  }
+  

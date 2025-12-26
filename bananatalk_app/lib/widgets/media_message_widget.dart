@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -39,81 +40,59 @@ class MediaMessageWidget extends StatelessWidget {
   }
 
   Widget _buildImageMessage(BuildContext context, ColorScheme colorScheme) {
-    // Normalize image URL using ImageUtils
     final imageUrl = media.thumbnail ?? media.url;
-    final normalizedUrl = ImageUtils.normalizeImageUrl(imageUrl);
     
     return GestureDetector(
       onTap: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Stack(
-          children: [
-            Image.network(
-              normalizedUrl,
+      child: Stack(
+        children: [
+          CachedImageWidget(
+            imageUrl: imageUrl,
+            width: 250,
+            height: 250,
+            fit: BoxFit.cover,
+            borderRadius: BorderRadius.circular(12),
+            placeholderColor: colorScheme.surfaceVariant,
+            errorWidget: Container(
               width: 250,
               height: 250,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  width: 250,
-                  height: 250,
-                  color: colorScheme.surfaceVariant,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                print('❌ Error loading image: $normalizedUrl - $error');
-                return Container(
-                  width: 250,
-                  height: 250,
-                  color: colorScheme.surfaceVariant,
-                  child: Icon(
-                    Icons.broken_image,
-                    color: colorScheme.error,
-                    size: 48,
-                  ),
-                );
-              },
+              color: colorScheme.surfaceVariant,
+              child: Icon(
+                Icons.broken_image,
+                color: colorScheme.error,
+                size: 48,
+              ),
             ),
-            if (media.fileName != null)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.7),
-                      ],
-                    ),
-                  ),
-                  child: Text(
-                    media.fileName!,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+          ),
+          if (media.fileName != null)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.7),
+                    ],
                   ),
                 ),
+                child: Text(
+                  media.fileName!,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -132,14 +111,12 @@ class MediaMessageWidget extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             if (media.thumbnail != null)
-              ClipRRect(
+              CachedImageWidget(
+                imageUrl: media.thumbnail,
+                width: 250,
+                height: 200,
+                fit: BoxFit.cover,
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  media.thumbnail!,
-                  width: 250,
-                  height: 200,
-                  fit: BoxFit.cover,
-                ),
               ),
             Container(
               width: 60,
@@ -405,4 +382,3 @@ class MediaMessageWidget extends StatelessWidget {
     return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 }
-

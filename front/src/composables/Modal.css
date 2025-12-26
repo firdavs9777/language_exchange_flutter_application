@@ -1,0 +1,50 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure modal appears on top */
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 700px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative; 
+    max-height: 80vh; /* Limit the height to 80% of the viewport */
+    overflow-y:scroll
+    /* To position the close button inside the modal */
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .close-modal:hover {
+    color: #e74c3c; /* Red color on hover */
+    transition: color 0.3s ease;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  } 
+  
+  li {
+    margin:5px;
+    cursor: pointer
+  } 

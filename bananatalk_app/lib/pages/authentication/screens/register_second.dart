@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
@@ -14,6 +17,8 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/providers/provider_models/location_modal.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterTwo extends ConsumerStatefulWidget {
   final String name;
@@ -83,16 +88,18 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   void initState() {
     super.initState();
     _bioController = TextEditingController(text: widget.bio);
-    _language_to_learn =
-        widget.languageToLearn.isNotEmpty ? widget.languageToLearn : null;
+    _language_to_learn = widget.languageToLearn.isNotEmpty
+        ? widget.languageToLearn
+        : null;
 
     _birthDate = TextEditingController(
       text: widget.birthDate.isNotEmpty
           ? widget.birthDate
           : DateFormat('yyyy.MM.dd').format(DateTime.now()),
     );
-    _nativelanguage =
-        widget.nativeLanguage.isNotEmpty ? widget.nativeLanguage : null;
+    _nativelanguage = widget.nativeLanguage.isNotEmpty
+        ? widget.nativeLanguage
+        : null;
 
     if (widget.gender.isNotEmpty) {
       final displayGender = _genderMap.entries
@@ -167,14 +174,17 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _latitude = position.latitude;
       _longitude = position.longitude;
 
-      final placemarks =
-          await placemarkFromCoordinates(_latitude!, _longitude!);
+      final placemarks = await placemarkFromCoordinates(
+        _latitude!,
+        _longitude!,
+      );
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
         setState(() {
           _country = place.country ?? 'Unknown';
-          _city = place.locality ??
+          _city =
+              place.locality ??
               place.subAdministrativeArea ??
               place.administrativeArea ??
               'Unknown';
@@ -211,7 +221,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       } else {
         if (mounted) {
           _showErrorSnackBar(
-              'Failed to load languages. Status: ${response.statusCode}');
+            'Failed to load languages. Status: ${response.statusCode}',
+          );
           setState(() {
             _languages = [];
           });
@@ -228,20 +239,32 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   }
 
   Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final pickedFiles = await picker.pickMultiImage();
+    try {
+      final ImagePicker picker = ImagePicker();
+      final pickedFiles = await picker.pickMultiImage(
+        imageQuality: 85, // Compress images to reduce upload size
+      );
 
-    if (pickedFiles != null) {
-      if (_selectedImages.length + pickedFiles.length > 6) {
-        _showErrorSnackBar('You can only select up to 6 images');
-        return;
+      if (pickedFiles != null && pickedFiles.isNotEmpty) {
+        if (_selectedImages.length + pickedFiles.length > 6) {
+          _showErrorSnackBar('You can only select up to 6 images');
+          return;
+        }
+
+        setState(() {
+          _selectedImages.addAll(
+            pickedFiles.map((pickedFile) => File(pickedFile.path)),
+          );
+          _imagesError = null;
+        });
+
+        debugPrint(
+          '✅ Selected ${pickedFiles.length} images. Total: ${_selectedImages.length}',
+        );
       }
-
-      setState(() {
-        _selectedImages
-            .addAll(pickedFiles.map((pickedFile) => File(pickedFile.path)));
-        _imagesError = null;
-      });
+    } catch (e) {
+      debugPrint('❌ Error picking images: $e');
+      _showErrorSnackBar('Error selecting images: ${e.toString()}');
     }
   }
 
@@ -310,8 +333,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     String year = dateParts[0];
     String month = dateParts[1];
     String day = dateParts[2];
-    DateTime birthDate =
-        DateTime(int.parse(year), int.parse(month), int.parse(day));
+    DateTime birthDate = DateTime(
+      int.parse(year),
+      int.parse(month),
+      int.parse(day),
+    );
     DateTime today = DateTime.now();
 
     int age = today.year - birthDate.year;
@@ -346,6 +372,45 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       return;
     }
 
+    // Check if user has accepted terms of service from backend (required for App Store compliance)
+    // For new users registering, we check if they're already logged in (OAuth flow)
+    final authService = ref.read(authServiceProvider);
+    bool termsAccepted = false;
+
+    try {
+      // If user is already authenticated (OAuth flow), check their terms status
+      if (authService.isLoggedIn && authService.userId.isNotEmpty) {
+        final user = await authService.getLoggedInUser();
+        termsAccepted = user.termsAccepted;
+      }
+    } catch (e) {
+      // If not authenticated yet (email registration), terms will be false
+      debugPrint('User not authenticated yet, will show terms: $e');
+    }
+
+    if (!termsAccepted) {
+      // Show terms screen before allowing registration
+      await Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const TermsOfServiceScreen()),
+      );
+
+      if (!mounted) return;
+
+      // Re-check if terms were accepted (for OAuth users)
+      try {
+        if (authService.isLoggedIn && authService.userId.isNotEmpty) {
+          final updatedUser = await authService.getLoggedInUser();
+          if (!updatedUser.termsAccepted) {
+            // User didn't accept terms, cannot proceed with registration
+            return;
+          }
+        }
+      } catch (e) {
+        // For email registration, terms acceptance will be handled after account creation
+        debugPrint('Will check terms after registration: $e');
+      }
+    }
+
     setState(() {
       _isSubmitting = true;
     });
@@ -366,8 +431,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       try {
         print('🔧 OAuth user completing profile...');
 
-        final url =
-            Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
+        final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.updateDetailsURL}',
+        );
         final token = ref.read(authServiceProvider).token;
 
         final requestBody = {
@@ -386,8 +452,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               (_longitude ?? 0.0).toDouble(),
               (_latitude ?? 0.0).toDouble(),
             ],
-            'formattedAddress':
-                _city != null && _country != null ? '$_city, $_country' : '',
+            'formattedAddress': _city != null && _country != null
+                ? '$_city, $_country'
+                : '',
             'city': _city ?? '',
             'country': _country ?? '',
           },
@@ -410,6 +477,92 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           print('✅ Profile update successful!');
 
           if (mounted) {
+            // Ensure token is available before checking terms
+            final authService = ref.read(authServiceProvider);
+            
+            // Wait a bit and verify token is available
+            await Future.delayed(const Duration(milliseconds: 800));
+            
+            // Refresh token from SharedPreferences to ensure it's available
+            final prefs = await SharedPreferences.getInstance();
+            final storedToken = prefs.getString('token') ?? '';
+            if (storedToken.isNotEmpty && authService.token.isEmpty) {
+              // Token is in storage but not in memory - update it
+              authService.token = storedToken;
+              debugPrint('✅ Token refreshed from storage before checking terms');
+            }
+
+            // Check if user has accepted terms (for OAuth users completing profile)
+            try {
+              if (authService.token.isNotEmpty || storedToken.isNotEmpty) {
+                // Try to fetch user data with retry logic
+                Community? user;
+                for (int attempt = 0; attempt < 3; attempt++) {
+                  try {
+                    if (attempt > 0) {
+                      await Future.delayed(
+                        Duration(milliseconds: 500 * attempt),
+                      );
+                    }
+                    user = await authService.getLoggedInUser();
+                    break; // Success, exit retry loop
+                  } catch (e) {
+                    debugPrint(
+                      'Attempt ${attempt + 1} to fetch user failed: $e',
+                    );
+                    if (attempt == 2) {
+                      // Last attempt failed, allow user to proceed
+                      debugPrint(
+                        'Could not fetch user after 3 attempts, allowing to proceed',
+                      );
+                    }
+                  }
+                }
+
+                if (user != null && !user.termsAccepted) {
+                  // Show terms screen before entering app
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TermsOfServiceScreen(),
+                    ),
+                  );
+
+                  if (!mounted) return;
+
+                  // Re-check after terms acceptance with retry
+                  Community? updatedUser;
+                  for (int attempt = 0; attempt < 3; attempt++) {
+                    try {
+                      if (attempt > 0) {
+                        await Future.delayed(
+                          Duration(milliseconds: 500 * attempt),
+                        );
+                      }
+                      updatedUser = await authService.getLoggedInUser();
+                      break;
+                    } catch (e) {
+                      debugPrint(
+                        'Attempt ${attempt + 1} to re-fetch user failed: $e',
+                      );
+                    }
+                  }
+
+                  if (updatedUser != null && !updatedUser.termsAccepted) {
+                    // User didn't accept, stay on registration screen
+                    setState(() {
+                      _isSubmitting = false;
+                    });
+                    return;
+                  }
+                }
+              }
+            } catch (e) {
+              // If we can't fetch user data, allow them to proceed
+              // This handles edge cases where API might be temporarily unavailable
+              debugPrint('Error checking terms after profile completion: $e');
+              // Continue to app - terms will be checked on next login or app launch
+            }
+
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
               (route) => false,
@@ -418,15 +571,20 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             _showSuccessSnackBar('Profile completed! Welcome to BanaTalk! 🎉');
           }
 
-          // Upload images in background
+          // Upload images before navigation to avoid ref disposal issues
           final userId = ref.read(authServiceProvider).userId;
           if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
             print('📸 Uploading ${_selectedImages.length} images...');
-            ref
-                .read(authServiceProvider)
-                .uploadUserPhoto(userId, _selectedImages)
-                .then((_) => print('✅ Images uploaded'))
-                .catchError((error) => print('❌ Image upload error: $error'));
+            try {
+              // Upload images synchronously before navigation
+              await ref
+                  .read(authServiceProvider)
+                  .uploadUserPhoto(userId, _selectedImages);
+              print('✅ Images uploaded successfully');
+            } catch (error) {
+              print('❌ Image upload error: $error');
+              // Don't block navigation if upload fails - user can upload later
+            }
           }
         } else {
           setState(() {
@@ -472,8 +630,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             (_longitude ?? 0.0).toDouble(),
             (_latitude ?? 0.0).toDouble(),
           ],
-          formattedAddress:
-              _city != null && _country != null ? '$_city, $_country' : '',
+          formattedAddress: _city != null && _country != null
+              ? '$_city, $_country'
+              : '',
           city: _city ?? '',
           country: _country ?? '',
         ),
@@ -483,7 +642,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         final response = await ref.read(authServiceProvider).register(user);
 
         if (response['success'] == true) {
-          final userData = response['user'];
+          final userData = response['user'] as Community?;
           String userId = '';
 
           if (userData != null) {
@@ -491,20 +650,171 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           }
 
           if (mounted) {
-            _showSuccessSnackBar(
-                'Registration Successful! Welcome to BanaTalk! 🎉');
+            // Check terms using user data from registration response first
+            // This avoids making an extra API call immediately after registration
+            bool termsAccepted = false;
+            try {
+              // Try to get termsAccepted from the registration response user data
+              if (userData != null) {
+                // Check if user data has termsAccepted field (from backend response)
+                // If not available, assume false (new users need to accept)
+                termsAccepted = userData.termsAccepted;
+                debugPrint(
+                  '📋 Terms status from registration response: $termsAccepted',
+                );
+              } else {
+                debugPrint('⚠️ User data is null in registration response');
+              }
+            } catch (e) {
+              debugPrint('Could not read terms from registration response: $e');
+              // Default to false if we can't read it
+              termsAccepted = false;
+            }
 
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (ctx) => const TabsScreen()),
-              (route) => false,
-            );
-          }
+            // If terms not accepted, show terms screen
+            if (!termsAccepted) {
+              // Ensure token is available before showing terms screen
+              final authService = ref.read(authServiceProvider);
+              
+              // Wait a bit and verify token is available
+              await Future.delayed(const Duration(milliseconds: 800));
+              
+              // Refresh token from SharedPreferences to ensure it's available
+              final prefs = await SharedPreferences.getInstance();
+              final storedToken = prefs.getString('token') ?? '';
+              if (storedToken.isNotEmpty && authService.token.isEmpty) {
+                // Token is in storage but not in memory - update it
+                authService.token = storedToken;
+                debugPrint('✅ Token refreshed from storage before showing terms');
+              }
 
-          if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-            ref
-                .read(authServiceProvider)
-                .uploadUserPhoto(userId, _selectedImages)
-                .catchError((error) => print('Image upload error: $error'));
+              bool shouldProceed = true;
+              
+              try {
+                if (authService.token.isNotEmpty || storedToken.isNotEmpty) {
+                  // Try to fetch user data with retry logic
+                  Community? user;
+                  for (int attempt = 0; attempt < 3; attempt++) {
+                    try {
+                      if (attempt > 0) {
+                        await Future.delayed(
+                          Duration(milliseconds: 500 * attempt),
+                        );
+                      }
+                      user = await authService.getLoggedInUser();
+                      break; // Success, exit retry loop
+                    } catch (e) {
+                      debugPrint(
+                        'Attempt ${attempt + 1} to fetch user failed: $e',
+                      );
+                      if (attempt == 2) {
+                        // Last attempt failed, allow user to proceed
+                        debugPrint(
+                          'Could not fetch user after 3 attempts, allowing to proceed',
+                        );
+                      }
+                    }
+                  }
+
+                  if (user != null && !user.termsAccepted) {
+                    // Show terms screen before entering app
+                    final termsResult = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TermsOfServiceScreen(),
+                      ),
+                    );
+
+                    if (!mounted) return;
+
+                    // Re-check after terms acceptance
+                    Community? updatedUser;
+                    for (int attempt = 0; attempt < 3; attempt++) {
+                      try {
+                        if (attempt > 0) {
+                          await Future.delayed(
+                            Duration(milliseconds: 500 * attempt),
+                          );
+                        }
+                        updatedUser = await authService.getLoggedInUser();
+                        break;
+                      } catch (e) {
+                        debugPrint(
+                          'Attempt ${attempt + 1} to re-fetch user failed: $e',
+                        );
+                      }
+                    }
+
+                    if (updatedUser != null && !updatedUser.termsAccepted) {
+                      // User didn't accept, stay on registration screen
+                      setState(() {
+                        _isSubmitting = false;
+                      });
+                      shouldProceed = false;
+                    }
+                  }
+                }
+              } catch (e) {
+                // If we can't fetch user data, allow them to proceed
+                debugPrint('Error checking terms after registration: $e');
+                // Continue to app - terms will be checked on next login or app launch
+              }
+
+              // Only proceed with image upload and navigation if terms were accepted
+              if (shouldProceed && mounted) {
+                // Upload images before navigation to avoid ref disposal issues
+                if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+                  print('📸 Uploading ${_selectedImages.length} images...');
+                  try {
+                    // Upload images synchronously before navigation
+                    await ref
+                        .read(authServiceProvider)
+                        .uploadUserPhoto(userId, _selectedImages);
+                    print('✅ Images uploaded successfully');
+                  } catch (error) {
+                    print('❌ Image upload error: $error');
+                    // Don't block navigation if upload fails - user can upload later
+                  }
+                }
+
+                if (!mounted) return;
+
+                _showSuccessSnackBar(
+                  'Registration Successful! Welcome to BanaTalk! 🎉',
+                );
+
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (ctx) => const TabsScreen()),
+                  (route) => false,
+                );
+              }
+            } else {
+              // Terms already accepted - proceed directly with image upload and navigation
+              // Upload images before navigation to avoid ref disposal issues
+              if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+                print('📸 Uploading ${_selectedImages.length} images...');
+                try {
+                  // Upload images synchronously before navigation
+                  await ref
+                      .read(authServiceProvider)
+                      .uploadUserPhoto(userId, _selectedImages);
+                  print('✅ Images uploaded successfully');
+                } catch (error) {
+                  print('❌ Image upload error: $error');
+                  // Don't block navigation if upload fails - user can upload later
+                }
+              }
+
+              if (!mounted) return;
+
+              _showSuccessSnackBar(
+                'Registration Successful! Welcome to BanaTalk! 🎉',
+              );
+
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (ctx) => const TabsScreen()),
+                (route) => false,
+              );
+            }
           }
         } else {
           setState(() {
@@ -606,8 +916,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.3),
+                            color: Theme.of(
+                              context,
+                            ).primaryColor.withOpacity(0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -633,10 +944,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     const SizedBox(height: 8),
                     Text(
                       'Just a few more details to get started',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 15, color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -656,15 +964,17 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:
-                          _bioError != null ? Colors.red : Colors.grey.shade300,
+                      color: _bioError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:
-                          _bioError != null ? Colors.red : Colors.grey.shade300,
+                      color: _bioError != null
+                          ? Colors.red
+                          : Colors.grey.shade300,
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -740,7 +1050,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   labelText: 'Native Language',
-                  hintText: 'Select your native language',
+                  hintText: AppLocalizations.of(context)!.selectYourNativeLanguage2,
                   prefixIcon: Icon(
                     Icons.language,
                     color: _nativeLanguageError != null
@@ -798,7 +1108,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   labelText: 'Language to Learn',
-                  hintText: 'Which language do you want to learn?',
+                  hintText: AppLocalizations.of(context)!.whichLanguageDoYouWantToLearn2,
                   prefixIcon: Icon(
                     Icons.school,
                     color: _learnLanguageError != null
@@ -860,7 +1170,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   labelText: 'Gender',
-                  hintText: 'Select your gender',
+                  hintText: AppLocalizations.of(context)!.selectYourGender2,
                   prefixIcon: Icon(
                     Icons.person,
                     color: _genderError != null ? Colors.red : Colors.grey[600],
@@ -916,11 +1226,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   labelText: 'Birth Date',
-                  hintText: 'YYYY.MM.DD',
+                  hintText: AppLocalizations.of(context)!.dateFormat,
                   prefixIcon: Icon(
                     Icons.cake,
-                    color:
-                        _birthDateError != null ? Colors.red : Colors.grey[600],
+                    color: _birthDateError != null
+                        ? Colors.red
+                        : Colors.grey[600],
                   ),
                   errorText: _birthDateError,
                   suffixIcon: Icon(
@@ -934,8 +1245,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
                   if (_birthDate.text.isNotEmpty) {
                     try {
-                      initialDate =
-                          DateFormat('yyyy.MM.dd').parse(_birthDate.text);
+                      initialDate = DateFormat(
+                        'yyyy.MM.dd',
+                      ).parse(_birthDate.text);
                     } catch (e) {
                       initialDate = DateTime.now();
                     }
@@ -960,8 +1272,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
                   if (pickedDate != null) {
                     setState(() {
-                      _birthDate.text =
-                          DateFormat('yyyy.MM.dd').format(pickedDate);
+                      _birthDate.text = DateFormat(
+                        'yyyy.MM.dd',
+                      ).format(pickedDate);
                       _birthDateError = null;
                     });
                   }
@@ -989,10 +1302,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                           '$_city, $_country',
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         )
-                      : const Text('Detect your location'),
+                      : Text(AppLocalizations.of(context)!.detectYourLocation2),
                   subtitle: _city != null && _country != null
-                      ? const Text('Tap to update location')
-                      : const Text('Help others find you nearby'),
+                      ? Text(AppLocalizations.of(context)!.tapToUpdateLocation2)
+                      : Text(AppLocalizations.of(context)!.helpOthersFindYouNearby2),
                   trailing: _isFetchingLocation
                       ? const SizedBox(
                           width: 20,
@@ -1069,12 +1382,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                        childAspectRatio: 1,
-                      ),
-                      itemCount: _selectedImages.length +
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                            childAspectRatio: 1,
+                          ),
+                      itemCount:
+                          _selectedImages.length +
                           (_selectedImages.length < 6 ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index < _selectedImages.length) {
@@ -1175,10 +1489,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     const SizedBox(height: 8),
                     Text(
                       '${_selectedImages.length}/6 photos selected',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 13, color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -1200,10 +1511,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        side: BorderSide(
-                          color: Colors.grey.shade300,
-                          width: 2,
-                        ),
+                        side: BorderSide(color: Colors.grey.shade300, width: 2),
                       ),
                       child: const Text(
                         'Previous',

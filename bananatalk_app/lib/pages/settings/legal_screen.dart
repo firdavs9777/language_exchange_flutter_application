@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LegalScreen extends StatelessWidget {
@@ -16,8 +17,8 @@ class LegalScreen extends StatelessWidget {
       } else {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Could not open link'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
               backgroundColor: Colors.red,
             ),
           );
@@ -27,7 +28,7 @@ class LegalScreen extends StatelessWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text('${AppLocalizations.of(context)!.error}: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -39,7 +40,7 @@ class LegalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Legal & Privacy'),
+        title: Text(AppLocalizations.of(context)!.legalPrivacy2),
         backgroundColor: const Color(0xFF00BFA5),
         elevation: 0,
       ),
@@ -61,8 +62,8 @@ class LegalScreen extends StatelessWidget {
             _buildLegalCard(
               context: context,
               icon: Icons.description_outlined,
-              title: 'Terms of Use (EULA)',
-              subtitle: 'View our terms and conditions',
+              title: AppLocalizations.of(context)!.termsOfUseEULA,
+              subtitle: AppLocalizations.of(context)!.viewOurTermsAndConditions,
               onTap: () => _launchURL(context, termsUrl),
             ),
 
@@ -72,15 +73,15 @@ class LegalScreen extends StatelessWidget {
             _buildLegalCard(
               context: context,
               icon: Icons.privacy_tip_outlined,
-              title: 'Privacy Policy',
-              subtitle: 'How we handle your data',
+              title: AppLocalizations.of(context)!.privacyPolicy,
+              subtitle: AppLocalizations.of(context)!.howWeHandleYourData,
               onTap: () => _launchURL(context, privacyUrl),
             ),
 
             const SizedBox(height: 24),
 
             // Subscription Information
-            _buildSubscriptionInfo(),
+            // _buildSubscriptionInfo(),
           ],
         ),
       ),
@@ -170,86 +171,86 @@ class LegalScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSubscriptionInfo() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.amber.shade400,
-                      Colors.orange.shade400,
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.workspace_premium,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              const Text(
-                'VIP Subscription',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          _buildSubscriptionTier('Monthly', '\$9.99/month'),
-          const SizedBox(height: 8),
-          _buildSubscriptionTier('Quarterly', '\$24.99/3 months', 'Save 17%'),
-          const SizedBox(height: 8),
-          _buildSubscriptionTier('Yearly', '\$79.99/year', 'Save 33%'),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade50,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Colors.grey.shade200,
-                width: 1,
-              ),
-            ),
-            child: Text(
-              'Payment is charged to your iTunes Account or Google Play account. '
-              'Subscription automatically renews unless canceled at least 24 hours '
-              'before the end of the current period. Manage subscriptions in your '
-              'device Account Settings.',
-              style: TextStyle(
-                fontSize: 11,
-                color: Colors.grey[700],
-                height: 1.4,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildSubscriptionInfo() {
+  //   return Container(
+  //     padding: const EdgeInsets.all(20),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(16),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.black.withOpacity(0.04),
+  //           blurRadius: 10,
+  //           offset: const Offset(0, 2),
+  //         ),
+  //       ],
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Container(
+  //               padding: const EdgeInsets.all(8),
+  //               decoration: BoxDecoration(
+  //                 gradient: LinearGradient(
+  //                   colors: [
+  //                     Colors.amber.shade400,
+  //                     Colors.orange.shade400,
+  //                   ],
+  //                 ),
+  //                 borderRadius: BorderRadius.circular(10),
+  //               ),
+  //               child: const Icon(
+  //                 Icons.workspace_premium,
+  //                 color: Colors.white,
+  //                 size: 20,
+  //               ),
+  //             ),
+  //             const SizedBox(width: 12),
+  //             const Text(
+  //               'VIP Subscription',
+  //               style: TextStyle(
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.black87,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 16),
+  //         _buildSubscriptionTier('Monthly', '\$9.99/month'),
+  //         const SizedBox(height: 8),
+  //         _buildSubscriptionTier('Quarterly', '\$24.99/3 months', 'Save 17%'),
+  //         const SizedBox(height: 8),
+  //         _buildSubscriptionTier('Yearly', '\$79.99/year', 'Save 33%'),
+  //         const SizedBox(height: 16),
+  //         Container(
+  //           padding: const EdgeInsets.all(12),
+  //           decoration: BoxDecoration(
+  //             color: Colors.grey.shade50,
+  //             borderRadius: BorderRadius.circular(8),
+  //             border: Border.all(
+  //               color: Colors.grey.shade200,
+  //               width: 1,
+  //             ),
+  //           ),
+  //           child: Text(
+  //             'Payment is charged to your iTunes Account or Google Play account. '
+  //             'Subscription automatically renews unless canceled at least 24 hours '
+  //             'before the end of the current period. Manage subscriptions in your '
+  //             'device Account Settings.',
+  //             style: TextStyle(
+  //               fontSize: 11,
+  //               color: Colors.grey[700],
+  //               height: 1.4,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildSubscriptionTier(String period, String price, [String? badge]) {
     return Row(

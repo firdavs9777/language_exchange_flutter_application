@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class MyReportsScreen extends ConsumerStatefulWidget {
@@ -112,7 +113,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Reports'),
+        title: Text(AppLocalizations.of(context)!.myReports2),
         backgroundColor: colorScheme.surface,
         foregroundColor: context.textPrimary,
         elevation: 0,
@@ -138,7 +139,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                       const SizedBox(height: 24),
                       ElevatedButton(
                         onPressed: _loadReports,
-                        child: const Text('Retry'),
+                        child: Text(AppLocalizations.of(context)!.retry),
                       ),
                     ],
                   ),
