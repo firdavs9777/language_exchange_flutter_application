@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "28446912403",
+    "project_id": "bananatalk-backend",
+    "storage_bucket": "bananatalk-backend.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28446912403:android:dddae6b4e716b84b170266",
+        "android_client_info": {
+          "package_name": "com.bananatalk.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28446912403-u7jbe73vnt2mkreo5itcjmmqrfv2715m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bananatalk.app",
+            "certificate_hash": "5daea2bb3d0fb59709b33b20b9fde56ac0488e04"
+          }
+        },
+        {
+          "client_id": "28446912403-2ba6tssqm95r6iu6cov7c6riv00gposo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBXSIbd-CExDrMcZH0EpxZ_69Xy3yT3ZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28446912403-2ba6tssqm95r6iu6cov7c6riv00gposo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "28446912403-psrkd6645cm2iqgk891fm3tfvjph5m7h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bananatalk.com",
+                "app_store_id": "6755862146"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28446912403:android:69132b4a87a2b626170266",
+        "android_client_info": {
+          "package_name": "com.bananatalk.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28446912403-2ba6tssqm95r6iu6cov7c6riv00gposo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBXSIbd-CExDrMcZH0EpxZ_69Xy3yT3ZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28446912403-2ba6tssqm95r6iu6cov7c6riv00gposo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "28446912403-psrkd6645cm2iqgk891fm3tfvjph5m7h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bananatalk.com",
+                "app_store_id": "6755862146"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
