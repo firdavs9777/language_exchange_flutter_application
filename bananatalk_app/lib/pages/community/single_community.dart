@@ -348,7 +348,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     }
 
     if (userId == widget.community.id) {
-      ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('You cannot call yourself'),
           backgroundColor: Colors.orange,
@@ -386,9 +386,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
             MaterialPageRoute(
               builder: (_) => ActiveCallScreen(call: currentCall),
               fullscreenDialog: true,
-            ),
-          );
-        }
+      ),
+    );
+  }
       }
 
       print('✅ Voice call initiated to ${widget.community.name}');
@@ -433,13 +433,13 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
           content: Text(error),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
-        ),
-      );
+      ),
+    );
     }
   }
 

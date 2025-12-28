@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -40,49 +41,49 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCoxWxyi2-XgR3r3WaYhQ2rV-vINDNfXio',
-    appId: '1:28446912403:web:de389baef4f8da41170266',
-    messagingSenderId: '28446912403',
-    projectId: 'bananatalk-backend',
-    authDomain: 'bananatalk-backend.firebaseapp.com',
-    storageBucket: 'bananatalk-backend.firebasestorage.app',
-    measurementId: 'G-V647CPY3HB',
+  static FirebaseOptions get web => FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_WEB_API_KEY'),
+    appId: dotenv.get('FIREBASE_WEB_APP_ID'),
+    messagingSenderId: dotenv.get('FIREBASE_WEB_MESSAGING_SENDER_ID'),
+    projectId: dotenv.get('FIREBASE_WEB_PROJECT_ID'),
+    authDomain: dotenv.get('FIREBASE_WEB_AUTH_DOMAIN'),
+    storageBucket: dotenv.get('FIREBASE_WEB_STORAGE_BUCKET'),
+    measurementId: dotenv.get('FIREBASE_WEB_MEASUREMENT_ID'),
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCBXSIbd-CExDrMcZH0EpxZ_69Xy3yT3ZA',
-    appId: '1:28446912403:android:dddae6b4e716b84b170266',
-    messagingSenderId: '28446912403',
-    projectId: 'bananatalk-backend',
-    storageBucket: 'bananatalk-backend.firebasestorage.app',
+  static FirebaseOptions get android => FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_ANDROID_API_KEY'),
+    appId: dotenv.get('FIREBASE_ANDROID_APP_ID'),
+    messagingSenderId: dotenv.get('FIREBASE_ANDROID_MESSAGING_SENDER_ID'),
+    projectId: dotenv.get('FIREBASE_ANDROID_PROJECT_ID'),
+    storageBucket: dotenv.get('FIREBASE_ANDROID_STORAGE_BUCKET'),
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB0Zn1_YU3URc_T1MRqnTaeLqLa8p9gWFQ',
-    appId: '1:28446912403:ios:2771a5e722246e95170266',
-    messagingSenderId: '28446912403',
-    projectId: 'bananatalk-backend',
-    storageBucket: 'bananatalk-backend.firebasestorage.app',
-    iosBundleId: 'com.bananatalk.bananatalkApp',
+  static FirebaseOptions get ios => FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_IOS_API_KEY'),
+    appId: dotenv.get('FIREBASE_IOS_APP_ID'),
+    messagingSenderId: dotenv.get('FIREBASE_IOS_MESSAGING_SENDER_ID'),
+    projectId: dotenv.get('FIREBASE_IOS_PROJECT_ID'),
+    storageBucket: dotenv.get('FIREBASE_IOS_STORAGE_BUCKET'),
+    iosBundleId: dotenv.get('FIREBASE_IOS_BUNDLE_ID'),
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB0Zn1_YU3URc_T1MRqnTaeLqLa8p9gWFQ',
-    appId: '1:28446912403:ios:ba542e009b021df2170266',
-    messagingSenderId: '28446912403',
-    projectId: 'bananatalk-backend',
-    storageBucket: 'bananatalk-backend.firebasestorage.app',
-    iosBundleId: 'com.example.bananatalkApp',
+  static FirebaseOptions get macos => FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_MACOS_API_KEY'),
+    appId: dotenv.get('FIREBASE_MACOS_APP_ID'),
+    messagingSenderId: dotenv.get('FIREBASE_MACOS_MESSAGING_SENDER_ID'),
+    projectId: dotenv.get('FIREBASE_MACOS_PROJECT_ID'),
+    storageBucket: dotenv.get('FIREBASE_MACOS_STORAGE_BUCKET'),
+    iosBundleId: dotenv.get('FIREBASE_MACOS_BUNDLE_ID'),
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCoxWxyi2-XgR3r3WaYhQ2rV-vINDNfXio',
-    appId: '1:28446912403:web:59e54935821313f6170266',
-    messagingSenderId: '28446912403',
-    projectId: 'bananatalk-backend',
-    authDomain: 'bananatalk-backend.firebaseapp.com',
-    storageBucket: 'bananatalk-backend.firebasestorage.app',
-    measurementId: 'G-LRMHG4DDWH',
+  static FirebaseOptions get windows => FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_WINDOWS_API_KEY'),
+    appId: dotenv.get('FIREBASE_WINDOWS_APP_ID'),
+    messagingSenderId: dotenv.get('FIREBASE_WINDOWS_MESSAGING_SENDER_ID'),
+    projectId: dotenv.get('FIREBASE_WINDOWS_PROJECT_ID'),
+    authDomain: dotenv.get('FIREBASE_WINDOWS_AUTH_DOMAIN'),
+    storageBucket: dotenv.get('FIREBASE_WINDOWS_STORAGE_BUCKET'),
+    measurementId: dotenv.get('FIREBASE_WINDOWS_MEASUREMENT_ID'),
   );
 }

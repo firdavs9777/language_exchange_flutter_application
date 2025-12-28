@@ -77,16 +77,16 @@ class ChatSocketStateManager {
             
             if (messageData is Map) {
               try {
-                final message = Message.fromJson(
-                  Map<String, dynamic>.from(messageData),
-                );
+              final message = Message.fromJson(
+                Map<String, dynamic>.from(messageData),
+              );
                 print('   Parsed message - From: ${message.sender.id}, To: ${message.receiver.id}');
                 print('   Is relevant: ${_isRelevantMessage(message)}');
                 print('   Partner ID: $chatPartnerId, Current User ID: $currentUserId');
                 
-                if (_isRelevantMessage(message)) {
+              if (_isRelevantMessage(message)) {
                   print('   ✅ Calling onNewMessage callback');
-                  onNewMessage?.call(message);
+                onNewMessage?.call(message);
                 } else {
                   print('   ⚠️ Message not relevant for this chat');
                 }
@@ -96,8 +96,8 @@ class ChatSocketStateManager {
               }
             } else {
               print('   ⚠️ Message data is not a Map: ${messageData.runtimeType}');
+              }
             }
-          }
         } else {
           print('   ⚠️ Data is not a Map: ${data.runtimeType}');
         }

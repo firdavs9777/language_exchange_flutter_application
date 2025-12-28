@@ -11,9 +11,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  try {
+    await dotenv.load(fileName: '.env');
+    debugPrint('✅ Environment variables loaded successfully');
+  } catch (e) {
+    debugPrint('❌ Error: Could not load .env file: $e');
+    debugPrint('   Please ensure .env file exists in the project root with Firebase configuration.');
+    debugPrint('   Copy .env.example to .env and fill in your values.');
+    rethrow; // Fail fast if .env is missing
+  }
 
   try {
     // Initialize Firebase
@@ -42,20 +54,6 @@ Future<void> main() async {
   } catch (e) {
     debugPrint('❌ Error initializing socket at startup: $e');
   }
-
-  // ⚠️ OPTIONAL: Request all permissions at startup (for testing only)
-  // NOTE: This is NOT recommended for production. Apple guidelines suggest
-  // requesting permissions when they're needed in context.
-  // Uncomment the code below ONLY for testing/debugging purposes:
-  /*
-  try {
-    await PermissionService.requestAllPermissions();
-    final statuses = await PermissionService.checkAllPermissions();
-    debugPrint('📋 Permission statuses:\n${PermissionService.getStatusSummary(statuses)}');
-  } catch (e) {
-    debugPrint('❌ Error requesting permissions: $e');
-  }
-  */
 
   runApp(const ProviderScope(child: MyApp()));
 }

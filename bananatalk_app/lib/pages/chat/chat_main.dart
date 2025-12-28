@@ -336,7 +336,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         // Provider count is different (real-time update), update local state
         print('📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)');
         updatedPartners.add(partner.copyWith(unreadCount: providerCount));
-        localStateChanged = true;
+          localStateChanged = true;
       } else {
         // Counts match, keep as is
         updatedPartners.add(partner);
