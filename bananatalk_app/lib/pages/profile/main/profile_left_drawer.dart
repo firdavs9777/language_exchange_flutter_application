@@ -22,10 +22,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class LeftDrawer extends ConsumerWidget {
   final Community user;
 
-  const LeftDrawer({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const LeftDrawer({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,10 +32,7 @@ class LeftDrawer extends ConsumerWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFF00BFA5).withOpacity(0.05),
-              Colors.white,
-            ],
+            colors: [const Color(0xFF00BFA5).withOpacity(0.05), Colors.white],
           ),
         ),
         child: SafeArea(
@@ -59,12 +53,15 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.person_outline,
                       title: AppLocalizations.of(context)!.profileSettings,
-                      subtitle: AppLocalizations.of(context)!.editYourProfileInformation,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.editYourProfileInformation,
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileSettings()),
+                            builder: (context) => ProfileSettings(),
+                          ),
                         );
                         // Navigate to profile settings
                       },
@@ -97,7 +94,6 @@ class LeftDrawer extends ConsumerWidget {
                     //     }
                     //   },
                     // ),
-
                     const SizedBox(height: 16),
                     _buildSectionTitle('Preferences'),
 
@@ -106,7 +102,9 @@ class LeftDrawer extends ConsumerWidget {
                       icon: Icons.block,
                       iconColor: Colors.red,
                       title: AppLocalizations.of(context)!.blockedUsers,
-                      subtitle: AppLocalizations.of(context)!.manageBlockedUsers,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.manageBlockedUsers,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
@@ -122,13 +120,16 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.notifications_outlined,
                       title: AppLocalizations.of(context)!.notifications,
-                      subtitle: AppLocalizations.of(context)!.manageNotificationSettings,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.manageNotificationSettings,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const NotificationSettingsScreen(),
+                            builder: (context) =>
+                                const NotificationSettingsScreen(),
                           ),
                         );
                       },
@@ -138,7 +139,9 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.lock_outline,
                       title: AppLocalizations.of(context)!.privacySecurity,
-                      subtitle: AppLocalizations.of(context)!.controlYourPrivacy,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.controlYourPrivacy,
                       onTap: () {
                         Navigator.pop(context);
                         // Navigate to privacy settings
@@ -155,7 +158,8 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LanguageSettingsScreen(),
+                            builder: (context) =>
+                                const LanguageSettingsScreen(),
                           ),
                         );
                       },
@@ -165,7 +169,9 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.dark_mode_outlined,
                       title: AppLocalizations.of(context)!.appearance,
-                      subtitle: AppLocalizations.of(context)!.themeAndDisplaySettings,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.themeAndDisplaySettings,
                       onTap: () {
                         Navigator.pop(context);
                         // Navigate to appearance settings
@@ -179,7 +185,9 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.flag_outlined,
                       title: AppLocalizations.of(context)!.myReports,
-                      subtitle: AppLocalizations.of(context)!.viewYourSubmittedReports,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.viewYourSubmittedReports,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
@@ -197,7 +205,9 @@ class LeftDrawer extends ConsumerWidget {
                         context: context,
                         icon: Icons.admin_panel_settings,
                         title: AppLocalizations.of(context)!.reportsManagement,
-                        subtitle: AppLocalizations.of(context)!.manageAllReportsAdmin,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.manageAllReportsAdmin,
                         gradient: LinearGradient(
                           colors: [
                             Colors.purple.shade400,
@@ -222,7 +232,9 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.gavel_outlined,
                       title: AppLocalizations.of(context)!.legalPrivacy,
-                      subtitle: AppLocalizations.of(context)!.termsPrivacySubscriptionInfo,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.termsPrivacySubscriptionInfo,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
@@ -260,12 +272,11 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.delete_forever_outlined,
                       title: AppLocalizations.of(context)!.deleteAccount,
-                      subtitle: AppLocalizations.of(context)!.permanentlyDeleteYourAccount,
+                      subtitle: AppLocalizations.of(
+                        context,
+                      )!.permanentlyDeleteYourAccount,
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.red.shade400,
-                          Colors.red.shade600,
-                        ],
+                        colors: [Colors.red.shade400, Colors.red.shade600],
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -351,10 +362,7 @@ class LeftDrawer extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 4,
-                    ),
+                    border: Border.all(color: Colors.white, width: 4),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
@@ -499,10 +507,7 @@ class LeftDrawer extends ConsumerWidget {
         const SizedBox(height: 2),
         Text(
           label,
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.white.withOpacity(0.8),
-          ),
+          style: TextStyle(fontSize: 11, color: Colors.white.withOpacity(0.8)),
         ),
       ],
     );
@@ -559,7 +564,8 @@ class LeftDrawer extends ConsumerWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    gradient: gradient ??
+                    gradient:
+                        gradient ??
                         LinearGradient(
                           colors: [
                             const Color(0xFF00BFA5).withOpacity(0.1),
@@ -570,7 +576,8 @@ class LeftDrawer extends ConsumerWidget {
                   ),
                   child: Icon(
                     icon,
-                    color: iconColor ??
+                    color:
+                        iconColor ??
                         (gradient != null
                             ? Colors.amber.shade700
                             : const Color(0xFF00BFA5)),
@@ -596,21 +603,14 @@ class LeftDrawer extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         subtitle,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
                 ),
 
                 // Arrow Icon
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                  size: 20,
-                ),
+                Icon(Icons.chevron_right, color: Colors.grey[400], size: 20),
               ],
             ),
           ),
@@ -637,10 +637,7 @@ class LeftDrawer extends ConsumerWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: LinearGradient(
-          colors: [
-            Colors.red.shade400,
-            Colors.red.shade500,
-          ],
+          colors: [Colors.red.shade400, Colors.red.shade500],
         ),
         boxShadow: [
           BoxShadow(
@@ -660,11 +657,7 @@ class LeftDrawer extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                  size: 24,
-                ),
+                const Icon(Icons.logout, color: Colors.white, size: 24),
                 const SizedBox(width: 12),
                 const Text(
                   'Logout',
@@ -685,8 +678,7 @@ class LeftDrawer extends ConsumerWidget {
   void _showLogoutConfirmation(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      barrierDismissible:
-          false, // Prevent dismissing by tapping outside during logout
+      barrierDismissible: false,
       builder: (BuildContext dialogContext) {
         bool isLoggingOut = false;
 
@@ -713,10 +705,7 @@ class LeftDrawer extends ConsumerWidget {
                   const SizedBox(width: 12),
                   const Text(
                     'Logout',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -756,7 +745,7 @@ class LeftDrawer extends ConsumerWidget {
                 ],
               ),
               actions: isLoggingOut
-                  ? [] // Hide buttons during logout
+                  ? []
                   : [
                       TextButton(
                         onPressed: () => Navigator.pop(dialogContext),
@@ -775,19 +764,22 @@ class LeftDrawer extends ConsumerWidget {
                           });
 
                           try {
-                            // 1. Perform backend logout and clear auth data
+                            print('🚪 Starting logout sequence...');
+
+                            // 1. Stop global chat listener FIRST
+                            GlobalChatListener().stop();
+                            print('✅ Global chat listener stopped');
+
+                            // 2. Disconnect socket and perform backend logout
                             await ref.read(authServiceProvider).logout();
                             print('✅ Backend logout successful');
 
-                            // 2. Stop global chat listener
-                            GlobalChatListener().stop();
-                            
-                            // 3. Reset badge counts and chat state
+                            // 3. Reset all providers and badge counts
                             ref.read(badgeCountProvider.notifier).reset();
                             ref.read(chatPartnersProvider.notifier).reset();
-                            print('✅ Badge counts and chat state reset');
+                            print('✅ Badge counts reset');
 
-                            // 3. Invalidate ALL Riverpod providers to reset app state
+                            // 4. Invalidate providers
                             ref.invalidate(userProvider);
                             ref.invalidate(authServiceProvider);
                             print('✅ Providers invalidated');
@@ -799,7 +791,7 @@ class LeftDrawer extends ConsumerWidget {
                             if (context.mounted) {
                               Navigator.pop(context); // Close drawer
 
-                              // 3. Navigate to login and clear all routes
+                              // 5. Navigate to login and clear all routes
                               Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                   builder: (context) => const Login(),
@@ -818,7 +810,11 @@ class LeftDrawer extends ConsumerWidget {
                                       ),
                                       const SizedBox(width: 12),
                                       Expanded(
-                                        child: Text(AppLocalizations.of(context)!.loggedOutSuccessfully),
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.loggedOutSuccessfully,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -839,7 +835,6 @@ class LeftDrawer extends ConsumerWidget {
                             });
 
                             if (dialogContext.mounted) {
-                              // Show error message
                               ScaffoldMessenger.of(dialogContext).showSnackBar(
                                 SnackBar(
                                   content: Row(
@@ -862,13 +857,6 @@ class LeftDrawer extends ConsumerWidget {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   duration: const Duration(seconds: 4),
-                                  action: SnackBarAction(
-                                    label: AppLocalizations.of(context)!.retry,
-                                    textColor: Colors.white,
-                                    onPressed: () {
-                                      // Retry logout
-                                    },
-                                  ),
                                 ),
                               );
                             }
@@ -907,7 +895,7 @@ class LeftDrawer extends ConsumerWidget {
       'testdemo@gmail.com',
       'fmutalipov7@gmail.com',
       'fdwvycq6wh@privaterelay.appleid.com'
-          '000104.e36e48f4990f451eabc83e84eaa435f8.0931@privaterelay.appleid.com'
+          '000104.e36e48f4990f451eabc83e84eaa435f8.0931@privaterelay.appleid.com',
     ];
     if (adminEmails.contains(user.email.toLowerCase())) {
       return true;
@@ -941,10 +929,7 @@ class LeftDrawer extends ConsumerWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF00BFA5),
-                      Color(0xFF00897B),
-                    ],
+                    colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -970,18 +955,12 @@ class LeftDrawer extends ConsumerWidget {
             children: [
               const Text(
                 'BanaTalk - Language Exchange Platform',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
               Text(
                 'Version 1.0.0',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
               const SizedBox(height: 16),
               Text(
@@ -995,10 +974,7 @@ class LeftDrawer extends ConsumerWidget {
               const SizedBox(height: 16),
               Text(
                 '© 2024 BanaTalk. All rights reserved.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -1007,9 +983,7 @@ class LeftDrawer extends ConsumerWidget {
               onPressed: () => Navigator.pop(context),
               child: const Text(
                 'Close',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
           ],

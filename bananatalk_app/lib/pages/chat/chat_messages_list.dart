@@ -66,10 +66,12 @@ class ChatMessagesList extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             controller: scrollController,
+            reverse: true, // Show newest messages at bottom
             padding: const EdgeInsets.symmetric(vertical: 8),
             itemCount: messages.length,
             itemBuilder: (context, index) {
-              final message = messages[index];
+              // Reverse index for reversed list
+              final message = messages[messages.length - 1 - index];
               final isMe = message.sender.id == currentUserId;
               return ChatMessageBubble(
                 message: message,

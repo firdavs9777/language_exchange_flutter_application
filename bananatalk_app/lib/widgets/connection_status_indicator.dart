@@ -1,75 +1,57 @@
+// Use the StreamBuilder approach
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
-import 'dart:async';
 
-class ConnectionStatusIndicator extends ConsumerStatefulWidget {
+class ConnectionStatusIndicator extends StatelessWidget {
   const ConnectionStatusIndicator({super.key});
 
   @override
-  ConsumerState<ConnectionStatusIndicator> createState() =>
-      _ConnectionStatusIndicatorState();
-}
-
-class _ConnectionStatusIndicatorState
-    extends ConsumerState<ConnectionStatusIndicator> {
-  final _chatSocketService = ChatSocketService();
-  StreamSubscription? _connectionSub;
-  bool _isConnected = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _isConnected = _chatSocketService.isConnected;
-    
-    _connectionSub = _chatSocketService.onConnectionStateChange.listen((isConnected) {
-      if (mounted) {
-        setState(() {
-          _isConnected = isConnected;
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _connectionSub?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_isConnected) {
-      return const SizedBox.shrink();
-    }
+    final chatSocketService = ChatSocketService();
+    
+    return StreamBuilder<bool>(
+      stream: chatSocketService.onConnectionStateChange,
+      initialData: chatSocketService.isConnected,
+      builder: (context, snapshot) {
+        // Don't show if data hasn't loaded yet
+        if (!snapshot.hasData) {
+          return const SizedBox.shrink();
+        }
+        
+        final isConnected = snapshot.data ?? true;
+        
+        if (isConnected) {
+          return const SizedBox.shrink();
+        }
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      color: Colors.orange,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 12,
-            height: 12,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          color: Colors.orange,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 14,
+                height: 14,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                'Reconnecting to chat...',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          Text(
-            'Reconnecting...',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
-

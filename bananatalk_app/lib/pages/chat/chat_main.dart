@@ -288,6 +288,28 @@ class _ChatMainState extends ConsumerState<ChatMain>
     });
   }
 
+  void _syncUnreadCountsFromProvider(ChatPartnersState providerState) {
+    // Sync local unread counts with provider state
+    if (_chatPartners.isEmpty) return;
+    
+    bool needsUpdate = false;
+    final updatedPartners = _chatPartners.map((partner) {
+      final providerCount = providerState.unreadCounts[partner.id] ?? 0;
+      if (partner.unreadCount != providerCount) {
+        print('🔄 Syncing unread count from provider: ${partner.name} - ${partner.unreadCount} -> $providerCount');
+        needsUpdate = true;
+        return partner.copyWith(unreadCount: providerCount);
+      }
+      return partner;
+    }).toList();
+    
+    if (needsUpdate && mounted) {
+      setState(() {
+        _chatPartners = updatedPartners;
+      });
+    }
+  }
+
   void _syncUnreadCounts() {
     // Only sync if we have partners to avoid unnecessary updates
     if (_chatPartners.isEmpty) return;
@@ -299,6 +321,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
     // Only update provider if local count is higher (meaning we have new unread from API load)
     // Otherwise, update local state to match provider (real-time updates take precedence)
     bool localStateChanged = false;
+    final updatedPartners = <ChatPartner>[];
 
     for (final partner in _chatPartners) {
       final providerCount = currentState.unreadCounts[partner.id] ?? 0;
@@ -306,18 +329,17 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       if (localCount > providerCount) {
         // Local count is higher (e.g., from initial API load), update provider
+        print('📊 Syncing local count to provider: ${partner.name} - $localCount (provider had $providerCount)');
         notifier.updateUnreadCount(partner.id, localCount);
+        updatedPartners.add(partner); // Keep local count
       } else if (localCount != providerCount) {
-        // Provider count is higher or different (real-time update), update local state
-        final partnerIndex = _chatPartners.indexWhere(
-          (p) => p.id == partner.id,
-        );
-        if (partnerIndex != -1) {
-          _chatPartners[partnerIndex] = _chatPartners[partnerIndex].copyWith(
-            unreadCount: providerCount,
-          );
-          localStateChanged = true;
-        }
+        // Provider count is different (real-time update), update local state
+        print('📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)');
+        updatedPartners.add(partner.copyWith(unreadCount: providerCount));
+        localStateChanged = true;
+      } else {
+        // Counts match, keep as is
+        updatedPartners.add(partner);
       }
     }
 
@@ -331,7 +353,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Update UI if local state changed
     if (localStateChanged && mounted) {
-      setState(() {});
+      setState(() {
+        _chatPartners = updatedPartners;
+      });
     }
 
     // Badge count is now automatically updated in the notifier
@@ -791,11 +815,32 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
     if (mounted) {
+      // Get provider counts and update partners with correct unread counts
+      final providerState = ref.read(chatPartnersProvider);
+      final updatedPartners = sortedPartners.map((partner) {
+        // Use provider count if available, otherwise use calculated count
+        final providerCount = providerState.unreadCounts[partner.id];
+        if (providerCount != null && providerCount != partner.unreadCount) {
+          print('📊 Updating unread count for ${partner.name}: ${partner.unreadCount} -> $providerCount (from provider)');
+          return partner.copyWith(unreadCount: providerCount);
+        }
+        return partner;
+      }).toList();
+
       setState(() {
-        _chatPartners = sortedPartners;
+        _chatPartners = updatedPartners;
       });
 
-      _syncUnreadCounts(); // Sync all counts with provider
+      // Sync calculated counts to provider (only if provider doesn't have them)
+      final notifier = ref.read(chatPartnersProvider.notifier);
+      for (final partner in updatedPartners) {
+        if (partner.unreadCount > 0 && 
+            (providerState.unreadCounts[partner.id] == null || 
+             providerState.unreadCounts[partner.id]! < partner.unreadCount)) {
+          print('📊 Syncing unread count to provider for ${partner.name}: ${partner.unreadCount}');
+          notifier.updateUnreadCount(partner.id, partner.unreadCount);
+        }
+      }
 
       if (_chatSocketService.isConnected && _chatPartners.isNotEmpty) {
         try {
@@ -1247,6 +1292,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
   @override
   Widget build(BuildContext context) {
     super.build(context); // Required for AutomaticKeepAliveClientMixin
+
+    // Watch provider to sync unread counts - this will rebuild when provider changes
+    final chatPartnersState = ref.watch(chatPartnersProvider);
+    
+    // Sync local unread counts with provider
+    // Use a separate method to avoid setState during build
+    _syncUnreadCountsFromProvider(chatPartnersState);
 
     final colors = Theme.of(context).colorScheme;
 

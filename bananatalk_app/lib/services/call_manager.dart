@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/webrtc_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:permission_handler/permission_handler.dart';
 
 class CallManager {
   static final CallManager _instance = CallManager._internal();
@@ -272,27 +273,60 @@ class CallManager {
 
       // Check socket connection
       if (_socket == null || !(_chatSocketService?.isConnected ?? false)) {
+        final error = 'Not connected to server. Please check your connection.';
         if (onCallError != null) {
-          onCallError!(
-            'Not connected to server. Please check your connection.',
-          );
+          onCallError!(error);
         }
-        return;
+        throw Exception(error);
       }
 
       // Request permissions
+      print('🔐 Requesting permissions for ${callType == CallType.video ? "video" : "audio"} call');
       bool permissionsGranted = await _webrtcService.requestPermissions(
         callType == CallType.video,
       );
 
       if (!permissionsGranted) {
-        if (onCallError != null) {
-          onCallError!(
-            'Please grant camera and microphone access to make calls.',
-          );
+        // Check which permissions are denied for better error messages
+        final micStatus = await Permission.microphone.status;
+        final cameraStatus = callType == CallType.video 
+            ? await Permission.camera.status 
+            : PermissionStatus.granted;
+        
+        print('❌ Permissions denied - Mic: $micStatus, Camera: $cameraStatus');
+        
+        String error;
+        if (callType == CallType.video) {
+          if (micStatus.isPermanentlyDenied && cameraStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable microphone and camera access in Settings to make video calls.';
+          } else if (micStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable microphone access in Settings to make calls.';
+          } else if (cameraStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable camera access in Settings to make video calls.';
+          } else if (!micStatus.isGranted) {
+            error = 'DENIED:Microphone permission is required for calls. Please grant microphone access when prompted.';
+          } else {
+            error = 'DENIED:Camera permission is required for video calls. Please grant camera access when prompted.';
+          }
+        } else {
+          // Audio call
+          if (micStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable microphone access in Settings to make calls.';
+          } else if (micStatus.isDenied) {
+            error = 'DENIED:Microphone permission is required for calls. Please grant microphone access when prompted.';
+          } else {
+            error = 'DENIED:Microphone permission is required for calls.';
+          }
         }
-        return;
+        
+        print('❌ Permission error: $error');
+        if (onCallError != null) {
+          onCallError!(error);
+        }
+        throw Exception(error);
       }
+      
+      print('✅ Permissions granted');
 
       // Create call model
       currentCall = CallModel(
@@ -306,7 +340,10 @@ class CallManager {
         startTime: DateTime.now(),
       );
 
-      // 🔧 FIX: Emit call initiate and wait for acceptance
+      // 🔧 FIX: Use Completer to wait for ack response
+      final completer = Completer<void>();
+      bool isCompleted = false;
+
       _socket!.emitWithAck(
         'call:initiate',
         {
@@ -314,6 +351,9 @@ class CallManager {
           'callType': callType == CallType.video ? 'video' : 'audio',
         },
         ack: (response) {
+          if (isCompleted) return;
+          isCompleted = true;
+
           if (response != null && response is Map) {
             if (response['status'] == 'success' ||
                 response['success'] == true) {
@@ -323,28 +363,49 @@ class CallManager {
               }
 
               // ✅ Don't create offer here - wait for call:accepted event
-              print('✅ Call initiated, waiting for acceptance...');
+              print('✅ Call initiated successfully, callId: ${currentCall?.callId}');
+              completer.complete();
             } else {
               final error = response['error'] ?? 'Failed to initiate call';
               if (onCallError != null) {
                 onCallError!(error.toString());
               }
               _cleanup();
+              completer.completeError(Exception(error.toString()));
             }
           } else {
+            final error = 'Failed to initiate call - no response from server';
             if (onCallError != null) {
-              onCallError!('Failed to initiate call');
+              onCallError!(error);
             }
             _cleanup();
+            completer.completeError(Exception(error));
+          }
+        },
+      );
+
+      // Wait for ack response with timeout
+      await completer.future.timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          if (!isCompleted) {
+            isCompleted = true;
+            final error = 'Call initiation timeout - server did not respond';
+            if (onCallError != null) {
+              onCallError!(error);
+            }
+            _cleanup();
+            throw TimeoutException(error);
           }
         },
       );
     } catch (e) {
       print('❌ Error initiating call: $e');
-      if (onCallError != null) {
+      if (onCallError != null && e is! TimeoutException) {
         onCallError!('Failed to start call: ${e.toString()}');
       }
       _cleanup();
+      rethrow;
     }
   }
 
@@ -367,11 +428,37 @@ class CallManager {
       );
 
       if (!permissionsGranted) {
+        // Check which permissions are denied for better error messages
+        final micStatus = await Permission.microphone.status;
+        final cameraStatus = currentCall!.callType == CallType.video 
+            ? await Permission.camera.status 
+            : PermissionStatus.granted;
+        
+        String error;
+        if (currentCall!.callType == CallType.video) {
+          if (micStatus.isPermanentlyDenied && cameraStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable microphone and camera access in Settings to answer video calls.';
+          } else if (micStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable microphone access in Settings to answer calls.';
+          } else if (cameraStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable camera access in Settings to answer video calls.';
+          } else if (!micStatus.isGranted) {
+            error = 'DENIED:Microphone permission is required to answer calls.';
+          } else {
+            error = 'DENIED:Camera permission is required to answer video calls.';
+          }
+        } else {
+          // Audio call
+          if (micStatus.isPermanentlyDenied) {
+            error = 'PERMANENTLY_DENIED:Please enable microphone access in Settings to answer calls.';
+          } else {
+            error = 'DENIED:Microphone permission is required to answer calls.';
+          }
+        }
+        
         rejectCall();
         if (onCallError != null) {
-          onCallError!(
-            'Permissions denied. Please enable camera/microphone access.',
-          );
+          onCallError!(error);
         }
         return;
       }

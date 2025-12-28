@@ -42,22 +42,43 @@ class WebRTCService {
   }
 
   Future<bool> requestPermissions(bool isVideo) async {
+    print('🔐 Requesting permissions (video: $isVideo)');
+    
     // Check current permission status first
     final micStatus = await Permission.microphone.status;
+    print('🎤 Microphone status: $micStatus');
+    
     final cameraStatus = isVideo ? await Permission.camera.status : PermissionStatus.granted;
+    if (isVideo) {
+      print('📹 Camera status: $cameraStatus');
+    }
     
     // If already granted, return true
     if (micStatus.isGranted && cameraStatus.isGranted) {
+      print('✅ Permissions already granted');
       return true;
     }
     
+    // If permanently denied, return false immediately (don't request again)
+    if (micStatus.isPermanentlyDenied || (isVideo && cameraStatus.isPermanentlyDenied)) {
+      print('❌ Permissions permanently denied');
+      return false;
+    }
+    
     // Request permissions
+    print('📋 Requesting permissions...');
     Map<Permission, PermissionStatus> statuses = await [
       Permission.microphone,
       if (isVideo) Permission.camera,
     ].request();
 
+    print('📋 Permission request results:');
+    statuses.forEach((permission, status) {
+      print('   ${permission.toString()}: $status');
+    });
+
     bool allGranted = statuses.values.every((status) => status.isGranted);
+    print('✅ All permissions granted: $allGranted');
     return allGranted;
   }
   

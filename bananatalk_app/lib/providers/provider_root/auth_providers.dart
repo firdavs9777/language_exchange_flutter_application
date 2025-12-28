@@ -40,12 +40,12 @@ class AuthService extends ChangeNotifier {
       if (isValid) {
         isLoggedIn = true;
         debugPrint('✅ Token is valid - userId: $userId');
-        
+
         // Re-enable socket reconnection for restored session
         final socketService = SocketService();
         socketService.enableReconnection();
         debugPrint('✅ Socket reconnection enabled for restored session');
-        
+
         notifyListeners();
         return true;
       } else {
@@ -56,12 +56,12 @@ class AuthService extends ChangeNotifier {
           if (refreshResult['success'] == true) {
             isLoggedIn = true;
             debugPrint('✅ Token refreshed successfully - userId: $userId');
-            
+
             // Re-enable socket reconnection for refreshed session
             final socketService = SocketService();
             socketService.enableReconnection();
             debugPrint('✅ Socket reconnection enabled for refreshed session');
-            
+
             notifyListeners();
             return true;
           } else {
@@ -193,12 +193,12 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
         isLoggedIn = true;
-        
+
         // Re-enable socket reconnection for new login
         final socketService = SocketService();
         socketService.enableReconnection();
         debugPrint('✅ Socket reconnection enabled for new user');
-        
+
         // Connect chat socket service
         try {
           final chatSocketService = ChatSocketService();
@@ -208,7 +208,7 @@ class AuthService extends ChangeNotifier {
         } catch (e) {
           debugPrint('⚠️ Error connecting chat socket: $e');
         }
-        
+
         notifyListeners();
 
         // Register FCM token for push notifications
@@ -322,12 +322,12 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
-            
+
             // Re-enable socket reconnection for new login
             final socketService = SocketService();
             socketService.enableReconnection();
             debugPrint('✅ Socket reconnection enabled for Facebook login');
-            
+
             notifyListeners();
 
             debugPrint('✅ Facebook login successful - userId: $responseUserId');
@@ -412,7 +412,7 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('token', token);
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
-        
+
         // Connect chat socket service
         try {
           final chatSocketService = ChatSocketService();
@@ -422,7 +422,7 @@ class AuthService extends ChangeNotifier {
         } catch (e) {
           debugPrint('⚠️ Error connecting chat socket: $e');
         }
-        
+
         notifyListeners();
 
         return {
@@ -509,12 +509,12 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
-            
+
             // Re-enable socket reconnection for new login
             final socketService = SocketService();
             socketService.enableReconnection();
             debugPrint('✅ Socket reconnection enabled for Apple login');
-            
+
             // Connect chat socket service
             try {
               final chatSocketService = ChatSocketService();
@@ -524,7 +524,7 @@ class AuthService extends ChangeNotifier {
             } catch (e) {
               debugPrint('⚠️ Error connecting chat socket: $e');
             }
-            
+
             notifyListeners();
 
             debugPrint('✅ Apple login successful - userId: $responseUserId');
@@ -652,12 +652,12 @@ class AuthService extends ChangeNotifier {
               await prefs.setString('refreshToken', responseRefreshToken);
             }
             await prefs.setString('userId', responseUserId);
-            
+
             // Re-enable socket reconnection for new login
             final socketService = SocketService();
             socketService.enableReconnection();
             debugPrint('✅ Socket reconnection enabled for Google login');
-            
+
             // Connect chat socket service
             try {
               final chatSocketService = ChatSocketService();
@@ -667,7 +667,7 @@ class AuthService extends ChangeNotifier {
             } catch (e) {
               debugPrint('⚠️ Error connecting chat socket: $e');
             }
-            
+
             notifyListeners();
 
             debugPrint('✅ Google login successful - userId: $responseUserId');
@@ -767,19 +767,21 @@ class AuthService extends ChangeNotifier {
   /// 5. Clear caches
   Future<void> _clearAuthData() async {
     debugPrint('🧹 Starting complete logout cleanup...');
-    debugPrint('⚠️ Current token: ${token.substring(0, 20)}... (needed for cleanup)');
-    
+    debugPrint(
+      '⚠️ Current token: ${token.substring(0, 20)}... (needed for cleanup)',
+    );
+
     // 1. FIRST: Disconnect all socket connections (WHILE STILL AUTHENTICATED!)
     // This sends 'logout' event to backend which requires the token
     try {
       debugPrint('1️⃣ Disconnecting sockets (while authenticated)...');
-      
+
       // Disconnect chat socket service
       final chatSocketService = ChatSocketService();
       chatSocketService.disableReconnection();
       await chatSocketService.disconnect();
       debugPrint('✅ Chat socket disconnected');
-      
+
       // Disconnect other socket instances
       final socketService = SocketService();
       await socketService.disconnectAll(); // Now async and sends logout event
@@ -788,11 +790,13 @@ class AuthService extends ChangeNotifier {
       debugPrint('⚠️ Error disconnecting sockets: $e');
       // Continue with logout even if socket disconnect fails
     }
-    
+
     // 2. SECOND: Remove FCM token from backend (WHILE STILL AUTHENTICATED!)
     // Backend needs valid token to remove FCM token
     try {
-      debugPrint('2️⃣ Removing FCM token from backend (while authenticated)...');
+      debugPrint(
+        '2️⃣ Removing FCM token from backend (while authenticated)...',
+      );
       final notificationService = NotificationService();
       await notificationService.removeToken();
       debugPrint('✅ FCM token removed from backend');
@@ -800,7 +804,7 @@ class AuthService extends ChangeNotifier {
       debugPrint('⚠️ Error removing FCM token: $e');
       // Continue with logout even if FCM removal fails
     }
-    
+
     // 3. THIRD: Clear in-memory auth state (NOW it's safe to clear tokens)
     debugPrint('3️⃣ Clearing in-memory auth state...');
     userId = '';
@@ -808,7 +812,7 @@ class AuthService extends ChangeNotifier {
     refreshToken = '';
     isLoggedIn = false;
     debugPrint('✅ Auth state cleared');
-    
+
     // 4. FOURTH: Clear ALL SharedPreferences (user data, tokens, caches, etc.)
     debugPrint('4️⃣ Clearing SharedPreferences...');
     final prefs = await SharedPreferences.getInstance();
@@ -816,17 +820,17 @@ class AuthService extends ChangeNotifier {
       // Get all keys before clearing
       final keys = prefs.getKeys();
       debugPrint('📦 Clearing ${keys.length} SharedPreferences keys');
-      
+
       // Clear all data
       await prefs.clear();
-      
+
       debugPrint('✅ All SharedPreferences cleared');
     } catch (e) {
       debugPrint('⚠️ Error clearing SharedPreferences: $e');
       // Fallback: remove specific keys
-    await prefs.remove('token');
-    await prefs.remove('refreshToken');
-    await prefs.remove('userId');
+      await prefs.remove('token');
+      await prefs.remove('refreshToken');
+      await prefs.remove('userId');
       await prefs.remove('fcm_token');
       await prefs.remove('savedMoments');
       await prefs.remove('count');
@@ -838,7 +842,7 @@ class AuthService extends ChangeNotifier {
         }
       }
     }
-    
+
     // 5. FIFTH: Clear image cache
     debugPrint('5️⃣ Clearing image cache...');
     try {
@@ -849,7 +853,7 @@ class AuthService extends ChangeNotifier {
     } catch (e) {
       debugPrint('⚠️ Error clearing image cache: $e');
     }
-    
+
     debugPrint('🎉 Logout cleanup completed successfully!');
     notifyListeners();
   }
@@ -860,6 +864,15 @@ class AuthService extends ChangeNotifier {
     );
 
     try {
+      print('🚪 Starting logout process...');
+
+      // ✅ CRITICAL: Disconnect socket BEFORE clearing auth data
+      final chatSocketService = ChatSocketService();
+      print('🔌 Disconnecting socket...');
+      chatSocketService.disableReconnection(); // Prevent reconnection
+      await chatSocketService.disconnect();
+      print('✅ Socket disconnected');
+
       final response = await http.post(
         url,
         headers: {
@@ -872,17 +885,27 @@ class AuthService extends ChangeNotifier {
         }),
       );
 
-      // Clear auth data regardless of response status
+      // Clear auth data
       await _clearAuthData();
+      print('✅ Auth data cleared');
 
       if (response.statusCode == 200) {
         return {'success': true, 'message': 'Logged out successfully'};
       } else {
-        // Even if logout fails on server, we've cleared local data
         return {'success': true, 'message': 'Logged out locally'};
       }
     } catch (e) {
-      // Clear auth data even on error
+      print('❌ Logout error: $e');
+
+      // Still disconnect socket and clear data
+      try {
+        final chatSocketService = ChatSocketService();
+        chatSocketService.disableReconnection();
+        await chatSocketService.disconnect();
+      } catch (socketError) {
+        print('⚠️ Socket disconnect error: $socketError');
+      }
+
       await _clearAuthData();
       return {'success': true, 'message': 'Logged out locally'};
     }
@@ -1044,12 +1067,12 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
         isLoggedIn = true;
-        
+
         // Re-enable socket reconnection for new registration
         final socketService = SocketService();
         socketService.enableReconnection();
         debugPrint('✅ Socket reconnection enabled for new registration');
-        
+
         // Connect chat socket service
         try {
           final chatSocketService = ChatSocketService();
@@ -1059,7 +1082,7 @@ class AuthService extends ChangeNotifier {
         } catch (e) {
           debugPrint('⚠️ Error connecting chat socket: $e');
         }
-        
+
         notifyListeners();
 
         return {
@@ -1320,12 +1343,12 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('refreshToken', refreshToken);
         await prefs.setString('userId', userId);
         isLoggedIn = true;
-        
+
         // Re-enable socket reconnection for password reset login
         final socketService = SocketService();
         socketService.enableReconnection();
         debugPrint('✅ Socket reconnection enabled after password reset');
-        
+
         // Connect chat socket service
         try {
           final chatSocketService = ChatSocketService();
@@ -1335,7 +1358,7 @@ class AuthService extends ChangeNotifier {
         } catch (e) {
           debugPrint('⚠️ Error connecting chat socket: $e');
         }
-        
+
         notifyListeners();
 
         return {
@@ -1501,7 +1524,7 @@ class AuthService extends ChangeNotifier {
       final errorData = json.decode(response.body);
       throw Exception(
         errorData['error'] ??
-          errorData['message'] ??
+            errorData['message'] ??
             'Failed to update privacy settings',
       );
     }
@@ -1630,7 +1653,7 @@ class AuthService extends ChangeNotifier {
       debugPrint('❌ Followers API Error: ${errorData.toString()}');
       throw Exception(
         errorData['error'] ??
-          errorData['message'] ??
+            errorData['message'] ??
             'Failed to load followers',
       );
     }
@@ -1706,7 +1729,7 @@ class AuthService extends ChangeNotifier {
       debugPrint('❌ Followings API Error: ${errorData.toString()}');
       throw Exception(
         errorData['error'] ??
-          errorData['message'] ??
+            errorData['message'] ??
             'Failed to load followings',
       );
     }
@@ -1736,7 +1759,7 @@ class AuthService extends ChangeNotifier {
       request.headers['Authorization'] = 'Bearer $authToken';
 
       // Add image files with 'photos' field name (not 'file')
-    for (var imageFile in imageFiles) {
+      for (var imageFile in imageFiles) {
         // Check if file exists
         if (!await imageFile.exists()) {
           debugPrint('❌ Image file does not exist: ${imageFile.path}');
@@ -1773,14 +1796,14 @@ class AuthService extends ChangeNotifier {
         }
 
         // IMPORTANT: Use 'photos' field name (plural) - matches backend expectation
-      request.files.add(
-        await http.MultipartFile.fromPath(
+        request.files.add(
+          await http.MultipartFile.fromPath(
             'photos',
-          imageFile.path,
+            imageFile.path,
             contentType: MediaType.parse(mimeType),
-        ),
-      );
-    }
+          ),
+        );
+      }
 
       if (request.files.isEmpty) {
         debugPrint('❌ No valid image files to upload');

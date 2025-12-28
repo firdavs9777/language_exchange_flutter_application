@@ -43,6 +43,20 @@ Future<void> main() async {
     debugPrint('❌ Error initializing socket at startup: $e');
   }
 
+  // ⚠️ OPTIONAL: Request all permissions at startup (for testing only)
+  // NOTE: This is NOT recommended for production. Apple guidelines suggest
+  // requesting permissions when they're needed in context.
+  // Uncomment the code below ONLY for testing/debugging purposes:
+  /*
+  try {
+    await PermissionService.requestAllPermissions();
+    final statuses = await PermissionService.checkAllPermissions();
+    debugPrint('📋 Permission statuses:\n${PermissionService.getStatusSummary(statuses)}');
+  } catch (e) {
+    debugPrint('❌ Error requesting permissions: $e');
+  }
+  */
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

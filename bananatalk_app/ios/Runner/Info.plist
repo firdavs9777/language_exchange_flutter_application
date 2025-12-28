@@ -61,11 +61,11 @@
 
    <!-- Camera Permission -->
    <key>NSCameraUsageDescription</key>
-   <string>BananaTalk needs camera access for video calls and to let you take photos for your moments and profile.</string>
+   <string>BananaTalk needs access to your camera to take photos, record videos, and make video calls with language partners.</string>
 
    <!-- Microphone Permission -->
    <key>NSMicrophoneUsageDescription</key>
-   <string>BananaTalk needs microphone access for voice and video calls, and for voice messages.</string>
+   <string>BananaTalk needs access to your microphone to make voice and video calls with language partners.</string>
 
    <!-- Photo Library Permission -->
    <key>NSPhotoLibraryUsageDescription</key>
@@ -73,9 +73,11 @@
 
    <!-- Location Permissions -->
    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-   <string>Bananatalk needs your location to tag your moments, find language partners nearby, and show local cultural events.</string>
+   <string>BananaTalk uses your location to help you find language partners nearby and show your city on your profile.</string>
    <key>NSLocationWhenInUseUsageDescription</key>
-   <string>Bananatalk needs your location to tag your moments, find language partners nearby, and show local cultural events.</string>
+   <string>BananaTalk uses your location to help you find language partners nearby and show your city on your profile.</string>
+   <key>NSLocationAlwaysUsageDescription</key>
+   <string>BananaTalk uses your location to help you find language partners nearby.</string>
 
    <!-- CRITICAL: Background Modes for Calls -->
    <key>UIBackgroundModes</key>

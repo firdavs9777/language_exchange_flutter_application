@@ -5,6 +5,9 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
@@ -16,6 +19,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:app_settings/app_settings.dart';
 
 class SingleCommunity extends ConsumerStatefulWidget {
   final Community community;
@@ -268,24 +272,175 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     );
   }
 
-  void _makeVideoCall() {
-    // Implement video call functionality
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Video call with ${widget.community.name} initiated'),
-        backgroundColor: Colors.blue[600],
-      ),
-    );
+  Future<void> _makeVideoCall() async {
+    if (userId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please login to make a call'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (userId == widget.community.id) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You cannot call yourself'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    try {
+      final callNotifier = ref.read(callProvider.notifier);
+      final profilePicture = widget.community.imageUrls.isNotEmpty
+          ? widget.community.imageUrls[0]
+          : null;
+
+      // Setup error callback to handle permission errors
+      callNotifier.setCallErrorCallback((error) {
+        if (mounted) {
+          _handleCallError(context, error);
+        }
+      });
+
+      await callNotifier.initiateCall(
+        widget.community.id,
+        widget.community.name,
+        profilePicture,
+        CallType.video,
+      );
+
+      // Navigate to active call screen
+      if (mounted) {
+        final currentCall = callNotifier.currentCall;
+        if (currentCall != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ActiveCallScreen(call: currentCall),
+              fullscreenDialog: true,
+            ),
+          );
+        }
+      }
+
+      print('✅ Video call initiated to ${widget.community.name}');
+    } catch (e) {
+      print('❌ Error initiating video call: $e');
+      if (mounted) {
+        _handleCallError(context, e.toString());
+      }
+    }
   }
 
-  void _makeVoiceCall() {
-    // Implement voice call functionality
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Voice call with ${widget.community.name} initiated'),
-        backgroundColor: Colors.green[600],
-      ),
-    );
+  Future<void> _makeVoiceCall() async {
+    if (userId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please login to make a call'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (userId == widget.community.id) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You cannot call yourself'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    try {
+      final callNotifier = ref.read(callProvider.notifier);
+      final profilePicture = widget.community.imageUrls.isNotEmpty
+          ? widget.community.imageUrls[0]
+          : null;
+
+      // Setup error callback to handle permission errors
+      callNotifier.setCallErrorCallback((error) {
+        if (mounted) {
+          _handleCallError(context, error);
+        }
+      });
+
+      await callNotifier.initiateCall(
+        widget.community.id,
+        widget.community.name,
+        profilePicture,
+        CallType.audio,
+      );
+
+      // Navigate to active call screen
+      if (mounted) {
+        final currentCall = callNotifier.currentCall;
+        if (currentCall != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ActiveCallScreen(call: currentCall),
+              fullscreenDialog: true,
+            ),
+          );
+        }
+      }
+
+      print('✅ Voice call initiated to ${widget.community.name}');
+    } catch (e) {
+      print('❌ Error initiating voice call: $e');
+      if (mounted) {
+        _handleCallError(context, e.toString());
+      }
+    }
+  }
+
+  void _handleCallError(BuildContext context, String error) {
+    if (error.startsWith('PERMANENTLY_DENIED:')) {
+      final message = error.substring('PERMANENTLY_DENIED:'.length);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Permissions Required'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                AppSettings.openAppSettings();
+              },
+              child: const Text('Open Settings'),
+            ),
+          ],
+        ),
+      );
+    } else if (error.startsWith('DENIED:')) {
+      final message = error.substring('DENIED:'.length);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.orange,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
 
   @override
