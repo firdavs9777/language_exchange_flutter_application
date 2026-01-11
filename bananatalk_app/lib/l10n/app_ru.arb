@@ -342,5 +342,11 @@
   "youHaveAlreadyReportedThisMoment": "Вы уже пожаловались на этот момент",
   "tellUsMoreAboutWhyYouAreReportingThis": "Расскажите нам больше о том, почему вы жалуетесь на это",
   "errorSharing": "Ошибка при обмене",
-  "deviceInfo": "Информация об устройстве"
+  "deviceInfo": "Информация об устройстве",
+  "recommended": "Рекомендуемые",
+  "anyLanguage": "Любой язык",
+  "noLanguagesFound": "Языки не найдены",
+  "selectALanguage": "Выберите язык",
+  "languagesAreStillLoading": "Загрузка языков...",
+  "selectNativeLanguage": "Выберите ваш родной язык"
 }

@@ -342,5 +342,11 @@
   "youHaveAlreadyReportedThisMoment": "لقد أبلغت بالفعل عن هذه اللحظة",
   "tellUsMoreAboutWhyYouAreReportingThis": "أخبرنا المزيد عن سبب إبلاغك عن هذا",
   "errorSharing": "خطأ في المشاركة",
-  "deviceInfo": "معلومات الجهاز"
+  "deviceInfo": "معلومات الجهاز",
+  "recommended": "موصى به",
+  "anyLanguage": "أي لغة",
+  "noLanguagesFound": "لم يتم العثور على لغات",
+  "selectALanguage": "اختر لغة",
+  "languagesAreStillLoading": "جاري تحميل اللغات...",
+  "selectNativeLanguage": "اختر لغتك الأم"
 }

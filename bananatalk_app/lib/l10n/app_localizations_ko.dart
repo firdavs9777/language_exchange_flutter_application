@@ -1020,4 +1020,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get deviceInfo => '장치 정보';
+
+  @override
+  String get recommended => '추천';
+
+  @override
+  String get anyLanguage => '모든 언어';
+
+  @override
+  String get noLanguagesFound => '언어를 찾을 수 없습니다';
+
+  @override
+  String get selectALanguage => '언어 선택';
+
+  @override
+  String get languagesAreStillLoading => '언어를 불러오는 중...';
+
+  @override
+  String get selectNativeLanguage => '모국어 선택';
 }

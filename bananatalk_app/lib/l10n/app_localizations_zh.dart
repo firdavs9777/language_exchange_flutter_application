@@ -1020,4 +1020,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get deviceInfo => '设备信息';
+
+  @override
+  String get recommended => '推荐';
+
+  @override
+  String get anyLanguage => '任何语言';
+
+  @override
+  String get noLanguagesFound => '未找到语言';
+
+  @override
+  String get selectALanguage => '选择语言';
+
+  @override
+  String get languagesAreStillLoading => '正在加载语言...';
+
+  @override
+  String get selectNativeLanguage => '选择您的母语';
 }

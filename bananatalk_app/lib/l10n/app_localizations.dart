@@ -2088,6 +2088,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Device Info'**
   String get deviceInfo;
+
+  /// No description provided for @recommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get recommended;
+
+  /// No description provided for @anyLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Any Language'**
+  String get anyLanguage;
+
+  /// No description provided for @noLanguagesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No languages found'**
+  String get noLanguagesFound;
+
+  /// No description provided for @selectALanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a language'**
+  String get selectALanguage;
+
+  /// No description provided for @languagesAreStillLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages are still loading...'**
+  String get languagesAreStillLoading;
+
+  /// No description provided for @selectNativeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select native language'**
+  String get selectNativeLanguage;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

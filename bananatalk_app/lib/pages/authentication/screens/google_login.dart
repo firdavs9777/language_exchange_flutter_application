@@ -62,12 +62,14 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         clientId: Platform.isIOS ? _iosClientId : null,
         serverClientId: Platform.isAndroid ? _webClientId : null,
       );
-      print('🔑 Using Google Client ID: ${Platform.isIOS ? _iosClientId : _webClientId}');
+      print(
+        '🔑 Using Google Client ID: ${Platform.isIOS ? _iosClientId : _webClientId}',
+      );
 
       // Sign out any previously signed-in account to force account picker
       // This ensures the account selection popup appears when user has multiple accounts
       await googleSignIn.signOut();
-      
+
       // Small delay to ensure sign out completes
       await Future.delayed(const Duration(milliseconds: 100));
 
@@ -99,9 +101,11 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
       print('🎫 Got ID token, sending to backend...');
 
-      final result =
-          await ref.read(authServiceProvider).signInWithGoogleNative(idToken);
+      final result = await ref
+          .read(authServiceProvider)
+          .signInWithGoogleNative(idToken);
 
+      print(result);
       if (result['success'] == true) {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
@@ -113,7 +117,8 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         final bool profileCompleted = user?['profileCompleted'] ?? false;
 
         // Secondary check: Look for placeholder/default values
-        final bool hasDefaultValues = (user?['native_language'] == null ||
+        final bool hasDefaultValues =
+            (user?['native_language'] == null ||
                 user?['native_language'] == '' ||
                 user?['native_language'] == 'English') &&
             (user?['language_to_learn'] == null ||
@@ -186,7 +191,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
             // Check if user has accepted terms of service
             try {
-              final loggedInUser = await ref.read(authServiceProvider).getLoggedInUser();
+              final loggedInUser = await ref
+                  .read(authServiceProvider)
+                  .getLoggedInUser();
               if (!loggedInUser.termsAccepted) {
                 // Show terms screen before entering app
                 await Navigator.of(context).push(
@@ -194,11 +201,13 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                     builder: (context) => const TermsOfServiceScreen(),
                   ),
                 );
-                
+
                 if (!mounted) return;
-                
+
                 // Re-check after terms acceptance
-                final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
+                final updatedUser = await ref
+                    .read(authServiceProvider)
+                    .getLoggedInUser();
                 if (!updatedUser.termsAccepted) {
                   // User didn't accept terms, stay on login screen
                   return;
@@ -236,7 +245,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                 debugPrint('✅ FCM token registered after Google login');
               }
             } catch (e) {
-              debugPrint('⚠️ Error registering FCM token after Google login: $e');
+              debugPrint(
+                '⚠️ Error registering FCM token after Google login: $e',
+              );
             }
 
             Navigator.of(context).pushReplacement(
@@ -246,7 +257,8 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: BananaText(
-                  'Welcome back, ${user?['name'] ?? 'User'}! 👋',
+                  'Welcome back, ${user?['name']}! 👋',
+
                   BanaStyles: BananaTextStyles.success,
                 ),
                 duration: const Duration(seconds: 2),
@@ -333,10 +345,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                       height: 100,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF4285F4),
-                            Color(0xFF34A853),
-                          ],
+                          colors: [Color(0xFF4285F4), Color(0xFF34A853)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -507,9 +516,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                                 ),
                                 child: const Text(
                                   'Try Again',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -523,10 +530,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                     // Back to Sign In Methods Link
                     TextButton.icon(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 18,
-                      ),
+                      icon: const Icon(Icons.arrow_back, size: 18),
                       label: const Text(
                         'Back to sign-in methods',
                         style: TextStyle(

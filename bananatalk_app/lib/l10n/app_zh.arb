@@ -331,6 +331,12 @@
   "youHaveAlreadyReportedThisMoment": "您已经举报过此动态",
   "tellUsMoreAboutWhyYouAreReportingThis": "请告诉我们更多关于您举报此内容的原因",
   "errorSharing": "分享时出错",
-  "deviceInfo": "设备信息"
+  "deviceInfo": "设备信息",
+  "recommended": "推荐",
+  "anyLanguage": "任何语言",
+  "noLanguagesFound": "未找到语言",
+  "selectALanguage": "选择语言",
+  "languagesAreStillLoading": "正在加载语言...",
+  "selectNativeLanguage": "选择您的母语"
 }
 

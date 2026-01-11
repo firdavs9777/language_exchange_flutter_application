@@ -37,25 +37,21 @@ class BananaTextStyles {
   static const TextStyle heading = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    
   );
 
   static const TextStyle subheading = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    
   );
 
   static const TextStyle body = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    
   );
 
   static const TextStyle caption = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
-    
   );
 
   // Extended styles for buttons and more
@@ -68,7 +64,6 @@ class BananaTextStyles {
   static const TextStyle buttonTextDark = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    
   );
 
   static const TextStyle largeButton = TextStyle(
@@ -102,13 +97,11 @@ class BananaTextStyles {
   static const TextStyle title = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    
   );
 
   static const TextStyle titleLarge = TextStyle(
     fontSize: 26,
     fontWeight: FontWeight.bold,
-    
   );
 
   // Error and success styles
@@ -121,7 +114,7 @@ class BananaTextStyles {
   static const TextStyle success = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: Colors.green,
+    color: Colors.white,
   );
 
   static const TextStyle warning = TextStyle(
@@ -134,44 +127,37 @@ class BananaTextStyles {
   static const TextStyle labelText = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    
   );
 
   static const TextStyle inputText = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    
   );
 
   static const TextStyle hintText = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    
   );
 
   // Special text styles
   static const TextStyle boldText = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    
   );
 
   static const TextStyle lightText = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w300,
-    
   );
 
   static const TextStyle smallText = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
-    
   );
 
   static const TextStyle largeText = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.normal,
-    
   );
 
   // App bar text
@@ -184,13 +170,11 @@ class BananaTextStyles {
   static const TextStyle cardTitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    
   );
 
   static const TextStyle cardSubtitle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    
   );
 
   // Price/number styles
@@ -203,7 +187,7 @@ class BananaTextStyles {
   static const TextStyle priceStrike = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    
+
     decoration: TextDecoration.lineThrough,
   );
 }

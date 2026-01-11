@@ -496,7 +496,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = RJF4T5CJ76;
 				ENABLE_BITCODE = NO;
-				FLUTTER_BUILD_NAME = 1.4.1;
+				FLUTTER_BUILD_NAME = 1.6.1;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BananaTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -684,7 +684,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = RJF4T5CJ76;
 				ENABLE_BITCODE = NO;
-				FLUTTER_BUILD_NAME = 1.4.1;
+				FLUTTER_BUILD_NAME = 1.6.1;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BananaTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -714,7 +714,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = RJF4T5CJ76;
 				ENABLE_BITCODE = NO;
-				FLUTTER_BUILD_NAME = 1.4.1;
+				FLUTTER_BUILD_NAME = 1.6.1;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BananaTalk;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";

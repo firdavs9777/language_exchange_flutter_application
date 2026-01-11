@@ -1020,4 +1020,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deviceInfo => 'Device Info';
+
+  @override
+  String get recommended => 'Recommended';
+
+  @override
+  String get anyLanguage => 'Any Language';
+
+  @override
+  String get noLanguagesFound => 'No languages found';
+
+  @override
+  String get selectALanguage => 'Select a language';
+
+  @override
+  String get languagesAreStillLoading => 'Languages are still loading...';
+
+  @override
+  String get selectNativeLanguage => 'Select native language';
 }

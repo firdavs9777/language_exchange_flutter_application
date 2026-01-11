@@ -91,10 +91,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       setState(() => _currentUserId = userId);
 
       final chatNotifier = ref.read(
-        chatStateProvider(ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: userId,
-        )).notifier,
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: userId,
+          ),
+        ).notifier,
       );
 
       await chatNotifier.initialize();
@@ -106,10 +108,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (_currentUserId == null) return;
 
     final chatNotifier = ref.read(
-      chatStateProvider(ChatProviderParams(
-        chatPartnerId: widget.userId,
-        currentUserId: _currentUserId!,
-      )).notifier,
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ).notifier,
     );
 
     chatNotifier.setLoading(true);
@@ -128,7 +132,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             DateTime.parse(a.createdAt).compareTo(DateTime.parse(b.createdAt)),
       );
 
-      print('📥 Loaded ${conversationMessages.length} messages for conversation');
+      print(
+        '📥 Loaded ${conversationMessages.length} messages for conversation',
+      );
       chatNotifier.setMessages(conversationMessages);
 
       ref
@@ -262,10 +268,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     try {
       final chatNotifier = ref.read(
-        chatStateProvider(ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        )).notifier,
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
       );
 
       // Handle replies via API
@@ -282,10 +290,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (result['success'] == true) {
           final replyMessage = result['data'] as Message;
           final state = ref.read(
-            chatStateProvider(ChatProviderParams(
-              chatPartnerId: widget.userId,
-              currentUserId: _currentUserId!,
-            )),
+            chatStateProvider(
+              ChatProviderParams(
+                chatPartnerId: widget.userId,
+                currentUserId: _currentUserId!,
+              ),
+            ),
           );
 
           final messages = List<Message>.from(state.messages)
@@ -305,13 +315,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
 
       // Send via socket
-      print('📤 ChatScreen: Calling sendMessage with text: "$text"');
       final result = await chatNotifier.sendMessage(text);
-      print('📤 ChatScreen: Send result: $result');
 
       if (mounted) setState(() => _isSending = false);
 
-      print('📤 ChatScreen: Result status: ${result['status']}');
       if (result['status'] == 'success') {
         print('✅ ChatScreen: Message sent successfully');
         setState(() => _replyingToMessage = null);
@@ -695,10 +702,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (!_isTyping && _currentUserId != null) {
       _isTyping = true;
       final chatNotifier = ref.read(
-        chatStateProvider(ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        )).notifier,
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
       );
       chatNotifier.sendTyping(true);
     }
@@ -713,10 +722,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (_isTyping && _currentUserId != null) {
       _isTyping = false;
       final chatNotifier = ref.read(
-        chatStateProvider(ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        )).notifier,
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
       );
       chatNotifier.sendTyping(false);
     }
@@ -782,10 +793,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _typingTimer?.cancel();
     if (_isTyping && _currentUserId != null) {
       final chatNotifier = ref.read(
-        chatStateProvider(ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        )).notifier,
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
       );
       chatNotifier.sendTyping(false);
     }
@@ -803,10 +816,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     }
 
     final chatState = ref.watch(
-      chatStateProvider(ChatProviderParams(
-        chatPartnerId: widget.userId,
-        currentUserId: _currentUserId!,
-      )),
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ),
     );
 
     print(

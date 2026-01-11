@@ -618,24 +618,37 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
   void _handleBulkStatusUpdate(dynamic data) {
     try {
+      // Ensure data is a Map
+      if (data is! Map) {
+        print('⚠️ Bulk status update data is not a Map: ${data.runtimeType}');
+        return;
+      }
+
       final Map<String, dynamic> statuses = Map<String, dynamic>.from(data);
 
       if (!mounted) return;
 
       setState(() {
         statuses.forEach((userId, statusData) {
-          _userStatuses[userId] = {
-            'status': statusData['status'],
-            'lastSeen': statusData['lastSeen'] != null
-                ? DateTime.parse(statusData['lastSeen'])
-                : null,
-          };
+          // Ensure statusData is a Map before accessing its properties
+          if (statusData is Map) {
+            final statusMap = Map<String, dynamic>.from(statusData);
+            _userStatuses[userId] = {
+              'status': statusMap['status'],
+              'lastSeen': statusMap['lastSeen'] != null
+                  ? DateTime.parse(statusMap['lastSeen'].toString())
+                  : null,
+            };
+          } else {
+            print('⚠️ Status data for user $userId is not a Map: ${statusData.runtimeType}');
+          }
         });
       });
 
       _processChatPartnersWithStatus();
-    } catch (e) {
+    } catch (e, stackTrace) {
       print('❌ Error handling bulk status update: $e');
+      print('Stack trace: $stackTrace');
     }
   }
 

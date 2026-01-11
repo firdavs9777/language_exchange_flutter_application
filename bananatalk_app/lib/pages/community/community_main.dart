@@ -225,15 +225,15 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         // User explicitly filtered by native language
         final filterLang = _filters['nativeLanguage']
             .toString()
-            .toLowerCase()
             .trim();
         final communityLang = (community.native_language ?? '')
-            .toLowerCase()
             .trim();
 
         if (communityLang.isEmpty) return false; // Skip if no language set
 
-        isLanguageMatch = filterLang == communityLang;
+        // Compare case-insensitively but also check exact match
+        isLanguageMatch = filterLang.toLowerCase() == communityLang.toLowerCase() ||
+            filterLang == communityLang;
       } else {
         // Language exchange matching
         final communityNative = (community.native_language ?? '')
@@ -271,6 +271,10 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         final filterGender = _filters['gender'].toString().toLowerCase().trim();
         final communityGender = (community.gender ?? '').toLowerCase().trim();
 
+        if (filterGender.isEmpty || communityGender.isEmpty) {
+          return false;
+        }
+        
         if (filterGender != communityGender) return false;
       }
 

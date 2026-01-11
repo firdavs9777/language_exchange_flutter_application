@@ -21,12 +21,12 @@ if (localPropertiesFile.exists()) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '10501'   // SAFE DEFAULT
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.5.1'
 }
 
 android {
@@ -46,31 +46,37 @@ android {
 
     defaultConfig {
         applicationId = "com.bananatalk.app"
+
         minSdkVersion = flutter.minSdkVersion
         targetSdk = 36
-        versionCode = flutterVersionCode.toInteger()
-        versionName = flutterVersionName
-        multiDexEnabled = true
+
+        // 🔴 CRITICAL FOR GOOGLE PLAY UPDATES
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+
+        multiDexEnabled true
+
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
         }
-
     }
 
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storeFile keystoreProperties['storeFile']
+                    ? file(keystoreProperties['storeFile'])
+                    : null
             storePassword keystoreProperties['storePassword']
         }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.release
-            minifyEnabled = false
-            shrinkResources = false
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
         }
     }
 }
@@ -80,5 +86,5 @@ dependencies {
 }
 
 flutter {
-    source = '../..'
+    source '../..'
 }

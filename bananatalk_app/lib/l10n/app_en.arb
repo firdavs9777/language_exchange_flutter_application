@@ -410,6 +410,12 @@
   "youHaveAlreadyReportedThisMoment": "You have already reported this moment",
   "tellUsMoreAboutWhyYouAreReportingThis": "Tell us more about why you are reporting this",
   "errorSharing": "Error sharing",
-  "deviceInfo": "Device Info"
+  "deviceInfo": "Device Info",
+  "recommended": "Recommended",
+  "anyLanguage": "Any Language",
+  "noLanguagesFound": "No languages found",
+  "selectALanguage": "Select a language",
+  "languagesAreStillLoading": "Languages are still loading...",
+  "selectNativeLanguage": "Select native language"
 }
 

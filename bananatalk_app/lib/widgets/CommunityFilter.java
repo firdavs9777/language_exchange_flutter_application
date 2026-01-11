@@ -3,9 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
-import 'package:bananatalk_app/models/language_model.dart';
-import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class CommunityFilter extends StatefulWidget {
   final Function(Map<String, dynamic> filters) onApplyFilters;
@@ -25,8 +22,8 @@ class _CommunityFilterState extends State<CommunityFilter> {
   late double _minAge = 18;
   late double _maxAge = 100;
   late String? _selectedGender;
-  Language? _selectedLanguage;
-  List<Language> _languages = [];
+  late String? _selectedLanguage;
+  List<String> _languages = [];
   bool _isLoadingLanguages = true;
   String _errorMessage = '';
   final List<String> genders = ['Male', 'Female', 'Other'];
@@ -42,7 +39,7 @@ class _CommunityFilterState extends State<CommunityFilter> {
     _minAge = (widget.initialFilters['minAge'] ?? 18).toDouble();
     _maxAge = (widget.initialFilters['maxAge'] ?? 100).toDouble();
     _selectedGender = widget.initialFilters['gender'];
-    // _selectedLanguage will be set after languages are loaded in fetchLanguages()
+    _selectedLanguage = widget.initialFilters['nativeLanguage'];
   }
 
   Future<void> fetchLanguages() async {
@@ -54,34 +51,13 @@ class _CommunityFilterState extends State<CommunityFilter> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         List<dynamic> languagesList = data['data'] ?? [];
-        
+        print(languagesList);
         setState(() {
-          // Parse as Language objects
-          _languages = languagesList
-              .map<Language>((json) => Language.fromJson(json))
-              .toList();
+          _languages = languagesList.map<String>((lang) {
+            return lang['name']?.toString() ?? lang.toString();
+          }).toList();
           _isLoadingLanguages = false;
         });
-
-        // Set selected language from initial filters after languages are loaded
-        if (widget.initialFilters['nativeLanguage'] != null && _languages.isNotEmpty) {
-          final initialLangName = widget.initialFilters['nativeLanguage'];
-          try {
-            final matchingLanguage = _languages.firstWhere(
-              (lang) => lang.name == initialLangName,
-            );
-            if (mounted) {
-              setState(() {
-                _selectedLanguage = matchingLanguage;
-              });
-            }
-          } catch (e) {
-            // Language not found, leave as null (Any Language)
-            if (kDebugMode) {
-              print('Initial language "$initialLangName" not found in language list');
-            }
-          }
-        }
       } else {
         throw Exception('Failed to load languages');
       }
@@ -90,9 +66,6 @@ class _CommunityFilterState extends State<CommunityFilter> {
         _isLoadingLanguages = false;
         _errorMessage = 'Failed to load languages. Please try again.';
       });
-      if (kDebugMode) {
-        print('Error fetching languages: $e');
-      }
     }
   }
 
@@ -113,40 +86,11 @@ class _CommunityFilterState extends State<CommunityFilter> {
       'minAge': _minAge.toInt(),
       'maxAge': _maxAge.toInt(),
       'gender': genderValue, // Send lowercase to match backend
-      'nativeLanguage': _selectedLanguage?.name, // Use language name for backend compatibility
+      'nativeLanguage': _selectedLanguage, // Language names should match exactly
     };
     
     widget.onApplyFilters(filters);
     Navigator.pop(context);
-  }
-
-  // Open language picker
-  Future<void> _openLanguagePicker() async {
-    if (_languages.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.languagesAreStillLoading),
-          backgroundColor: const Color(0xFF00BFA5),
-        ),
-      );
-      return;
-    }
-
-    final result = await Navigator.push<Language>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LanguagePickerScreen(
-          languages: _languages,
-          selectedLanguage: _selectedLanguage,
-        ),
-      ),
-    );
-
-    if (result != null) {
-      setState(() {
-        _selectedLanguage = result;
-      });
-    }
   }
 
   @override
@@ -362,74 +306,41 @@ class _CommunityFilterState extends State<CommunityFilter> {
   }
 
   Widget _buildLanguageSelector() {
-    return InkWell(
-      onTap: _openLanguagePicker,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey[200]!),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[200]!),
+      ),
+      child: DropdownButtonFormField<String>(
+        isExpanded: true,
+        value: _selectedLanguage,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          hintText: 'Select native language',
+          hintStyle: TextStyle(color: Colors.grey[500]),
         ),
-        child: Row(
-          children: [
-            // Flag emoji
-            if (_selectedLanguage != null)
-              Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Text(
-                  _selectedLanguage!.flag,
-                  style: const TextStyle(fontSize: 28),
-                ),
-              )
-            else
-              Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Icon(
-                  Icons.public,
-                  size: 28,
-                  color: Colors.grey[400],
-                ),
-              ),
-            
-            // Language names
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _selectedLanguage?.name ?? AppLocalizations.of(context)!.anyLanguage,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: _selectedLanguage != null 
-                          ? Colors.black87 
-                          : Colors.grey[600],
-                    ),
-                  ),
-                  if (_selectedLanguage != null) ...[
-                    const SizedBox(height: 2),
-                    Text(
-                      _selectedLanguage!.nativeName,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-            
-            // Arrow icon
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: Colors.grey[400],
-            ),
-          ],
-        ),
+        onChanged: (newValue) {
+          setState(() {
+            _selectedLanguage = newValue;
+          });
+        },
+        items: [
+          const DropdownMenuItem<String>(
+            value: null,
+            child: Text('Any Language'),
+          ),
+          ..._languages.map<DropdownMenuItem<String>>((language) {
+            return DropdownMenuItem<String>(
+              value: language, // Store language name (e.g., "Korean")
+              child: Text(language),
+            );
+          }).toList(),
+        ],
       ),
     );
   }

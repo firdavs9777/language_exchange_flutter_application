@@ -1020,4 +1020,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deviceInfo => 'معلومات الجهاز';
+
+  @override
+  String get recommended => 'موصى به';
+
+  @override
+  String get anyLanguage => 'أي لغة';
+
+  @override
+  String get noLanguagesFound => 'لم يتم العثور على لغات';
+
+  @override
+  String get selectALanguage => 'اختر لغة';
+
+  @override
+  String get languagesAreStillLoading => 'جاري تحميل اللغات...';
+
+  @override
+  String get selectNativeLanguage => 'اختر لغتك الأم';
 }

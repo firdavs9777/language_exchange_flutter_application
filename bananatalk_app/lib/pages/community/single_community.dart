@@ -581,16 +581,16 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                         backgroundImage: widget.community.imageUrls.isNotEmpty
                             ? NetworkImage(widget.community.imageUrls[0])
                             : null,
-                        child: widget.community.imageUrls.isEmpty
-                            ? Icon(
-                                Icons.person,
-                                size: 80,
-                                color: Colors.white,
-                              )
+                        onBackgroundImageError: widget.community.imageUrls.isNotEmpty
+                            ? (exception, stackTrace) {
+                                // Image failed to load, will use icon fallback
+                              }
                             : null,
-                        onBackgroundImageError: (exception, stackTrace) {
-                          // Image failed to load, will use icon fallback
-                        },
+                        child: const Icon(
+                          Icons.person,
+                          size: 80,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

@@ -342,5 +342,11 @@
   "youHaveAlreadyReportedThisMoment": "Ya has reportado este momento",
   "tellUsMoreAboutWhyYouAreReportingThis": "Cuéntanos más sobre por qué estás reportando esto",
   "errorSharing": "Error al compartir",
-  "deviceInfo": "Información del dispositivo"
+  "deviceInfo": "Información del dispositivo",
+  "recommended": "Recomendado",
+  "anyLanguage": "Cualquier idioma",
+  "noLanguagesFound": "No se encontraron idiomas",
+  "selectALanguage": "Selecciona un idioma",
+  "languagesAreStillLoading": "Cargando idiomas...",
+  "selectNativeLanguage": "Selecciona tu idioma nativo"
 }

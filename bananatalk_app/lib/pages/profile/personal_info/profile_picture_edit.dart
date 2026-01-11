@@ -14,10 +14,7 @@ import 'package:http_parser/http_parser.dart';
 class ProfilePictureEdit extends ConsumerStatefulWidget {
   final Community user;
 
-  const ProfilePictureEdit({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const ProfilePictureEdit({Key? key, required this.user}) : super(key: key);
 
   @override
   ConsumerState<ProfilePictureEdit> createState() => _ProfilePictureEditState();
@@ -34,6 +31,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   void initState() {
     super.initState();
     _existingImageUrls = List<String>.from(widget.user.imageUrls);
+    print(_existingImageUrls.length);
   }
 
   Future<String?> _getToken() async {
@@ -46,14 +44,16 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
     final pickedFiles = await picker.pickMultiImage(imageQuality: 85);
 
     if (pickedFiles != null) {
-      final totalImages = _existingImageUrls.length +
+      final totalImages =
+          _existingImageUrls.length +
           _selectedImages.length +
           pickedFiles.length;
       if (totalImages > maxImages) {
         final remaining =
             maxImages - (_existingImageUrls.length + _selectedImages.length);
         _showErrorSnackBar(
-            'You can only add $remaining more image(s). Maximum is $maxImages images total.');
+          'You can only add $remaining more image(s). Maximum is $maxImages images total.',
+        );
         return;
       }
 
@@ -61,7 +61,8 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       final imagesToAdd = pickedFiles.take(5).toList();
       if (pickedFiles.length > 5) {
         _showErrorSnackBar(
-            'You can upload maximum 5 images at once. Only first 5 will be added.');
+          'You can upload maximum 5 images at once. Only first 5 will be added.',
+        );
       }
 
       setState(() {
@@ -98,6 +99,12 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   }
 
   Future<void> _removeExistingImage(int index) async {
+    // Prevent deletion if this is the last existing image
+    if (_existingImageUrls.length == 1) {
+      _showErrorSnackBar('You must keep at least one profile picture');
+      return;
+    }
+
     // Show confirmation dialog first
     final confirmed = await showDialog<bool>(
       context: context,
@@ -155,9 +162,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
 
       final response = await http.delete(
         Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$index'),
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
+        headers: {'Authorization': 'Bearer $token'},
       );
 
       Navigator.pop(context);
@@ -244,7 +249,8 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         if (fileSize > 10 * 1024 * 1024) {
           Navigator.pop(context);
           _showErrorSnackBar(
-              'Image size exceeds 10MB limit: ${imageFile.path.split('/').last}');
+            'Image size exceeds 10MB limit: ${imageFile.path.split('/').last}',
+          );
           setState(() {
             _isUploading = false;
           });
@@ -329,6 +335,92 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   }
 
   Future<void> _removeAllProfilePictures() async {
+    // If only selected images (not uploaded yet), just clear them (this is OK)
+    if (_existingImageUrls.isEmpty && _selectedImages.isNotEmpty) {
+      // Show confirmation dialog for selected images
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Remove All Selected Images'),
+            content: const Text(
+              'Are you sure you want to remove all selected images?',
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text(
+                  'Remove All',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (confirmed != true) return;
+
+      setState(() {
+        _selectedImages.clear();
+      });
+      _showSuccessSnackBar('Selected images cleared');
+      return;
+    }
+
+    // If there's only one existing image, only allow removing selected images
+    if (_existingImageUrls.length == 1 && _selectedImages.isNotEmpty) {
+      // Show confirmation dialog for selected images only
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Remove All Selected Images'),
+            content: const Text(
+              'Are you sure you want to remove all selected images? (Your existing profile picture will be kept)',
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text(
+                  'Remove All',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (confirmed != true) return;
+
+      setState(() {
+        _selectedImages.clear();
+      });
+      _showSuccessSnackBar('Selected images cleared');
+      return;
+    }
+
+    // Prevent removing all if there's only one existing image and no selected images
+    if (_existingImageUrls.length == 1 && _selectedImages.isEmpty) {
+      _showErrorSnackBar('You must keep at least one profile picture');
+      return;
+    }
+
     // Show confirmation dialog first
     final confirmed = await showDialog<bool>(
       context: context,
@@ -336,7 +428,8 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         return AlertDialog(
           title: const Text('Remove All Images'),
           content: const Text(
-              'Are you sure you want to remove all profile pictures?'),
+            'Are you sure you want to remove all profile pictures?',
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -347,8 +440,10 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child:
-                  const Text('Remove All', style: TextStyle(color: Colors.red)),
+              child: const Text(
+                'Remove All',
+                style: TextStyle(color: Colors.red),
+              ),
             ),
           ],
         );
@@ -379,17 +474,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         },
       );
 
-      // If only selected images (not uploaded yet), just clear them
-      if (_existingImageUrls.isEmpty && _selectedImages.isNotEmpty) {
-        Navigator.pop(context);
-        setState(() {
-          _selectedImages.clear();
-          _isRemoving = false;
-        });
-        _showSuccessSnackBar('Selected images cleared');
-        return;
-      }
-
       final token = await _getToken();
       if (token == null) {
         Navigator.pop(context);
@@ -403,25 +487,44 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       final userId = widget.user.id;
 
       // Remove all images one by one (backend doesn't have bulk delete)
-      for (int i = _existingImageUrls.length - 1; i >= 0; i--) {
+      // Keep the first image (index 0) - remove from the end
+      for (int i = _existingImageUrls.length - 1; i >= 1; i--) {
         await http.delete(
           Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$i'),
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
+          headers: {'Authorization': 'Bearer $token'},
         );
       }
 
       Navigator.pop(context);
 
-      setState(() {
-        _existingImageUrls.clear();
-        _selectedImages.clear();
-      });
+      // Get updated images list from backend
+      final getUserResponse = await http.get(
+        Uri.parse('${Endpoints.baseURL}auth/users/$userId'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      if (getUserResponse.statusCode == 200) {
+        final userData = json.decode(getUserResponse.body);
+        setState(() {
+          if (userData['images'] != null) {
+            _existingImageUrls = List<String>.from(userData['images']);
+          } else {
+            // Fallback: keep only the first image
+            _existingImageUrls = _existingImageUrls.take(1).toList();
+          }
+          _selectedImages.clear();
+        });
+      } else {
+        // Fallback: keep only the first image
+        setState(() {
+          _existingImageUrls = _existingImageUrls.take(1).toList();
+          _selectedImages.clear();
+        });
+      }
 
       ref.refresh(userProvider);
 
-      _showSuccessSnackBar('All images removed successfully');
+      _showSuccessSnackBar('Extra images removed successfully');
 
       Future.delayed(const Duration(milliseconds: 500), () {
         if (mounted) {
@@ -459,7 +562,10 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text('Discard', style: TextStyle(color: Colors.grey)),
+                child: const Text(
+                  'Discard',
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
@@ -507,15 +613,14 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
               const SizedBox(height: 16),
               const Text(
                 'Add Images',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               ListTile(
-                leading:
-                    const Icon(Icons.photo_library, color: Color(0xFF00BFA5)),
+                leading: const Icon(
+                  Icons.photo_library,
+                  color: Color(0xFF00BFA5),
+                ),
                 title: const Text('Choose from Gallery'),
                 subtitle: const Text('Select up to 5 images'),
                 onTap: () {
@@ -551,9 +656,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         ),
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -570,9 +673,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         ),
         backgroundColor: Colors.red,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -587,10 +688,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       appBar: AppBar(
         title: const Text(
           'Profile Pictures',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         elevation: 0,
         backgroundColor: Colors.white,
@@ -601,9 +699,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         ),
         actions: [
           TextButton(
-            onPressed: _isUploading || _isRemoving
-                ? null
-                : () => _handleDone(),
+            onPressed: _isUploading || _isRemoving ? null : () => _handleDone(),
             child: const Text(
               'Done',
               style: TextStyle(
@@ -631,16 +727,16 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.info_outline,
-                        color: Color(0xFF00BFA5), size: 20),
+                    const Icon(
+                      Icons.info_outline,
+                      color: Color(0xFF00BFA5),
+                      size: 20,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         'You can upload up to $maxImages images. Currently: $allImages/$maxImages\nMax 5 images per upload.',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[700],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[700]),
                       ),
                     ),
                   ],
@@ -676,43 +772,50 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                           borderRadius: BorderRadius.circular(12),
                           child: Image.network(
                             ImageUtils.normalizeImageUrl(
-                                _existingImageUrls[index]),
+                              _existingImageUrls[index],
+                            ),
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 color: Colors.grey[200],
-                                child: const Icon(Icons.broken_image,
-                                    color: Colors.grey),
+                                child: const Icon(
+                                  Icons.broken_image,
+                                  color: Colors.grey,
+                                ),
                               );
                             },
                           ),
                         ),
-                        Positioned(
-                          top: 4,
-                          right: 4,
-                          child: GestureDetector(
-                            onTap: () => _removeExistingImage(index),
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.close,
-                                size: 16,
-                                color: Colors.white,
+                        // Only show delete button if there's more than one image
+                        if (_existingImageUrls.length > 1)
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () => _removeExistingImage(index),
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
                         if (index == 0)
                           Positioned(
                             bottom: 4,
                             left: 4,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 2),
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: const Color(0xFF00BFA5),
                                 borderRadius: BorderRadius.circular(4),
@@ -840,8 +943,9 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.white,
+                              ),
                             ),
                           )
                         : Text(
@@ -854,9 +958,9 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                   ),
                 ),
               ],
-              // Remove All Button
-              if (_existingImageUrls.isNotEmpty ||
-                  _selectedImages.isNotEmpty) ...[
+              // Remove All Button - only show if there's more than 1 existing image or selected images
+              if ((_existingImageUrls.length > 1 || _selectedImages.isNotEmpty) &&
+                  !(_existingImageUrls.length == 1 && _selectedImages.isEmpty)) ...[
                 const SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
@@ -870,8 +974,9 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                             width: 16,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.red),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.red,
+                              ),
                             ),
                           )
                         : const Icon(Icons.delete_outline),

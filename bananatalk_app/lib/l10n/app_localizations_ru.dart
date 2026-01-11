@@ -1020,4 +1020,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get deviceInfo => 'Информация об устройстве';
+
+  @override
+  String get recommended => 'Рекомендуемые';
+
+  @override
+  String get anyLanguage => 'Любой язык';
+
+  @override
+  String get noLanguagesFound => 'Языки не найдены';
+
+  @override
+  String get selectALanguage => 'Выберите язык';
+
+  @override
+  String get languagesAreStillLoading => 'Загрузка языков...';
+
+  @override
+  String get selectNativeLanguage => 'Выберите ваш родной язык';
 }

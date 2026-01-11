@@ -48,8 +48,8 @@ class CachedImageWidget extends StatelessWidget {
           errorWidget ?? _buildErrorWidget(context),
       fadeInDuration: const Duration(milliseconds: 200),
       fadeOutDuration: const Duration(milliseconds: 100),
-      memCacheWidth: width != null ? width!.toInt() : null,
-      memCacheHeight: height != null ? height!.toInt() : null,
+      memCacheWidth: (width != null && width!.isFinite) ? width!.toInt() : null,
+      memCacheHeight: (height != null && height!.isFinite) ? height!.toInt() : null,
     );
 
     if (borderRadius != null) {
