@@ -5,6 +5,10 @@ import 'package:bananatalk_app/widgets/blocked_content_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
+import 'package:video_player/video_player.dart';
+import 'package:share_plus/share_plus.dart';
 import 'dart:async';
 
 class StoryViewerScreen extends StatefulWidget {
@@ -38,9 +42,13 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   
   bool _showReplyField = false;
   final TextEditingController _replyController = TextEditingController();
-  
+
   // Blocked state
   bool _isBlocked = false;
+
+  // Video player
+  VideoPlayerController? _videoController;
+  bool _isVideoInitialized = false;
 
   @override
   void initState() {
@@ -58,14 +66,79 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
         _nextStory();
       }
     });
-    
-    _startStoryTimer();
+
+    _initializeCurrentStory();
     _markAsViewed();
+  }
+
+  Future<void> _initializeCurrentStory() async {
+    final story = _currentStory;
+    if (story == null) return;
+
+    // Dispose previous video controller if any
+    await _disposeVideoController();
+
+    if (story.isVideo) {
+      await _initializeVideoPlayer(story);
+    } else {
+      _startStoryTimer();
+    }
+  }
+
+  Future<void> _initializeVideoPlayer(Story story) async {
+    final videoUrl = ImageUtils.normalizeImageUrl(story.mediaUrl);
+    _videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+
+    try {
+      await _videoController!.initialize();
+      if (mounted) {
+        setState(() {
+          _isVideoInitialized = true;
+        });
+
+        // Set video duration for progress
+        final videoDuration = _videoController!.value.duration;
+        _progressController.duration = videoDuration;
+
+        await _videoController!.play();
+        _progressController.forward();
+
+        // Listen for video end
+        _videoController!.addListener(_videoListener);
+      }
+    } catch (e) {
+      debugPrint('Error initializing video: $e');
+      // Fall back to default timer if video fails
+      _startStoryTimer();
+    }
+  }
+
+  void _videoListener() {
+    if (_videoController == null) return;
+
+    final position = _videoController!.value.position;
+    final duration = _videoController!.value.duration;
+
+    if (duration.inMilliseconds > 0) {
+      final progress = position.inMilliseconds / duration.inMilliseconds;
+      _progressController.value = progress.clamp(0.0, 1.0);
+    }
+  }
+
+  Future<void> _disposeVideoController() async {
+    _videoController?.removeListener(_videoListener);
+    await _videoController?.dispose();
+    _videoController = null;
+    setState(() {
+      _isVideoInitialized = false;
+    });
   }
 
   @override
   void dispose() {
     _timer?.cancel();
+    _videoController?.removeListener(_videoListener);
+    _videoController?.dispose();
     _progressController.dispose();
     _userPageController.dispose();
     _replyController.dispose();
@@ -91,6 +164,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     if (!_isPaused) {
       _isPaused = true;
       _progressController.stop();
+      _videoController?.pause();
     }
   }
 
@@ -98,6 +172,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     if (_isPaused) {
       _isPaused = false;
       _progressController.forward();
+      _videoController?.play();
     }
   }
 
@@ -114,7 +189,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
         _currentStoryIndex++;
       });
       _markAsViewed();
-      _startStoryTimer();
+      _initializeCurrentStory();
     } else {
       // Move to next user's stories
       _nextUser();
@@ -126,7 +201,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       setState(() {
         _currentStoryIndex--;
       });
-      _startStoryTimer();
+      _initializeCurrentStory();
     } else {
       _previousUser();
     }
@@ -167,7 +242,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       _currentStoryIndex = 0;
     });
     _markAsViewed();
-    _startStoryTimer();
+    _initializeCurrentStory();
   }
 
   Future<void> _sendReaction(String emoji) async {
@@ -276,6 +351,34 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     }
   }
 
+  void _shareStory() {
+    final story = _currentStory;
+    if (story == null) return;
+
+    final userName = _currentUser.user.name ?? 'User';
+    final storyText = story.text?.isNotEmpty == true ? '\n"${story.text}"' : '';
+    final shareText = 'Check out $userName\'s story on BananaTalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
+
+    Share.share(shareText);
+  }
+
+  void _addMoreToStory() async {
+    _pauseStory();
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CreateStoryScreen(
+          onStoryCreated: () {
+            widget.onStoriesUpdated?.call();
+          },
+        ),
+      ),
+    );
+
+    _resumeStory();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isBlocked) {
@@ -325,13 +428,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       fit: StackFit.expand,
       children: [
         // Story image/video
-        story.mediaType == 'video'
-            ? Container(
-                color: Colors.black,
-                child: const Center(
-                  child: Icon(Icons.play_circle, color: Colors.white, size: 64),
-                ),
-              )
+        story.isVideo
+            ? _buildVideoPlayer(story)
             : CachedImageWidget(
                 imageUrl: story.mediaUrl,
                 fit: BoxFit.contain,
@@ -445,28 +543,58 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                 IconButton(
                   icon: const Icon(Icons.more_vert, color: Colors.white),
                   onPressed: () {
+                    _pauseStory();
                     showModalBottomSheet(
                       context: context,
                       backgroundColor: Colors.grey[900],
-                      builder: (context) => Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.visibility, color: Colors.white70),
-                            title: Text(AppLocalizations.of(context)!.views('${story.viewCount}'), style: const TextStyle(color: Colors.white)),
-                            onTap: () => Navigator.pop(context),
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.delete, color: Colors.red),
-                            title: Text(AppLocalizations.of(context)!.delete, style: const TextStyle(color: Colors.red)),
-                            onTap: () {
-                              Navigator.pop(context);
-                              _deleteStory();
-                            },
-                          ),
-                        ],
+                      builder: (context) => SafeArea(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 12, bottom: 8),
+                              width: 40,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[700],
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.visibility, color: Colors.white70),
+                              title: Text(AppLocalizations.of(context)!.views('${story.viewCount}'), style: const TextStyle(color: Colors.white)),
+                              onTap: () => Navigator.pop(context),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.share, color: Colors.white70),
+                              title: Text(AppLocalizations.of(context)!.share, style: const TextStyle(color: Colors.white)),
+                              onTap: () {
+                                Navigator.pop(context);
+                                _shareStory();
+                              },
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.add_circle_outline, color: Colors.white70),
+                              title: const Text('Add more to story', style: TextStyle(color: Colors.white)),
+                              onTap: () {
+                                Navigator.pop(context);
+                                _addMoreToStory();
+                              },
+                            ),
+                            const Divider(color: Colors.grey, height: 1),
+                            ListTile(
+                              leading: const Icon(Icons.delete, color: Colors.red),
+                              title: Text(AppLocalizations.of(context)!.delete, style: const TextStyle(color: Colors.red)),
+                              onTap: () {
+                                Navigator.pop(context);
+                                _deleteStory();
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
                       ),
-                    );
+                    ).then((_) => _resumeStory());
                   },
                 )
               else
@@ -608,6 +736,37 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             setState(() => _showReplyField = false);
             _resumeStory();
           },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildVideoPlayer(Story story) {
+    if (_isVideoInitialized && _videoController != null) {
+      return Container(
+        color: Colors.black,
+        child: Center(
+          child: AspectRatio(
+            aspectRatio: _videoController!.value.aspectRatio,
+            child: VideoPlayer(_videoController!),
+          ),
+        ),
+      );
+    }
+
+    // Show thumbnail or loading indicator while video loads
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        if (story.videoMetadata?.thumbnail != null)
+          CachedImageWidget(
+            imageUrl: story.videoMetadata!.thumbnail!,
+            fit: BoxFit.contain,
+          )
+        else
+          Container(color: Colors.black),
+        const Center(
+          child: CircularProgressIndicator(color: Colors.white),
         ),
       ],
     );

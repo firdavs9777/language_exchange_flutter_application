@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
+import 'package:bananatalk_app/pages/moments/video_player_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -612,8 +613,33 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               ),
             ),
 
-            // Images
-            if (widget.moments.imageUrls.isNotEmpty)
+            // Video (if available)
+            if (widget.moments.hasVideo && widget.moments.video != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FullScreenVideoPlayer(
+                            video: widget.moments.video!,
+                          ),
+                        ),
+                      );
+                    },
+                    child: MomentVideoPlayer(
+                      video: widget.moments.video!,
+                      height: 280,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              )
+            // Images (if no video)
+            else if (widget.moments.imageUrls.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: _buildImageGrid(),

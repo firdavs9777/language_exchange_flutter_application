@@ -77,7 +77,8 @@ final languageProvider = StateNotifierProvider<LanguageNotifier, Locale>((ref) {
 });
 
 class LanguageNotifier extends StateNotifier<Locale> {
-  LanguageNotifier() : super(const Locale('en', 'US')) {
+  // Use device language synchronously as initial state to avoid English flash
+  LanguageNotifier() : super(LanguageService.getLocale(LanguageService.getDeviceLanguage())) {
     _loadLanguage();
   }
 
@@ -89,6 +90,14 @@ class LanguageNotifier extends StateNotifier<Locale> {
   Future<void> setLanguage(String languageCode) async {
     await LanguageService.setAppLanguage(languageCode);
     state = LanguageService.getLocale(languageCode);
+  }
+
+  /// Reset to use system language (clears saved preference)
+  Future<void> useSystemLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('app_language');
+    final deviceLanguage = LanguageService.getDeviceLanguage();
+    state = LanguageService.getLocale(deviceLanguage);
   }
 }
 

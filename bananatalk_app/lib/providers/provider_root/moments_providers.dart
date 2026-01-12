@@ -356,6 +356,117 @@ class MomentsService {
     }
   }
 
+  /// Upload video to moment (max 3 minutes, max 100MB)
+  /// Returns the updated moment with video data
+  Future<Map<String, dynamic>> uploadMomentVideo(
+    String momentId,
+    File videoFile, {
+    Function(int)? onProgress,
+  }) async {
+    // Validate file size (100MB max)
+    final fileSize = await videoFile.length();
+    if (fileSize > 100 * 1024 * 1024) {
+      throw Exception('Video size exceeds 100MB limit');
+    }
+
+    // Validate file extension
+    final extension = videoFile.path.split('.').last.toLowerCase();
+    String? mimeType;
+    switch (extension) {
+      case 'mp4':
+        mimeType = 'video/mp4';
+        break;
+      case 'mov':
+        mimeType = 'video/quicktime';
+        break;
+      case 'avi':
+        mimeType = 'video/x-msvideo';
+        break;
+      case 'webm':
+        mimeType = 'video/webm';
+        break;
+      case '3gp':
+        mimeType = 'video/3gpp';
+        break;
+      case 'm4v':
+        mimeType = 'video/x-m4v';
+        break;
+      default:
+        throw Exception(
+            'Unsupported video format: $extension. Supported: MP4, MOV, AVI, WebM, 3GP, M4V');
+    }
+
+    final url = Uri.parse(
+        '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/video');
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final request = http.MultipartRequest('PUT', url);
+    request.headers['Authorization'] = 'Bearer $token';
+
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'video',
+        videoFile.path,
+        contentType: MediaType.parse(mimeType),
+      ),
+    );
+
+    try {
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200 && responseData['success'] == true) {
+        return responseData['data'];
+      } else {
+        throw Exception(responseData['error'] ??
+            responseData['message'] ??
+            'Failed to upload video');
+      }
+    } catch (e) {
+      if (e is Exception) {
+        rethrow;
+      }
+      throw Exception('Error uploading video: $e');
+    }
+  }
+
+  /// Delete video from moment
+  Future<void> deleteMomentVideo(String momentId) async {
+    final url = Uri.parse(
+        '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/video');
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
+    final response = await http.delete(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode != 200 || responseData['success'] != true) {
+      throw Exception(responseData['error'] ??
+          responseData['message'] ??
+          'Failed to delete video');
+    }
+  }
+
   Future<Map<String, dynamic>> likeMoment(String momentId) async {
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/like');

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/sender_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -579,6 +580,194 @@ class MessageService {
         return {
           'success': false,
           'error': errorData['error'] ?? 'Failed to search messages',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Get media upload configuration
+  Future<Map<String, dynamic>> getMediaConfig() async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/video-config');
+
+      final response = await http.get(url, headers: _getHeaders(token));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'],
+        };
+      } else {
+        return {
+          'success': false,
+          'error': 'Failed to get media config',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Send video message (max 3 minutes, 100MB)
+  Future<Map<String, dynamic>> sendVideoMessage({
+    required String receiver,
+    required File videoFile,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/video');
+
+      final request = http.MultipartRequest('POST', url);
+      request.headers['Authorization'] = 'Bearer $token';
+      request.fields['receiver'] = receiver;
+
+      // Determine mime type
+      final extension = videoFile.path.split('.').last.toLowerCase();
+      String mimeType = 'video/mp4';
+      if (extension == 'mov') mimeType = 'video/quicktime';
+      else if (extension == 'webm') mimeType = 'video/webm';
+      else if (extension == 'avi') mimeType = 'video/x-msvideo';
+      else if (extension == 'm4v') mimeType = 'video/x-m4v';
+
+      request.files.add(await http.MultipartFile.fromPath(
+        'video',
+        videoFile.path,
+        contentType: MediaType.parse(mimeType),
+      ));
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': Message.fromJson(data['data']),
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to send video message',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Send voice message (max 5 minutes, 25MB)
+  Future<Map<String, dynamic>> sendVoiceMessage({
+    required String receiver,
+    required File audioFile,
+    int? duration,
+    List<double>? waveform,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/voice');
+
+      final request = http.MultipartRequest('POST', url);
+      request.headers['Authorization'] = 'Bearer $token';
+      request.fields['receiver'] = receiver;
+
+      if (duration != null) {
+        request.fields['duration'] = duration.toString();
+      }
+
+      if (waveform != null && waveform.isNotEmpty) {
+        request.fields['waveform'] = jsonEncode(waveform);
+      }
+
+      // Determine mime type
+      final extension = audioFile.path.split('.').last.toLowerCase();
+      String mimeType = 'audio/mp4';
+      if (extension == 'mp3') mimeType = 'audio/mpeg';
+      else if (extension == 'm4a') mimeType = 'audio/mp4';
+      else if (extension == 'ogg') mimeType = 'audio/ogg';
+      else if (extension == 'webm') mimeType = 'audio/webm';
+      else if (extension == 'wav') mimeType = 'audio/wav';
+
+      request.files.add(await http.MultipartFile.fromPath(
+        'voice',
+        audioFile.path,
+        contentType: MediaType.parse(mimeType),
+      ));
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': Message.fromJson(data['data']),
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to send voice message',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Send location message
+  Future<Map<String, dynamic>> sendLocationMessage({
+    required String receiver,
+    required double latitude,
+    required double longitude,
+    String? address,
+    String? placeName,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({
+          'receiver': receiver,
+          'location': {
+            'latitude': latitude,
+            'longitude': longitude,
+            if (address != null) 'address': address,
+            if (placeName != null) 'placeName': placeName,
+          },
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': Message.fromJson(data['data']),
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to send location',
         };
       }
     } catch (e) {

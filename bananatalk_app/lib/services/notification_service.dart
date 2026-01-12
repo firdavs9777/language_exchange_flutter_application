@@ -30,6 +30,9 @@ class NotificationService {
   String? _fcmToken;
   String? get fcmToken => _fcmToken;
 
+  // Track current user ID to ensure token refresh registers with correct user
+  String? _currentUserId;
+
   bool _isInitialized = false;
   BuildContext? _context;
 
@@ -202,7 +205,12 @@ class NotificationService {
       _fcm!.onTokenRefresh.listen((newToken) {
         debugPrint('🔄 FCM Token refreshed: $newToken');
         _fcmToken = newToken;
-        _registerTokenWithBackend();
+        // Use stored currentUserId to ensure we register with correct user after account switch
+        if (_currentUserId != null) {
+          _registerTokenWithBackend(_currentUserId);
+        } else {
+          debugPrint('⚠️ Token refreshed but no current user set, skipping registration');
+        }
       });
     } catch (e) {
       debugPrint('❌ Error getting FCM token: $e');
@@ -347,6 +355,9 @@ class NotificationService {
   Future<void> registerToken(String userId) async {
     debugPrint('🔑 Registering token for user: $userId');
 
+    // Store the current user ID for token refresh events
+    _currentUserId = userId;
+
     // Wait a bit to ensure FCM token is available
     if (_fcmToken == null) {
       debugPrint('⏳ FCM token not ready yet, waiting...');
@@ -372,6 +383,8 @@ class NotificationService {
       if (result['success'] == true) {
         debugPrint('✅ Token removed from backend');
         _fcmToken = null;
+        // Clear current user ID to prevent token refresh registering with old user
+        _currentUserId = null;
 
         // Clear local token
         final prefs = await SharedPreferences.getInstance();
@@ -381,6 +394,8 @@ class NotificationService {
       }
     } catch (e) {
       debugPrint('⚠️ Error removing token (may be already logged out): $e');
+      // Clear current user ID even on error
+      _currentUserId = null;
       // Don't throw error on logout - token might already be removed
     }
   }

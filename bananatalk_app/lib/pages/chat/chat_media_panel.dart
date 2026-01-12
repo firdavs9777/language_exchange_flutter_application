@@ -17,7 +17,7 @@ class ChatMediaPanel extends StatelessWidget {
       animation: animationController,
       builder: (context, child) {
         return Container(
-          height: 220 * animationController.value,
+          height: 280 * animationController.value,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border(
@@ -66,6 +66,12 @@ class ChatMediaPanel extends StatelessWidget {
                         onTap: () => onMediaOption('gallery'),
                       ),
                       MediaOptionButton(
+                        icon: Icons.videocam,
+                        label: 'Video',
+                        color: Colors.indigo,
+                        onTap: () => onMediaOption('video'),
+                      ),
+                      MediaOptionButton(
                         icon: Icons.insert_drive_file,
                         label: 'Document',
                         color: Colors.blue,
@@ -94,6 +100,12 @@ class ChatMediaPanel extends StatelessWidget {
                         label: 'Voice',
                         color: Colors.red,
                         onTap: () => onMediaOption('audio'),
+                      ),
+                      MediaOptionButton(
+                        icon: Icons.video_camera_front,
+                        label: 'Record',
+                        color: Colors.teal,
+                        onTap: () => onMediaOption('record_video'),
                       ),
                     ],
                   ),

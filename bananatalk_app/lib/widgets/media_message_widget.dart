@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/voice_message_player.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -28,6 +29,8 @@ class MediaMessageWidget extends StatelessWidget {
         return _buildImageMessage(context, colorScheme);
       case 'video':
         return _buildVideoMessage(context, colorScheme);
+      case 'voice':
+        return _buildVoiceMessage(context, colorScheme);
       case 'audio':
         return _buildAudioMessage(context, colorScheme);
       case 'document':
@@ -153,7 +156,18 @@ class MediaMessageWidget extends StatelessWidget {
     );
   }
 
+  Widget _buildVoiceMessage(BuildContext context, ColorScheme colorScheme) {
+    return VoiceMessagePlayer(
+      audioUrl: media.url,
+      durationSeconds: media.duration ?? 0,
+      waveform: media.waveform,
+      isFromMe: isSentByMe,
+      onPlayed: onTap,
+    );
+  }
+
   Widget _buildAudioMessage(BuildContext context, ColorScheme colorScheme) {
+    // For audio files (music, etc.) - different from voice messages
     return Container(
       width: 250,
       padding: const EdgeInsets.all(12),

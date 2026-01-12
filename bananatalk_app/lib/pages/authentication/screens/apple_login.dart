@@ -66,21 +66,20 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
 
+        // Debug: Log the full user object to see what backend returns
+        print('🔍 Apple login - Full user data from backend: $user');
+        print('🔍 Apple login - profileCompleted raw value: ${user?['profileCompleted']}');
+        print('🔍 Apple login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
+
         // Check profileCompleted flag from backend
+        // Only redirect to profile completion if explicitly set to false
         final bool profileCompleted = user?['profileCompleted'] ?? true;
 
-        // Secondary check: Look for default values
-        final bool hasDefaultValues = user?['native_language'] == 'English' &&
-            user?['language_to_learn'] == 'Korean' &&
-            user?['gender'] == 'other' &&
-            user?['birth_year'] == '2000';
-
-        // User needs to complete profile if flag is false OR has default values
-        final bool needsProfileCompletion =
-            !profileCompleted || hasDefaultValues;
+        // User needs to complete profile only if backend says so
+        final bool needsProfileCompletion = !profileCompleted;
 
         print(
-            '🔍 Profile check: profileCompleted=$profileCompleted, hasDefaultValues=$hasDefaultValues, needsCompletion=$needsProfileCompletion');
+            '🔍 Profile check: profileCompleted=$profileCompleted, needsCompletion=$needsProfileCompletion');
 
         setState(() {
           _isLoading = false;

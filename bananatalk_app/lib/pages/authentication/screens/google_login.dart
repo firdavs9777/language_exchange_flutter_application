@@ -110,32 +110,21 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
 
-        print('📦 Backend response user data: $user');
+        // Debug: Log the full user object to see what backend returns
+        print('🔍 Google login - Full user data from backend: $user');
+        print('🔍 Google login - profileCompleted raw value: ${user?['profileCompleted']}');
+        print('🔍 Google login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
 
-        // CRITICAL FIX: Default to FALSE if not set
-        // This ensures new users must complete their profile
-        final bool profileCompleted = user?['profileCompleted'] ?? false;
+        // Check profileCompleted flag from backend
+        // Only redirect to profile completion if explicitly set to false
+        final bool profileCompleted = user?['profileCompleted'] ?? true;
 
-        // Secondary check: Look for placeholder/default values
-        final bool hasDefaultValues =
-            (user?['native_language'] == null ||
-                user?['native_language'] == '' ||
-                user?['native_language'] == 'English') &&
-            (user?['language_to_learn'] == null ||
-                user?['language_to_learn'] == '' ||
-                user?['language_to_learn'] == 'Korean') &&
-            (user?['gender'] == null || user?['gender'] == 'other');
-
-        // User needs to complete profile if:
-        // 1. Backend says profile is not completed, OR
-        // 2. User has default/placeholder values
-        final bool needsProfileCompletion =
-            !profileCompleted || hasDefaultValues;
+        // User needs to complete profile only if backend says so
+        final bool needsProfileCompletion = !profileCompleted;
 
         print('═══════════════════════════════════════');
         print('🔍 PROFILE COMPLETION CHECK:');
         print('   profileCompleted: $profileCompleted');
-        print('   hasDefaultValues: $hasDefaultValues');
         print('   needsCompletion: $needsProfileCompletion');
         print('───────────────────────────────────────');
         print('📝 User Profile Data:');

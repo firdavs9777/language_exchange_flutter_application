@@ -1,6 +1,59 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
+/// Video data for moment
+class MomentVideo {
+  final String url;
+  final String? thumbnail;
+  final int? duration; // in seconds
+  final int? width;
+  final int? height;
+  final String? mimeType;
+  final int? fileSize;
+
+  const MomentVideo({
+    required this.url,
+    this.thumbnail,
+    this.duration,
+    this.width,
+    this.height,
+    this.mimeType,
+    this.fileSize,
+  });
+
+  factory MomentVideo.fromJson(Map<String, dynamic> json) {
+    return MomentVideo(
+      url: json['url']?.toString() ?? '',
+      thumbnail: json['thumbnail']?.toString(),
+      duration: json['duration'] is int ? json['duration'] : null,
+      width: json['width'] is int ? json['width'] : null,
+      height: json['height'] is int ? json['height'] : null,
+      mimeType: json['mimeType']?.toString(),
+      fileSize: json['fileSize'] is int ? json['fileSize'] : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'url': url,
+      if (thumbnail != null) 'thumbnail': thumbnail,
+      if (duration != null) 'duration': duration,
+      if (width != null) 'width': width,
+      if (height != null) 'height': height,
+      if (mimeType != null) 'mimeType': mimeType,
+      if (fileSize != null) 'fileSize': fileSize,
+    };
+  }
+
+  /// Format duration as mm:ss
+  String get formattedDuration {
+    if (duration == null) return '';
+    final minutes = duration! ~/ 60;
+    final seconds = duration! % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+}
+
 class Moments {
   const Moments({
     required this.id,
@@ -31,6 +84,9 @@ class Moments {
     this.deletedAt,
     // Translation fields
     this.translations = const [],
+    // Video fields
+    this.video,
+    this.mediaType = 'image',
   });
 
   final String id;
@@ -62,9 +118,19 @@ class Moments {
   // Soft delete fields
   final bool isDeleted;
   final DateTime? deletedAt;
-  
+
   // Translation fields
   final List<MessageTranslation> translations;
+
+  // Video fields
+  final MomentVideo? video;
+  final String mediaType; // 'image', 'video', 'text'
+
+  /// Check if this moment has a video
+  bool get hasVideo => video != null && video!.url.isNotEmpty;
+
+  /// Check if this moment has images
+  bool get hasImages => imageUrls.isNotEmpty;
 
   factory Moments.fromJson(Map<String, dynamic> json) {
     // Helper function to safely get string with default
@@ -159,6 +225,12 @@ class Moments {
               .map((t) => MessageTranslation.fromJson(t))
               .toList()
           : [],
+
+      // Video fields
+      video: json['video'] != null && json['video'] is Map<String, dynamic>
+          ? MomentVideo.fromJson(json['video'])
+          : null,
+      mediaType: safeString(json['mediaType'], 'image'),
     );
   }
 
@@ -186,6 +258,8 @@ class Moments {
       'isSaved': isSaved,
       'isDeleted': isDeleted,
       if (deletedAt != null) 'deletedAt': deletedAt!.toIso8601String(),
+      if (video != null) 'video': video!.toJson(),
+      'mediaType': mediaType,
     };
   }
 
@@ -215,6 +289,8 @@ class Moments {
     bool? isDeleted,
     DateTime? deletedAt,
     List<MessageTranslation>? translations,
+    MomentVideo? video,
+    String? mediaType,
   }) {
     return Moments(
       id: id ?? this.id,
@@ -241,6 +317,8 @@ class Moments {
       isDeleted: isDeleted ?? this.isDeleted,
       deletedAt: deletedAt ?? this.deletedAt,
       translations: translations ?? this.translations,
+      video: video ?? this.video,
+      mediaType: mediaType ?? this.mediaType,
     );
   }
 }

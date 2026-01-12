@@ -1,5 +1,56 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
+/// Video metadata for video stories
+class StoryVideoMetadata {
+  final double? duration;
+  final String? thumbnail;
+  final int? width;
+  final int? height;
+  final String? mimeType;
+  final int? fileSize;
+
+  const StoryVideoMetadata({
+    this.duration,
+    this.thumbnail,
+    this.width,
+    this.height,
+    this.mimeType,
+    this.fileSize,
+  });
+
+  factory StoryVideoMetadata.fromJson(Map<String, dynamic> json) {
+    return StoryVideoMetadata(
+      duration: json['duration'] != null ? (json['duration'] as num).toDouble() : null,
+      thumbnail: json['thumbnail']?.toString(),
+      width: json['width'] as int?,
+      height: json['height'] as int?,
+      mimeType: json['mimeType']?.toString(),
+      fileSize: json['fileSize'] as int?,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'duration': duration,
+    'thumbnail': thumbnail,
+    'width': width,
+    'height': height,
+    'mimeType': mimeType,
+    'fileSize': fileSize,
+  };
+
+  /// Returns formatted duration string (e.g., "1:30" or "0:15")
+  String get formattedDuration {
+    if (duration == null) return '';
+    final totalSeconds = duration!.round();
+    final minutes = totalSeconds ~/ 60;
+    final seconds = totalSeconds % 60;
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  /// Check if video has valid metadata
+  bool get isValid => duration != null && duration! > 0;
+}
+
 /// Story model representing a single story with all features
 class Story {
   final String id;
@@ -9,6 +60,7 @@ class Story {
   final String mediaUrl;
   final List<String> mediaUrls;
   final String mediaType; // 'image', 'video', 'text'
+  final StoryVideoMetadata? videoMetadata;
   
   // Text story
   final String? text;
@@ -77,6 +129,7 @@ class Story {
     required this.mediaUrl,
     this.mediaUrls = const [],
     required this.mediaType,
+    this.videoMetadata,
     this.text,
     this.backgroundColor = '#000000',
     this.textColor = '#FFFFFF',
@@ -117,6 +170,9 @@ class Story {
           ? (json['mediaUrls'] as List).map((e) => e.toString()).toList()
           : [],
       mediaType: json['mediaType']?.toString() ?? 'image',
+      videoMetadata: json['videoMetadata'] != null
+          ? StoryVideoMetadata.fromJson(json['videoMetadata'])
+          : null,
       text: json['text']?.toString(),
       backgroundColor: json['backgroundColor']?.toString() ?? '#000000',
       textColor: json['textColor']?.toString() ?? '#FFFFFF',
@@ -176,6 +232,7 @@ class Story {
       'mediaUrl': mediaUrl,
       'mediaUrls': mediaUrls,
       'mediaType': mediaType,
+      'videoMetadata': videoMetadata?.toJson(),
       'text': text,
       'backgroundColor': backgroundColor,
       'textColor': textColor,
@@ -205,7 +262,19 @@ class Story {
   }
 
   bool hasViewed(String userId) => views.any((v) => v.userId == userId);
-  
+
+  /// Check if this story is a video
+  bool get isVideo => mediaType == 'video';
+
+  /// Get video thumbnail (falls back to mediaUrl for images)
+  String? get thumbnail => isVideo ? videoMetadata?.thumbnail : mediaUrl;
+
+  /// Get video duration in seconds
+  double? get videoDuration => videoMetadata?.duration;
+
+  /// Get formatted video duration string
+  String get formattedVideoDuration => videoMetadata?.formattedDuration ?? '';
+
   Duration get remainingTime {
     final now = DateTime.now();
     if (expiresAt.isBefore(now)) return Duration.zero;
@@ -220,6 +289,7 @@ class Story {
     String? mediaUrl,
     List<String>? mediaUrls,
     String? mediaType,
+    StoryVideoMetadata? videoMetadata,
     String? text,
     String? backgroundColor,
     String? textColor,
@@ -254,6 +324,7 @@ class Story {
       mediaUrl: mediaUrl ?? this.mediaUrl,
       mediaUrls: mediaUrls ?? this.mediaUrls,
       mediaType: mediaType ?? this.mediaType,
+      videoMetadata: videoMetadata ?? this.videoMetadata,
       text: text ?? this.text,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       textColor: textColor ?? this.textColor,

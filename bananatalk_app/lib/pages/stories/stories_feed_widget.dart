@@ -29,8 +29,10 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
 class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
   List<UserStories> _stories = [];
   bool _isLoading = true;
+  bool _isRefreshing = false;
   String? _error;
   UserStories? _myStories;
+  bool _hasLoadedOnce = false;
 
   @override
   void initState() {
@@ -38,11 +40,18 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
     _loadStories();
   }
 
-  Future<void> _loadStories() async {
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
+  Future<void> _loadStories({bool showLoading = true}) async {
+    // Only show loading spinner on first load
+    if (showLoading && !_hasLoadedOnce) {
+      setState(() {
+        _isLoading = true;
+        _error = null;
+      });
+    } else {
+      setState(() {
+        _isRefreshing = true;
+      });
+    }
 
     try {
       // Load my stories
@@ -65,29 +74,42 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
 
       if (mounted) {
         if (response.success) {
+          // Get current user ID to filter out own stories from feed (avoid duplicates)
+          final prefs = await SharedPreferences.getInstance();
+          final currentUserId = prefs.getString('userId');
+
           // Get blocked user IDs
           final blockedUserIdsAsync = ref.read(blockedUserIdsProvider);
           final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
-          
-          // Filter out stories from blocked users
+
+          // Filter out stories from blocked users AND current user (to avoid duplicates)
           final filteredStories = response.data.where((userStories) {
-            return !blockedUserIds.contains(userStories.user.id);
+            // Filter out blocked users
+            if (blockedUserIds.contains(userStories.user.id)) return false;
+            // Filter out current user's stories (they're shown separately in _myStories)
+            if (currentUserId != null && userStories.user.id == currentUserId) return false;
+            return true;
           }).toList();
-          
+
           setState(() {
             _stories = filteredStories;
             _isLoading = false;
+            _isRefreshing = false;
+            _hasLoadedOnce = true;
           });
-          print('📚 Stories feed loaded: ${_stories.length} users with stories (filtered from ${response.data.length})');
+          print('📚 Stories feed loaded: ${_stories.length} users with stories (filtered from ${response.data.length}, removed own stories)');
         } else if (response.blocked) {
           setState(() {
             _stories = [];
             _isLoading = false;
+            _isRefreshing = false;
+            _hasLoadedOnce = true;
           });
         } else {
           setState(() {
             _error = response.error;
             _isLoading = false;
+            _isRefreshing = false;
           });
           print('📚 Stories feed error: ${response.error}');
         }
@@ -96,11 +118,17 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
       print('📚 Exception loading stories: $e');
       if (mounted) {
         setState(() {
-          _error = 'Failed to load stories: $e';
+          _error = _hasLoadedOnce ? null : 'Failed to load stories: $e'; // Don't show error if we have cached data
           _isLoading = false;
+          _isRefreshing = false;
         });
       }
     }
+  }
+
+  /// Refresh stories silently in background
+  Future<void> _refreshStoriesSilently() async {
+    await _loadStories(showLoading: false);
   }
 
   void _openStoryViewer(int initialIndex) {
@@ -112,7 +140,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
           return StoryViewerScreen(
             userStories: _stories,
             initialUserIndex: initialIndex,
-            onStoriesUpdated: _loadStories,
+            onStoriesUpdated: _refreshStoriesSilently,
           );
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -136,7 +164,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
               userStories: [_myStories!],
               initialUserIndex: 0,
               isOwnStory: true,
-              onStoriesUpdated: _loadStories,
+              onStoriesUpdated: _refreshStoriesSilently,
             );
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -158,7 +186,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
         context,
         MaterialPageRoute(
           builder: (context) => CreateStoryScreen(
-            onStoryCreated: _loadStories,
+            onStoryCreated: _refreshStoriesSilently,
           ),
         ),
       );

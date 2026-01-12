@@ -29,10 +29,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier(false);
 
   List<File> _selectedImages = [];
+  File? _selectedVideo; // Video file for upload
   Position? _currentPosition;
   String? _formattedAddress;
   bool _isLoading = false;
   bool _isGettingLocation = false;
+  double _uploadProgress = 0;
 
   // New fields matching web version
   String _selectedPrivacy = 'Public';
@@ -242,6 +244,100 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         _selectedImages.add(File(pickedFile.path));
       });
     }
+  }
+
+  /// Pick video from gallery (max 3 minutes, max 100MB)
+  Future<void> _pickVideo() async {
+    // Can't have both video and images
+    if (_selectedImages.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please remove images first to add a video'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickVideo(
+      source: ImageSource.gallery,
+      maxDuration: const Duration(minutes: 3), // 3 minute limit
+    );
+
+    if (pickedFile != null) {
+      final videoFile = File(pickedFile.path);
+      final fileSize = await videoFile.length();
+
+      // Check file size (100MB max)
+      if (fileSize > 100 * 1024 * 1024) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  'Video is too large (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB). Maximum is 100MB.'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Check file extension
+      final extension = pickedFile.path.split('.').last.toLowerCase();
+      final allowedExtensions = ['mp4', 'mov', 'avi', 'webm', '3gp', 'm4v'];
+      if (!allowedExtensions.contains(extension)) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+        return;
+      }
+
+      setState(() {
+        _selectedVideo = videoFile;
+      });
+    }
+  }
+
+  /// Record video with camera
+  Future<void> _recordVideo() async {
+    if (_selectedImages.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please remove images first to record a video'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickVideo(
+      source: ImageSource.camera,
+      maxDuration: const Duration(minutes: 3),
+    );
+
+    if (pickedFile != null) {
+      final videoFile = File(pickedFile.path);
+      setState(() {
+        _selectedVideo = videoFile;
+      });
+    }
+  }
+
+  void _removeVideo() {
+    setState(() {
+      _selectedVideo = null;
+    });
   }
 
   void _removeImage(int index) {
@@ -691,6 +787,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             );
       }
 
+      // Upload video if any
+      if (_selectedVideo != null) {
+        await ref.read(momentsServiceProvider).uploadMomentVideo(
+              moment.id,
+              _selectedVideo!,
+            );
+      }
+
       // Refresh moments list
       ref.invalidate(momentsProvider(1));
       ref.invalidate(momentsFeedProvider);
@@ -1100,6 +1204,101 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               const SizedBox(height: 20),
             ],
 
+            // Video Preview Section
+            if (_selectedVideo != null) ...[
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.videocam, color: Color(0xFF00BFA5)),
+                        const SizedBox(width: 8),
+                        const Expanded(
+                          child: Text(
+                            'Video Selected',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close, size: 20),
+                          onPressed: _removeVideo,
+                          color: Colors.grey[600],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Icon(
+                            Icons.play_circle_outline,
+                            size: 48,
+                            color: Colors.white70,
+                          ),
+                          Positioned(
+                            bottom: 8,
+                            right: 8,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black54,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.videocam,
+                                    size: 14,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'Max 3 min',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+
             // Tags Display
             if (_tags.isNotEmpty) ...[
               Wrap(
@@ -1319,13 +1518,25 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 icon: Icons.photo_library_outlined,
                 label: AppLocalizations.of(context)!.photos,
                 onTap: _pickImages,
-                color: const Color(0xFF00BFA5),
+                color: _selectedVideo == null
+                    ? const Color(0xFF00BFA5)
+                    : Colors.grey,
+              ),
+              _buildBottomButton(
+                icon: Icons.videocam_outlined,
+                label: 'Video',
+                onTap: _pickVideo,
+                color: _selectedImages.isEmpty
+                    ? const Color(0xFF9C27B0)
+                    : Colors.grey,
               ),
               _buildBottomButton(
                 icon: Icons.camera_alt_outlined,
                 label: AppLocalizations.of(context)!.camera,
                 onTap: _takePhoto,
-                color: const Color(0xFF00BFA5),
+                color: _selectedVideo == null
+                    ? const Color(0xFF00BFA5)
+                    : Colors.grey,
               ),
             ],
           ),

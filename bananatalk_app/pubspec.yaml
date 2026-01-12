@@ -2,7 +2,7 @@ name: bananatalk_app
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.6.1+10502
+version: 1.7.1+10502
 
 environment:
   sdk: '>=3.10.0 <4.0.0'  # ← UPDATE THIS LINE
@@ -52,6 +52,16 @@ dependencies:
   
   # Routing
   go_router: ^14.0.0
+
+  # Video Support
+  video_player: ^2.8.2
+  chewie: ^1.7.4
+
+  # Audio/Voice Recording
+  flutter_sound: ^9.2.13
+  audio_session: ^0.1.18
+  path_provider: ^2.1.2
+  just_audio: ^0.9.36
 
 #  flutter_facebook_auth: ^7.0.1
 

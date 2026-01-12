@@ -27,6 +27,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:bananatalk_app/widgets/voice_recorder_widget.dart';
+import 'package:bananatalk_app/services/voice_message_service.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -391,43 +393,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     );
   }
 
-  void _sendSticker(String sticker) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(sticker, style: const TextStyle(fontSize: 64)),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.sendThisSticker,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(AppLocalizations.of(context)!.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            child: Text(AppLocalizations.of(context)!.send),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed == true) {
-      _sendMessage(messageText: sticker, messageType: 'sticker');
-    }
+  void _sendSticker(String sticker) {
+    // Send sticker directly without confirmation dialog
+    _sendMessage(messageText: sticker, messageType: 'sticker');
   }
 
   Future<void> _handleMediaOption(String option) async {
@@ -441,6 +409,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         case 'gallery':
           await _pickImageFromGallery();
           break;
+        case 'video':
+          await _pickVideoFromGallery();
+          break;
+        case 'record_video':
+          await _recordVideo();
+          break;
         case 'document':
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -449,11 +423,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           }
           break;
         case 'audio':
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Audio recording coming soon')),
-            );
-          }
+          await _showVoiceRecorder();
           break;
         case 'location':
           await _shareLocation();
@@ -537,6 +507,246 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to pick image: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _pickVideoFromGallery() async {
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickVideo(
+        source: ImageSource.gallery,
+        maxDuration: const Duration(minutes: 3),
+      );
+
+      if (pickedFile != null && mounted) {
+        final file = File(pickedFile.path);
+
+        // Validate file size (max 100MB)
+        final fileSize = await file.length();
+        if (fileSize > 100 * 1024 * 1024) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Video must be under 100MB. Please compress the video.'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+          return;
+        }
+
+        // Show confirmation dialog
+        if (mounted) {
+          final shouldSend = await showDialog<bool>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Send Video'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    color: Colors.black,
+                    child: const Center(
+                      child: Icon(Icons.videocam, color: Colors.white, size: 64),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'File size: ${(fileSize / (1024 * 1024)).toStringAsFixed(1)} MB',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: const Text('Send'),
+                ),
+              ],
+            ),
+          );
+
+          if (shouldSend == true) {
+            await _sendVideoMessage(file);
+          }
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to pick video: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _recordVideo() async {
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickVideo(
+        source: ImageSource.camera,
+        maxDuration: const Duration(minutes: 3),
+      );
+
+      if (pickedFile != null && mounted) {
+        final file = File(pickedFile.path);
+
+        // Validate file size (max 100MB)
+        final fileSize = await file.length();
+        if (fileSize > 100 * 1024 * 1024) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Video must be under 100MB.'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+          return;
+        }
+
+        await _sendVideoMessage(file);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to record video: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _sendVideoMessage(File videoFile) async {
+    setState(() => _isSending = true);
+
+    try {
+      final messageService = ref.read(messageServiceProvider);
+      final result = await messageService.sendVideoMessage(
+        receiver: widget.userId,
+        videoFile: videoFile,
+      );
+
+      setState(() => _isSending = false);
+
+      if (result['success'] == true) {
+        await _loadMessages();
+        if (_currentUserId != null) {
+          ref.refresh(userLimitsProvider(_currentUserId!));
+        }
+      } else {
+        if (mounted) {
+          String errorMsg = result['error'] ?? 'Failed to send video';
+          if (errorMsg.contains('duration')) {
+            errorMsg = 'Video must be under 3 minutes';
+          } else if (errorMsg.contains('size') || errorMsg.contains('100MB')) {
+            errorMsg = 'Video must be under 100MB. Please compress the video.';
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMsg),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      setState(() => _isSending = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error sending video: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _showVoiceRecorder() async {
+    if (!mounted) return;
+
+    showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      enableDrag: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) => VoiceRecorderWidget(
+        onRecordingComplete: (file, duration, waveform) async {
+          Navigator.pop(context);
+          await _sendVoiceMessage(file, duration, waveform);
+        },
+        onCancel: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  Future<void> _sendVoiceMessage(
+    File voiceFile,
+    int durationSeconds,
+    List<double> waveform,
+  ) async {
+    setState(() => _isSending = true);
+
+    try {
+      final result = await VoiceMessageService.sendVoiceMessage(
+        receiverId: widget.userId,
+        voiceFile: voiceFile,
+        durationSeconds: durationSeconds,
+        waveform: waveform,
+      );
+
+      setState(() => _isSending = false);
+
+      if (result['success'] == true) {
+        await _loadMessages();
+        if (_currentUserId != null) {
+          ref.refresh(userLimitsProvider(_currentUserId!));
+        }
+
+        // Clean up the temp file
+        try {
+          await voiceFile.delete();
+        } catch (_) {}
+      } else {
+        if (mounted) {
+          String errorMsg = result['error'] ?? 'Failed to send voice message';
+          if (errorMsg.contains('duration')) {
+            errorMsg = 'Voice message must be under 5 minutes';
+          } else if (errorMsg.contains('size')) {
+            errorMsg = 'Voice message file too large';
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMsg),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      setState(() => _isSending = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error sending voice message: ${e.toString()}'),
             backgroundColor: Colors.red,
           ),
         );
