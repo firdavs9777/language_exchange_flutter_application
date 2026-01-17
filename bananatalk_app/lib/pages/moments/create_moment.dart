@@ -550,42 +550,26 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       return;
     }
 
-    // Check current permission status BEFORE requesting
-    var status = await Permission.location.status;
+    // Use Geolocator's built-in permission handling (same as register_second.dart)
+    LocationPermission permission = await Geolocator.checkPermission();
 
-    // If already granted, get location directly
-    if (status.isGranted) {
-      await _getCurrentLocation();
-      setState(() => _isGettingLocation = false);
-      return;
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() => _isGettingLocation = false);
+        _showPermissionDeniedDialog();
+        return;
+      }
     }
 
-    // If permanently denied, show settings dialog (don't try to request)
-    if (status.isPermanentlyDenied) {
+    if (permission == LocationPermission.deniedForever) {
       setState(() => _isGettingLocation = false);
       _showPermissionPermanentlyDeniedDialog();
       return;
     }
 
-    // If restricted (iOS parental controls), show restricted dialog
-    if (status.isRestricted) {
-      setState(() => _isGettingLocation = false);
-      _showPermissionRestrictedDialog();
-      return;
-    }
-
-    // Now request permission (for isDenied or isLimited status)
-    status = await Permission.location.request();
-
-    if (status.isGranted) {
-      await _getCurrentLocation();
-    } else if (status.isPermanentlyDenied) {
-      // User denied and selected "Don't ask again" or iOS denied twice
-      _showPermissionPermanentlyDeniedDialog();
-    } else {
-      // Permission was denied but can try again
-      _showPermissionDeniedDialog();
-    }
+    // Permission granted, get location
+    await _getCurrentLocation();
 
     setState(() {
       _isGettingLocation = false;
