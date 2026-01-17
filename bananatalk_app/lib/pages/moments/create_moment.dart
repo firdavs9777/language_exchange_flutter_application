@@ -5,10 +5,12 @@ import 'dart:io';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/providers/upload_manager_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
+import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
@@ -300,7 +302,27 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   /// Process video (compress if needed) and set it as selected
+  /// Opens video editor for trimming and filters
   Future<void> _processAndSetVideo(File videoFile) async {
+    // First, open the video editor for trimming and filters
+    final editorResult = await Navigator.push<VideoEditorResult>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoEditorScreen(
+          videoFile: videoFile,
+          maxDurationSeconds: 600, // 10 minutes max
+        ),
+      ),
+    );
+
+    // User cancelled editing
+    if (editorResult == null) {
+      return;
+    }
+
+    // Use the edited video file
+    final editedVideoFile = editorResult.videoFile;
+
     // Show processing dialog
     _showVideoProcessingDialog();
 
@@ -313,7 +335,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     try {
       // Process the video (validate and compress if needed)
       final result = await _videoCompressionService.processVideoForUpload(
-        videoFile,
+        editedVideoFile,
         onProgress: (progress) {
           if (mounted) {
             setState(() {
@@ -1039,6 +1061,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       print('Error checking limits: $e');
     }
 
+    // For video moments, use background upload for Instagram-like experience
+    if (_selectedVideo != null) {
+      await _createMomentWithBackgroundUpload();
+      return;
+    }
+
+    // For non-video moments, use the regular flow
     setState(() {
       _isLoading = true;
     });
@@ -1068,59 +1097,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             );
       }
 
-      // Upload video if any
-      if (_selectedVideo != null) {
-        setState(() {
-          _videoProcessingStatus = 'Uploading video...';
-        });
-
-        try {
-          await ref.read(momentsServiceProvider).uploadMomentVideo(
-                moment.id,
-                _selectedVideo!,
-                onProgress: (progress) {
-                  if (mounted) {
-                    setState(() {
-                      _uploadProgress = progress.toDouble();
-                    });
-                  }
-                },
-              );
-        } catch (videoError) {
-          // Handle video upload errors specifically
-          final errorStr = videoError.toString();
-
-          if (errorStr.contains('Video Service') ||
-              errorStr.contains('processing unavailable') ||
-              errorStr.contains('unavailable')) {
-            // Show retry dialog for video service errors
-            if (mounted) {
-              final shouldRetry = await _showVideoUploadErrorDialog(
-                moment.id,
-                'Video processing is temporarily unavailable. Your moment was created but the video could not be uploaded.',
-              );
-
-              if (!shouldRetry) {
-                // User chose not to retry, moment was still created
-                ref.invalidate(momentsProvider(1));
-                ref.invalidate(momentsFeedProvider);
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Moment created without video. You can add video later.'),
-                    backgroundColor: Colors.orange,
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-                return;
-              }
-            }
-          } else {
-            rethrow;
-          }
-        }
-      }
-
       // Refresh moments list
       ref.invalidate(momentsProvider(1));
       ref.invalidate(momentsFeedProvider);
@@ -1140,7 +1116,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('✓ Moment created successfully'),
+            content: Text('Moment created successfully'),
             backgroundColor: Color(0xFF00BFA5),
             behavior: SnackBarBehavior.floating,
           ),
@@ -1149,7 +1125,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     } catch (e) {
       if (mounted) {
         // Handle 429 errors
-        if (e.toString().contains('429') || 
+        if (e.toString().contains('429') ||
             ApiErrorHandler.isLimitExceededError(e)) {
           try {
             final prefs = await SharedPreferences.getInstance();
@@ -1179,6 +1155,64 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         setState(() {
           _isLoading = false;
         });
+      }
+    }
+  }
+
+  /// Create moment with background video upload (Instagram-like experience)
+  Future<void> _createMomentWithBackgroundUpload() async {
+    // Format location data if available
+    final locationData = _formatLocationData();
+
+    try {
+      // Queue the upload for background processing
+      await ref.read(uploadManagerProvider.notifier).queueMomentUpload(
+        title: titleController.text.trim(),
+        description: descriptionController.text.trim(),
+        privacy: _selectedPrivacy.toLowerCase(),
+        category: _categoryToBackend[_selectedCategory] ?? 'general',
+        language: _languages[_selectedLanguage] ?? 'en',
+        mood: _selectedMood != null ? _moods[_selectedMood] : null,
+        tags: _tags.isNotEmpty ? _tags : null,
+        location: locationData,
+        imagePaths: _selectedImages.map((f) => f.path).toList(),
+        videoPath: _selectedVideo?.path,
+      );
+
+      // Navigate back immediately - upload continues in background
+      if (mounted) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Row(
+              children: [
+                SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Text('Uploading moment in background...'),
+              ],
+            ),
+            backgroundColor: Color(0xFF00BFA5),
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     }
   }

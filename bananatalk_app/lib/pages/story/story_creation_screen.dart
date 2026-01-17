@@ -1,22 +1,25 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
+import 'package:bananatalk_app/providers/upload_manager_provider.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
+import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
 
 /// Screen for creating a new story with all sticker options
-class StoryCreationScreen extends StatefulWidget {
+class StoryCreationScreen extends ConsumerStatefulWidget {
   const StoryCreationScreen({Key? key}) : super(key: key);
 
   @override
-  State<StoryCreationScreen> createState() => _StoryCreationScreenState();
+  ConsumerState<StoryCreationScreen> createState() => _StoryCreationScreenState();
 }
 
-class _StoryCreationScreenState extends State<StoryCreationScreen> {
+class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
   final ImagePicker _picker = ImagePicker();
   final VideoCompressionService _videoCompressionService = VideoCompressionService();
 
@@ -123,8 +126,27 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
     }
   }
 
-  /// Process video with compression
+  /// Process video with video editor and compression
   Future<void> _processVideo(File videoFile) async {
+    // First, open the video editor for trimming and filters
+    final editorResult = await Navigator.push<VideoEditorResult>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoEditorScreen(
+          videoFile: videoFile,
+          maxDurationSeconds: 60, // 60 seconds max for stories
+        ),
+      ),
+    );
+
+    // User cancelled editing
+    if (editorResult == null) {
+      return;
+    }
+
+    // Use the edited video file
+    final editedVideoFile = editorResult.videoFile;
+
     // Show processing dialog
     _showVideoProcessingDialog();
 
@@ -136,7 +158,7 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
 
     try {
       final result = await _videoCompressionService.processVideoForUpload(
-        videoFile,
+        editedVideoFile,
         onProgress: (progress) {
           if (mounted) {
             setState(() {
@@ -344,16 +366,17 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
       return;
     }
 
+    // For video stories, use background upload for Instagram-like experience
+    if (_isVideoMode && _videoFile != null) {
+      await _createStoryWithBackgroundUpload();
+      return;
+    }
+
     setState(() => _isCreating = true);
 
     try {
-      // Determine media files to send (images or video only)
-      List<File> mediaToUpload = [];
-      if (_isVideoMode && _videoFile != null) {
-        mediaToUpload = [_videoFile!];
-      } else if (_mediaFiles.isNotEmpty) {
-        mediaToUpload = _mediaFiles;
-      }
+      // Determine media files to send (images only for direct upload)
+      List<File> mediaToUpload = _mediaFiles;
 
       if (mediaToUpload.isEmpty) {
         setState(() => _isCreating = false);
@@ -369,9 +392,10 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
 
       final result = await StoriesService.createStory(
         mediaFiles: mediaToUpload,
+        privacy: _privacy,
       );
 
-      print('📋 Story creation result: success=${result.success}, error=${result.error}');
+      print('Story creation result: success=${result.success}, error=${result.error}');
 
       if (result.success) {
         if (mounted) {
@@ -387,7 +411,7 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
       } else {
         // Handle specific video errors
         final errorMsg = result.error ?? 'Failed to create story';
-        print('❌ Story creation error: $errorMsg');
+        print('Story creation error: $errorMsg');
 
         if (errorMsg.contains('Video Service') ||
             errorMsg.contains('processing unavailable')) {
@@ -399,10 +423,60 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
         setState(() => _isCreating = false);
       }
     } catch (e) {
-      print('❌ Story creation exception: $e');
+      print('Story creation exception: $e');
       if (mounted) {
         _showErrorDialog('Exception: $e');
         setState(() => _isCreating = false);
+      }
+    }
+  }
+
+  /// Create story with background video upload (Instagram-like experience)
+  Future<void> _createStoryWithBackgroundUpload() async {
+    try {
+      // Queue the upload for background processing
+      await ref.read(uploadManagerProvider.notifier).queueStoryUpload(
+        mediaPath: _videoFile!.path,
+        isVideo: true,
+        text: _text,
+        backgroundColor: _backgroundColor,
+        privacy: _privacy,
+      );
+
+      // Navigate back immediately - upload continues in background
+      if (mounted) {
+        Navigator.pop(context, true);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Row(
+              children: [
+                SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Text('Uploading story in background...'),
+              ],
+            ),
+            backgroundColor: Color(0xFF00BFA5),
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     }
   }
