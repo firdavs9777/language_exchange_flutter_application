@@ -241,15 +241,37 @@ class StoriesService {
       }
       if (music != null) request.fields['music'] = jsonEncode(music.toJson());
 
+      print('📤 Sending story creation request...');
+      print('📤 Media files: ${mediaFiles?.length ?? 0}');
+      print('📤 Text mode: ${text != null}');
+
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
+      print('📡 Story creation response status: ${response.statusCode}');
+      print('📡 Story creation response body: ${response.body}');
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return SingleStoryResponse.fromJson(jsonDecode(response.body));
+        final data = jsonDecode(response.body);
+        print('✅ Story created successfully');
+        return SingleStoryResponse.fromJson(data);
       }
-      return SingleStoryResponse(success: false, error: 'Failed to create story');
+
+      // Parse error message from backend
+      String errorMessage = 'Failed to create story';
+      try {
+        final errorData = jsonDecode(response.body);
+        errorMessage = errorData['message'] ?? errorData['error'] ?? 'Failed to create story (${response.statusCode})';
+        print('❌ Story creation failed: $errorMessage');
+      } catch (parseError) {
+        errorMessage = 'Failed to create story: Server error (${response.statusCode})';
+        print('❌ Story creation failed with unparseable response: ${response.body}');
+      }
+
+      return SingleStoryResponse(success: false, error: errorMessage);
     } catch (e) {
-      return SingleStoryResponse(success: false, error: e.toString());
+      print('❌ Story creation exception: $e');
+      return SingleStoryResponse(success: false, error: 'Network error: ${e.toString()}');
     }
   }
 

@@ -365,37 +365,97 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
         allowSharing: _allowSharing,
       );
 
+      print('📋 Story creation result: success=${result.success}, error=${result.error}');
+
       if (result.success) {
         if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Story created successfully!'),
+              backgroundColor: Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
           Navigator.pop(context, true);
         }
       } else {
         // Handle specific video errors
         final errorMsg = result.error ?? 'Failed to create story';
+        print('❌ Story creation error: $errorMsg');
+
         if (errorMsg.contains('Video Service') ||
             errorMsg.contains('processing unavailable')) {
           _showVideoUploadErrorDialog(errorMsg);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMsg),
-              backgroundColor: Colors.red,
-            ),
-          );
+          // Show detailed error dialog for better debugging
+          _showErrorDialog(errorMsg);
         }
         setState(() => _isCreating = false);
       }
     } catch (e) {
+      print('❌ Story creation exception: $e');
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        _showErrorDialog('Exception: $e');
         setState(() => _isCreating = false);
       }
     }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [
+            Icon(Icons.error_outline, color: Colors.red, size: 28),
+            SizedBox(width: 12),
+            Expanded(
+              child: Text('Story Creation Failed', style: TextStyle(color: Colors.white, fontSize: 18)),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.red.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                message,
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Please check your connection and try again.',
+              style: TextStyle(fontSize: 13, color: Colors.grey[400]),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _createStory(); // Retry
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00BFA5),
+            ),
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showVideoUploadErrorDialog(String message) {

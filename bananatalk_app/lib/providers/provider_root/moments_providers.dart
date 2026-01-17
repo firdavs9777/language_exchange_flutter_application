@@ -419,7 +419,15 @@ class MomentsService {
     );
 
     try {
+      print('📤 Uploading video for moment: $momentId');
+      print('📤 Video file: ${videoFile.path}');
+      print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
+      print('📤 MIME type: $mimeType');
+      print('📤 URL: $url');
+
       final streamedResponse = await request.send();
+
+      print('📡 Video upload response status: ${streamedResponse.statusCode}');
 
       // Track upload progress
       int uploaded = 0;
@@ -439,9 +447,12 @@ class MomentsService {
         headers: streamedResponse.headers,
       );
 
+      print('📡 Video upload response body: ${response.body}');
+
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200 && responseData['success'] == true) {
+        print('✅ Video uploaded successfully');
         return responseData['data'] ?? {};
       } else {
         // Handle specific backend errors
@@ -449,20 +460,27 @@ class MomentsService {
             responseData['message'] ??
             'Failed to upload video';
 
+        print('❌ Video upload failed: $errorMessage');
+        print('❌ Response status: ${response.statusCode}');
+        print('❌ Full response: ${response.body}');
+
         // Check for video service unavailable errors
         if (errorMessage.toString().toLowerCase().contains('unavailable') ||
             errorMessage.toString().toLowerCase().contains('processing') ||
             errorMessage.toString().toLowerCase().contains('service')) {
-          throw Exception('Video Service processing unavailable. Please try again later.');
+          throw Exception('Video Service processing unavailable: $errorMessage');
         }
 
         throw Exception(errorMessage);
       }
     } on http.ClientException catch (e) {
+      print('❌ Network error uploading video: ${e.message}');
       throw Exception('Network error uploading video: ${e.message}');
-    } on FormatException {
+    } on FormatException catch (e) {
+      print('❌ Format exception during video upload: $e');
       throw Exception('Invalid response from server. Video service may be unavailable.');
     } catch (e) {
+      print('❌ Video upload exception: $e');
       if (e is Exception) {
         rethrow;
       }
