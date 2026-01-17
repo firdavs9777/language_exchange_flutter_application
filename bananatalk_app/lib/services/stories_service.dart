@@ -174,7 +174,9 @@ class StoriesService {
     }
   }
 
-  /// Create story - only images and videos are allowed
+  /// Create story - images and videos use different endpoints
+  /// Video: POST /stories/video with field 'video'
+  /// Image: POST /stories with field 'media'
   static Future<SingleStoryResponse> createStory({
     List<File>? mediaFiles,
     String? text,
@@ -194,7 +196,6 @@ class StoriesService {
   }) async {
     try {
       final token = await _getToken();
-      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storiesURL}');
 
       // Validate - must have media files (images or video)
       if (mediaFiles == null || mediaFiles.isEmpty) {
@@ -204,26 +205,67 @@ class StoriesService {
         );
       }
 
+      // Check if it's a video or image based on MIME type
+      final firstFile = mediaFiles.first;
+      final mimeType = _getMimeType(firstFile.path);
+      final isVideo = mimeType.startsWith('video/');
+
+      // Use different endpoint for video vs image
+      final endpoint = isVideo ? Endpoints.storiesVideoURL : Endpoints.storiesURL;
+      final url = Uri.parse('${Endpoints.baseURL}$endpoint');
+      final fieldName = isVideo ? 'video' : 'media';
+
+      print('📤 Creating ${isVideo ? 'VIDEO' : 'IMAGE'} story');
+      print('📤 Endpoint: $endpoint');
+      print('📤 Field name: $fieldName');
+
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = 'Bearer $token';
 
-      // Add media files (images or videos only)
-      for (final file in mediaFiles) {
-        final mimeType = _getMimeType(file.path);
+      // For video stories, only one video file is allowed
+      if (isVideo) {
+        final file = mediaFiles.first;
         final fileSize = await file.length();
 
-        print('📤 Adding file: ${file.path}');
+        print('📤 Adding video: ${file.path}');
         print('📤 MIME type: $mimeType');
         print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
 
+        // Validate video size (max 1GB)
+        if (fileSize > 1024 * 1024 * 1024) {
+          return SingleStoryResponse(
+            success: false,
+            error: 'Video size exceeds 1GB limit',
+          );
+        }
+
         request.files.add(await http.MultipartFile.fromPath(
-          'media', file.path, contentType: MediaType.parse(mimeType),
+          fieldName, file.path, contentType: MediaType.parse(mimeType),
         ));
+
+        // Add optional fields for video story
+        if (text != null && text.isNotEmpty) request.fields['text'] = text;
+        if (backgroundColor != null) request.fields['backgroundColor'] = backgroundColor;
+        if (textColor != null) request.fields['textColor'] = textColor;
+        request.fields['privacy'] = _mapPrivacyToBackend(privacy);
+      } else {
+        // For image stories, multiple images allowed
+        for (final file in mediaFiles) {
+          final fileMimeType = _getMimeType(file.path);
+          final fileSize = await file.length();
+
+          print('📤 Adding image: ${file.path}');
+          print('📤 MIME type: $fileMimeType');
+          print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
+
+          request.files.add(await http.MultipartFile.fromPath(
+            fieldName, file.path, contentType: MediaType.parse(fileMimeType),
+          ));
+        }
       }
 
       print('📤 Sending story creation request...');
       print('📤 URL: $url');
-      print('📤 Media files: ${mediaFiles.length}');
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
@@ -252,6 +294,20 @@ class StoriesService {
     } catch (e) {
       print('❌ Story creation exception: $e');
       return SingleStoryResponse(success: false, error: 'Network error: ${e.toString()}');
+    }
+  }
+
+  /// Map StoryPrivacy enum to backend expected values
+  static String _mapPrivacyToBackend(StoryPrivacy privacy) {
+    switch (privacy) {
+      case StoryPrivacy.everyone:
+        return 'public';
+      case StoryPrivacy.friends:
+        return 'friends';
+      case StoryPrivacy.closeFriends:
+        return 'close_friends';
+      default:
+        return 'friends';
     }
   }
 

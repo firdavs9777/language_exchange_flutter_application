@@ -193,6 +193,8 @@ class Endpoints {
   
   // Stories - Basic
   static const String storiesURL = 'stories';
+  static const String storiesVideoURL = 'stories/video';  // For video story upload
+  static const String storiesVideoConfigURL = 'stories/video-config';  // Get video upload config
   static const String storiesFeedURL = 'stories/feed';
   static const String myStoriesURL = 'stories/my-stories';
   static String userStoriesURL(String userId) => 'stories/user/$userId';

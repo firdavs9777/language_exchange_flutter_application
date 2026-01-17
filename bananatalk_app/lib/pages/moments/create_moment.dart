@@ -254,7 +254,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
-  /// Pick video from gallery (max 3 minutes, max 100MB)
+  /// Pick video from gallery (max 10 minutes, max 1GB)
   /// Automatically compresses video like Instagram for faster uploads
   Future<void> _pickVideo() async {
     // Can't have both video and images
@@ -272,7 +272,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final picker = ImagePicker();
     final pickedFile = await picker.pickVideo(
       source: ImageSource.gallery,
-      maxDuration: const Duration(minutes: 3), // 3 minute limit
+      maxDuration: const Duration(minutes: 10), // 10 minute limit
     );
 
     if (pickedFile != null) {
@@ -483,7 +483,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final picker = ImagePicker();
     final pickedFile = await picker.pickVideo(
       source: ImageSource.camera,
-      maxDuration: const Duration(minutes: 3),
+      maxDuration: const Duration(minutes: 10),
     );
 
     if (pickedFile != null) {
@@ -1690,7 +1690,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    _videoProcessResult?.durationFormatted ?? 'Max 3:00',
+                                    _videoProcessResult?.durationFormatted ?? 'Max 10:00',
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,

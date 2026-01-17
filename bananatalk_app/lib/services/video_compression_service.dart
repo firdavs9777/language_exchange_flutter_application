@@ -12,14 +12,14 @@ class VideoCompressionService {
   /// Subscription for compression progress updates
   Subscription? _subscription;
 
-  /// Maximum video duration in seconds (3 minutes = 180 seconds)
-  static const int maxDurationSeconds = 180;
+  /// Maximum video duration in seconds (10 minutes = 600 seconds)
+  static const int maxDurationSeconds = 600;
 
-  /// Maximum file size in bytes (100MB)
-  static const int maxFileSizeBytes = 100 * 1024 * 1024;
+  /// Maximum file size in bytes (1GB)
+  static const int maxFileSizeBytes = 1024 * 1024 * 1024;
 
-  /// Target file size after compression (30MB - good balance for mobile upload)
-  static const int targetFileSizeBytes = 30 * 1024 * 1024;
+  /// Target file size after compression (100MB - good balance for mobile upload)
+  static const int targetFileSizeBytes = 100 * 1024 * 1024;
 
   /// Get video information (duration, size, etc.)
   Future<MediaInfo?> getVideoInfo(File videoFile) async {
@@ -206,7 +206,7 @@ class VideoCompressionService {
         final duration = await getVideoDuration(videoFile);
         return VideoProcessResult(
           success: false,
-          error: 'Video is too long (${duration.toStringAsFixed(0)}s). Maximum is ${maxDurationSeconds}s (3 minutes).',
+          error: 'Video is too long (${duration.toStringAsFixed(0)}s). Maximum is ${maxDurationSeconds}s (10 minutes).',
         );
       }
 

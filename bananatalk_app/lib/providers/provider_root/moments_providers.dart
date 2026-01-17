@@ -356,7 +356,7 @@ class MomentsService {
     }
   }
 
-  /// Upload video to moment (max 3 minutes, max 100MB)
+  /// Upload video to moment (max 10 minutes, max 1GB)
   /// Returns the updated moment with video data
   /// Includes progress callback for upload tracking
   Future<Map<String, dynamic>> uploadMomentVideo(
@@ -364,10 +364,10 @@ class MomentsService {
     File videoFile, {
     Function(int)? onProgress,
   }) async {
-    // Validate file size (100MB max)
+    // Validate file size (1GB max)
     final fileSize = await videoFile.length();
-    if (fileSize > 100 * 1024 * 1024) {
-      throw Exception('Video size exceeds 100MB limit');
+    if (fileSize > 1024 * 1024 * 1024) {
+      throw Exception('Video size exceeds 1GB limit');
     }
 
     // Validate file extension
