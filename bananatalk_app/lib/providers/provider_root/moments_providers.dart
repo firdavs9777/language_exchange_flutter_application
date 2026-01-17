@@ -358,6 +358,7 @@ class MomentsService {
 
   /// Upload video to moment (max 3 minutes, max 100MB)
   /// Returns the updated moment with video data
+  /// Includes progress callback for upload tracking
   Future<Map<String, dynamic>> uploadMomentVideo(
     String momentId,
     File videoFile, {
@@ -419,17 +420,48 @@ class MomentsService {
 
     try {
       final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
+
+      // Track upload progress
+      int uploaded = 0;
+      final totalBytes = fileSize;
+
+      final responseBytes = <int>[];
+      await for (final chunk in streamedResponse.stream) {
+        responseBytes.addAll(chunk);
+        uploaded += chunk.length;
+        final progress = ((uploaded / totalBytes) * 100).clamp(0, 100).toInt();
+        onProgress?.call(progress);
+      }
+
+      final response = http.Response.bytes(
+        responseBytes,
+        streamedResponse.statusCode,
+        headers: streamedResponse.headers,
+      );
 
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200 && responseData['success'] == true) {
-        return responseData['data'];
+        return responseData['data'] ?? {};
       } else {
-        throw Exception(responseData['error'] ??
+        // Handle specific backend errors
+        final errorMessage = responseData['error'] ??
             responseData['message'] ??
-            'Failed to upload video');
+            'Failed to upload video';
+
+        // Check for video service unavailable errors
+        if (errorMessage.toString().toLowerCase().contains('unavailable') ||
+            errorMessage.toString().toLowerCase().contains('processing') ||
+            errorMessage.toString().toLowerCase().contains('service')) {
+          throw Exception('Video Service processing unavailable. Please try again later.');
+        }
+
+        throw Exception(errorMessage);
       }
+    } on http.ClientException catch (e) {
+      throw Exception('Network error uploading video: ${e.message}');
+    } on FormatException {
+      throw Exception('Invalid response from server. Video service may be unavailable.');
     } catch (e) {
       if (e is Exception) {
         rethrow;

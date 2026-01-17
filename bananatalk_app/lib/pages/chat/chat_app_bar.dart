@@ -316,9 +316,9 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         }
       }
     } catch (e) {
-      if (context.mounted) {
-        _handleCallError(context, e.toString());
-      }
+      // Error is already handled via the callback, no need to handle again
+      // Just log the error for debugging
+      print('❌ Call initiation failed: $e');
     }
   }
   

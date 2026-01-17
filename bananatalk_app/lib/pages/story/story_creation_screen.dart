@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
 
@@ -16,19 +18,29 @@ class StoryCreationScreen extends StatefulWidget {
 
 class _StoryCreationScreenState extends State<StoryCreationScreen> {
   final ImagePicker _picker = ImagePicker();
-  
+  final VideoCompressionService _videoCompressionService = VideoCompressionService();
+
   // Content
   List<File> _mediaFiles = [];
   String? _text;
   String _backgroundColor = '#1A1A2E';
   String _textColor = '#FFFFFF';
   String _fontStyle = 'normal';
-  
+
+  // Video support
+  File? _videoFile;
+  VideoPlayerController? _videoController;
+  bool _isVideoMode = false;
+  bool _isProcessingVideo = false;
+  double _videoCompressionProgress = 0;
+  String _videoProcessingStatus = '';
+  VideoProcessResult? _videoProcessResult;
+
   // Settings
   StoryPrivacy _privacy = StoryPrivacy.everyone;
   bool _allowReplies = true;
   bool _allowSharing = true;
-  
+
   // Stickers
   StoryPoll? _poll;
   StoryQuestionBox? _questionBox;
@@ -37,16 +49,18 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
   List<StoryMention> _mentions = [];
   List<String> _hashtags = [];
   StoryMusic? _music;
-  
+
   bool _isCreating = false;
   bool _isTextMode = false;
-  
+
   // Text mode controller
   final _textController = TextEditingController();
 
   @override
   void dispose() {
     _textController.dispose();
+    _videoController?.dispose();
+    _videoCompressionService.deleteAllCache();
     super.dispose();
   }
 
@@ -72,54 +86,379 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
       maxHeight: 1920,
       imageQuality: 85,
     );
-    
+
     if (photo != null) {
       setState(() {
         _mediaFiles = [File(photo.path)];
         _isTextMode = false;
+        _isVideoMode = false;
+        _videoFile = null;
+        _videoController?.dispose();
+        _videoController = null;
       });
     }
+  }
+
+  /// Pick video from gallery with Instagram-like compression
+  Future<void> _pickVideo() async {
+    final video = await _picker.pickVideo(
+      source: ImageSource.gallery,
+      maxDuration: const Duration(seconds: 60), // 60 seconds max for stories
+    );
+
+    if (video != null) {
+      await _processVideo(File(video.path));
+    }
+  }
+
+  /// Record video with camera
+  Future<void> _recordVideo() async {
+    final video = await _picker.pickVideo(
+      source: ImageSource.camera,
+      maxDuration: const Duration(seconds: 60),
+    );
+
+    if (video != null) {
+      await _processVideo(File(video.path));
+    }
+  }
+
+  /// Process video with compression
+  Future<void> _processVideo(File videoFile) async {
+    // Show processing dialog
+    _showVideoProcessingDialog();
+
+    setState(() {
+      _isProcessingVideo = true;
+      _videoCompressionProgress = 0;
+      _videoProcessingStatus = 'Preparing video...';
+    });
+
+    try {
+      final result = await _videoCompressionService.processVideoForUpload(
+        videoFile,
+        onProgress: (progress) {
+          if (mounted) {
+            setState(() {
+              _videoCompressionProgress = progress;
+            });
+          }
+        },
+        onStatus: (status) {
+          if (mounted) {
+            setState(() {
+              _videoProcessingStatus = status;
+            });
+          }
+        },
+      );
+
+      // Close processing dialog
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+
+      if (result.success && result.processedFile != null) {
+        // Initialize video player
+        _videoController?.dispose();
+        _videoController = VideoPlayerController.file(result.processedFile!)
+          ..initialize().then((_) {
+            if (mounted) {
+              setState(() {});
+              _videoController!.setLooping(true);
+              _videoController!.play();
+            }
+          });
+
+        setState(() {
+          _videoFile = result.processedFile;
+          _videoProcessResult = result;
+          _isVideoMode = true;
+          _isTextMode = false;
+          _mediaFiles = [];
+          _isProcessingVideo = false;
+        });
+
+        if (mounted && result.wasCompressed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+              ),
+              backgroundColor: const Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        setState(() {
+          _isProcessingVideo = false;
+        });
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result.error ?? 'Failed to process video'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+
+      setState(() {
+        _isProcessingVideo = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  void _showVideoProcessingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 16),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: CircularProgressIndicator(
+                    value: _videoCompressionProgress > 0
+                        ? _videoCompressionProgress / 100
+                        : null,
+                    strokeWidth: 6,
+                    backgroundColor: Colors.grey[700],
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      Color(0xFF00BFA5),
+                    ),
+                  ),
+                ),
+                if (_videoCompressionProgress > 0)
+                  Text(
+                    '${_videoCompressionProgress.toStringAsFixed(0)}%',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF00BFA5),
+                    ),
+                  )
+                else
+                  const Icon(
+                    Icons.videocam,
+                    size: 32,
+                    color: Color(0xFF00BFA5),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              _videoProcessingStatus.isNotEmpty
+                  ? _videoProcessingStatus
+                  : 'Processing video...',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Optimizing for the best story experience',
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey[400],
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _removeVideo() {
+    _videoController?.dispose();
+    setState(() {
+      _videoFile = null;
+      _videoController = null;
+      _isVideoMode = false;
+      _videoProcessResult = null;
+    });
+  }
+
+  void _toggleVideoPlayback() {
+    if (_videoController == null) return;
+
+    setState(() {
+      if (_videoController!.value.isPlaying) {
+        _videoController!.pause();
+      } else {
+        _videoController!.play();
+      }
+    });
   }
 
   void _enableTextMode() {
     setState(() {
       _isTextMode = true;
+      _isVideoMode = false;
       _mediaFiles = [];
+      _videoFile = null;
+      _videoController?.dispose();
+      _videoController = null;
     });
   }
 
   Future<void> _createStory() async {
-    if (_mediaFiles.isEmpty && !_isTextMode) return;
+    // Validate content
+    if (_mediaFiles.isEmpty && !_isTextMode && !_isVideoMode) return;
     if (_isTextMode && _textController.text.trim().isEmpty) return;
-    
+
     setState(() => _isCreating = true);
-    
-    final result = await StoriesService.createStory(
-      mediaFiles: _isTextMode ? null : _mediaFiles,
-      text: _isTextMode ? _textController.text.trim() : null,
-      backgroundColor: _backgroundColor,
-      textColor: _textColor,
-      fontStyle: _fontStyle,
-      privacy: _privacy,
-      poll: _poll,
-      questionBox: _questionBox,
-      location: _location,
-      link: _link,
-      mentions: _mentions.isNotEmpty ? _mentions : null,
-      hashtags: _hashtags.isNotEmpty ? _hashtags : null,
-      music: _music,
-      allowReplies: _allowReplies,
-      allowSharing: _allowSharing,
-    );
-    
-    if (result.success) {
-      Navigator.pop(context, true);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result.error ?? 'Failed to create story')),
+
+    try {
+      // Determine media files to send
+      List<File>? mediaToUpload;
+      if (_isVideoMode && _videoFile != null) {
+        mediaToUpload = [_videoFile!];
+      } else if (_mediaFiles.isNotEmpty) {
+        mediaToUpload = _mediaFiles;
+      }
+
+      final result = await StoriesService.createStory(
+        mediaFiles: _isTextMode ? null : mediaToUpload,
+        text: _isTextMode ? _textController.text.trim() : null,
+        backgroundColor: _backgroundColor,
+        textColor: _textColor,
+        fontStyle: _fontStyle,
+        privacy: _privacy,
+        poll: _poll,
+        questionBox: _questionBox,
+        location: _location,
+        link: _link,
+        mentions: _mentions.isNotEmpty ? _mentions : null,
+        hashtags: _hashtags.isNotEmpty ? _hashtags : null,
+        music: _music,
+        allowReplies: _allowReplies,
+        allowSharing: _allowSharing,
       );
-      setState(() => _isCreating = false);
+
+      if (result.success) {
+        if (mounted) {
+          Navigator.pop(context, true);
+        }
+      } else {
+        // Handle specific video errors
+        final errorMsg = result.error ?? 'Failed to create story';
+        if (errorMsg.contains('Video Service') ||
+            errorMsg.contains('processing unavailable')) {
+          _showVideoUploadErrorDialog(errorMsg);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMsg),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        setState(() => _isCreating = false);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        setState(() => _isCreating = false);
+      }
     }
+  }
+
+  void _showVideoUploadErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+            SizedBox(width: 12),
+            Text('Upload Failed', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              message,
+              style: const TextStyle(color: Colors.white70),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.info_outline, color: Colors.blue, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Try using a shorter video or try again later.',
+                      style: TextStyle(fontSize: 13, color: Colors.blue),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _createStory(); // Retry
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00BFA5),
+            ),
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showStickerMenu() {
@@ -274,7 +613,7 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hasContent = _mediaFiles.isNotEmpty || _isTextMode;
+    final hasContent = _mediaFiles.isNotEmpty || _isTextMode || _isVideoMode;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -305,27 +644,62 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Camera
-          _MediaButton(
-            icon: Icons.camera_alt,
-            label: 'Camera',
-            onTap: _takePhoto,
+          // Title
+          const Text(
+            'Create Story',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: 24),
-
-          // Gallery
-          _MediaButton(
-            icon: Icons.photo_library,
-            label: 'Gallery',
-            onTap: _pickMedia,
+          const SizedBox(height: 8),
+          Text(
+            'Share moments that disappear in 24 hours',
+            style: TextStyle(color: Colors.grey[400], fontSize: 14),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 40),
 
-          // Text
-          _MediaButton(
-            icon: Icons.text_fields,
-            label: 'Text',
-            onTap: _enableTextMode,
+          // Media buttons in grid
+          Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            alignment: WrapAlignment.center,
+            children: [
+              // Camera Photo
+              _MediaButton(
+                icon: Icons.camera_alt,
+                label: 'Photo',
+                onTap: _takePhoto,
+              ),
+              // Gallery Images
+              _MediaButton(
+                icon: Icons.photo_library,
+                label: 'Gallery',
+                onTap: _pickMedia,
+              ),
+              // Video from Gallery
+              _MediaButton(
+                icon: Icons.videocam,
+                label: 'Video',
+                onTap: _pickVideo,
+                color: Colors.purple,
+              ),
+              // Record Video
+              _MediaButton(
+                icon: Icons.fiber_manual_record,
+                label: 'Record',
+                onTap: _recordVideo,
+                color: Colors.red,
+              ),
+              // Text Story
+              _MediaButton(
+                icon: Icons.text_fields,
+                label: 'Text',
+                onTap: _enableTextMode,
+                color: Colors.blue,
+              ),
+            ],
           ),
         ],
       ),
@@ -333,6 +707,7 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
   }
 
   Widget _buildContentPreview() {
+    // Text mode
     if (_isTextMode) {
       return Container(
         color: Color(int.parse(_backgroundColor.replaceFirst('#', '0xFF'))),
@@ -362,10 +737,129 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
       );
     }
 
+    // Video mode - show video player
+    if (_isVideoMode && _videoController != null) {
+      return GestureDetector(
+        onTap: _toggleVideoPlayback,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Video player
+            Center(
+              child: _videoController!.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: _videoController!.value.aspectRatio,
+                      child: VideoPlayer(_videoController!),
+                    )
+                  : const CircularProgressIndicator(color: Colors.white),
+            ),
+
+            // Play/Pause overlay
+            if (_videoController!.value.isInitialized &&
+                !_videoController!.value.isPlaying)
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+              ),
+
+            // Video info badge
+            Positioned(
+              bottom: 100,
+              left: 16,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.videocam, color: Colors.white, size: 16),
+                    const SizedBox(width: 6),
+                    Text(
+                      _videoProcessResult != null
+                          ? '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB'
+                          : 'Video',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    if (_videoProcessResult?.wasCompressed == true) ...[
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00BFA5),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: const Text(
+                          'HD',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+
+            // Remove video button
+            Positioned(
+              top: 100,
+              right: 16,
+              child: GestureDetector(
+                onTap: _removeVideo,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.close, color: Colors.white, size: 24),
+                ),
+              ),
+            ),
+
+            // Video progress bar
+            if (_videoController!.value.isInitialized)
+              Positioned(
+                bottom: 80,
+                left: 16,
+                right: 16,
+                child: VideoProgressIndicator(
+                  _videoController!,
+                  allowScrubbing: true,
+                  colors: const VideoProgressColors(
+                    playedColor: Color(0xFF00BFA5),
+                    bufferedColor: Colors.white30,
+                    backgroundColor: Colors.white10,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
+    }
+
+    // Single image
     if (_mediaFiles.length == 1) {
       return Image.file(_mediaFiles.first, fit: BoxFit.cover);
     }
 
+    // Multiple images
     return PageView.builder(
       itemCount: _mediaFiles.length,
       itemBuilder: (context, index) {
@@ -599,26 +1093,41 @@ class _MediaButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
+  final Color? color;
 
-  const _MediaButton({required this.icon, required this.label, required this.onTap});
+  const _MediaButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final buttonColor = color ?? Colors.grey[700];
     return GestureDetector(
       onTap: onTap,
       child: Column(
         children: [
           Container(
-            width: 80,
-            height: 80,
+            width: 70,
+            height: 70,
             decoration: BoxDecoration(
-              color: Colors.grey[800],
+              color: buttonColor!.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: buttonColor.withOpacity(0.5), width: 2),
             ),
-            child: Icon(icon, color: Colors.white, size: 36),
+            child: Icon(icon, color: color ?? Colors.white, size: 32),
           ),
           const SizedBox(height: 8),
-          Text(label, style: const TextStyle(color: Colors.white)),
+          Text(
+            label,
+            style: TextStyle(
+              color: color ?? Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );

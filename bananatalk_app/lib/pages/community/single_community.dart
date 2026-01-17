@@ -329,10 +329,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
       print('✅ Video call initiated to ${widget.community.name}');
     } catch (e) {
+      // Error is already handled via the callback, no need to handle again
       print('❌ Error initiating video call: $e');
-      if (mounted) {
-        _handleCallError(context, e.toString());
-      }
     }
   }
 
@@ -393,10 +391,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
       print('✅ Voice call initiated to ${widget.community.name}');
     } catch (e) {
+      // Error is already handled via the callback, no need to handle again
       print('❌ Error initiating voice call: $e');
-      if (mounted) {
-        _handleCallError(context, e.toString());
-      }
     }
   }
 

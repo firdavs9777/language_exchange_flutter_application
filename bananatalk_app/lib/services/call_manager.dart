@@ -402,7 +402,15 @@ class CallManager {
     } catch (e) {
       print('❌ Error initiating call: $e');
       if (onCallError != null && e is! TimeoutException) {
-        onCallError!('Failed to start call: ${e.toString()}');
+        // Preserve the original error if it has permission prefixes
+        final errorStr = e.toString();
+        if (errorStr.contains('PERMANENTLY_DENIED:') || errorStr.contains('DENIED:')) {
+          // Extract just the error message without Exception wrapper
+          final cleanError = errorStr.replaceAll('Exception: ', '');
+          onCallError!(cleanError);
+        } else {
+          onCallError!('Failed to start call: $errorStr');
+        }
       }
       _cleanup();
       rethrow;

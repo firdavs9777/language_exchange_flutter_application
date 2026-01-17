@@ -393,9 +393,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     );
   }
 
+  /// Send sticker directly (tap to send like WhatsApp)
   void _sendSticker(String sticker) {
-    // Send sticker directly without confirmation dialog
     _sendMessage(messageText: sticker, messageType: 'sticker');
+    // Close sticker panel after sending
+    setState(() {
+      _showStickerPanel = false;
+    });
+    _stickerPanelController.reverse();
   }
 
   Future<void> _handleMediaOption(String option) async {

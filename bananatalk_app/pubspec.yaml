@@ -56,6 +56,8 @@ dependencies:
   # Video Support
   video_player: ^2.8.2
   chewie: ^1.7.4
+  video_compress: ^3.1.2
+  ffmpeg_kit_flutter: ^6.0.3
 
   # Audio/Voice Recording
   flutter_sound: ^9.2.13

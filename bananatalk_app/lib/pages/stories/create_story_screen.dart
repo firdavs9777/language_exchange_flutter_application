@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class CreateStoryScreen extends StatefulWidget {
@@ -27,6 +29,14 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   bool _isTextStory = false;
   final TextEditingController _textOverlayController = TextEditingController();
 
+  // Video support
+  final VideoCompressionService _videoCompressionService = VideoCompressionService();
+  VideoPlayerController? _videoController;
+  bool _isProcessingVideo = false;
+  double _videoCompressionProgress = 0;
+  String _videoProcessingStatus = '';
+  VideoProcessResult? _videoProcessResult;
+
   final List<String> _backgroundColors = [
     '#FF6B6B', // Red
     '#4ECDC4', // Teal
@@ -44,6 +54,8 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   void dispose() {
     _captionController.dispose();
     _textOverlayController.dispose();
+    _videoController?.dispose();
+    _videoCompressionService.deleteAllCache();
     super.dispose();
   }
 
@@ -100,15 +112,11 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       final picker = ImagePicker();
       final pickedFile = await picker.pickVideo(
         source: ImageSource.gallery,
-        maxDuration: const Duration(seconds: 30),
+        maxDuration: const Duration(seconds: 60), // 60 seconds for stories
       );
 
       if (pickedFile != null) {
-        setState(() {
-          _mediaFile = File(pickedFile.path);
-          _mediaType = 'video';
-          _isTextStory = false;
-        });
+        await _processVideo(File(pickedFile.path));
       }
     } catch (e) {
       if (mounted) {
@@ -117,6 +125,154 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         );
       }
     }
+  }
+
+  /// Process video with compression (Instagram-like)
+  Future<void> _processVideo(File videoFile) async {
+    _showVideoProcessingDialog();
+
+    setState(() {
+      _isProcessingVideo = true;
+      _videoCompressionProgress = 0;
+      _videoProcessingStatus = 'Preparing video...';
+    });
+
+    try {
+      final result = await _videoCompressionService.processVideoForUpload(
+        videoFile,
+        onProgress: (progress) {
+          if (mounted) {
+            setState(() {
+              _videoCompressionProgress = progress;
+            });
+          }
+        },
+        onStatus: (status) {
+          if (mounted) {
+            setState(() {
+              _videoProcessingStatus = status;
+            });
+          }
+        },
+      );
+
+      // Close dialog
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+
+      if (result.success && result.processedFile != null) {
+        // Initialize video player for preview
+        _videoController?.dispose();
+        _videoController = VideoPlayerController.file(result.processedFile!)
+          ..initialize().then((_) {
+            if (mounted) {
+              setState(() {});
+              _videoController!.setLooping(true);
+            }
+          });
+
+        setState(() {
+          _mediaFile = result.processedFile;
+          _mediaType = 'video';
+          _isTextStory = false;
+          _videoProcessResult = result;
+          _isProcessingVideo = false;
+        });
+
+        if (mounted && result.wasCompressed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+              ),
+              backgroundColor: const Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        setState(() => _isProcessingVideo = false);
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result.error ?? 'Failed to process video'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+      setState(() => _isProcessingVideo = false);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
+
+  void _showVideoProcessingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 16),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: CircularProgressIndicator(
+                    value: _videoCompressionProgress > 0
+                        ? _videoCompressionProgress / 100
+                        : null,
+                    strokeWidth: 6,
+                    backgroundColor: Colors.grey[700],
+                    valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+                  ),
+                ),
+                if (_videoCompressionProgress > 0)
+                  Text(
+                    '${_videoCompressionProgress.toStringAsFixed(0)}%',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF00BFA5),
+                    ),
+                  )
+                else
+                  const Icon(Icons.videocam, size: 32, color: Color(0xFF00BFA5)),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              _videoProcessingStatus.isNotEmpty ? _videoProcessingStatus : 'Processing...',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Optimizing for the best experience',
+              style: TextStyle(fontSize: 13, color: Colors.grey[400]),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
   }
 
   void _createTextStory() {
@@ -584,67 +740,135 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   }
 
   Widget _buildVideoPreview() {
-    return Container(
-      color: Colors.black,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Video thumbnail placeholder
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.grey[900],
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.videocam,
-                  color: Colors.white70,
-                  size: 80,
+    return GestureDetector(
+      onTap: _toggleVideoPlayback,
+      child: Container(
+        color: Colors.black,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Video player or placeholder
+            if (_videoController != null && _videoController!.value.isInitialized)
+              Center(
+                child: AspectRatio(
+                  aspectRatio: _videoController!.value.aspectRatio,
+                  child: VideoPlayer(_videoController!),
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  'Video Selected',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text(
-                    _mediaFile!.path.split('/').last,
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 14,
+              )
+            else
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Colors.grey[900],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.videocam, color: Colors.white70, size: 80),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Video Selected',
+                      style: TextStyle(color: Colors.white70, fontSize: 20, fontWeight: FontWeight.w500),
                     ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                    const SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: Text(
+                        _mediaFile!.path.split('/').last,
+                        style: const TextStyle(color: Colors.white54, fontSize: 14),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            // Play/Pause overlay
+            if (_videoController != null &&
+                _videoController!.value.isInitialized &&
+                !_videoController!.value.isPlaying)
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.play_arrow, color: Colors.white, size: 50),
+              ),
+
+            // Video info badge
+            if (_videoProcessResult != null)
+              Positioned(
+                bottom: 120,
+                left: 16,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.videocam, color: Colors.white, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB',
+                        style: const TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      if (_videoProcessResult!.wasCompressed) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00BFA5),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: const Text(
+                            'HD',
+                            style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          // Play button overlay
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.play_arrow,
-              color: Colors.white,
-              size: 60,
-            ),
-          ),
-        ],
+              ),
+
+            // Video progress bar
+            if (_videoController != null && _videoController!.value.isInitialized)
+              Positioned(
+                bottom: 100,
+                left: 16,
+                right: 16,
+                child: VideoProgressIndicator(
+                  _videoController!,
+                  allowScrubbing: true,
+                  colors: const VideoProgressColors(
+                    playedColor: Color(0xFF00BFA5),
+                    bufferedColor: Colors.white30,
+                    backgroundColor: Colors.white10,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _toggleVideoPlayback() {
+    if (_videoController == null || !_videoController!.value.isInitialized) return;
+
+    setState(() {
+      if (_videoController!.value.isPlaying) {
+        _videoController!.pause();
+      } else {
+        _videoController!.play();
+      }
+    });
   }
 }
 

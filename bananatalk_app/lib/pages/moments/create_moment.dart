@@ -8,6 +8,7 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
+import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
@@ -35,6 +36,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   bool _isLoading = false;
   bool _isGettingLocation = false;
   double _uploadProgress = 0;
+
+  // Video processing state
+  bool _isProcessingVideo = false;
+  double _videoCompressionProgress = 0;
+  String _videoProcessingStatus = '';
+  VideoProcessResult? _videoProcessResult;
+  final VideoCompressionService _videoCompressionService = VideoCompressionService();
 
   // New fields matching web version
   String _selectedPrivacy = 'Public';
@@ -247,6 +255,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   /// Pick video from gallery (max 3 minutes, max 100MB)
+  /// Automatically compresses video like Instagram for faster uploads
   Future<void> _pickVideo() async {
     // Can't have both video and images
     if (_selectedImages.isNotEmpty) {
@@ -268,24 +277,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
     if (pickedFile != null) {
       final videoFile = File(pickedFile.path);
-      final fileSize = await videoFile.length();
 
-      // Check file size (100MB max)
-      if (fileSize > 100 * 1024 * 1024) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                  'Video is too large (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB). Maximum is 100MB.'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
-        return;
-      }
-
-      // Check file extension
+      // Check file extension first
       final extension = pickedFile.path.split('.').last.toLowerCase();
       final allowedExtensions = ['mp4', 'mov', 'avi', 'webm', '3gp', 'm4v'];
       if (!allowedExtensions.contains(extension)) {
@@ -301,10 +294,177 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         return;
       }
 
-      setState(() {
-        _selectedVideo = videoFile;
-      });
+      // Show processing dialog and compress video
+      await _processAndSetVideo(videoFile);
     }
+  }
+
+  /// Process video (compress if needed) and set it as selected
+  Future<void> _processAndSetVideo(File videoFile) async {
+    // Show processing dialog
+    _showVideoProcessingDialog();
+
+    setState(() {
+      _isProcessingVideo = true;
+      _videoCompressionProgress = 0;
+      _videoProcessingStatus = 'Preparing video...';
+    });
+
+    try {
+      // Process the video (validate and compress if needed)
+      final result = await _videoCompressionService.processVideoForUpload(
+        videoFile,
+        onProgress: (progress) {
+          if (mounted) {
+            setState(() {
+              _videoCompressionProgress = progress;
+            });
+          }
+        },
+        onStatus: (status) {
+          if (mounted) {
+            setState(() {
+              _videoProcessingStatus = status;
+            });
+          }
+        },
+      );
+
+      // Close processing dialog
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+
+      if (result.success && result.processedFile != null) {
+        setState(() {
+          _selectedVideo = result.processedFile;
+          _videoProcessResult = result;
+          _isProcessingVideo = false;
+        });
+
+        // Show success message with compression info
+        if (mounted && result.wasCompressed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+              ),
+              backgroundColor: const Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        setState(() {
+          _isProcessingVideo = false;
+        });
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result.error ?? 'Failed to process video'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      // Close processing dialog
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+
+      setState(() {
+        _isProcessingVideo = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error processing video: $e'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
+  /// Show video processing dialog with progress
+  void _showVideoProcessingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 16),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: CircularProgressIndicator(
+                        value: _videoCompressionProgress > 0
+                            ? _videoCompressionProgress / 100
+                            : null,
+                        strokeWidth: 6,
+                        backgroundColor: Colors.grey[200],
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          Color(0xFF00BFA5),
+                        ),
+                      ),
+                    ),
+                    if (_videoCompressionProgress > 0)
+                      Text(
+                        '${_videoCompressionProgress.toStringAsFixed(0)}%',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF00BFA5),
+                        ),
+                      )
+                    else
+                      const Icon(
+                        Icons.videocam,
+                        size: 32,
+                        color: Color(0xFF00BFA5),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  _videoProcessingStatus.isNotEmpty
+                      ? _videoProcessingStatus
+                      : 'Processing video...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Please wait while we optimize your video',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   /// Record video with camera
@@ -328,16 +488,18 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
     if (pickedFile != null) {
       final videoFile = File(pickedFile.path);
-      setState(() {
-        _selectedVideo = videoFile;
-      });
+      // Process and compress the recorded video
+      await _processAndSetVideo(videoFile);
     }
   }
 
   void _removeVideo() {
     setState(() {
       _selectedVideo = null;
+      _videoProcessResult = null;
     });
+    // Clean up video cache
+    _videoCompressionService.deleteAllCache();
   }
 
   void _removeImage(int index) {
@@ -380,6 +542,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _isGettingLocation = true;
     });
 
+    // First check if location services are enabled
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       setState(() => _isGettingLocation = false);
@@ -387,18 +550,77 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       return;
     }
 
-    var status = await Permission.location.request();
+    // Check current permission status BEFORE requesting
+    var status = await Permission.location.status;
+
+    // If already granted, get location directly
     if (status.isGranted) {
       await _getCurrentLocation();
-    } else if (status.isDenied) {
-      _showPermissionDeniedDialog();
-    } else if (status.isPermanentlyDenied) {
+      setState(() => _isGettingLocation = false);
+      return;
+    }
+
+    // If permanently denied, show settings dialog (don't try to request)
+    if (status.isPermanentlyDenied) {
+      setState(() => _isGettingLocation = false);
       _showPermissionPermanentlyDeniedDialog();
+      return;
+    }
+
+    // If restricted (iOS parental controls), show restricted dialog
+    if (status.isRestricted) {
+      setState(() => _isGettingLocation = false);
+      _showPermissionRestrictedDialog();
+      return;
+    }
+
+    // Now request permission (for isDenied or isLimited status)
+    status = await Permission.location.request();
+
+    if (status.isGranted) {
+      await _getCurrentLocation();
+    } else if (status.isPermanentlyDenied) {
+      // User denied and selected "Don't ask again" or iOS denied twice
+      _showPermissionPermanentlyDeniedDialog();
+    } else {
+      // Permission was denied but can try again
+      _showPermissionDeniedDialog();
     }
 
     setState(() {
       _isGettingLocation = false;
     });
+  }
+
+  void _showPermissionRestrictedDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Text(
+            'Location Access Restricted',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          content: const Text(
+            'Location access is restricted on this device. This may be due to parental controls or device policy.',
+            style: TextStyle(fontSize: 15),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Color(0xFF00BFA5),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _getCurrentLocation() async {
@@ -717,6 +939,81 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
+  /// Show error dialog for video upload failures with retry option
+  Future<bool> _showVideoUploadErrorDialog(String momentId, String message) async {
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+            SizedBox(width: 12),
+            Text('Video Upload Failed'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(message),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.info_outline, color: Colors.blue, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Tip: Try compressing your video or using a smaller file.',
+                      style: TextStyle(fontSize: 13, color: Colors.blue),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Skip Video'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00BFA5),
+            ),
+            child: const Text('Retry Upload'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true && _selectedVideo != null) {
+      // Retry the upload
+      try {
+        await ref.read(momentsServiceProvider).uploadMomentVideo(
+              momentId,
+              _selectedVideo!,
+            );
+        return true;
+      } catch (e) {
+        // Show error again
+        if (mounted) {
+          return await _showVideoUploadErrorDialog(momentId, 'Upload failed again: ${e.toString().replaceFirst('Exception: ', '')}');
+        }
+      }
+    }
+    return false;
+  }
+
   Future<void> _createMoment() async {
     if (_isLoading) return;
 
@@ -789,10 +1086,55 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
       // Upload video if any
       if (_selectedVideo != null) {
-        await ref.read(momentsServiceProvider).uploadMomentVideo(
-              moment.id,
-              _selectedVideo!,
-            );
+        setState(() {
+          _videoProcessingStatus = 'Uploading video...';
+        });
+
+        try {
+          await ref.read(momentsServiceProvider).uploadMomentVideo(
+                moment.id,
+                _selectedVideo!,
+                onProgress: (progress) {
+                  if (mounted) {
+                    setState(() {
+                      _uploadProgress = progress.toDouble();
+                    });
+                  }
+                },
+              );
+        } catch (videoError) {
+          // Handle video upload errors specifically
+          final errorStr = videoError.toString();
+
+          if (errorStr.contains('Video Service') ||
+              errorStr.contains('processing unavailable') ||
+              errorStr.contains('unavailable')) {
+            // Show retry dialog for video service errors
+            if (mounted) {
+              final shouldRetry = await _showVideoUploadErrorDialog(
+                moment.id,
+                'Video processing is temporarily unavailable. Your moment was created but the video could not be uploaded.',
+              );
+
+              if (!shouldRetry) {
+                // User chose not to retry, moment was still created
+                ref.invalidate(momentsProvider(1));
+                ref.invalidate(momentsFeedProvider);
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Moment created without video. You can add video later.'),
+                    backgroundColor: Colors.orange,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+                return;
+              }
+            }
+          } else {
+            rethrow;
+          }
+        }
       }
 
       // Refresh moments list
@@ -1224,15 +1566,75 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.videocam, color: Color(0xFF00BFA5)),
-                        const SizedBox(width: 8),
-                        const Expanded(
-                          child: Text(
-                            'Video Selected',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00BFA5).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(Icons.videocam, color: Color(0xFF00BFA5), size: 24),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Video Ready',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  if (_videoProcessResult != null) ...[
+                                    Text(
+                                      '${_videoProcessResult!.fileSizeMB}MB',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                    if (_videoProcessResult!.duration != null) ...[
+                                      Text(
+                                        ' | ${_videoProcessResult!.durationFormatted}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                    if (_videoProcessResult!.wasCompressed) ...[
+                                      const SizedBox(width: 8),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF00BFA5).withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: Text(
+                                          'Compressed',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: const Color(0xFF00BFA5),
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ] else
+                                    Text(
+                                      'Ready to upload',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                         IconButton(
@@ -1242,48 +1644,93 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     Container(
-                      height: 150,
+                      height: 160,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          const Icon(
-                            Icons.play_circle_outline,
-                            size: 48,
-                            color: Colors.white70,
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.play_arrow_rounded,
+                              size: 48,
+                              color: Colors.white,
+                            ),
                           ),
+                          // Duration badge
                           Positioned(
-                            bottom: 8,
-                            right: 8,
+                            bottom: 12,
+                            left: 12,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
+                                horizontal: 10,
+                                vertical: 5,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.black54,
-                                borderRadius: BorderRadius.circular(4),
+                                color: Colors.black.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(
-                                    Icons.videocam,
+                                  const Icon(
+                                    Icons.access_time,
                                     size: 14,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(width: 4),
+                                  const SizedBox(width: 4),
                                   Text(
-                                    'Max 3 min',
-                                    style: TextStyle(
+                                    _videoProcessResult?.durationFormatted ?? 'Max 3:00',
+                                    style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 11,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          // File size badge
+                          Positioned(
+                            bottom: 12,
+                            right: 12,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.storage,
+                                    size: 14,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    _videoProcessResult != null
+                                        ? '${_videoProcessResult!.fileSizeMB}MB'
+                                        : 'Processing...',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ],
