@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Sender {
   final String id;
   final String name;
@@ -50,7 +48,7 @@ class Sender {
       nativeLanguage: json['native_language'],
       languageToLearn: json['language_to_learn'],
       createdAt: DateTime.parse(json['createdAt']),
-      v: json['__v'],
+      v: (json['__v'] as num?)?.toInt() ?? 0,
       imageUrls: List<String>.from(json['imageUrls']),
       recentMessage: RecentMessage.fromJson(json['recentMessage']),
     );

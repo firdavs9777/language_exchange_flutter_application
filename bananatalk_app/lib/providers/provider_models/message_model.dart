@@ -66,7 +66,7 @@ class Message {
       receiver: _parseCommunity(json['receiver']),
       message: json['message'], // Can be null for media-only messages
       createdAt: json['createdAt'] ?? '',
-      version: json['__v'] ?? 0,
+      version: (json['__v'] as num?)?.toInt() ?? 0,
       read: json['read'] ?? false,
       media: json['media'] != null && json['media'] is Map<String, dynamic> 
           ? MessageMedia.fromJson(json['media']) 
@@ -306,7 +306,7 @@ class MessageMedia {
       type: json['type'] ?? '',
       thumbnail: json['thumbnail'],
       fileName: json['fileName'],
-      fileSize: json['fileSize'],
+      fileSize: (json['fileSize'] as num?)?.toInt(),
       mimeType: json['mimeType'],
       dimensions: json['dimensions'] != null
           ? MediaDimensions.fromJson(json['dimensions'])
@@ -314,7 +314,7 @@ class MessageMedia {
       location: json['location'] != null
           ? LocationData.fromJson(json['location'])
           : null,
-      duration: json['duration'],
+      duration: (json['duration'] as num?)?.toInt(),
       waveform: json['waveform'] != null
           ? (json['waveform'] as List).map((w) => (w as num).toDouble()).toList()
           : null,
@@ -345,8 +345,8 @@ class MediaDimensions {
 
   factory MediaDimensions.fromJson(Map<String, dynamic> json) {
     return MediaDimensions(
-      width: json['width'] ?? 0,
-      height: json['height'] ?? 0,
+      width: (json['width'] as num?)?.toInt() ?? 0,
+      height: (json['height'] as num?)?.toInt() ?? 0,
     );
   }
 
@@ -538,8 +538,8 @@ class MessageMention {
     return MessageMention(
       user: Message._parseCommunity(json['user']),
       username: json['username'] ?? '',
-      startIndex: json['startIndex'] ?? 0,
-      endIndex: json['endIndex'] ?? 0,
+      startIndex: (json['startIndex'] as num?)?.toInt() ?? 0,
+      endIndex: (json['endIndex'] as num?)?.toInt() ?? 0,
     );
   }
 
@@ -574,7 +574,7 @@ class SelfDestructSettings {
       enabled: json['enabled'] ?? false,
       expiresAt: json['expiresAt'],
       destructAfterRead: json['destructAfterRead'] ?? false,
-      destructTimer: json['destructTimer'] ?? 0,
+      destructTimer: (json['destructTimer'] as num?)?.toInt() ?? 0,
       destructAt: json['destructAt'],
     );
   }
@@ -669,11 +669,11 @@ class Poll {
       status: json['status'] ?? 'active',
       expiresAt: json['expiresAt'],
       closedAt: json['closedAt'],
-      closedBy: json['closedBy'] != null && json['closedBy'] is Map<String, dynamic> 
-          ? Community.fromJson(json['closedBy']) 
+      closedBy: json['closedBy'] != null && json['closedBy'] is Map<String, dynamic>
+          ? Community.fromJson(json['closedBy'])
           : null,
-      totalVotes: json['totalVotes'] ?? 0,
-      uniqueVoters: json['uniqueVoters'] ?? 0,
+      totalVotes: (json['totalVotes'] as num?)?.toInt() ?? 0,
+      uniqueVoters: (json['uniqueVoters'] as num?)?.toInt() ?? 0,
       createdAt: json['createdAt'] ?? '',
     );
   }
@@ -737,7 +737,7 @@ class PollOption {
               ?.map((v) => PollVoter.fromJson(v))
               .toList() ??
           [],
-      voteCount: json['voteCount'] ?? (json['votes'] as List?)?.length ?? 0,
+      voteCount: (json['voteCount'] as num?)?.toInt() ?? (json['votes'] as List?)?.length ?? 0,
     );
   }
 
@@ -817,12 +817,12 @@ class PollSettings {
   factory PollSettings.fromJson(Map<String, dynamic> json) {
     return PollSettings(
       allowMultipleVotes: json['allowMultipleVotes'] ?? false,
-      maxVotesPerUser: json['maxVotesPerUser'] ?? 1,
+      maxVotesPerUser: (json['maxVotesPerUser'] as num?)?.toInt() ?? 1,
       isAnonymous: json['isAnonymous'] ?? false,
       showResultsBeforeVote: json['showResultsBeforeVote'] ?? true,
       allowAddOptions: json['allowAddOptions'] ?? false,
       isQuiz: json['isQuiz'] ?? false,
-      correctOptionIndex: json['correctOptionIndex'],
+      correctOptionIndex: (json['correctOptionIndex'] as num?)?.toInt(),
       explanation: json['explanation'],
     );
   }
@@ -863,7 +863,7 @@ class QuickReply {
       text: json['text'] ?? '',
       createdBy: json['createdBy'] ?? '',
       createdAt: json['createdAt'] ?? '',
-      useCount: json['useCount'] ?? 0,
+      useCount: (json['useCount'] as num?)?.toInt() ?? 0,
     );
   }
 

@@ -93,7 +93,7 @@ class Community {
               : <String>[]) ??
           [],
       createdAt: json['createdAt'] ?? '',
-      version: json['__v'] ?? 0,
+      version: (json['__v'] as num?)?.toInt() ?? 0,
       privacySettings: json['privacySettings'] != null
           ? PrivacySettings.fromJson(json['privacySettings'])
           : null,
