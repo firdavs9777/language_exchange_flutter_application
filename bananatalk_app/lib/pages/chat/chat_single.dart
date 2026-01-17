@@ -29,6 +29,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/widgets/voice_recorder_widget.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
+import 'package:bananatalk_app/services/video_compression_service.dart';
+import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -524,19 +526,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final picker = ImagePicker();
       final pickedFile = await picker.pickVideo(
         source: ImageSource.gallery,
-        maxDuration: const Duration(minutes: 3),
+        maxDuration: const Duration(minutes: 10), // 10 minutes max per API
       );
 
       if (pickedFile != null && mounted) {
         final file = File(pickedFile.path);
 
-        // Validate file size (max 100MB)
+        // Validate file size (max 1GB)
         final fileSize = await file.length();
-        if (fileSize > 100 * 1024 * 1024) {
+        if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Video must be under 100MB. Please compress the video.'),
+                content: Text('Video must be under 1GB.'),
                 backgroundColor: Colors.red,
               ),
             );
@@ -544,47 +546,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           return;
         }
 
-        // Show confirmation dialog
-        if (mounted) {
-          final shouldSend = await showDialog<bool>(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Send Video'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.black,
-                    child: const Center(
-                      child: Icon(Icons.videocam, color: Colors.white, size: 64),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'File size: ${(fileSize / (1024 * 1024)).toStringAsFixed(1)} MB',
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: const Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: const Text('Send'),
-                ),
-              ],
-            ),
-          );
-
-          if (shouldSend == true) {
-            await _sendVideoMessage(file);
-          }
-        }
+        // Open video editor for trimming and filters before sending
+        await _processAndSendVideo(file);
       }
     } catch (e) {
       if (mounted) {
@@ -603,19 +566,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final picker = ImagePicker();
       final pickedFile = await picker.pickVideo(
         source: ImageSource.camera,
-        maxDuration: const Duration(minutes: 3),
+        maxDuration: const Duration(minutes: 10), // 10 minutes max per API
       );
 
       if (pickedFile != null && mounted) {
         final file = File(pickedFile.path);
 
-        // Validate file size (max 100MB)
+        // Validate file size (max 1GB)
         final fileSize = await file.length();
-        if (fileSize > 100 * 1024 * 1024) {
+        if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Video must be under 100MB.'),
+                content: Text('Video must be under 1GB.'),
                 backgroundColor: Colors.red,
               ),
             );
@@ -623,7 +586,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           return;
         }
 
-        await _sendVideoMessage(file);
+        // Open video editor for trimming and filters
+        await _processAndSendVideo(file);
       }
     } catch (e) {
       if (mounted) {
@@ -635,6 +599,66 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         );
       }
     }
+  }
+
+  /// Process video through editor before sending
+  Future<void> _processAndSendVideo(File videoFile) async {
+    // Open video editor for trimming and filters
+    final editorResult = await Navigator.push<VideoEditorResult>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoEditorScreen(
+          videoFile: videoFile,
+          maxDurationSeconds: 600, // 10 minutes max for chat videos
+        ),
+      ),
+    );
+
+    // User cancelled editing
+    if (editorResult == null || !mounted) {
+      return;
+    }
+
+    // Use the edited video file
+    final editedVideoFile = editorResult.videoFile;
+
+    // Compress if needed
+    final compressionService = VideoCompressionService();
+    final needsCompression = await compressionService.needsCompression(editedVideoFile);
+
+    File finalVideoFile = editedVideoFile;
+    if (needsCompression) {
+      // Show compression dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.grey[900],
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(color: Color(0xFF00BFA5)),
+              const SizedBox(height: 16),
+              const Text(
+                'Compressing video...',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      );
+
+      finalVideoFile = await compressionService.compressVideo(editedVideoFile);
+
+      // Close compression dialog
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    }
+
+    // Send the video
+    await _sendVideoMessage(finalVideoFile);
   }
 
   Future<void> _sendVideoMessage(File videoFile) async {
@@ -657,10 +681,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       } else {
         if (mounted) {
           String errorMsg = result['error'] ?? 'Failed to send video';
-          if (errorMsg.contains('duration')) {
-            errorMsg = 'Video must be under 3 minutes';
-          } else if (errorMsg.contains('size') || errorMsg.contains('100MB')) {
-            errorMsg = 'Video must be under 100MB. Please compress the video.';
+          if (errorMsg.contains('duration') || errorMsg.contains('600 seconds') || errorMsg.contains('10 minutes')) {
+            errorMsg = 'Video must be under 10 minutes';
+          } else if (errorMsg.contains('size') || errorMsg.contains('1024MB') || errorMsg.contains('1GB')) {
+            errorMsg = 'Video must be under 1GB. Please compress the video.';
+          } else if (errorMsg.contains('format')) {
+            errorMsg = 'Unsupported video format. Use MP4, MOV, or WebM.';
           }
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

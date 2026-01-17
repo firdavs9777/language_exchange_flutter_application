@@ -618,7 +618,8 @@ class MessageService {
     }
   }
 
-  /// Send video message (max 3 minutes, 100MB)
+  /// Send video message (max 10 minutes, 1GB)
+  /// Supported formats: MP4, MOV, AVI, WebM, 3GP, M4V
   Future<Map<String, dynamic>> sendVideoMessage({
     required String receiver,
     required File videoFile,
@@ -631,13 +632,14 @@ class MessageService {
       request.headers['Authorization'] = 'Bearer $token';
       request.fields['receiver'] = receiver;
 
-      // Determine mime type
+      // Determine mime type - supports MP4, MOV, AVI, WebM, 3GP, M4V
       final extension = videoFile.path.split('.').last.toLowerCase();
       String mimeType = 'video/mp4';
       if (extension == 'mov') mimeType = 'video/quicktime';
       else if (extension == 'webm') mimeType = 'video/webm';
       else if (extension == 'avi') mimeType = 'video/x-msvideo';
       else if (extension == 'm4v') mimeType = 'video/x-m4v';
+      else if (extension == '3gp') mimeType = 'video/3gpp';
 
       request.files.add(await http.MultipartFile.fromPath(
         'video',
