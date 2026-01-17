@@ -87,6 +87,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   String? _genderError;
   String? _birthDateError;
   String? _imagesError;
+  String? _locationError;
 
   @override
   void initState() {
@@ -334,6 +335,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _genderError = null;
       _birthDateError = null;
       _imagesError = null;
+      _locationError = null;
     });
 
     // Bio validation
@@ -407,6 +409,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (_selectedImages.length < 2) {
       setState(() {
         _imagesError = 'Please select at least 2 profile images';
+      });
+      isValid = false;
+    }
+
+    // Location validation (required for matching and community features)
+    if (_city == null || _country == null) {
+      setState(() {
+        _locationError = 'Please detect your location';
       });
       isValid = false;
     }
@@ -1513,98 +1523,140 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   }
 
   Widget _buildLocationCard() {
-    return InkWell(
-      onTap: _isFetchingLocation ? null : _getCurrentLocation,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
+    final hasError = _locationError != null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: _isFetchingLocation ? null : _getCurrentLocation,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey.shade200),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: _city != null
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                    : Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: hasError ? Colors.red.shade300 : Colors.grey.shade200,
+                width: hasError ? 1.5 : 1,
               ),
-              child: _isFetchingLocation
-                  ? Center(
-                      child: SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).primaryColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: _city != null
+                        ? Theme.of(context).primaryColor.withOpacity(0.1)
+                        : hasError
+                            ? Colors.red.withOpacity(0.1)
+                            : Colors.grey[100],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: _isFetchingLocation
+                      ? Center(
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Theme.of(context).primaryColor,
+                              ),
+                            ),
                           ),
+                        )
+                      : Icon(
+                          _city != null ? Icons.location_on : Icons.location_off_outlined,
+                          color: _city != null
+                              ? Theme.of(context).primaryColor
+                              : hasError
+                                  ? Colors.red[400]
+                                  : Colors.grey[400],
+                          size: 24,
+                        ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Current Location',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[500],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '*',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.red[400],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        _city != null && _country != null
+                            ? '$_city, $_country'
+                            : 'Tap to detect your location',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: _city != null
+                              ? Colors.grey[900]
+                              : hasError
+                                  ? Colors.red[400]
+                                  : Colors.grey[400],
                         ),
                       ),
-                    )
-                  : Icon(
-                      _city != null ? Icons.location_on : Icons.location_off_outlined,
-                      color: _city != null
-                          ? Theme.of(context).primaryColor
-                          : Colors.grey[400],
-                      size: 24,
-                    ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Required - helps find nearby partners',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.gps_fixed,
+                  size: 20,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ],
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Current Location',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    _city != null && _country != null
-                        ? '$_city, $_country'
-                        : 'Tap to detect your location',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: _city != null ? Colors.grey[900] : Colors.grey[400],
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Optional - helps find nearby partners',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                ],
+          ),
+        ),
+        if (hasError)
+          Padding(
+            padding: const EdgeInsets.only(left: 12, top: 6),
+            child: Text(
+              _locationError!,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.red[400],
               ),
             ),
-            Icon(
-              Icons.gps_fixed,
-              size: 20,
-              color: Theme.of(context).primaryColor,
-            ),
-          ],
-        ),
-      ),
+          ),
+      ],
     );
   }
 

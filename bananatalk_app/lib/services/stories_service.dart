@@ -174,7 +174,7 @@ class StoriesService {
     }
   }
 
-  /// Create story with all features
+  /// Create story - only images and videos are allowed
   static Future<SingleStoryResponse> createStory({
     List<File>? mediaFiles,
     String? text,
@@ -196,54 +196,34 @@ class StoriesService {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storiesURL}');
 
+      // Validate - must have media files (images or video)
+      if (mediaFiles == null || mediaFiles.isEmpty) {
+        return SingleStoryResponse(
+          success: false,
+          error: 'Please select an image or video for your story',
+        );
+      }
+
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = 'Bearer $token';
 
-      // Add media files
-      if (mediaFiles != null) {
-        for (final file in mediaFiles) {
-          final mimeType = _getMimeType(file.path);
-          request.files.add(await http.MultipartFile.fromPath(
-            'media', file.path, contentType: MediaType.parse(mimeType),
-          ));
-        }
-      }
+      // Add media files (images or videos only)
+      for (final file in mediaFiles) {
+        final mimeType = _getMimeType(file.path);
+        final fileSize = await file.length();
 
-      // Add fields
-      if (text != null) request.fields['text'] = text;
-      if (backgroundColor != null) request.fields['backgroundColor'] = backgroundColor;
-      if (textColor != null) request.fields['textColor'] = textColor;
-      if (fontStyle != null) request.fields['fontStyle'] = fontStyle;
-      request.fields['privacy'] = privacy.value;
-      request.fields['allowReplies'] = allowReplies.toString();
-      request.fields['allowSharing'] = allowSharing.toString();
+        print('📤 Adding file: ${file.path}');
+        print('📤 MIME type: $mimeType');
+        print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
 
-      // Advanced features as JSON
-      if (poll != null) {
-        request.fields['poll'] = jsonEncode({
-          'question': poll.question,
-          'options': poll.options.map((o) => o.text).toList(),
-          'isAnonymous': poll.isAnonymous,
-        });
+        request.files.add(await http.MultipartFile.fromPath(
+          'media', file.path, contentType: MediaType.parse(mimeType),
+        ));
       }
-
-      if (questionBox != null) {
-        request.fields['questionBox'] = jsonEncode({'prompt': questionBox.prompt});
-      }
-
-      if (location != null) request.fields['location'] = jsonEncode(location.toJson());
-      if (link != null) request.fields['link'] = jsonEncode(link.toJson());
-      if (mentions != null && mentions.isNotEmpty) {
-        request.fields['mentions'] = jsonEncode(mentions.map((m) => m.toJson()).toList());
-      }
-      if (hashtags != null && hashtags.isNotEmpty) {
-        request.fields['hashtags'] = jsonEncode(hashtags);
-      }
-      if (music != null) request.fields['music'] = jsonEncode(music.toJson());
 
       print('📤 Sending story creation request...');
-      print('📤 Media files: ${mediaFiles?.length ?? 0}');
-      print('📤 Text mode: ${text != null}');
+      print('📤 URL: $url');
+      print('📤 Media files: ${mediaFiles.length}');
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);

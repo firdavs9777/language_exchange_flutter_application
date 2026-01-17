@@ -332,37 +332,43 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
   }
 
   Future<void> _createStory() async {
-    // Validate content
-    if (_mediaFiles.isEmpty && !_isTextMode && !_isVideoMode) return;
-    if (_isTextMode && _textController.text.trim().isEmpty) return;
+    // Validate content - only images and videos are allowed
+    if (_mediaFiles.isEmpty && !_isVideoMode) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please select an image or video for your story'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
 
     setState(() => _isCreating = true);
 
     try {
-      // Determine media files to send
-      List<File>? mediaToUpload;
+      // Determine media files to send (images or video only)
+      List<File> mediaToUpload = [];
       if (_isVideoMode && _videoFile != null) {
         mediaToUpload = [_videoFile!];
       } else if (_mediaFiles.isNotEmpty) {
         mediaToUpload = _mediaFiles;
       }
 
+      if (mediaToUpload.isEmpty) {
+        setState(() => _isCreating = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please select an image or video for your story'),
+            backgroundColor: Colors.orange,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        return;
+      }
+
       final result = await StoriesService.createStory(
-        mediaFiles: _isTextMode ? null : mediaToUpload,
-        text: _isTextMode ? _textController.text.trim() : null,
-        backgroundColor: _backgroundColor,
-        textColor: _textColor,
-        fontStyle: _fontStyle,
-        privacy: _privacy,
-        poll: _poll,
-        questionBox: _questionBox,
-        location: _location,
-        link: _link,
-        mentions: _mentions.isNotEmpty ? _mentions : null,
-        hashtags: _hashtags.isNotEmpty ? _hashtags : null,
-        music: _music,
-        allowReplies: _allowReplies,
-        allowSharing: _allowSharing,
+        mediaFiles: mediaToUpload,
       );
 
       print('📋 Story creation result: success=${result.success}, error=${result.error}');
@@ -752,13 +758,13 @@ class _StoryCreationScreenState extends State<StoryCreationScreen> {
                 onTap: _recordVideo,
                 color: Colors.red,
               ),
-              // Text Story
-              _MediaButton(
-                icon: Icons.text_fields,
-                label: 'Text',
-                onTap: _enableTextMode,
-                color: Colors.blue,
-              ),
+              // Text Story - disabled (backend only accepts images/videos)
+              // _MediaButton(
+              //   icon: Icons.text_fields,
+              //   label: 'Text',
+              //   onTap: _enableTextMode,
+              //   color: Colors.blue,
+              // ),
             ],
           ),
         ],
