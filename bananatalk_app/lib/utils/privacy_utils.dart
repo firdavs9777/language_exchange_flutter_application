@@ -13,8 +13,10 @@ class PrivacyUtils {
         return '${location.city}, ${location.country}';
       } else if (location.country.isNotEmpty) {
         return location.country;
+      } else if (location.city.isNotEmpty) {
+        return location.city;
       }
-      return 'Location not set';
+      return ''; // No location data, return empty to hide section
     }
 
     // Check if country/region should be shown
@@ -36,13 +38,13 @@ class PrivacyUtils {
       return location.country;
     }
 
-    return 'Location not set';
+    return ''; // No location data available
   }
 
   /// Get age if privacy settings allow it
-  /// Returns null if age should be hidden
-  static int? getAge(Community user, int calculatedAge) {
-    if (calculatedAge <= 0) return null;
+  /// Returns null if age should be hidden or birth year is invalid
+  static int? getAge(Community user, int? calculatedAge) {
+    if (calculatedAge == null || calculatedAge <= 0) return null;
 
     final privacy = user.privacySettings;
     // If no privacy settings, show age (default behavior)

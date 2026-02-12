@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/models/vip_subscription.dart';
+
 class Community {
   const Community({
     required this.id,
@@ -20,9 +22,18 @@ class Community {
     required this.imageUrls,
     required this.createdAt,
     required this.version,
-    required this.location, // Added location
+    required this.location,
     this.privacySettings,
-    this.termsAccepted = false, // Terms of Service acceptance
+    this.termsAccepted = false,
+    // New HelloTalk-style fields
+    this.topics = const [],
+    this.languageLevel,
+    this.responseRate,
+    this.lastActive,
+    this.isOnline = false,
+    // VIP fields
+    this.userMode = UserMode.regular,
+    this.vipSubscriptionActive = false,
   });
 
   final String id;
@@ -45,11 +56,48 @@ class Community {
   final String birth_day;
   final String createdAt;
   final int version;
-  final Location location; // Made location nullable here
+  final Location location;
   final PrivacySettings? privacySettings;
-  final bool termsAccepted; // Terms of Service acceptance status
+  final bool termsAccepted;
+  // New HelloTalk-style fields
+  final List<String> topics;
+  final String? languageLevel; // A1, A2, B1, B2, C1, C2
+  final double? responseRate; // 0-100
+  final DateTime? lastActive;
+  final bool isOnline;
+  // VIP fields
+  final UserMode userMode;
+  final bool vipSubscriptionActive;
+
+  /// Check if user is VIP (either userMode is vip OR vipSubscription.isActive is true)
+  bool get isVip => userMode == UserMode.vip || vipSubscriptionActive;
+
+  /// Get effective image URLs - prefer imageUrls, fallback to images with valid URLs
+  List<String> get effectiveImageUrls {
+    if (imageUrls.isNotEmpty) {
+      return imageUrls;
+    }
+    // Fallback to images array which may contain full URLs
+    return images.where((url) =>
+      url.isNotEmpty &&
+      (url.startsWith('http://') || url.startsWith('https://'))
+    ).toList();
+  }
+
+  /// Get the first available profile image URL
+  String? get profileImageUrl {
+    final urls = effectiveImageUrls;
+    return urls.isNotEmpty ? urls[0] : null;
+  }
 
   factory Community.fromJson(Map<String, dynamic> json) {
+    // Debug: Print raw JSON for images
+    // debugPrint('Community.fromJson - id: ${json['_id']}');
+    // debugPrint('  images raw: ${json['images']}');
+    // debugPrint('  imageUrls raw: ${json['imageUrls']}');
+    // debugPrint('  followers raw: ${json['followers']}');
+    // debugPrint('  following raw: ${json['following']}');
+
     return Community(
       id: json['_id'] ?? '',
       googleId: json['googleId'],
@@ -71,16 +119,14 @@ class Community {
       bloodType: json['bloodType'] ?? '',
       location: json['location'] != null
           ? Location.fromJson(json['location'])
-          : Location.defaultLocation(), // Ensure location is not null
+          : Location.defaultLocation(),
       imageUrls: (json['imageUrls'] != null
               ? List<String>.from(json['imageUrls'])
                   .map((url) => url.toString())
                   .where((url) =>
                       url.isNotEmpty &&
-                      !url.contains(
-                          'placeholder') && // Filter out placeholder images
-                      !url.startsWith(
-                          'placeholder_')) // Filter out placeholder_ prefix
+                      !url.contains('placeholder') &&
+                      !url.startsWith('placeholder_'))
                   .toList()
               : <String>[]) ??
           [],
@@ -98,6 +144,20 @@ class Community {
           ? PrivacySettings.fromJson(json['privacySettings'])
           : null,
       termsAccepted: json['termsAccepted'] ?? false,
+      // New HelloTalk-style fields
+      topics: (json['topics'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      languageLevel: json['languageLevel']?.toString(),
+      responseRate: (json['responseRate'] as num?)?.toDouble(),
+      lastActive: json['lastActive'] != null
+          ? DateTime.tryParse(json['lastActive'].toString())
+          : null,
+      isOnline: json['isOnline'] ?? false,
+      // VIP fields
+      userMode: UserMode.fromString(json['userMode'] ?? 'regular'),
+      vipSubscriptionActive: json['vipSubscription']?['isActive'] == true,
     );
   }
 
@@ -124,7 +184,63 @@ class Community {
       'createdAt': createdAt,
       '__v': version,
       'privacySettings': privacySettings?.toJson(),
+      // New HelloTalk-style fields
+      'topics': topics,
+      if (languageLevel != null) 'languageLevel': languageLevel,
+      if (responseRate != null) 'responseRate': responseRate,
+      if (lastActive != null) 'lastActive': lastActive!.toIso8601String(),
+      'isOnline': isOnline,
+      'userMode': userMode.toJson(),
+      'vipSubscription': {'isActive': vipSubscriptionActive},
     };
+  }
+
+  /// Calculate age from birth date
+  int? get age {
+    try {
+      final birthYear = int.tryParse(birth_year);
+      if (birthYear == null) return null;
+      final today = DateTime.now();
+      int age = today.year - birthYear;
+      final birthMonth = int.tryParse(birth_month);
+      final birthDay = int.tryParse(birth_day);
+      if (birthMonth != null && birthDay != null) {
+        final birthday = DateTime(today.year, birthMonth, birthDay);
+        if (today.isBefore(birthday)) age--;
+      }
+      return age;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Get last active text (e.g., "Active 5m ago")
+  String get lastActiveText {
+    if (isOnline) return 'Online now';
+    if (lastActive == null) return '';
+    final duration = DateTime.now().difference(lastActive!);
+    if (duration.inMinutes < 1) return 'Active just now';
+    if (duration.inMinutes < 60) return 'Active ${duration.inMinutes}m ago';
+    if (duration.inHours < 24) return 'Active ${duration.inHours}h ago';
+    if (duration.inDays < 7) return 'Active ${duration.inDays}d ago';
+    return 'Active ${duration.inDays ~/ 7}w ago';
+  }
+
+  /// Get language level color
+  static String getLevelColor(String? level) {
+    switch (level?.toUpperCase()) {
+      case 'A1':
+      case 'A2':
+        return '#4CAF50'; // Green - Beginner
+      case 'B1':
+      case 'B2':
+        return '#FF9800'; // Orange - Intermediate
+      case 'C1':
+      case 'C2':
+        return '#E91E63'; // Pink - Advanced
+      default:
+        return '#9E9E9E'; // Grey
+    }
   }
 }
 

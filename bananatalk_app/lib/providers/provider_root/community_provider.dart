@@ -32,12 +32,27 @@ class CommunityService {
         headers: headers,
       );
 
+      debugPrint('🔍 getCommunity response status: ${response.statusCode}');
+
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final dataList = data['data'];
         if (dataList == null || dataList is! List) {
+          debugPrint('🔍 getCommunity: dataList is null or not a list');
           return [];
         }
+
+        // Debug: Print first user's data
+        if (dataList.isNotEmpty) {
+          final firstUser = dataList[0];
+          debugPrint('🔍 First user data sample:');
+          debugPrint('   id: ${firstUser['_id']}');
+          debugPrint('   images: ${firstUser['images']}');
+          debugPrint('   imageUrls: ${firstUser['imageUrls']}');
+          debugPrint('   followers: ${firstUser['followers']}');
+          debugPrint('   following: ${firstUser['following']}');
+        }
+
         return dataList
             .where((item) => item != null && item is Map<String, dynamic>)
             .map((postJson) =>
@@ -59,10 +74,15 @@ class CommunityService {
   Future<Community?> getSingleCommunity({required id}) async {
     try {
       final headers = await _getHeaders();
+      final url = '${Endpoints.baseURL}${Endpoints.usersURL}/$id';
+      debugPrint('🔍 getSingleCommunity URL: $url');
+
       final response = await http.get(
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$id'),
+        Uri.parse(url),
         headers: headers,
       );
+
+      debugPrint('🔍 getSingleCommunity response status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -71,6 +91,17 @@ class CommunityService {
           debugPrint('Warning: User data is null or invalid for id: $id');
           return null;
         }
+
+        // Debug: Print user data
+        debugPrint('🔍 Single user data:');
+        debugPrint('   id: ${userData['_id']}');
+        debugPrint('   name: ${userData['name']}');
+        debugPrint('   images: ${userData['images']}');
+        debugPrint('   imageUrls: ${userData['imageUrls']}');
+        debugPrint('   followers: ${userData['followers']}');
+        debugPrint('   following: ${userData['following']}');
+        debugPrint('   location: ${userData['location']}');
+
         return Community.fromJson(userData);
       } else if (response.statusCode == 401) {
         _apiClient.onAuthenticationError?.call();

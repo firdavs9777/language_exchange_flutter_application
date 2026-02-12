@@ -207,50 +207,55 @@ class _CommunityCardState extends State<CommunityCard>
         padding: const EdgeInsets.all(3),
         child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: widget.community.imageUrls.isEmpty
-                    ? const LinearGradient(
-                        colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : null,
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF00BFA5).withOpacity(0.3),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
+            Builder(
+              builder: (context) {
+                final profileImage = widget.community.profileImageUrl;
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: profileImage == null
+                        ? const LinearGradient(
+                            colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )
+                        : null,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF00BFA5).withOpacity(0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: ClipOval(
-                child: widget.community.imageUrls.isNotEmpty
-                    ? CachedImageWidget(
-                        imageUrl: widget.community.imageUrls[0],
-                        width: 64,
-                        height: 64,
-                        fit: BoxFit.cover,
-                        errorWidget: _buildFallbackAvatar(),
-                        placeholder: Container(
-                          color: Colors.grey[100],
-                          child: Center(
-                            child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2.5,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  const Color(0xFF00BFA5).withOpacity(0.5),
+                  child: ClipOval(
+                    child: profileImage != null
+                        ? CachedImageWidget(
+                            imageUrl: profileImage,
+                            width: 64,
+                            height: 64,
+                            fit: BoxFit.cover,
+                            errorWidget: _buildFallbackAvatar(),
+                            placeholder: Container(
+                              color: Colors.grey[100],
+                              child: Center(
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      const Color(0xFF00BFA5).withOpacity(0.5),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                    : _buildFallbackAvatar(),
-              ),
+                          )
+                        : _buildFallbackAvatar(),
+                  ),
+                );
+              },
             ),
             // Flag badge with glassmorphism
             Positioned(
