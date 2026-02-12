@@ -6,13 +6,15 @@ import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
+import 'package:bananatalk_app/services/android_purchase_service.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class VipPlansScreen extends ConsumerStatefulWidget {
-  final String userId;
+  final String? userId;
 
-  const VipPlansScreen({Key? key, required this.userId}) : super(key: key);
+  const VipPlansScreen({Key? key, this.userId}) : super(key: key);
 
   @override
   ConsumerState<VipPlansScreen> createState() => _VipPlansScreenState();
@@ -21,22 +23,28 @@ class VipPlansScreen extends ConsumerStatefulWidget {
 class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   VipPlan? selectedPlan;
   bool _isIOS = Platform.isIOS;
+  bool _isAndroid = Platform.isAndroid;
 
   @override
   void initState() {
     super.initState();
-    // Initialize iOS store if on iOS
+    // Initialize store based on platform
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
       IOSPurchaseService.loadProducts();
+    } else if (_isAndroid) {
+      AndroidPurchaseService.initializeStore();
+      AndroidPurchaseService.loadProducts();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Show loading state while products are loading on iOS
-    if (_isIOS) {
-      final productsAsync = ref.watch(iosProductsProvider);
+    // Show loading state while products are loading on iOS or Android
+    if (_isIOS || _isAndroid) {
+      final productsAsync = _isIOS
+          ? ref.watch(iosProductsProvider)
+          : ref.watch(androidProductsProvider);
       return productsAsync.when(
         data: (products) => _buildContent(),
         loading: () => Scaffold(
@@ -63,7 +71,11 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    ref.refresh(iosProductsProvider);
+                    if (_isIOS) {
+                      ref.invalidate(iosProductsProvider);
+                    } else {
+                      ref.invalidate(androidProductsProvider);
+                    }
                   },
                   child: Text(AppLocalizations.of(context)!.retry),
                 ),
@@ -284,11 +296,19 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                 child: ElevatedButton(
                   onPressed: selectedPlan != null
                       ? () {
+                          // Get userId from widget or provider
+                          final userId = widget.userId ?? ref.read(userProvider).valueOrNull?.id ?? '';
+                          if (userId.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Please log in to continue')),
+                            );
+                            return;
+                          }
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => VipPaymentScreen(
-                                userId: widget.userId,
+                                userId: userId,
                                 plan: selectedPlan!,
                               ),
                             ),
@@ -364,22 +384,38 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
   Widget _buildPlanCard(VipPlan plan, {bool popular = false}) {
     final isSelected = selectedPlan == plan;
-    
-    // Get product details from StoreKit if iOS
+
+    // Get product ID based on platform
     String productId;
-    switch (plan) {
-      case VipPlan.monthly:
-        productId = 'com.bananatalk.bananatalkApp.monthly';
-        break;
-      case VipPlan.quarterly:
-        productId = 'com.bananatalk.bananatalkApp.quarterly';
-        break;
-      case VipPlan.yearly:
-        productId = 'com.bananatalk.bananatalkApp.yearly';
-        break;
+    if (_isIOS) {
+      // iOS product IDs
+      switch (plan) {
+        case VipPlan.monthly:
+          productId = 'com.bananatalk.bananatalkApp.vip.month';
+          break;
+        case VipPlan.quarterly:
+          productId = 'com.bananatalk.bananatalkApp.vip.quarter';
+          break;
+        case VipPlan.yearly:
+          productId = 'com.bananatalk.bananatalkApp.vip.year';
+          break;
+      }
+    } else {
+      // Android product IDs
+      switch (plan) {
+        case VipPlan.monthly:
+          productId = 'com.bananatalk.app.vip.monthly';
+          break;
+        case VipPlan.quarterly:
+          productId = 'com.bananatalk.app.vip.quarterly';
+          break;
+        case VipPlan.yearly:
+          productId = 'com.bananatalk.app.vip.yearly';
+          break;
+      }
     }
 
-    // Try to get product from StoreKit
+    // Try to get product from store
     ProductDetails? product;
     if (_isIOS) {
       final productsAsync = ref.watch(iosProductsProvider);
@@ -390,9 +426,18 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
           // Product not found, use default price
         }
       });
+    } else if (_isAndroid) {
+      final productsAsync = ref.watch(androidProductsProvider);
+      productsAsync.whenData((products) {
+        try {
+          product = products.firstWhere((p) => p.id == productId);
+        } catch (e) {
+          // Product not found, use default price
+        }
+      });
     }
 
-    // Use StoreKit price if available, otherwise use default
+    // Use store price if available, otherwise use default
     final priceText = product?.price ?? '\$${plan.price}';
 
     return GestureDetector(

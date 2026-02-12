@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -29,8 +30,8 @@ class VipService {
       final url = Uri.parse(
           '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/vip/activate');
 
-      print('VIP Activate URL: $url');
-      print('VIP Activate Request: plan=${plan.toJson()}, payment=$paymentMethod');
+      debugPrint('VIP Activate URL: $url');
+      debugPrint('VIP Activate Request: plan=${plan.toJson()}, payment=$paymentMethod');
 
       final response = await http.post(
         url,
@@ -41,8 +42,8 @@ class VipService {
         }),
       );
 
-      print('VIP Activate Response Status: ${response.statusCode}');
-      print('VIP Activate Response Body: ${response.body}');
+      debugPrint('VIP Activate Response Status: ${response.statusCode}');
+      debugPrint('VIP Activate Response Body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         try {
@@ -52,7 +53,7 @@ class VipService {
             'data': data,
           };
         } catch (e) {
-          print('JSON Parse Error: $e');
+          debugPrint('JSON Parse Error: $e');
           return {
             'success': false,
             'error': 'Invalid response format from server',
@@ -73,7 +74,7 @@ class VipService {
         }
       }
     } catch (e) {
-      print('VIP Activate Error: $e');
+      debugPrint('VIP Activate Error: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',
@@ -228,6 +229,146 @@ class VipService {
         return {
           'success': false,
           'error': errorData['error'] ?? errorData['message'] ?? 'Purchase verification failed',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  // Verify Android purchase with backend
+  static Future<Map<String, dynamic>> verifyAndroidPurchase({
+    required String purchaseToken,
+    required String productId,
+    String? orderId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.androidVerifyPurchaseURL}');
+
+      final requestBody = <String, dynamic>{
+        'purchaseToken': purchaseToken,
+        'productId': productId,
+        'packageName': 'com.bananatalk.app',
+      };
+
+      if (orderId != null) {
+        requestBody['orderId'] = orderId;
+      }
+
+      debugPrint('Android Verify URL: $url');
+      debugPrint('Android Verify Request: productId=$productId');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode(requestBody),
+      );
+
+      debugPrint('Android Verify Response Status: ${response.statusCode}');
+      debugPrint('Android Verify Response Body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        if (data['success'] == true) {
+          return {
+            'success': true,
+            'message':
+                data['message'] ?? 'VIP subscription activated successfully',
+            'data': data['data'],
+            'plan': data['data']?['plan'],
+            'isActive': data['data']?['isActive'] ?? true,
+            'endDate': data['data']?['endDate'] != null
+                ? DateTime.parse(data['data']['endDate'])
+                : null,
+            'nextBillingDate': data['data']?['nextBillingDate'] != null
+                ? DateTime.parse(data['data']['nextBillingDate'])
+                : null,
+            'userMode': data['data']?['userMode'] ?? 'vip',
+            'vipFeatures': data['data']?['vipFeatures'] != null
+                ? VipFeatures.fromJson(data['data']['vipFeatures'])
+                : null,
+          };
+        } else {
+          return {
+            'success': false,
+            'error': data['error'] ??
+                data['message'] ??
+                'Purchase verification failed',
+          };
+        }
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ??
+              errorData['message'] ??
+              'Purchase verification failed',
+        };
+      }
+    } catch (e) {
+      debugPrint('Android Verify Error: $e');
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  // Check Android subscription status
+  static Future<Map<String, dynamic>> checkAndroidSubscriptionStatus({
+    required String purchaseToken,
+    required String productId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.androidSubscriptionStatusURL}');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({
+          'purchaseToken': purchaseToken,
+          'productId': productId,
+          'packageName': 'com.bananatalk.app',
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data['success'] == true && data['data'] != null) {
+          final statusData = data['data'];
+          return {
+            'success': true,
+            'data': statusData,
+            'isActive': statusData['isActive'] ?? false,
+            'expiresDate': statusData['expiresDate'] != null
+                ? DateTime.parse(statusData['expiresDate'])
+                : null,
+            'productId': statusData['productId'],
+            'autoRenewing': statusData['autoRenewing'] ?? false,
+            'userVIPStatus': statusData['userVIPStatus'],
+          };
+        } else {
+          return {
+            'success': false,
+            'error': data['error'] ?? 'Failed to check subscription status',
+          };
+        }
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ??
+              errorData['message'] ??
+              'Failed to check subscription status',
         };
       }
     } catch (e) {

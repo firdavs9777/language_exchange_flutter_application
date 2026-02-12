@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
+import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 /// FutureProvider for VIP status
@@ -17,6 +19,28 @@ final iosProductsProvider = FutureProvider<List<ProductDetails>>(
     await IOSPurchaseService.initializeStore();
     await IOSPurchaseService.loadProducts();
     return IOSPurchaseService.getProducts();
+  },
+);
+
+/// FutureProvider for Android products
+final androidProductsProvider = FutureProvider<List<ProductDetails>>(
+  (ref) async {
+    await AndroidPurchaseService.initializeStore();
+    await AndroidPurchaseService.loadProducts();
+    return AndroidPurchaseService.getProducts();
+  },
+);
+
+/// Platform-aware products provider
+/// Returns iOS or Android products based on the current platform
+final platformProductsProvider = FutureProvider<List<ProductDetails>>(
+  (ref) async {
+    if (Platform.isIOS) {
+      return ref.watch(iosProductsProvider.future);
+    } else if (Platform.isAndroid) {
+      return ref.watch(androidProductsProvider.future);
+    }
+    return [];
   },
 );
 

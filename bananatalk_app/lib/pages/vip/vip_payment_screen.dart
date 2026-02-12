@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
+import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
@@ -29,6 +30,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
   String? selectedPaymentMethod;
   bool isProcessing = false;
   bool _isIOS = Platform.isIOS;
+  bool _isAndroid = Platform.isAndroid;
 
   final List<Map<String, dynamic>> paymentMethods = [
     {
@@ -71,6 +73,12 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       return;
     }
 
+    // On Android, use Google Play Billing
+    if (_isAndroid) {
+      await _processAndroidPurchase();
+      return;
+    }
+
     // For other platforms, use mockup payment
     if (selectedPaymentMethod == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -107,15 +115,17 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     try {
       // Initialize store if not already done
       if (!IOSPurchaseService.isAvailable) {
+        debugPrint('🛒 Initializing store...');
         final initialized = await IOSPurchaseService.initializeStore();
         if (!initialized) {
-          throw Exception('Store not available');
+          throw Exception('Store not available. Please check your internet connection and App Store settings.');
         }
       }
 
       // Load products
+      debugPrint('🛒 Loading products...');
       await IOSPurchaseService.loadProducts();
-      
+
       // Check if products loaded successfully
       final products = IOSPurchaseService.getProducts();
       if (products.isEmpty) {
@@ -123,17 +133,17 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         throw Exception('Failed to load products from App Store. ${error ?? "Please try again later."}');
       }
 
-      // Get product ID based on plan
+      // Get product ID based on plan (must match App Store Connect)
       String productId;
       switch (widget.plan) {
         case VipPlan.monthly:
-          productId = 'com.bananatalk.bananatalkApp.monthly';
+          productId = 'com.bananatalk.bananatalkApp.vip.month';
           break;
         case VipPlan.quarterly:
-          productId = 'com.bananatalk.bananatalkApp.quarterly';
+          productId = 'com.bananatalk.bananatalkApp.vip.quarter';
           break;
         case VipPlan.yearly:
-          productId = 'com.bananatalk.bananatalkApp.yearly';
+          productId = 'com.bananatalk.bananatalkApp.vip.year';
           break;
       }
 
@@ -143,29 +153,50 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         throw Exception('Product "$productId" not found. Available products: ${products.map((p) => p.id).join(", ")}');
       }
 
-      // Initiate purchase
-      final purchaseInitiated = await IOSPurchaseService.purchaseProduct(productId);
-      if (!purchaseInitiated) {
-        final error = IOSPurchaseService.queryError;
-        throw Exception('Failed to initiate purchase. ${error ?? "Please check your App Store settings and try again."}');
+      debugPrint('🛒 Starting purchase for: $productId (${product.price})');
+
+      // Initiate purchase and wait for completion
+      final purchaseDetails = await IOSPurchaseService.purchaseProductAndWait(productId);
+
+      if (purchaseDetails == null) {
+        // Purchase was canceled or failed
+        setState(() {
+          isProcessing = false;
+        });
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Purchase was canceled or failed. Please try again.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+        return;
       }
 
-      // Wait for purchase to complete (this is handled by the purchase stream)
-      // For now, we'll verify after a short delay
-      await Future.delayed(const Duration(seconds: 2));
+      debugPrint('✅ Purchase completed, verifying with backend...');
 
-      // Get receipt data (may be empty for iOS - backend handles verification)
-      final receiptData = await IOSPurchaseService.getReceiptData();
-      final transactionId = IOSPurchaseService.getLatestTransactionId();
+      // Get receipt data from the purchase
+      final receiptData = IOSPurchaseService.getReceiptFromPurchase(purchaseDetails);
+      final transactionId = purchaseDetails.purchaseID;
+
+      if (receiptData == null || receiptData.isEmpty) {
+        throw Exception('Failed to get receipt data from purchase. Please contact support.');
+      }
+
+      debugPrint('📄 Receipt data length: ${receiptData.length}');
+      debugPrint('📄 Transaction ID: $transactionId');
 
       // Verify purchase with backend
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.verifying;
-      
+
       final verifyResult = await VipService.verifyIOSPurchase(
-        receiptData: receiptData ?? '',
+        receiptData: receiptData,
         productId: productId,
         transactionId: transactionId,
       );
+
+      debugPrint('🔍 Verification result: $verifyResult');
 
       setState(() {
         isProcessing = false;
@@ -175,18 +206,19 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       if (verifyResult['success'] == true) {
         // Refresh user data and limits
-        ref.refresh(userProvider);
-        ref.refresh(vipStatusProvider(widget.userId));
-        ref.refresh(userLimitsProvider(widget.userId));
-        
+        ref.invalidate(userProvider);
+        ref.invalidate(vipStatusProvider(widget.userId));
+        ref.invalidate(userLimitsProvider(widget.userId));
+
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
         _showSuccessDialog();
       } else {
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
-        _showErrorDialog('Purchase Failed', verifyResult['error'] ?? 'Purchase verification failed');
+        _showErrorDialog('Purchase Verification Failed', verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
       }
     } catch (e) {
+      debugPrint('❌ Purchase error: $e');
       setState(() {
         isProcessing = false;
       });
@@ -196,7 +228,140 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       if (!mounted) return;
 
-      _showErrorDialog('Purchase Error', 'An error occurred: ${e.toString()}');
+      _showErrorDialog('Purchase Error', e.toString().replaceAll('Exception: ', ''));
+    }
+  }
+
+  Future<void> _processAndroidPurchase() async {
+    setState(() {
+      isProcessing = true;
+    });
+
+    try {
+      // Initialize store if not already done
+      if (!AndroidPurchaseService.isAvailable) {
+        debugPrint('🛒 Initializing Google Play store...');
+        final initialized = await AndroidPurchaseService.initializeStore();
+        if (!initialized) {
+          throw Exception(
+              'Google Play Store not available. Please check your internet connection and Google Play settings.');
+        }
+      }
+
+      // Load products
+      debugPrint('🛒 Loading products...');
+      await AndroidPurchaseService.loadProducts();
+
+      // Check if products loaded successfully
+      final products = AndroidPurchaseService.getProducts();
+      if (products.isEmpty) {
+        final error = AndroidPurchaseService.queryError;
+        throw Exception(
+            'Failed to load products from Google Play. ${error ?? "Please try again later."}');
+      }
+
+      // Get product ID based on plan (must match Google Play Console)
+      String productId;
+      switch (widget.plan) {
+        case VipPlan.monthly:
+          productId = 'com.bananatalk.app.vip.monthly';
+          break;
+        case VipPlan.quarterly:
+          productId = 'com.bananatalk.app.vip.quarterly';
+          break;
+        case VipPlan.yearly:
+          productId = 'com.bananatalk.app.vip.yearly';
+          break;
+      }
+
+      // Verify product exists before attempting purchase
+      final product = AndroidPurchaseService.getProduct(productId);
+      if (product == null) {
+        throw Exception(
+            'Product "$productId" not found. Available products: ${products.map((p) => p.id).join(", ")}');
+      }
+
+      debugPrint('🛒 Starting purchase for: $productId (${product.price})');
+
+      // Initiate purchase and wait for completion
+      final purchaseDetails =
+          await AndroidPurchaseService.purchaseProductAndWait(productId);
+
+      if (purchaseDetails == null) {
+        // Purchase was canceled or failed
+        setState(() {
+          isProcessing = false;
+        });
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Purchase was canceled or failed. Please try again.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+        return;
+      }
+
+      debugPrint('✅ Purchase completed, verifying with backend...');
+
+      // Get purchase token for verification
+      final purchaseToken =
+          AndroidPurchaseService.getPurchaseToken(purchaseDetails);
+      final orderId = purchaseDetails.purchaseID;
+
+      if (purchaseToken == null || purchaseToken.isEmpty) {
+        throw Exception(
+            'Failed to get purchase token from Google Play. Please contact support.');
+      }
+
+      debugPrint('📄 Purchase token length: ${purchaseToken.length}');
+      debugPrint('📄 Order ID: $orderId');
+
+      // Verify purchase with backend
+      ref.read(purchaseStateProvider.notifier).state = PurchaseState.verifying;
+
+      final verifyResult = await VipService.verifyAndroidPurchase(
+        purchaseToken: purchaseToken,
+        productId: productId,
+        orderId: orderId,
+      );
+
+      debugPrint('🔍 Verification result: $verifyResult');
+
+      setState(() {
+        isProcessing = false;
+      });
+
+      if (!mounted) return;
+
+      if (verifyResult['success'] == true) {
+        // Refresh user data and limits
+        ref.invalidate(userProvider);
+        ref.invalidate(vipStatusProvider(widget.userId));
+        ref.invalidate(userLimitsProvider(widget.userId));
+
+        ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
+        _showSuccessDialog();
+      } else {
+        ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
+        ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
+        _showErrorDialog('Purchase Verification Failed',
+            verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
+      }
+    } catch (e) {
+      debugPrint('❌ Android purchase error: $e');
+      setState(() {
+        isProcessing = false;
+      });
+
+      ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
+      ref.read(purchaseErrorProvider.notifier).state = e.toString();
+
+      if (!mounted) return;
+
+      _showErrorDialog(
+          'Purchase Error', e.toString().replaceAll('Exception: ', ''));
     }
   }
 
@@ -376,8 +541,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
               ),
             ),
 
-            // Payment Methods (only for non-iOS platforms)
-            if (!_isIOS)
+            // Payment Methods (only for platforms without native billing)
+            if (!_isIOS && !_isAndroid)
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: Column(
@@ -433,6 +598,48 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                       const SizedBox(height: 8),
                       Text(
                         'Your purchase will be processed securely through the App Store.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[700],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            // Android Purchase Info
+            if (_isAndroid)
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.green.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Colors.green.withOpacity(0.3),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.shop,
+                        size: 48,
+                        color: Colors.green[700],
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Purchase via Google Play',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Your purchase will be processed securely through Google Play.',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[700],
@@ -537,7 +744,11 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                           ),
                         )
                       : Text(
-                          _isIOS ? 'Purchase via App Store' : 'Pay \$${widget.plan.price}',
+                          _isIOS
+                              ? 'Purchase via App Store'
+                              : _isAndroid
+                                  ? 'Purchase via Google Play'
+                                  : 'Pay \$${widget.plan.price}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

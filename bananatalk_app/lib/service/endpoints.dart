@@ -49,6 +49,11 @@ class Endpoints {
   static const String iosSubscriptionStatusURL =
       'purchases/ios/subscription-status';
 
+  // Android purchase endpoints
+  static const String androidVerifyPurchaseURL = 'purchases/android/verify';
+  static const String androidSubscriptionStatusURL =
+      'purchases/android/subscription-status';
+
   // Chat endpoints - Message Management
   static String editMessageURL(String messageId) => 'messages/$messageId';
   static String deleteMessageURL(String messageId) => 'messages/$messageId';
@@ -251,4 +256,61 @@ class Endpoints {
   static const String getMyVisitorStatsURL = 'auth/users/me/visitor-stats';
   static const String clearMyVisitorsURL = 'auth/users/me/visitors';
   static const String getVisitedProfilesURL = 'auth/users/me/visited-profiles';
+
+  // ==================== LEARNING ENDPOINTS ====================
+
+  // Learning Progress
+  static const String learningProgressURL = 'learning/progress';
+  static const String learningLeaderboardURL = 'learning/progress/leaderboard';
+  static const String learningDailyGoalsURL = 'learning/progress/daily-goals';
+
+  // Vocabulary
+  static const String vocabularyURL = 'learning/vocabulary';
+  static const String vocabularyReviewURL = 'learning/vocabulary/review';
+  static const String vocabularyStatsURL = 'learning/vocabulary/stats';
+  static String vocabularyItemURL(String id) => 'learning/vocabulary/$id';
+  static String vocabularyItemReviewURL(String id) => 'learning/vocabulary/$id/review';
+
+  // Lessons
+  static const String lessonsURL = 'learning/lessons';
+  static const String lessonsRecommendedURL = 'learning/lessons/recommended';
+  static String lessonURL(String id) => 'learning/lessons/$id';
+  static String lessonStartURL(String id) => 'learning/lessons/$id/start';
+  static String lessonSubmitURL(String id) => 'learning/lessons/$id/submit';
+
+  // AI-Generated Lessons
+  static const String aiLessonsURL = 'lessons/ai-generated';
+  static String aiLessonURL(String id) => 'lessons/$id';
+  static String aiLessonStartURL(String id) => 'lessons/$id/start';
+
+  // Quizzes
+  static const String quizzesURL = 'learning/quizzes';
+  static String quizURL(String id) => 'learning/quizzes/$id';
+  static String quizSubmitURL(String id) => 'learning/quizzes/$id/submit';
+
+  // Achievements
+  static const String achievementsURL = 'learning/achievements';
+
+  // Challenges
+  static const String challengesURL = 'learning/challenges';
+
+  // ==================== COMMUNITY ENDPOINTS (NEW) ====================
+
+  // Nearby Users
+  static const String nearbyUsersURL = 'community/nearby';
+
+  // Wave Feature
+  static const String waveURL = 'community/wave';
+  static const String wavesReceivedURL = 'community/waves';
+  static const String wavesReadURL = 'community/waves/read';
+
+  // Topics API
+  static const String topicsURL = 'community/topics';
+  static const String myTopicsURL = 'community/topics/my';
+  static String topicUsersURL(String topicId) => 'community/topics/$topicId/users';
+
+  // ==================== LESSON COMPLETION (UPDATED) ====================
+
+  // Lesson completion - scores are now calculated server-side
+  static String lessonCompleteURL(String id) => 'lessons/$id/complete';
 }
