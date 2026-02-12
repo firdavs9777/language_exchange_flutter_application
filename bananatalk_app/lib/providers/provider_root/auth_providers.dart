@@ -5,6 +5,7 @@ import 'package:bananatalk_app/services/socket_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -25,8 +26,8 @@ class AuthService extends ChangeNotifier {
   Future<bool> initializeAuth() async {
     final prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token') ?? '';
-    print(token);
-    print("here");
+    debugPrint('$token');
+    debugPrint("here");
     refreshToken = prefs.getString('refreshToken') ?? '';
     userId = prefs.getString('userId') ?? '';
 
@@ -173,7 +174,7 @@ class AuthService extends ChangeNotifier {
         headers: {'Content-Type': 'application/json'},
       );
 
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
 
@@ -864,14 +865,14 @@ class AuthService extends ChangeNotifier {
     );
 
     try {
-      print('🚪 Starting logout process...');
+      debugPrint('🚪 Starting logout process...');
 
       // ✅ CRITICAL: Disconnect socket BEFORE clearing auth data
       final chatSocketService = ChatSocketService();
-      print('🔌 Disconnecting socket...');
+      debugPrint('🔌 Disconnecting socket...');
       chatSocketService.disableReconnection(); // Prevent reconnection
       await chatSocketService.disconnect();
-      print('✅ Socket disconnected');
+      debugPrint('✅ Socket disconnected');
 
       final response = await http.post(
         url,
@@ -887,7 +888,7 @@ class AuthService extends ChangeNotifier {
 
       // Clear auth data
       await _clearAuthData();
-      print('✅ Auth data cleared');
+      debugPrint('✅ Auth data cleared');
 
       if (response.statusCode == 200) {
         return {'success': true, 'message': 'Logged out successfully'};
@@ -895,7 +896,7 @@ class AuthService extends ChangeNotifier {
         return {'success': true, 'message': 'Logged out locally'};
       }
     } catch (e) {
-      print('❌ Logout error: $e');
+      debugPrint('❌ Logout error: $e');
 
       // Still disconnect socket and clear data
       try {
@@ -903,7 +904,7 @@ class AuthService extends ChangeNotifier {
         chatSocketService.disableReconnection();
         await chatSocketService.disconnect();
       } catch (socketError) {
-        print('⚠️ Socket disconnect error: $socketError');
+        debugPrint('⚠️ Socket disconnect error: $socketError');
       }
 
       await _clearAuthData();
@@ -921,9 +922,9 @@ class AuthService extends ChangeNotifier {
         headers: {'Content-Type': 'application/json'},
       );
 
-      print(response.body);
-      print(response.statusCode);
-      print(url);
+      debugPrint(response.body);
+      debugPrint('${response.statusCode}');
+      debugPrint('$url');
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
@@ -967,8 +968,8 @@ class AuthService extends ChangeNotifier {
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.verifyEmailCode}');
 
-    print('Verifying email code - URL: $url');
-    print('Endpoint: ${Endpoints.verifyEmailCode}');
+    debugPrint('Verifying email code - URL: $url');
+    debugPrint('Endpoint: ${Endpoints.verifyEmailCode}');
 
     try {
       final response = await http.post(
@@ -976,8 +977,8 @@ class AuthService extends ChangeNotifier {
         body: jsonEncode({'email': email, 'code': code}),
         headers: {'Content-Type': 'application/json'},
       );
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      debugPrint('Response status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
@@ -1052,7 +1053,7 @@ class AuthService extends ChangeNotifier {
         headers: {'Content-Type': 'application/json'},
       );
 
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
 
@@ -1189,7 +1190,7 @@ class AuthService extends ChangeNotifier {
           'termsAcceptedDate': DateTime.now().toIso8601String(),
         }),
       );
-      print(response);
+      debugPrint('$response');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -1239,7 +1240,7 @@ class AuthService extends ChangeNotifier {
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}auth/forgot-password');
 
-    print(url);
+    debugPrint('$url');
     try {
       final response = await http.post(
         url,
@@ -1247,7 +1248,7 @@ class AuthService extends ChangeNotifier {
         headers: {'Content-Type': 'application/json'},
       );
 
-      print(response.body);
+      debugPrint(response.body);
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
@@ -1384,16 +1385,27 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
     );
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
     final response = await http.put(
       url,
       body: json.encode({'mbti': mbti}),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return Community.fromJson(data['user']);
     } else {
-      throw Exception('Failed to register: ${response.body}');
+      throw Exception('Failed to update MBTI: ${response.body}');
     }
   }
 
@@ -1401,16 +1413,27 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
     );
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
     final response = await http.put(
       url,
       body: json.encode({'native_language': natLang}),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return Community.fromJson(data['user']);
     } else {
-      throw Exception('Failed to register: ${response.body}');
+      throw Exception('Failed to update native language: ${response.body}');
     }
   }
 
@@ -1418,16 +1441,27 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
     );
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
     final response = await http.put(
       url,
       body: json.encode({'language_to_learn': langToLearn}),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return Community.fromJson(data['user']);
     } else {
-      throw Exception('Failed to register: ${response.body}');
+      throw Exception('Failed to update language to learn: ${response.body}');
     }
   }
 
@@ -1435,16 +1469,27 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
     );
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
     final response = await http.put(
       url,
       body: json.encode({'bloodType': bloodType}),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return Community.fromJson(data['user']);
     } else {
-      throw Exception('Failed to register: ${response.body}');
+      throw Exception('Failed to update blood type: ${response.body}');
     }
   }
 
@@ -1452,17 +1497,28 @@ class AuthService extends ChangeNotifier {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
     );
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
     final response = await http.put(
       url,
       body: json.encode({'name': userName, 'gender': gender}),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      print(data);
+      debugPrint('$data');
       return Community.fromJson(data['user']);
     } else {
-      throw Exception('Failed to register: ${response.body}');
+      throw Exception('Failed to update user name: ${response.body}');
     }
   }
 
@@ -1538,6 +1594,13 @@ class AuthService extends ChangeNotifier {
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Authentication required. Please login again.');
+    }
+
     final locationData = {
       'location': {
         'type': 'Point',
@@ -1551,7 +1614,10 @@ class AuthService extends ChangeNotifier {
     final response = await http.put(
       url,
       body: jsonEncode(locationData),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
 
     debugPrint('Response: ${response.statusCode}');
@@ -1583,7 +1649,10 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<List<Community>> getFollowersUser({required id}) async {
+  Future<List<Community>> getFollowersUser({
+    required id,
+    List<String>? followerIds,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     if (token != null && token.isEmpty) {
@@ -1637,14 +1706,23 @@ class AuthService extends ChangeNotifier {
         }
       }
 
+      // If API returns empty but we have follower IDs, fetch individually
+      if ((followersList == null || followersList.isEmpty) &&
+          followerIds != null &&
+          followerIds.isNotEmpty) {
+        debugPrint(
+          '⚠️ API returned empty, fetching ${followerIds.length} followers individually',
+        );
+        return await _fetchUsersById(followerIds, token!);
+      }
+
       if (followersList == null || followersList.isEmpty) {
         debugPrint('⚠️ No followers found or empty list');
         return <Community>[];
       }
 
-      List<Community> followers = followersList
-          .map((json) => Community.fromJson(json))
-          .toList();
+      List<Community> followers =
+          followersList.map((json) => Community.fromJson(json)).toList();
 
       debugPrint('✅ Successfully parsed ${followers.length} followers');
       return followers;
@@ -1659,7 +1737,45 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<List<Community>> getFollowingsUser({required id}) async {
+  /// Helper method to fetch users by their IDs individually
+  Future<List<Community>> _fetchUsersById(
+    List<String> userIds,
+    String token,
+  ) async {
+    List<Community> users = [];
+
+    for (String userId in userIds) {
+      try {
+        final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
+        final response = await http.get(
+          url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        );
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          final userData = data['data'];
+          if (userData != null && userData is Map<String, dynamic>) {
+            users.add(Community.fromJson(userData));
+            debugPrint('✅ Fetched user: ${userData['name'] ?? userId}');
+          }
+        }
+      } catch (e) {
+        debugPrint('⚠️ Failed to fetch user $userId: $e');
+      }
+    }
+
+    debugPrint('✅ Fetched ${users.length}/${userIds.length} users individually');
+    return users;
+  }
+
+  Future<List<Community>> getFollowingsUser({
+    required id,
+    List<String>? followingIds,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     if (token != null && token.isEmpty) {
@@ -1713,14 +1829,23 @@ class AuthService extends ChangeNotifier {
         }
       }
 
+      // If API returns empty but we have following IDs, fetch individually
+      if ((followingList == null || followingList.isEmpty) &&
+          followingIds != null &&
+          followingIds.isNotEmpty) {
+        debugPrint(
+          '⚠️ API returned empty, fetching ${followingIds.length} followings individually',
+        );
+        return await _fetchUsersById(followingIds, token!);
+      }
+
       if (followingList == null || followingList.isEmpty) {
         debugPrint('⚠️ No followings found or empty list');
         return <Community>[];
       }
 
-      List<Community> followings = followingList
-          .map((json) => Community.fromJson(json))
-          .toList();
+      List<Community> followings =
+          followingList.map((json) => Community.fromJson(json)).toList();
 
       debugPrint('✅ Successfully parsed ${followings.length} followings');
       return followings;
