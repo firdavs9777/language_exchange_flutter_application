@@ -94,7 +94,8 @@ class NotificationApiClient {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return NotificationSettings.fromJson(data['settings'] ?? data);
+        // Backend returns { success: true, data: { settings... } }
+        return NotificationSettings.fromJson(data['data'] ?? data['settings'] ?? data);
       } else {
         debugPrint('❌ Failed to get notification settings: ${response.body}');
         return null;
@@ -200,9 +201,38 @@ class NotificationApiClient {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        final notifications = data['notifications'] ?? data['data'] ?? [];
-        return (notifications as List)
-            .map((item) => NotificationItem.fromJson(item))
+
+        // Handle different response formats
+        List<dynamic> notifications;
+        if (data is List) {
+          // Direct list response
+          notifications = data;
+        } else if (data is Map) {
+          // Nested response: { success: true, data: { notifications: [...] } }
+          final innerData = data['data'];
+          if (innerData is Map && innerData['notifications'] is List) {
+            notifications = innerData['notifications'];
+          } else if (data['notifications'] is List) {
+            notifications = data['notifications'];
+          } else if (innerData is List) {
+            notifications = innerData;
+          } else {
+            debugPrint('⚠️ Could not find notifications in response');
+            return [];
+          }
+        } else {
+          debugPrint('⚠️ Unexpected response format: ${data.runtimeType}');
+          return [];
+        }
+
+        // Filter out chat_message notifications (they're shown in chat, not notification list)
+        final filteredNotifications = notifications
+            .where((item) => item['type'] != 'chat_message')
+            .toList();
+
+        debugPrint('📥 Found ${filteredNotifications.length} notifications (filtered from ${notifications.length})');
+        return filteredNotifications
+            .map((item) => NotificationItem.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         debugPrint('❌ Failed to get notification history: ${response.body}');
@@ -328,6 +358,31 @@ class NotificationApiClient {
     } catch (e) {
       debugPrint('❌ Error resetting badge: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
+    }
+  }
+
+  /// POST /api/v1/notifications/sync-badges
+  /// Syncs badge counts with actual data from server
+  Future<BadgeCount?> syncBadges() async {
+    try {
+      final url = Uri.parse('${baseUrl}notifications/sync-badges');
+      final headers = await _getHeaders();
+
+      debugPrint('🔄 Syncing badge counts...');
+
+      final response = await http.post(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        debugPrint('✅ Badge sync successful: ${data['data']}');
+        return BadgeCount.fromJson(data['data'] ?? data);
+      } else {
+        debugPrint('❌ Failed to sync badges: ${response.body}');
+        return null;
+      }
+    } catch (e) {
+      debugPrint('❌ Error syncing badges: $e');
+      return null;
     }
   }
 

@@ -11,6 +11,21 @@ class VipService {
     return prefs.getString('token');
   }
 
+  /// Helper to safely parse dates from various formats
+  static DateTime? _parseDate(dynamic value) {
+    if (value == null) return null;
+    if (value is DateTime) return value;
+    if (value is String) {
+      try {
+        return DateTime.parse(value);
+      } catch (e) {
+        debugPrint('Error parsing date: $value - $e');
+        return null;
+      }
+    }
+    return null;
+  }
+
   static Map<String, String> _getHeaders(String? token) {
     return {
       'Content-Type': 'application/json',
@@ -125,24 +140,74 @@ class VipService {
       final url = Uri.parse(
           '${Endpoints.baseURL}${Endpoints.getVipStatusURL(userId)}');
 
+      debugPrint('VIP Status URL: $url');
+
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
+      debugPrint('VIP Status Response: ${response.statusCode}');
+      debugPrint('VIP Status Body: ${response.body}');
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        
+
         if (data['success'] == true && data['data'] != null) {
           final vipData = data['data'];
+          debugPrint('VIP Data: $vipData');
+          debugPrint('isVIP: ${vipData['isVIP']}');
+          debugPrint('vipSubscription: ${vipData['vipSubscription']}');
+
+          // Try to parse subscription from multiple possible locations
+          VipSubscription? subscription;
+          try {
+            if (vipData['vipSubscription'] != null &&
+                vipData['vipSubscription'] is Map) {
+              final subData = vipData['vipSubscription'] as Map<String, dynamic>;
+              debugPrint('Parsing vipSubscription: $subData');
+              // Only parse if the subscription has meaningful data
+              if (subData['plan'] != null || subData['isActive'] == true) {
+                subscription = VipSubscription.fromJson(subData);
+              }
+            } else if (vipData['subscription'] != null) {
+              // Try alternate key
+              subscription = VipSubscription.fromJson(
+                  vipData['subscription'] as Map<String, dynamic>);
+            }
+          } catch (e) {
+            debugPrint('Error parsing subscription: $e');
+          }
+
+          // If isVIP is true but we couldn't parse subscription, create one from available data
+          if (subscription == null && vipData['isVIP'] == true) {
+            debugPrint('Creating subscription from available data');
+            subscription = VipSubscription(
+              id: 'vip_$userId',
+              plan: vipData['plan']?.toString() ??
+                    vipData['vipSubscription']?['plan']?.toString() ??
+                    'monthly',
+              startDate: _parseDate(vipData['vipStartDate']) ??
+                         _parseDate(vipData['vipSubscription']?['startDate']) ??
+                         DateTime.now(),
+              endDate: _parseDate(vipData['vipEndDate']) ??
+                       _parseDate(vipData['vipSubscription']?['endDate']) ??
+                       DateTime.now().add(const Duration(days: 30)),
+              isActive: true,
+              autoRenew: vipData['autoRenew'] ??
+                         vipData['vipSubscription']?['autoRenew'] ??
+                         false,
+              paymentMethod: vipData['paymentMethod']?.toString() ??
+                             vipData['vipSubscription']?['paymentMethod']?.toString(),
+            );
+          }
+
           return {
             'success': true,
             'data': vipData,
             'isVIP': vipData['isVIP'] ?? false,
             'userMode': vipData['userMode'] ?? 'regular',
-            'vipSubscription': vipData['vipSubscription'] != null
-                ? VipSubscription.fromJson(vipData['vipSubscription'])
-                : null,
+            'vipSubscription': subscription,
             'vipFeatures': vipData['vipFeatures'] != null
                 ? VipFeatures.fromJson(vipData['vipFeatures'])
                 : null,
@@ -161,6 +226,7 @@ class VipService {
         };
       }
     } catch (e) {
+      debugPrint('VIP Status Error: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',

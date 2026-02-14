@@ -5,6 +5,10 @@ import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_reaction_bar.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -194,9 +198,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Reply sent'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.replySent),
           duration: Duration(seconds: 1),
+          backgroundColor: AppColors.primary,
         ),
       );
     }
@@ -222,9 +227,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     await showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => _ShareBottomSheet(
         storyId: _currentStory.id,
@@ -243,9 +248,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => _ViewersBottomSheet(storyId: _currentStory.id),
     ).then((_) => _resumeProgress());
@@ -254,7 +259,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.black,
       resizeToAvoidBottomInset: true,
       body: GestureDetector(
         onTapDown: _onTapDown,
@@ -314,7 +319,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       return Container(
         color: Color(int.parse(story.backgroundColor.replaceFirst('#', '0xFF'))),
         alignment: Alignment.center,
-        padding: const EdgeInsets.all(32),
+        padding: AppSpacing.paddingXXL,
         child: Text(
           story.text ?? '',
           style: TextStyle(
@@ -333,24 +338,14 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
         ? story.mediaUrl
         : (story.mediaUrls.isNotEmpty ? story.mediaUrls.first : '');
 
-    return Image.network(
-      mediaUrl,
+    return CachedImageWidget(
+      imageUrl: mediaUrl,
       fit: BoxFit.cover,
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
-          ),
-        );
-      },
-      errorBuilder: (context, error, stackTrace) => Container(
-        color: Colors.grey[900],
-        child: const Center(
-          child: Icon(Icons.broken_image, color: Colors.grey, size: 48),
+      placeholderColor: AppColors.gray900,
+      errorWidget: Container(
+        color: AppColors.gray900,
+        child: Center(
+          child: Icon(Icons.broken_image, color: AppColors.gray500, size: 48),
         ),
       ),
     );
@@ -358,9 +353,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
   Widget _buildProgressBars() {
     return Positioned(
-      top: MediaQuery.of(context).padding.top + 8,
-      left: 8,
-      right: 8,
+      top: MediaQuery.of(context).padding.top + AppSpacing.sm,
+      left: AppSpacing.sm,
+      right: AppSpacing.sm,
       child: Row(
         children: List.generate(_currentStories.length, (index) {
           double progress;
@@ -383,8 +378,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                     value: index == _currentStoryIndex
                         ? _progressController.value
                         : progress,
-                    backgroundColor: Colors.white.withOpacity(0.3),
-                    valueColor: const AlwaysStoppedAnimation(Colors.white),
+                    backgroundColor: AppColors.white.withOpacity(0.3),
+                    valueColor: AlwaysStoppedAnimation(AppColors.white),
                   ),
                 );
               },
@@ -400,9 +395,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     final story = _currentStory;
 
     return Positioned(
-      top: MediaQuery.of(context).padding.top + 20,
-      left: 12,
-      right: 12,
+      top: MediaQuery.of(context).padding.top + AppSpacing.xl,
+      left: AppSpacing.md,
+      right: AppSpacing.md,
       child: Row(
         children: [
           // Avatar
@@ -411,12 +406,12 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             backgroundImage: user.imageUrls.isNotEmpty
                 ? NetworkImage(user.imageUrls.first)
                 : null,
-            backgroundColor: Colors.grey[800],
+            backgroundColor: AppColors.gray800,
             child: user.imageUrls.isEmpty
                 ? Text(user.name.isNotEmpty ? user.name[0] : '?')
                 : null,
           ),
-          const SizedBox(width: 8),
+          Spacing.hGapSM,
 
           // Name & time
           Expanded(
@@ -428,28 +423,26 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                   children: [
                     Text(
                       user.name,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: context.labelLarge.copyWith(
+                        color: AppColors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14,
                       ),
                     ),
                     if (story.privacy == StoryPrivacy.closeFriends) ...[
-                      const SizedBox(width: 6),
+                      Spacing.hGapSM,
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 6,
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(4),
+                          color: AppColors.success,
+                          borderRadius: AppRadius.borderXS,
                         ),
-                        child: const Text(
-                          'Close Friends',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
+                        child: Text(
+                          AppLocalizations.of(context)!.closeFriends,
+                          style: context.captionSmall.copyWith(
+                            color: AppColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -459,9 +452,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                 ),
                 Text(
                   timeago.format(story.createdAt),
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 12,
+                  style: context.caption.copyWith(
+                    color: AppColors.white.withOpacity(0.7),
                   ),
                 ),
               ],
@@ -471,17 +463,17 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
           // Actions
           if (_currentStory.allowSharing && !_isOwnStory)
             IconButton(
-              icon: const Icon(Icons.send, color: Colors.white),
+              icon: Icon(Icons.send, color: AppColors.white),
               onPressed: _shareStory,
             ),
 
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white),
+            icon: Icon(Icons.more_vert, color: AppColors.white),
             onPressed: () => _showMoreOptions(),
           ),
 
           IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: Icon(Icons.close, color: AppColors.white),
             onPressed: () => Navigator.pop(context),
           ),
         ],
@@ -515,21 +507,21 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
           // Location sticker
           if (story.location != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
               child: _LocationSticker(location: story.location!),
             ),
 
           // Link sticker
           if (story.link != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
               child: _LinkSticker(link: story.link!),
             ),
 
           // Music sticker
           if (story.music != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
               child: _MusicSticker(music: story.music!),
             ),
         ],
@@ -544,10 +536,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       right: 0,
       child: Container(
         padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: MediaQuery.of(context).padding.bottom + 8,
-          top: 8,
+          left: AppSpacing.lg,
+          right: AppSpacing.lg,
+          bottom: MediaQuery.of(context).padding.bottom + AppSpacing.sm,
+          top: AppSpacing.sm,
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -555,7 +547,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             end: Alignment.bottomCenter,
             colors: [
               Colors.transparent,
-              Colors.black.withOpacity(0.7),
+              AppColors.black.withOpacity(0.7),
             ],
           ),
         ),
@@ -568,7 +560,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                 onReact: _react,
               ),
 
-            const SizedBox(width: 8),
+            Spacing.hGapSM,
 
             // Reply input
             if (_currentStory.allowReplies)
@@ -576,23 +568,23 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                 child: TextField(
                   controller: _replyController,
                   focusNode: _focusNode,
-                  style: const TextStyle(color: Colors.white),
+                  style: context.bodyMedium.copyWith(color: AppColors.white),
                   decoration: InputDecoration(
-                    hintText: 'Reply to ${_currentUserStories.user.name}...',
-                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
+                    hintText: AppLocalizations.of(context)!.replyTo(_currentUserStories.user.name),
+                    hintStyle: context.bodyMedium.copyWith(color: AppColors.white.withOpacity(0.6)),
                     filled: true,
-                    fillColor: Colors.white.withOpacity(0.2),
+                    fillColor: AppColors.white.withOpacity(0.2),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: AppRadius.borderXXL,
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
+                      horizontal: AppSpacing.lg,
+                      vertical: AppSpacing.md,
                     ),
                     suffixIcon: _isReplyOpen
                         ? IconButton(
-                            icon: const Icon(Icons.send, color: Colors.white),
+                            icon: Icon(Icons.send, color: AppColors.white),
                             onPressed: _sendReply,
                           )
                         : null,
@@ -608,7 +600,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
   Widget _buildViewersButton() {
     return Positioned(
-      bottom: MediaQuery.of(context).padding.bottom + 16,
+      bottom: MediaQuery.of(context).padding.bottom + AppSpacing.lg,
       left: 0,
       right: 0,
       child: GestureDetector(
@@ -618,19 +610,19 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.visibility, color: Colors.white, size: 20),
-                const SizedBox(width: 4),
+                Icon(Icons.visibility, color: AppColors.white, size: 20),
+                Spacing.hGapXS,
                 Text(
                   '${_currentStory.viewCount}',
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: context.labelLarge.copyWith(
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
             if (_currentStory.reactionCount > 0) ...[
-              const SizedBox(height: 4),
+              Spacing.gapXS,
               StoryReactionsSummary(
                 reactions: _currentStory.reactions,
                 totalCount: _currentStory.reactionCount,
@@ -647,34 +639,34 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            margin: const EdgeInsets.all(12),
+            margin: AppSpacing.paddingMD,
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.grey[600],
-              borderRadius: BorderRadius.circular(2),
+              color: AppColors.gray600,
+              borderRadius: AppRadius.borderXS,
             ),
           ),
           if (_isOwnStory) ...[
             ListTile(
-              leading: const Icon(Icons.add_circle_outline, color: Colors.white),
-              title: const Text('Add to Highlight', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.add_circle_outline, color: AppColors.white),
+              title: Text(AppLocalizations.of(context)!.addToHighlight, style: context.bodyMedium.copyWith(color: AppColors.white)),
               onTap: () {
                 Navigator.pop(context);
                 // Add to highlight
               },
             ),
             ListTile(
-              leading: const Icon(Icons.delete_outline, color: Colors.red),
-              title: const Text('Delete', style: TextStyle(color: Colors.red)),
+              leading: Icon(Icons.delete_outline, color: AppColors.error),
+              title: Text(AppLocalizations.of(context)!.delete, style: context.bodyMedium.copyWith(color: AppColors.error)),
               onTap: () async {
                 Navigator.pop(context);
                 await StoriesService.deleteStory(storyId: _currentStory.id);
@@ -687,23 +679,23 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             ),
           ] else ...[
             ListTile(
-              leading: const Icon(Icons.report_outlined, color: Colors.white),
-              title: const Text('Report', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.report_outlined, color: AppColors.white),
+              title: Text(AppLocalizations.of(context)!.report, style: context.bodyMedium.copyWith(color: AppColors.white)),
               onTap: () {
                 Navigator.pop(context);
                 // Report story
               },
             ),
             ListTile(
-              leading: const Icon(Icons.block, color: Colors.white),
-              title: const Text('Block User', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.block, color: AppColors.white),
+              title: Text(AppLocalizations.of(context)!.blockUser, style: context.bodyMedium.copyWith(color: AppColors.white)),
               onTap: () {
                 Navigator.pop(context);
                 // Block user
               },
             ),
           ],
-          const SizedBox(height: 16),
+          Spacing.gapLG,
         ],
       ),
     ).then((_) => _resumeProgress());
@@ -719,20 +711,20 @@ class _LocationSticker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        color: AppColors.white,
+        borderRadius: AppRadius.borderXL,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.location_on, color: Colors.red, size: 18),
-          const SizedBox(width: 4),
+          Icon(Icons.location_on, color: AppColors.error, size: 18),
+          Spacing.hGapXS,
           Text(
             location.name,
-            style: const TextStyle(
-              color: Colors.black,
+            style: context.labelMedium.copyWith(
+              color: AppColors.black,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -754,25 +746,25 @@ class _LinkSticker extends StatelessWidget {
         // Open link
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
         decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(20),
+          color: AppColors.info,
+          borderRadius: AppRadius.borderXL,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.link, color: Colors.white, size: 18),
-            const SizedBox(width: 4),
+            Icon(Icons.link, color: AppColors.white, size: 18),
+            Spacing.hGapXS,
             Text(
               link.displayText,
-              style: const TextStyle(
-                color: Colors.white,
+              style: context.labelMedium.copyWith(
+                color: AppColors.white,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(width: 4),
-            const Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+            Spacing.hGapXS,
+            Icon(Icons.arrow_forward, color: AppColors.white, size: 16),
           ],
         ),
       ),
@@ -788,33 +780,31 @@ class _MusicSticker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(20),
+        color: AppColors.black.withOpacity(0.6),
+        borderRadius: AppRadius.borderXL,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.music_note, color: Colors.white, size: 18),
-          const SizedBox(width: 8),
+          Icon(Icons.music_note, color: AppColors.white, size: 18),
+          Spacing.hGapSM,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 music.title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: context.labelSmall.copyWith(
+                  color: AppColors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 12,
                 ),
               ),
               Text(
                 music.artist,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
-                  fontSize: 10,
+                style: context.captionSmall.copyWith(
+                  color: AppColors.white.withOpacity(0.7),
                 ),
               ),
             ],
@@ -837,36 +827,35 @@ class _ShareBottomSheet extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: AppSpacing.paddingMD,
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: Colors.grey[600],
-            borderRadius: BorderRadius.circular(2),
+            color: AppColors.gray600,
+            borderRadius: AppRadius.borderXS,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(16),
+        Padding(
+          padding: AppSpacing.paddingLG,
           child: Text(
-            'Share Story',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
+            AppLocalizations.of(context)!.shareStory,
+            style: context.titleMedium.copyWith(
+              color: AppColors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         ListTile(
-          leading: const Icon(Icons.send, color: Colors.white),
-          title: const Text('Send as Message', style: TextStyle(color: Colors.white)),
+          leading: Icon(Icons.send, color: AppColors.white),
+          title: Text(AppLocalizations.of(context)!.sendAsMessage, style: context.bodyMedium.copyWith(color: AppColors.white)),
           onTap: () async {
             await StoriesService.shareStory(storyId: storyId, sharedTo: 'dm');
             onShared();
           },
         ),
         ListTile(
-          leading: const Icon(Icons.copy, color: Colors.white),
-          title: const Text('Copy Link', style: TextStyle(color: Colors.white)),
+          leading: Icon(Icons.copy, color: AppColors.white),
+          title: Text(AppLocalizations.of(context)!.copyLink, style: context.bodyMedium.copyWith(color: AppColors.white)),
           onTap: () async {
             await StoriesService.shareStory(storyId: storyId, sharedTo: 'external');
             // Copy to clipboard
@@ -874,15 +863,15 @@ class _ShareBottomSheet extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.share, color: Colors.white),
-          title: const Text('Share Externally', style: TextStyle(color: Colors.white)),
+          leading: Icon(Icons.share, color: AppColors.white),
+          title: Text(AppLocalizations.of(context)!.shareExternally, style: context.bodyMedium.copyWith(color: AppColors.white)),
           onTap: () async {
             await StoriesService.shareStory(storyId: storyId, sharedTo: 'external');
-            Share.share('Check out this story on BananaTalk!');
+            Share.share(AppLocalizations.of(context)!.checkOutStory);
             onShared();
           },
         ),
-        const SizedBox(height: 16),
+        Spacing.gapLG,
       ],
     );
   }
@@ -935,27 +924,28 @@ class _ViewersBottomSheetState extends State<_ViewersBottomSheet>
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: AppSpacing.paddingMD,
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: Colors.grey[600],
-            borderRadius: BorderRadius.circular(2),
+            color: AppColors.gray600,
+            borderRadius: AppRadius.borderXS,
           ),
         ),
         TabBar(
           controller: _tabController,
-          indicatorColor: Colors.white,
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.grey,
+          indicatorColor: AppColors.white,
+          labelColor: AppColors.white,
+          unselectedLabelColor: AppColors.gray500,
+          labelStyle: context.labelMedium,
           tabs: [
-            Tab(text: 'Views (${_viewers.length})'),
-            Tab(text: 'Reactions (${_reactions.length})'),
+            Tab(text: AppLocalizations.of(context)!.viewsTab(_viewers.length.toString())),
+            Tab(text: AppLocalizations.of(context)!.reactionsTab(_reactions.length.toString())),
           ],
         ),
         Expanded(
           child: _isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(child: CircularProgressIndicator(color: AppColors.primary))
               : TabBarView(
                   controller: _tabController,
                   children: [
@@ -970,8 +960,8 @@ class _ViewersBottomSheetState extends State<_ViewersBottomSheet>
 
   Widget _buildViewersList() {
     if (_viewers.isEmpty) {
-      return const Center(
-        child: Text('No viewers yet', style: TextStyle(color: Colors.grey)),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.noViewersYet, style: context.bodyMedium.copyWith(color: AppColors.gray500)),
       );
     }
 
@@ -984,17 +974,18 @@ class _ViewersBottomSheetState extends State<_ViewersBottomSheet>
             backgroundImage: viewer.user?.imageUrls.isNotEmpty == true
                 ? NetworkImage(viewer.user!.imageUrls.first)
                 : null,
+            backgroundColor: AppColors.gray800,
             child: viewer.user?.imageUrls.isEmpty == true
                 ? Text(viewer.user?.name.substring(0, 1) ?? '?')
                 : null,
           ),
           title: Text(
             viewer.user?.name ?? 'Unknown',
-            style: const TextStyle(color: Colors.white),
+            style: context.bodyMedium.copyWith(color: AppColors.white),
           ),
           subtitle: Text(
             timeago.format(viewer.viewedAt),
-            style: TextStyle(color: Colors.grey[500]),
+            style: context.caption.copyWith(color: AppColors.gray500),
           ),
         );
       },
@@ -1003,8 +994,8 @@ class _ViewersBottomSheetState extends State<_ViewersBottomSheet>
 
   Widget _buildReactionsList() {
     if (_reactions.isEmpty) {
-      return const Center(
-        child: Text('No reactions yet', style: TextStyle(color: Colors.grey)),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.noReactionsYet, style: context.bodyMedium.copyWith(color: AppColors.gray500)),
       );
     }
 
@@ -1017,21 +1008,21 @@ class _ViewersBottomSheetState extends State<_ViewersBottomSheet>
             backgroundImage: reaction.user?.imageUrls.isNotEmpty == true
                 ? NetworkImage(reaction.user!.imageUrls.first)
                 : null,
+            backgroundColor: AppColors.gray800,
             child: reaction.user?.imageUrls.isEmpty == true
                 ? Text(reaction.user?.name.substring(0, 1) ?? '?')
                 : null,
           ),
           title: Text(
             reaction.user?.name ?? 'Unknown',
-            style: const TextStyle(color: Colors.white),
+            style: context.bodyMedium.copyWith(color: AppColors.white),
           ),
           trailing: Text(
             reaction.emoji,
-            style: const TextStyle(fontSize: 24),
+            style: context.displayMedium,
           ),
         );
       },
     );
   }
 }
-

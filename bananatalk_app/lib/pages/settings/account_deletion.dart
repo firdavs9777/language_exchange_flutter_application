@@ -5,6 +5,8 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   final bool isOAuthUser; // Google, Facebook, or Apple user
@@ -51,7 +53,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: AppColors.error),
             child: Text(AppLocalizations.of(context)!.deleteForever),
           ),
         ],
@@ -74,7 +76,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
             SnackBar(
               content:
                   Text(result['message'] ?? 'Account deleted successfully'),
-              backgroundColor: Colors.green,
+              backgroundColor: AppColors.success,
             ),
           );
 
@@ -86,7 +88,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(result['message'] ?? 'Failed to delete account'),
-              backgroundColor: Colors.red,
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -96,7 +98,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -110,39 +112,47 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('Delete Account'),
-        backgroundColor: Colors.red,
-        foregroundColor: Colors.white,
+        title: Text('Delete Account', style: context.titleLarge.copyWith(color: AppColors.white)),
+        backgroundColor: AppColors.error,
+        foregroundColor: AppColors.white,
+        elevation: 0,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: AppSpacing.paddingXXL,
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: AppSpacing.paddingXL,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade50,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.red.shade200, width: 2),
+                    color: context.isDarkMode
+                        ? AppColors.error.withValues(alpha: 0.15)
+                        : AppColors.errorLight,
+                    borderRadius: AppRadius.borderMD,
+                    border: Border.all(
+                      color: context.isDarkMode
+                          ? AppColors.error.withValues(alpha: 0.3)
+                          : AppColors.error.withValues(alpha: 0.3),
+                      width: 2,
+                    ),
                   ),
                   child: Column(
                     children: [
                       Icon(Icons.warning_amber_rounded,
-                          size: 60, color: Colors.red.shade700),
-                      const SizedBox(height: 16),
+                          size: 60, color: AppColors.error),
+                      SizedBox(height: AppSpacing.lg),
                       BananaText(
                         'Warning: This action is permanent!',
                         BanaStyles: BananaTextStyles.titleLarge,
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 12),
-                      const Text(
+                      SizedBox(height: AppSpacing.md),
+                      Text(
                         'Deleting your account will permanently remove:\n\n'
                         '• Your profile and all personal data\n'
                         '• All your messages and conversations\n'
@@ -151,24 +161,25 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                         '• All your connections and followers\n\n'
                         'This action cannot be undone.',
                         textAlign: TextAlign.left,
-                        style: TextStyle(height: 1.5),
+                        style: context.bodyMedium.copyWith(height: 1.5),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: AppSpacing.xxxl),
                 if (!widget.isOAuthUser) ...[
                   BananaText('Enter your password',
                       BanaStyles: BananaTextStyles.title),
-                  const SizedBox(height: 8),
+                  SizedBox(height: AppSpacing.sm),
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.yourPassword,
                       helperText: 'Required for email accounts only',
+                      helperStyle: context.caption,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: AppRadius.borderMD),
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(_obscurePassword
@@ -182,24 +193,24 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                         ? 'Please enter your password'
                         : null,
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: AppSpacing.xxl),
                 ],
                 BananaText('Type DELETE to confirm',
                     BanaStyles: BananaTextStyles.title),
-                const SizedBox(height: 8),
+                SizedBox(height: AppSpacing.sm),
                 TextFormField(
                   controller: _confirmController,
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.typeDELETEInCapitalLetters,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12)),
+                        borderRadius: AppRadius.borderMD),
                     prefixIcon: const Icon(Icons.delete_forever),
                   ),
                   validator: (value) => value != 'DELETE'
                       ? 'You must type DELETE to confirm'
                       : null,
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: AppSpacing.xxxl),
                 SizedBox(
                   width: double.infinity,
                   height: 56,
@@ -211,22 +222,22 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                       BanaStyles: BananaTextStyles.buttonText,
                     ),
                     onPressed: _isLoading ? null : _deleteAccount,
-                    color: Colors.red,
-                    textColor: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    color: AppColors.error,
+                    textColor: AppColors.white,
+                    borderRadius: AppRadius.borderMD,
                     icon: _isLoading
-                        ? const SizedBox(
+                        ? SizedBox(
                             width: 20,
                             height: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                              valueColor: AlwaysStoppedAnimation(AppColors.white),
                             ),
                           )
-                        : const Icon(Icons.delete_forever, color: Colors.white),
+                        : Icon(Icons.delete_forever, color: AppColors.white),
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: AppSpacing.lg),
                 SizedBox(
                   width: double.infinity,
                   height: 56,
@@ -234,9 +245,9 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                     onPressed: _isLoading ? null : () => Navigator.pop(context),
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: AppRadius.borderMD),
                     ),
-                    child: const Text('Cancel', style: TextStyle(fontSize: 16)),
+                    child: Text('Cancel', style: context.titleMedium),
                   ),
                 ),
               ],

@@ -10,11 +10,13 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 final momentFilterProvider = StateProvider<MomentFilter>(
@@ -87,6 +89,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   }
 
   Future<void> _refresh() async {
+    HapticUtils.onRefresh();
     setState(() {
       _searchResults = [];
     });
@@ -105,10 +108,10 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final secondaryText = context.textSecondary;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: colorScheme.surface,
+        backgroundColor: context.surfaceColor,
         automaticallyImplyLeading: false,
         title: _showSearch
             ? TextField(
@@ -117,18 +120,14 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.searchMoments,
                   border: InputBorder.none,
-                  hintStyle: TextStyle(color: secondaryText),
+                  hintStyle: TextStyle(color: context.textHint),
                 ),
-                style: TextStyle(fontSize: 16, color: textPrimary),
+                style: context.bodyLarge,
                 onChanged: _performSearch,
               )
             : Text(
                 'Moments',
-                style: TextStyle(
-                  color: textPrimary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: context.displaySmall,
               ),
         actions: [
           IconButton(
@@ -154,9 +153,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           if (!_showSearch)
             Container(
               decoration: BoxDecoration(
-                color: colorScheme.surface,
+                color: context.surfaceColor,
                 border: Border(
-                  bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+                  bottom: BorderSide(color: context.dividerColor, width: 0.5),
                 ),
               ),
               child: const StoriesFeedWidget(height: 100, avatarSize: 64),
@@ -247,15 +246,15 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                             );
                           },
                     backgroundColor: canCreate
-                        ? colorScheme.primary
-                        : Colors.grey,
+                        ? context.primaryColor
+                        : context.textMuted,
                     child: Icon(Icons.add, color: colorScheme.onPrimary),
                   );
                 },
                 loading: () => FloatingActionButton(
                   onPressed: null,
-                  backgroundColor: Colors.grey,
-                  child: Icon(Icons.add, color: colorScheme.onPrimary),
+                  backgroundColor: context.textMuted,
+                  child: Icon(Icons.add, color: context.textOnPrimary),
                 ),
                 error: (error, stack) => FloatingActionButton(
                   onPressed: () {
@@ -274,8 +273,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             },
             loading: () => FloatingActionButton(
               onPressed: null,
-              backgroundColor: Colors.grey,
-              child: Icon(Icons.add, color: colorScheme.onPrimary),
+              backgroundColor: context.textMuted,
+              child: Icon(Icons.add, color: context.textOnPrimary),
             ),
             error: (error, stack) => FloatingActionButton(
               onPressed: () {
@@ -297,7 +296,6 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   Widget _buildMomentsList(AsyncValue<List<Moments>> momentsAsync) {
     return momentsAsync.when(
       data: (moments) {
-        print(moments);
         if (moments.isEmpty) {
           return _buildEmptyState();
         }
@@ -326,22 +324,19 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             Icon(
               Icons.error_outline,
               size: 64,
-              color: context.textSecondary.withOpacity(0.6),
+              color: context.textMuted,
             ),
-            const SizedBox(height: 16),
+            Spacing.gapLG,
             Text(
               'Failed to load moments',
-              style: TextStyle(fontSize: 16, color: context.textSecondary),
+              style: context.bodyLarge.copyWith(color: context.textSecondary),
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             TextButton(
               onPressed: _refresh,
               child: Text(
                 'Retry',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: context.labelLarge.copyWith(color: context.primaryColor),
               ),
             ),
           ],
@@ -368,42 +363,38 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                     ? Icons.filter_alt_off
                     : Icons.chat_bubble_outline,
                 size: 80,
-                color: context.textSecondary.withOpacity(0.3),
+                color: context.textHint,
               ),
-              const SizedBox(height: 16),
+              Spacing.gapLG,
               Text(
                 isSearching
                     ? 'No results found'
                     : currentFilter.hasActiveFilters
                     ? 'No moments match your filters'
                     : 'No moments yet',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: context.textPrimary,
-                ),
+                style: context.titleLarge,
               ),
-              const SizedBox(height: 8),
+              Spacing.gapSM,
               Text(
                 isSearching
                     ? 'Try a different search term'
                     : currentFilter.hasActiveFilters
                     ? 'Try adjusting your filters'
                     : 'Be the first to share a moment!',
-                style: TextStyle(fontSize: 14, color: context.textSecondary),
+                style: context.bodySmall,
               ),
               if (currentFilter.hasActiveFilters) ...[
-                const SizedBox(height: 16),
+                Spacing.gapLG,
                 ElevatedButton(
                   onPressed: () {
                     ref.read(momentFilterProvider.notifier).state =
                         const MomentFilter();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: context.primaryColor,
+                    foregroundColor: context.textOnPrimary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: AppRadius.borderXL,
                     ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,

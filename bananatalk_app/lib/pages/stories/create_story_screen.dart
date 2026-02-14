@@ -6,6 +6,8 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
@@ -301,13 +303,42 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     setState(() => _isUploading = true);
 
     try {
-      // For text stories, we need to create a solid color image
-      // For now, we'll require a media file
-      if (!_isTextStory && _mediaFile != null) {
+      if (_isTextStory) {
+        // Create text-only story
+        final result = await StoriesService.createTextStory(
+          text: _textOverlayController.text.trim(),
+          backgroundColor: _selectedColor ?? '#FF6B6B',
+          textColor: '#FFFFFF',
+          fontStyle: 'normal',
+          privacy: _privacy,
+        );
+
+        if (mounted) {
+          if (result.success) {
+            widget.onStoryCreated?.call();
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.storyPosted),
+                backgroundColor: Colors.green,
+              ),
+            );
+          } else {
+            setState(() => _isUploading = false);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(result.error ?? 'Failed to post story'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
+      } else if (_mediaFile != null) {
+        // Create media story (image or video)
         final result = await StoriesService.createStory(
           mediaFiles: [_mediaFile!],
-          text: _captionController.text.trim().isEmpty 
-              ? _textOverlayController.text.trim() 
+          text: _captionController.text.trim().isEmpty
+              ? _textOverlayController.text.trim()
               : _captionController.text.trim(),
           backgroundColor: _selectedColor,
           privacy: _privacy,
@@ -333,12 +364,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
             );
           }
         }
-      } else {
-        // Text-only story would need special handling
-        setState(() => _isUploading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.textOnlyStoriesRequireAnImage)),
-        );
       }
     } catch (e) {
       if (mounted) {

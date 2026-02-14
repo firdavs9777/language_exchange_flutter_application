@@ -1,13 +1,17 @@
 import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -127,6 +131,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   }
 
   Future<void> _toggleSave() async {
+    // Haptic feedback for save action
+    HapticFeedback.mediumImpact();
+
     final prefs = await SharedPreferences.getInstance();
     final savedMoments = prefs.getStringList('savedMoments') ?? [];
 
@@ -155,6 +162,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   }
 
   void incrementLike() async {
+    // Haptic feedback for like action
+    HapticFeedback.lightImpact();
+
     final previousLiked = isLiked;
     final previousCount = likeCount;
 
@@ -230,7 +240,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -244,8 +254,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+                  color: context.dividerColor,
+                  borderRadius: AppRadius.borderXS,
                 ),
               ),
               ListTile(
@@ -285,6 +295,25 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                 ),
               if (isOwnMoment) ...[
                 const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.edit, color: Colors.blue),
+                  title: Text(AppLocalizations.of(context)!.edit),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateMoment(
+                          momentToEdit: widget.moment,
+                        ),
+                      ),
+                    );
+                    // Pop back to list if edit was successful
+                    if (result == true && mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
                 ListTile(
                   leading: const Icon(Icons.delete, color: Colors.red),
                   title:
@@ -342,26 +371,22 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.surfaceColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: context.surfaceColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
+          icon: Icon(Icons.arrow_back, color: context.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           AppLocalizations.of(context)!.details,
-          style: const TextStyle(
-            color: Colors.black87,
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
-          ),
+          style: context.titleMedium,
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_horiz, color: Colors.black87),
+            icon: Icon(Icons.more_horiz, color: context.textPrimary),
             onPressed: _showMoreOptions,
           ),
         ],
@@ -405,14 +430,14 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                 ? widget.moment.user.imageUrls[0]
                                 : null,
                             radius: 24,
-                            backgroundColor: Colors.grey[300],
+                            backgroundColor: context.containerColor,
                             errorWidget: Icon(
                               Icons.person,
                               size: 24,
-                              color: Colors.grey[600],
+                              color: context.textSecondary,
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          Spacing.hGapMD,
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -421,11 +446,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                   children: [
                                     Text(
                                       widget.moment.user.name.toUpperCase(),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                      ),
+                                      style: context.titleSmall,
                                     ),
                                   ],
                                 ),
@@ -437,7 +458,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                       decoration: BoxDecoration(
                                         border: Border(
                                           bottom: BorderSide(
-                                            color: Colors.green[600]!,
+                                            color: AppColors.success,
                                             width: 2,
                                           ),
                                         ),
@@ -445,10 +466,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                       child: Text(
                                         _getLanguageCode(
                                             widget.moment.user.native_language),
-                                        style: const TextStyle(
-                                          fontSize: 11,
+                                        style: context.captionSmall.copyWith(
                                           fontWeight: FontWeight.w700,
-                                          color: Colors.black87,
+                                          color: context.textPrimary,
                                         ),
                                       ),
                                     ),
@@ -456,16 +476,15 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                     Icon(
                                       Icons.arrow_forward,
                                       size: 12,
-                                      color: Colors.grey[500],
+                                      color: context.textMuted,
                                     ),
                                     const SizedBox(width: 6),
                                     Text(
                                       _getLanguageCode(widget
                                           .moment.user.language_to_learn),
-                                      style: TextStyle(
-                                        fontSize: 11,
+                                      style: context.captionSmall.copyWith(
                                         fontWeight: FontWeight.w700,
-                                        color: Colors.grey[600],
+                                        color: context.textSecondary,
                                       ),
                                     ),
                                     const SizedBox(width: 4),
@@ -478,8 +497,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                           height: 3,
                                           decoration: BoxDecoration(
                                             color: index < 3
-                                                ? Colors.grey[700]
-                                                : Colors.grey[300],
+                                                ? context.textSecondary
+                                                : context.dividerColor,
                                             shape: BoxShape.circle,
                                           ),
                                         );
@@ -492,10 +511,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           ),
                           Text(
                             _getRelativeTime(widget.moment.createdAt),
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[500],
-                            ),
+                            style: context.captionSmall.copyWith(color: context.textMuted),
                           ),
                         ],
                       ),
@@ -507,11 +523,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       widget.moment.description.isEmpty
                           ? widget.moment.title
                           : widget.moment.description,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.black87,
-                        height: 1.5,
-                      ),
+                      style: context.bodyMedium,
                     ),
                   ),
                   if (widget.moment.imageUrls.isNotEmpty)
@@ -542,7 +554,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         IconButton(
                           icon: Icon(
                             Icons.translate,
-                            color: Colors.grey[600],
+                            color: context.iconColor,
                             size: 20,
                           ),
                           padding: const EdgeInsets.all(8),
@@ -552,7 +564,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         IconButton(
                           icon: Icon(
                             Icons.card_giftcard_outlined,
-                            color: Colors.grey[600],
+                            color: context.iconColor,
                             size: 20,
                           ),
                           padding: const EdgeInsets.all(8),
@@ -563,7 +575,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         IconButton(
                           icon: Icon(
                             Icons.share_outlined,
-                            color: Colors.grey[600],
+                            color: context.iconColor,
                             size: 20,
                           ),
                           padding: const EdgeInsets.all(8),
@@ -580,30 +592,23 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         children: [
                           Text(
                             '$likeCount ${AppLocalizations.of(context)!.giftsLikes}',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                            ),
+                            style: context.labelMedium.copyWith(color: context.textSecondary),
                           ),
-                          const SizedBox(width: 8),
+                          Spacing.hGapSM,
                           Icon(Icons.arrow_forward_ios,
-                              size: 12, color: Colors.grey[500]),
+                              size: 12, color: context.textMuted),
                         ],
                       ),
                     ),
                   Container(
                     height: 8,
-                    color: Colors.grey[100],
+                    color: context.containerColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
                       '${AppLocalizations.of(context)!.comments} (${commentCount})',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
+                      style: context.titleSmall,
                     ),
                   ),
                   CommentsMain(id: widget.moment.id),
@@ -682,11 +687,11 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
             errorWidget: Container(
               width: double.infinity,
               height: 280,
-              color: Colors.grey[200],
-              child: const Icon(
+              color: context.containerColor,
+              child: Icon(
                 Icons.broken_image,
                 size: 50,
-                color: Colors.grey,
+                color: context.textMuted,
               ),
             ),
           ),
@@ -755,6 +760,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       {bool isLastItem = false, int remainingCount = 0}) {
     return GestureDetector(
       onTap: () {
+        HapticFeedback.selectionClick();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -768,37 +774,17 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.network(
-            url,
+          CachedImageWidget(
+            imageUrl: url,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                color: Colors.grey[200],
-                child: const Icon(
-                  Icons.broken_image,
-                  size: 30,
-                  color: Colors.grey,
-                ),
-              );
-            },
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Container(
-                color: Colors.grey[200],
-                child: const Center(
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Color(0xFF00BFA5),
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
+            errorWidget: Container(
+              color: context.containerColor,
+              child: Icon(
+                Icons.broken_image,
+                size: 30,
+                color: context.textMuted,
+              ),
+            ),
           ),
           if (isLastItem)
             Container(

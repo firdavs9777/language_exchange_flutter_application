@@ -91,9 +91,8 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
     return ChatScreen(
       userId: widget.userId,
       userName: _userData!.name,
-      profilePicture: _userData!.images.isNotEmpty
-          ? _userData!.images.first
-          : null,
+      profilePicture: _userData!.profileImageUrl,
+      isVip: _userData!.isVip,
     );
   }
 }

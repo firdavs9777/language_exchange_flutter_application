@@ -3,13 +3,23 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/shimmer_loading.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileFollowers extends ConsumerStatefulWidget {
-  const ProfileFollowers({super.key, required this.id});
+  const ProfileFollowers({
+    super.key,
+    required this.id,
+    this.followerIds,
+  });
   final String id;
+  final List<String>? followerIds;
 
   @override
   ConsumerState<ProfileFollowers> createState() => _ProfileFollowersState();
@@ -21,18 +31,25 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
   @override
   void initState() {
     super.initState();
-    followers = ref.read(authServiceProvider).getFollowersUser(id: widget.id);
+    followers = ref.read(authServiceProvider).getFollowersUser(
+          id: widget.id,
+          followerIds: widget.followerIds,
+        );
   }
 
   Future<void> _refreshFollowers() async {
+    HapticUtils.onRefresh();
     setState(() {
-      followers =
-          ref.read(authServiceProvider).getFollowersUser(id: widget.id);
+      followers = ref.read(authServiceProvider).getFollowersUser(
+            id: widget.id,
+            followerIds: widget.followerIds,
+          );
     });
   }
 
   Future<void> followUser(
       String userId, String targetUserId, String userName) async {
+    final l10n = AppLocalizations.of(context)!;
     final shouldFollow = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -40,12 +57,12 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text('Follow'),
-          content: Text('Are you sure you want to follow $userName?'),
+          title: Text(l10n.follow),
+          content: Text('${l10n.areYouSureFollow} $userName?'),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(true),
@@ -53,7 +70,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
                 backgroundColor: const Color(0xFF00BFA5),
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Follow'),
+              child: Text(l10n.follow),
             ),
           ],
         );
@@ -71,7 +88,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('You followed $userName'),
+              content: Text(AppLocalizations.of(context)!.youFollowedUser(userName)),
               backgroundColor: Colors.green,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -84,7 +101,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to follow user: ${e.toString()}'),
+              content: Text('${AppLocalizations.of(context)!.failedToFollowUser}: ${e.toString()}'),
               backgroundColor: Colors.red,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -99,6 +116,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
 
   Future<void> unFollowUser(
       String userId, String targetUserId, String userName) async {
+    final l10n = AppLocalizations.of(context)!;
     final shouldUnfollow = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -106,12 +124,12 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text('Unfollow'),
-          content: Text('Are you sure you want to unfollow $userName?'),
+          title: Text(l10n.unfollow),
+          content: Text(l10n.areYouSureUnfollow),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(true),
@@ -119,7 +137,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Unfollow'),
+              child: Text(l10n.unfollow),
             ),
           ],
         );
@@ -137,7 +155,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('You unfollowed $userName'),
+              content: Text(AppLocalizations.of(context)!.youUnfollowedUser(userName)),
               backgroundColor: Colors.orange,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -150,7 +168,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to unfollow user: ${e.toString()}'),
+              content: Text('${AppLocalizations.of(context)!.failedToUnfollowUser}: ${e.toString()}'),
               backgroundColor: Colors.red,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -170,7 +188,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
       if (community == null) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('User not found')),
+            SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)),
           );
         }
         return;
@@ -198,18 +216,15 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text(
-          'Followers',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+        title: Text(
+          AppLocalizations.of(context)!.followers,
+          style: context.titleLarge,
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () async {
@@ -230,11 +245,11 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.error_outline,
-                        size: 48, color: Colors.red),
-                    const SizedBox(height: 16),
-                    Text('Error: ${snapshot.error}'),
-                    const SizedBox(height: 16),
+                    Icon(Icons.error_outline,
+                        size: 48, color: AppColors.error),
+                    Spacing.gapLG,
+                    Text('Error: ${snapshot.error}', style: context.bodyMedium),
+                    Spacing.gapLG,
                     ElevatedButton(
                       onPressed: _refreshFollowers,
                       child: const Text('Retry'),
@@ -250,28 +265,21 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00BFA5).withOpacity(0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(Icons.people_outline,
-                          size: 64, color: Colors.grey[400]),
+                          size: 64, color: context.textMuted),
                     ),
-                    const SizedBox(height: 24),
+                    Spacing.gapXXL,
                     Text(
                       'No followers yet',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: context.titleLarge,
                     ),
-                    const SizedBox(height: 8),
+                    Spacing.gapSM,
                     Text(
                       'Start connecting with others!',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[500],
-                      ),
+                      style: context.bodySmall,
                     ),
                   ],
                 ),
@@ -327,23 +335,17 @@ class _UserCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.surfaceColor,
+        borderRadius: AppRadius.borderLG,
+        boxShadow: AppShadows.md,
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.paddingLG,
             child: Row(
               children: [
                 GestureDetector(
@@ -352,13 +354,13 @@ class _UserCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF00BFA5).withOpacity(0.3),
+                        color: AppColors.primary.withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
                     child: CachedCircleAvatar(
                       radius: 35,
-                      backgroundColor: const Color(0xFF00BFA5),
+                      backgroundColor: AppColors.primary,
                       imageUrl: community.imageUrls.isNotEmpty
                           ? community.imageUrls[0]
                           : null,
@@ -370,22 +372,18 @@ class _UserCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                Spacing.hGapLG,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         community.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                          color: Colors.black87,
-                        ),
+                        style: context.titleMedium,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 8),
+                      Spacing.gapSM,
                       if (community.native_language.isNotEmpty ||
                           community.language_to_learn.isNotEmpty)
                         Wrap(
@@ -451,12 +449,12 @@ class _UserCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
+                Spacing.hGapSM,
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: onFollowTap,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: AppRadius.borderRound,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
@@ -464,16 +462,14 @@ class _UserCard extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: isFollowing
-                            ? Colors.grey[200]
-                            : const Color(0xFF00BFA5),
-                        borderRadius: BorderRadius.circular(20),
+                            ? context.containerColor
+                            : AppColors.primary,
+                        borderRadius: AppRadius.borderRound,
                       ),
                       child: Text(
                         isFollowing ? 'Partner' : 'Follow',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: isFollowing ? Colors.black87 : Colors.white,
+                        style: context.labelLarge.copyWith(
+                          color: isFollowing ? context.textPrimary : Colors.white,
                         ),
                       ),
                     ),

@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_trimmer/video_trimmer.dart';
 import '../../services/video_editor_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Instagram-like video editor screen with trimming and filters
 class VideoEditorScreen extends StatefulWidget {
@@ -181,7 +183,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(Icons.error, color: Colors.red, size: 64),
-                      const SizedBox(height: 16),
+                      Spacing.gapMD,
                       Text(
                         _errorMessage!,
                         style: const TextStyle(color: Colors.white),
@@ -257,7 +259,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                                   fontSize: 14,
                                 ),
                               ),
-                              const SizedBox(width: 16),
+                              Spacing.hGapMD,
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,
@@ -265,7 +267,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: Colors.blue.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: AppRadius.borderXS,
                                 ),
                                 child: Text(
                                   _formatDuration(_endValue - _startValue),
@@ -307,7 +309,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 16),
+                        Spacing.gapMD,
 
                         // Filters
                         Container(
@@ -327,7 +329,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              Spacing.gapSM,
                               Expanded(
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
@@ -358,7 +360,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                                                       : Colors.grey.shade700,
                                                   width: isSelected ? 2 : 1,
                                                 ),
-                                                borderRadius: BorderRadius.circular(8),
+                                                borderRadius: AppRadius.borderSM,
                                               ),
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(7),
@@ -379,7 +381,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                                                 ),
                                               ),
                                             ),
-                                            const SizedBox(height: 4),
+                                            Spacing.gapXS,
                                             Text(
                                               _editorService.getFilterName(filter),
                                               style: TextStyle(
@@ -404,7 +406,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 16),
+                        Spacing.gapMD,
                       ],
                     ),
 
@@ -417,7 +419,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircularProgressIndicator(color: Colors.white),
-                              SizedBox(height: 16),
+                              Spacing.gapMD,
                               Text(
                                 'Processing video...',
                                 style: TextStyle(

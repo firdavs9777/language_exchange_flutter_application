@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class StickerButton extends StatefulWidget {
   final String sticker;
@@ -77,7 +79,7 @@ class _StickerButtonState extends State<StickerButton>
             scale: _scaleAnimation.value,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: AppRadius.borderSM,
                 color: _isPressed ? Colors.grey[300] : Colors.grey[100],
                 border: Border.all(
                   color: _isPressed ? Colors.grey[400]! : Colors.grey[200]!,

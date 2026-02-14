@@ -62,7 +62,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         clientId: Platform.isIOS ? _iosClientId : null,
         serverClientId: Platform.isAndroid ? _webClientId : null,
       );
-      print(
+      debugPrint(
         '🔑 Using Google Client ID: ${Platform.isIOS ? _iosClientId : _webClientId}',
       );
 
@@ -76,14 +76,14 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
-        print('❌ User cancelled Google sign-in');
+        debugPrint('❌ User cancelled Google sign-in');
         setState(() {
           _isLoading = false;
         });
         return;
       }
 
-      print('✅ Google user signed in: ${googleUser.email}');
+      debugPrint('✅ Google user signed in: ${googleUser.email}');
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -91,7 +91,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
       final String? idToken = googleAuth.idToken;
 
       if (idToken == null) {
-        print('❌ Failed to get ID token from Google');
+        debugPrint('❌ Failed to get ID token from Google');
         setState(() {
           _errorMessage = 'Failed to get ID token from Google';
           _isLoading = false;
@@ -99,21 +99,21 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         return;
       }
 
-      print('🎫 Got ID token, sending to backend...');
+      debugPrint('🎫 Got ID token, sending to backend...');
 
       final result = await ref
           .read(authServiceProvider)
           .signInWithGoogleNative(idToken);
 
-      print(result);
+      debugPrint('$result');
       if (result['success'] == true) {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
 
         // Debug: Log the full user object to see what backend returns
-        print('🔍 Google login - Full user data from backend: $user');
-        print('🔍 Google login - profileCompleted raw value: ${user?['profileCompleted']}');
-        print('🔍 Google login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
+        debugPrint('🔍 Google login - Full user data from backend: $user');
+        debugPrint('🔍 Google login - profileCompleted raw value: ${user?['profileCompleted']}');
+        debugPrint('🔍 Google login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
 
         // Check profileCompleted flag from backend
         // Only redirect to profile completion if explicitly set to false
@@ -122,18 +122,18 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         // User needs to complete profile only if backend says so
         final bool needsProfileCompletion = !profileCompleted;
 
-        print('═══════════════════════════════════════');
-        print('🔍 PROFILE COMPLETION CHECK:');
-        print('   profileCompleted: $profileCompleted');
-        print('   needsCompletion: $needsProfileCompletion');
-        print('───────────────────────────────────────');
-        print('📝 User Profile Data:');
-        print('   name: ${user?['name']}');
-        print('   email: ${user?['email']}');
-        print('   native_language: ${user?['native_language']}');
-        print('   language_to_learn: ${user?['language_to_learn']}');
-        print('   gender: ${user?['gender']}');
-        print('═══════════════════════════════════════');
+        debugPrint('═══════════════════════════════════════');
+        debugPrint('🔍 PROFILE COMPLETION CHECK:');
+        debugPrint('   profileCompleted: $profileCompleted');
+        debugPrint('   needsCompletion: $needsProfileCompletion');
+        debugPrint('───────────────────────────────────────');
+        debugPrint('📝 User Profile Data:');
+        debugPrint('   name: ${user?['name']}');
+        debugPrint('   email: ${user?['email']}');
+        debugPrint('   native_language: ${user?['native_language']}');
+        debugPrint('   language_to_learn: ${user?['language_to_learn']}');
+        debugPrint('   gender: ${user?['gender']}');
+        debugPrint('═══════════════════════════════════════');
 
         setState(() {
           _isLoading = false;
@@ -142,7 +142,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         if (mounted) {
           if (needsProfileCompletion) {
             // Profile NOT completed - redirect to RegisterTwo
-            print('❌ Profile incomplete - redirecting to RegisterTwo');
+            debugPrint('❌ Profile incomplete - redirecting to RegisterTwo');
 
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
@@ -176,7 +176,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             );
           } else {
             // Profile IS completed - check terms before going to main app
-            print('✅ Profile complete - checking terms acceptance');
+            debugPrint('✅ Profile complete - checking terms acceptance');
 
             // Check if user has accepted terms of service
             try {
@@ -261,7 +261,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           }
         }
       } else {
-        print('❌ Backend authentication failed: ${result['message']}');
+        debugPrint('❌ Backend authentication failed: ${result['message']}');
         setState(() {
           _errorMessage =
               result['message'] ?? 'Failed to authenticate with backend';
@@ -269,7 +269,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         });
       }
     } catch (e) {
-      print('❌ Google sign-in error: $e');
+      debugPrint('❌ Google sign-in error: $e');
       setState(() {
         _errorMessage = 'Google sign-in error: ${e.toString()}';
         _isLoading = false;

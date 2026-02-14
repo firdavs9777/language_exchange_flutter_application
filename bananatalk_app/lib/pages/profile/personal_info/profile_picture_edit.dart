@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +10,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -31,7 +34,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   void initState() {
     super.initState();
     _existingImageUrls = List<String>.from(widget.user.imageUrls);
-    print(_existingImageUrls.length);
+    debugPrint(_existingImageUrls.length.toString());
   }
 
   Future<String?> _getToken() async {
@@ -192,7 +195,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       });
     } catch (e) {
       Navigator.pop(context);
-      print('Error removing image: $e');
+      debugPrint('Error removing image: $e');
       _showErrorSnackBar('Failed to remove image');
       setState(() {
         _isRemoving = false;
@@ -326,7 +329,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       });
     } catch (e) {
       Navigator.pop(context);
-      print('Error uploading images: $e');
+      debugPrint('Error uploading images: $e');
       _showErrorSnackBar('Failed to upload images');
       setState(() {
         _isUploading = false;
@@ -537,7 +540,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       });
     } catch (e) {
       Navigator.pop(context);
-      print('Error removing images: $e');
+      debugPrint('Error removing images: $e');
       _showErrorSnackBar('Failed to remove images');
       setState(() {
         _isRemoving = false;
@@ -770,20 +773,16 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            ImageUtils.normalizeImageUrl(
-                              _existingImageUrls[index],
-                            ),
+                          child: CachedImageWidget(
+                            imageUrl: _existingImageUrls[index],
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[200],
-                                child: const Icon(
-                                  Icons.broken_image,
-                                  color: Colors.grey,
-                                ),
-                              );
-                            },
+                            errorWidget: Container(
+                              color: Colors.grey[200],
+                              child: const Icon(
+                                Icons.broken_image,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                         // Only show delete button if there's more than one image
@@ -792,7 +791,10 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                             top: 4,
                             right: 4,
                             child: GestureDetector(
-                              onTap: () => _removeExistingImage(index),
+                              onTap: () {
+                                HapticFeedback.mediumImpact();
+                                _removeExistingImage(index);
+                              },
                               child: Container(
                                 padding: const EdgeInsets.all(4),
                                 decoration: const BoxDecoration(

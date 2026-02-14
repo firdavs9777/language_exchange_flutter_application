@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -154,18 +155,18 @@ class MediaService {
         ),
       );
 
-      print('📤 Sending media message:');
-      print('  - Receiver: $receiverId');
-      print('  - File: $fileName');
-      print('  - MIME type: $mimeType');
-      print('  - Message text: ${messageText ?? "(none)"}');
+      debugPrint('📤 Sending media message:');
+      debugPrint('  - Receiver: $receiverId');
+      debugPrint('  - File: $fileName');
+      debugPrint('  - MIME type: $mimeType');
+      debugPrint('  - Message text: ${messageText ?? "(none)"}');
 
       // Send request
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      print('📥 Response status: ${response.statusCode}');
-      print('📥 Response body: ${response.body}');
+      debugPrint('📥 Response status: ${response.statusCode}');
+      debugPrint('📥 Response body: ${response.body}');
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -183,7 +184,7 @@ class MediaService {
         };
       }
     } catch (e) {
-      print('❌ Error in sendMessageWithMedia: $e');
+      debugPrint('❌ Error in sendMessageWithMedia: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',
@@ -231,8 +232,12 @@ class MediaService {
         }),
       );
 
+      debugPrint('📍 Location API response status: ${response.statusCode}');
+      debugPrint('📍 Location API response body: ${response.body}');
+
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data = jsonDecode(response.body);
+        debugPrint('📍 Location API parsed data: ${data['data']}');
         return {
           'success': true,
           'data': data['data'],

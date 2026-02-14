@@ -91,12 +91,12 @@ class Community {
   }
 
   factory Community.fromJson(Map<String, dynamic> json) {
-    // Debug: Print raw JSON for images
-    // debugPrint('Community.fromJson - id: ${json['_id']}');
-    // debugPrint('  images raw: ${json['images']}');
-    // debugPrint('  imageUrls raw: ${json['imageUrls']}');
-    // debugPrint('  followers raw: ${json['followers']}');
-    // debugPrint('  following raw: ${json['following']}');
+    // Debug: Print filter-relevant fields
+    // Uncomment to debug filter issues:
+    // debugPrint('Community.fromJson - ${json['name']}:');
+    // debugPrint('  gender: ${json['gender']}');
+    // debugPrint('  country: ${json['location']?['country']}');
+    // debugPrint('  birth_year: ${json['birth_year']}');
 
     return Community(
       id: json['_id'] ?? '',

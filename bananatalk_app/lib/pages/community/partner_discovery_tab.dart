@@ -10,6 +10,8 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Partner Discovery Tab with swipeable cards
 class PartnerDiscoveryTab extends ConsumerStatefulWidget {
@@ -32,11 +34,26 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   final Set<String> _skippedUsers = {};
   final Set<String> _wavedUsers = {};
   bool _isProcessingSwipe = false; // Prevent double swipes
+  bool _initialLoadDone = false;
 
   @override
   void initState() {
     super.initState();
     _loadUserId();
+
+    // Load initial data
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadInitialData();
+    });
+  }
+
+  @override
+  void didUpdateWidget(PartnerDiscoveryTab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Refresh data when filters change
+    if (oldWidget.filters != widget.filters) {
+      _refreshData();
+    }
   }
 
   Future<void> _loadUserId() async {
@@ -44,6 +61,144 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     setState(() {
       _userId = prefs.getString('userId') ?? '';
     });
+  }
+
+  void _loadInitialData() {
+    if (!_initialLoadDone) {
+      _initialLoadDone = true;
+      ref.read(paginatedCommunityProvider.notifier).loadInitial();
+    }
+  }
+
+  void _refreshData() {
+    ref.read(paginatedCommunityProvider.notifier).refresh();
+  }
+
+  void _loadMoreIfNeeded(int filteredCount) {
+    // Load more when we have less than 5 filtered users available
+    if (filteredCount < 5) {
+      final state = ref.read(paginatedCommunityProvider);
+      if (state.hasMore && !state.isLoadingMore) {
+        ref.read(paginatedCommunityProvider.notifier).loadMore();
+      }
+    }
+  }
+
+  /// Normalize gender values to handle different formats
+  String _normalizeGender(String gender) {
+    final normalized = gender.toLowerCase().trim();
+    const maleVariants = ['male', 'm', 'man', 'boy', '남성', '남자', '男', '男性', 'мужской', 'мужчина', 'masculino', 'hombre', 'ذكر'];
+    const femaleVariants = ['female', 'f', 'woman', 'girl', '여성', '여자', '女', '女性', 'женский', 'женщина', 'femenino', 'mujer', 'أنثى'];
+    const otherVariants = ['other', 'non-binary', 'nonbinary', 'nb', '기타', '其他', 'другой', 'otro', 'آخر'];
+
+    if (maleVariants.contains(normalized)) return 'male';
+    if (femaleVariants.contains(normalized)) return 'female';
+    if (otherVariants.contains(normalized)) return 'other';
+
+    return normalized;
+  }
+
+  /// Normalize country names to handle different languages and formats
+  /// Maps localized country names to their English equivalents
+  String _normalizeCountry(String country) {
+    // Country name mapping (localized name -> English name)
+    const countryMap = {
+      // Korean
+      '대한민국': 'south korea',
+      '한국': 'south korea',
+      '북한': 'north korea',
+      '일본': 'japan',
+      '중국': 'china',
+      '미국': 'united states',
+      '영국': 'united kingdom',
+      '프랑스': 'france',
+      '독일': 'germany',
+      '호주': 'australia',
+      '캐나다': 'canada',
+      '러시아': 'russia',
+      '필리핀': 'philippines',
+      // Chinese
+      '中国': 'china',
+      '中國': 'china',
+      '日本': 'japan',
+      '韩国': 'south korea',
+      '韓國': 'south korea',
+      '美国': 'united states',
+      '美國': 'united states',
+      '英国': 'united kingdom',
+      '英國': 'united kingdom',
+      '法国': 'france',
+      '法國': 'france',
+      '德国': 'germany',
+      '德國': 'germany',
+      '澳大利亚': 'australia',
+      '澳洲': 'australia',
+      '加拿大': 'canada',
+      '俄罗斯': 'russia',
+      '俄羅斯': 'russia',
+      '菲律宾': 'philippines',
+      '菲律賓': 'philippines',
+      // Japanese
+      '日本国': 'japan',
+      'アメリカ': 'united states',
+      'イギリス': 'united kingdom',
+      '韓国': 'south korea',
+      'オーストラリア': 'australia',
+      'カナダ': 'canada',
+      'フランス': 'france',
+      'ドイツ': 'germany',
+      'ロシア': 'russia',
+      'フィリピン': 'philippines',
+      // Russian
+      'сша': 'united states',
+      'соединённые штаты': 'united states',
+      'америка': 'united states',
+      'россия': 'russia',
+      'китай': 'china',
+      'япония': 'japan',
+      'корея': 'south korea',
+      'южная корея': 'south korea',
+      'филиппины': 'philippines',
+      // Spanish
+      'estados unidos': 'united states',
+      'reino unido': 'united kingdom',
+      'alemania': 'germany',
+      'francia': 'france',
+      'japón': 'japan',
+      'corea del sur': 'south korea',
+      'filipinas': 'philippines',
+      // Arabic
+      'الولايات المتحدة': 'united states',
+      'أمريكا': 'united states',
+      'الصين': 'china',
+      'اليابان': 'japan',
+      'كوريا الجنوبية': 'south korea',
+      'روسيا': 'russia',
+      'الفلبين': 'philippines',
+      // Common abbreviations
+      'us': 'united states',
+      'usa': 'united states',
+      'uk': 'united kingdom',
+      'uae': 'united arab emirates',
+      'kr': 'south korea',
+      'jp': 'japan',
+      'cn': 'china',
+      'ph': 'philippines',
+      'au': 'australia',
+      'ca': 'canada',
+      'de': 'germany',
+      'fr': 'france',
+      'ru': 'russia',
+      // Common variations
+      'america': 'united states',
+      'korea': 'south korea',
+      'republic of korea': 'south korea',
+      "people's republic of china": 'china',
+      'prc': 'china',
+    };
+
+    final normalized = country.toLowerCase().trim();
+    return countryMap[normalized] ?? normalized;
   }
 
   List<Community> _getFilteredCommunities(
@@ -63,23 +218,29 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       if (_skippedUsers.contains(community.id)) return false;
       if (_wavedUsers.contains(community.id)) return false;
 
-      // Apply age filter
-      if (widget.filters['minAge'] != null || widget.filters['maxAge'] != null) {
+      // Apply age filter - only filter out users who have age data that doesn't match
+      // Users without age data are included (we can't verify their age)
+      final minAge = widget.filters['minAge'] as int?;
+      final maxAge = widget.filters['maxAge'] as int?;
+      final hasCustomAgeFilter = (minAge != null && minAge > 18) || (maxAge != null && maxAge < 100);
+
+      if (hasCustomAgeFilter) {
         final age = community.age;
         if (age != null) {
-          final minAge = widget.filters['minAge'] as int?;
-          final maxAge = widget.filters['maxAge'] as int?;
           if (minAge != null && age < minAge) return false;
           if (maxAge != null && age > maxAge) return false;
         }
       }
 
-      // Apply gender filter
+      // Apply gender filter with normalization
       if (widget.filters['gender'] != null &&
           widget.filters['gender'].toString().isNotEmpty) {
-        final filterGender = widget.filters['gender'].toString().toLowerCase();
-        final communityGender = community.gender.toLowerCase();
-        if (filterGender != communityGender) return false;
+        final filterGender = _normalizeGender(widget.filters['gender'].toString());
+        final communityGender = _normalizeGender(community.gender);
+
+        if (communityGender.isNotEmpty && filterGender.isNotEmpty && filterGender != communityGender) {
+          return false;
+        }
       }
 
       // Apply online only filter
@@ -87,14 +248,29 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         return false;
       }
 
-      // Apply country filter
+      // Apply country filter - with multi-language support
       if (widget.filters['country'] != null &&
           widget.filters['country'].toString().isNotEmpty) {
-        final filterCountry = widget.filters['country'].toString().toLowerCase();
-        final userCountry = community.location.country.toLowerCase();
-        if (!userCountry.contains(filterCountry) && !filterCountry.contains(userCountry)) {
+        final filterCountry = widget.filters['country'].toString().toLowerCase().trim();
+        final userCountry = community.location.country.toLowerCase().trim();
+
+        // Skip empty or "not specified" country values
+        if (userCountry.isEmpty || userCountry == 'not specified') {
           return false;
         }
+
+        // Normalize country names for comparison (handle different languages/formats)
+        final normalizedFilterCountry = _normalizeCountry(filterCountry);
+        final normalizedUserCountry = _normalizeCountry(userCountry);
+
+        // Check for match using normalized names
+        final isMatch = normalizedUserCountry == normalizedFilterCountry ||
+            normalizedUserCountry.contains(normalizedFilterCountry) ||
+            normalizedFilterCountry.contains(normalizedUserCountry) ||
+            userCountry.contains(filterCountry) ||
+            filterCountry.contains(userCountry);
+
+        if (!isMatch) return false;
       }
 
       // Apply language level filter
@@ -157,15 +333,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         receiver: receiverId,
         message: 'Hi 👋',
       );
-      debugPrint('✅ Hi message sent to $receiverId');
     } catch (e) {
-      debugPrint('❌ Error sending Hi message: $e');
+      debugPrint('Error sending Hi message: $e');
     }
   }
 
   void _onWaveFromButton(Community community) {
-    debugPrint('👋 Wave button pressed for: ${community.name}');
-    debugPrint('📸 Image URLs: ${community.effectiveImageUrls}');
     HapticFeedback.mediumImpact();
 
     // Mark as waved
@@ -189,7 +362,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   void _onWaveFromSwipe(Community community) {
-    debugPrint('👋 Wave swipe for: ${community.name}');
     HapticFeedback.mediumImpact();
 
     // Mark as waved
@@ -247,53 +419,55 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
   @override
   Widget build(BuildContext context) {
-    final communityAsync = ref.watch(communityProvider);
+    final communityState = ref.watch(paginatedCommunityProvider);
     final currentUserAsync = ref.watch(userProvider);
     final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
 
-    return communityAsync.when(
-      data: (communities) {
-        return currentUserAsync.when(
-          data: (currentUser) {
-            final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
-            final filteredCommunities = _getFilteredCommunities(
-              communities,
-              currentUser.native_language,
-              currentUser.language_to_learn,
-              blockedUserIds,
-            );
+    // Show loading on initial load
+    if (communityState.isLoading && communityState.users.isEmpty) {
+      return _buildLoading();
+    }
 
-            if (filteredCommunities.isEmpty) {
-              return _buildEmptyState();
-            }
+    // Show error if any
+    if (communityState.error != null && communityState.users.isEmpty) {
+      return _buildError(communityState.error);
+    }
 
-            return _buildCardStack(filteredCommunities);
-          },
-          loading: () => _buildLoading(),
-          error: (e, s) => _buildError(e),
+    return currentUserAsync.when(
+      data: (currentUser) {
+        final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
+        final filteredCommunities = _getFilteredCommunities(
+          communityState.users,
+          currentUser.native_language,
+          currentUser.language_to_learn,
+          blockedUserIds,
         );
+
+        // Check if we need to load more
+        _loadMoreIfNeeded(filteredCommunities.length);
+
+        if (filteredCommunities.isEmpty) {
+          // If still loading more, show loading indicator
+          if (communityState.isLoadingMore) {
+            return _buildLoading();
+          }
+          return _buildEmptyState();
+        }
+
+        return _buildCardStack(filteredCommunities, communityState.isLoadingMore);
       },
       loading: () => _buildLoading(),
       error: (e, s) => _buildError(e),
     );
   }
 
-  Widget _buildCardStack(List<Community> communities) {
-    debugPrint('🔄 Building card stack: ${communities.length} users available');
-    debugPrint('📋 Skipped: ${_skippedUsers.length}, Waved: ${_wavedUsers.length}');
-
+  Widget _buildCardStack(List<Community> communities, [bool isLoadingMore = false]) {
     if (communities.isEmpty) {
       return _buildAllDoneState();
     }
 
-    // Always show the first available user (list is already filtered)
     final currentCommunity = communities.first;
     final hasNextCard = communities.length > 1;
-
-    debugPrint('👤 Current user: ${currentCommunity.name}, images: ${currentCommunity.effectiveImageUrls.length}');
-    if (currentCommunity.profileImageUrl != null) {
-      debugPrint('🖼️ First image URL: ${currentCommunity.profileImageUrl}');
-    }
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -309,6 +483,25 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   child: IgnorePointer(
                     child: PartnerCard(
                       user: communities[1],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          // Show loading indicator for next card if loading more
+          if (!hasNextCard && isLoadingMore)
+            Positioned.fill(
+              child: Transform.scale(
+                scale: 0.92,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
+                  decoration: BoxDecoration(
+                    color: context.containerColor,
+                    borderRadius: AppRadius.borderXXL,
+                  ),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: context.primaryColor,
                     ),
                   ),
                 ),
@@ -330,15 +523,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 if (_isProcessingSwipe) return;
                 _isProcessingSwipe = true;
 
-                debugPrint('📱 Dismissed: $direction for ${currentCommunity.name}');
-
                 if (direction == DismissDirection.endToStart) {
                   // Swiped left - Skip
                   _skippedUsers.add(currentCommunity.id);
                   setState(() {
                     _isProcessingSwipe = false;
                   });
-                  debugPrint('⏭️ Skip complete');
                 } else {
                   // Swiped right - Wave
                   _onWaveFromSwipe(currentCommunity);
@@ -351,7 +541,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 onTap: () => _viewProfile(currentCommunity),
                 onSkip: () {
                   if (_isProcessingSwipe) return;
-                  debugPrint('🔘 Skip button pressed');
                   _skippedUsers.add(currentCommunity.id);
                   setState(() {});
                 },
@@ -367,12 +556,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
   Widget _buildSwipeBackground(bool isWave) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
       decoration: BoxDecoration(
         color: isWave
-            ? const Color(0xFF4CAF50).withOpacity(0.2)
-            : Colors.grey.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(24),
+            ? AppColors.success.withOpacity(0.2)
+            : context.textMuted.withOpacity(0.2),
+        borderRadius: AppRadius.borderXXL,
       ),
       alignment: isWave ? Alignment.centerLeft : Alignment.centerRight,
       padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -381,16 +570,14 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         children: [
           Icon(
             isWave ? Icons.waving_hand_rounded : Icons.close_rounded,
-            color: isWave ? const Color(0xFF4CAF50) : Colors.grey,
+            color: isWave ? AppColors.success : context.textMuted,
             size: 48,
           ),
-          const SizedBox(height: 8),
+          Spacing.gapSM,
           Text(
             isWave ? 'Wave' : 'Skip',
-            style: TextStyle(
-              color: isWave ? const Color(0xFF4CAF50) : Colors.grey,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+            style: context.titleLarge.copyWith(
+              color: isWave ? AppColors.success : context.textMuted,
             ),
           ),
         ],
@@ -401,7 +588,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(Spacing.xxxl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -409,50 +596,42 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
-                ),
+                gradient: AppColors.primaryGradient,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.people_outline_rounded,
                 size: 50,
-                color: Colors.white,
+                color: context.textOnPrimary,
               ),
             ),
-            const SizedBox(height: 24),
-            const Text(
+            Spacing.gapXXL,
+            Text(
               'No partners found',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.displaySmall,
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
             Text(
               'Try adjusting your filters or search to find language exchange partners.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey[600],
-              ),
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
-            const SizedBox(height: 24),
+            Spacing.gapXXL,
             ElevatedButton.icon(
               onPressed: () {
-                ref.invalidate(communityProvider);
+                ref.read(paginatedCommunityProvider.notifier).refresh();
               },
               icon: const Icon(Icons.refresh_rounded),
               label: const Text('Refresh'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
+                backgroundColor: context.primaryColor,
+                foregroundColor: context.textOnPrimary,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
+                  horizontal: Spacing.xxl,
+                  vertical: Spacing.md,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: AppRadius.borderMD,
                 ),
               ),
             ),
@@ -463,9 +642,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   Widget _buildAllDoneState() {
+    final communityState = ref.watch(paginatedCommunityProvider);
+
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(Spacing.xxxl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -473,38 +654,37 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
-                ),
+                gradient: AppColors.primaryGradient,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.check_circle_outline_rounded,
                 size: 50,
-                color: Colors.white,
+                color: context.textOnPrimary,
               ),
             ),
-            const SizedBox(height: 24),
-            const Text(
-              'All caught up!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 12),
+            Spacing.gapXXL,
             Text(
-              'You\'ve seen all available partners. Check back later for more!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey[600],
-              ),
+              communityState.hasMore ? 'Loading more...' : 'All caught up!',
+              style: context.displaySmall,
             ),
-            const SizedBox(height: 24),
+            Spacing.gapMD,
+            Text(
+              communityState.hasMore
+                  ? 'Finding more language partners for you...'
+                  : 'You\'ve seen all available partners. Check back later for more!',
+              textAlign: TextAlign.center,
+              style: context.bodyMedium.copyWith(color: context.textSecondary),
+            ),
+            if (communityState.isLoadingMore)
+              Padding(
+                padding: const EdgeInsets.only(top: Spacing.xxl),
+                child: CircularProgressIndicator(color: context.primaryColor),
+              ),
+            Spacing.gapXXL,
             ElevatedButton.icon(
               onPressed: () {
-                ref.invalidate(communityProvider);
+                ref.read(paginatedCommunityProvider.notifier).refresh();
                 setState(() {
                   _skippedUsers.clear();
                   _wavedUsers.clear();
@@ -514,14 +694,14 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               icon: const Icon(Icons.refresh_rounded),
               label: const Text('Start Over'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
+                backgroundColor: context.primaryColor,
+                foregroundColor: context.textOnPrimary,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
+                  horizontal: Spacing.xxl,
+                  vertical: Spacing.md,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: AppRadius.borderMD,
                 ),
               ),
             ),
@@ -532,20 +712,17 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   Widget _buildLoading() {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircularProgressIndicator(
-            color: Color(0xFF00BFA5),
+            color: context.primaryColor,
           ),
-          SizedBox(height: 16),
+          Spacing.gapLG,
           Text(
             'Finding partners...',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
+            style: context.bodyMedium.copyWith(color: context.textSecondary),
           ),
         ],
       ),
@@ -555,42 +732,36 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   Widget _buildError(dynamic error) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(Spacing.xxxl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.error_outline_rounded,
               size: 64,
-              color: Colors.grey[400],
+              color: context.textMuted,
             ),
-            const SizedBox(height: 16),
-            const Text(
+            Spacing.gapLG,
+            Text(
               'Something went wrong',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.titleLarge,
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
               '$error',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[600],
-              ),
+              style: context.bodySmall,
             ),
-            const SizedBox(height: 24),
+            Spacing.gapXXL,
             ElevatedButton.icon(
               onPressed: () {
-                ref.invalidate(communityProvider);
+                ref.read(paginatedCommunityProvider.notifier).refresh();
               },
               icon: const Icon(Icons.refresh_rounded),
               label: const Text('Retry'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
+                backgroundColor: context.primaryColor,
+                foregroundColor: context.textOnPrimary,
               ),
             ),
           ],

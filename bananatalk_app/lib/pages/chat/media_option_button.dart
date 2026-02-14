@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class MediaOptionButton extends StatelessWidget {
   final IconData icon;
@@ -32,7 +34,7 @@ class MediaOptionButton extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: AppRadius.borderMD,
               border: Border.all(
                 color: color.withOpacity(0.2),
                 width: 1,
@@ -51,13 +53,13 @@ class MediaOptionButton extends StatelessWidget {
               color: color,
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[700],
-              fontWeight: FontWeight.w600,
+          Spacing.gapSM,
+          Builder(
+            builder: (context) => Text(
+              label,
+              style: context.labelMedium.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],

@@ -6,8 +6,8 @@ class LanguageService {
   static const String _languageKey = 'app_language';
   
   // Supported languages
-  static const List<String> supportedLanguages = ['en', 'zh', 'ko', 'ru', 'es', 'ar'];
-  
+  static const List<String> supportedLanguages = ['en', 'zh', 'ko', 'ru', 'es', 'ar', 'hi', 'pt', 'ja'];
+
   // Language names in their native language
   static const Map<String, String> languageNames = {
     'en': 'English',
@@ -16,8 +16,11 @@ class LanguageService {
     'ru': 'Русский',
     'es': 'Español',
     'ar': 'العربية',
+    'hi': 'हिन्दी',
+    'pt': 'Português',
+    'ja': '日本語',
   };
-  
+
   // Language flags
   static const Map<String, String> languageFlags = {
     'en': '🇺🇸',
@@ -26,6 +29,9 @@ class LanguageService {
     'ru': '🇷🇺',
     'es': '🇪🇸',
     'ar': '🇸🇦',
+    'hi': '🇮🇳',
+    'pt': '🇧🇷',
+    'ja': '🇯🇵',
   };
   
   /// Get device language and map to supported language
@@ -45,7 +51,10 @@ class LanguageService {
       if (languageCode.startsWith('ru')) return 'ru';
       if (languageCode.startsWith('es')) return 'es';
       if (languageCode.startsWith('ar')) return 'ar';
-      
+      if (languageCode.startsWith('hi')) return 'hi';
+      if (languageCode.startsWith('pt')) return 'pt';
+      if (languageCode.startsWith('ja')) return 'ja';
+
       // Default to English
       return 'en';
     } catch (e) {
@@ -93,6 +102,12 @@ class LanguageService {
         return const Locale('es', 'ES');
       case 'ar':
         return const Locale('ar', 'SA');
+      case 'hi':
+        return const Locale('hi', 'IN');
+      case 'pt':
+        return const Locale('pt', 'BR');
+      case 'ja':
+        return const Locale('ja', 'JP');
       case 'en':
       default:
         return const Locale('en', 'US');

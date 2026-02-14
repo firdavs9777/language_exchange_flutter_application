@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
@@ -6,6 +7,10 @@ import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
 import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
+import 'package:bananatalk_app/widgets/shimmer_loading.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,22 +60,22 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
 
     try {
       // Load my stories
-      print('📚 Loading my stories...');
+      debugPrint('Loading my stories...');
       final myStoriesResponse = await StoriesService.getMyStories();
-      print('📚 My stories response: success=${myStoriesResponse.success}, count=${myStoriesResponse.count}, data.length=${myStoriesResponse.data.length}');
-      
+      debugPrint('My stories response: success=${myStoriesResponse.success}, count=${myStoriesResponse.count}, data.length=${myStoriesResponse.data.length}');
+
       if (myStoriesResponse.success && myStoriesResponse.data.isNotEmpty) {
         _myStories = myStoriesResponse.data.first;
-        print('📚 My stories loaded: ${_myStories?.stories.length} stories, active=${_myStories?.activeStories.length}');
+        debugPrint('My stories loaded: ${_myStories?.stories.length} stories, active=${_myStories?.activeStories.length}');
       } else {
-        print('📚 No my stories found: ${myStoriesResponse.error ?? myStoriesResponse.message}');
+        debugPrint('No my stories found: ${myStoriesResponse.error ?? myStoriesResponse.message}');
         _myStories = null;
       }
 
       // Load stories feed
-      print('📚 Loading stories feed...');
+      debugPrint('Loading stories feed...');
       final response = await StoriesService.getStoriesFeed();
-      print('📚 Feed response: success=${response.success}, count=${response.count}, data.length=${response.data.length}');
+      debugPrint('Feed response: success=${response.success}, count=${response.count}, data.length=${response.data.length}');
 
       if (mounted) {
         if (response.success) {
@@ -97,7 +102,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             _isRefreshing = false;
             _hasLoadedOnce = true;
           });
-          print('📚 Stories feed loaded: ${_stories.length} users with stories (filtered from ${response.data.length}, removed own stories)');
+          debugPrint('Stories feed loaded: ${_stories.length} users with stories (filtered from ${response.data.length}, removed own stories)');
         } else if (response.blocked) {
           setState(() {
             _stories = [];
@@ -111,11 +116,11 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             _isLoading = false;
             _isRefreshing = false;
           });
-          print('📚 Stories feed error: ${response.error}');
+          debugPrint('Stories feed error: ${response.error}');
         }
       }
     } catch (e) {
-      print('📚 Exception loading stories: $e');
+      debugPrint('Exception loading stories: $e');
       if (mounted) {
         setState(() {
           _error = _hasLoadedOnce ? null : 'Failed to load stories: $e'; // Don't show error if we have cached data
@@ -195,12 +200,16 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Always show at least the "Your Story" button
+    // Shimmer loading state
     if (_isLoading) {
       return SizedBox(
         height: widget.height,
-        child: const Center(
-          child: CircularProgressIndicator(),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+          itemCount: 6,
+          itemBuilder: (context, index) => _buildShimmerItem(),
         ),
       );
     }
@@ -213,20 +222,20 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.error_outline, color: Colors.grey[400], size: 20),
-              const SizedBox(width: 8),
+              Icon(Icons.error_outline, color: context.textMuted, size: 20),
+              Spacing.hGapSM,
               Text(
                 'Stories unavailable',
-                style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                style: context.labelSmall,
               ),
               TextButton(
                 onPressed: _loadStories,
                 style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                   minimumSize: Size.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: Text(AppLocalizations.of(context)!.retry, style: const TextStyle(fontSize: 12)),
+                child: Text(AppLocalizations.of(context)!.retry, style: context.labelSmall.copyWith(color: AppColors.primary)),
               ),
             ],
           ),
@@ -239,7 +248,8 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
       height: widget.height,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
         itemCount: _stories.length + 1, // +1 for my story / add story
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -251,73 +261,149 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
     );
   }
 
+  Widget _buildShimmerItem() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+      child: SizedBox(
+        width: widget.avatarSize + 12,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ShimmerLoading(
+              child: Container(
+                width: widget.avatarSize,
+                height: widget.avatarSize,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ),
+            Spacing.gapXS,
+            ShimmerLoading(
+              child: Container(
+                width: 48,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildMyStoryItem() {
     final hasActiveStories = _myStories?.activeStories.isNotEmpty == true;
+    final imageUrl = (_myStories?.user.images.isNotEmpty == true || _myStories?.user.imageUrls.isNotEmpty == true)
+        ? (_myStories!.user.images.isNotEmpty
+            ? _myStories!.user.images.first
+            : _myStories!.user.imageUrls.first)
+        : null;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
       child: GestureDetector(
-        onTap: hasActiveStories ? _openMyStories : _createStory,
+        onTap: () {
+          HapticFeedback.lightImpact();
+          if (hasActiveStories) {
+            _openMyStories();
+          } else {
+            _createStory();
+          }
+        },
+        onLongPress: hasActiveStories ? _createStory : null,
         child: SizedBox(
-          width: widget.avatarSize + 8,
+          width: widget.avatarSize + 12,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Container(
-                    width: widget.avatarSize,
-                    height: widget.avatarSize,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: hasActiveStories
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey[300]!,
-                        width: 2,
+                  // Avatar with gradient ring if has stories
+                  if (hasActiveStories)
+                    StoryGradientRing(
+                      size: widget.avatarSize,
+                      strokeWidth: 2.5,
+                      isViewed: false,
+                      hasStory: true,
+                      isOwnStory: true,
+                      animate: false,
+                      child: ClipOval(
+                        child: CachedImageWidget(
+                          imageUrl: imageUrl ?? '',
+                          fit: BoxFit.cover,
+                          placeholderColor: context.containerColor,
+                          errorWidget: Container(
+                            color: context.containerColor,
+                            child: Icon(Icons.person, color: context.textMuted, size: 28),
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    Container(
+                      width: widget.avatarSize,
+                      height: widget.avatarSize,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: context.dividerColor,
+                          width: 2,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: ClipOval(
+                          child: CachedImageWidget(
+                            imageUrl: imageUrl ?? '',
+                            fit: BoxFit.cover,
+                            placeholderColor: context.containerColor,
+                            errorWidget: Container(
+                              color: context.containerColor,
+                              child: Icon(Icons.person, color: context.textMuted, size: 28),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: CachedCircleAvatar(
-                        imageUrl: (_myStories?.user.images.isNotEmpty == true || _myStories?.user.imageUrls.isNotEmpty == true)
-                            ? (_myStories!.user.images.isNotEmpty 
-                                ? _myStories!.user.images.first 
-                                : _myStories!.user.imageUrls.first)
-                            : null,
-                        backgroundColor: Colors.grey[200],
-                        errorWidget: Icon(Icons.person, color: Colors.grey[400], size: 28),
+                  // Add button (always visible at bottom right)
+                  Positioned(
+                    right: -2,
+                    bottom: -2,
+                    child: Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF833AB4), Color(0xFFE1306C)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: context.surfaceColor, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 14,
                       ),
                     ),
                   ),
-                  if (!hasActiveStories)
-                    Positioned(
-                      right: 0,
-                      bottom: 0,
-                      child: Container(
-                        width: 20,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 12,
-                        ),
-                      ),
-                    ),
                 ],
               ),
-              const SizedBox(height: 4),
+              Spacing.gapXS,
               Text(
                 'Your Story',
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey,
+                style: context.captionSmall.copyWith(
+                  color: context.textSecondary,
+                  fontWeight: hasActiveStories ? FontWeight.w600 : FontWeight.normal,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
@@ -331,68 +417,59 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
 
   Widget _buildStoryItem(UserStories userStories, int index) {
     final hasUnseen = userStories.hasUnviewed;
+    final isCloseFriend = userStories.stories.any((s) => s.privacy == StoryPrivacy.closeFriends);
+    final imageUrl = (userStories.user.images.isNotEmpty || userStories.user.imageUrls.isNotEmpty)
+        ? (userStories.user.images.isNotEmpty
+            ? userStories.user.images.first
+            : userStories.user.imageUrls.first)
+        : null;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
       child: GestureDetector(
-        onTap: () => _openStoryViewer(index),
+        onTap: () {
+          HapticFeedback.lightImpact();
+          _openStoryViewer(index);
+        },
         child: SizedBox(
-          width: widget.avatarSize + 8,
+          width: widget.avatarSize + 12,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: widget.avatarSize,
-                height: widget.avatarSize,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: hasUnseen
-                      ? const LinearGradient(
-                          colors: [
-                            Color(0xFF833AB4),
-                            Color(0xFFF77737),
-                            Color(0xFFE1306C),
-                            Color(0xFFC13584),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )
-                      : null,
-                  border: hasUnseen
-                      ? null
-                      : Border.all(color: Colors.grey[300]!, width: 2),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(3),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
+              // Avatar with animated gradient ring
+              StoryGradientRing(
+                size: widget.avatarSize,
+                strokeWidth: 2.5,
+                isViewed: !hasUnseen,
+                isCloseFriend: isCloseFriend,
+                hasStory: true,
+                animate: hasUnseen,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.surfaceColor,
+                      width: 2,
                     ),
-                    child: CachedCircleAvatar(
-                      imageUrl: (userStories.user.images.isNotEmpty || userStories.user.imageUrls.isNotEmpty)
-                          ? (userStories.user.images.isNotEmpty
-                              ? userStories.user.images.first
-                              : userStories.user.imageUrls.first)
-                          : null,
-                      backgroundColor: Colors.grey[200],
-                      errorWidget: Text(
-                        userStories.user.name?.isNotEmpty == true
-                            ? userStories.user.name![0].toUpperCase()
-                            : '?',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
-                      ),
-                    ),
+                  ),
+                  child: ClipOval(
+                    child: imageUrl != null
+                        ? CachedImageWidget(
+                            imageUrl: imageUrl,
+                            fit: BoxFit.cover,
+                            placeholderColor: context.containerColor,
+                            errorWidget: _buildAvatarPlaceholder(userStories.user.name),
+                          )
+                        : _buildAvatarPlaceholder(userStories.user.name),
                   ),
                 ),
               ),
-              const SizedBox(height: 4),
+              Spacing.gapXS,
               Text(
                 userStories.user.name ?? 'User',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey[600],
+                style: context.captionSmall.copyWith(
+                  color: context.textSecondary,
                   fontWeight: hasUnseen ? FontWeight.w600 : FontWeight.normal,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -404,5 +481,15 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
       ),
     );
   }
-}
 
+  Widget _buildAvatarPlaceholder(String? name) {
+    return Container(
+      color: context.containerColor,
+      alignment: Alignment.center,
+      child: Text(
+        name?.isNotEmpty == true ? name![0].toUpperCase() : '?',
+        style: context.titleMedium.copyWith(color: context.textSecondary),
+      ),
+    );
+  }
+}

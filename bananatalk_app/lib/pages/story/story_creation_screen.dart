@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +11,9 @@ import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Screen for creating a new story with all sticker options
 class StoryCreationScreen extends ConsumerStatefulWidget {
@@ -73,7 +77,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       maxHeight: 1920,
       imageQuality: 85,
     );
-    
+
     if (pickedFiles.isNotEmpty) {
       setState(() {
         _mediaFiles = pickedFiles.take(5).map((f) => File(f.path)).toList();
@@ -153,7 +157,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
     setState(() {
       _isProcessingVideo = true;
       _videoCompressionProgress = 0;
-      _videoProcessingStatus = 'Preparing video...';
+      _videoProcessingStatus = '';
     });
 
     try {
@@ -205,9 +209,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+                AppLocalizations.of(context)!.videoOptimized(result.fileSizeMB.toString(), result.compressionSavings.toStringAsFixed(0)),
               ),
-              backgroundColor: const Color(0xFF00BFA5),
+              backgroundColor: AppColors.primary,
               behavior: SnackBarBehavior.floating,
             ),
           );
@@ -220,8 +224,8 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result.error ?? 'Failed to process video'),
-              backgroundColor: Colors.red,
+              content: Text(result.error ?? AppLocalizations.of(context)!.failedToProcessVideo),
+              backgroundColor: AppColors.error,
               behavior: SnackBarBehavior.floating,
             ),
           );
@@ -240,7 +244,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -252,12 +256,12 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        backgroundColor: AppColors.gray900,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 16),
+            Spacing.gapLG,
             Stack(
               alignment: Alignment.center,
               children: [
@@ -269,51 +273,41 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                         ? _videoCompressionProgress / 100
                         : null,
                     strokeWidth: 6,
-                    backgroundColor: Colors.grey[700],
-                    valueColor: const AlwaysStoppedAnimation<Color>(
-                      Color(0xFF00BFA5),
-                    ),
+                    backgroundColor: AppColors.gray700,
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                   ),
                 ),
                 if (_videoCompressionProgress > 0)
                   Text(
                     '${_videoCompressionProgress.toStringAsFixed(0)}%',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: context.titleMedium.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF00BFA5),
+                      color: AppColors.primary,
                     ),
                   )
                 else
-                  const Icon(
+                  Icon(
                     Icons.videocam,
                     size: 32,
-                    color: Color(0xFF00BFA5),
+                    color: AppColors.primary,
                   ),
               ],
             ),
-            const SizedBox(height: 20),
+            Spacing.gapXL,
             Text(
               _videoProcessingStatus.isNotEmpty
                   ? _videoProcessingStatus
-                  : 'Processing video...',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+                  : AppLocalizations.of(context)!.processingVideo,
+              style: context.titleSmall.copyWith(color: AppColors.white),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
-              'Optimizing for the best story experience',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey[400],
-              ),
+              AppLocalizations.of(context)!.optimizingForBestExperience,
+              style: context.bodySmall.copyWith(color: AppColors.gray400),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            Spacing.gapLG,
           ],
         ),
       ),
@@ -357,9 +351,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
     // Validate content - only images and videos are allowed
     if (_mediaFiles.isEmpty && !_isVideoMode) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select an image or video for your story'),
-          backgroundColor: Colors.orange,
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseSelectImageOrVideo),
+          backgroundColor: AppColors.warning,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -381,9 +375,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       if (mediaToUpload.isEmpty) {
         setState(() => _isCreating = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please select an image or video for your story'),
-            backgroundColor: Colors.orange,
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.pleaseSelectImageOrVideo),
+            backgroundColor: AppColors.warning,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -395,14 +389,14 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         privacy: _privacy,
       );
 
-      print('Story creation result: success=${result.success}, error=${result.error}');
+      debugPrint('Story creation result: success=${result.success}, error=${result.error}');
 
       if (result.success) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Story created successfully!'),
-              backgroundColor: Color(0xFF00BFA5),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.storyCreatedSuccessfully),
+              backgroundColor: AppColors.primary,
               behavior: SnackBarBehavior.floating,
             ),
           );
@@ -411,7 +405,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       } else {
         // Handle specific video errors
         final errorMsg = result.error ?? 'Failed to create story';
-        print('Story creation error: $errorMsg');
+        debugPrint('Story creation error: $errorMsg');
 
         if (errorMsg.contains('Video Service') ||
             errorMsg.contains('processing unavailable')) {
@@ -423,7 +417,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         setState(() => _isCreating = false);
       }
     } catch (e) {
-      print('Story creation exception: $e');
+      debugPrint('Story creation exception: $e');
       if (mounted) {
         _showErrorDialog('Exception: $e');
         setState(() => _isCreating = false);
@@ -447,7 +441,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       if (mounted) {
         Navigator.pop(context, true);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Row(
               children: [
                 SizedBox(
@@ -455,14 +449,14 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                   height: 16,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
                   ),
                 ),
-                SizedBox(width: 12),
-                Text('Uploading story in background...'),
+                Spacing.hGapMD,
+                Text(AppLocalizations.of(context)!.uploadingStoryInBackground),
               ],
             ),
-            backgroundColor: Color(0xFF00BFA5),
+            backgroundColor: AppColors.primary,
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 3),
           ),
@@ -473,7 +467,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -485,14 +479,14 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Row(
+        backgroundColor: AppColors.gray900,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+        title: Row(
           children: [
-            Icon(Icons.error_outline, color: Colors.red, size: 28),
-            SizedBox(width: 12),
+            Icon(Icons.error_outline, color: AppColors.error, size: 28),
+            Spacing.hGapMD,
             Expanded(
-              child: Text('Story Creation Failed', style: TextStyle(color: Colors.white, fontSize: 18)),
+              child: Text(AppLocalizations.of(context)!.storyCreationFailed, style: context.titleMedium.copyWith(color: AppColors.white)),
             ),
           ],
         ),
@@ -501,27 +495,27 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: AppSpacing.paddingMD,
               decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.error.withOpacity(0.1),
+                borderRadius: AppRadius.borderSM,
               ),
               child: Text(
                 message,
-                style: const TextStyle(color: Colors.white70, fontSize: 14),
+                style: context.bodySmall.copyWith(color: AppColors.gray300),
               ),
             ),
-            const SizedBox(height: 16),
+            Spacing.gapLG,
             Text(
-              'Please check your connection and try again.',
-              style: TextStyle(fontSize: 13, color: Colors.grey[400]),
+              AppLocalizations.of(context)!.pleaseCheckConnection,
+              style: context.bodySmall.copyWith(color: AppColors.gray400),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+            child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: AppColors.gray400)),
           ),
           ElevatedButton(
             onPressed: () {
@@ -529,9 +523,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
               _createStory(); // Retry
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00BFA5),
+              backgroundColor: AppColors.primary,
             ),
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context)!.retry),
           ),
         ],
       ),
@@ -542,13 +536,13 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Row(
+        backgroundColor: AppColors.gray900,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+        title: Row(
           children: [
-            Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
-            SizedBox(width: 12),
-            Text('Upload Failed', style: TextStyle(color: Colors.white)),
+            Icon(Icons.warning_amber_rounded, color: AppColors.warning, size: 28),
+            Spacing.hGapMD,
+            Text(AppLocalizations.of(context)!.uploadFailed, style: context.titleMedium.copyWith(color: AppColors.white)),
           ],
         ),
         content: Column(
@@ -557,23 +551,23 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
           children: [
             Text(
               message,
-              style: const TextStyle(color: Colors.white70),
+              style: context.bodyMedium.copyWith(color: AppColors.gray300),
             ),
-            const SizedBox(height: 16),
+            Spacing.gapLG,
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: AppSpacing.paddingMD,
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.info.withOpacity(0.1),
+                borderRadius: AppRadius.borderSM,
               ),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.blue, size: 20),
-                  SizedBox(width: 8),
+                  Icon(Icons.info_outline, color: AppColors.info, size: 20),
+                  Spacing.hGapSM,
                   Expanded(
                     child: Text(
-                      'Try using a shorter video or try again later.',
-                      style: TextStyle(fontSize: 13, color: Colors.blue),
+                      AppLocalizations.of(context)!.tryShorterVideo,
+                      style: context.bodySmall.copyWith(color: AppColors.info),
                     ),
                   ),
                 ],
@@ -584,7 +578,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
           ElevatedButton(
             onPressed: () {
@@ -592,9 +586,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
               _createStory(); // Retry
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00BFA5),
+              backgroundColor: AppColors.primary,
             ),
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context)!.retry),
           ),
         ],
       ),
@@ -604,9 +598,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
   void _showStickerMenu() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => _StickerMenu(
         onPoll: () {
@@ -680,13 +674,13 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
   void _showMentionPicker() {
     // For simplicity, show a basic dialog
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Mention picker coming soon')),
+      SnackBar(content: Text(AppLocalizations.of(context)!.mentionPickerComingSoon)),
     );
   }
 
   void _showMusicPicker() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Music picker coming soon')),
+      SnackBar(content: Text(AppLocalizations.of(context)!.musicPickerComingSoon)),
     );
   }
 
@@ -703,9 +697,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
   void _showPrivacyPicker() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => _PrivacyPicker(
         currentPrivacy: _privacy,
@@ -720,9 +714,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
   void _showColorPicker() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => _ColorPicker(
         currentColor: _backgroundColor,
@@ -737,9 +731,9 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
   void _showFontPicker() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey[900],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      backgroundColor: AppColors.gray900,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       builder: (context) => _FontPicker(
         currentFont: _fontStyle,
@@ -756,7 +750,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
     final hasContent = _mediaFiles.isNotEmpty || _isTextMode || _isVideoMode;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.black,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -785,60 +779,50 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Title
-          const Text(
-            'Create Story',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
           Text(
-            'Share moments that disappear in 24 hours',
-            style: TextStyle(color: Colors.grey[400], fontSize: 14),
+            AppLocalizations.of(context)!.createStory,
+            style: context.displayMedium.copyWith(color: AppColors.white),
           ),
-          const SizedBox(height: 40),
+          Spacing.gapSM,
+          Text(
+            AppLocalizations.of(context)!.shareMomentsThatDisappear,
+            style: context.bodySmall.copyWith(color: AppColors.gray400),
+          ),
+          Spacing.gapXXL,
+          Spacing.gapLG,
 
           // Media buttons in grid
           Wrap(
-            spacing: 20,
-            runSpacing: 20,
+            spacing: AppSpacing.xl,
+            runSpacing: AppSpacing.xl,
             alignment: WrapAlignment.center,
             children: [
               // Camera Photo
               _MediaButton(
                 icon: Icons.camera_alt,
-                label: 'Photo',
+                label: AppLocalizations.of(context)!.photo,
                 onTap: _takePhoto,
               ),
               // Gallery Images
               _MediaButton(
                 icon: Icons.photo_library,
-                label: 'Gallery',
+                label: AppLocalizations.of(context)!.gallery,
                 onTap: _pickMedia,
               ),
               // Video from Gallery
               _MediaButton(
                 icon: Icons.videocam,
-                label: 'Video',
+                label: AppLocalizations.of(context)!.video,
                 onTap: _pickVideo,
-                color: Colors.purple,
+                color: AppColors.accent,
               ),
               // Record Video
               _MediaButton(
                 icon: Icons.fiber_manual_record,
-                label: 'Record',
+                label: AppLocalizations.of(context)!.record,
                 onTap: _recordVideo,
-                color: Colors.red,
+                color: AppColors.error,
               ),
-              // Text Story - disabled (backend only accepts images/videos)
-              // _MediaButton(
-              //   icon: Icons.text_fields,
-              //   label: 'Text',
-              //   onTap: _enableTextMode,
-              //   color: Colors.blue,
-              // ),
             ],
           ),
         ],
@@ -851,7 +835,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
     if (_isTextMode) {
       return Container(
         color: Color(int.parse(_backgroundColor.replaceFirst('#', '0xFF'))),
-        padding: const EdgeInsets.all(32),
+        padding: AppSpacing.paddingXXL,
         child: Center(
           child: TextField(
             controller: _textController,
@@ -865,7 +849,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             textAlign: TextAlign.center,
             maxLines: null,
             decoration: InputDecoration(
-              hintText: 'Type something...',
+              hintText: AppLocalizations.of(context)!.typeSomething,
               hintStyle: TextStyle(
                 color: Color(int.parse(_textColor.replaceFirst('#', '0xFF')))
                     .withOpacity(0.5),
@@ -891,7 +875,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                       aspectRatio: _videoController!.value.aspectRatio,
                       child: VideoPlayer(_videoController!),
                     )
-                  : const CircularProgressIndicator(color: Colors.white),
+                  : CircularProgressIndicator(color: AppColors.white),
             ),
 
             // Play/Pause overlay
@@ -899,14 +883,14 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                 !_videoController!.value.isPlaying)
               Center(
                 child: Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: AppSpacing.paddingXL,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: AppColors.black.withOpacity(0.5),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.play_arrow,
-                    color: Colors.white,
+                    color: AppColors.white,
                     size: 50,
                   ),
                 ),
@@ -915,37 +899,36 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             // Video info badge
             Positioned(
               bottom: 100,
-              left: 16,
+              left: AppSpacing.lg,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.black.withOpacity(0.6),
+                  borderRadius: AppRadius.borderXL,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.videocam, color: Colors.white, size: 16),
-                    const SizedBox(width: 6),
+                    Icon(Icons.videocam, color: AppColors.white, size: 16),
+                    Spacing.hGapSM,
                     Text(
                       _videoProcessResult != null
                           ? '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB'
                           : 'Video',
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: context.labelSmall.copyWith(color: AppColors.white),
                     ),
                     if (_videoProcessResult?.wasCompressed == true) ...[
-                      const SizedBox(width: 8),
+                      Spacing.hGapSM,
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF00BFA5),
-                          borderRadius: BorderRadius.circular(4),
+                          color: AppColors.primary,
+                          borderRadius: AppRadius.borderXS,
                         ),
-                        child: const Text(
+                        child: Text(
                           'HD',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
+                          style: context.captionSmall.copyWith(
+                            color: AppColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -959,16 +942,16 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             // Remove video button
             Positioned(
               top: 100,
-              right: 16,
+              right: AppSpacing.lg,
               child: GestureDetector(
                 onTap: _removeVideo,
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: AppSpacing.paddingSM,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: AppColors.black.withOpacity(0.5),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.close, color: Colors.white, size: 24),
+                  child: Icon(Icons.close, color: AppColors.white, size: 24),
                 ),
               ),
             ),
@@ -977,15 +960,15 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             if (_videoController!.value.isInitialized)
               Positioned(
                 bottom: 80,
-                left: 16,
-                right: 16,
+                left: AppSpacing.lg,
+                right: AppSpacing.lg,
                 child: VideoProgressIndicator(
                   _videoController!,
                   allowScrubbing: true,
-                  colors: const VideoProgressColors(
-                    playedColor: Color(0xFF00BFA5),
-                    bufferedColor: Colors.white30,
-                    backgroundColor: Colors.white10,
+                  colors: VideoProgressColors(
+                    playedColor: AppColors.primary,
+                    bufferedColor: AppColors.white.withOpacity(0.3),
+                    backgroundColor: AppColors.white.withOpacity(0.1),
                   ),
                 ),
               ),
@@ -1010,29 +993,29 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
 
   Widget _buildTopBar() {
     return Positioned(
-      top: MediaQuery.of(context).padding.top + 8,
-      left: 8,
-      right: 8,
+      top: MediaQuery.of(context).padding.top + AppSpacing.sm,
+      left: AppSpacing.sm,
+      right: AppSpacing.sm,
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: Icon(Icons.close, color: AppColors.white),
             onPressed: () => Navigator.pop(context),
           ),
           const Spacer(),
           if (_isTextMode) ...[
             IconButton(
-              icon: const Icon(Icons.color_lens, color: Colors.white),
+              icon: Icon(Icons.color_lens, color: AppColors.white),
               onPressed: _showColorPicker,
             ),
             IconButton(
-              icon: const Icon(Icons.text_format, color: Colors.white),
+              icon: Icon(Icons.text_format, color: AppColors.white),
               onPressed: _showFontPicker,
             ),
           ],
           if (_mediaFiles.isNotEmpty || _isTextMode)
             IconButton(
-              icon: const Icon(Icons.sticky_note_2, color: Colors.white),
+              icon: Icon(Icons.sticky_note_2, color: AppColors.white),
               onPressed: _showStickerMenu,
             ),
         ],
@@ -1047,7 +1030,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         children: [
           if (_poll != null)
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: AppSpacing.paddingLG,
               child: Stack(
                 children: [
                   StoryPollWidget(poll: _poll!, isOwner: true),
@@ -1055,7 +1038,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                     top: 0,
                     right: 0,
                     child: IconButton(
-                      icon: const Icon(Icons.close, color: Colors.white),
+                      icon: Icon(Icons.close, color: AppColors.white),
                       onPressed: () => setState(() => _poll = null),
                     ),
                   ),
@@ -1064,7 +1047,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             ),
           if (_questionBox != null)
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: AppSpacing.paddingLG,
               child: Stack(
                 children: [
                   StoryQuestionBoxWidget(questionBox: _questionBox!, isOwner: true),
@@ -1072,7 +1055,7 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                     top: 0,
                     right: 0,
                     child: IconButton(
-                      icon: const Icon(Icons.close, color: Colors.white),
+                      icon: Icon(Icons.close, color: AppColors.white),
                       onPressed: () => setState(() => _questionBox = null),
                     ),
                   ),
@@ -1081,21 +1064,21 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             ),
           if (_location != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
               child: _DismissibleSticker(
                 onDismiss: () => setState(() => _location = null),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    color: AppColors.white,
+                    borderRadius: AppRadius.borderXL,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.location_on, color: Colors.red, size: 18),
-                      const SizedBox(width: 4),
-                      Text(_location!.name, style: const TextStyle(fontWeight: FontWeight.w500)),
+                      Icon(Icons.location_on, color: AppColors.error, size: 18),
+                      Spacing.hGapXS,
+                      Text(_location!.name, style: context.labelMedium.copyWith(fontWeight: FontWeight.w500)),
                     ],
                   ),
                 ),
@@ -1103,21 +1086,21 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             ),
           if (_link != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
               child: _DismissibleSticker(
                 onDismiss: () => setState(() => _link = null),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20),
+                    color: AppColors.info,
+                    borderRadius: AppRadius.borderXL,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.link, color: Colors.white, size: 18),
-                      const SizedBox(width: 4),
-                      Text(_link!.displayText, style: const TextStyle(color: Colors.white)),
+                      Icon(Icons.link, color: AppColors.white, size: 18),
+                      Spacing.hGapXS,
+                      Text(_link!.displayText, style: context.labelMedium.copyWith(color: AppColors.white)),
                     ],
                   ),
                 ),
@@ -1125,13 +1108,13 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             ),
           if (_hashtags.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
               child: Wrap(
-                spacing: 8,
+                spacing: AppSpacing.sm,
                 children: _hashtags.map((tag) => Chip(
-                  label: Text('#$tag', style: const TextStyle(color: Colors.white)),
-                  backgroundColor: Colors.blue.withOpacity(0.8),
-                  deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white),
+                  label: Text('#$tag', style: context.labelSmall.copyWith(color: AppColors.white)),
+                  backgroundColor: AppColors.info.withOpacity(0.8),
+                  deleteIcon: Icon(Icons.close, size: 16, color: AppColors.white),
                   onDeleted: () => setState(() => _hashtags.remove(tag)),
                 )).toList(),
               ),
@@ -1148,16 +1131,16 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       right: 0,
       child: Container(
         padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: MediaQuery.of(context).padding.bottom + 16,
-          top: 16,
+          left: AppSpacing.lg,
+          right: AppSpacing.lg,
+          bottom: MediaQuery.of(context).padding.bottom + AppSpacing.lg,
+          top: AppSpacing.lg,
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
+            colors: [Colors.transparent, AppColors.black.withOpacity(0.8)],
           ),
         ),
         child: Row(
@@ -1166,14 +1149,14 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             GestureDetector(
               onTap: _showPrivacyPicker,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
                 decoration: BoxDecoration(
                   color: _privacy == StoryPrivacy.closeFriends
-                      ? Colors.green.withOpacity(0.3)
-                      : Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
+                      ? AppColors.success.withOpacity(0.3)
+                      : AppColors.white.withOpacity(0.2),
+                  borderRadius: AppRadius.borderXL,
                   border: _privacy == StoryPrivacy.closeFriends
-                      ? Border.all(color: Colors.green)
+                      ? Border.all(color: AppColors.success)
                       : null,
                 ),
                 child: Row(
@@ -1186,18 +1169,17 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
                               ? Icons.people
                               : Icons.public,
                       color: _privacy == StoryPrivacy.closeFriends
-                          ? Colors.green
-                          : Colors.white,
+                          ? AppColors.success
+                          : AppColors.white,
                       size: 18,
                     ),
-                    const SizedBox(width: 4),
+                    Spacing.hGapXS,
                     Text(
                       _privacy.displayName,
-                      style: TextStyle(
+                      style: context.labelSmall.copyWith(
                         color: _privacy == StoryPrivacy.closeFriends
-                            ? Colors.green
-                            : Colors.white,
-                        fontSize: 12,
+                            ? AppColors.success
+                            : AppColors.white,
                       ),
                     ),
                   ],
@@ -1209,17 +1191,17 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
             ElevatedButton(
               onPressed: _isCreating ? null : _createStory,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                backgroundColor: AppColors.white,
+                foregroundColor: AppColors.black,
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxxl, vertical: AppSpacing.md),
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderXXL),
               ),
               child: _isCreating
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 20, height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.black),
                     )
-                  : const Text('Share', style: TextStyle(fontWeight: FontWeight.bold)),
+                  : Text(AppLocalizations.of(context)!.share, style: context.labelLarge.copyWith(fontWeight: FontWeight.bold, color: AppColors.black)),
             ),
           ],
         ),
@@ -1244,7 +1226,7 @@ class _MediaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttonColor = color ?? Colors.grey[700];
+    final buttonColor = color ?? AppColors.gray700;
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -1253,18 +1235,17 @@ class _MediaButton extends StatelessWidget {
             width: 70,
             height: 70,
             decoration: BoxDecoration(
-              color: buttonColor!.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(20),
+              color: buttonColor.withOpacity(0.3),
+              borderRadius: AppRadius.borderXL,
               border: Border.all(color: buttonColor.withOpacity(0.5), width: 2),
             ),
-            child: Icon(icon, color: color ?? Colors.white, size: 32),
+            child: Icon(icon, color: color ?? AppColors.white, size: 32),
           ),
-          const SizedBox(height: 8),
+          Spacing.gapSM,
           Text(
             label,
-            style: TextStyle(
-              color: color ?? Colors.white,
-              fontSize: 12,
+            style: context.labelSmall.copyWith(
+              color: color ?? AppColors.white,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -1299,36 +1280,37 @@ class _StickerMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: AppSpacing.paddingMD,
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: Colors.grey[600],
-            borderRadius: BorderRadius.circular(2),
+            color: AppColors.gray600,
+            borderRadius: AppRadius.borderXS,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(16),
+        Padding(
+          padding: AppSpacing.paddingLG,
           child: Text(
-            'Add Sticker',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            AppLocalizations.of(context)!.addSticker,
+            style: context.titleMedium.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
           ),
         ),
         Wrap(
-          spacing: 16,
-          runSpacing: 16,
+          spacing: AppSpacing.lg,
+          runSpacing: AppSpacing.lg,
           alignment: WrapAlignment.center,
           children: [
-            _StickerItem(icon: Icons.poll, label: 'Poll', onTap: onPoll),
-            _StickerItem(icon: Icons.question_answer, label: 'Question', onTap: onQuestion),
-            _StickerItem(icon: Icons.location_on, label: 'Location', onTap: onLocation),
-            _StickerItem(icon: Icons.link, label: 'Link', onTap: onLink),
-            _StickerItem(icon: Icons.alternate_email, label: 'Mention', onTap: onMention),
-            _StickerItem(icon: Icons.music_note, label: 'Music', onTap: onMusic),
-            _StickerItem(icon: Icons.tag, label: 'Hashtag', onTap: onHashtag),
+            _StickerItem(icon: Icons.poll, label: AppLocalizations.of(context)!.poll, onTap: onPoll),
+            _StickerItem(icon: Icons.question_answer, label: AppLocalizations.of(context)!.question, onTap: onQuestion),
+            _StickerItem(icon: Icons.location_on, label: AppLocalizations.of(context)!.location, onTap: onLocation),
+            _StickerItem(icon: Icons.link, label: AppLocalizations.of(context)!.link, onTap: onLink),
+            _StickerItem(icon: Icons.alternate_email, label: AppLocalizations.of(context)!.mention, onTap: onMention),
+            _StickerItem(icon: Icons.music_note, label: AppLocalizations.of(context)!.music, onTap: onMusic),
+            _StickerItem(icon: Icons.tag, label: AppLocalizations.of(context)!.hashtag, onTap: onHashtag),
           ],
         ),
-        const SizedBox(height: 32),
+        Spacing.gapXXL,
+        Spacing.gapSM,
       ],
     );
   }
@@ -1352,13 +1334,13 @@ class _StickerItem extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: Colors.grey[800],
-              borderRadius: BorderRadius.circular(16),
+              color: AppColors.gray800,
+              borderRadius: AppRadius.borderLG,
             ),
-            child: Icon(icon, color: Colors.white, size: 28),
+            child: Icon(icon, color: AppColors.white, size: 28),
           ),
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(color: Colors.white, fontSize: 12)),
+          Spacing.gapXS,
+          Text(label, style: context.labelSmall.copyWith(color: AppColors.white)),
         ],
       ),
     );
@@ -1377,44 +1359,44 @@ class _PrivacyPicker extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: AppSpacing.paddingMD,
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: Colors.grey[600],
-            borderRadius: BorderRadius.circular(2),
+            color: AppColors.gray600,
+            borderRadius: AppRadius.borderXS,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(16),
+        Padding(
+          padding: AppSpacing.paddingLG,
           child: Text(
-            'Who can see this?',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            AppLocalizations.of(context)!.whoCanSeeThis,
+            style: context.titleMedium.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
           ),
         ),
         _PrivacyOption(
           icon: Icons.public,
-          title: 'Everyone',
-          subtitle: 'Anyone can see this story',
+          title: AppLocalizations.of(context)!.everyone,
+          subtitle: AppLocalizations.of(context)!.anyoneCanSeeStory,
           isSelected: currentPrivacy == StoryPrivacy.everyone,
           onTap: () => onSelected(StoryPrivacy.everyone),
         ),
         _PrivacyOption(
           icon: Icons.people,
-          title: 'Friends Only',
-          subtitle: 'Only your followers can see',
+          title: AppLocalizations.of(context)!.friendsOnly,
+          subtitle: AppLocalizations.of(context)!.onlyFollowersCanSee,
           isSelected: currentPrivacy == StoryPrivacy.friends,
           onTap: () => onSelected(StoryPrivacy.friends),
         ),
         _PrivacyOption(
           icon: Icons.star,
-          title: 'Close Friends',
-          subtitle: 'Only your close friends can see',
+          title: AppLocalizations.of(context)!.closeFriends,
+          subtitle: AppLocalizations.of(context)!.onlyCloseFriendsCanSee,
           isSelected: currentPrivacy == StoryPrivacy.closeFriends,
           onTap: () => onSelected(StoryPrivacy.closeFriends),
           isCloseFriends: true,
         ),
-        const SizedBox(height: 16),
+        Spacing.gapLG,
       ],
     );
   }
@@ -1441,19 +1423,19 @@ class _PrivacyOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-        padding: const EdgeInsets.all(8),
+        padding: AppSpacing.paddingSM,
         decoration: BoxDecoration(
-          color: isCloseFriends 
-              ? Colors.green.withOpacity(0.2)
-              : Colors.grey[800],
+          color: isCloseFriends
+              ? AppColors.success.withOpacity(0.2)
+              : AppColors.gray800,
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, color: isCloseFriends ? Colors.green : Colors.white),
+        child: Icon(icon, color: isCloseFriends ? AppColors.success : AppColors.white),
       ),
-      title: Text(title, style: const TextStyle(color: Colors.white)),
-      subtitle: Text(subtitle, style: TextStyle(color: Colors.grey[500], fontSize: 12)),
+      title: Text(title, style: context.titleSmall.copyWith(color: AppColors.white)),
+      subtitle: Text(subtitle, style: context.caption.copyWith(color: AppColors.gray500)),
       trailing: isSelected
-          ? const Icon(Icons.check_circle, color: Colors.blue)
+          ? Icon(Icons.check_circle, color: AppColors.info)
           : null,
       onTap: onTap,
     );
@@ -1480,26 +1462,26 @@ class _ColorPicker extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: AppSpacing.paddingMD,
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: Colors.grey[600],
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(16),
-          child: Text(
-            'Background Color',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            color: AppColors.gray600,
+            borderRadius: AppRadius.borderXS,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: AppSpacing.paddingLG,
+          child: Text(
+            AppLocalizations.of(context)!.backgroundColor,
+            style: context.titleMedium.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: AppSpacing.paddingLG,
           child: Wrap(
-            spacing: 12,
-            runSpacing: 12,
+            spacing: AppSpacing.md,
+            runSpacing: AppSpacing.md,
             children: colors.map((color) {
               final isSelected = color.toUpperCase() == currentColor.toUpperCase();
               return GestureDetector(
@@ -1511,18 +1493,18 @@ class _ColorPicker extends StatelessWidget {
                     color: Color(int.parse(color.replaceFirst('#', '0xFF'))),
                     shape: BoxShape.circle,
                     border: isSelected
-                        ? Border.all(color: Colors.white, width: 3)
+                        ? Border.all(color: AppColors.white, width: 3)
                         : null,
                   ),
                   child: isSelected
-                      ? const Icon(Icons.check, color: Colors.white)
+                      ? Icon(Icons.check, color: AppColors.white)
                       : null,
                 ),
               );
             }).toList(),
           ),
         ),
-        const SizedBox(height: 16),
+        Spacing.gapLG,
       ],
     );
   }
@@ -1540,32 +1522,32 @@ class _FontPicker extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          margin: const EdgeInsets.all(12),
+          margin: AppSpacing.paddingMD,
           width: 40,
           height: 4,
           decoration: BoxDecoration(
-            color: Colors.grey[600],
-            borderRadius: BorderRadius.circular(2),
+            color: AppColors.gray600,
+            borderRadius: AppRadius.borderXS,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(16),
+        Padding(
+          padding: AppSpacing.paddingLG,
           child: Text(
-            'Font Style',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            AppLocalizations.of(context)!.fontStyle,
+            style: context.titleMedium.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
           ),
         ),
         ...[
-          ('normal', 'Normal', FontWeight.normal, FontStyle.normal),
-          ('bold', 'Bold', FontWeight.bold, FontStyle.normal),
-          ('italic', 'Italic', FontWeight.normal, FontStyle.italic),
-          ('handwriting', 'Handwriting', FontWeight.normal, FontStyle.normal),
+          ('normal', AppLocalizations.of(context)!.normal, FontWeight.normal, FontStyle.normal),
+          ('bold', AppLocalizations.of(context)!.bold, FontWeight.bold, FontStyle.normal),
+          ('italic', AppLocalizations.of(context)!.italic, FontWeight.normal, FontStyle.italic),
+          ('handwriting', AppLocalizations.of(context)!.handwriting, FontWeight.normal, FontStyle.normal),
         ].map((font) {
           return ListTile(
             title: Text(
               font.$2,
               style: TextStyle(
-                color: Colors.white,
+                color: AppColors.white,
                 fontWeight: font.$3,
                 fontStyle: font.$4,
                 fontFamily: font.$1 == 'handwriting' ? 'Caveat' : null,
@@ -1573,12 +1555,12 @@ class _FontPicker extends StatelessWidget {
               ),
             ),
             trailing: currentFont == font.$1
-                ? const Icon(Icons.check_circle, color: Colors.blue)
+                ? Icon(Icons.check_circle, color: AppColors.info)
                 : null,
             onTap: () => onSelected(font.$1),
           );
         }),
-        const SizedBox(height: 16),
+        Spacing.gapLG,
       ],
     );
   }
@@ -1605,18 +1587,18 @@ class _LocationPickerDialogState extends State<_LocationPickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.grey[900],
-      title: const Text('Add Location', style: TextStyle(color: Colors.white)),
+      backgroundColor: AppColors.gray900,
+      title: Text(AppLocalizations.of(context)!.addLocation, style: context.titleMedium.copyWith(color: AppColors.white)),
       content: TextField(
         controller: _controller,
-        style: const TextStyle(color: Colors.white),
+        style: context.bodyMedium.copyWith(color: AppColors.white),
         decoration: InputDecoration(
-          hintText: 'Enter location name',
-          hintStyle: TextStyle(color: Colors.grey[500]),
+          hintText: AppLocalizations.of(context)!.enterLocationName,
+          hintStyle: context.bodyMedium.copyWith(color: AppColors.gray500),
           filled: true,
-          fillColor: Colors.grey[800],
+          fillColor: AppColors.gray800,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: AppRadius.borderMD,
             borderSide: BorderSide.none,
           ),
         ),
@@ -1624,7 +1606,7 @@ class _LocationPickerDialogState extends State<_LocationPickerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+          child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: AppColors.gray400)),
         ),
         ElevatedButton(
           onPressed: () {
@@ -1633,10 +1615,10 @@ class _LocationPickerDialogState extends State<_LocationPickerDialog> {
             Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
+            backgroundColor: AppColors.info,
+            foregroundColor: AppColors.white,
           ),
-          child: const Text('Add'),
+          child: Text(AppLocalizations.of(context)!.add),
         ),
       ],
     );
@@ -1654,7 +1636,7 @@ class _LinkEditorDialog extends StatefulWidget {
 
 class _LinkEditorDialogState extends State<_LinkEditorDialog> {
   final _urlController = TextEditingController();
-  final _textController = TextEditingController(text: 'Learn More');
+  final _textController = TextEditingController();
 
   @override
   void dispose() {
@@ -1665,37 +1647,38 @@ class _LinkEditorDialogState extends State<_LinkEditorDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AlertDialog(
-      backgroundColor: Colors.grey[900],
-      title: const Text('Add Link', style: TextStyle(color: Colors.white)),
+      backgroundColor: AppColors.gray900,
+      title: Text(l10n.addLink, style: context.titleMedium.copyWith(color: AppColors.white)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _urlController,
-            style: const TextStyle(color: Colors.white),
+            style: context.bodyMedium.copyWith(color: AppColors.white),
             decoration: InputDecoration(
               hintText: 'https://...',
-              hintStyle: TextStyle(color: Colors.grey[500]),
+              hintStyle: context.bodyMedium.copyWith(color: AppColors.gray500),
               filled: true,
-              fillColor: Colors.grey[800],
+              fillColor: AppColors.gray800,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: AppRadius.borderMD,
                 borderSide: BorderSide.none,
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          Spacing.gapMD,
           TextField(
             controller: _textController,
-            style: const TextStyle(color: Colors.white),
+            style: context.bodyMedium.copyWith(color: AppColors.white),
             decoration: InputDecoration(
-              hintText: 'Button text',
-              hintStyle: TextStyle(color: Colors.grey[500]),
+              hintText: l10n.buttonText,
+              hintStyle: context.bodyMedium.copyWith(color: AppColors.gray500),
               filled: true,
-              fillColor: Colors.grey[800],
+              fillColor: AppColors.gray800,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: AppRadius.borderMD,
                 borderSide: BorderSide.none,
               ),
             ),
@@ -1705,24 +1688,24 @@ class _LinkEditorDialogState extends State<_LinkEditorDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+          child: Text(l10n.cancel, style: TextStyle(color: AppColors.gray400)),
         ),
         ElevatedButton(
           onPressed: () {
             if (_urlController.text.trim().isEmpty) return;
             widget.onCreated(StoryLink(
               url: _urlController.text.trim(),
-              displayText: _textController.text.trim().isEmpty 
-                  ? 'Learn More' 
+              displayText: _textController.text.trim().isEmpty
+                  ? l10n.learnMore
                   : _textController.text.trim(),
             ));
             Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
+            backgroundColor: AppColors.info,
+            foregroundColor: AppColors.white,
           ),
-          child: const Text('Add'),
+          child: Text(l10n.add),
         ),
       ],
     );
@@ -1765,9 +1748,10 @@ class _HashtagEditorDialogState extends State<_HashtagEditorDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AlertDialog(
-      backgroundColor: Colors.grey[900],
-      title: const Text('Add Hashtags', style: TextStyle(color: Colors.white)),
+      backgroundColor: AppColors.gray900,
+      title: Text(l10n.addHashtags, style: context.titleMedium.copyWith(color: AppColors.white)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1776,37 +1760,37 @@ class _HashtagEditorDialogState extends State<_HashtagEditorDialog> {
               Expanded(
                 child: TextField(
                   controller: _controller,
-                  style: const TextStyle(color: Colors.white),
+                  style: context.bodyMedium.copyWith(color: AppColors.white),
                   decoration: InputDecoration(
-                    hintText: 'Add hashtag',
-                    hintStyle: TextStyle(color: Colors.grey[500]),
+                    hintText: l10n.addHashtag,
+                    hintStyle: context.bodyMedium.copyWith(color: AppColors.gray500),
                     prefixText: '#',
-                    prefixStyle: const TextStyle(color: Colors.white),
+                    prefixStyle: context.bodyMedium.copyWith(color: AppColors.white),
                     filled: true,
-                    fillColor: Colors.grey[800],
+                    fillColor: AppColors.gray800,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       borderSide: BorderSide.none,
                     ),
                   ),
                   onSubmitted: (_) => _addTag(),
                 ),
               ),
-              const SizedBox(width: 8),
+              Spacing.hGapSM,
               IconButton(
-                icon: const Icon(Icons.add_circle, color: Colors.blue),
+                icon: Icon(Icons.add_circle, color: AppColors.info),
                 onPressed: _addTag,
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          Spacing.gapMD,
           Wrap(
-            spacing: 8,
-            runSpacing: 8,
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
             children: _tags.map((tag) => Chip(
-              label: Text('#$tag', style: const TextStyle(color: Colors.white)),
-              backgroundColor: Colors.blue.withOpacity(0.3),
-              deleteIcon: const Icon(Icons.close, size: 16, color: Colors.white),
+              label: Text('#$tag', style: context.labelSmall.copyWith(color: AppColors.white)),
+              backgroundColor: AppColors.info.withOpacity(0.3),
+              deleteIcon: Icon(Icons.close, size: 16, color: AppColors.white),
               onDeleted: () => setState(() => _tags.remove(tag)),
             )).toList(),
           ),
@@ -1815,7 +1799,7 @@ class _HashtagEditorDialogState extends State<_HashtagEditorDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancel', style: TextStyle(color: Colors.grey[400])),
+          child: Text(l10n.cancel, style: TextStyle(color: AppColors.gray400)),
         ),
         ElevatedButton(
           onPressed: () {
@@ -1823,10 +1807,10 @@ class _HashtagEditorDialogState extends State<_HashtagEditorDialog> {
             Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
+            backgroundColor: AppColors.info,
+            foregroundColor: AppColors.white,
           ),
-          child: const Text('Done'),
+          child: Text(l10n.done),
         ),
       ],
     );
@@ -1850,12 +1834,12 @@ class _DismissibleSticker extends StatelessWidget {
           child: GestureDetector(
             onTap: onDismiss,
             child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
-                color: Colors.red,
+              padding: AppSpacing.paddingXS,
+              decoration: BoxDecoration(
+                color: AppColors.error,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.close, color: Colors.white, size: 12),
+              child: Icon(Icons.close, color: AppColors.white, size: 12),
             ),
           ),
         ),
@@ -1863,4 +1847,3 @@ class _DismissibleSticker extends StatelessWidget {
     );
   }
 }
-

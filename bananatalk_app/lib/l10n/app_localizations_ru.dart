@@ -261,7 +261,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get editYourProfileInformation => 'Редактировать информацию профиля';
 
   @override
-  String get blockedUsers => 'Заблокированные пользователи';
+  String get blockedUsers => 'Заблокированные';
 
   @override
   String get manageBlockedUsers => 'Управление заблокированными пользователями';
@@ -362,7 +362,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get nativeLanguage => 'Родной язык';
 
   @override
-  String get learning => 'Изучение';
+  String get learning => 'Обучение';
 
   @override
   String get notSet => 'Не установлено';
@@ -491,7 +491,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get errorLoadingSettings => 'Ошибка загрузки настроек';
 
   @override
-  String get unblockUser => 'Разблокировать пользователя';
+  String get unblockUser => 'Разблокировать';
 
   @override
   String get unblock => 'Разблокировать';
@@ -748,7 +748,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get deleteAccount2 => 'Удалить аккаунт';
 
   @override
-  String get enterYourPassword => 'Введите ваш пароль';
+  String get enterYourPassword => 'Введите пароль';
 
   @override
   String get yourPassword => 'Ваш пароль';
@@ -761,7 +761,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String sent(String emoji) {
-    return '$emoji отправлено!';
+    return 'Отправлено!';
   }
 
   @override
@@ -854,6 +854,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noActiveVIPSubscription => 'Нет активной VIP подписки';
 
   @override
+  String get subscriptionExpired => 'Подписка истекла';
+
+  @override
+  String get vipExpiredMessage => 'Ваша VIP подписка истекла. Продлите сейчас, чтобы продолжить пользоваться безлимитными функциями!';
+
+  @override
+  String get expiredOn => 'Истекла';
+
+  @override
+  String get renewVIP => 'Продлить VIP';
+
+  @override
+  String get whatYoureMissing => 'Что вы упускаете';
+
+  @override
+  String get manageInAppStore => 'Управлять в App Store';
+
+  @override
+  String get becomeVIP => 'Стать VIP';
+
+  @override
   String get unlimitedMessages => 'Неограниченные сообщения';
 
   @override
@@ -935,10 +956,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get all => 'Все';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Очистить';
 
   @override
-  String get apply => 'Apply';
+  String get apply => 'Применить';
 
   @override
   String get myReports2 => 'Мои жалобы';
@@ -1038,4 +1059,904 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get selectNativeLanguage => 'Выберите ваш родной язык';
+
+  @override
+  String get subscriptionDetails => 'Детали подписки';
+
+  @override
+  String get activeFeatures => 'Активные функции';
+
+  @override
+  String get legalInformation => 'Юридическая информация';
+
+  @override
+  String get termsOfUse => 'Условия использования';
+
+  @override
+  String get manageSubscription => 'Управление подпиской';
+
+  @override
+  String get manageSubscriptionInSettings => 'Чтобы отменить подписку, перейдите в Настройки > [Ваше имя] > Подписки на вашем устройстве.';
+
+  @override
+  String get contactSupportToCancel => 'Чтобы отменить подписку, пожалуйста, свяжитесь с нашей службой поддержки.';
+
+  @override
+  String get status => 'Статус';
+
+  @override
+  String get active => 'Активно';
+
+  @override
+  String get plan => 'План';
+
+  @override
+  String get startDate => 'Дата начала';
+
+  @override
+  String get endDate => 'Дата окончания';
+
+  @override
+  String get nextBillingDate => 'Следующая дата оплаты';
+
+  @override
+  String get autoRenew => 'Автопродление';
+
+  @override
+  String get pleaseLogInToContinue => 'Пожалуйста, войдите, чтобы продолжить';
+
+  @override
+  String get purchaseCanceledOrFailed => 'Покупка была отменена или не удалась. Пожалуйста, попробуйте снова.';
+
+  @override
+  String get maximumTagsAllowed => 'Максимум 5 тегов разрешено';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVideo => 'Сначала удалите изображения, чтобы добавить видео';
+
+  @override
+  String get unsupportedFormat => 'Неподдерживаемый формат';
+
+  @override
+  String get errorProcessingVideo => 'Ошибка обработки видео';
+
+  @override
+  String get pleaseRemoveImagesFirstToRecordVideo => 'Сначала удалите изображения, чтобы записать видео';
+
+  @override
+  String get locationAdded => 'Местоположение добавлено';
+
+  @override
+  String get failedToGetLocation => 'Не удалось получить местоположение';
+
+  @override
+  String get notNow => 'Не сейчас';
+
+  @override
+  String get videoUploadFailed => 'Ошибка загрузки видео';
+
+  @override
+  String get skipVideo => 'Пропустить видео';
+
+  @override
+  String get retryUpload => 'Повторить загрузку';
+
+  @override
+  String get momentCreatedSuccessfully => 'Момент успешно создан';
+
+  @override
+  String get uploadingMomentInBackground => 'Загрузка момента в фоне...';
+
+  @override
+  String get failedToQueueUpload => 'Не удалось добавить в очередь загрузки';
+
+  @override
+  String get viewProfile => 'Просмотр профиля';
+
+  @override
+  String get mediaLinksAndDocs => 'Медиа, ссылки и документы';
+
+  @override
+  String get wallpaper => 'Обои';
+
+  @override
+  String get userIdNotAvailable => 'ID пользователя недоступен';
+
+  @override
+  String get cannotBlockYourself => 'Нельзя заблокировать себя';
+
+  @override
+  String get chatWallpaper => 'Обои чата';
+
+  @override
+  String get wallpaperSavedLocally => 'Обои сохранены локально';
+
+  @override
+  String get messageCopied => 'Сообщение скопировано';
+
+  @override
+  String get forwardFeatureComingSoon => 'Функция пересылки скоро появится';
+
+  @override
+  String get momentUnsaved => 'Момент удален из сохраненных';
+
+  @override
+  String get documentPickerComingSoon => 'Выбор документов скоро появится';
+
+  @override
+  String get contactSharingComingSoon => 'Обмен контактами скоро появится';
+
+  @override
+  String get featureComingSoon => 'Функция скоро появится';
+
+  @override
+  String get answerSent => 'Ответ отправлен!';
+
+  @override
+  String get noImagesAvailable => 'Нет доступных изображений';
+
+  @override
+  String get mentionPickerComingSoon => 'Выбор упоминаний скоро появится';
+
+  @override
+  String get musicPickerComingSoon => 'Выбор музыки скоро появится';
+
+  @override
+  String get repostFeatureComingSoon => 'Функция репоста скоро появится';
+
+  @override
+  String get addFriendsFromYourProfile => 'Добавьте друзей из своего профиля';
+
+  @override
+  String get quickReplyAdded => 'Быстрый ответ добавлен';
+
+  @override
+  String get quickReplyDeleted => 'Быстрый ответ удален';
+
+  @override
+  String get linkCopied => 'Ссылка скопирована!';
+
+  @override
+  String get maximumOptionsAllowed => 'Максимум 10 вариантов разрешено';
+
+  @override
+  String get minimumOptionsRequired => 'Минимум 2 варианта требуется';
+
+  @override
+  String get pleaseEnterAQuestion => 'Пожалуйста, введите вопрос';
+
+  @override
+  String get pleaseAddAtLeast2Options => 'Пожалуйста, добавьте минимум 2 варианта';
+
+  @override
+  String get pleaseSelectCorrectAnswerForQuiz => 'Пожалуйста, выберите правильный ответ для викторины';
+
+  @override
+  String get correctionSent => 'Исправление отправлено!';
+
+  @override
+  String get sort => 'Сортировка';
+
+  @override
+  String get savedMoments => 'Сохраненные моменты';
+
+  @override
+  String get unsave => 'Удалить из сохраненных';
+
+  @override
+  String get playingAudio => 'Воспроизведение аудио...';
+
+  @override
+  String get failedToGenerateQuiz => 'Не удалось создать викторину';
+
+  @override
+  String get failedToAddComment => 'Не удалось добавить комментарий';
+
+  @override
+  String get hello => 'Привет!';
+
+  @override
+  String get howAreYou => 'Как дела?';
+
+  @override
+  String get cannotOpen => 'Невозможно открыть';
+
+  @override
+  String get errorOpeningLink => 'Ошибка при открытии ссылки';
+
+  @override
+  String get saved => 'Сохранено';
+
+  @override
+  String get follow => 'Подписаться';
+
+  @override
+  String get unfollow => 'Отписаться';
+
+  @override
+  String get mute => 'Отключить звук';
+
+  @override
+  String get online => 'Онлайн';
+
+  @override
+  String get offline => 'Офлайн';
+
+  @override
+  String get lastSeen => 'Был(а) в сети';
+
+  @override
+  String get justNow => 'только что';
+
+  @override
+  String minutesAgo(String count) {
+    return '$count минут назад';
+  }
+
+  @override
+  String hoursAgo(String count) {
+    return '$count часов назад';
+  }
+
+  @override
+  String get yesterday => 'Вчера';
+
+  @override
+  String get signInWithEmail => 'Войти через почту';
+
+  @override
+  String get partners => 'Партнёры';
+
+  @override
+  String get nearby => 'Рядом';
+
+  @override
+  String get topics => 'Темы';
+
+  @override
+  String get waves => 'Приветствия';
+
+  @override
+  String get voiceRooms => 'Голос';
+
+  @override
+  String get filters => 'Фильтры';
+
+  @override
+  String get searchCommunity => 'Поиск по имени, языку или интересам...';
+
+  @override
+  String get bio => 'О себе';
+
+  @override
+  String get noBioYet => 'Описание пока не добавлено.';
+
+  @override
+  String get languages => 'Языки';
+
+  @override
+  String get native => 'Родной';
+
+  @override
+  String get interests => 'Интересы';
+
+  @override
+  String get noMomentsYet => 'Пока нет моментов';
+
+  @override
+  String get unableToLoadMoments => 'Не удалось загрузить моменты';
+
+  @override
+  String get map => 'Карта';
+
+  @override
+  String get mapUnavailable => 'Map unavailable';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get unknownLocation => 'Unknown location';
+
+  @override
+  String get noImagesAvailable2 => 'No images available';
+
+  @override
+  String get permissionsRequired => 'Permissions Required';
+
+  @override
+  String get openSettings => 'Open Settings';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get videoCall => 'Видео';
+
+  @override
+  String get voiceCall => 'Звонок';
+
+  @override
+  String get message => 'Сообщение';
+
+  @override
+  String get pleaseLoginToFollow => 'Пожалуйста, войдите, чтобы подписаться';
+
+  @override
+  String get pleaseLoginToCall => 'Пожалуйста, войдите, чтобы позвонить';
+
+  @override
+  String get cannotCallYourself => 'You cannot call yourself';
+
+  @override
+  String get failedToFollowUser => 'Failed to follow user';
+
+  @override
+  String get failedToUnfollowUser => 'Failed to unfollow user';
+
+  @override
+  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+
+  @override
+  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+
+  @override
+  String get youFollowed => 'You followed';
+
+  @override
+  String get youUnfollowed => 'You unfollowed';
+
+  @override
+  String get alreadyFollowing => 'You are already following';
+
+  @override
+  String get soon => 'Скоро';
+
+  @override
+  String comingSoon(String feature) {
+    return '$feature скоро!';
+  }
+
+  @override
+  String get muteNotifications => 'Отключить уведомления';
+
+  @override
+  String get unmuteNotifications => 'Включить уведомления';
+
+  @override
+  String get operationCompleted => 'Операция завершена';
+
+  @override
+  String get couldNotOpenMaps => 'Не удалось открыть карту';
+
+  @override
+  String hasntSharedMoments(Object name) {
+    return '$name ещё не поделился моментами';
+  }
+
+  @override
+  String messageUser(String name) {
+    return 'Сообщение $name';
+  }
+
+  @override
+  String notFollowingUser(String name) {
+    return 'Вы не подписаны на $name';
+  }
+
+  @override
+  String youFollowedUser(String name) {
+    return 'Вы подписались на $name';
+  }
+
+  @override
+  String youUnfollowedUser(String name) {
+    return 'Вы отписались от $name';
+  }
+
+  @override
+  String unfollowUser(String name) {
+    return 'Отписаться от $name';
+  }
+
+  @override
+  String get typing => 'печатает';
+
+  @override
+  String get connecting => 'Подключение...';
+
+  @override
+  String daysAgo(int count) {
+    return '$countд назад';
+  }
+
+  @override
+  String get maxTagsAllowed => 'Максимум 5 тегов';
+
+  @override
+  String maxImagesAllowed(int count) {
+    return 'Максимум $count изображений';
+  }
+
+  @override
+  String get pleaseRemoveImagesFirst => 'Сначала удалите изображения';
+
+  @override
+  String get exchange3MessagesBeforeCall => 'Для звонка нужно обменяться минимум 3 сообщениями';
+
+  @override
+  String mediaWithUser(String name) {
+    return 'Медиа с $name';
+  }
+
+  @override
+  String get errorLoadingMedia => 'Ошибка загрузки медиа';
+
+  @override
+  String get savedMomentsTitle => 'Сохранённые моменты';
+
+  @override
+  String get removeBookmark => 'Удалить из сохраненных?';
+
+  @override
+  String get thisWillRemoveBookmark => 'Сообщение будет удалено из закладок.';
+
+  @override
+  String get remove => 'Удалить';
+
+  @override
+  String get bookmarkRemoved => 'Удалено из сохраненных';
+
+  @override
+  String get bookmarkedMessages => 'Сохраненные сообщения';
+
+  @override
+  String get wallpaperSaved => 'Обои сохранены локально';
+
+  @override
+  String get typeDeleteToConfirm => 'Введите DELETE для подтверждения';
+
+  @override
+  String get storyArchive => 'Архив историй';
+
+  @override
+  String get newHighlight => 'Новый актуальный';
+
+  @override
+  String get addToHighlight => 'Добавить в актуальное';
+
+  @override
+  String get repost => 'Репост';
+
+  @override
+  String get repostFeatureSoon => 'Функция репоста скоро';
+
+  @override
+  String get closeFriends => 'Близкие друзья';
+
+  @override
+  String get addFriends => 'Добавить друзей';
+
+  @override
+  String get highlights => 'Актуальное';
+
+  @override
+  String get createHighlight => 'Создать актуальное';
+
+  @override
+  String get deleteHighlight => 'Удалить актуальное?';
+
+  @override
+  String get editHighlight => 'Редактировать';
+
+  @override
+  String get addMoreToStory => 'Добавить в историю';
+
+  @override
+  String get noViewersYet => 'Пока нет зрителей';
+
+  @override
+  String get noReactionsYet => 'Пока нет реакций';
+
+  @override
+  String get leaveRoom => 'Покинуть комнату?';
+
+  @override
+  String get areYouSureLeaveRoom => 'Вы уверены, что хотите покинуть эту комнату?';
+
+  @override
+  String get stay => 'Остаться';
+
+  @override
+  String get leave => 'Выйти';
+
+  @override
+  String get enableGPS => 'Включить GPS';
+
+  @override
+  String wavedToUser(String name) {
+    return 'Вы помахали $name!';
+  }
+
+  @override
+  String get areYouSureFollow => 'Вы уверены, что хотите подписаться на';
+
+  @override
+  String get failedToLoadProfile => 'Не удалось загрузить профиль';
+
+  @override
+  String get noFollowersYet => 'Пока нет подписчиков';
+
+  @override
+  String get noFollowingYet => 'Пока ни на кого не подписаны';
+
+  @override
+  String get searchUsers => 'Поиск пользователей...';
+
+  @override
+  String get noResultsFound => 'Ничего не найдено';
+
+  @override
+  String get loadingFailed => 'Ошибка загрузки';
+
+  @override
+  String get copyLink => 'Копировать ссылку';
+
+  @override
+  String get shareStory => 'Поделиться историей';
+
+  @override
+  String get thisWillDeleteStory => 'Это навсегда удалит эту историю.';
+
+  @override
+  String get storyDeleted => 'История удалена';
+
+  @override
+  String get addCaption => 'Добавить описание...';
+
+  @override
+  String get yourStory => 'Ваша история';
+
+  @override
+  String get sendMessage => 'Отправить сообщение';
+
+  @override
+  String get replyToStory => 'Ответить на историю...';
+
+  @override
+  String get viewAllReplies => 'Посмотреть все ответы';
+
+  @override
+  String get preparingVideo => 'Подготовка видео...';
+
+  @override
+  String videoOptimized(String size, String savings) {
+    return 'Видео оптимизировано: $sizeМБ (экономия $savings%)';
+  }
+
+  @override
+  String get failedToProcessVideo => 'Не удалось обработать видео';
+
+  @override
+  String get optimizingForBestExperience => 'Оптимизация для лучшего опыта';
+
+  @override
+  String get pleaseSelectImageOrVideo => 'Пожалуйста, выберите изображение или видео для истории';
+
+  @override
+  String get storyCreatedSuccessfully => 'История успешно создана!';
+
+  @override
+  String get uploadingStoryInBackground => 'Загрузка истории в фоновом режиме...';
+
+  @override
+  String get storyCreationFailed => 'Не удалось создать историю';
+
+  @override
+  String get pleaseCheckConnection => 'Проверьте подключение и попробуйте снова.';
+
+  @override
+  String get uploadFailed => 'Ошибка загрузки';
+
+  @override
+  String get tryShorterVideo => 'Попробуйте использовать более короткое видео или повторите позже.';
+
+  @override
+  String get shareMomentsThatDisappear => 'Делитесь моментами, которые исчезают через 24 часа';
+
+  @override
+  String get photo => 'Фото';
+
+  @override
+  String get record => 'Запись';
+
+  @override
+  String get addSticker => 'Добавить стикер';
+
+  @override
+  String get poll => 'Опрос';
+
+  @override
+  String get question => 'Вопрос';
+
+  @override
+  String get mention => 'Упоминание';
+
+  @override
+  String get music => 'Музыка';
+
+  @override
+  String get hashtag => 'Хэштег';
+
+  @override
+  String get whoCanSeeThis => 'Кто может видеть?';
+
+  @override
+  String get everyone => 'Все';
+
+  @override
+  String get anyoneCanSeeStory => 'Любой может увидеть эту историю';
+
+  @override
+  String get friendsOnly => 'Только друзья';
+
+  @override
+  String get onlyFollowersCanSee => 'Только ваши подписчики могут видеть';
+
+  @override
+  String get onlyCloseFriendsCanSee => 'Только близкие друзья могут видеть';
+
+  @override
+  String get backgroundColor => 'Цвет фона';
+
+  @override
+  String get fontStyle => 'Стиль шрифта';
+
+  @override
+  String get normal => 'Обычный';
+
+  @override
+  String get bold => 'Жирный';
+
+  @override
+  String get italic => 'Курсив';
+
+  @override
+  String get handwriting => 'Рукописный';
+
+  @override
+  String get addLocation => 'Добавить место';
+
+  @override
+  String get enterLocationName => 'Введите название места';
+
+  @override
+  String get addLink => 'Добавить ссылку';
+
+  @override
+  String get buttonText => 'Текст кнопки';
+
+  @override
+  String get learnMore => 'Подробнее';
+
+  @override
+  String get addHashtags => 'Добавить хэштеги';
+
+  @override
+  String get addHashtag => 'Добавить хэштег';
+
+  @override
+  String get sendAsMessage => 'Отправить как сообщение';
+
+  @override
+  String get shareExternally => 'Поделиться внешне';
+
+  @override
+  String get checkOutStory => 'Посмотрите эту историю в BananaTalk!';
+
+  @override
+  String viewsTab(String count) {
+    return 'Просмотры ($count)';
+  }
+
+  @override
+  String reactionsTab(String count) {
+    return 'Реакции ($count)';
+  }
+
+  @override
+  String get processingVideo => 'Обработка видео...';
+
+  @override
+  String get link => 'Ссылка';
+
+  @override
+  String unmuteUser(String name) {
+    return 'Включить уведомления от $name?';
+  }
+
+  @override
+  String get willReceiveNotifications => 'Вы будете получать уведомления о новых сообщениях.';
+
+  @override
+  String muteNotificationsFor(String name) {
+    return 'Отключить уведомления от $name';
+  }
+
+  @override
+  String notificationsUnmutedFor(String name) {
+    return 'Уведомления от $name включены';
+  }
+
+  @override
+  String notificationsMutedFor(String name) {
+    return 'Уведомления от $name отключены';
+  }
+
+  @override
+  String get failedToUpdateMuteSettings => 'Не удалось обновить настройки';
+
+  @override
+  String get oneHour => '1 час';
+
+  @override
+  String get eightHours => '8 часов';
+
+  @override
+  String get oneWeek => '1 неделя';
+
+  @override
+  String get always => 'Всегда';
+
+  @override
+  String get failedToLoadBookmarks => 'Не удалось загрузить сохраненные';
+
+  @override
+  String get noBookmarkedMessages => 'Нет сохраненных сообщений';
+
+  @override
+  String get longPressToBookmark => 'Удерживайте сообщение, чтобы сохранить';
+
+  @override
+  String get thisWillRemoveFromBookmarks => 'Сообщение будет удалено из сохраненных.';
+
+  @override
+  String navigateToMessage(String name) {
+    return 'Перейти к сообщению в чате с $name';
+  }
+
+  @override
+  String bookmarkedOn(String date) {
+    return 'Сохранено $date';
+  }
+
+  @override
+  String get voiceMessage => 'Голосовое сообщение';
+
+  @override
+  String get document => 'Документ';
+
+  @override
+  String get attachment => 'Вложение';
+
+  @override
+  String get sendMeAMessage => 'Отправьте мне сообщение';
+
+  @override
+  String get shareWithFriends => 'Поделиться с друзьями';
+
+  @override
+  String get shareAnywhere => 'Поделиться';
+
+  @override
+  String get emailPreferences => 'Настройки почты';
+
+  @override
+  String get receiveEmailNotifications => 'Receive email notifications from BananaTalk';
+
+  @override
+  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+
+  @override
+  String get passwordAndLoginAlerts => 'Password & login alerts';
+
+  @override
+  String get failedToLoadPreferences => 'Failed to load preferences';
+
+  @override
+  String get failedToUpdateSetting => 'Failed to update setting';
+
+  @override
+  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+
+  @override
+  String chatWallpaperFor(String name) {
+    return 'Chat wallpaper for $name';
+  }
+
+  @override
+  String get solidColors => 'Solid Colors';
+
+  @override
+  String get gradients => 'Gradients';
+
+  @override
+  String get customImage => 'Custom Image';
+
+  @override
+  String get chooseFromGallery => 'Choose from gallery';
+
+  @override
+  String get preview => 'Preview';
+
+  @override
+  String get wallpaperUpdated => 'Wallpaper updated';
+
+  @override
+  String get category => 'Категория';
+
+  @override
+  String get mood => 'Настроение';
+
+  @override
+  String get sortBy => 'Sort By';
+
+  @override
+  String get timePeriod => 'Time Period';
+
+  @override
+  String get searchLanguages => 'Search languages...';
+
+  @override
+  String get selected => 'Selected';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get moods => 'Moods';
+
+  @override
+  String get applyFilters => 'Применить фильтры';
+
+  @override
+  String applyNFilters(int count) {
+    return 'Apply $count Filters';
+  }
+
+  @override
+  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+
+  @override
+  String get failedToRecordVideo => 'Failed to record video';
+
+  @override
+  String get errorSendingVideo => 'Error sending video';
+
+  @override
+  String get errorSendingVoiceMessage => 'Error sending voice message';
+
+  @override
+  String get errorSendingMedia => 'Error sending media';
+
+  @override
+  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+
+  @override
+  String get locationPermissionRequired => 'Location permission is required to share your location.';
+
+  @override
+  String get noInternetConnection => 'No internet connection';
+
+  @override
+  String get tryAgainLater => 'Please try again later';
+
+  @override
+  String get messageSent => 'Message sent';
+
+  @override
+  String get messageDeleted => 'Message deleted';
+
+  @override
+  String get messageEdited => 'Message edited';
 }

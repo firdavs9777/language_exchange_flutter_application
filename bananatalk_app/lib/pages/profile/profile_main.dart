@@ -11,11 +11,17 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
+import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'dart:ui';
 
 class ProfileMain extends ConsumerStatefulWidget {
@@ -32,14 +38,12 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     Future.microtask(() => ref.refresh(userProvider));
   }
 
-  int _calculateAge(String birthYear) {
-    try {
-      final currentYear = DateTime.now().year;
-      final year = int.parse(birthYear);
-      return currentYear - year;
-    } catch (e) {
-      return 0;
-    }
+  int? _calculateAge(String birthYear) {
+    if (birthYear.isEmpty) return null;
+    final year = int.tryParse(birthYear);
+    if (year == null) return null;
+    final currentYear = DateTime.now().year;
+    return currentYear - year;
   }
 
   @override
@@ -47,15 +51,14 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     final userAsync = ref.watch(userProvider);
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       extendBodyBehindAppBar: true,
       endDrawer: Builder(
         builder: (context) {
           return userAsync.when(
             data: (user) => LeftDrawer(user: user),
-            loading: () => const Drawer(
-              child: Center(child: CircularProgressIndicator()),
-            ),
+            loading: () =>
+                const Drawer(child: Center(child: CircularProgressIndicator())),
             error: (error, stack) {
               final l10n = AppLocalizations.of(context)!;
               return Drawer(
@@ -67,6 +70,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
+          HapticUtils.onRefresh();
           ref.refresh(userProvider);
           await Future.delayed(const Duration(milliseconds: 500));
         },
@@ -86,6 +90,8 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     const SizedBox(height: 20),
                     _buildStatsCards(context, user),
                     const SizedBox(height: 20),
+                    _buildVipStatusCard(context, user),
+                    const SizedBox(height: 16),
                     _buildLanguageCard(user),
                     const SizedBox(height: 16),
                     _buildAboutCard(user),
@@ -191,48 +197,78 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF00BFA5),
-                        Color(0xFF00897B),
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF00BFA5).withOpacity(0.4),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: user.imageUrls.isNotEmpty
-                        ? CachedCircleAvatar(
-                            imageUrl: user.imageUrls[0],
-                            radius: 64,
-                            backgroundColor: Colors.grey[200],
-                          )
-                        : CircleAvatar(
-                            radius: 64,
-                            backgroundColor:
-                                const Color(0xFF00BFA5).withOpacity(0.1),
-                            child: const Icon(
-                              Icons.person,
-                              size: 64,
-                              color: Color(0xFF00BFA5),
-                            ),
+                // Use VIP golden frame for VIP users, regular gradient for others
+                user.isVip
+                    ? VipAvatarFrame(
+                        isVip: true,
+                        size: 128,
+                        frameWidth: 4,
+                        showGlow: true,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
                           ),
-                  ),
-                ),
+                          child: user.imageUrls.isNotEmpty
+                              ? CachedCircleAvatar(
+                                  imageUrl: user.imageUrls[0],
+                                  radius: 64,
+                                  backgroundColor: Colors.grey[200],
+                                )
+                              : CircleAvatar(
+                                  radius: 64,
+                                  backgroundColor: const Color(
+                                    0xFFFFD700,
+                                  ).withOpacity(0.1),
+                                  child: const Icon(
+                                    Icons.person,
+                                    size: 64,
+                                    color: Color(0xFFFFD700),
+                                  ),
+                                ),
+                        ),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF00BFA5).withOpacity(0.4),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: user.imageUrls.isNotEmpty
+                              ? CachedCircleAvatar(
+                                  imageUrl: user.imageUrls[0],
+                                  radius: 64,
+                                  backgroundColor: Colors.grey[200],
+                                )
+                              : CircleAvatar(
+                                  radius: 64,
+                                  backgroundColor: const Color(
+                                    0xFF00BFA5,
+                                  ).withOpacity(0.1),
+                                  child: const Icon(
+                                    Icons.person,
+                                    size: 64,
+                                    color: Color(0xFF00BFA5),
+                                  ),
+                                ),
+                        ),
+                      ),
                 // Edit Icon Overlay
                 Positioned(
                   bottom: 0,
@@ -262,20 +298,12 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          Spacing.gapMD,
 
           // Name
-          Text(
-            user.name,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          Text(user.name, style: context.displayMedium, textAlign: TextAlign.center),
 
-          const SizedBox(height: 8),
+          Spacing.gapSM,
 
           // Age and Location with Icons
           Wrap(
@@ -304,25 +332,18 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
 
   Widget _buildInfoChip(IconData icon, String label, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withOpacity(0.3)),
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: color),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              color: color.withOpacity(0.9),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          Icon(icon, size: 14, color: color),
+          Spacing.hGapXS,
+          Text(label, style: context.labelMedium.copyWith(color: color)),
         ],
       ),
     );
@@ -353,6 +374,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       location: user.location,
                       gender: user.gender,
                       bio: user.bio,
+                      topics: user.topics,
                     ),
                   ),
                 );
@@ -441,34 +463,21 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         child: Ink(
           decoration: BoxDecoration(
             gradient: gradient,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: gradient.colors.first.withOpacity(0.3),
-                blurRadius: 12,
-                offset: const Offset(0, 6),
-              ),
-            ],
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: AppShadows.colored,
           ),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 14),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: Colors.white, size: 20),
-                const SizedBox(width: 8),
-                Text(
-                  label,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
+                Icon(icon, color: Colors.white, size: 18),
+                Spacing.hGapSM,
+                Text(label, style: context.labelLarge.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
               ],
             ),
           ),
@@ -484,84 +493,94 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
         children: [
           // First row: Followers and Following
           Row(
-        children: [
-          Expanded(
-            child: _buildStatCard(
-              value: user.followers.length.toString(),
-              label: AppLocalizations.of(context)!.followers,
-              icon: Icons.people_outline,
-              color: const Color(0xFF00BFA5),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileFollowers(id: user.id),
-                  ),
-                ).then((_) => mounted ? ref.refresh(userProvider) : null);
-              },
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: _buildStatCard(
-              value: user.followings.length.toString(),
-              label: AppLocalizations.of(context)!.following,
-              icon: Icons.person_add_outlined,
-              color: Colors.blue,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileFollowings(id: user.id),
-                  ),
-                ).then((_) => mounted ? ref.refresh(userProvider) : null);
-              },
-            ),
-          ),
+            children: [
+              Expanded(
+                child: _buildStatCard(
+                  value: user.followers.length.toString(),
+                  label: AppLocalizations.of(context)!.followers,
+                  icon: Icons.people_outline,
+                  color: const Color(0xFF00BFA5),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileFollowers(
+                          id: user.id,
+                          followerIds: user.followers,
+                        ),
+                      ),
+                    ).then((_) => mounted ? ref.refresh(userProvider) : null);
+                  },
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildStatCard(
+                  value: user.followings.length.toString(),
+                  label: AppLocalizations.of(context)!.following,
+                  icon: Icons.person_add_outlined,
+                  color: Colors.blue,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileFollowings(
+                          id: user.id,
+                          followingIds: user.followings,
+                        ),
+                      ),
+                    ).then((_) => mounted ? ref.refresh(userProvider) : null);
+                  },
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 12),
           // Second row: Moments and Visitors
           Row(
             children: [
-          Expanded(
-            child: Consumer(
-              builder: (context, ref, child) {
-                final momentsAsync = ref.watch(userMomentsProvider(user.id));
-                return momentsAsync.when(
-                  data: (moments) => _buildStatCard(
-                    value: moments.length.toString(),
-                    label: AppLocalizations.of(context)!.moments,
-                    icon: Icons.photo_library_outlined,
-                    color: Colors.purple,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProfileMoments(id: user.id),
-                        ),
-                      ).then((_) => mounted
-                          ? ref.invalidate(userMomentsProvider(user.id))
-                          : null);
-                    },
-                  ),
-                  loading: () => _buildStatCard(
-                    value: '...',
-                    label: AppLocalizations.of(context)!.moments,
-                    icon: Icons.photo_library_outlined,
-                    color: Colors.purple,
-                    onTap: () {},
-                  ),
-                  error: (_, __) => _buildStatCard(
-                    value: '0',
-                    label: AppLocalizations.of(context)!.moments,
-                    icon: Icons.photo_library_outlined,
-                    color: Colors.purple,
-                    onTap: () {},
-                  ),
-                );
-              },
-            ),
+              Expanded(
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final momentsAsync = ref.watch(
+                      userMomentsProvider(user.id),
+                    );
+                    return momentsAsync.when(
+                      data: (moments) => _buildStatCard(
+                        value: moments.length.toString(),
+                        label: AppLocalizations.of(context)!.moments,
+                        icon: Icons.photo_library_outlined,
+                        color: Colors.purple,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileMoments(id: user.id),
+                            ),
+                          ).then(
+                            (_) => mounted
+                                ? ref.invalidate(userMomentsProvider(user.id))
+                                : null,
+                          );
+                        },
+                      ),
+                      loading: () => _buildStatCard(
+                        value: '...',
+                        label: AppLocalizations.of(context)!.moments,
+                        icon: Icons.photo_library_outlined,
+                        color: Colors.purple,
+                        onTap: () {},
+                      ),
+                      error: (_, __) => _buildStatCard(
+                        value: '0',
+                        label: AppLocalizations.of(context)!.moments,
+                        icon: Icons.photo_library_outlined,
+                        color: Colors.purple,
+                        onTap: () {},
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -579,7 +598,9 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     }
 
                     // Handle errors gracefully - show 0 if backend not ready
-                    if (snapshot.hasError || !snapshot.hasData || snapshot.data?['success'] != true) {
+                    if (snapshot.hasError ||
+                        !snapshot.hasData ||
+                        snapshot.data?['success'] != true) {
                       final l10n = AppLocalizations.of(context)!;
                       return _buildStatCard(
                         value: '0',
@@ -626,6 +647,142 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     );
   }
 
+  Widget _buildVipStatusCard(BuildContext context, Community user) {
+    final isVip = user.isVip;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: isVip
+              ? const LinearGradient(
+                  colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+          color: isVip ? null : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: isVip
+                  ? const Color(0xFFFFD700).withOpacity(0.3)
+                  : Colors.black.withOpacity(0.05),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => isVip
+                      ? VipStatusScreen(userId: user.id)
+                      : VipPlansScreen(userId: user.id),
+                ),
+              );
+            },
+            borderRadius: BorderRadius.circular(20),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: isVip
+                          ? Colors.white.withOpacity(0.2)
+                          : const Color(0xFFFFD700).withOpacity(0.15),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.workspace_premium,
+                      color: isVip ? Colors.white : const Color(0xFFFFD700),
+                      size: 28,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          isVip ? 'VIP Member' : 'Upgrade to VIP',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: isVip ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          isVip
+                              ? 'Enjoying unlimited access & premium features'
+                              : 'Unlock unlimited messages, filters & AI tools',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: isVip
+                                ? Colors.white.withOpacity(0.9)
+                                : Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  if (isVip)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Text(
+                        'Active',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    )
+                  else
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Text(
+                        'Upgrade',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildStatCard({
     required String value,
     required String label,
@@ -637,48 +794,28 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 15,
-                offset: const Offset(0, 5),
-              ),
-            ],
+            color: context.surfaceColor,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: AppShadows.sm,
           ),
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: color, size: 24),
+                child: Icon(icon, color: color, size: 20),
               ),
-              const SizedBox(height: 12),
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Spacing.gapSM,
+              Text(value, style: context.displaySmall.copyWith(color: color)),
+              Spacing.gapXXS,
+              Text(label, style: context.labelSmall),
             ],
           ),
         ),
@@ -734,7 +871,9 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           const SizedBox(height: 24),
           _buildLanguageRow(
             AppLocalizations.of(context)!.nativeLanguage,
-            user.native_language.isEmpty ? AppLocalizations.of(context)!.notSet : user.native_language,
+            user.native_language.isEmpty
+                ? AppLocalizations.of(context)!.notSet
+                : user.native_language,
             Icons.translate,
             const Color(0xFF00BFA5),
           ),
@@ -743,7 +882,9 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           const SizedBox(height: 16),
           _buildLanguageRow(
             AppLocalizations.of(context)!.learning,
-            user.language_to_learn.isEmpty ? AppLocalizations.of(context)!.notSet : user.language_to_learn,
+            user.language_to_learn.isEmpty
+                ? AppLocalizations.of(context)!.notSet
+                : user.language_to_learn,
             Icons.school,
             Colors.orange,
           ),
@@ -958,15 +1099,15 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                             MaterialPageRoute(
                               builder: (context) => ProfileMoments(id: user.id),
                             ),
-                          ).then((_) => mounted
-                              ? ref.invalidate(userMomentsProvider(user.id))
-                              : null);
+                          ).then(
+                            (_) => mounted
+                                ? ref.invalidate(userMomentsProvider(user.id))
+                                : null,
+                          );
                         },
                         child: const Text(
                           'See All',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ),
                     ],
@@ -977,11 +1118,11 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: 1,
-                    ),
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 1,
+                        ),
                     itemCount: previewMoments.length,
                     itemBuilder: (context, index) {
                       final moment = previewMoments[index];

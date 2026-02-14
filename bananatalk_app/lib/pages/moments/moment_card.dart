@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
 import 'package:bananatalk_app/pages/moments/video_player_widget.dart';
@@ -10,6 +11,8 @@ import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -205,7 +208,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -219,8 +222,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+                  color: context.dividerColor,
+                  borderRadius: AppRadius.borderXS,
                 ),
               ),
               ListTile(
@@ -282,12 +285,20 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 ListTile(
                   leading: const Icon(Icons.edit, color: Colors.blue),
                   title: Text(AppLocalizations.of(context)!.edit),
-                  onTap: () {
+                  onTap: () async {
                     Navigator.pop(context);
-                    final l10n = AppLocalizations.of(context)!;
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.editFeatureComingSoon)),
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateMoment(
+                          momentToEdit: widget.moments,
+                        ),
+                      ),
                     );
+                    // Refresh if edit was successful
+                    if (result == true) {
+                      widget.onRefresh?.call();
+                    }
                   },
                 ),
                 ListTile(
@@ -393,7 +404,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       child: Container(
         margin: const EdgeInsets.only(left: 12, right: 12, bottom: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(0),
         ),
         child: Column(
@@ -433,11 +444,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                           ? widget.moments.user.imageUrls[0]
                           : null,
                       radius: 22,
-                      backgroundColor: Colors.grey[300],
+                      backgroundColor: context.containerColor,
                       errorWidget: Icon(
                         Icons.person,
                         size: 22,
-                        color: Colors.grey[600],
+                        color: context.textSecondary,
                       ),
                     ),
                   ),
@@ -450,11 +461,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                           children: [
                             Text(
                               widget.moments.user.name.toUpperCase(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Colors.black,
-                              ),
+                              style: context.labelLarge,
                             ),
                             const SizedBox(width: 4),
                             // VIP Badge (conditionally shown)
@@ -487,7 +494,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                    color: Colors.green[600]!,
+                                    color: AppColors.success,
                                     width: 2,
                                   ),
                                 ),
@@ -496,10 +503,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                                 _getLanguageCode(
                                   widget.moments.user.native_language,
                                 ),
-                                style: TextStyle(
-                                  fontSize: 11,
+                                style: context.captionSmall.copyWith(
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.black87,
+                                  color: context.textPrimary,
                                 ),
                               ),
                             ),
@@ -507,7 +513,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                             Icon(
                               Icons.arrow_forward,
                               size: 12,
-                              color: Colors.grey[500],
+                              color: context.textMuted,
                             ),
                             const SizedBox(width: 6),
                             // Learning language with dots
@@ -515,10 +521,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                               _getLanguageCode(
                                 widget.moments.user.language_to_learn,
                               ),
-                              style: TextStyle(
-                                fontSize: 11,
+                              style: context.captionSmall.copyWith(
                                 fontWeight: FontWeight.w700,
-                                color: Colors.grey[600],
+                                color: context.textSecondary,
                               ),
                             ),
                             const SizedBox(width: 4),
@@ -531,8 +536,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                                   height: 3,
                                   decoration: BoxDecoration(
                                     color: index < 3
-                                        ? Colors.grey[700]
-                                        : Colors.grey[300],
+                                        ? context.textSecondary
+                                        : context.dividerColor,
                                     shape: BoxShape.circle,
                                   ),
                                 );
@@ -553,14 +558,14 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         constraints: const BoxConstraints(),
                         icon: Icon(
                           Icons.more_horiz,
-                          color: Colors.grey[600],
+                          color: context.iconColor,
                           size: 20,
                         ),
                       ),
                       const SizedBox(height: 2),
                       Text(
                         _getRelativeTime(widget.moments.createdAt),
-                        style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                        style: context.captionSmall.copyWith(color: context.textMuted),
                       ),
                     ],
                   ),
@@ -598,14 +603,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Text(
-                          isExpanded 
-                              ? AppLocalizations.of(context)!.showLess 
+                          isExpanded
+                              ? AppLocalizations.of(context)!.showLess
                               : AppLocalizations.of(context)!.showMore,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: context.labelMedium.copyWith(color: context.textSecondary),
                         ),
                       ),
                     ),
@@ -653,22 +654,31 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   _buildActionButton(
                     icon: isLiked ? Icons.favorite : Icons.favorite_border,
                     count: likeCount,
-                    color: isLiked ? Colors.red[400]! : Colors.grey[600]!,
+                    color: isLiked ? AppColors.error : context.iconColor,
                     onTap: toggleLike,
                   ),
                   const SizedBox(width: 4),
                   _buildActionButton(
                     icon: Icons.chat_bubble_outline,
                     count: widget.moments.commentCount,
-                    color: Colors.grey[600]!,
-                    onTap: () {},
+                    color: context.iconColor,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SingleMoment(
+                            moment: widget.moments,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(width: 4),
                   // Translate icon
                   IconButton(
                     icon: Icon(
                       Icons.translate,
-                      color: Colors.grey[600],
+                      color: context.iconColor,
                       size: 20,
                     ),
                     padding: const EdgeInsets.all(8),
@@ -681,7 +691,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   IconButton(
                     icon: Icon(
                       Icons.card_giftcard_outlined,
-                      color: Colors.grey[600],
+                      color: context.iconColor,
                       size: 20,
                     ),
                     padding: const EdgeInsets.all(8),
@@ -694,7 +704,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   IconButton(
                     icon: Icon(
                       Icons.share_outlined,
-                      color: Colors.grey[600],
+                      color: context.iconColor,
                       size: 20,
                     ),
                     padding: const EdgeInsets.all(8),
@@ -706,7 +716,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             ),
 
             // Divider
-            Container(height: 1, color: Colors.grey[200]),
+            Container(height: 1, color: context.dividerColor),
           ],
         ),
       ),
@@ -773,11 +783,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             errorWidget: Container(
               width: double.infinity,
               height: 280,
-              color: Colors.grey[200],
-              child: const Icon(
+              color: context.containerColor,
+              child: Icon(
                 Icons.broken_image,
                 size: 50,
-                color: Colors.grey,
+                color: context.textMuted,
               ),
             ),
           ),
@@ -869,11 +879,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             imageUrl: url,
             fit: BoxFit.cover,
             errorWidget: Container(
-              color: Colors.grey[200],
-              child: const Icon(
+              color: context.containerColor,
+              child: Icon(
                 Icons.broken_image,
                 size: 30,
-                color: Colors.grey,
+                color: context.textMuted,
               ),
             ),
           ),

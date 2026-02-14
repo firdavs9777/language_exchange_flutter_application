@@ -172,9 +172,8 @@ class _ForgotPasswordVerificationState
           'Verify Code',
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

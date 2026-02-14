@@ -1,12 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/voice_message_player.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:geolocator/geolocator.dart';
 
 class MediaMessageWidget extends StatelessWidget {
   final MessageMedia media;
@@ -23,6 +20,17 @@ class MediaMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
+    // Safety check: if type is empty, don't render anything
+    // Note: Location type doesn't require a URL (only coordinates)
+    if (media.type.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // For non-location types, URL is required
+    if (media.type != 'location' && media.url.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
     switch (media.type) {
       case 'image':
@@ -167,60 +175,12 @@ class MediaMessageWidget extends StatelessWidget {
   }
 
   Widget _buildAudioMessage(BuildContext context, ColorScheme colorScheme) {
-    // For audio files (music, etc.) - different from voice messages
-    return Container(
-      width: 250,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceVariant,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: colorScheme.primary,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Icon(
-              Icons.audiotrack,
-              color: colorScheme.onPrimary,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  media.fileName ?? 'Audio Message',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: context.textPrimary,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                if (media.fileSize != null)
-                  Text(
-                    _formatFileSize(media.fileSize!),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: context.textSecondary,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.play_arrow, color: colorScheme.primary),
-            onPressed: onTap,
-          ),
-        ],
-      ),
+    return VoiceMessagePlayer(
+      audioUrl: media.url,
+      durationSeconds: media.duration ?? 0,
+      waveform: media.waveform,
+      isFromMe: isSentByMe,
+      onPlayed: onTap,
     );
   }
 

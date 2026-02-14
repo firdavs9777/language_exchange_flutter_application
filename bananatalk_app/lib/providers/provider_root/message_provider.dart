@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/sender_model.dart';
 import 'package:http/http.dart' as http;
@@ -9,86 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MessageService {
-  Future<List<Message>> getUserMessages({required id}) async {
-    try {
-      final response = await http.get(Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.userUrl}/$id'));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return (data['data'] as List)
-            .map((postJson) => Message.fromJson(postJson))
-            .toList();
-      } else {
-        throw Exception('Failed to load community: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching community: $error');
-      throw Exception('Failed to load community: $error');
-    }
-  }
-
-  Future<List<Message>> getConversation(
-      {required senderId, required receiverId}) async {
-    try {
-      final response = await http.get(Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.messageUrl}/conversation/$senderId/$receiverId'));
-      if (response.statusCode == 200) {
-        print(response.body);
-        final data = json.decode(response.body);
-        return (data['data'] as List)
-            .map((postJson) => Message.fromJson(postJson))
-            .toList();
-      } else {
-        throw Exception('Failed to load community: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching community: $error');
-      throw Exception('Failed to load community: $error');
-    }
-  }
-
-  Future<List<Sender>> getSendersList({required id}) async {
-    try {
-      final response = await http.get(Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.senderUrl}/$id'));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        print(data);
-
-        if (data['success']) {
-          return (data['data'] as List)
-              .map((jsonItem) => Sender.fromJson(jsonItem))
-              .toList();
-        } else {
-          throw Exception('Failed to load senders: ${data['message']}');
-        }
-      } else {
-        throw Exception('Failed to load community: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching community: $error');
-      throw Exception('Failed to load community: $error');
-    }
-  }
-
-  Future<List<Message>> getSenderMessages({required id}) async {
-    try {
-      final response = await http.get(
-          Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/from/$id'));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return (data['data'] as List)
-            .map((postJson) => Message.fromJson(postJson))
-            .toList();
-      } else {
-        throw Exception('Failed to load message: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching message: $error');
-      throw Exception('Failed to load message: $error');
-    }
-  }
-
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -100,6 +21,120 @@ class MessageService {
       'Accept': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',
     };
+  }
+
+  /// Get all messages for a user (requires auth)
+  Future<List<Message>> getUserMessages({required id}) async {
+    try {
+      final token = await _getToken();
+      final response = await http.get(
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.userUrl}/$id'),
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return (data['data'] as List)
+            .map((postJson) => Message.fromJson(postJson))
+            .toList();
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication required. Please log in again.');
+      } else if (response.statusCode == 403) {
+        throw Exception('Not authorized to view these messages');
+      } else {
+        throw Exception('Failed to load messages: ${response.statusCode}');
+      }
+    } catch (error) {
+      debugPrint('Error fetching messages: $error');
+      rethrow;
+    }
+  }
+
+  /// Get conversation between two users (requires auth)
+  Future<List<Message>> getConversation({
+    required senderId,
+    required receiverId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final response = await http.get(
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/conversation/$senderId/$receiverId'),
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        debugPrint('Conversation loaded successfully');
+        final data = json.decode(response.body);
+        return (data['data'] as List)
+            .map((postJson) => Message.fromJson(postJson))
+            .toList();
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication required. Please log in again.');
+      } else if (response.statusCode == 403) {
+        throw Exception('Not authorized to view this conversation');
+      } else {
+        throw Exception('Failed to load conversation: ${response.statusCode}');
+      }
+    } catch (error) {
+      debugPrint('Error fetching conversation: $error');
+      rethrow;
+    }
+  }
+
+  /// Get list of senders/chat partners (requires auth)
+  Future<List<Sender>> getSendersList({required id}) async {
+    try {
+      final token = await _getToken();
+      final response = await http.get(
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.senderUrl}/$id'),
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success']) {
+          return (data['data'] as List)
+              .map((jsonItem) => Sender.fromJson(jsonItem))
+              .toList();
+        } else {
+          throw Exception('Failed to load senders: ${data['message']}');
+        }
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication required. Please log in again.');
+      } else {
+        throw Exception('Failed to load senders: ${response.statusCode}');
+      }
+    } catch (error) {
+      debugPrint('Error fetching senders: $error');
+      rethrow;
+    }
+  }
+
+  /// Get messages from a specific sender (requires auth)
+  Future<List<Message>> getSenderMessages({required id}) async {
+    try {
+      final token = await _getToken();
+      final response = await http.get(
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/from/$id'),
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return (data['data'] as List)
+            .map((postJson) => Message.fromJson(postJson))
+            .toList();
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication required. Please log in again.');
+      } else if (response.statusCode == 403) {
+        throw Exception('Not authorized to view these messages');
+      } else {
+        throw Exception('Failed to load messages: ${response.statusCode}');
+      }
+    } catch (error) {
+      debugPrint('Error fetching messages: $error');
+      rethrow;
+    }
   }
 
   /// Send message with optional media

@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/services/voice_message_service.dart';
 
 class VoiceMessagePlayer extends StatefulWidget {
@@ -41,6 +45,8 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
   @override
   void initState() {
     super.initState();
+    debugPrint('🎵 VoiceMessagePlayer.initState - URL: ${widget.audioUrl}');
+    debugPrint('🎵 Duration from widget: ${widget.durationSeconds}s');
     _player = AudioPlayer();
     _duration = Duration(seconds: widget.durationSeconds);
     _setupPlayer();
@@ -60,6 +66,7 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
     });
 
     _playerStateSubscription = _player.playerStateStream.listen((state) {
+      debugPrint('🎵 Player state: playing=${state.playing}, processingState=${state.processingState}');
       if (mounted) {
         setState(() {
           _isPlaying = state.playing;
@@ -69,6 +76,7 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
 
         // Reset position when completed
         if (state.processingState == ProcessingState.completed) {
+          debugPrint('🎵 Playback completed, resetting position');
           _player.seek(Duration.zero);
           _player.pause();
         }
@@ -76,16 +84,40 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
     });
   }
 
+  String? _localFilePath;
+
   Future<void> _togglePlayback() async {
+    debugPrint('🎵 _togglePlayback called');
+    debugPrint('🎵 URL: ${widget.audioUrl}');
+    debugPrint('🎵 audioSource is null: ${_player.audioSource == null}');
+
     try {
       if (_player.audioSource == null) {
+        debugPrint('🎵 Step 1: Configuring audio session...');
+        final session = await AudioSession.instance;
+        await session.configure(const AudioSessionConfiguration.speech());
+        debugPrint('🎵 Step 2: Audio session configured');
+
         setState(() => _isLoading = true);
-        await _player.setUrl(widget.audioUrl);
+
+        debugPrint('🎵 Step 3: Downloading audio...');
+        _localFilePath = await _downloadAudio(widget.audioUrl);
+
+        if (_localFilePath != null) {
+          debugPrint('🎵 Step 4: Setting file path: $_localFilePath');
+          await _player.setFilePath(_localFilePath!);
+        } else {
+          debugPrint('🎵 Step 4: Setting URL directly');
+          await _player.setUrl(widget.audioUrl);
+        }
+        debugPrint('🎵 Step 5: Audio loaded, duration: ${_player.duration}');
       }
 
       if (_isPlaying) {
+        debugPrint('🎵 Pausing...');
         await _player.pause();
       } else {
+        debugPrint('🎵 Playing...');
         await _player.play();
         if (!_hasNotifiedPlayed) {
           _hasNotifiedPlayed = true;
@@ -93,15 +125,36 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
         }
       }
     } catch (e) {
-      debugPrint('Error playing voice message: $e');
+      debugPrint('❌ Error at playback: $e');
+      setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to play voice message'),
+            content: Text('Failed to play audio'),
             backgroundColor: Colors.red,
           ),
         );
       }
+    }
+  }
+
+  Future<String?> _downloadAudio(String url) async {
+    try {
+      final response = await http.get(Uri.parse(url));
+      debugPrint('🎵 Download response: ${response.statusCode}, content-type: ${response.headers['content-type']}');
+
+      if (response.statusCode == 200) {
+        final tempDir = await getTemporaryDirectory();
+        final fileName = url.split('/').last;
+        final file = File('${tempDir.path}/$fileName');
+        await file.writeAsBytes(response.bodyBytes);
+        debugPrint('🎵 Saved to: ${file.path}, size: ${response.bodyBytes.length} bytes');
+        return file.path;
+      }
+      return null;
+    } catch (e) {
+      debugPrint('❌ Download error: $e');
+      return null;
     }
   }
 
@@ -130,6 +183,30 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
 
   @override
   Widget build(BuildContext context) {
+    // Safety check: if URL is empty, show error state
+    if (widget.audioUrl.isEmpty) {
+      debugPrint('❌ VoiceMessagePlayer: Empty audio URL');
+      return Container(
+        width: 200,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.3),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.error_outline, color: Colors.grey, size: 20),
+            ),
+            const SizedBox(width: 8),
+            const Text('Audio unavailable', style: TextStyle(color: Colors.grey, fontSize: 12)),
+          ],
+        ),
+      );
+    }
+
     final primaryColor = widget.isFromMe
         ? Colors.white.withOpacity(0.9)
         : Theme.of(context).primaryColor;
@@ -140,16 +217,20 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
         ? Colors.white.withOpacity(0.7)
         : Colors.grey[600];
 
-    return Container(
-      width: 200,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Play/Pause button
-          GestureDetector(
-            onTap: _togglePlayback,
-            child: Container(
+    return GestureDetector(
+      onTap: () {
+        debugPrint('🎵 Audio message tapped!');
+        _togglePlayback();
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        width: 200,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Play/Pause button
+            Container(
               width: 36,
               height: 36,
               decoration: BoxDecoration(
@@ -176,7 +257,6 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
                       size: 22,
                     ),
             ),
-          ),
           const SizedBox(width: 8),
 
           // Waveform or progress bar
@@ -208,6 +288,7 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
             ),
           ),
         ],
+      ),
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
@@ -131,10 +133,9 @@ class _RegisterState extends State<Register> {
           'Register',
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -160,7 +161,7 @@ class _RegisterState extends State<Register> {
                         BanaStyles: BananaTextStyles.heading,
                       ),
                     ),
-                    SizedBox(height: 10.0),
+                    Spacing.gapSM,
 
                     // Name field
                     TextFormField(
@@ -168,14 +169,14 @@ class _RegisterState extends State<Register> {
                       decoration: InputDecoration(
                         filled: true,
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: context.dividerColor),
+                          borderRadius: AppRadius.borderXL,
                         ),
                         hintText: AppLocalizations.of(context)!.username,
                         prefixIcon: Icon(Icons.person),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    Spacing.gapSM,
 
                     // Email field (READ-ONLY - already verified)
                     TextFormField(
@@ -183,20 +184,20 @@ class _RegisterState extends State<Register> {
                       enabled: false, // Make it read-only
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.grey[300], // Show it's disabled
+                        fillColor: context.containerColor, // Show it's disabled
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: context.dividerColor),
+                          borderRadius: AppRadius.borderXL,
                         ),
                         hintText: AppLocalizations.of(context)!.email,
                         prefixIcon: Icon(Icons.email),
                         suffixIcon: Icon(
                           Icons.verified,
-                          color: Colors.green,
+                          color: AppColors.success,
                         ), // Show verified icon
                       ),
                     ),
-                    SizedBox(height: 10),
+                    Spacing.gapSM,
 
                     // Password field
                     TextFormField(
@@ -214,13 +215,13 @@ class _RegisterState extends State<Register> {
                             _obscureText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: _obscureText ? Colors.grey : Colors.blue,
+                            color: _obscureText ? context.iconColor : AppColors.info,
                           ),
                         ),
                         prefixIcon: const Icon(Icons.password_outlined),
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: context.dividerColor),
+                          borderRadius: AppRadius.borderXL,
                         ),
                         labelText: 'Password',
                         labelStyle: TextStyle(
@@ -228,7 +229,7 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    Spacing.gapSM,
 
                     // Confirm password field
                     TextFormField(
@@ -246,13 +247,13 @@ class _RegisterState extends State<Register> {
                             _obscureText_two
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: _obscureText_two ? Colors.grey : Colors.blue,
+                            color: _obscureText_two ? context.iconColor : AppColors.info,
                           ),
                         ),
                         prefixIcon: const Icon(Icons.password_outlined),
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: context.dividerColor),
+                          borderRadius: AppRadius.borderXL,
                         ),
                         labelText: 'Confirm Password',
                         labelStyle: TextStyle(
@@ -260,16 +261,16 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    Spacing.gapXL,
 
                     SizedBox(
                       width: 200.0,
                       child: ElevatedButton(
                         onPressed: submit,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
+                          backgroundColor: AppColors.primary,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: AppRadius.borderSM,
                           ),
                           padding: EdgeInsets.symmetric(
                             horizontal: 16.0,
@@ -289,7 +290,7 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
               ),
-              SizedBox(height: 8.0),
+              Spacing.gapSM,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

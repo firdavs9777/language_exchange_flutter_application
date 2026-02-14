@@ -12,11 +12,13 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 class ProfileLanguageEdit extends ConsumerStatefulWidget {
   final String initialLanguage;
   final String type; // 'native' or 'learn'
+  final String? otherLanguage; // The other language to validate against
 
   const ProfileLanguageEdit({
     super.key,
     required this.initialLanguage,
     required this.type,
+    this.otherLanguage,
   });
 
   @override
@@ -70,7 +72,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
               });
             }
             if (kDebugMode) {
-              print('Initial language "${widget.initialLanguage}" not found, using first language');
+              debugPrint('Initial language "${widget.initialLanguage}" not found, using first language');
             }
           }
         }
@@ -78,7 +80,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         throw Exception('Failed to load languages');
       }
     } catch (e) {
-      print('Error fetching languages: $e');
+      debugPrint('Error fetching languages: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to load languages')),
       );
@@ -109,6 +111,22 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
     );
 
     if (result != null) {
+      // Validate that native and learning languages are different
+      if (widget.otherLanguage != null &&
+          result.name.toLowerCase() == widget.otherLanguage!.toLowerCase()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              widget.type == 'native'
+                  ? 'Native language cannot be the same as the language you\'re learning'
+                  : 'Learning language cannot be the same as your native language',
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       setState(() {
         _selectedLanguage = result;
       });
@@ -220,6 +238,23 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text('Please select a language')),
+                        );
+                        return;
+                      }
+
+                      // Validate that native and learning languages are different
+                      if (widget.otherLanguage != null &&
+                          _selectedLanguage!.name.toLowerCase() ==
+                              widget.otherLanguage!.toLowerCase()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              widget.type == 'native'
+                                  ? 'Native language cannot be the same as the language you\'re learning'
+                                  : 'Learning language cannot be the same as your native language',
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
                         );
                         return;
                       }

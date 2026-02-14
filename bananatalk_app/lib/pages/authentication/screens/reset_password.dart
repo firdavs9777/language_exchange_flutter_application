@@ -1,6 +1,8 @@
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -45,7 +47,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
             'Please fill in all fields',
             BanaStyles: BananaTextStyles.warning,
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
       return;
@@ -61,7 +63,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
                 'Password does not meet requirements',
             BanaStyles: BananaTextStyles.warning,
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
       return;
@@ -74,7 +76,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
             'Passwords do not match',
             BanaStyles: BananaTextStyles.warning,
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
       return;
@@ -98,7 +100,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.blue,
+          backgroundColor: AppColors.info,
         ),
       );
 
@@ -115,7 +117,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -129,10 +131,9 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
           'Reset Password',
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24),
@@ -150,30 +151,30 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
               Icon(
                 Icons.lock_open,
                 size: 60,
-                color: Colors.green,
+                color: AppColors.success,
               ),
-              SizedBox(height: 16),
+              Spacing.gapLG,
               BananaText(
                 'Create New Password',
                 BanaStyles: BananaTextStyles.heading,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 12),
+              Spacing.gapMD,
               Text(
                 'Enter your new password below',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.grey[600],
+                  color: context.textSecondary,
                   fontSize: 16,
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               TextFormField(
                 controller: _passwordController,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: context.containerColor,
                   suffixIcon: GestureDetector(
                     onTap: () {
                       setState(() {
@@ -182,28 +183,28 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
                     },
                     child: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: _obscureText ? Colors.grey : Colors.blue,
+                      color: _obscureText ? context.iconColor : AppColors.info,
                     ),
                   ),
                   prefixIcon: const Icon(Icons.password_outlined),
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: context.dividerColor),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 2),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.primary, width: 2),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   labelText: 'New Password',
                 ),
               ),
-              SizedBox(height: 16),
+              Spacing.gapLG,
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: _obscureText_two,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: context.containerColor,
                   suffixIcon: GestureDetector(
                     onTap: () {
                       setState(() {
@@ -214,31 +215,31 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
                       _obscureText_two
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: _obscureText_two ? Colors.grey : Colors.blue,
+                      color: _obscureText_two ? context.iconColor : AppColors.info,
                     ),
                   ),
                   prefixIcon: const Icon(Icons.password_outlined),
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: context.dividerColor),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 2),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.primary, width: 2),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   labelText: 'Confirm Password',
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _resetPassword,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                     ),
                   ),
                   child: _isLoading

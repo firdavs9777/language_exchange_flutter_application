@@ -2,6 +2,8 @@ import 'package:bananatalk_app/pages/authentication/screens/email_verification.d
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -75,7 +77,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.success,
         ),
       );
 
@@ -88,15 +90,15 @@ class _EmailInputState extends ConsumerState<EmailInput> {
     } else {
       // Handle error - check if it's a registration validation error (wrong endpoint)
       String errorMessage = result['message'] ?? 'Failed to send verification code';
-      
+
       // If the error contains registration validation messages, it means wrong endpoint
-      if (errorMessage.contains('language to learn') || 
+      if (errorMessage.contains('language to learn') ||
           errorMessage.contains('native language') ||
           errorMessage.contains('birth day') ||
           errorMessage.contains('password')) {
         errorMessage = 'Server configuration error. Please contact support.';
       }
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
@@ -104,7 +106,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 4),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -118,10 +120,8 @@ class _EmailInputState extends ConsumerState<EmailInput> {
           'Sign Up',
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        automaticallyImplyLeading: false,
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -140,40 +140,40 @@ class _EmailInputState extends ConsumerState<EmailInput> {
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 12),
+            Spacing.gapMD,
             Text(
               'Enter your email to get started',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             TextField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: context.containerColor,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: context.dividerColor),
+                  borderRadius: AppRadius.borderMD,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueAccent, width: 2),
-                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColors.primary, width: 2),
+                  borderRadius: AppRadius.borderMD,
                 ),
                 hintText: AppLocalizations.of(context)!.emailAddress,
                 prefixIcon: Icon(Icons.email),
               ),
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             SizedBox(
               height: 50,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _sendVerificationCode,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: AppColors.primary,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppRadius.borderMD,
                   ),
                 ),
                 child: _isLoading
@@ -188,13 +188,13 @@ class _EmailInputState extends ConsumerState<EmailInput> {
                       ),
               ),
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Already have an account? ',
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: TextStyle(color: context.textSecondary),
                 ),
                 TextButton(
                   onPressed: () {
@@ -205,7 +205,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
                   child: Text(
                     'Login',
                     style: TextStyle(
-                      color: Colors.blueAccent,
+                      color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

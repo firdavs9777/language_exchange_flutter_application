@@ -8,7 +8,10 @@ import 'package:intl/intl.dart' as intl;
 import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_ja.dart';
 import 'app_localizations_ko.dart';
+import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
 import 'app_localizations_zh.dart';
 
@@ -98,7 +101,10 @@ abstract class AppLocalizations {
     Locale('ar'),
     Locale('en'),
     Locale('es'),
+    Locale('hi'),
+    Locale('ja'),
     Locale('ko'),
+    Locale('pt'),
     Locale('ru'),
     Locale('zh')
   ];
@@ -394,7 +400,7 @@ abstract class AppLocalizations {
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:
-  /// **'Try Again'**
+  /// **'Try again'**
   String get tryAgain;
 
   /// No description provided for @networkError.
@@ -910,7 +916,7 @@ abstract class AppLocalizations {
   /// No description provided for @notificationTypes.
   ///
   /// In en, this message translates to:
-  /// **'Notification Types'**
+  /// **'NOTIFICATION TYPES'**
   String get notificationTypes;
 
   /// No description provided for @chatMessages.
@@ -1576,7 +1582,7 @@ abstract class AppLocalizations {
   /// No description provided for @sent.
   ///
   /// In en, this message translates to:
-  /// **'{emoji} sent!'**
+  /// **'Sent!'**
   String sent(String emoji);
 
   /// No description provided for @replySent.
@@ -1588,7 +1594,7 @@ abstract class AppLocalizations {
   /// No description provided for @deleteStory.
   ///
   /// In en, this message translates to:
-  /// **'Delete Story?'**
+  /// **'Delete story?'**
   String get deleteStory;
 
   /// No description provided for @thisStoryWillBeRemovedPermanently.
@@ -1752,6 +1758,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No active VIP subscription'**
   String get noActiveVIPSubscription;
+
+  /// No description provided for @subscriptionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Expired'**
+  String get subscriptionExpired;
+
+  /// No description provided for @vipExpiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your VIP subscription has expired. Renew now to continue enjoying unlimited features!'**
+  String get vipExpiredMessage;
+
+  /// No description provided for @expiredOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired on'**
+  String get expiredOn;
+
+  /// No description provided for @renewVIP.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew VIP'**
+  String get renewVIP;
+
+  /// No description provided for @whatYoureMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'What you\'re missing'**
+  String get whatYoureMissing;
+
+  /// No description provided for @manageInAppStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage in App Store'**
+  String get manageInAppStore;
+
+  /// No description provided for @becomeVIP.
+  ///
+  /// In en, this message translates to:
+  /// **'Become VIP'**
+  String get becomeVIP;
 
   /// No description provided for @unlimitedMessages.
   ///
@@ -2124,6 +2172,1710 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select native language'**
   String get selectNativeLanguage;
+
+  /// No description provided for @subscriptionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Details'**
+  String get subscriptionDetails;
+
+  /// No description provided for @activeFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Features'**
+  String get activeFeatures;
+
+  /// No description provided for @legalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal Information'**
+  String get legalInformation;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @manageSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get manageSubscription;
+
+  /// No description provided for @manageSubscriptionInSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'To cancel your subscription, go to Settings > [Your Name] > Subscriptions on your device.'**
+  String get manageSubscriptionInSettings;
+
+  /// No description provided for @contactSupportToCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'To cancel your subscription, please contact our support team.'**
+  String get contactSupportToCancel;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'active'**
+  String get active;
+
+  /// No description provided for @plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get plan;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// No description provided for @nextBillingDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Billing Date'**
+  String get nextBillingDate;
+
+  /// No description provided for @autoRenew.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Renew'**
+  String get autoRenew;
+
+  /// No description provided for @pleaseLogInToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Please log in to continue'**
+  String get pleaseLogInToContinue;
+
+  /// No description provided for @purchaseCanceledOrFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase was canceled or failed. Please try again.'**
+  String get purchaseCanceledOrFailed;
+
+  /// No description provided for @maximumTagsAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 5 tags allowed'**
+  String get maximumTagsAllowed;
+
+  /// No description provided for @pleaseRemoveImagesFirstToAddVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please remove images first to add a video'**
+  String get pleaseRemoveImagesFirstToAddVideo;
+
+  /// No description provided for @unsupportedFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported format'**
+  String get unsupportedFormat;
+
+  /// No description provided for @errorProcessingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Error processing video'**
+  String get errorProcessingVideo;
+
+  /// No description provided for @pleaseRemoveImagesFirstToRecordVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please remove images first to record a video'**
+  String get pleaseRemoveImagesFirstToRecordVideo;
+
+  /// No description provided for @locationAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Location added'**
+  String get locationAdded;
+
+  /// No description provided for @failedToGetLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get location'**
+  String get failedToGetLocation;
+
+  /// No description provided for @notNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Now'**
+  String get notNow;
+
+  /// No description provided for @videoUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Upload Failed'**
+  String get videoUploadFailed;
+
+  /// No description provided for @skipVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Video'**
+  String get skipVideo;
+
+  /// No description provided for @retryUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry Upload'**
+  String get retryUpload;
+
+  /// No description provided for @momentCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment created successfully'**
+  String get momentCreatedSuccessfully;
+
+  /// No description provided for @uploadingMomentInBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading moment in background...'**
+  String get uploadingMomentInBackground;
+
+  /// No description provided for @failedToQueueUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to queue upload'**
+  String get failedToQueueUpload;
+
+  /// No description provided for @viewProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'View Profile'**
+  String get viewProfile;
+
+  /// No description provided for @mediaLinksAndDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'Media, links, and docs'**
+  String get mediaLinksAndDocs;
+
+  /// No description provided for @wallpaper.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper'**
+  String get wallpaper;
+
+  /// No description provided for @userIdNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'User ID not available'**
+  String get userIdNotAvailable;
+
+  /// No description provided for @cannotBlockYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot block yourself'**
+  String get cannotBlockYourself;
+
+  /// No description provided for @chatWallpaper.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat Wallpaper'**
+  String get chatWallpaper;
+
+  /// No description provided for @wallpaperSavedLocally.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper saved locally'**
+  String get wallpaperSavedLocally;
+
+  /// No description provided for @messageCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Message copied'**
+  String get messageCopied;
+
+  /// No description provided for @forwardFeatureComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Forward feature coming soon'**
+  String get forwardFeatureComingSoon;
+
+  /// No description provided for @momentUnsaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment unsaved'**
+  String get momentUnsaved;
+
+  /// No description provided for @documentPickerComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Document picker coming soon'**
+  String get documentPickerComingSoon;
+
+  /// No description provided for @contactSharingComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact sharing coming soon'**
+  String get contactSharingComingSoon;
+
+  /// No description provided for @featureComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature coming soon'**
+  String get featureComingSoon;
+
+  /// No description provided for @answerSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer sent!'**
+  String get answerSent;
+
+  /// No description provided for @noImagesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No images available'**
+  String get noImagesAvailable;
+
+  /// No description provided for @mentionPickerComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mention picker coming soon'**
+  String get mentionPickerComingSoon;
+
+  /// No description provided for @musicPickerComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Music picker coming soon'**
+  String get musicPickerComingSoon;
+
+  /// No description provided for @repostFeatureComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Repost feature coming soon'**
+  String get repostFeatureComingSoon;
+
+  /// No description provided for @addFriendsFromYourProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add friends from your profile'**
+  String get addFriendsFromYourProfile;
+
+  /// No description provided for @quickReplyAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick reply added'**
+  String get quickReplyAdded;
+
+  /// No description provided for @quickReplyDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick reply deleted'**
+  String get quickReplyDeleted;
+
+  /// No description provided for @linkCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied!'**
+  String get linkCopied;
+
+  /// No description provided for @maximumOptionsAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 10 options allowed'**
+  String get maximumOptionsAllowed;
+
+  /// No description provided for @minimumOptionsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum 2 options required'**
+  String get minimumOptionsRequired;
+
+  /// No description provided for @pleaseEnterAQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a question'**
+  String get pleaseEnterAQuestion;
+
+  /// No description provided for @pleaseAddAtLeast2Options.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add at least 2 options'**
+  String get pleaseAddAtLeast2Options;
+
+  /// No description provided for @pleaseSelectCorrectAnswerForQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the correct answer for quiz'**
+  String get pleaseSelectCorrectAnswerForQuiz;
+
+  /// No description provided for @correctionSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction sent!'**
+  String get correctionSent;
+
+  /// No description provided for @sort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get sort;
+
+  /// No description provided for @savedMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Moments'**
+  String get savedMoments;
+
+  /// No description provided for @unsave.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsave'**
+  String get unsave;
+
+  /// No description provided for @playingAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing audio...'**
+  String get playingAudio;
+
+  /// No description provided for @failedToGenerateQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate quiz'**
+  String get failedToGenerateQuiz;
+
+  /// No description provided for @failedToAddComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to add comment'**
+  String get failedToAddComment;
+
+  /// No description provided for @hello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello!'**
+  String get hello;
+
+  /// No description provided for @howAreYou.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you?'**
+  String get howAreYou;
+
+  /// No description provided for @cannotOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot open'**
+  String get cannotOpen;
+
+  /// No description provided for @errorOpeningLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Error opening link'**
+  String get errorOpeningLink;
+
+  /// No description provided for @saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get saved;
+
+  /// No description provided for @follow.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow'**
+  String get follow;
+
+  /// No description provided for @unfollow.
+  ///
+  /// In en, this message translates to:
+  /// **'Unfollow'**
+  String get unfollow;
+
+  /// No description provided for @mute.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get mute;
+
+  /// No description provided for @online.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get online;
+
+  /// No description provided for @offline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get offline;
+
+  /// No description provided for @lastSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last seen'**
+  String get lastSeen;
+
+  /// No description provided for @justNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get justNow;
+
+  /// No description provided for @minutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} minutes ago'**
+  String minutesAgo(String count);
+
+  /// No description provided for @hoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} hours ago'**
+  String hoursAgo(String count);
+
+  /// No description provided for @yesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
+
+  /// No description provided for @signInWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Email'**
+  String get signInWithEmail;
+
+  /// No description provided for @partners.
+  ///
+  /// In en, this message translates to:
+  /// **'Partners'**
+  String get partners;
+
+  /// No description provided for @nearby.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby'**
+  String get nearby;
+
+  /// No description provided for @topics.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics'**
+  String get topics;
+
+  /// No description provided for @waves.
+  ///
+  /// In en, this message translates to:
+  /// **'Waves'**
+  String get waves;
+
+  /// No description provided for @voiceRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get voiceRooms;
+
+  /// No description provided for @filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filters;
+
+  /// No description provided for @searchCommunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name, language, or interests...'**
+  String get searchCommunity;
+
+  /// No description provided for @bio.
+  ///
+  /// In en, this message translates to:
+  /// **'Bio'**
+  String get bio;
+
+  /// No description provided for @noBioYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No bio available yet.'**
+  String get noBioYet;
+
+  /// No description provided for @languages.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get languages;
+
+  /// No description provided for @native.
+  ///
+  /// In en, this message translates to:
+  /// **'Native'**
+  String get native;
+
+  /// No description provided for @interests.
+  ///
+  /// In en, this message translates to:
+  /// **'Interests'**
+  String get interests;
+
+  /// No description provided for @noMomentsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No moments yet'**
+  String get noMomentsYet;
+
+  /// No description provided for @unableToLoadMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load moments'**
+  String get unableToLoadMoments;
+
+  /// No description provided for @map.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// No description provided for @mapUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Map unavailable'**
+  String get mapUnavailable;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @unknownLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown location'**
+  String get unknownLocation;
+
+  /// No description provided for @noImagesAvailable2.
+  ///
+  /// In en, this message translates to:
+  /// **'No images available'**
+  String get noImagesAvailable2;
+
+  /// No description provided for @permissionsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions Required'**
+  String get permissionsRequired;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get openSettings;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @videoCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get videoCall;
+
+  /// No description provided for @voiceCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get voiceCall;
+
+  /// No description provided for @message.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get message;
+
+  /// No description provided for @pleaseLoginToFollow.
+  ///
+  /// In en, this message translates to:
+  /// **'Please login to follow users'**
+  String get pleaseLoginToFollow;
+
+  /// No description provided for @pleaseLoginToCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Please login to make a call'**
+  String get pleaseLoginToCall;
+
+  /// No description provided for @cannotCallYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot call yourself'**
+  String get cannotCallYourself;
+
+  /// No description provided for @failedToFollowUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to follow user'**
+  String get failedToFollowUser;
+
+  /// No description provided for @failedToUnfollowUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to unfollow user'**
+  String get failedToUnfollowUser;
+
+  /// No description provided for @areYouSureUnfollow.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to unfollow this user?'**
+  String get areYouSureUnfollow;
+
+  /// No description provided for @areYouSureUnblock.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to unblock this user?'**
+  String get areYouSureUnblock;
+
+  /// No description provided for @youFollowed.
+  ///
+  /// In en, this message translates to:
+  /// **'You followed'**
+  String get youFollowed;
+
+  /// No description provided for @youUnfollowed.
+  ///
+  /// In en, this message translates to:
+  /// **'You unfollowed'**
+  String get youUnfollowed;
+
+  /// No description provided for @alreadyFollowing.
+  ///
+  /// In en, this message translates to:
+  /// **'You are already following'**
+  String get alreadyFollowing;
+
+  /// No description provided for @soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Soon'**
+  String get soon;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'{feature} is coming soon!'**
+  String comingSoon(String feature);
+
+  /// No description provided for @muteNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute notifications'**
+  String get muteNotifications;
+
+  /// No description provided for @unmuteNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute notifications'**
+  String get unmuteNotifications;
+
+  /// No description provided for @operationCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation completed'**
+  String get operationCompleted;
+
+  /// No description provided for @couldNotOpenMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open maps'**
+  String get couldNotOpenMaps;
+
+  /// No description provided for @hasntSharedMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} hasn\'t shared any moments'**
+  String hasntSharedMoments(Object name);
+
+  /// No description provided for @messageUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Message {name}'**
+  String messageUser(String name);
+
+  /// No description provided for @notFollowingUser.
+  ///
+  /// In en, this message translates to:
+  /// **'You were not following {name}'**
+  String notFollowingUser(String name);
+
+  /// No description provided for @youFollowedUser.
+  ///
+  /// In en, this message translates to:
+  /// **'You followed {name}'**
+  String youFollowedUser(String name);
+
+  /// No description provided for @youUnfollowedUser.
+  ///
+  /// In en, this message translates to:
+  /// **'You unfollowed {name}'**
+  String youUnfollowedUser(String name);
+
+  /// No description provided for @unfollowUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Unfollow {name}'**
+  String unfollowUser(String name);
+
+  /// No description provided for @typing.
+  ///
+  /// In en, this message translates to:
+  /// **'typing'**
+  String get typing;
+
+  /// No description provided for @connecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting...'**
+  String get connecting;
+
+  /// No description provided for @daysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}d ago'**
+  String daysAgo(int count);
+
+  /// No description provided for @maxTagsAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 5 tags allowed'**
+  String get maxTagsAllowed;
+
+  /// No description provided for @maxImagesAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum {count} images allowed'**
+  String maxImagesAllowed(int count);
+
+  /// No description provided for @pleaseRemoveImagesFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please remove images first to add a video'**
+  String get pleaseRemoveImagesFirst;
+
+  /// No description provided for @exchange3MessagesBeforeCall.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to exchange at least 3 messages before you can call this user'**
+  String get exchange3MessagesBeforeCall;
+
+  /// No description provided for @mediaWithUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Media with {name}'**
+  String mediaWithUser(String name);
+
+  /// No description provided for @errorLoadingMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading media'**
+  String get errorLoadingMedia;
+
+  /// No description provided for @savedMomentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Moments'**
+  String get savedMomentsTitle;
+
+  /// No description provided for @removeBookmark.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove bookmark?'**
+  String get removeBookmark;
+
+  /// No description provided for @thisWillRemoveBookmark.
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove the message from your bookmarks.'**
+  String get thisWillRemoveBookmark;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @bookmarkRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark removed'**
+  String get bookmarkRemoved;
+
+  /// No description provided for @bookmarkedMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarked Messages'**
+  String get bookmarkedMessages;
+
+  /// No description provided for @wallpaperSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper saved locally'**
+  String get wallpaperSaved;
+
+  /// No description provided for @typeDeleteToConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Type DELETE to confirm'**
+  String get typeDeleteToConfirm;
+
+  /// No description provided for @storyArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Story Archive'**
+  String get storyArchive;
+
+  /// No description provided for @newHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'New Highlight'**
+  String get newHighlight;
+
+  /// No description provided for @addToHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Highlight'**
+  String get addToHighlight;
+
+  /// No description provided for @repost.
+  ///
+  /// In en, this message translates to:
+  /// **'Repost'**
+  String get repost;
+
+  /// No description provided for @repostFeatureSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Repost feature coming soon'**
+  String get repostFeatureSoon;
+
+  /// No description provided for @closeFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Friends'**
+  String get closeFriends;
+
+  /// No description provided for @addFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Friends'**
+  String get addFriends;
+
+  /// No description provided for @highlights.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights'**
+  String get highlights;
+
+  /// No description provided for @createHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Highlight'**
+  String get createHighlight;
+
+  /// No description provided for @deleteHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Highlight?'**
+  String get deleteHighlight;
+
+  /// No description provided for @editHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Highlight'**
+  String get editHighlight;
+
+  /// No description provided for @addMoreToStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Add more to story'**
+  String get addMoreToStory;
+
+  /// No description provided for @noViewersYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No viewers yet'**
+  String get noViewersYet;
+
+  /// No description provided for @noReactionsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reactions yet'**
+  String get noReactionsYet;
+
+  /// No description provided for @leaveRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Room?'**
+  String get leaveRoom;
+
+  /// No description provided for @areYouSureLeaveRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to leave this voice room?'**
+  String get areYouSureLeaveRoom;
+
+  /// No description provided for @stay.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay'**
+  String get stay;
+
+  /// No description provided for @leave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get leave;
+
+  /// No description provided for @enableGPS.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable GPS'**
+  String get enableGPS;
+
+  /// No description provided for @wavedToUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Waved to {name}!'**
+  String wavedToUser(String name);
+
+  /// No description provided for @areYouSureFollow.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to follow'**
+  String get areYouSureFollow;
+
+  /// No description provided for @failedToLoadProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load profile'**
+  String get failedToLoadProfile;
+
+  /// No description provided for @noFollowersYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No followers yet'**
+  String get noFollowersYet;
+
+  /// No description provided for @noFollowingYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not following anyone yet'**
+  String get noFollowingYet;
+
+  /// No description provided for @searchUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search users...'**
+  String get searchUsers;
+
+  /// No description provided for @noResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResultsFound;
+
+  /// No description provided for @loadingFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading failed'**
+  String get loadingFailed;
+
+  /// No description provided for @copyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy link'**
+  String get copyLink;
+
+  /// No description provided for @shareStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Share story'**
+  String get shareStory;
+
+  /// No description provided for @thisWillDeleteStory.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete this story.'**
+  String get thisWillDeleteStory;
+
+  /// No description provided for @storyDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Story deleted'**
+  String get storyDeleted;
+
+  /// No description provided for @addCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a caption...'**
+  String get addCaption;
+
+  /// No description provided for @yourStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Story'**
+  String get yourStory;
+
+  /// No description provided for @sendMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send message'**
+  String get sendMessage;
+
+  /// No description provided for @replyToStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply to story...'**
+  String get replyToStory;
+
+  /// No description provided for @viewAllReplies.
+  ///
+  /// In en, this message translates to:
+  /// **'View all replies'**
+  String get viewAllReplies;
+
+  /// No description provided for @preparingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing video...'**
+  String get preparingVideo;
+
+  /// No description provided for @videoOptimized.
+  ///
+  /// In en, this message translates to:
+  /// **'Video optimized: {size}MB (saved {savings}%)'**
+  String videoOptimized(String size, String savings);
+
+  /// No description provided for @failedToProcessVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to process video'**
+  String get failedToProcessVideo;
+
+  /// No description provided for @optimizingForBestExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimizing for the best story experience'**
+  String get optimizingForBestExperience;
+
+  /// No description provided for @pleaseSelectImageOrVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an image or video for your story'**
+  String get pleaseSelectImageOrVideo;
+
+  /// No description provided for @storyCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Story created successfully!'**
+  String get storyCreatedSuccessfully;
+
+  /// No description provided for @uploadingStoryInBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading story in background...'**
+  String get uploadingStoryInBackground;
+
+  /// No description provided for @storyCreationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Story Creation Failed'**
+  String get storyCreationFailed;
+
+  /// No description provided for @pleaseCheckConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your connection and try again.'**
+  String get pleaseCheckConnection;
+
+  /// No description provided for @uploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Failed'**
+  String get uploadFailed;
+
+  /// No description provided for @tryShorterVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Try using a shorter video or try again later.'**
+  String get tryShorterVideo;
+
+  /// No description provided for @shareMomentsThatDisappear.
+  ///
+  /// In en, this message translates to:
+  /// **'Share moments that disappear in 24 hours'**
+  String get shareMomentsThatDisappear;
+
+  /// No description provided for @photo.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get photo;
+
+  /// No description provided for @record.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get record;
+
+  /// No description provided for @addSticker.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Sticker'**
+  String get addSticker;
+
+  /// No description provided for @poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Poll'**
+  String get poll;
+
+  /// No description provided for @question.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get question;
+
+  /// No description provided for @mention.
+  ///
+  /// In en, this message translates to:
+  /// **'Mention'**
+  String get mention;
+
+  /// No description provided for @music.
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get music;
+
+  /// No description provided for @hashtag.
+  ///
+  /// In en, this message translates to:
+  /// **'Hashtag'**
+  String get hashtag;
+
+  /// No description provided for @whoCanSeeThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Who can see this?'**
+  String get whoCanSeeThis;
+
+  /// No description provided for @everyone.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone'**
+  String get everyone;
+
+  /// No description provided for @anyoneCanSeeStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone can see this story'**
+  String get anyoneCanSeeStory;
+
+  /// No description provided for @friendsOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends Only'**
+  String get friendsOnly;
+
+  /// No description provided for @onlyFollowersCanSee.
+  ///
+  /// In en, this message translates to:
+  /// **'Only your followers can see'**
+  String get onlyFollowersCanSee;
+
+  /// No description provided for @onlyCloseFriendsCanSee.
+  ///
+  /// In en, this message translates to:
+  /// **'Only your close friends can see'**
+  String get onlyCloseFriendsCanSee;
+
+  /// No description provided for @backgroundColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Background Color'**
+  String get backgroundColor;
+
+  /// No description provided for @fontStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Style'**
+  String get fontStyle;
+
+  /// No description provided for @normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get normal;
+
+  /// No description provided for @bold.
+  ///
+  /// In en, this message translates to:
+  /// **'Bold'**
+  String get bold;
+
+  /// No description provided for @italic.
+  ///
+  /// In en, this message translates to:
+  /// **'Italic'**
+  String get italic;
+
+  /// No description provided for @handwriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Handwriting'**
+  String get handwriting;
+
+  /// No description provided for @addLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Location'**
+  String get addLocation;
+
+  /// No description provided for @enterLocationName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter location name'**
+  String get enterLocationName;
+
+  /// No description provided for @addLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Link'**
+  String get addLink;
+
+  /// No description provided for @buttonText.
+  ///
+  /// In en, this message translates to:
+  /// **'Button text'**
+  String get buttonText;
+
+  /// No description provided for @learnMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn More'**
+  String get learnMore;
+
+  /// No description provided for @addHashtags.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Hashtags'**
+  String get addHashtags;
+
+  /// No description provided for @addHashtag.
+  ///
+  /// In en, this message translates to:
+  /// **'Add hashtag'**
+  String get addHashtag;
+
+  /// No description provided for @sendAsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send as Message'**
+  String get sendAsMessage;
+
+  /// No description provided for @shareExternally.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Externally'**
+  String get shareExternally;
+
+  /// No description provided for @checkOutStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out this story on BananaTalk!'**
+  String get checkOutStory;
+
+  /// No description provided for @viewsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Views ({count})'**
+  String viewsTab(String count);
+
+  /// No description provided for @reactionsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactions ({count})'**
+  String reactionsTab(String count);
+
+  /// No description provided for @processingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing video...'**
+  String get processingVideo;
+
+  /// No description provided for @link.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get link;
+
+  /// No description provided for @unmuteUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute {name}?'**
+  String unmuteUser(String name);
+
+  /// No description provided for @willReceiveNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'You will receive notifications for new messages.'**
+  String get willReceiveNotifications;
+
+  /// No description provided for @muteNotificationsFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute notifications for {name}'**
+  String muteNotificationsFor(String name);
+
+  /// No description provided for @notificationsUnmutedFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications unmuted for {name}'**
+  String notificationsUnmutedFor(String name);
+
+  /// No description provided for @notificationsMutedFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications muted for {name}'**
+  String notificationsMutedFor(String name);
+
+  /// No description provided for @failedToUpdateMuteSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update mute settings'**
+  String get failedToUpdateMuteSettings;
+
+  /// No description provided for @oneHour.
+  ///
+  /// In en, this message translates to:
+  /// **'1 hour'**
+  String get oneHour;
+
+  /// No description provided for @eightHours.
+  ///
+  /// In en, this message translates to:
+  /// **'8 hours'**
+  String get eightHours;
+
+  /// No description provided for @oneWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'1 week'**
+  String get oneWeek;
+
+  /// No description provided for @always.
+  ///
+  /// In en, this message translates to:
+  /// **'Always'**
+  String get always;
+
+  /// No description provided for @failedToLoadBookmarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load bookmarks'**
+  String get failedToLoadBookmarks;
+
+  /// No description provided for @noBookmarkedMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'No bookmarked messages'**
+  String get noBookmarkedMessages;
+
+  /// No description provided for @longPressToBookmark.
+  ///
+  /// In en, this message translates to:
+  /// **'Long press on a message to bookmark it'**
+  String get longPressToBookmark;
+
+  /// No description provided for @thisWillRemoveFromBookmarks.
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove the message from your bookmarks.'**
+  String get thisWillRemoveFromBookmarks;
+
+  /// No description provided for @navigateToMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigate to message in chat with {name}'**
+  String navigateToMessage(String name);
+
+  /// No description provided for @bookmarkedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarked {date}'**
+  String bookmarkedOn(String date);
+
+  /// No description provided for @voiceMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice message'**
+  String get voiceMessage;
+
+  /// No description provided for @document.
+  ///
+  /// In en, this message translates to:
+  /// **'Document'**
+  String get document;
+
+  /// No description provided for @attachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment'**
+  String get attachment;
+
+  /// No description provided for @sendMeAMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send me a message'**
+  String get sendMeAMessage;
+
+  /// No description provided for @shareWithFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Share with friends'**
+  String get shareWithFriends;
+
+  /// No description provided for @shareAnywhere.
+  ///
+  /// In en, this message translates to:
+  /// **'Share anywhere'**
+  String get shareAnywhere;
+
+  /// No description provided for @emailPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Preferences'**
+  String get emailPreferences;
+
+  /// No description provided for @receiveEmailNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive email notifications from BananaTalk'**
+  String get receiveEmailNotifications;
+
+  /// No description provided for @whenAwayFor24Hours.
+  ///
+  /// In en, this message translates to:
+  /// **'When you\'re away for 24+ hours'**
+  String get whenAwayFor24Hours;
+
+  /// No description provided for @passwordAndLoginAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Password & login alerts'**
+  String get passwordAndLoginAlerts;
+
+  /// No description provided for @failedToLoadPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load preferences'**
+  String get failedToLoadPreferences;
+
+  /// No description provided for @failedToUpdateSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update setting'**
+  String get failedToUpdateSetting;
+
+  /// No description provided for @securityAlertsRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'We recommend keeping Security Alerts enabled to stay informed about important account activity.'**
+  String get securityAlertsRecommended;
+
+  /// No description provided for @chatWallpaperFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat wallpaper for {name}'**
+  String chatWallpaperFor(String name);
+
+  /// No description provided for @solidColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Solid Colors'**
+  String get solidColors;
+
+  /// No description provided for @gradients.
+  ///
+  /// In en, this message translates to:
+  /// **'Gradients'**
+  String get gradients;
+
+  /// No description provided for @customImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Image'**
+  String get customImage;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get chooseFromGallery;
+
+  /// No description provided for @preview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get preview;
+
+  /// No description provided for @wallpaperUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper updated'**
+  String get wallpaperUpdated;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @mood.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood'**
+  String get mood;
+
+  /// No description provided for @sortBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get sortBy;
+
+  /// No description provided for @timePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Period'**
+  String get timePeriod;
+
+  /// No description provided for @searchLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Search languages...'**
+  String get searchLanguages;
+
+  /// No description provided for @selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get selected;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @moods.
+  ///
+  /// In en, this message translates to:
+  /// **'Moods'**
+  String get moods;
+
+  /// No description provided for @applyFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get applyFilters;
+
+  /// No description provided for @applyNFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply {count} Filters'**
+  String applyNFilters(int count);
+
+  /// No description provided for @videoMustBeUnder1GB.
+  ///
+  /// In en, this message translates to:
+  /// **'Video must be under 1GB.'**
+  String get videoMustBeUnder1GB;
+
+  /// No description provided for @failedToRecordVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to record video'**
+  String get failedToRecordVideo;
+
+  /// No description provided for @errorSendingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sending video'**
+  String get errorSendingVideo;
+
+  /// No description provided for @errorSendingVoiceMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sending voice message'**
+  String get errorSendingVoiceMessage;
+
+  /// No description provided for @errorSendingMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sending media'**
+  String get errorSendingMedia;
+
+  /// No description provided for @cameraPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera and microphone permissions are required to record videos.'**
+  String get cameraPermissionRequired;
+
+  /// No description provided for @locationPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is required to share your location.'**
+  String get locationPermissionRequired;
+
+  /// No description provided for @noInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get noInternetConnection;
+
+  /// No description provided for @tryAgainLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again later'**
+  String get tryAgainLater;
+
+  /// No description provided for @messageSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Message sent'**
+  String get messageSent;
+
+  /// No description provided for @messageDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Message deleted'**
+  String get messageDeleted;
+
+  /// No description provided for @messageEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'Message edited'**
+  String get messageEdited;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -2135,7 +3887,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en', 'es', 'ko', 'ru', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en', 'es', 'hi', 'ja', 'ko', 'pt', 'ru', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2149,7 +3901,10 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
     case 'ar': return AppLocalizationsAr();
     case 'en': return AppLocalizationsEn();
     case 'es': return AppLocalizationsEs();
+    case 'hi': return AppLocalizationsHi();
+    case 'ja': return AppLocalizationsJa();
     case 'ko': return AppLocalizationsKo();
+    case 'pt': return AppLocalizationsPt();
     case 'ru': return AppLocalizationsRu();
     case 'zh': return AppLocalizationsZh();
   }

@@ -3,6 +3,9 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/bookmark_service.dart';
 import 'package:intl/intl.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
@@ -132,8 +135,8 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Bookmark removed'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.bookmarkRemoved),
             ),
           );
         }
@@ -170,9 +173,10 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bookmarked Messages'),
+        title: Text(l10n.bookmarkedMessages),
         actions: [
           if (_bookmarks.isNotEmpty)
             IconButton(
@@ -186,6 +190,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   }
 
   Widget _buildBody() {
+    final l10n = AppLocalizations.of(context)!;
     if (_isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -198,16 +203,16 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             Text(
               _error!,
               style: TextStyle(color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             ElevatedButton(
               onPressed: _loadBookmarks,
-              child: const Text('Retry'),
+              child: Text(l10n.retry),
             ),
           ],
         ),
@@ -220,17 +225,17 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.bookmark_border, size: 64, color: Colors.grey[300]),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             Text(
-              'No bookmarked messages',
+              l10n.noBookmarkedMessages,
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.grey[600],
               ),
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
-              'Long press on a message to bookmark it',
+              l10n.longPressToBookmark,
               style: TextStyle(
                 color: Colors.grey[400],
               ),
@@ -277,19 +282,20 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         child: const Icon(Icons.delete, color: Colors.white),
       ),
       confirmDismiss: (direction) async {
+        final l10n = AppLocalizations.of(context)!;
         return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Remove bookmark?'),
-            content: const Text('This will remove the message from your bookmarks.'),
+            title: Text(l10n.removeBookmark),
+            content: Text(l10n.thisWillRemoveFromBookmarks),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel'),
+                child: Text(l10n.cancel),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text('Remove'),
+                child: Text(l10n.remove),
               ),
             ],
           ),
@@ -336,7 +342,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                             )
                           : null,
                     ),
-                    const SizedBox(width: 12),
+                    Spacing.hGapMD,
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,14 +370,14 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                Spacing.gapMD,
                 
                 // Message content
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,7 +391,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                               size: 16,
                               color: Colors.grey[600],
                             ),
-                            const SizedBox(width: 4),
+                            Spacing.hGapXS,
                             Text(
                               _getMediaLabel(message.media!.type),
                               style: TextStyle(
@@ -410,7 +416,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 ),
                 
                 // Bookmarked date
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 Text(
                   'Bookmarked ${_formatDate(bookmark.bookmarkedAt)}',
                   style: TextStyle(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -74,13 +75,13 @@ class ReportService {
       final body = json.encode(requestBody);
       
       // Debug logging
-      print('📋 Creating report:');
-      print('   Type: $type');
-      print('   Report ID: $reportId');
-      print('   Reported User: $reportedUser');
-      print('   Reason: $reason');
-      print('   Description: ${description ?? 'none'}');
-      print('   URL: ${Endpoints.baseURL}reports');
+      debugPrint('📋 Creating report:');
+      debugPrint('   Type: $type');
+      debugPrint('   Report ID: $reportId');
+      debugPrint('   Reported User: $reportedUser');
+      debugPrint('   Reason: $reason');
+      debugPrint('   Description: ${description ?? 'none'}');
+      debugPrint('   URL: ${Endpoints.baseURL}reports');
 
       final response = await http.post(
         Uri.parse('${Endpoints.baseURL}reports'),
@@ -88,8 +89,8 @@ class ReportService {
         body: body,
       );
       
-      print('📥 Response status: ${response.statusCode}');
-      print('📥 Response body: ${response.body}');
+      debugPrint('📥 Response status: ${response.statusCode}');
+      debugPrint('📥 Response body: ${response.body}');
 
       final responseData = json.decode(response.body);
 

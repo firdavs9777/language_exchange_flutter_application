@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 
 /// Defines the supported date filter options.
 enum DateFilterType { allTime, today, thisWeek, thisMonth }
@@ -74,24 +74,69 @@ class MomentFilter {
 }
 
 class FilterOptions {
-  static const List<Map<String, String>> languages = [
-    {'code': 'en', 'name': 'English', 'flag': '🇺🇸'},
-    {'code': 'ko', 'name': 'Korean', 'flag': '🇰🇷'},
-    {'code': 'ja', 'name': 'Japanese', 'flag': '🇯🇵'},
-    {'code': 'zh', 'name': 'Chinese', 'flag': '🇨🇳'},
-    {'code': 'es', 'name': 'Spanish', 'flag': '🇪🇸'},
-    {'code': 'fr', 'name': 'French', 'flag': '🇫🇷'},
-    {'code': 'de', 'name': 'German', 'flag': '🇩🇪'},
-    {'code': 'it', 'name': 'Italian', 'flag': '🇮🇹'},
-    {'code': 'pt', 'name': 'Portuguese', 'flag': '🇵🇹'},
-    {'code': 'ru', 'name': 'Russian', 'flag': '🇷🇺'},
-    {'code': 'ar', 'name': 'Arabic', 'flag': '🇸🇦'},
-    {'code': 'hi', 'name': 'Hindi', 'flag': '🇮🇳'},
-    {'code': 'th', 'name': 'Thai', 'flag': '🇹🇭'},
-    {'code': 'vi', 'name': 'Vietnamese', 'flag': '🇻🇳'},
-    {'code': 'nl', 'name': 'Dutch', 'flag': '🇳🇱'},
-    {'code': 'sv', 'name': 'Swedish', 'flag': '🇸🇪'},
+  // Popular languages (shown first in filter)
+  static const List<Map<String, String>> popularLanguages = [
+    {'code': 'en', 'name': 'English'},
+    {'code': 'ko', 'name': 'Korean'},
+    {'code': 'ja', 'name': 'Japanese'},
+    {'code': 'zh', 'name': 'Chinese'},
+    {'code': 'es', 'name': 'Spanish'},
+    {'code': 'fr', 'name': 'French'},
+    {'code': 'de', 'name': 'German'},
+    {'code': 'it', 'name': 'Italian'},
+    {'code': 'pt', 'name': 'Portuguese'},
+    {'code': 'ru', 'name': 'Russian'},
   ];
+
+  // All supported languages (comprehensive list)
+  static const List<Map<String, String>> allLanguages = [
+    // Popular languages first
+    {'code': 'en', 'name': 'English'},
+    {'code': 'ko', 'name': 'Korean'},
+    {'code': 'ja', 'name': 'Japanese'},
+    {'code': 'zh', 'name': 'Chinese'},
+    {'code': 'es', 'name': 'Spanish'},
+    {'code': 'fr', 'name': 'French'},
+    {'code': 'de', 'name': 'German'},
+    {'code': 'it', 'name': 'Italian'},
+    {'code': 'pt', 'name': 'Portuguese'},
+    {'code': 'ru', 'name': 'Russian'},
+    // Additional languages (alphabetically)
+    {'code': 'ar', 'name': 'Arabic'},
+    {'code': 'bn', 'name': 'Bengali'},
+    {'code': 'cs', 'name': 'Czech'},
+    {'code': 'da', 'name': 'Danish'},
+    {'code': 'nl', 'name': 'Dutch'},
+    {'code': 'fi', 'name': 'Finnish'},
+    {'code': 'el', 'name': 'Greek'},
+    {'code': 'he', 'name': 'Hebrew'},
+    {'code': 'hi', 'name': 'Hindi'},
+    {'code': 'hu', 'name': 'Hungarian'},
+    {'code': 'id', 'name': 'Indonesian'},
+    {'code': 'ms', 'name': 'Malay'},
+    {'code': 'no', 'name': 'Norwegian'},
+    {'code': 'fa', 'name': 'Persian'},
+    {'code': 'pl', 'name': 'Polish'},
+    {'code': 'ro', 'name': 'Romanian'},
+    {'code': 'sv', 'name': 'Swedish'},
+    {'code': 'th', 'name': 'Thai'},
+    {'code': 'tr', 'name': 'Turkish'},
+    {'code': 'uk', 'name': 'Ukrainian'},
+    {'code': 'ur', 'name': 'Urdu'},
+    {'code': 'vi', 'name': 'Vietnamese'},
+  ];
+
+  // Get flag for a language code using LanguageFlags utility
+  static String getFlag(String code) => LanguageFlags.getFlag(code);
+
+  // Legacy getter for backward compatibility
+  static List<Map<String, String>> get languages => allLanguages.map((lang) {
+        return {
+          'code': lang['code']!,
+          'name': lang['name']!,
+          'flag': LanguageFlags.getFlag(lang['code']!),
+        };
+      }).toList();
 
   static const List<String> categories = [
     'language-learning',

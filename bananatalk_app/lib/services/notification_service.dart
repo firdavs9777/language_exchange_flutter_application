@@ -61,6 +61,15 @@ class NotificationService {
         // Initialize local notifications
         await _initializeLocalNotifications();
 
+        // IMPORTANT: Disable Firebase auto-display for foreground messages
+        // We handle foreground notifications manually to filter out chat messages
+        await _fcm!.setForegroundNotificationPresentationOptions(
+          alert: false,  // Don't auto-show banner (we show via local notifications)
+          badge: true,   // Allow badge updates
+          sound: false,  // Don't auto-play sound (we play via local notifications)
+        );
+        debugPrint('🔔 Foreground presentation: alert=false (manual handling)');
+
         // Get FCM token
         await _getFCMToken();
 
@@ -118,13 +127,20 @@ class NotificationService {
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
     );
-    const iosSettings = DarwinInitializationSettings(
+
+    // iOS settings with foreground notification presentation
+    final iosSettings = DarwinInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
+      // Enable foreground notification presentation
+      notificationCategories: [],
+      onDidReceiveLocalNotification: (id, title, body, payload) {
+        debugPrint('🔔 iOS foreground local notification: $title');
+      },
     );
 
-    const initSettings = InitializationSettings(
+    final initSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
     );
@@ -226,14 +242,42 @@ class NotificationService {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationOpenedApp);
   }
 
+  // Track processed message IDs to prevent duplicates
+  final Set<String> _processedMessageIds = {};
+
   /// Handle foreground messages (app is open)
   Future<void> _handleForegroundMessage(RemoteMessage message) async {
-    debugPrint('🔔 Foreground message received: ${message.messageId}');
-    debugPrint('📨 Title: ${message.notification?.title}');
-    debugPrint('📨 Body: ${message.notification?.body}');
-    debugPrint('📨 Data: ${message.data}');
+    final messageId = message.messageId ?? '${message.hashCode}';
 
-    // Show local notification
+    debugPrint('🔔 ====== FOREGROUND MESSAGE ======');
+    debugPrint('🔔 Message ID: $messageId');
+    debugPrint('🔔 Title: ${message.notification?.title}');
+    debugPrint('🔔 Body: ${message.notification?.body}');
+    debugPrint('🔔 Data: ${message.data}');
+    debugPrint('🔔 Already processed: ${_processedMessageIds.contains(messageId)}');
+
+    // Prevent duplicate processing
+    if (_processedMessageIds.contains(messageId)) {
+      debugPrint('🔔 ⚠️ DUPLICATE - Skipping already processed message');
+      return;
+    }
+    _processedMessageIds.add(messageId);
+
+    // Clean up old message IDs (keep last 100)
+    if (_processedMessageIds.length > 100) {
+      _processedMessageIds.remove(_processedMessageIds.first);
+    }
+
+    // Don't show local notification for chat messages when app is in foreground
+    // The socket already handles real-time message delivery
+    final notificationType = message.data['type']?.toString().toLowerCase();
+    if (notificationType == 'chat_message') {
+      debugPrint('🔔 Skipping local notification for chat_message (handled by socket)');
+      return;
+    }
+
+    debugPrint('🔔 ✅ Showing local notification for type: $notificationType');
+    // Show local notification for other notification types
     await _showLocalNotification(message);
   }
 
@@ -271,6 +315,7 @@ class NotificationService {
 
   /// Show local notification for foreground messages
   Future<void> _showLocalNotification(RemoteMessage message) async {
+    debugPrint('🔔 📣 _showLocalNotification called for: ${message.messageId}');
     try {
       const androidDetails = AndroidNotificationDetails(
         'high_importance_channel',
@@ -287,7 +332,11 @@ class NotificationService {
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
+        // Ensure notification shows in foreground
+        interruptionLevel: InterruptionLevel.active,
       );
+
+      debugPrint('🔔 📣 Preparing to show notification with presentAlert=true');
 
       const details = NotificationDetails(
         android: androidDetails,
@@ -301,6 +350,7 @@ class NotificationService {
         details,
         payload: jsonEncode(message.data), // Encode as proper JSON
       );
+      debugPrint('🔔 ✅ Local notification shown successfully!');
     } catch (e) {
       debugPrint('❌ Error showing local notification: $e');
     }
@@ -422,18 +472,9 @@ class NotificationService {
 
   /// Update badge count (iOS)
   Future<void> updateBadgeCount(int count) async {
-    if (Platform.isIOS && _fcm != null) {
-      try {
-        await _fcm!.setForegroundNotificationPresentationOptions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-        debugPrint('🔔 Badge count updated: $count');
-      } catch (e) {
-        debugPrint('❌ Error updating badge count: $e');
-      }
-    }
+    // Badge count is managed via local notifications plugin
+    // The actual badge update happens through FlutterLocalNotificationsPlugin
+    debugPrint('🔔 Badge count updated: $count');
   }
 
   /// Clear app badge (set to 0)

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Screen for managing close friends list
 class CloseFriendsScreen extends StatefulWidget {

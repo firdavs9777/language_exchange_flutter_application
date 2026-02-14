@@ -1,9 +1,11 @@
 // lib/pages/chat/chat_screen.dart
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
+import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/pages/chat/chat_app_bar.dart';
 import 'package:bananatalk_app/pages/chat/chat_input_section.dart';
 import 'package:bananatalk_app/pages/chat/chat_messages_list.dart';
@@ -36,12 +38,14 @@ class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
   final String userName;
   final String? profilePicture;
+  final bool isVip;
 
   const ChatScreen({
     super.key,
     required this.userId,
     required this.userName,
     this.profilePicture,
+    this.isVip = false,
   });
 
   @override
@@ -67,6 +71,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   late AnimationController _mediaPanelController;
   late AnimationController _stickerPanelController;
 
+  // Store notifier reference for safe access in dispose
+  ChatPartnersNotifier? _chatPartnersNotifier;
+
   @override
   void initState() {
     super.initState();
@@ -74,6 +81,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _loadCurrentUser();
     _loadChatWallpaper();
     _setupCallListeners();
+    // Set this as the active chat so global listener doesn't increment unread
+    // Use post-frame callback to avoid modifying provider during build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _chatPartnersNotifier = ref.read(chatPartnersProvider.notifier);
+        _chatPartnersNotifier?.setActiveChat(widget.userId);
+      }
+    });
   }
 
   void _initializeAnimations() {
@@ -136,8 +151,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             DateTime.parse(a.createdAt).compareTo(DateTime.parse(b.createdAt)),
       );
 
-      print(
-        '📥 Loaded ${conversationMessages.length} messages for conversation',
+      debugPrint(
+        'Loaded ${conversationMessages.length} messages for conversation',
       );
       chatNotifier.setMessages(conversationMessages);
 
@@ -145,9 +160,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           .read(messageCountProvider.notifier)
           .setMessageCount(widget.userId, conversationMessages.length);
 
+      // Mark messages as read via socket (notifies backend)
+      chatNotifier.markAsRead();
+
+      // Clear unread count locally for this chat partner (updates badge)
+      ref.read(chatPartnersProvider.notifier).clearUnread(widget.userId);
+      debugPrint('✅ Cleared unread count for ${widget.userId}');
+
       WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     } catch (error) {
-      print('❌ Error loading messages: $error');
+      debugPrint('Error loading messages: $error');
       chatNotifier.setError('Failed to load messages: $error');
     } finally {
       chatNotifier.setLoading(false);
@@ -162,12 +184,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         setState(() => _chatWallpaper = theme);
       }
     } catch (e) {
-      print('Error loading chat wallpaper: $e');
+      debugPrint('Error loading chat wallpaper: $e');
     }
   }
 
   void _setupCallListeners() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Check if still mounted before accessing providers
+      if (!mounted) return;
+
       final callNotifier = ref.read(callProvider.notifier);
       callNotifier.setIncomingCallCallback((call) {
         if (mounted) {
@@ -191,7 +216,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     super.didChangeDependencies();
     final authService = ref.watch(authServiceProvider);
     if (!authService.isLoggedIn && _currentUserId != null) {
-      print('🚫 User logged out - disposing chat');
+      debugPrint('User logged out - disposing chat');
     }
   }
 
@@ -236,6 +261,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (_currentUserId == null) return;
 
     final text = messageText ?? _messageController.text.trim();
+    final type = messageType;
+
     if (text.isEmpty || _isSending) return;
 
     // Check limits
@@ -261,27 +288,26 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         }
       }
     } catch (e) {
-      print('Error checking limits: $e');
+      debugPrint('Error checking limits: $e');
     }
 
     if (messageText == null) _messageController.clear();
     _stopTyping();
     _hidePanels();
 
-    setState(() => _isSending = true);
+    final chatNotifier = ref.read(
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ).notifier,
+    );
 
-    try {
-      final chatNotifier = ref.read(
-        chatStateProvider(
-          ChatProviderParams(
-            chatPartnerId: widget.userId,
-            currentUserId: _currentUserId!,
-          ),
-        ).notifier,
-      );
-
-      // Handle replies via API
-      if (_replyingToMessage != null) {
+    // Handle replies via API (can't use optimistic for replies yet)
+    if (_replyingToMessage != null) {
+      setState(() => _isSending = true);
+      try {
         final messageService = ref.read(messageServiceProvider);
         final result = await messageService.replyToMessage(
           messageId: _replyingToMessage!.id,
@@ -315,44 +341,63 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           _messageController.clear();
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
-        return;
+      } catch (e) {
+        if (mounted) setState(() => _isSending = false);
+        _showSendError(e.toString(), text, messageType);
       }
+      return;
+    }
 
-      // Send via socket
-      final result = await chatNotifier.sendMessage(text);
+    // ⚡ OPTIMISTIC SENDING: Add message instantly, send in background
+    final localId = chatNotifier.addOptimisticMessage(
+      message: text,
+      currentUserId: _currentUserId!,
+      receiverId: widget.userId,
+      type: messageType ?? 'text',
+    );
 
-      if (mounted) setState(() => _isSending = false);
+    // Scroll to bottom immediately to show the new message
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+
+    // Clear reply state
+    setState(() => _replyingToMessage = null);
+
+    // Send message in background (don't await)
+    _sendMessageInBackground(text, localId);
+  }
+
+  /// Send message in background and handle result
+  Future<void> _sendMessageInBackground(String text, String localId) async {
+    try {
+      final chatNotifier = ref.read(
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
+      );
+
+      final result = await chatNotifier.sendMessage(text, localId: localId);
 
       if (result['status'] == 'success') {
-        print('✅ ChatScreen: Message sent successfully');
-        setState(() => _replyingToMessage = null);
+        debugPrint('ChatScreen: Message sent successfully');
         ref
             .read(messageCountProvider.notifier)
             .refreshMessageCount(widget.userId);
         ref.refresh(userLimitsProvider(_currentUserId!));
       } else {
-        print('❌ ChatScreen: Message send failed: ${result['error']}');
-        _messageController.text = text;
-        _showSendError(
-          result['error'] ?? 'Failed to send message',
-          text,
-          messageType,
-        );
+        debugPrint('ChatScreen: Message send failed: ${result['error']}');
+        // Optimistic message already marked as failed in provider
       }
     } catch (error) {
-      if (mounted) {
-        setState(() => _isSending = false);
-        _messageController.text = text;
-
-        if (ApiErrorHandler.isLimitExceededError(error)) {
-          await ApiErrorHandler.handleLimitExceededError(
-            context: context,
-            error: error,
-            userId: _currentUserId,
-          );
-        } else {
-          _showSendError(error.toString(), text, messageType);
-        }
+      debugPrint('ChatScreen: Send error: $error');
+      if (ApiErrorHandler.isLimitExceededError(error) && mounted) {
+        await ApiErrorHandler.handleLimitExceededError(
+          context: context,
+          error: error,
+          userId: _currentUserId,
+        );
       }
     }
   }
@@ -367,7 +412,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final l10n = AppLocalizations.of(context)!;
     String displayMessage = l10n.failedToSendMessage;
 
-    if (errorMessage.toLowerCase().contains('limit')) {
+    if (errorMessage.toLowerCase().contains('until') &&
+        errorMessage.toLowerCase().contains('reply')) {
+      // First-chat limit - show the exact message
+      displayMessage = errorMessage;
+    } else if (errorMessage.toLowerCase().contains('limit')) {
       displayMessage = l10n.dailyMessageLimitExceeded;
     } else if (errorMessage.toLowerCase().contains('blocked')) {
       displayMessage = l10n.cannotSendMessageUserMayBeBlocked;
@@ -395,14 +444,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     );
   }
 
-  /// Send sticker directly (tap to send like WhatsApp)
-  void _sendSticker(String sticker) {
-    _sendMessage(messageText: sticker, messageType: 'sticker');
-    // Close sticker panel after sending
+  /// Send sticker immediately on tap (Telegram-style)
+  void _selectSticker(String sticker) {
+    // Close panel first for smooth UX
     setState(() {
       _showStickerPanel = false;
     });
     _stickerPanelController.reverse();
+
+    // Send immediately
+    _sendMessage(messageText: sticker, messageType: 'sticker');
   }
 
   Future<void> _handleMediaOption(String option) async {
@@ -424,8 +475,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           break;
         case 'document':
           if (mounted) {
+            final l10n = AppLocalizations.of(context)!;
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Document picker coming soon')),
+              SnackBar(content: Text(l10n.documentPickerComingSoon)),
             );
           }
           break;
@@ -437,15 +489,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           break;
         case 'contact':
           if (mounted) {
+            final l10n = AppLocalizations.of(context)!;
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Contact sharing coming soon')),
+              SnackBar(content: Text(l10n.contactSharingComingSoon)),
             );
           }
           break;
         default:
           if (mounted) {
+            final l10n = AppLocalizations.of(context)!;
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Feature coming soon: $option')),
+              SnackBar(content: Text(l10n.featureComingSoon)),
             );
           }
       }
@@ -737,6 +791,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     setState(() => _isSending = true);
 
     try {
+      // Use VoiceMessageService to send to /messages/voice endpoint
       final result = await VoiceMessageService.sendVoiceMessage(
         receiverId: widget.userId,
         voiceFile: voiceFile,
@@ -818,6 +873,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       String? address;
       String? placeName;
       try {
+        await setLocaleIdentifier('en_US');
         final placemarks = await placemarkFromCoordinates(
           position.latitude,
           position.longitude,
@@ -828,7 +884,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           placeName = place.name;
         }
       } catch (e) {
-        print('Error reverse geocoding: $e');
+        debugPrint('Error reverse geocoding: $e');
       }
 
       if (mounted) Navigator.of(context).pop();
@@ -841,7 +897,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         placeName: placeName,
       );
 
+      debugPrint('📍 Location share result: $result');
+
       if (result['success'] == true) {
+        debugPrint('📍 Location shared successfully, reloading messages...');
         await _loadMessages();
         if (_currentUserId != null) {
           ref.refresh(userLimitsProvider(_currentUserId!));
@@ -992,19 +1051,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Permissions Required'),
+          title: Text(AppLocalizations.of(context)!.permissionsRequired),
           content: Text(message),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)!.cancel),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 AppSettings.openAppSettings();
               },
-              child: const Text('Open Settings'),
+              child: Text(AppLocalizations.of(context)!.openSettings),
             ),
           ],
         ),
@@ -1031,18 +1090,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   @override
   void dispose() {
-    _typingTimer?.cancel();
-    if (_isTyping && _currentUserId != null) {
-      final chatNotifier = ref.read(
-        chatStateProvider(
-          ChatProviderParams(
-            chatPartnerId: widget.userId,
-            currentUserId: _currentUserId!,
-          ),
-        ).notifier,
-      );
-      chatNotifier.sendTyping(false);
+    // Clear active chat so global listener can increment unread for new messages
+    // Use Future.microtask to defer provider modification until after widget tree finalization
+    final notifier = _chatPartnersNotifier;
+    if (notifier != null) {
+      Future.microtask(() => notifier.clearActiveChat());
     }
+    _typingTimer?.cancel();
+    // Note: Don't send typing=false here since we can't safely access providers in dispose
+    // The backend handles typing timeout automatically (5 seconds)
     _messageController.dispose();
     _scrollController.dispose();
     _mediaPanelController.dispose();
@@ -1065,8 +1121,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       ),
     );
 
-    print(
-      '🔍 Build - Messages: ${chatState.messages.length}, Connected: ${chatState.isSocketConnected}',
+    debugPrint(
+      'Build - Messages: ${chatState.messages.length}, Connected: ${chatState.isSocketConnected}',
     );
 
     return Scaffold(
@@ -1079,6 +1135,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         isOnline: chatState.isOtherUserOnline,
         lastSeen: chatState.otherUserLastSeen,
         onThemeChanged: _loadChatWallpaper,
+        isVip: widget.isVip,
       ),
       body: Container(
         decoration: _getWallpaperDecoration(),
@@ -1088,36 +1145,41 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             children: [
               ConnectionStatusIndicator(),
               Expanded(
-                child: ChatMessagesList(
-                  isLoading: chatState.isLoading,
-                  error: chatState.error,
-                  messages: chatState.messages,
-                  currentUserId: _currentUserId,
-                  otherUserName: widget.userName,
-                  otherUserPicture: widget.profilePicture,
-                  otherUserTyping: chatState.isOtherUserTyping,
-                  scrollController: _scrollController,
-                  onRetry: _loadMessages,
-                  isSelectionMode: _isSelectionMode,
-                  selectedMessageIds: _selectedMessageIds,
-                  onSelectionChanged: (msg, selected) {
-                    setState(() {
-                      if (selected) {
-                        _selectedMessageIds.add(msg.id);
-                        if (!_isSelectionMode) _isSelectionMode = true;
-                      } else {
-                        _selectedMessageIds.remove(msg.id);
-                        if (_selectedMessageIds.isEmpty)
-                          _isSelectionMode = false;
-                      }
-                    });
-                  },
-                  onDelete: null,
-                  onEdit: null,
-                  onReply: (msg) => setState(() => _replyingToMessage = msg),
-                  onPin: null,
-                  onUnpin: null,
-                  onForward: null,
+                child: RefreshIndicator(
+                  onRefresh: _loadMessages,
+                  displacement: 20,
+                  color: const Color(0xFF00BFA5),
+                  child: ChatMessagesList(
+                    isLoading: chatState.isLoading,
+                    error: chatState.error,
+                    messages: chatState.messages,
+                    currentUserId: _currentUserId,
+                    otherUserName: widget.userName,
+                    otherUserPicture: widget.profilePicture,
+                    otherUserTyping: chatState.isOtherUserTyping,
+                    scrollController: _scrollController,
+                    onRetry: _loadMessages,
+                    isSelectionMode: _isSelectionMode,
+                    selectedMessageIds: _selectedMessageIds,
+                    onSelectionChanged: (msg, selected) {
+                      setState(() {
+                        if (selected) {
+                          _selectedMessageIds.add(msg.id);
+                          if (!_isSelectionMode) _isSelectionMode = true;
+                        } else {
+                          _selectedMessageIds.remove(msg.id);
+                          if (_selectedMessageIds.isEmpty)
+                            _isSelectionMode = false;
+                        }
+                      });
+                    },
+                    onDelete: null,
+                    onEdit: null,
+                    onReply: (msg) => setState(() => _replyingToMessage = msg),
+                    onPin: null,
+                    onUnpin: null,
+                    onForward: null,
+                  ),
                 ),
               ),
               ChatInputSection(
@@ -1128,7 +1190,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 mediaPanelController: _mediaPanelController,
                 stickerPanelController: _stickerPanelController,
                 onSendMessage: _sendMessage,
-                onSendSticker: _sendSticker,
+                onSelectSticker: _selectSticker,
                 onToggleMediaPanel: _toggleMediaPanel,
                 onToggleStickerPanel: _toggleStickerPanel,
                 onTyping: _onTyping,
@@ -1138,6 +1200,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 replyingToMessage: _replyingToMessage,
                 otherUserName: widget.userName,
                 onCancelReply: () => setState(() => _replyingToMessage = null),
+                onAudioPressed: _showVoiceRecorder,
               ),
             ],
           ),

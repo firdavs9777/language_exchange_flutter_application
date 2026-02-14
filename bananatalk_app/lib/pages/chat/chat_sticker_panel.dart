@@ -142,11 +142,13 @@ class ChatStickerPanel extends StatelessWidget {
               ),
             ],
           ),
+          clipBehavior: Clip.hardEdge,
           child: Opacity(
             opacity: animationController.value,
             child: DefaultTabController(
               length: _stickerCategories.length,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   // Tab bar
                   Container(

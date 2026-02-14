@@ -1,6 +1,7 @@
 // lib/services/chat_socket_state_manager.dart
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
@@ -16,6 +17,10 @@ class ChatSocketStateManager {
   StreamSubscription? _typingSub;
   StreamSubscription? _statusSub;
   StreamSubscription? _messageReadSub;
+
+  // Typing timeout - auto-clear after 6 seconds (backend times out at 5s)
+  Timer? _typingTimeout;
+  static const _typingTimeoutDuration = Duration(seconds: 6);
 
   // State callbacks
   Function(bool)? onConnectionChanged;
@@ -51,18 +56,18 @@ class ChatSocketStateManager {
     // New messages
     _newMessageSub = _socketService.onNewMessage.listen((data) {
       try {
-        print('🔔 ChatSocketStateManager: Received new message event');
-        print('   Data type: ${data.runtimeType}');
-        print('   Data: $data');
+        debugPrint('🔔 ChatSocketStateManager: Received new message event');
+        debugPrint('   Data type: ${data.runtimeType}');
+        debugPrint('   Data: $data');
         
         if (data is Map) {
           final type = data['type'];
 
           if (type == 'deleted') {
-            print('   Type: deleted');
+            debugPrint('   Type: deleted');
             onMessageDeleted?.call(data['data']);
           } else if (type == 'edited') {
-            print('   Type: edited');
+            debugPrint('   Type: edited');
             final messageData = data['data']['message'] ?? data['data'];
             if (messageData is Map) {
               final message = Message.fromJson(
@@ -71,39 +76,39 @@ class ChatSocketStateManager {
               onMessageEdited?.call(message);
             }
           } else {
-            print('   Type: new message');
+            debugPrint('   Type: new message');
             final messageData = data['message'] ?? data;
-            print('   Message data: $messageData');
+            debugPrint('   Message data: $messageData');
             
             if (messageData is Map) {
               try {
               final message = Message.fromJson(
                 Map<String, dynamic>.from(messageData),
               );
-                print('   Parsed message - From: ${message.sender.id}, To: ${message.receiver.id}');
-                print('   Is relevant: ${_isRelevantMessage(message)}');
-                print('   Partner ID: $chatPartnerId, Current User ID: $currentUserId');
+                debugPrint('   Parsed message - From: ${message.sender.id}, To: ${message.receiver.id}');
+                debugPrint('   Is relevant: ${_isRelevantMessage(message)}');
+                debugPrint('   Partner ID: $chatPartnerId, Current User ID: $currentUserId');
                 
               if (_isRelevantMessage(message)) {
-                  print('   ✅ Calling onNewMessage callback');
+                  debugPrint('   ✅ Calling onNewMessage callback');
                 onNewMessage?.call(message);
                 } else {
-                  print('   ⚠️ Message not relevant for this chat');
+                  debugPrint('   ⚠️ Message not relevant for this chat');
                 }
               } catch (e, stackTrace) {
-                print('❌ Error parsing message to Message object: $e');
-                print('   Stack trace: $stackTrace');
+                debugPrint('❌ Error parsing message to Message object: $e');
+                debugPrint('   Stack trace: $stackTrace');
               }
             } else {
-              print('   ⚠️ Message data is not a Map: ${messageData.runtimeType}');
+              debugPrint('   ⚠️ Message data is not a Map: ${messageData.runtimeType}');
               }
             }
         } else {
-          print('   ⚠️ Data is not a Map: ${data.runtimeType}');
+          debugPrint('   ⚠️ Data is not a Map: ${data.runtimeType}');
         }
       } catch (e, stackTrace) {
-        print('❌ Error parsing message: $e');
-        print('   Stack trace: $stackTrace');
+        debugPrint('❌ Error parsing message: $e');
+        debugPrint('   Stack trace: $stackTrace');
       }
     });
 
@@ -120,17 +125,30 @@ class ChatSocketStateManager {
           }
         }
       } catch (e) {
-        print('❌ Error parsing sent message: $e');
+        debugPrint('❌ Error parsing sent message: $e');
       }
     });
 
-    // Typing indicators
+    // Typing indicators with auto-timeout safety
     _typingSub = _socketService.onTyping.listen((data) {
       final userId = data is Map ? (data['userId'] ?? data['user']) : null;
       final isTyping = data is Map ? (data['isTyping'] ?? true) : true;
 
       if (userId == chatPartnerId) {
-        onTypingChanged?.call(isTyping);
+        // Cancel existing timeout
+        _typingTimeout?.cancel();
+
+        if (isTyping) {
+          // Set typing to true and start auto-clear timeout
+          onTypingChanged?.call(true);
+          _typingTimeout = Timer(_typingTimeoutDuration, () {
+            debugPrint('⌨️ Typing timeout - auto-clearing indicator');
+            onTypingChanged?.call(false);
+          });
+        } else {
+          // Explicitly stopped typing
+          onTypingChanged?.call(false);
+        }
       }
     });
 
@@ -200,5 +218,6 @@ class ChatSocketStateManager {
     _typingSub?.cancel();
     _statusSub?.cancel();
     _messageReadSub?.cancel();
+    _typingTimeout?.cancel();
   }
 }

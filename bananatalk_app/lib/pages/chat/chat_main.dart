@@ -1,13 +1,18 @@
 import 'dart:async';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/pages/notifications/notification_history_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/limit_indicator.dart';
 import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
+import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -15,6 +20,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
@@ -27,6 +33,7 @@ class ChatPartner {
   final List<String> imageUrls;
   final String status;
   final DateTime? lastSeen;
+  final bool isVip;
 
   ChatPartner({
     required this.id,
@@ -38,6 +45,7 @@ class ChatPartner {
     this.imageUrls = const [],
     this.status = 'online',
     this.lastSeen,
+    this.isVip = false,
   });
 
   ChatPartner copyWith({
@@ -50,6 +58,7 @@ class ChatPartner {
     List<String>? imageUrls,
     String? status,
     DateTime? lastSeen,
+    bool? isVip,
   }) {
     return ChatPartner(
       id: id ?? this.id,
@@ -61,8 +70,49 @@ class ChatPartner {
       imageUrls: imageUrls ?? this.imageUrls,
       status: status ?? this.status,
       lastSeen: lastSeen ?? this.lastSeen,
+      isVip: isVip ?? this.isVip,
     );
   }
+}
+
+/// Get a display-friendly preview of a message for the chat list
+String getMessagePreview(Message message) {
+  // Check for text message first
+  if (message.message != null && message.message!.isNotEmpty) {
+    return message.message!;
+  }
+
+  // Check message type
+  final type = message.type.toLowerCase();
+  switch (type) {
+    case 'sticker':
+      return '😀 Sticker';
+    case 'poll':
+      return '📊 Poll';
+  }
+
+  // Check media type
+  if (message.media != null) {
+    final mediaType = message.media!.type.toLowerCase();
+    switch (mediaType) {
+      case 'voice':
+        return '🎤 Voice message';
+      case 'audio':
+        return '🎵 Audio';
+      case 'image':
+        return '📷 Photo';
+      case 'video':
+        return '🎬 Video';
+      case 'document':
+        return '📄 Document';
+      case 'location':
+        return '📍 Location';
+      default:
+        return '📎 Attachment';
+    }
+  }
+
+  return 'Message';
 }
 
 class ChatMain extends ConsumerStatefulWidget {
@@ -129,7 +179,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
     // Watch auth state - disconnect sockets if logged out
     final authService = ref.watch(authServiceProvider);
     if (!authService.isLoggedIn) {
-      print('🚫 User logged out - socket should be disconnected');
+      debugPrint('🚫 User logged out - socket should be disconnected');
     }
     // Check if user changed and reconnect socket if needed
     _checkUserChange();
@@ -138,7 +188,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      print('📱 App resumed - checking connection');
+      debugPrint('📱 App resumed - checking connection');
       _checkUserChange();
 
       // Reconnect socket if disconnected - but only if reconnection is allowed
@@ -148,31 +198,35 @@ class _ChatMainState extends ConsumerState<ChatMain>
           final token = prefs.getString('token');
           if (token != null && token.isNotEmpty) {
             if (!_chatSocketService.isConnected) {
-              print('🔌 Socket disconnected - reconnecting');
+              debugPrint('🔌 Socket disconnected - reconnecting');
               _chatSocketService.connect();
             }
           } else {
-            print('🚫 Token missing - logout detected, not reconnecting');
+            debugPrint('🚫 Token missing - logout detected, not reconnecting');
           }
         });
       } else {
-        print('🚫 Reconnection disabled - logout detected');
+        debugPrint('🚫 Reconnection disabled - logout detected');
       }
     }
   }
 
   Future<void> _checkUserChange() async {
+    if (!mounted) return;
+
     final prefs = await SharedPreferences.getInstance();
     final currentUserId = prefs.getString('userId');
 
     // If user ID changed (logout/login with different account)
     if (_currentUserId != null && _currentUserId != currentUserId) {
-      print(
-        '🔄 User changed from $_currentUserId to $currentUserId - reconnecting socket',
+      debugPrint(
+        'User changed from $_currentUserId to $currentUserId - reconnecting socket',
       );
 
       // Disconnect old socket
       await _chatSocketService.disconnect();
+
+      if (!mounted) return;
 
       // Clear old data
       setState(() {
@@ -243,71 +297,147 @@ class _ChatMainState extends ConsumerState<ChatMain>
     _messageReadSub?.cancel();
     _connectionStateSub?.cancel();
 
-    // Subscribe to socket events
-    _newMessageSub = _chatSocketService.onNewMessage.listen(_handleNewMessage);
+    // Error handler for all streams - attempt to reconnect
+    void onStreamError(dynamic error, StackTrace stackTrace) {
+      debugPrint('❌ Socket stream error: $error');
+      // Attempt to reconnect socket on stream errors
+      if (mounted) {
+        Future.delayed(const Duration(seconds: 2), () {
+          if (mounted && !_chatSocketService.isConnected) {
+            debugPrint('🔄 Attempting socket reconnection after stream error...');
+            _chatSocketService.connect();
+          }
+        });
+      }
+    }
+
+    // Subscribe to socket events with error handlers
+    _newMessageSub = _chatSocketService.onNewMessage.listen(
+      _handleNewMessage,
+      onError: onStreamError,
+      onDone: () => debugPrint('📭 New message stream closed'),
+    );
     _messageSentSub = _chatSocketService.onMessageSent.listen(
       _handleMessageSent,
+      onError: onStreamError,
+      onDone: () => debugPrint('📭 Message sent stream closed'),
     );
-    _typingSub = _chatSocketService.onTyping.listen((data) {
-      // Handle both typing and userTyping events
-      if (data['isTyping'] == false) {
-        _handleUserStoppedTyping(data);
-      } else {
-        _handleUserTyping(data);
-      }
-    });
-    _statusSub = _chatSocketService.onStatusUpdate.listen((data) {
-      // Check if it's a bulk update or single update
-      if (data is Map && data.containsKey('userId')) {
-        _handleStatusUpdate(data);
-      } else if (data is List) {
-        for (var userData in data) {
-          _handleStatusUpdate(userData);
+    _typingSub = _chatSocketService.onTyping.listen(
+      (data) {
+        // Handle both typing and userTyping events
+        if (data['isTyping'] == false) {
+          _handleUserStoppedTyping(data);
+        } else {
+          _handleUserTyping(data);
         }
-      } else {
-        _handleBulkStatusUpdate(data);
-      }
-    });
-    _messageReadSub = _chatSocketService.onMessageRead.listen((data) {
-      // Handle both messageRead and messagesRead events
-      if (data['readBy'] != null) {
-        _handleMessagesRead(data);
-      } else {
-        _handleMessageRead(data);
-      }
-    });
-    _connectionStateSub = _chatSocketService.onConnectionStateChange.listen((
-      isConnected,
-    ) {
-      print('🔌 Connection state changed: $isConnected');
-      if (isConnected && _chatPartners.isNotEmpty) {
-        _chatSocketService.requestStatusUpdates(
-          _chatPartners.map((p) => p.id).toList(),
-        );
-      }
-    });
+      },
+      onError: onStreamError,
+      onDone: () => debugPrint('📭 Typing stream closed'),
+    );
+    _statusSub = _chatSocketService.onStatusUpdate.listen(
+      (data) {
+        // Check if it's a bulk update or single update
+        if (data is Map && data.containsKey('userId')) {
+          _handleStatusUpdate(data);
+        } else if (data is List) {
+          for (var userData in data) {
+            _handleStatusUpdate(userData);
+          }
+        } else {
+          _handleBulkStatusUpdate(data);
+        }
+      },
+      onError: onStreamError,
+      onDone: () => debugPrint('📭 Status stream closed'),
+    );
+    _messageReadSub = _chatSocketService.onMessageRead.listen(
+      (data) {
+        // Handle both messageRead and messagesRead events
+        if (data['readBy'] != null) {
+          _handleMessagesRead(data);
+        } else {
+          _handleMessageRead(data);
+        }
+      },
+      onError: onStreamError,
+      onDone: () => debugPrint('📭 Message read stream closed'),
+    );
+    _connectionStateSub = _chatSocketService.onConnectionStateChange.listen(
+      (isConnected) {
+        debugPrint('🔌 Connection state changed: $isConnected');
+        if (isConnected && _chatPartners.isNotEmpty) {
+          // Batch status requests to avoid O(n) overhead
+          _requestStatusUpdatesInBatches();
+        }
+      },
+      onError: onStreamError,
+      onDone: () => debugPrint('📭 Connection state stream closed'),
+    );
+  }
+
+  /// Request status updates in batches to avoid performance issues
+  void _requestStatusUpdatesInBatches() {
+    const batchSize = 20;
+    final partnerIds = _chatPartners.map((p) => p.id).toList();
+
+    // Split into batches and request with small delays
+    for (var i = 0; i < partnerIds.length; i += batchSize) {
+      final end = (i + batchSize < partnerIds.length) ? i + batchSize : partnerIds.length;
+      final batch = partnerIds.sublist(i, end);
+
+      // Small delay between batches to avoid flooding
+      Future.delayed(Duration(milliseconds: i ~/ batchSize * 100), () {
+        if (mounted && _chatSocketService.isConnected) {
+          _chatSocketService.requestStatusUpdates(batch);
+        }
+      });
+    }
   }
 
   void _syncUnreadCountsFromProvider(ChatPartnersState providerState) {
     // Sync local unread counts with provider state
-    if (_chatPartners.isEmpty) return;
-    
+    if (_chatPartners.isEmpty || !mounted) return;
+
     bool needsUpdate = false;
-    final updatedPartners = _chatPartners.map((partner) {
+    final List<ChatPartner> updatedPartners = [];
+
+    for (final partner in _chatPartners) {
       final providerCount = providerState.unreadCounts[partner.id] ?? 0;
       if (partner.unreadCount != providerCount) {
-        print('🔄 Syncing unread count from provider: ${partner.name} - ${partner.unreadCount} -> $providerCount');
+        debugPrint('🔄 Syncing unread count from provider: ${partner.name} - ${partner.unreadCount} -> $providerCount');
         needsUpdate = true;
-        return partner.copyWith(unreadCount: providerCount);
+        updatedPartners.add(partner.copyWith(unreadCount: providerCount));
+      } else {
+        updatedPartners.add(partner);
       }
-      return partner;
-    }).toList();
-    
+    }
+
     if (needsUpdate && mounted) {
-      setState(() {
-        _chatPartners = updatedPartners;
+      // Use post-frame callback to avoid setState during build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {
+            _chatPartners = List.from(updatedPartners);
+          });
+        }
       });
     }
+  }
+
+  /// Force refresh unread counts from provider (call after returning from chat)
+  void _forceRefreshUnreadCounts() {
+    if (!mounted) return;
+    final providerState = ref.read(chatPartnersProvider);
+
+    final List<ChatPartner> updatedPartners = _chatPartners.map((partner) {
+      final providerCount = providerState.unreadCounts[partner.id] ?? 0;
+      return partner.copyWith(unreadCount: providerCount);
+    }).toList();
+
+    setState(() {
+      _chatPartners = updatedPartners;
+    });
+    debugPrint('🔄 Force refreshed all unread counts from provider');
   }
 
   void _syncUnreadCounts() {
@@ -329,12 +459,12 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       if (localCount > providerCount) {
         // Local count is higher (e.g., from initial API load), update provider
-        print('📊 Syncing local count to provider: ${partner.name} - $localCount (provider had $providerCount)');
+        debugPrint('📊 Syncing local count to provider: ${partner.name} - $localCount (provider had $providerCount)');
         notifier.updateUnreadCount(partner.id, localCount);
         updatedPartners.add(partner); // Keep local count
       } else if (localCount != providerCount) {
         // Provider count is different (real-time update), update local state
-        print('📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)');
+        debugPrint('📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)');
         updatedPartners.add(partner.copyWith(unreadCount: providerCount));
           localStateChanged = true;
       } else {
@@ -373,25 +503,25 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       setState(() {
         _typingUsers[userId] = true;
-        print('✅ User $userId started typing');
+        debugPrint('✅ User $userId started typing');
       });
       _typingTimer?.cancel();
       _typingTimer = Timer(const Duration(seconds: 5), () {
         if (!mounted) return;
         setState(() {
           _typingUsers[userId] = false;
-          print('⏰ Typing timeout for user $userId');
+          debugPrint('⏰ Typing timeout for user $userId');
         });
       });
-      print('✅ User $userId started typing');
+      debugPrint('✅ User $userId started typing');
     } catch (e) {
-      print('❌ Error handling typing event: $e');
+      debugPrint('❌ Error handling typing event: $e');
     }
   }
 
   void _handleNewMessage(dynamic data) {
     try {
-      print('📨 Processing new message: $data');
+      debugPrint('📨 Processing new message: $data');
 
       if (data == null) return;
 
@@ -410,24 +540,54 @@ class _ChatMainState extends ConsumerState<ChatMain>
               ?.map((e) => e.toString())
               .toList() ??
           [];
+      // Extract VIP status
+      final senderIsVip = messageData['sender']?['userMode'] == 'vip' ||
+          messageData['sender']?['vipSubscription']?['isActive'] == true;
 
-      final messageText = messageData['message']?.toString() ?? '';
+      final rawMessageText = messageData['message']?.toString() ?? '';
       final createdAt = messageData['createdAt'] != null
           ? DateTime.parse(messageData['createdAt'].toString())
           : DateTime.now();
 
+      // Get message preview based on type/media
+      String messageText = rawMessageText;
+      if (messageText.isEmpty) {
+        final messageType = messageData['type']?.toString() ?? '';
+        final mediaType = messageData['media']?['type']?.toString() ?? '';
+
+        if (messageType == 'sticker') {
+          messageText = '😀 Sticker';
+        } else if (messageType == 'poll') {
+          messageText = '📊 Poll';
+        } else if (mediaType == 'voice') {
+          messageText = '🎤 Voice message';
+        } else if (mediaType == 'audio') {
+          messageText = '🎵 Audio';
+        } else if (mediaType == 'image') {
+          messageText = '📷 Photo';
+        } else if (mediaType == 'video') {
+          messageText = '🎬 Video';
+        } else if (mediaType == 'document') {
+          messageText = '📄 Document';
+        } else if (mediaType == 'location') {
+          messageText = '📍 Location';
+        } else if (mediaType.isNotEmpty) {
+          messageText = '📎 Attachment';
+        }
+      }
+
       if (senderId == null || senderId.isEmpty) {
-        print('⚠️ No sender ID in message');
+        debugPrint('⚠️ No sender ID in message');
         return;
       }
 
       // Don't process own messages
       if (senderId == _currentUserId) {
-        print('ℹ️ Skipping own message');
+        debugPrint('ℹ️ Skipping own message');
         return;
       }
 
-      print('✅ New message from: $senderName ($senderId)');
+      debugPrint('✅ New message from: $senderName ($senderId)');
 
       if (!mounted) return;
 
@@ -439,7 +599,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         int partnerIndex = _chatPartners.indexWhere((p) => p.id == senderId);
 
         if (partnerIndex != -1) {
-          print('📝 Updating existing chat partner at index $partnerIndex');
+          debugPrint('📝 Updating existing chat partner at index $partnerIndex');
           final existingPartner = _chatPartners[partnerIndex];
 
           // Use provider count instead of calculating locally to avoid double-counting
@@ -456,11 +616,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
           // Don't update provider here - GlobalChatListener already handled it
           // Just sync the local UI state with the provider
-          print(
-            '✅ Moved chat to top with unread count: ${updatedPartner.unreadCount} (from provider)',
+          debugPrint(
+            'Moved chat to top with unread count: ${updatedPartner.unreadCount} (from provider)',
           );
         } else {
-          print('➕ Creating new chat partner');
+          debugPrint('➕ Creating new chat partner');
           final newPartner = ChatPartner(
             id: senderId,
             name: senderName,
@@ -470,27 +630,28 @@ class _ChatMainState extends ConsumerState<ChatMain>
             unreadCount: currentProviderCount, // Use provider count
             imageUrls: senderImageUrls,
             status: 'online',
+            isVip: senderIsVip,
           );
 
           _chatPartners.insert(0, newPartner);
 
           // Don't update provider here - GlobalChatListener already handled it
-          print(
-            '✅ Added new chat partner at top with count: $currentProviderCount (from provider)',
+          debugPrint(
+            'Added new chat partner at top with count: $currentProviderCount (from provider)',
           );
         }
       });
 
-      print('✅ Chat list updated successfully');
+      debugPrint('✅ Chat list updated successfully');
     } catch (e, stackTrace) {
-      print('❌ Error handling new message: $e');
-      print('Stack trace: $stackTrace');
+      debugPrint('❌ Error handling new message: $e');
+      debugPrint('Stack trace: $stackTrace');
     }
   }
 
   void _handleMessageSent(dynamic data) {
     try {
-      print('📤 Processing sent message: $data');
+      debugPrint('📤 Processing sent message: $data');
 
       if (data == null) return;
 
@@ -507,18 +668,48 @@ class _ChatMainState extends ConsumerState<ChatMain>
               ?.map((e) => e.toString())
               .toList() ??
           [];
+      // Extract VIP status
+      final receiverIsVip = messageData['receiver']?['userMode'] == 'vip' ||
+          messageData['receiver']?['vipSubscription']?['isActive'] == true;
 
-      final messageText = messageData['message']?.toString() ?? '';
+      final rawMessageText = messageData['message']?.toString() ?? '';
       final createdAt = messageData['createdAt'] != null
           ? DateTime.parse(messageData['createdAt'].toString())
           : DateTime.now();
 
+      // Get message preview based on type/media
+      String messageText = rawMessageText;
+      if (messageText.isEmpty) {
+        final messageType = messageData['type']?.toString() ?? '';
+        final mediaType = messageData['media']?['type']?.toString() ?? '';
+
+        if (messageType == 'sticker') {
+          messageText = '😀 Sticker';
+        } else if (messageType == 'poll') {
+          messageText = '📊 Poll';
+        } else if (mediaType == 'voice') {
+          messageText = '🎤 Voice message';
+        } else if (mediaType == 'audio') {
+          messageText = '🎵 Audio';
+        } else if (mediaType == 'image') {
+          messageText = '📷 Photo';
+        } else if (mediaType == 'video') {
+          messageText = '🎬 Video';
+        } else if (mediaType == 'document') {
+          messageText = '📄 Document';
+        } else if (mediaType == 'location') {
+          messageText = '📍 Location';
+        } else if (mediaType.isNotEmpty) {
+          messageText = '📎 Attachment';
+        }
+      }
+
       if (receiverId == null || receiverId.isEmpty) {
-        print('⚠️ No receiver ID in sent message');
+        debugPrint('⚠️ No receiver ID in sent message');
         return;
       }
 
-      print('✅ Sent message to: $receiverName ($receiverId)');
+      debugPrint('✅ Sent message to: $receiverName ($receiverId)');
 
       if (!mounted) return;
 
@@ -526,7 +717,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         int partnerIndex = _chatPartners.indexWhere((p) => p.id == receiverId);
 
         if (partnerIndex != -1) {
-          print('📝 Updating existing chat partner for sent message');
+          debugPrint('📝 Updating existing chat partner for sent message');
           final existingPartner = _chatPartners[partnerIndex];
           final updatedPartner = existingPartner.copyWith(
             lastMessage: messageText,
@@ -536,7 +727,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           _chatPartners.removeAt(partnerIndex);
           _chatPartners.insert(0, updatedPartner);
         } else {
-          print('➕ Creating new chat partner for sent message');
+          debugPrint('➕ Creating new chat partner for sent message');
           final newPartner = ChatPartner(
             id: receiverId,
             name: receiverName,
@@ -546,6 +737,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             unreadCount: 0,
             imageUrls: receiverImageUrls,
             status: 'online',
+            isVip: receiverIsVip,
           );
 
           _chatPartners.insert(0, newPartner);
@@ -553,10 +745,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       _syncUnreadCounts(); // Sync after update
-      print('✅ Chat list updated for sent message');
+      debugPrint('✅ Chat list updated for sent message');
     } catch (e, stackTrace) {
-      print('❌ Error handling sent message: $e');
-      print('Stack trace: $stackTrace');
+      debugPrint('❌ Error handling sent message: $e');
+      debugPrint('Stack trace: $stackTrace');
     }
   }
 
@@ -579,7 +771,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       _processChatPartnersWithStatus();
     } catch (e) {
-      print('❌ Error handling status update: $e');
+      debugPrint('❌ Error handling status update: $e');
     }
   }
 
@@ -620,16 +812,30 @@ class _ChatMainState extends ConsumerState<ChatMain>
     try {
       // Ensure data is a Map
       if (data is! Map) {
-        print('⚠️ Bulk status update data is not a Map: ${data.runtimeType}');
+        debugPrint('⚠️ Bulk status update data is not a Map: ${data.runtimeType}');
         return;
       }
 
-      final Map<String, dynamic> statuses = Map<String, dynamic>.from(data);
+      final Map<String, dynamic> rawData = Map<String, dynamic>.from(data);
 
+      // Handle different data formats from socket events
+      // 1. onlineUsers event: {'type': 'onlineUsers', 'data': [...]}
+      if (rawData.containsKey('type') && rawData['type'] == 'onlineUsers') {
+        _handleOnlineUsersUpdate(rawData['data']);
+        return;
+      }
+
+      // 2. Single user update: {'single': {...}}
+      if (rawData.containsKey('single')) {
+        _handleSingleUserStatusUpdate(rawData['single']);
+        return;
+      }
+
+      // 3. Direct bulk status update: {userId: {status, lastSeen}, ...}
       if (!mounted) return;
 
       setState(() {
-        statuses.forEach((userId, statusData) {
+        rawData.forEach((userId, statusData) {
           // Ensure statusData is a Map before accessing its properties
           if (statusData is Map) {
             final statusMap = Map<String, dynamic>.from(statusData);
@@ -639,75 +845,101 @@ class _ChatMainState extends ConsumerState<ChatMain>
                   ? DateTime.parse(statusMap['lastSeen'].toString())
                   : null,
             };
-          } else {
-            print('⚠️ Status data for user $userId is not a Map: ${statusData.runtimeType}');
           }
         });
       });
 
       _processChatPartnersWithStatus();
     } catch (e, stackTrace) {
-      print('❌ Error handling bulk status update: $e');
-      print('Stack trace: $stackTrace');
+      debugPrint('❌ Error handling bulk status update: $e');
+      debugPrint('Stack trace: $stackTrace');
+    }
+  }
+
+  void _handleOnlineUsersUpdate(dynamic data) {
+    if (!mounted) return;
+
+    // Handle list of online user IDs
+    if (data is List) {
+      setState(() {
+        for (final userId in data) {
+          if (userId is String) {
+            _userStatuses[userId] = {
+              'status': 'online',
+              'lastSeen': DateTime.now(),
+            };
+          }
+        }
+      });
+      _processChatPartnersWithStatus();
+    }
+  }
+
+  void _handleSingleUserStatusUpdate(dynamic data) {
+    if (!mounted || data == null) return;
+
+    try {
+      final statusMap = data is Map ? Map<String, dynamic>.from(data) : null;
+      if (statusMap == null) return;
+
+      final userId = statusMap['userId']?.toString();
+      if (userId == null) return;
+
+      setState(() {
+        _userStatuses[userId] = {
+          'status': statusMap['status'],
+          'lastSeen': statusMap['lastSeen'] != null
+              ? DateTime.parse(statusMap['lastSeen'].toString())
+              : null,
+        };
+      });
+
+      _processChatPartnersWithStatus();
+    } catch (e) {
+      debugPrint('❌ Error handling single user status: $e');
     }
   }
 
   void _handleUserStoppedTyping(dynamic data) {
-    print('User ${data['userId']} stopped typing');
+    debugPrint('User ${data['userId']} stopped typing');
   }
 
   void _handleMessagesRead(dynamic data) {
     try {
-      print('👁️ Messages marked as read: $data');
+      debugPrint('👁️ Messages read receipt received: $data');
 
+      // NOTE: This event means someone ELSE read OUR messages (for read receipts/blue ticks)
+      // We should NOT clear our unread count here - that only happens when WE open a chat
+      // This is just for updating the UI to show that the other user has read our messages
       final readBy = data['readBy']?.toString();
 
       if (readBy != null && readBy.isNotEmpty) {
-        if (!mounted) return;
-
-        setState(() {
-          int index = _chatPartners.indexWhere((p) => p.id == readBy);
-          if (index != -1) {
-            _chatPartners[index] = _chatPartners[index].copyWith(
-              unreadCount: 0,
-            );
-
-            // Update provider
-            ref.read(chatPartnersProvider.notifier).clearUnread(readBy);
-            print('✅ Reset unread count for user: $readBy');
-          }
-        });
+        debugPrint('📖 User $readBy read our messages (read receipt only, not clearing unread)');
+        // No need to update local state here - read receipts are handled in chat detail
       }
     } catch (e) {
-      print('❌ Error handling messages read: $e');
+      debugPrint('❌ Error handling messages read: $e');
     }
   }
 
   void _handleMessageRead(dynamic data) {
     try {
+      // NOTE: This event is also for read receipts - someone read our messages
+      // We should NOT clear our unread count here
       final senderId = data['senderId'];
 
       if (senderId == null) return;
 
-      if (!mounted) return;
-
-      setState(() {
-        final partnerIndex = _chatPartners.indexWhere((p) => p.id == senderId);
-        if (partnerIndex != -1) {
-          _chatPartners[partnerIndex] = _chatPartners[partnerIndex].copyWith(
-            unreadCount: 0,
-          );
-
-          // Update provider
-          ref.read(chatPartnersProvider.notifier).clearUnread(senderId);
-        }
-      });
+      debugPrint('📖 Read receipt from $senderId (not clearing unread)');
+      // No need to update unread count - read receipts don't affect our unread counts
     } catch (e) {
-      print('❌ Error handling message read: $e');
+      debugPrint('❌ Error handling message read: $e');
     }
   }
 
   Future<void> _fetchMessages() async {
+    if (!mounted) return;
+
     setState(() {
       _isLoading = true;
       _error = '';
@@ -721,6 +953,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
       if (userId == null) {
         throw Exception('User ID not found');
       }
+
+      if (!mounted) return;
 
       setState(() {
         _currentUserId = userId;
@@ -742,17 +976,21 @@ class _ChatMainState extends ConsumerState<ChatMain>
         );
       }
     } catch (error) {
-      setState(() {
-        _error = 'Failed to load messages: $error';
-      });
+      if (mounted) {
+        setState(() {
+          _error = 'Failed to load messages: $error';
+        });
+      }
       // Attempt to reconnect socket if disconnected
       if (!_chatSocketService.isConnected) {
         await _chatSocketService.connect();
       }
     } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -789,12 +1027,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
             avatar: otherUser.imageUrls.isNotEmpty
                 ? otherUser.imageUrls[0]
                 : null,
-            lastMessage: message.message,
+            lastMessage: getMessagePreview(message),
             unreadCount: isUnread ? 1 : 0,
             lastMessageTime: messageDate,
             imageUrls: otherUser.imageUrls,
             status: statusDisplay,
             lastSeen: lastSeen,
+            isVip: otherUser.isVip,
           );
         } else {
           final shouldUpdateMessage =
@@ -803,7 +1042,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
           partnersMap[otherUser.id] = existingPartner.copyWith(
             lastMessage: shouldUpdateMessage
-                ? message.message
+                ? getMessagePreview(message)
                 : existingPartner.lastMessage,
             unreadCount: isUnread
                 ? existingPartner.unreadCount + 1
@@ -816,7 +1055,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           );
         }
       } catch (e) {
-        print('Error processing message: $e');
+        debugPrint('Error processing message: $e');
       }
     }
 
@@ -831,10 +1070,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
       // Get provider counts and update partners with correct unread counts
       final providerState = ref.read(chatPartnersProvider);
       final updatedPartners = sortedPartners.map((partner) {
-        // Use provider count if available, otherwise use calculated count
+        // ALWAYS use provider count if available (even if 0)
+        // This ensures read state is preserved from chat detail
         final providerCount = providerState.unreadCounts[partner.id];
-        if (providerCount != null && providerCount != partner.unreadCount) {
-          print('📊 Updating unread count for ${partner.name}: ${partner.unreadCount} -> $providerCount (from provider)');
+        if (providerCount != null) {
           return partner.copyWith(unreadCount: providerCount);
         }
         return partner;
@@ -845,12 +1084,15 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       // Sync calculated counts to provider (only if provider doesn't have them)
+      // Important: Only sync if provider has NO entry for this user
+      // If provider has an entry (even 0), it means user already opened chat and read messages
+      // We should NOT overwrite their read state with stale API data
       final notifier = ref.read(chatPartnersProvider.notifier);
       for (final partner in updatedPartners) {
-        if (partner.unreadCount > 0 && 
-            (providerState.unreadCounts[partner.id] == null || 
-             providerState.unreadCounts[partner.id]! < partner.unreadCount)) {
-          print('📊 Syncing unread count to provider for ${partner.name}: ${partner.unreadCount}');
+        final providerCount = providerState.unreadCounts[partner.id];
+        // Only sync from API if we have NEVER tracked this user (null = no entry)
+        if (partner.unreadCount > 0 && providerCount == null) {
+          debugPrint('📊 Syncing unread count to provider for ${partner.name}: ${partner.unreadCount}');
           notifier.updateUnreadCount(partner.id, partner.unreadCount);
         }
       }
@@ -861,7 +1103,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             _chatPartners.map((p) => p.id).toList(),
           );
         } catch (e) {
-          print('❌ Error requesting status updates: $e');
+          debugPrint('❌ Error requesting status updates: $e');
         }
       }
     }
@@ -908,7 +1150,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   }
 
   Future<void> _forceRefresh() async {
-    print('🔄 Force refreshing chat...');
+    debugPrint('🔄 Force refreshing chat...');
 
     // Get fresh credentials
     final prefs = await SharedPreferences.getInstance();
@@ -916,15 +1158,19 @@ class _ChatMainState extends ConsumerState<ChatMain>
     final newToken = prefs.getString('token');
 
     if (newUserId == null || newToken == null) {
-      print('❌ Cannot refresh - missing credentials');
-      setState(() {
-        _error = 'Please login again';
-      });
+      debugPrint('❌ Cannot refresh - missing credentials');
+      if (mounted) {
+        setState(() {
+          _error = 'Please login again';
+        });
+      }
       return;
     }
 
     // Disconnect old socket
     await _chatSocketService.disconnect();
+
+    if (!mounted) return;
 
     // Clear all data
     setState(() {
@@ -945,6 +1191,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   }
 
   void _onSelectUser(String userId, String userName, String? profilePicture) {
+    HapticUtils.onSelect();
     setState(() {
       _activeUserId = userId;
     });
@@ -973,6 +1220,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
           extra: {'userName': userName, 'profilePicture': profilePicture},
         )
         .then((_) {
+          // Refresh unread counts when returning from chat
+          _forceRefreshUnreadCounts();
           setState(() {
             _activeUserId = null;
           });
@@ -982,21 +1231,35 @@ class _ChatMainState extends ConsumerState<ChatMain>
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'online':
-        // Vibrant green - active online status
-        return const Color(0xFF00E676); // Material Design Green A400
+        // Bright KakaoTalk-style green
+        return const Color(0xFF4ADE80); // Tailwind green-400
       case 'away':
+        // Yellow/amber for away
+        return const Color(0xFFFBBF24); // Tailwind amber-400
       case 'busy':
       case 'dnd':
-        // Amber/Orange for away/busy
-        return const Color(0xFFFFB300); // Material Design Amber A700
+        // Red for busy/do not disturb
+        return const Color(0xFFF87171); // Tailwind red-400
       case 'recently online':
-        // Cyan for recently online
-        return const Color(0xFF00B8D4); // Material Design Cyan A700
+        // Light blue for recently online
+        return const Color(0xFF60A5FA); // Tailwind blue-400
       case 'offline':
       default:
-        // Muted gray for offline
-        return const Color(0xFF9E9E9E); // Material Design Gray 500
+        // Very subtle gray for offline - almost invisible
+        return const Color(0xFFD1D5DB); // Tailwind gray-300
     }
+  }
+
+  /// Get the real-time status for a user (from _userStatuses or fallback to partner.status)
+  String _getRealtimeStatus(ChatPartner partner) {
+    final realtimeStatus = _userStatuses[partner.id]?['status']?.toString();
+    return realtimeStatus ?? partner.status;
+  }
+
+  /// Check if user is online
+  bool _isUserOnline(ChatPartner partner) {
+    final status = _getRealtimeStatus(partner);
+    return status.toLowerCase() == 'online';
   }
 
   Widget _buildSearchBar() {
@@ -1133,44 +1396,49 @@ class _ChatMainState extends ConsumerState<ChatMain>
                   // ================= AVATAR =================
                   Stack(
                     children: [
-                      CachedCircleAvatar(
-                        imageUrl:
-                            partner.avatar != null && partner.avatar!.isNotEmpty
-                            ? partner.avatar
-                            : null,
-                        radius: 26,
-                        backgroundColor: colors.surfaceVariant,
-                        errorWidget: Text(
-                          partner.name.isNotEmpty
-                              ? partner.name[0].toUpperCase()
-                              : '?',
-                          style: textTheme.titleMedium,
+                      VipAvatarFrameCompact(
+                        isVip: partner.isVip,
+                        size: 56,
+                        child: CachedCircleAvatar(
+                          imageUrl:
+                              partner.avatar != null && partner.avatar!.isNotEmpty
+                              ? partner.avatar
+                              : null,
+                          radius: 28,
+                          backgroundColor: colors.surfaceVariant,
+                          errorWidget: Text(
+                            partner.name.isNotEmpty
+                                ? partner.name[0].toUpperCase()
+                                : '?',
+                            style: textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
 
-                      // Online status indicator
+                      // Online status indicator - KakaoTalk style
                       Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          width: 14,
-                          height: 14,
+                        bottom: partner.isVip ? 4 : 2,
+                        right: partner.isVip ? 4 : 2,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          width: _isUserOnline(partner) ? 16 : 12,
+                          height: _isUserOnline(partner) ? 16 : 12,
                           decoration: BoxDecoration(
-                            color: _getStatusColor(partner.status),
+                            color: _getStatusColor(_getRealtimeStatus(partner)),
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: colors.background,
+                              color: colors.surface,
                               width: 2.5,
                             ),
-                            // Add subtle shadow for online status
-                            boxShadow: partner.status.toLowerCase() == 'online'
+                            // Glow effect for online status
+                            boxShadow: _isUserOnline(partner)
                                 ? [
                                     BoxShadow(
-                                      color: _getStatusColor(
-                                        partner.status,
-                                      ).withOpacity(0.6),
-                                      blurRadius: 4,
-                                      spreadRadius: 1,
+                                      color: const Color(0xFF4ADE80).withOpacity(0.5),
+                                      blurRadius: 8,
+                                      spreadRadius: 2,
                                     ),
                                   ]
                                 : null,
@@ -1187,68 +1455,149 @@ class _ChatMainState extends ConsumerState<ChatMain>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Name + Time
+                        // Name + VIP Badge + Time
                         Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                partner.name,
-                                style: textTheme.bodyLarge?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      partner.name,
+                                      style: textTheme.bodyLarge?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  if (partner.isVip) ...[
+                                    const SizedBox(width: 6),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 6,
+                                        vertical: 2,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: const Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.workspace_premium,
+                                            size: 10,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 2),
+                                          Text(
+                                            'VIP',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ],
                               ),
                             ),
                             if (partner.lastMessageTime != null)
                               Text(
                                 _formatTime(partner.lastMessageTime!),
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: colors.outlineVariant,
+                                style: TextStyle(
+                                  color: partner.unreadCount > 0
+                                      ? const Color(0xFFEF4444)
+                                      : colors.onSurface.withOpacity(0.4),
+                                  fontSize: 12,
+                                  fontWeight: partner.unreadCount > 0
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
                                 ),
                               ),
                           ],
                         ),
 
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 5),
 
-                        // Last message + unread
+                        // Last message + unread badge
                         Row(
                           children: [
                             Expanded(
                               child: _typingUsers[partner.id] == true
                                   ? _buildTypingIndicator()
-                                  : Text(
-                                      partner.lastMessage ?? 'No messages yet',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: textTheme.bodySmall?.copyWith(
-                                        color: partner.unreadCount > 0
-                                            ? colors.onBackground
-                                            : colors.outlineVariant,
-                                        fontWeight: partner.unreadCount > 0
-                                            ? FontWeight.w600
-                                            : FontWeight.normal,
-                                      ),
+                                  : Row(
+                                      children: [
+                                        // Online indicator text (if online)
+                                        if (_isUserOnline(partner)) ...[
+                                          Container(
+                                            width: 6,
+                                            height: 6,
+                                            margin: const EdgeInsets.only(right: 6),
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF4ADE80),
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ],
+                                        Expanded(
+                                          child: Text(
+                                            partner.lastMessage ?? 'No messages yet',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: textTheme.bodySmall?.copyWith(
+                                              color: partner.unreadCount > 0
+                                                  ? colors.onSurface
+                                                  : colors.onSurface.withOpacity(0.5),
+                                              fontWeight: partner.unreadCount > 0
+                                                  ? FontWeight.w500
+                                                  : FontWeight.normal,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                             ),
+                            // Unread badge - KakaoTalk style (red pill)
                             if (partner.unreadCount > 0)
                               Container(
-                                margin: const EdgeInsets.only(left: 8),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 6,
-                                  vertical: 2,
+                                margin: const EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: partner.unreadCount > 9 ? 8 : 0,
+                                  vertical: 0,
+                                ),
+                                constraints: const BoxConstraints(
+                                  minWidth: 22,
+                                  minHeight: 22,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: colors.error,
-                                  borderRadius: BorderRadius.circular(10),
+                                  color: const Color(0xFFEF4444), // Red-500
+                                  borderRadius: BorderRadius.circular(11),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFFEF4444).withAlpha(77),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
                                 ),
+                                alignment: Alignment.center,
                                 child: Text(
                                   partner.unreadCount > 99
                                       ? '99+'
                                       : partner.unreadCount.toString(),
-                                  style: textTheme.labelSmall?.copyWith(
-                                    color: colors.onError,
-                                    fontWeight: FontWeight.bold,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
@@ -1267,20 +1616,47 @@ class _ChatMainState extends ConsumerState<ChatMain>
   }
 
   Widget _buildTypingIndicator() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'typing',
-            style: TextStyle(
-              color: colorScheme.outlineVariant,
-              fontSize: 12,
-              fontStyle: FontStyle.italic,
-            ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Animated dots
+        _buildTypingDots(),
+        const SizedBox(width: 6),
+        const Text(
+          'typing...',
+          style: TextStyle(
+            color: Color(0xFF4ADE80),
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTypingDots() {
+    return SizedBox(
+      width: 24,
+      height: 10,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(3, (index) {
+          return TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.3, end: 1.0),
+            duration: Duration(milliseconds: 400 + (index * 150)),
+            curve: Curves.easeInOut,
+            builder: (context, value, child) {
+              return Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4ADE80).withOpacity(value),
+                  shape: BoxShape.circle,
+                ),
+              );
+            },
+          );
+        }),
       ),
     );
   }
@@ -1331,29 +1707,66 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ),
         ),
         actions: [
-          if (_currentUserId != null)
-            Builder(
-              builder: (context) {
-                final limitsAsync = ref.watch(
-                  userLimitsProvider(_currentUserId!),
-                );
-                return limitsAsync.when(
-                  data: (limits) {
-                    if (limits.isVIP) return const SizedBox.shrink();
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: LimitIndicator(
-                        limit: limits.messages,
-                        label: AppLocalizations.of(context)!.messages,
-                        compact: true,
+          // Notification bell icon with badge
+          Consumer(
+            builder: (context, ref, child) {
+              final badgeCount = ref.watch(badgeCountProvider);
+              final notificationCount = badgeCount.notifications;
+
+              return IconButton(
+                icon: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Icon(
+                      Icons.notifications_outlined,
+                      color: colors.onBackground,
+                      size: 26,
+                    ),
+                    if (notificationCount > 0)
+                      Positioned(
+                        right: -6,
+                        top: -4,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: colors.background,
+                              width: 1.5,
+                            ),
+                          ),
+                          constraints: const BoxConstraints(minWidth: 18),
+                          child: Text(
+                            notificationCount > 99
+                                ? '99+'
+                                : notificationCount.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                  loading: () => const SizedBox.shrink(),
-                  error: (_, __) => const SizedBox.shrink(),
-                );
-              },
-            ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationHistoryScreen(),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+          const SizedBox(width: 8),
         ],
       ),
       body: Column(
@@ -1364,12 +1777,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
           // Existing body content
           Expanded(
             child: _isLoading
-                // ---------- Loading ----------
-                ? Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: colors.primary,
-                    ),
+                // ---------- Loading with Shimmer ----------
+                ? ListView.builder(
+                    itemCount: 8,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    itemBuilder: (context, index) => const ChatListItemSkeleton(),
                   )
                 // ---------- Error ----------
                 : _error.isNotEmpty

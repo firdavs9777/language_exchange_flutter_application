@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_settings.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_theme.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_picture_edit.dart';
 import 'package:bananatalk_app/pages/settings/account_deletion.dart';
 import 'package:bananatalk_app/pages/settings/legal_screen.dart';
@@ -16,6 +18,8 @@ import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,7 +36,10 @@ class LeftDrawer extends ConsumerWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [const Color(0xFF00BFA5).withOpacity(0.05), Colors.white],
+            colors: [
+              const Color(0xFF00BFA5).withValues(alpha: 0.05),
+              Theme.of(context).colorScheme.surface,
+            ],
           ),
         ),
         child: SafeArea(
@@ -41,7 +48,7 @@ class LeftDrawer extends ConsumerWidget {
               // Modern Header with Profile
               _buildModernHeader(context, ref),
 
-              const SizedBox(height: 8),
+              Spacing.gapSM,
 
               // Menu Items
               Expanded(
@@ -94,13 +101,13 @@ class LeftDrawer extends ConsumerWidget {
                     //     }
                     //   },
                     // ),
-                    const SizedBox(height: 16),
+                    Spacing.gapLG,
                     _buildSectionTitle('Preferences'),
 
                     _buildMenuItem(
                       context: context,
                       icon: Icons.block,
-                      iconColor: Colors.red,
+                      iconColor: AppColors.error,
                       title: AppLocalizations.of(context)!.blockedUsers,
                       subtitle: AppLocalizations.of(
                         context,
@@ -144,7 +151,12 @@ class LeftDrawer extends ConsumerWidget {
                       )!.controlYourPrivacy,
                       onTap: () {
                         Navigator.pop(context);
-                        // Navigate to privacy settings
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BlockedUsersScreen(),
+                          ),
+                        );
                       },
                     ),
 
@@ -174,11 +186,16 @@ class LeftDrawer extends ConsumerWidget {
                       )!.themeAndDisplaySettings,
                       onTap: () {
                         Navigator.pop(context);
-                        // Navigate to appearance settings
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileTheme(),
+                          ),
+                        );
                       },
                     ),
 
-                    const SizedBox(height: 16),
+                    Spacing.gapLG,
                     _buildSectionTitle('Reports'),
 
                     _buildMenuItem(
@@ -225,7 +242,7 @@ class LeftDrawer extends ConsumerWidget {
                         },
                       ),
 
-                    const SizedBox(height: 16),
+                    Spacing.gapLG,
                     _buildSectionTitle('Support'),
 
                     _buildMenuItem(
@@ -253,7 +270,7 @@ class LeftDrawer extends ConsumerWidget {
                       subtitle: AppLocalizations.of(context)!.getHelpAndSupport,
                       onTap: () {
                         Navigator.pop(context);
-                        // Navigate to help center
+                        _showHelpCenterDialog(context);
                       },
                     ),
 
@@ -261,7 +278,7 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.info_outline,
                       title: AppLocalizations.of(context)!.aboutBanaTalk,
-                      subtitle: 'Version 1.0.0',
+                      subtitle: 'Version 1.9.2',
                       onTap: () {
                         Navigator.pop(context);
                         _showAboutDialog(context);
@@ -284,12 +301,12 @@ class LeftDrawer extends ConsumerWidget {
                       },
                     ),
 
-                    const SizedBox(height: 16),
+                    Spacing.gapLG,
 
                     // Logout Button
                     _buildLogoutButton(context, ref),
 
-                    const SizedBox(height: 24),
+                    Spacing.gapXXL,
                   ],
                 ),
               ),
@@ -308,8 +325,8 @@ class LeftDrawer extends ConsumerWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF00BFA5),
-            const Color(0xFF00BFA5).withOpacity(0.8),
+            AppColors.primary,
+            AppColors.primary.withValues(alpha: 0.8),
           ],
         ),
         borderRadius: const BorderRadius.only(
@@ -318,7 +335,7 @@ class LeftDrawer extends ConsumerWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00BFA5).withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -340,7 +357,7 @@ class LeftDrawer extends ConsumerWidget {
             ],
           ),
 
-          const SizedBox(height: 8),
+          Spacing.gapSM,
 
           // Profile Picture with proper null safety
           GestureDetector(
@@ -379,16 +396,16 @@ class LeftDrawer extends ConsumerWidget {
                             ImageUtils.normalizeImageUrl(user.imageUrls[0]),
                           ),
                           onBackgroundImageError: (exception, stackTrace) {
-                            print('Failed to load profile image: $exception');
+                            debugPrint('Failed to load profile image: $exception');
                           },
                         )
-                      : CircleAvatar(
+                      : const CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.white,
                           child: Icon(
                             Icons.person,
                             size: 50,
-                            color: const Color(0xFF00BFA5),
+                            color: AppColors.primary,
                           ),
                         ),
                 ),
@@ -399,16 +416,10 @@ class LeftDrawer extends ConsumerWidget {
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF00BFA5),
+                      color: AppColors.primary,
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.white, width: 2.5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 6,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
+                      boxShadow: AppShadows.md,
                     ),
                     child: const Icon(
                       Icons.camera_alt,
@@ -421,7 +432,7 @@ class LeftDrawer extends ConsumerWidget {
             ),
           ),
 
-          const SizedBox(height: 16),
+          Spacing.gapLG,
 
           // User Name
           Text(
@@ -434,19 +445,19 @@ class LeftDrawer extends ConsumerWidget {
             textAlign: TextAlign.center,
           ),
 
-          const SizedBox(height: 4),
+          Spacing.gapXS,
 
           // User Email
           Text(
             user.email,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
             ),
             textAlign: TextAlign.center,
           ),
 
-          const SizedBox(height: 16),
+          Spacing.gapLG,
 
           // Stats Row
           Container(
@@ -514,15 +525,14 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-      child: Text(
-        title.toUpperCase(),
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: Colors.grey[600],
-          letterSpacing: 1.2,
+    return Builder(
+      builder: (context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+        child: Text(
+          title.toUpperCase(),
+          style: context.labelSmall.copyWith(
+            letterSpacing: 1.2,
+          ),
         ),
       ),
     );
@@ -540,23 +550,17 @@ class LeftDrawer extends ConsumerWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.surfaceColor,
+        borderRadius: AppRadius.borderLG,
+        boxShadow: AppShadows.sm,
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.paddingLG,
             child: Row(
               children: [
                 // Icon Container
@@ -568,24 +572,24 @@ class LeftDrawer extends ConsumerWidget {
                         gradient ??
                         LinearGradient(
                           colors: [
-                            const Color(0xFF00BFA5).withOpacity(0.1),
-                            const Color(0xFF00BFA5).withOpacity(0.05),
+                            AppColors.primary.withValues(alpha: 0.1),
+                            AppColors.primary.withValues(alpha: 0.05),
                           ],
                         ),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   child: Icon(
                     icon,
                     color:
                         iconColor ??
                         (gradient != null
-                            ? Colors.amber.shade700
-                            : const Color(0xFF00BFA5)),
+                            ? AppColors.secondaryDark
+                            : AppColors.primary),
                     size: 24,
                   ),
                 ),
 
-                const SizedBox(width: 16),
+                Spacing.hGapLG,
 
                 // Title and Subtitle
                 Expanded(
@@ -594,23 +598,19 @@ class LeftDrawer extends ConsumerWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
+                        style: context.titleSmall,
                       ),
-                      const SizedBox(height: 2),
+                      Spacing.gapXXS,
                       Text(
                         subtitle,
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        style: context.caption,
                       ),
                     ],
                   ),
                 ),
 
                 // Arrow Icon
-                Icon(Icons.chevron_right, color: Colors.grey[400], size: 20),
+                Icon(Icons.chevron_right, color: context.textMuted, size: 20),
               ],
             ),
           ),
@@ -620,7 +620,7 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   void _navigateToDeleteAccount(BuildContext context, WidgetRef ref) {
-    print(user.appleId.toString());
+    debugPrint(user.appleId.toString());
     final isOAuthUser = true;
 
     Navigator.push(
@@ -635,13 +635,13 @@ class LeftDrawer extends ConsumerWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: AppRadius.borderLG,
         gradient: LinearGradient(
-          colors: [Colors.red.shade400, Colors.red.shade500],
+          colors: [AppColors.error.withValues(alpha: 0.9), AppColors.error],
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.red.withOpacity(0.3),
+            color: AppColors.error.withValues(alpha: 0.3),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -651,14 +651,14 @@ class LeftDrawer extends ConsumerWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () => _showLogoutConfirmation(context, ref),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.logout, color: Colors.white, size: 24),
-                const SizedBox(width: 12),
+                Spacing.hGapMD,
                 const Text(
                   'Logout',
                   style: TextStyle(
@@ -686,23 +686,23 @@ class LeftDrawer extends ConsumerWidget {
           builder: (context, setState) {
             return AlertDialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: AppRadius.borderXL,
               ),
               title: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: Spacing.paddingSM,
                     decoration: BoxDecoration(
-                      color: Colors.red.shade50,
-                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.errorLight,
+                      borderRadius: AppRadius.borderSM,
                     ),
                     child: Icon(
                       Icons.logout,
-                      color: Colors.red.shade600,
+                      color: AppColors.error,
                       size: 24,
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  Spacing.hGapMD,
                   const Text(
                     'Logout',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -718,7 +718,7 @@ class LeftDrawer extends ConsumerWidget {
                     style: TextStyle(fontSize: 15),
                   ),
                   if (isLoggingOut) ...[
-                    const SizedBox(height: 20),
+                    Spacing.gapXL,
                     Row(
                       children: [
                         const SizedBox(
@@ -727,16 +727,15 @@ class LeftDrawer extends ConsumerWidget {
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              Color(0xFF00BFA5),
+                              AppColors.primary,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Text(
-                          'Logging out...',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
+                        Spacing.hGapMD,
+                        Builder(
+                          builder: (ctx) => Text(
+                            'Logging out...',
+                            style: ctx.bodySmall,
                           ),
                         ),
                       ],
@@ -764,25 +763,25 @@ class LeftDrawer extends ConsumerWidget {
                           });
 
                           try {
-                            print('🚪 Starting logout sequence...');
+                            debugPrint('Starting logout sequence...');
 
                             // 1. Stop global chat listener FIRST
                             GlobalChatListener().stop();
-                            print('✅ Global chat listener stopped');
+                            debugPrint('Global chat listener stopped');
 
                             // 2. Disconnect socket and perform backend logout
                             await ref.read(authServiceProvider).logout();
-                            print('✅ Backend logout successful');
+                            debugPrint('Backend logout successful');
 
                             // 3. Reset all providers and badge counts
                             ref.read(badgeCountProvider.notifier).reset();
                             ref.read(chatPartnersProvider.notifier).reset();
-                            print('✅ Badge counts reset');
+                            debugPrint('Badge counts reset');
 
                             // 4. Invalidate providers
                             ref.invalidate(userProvider);
                             ref.invalidate(authServiceProvider);
-                            print('✅ Providers invalidated');
+                            debugPrint('Providers invalidated');
 
                             if (dialogContext.mounted) {
                               Navigator.pop(dialogContext); // Close dialog
@@ -808,7 +807,7 @@ class LeftDrawer extends ConsumerWidget {
                                         Icons.check_circle_outline,
                                         color: Colors.white,
                                       ),
-                                      const SizedBox(width: 12),
+                                      Spacing.hGapMD,
                                       Expanded(
                                         child: Text(
                                           AppLocalizations.of(
@@ -818,17 +817,17 @@ class LeftDrawer extends ConsumerWidget {
                                       ),
                                     ],
                                   ),
-                                  backgroundColor: Colors.green.shade600,
+                                  backgroundColor: AppColors.success,
                                   behavior: SnackBarBehavior.floating,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: AppRadius.borderSM,
                                   ),
                                   duration: const Duration(seconds: 2),
                                 ),
                               );
                             }
                           } catch (error) {
-                            print('❌ Logout error: $error');
+                            debugPrint('Logout error: $error');
 
                             setState(() {
                               isLoggingOut = false;
@@ -843,7 +842,7 @@ class LeftDrawer extends ConsumerWidget {
                                         Icons.error_outline,
                                         color: Colors.white,
                                       ),
-                                      const SizedBox(width: 12),
+                                      Spacing.hGapMD,
                                       Expanded(
                                         child: Text(
                                           'Logout failed: ${error.toString()}',
@@ -851,10 +850,10 @@ class LeftDrawer extends ConsumerWidget {
                                       ),
                                     ],
                                   ),
-                                  backgroundColor: Colors.red.shade600,
+                                  backgroundColor: AppColors.error,
                                   behavior: SnackBarBehavior.floating,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: AppRadius.borderSM,
                                   ),
                                   duration: const Duration(seconds: 4),
                                 ),
@@ -863,10 +862,10 @@ class LeftDrawer extends ConsumerWidget {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red.shade600,
+                          backgroundColor: AppColors.error,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: AppRadius.borderSM,
                           ),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 24,
@@ -920,7 +919,7 @@ class LeftDrawer extends ConsumerWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: AppRadius.borderXL,
           ),
           title: Row(
             children: [
@@ -928,10 +927,8 @@ class LeftDrawer extends ConsumerWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
-                  ),
-                  borderRadius: BorderRadius.circular(10),
+                  gradient: AppColors.primaryGradient,
+                  borderRadius: AppRadius.borderSM,
                 ),
                 child: const Icon(
                   Icons.info_outline,
@@ -939,13 +936,10 @@ class LeftDrawer extends ConsumerWidget {
                   size: 24,
                 ),
               ),
-              const SizedBox(width: 12),
+              Spacing.hGapMD,
               Text(
                 AppLocalizations.of(context)!.aboutBanaTalk,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.titleLarge,
               ),
             ],
           ),
@@ -953,28 +947,104 @@ class LeftDrawer extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'BanaTalk - Language Exchange Platform',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 8),
               Text(
-                'Version 1.0.0',
-                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                'BanaTalk - Language Exchange Platform',
+                style: context.titleMedium,
               ),
-              const SizedBox(height: 16),
+              Spacing.gapSM,
+              Text(
+                'Version 1.9.2',
+                style: context.bodySmall,
+              ),
+              Spacing.gapLG,
               Text(
                 'Connect with language learners worldwide and improve your language skills through real conversations.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                  height: 1.5,
+                style: context.bodyMedium,
+              ),
+              Spacing.gapLG,
+              Text(
+                '(c) 2024 BanaTalk. All rights reserved.',
+                style: context.caption,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'Close',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showHelpCenterDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: AppRadius.borderXL,
+          ),
+          title: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  gradient: AppColors.primaryGradient,
+                  borderRadius: AppRadius.borderSM,
+                ),
+                child: const Icon(
+                  Icons.help_outline,
+                  color: Colors.white,
+                  size: 24,
                 ),
               ),
-              const SizedBox(height: 16),
+              Spacing.hGapMD,
               Text(
-                '© 2024 BanaTalk. All rights reserved.',
-                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                AppLocalizations.of(context)!.helpCenter,
+                style: context.titleLarge,
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.email_outlined, color: AppColors.primary),
+                title: const Text('Email Support'),
+                subtitle: const Text('support@bananatalk.com'),
+                contentPadding: EdgeInsets.zero,
+                onTap: () {
+                  Navigator.pop(context);
+                  // Could open email client
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.bug_report_outlined, color: AppColors.primary),
+                title: const Text('Report a Bug'),
+                subtitle: const Text('Help us improve BanaTalk'),
+                contentPadding: EdgeInsets.zero,
+                onTap: () {
+                  Navigator.pop(context);
+                  // Could open bug report form
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.question_answer_outlined, color: AppColors.primary),
+                title: const Text('FAQs'),
+                subtitle: const Text('Frequently asked questions'),
+                contentPadding: EdgeInsets.zero,
+                onTap: () {
+                  Navigator.pop(context);
+                  // Could navigate to FAQ screen
+                },
               ),
             ],
           ),

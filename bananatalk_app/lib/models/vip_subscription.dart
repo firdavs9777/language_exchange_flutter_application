@@ -26,26 +26,35 @@ class VipSubscription {
   });
 
   factory VipSubscription.fromJson(Map<String, dynamic> json) {
+    // Handle both embedded subdocument (no id) and standalone document (with id)
+    final id = json['_id'] ?? json['id'] ?? 'subscription';
+
+    // Parse dates safely
+    DateTime? parseDate(dynamic value) {
+      if (value == null) return null;
+      if (value is DateTime) return value;
+      if (value is String) {
+        try {
+          return DateTime.parse(value);
+        } catch (e) {
+          return null;
+        }
+      }
+      return null;
+    }
+
     return VipSubscription(
-      id: json['_id'] ?? json['id'] ?? '',
-      plan: json['plan'] ?? '',
-      startDate: json['startDate'] != null
-          ? DateTime.parse(json['startDate'])
-          : DateTime.now(),
-      endDate: json['endDate'] != null
-          ? DateTime.parse(json['endDate'])
-          : DateTime.now(),
-      isActive: json['isActive'] ?? json['status'] == 'active' ?? true,
-      autoRenew: json['autoRenew'] ?? true,
-      paymentMethod: json['paymentMethod'],
-      lastPaymentDate: json['lastPaymentDate'] != null
-          ? DateTime.parse(json['lastPaymentDate'])
-          : null,
-      nextBillingDate: json['nextBillingDate'] != null
-          ? DateTime.parse(json['nextBillingDate'])
-          : null,
+      id: id,
+      plan: json['plan']?.toString() ?? '',
+      startDate: parseDate(json['startDate']) ?? DateTime.now(),
+      endDate: parseDate(json['endDate']) ?? DateTime.now().add(const Duration(days: 30)),
+      isActive: json['isActive'] == true || json['status'] == 'active',
+      autoRenew: json['autoRenew'] ?? false,
+      paymentMethod: json['paymentMethod']?.toString(),
+      lastPaymentDate: parseDate(json['lastPaymentDate']),
+      nextBillingDate: parseDate(json['nextBillingDate']),
       amount: json['amount'] != null ? (json['amount'] as num).toDouble() : null,
-      status: json['status'],
+      status: json['status']?.toString(),
     );
   }
 
@@ -215,11 +224,11 @@ enum VipPlan {
   double get price {
     switch (this) {
       case VipPlan.monthly:
-        return 9.99;
+        return 14.99;
       case VipPlan.quarterly:
-        return 24.99;
+        return 19.99;
       case VipPlan.yearly:
-        return 79.99;
+        return 49.99;
     }
   }
 
@@ -237,11 +246,11 @@ enum VipPlan {
   String get description {
     switch (this) {
       case VipPlan.monthly:
-        return '\$9.99/month';
+        return '\$14.99/month';
       case VipPlan.quarterly:
-        return '\$24.99/3 months (Save 17%)';
+        return '\$19.99/3 months (Save 56%)';
       case VipPlan.yearly:
-        return '\$79.99/year (Save 33%)';
+        return '\$49.99/year (Save 72%)';
     }
   }
 }

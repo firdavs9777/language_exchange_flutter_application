@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 /// Global socket service to manage socket connections and cleanup
@@ -16,34 +17,34 @@ class SocketService {
   void registerSocket(IO.Socket? socket) {
     if (socket != null && !_activeSockets.contains(socket)) {
       _activeSockets.add(socket);
-      print('🔌 Socket registered. Total active: ${_activeSockets.length}');
+      debugPrint('🔌 Socket registered. Total active: ${_activeSockets.length}');
     }
   }
 
   /// Unregister a socket instance
   void unregisterSocket(IO.Socket? socket) {
     _activeSockets.remove(socket);
-    print('🔌 Socket unregistered. Total active: ${_activeSockets.length}');
+    debugPrint('🔌 Socket unregistered. Total active: ${_activeSockets.length}');
   }
 
   /// Disconnect all active sockets (called on logout)
   /// Sends explicit logout event to backend before disconnecting
   Future<void> disconnectAll() async {
-    print('🔌 Disconnecting all sockets (${_activeSockets.length} active)');
+    debugPrint('🔌 Disconnecting all sockets (${_activeSockets.length} active)');
     
     // Prevent auto-reconnection after logout
     _shouldAllowReconnection = false;
-    print('🚫 Auto-reconnection disabled');
+    debugPrint('🚫 Auto-reconnection disabled');
     
     // Send explicit logout event to each connected socket BEFORE disconnecting
     for (var socket in _activeSockets) {
       try {
         if (socket != null && socket.connected) {
-          print('👋 Sending logout event to socket ${socket.id}');
+          debugPrint('👋 Sending logout event to socket ${socket.id}');
           
           // Emit logout event with acknowledgment
           socket.emitWithAck('logout', {}, ack: (data) {
-            print('✅ Logout acknowledged: $data');
+            debugPrint('✅ Logout acknowledged: $data');
           });
           
           // Wait briefly to ensure event is sent
@@ -52,10 +53,10 @@ class SocketService {
           // Now disconnect
           socket.disconnect();
           socket.dispose();
-          print('✅ Socket ${socket.id} disconnected');
+          debugPrint('✅ Socket ${socket.id} disconnected');
         }
       } catch (e) {
-        print('❌ Error disconnecting socket: $e');
+        debugPrint('❌ Error disconnecting socket: $e');
         // Force disconnect even if error
         try {
           socket?.disconnect();
@@ -65,13 +66,13 @@ class SocketService {
     }
     
     _activeSockets.clear();
-    print('✅ All sockets disconnected and cleared');
+    debugPrint('✅ All sockets disconnected and cleared');
   }
   
   /// Re-enable reconnection (called on new login)
   void enableReconnection() {
     _shouldAllowReconnection = true;
-    print('✅ Auto-reconnection re-enabled');
+    debugPrint('✅ Auto-reconnection re-enabled');
   }
   
   /// Check if reconnection is allowed

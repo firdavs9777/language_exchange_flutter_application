@@ -10,6 +10,8 @@ import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class VipPlansScreen extends ConsumerStatefulWidget {
   final String? userId;
@@ -48,8 +50,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
       return productsAsync.when(
         data: (products) => _buildContent(),
         loading: () => Scaffold(
+          backgroundColor: context.scaffoldBackground,
           appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.upgradeToVIP),
+            title: Text(AppLocalizations.of(context)!.upgradeToVIP, style: context.titleLarge),
+            backgroundColor: context.surfaceColor,
             elevation: 0,
           ),
           body: const Center(
@@ -57,29 +61,38 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
           ),
         ),
         error: (error, stack) => Scaffold(
+          backgroundColor: context.scaffoldBackground,
           appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.upgradeToVIP),
+            title: Text(AppLocalizations.of(context)!.upgradeToVIP, style: context.titleLarge),
+            backgroundColor: context.surfaceColor,
             elevation: 0,
           ),
           body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.error_outline, size: 48, color: Colors.red),
-                const SizedBox(height: 16),
-                Text('${AppLocalizations.of(context)!.errorLoadingProducts}: $error'),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_isIOS) {
-                      ref.invalidate(iosProductsProvider);
-                    } else {
-                      ref.invalidate(androidProductsProvider);
-                    }
-                  },
-                  child: Text(AppLocalizations.of(context)!.retry),
-                ),
-              ],
+            child: Padding(
+              padding: AppSpacing.paddingLG,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, size: 48, color: AppColors.error),
+                  SizedBox(height: AppSpacing.lg),
+                  Text(
+                    '${AppLocalizations.of(context)!.errorLoadingProducts}: $error',
+                    style: context.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: AppSpacing.lg),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_isIOS) {
+                        ref.invalidate(iosProductsProvider);
+                      } else {
+                        ref.invalidate(androidProductsProvider);
+                      }
+                    },
+                    child: Text(AppLocalizations.of(context)!.retry),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -91,8 +104,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
   Widget _buildContent() {
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('Upgrade to VIP'),
+        title: Text('Upgrade to VIP', style: context.titleLarge),
+        backgroundColor: context.surfaceColor,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -101,12 +116,12 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             // Header Section
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(24),
+              padding: AppSpacing.paddingXXL,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).primaryColor.withOpacity(0.7),
+                    context.primaryColor,
+                    context.primaryColor.withValues(alpha: 0.7),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -117,23 +132,18 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                   const Icon(
                     Icons.workspace_premium,
                     size: 64,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
+                  SizedBox(height: AppSpacing.lg),
+                  Text(
                     'Unlock VIP Features',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: context.displayMedium.copyWith(color: AppColors.white),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+                  SizedBox(height: AppSpacing.sm),
+                  Text(
                     'Get unlimited access to all premium features',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
+                    style: context.bodyLarge.copyWith(
+                      color: AppColors.white.withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -143,18 +153,15 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
             // Features Section
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: AppSpacing.paddingXXL,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'VIP Features',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.titleLarge,
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppSpacing.lg),
                   _buildFeatureItem(
                     icon: Icons.message,
                     title: AppLocalizations.of(context)!.unlimitedMessages,
@@ -191,22 +198,19 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
             // Plans Section
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: AppSpacing.paddingXXL,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Choose Your Plan',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.titleLarge,
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppSpacing.lg),
                   _buildPlanCard(VipPlan.monthly),
-                  const SizedBox(height: 12),
+                  SizedBox(height: AppSpacing.md),
                   _buildPlanCard(VipPlan.quarterly, popular: true),
-                  const SizedBox(height: 12),
+                  SizedBox(height: AppSpacing.md),
                   _buildPlanCard(VipPlan.yearly),
                 ],
               ),
@@ -214,72 +218,63 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
             // Subscription Information (required for App Store)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
               child: Container(
-                padding: const EdgeInsets.all(16),
+                padding: AppSpacing.paddingLG,
                 decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey[200]!),
+                  color: context.containerColor,
+                  borderRadius: AppRadius.borderMD,
+                  border: Border.all(color: context.dividerColor),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Subscription Information',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.titleMedium,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppSpacing.md),
                     if (selectedPlan != null) ...[
                       _buildSubscriptionInfoRow('Title', selectedPlan!.displayName),
                       _buildSubscriptionInfoRow('Length', _getSubscriptionLength(selectedPlan!)),
                       _buildSubscriptionInfoRow('Price', '\$${selectedPlan!.price}'),
-                      const SizedBox(height: 12),
+                      SizedBox(height: AppSpacing.md),
                     ] else
-                      const Text(
+                      Text(
                         'Please select a plan to see subscription details',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
+                        style: context.bodySmall,
                       ),
-                    const SizedBox(height: 12),
-                    const Divider(),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppSpacing.md),
+                    Divider(color: context.dividerColor),
+                    SizedBox(height: AppSpacing.md),
                     Row(
                       children: [
                         Expanded(
                           child: TextButton.icon(
                             onPressed: () => _launchURL('https://banatalk.com/terms-of-use'),
-                            icon: const Icon(Icons.description_outlined, size: 18),
-                            label: const Text(
+                            icon: Icon(Icons.description_outlined, size: 18, color: context.primaryColor),
+                            label: Text(
                               'Terms of Use',
-                              style: TextStyle(fontSize: 13),
+                              style: context.labelMedium.copyWith(color: context.primaryColor),
                             ),
                           ),
                         ),
                         Expanded(
                           child: TextButton.icon(
                             onPressed: () => _launchURL('https://banatalk.com/privacy-policy'),
-                            icon: const Icon(Icons.privacy_tip_outlined, size: 18),
-                            label: const Text(
+                            icon: Icon(Icons.privacy_tip_outlined, size: 18, color: context.primaryColor),
+                            label: Text(
                               'Privacy Policy',
-                              style: TextStyle(fontSize: 13),
+                              style: context.labelMedium.copyWith(color: context.primaryColor),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSpacing.sm),
                     Text(
                       'Payment is charged to your iTunes Account or Google Play account. Subscription automatically renews unless canceled at least 24 hours before the end of the current period.',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[600],
-                      ),
+                      style: context.captionSmall,
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -289,7 +284,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
             // Continue Button
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: AppSpacing.paddingXXL,
               child: SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -317,12 +312,12 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                       : null,
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Continue to Payment',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: context.titleMedium.copyWith(color: AppColors.white),
                   ),
                 ),
               ),
@@ -339,40 +334,34 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     required String description,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.only(bottom: AppSpacing.lg),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: AppSpacing.paddingMD,
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: context.primaryColor.withValues(alpha: 0.1),
+              borderRadius: AppRadius.borderMD,
             ),
             child: Icon(
               icon,
-              color: Theme.of(context).primaryColor,
+              color: context.primaryColor,
               size: 24,
             ),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: AppSpacing.lg),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.titleMedium,
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: AppSpacing.xs),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
+                  style: context.bodySmall,
                 ),
               ],
             ),
@@ -450,19 +439,19 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
         decoration: BoxDecoration(
           border: Border.all(
             color: isSelected
-                ? Theme.of(context).primaryColor
-                : Colors.grey[300]!,
+                ? context.primaryColor
+                : context.dividerColor,
             width: isSelected ? 2 : 1,
           ),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
           color: isSelected
-              ? Theme.of(context).primaryColor.withOpacity(0.05)
-              : Colors.white,
+              ? context.primaryColor.withValues(alpha: 0.05)
+              : context.surfaceColor,
         ),
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: AppSpacing.paddingXL,
               child: Row(
                 children: [
                   Radio<VipPlan>(
@@ -473,38 +462,30 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                         selectedPlan = value;
                       });
                     },
+                    activeColor: context.primaryColor,
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           plan.displayName,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: context.titleMedium,
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: AppSpacing.xs),
                         Text(
                           product != null && product!.description.isNotEmpty
                               ? product!.description
                               : plan.description,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
+                          style: context.bodySmall,
                         ),
                       ],
                     ),
                   ),
                   Text(
                     priceText,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.titleLarge,
                   ),
                 ],
               ),
@@ -515,19 +496,18 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                 right: 0,
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: context.primaryColor,
                     borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(16),
-                      bottomLeft: Radius.circular(16),
+                      topRight: Radius.circular(AppRadius.lg),
+                      bottomLeft: Radius.circular(AppRadius.lg),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'POPULAR',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
+                    style: context.labelSmall.copyWith(
+                      color: AppColors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -552,23 +532,17 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
   Widget _buildSubscriptionInfoRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             label,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-            ),
+            style: context.bodySmall,
           ),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+            style: context.labelLarge,
           ),
         ],
       ),
@@ -585,7 +559,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
-              backgroundColor: Colors.red,
+              backgroundColor: AppColors.error,
             ),
           );
         }
@@ -595,7 +569,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${AppLocalizations.of(context)!.error}: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }

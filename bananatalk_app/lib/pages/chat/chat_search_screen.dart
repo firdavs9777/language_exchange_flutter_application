@@ -5,6 +5,8 @@ import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ChatSearchScreen extends StatefulWidget {
   final String? conversationId;
@@ -221,13 +223,13 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             Text(
               _error!,
               style: TextStyle(color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             ElevatedButton(
               onPressed: () => _performSearch(_searchQuery),
               child: const Text('Retry'),
@@ -243,7 +245,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.search, size: 64, color: Colors.grey[300]),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             Text(
               'Search messages',
               style: TextStyle(
@@ -251,7 +253,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
                 color: Colors.grey[600],
               ),
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
               'Enter keywords to find messages',
               style: TextStyle(
@@ -269,7 +271,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.search_off, size: 64, color: Colors.grey[300]),
-            const SizedBox(height: 16),
+            Spacing.gapMD,
             Text(
               'No results found',
               style: TextStyle(
@@ -277,7 +279,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
                 color: Colors.grey[600],
               ),
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
               'Try searching with different keywords',
               style: TextStyle(
@@ -324,7 +326,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
             senderName,
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
-          const SizedBox(width: 8),
+          Spacing.hGapSM,
           Text(
             _formatDate(message.createdAt),
             style: TextStyle(

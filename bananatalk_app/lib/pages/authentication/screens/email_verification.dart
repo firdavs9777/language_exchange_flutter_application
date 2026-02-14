@@ -1,6 +1,8 @@
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
@@ -95,7 +97,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.success,
         ),
       );
 
@@ -113,7 +115,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -142,7 +144,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.success,
         ),
       );
       _startResendTimer();
@@ -154,7 +156,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -168,9 +170,8 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
           'Verify Email',
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -180,31 +181,31 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             Icon(
               Icons.email_outlined,
               size: 80,
-              color: Colors.blueAccent,
+              color: AppColors.primary,
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             BananaText(
               'Verify Your Email',
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16),
+            Spacing.gapLG,
             Text(
               'We sent a 6-digit code to',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
-            SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
               widget.email,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
+                color: AppColors.primary,
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             // 6-digit code input
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -222,15 +223,15 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                     decoration: InputDecoration(
                       counterText: '',
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: context.containerColor,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: AppRadius.borderMD,
+                        borderSide: BorderSide(color: context.dividerColor),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: AppRadius.borderMD,
                         borderSide:
-                            BorderSide(color: Colors.blueAccent, width: 2),
+                            BorderSide(color: AppColors.primary, width: 2),
                       ),
                     ),
                     onChanged: (value) {
@@ -248,15 +249,15 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                 );
               }),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             SizedBox(
               height: 50,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _verifyCode,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: AppColors.primary,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppRadius.borderMD,
                   ),
                 ),
                 child: _isLoading
@@ -271,13 +272,13 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                       ),
               ),
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "Didn't receive the code? ",
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: TextStyle(color: context.textSecondary),
                 ),
                 TextButton(
                   onPressed:
@@ -294,8 +295,8 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                               : 'Resend',
                           style: TextStyle(
                             color: _resendTimer > 0
-                                ? Colors.grey
-                                : Colors.blueAccent,
+                                ? context.textMuted
+                                : AppColors.primary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

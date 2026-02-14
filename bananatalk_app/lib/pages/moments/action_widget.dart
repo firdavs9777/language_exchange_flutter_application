@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ActionButton extends StatelessWidget {
   final IconData icon;
@@ -25,11 +27,11 @@ class ActionButton extends StatelessWidget {
           Row(
             children: [
               Icon(icon, size: 24),
-              SizedBox(width: 8),
+              Spacing.hGapSM,
               Text(count.toString()),
             ],
           ),
-          SizedBox(height: 8),
+          Spacing.gapSM,
           SizedBox(
             width: 10,
           ),

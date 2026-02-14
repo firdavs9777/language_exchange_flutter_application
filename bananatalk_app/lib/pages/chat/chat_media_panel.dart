@@ -34,6 +34,7 @@ class ChatMediaPanel extends StatelessWidget {
               ),
             ],
           ),
+          clipBehavior: Clip.hardEdge,
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Opacity(

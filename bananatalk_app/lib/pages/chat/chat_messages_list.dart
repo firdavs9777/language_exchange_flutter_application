@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'chat_message_bubble.dart';
 import 'chat_typing_indicator.dart';
 import 'chat_error_widget.dart';

@@ -163,6 +163,7 @@ Successfully implemented a complete VIP subscription and visitor management syst
 | Quarterly | $24.99 | 90 days | 17% off |
 | Yearly | $79.99 | 365 days | 33% off |
 
+
 ---
 
 ## User Modes

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class StoriesService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print('📚 Stories Feed Response: success=${data['success']}, count=${data['count']}');
+        debugPrint('📚 Stories Feed Response: success=${data['success']}, count=${data['count']}');
         
         if (data['success'] == true) {
           // API returns: { success: true, count: 3, data: [UserStories, UserStories] }
@@ -51,7 +52,7 @@ class StoriesService {
                   .toList()
               : <UserStories>[];
           
-          print('📚 Parsed ${userStoriesList.length} user story groups');
+          debugPrint('📚 Parsed ${userStoriesList.length} user story groups');
           
           return StoriesResponse(
             success: true,
@@ -68,7 +69,7 @@ class StoriesService {
       }
       return StoriesResponse(success: false, error: 'Failed to load stories');
     } catch (e) {
-      print('Error in getStoriesFeed: $e');
+      debugPrint('Error in getStoriesFeed: $e');
       return StoriesResponse(success: false, error: e.toString());
     }
   }
@@ -127,7 +128,7 @@ class StoriesService {
       }
       return StoriesResponse(success: false, error: 'Failed to load stories');
     } catch (e) {
-      print('Error in getMyStories: $e');
+      debugPrint('Error in getMyStories: $e');
       return StoriesResponse(success: false, error: e.toString());
     }
   }
@@ -215,9 +216,9 @@ class StoriesService {
       final url = Uri.parse('${Endpoints.baseURL}$endpoint');
       final fieldName = isVideo ? 'video' : 'media';
 
-      print('📤 Creating ${isVideo ? 'VIDEO' : 'IMAGE'} story');
-      print('📤 Endpoint: $endpoint');
-      print('📤 Field name: $fieldName');
+      debugPrint('📤 Creating ${isVideo ? 'VIDEO' : 'IMAGE'} story');
+      debugPrint('📤 Endpoint: $endpoint');
+      debugPrint('📤 Field name: $fieldName');
 
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = 'Bearer $token';
@@ -227,9 +228,9 @@ class StoriesService {
         final file = mediaFiles.first;
         final fileSize = await file.length();
 
-        print('📤 Adding video: ${file.path}');
-        print('📤 MIME type: $mimeType');
-        print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
+        debugPrint('📤 Adding video: ${file.path}');
+        debugPrint('📤 MIME type: $mimeType');
+        debugPrint('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
 
         // Validate video size (max 1GB)
         if (fileSize > 1024 * 1024 * 1024) {
@@ -254,9 +255,9 @@ class StoriesService {
           final fileMimeType = _getMimeType(file.path);
           final fileSize = await file.length();
 
-          print('📤 Adding image: ${file.path}');
-          print('📤 MIME type: $fileMimeType');
-          print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
+          debugPrint('📤 Adding image: ${file.path}');
+          debugPrint('📤 MIME type: $fileMimeType');
+          debugPrint('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
 
           request.files.add(await http.MultipartFile.fromPath(
             fieldName, file.path, contentType: MediaType.parse(fileMimeType),
@@ -264,18 +265,18 @@ class StoriesService {
         }
       }
 
-      print('📤 Sending story creation request...');
-      print('📤 URL: $url');
+      debugPrint('📤 Sending story creation request...');
+      debugPrint('📤 URL: $url');
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      print('📡 Story creation response status: ${response.statusCode}');
-      print('📡 Story creation response body: ${response.body}');
+      debugPrint('📡 Story creation response status: ${response.statusCode}');
+      debugPrint('📡 Story creation response body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
-        print('✅ Story created successfully');
+        debugPrint('✅ Story created successfully');
         return SingleStoryResponse.fromJson(data);
       }
 
@@ -284,15 +285,15 @@ class StoriesService {
       try {
         final errorData = jsonDecode(response.body);
         errorMessage = errorData['message'] ?? errorData['error'] ?? 'Failed to create story (${response.statusCode})';
-        print('❌ Story creation failed: $errorMessage');
+        debugPrint('❌ Story creation failed: $errorMessage');
       } catch (parseError) {
         errorMessage = 'Failed to create story: Server error (${response.statusCode})';
-        print('❌ Story creation failed with unparseable response: ${response.body}');
+        debugPrint('❌ Story creation failed with unparseable response: ${response.body}');
       }
 
       return SingleStoryResponse(success: false, error: errorMessage);
     } catch (e) {
-      print('❌ Story creation exception: $e');
+      debugPrint('❌ Story creation exception: $e');
       return SingleStoryResponse(success: false, error: 'Network error: ${e.toString()}');
     }
   }
@@ -308,6 +309,73 @@ class StoriesService {
         return 'close_friends';
       default:
         return 'friends';
+    }
+  }
+
+  /// Create a text-only story (no media required)
+  static Future<SingleStoryResponse> createTextStory({
+    required String text,
+    required String backgroundColor,
+    String textColor = '#FFFFFF',
+    String fontStyle = 'normal',
+    StoryPrivacy privacy = StoryPrivacy.everyone,
+    bool allowReplies = true,
+    bool allowSharing = true,
+  }) async {
+    try {
+      final token = await _getToken();
+
+      if (text.trim().isEmpty) {
+        return SingleStoryResponse(
+          success: false,
+          error: 'Please enter some text for your story',
+        );
+      }
+
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storiesURL}');
+
+      debugPrint('📤 Creating TEXT story');
+      debugPrint('📤 Text: $text');
+      debugPrint('📤 Background: $backgroundColor');
+
+      final body = {
+        'text': text.trim(),
+        'backgroundColor': backgroundColor,
+        'textColor': textColor,
+        'fontStyle': fontStyle,
+        'mediaType': 'text',
+        'privacy': _mapPrivacyToBackend(privacy),
+        'allowReplies': allowReplies,
+        'allowSharing': allowSharing,
+      };
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode(body),
+      );
+
+      debugPrint('📡 Text story creation response: ${response.statusCode}');
+      debugPrint('📡 Response body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        debugPrint('✅ Text story created successfully');
+        return SingleStoryResponse.fromJson(data);
+      }
+
+      String errorMessage = 'Failed to create story';
+      try {
+        final errorData = jsonDecode(response.body);
+        errorMessage = errorData['message'] ?? errorData['error'] ?? 'Failed to create story (${response.statusCode})';
+      } catch (_) {
+        errorMessage = 'Server error (${response.statusCode})';
+      }
+
+      return SingleStoryResponse(success: false, error: errorMessage);
+    } catch (e) {
+      debugPrint('❌ Text story creation error: $e');
+      return SingleStoryResponse(success: false, error: 'Network error: ${e.toString()}');
     }
   }
 

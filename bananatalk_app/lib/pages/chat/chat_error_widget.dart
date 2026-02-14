@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ChatErrorWidget extends StatelessWidget {
   final String error;
@@ -21,7 +23,7 @@ class ChatErrorWidget extends StatelessWidget {
             size: 64,
             color: Colors.red[400],
           ),
-          const SizedBox(height: 16),
+          Spacing.gapMD,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
@@ -33,7 +35,7 @@ class ChatErrorWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          Spacing.gapLG,
           ElevatedButton.icon(
             onPressed: onRetry,
             icon: const Icon(Icons.refresh),

@@ -3,6 +3,9 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class WallpaperPickerScreen extends StatefulWidget {
   final String conversationId;
@@ -227,7 +230,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat Wallpaper'),
+        title: Text(AppLocalizations.of(context)!.chatWallpaper),
         actions: [
           if (_selectedPreset != null)
             TextButton(
@@ -238,7 +241,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('Apply'),
+                  : Text(AppLocalizations.of(context)!.apply),
             ),
         ],
       ),
@@ -251,7 +254,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
               'Chat wallpaper for ${widget.userName}',
               style: TextStyle(color: Colors.grey[600]),
             ),
-            const SizedBox(height: 24),
+            Spacing.gapLG,
             
             // Solid Colors Section
             const Text(
@@ -261,7 +264,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -290,7 +293,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                         height: 60,
                         decoration: BoxDecoration(
                           color: preset['backgroundColor'],
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: AppRadius.borderMD,
                           border: Border.all(
                             color: isSelected
                                 ? Theme.of(context).primaryColor
@@ -319,7 +322,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                               : Colors.grey[600],
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      Spacing.gapXS,
                       Text(
                         preset['label'],
                         style: TextStyle(
@@ -335,7 +338,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
               },
             ),
             
-            const SizedBox(height: 24),
+            Spacing.gapLG,
             
             // Gradients Section
             const Text(
@@ -345,7 +348,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -378,7 +381,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: AppRadius.borderMD,
                           border: Border.all(
                             color: isSelected
                                 ? Theme.of(context).primaryColor
@@ -398,7 +401,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                               : null,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      Spacing.gapXS,
                       Text(
                         gradient['label'],
                         style: TextStyle(
@@ -414,7 +417,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
               },
             ),
             
-            const SizedBox(height: 24),
+            Spacing.gapLG,
             
             // Custom Image Section
             const Text(
@@ -424,7 +427,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
             GestureDetector(
               onTap: _pickCustomImage,
               child: Container(
@@ -432,7 +435,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                 height: 120,
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: AppRadius.borderMD,
                   border: Border.all(
                     color: _selectedPreset == 'custom'
                         ? Theme.of(context).primaryColor
@@ -455,7 +458,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                             size: 40,
                             color: Colors.grey[400],
                           ),
-                          const SizedBox(height: 8),
+                          Spacing.gapSM,
                           Text(
                             'Choose from gallery',
                             style: TextStyle(color: Colors.grey[600]),
@@ -466,7 +469,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
               ),
             ),
             
-            const SizedBox(height: 32),
+            Spacing.gapXL,
             
             // Preview Section
             if (_selectedPreset != null) ...[
@@ -477,12 +480,12 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
+              Spacing.gapMD,
               Container(
                 width: double.infinity,
                 height: 200,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: AppRadius.borderMD,
                   border: Border.all(color: Colors.grey[300]!),
                 ),
                 child: ClipRRect(
@@ -544,7 +547,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: AppRadius.borderMD,
             ),
             child: const Text('Hello! 👋'),
           ),
@@ -556,7 +559,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: AppRadius.borderMD,
             ),
             child: const Text(
               'Hi there! 😊',
@@ -571,7 +574,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: AppRadius.borderMD,
             ),
             child: const Text('How are you?'),
           ),

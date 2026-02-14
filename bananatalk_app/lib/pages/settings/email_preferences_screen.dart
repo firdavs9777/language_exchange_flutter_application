@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Email notification preferences screen
 class EmailPreferencesScreen extends StatefulWidget {
@@ -15,7 +17,7 @@ class EmailPreferencesScreen extends StatefulWidget {
 class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
   bool _isLoading = true;
   bool _isSaving = false;
-  
+
   // Email preference states
   bool _emailNotifications = true;
   bool _weeklyDigest = true;
@@ -33,7 +35,7 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      
+
       // Fetch current user details to get preferences
       final url = Uri.parse('${Endpoints.baseURL}auth/me');
       final response = await http.get(
@@ -47,7 +49,7 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final privacySettings = data['data']?['privacySettings'] ?? {};
-        
+
         if (mounted) {
           setState(() {
             _emailNotifications = privacySettings['emailNotifications'] ?? true;
@@ -92,7 +94,7 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      
+
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
       final response = await http.put(
         url,
@@ -158,7 +160,7 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.red[400],
+        backgroundColor: AppColors.error,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -167,20 +169,17 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.surfaceColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: context.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Email Preferences',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
+          style: context.titleLarge,
         ),
       ),
       body: _isLoading
@@ -189,14 +188,14 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 16),
-                  
+                  SizedBox(height: AppSpacing.lg),
+
                   // Master switch
                   _buildSection(
                     children: [
                       _EmailToggleTile(
                         icon: Icons.email_outlined,
-                        iconColor: Colors.blue,
+                        iconColor: AppColors.info,
                         title: 'Email Notifications',
                         subtitle: 'Receive email notifications from BananaTalk',
                         value: _emailNotifications,
@@ -205,18 +204,16 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
                       ),
                     ],
                   ),
-                  
+
                   // Individual settings (only show when master is ON)
                   if (_emailNotifications) ...[
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSpacing.sm),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
                       child: Text(
                         'NOTIFICATION TYPES',
-                        style: TextStyle(
-                          fontSize: 12,
+                        style: context.labelSmall.copyWith(
                           fontWeight: FontWeight.w600,
-                          color: Colors.grey[600],
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -225,34 +222,34 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
                       children: [
                         _EmailToggleTile(
                           icon: Icons.analytics_outlined,
-                          iconColor: Colors.purple,
+                          iconColor: AppColors.accent,
                           title: 'Weekly Summary',
                           subtitle: 'Activity recap every Sunday',
                           value: _weeklyDigest,
                           onChanged: (value) => _updatePreference('weeklyDigest', value),
                         ),
-                        const Divider(height: 1, indent: 60),
+                        Divider(height: 1, indent: 60, color: context.dividerColor),
                         _EmailToggleTile(
                           icon: Icons.chat_bubble_outline,
-                          iconColor: Colors.green,
+                          iconColor: AppColors.success,
                           title: 'New Messages',
                           subtitle: "When you're away for 24+ hours",
                           value: _newMessageEmails,
                           onChanged: (value) => _updatePreference('newMessageEmails', value),
                         ),
-                        const Divider(height: 1, indent: 60),
+                        Divider(height: 1, indent: 60, color: context.dividerColor),
                         _EmailToggleTile(
                           icon: Icons.person_add_outlined,
-                          iconColor: Colors.orange,
+                          iconColor: AppColors.warning,
                           title: 'New Followers',
                           subtitle: 'When someone follows you',
                           value: _newFollowerEmails,
                           onChanged: (value) => _updatePreference('newFollowerEmails', value),
                         ),
-                        const Divider(height: 1, indent: 60),
+                        Divider(height: 1, indent: 60, color: context.dividerColor),
                         _EmailToggleTile(
                           icon: Icons.security_outlined,
-                          iconColor: Colors.red,
+                          iconColor: AppColors.error,
                           title: 'Security Alerts',
                           subtitle: 'Password & login alerts',
                           value: _securityAlerts,
@@ -262,38 +259,37 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
                       ],
                     ),
                   ],
-                  
-                  const SizedBox(height: 24),
-                  
+
+                  SizedBox(height: AppSpacing.xxl),
+
                   // Info note
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: AppSpacing.paddingLG,
                       decoration: BoxDecoration(
-                        color: Colors.blue[50],
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.blue[100]!),
+                        color: context.isDarkMode ? AppColors.info.withValues(alpha: 0.15) : AppColors.infoLight,
+                        borderRadius: AppRadius.borderMD,
+                        border: Border.all(
+                          color: context.isDarkMode ? AppColors.info.withValues(alpha: 0.3) : AppColors.info.withValues(alpha: 0.3),
+                        ),
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.info_outline, color: Colors.blue[700], size: 20),
-                          const SizedBox(width: 12),
+                          Icon(Icons.info_outline, color: AppColors.info, size: 20),
+                          SizedBox(width: AppSpacing.md),
                           Expanded(
                             child: Text(
                               'We recommend keeping Security Alerts enabled to stay informed about important account activity.',
-                              style: TextStyle(
-                                color: Colors.blue[700],
-                                fontSize: 13,
-                              ),
+                              style: context.bodySmall.copyWith(color: AppColors.info),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  
-                  const SizedBox(height: 32),
+
+                  SizedBox(height: AppSpacing.xxxl),
                 ],
               ),
             ),
@@ -302,17 +298,11 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
 
   Widget _buildSection({required List<Widget> children}) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.surfaceColor,
+        borderRadius: AppRadius.borderMD,
+        boxShadow: context.isDarkMode ? AppShadows.none : AppShadows.sm,
       ),
       child: Column(children: children),
     );
@@ -344,7 +334,7 @@ class _EmailToggleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
       child: Row(
         children: [
           // Icon
@@ -352,13 +342,13 @@ class _EmailToggleTile extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: iconColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
+              color: iconColor.withValues(alpha: 0.1),
+              borderRadius: AppRadius.borderSM,
             ),
             child: Icon(icon, color: iconColor, size: 22),
           ),
-          const SizedBox(width: 12),
-          
+          SizedBox(width: AppSpacing.md),
+
           // Text
           Expanded(
             child: Column(
@@ -368,31 +358,28 @@ class _EmailToggleTile extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
-                        fontSize: isMasterSwitch ? 16 : 15,
-                        fontWeight: isMasterSwitch ? FontWeight.w600 : FontWeight.w500,
-                        color: Colors.grey[800],
-                      ),
+                      style: isMasterSwitch ? context.titleMedium : context.titleSmall,
                     ),
                     if (showRecommendedBadge) ...[
-                      const SizedBox(width: 8),
+                      SizedBox(width: AppSpacing.sm),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
-                          color: Colors.amber[100],
-                          borderRadius: BorderRadius.circular(4),
+                          color: context.isDarkMode
+                              ? AppColors.secondary.withValues(alpha: 0.2)
+                              : AppColors.secondaryLight,
+                          borderRadius: AppRadius.borderXS,
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.star, color: Colors.amber[700], size: 12),
-                            const SizedBox(width: 2),
+                            Icon(Icons.star, color: AppColors.secondaryDark, size: 12),
+                            SizedBox(width: AppSpacing.xxs),
                             Text(
                               'Recommended',
-                              style: TextStyle(
-                                fontSize: 10,
+                              style: context.captionSmall.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.amber[800],
+                                color: AppColors.secondaryDark,
                               ),
                             ),
                           ],
@@ -402,28 +389,24 @@ class _EmailToggleTile extends StatelessWidget {
                   ],
                 ),
                 if (subtitle != null) ...[
-                  const SizedBox(height: 2),
+                  SizedBox(height: AppSpacing.xxs),
                   Text(
                     subtitle!,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[500],
-                    ),
+                    style: context.caption,
                   ),
                 ],
               ],
             ),
           ),
-          
+
           // Toggle
           Switch.adaptive(
             value: value,
             onChanged: onChanged,
-            activeColor: isMasterSwitch ? Colors.blue : Colors.green,
+            activeColor: isMasterSwitch ? AppColors.info : AppColors.success,
           ),
         ],
       ),
     );
   }
 }
-

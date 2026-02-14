@@ -1,5 +1,13 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
+/// Message sending status for optimistic updates
+enum MessageSendingStatus {
+  sending,  // Message is being sent
+  sent,     // Message was sent successfully
+  failed,   // Message failed to send
+  none,     // Normal message (received or confirmed)
+}
+
 class Message {
   const Message({
     required this.id,
@@ -29,6 +37,8 @@ class Message {
     this.selfDestruct,
     this.isForwarded = false,
     this.forwardedFrom,
+    this.sendingStatus = MessageSendingStatus.none,
+    this.localId,
   });
 
   final String id;
@@ -58,6 +68,75 @@ class Message {
   final SelfDestructSettings? selfDestruct;
   final bool isForwarded;
   final ForwardedMessage? forwardedFrom;
+  final MessageSendingStatus sendingStatus;
+  final String? localId; // For tracking optimistic messages before server response
+
+  /// Check if this is an optimistic message (not yet confirmed by server)
+  bool get isOptimistic => sendingStatus == MessageSendingStatus.sending;
+
+  /// Check if message failed to send
+  bool get isFailed => sendingStatus == MessageSendingStatus.failed;
+
+  /// Create a copy with updated sending status
+  Message copyWithStatus(MessageSendingStatus status, {String? newId}) {
+    return Message(
+      id: newId ?? id,
+      sender: sender,
+      receiver: receiver,
+      message: message,
+      createdAt: createdAt,
+      version: version,
+      read: read,
+      media: media,
+      replyTo: replyTo,
+      isEdited: isEdited,
+      editedAt: editedAt,
+      isDeleted: isDeleted,
+      deletedForEveryone: deletedForEveryone,
+      isPinned: isPinned,
+      pinnedAt: pinnedAt,
+      pinnedBy: pinnedBy,
+      reactions: reactions,
+      type: type,
+      translations: translations,
+      corrections: corrections,
+      mentions: mentions,
+      isBookmarked: isBookmarked,
+      bookmarkedAt: bookmarkedAt,
+      poll: poll,
+      selfDestruct: selfDestruct,
+      isForwarded: isForwarded,
+      forwardedFrom: forwardedFrom,
+      sendingStatus: status,
+      localId: localId,
+    );
+  }
+
+  /// Create an optimistic message for instant display before server confirms
+  factory Message.optimistic({
+    required String localId,
+    required Community sender,
+    required Community receiver,
+    required String message,
+    String type = 'text',
+    MessageMedia? media,
+    MessageReply? replyTo,
+  }) {
+    return Message(
+      id: localId,
+      sender: sender,
+      receiver: receiver,
+      message: message,
+      createdAt: DateTime.now().toIso8601String(),
+      version: 0,
+      read: false,
+      type: type,
+      media: media,
+      replyTo: replyTo,
+      sendingStatus: MessageSendingStatus.sending,
+      localId: localId,
+    );
+  }
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
@@ -68,9 +147,7 @@ class Message {
       createdAt: json['createdAt'] ?? '',
       version: (json['__v'] as num?)?.toInt() ?? 0,
       read: json['read'] ?? false,
-      media: json['media'] != null && json['media'] is Map<String, dynamic> 
-          ? MessageMedia.fromJson(json['media']) 
-          : null,
+      media: _parseMedia(json),
       replyTo: json['replyTo'] != null && json['replyTo'] is Map<String, dynamic> 
           ? MessageReply.fromJson(json['replyTo']) 
           : null,
@@ -179,6 +256,37 @@ class Message {
       followings: [],
       location: Location.defaultLocation(),
     );
+  }
+
+  /// Helper to parse media safely, handling location messages
+  static MessageMedia? _parseMedia(Map<String, dynamic> json) {
+    // Check if media exists
+    if (json['media'] == null || json['media'] is! Map<String, dynamic>) {
+      // Check if location is at root level (some backends send it this way)
+      if (json['location'] != null && json['location'] is Map<String, dynamic>) {
+        return MessageMedia(
+          url: '',
+          type: 'location',
+          location: LocationData.fromJson(json['location']),
+        );
+      }
+      return null;
+    }
+
+    final media = json['media'] as Map<String, dynamic>;
+    final mediaType = media['type']?.toString() ?? '';
+
+    // For location type, URL is not required
+    if (mediaType == 'location') {
+      return MessageMedia.fromJson(media);
+    }
+
+    // For other types, require URL
+    if (media['url'] != null && media['url'].toString().isNotEmpty) {
+      return MessageMedia.fromJson(media);
+    }
+
+    return null;
   }
 
   Map<String, dynamic> toJson() {

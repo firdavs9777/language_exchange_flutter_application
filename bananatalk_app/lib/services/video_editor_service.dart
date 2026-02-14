@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:video_trimmer/video_trimmer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -125,7 +126,7 @@ class VideoEditorService {
         );
       }
     } catch (e) {
-      print('Error trimming video: $e');
+      debugPrint('Error trimming video: $e');
       return VideoEditResult(
         success: false,
         error: 'Error trimming video: $e',

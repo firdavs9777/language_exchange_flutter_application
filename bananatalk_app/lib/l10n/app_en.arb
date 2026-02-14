@@ -353,6 +353,13 @@
   "vipSubscriptionCancelledSuccessfully": "VIP subscription cancelled successfully",
   "vipStatus": "VIP Status",
   "noActiveVIPSubscription": "No active VIP subscription",
+  "subscriptionExpired": "Subscription Expired",
+  "vipExpiredMessage": "Your VIP subscription has expired. Renew now to continue enjoying unlimited features!",
+  "expiredOn": "Expired on",
+  "renewVIP": "Renew VIP",
+  "whatYoureMissing": "What you're missing",
+  "manageInAppStore": "Manage in App Store",
+  "becomeVIP": "Become VIP",
   "unlimitedMessages": "Unlimited Messages",
   "unlimitedProfileViews": "Unlimited Profile Views",
   "prioritySupport": "Priority Support",
@@ -416,6 +423,486 @@
   "noLanguagesFound": "No languages found",
   "selectALanguage": "Select a language",
   "languagesAreStillLoading": "Languages are still loading...",
-  "selectNativeLanguage": "Select native language"
+  "selectNativeLanguage": "Select native language",
+  "subscriptionDetails": "Subscription Details",
+  "activeFeatures": "Active Features",
+  "legalInformation": "Legal Information",
+  "termsOfUse": "Terms of Use",
+  "privacyPolicy": "Privacy Policy",
+  "manageSubscription": "Manage Subscription",
+  "manageSubscriptionInSettings": "To cancel your subscription, go to Settings > [Your Name] > Subscriptions on your device.",
+  "contactSupportToCancel": "To cancel your subscription, please contact our support team.",
+  "status": "Status",
+  "active": "Active",
+  "plan": "Plan",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "nextBillingDate": "Next Billing Date",
+  "autoRenew": "Auto Renew",
+  "yes": "Yes",
+  "no": "No",
+  "pleaseLogInToContinue": "Please log in to continue",
+  "purchaseCanceledOrFailed": "Purchase was canceled or failed. Please try again.",
+  "maximumTagsAllowed": "Maximum 5 tags allowed",
+  "pleaseRemoveImagesFirstToAddVideo": "Please remove images first to add a video",
+  "unsupportedFormat": "Unsupported format",
+  "errorProcessingVideo": "Error processing video",
+  "pleaseRemoveImagesFirstToRecordVideo": "Please remove images first to record a video",
+  "locationAdded": "Location added",
+  "failedToGetLocation": "Failed to get location",
+  "notNow": "Not Now",
+  "videoUploadFailed": "Video Upload Failed",
+  "skipVideo": "Skip Video",
+  "retryUpload": "Retry Upload",
+  "momentCreatedSuccessfully": "Moment created successfully",
+  "uploadingMomentInBackground": "Uploading moment in background...",
+  "failedToQueueUpload": "Failed to queue upload",
+  "viewProfile": "View Profile",
+  "mediaLinksAndDocs": "Media, links, and docs",
+  "wallpaper": "Wallpaper",
+  "userIdNotAvailable": "User ID not available",
+  "cannotBlockYourself": "Cannot block yourself",
+  "chatWallpaper": "Chat Wallpaper",
+  "wallpaperSavedLocally": "Wallpaper saved locally",
+  "messageCopied": "Message copied",
+  "forwardFeatureComingSoon": "Forward feature coming soon",
+  "momentUnsaved": "Moment unsaved",
+  "documentPickerComingSoon": "Document picker coming soon",
+  "contactSharingComingSoon": "Contact sharing coming soon",
+  "featureComingSoon": "Feature coming soon",
+  "answerSent": "Answer sent!",
+  "noImagesAvailable": "No images available",
+  "mentionPickerComingSoon": "Mention picker coming soon",
+  "musicPickerComingSoon": "Music picker coming soon",
+  "repostFeatureComingSoon": "Repost feature coming soon",
+  "addFriendsFromYourProfile": "Add friends from your profile",
+  "quickReplyAdded": "Quick reply added",
+  "quickReplyDeleted": "Quick reply deleted",
+  "linkCopied": "Link copied!",
+  "maximumOptionsAllowed": "Maximum 10 options allowed",
+  "minimumOptionsRequired": "Minimum 2 options required",
+  "pleaseEnterAQuestion": "Please enter a question",
+  "pleaseAddAtLeast2Options": "Please add at least 2 options",
+  "pleaseSelectCorrectAnswerForQuiz": "Please select the correct answer for quiz",
+  "correctionSent": "Correction sent!",
+  "sort": "Sort",
+  "savedMoments": "Saved Moments",
+  "unsave": "Unsave",
+  "playingAudio": "Playing audio...",
+  "failedToGenerateQuiz": "Failed to generate quiz",
+  "failedToAddComment": "Failed to add comment",
+  "hello": "Hello!",
+  "howAreYou": "How are you?",
+  "cannotOpen": "Cannot open",
+  "errorOpeningLink": "Error opening link",
+  "saved": "Saved",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "mute": "Mute",
+  "online": "Online",
+  "offline": "Offline",
+  "lastSeen": "Last seen",
+  "justNow": "just now",
+  "minutesAgo": "{count} minutes ago",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hoursAgo": "{count} hours ago",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "yesterday": "Yesterday",
+  "signInWithEmail": "Sign in with Email",
+  "partners": "Partners",
+  "nearby": "Nearby",
+  "topics": "Topics",
+  "waves": "Waves",
+  "voiceRooms": "Voice",
+  "filters": "Filters",
+  "searchCommunity": "Search by name, language, or interests...",
+  "bio": "Bio",
+  "noBioYet": "No bio available yet.",
+  "languages": "Languages",
+  "native": "Native",
+  "interests": "Interests",
+  "noMomentsYet": "No moments yet",
+  "unableToLoadMoments": "Unable to load moments",
+  "map": "Map",
+  "mapUnavailable": "Map unavailable",
+  "location": "Location",
+  "unknownLocation": "Unknown location",
+  "noImagesAvailable2": "No images available",
+  "permissionsRequired": "Permissions Required",
+  "openSettings": "Open Settings",
+  "refresh": "Refresh",
+  "videoCall": "Video",
+  "voiceCall": "Call",
+  "message": "Message",
+  "pleaseLoginToFollow": "Please login to follow users",
+  "pleaseLoginToCall": "Please login to make a call",
+  "cannotCallYourself": "You cannot call yourself",
+  "failedToFollowUser": "Failed to follow user",
+  "failedToUnfollowUser": "Failed to unfollow user",
+  "areYouSureUnfollow": "Are you sure you want to unfollow this user?",
+  "areYouSureUnblock": "Are you sure you want to unblock this user?",
+  "youFollowed": "You followed",
+  "youUnfollowed": "You unfollowed",
+  "alreadyFollowing": "You are already following",
+  "soon": "Soon",
+  "comingSoon": "{feature} is coming soon!",
+  "@comingSoon": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
+  "muteNotifications": "Mute notifications",
+  "unmuteNotifications": "Unmute notifications",
+  "operationCompleted": "Operation completed",
+  "couldNotOpenMaps": "Could not open maps",
+  "hasntSharedMoments": "{name} hasn't shared any moments",
+  "messageUser": "Message {name}",
+  "@messageUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notFollowingUser": "You were not following {name}",
+  "@notFollowingUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youFollowedUser": "You followed {name}",
+  "@youFollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youUnfollowedUser": "You unfollowed {name}",
+  "@youUnfollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "unfollowUser": "Unfollow {name}",
+  "@unfollowUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typing": "typing",
+  "connecting": "Connecting...",
+  "daysAgo": "{count}d ago",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wallpaper": "Wallpaper",
+  "unblockUser": "Unblock User",
+  "maxTagsAllowed": "Maximum 5 tags allowed",
+  "maxImagesAllowed": "Maximum {count} images allowed",
+  "@maxImagesAllowed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "momentCreatedSuccessfully": "Moment created successfully",
+  "uploadingMomentInBackground": "Uploading moment in background...",
+  "failedToGetLocation": "Failed to get location",
+  "videoUploadFailed": "Video Upload Failed",
+  "skipVideo": "Skip Video",
+  "retryUpload": "Retry Upload",
+  "errorProcessingVideo": "Error processing video",
+  "pleaseRemoveImagesFirst": "Please remove images first to add a video",
+  "unsupportedFormat": "Unsupported format",
+  "exchange3MessagesBeforeCall": "You need to exchange at least 3 messages before you can call this user",
+  "mediaWithUser": "Media with {name}",
+  "@mediaWithUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorLoadingMedia": "Error loading media",
+  "retry": "Retry",
+  "blockedUsers": "Blocked Users",
+  "savedMomentsTitle": "Saved Moments",
+  "removeBookmark": "Remove bookmark?",
+  "thisWillRemoveBookmark": "This will remove the message from your bookmarks.",
+  "remove": "Remove",
+  "bookmarkRemoved": "Bookmark removed",
+  "bookmarkedMessages": "Bookmarked Messages",
+  "chatWallpaper": "Chat Wallpaper",
+  "apply": "Apply",
+  "wallpaperSaved": "Wallpaper saved locally",
+  "deleteAccount": "Delete Account",
+  "enterYourPassword": "Enter your password",
+  "typeDeleteToConfirm": "Type DELETE to confirm",
+  "storyArchive": "Story Archive",
+  "newHighlight": "New Highlight",
+  "addToHighlight": "Add to Highlight",
+  "repost": "Repost",
+  "repostFeatureSoon": "Repost feature coming soon",
+  "closeFriends": "Close Friends",
+  "addFriends": "Add Friends",
+  "highlights": "Highlights",
+  "createHighlight": "Create Highlight",
+  "deleteHighlight": "Delete Highlight?",
+  "editHighlight": "Edit Highlight",
+  "noStories": "No stories",
+  "addMoreToStory": "Add more to story",
+  "sent": "Sent!",
+  "noViewersYet": "No viewers yet",
+  "noReactionsYet": "No reactions yet",
+  "leaveRoom": "Leave Room?",
+  "areYouSureLeaveRoom": "Are you sure you want to leave this voice room?",
+  "stay": "Stay",
+  "leave": "Leave",
+  "enableGPS": "Enable GPS",
+  "wavedToUser": "Waved to {name}!",
+  "@wavedToUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "createMoment": "Create Moment",
+  "learning": "Learning",
+  "areYouSureFollow": "Are you sure you want to follow",
+  "failedToLoadProfile": "Failed to load profile",
+  "noFollowersYet": "No followers yet",
+  "noFollowingYet": "Not following anyone yet",
+  "searchUsers": "Search users...",
+  "noResultsFound": "No results found",
+  "loadingFailed": "Loading failed",
+  "tryAgain": "Try again",
+  "copyLink": "Copy link",
+  "shareStory": "Share story",
+  "deleteStory": "Delete story?",
+  "thisWillDeleteStory": "This will permanently delete this story.",
+  "storyDeleted": "Story deleted",
+  "addCaption": "Add a caption...",
+  "share": "Share",
+  "yourStory": "Your Story",
+  "sendMessage": "Send message",
+  "replyToStory": "Reply to story...",
+  "viewAllReplies": "View all replies",
+  "createStory": "Create Story",
+  "preparingVideo": "Preparing video...",
+  "videoOptimized": "Video optimized: {size}MB (saved {savings}%)",
+  "@videoOptimized": {
+    "placeholders": {
+      "size": {"type": "String"},
+      "savings": {"type": "String"}
+    }
+  },
+  "failedToProcessVideo": "Failed to process video",
+  "optimizingForBestExperience": "Optimizing for the best story experience",
+  "pleaseSelectImageOrVideo": "Please select an image or video for your story",
+  "storyCreatedSuccessfully": "Story created successfully!",
+  "uploadingStoryInBackground": "Uploading story in background...",
+  "storyCreationFailed": "Story Creation Failed",
+  "pleaseCheckConnection": "Please check your connection and try again.",
+  "uploadFailed": "Upload Failed",
+  "tryShorterVideo": "Try using a shorter video or try again later.",
+  "shareMomentsThatDisappear": "Share moments that disappear in 24 hours",
+  "photo": "Photo",
+  "record": "Record",
+  "addSticker": "Add Sticker",
+  "poll": "Poll",
+  "question": "Question",
+  "mention": "Mention",
+  "music": "Music",
+  "hashtag": "Hashtag",
+  "whoCanSeeThis": "Who can see this?",
+  "everyone": "Everyone",
+  "anyoneCanSeeStory": "Anyone can see this story",
+  "friendsOnly": "Friends Only",
+  "onlyFollowersCanSee": "Only your followers can see",
+  "onlyCloseFriendsCanSee": "Only your close friends can see",
+  "backgroundColor": "Background Color",
+  "fontStyle": "Font Style",
+  "normal": "Normal",
+  "bold": "Bold",
+  "italic": "Italic",
+  "handwriting": "Handwriting",
+  "addLocation": "Add Location",
+  "enterLocationName": "Enter location name",
+  "addLink": "Add Link",
+  "buttonText": "Button text",
+  "learnMore": "Learn More",
+  "addHashtags": "Add Hashtags",
+  "addHashtag": "Add hashtag",
+  "sendAsMessage": "Send as Message",
+  "shareExternally": "Share Externally",
+  "checkOutStory": "Check out this story on BananaTalk!",
+  "viewsTab": "Views ({count})",
+  "@viewsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "reactionsTab": "Reactions ({count})",
+  "@reactionsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "processingVideo": "Processing video...",
+  "link": "Link",
+  "unmuteUser": "Unmute {name}?",
+  "@unmuteUser": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "willReceiveNotifications": "You will receive notifications for new messages.",
+  "muteNotifications": "Mute notifications",
+  "muteNotificationsFor": "Mute notifications for {name}",
+  "@muteNotificationsFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsUnmutedFor": "Notifications unmuted for {name}",
+  "@notificationsUnmutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsMutedFor": "Notifications muted for {name}",
+  "@notificationsMutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "failedToUpdateMuteSettings": "Failed to update mute settings",
+  "oneHour": "1 hour",
+  "eightHours": "8 hours",
+  "oneWeek": "1 week",
+  "always": "Always",
+  "bookmarkedMessages": "Bookmarked Messages",
+  "failedToLoadBookmarks": "Failed to load bookmarks",
+  "noBookmarkedMessages": "No bookmarked messages",
+  "longPressToBookmark": "Long press on a message to bookmark it",
+  "removeBookmark": "Remove bookmark?",
+  "thisWillRemoveFromBookmarks": "This will remove the message from your bookmarks.",
+  "bookmarkRemoved": "Bookmark removed",
+  "navigateToMessage": "Navigate to message in chat with {name}",
+  "@navigateToMessage": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "bookmarkedOn": "Bookmarked {date}",
+  "@bookmarkedOn": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "voiceMessage": "Voice message",
+  "document": "Document",
+  "attachment": "Attachment",
+  "sendMeAMessage": "Send me a message",
+  "answerSent": "Answer sent!",
+  "shareWithFriends": "Share with friends",
+  "shareAnywhere": "Share anywhere",
+  "close": "Close",
+  "emailPreferences": "Email Preferences",
+  "emailNotifications": "Email Notifications",
+  "receiveEmailNotifications": "Receive email notifications from BananaTalk",
+  "notificationTypes": "NOTIFICATION TYPES",
+  "weeklySummary": "Weekly Summary",
+  "activityRecapEverySunday": "Activity recap every Sunday",
+  "newMessages": "New Messages",
+  "whenAwayFor24Hours": "When you're away for 24+ hours",
+  "newFollowers": "New Followers",
+  "whenSomeoneFollowsYou": "When someone follows you",
+  "securityAlerts": "Security Alerts",
+  "passwordAndLoginAlerts": "Password & login alerts",
+  "recommended": "Recommended",
+  "failedToLoadPreferences": "Failed to load preferences",
+  "failedToUpdateSetting": "Failed to update setting",
+  "securityAlertsRecommended": "We recommend keeping Security Alerts enabled to stay informed about important account activity.",
+  "chatWallpaper": "Chat Wallpaper",
+  "chatWallpaperFor": "Chat wallpaper for {name}",
+  "@chatWallpaperFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "solidColors": "Solid Colors",
+  "gradients": "Gradients",
+  "customImage": "Custom Image",
+  "chooseFromGallery": "Choose from gallery",
+  "preview": "Preview",
+  "wallpaperUpdated": "Wallpaper updated",
+  "wallpaperSavedLocally": "Wallpaper saved locally",
+  "failedToPickImage": "Failed to pick image",
+  "filters": "Filters",
+  "clearAll": "Clear All",
+  "active": "active",
+  "sort": "Sort",
+  "language": "Language",
+  "category": "Category",
+  "mood": "Mood",
+  "sortBy": "Sort By",
+  "timePeriod": "Time Period",
+  "searchLanguages": "Search languages...",
+  "selected": "Selected",
+  "categories": "Categories",
+  "moods": "Moods",
+  "applyFilters": "Apply Filters",
+  "applyNFilters": "Apply {count} Filters",
+  "@applyNFilters": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "failedToTakePhoto": "Failed to take photo",
+  "failedToPickImage": "Failed to pick image",
+  "videoMustBeUnder1GB": "Video must be under 1GB.",
+  "failedToPickVideo": "Failed to pick video",
+  "failedToRecordVideo": "Failed to record video",
+  "errorSendingVideo": "Error sending video",
+  "errorSendingVoiceMessage": "Error sending voice message",
+  "failedToGetLocation": "Failed to get location",
+  "errorSendingMedia": "Error sending media",
+  "permissionsRequired": "Permissions Required",
+  "openSettings": "Open Settings",
+  "cameraPermissionRequired": "Camera and microphone permissions are required to record videos.",
+  "locationPermissionRequired": "Location permission is required to share your location.",
+  "noInternetConnection": "No internet connection",
+  "tryAgainLater": "Please try again later",
+  "messageSent": "Message sent",
+  "messageDeleted": "Message deleted",
+  "messageEdited": "Message edited"
 }
 

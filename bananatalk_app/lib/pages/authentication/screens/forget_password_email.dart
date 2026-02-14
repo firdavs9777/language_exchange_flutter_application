@@ -2,6 +2,8 @@ import 'package:bananatalk_app/pages/authentication/screens/forgot_password_veri
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -76,7 +78,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.success,
         ),
       );
 
@@ -94,7 +96,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -108,9 +110,8 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
           'Forgot Password',
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -120,48 +121,48 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
             Icon(
               Icons.lock_reset,
               size: 80,
-              color: Colors.redAccent,
+              color: AppColors.error,
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             BananaText(
               'Reset Password',
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 12),
+            Spacing.gapMD,
             Text(
               'Enter your email address and we\'ll send you a code to reset your password',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             TextField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: context.containerColor,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: context.dividerColor),
+                  borderRadius: AppRadius.borderMD,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.redAccent, width: 2),
-                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColors.error, width: 2),
+                  borderRadius: AppRadius.borderMD,
                 ),
                 hintText: AppLocalizations.of(context)!.emailAddress,
                 prefixIcon: Icon(Icons.email),
               ),
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             SizedBox(
               height: 50,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _sendResetCode,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: AppColors.error,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppRadius.borderMD,
                   ),
                 ),
                 child: _isLoading
@@ -176,13 +177,13 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
                       ),
               ),
             ),
-            SizedBox(height: 24),
+            Spacing.gapXXL,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Remember your password? ',
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: TextStyle(color: context.textSecondary),
                 ),
                 TextButton(
                   onPressed: () {
@@ -191,7 +192,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
                   child: Text(
                     'Login',
                     style: TextStyle(
-                      color: Colors.redAccent,
+                      color: AppColors.error,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

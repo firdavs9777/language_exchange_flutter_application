@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,10 +17,14 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
-  const CreateMoment({Key? key}) : super(key: key);
+  final Moments? momentToEdit; // If provided, we're editing an existing moment
+
+  const CreateMoment({Key? key, this.momentToEdit}) : super(key: key);
 
   @override
   _CreateMomentState createState() => _CreateMomentState();
@@ -63,57 +68,103 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     'General',
     'Language Learning',
     'Travel',
-    'Music',
+    'Daily Life',
     'Food',
     'Culture',
+    'Technology',
+    'Entertainment',
+    'Sports',
+    'Music',
     'Books',
+    'Movies',
+    'Study',
+    'Work',
     'Hobbies',
+    'Question',
   ];
 
-  // Category to backend format mapping (matching backend API)
+  // Category to backend format mapping (matching backend API and filter)
   final Map<String, String> _categoryToBackend = {
     'General': 'general',
     'Language Learning': 'language-learning',
     'Travel': 'travel',
-    'Music': 'music',
+    'Daily Life': 'daily-life',
     'Food': 'food',
     'Culture': 'culture',
+    'Technology': 'technology',
+    'Entertainment': 'entertainment',
+    'Sports': 'sports',
+    'Music': 'music',
     'Books': 'books',
+    'Movies': 'movies',
+    'Study': 'study',
+    'Work': 'work',
     'Hobbies': 'hobbies',
+    'Question': 'question',
   };
-  // Language display name to ISO 639-1 code mapping
+  // Language display name to ISO 639-1 code mapping (matching filter options)
   final Map<String, String> _languages = {
     'English': 'en',
     'Korean': 'ko',
+    'Japanese': 'ja',
+    'Chinese': 'zh',
     'Spanish': 'es',
     'French': 'fr',
     'German': 'de',
-    'Japanese': 'ja',
-    'Chinese': 'zh',
-    'Arabic': 'ar',
+    'Italian': 'it',
     'Portuguese': 'pt',
     'Russian': 'ru',
-    'Italian': 'it',
-    'Dutch': 'nl',
+    'Arabic': 'ar',
     'Hindi': 'hi',
     'Thai': 'th',
     'Vietnamese': 'vi',
+    'Dutch': 'nl',
+    'Swedish': 'sv',
   };
-  // Moods matching backend API (happy, excited, grateful, motivated, relaxed, curious)
+  // Moods matching filter options
   final Map<String, String> _moods = {
     '😊': 'happy',
-    '🥳': 'excited',
-    '🙏': 'grateful',
+    '🤩': 'excited',
+    '😢': 'sad',
+    '😍': 'love',
+    '😂': 'funny',
+    '🤔': 'thoughtful',
+    '😎': 'cool',
+    '😴': 'tired',
     '💪': 'motivated',
-    '😌': 'relaxed',
-    '🤔': 'curious',
+    '🙏': 'grateful',
   };
+
+  @override
+  bool get isEditMode => widget.momentToEdit != null;
 
   @override
   void initState() {
     super.initState();
     titleController.addListener(_updateButtonState);
     descriptionController.addListener(_updateButtonState);
+
+    // Pre-fill form if editing
+    if (widget.momentToEdit != null) {
+      final moment = widget.momentToEdit!;
+      titleController.text = moment.title;
+      descriptionController.text = moment.description;
+      _tags = List<String>.from(moment.tags ?? []);
+
+      // Map backend category to display category
+      final backendCategory = moment.category?.toLowerCase() ?? '';
+      _selectedCategory = _categoryToBackend.entries
+          .firstWhere(
+            (e) => e.value == backendCategory,
+            orElse: () => const MapEntry('General', 'general'),
+          )
+          .key;
+
+      _selectedMood = moment.mood;
+
+      // Note: Images can't be easily pre-loaded as File objects since they're URLs
+      // User can add new images but can't edit existing ones in this implementation
+    }
   }
 
   @override
@@ -138,8 +189,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       // Enforce max 5 tags (backend limit)
       if (_tags.length >= 5) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Maximum 5 tags allowed'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.maxTagsAllowed),
             backgroundColor: Colors.orange,
             behavior: SnackBarBehavior.floating,
           ),
@@ -262,8 +313,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // Can't have both video and images
     if (_selectedImages.isNotEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please remove images first to add a video'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseRemoveImagesFirst),
           backgroundColor: Colors.orange,
           behavior: SnackBarBehavior.floating,
         ),
@@ -635,6 +686,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         desiredAccuracy: LocationAccuracy.high,
       );
 
+      await setLocaleIdentifier('en_US');
       List<Placemark> placemarks = await placemarkFromCoordinates(
         _currentPosition!.latitude,
         _currentPosition!.longitude,
@@ -682,7 +734,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         );
       }
     } catch (e) {
-      print("Error getting location: $e");
+      debugPrint("Error getting location: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -940,7 +992,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // Additional fields can be added if needed from placemark
       };
     } catch (e) {
-      print('Error formatting location: $e');
+      debugPrint('Error formatting location: $e');
       return null;
     }
   }
@@ -952,11 +1004,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
-            SizedBox(width: 12),
-            Text('Video Upload Failed'),
+            const Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 28),
+            const SizedBox(width: 12),
+            Text(AppLocalizations.of(context)!.videoUploadFailed),
           ],
         ),
         content: Column(
@@ -989,14 +1041,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Skip Video'),
+            child: Text(AppLocalizations.of(context)!.skipVideo),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF00BFA5),
             ),
-            child: const Text('Retry Upload'),
+            child: Text(AppLocalizations.of(context)!.retryUpload),
           ),
         ],
       ),
@@ -1036,33 +1088,35 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       return;
     }
 
-    // Check limits before creating
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final userId = prefs.getString('userId');
-      if (userId != null) {
-        final userAsync = ref.read(userProvider);
-        final user = await userAsync;
-        final limits = ref.read(currentUserLimitsProvider(userId));
+    // Check limits before creating (skip for edit mode)
+    if (!isEditMode) {
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final userId = prefs.getString('userId');
+        if (userId != null) {
+          final userAsync = ref.read(userProvider);
+          final user = await userAsync;
+          final limits = ref.read(currentUserLimitsProvider(userId));
 
-        if (!FeatureGate.canCreateMoment(user, limits)) {
-          await LimitExceededDialog.show(
-            context: context,
-            limitType: 'moments',
-            limitInfo: limits?.moments,
-            resetTime: limits?.resetTime,
-            userId: userId,
-          );
-          return;
+          if (!FeatureGate.canCreateMoment(user, limits)) {
+            await LimitExceededDialog.show(
+              context: context,
+              limitType: 'moments',
+              limitInfo: limits?.moments,
+              resetTime: limits?.resetTime,
+              userId: userId,
+            );
+            return;
+          }
         }
+      } catch (e) {
+        // If limit check fails, allow creating (fail open)
+        debugPrint('Error checking limits: $e');
       }
-    } catch (e) {
-      // If limit check fails, allow creating (fail open)
-      print('Error checking limits: $e');
     }
 
-    // For video moments, use background upload for Instagram-like experience
-    if (_selectedVideo != null) {
+    // For video moments, use background upload for Instagram-like experience (only for new moments)
+    if (_selectedVideo != null && !isEditMode) {
       await _createMomentWithBackgroundUpload();
       return;
     }
@@ -1073,54 +1127,90 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     });
 
     try {
-      // Format location data if available
-      final locationData = _formatLocationData();
-
-      // Create moment with all fields (no userId - backend uses authenticated user)
-      final moment = await ref.read(momentsServiceProvider).createMoments(
-            title: titleController.text.trim(),
-            description: descriptionController.text.trim(),
-            privacy: _selectedPrivacy.toLowerCase(),
-            category: _categoryToBackend[_selectedCategory] ?? 'general',
-            language: _languages[_selectedLanguage] ?? 'en',
-            mood: _selectedMood != null ? _moods[_selectedMood] : null,
-            tags: _tags.isNotEmpty ? _tags : null,
-            scheduledFor: _scheduledDate?.toIso8601String(),
-            location: locationData,
-          );
-
-      // Upload images if any
-      if (_selectedImages.isNotEmpty) {
-        await ref.read(momentsServiceProvider).uploadMomentPhotos(
-              moment.id,
-              _selectedImages,
+      if (isEditMode) {
+        // UPDATE existing moment
+        await ref.read(momentsServiceProvider).updateMoment(
+              id: widget.momentToEdit!.id,
+              title: titleController.text.trim(),
+              description: descriptionController.text.trim(),
+              category: _categoryToBackend[_selectedCategory] ?? 'general',
+              mood: _selectedMood != null ? _moods[_selectedMood] : null,
+              tags: _tags.isNotEmpty ? _tags : null,
             );
-      }
 
-      // Refresh moments list
-      ref.invalidate(momentsProvider(1));
-      ref.invalidate(momentsFeedProvider);
-
-      // Refresh limits after successful creation
-      try {
-        final prefs = await SharedPreferences.getInstance();
-        final userId = prefs.getString('userId');
-        if (userId != null) {
-          ref.refresh(userLimitsProvider(userId));
+        // Upload new images if any were added
+        if (_selectedImages.isNotEmpty) {
+          await ref.read(momentsServiceProvider).uploadMomentPhotos(
+                widget.momentToEdit!.id,
+                _selectedImages,
+              );
         }
-      } catch (e) {
-        print('Error refreshing limits: $e');
-      }
 
-      if (mounted) {
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Moment created successfully'),
-            backgroundColor: Color(0xFF00BFA5),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        // Refresh moments list
+        ref.invalidate(momentsProvider(1));
+        ref.invalidate(momentsFeedProvider);
+
+        if (mounted) {
+          Navigator.of(context).pop(true); // Return true to indicate success
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.success),
+              backgroundColor: const Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        // CREATE new moment
+        // Format location data if available
+        final locationData = _formatLocationData();
+
+        // Create moment with all fields (no userId - backend uses authenticated user)
+        final moment = await ref.read(momentsServiceProvider).createMoments(
+              title: titleController.text.trim(),
+              description: descriptionController.text.trim(),
+              privacy: _selectedPrivacy.toLowerCase(),
+              category: _categoryToBackend[_selectedCategory] ?? 'general',
+              language: _languages[_selectedLanguage] ?? 'en',
+              mood: _selectedMood != null ? _moods[_selectedMood] : null,
+              tags: _tags.isNotEmpty ? _tags : null,
+              scheduledFor: _scheduledDate?.toIso8601String(),
+              location: locationData,
+            );
+
+        // Upload images if any
+        if (_selectedImages.isNotEmpty) {
+          await ref.read(momentsServiceProvider).uploadMomentPhotos(
+                moment.id,
+                _selectedImages,
+              );
+        }
+
+        // Refresh moments list
+        ref.invalidate(momentsProvider(1));
+        ref.invalidate(momentsFeedProvider);
+
+        // Refresh limits after successful creation
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          final userId = prefs.getString('userId');
+          if (userId != null) {
+            ref.refresh(userLimitsProvider(userId));
+          }
+        } catch (e) {
+          debugPrint('Error refreshing limits: $e');
+        }
+
+        if (mounted) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.momentCreatedSuccessfully),
+              backgroundColor: const Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       }
     } catch (e) {
       if (mounted) {
@@ -1136,7 +1226,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               userId: userId,
             );
           } catch (err) {
-            print('Error handling limit error: $err');
+            debugPrint('Error handling limit error: $err');
           }
         } else {
           final errorMessage = e.toString().replaceFirst('Exception: ', '');
@@ -1183,10 +1273,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 16,
                   height: 16,
                   child: CircularProgressIndicator(
@@ -1194,13 +1284,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ),
-                SizedBox(width: 12),
-                Text('Uploading moment in background...'),
+                const SizedBox(width: 12),
+                Text(AppLocalizations.of(context)!.uploadingMomentInBackground),
               ],
             ),
-            backgroundColor: Color(0xFF00BFA5),
+            backgroundColor: const Color(0xFF00BFA5),
             behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           ),
         );
       }
@@ -1219,25 +1309,18 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textPrimary = context.textPrimary;
-    final secondaryText = context.textSecondary;
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: colorScheme.surface,
+        backgroundColor: context.surfaceColor,
         leading: IconButton(
-          icon: Icon(Icons.close, color: textPrimary),
+          icon: Icon(Icons.close, color: context.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Create Moment',
-          style: TextStyle(
-            color: textPrimary,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
+          isEditMode ? AppLocalizations.of(context)!.edit : AppLocalizations.of(context)!.createMoment,
+          style: context.titleLarge,
         ),
         actions: [
           ValueListenableBuilder<bool>(
@@ -1256,13 +1339,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         ),
                       )
                     : Text(
-                        AppLocalizations.of(context)!.post,
-                        style: TextStyle(
+                        isEditMode
+                            ? AppLocalizations.of(context)!.save
+                            : AppLocalizations.of(context)!.post,
+                        style: context.labelLarge.copyWith(
                           color: isEnabled
-                              ? const Color(0xFF00BFA5)
-                              : Colors.grey[400],
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                              ? AppColors.primary
+                              : context.textMuted,
                         ),
                       ),
               );
@@ -1278,15 +1361,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             // Privacy Selector
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                color: context.cardBackground,
+                borderRadius: AppRadius.borderMD,
+                boxShadow: AppShadows.sm,
               ),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: DropdownButton<String>(
@@ -1306,7 +1383,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                   ? Icons.people
                                   : Icons.lock,
                           size: 20,
-                          color: const Color(0xFF00BFA5),
+                          color: AppColors.primary,
                         ),
                         const SizedBox(width: 8),
                         Text(value),
@@ -1323,20 +1400,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 },
               ),
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
 
             // Title Field with Counter
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                color: context.cardBackground,
+                borderRadius: AppRadius.borderMD,
+                boxShadow: AppShadows.sm,
               ),
               child: Column(
                 children: [
@@ -1345,12 +1416,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     maxLength: maxTitleLength,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.addATitle,
-                      hintStyle: TextStyle(color: Colors.grey[400]),
+                      hintStyle: TextStyle(color: context.textHint),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: AppRadius.borderMD,
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.all(16),
+                      contentPadding: Spacing.paddingLG,
                       counterText: '',
                     ),
                   ),
@@ -1360,30 +1431,21 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         '${titleController.text.length}/$maxTitleLength',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[500],
-                        ),
+                        style: context.caption.copyWith(color: context.textMuted),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
 
             // Description Field with Counter
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                color: context.cardBackground,
+                borderRadius: AppRadius.borderMD,
+                boxShadow: AppShadows.sm,
               ),
               child: Column(
                 children: [
@@ -1393,12 +1455,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     maxLength: maxDescriptionLength,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.whatsOnYourMind,
-                      hintStyle: TextStyle(color: Colors.grey[400]),
+                      hintStyle: TextStyle(color: context.textHint),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: AppRadius.borderMD,
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.all(16),
+                      contentPadding: Spacing.paddingLG,
                       counterText: '',
                     ),
                   ),
@@ -1408,28 +1470,21 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         '${descriptionController.text.length}/$maxDescriptionLength',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[500],
-                        ),
+                        style: context.caption.copyWith(color: context.textMuted),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            Spacing.gapXL,
 
             // Add to your moment section
-            const Text(
+            Text(
               'Add to your moment',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
-              ),
+              style: context.titleMedium,
             ),
-            const SizedBox(height: 12),
+            Spacing.gapMD,
 
             // Action Buttons Row
             Row(
@@ -1465,21 +1520,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            Spacing.gapXL,
 
             // Images Section
             if (_selectedImages.isNotEmpty) ...[
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.cardBackground,
+                  borderRadius: AppRadius.borderMD,
+                  boxShadow: AppShadows.sm,
                 ),
                 padding: const EdgeInsets.all(12),
                 child: GridView.builder(
@@ -1534,24 +1583,21 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.grey[300]!,
+                              color: context.dividerColor,
                               style: BorderStyle.solid,
                               width: 2,
                             ),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: AppRadius.borderSM,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.add,
-                                  size: 32, color: Colors.grey[600]),
-                              const SizedBox(height: 4),
+                                  size: 32, color: context.iconColor),
+                              Spacing.gapXS,
                               Text(
                                 'Add More',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 12,
-                                ),
+                                style: context.caption.copyWith(color: context.textSecondary),
                               ),
                             ],
                           ),
@@ -1564,205 +1610,206 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               const SizedBox(height: 20),
             ],
 
+            // TODO: Re-enable video preview section when needed (commented out to reduce app size)
             // Video Preview Section
-            if (_selectedVideo != null) ...[
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Icon(Icons.videocam, color: Color(0xFF00BFA5), size: 24),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Video Ready',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  if (_videoProcessResult != null) ...[
-                                    Text(
-                                      '${_videoProcessResult!.fileSizeMB}MB',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                    if (_videoProcessResult!.duration != null) ...[
-                                      Text(
-                                        ' | ${_videoProcessResult!.durationFormatted}',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                    ],
-                                    if (_videoProcessResult!.wasCompressed) ...[
-                                      const SizedBox(width: 8),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFF00BFA5).withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          'Compressed',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            color: const Color(0xFF00BFA5),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ] else
-                                    Text(
-                                      'Ready to upload',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.close, size: 20),
-                          onPressed: _removeVideo,
-                          color: Colors.grey[600],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 160,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(
-                              Icons.play_arrow_rounded,
-                              size: 48,
-                              color: Colors.white,
-                            ),
-                          ),
-                          // Duration badge
-                          Positioned(
-                            bottom: 12,
-                            left: 12,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.access_time,
-                                    size: 14,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    _videoProcessResult?.durationFormatted ?? 'Max 10:00',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          // File size badge
-                          Positioned(
-                            bottom: 12,
-                            right: 12,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.storage,
-                                    size: 14,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    _videoProcessResult != null
-                                        ? '${_videoProcessResult!.fileSizeMB}MB'
-                                        : 'Processing...',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
+            // if (_selectedVideo != null) ...[
+            //   Container(
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(12),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           color: Colors.black.withOpacity(0.04),
+            //           blurRadius: 8,
+            //           offset: const Offset(0, 2),
+            //         ),
+            //       ],
+            //     ),
+            //     padding: const EdgeInsets.all(12),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Container(
+            //               padding: const EdgeInsets.all(8),
+            //               decoration: BoxDecoration(
+            //                 color: const Color(0xFF00BFA5).withOpacity(0.1),
+            //                 borderRadius: BorderRadius.circular(8),
+            //               ),
+            //               child: const Icon(Icons.videocam, color: Color(0xFF00BFA5), size: 24),
+            //             ),
+            //             const SizedBox(width: 12),
+            //             Expanded(
+            //               child: Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                   const Text(
+            //                     'Video Ready',
+            //                     style: TextStyle(
+            //                       fontWeight: FontWeight.w600,
+            //                       fontSize: 15,
+            //                     ),
+            //                   ),
+            //                   const SizedBox(height: 4),
+            //                   Row(
+            //                     children: [
+            //                       if (_videoProcessResult != null) ...[
+            //                         Text(
+            //                           '${_videoProcessResult!.fileSizeMB}MB',
+            //                           style: TextStyle(
+            //                             fontSize: 12,
+            //                             color: Colors.grey[600],
+            //                           ),
+            //                         ),
+            //                         if (_videoProcessResult!.duration != null) ...[
+            //                           Text(
+            //                             ' | ${_videoProcessResult!.durationFormatted}',
+            //                             style: TextStyle(
+            //                               fontSize: 12,
+            //                               color: Colors.grey[600],
+            //                             ),
+            //                           ),
+            //                         ],
+            //                         if (_videoProcessResult!.wasCompressed) ...[
+            //                           const SizedBox(width: 8),
+            //                           Container(
+            //                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            //                             decoration: BoxDecoration(
+            //                               color: const Color(0xFF00BFA5).withOpacity(0.1),
+            //                               borderRadius: BorderRadius.circular(4),
+            //                             ),
+            //                             child: Text(
+            //                               'Compressed',
+            //                               style: TextStyle(
+            //                                 fontSize: 10,
+            //                                 color: const Color(0xFF00BFA5),
+            //                                 fontWeight: FontWeight.w600,
+            //                               ),
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ] else
+            //                         Text(
+            //                           'Ready to upload',
+            //                           style: TextStyle(
+            //                             fontSize: 12,
+            //                             color: Colors.grey[600],
+            //                           ),
+            //                         ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //             IconButton(
+            //               icon: const Icon(Icons.close, size: 20),
+            //               onPressed: _removeVideo,
+            //               color: Colors.grey[600],
+            //             ),
+            //           ],
+            //         ),
+            //         const SizedBox(height: 12),
+            //         Container(
+            //           height: 160,
+            //           width: double.infinity,
+            //           decoration: BoxDecoration(
+            //             color: Colors.grey[900],
+            //             borderRadius: BorderRadius.circular(12),
+            //           ),
+            //           child: Stack(
+            //             alignment: Alignment.center,
+            //             children: [
+            //               Container(
+            //                 padding: const EdgeInsets.all(20),
+            //                 decoration: BoxDecoration(
+            //                   color: Colors.white.withOpacity(0.1),
+            //                   shape: BoxShape.circle,
+            //                 ),
+            //                 child: const Icon(
+            //                   Icons.play_arrow_rounded,
+            //                   size: 48,
+            //                   color: Colors.white,
+            //                 ),
+            //               ),
+            //               // Duration badge
+            //               Positioned(
+            //                 bottom: 12,
+            //                 left: 12,
+            //                 child: Container(
+            //                   padding: const EdgeInsets.symmetric(
+            //                     horizontal: 10,
+            //                     vertical: 5,
+            //                   ),
+            //                   decoration: BoxDecoration(
+            //                     color: Colors.black.withOpacity(0.7),
+            //                     borderRadius: BorderRadius.circular(6),
+            //                   ),
+            //                   child: Row(
+            //                     mainAxisSize: MainAxisSize.min,
+            //                     children: [
+            //                       const Icon(
+            //                         Icons.access_time,
+            //                         size: 14,
+            //                         color: Colors.white,
+            //                       ),
+            //                       const SizedBox(width: 4),
+            //                       Text(
+            //                         _videoProcessResult?.durationFormatted ?? 'Max 10:00',
+            //                         style: const TextStyle(
+            //                           color: Colors.white,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w500,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ),
+            //               // File size badge
+            //               Positioned(
+            //                 bottom: 12,
+            //                 right: 12,
+            //                 child: Container(
+            //                   padding: const EdgeInsets.symmetric(
+            //                     horizontal: 10,
+            //                     vertical: 5,
+            //                   ),
+            //                   decoration: BoxDecoration(
+            //                     color: Colors.black.withOpacity(0.7),
+            //                     borderRadius: BorderRadius.circular(6),
+            //                   ),
+            //                   child: Row(
+            //                     mainAxisSize: MainAxisSize.min,
+            //                     children: [
+            //                       const Icon(
+            //                         Icons.storage,
+            //                         size: 14,
+            //                         color: Colors.white,
+            //                       ),
+            //                       const SizedBox(width: 4),
+            //                       Text(
+            //                         _videoProcessResult != null
+            //                             ? '${_videoProcessResult!.fileSizeMB}MB'
+            //                             : 'Processing...',
+            //                         style: const TextStyle(
+            //                           color: Colors.white,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w500,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            //   const SizedBox(height: 20),
+            // ],
 
             // Tags Display
             if (_tags.isNotEmpty) ...[
@@ -1774,34 +1821,33 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     label: Text('#$tag'),
                     deleteIcon: const Icon(Icons.close, size: 16),
                     onDeleted: () => _removeTag(tag),
-                    backgroundColor: const Color(0xFF00BFA5).withOpacity(0.1),
-                    labelStyle: const TextStyle(
-                      color: Color(0xFF00BFA5),
-                      fontWeight: FontWeight.w600,
+                    backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                    labelStyle: context.labelMedium.copyWith(
+                      color: AppColors.primary,
                     ),
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 20),
+              Spacing.gapXL,
             ],
 
             // Location Display
             if (_currentPosition != null) ...[
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: Spacing.paddingMD,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00BFA5).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderSM,
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.location_on, color: Color(0xFF00BFA5)),
-                    const SizedBox(width: 8),
+                    const Icon(Icons.location_on, color: AppColors.primary),
+                    Spacing.hGapSM,
                     Expanded(
                       child: Text(
                         _formattedAddress ?? 'Location added',
-                        style: const TextStyle(
-                          color: Color(0xFF00BFA5),
+                        style: context.bodyMedium.copyWith(
+                          color: AppColors.primary,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -1813,7 +1859,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              Spacing.gapXL,
             ],
 
             // Category and Language
@@ -1823,19 +1869,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Category',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
+                        style: context.labelLarge,
                       ),
-                      const SizedBox(height: 8),
+                      Spacing.gapSM,
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
+                          color: context.cardBackground,
+                          borderRadius: AppRadius.borderMD,
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: DropdownButton<String>(
@@ -1861,24 +1903,20 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     ],
                   ),
                 ),
-                const SizedBox(width: 12),
+                Spacing.hGapMD,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Language',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
+                        style: context.labelLarge,
                       ),
-                      const SizedBox(height: 8),
+                      Spacing.gapSM,
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
+                          color: context.cardBackground,
+                          borderRadius: AppRadius.borderMD,
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: DropdownButton<String>(
@@ -1906,42 +1944,38 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            Spacing.gapXL,
 
             // Schedule (Optional)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Schedule (optional)',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
+                  style: context.labelLarge,
                 ),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 InkWell(
                   onTap: _selectScheduleDate,
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: Spacing.paddingLG,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
+                      color: context.cardBackground,
+                      borderRadius: AppRadius.borderMD,
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.schedule, color: Colors.grey[600]),
-                        const SizedBox(width: 12),
+                        Icon(Icons.schedule, color: context.iconColor),
+                        Spacing.hGapMD,
                         Expanded(
                           child: Text(
                             _scheduledDate != null
                                 ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year} at ${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}'
                                 : 'Schedule for later',
-                            style: TextStyle(
+                            style: context.bodyMedium.copyWith(
                               color: _scheduledDate != null
-                                  ? Colors.black87
-                                  : Colors.grey[500],
+                                  ? context.textPrimary
+                                  : context.textMuted,
                             ),
                           ),
                         ),
@@ -1965,14 +1999,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
-            ),
-          ],
+          color: context.surfaceColor,
+          boxShadow: AppShadows.md,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: SafeArea(
@@ -1983,25 +2011,22 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 icon: Icons.photo_library_outlined,
                 label: AppLocalizations.of(context)!.photos,
                 onTap: _pickImages,
-                color: _selectedVideo == null
-                    ? const Color(0xFF00BFA5)
-                    : Colors.grey,
+                color: AppColors.primary,
               ),
-              _buildBottomButton(
-                icon: Icons.videocam_outlined,
-                label: 'Video',
-                onTap: _pickVideo,
-                color: _selectedImages.isEmpty
-                    ? const Color(0xFF9C27B0)
-                    : Colors.grey,
-              ),
+              // TODO: Re-enable video upload when needed (commented out to reduce app size)
+              // _buildBottomButton(
+              //   icon: Icons.videocam_outlined,
+              //   label: 'Video',
+              //   onTap: _pickVideo,
+              //   color: _selectedImages.isEmpty
+              //       ? const Color(0xFF9C27B0)
+              //       : Colors.grey,
+              // ),
               _buildBottomButton(
                 icon: Icons.camera_alt_outlined,
                 label: AppLocalizations.of(context)!.camera,
                 onTap: _takePhoto,
-                color: _selectedVideo == null
-                    ? const Color(0xFF00BFA5)
-                    : Colors.grey,
+                color: AppColors.primary,
               ),
             ],
           ),
@@ -2024,10 +2049,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         width: 60,
         height: 60,
         decoration: BoxDecoration(
-          color: isActive ? color.withOpacity(0.1) : Colors.white,
+          color: isActive ? color.withValues(alpha: 0.1) : Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isActive ? color : Colors.grey[200]!,
+            color: isActive ? color : Theme.of(context).dividerColor,
             width: isActive ? 2 : 1,
           ),
         ),
@@ -2081,21 +2106,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: AppRadius.borderMD,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, color: color, size: 28),
-            const SizedBox(height: 4),
+            Spacing.gapXS,
             Text(
               label,
-              style: TextStyle(
-                color: color,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+              style: context.labelSmall.copyWith(color: color),
             ),
           ],
         ),

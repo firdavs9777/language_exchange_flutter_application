@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,7 +36,7 @@ class VoiceMessageService {
   static Future<String> generateRecordingPath() async {
     final dir = await getRecordingDirectory();
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    return '$dir/voice_$timestamp.m4a';
+    return '$dir/voice_$timestamp.aac';
   }
 
   /// Upload a voice message and send it to a user
@@ -70,8 +71,15 @@ class VoiceMessageService {
         request.fields['waveform'] = jsonEncode(waveform);
       }
 
+      debugPrint('📤 Sending voice message to: $url');
+      debugPrint('📤 File path: ${voiceFile.path}');
+      debugPrint('📤 Duration: $durationSeconds seconds');
+
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
+
+      debugPrint('📥 Voice message response status: ${response.statusCode}');
+      debugPrint('📥 Voice message response body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -82,9 +90,10 @@ class VoiceMessageService {
         };
       } else {
         final errorData = jsonDecode(response.body);
+        debugPrint('❌ Voice message error: ${errorData.toString()}');
         return {
           'success': false,
-          'error': errorData['error'] ?? 'Failed to send voice message',
+          'error': errorData['error'] ?? errorData['message'] ?? 'Failed to send voice message',
         };
       }
     } catch (e) {
@@ -110,7 +119,7 @@ class VoiceMessageService {
       case 'ogg':
         return 'audio/ogg';
       default:
-        return 'audio/m4a';
+        return 'audio/mpeg'; // Default to MP3
     }
   }
 
@@ -135,7 +144,7 @@ class VoiceMessageService {
         }
       }
     } catch (e) {
-      print('Error cleaning up old recordings: $e');
+      debugPrint('Error cleaning up old recordings: $e');
     }
   }
 
@@ -164,7 +173,7 @@ class VoiceMessageService {
       
       return null;
     } catch (e) {
-      print('Error downloading voice message: $e');
+      debugPrint('Error downloading voice message: $e');
       return null;
     }
   }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -26,7 +27,7 @@ class VideoCompressionService {
     try {
       return await VideoCompress.getMediaInfo(videoFile.path);
     } catch (e) {
-      print('Error getting video info: $e');
+      debugPrint('Error getting video info: $e');
       return null;
     }
   }
@@ -119,10 +120,10 @@ class VideoCompressionService {
         final compressedSize = await compressedFile.length();
         final originalSize = await videoFile.length();
 
-        print('Video compression complete:');
-        print('  Original: ${(originalSize / 1024 / 1024).toStringAsFixed(2)}MB');
-        print('  Compressed: ${(compressedSize / 1024 / 1024).toStringAsFixed(2)}MB');
-        print('  Savings: ${((1 - compressedSize / originalSize) * 100).toStringAsFixed(1)}%');
+        debugPrint('Video compression complete:');
+        debugPrint('  Original: ${(originalSize / 1024 / 1024).toStringAsFixed(2)}MB');
+        debugPrint('  Compressed: ${(compressedSize / 1024 / 1024).toStringAsFixed(2)}MB');
+        debugPrint('  Savings: ${((1 - compressedSize / originalSize) * 100).toStringAsFixed(1)}%');
 
         return compressedFile;
       }
@@ -130,7 +131,7 @@ class VideoCompressionService {
       // Return original if compression fails
       return videoFile;
     } catch (e) {
-      print('Video compression error: $e');
+      debugPrint('Video compression error: $e');
       _subscription?.unsubscribe();
       _subscription = null;
       // Return original file on error
@@ -152,7 +153,7 @@ class VideoCompressionService {
       );
       return thumbnail;
     } catch (e) {
-      print('Error generating thumbnail: $e');
+      debugPrint('Error generating thumbnail: $e');
       return null;
     }
   }
@@ -164,7 +165,7 @@ class VideoCompressionService {
       _subscription?.unsubscribe();
       _subscription = null;
     } catch (e) {
-      print('Error canceling compression: $e');
+      debugPrint('Error canceling compression: $e');
     }
   }
 
@@ -173,7 +174,7 @@ class VideoCompressionService {
     try {
       await VideoCompress.deleteAllCache();
     } catch (e) {
-      print('Error deleting video cache: $e');
+      debugPrint('Error deleting video cache: $e');
     }
   }
 

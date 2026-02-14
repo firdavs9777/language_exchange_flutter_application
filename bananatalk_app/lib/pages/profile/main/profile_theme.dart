@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/main.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ProfileTheme extends ConsumerStatefulWidget {
   const ProfileTheme({super.key});
@@ -16,57 +18,100 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
     final themeMode = ref.watch(themeProvider);
 
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('Profile Theme'),
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
+        elevation: 0,
+        title: Text(
+          'Profile Theme',
+          style: context.titleLarge,
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: Spacing.screenPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Auto switch toggle for system theme with enhanced color
-            ListTile(
-              title: const Text('Auto Switch (System Theme)'),
-              trailing: Switch(
-                value: themeMode == ThemeMode.system,
-                onChanged: (bool value) {
-                  final newMode = value ? ThemeMode.system : ThemeMode.light;
-                  ref.read(themeProvider.notifier).state = newMode;
-                },
-                activeColor: Colors.blueAccent, // Active switch color
-                inactiveThumbColor: Colors.grey, // Inactive thumb color
-                inactiveTrackColor: Colors.grey[400], // Inactive track color
-              ),
-            ),
-            const Divider(),
-            Text('When enable it will follow your system theme settings'),
             Container(
+              decoration: BoxDecoration(
+                color: context.cardBackground,
+                borderRadius: AppRadius.borderMD,
+              ),
               child: ListTile(
-                title: const Text('Light Mode'),
-                trailing: Checkbox(
-                  value: themeMode == ThemeMode.light,
-                  onChanged: (bool? value) {
-                    if (value != null) {
-                      ref.read(themeProvider.notifier).state =
-                          value ? ThemeMode.light : ThemeMode.dark;
-                    }
+                title: Text(
+                  'Auto Switch (System Theme)',
+                  style: context.titleMedium,
+                ),
+                trailing: Switch(
+                  value: themeMode == ThemeMode.system,
+                  onChanged: (bool value) {
+                    final newMode = value ? ThemeMode.system : ThemeMode.light;
+                    ref.read(themeProvider.notifier).setTheme(newMode);
                   },
+                  activeColor: AppColors.primary,
+                  inactiveThumbColor: AppColors.gray500,
+                  inactiveTrackColor: AppColors.gray400,
                 ),
               ),
             ),
-
+            Spacing.gapMD,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'When enabled, the app will follow your system theme settings',
+                style: context.bodySmall,
+              ),
+            ),
+            Spacing.gapLG,
             Container(
-              child: ListTile(
-                title: const Text('Dark Mode'),
-                trailing: Checkbox(
-                  value: themeMode == ThemeMode.dark,
-                  onChanged: (bool? value) {
-                    if (value != null) {
-                      ref.read(themeProvider.notifier).state =
-                          value ? ThemeMode.dark : ThemeMode.light;
-                    }
-                  },
-                ),
+              decoration: BoxDecoration(
+                color: context.cardBackground,
+                borderRadius: AppRadius.borderMD,
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      'Light Mode',
+                      style: context.titleMedium,
+                    ),
+                    trailing: Radio<ThemeMode>(
+                      value: ThemeMode.light,
+                      groupValue: themeMode,
+                      onChanged: (ThemeMode? value) {
+                        if (value != null) {
+                          ref.read(themeProvider.notifier).setTheme(value);
+                        }
+                      },
+                      activeColor: AppColors.primary,
+                    ),
+                    onTap: () {
+                      ref.read(themeProvider.notifier).setTheme(ThemeMode.light);
+                    },
+                  ),
+                  Divider(height: 1, color: context.dividerColor),
+                  ListTile(
+                    title: Text(
+                      'Dark Mode',
+                      style: context.titleMedium,
+                    ),
+                    trailing: Radio<ThemeMode>(
+                      value: ThemeMode.dark,
+                      groupValue: themeMode,
+                      onChanged: (ThemeMode? value) {
+                        if (value != null) {
+                          ref.read(themeProvider.notifier).setTheme(value);
+                        }
+                      },
+                      activeColor: AppColors.primary,
+                    ),
+                    onTap: () {
+                      ref.read(themeProvider.notifier).setTheme(ThemeMode.dark);
+                    },
+                  ),
+                ],
               ),
             ),
           ],

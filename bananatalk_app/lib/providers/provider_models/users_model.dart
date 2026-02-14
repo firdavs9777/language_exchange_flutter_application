@@ -15,6 +15,7 @@ class User {
     required this.native_language,
     required this.language_to_learn,
     required this.location,
+    this.topics = const [],
     this.userMode = UserMode.regular,
     this.vipSubscription,
     this.vipFeatures,
@@ -33,6 +34,7 @@ class User {
   final String birth_month;
   final String birth_day;
   final LocationModal location;
+  final List<String> topics;
   final UserMode userMode;
   final VipSubscription? vipSubscription;
   final VipFeatures? vipFeatures;
@@ -56,6 +58,7 @@ class User {
       'gender': gender,
       'native_language': native_language,
       'language_to_learn': language_to_learn,
+      'topics': topics,
       'userMode': userMode.toJson(),
       'vipSubscription': vipSubscription?.toJson(),
       'vipFeatures': vipFeatures?.toJson(),
@@ -76,6 +79,7 @@ class User {
     String? native_language,
     String? language_to_learn,
     LocationModal? location,
+    List<String>? topics,
     UserMode? userMode,
     VipSubscription? vipSubscription,
     VipFeatures? vipFeatures,
@@ -94,6 +98,7 @@ class User {
       native_language: native_language ?? this.native_language,
       language_to_learn: language_to_learn ?? this.language_to_learn,
       location: location ?? this.location,
+      topics: topics ?? this.topics,
       userMode: userMode ?? this.userMode,
       vipSubscription: vipSubscription ?? this.vipSubscription,
       vipFeatures: vipFeatures ?? this.vipFeatures,

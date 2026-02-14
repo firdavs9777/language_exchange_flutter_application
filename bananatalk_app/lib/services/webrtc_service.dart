@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -42,43 +43,43 @@ class WebRTCService {
   }
 
   Future<bool> requestPermissions(bool isVideo) async {
-    print('🔐 Requesting permissions (video: $isVideo)');
+    debugPrint('🔐 Requesting permissions (video: $isVideo)');
     
     // Check current permission status first
     final micStatus = await Permission.microphone.status;
-    print('🎤 Microphone status: $micStatus');
+    debugPrint('🎤 Microphone status: $micStatus');
     
     final cameraStatus = isVideo ? await Permission.camera.status : PermissionStatus.granted;
     if (isVideo) {
-      print('📹 Camera status: $cameraStatus');
+      debugPrint('📹 Camera status: $cameraStatus');
     }
     
     // If already granted, return true
     if (micStatus.isGranted && cameraStatus.isGranted) {
-      print('✅ Permissions already granted');
+      debugPrint('✅ Permissions already granted');
       return true;
     }
     
     // If permanently denied, return false immediately (don't request again)
     if (micStatus.isPermanentlyDenied || (isVideo && cameraStatus.isPermanentlyDenied)) {
-      print('❌ Permissions permanently denied');
+      debugPrint('❌ Permissions permanently denied');
       return false;
     }
     
     // Request permissions
-    print('📋 Requesting permissions...');
+    debugPrint('📋 Requesting permissions...');
     Map<Permission, PermissionStatus> statuses = await [
       Permission.microphone,
       if (isVideo) Permission.camera,
     ].request();
 
-    print('📋 Permission request results:');
+    debugPrint('📋 Permission request results:');
     statuses.forEach((permission, status) {
-      print('   ${permission.toString()}: $status');
+      debugPrint('   ${permission.toString()}: $status');
     });
 
     bool allGranted = statuses.values.every((status) => status.isGranted);
-    print('✅ All permissions granted: $allGranted');
+    debugPrint('✅ All permissions granted: $allGranted');
     return allGranted;
   }
   
@@ -93,7 +94,7 @@ class WebRTCService {
 
   Future<void> createOffer(bool isVideo) async {
     try {
-      print('🎥 Creating offer (video: $isVideo)');
+      debugPrint('🎥 Creating offer (video: $isVideo)');
 
       // Get user media
       final constraints = <String, dynamic>{
@@ -133,9 +134,9 @@ class WebRTCService {
         onOfferCreated!(offer);
       }
 
-      print('✅ Offer created successfully');
+      debugPrint('✅ Offer created successfully');
     } catch (e) {
-      print('❌ Error creating offer: $e');
+      debugPrint('❌ Error creating offer: $e');
       rethrow;
     }
   }
@@ -145,7 +146,7 @@ class WebRTCService {
     bool isVideo,
   ) async {
     try {
-      print('🎥 Creating answer (video: $isVideo)');
+      debugPrint('🎥 Creating answer (video: $isVideo)');
 
       // Get user media
       final constraints = <String, dynamic>{
@@ -188,9 +189,9 @@ class WebRTCService {
         onAnswerCreated!(answer);
       }
 
-      print('✅ Answer created successfully');
+      debugPrint('✅ Answer created successfully');
     } catch (e) {
-      print('❌ Error creating answer: $e');
+      debugPrint('❌ Error creating answer: $e');
       rethrow;
     }
   }
@@ -198,9 +199,9 @@ class WebRTCService {
   Future<void> setRemoteDescription(RTCSessionDescription description) async {
     try {
       await _peerConnection?.setRemoteDescription(description);
-      print('✅ Remote description set');
+      debugPrint('✅ Remote description set');
     } catch (e) {
-      print('❌ Error setting remote description: $e');
+      debugPrint('❌ Error setting remote description: $e');
       rethrow;
     }
   }
@@ -209,16 +210,16 @@ class WebRTCService {
     try {
       if (_peerConnection != null) {
         await _peerConnection!.addCandidate(candidate);
-        print('✅ ICE candidate added');
+        debugPrint('✅ ICE candidate added');
       }
     } catch (e) {
-      print('❌ Error adding ICE candidate: $e');
+      debugPrint('❌ Error adding ICE candidate: $e');
     }
   }
 
   void _setupPeerConnectionListeners() {
     _peerConnection?.onIceCandidate = (RTCIceCandidate candidate) {
-      print('🧊 ICE candidate generated');
+      debugPrint('🧊 ICE candidate generated');
       if (onIceCandidate != null) {
         onIceCandidate!(candidate);
       }
@@ -232,23 +233,23 @@ class WebRTCService {
         if (onRemoteStream != null) {
           onRemoteStream!(_remoteStream!);
         }
-        print('✅ Remote stream received');
+        debugPrint('✅ Remote stream received');
       }
     };
 
     _peerConnection?.onConnectionState = (RTCPeerConnectionState state) {
-      print('🔌 Connection state: $state');
+      debugPrint('🔌 Connection state: $state');
       if (onConnectionStateChange != null) {
         onConnectionStateChange!();
       }
     };
 
     _peerConnection?.onIceConnectionState = (RTCIceConnectionState state) {
-      print('🧊 ICE connection state: $state');
+      debugPrint('🧊 ICE connection state: $state');
     };
 
     _peerConnection?.onIceGatheringState = (RTCIceGatheringState state) {
-      print('🧊 ICE gathering state: $state');
+      debugPrint('🧊 ICE gathering state: $state');
     };
   }
 
@@ -258,7 +259,7 @@ class WebRTCService {
       if (audioTracks.isNotEmpty) {
         bool enabled = audioTracks[0].enabled;
         audioTracks[0].enabled = !enabled;
-        print('🎤 Microphone ${!enabled ? "enabled" : "disabled"}');
+        debugPrint('🎤 Microphone ${!enabled ? "enabled" : "disabled"}');
       }
     }
   }
@@ -269,7 +270,7 @@ class WebRTCService {
       if (videoTracks.isNotEmpty) {
         bool enabled = videoTracks[0].enabled;
         videoTracks[0].enabled = !enabled;
-        print('📹 Camera ${!enabled ? "enabled" : "disabled"}');
+        debugPrint('📹 Camera ${!enabled ? "enabled" : "disabled"}');
       }
     }
   }
@@ -299,14 +300,14 @@ class WebRTCService {
       final videoTracks = _localStream!.getVideoTracks();
       if (videoTracks.isNotEmpty) {
         await Helper.switchCamera(videoTracks[0]);
-        print('📹 Camera switched');
+        debugPrint('📹 Camera switched');
       }
     }
   }
 
   Future<void> dispose() async {
     try {
-      print('🧹 Disposing WebRTC resources');
+      debugPrint('🧹 Disposing WebRTC resources');
       _localStream?.getTracks().forEach((track) => track.stop());
       _localStream?.dispose();
       _remoteStream?.getTracks().forEach((track) => track.stop());
@@ -315,9 +316,9 @@ class WebRTCService {
       _peerConnection = null;
       await localRenderer.dispose();
       await remoteRenderer.dispose();
-      print('✅ WebRTC resources disposed');
+      debugPrint('✅ WebRTC resources disposed');
     } catch (e) {
-      print('❌ Error disposing WebRTC: $e');
+      debugPrint('❌ Error disposing WebRTC: $e');
     }
   }
 

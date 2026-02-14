@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
@@ -176,30 +178,27 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
         final isVideo = media.type.toLowerCase() == 'video';
 
         return GestureDetector(
-          onTap: () => _openMedia(media),
+          onTap: () {
+            HapticFeedback.selectionClick();
+            _openMedia(media);
+          },
           child: Stack(
             fit: StackFit.expand,
             children: [
               Container(
                 color: Colors.grey[200],
-                child: media.thumbnail != null
-                    ? Image.network(
-                        media.thumbnail!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _buildMediaPlaceholder(isVideo),
-                      )
-                    : Image.network(
-                        media.url,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _buildMediaPlaceholder(isVideo),
-                      ),
+                child: CachedImageWidget(
+                  imageUrl: media.thumbnail ?? media.url,
+                  fit: BoxFit.cover,
+                  errorWidget: _buildMediaPlaceholder(isVideo),
+                ),
               ),
               if (isVideo)
                 Center(
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha: 0.5),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(Icons.play_arrow, color: Colors.white),
@@ -431,22 +430,11 @@ class _FullScreenMedia extends StatelessWidget {
       ),
       body: Center(
         child: InteractiveViewer(
-          child: Image.network(
-            media.url,
+          child: CachedImageWidget(
+            imageUrl: media.url,
             fit: BoxFit.contain,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                  color: Colors.white,
-                ),
-              );
-            },
-            errorBuilder: (context, error, stackTrace) => const Center(
+            placeholderColor: Colors.black,
+            errorWidget: const Center(
               child: Icon(Icons.broken_image, color: Colors.white, size: 64),
             ),
           ),

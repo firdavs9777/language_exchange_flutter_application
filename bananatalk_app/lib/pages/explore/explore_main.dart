@@ -4,6 +4,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 
 /// Instagram-style Explore/Search screen with video feed
@@ -36,36 +38,35 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.surfaceColor,
         elevation: 0,
         title: _isSearching
             ? TextField(
                 controller: _searchController,
                 autofocus: true,
+                style: context.bodyLarge,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)?.search ?? 'Search',
                   border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  hintStyle: context.bodyMedium.copyWith(
+                    color: context.textHint,
+                  ),
                 ),
                 onSubmitted: (value) {
                   // Handle search
                 },
               )
-            : const Text(
+            : Text(
                 'Explore',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
+                style: context.displaySmall,
               ),
         actions: [
           IconButton(
             icon: Icon(
               _isSearching ? Icons.close : Icons.search,
-              color: Colors.black87,
+              color: context.iconColor,
             ),
             onPressed: () {
               setState(() {
@@ -79,9 +80,9 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
         ],
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.black87,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.black87,
+          labelColor: context.textPrimary,
+          unselectedLabelColor: context.textSecondary,
+          indicatorColor: AppColors.primary,
           tabs: const [
             Tab(icon: Icon(Icons.grid_view)),
             Tab(icon: Icon(Icons.play_circle_outline)),
@@ -109,11 +110,13 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.explore_outlined, size: 64, color: Colors.grey[400]),
-                const SizedBox(height: 16),
+                Icon(Icons.explore_outlined, size: 64, color: context.textHint),
+                Spacing.gapLG,
                 Text(
                   'No moments to explore',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                  style: context.bodyLarge.copyWith(
+                    color: context.textSecondary,
+                  ),
                 ),
               ],
             ),
@@ -139,12 +142,20 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
-            const SizedBox(height: 16),
-            Text('Failed to load', style: TextStyle(color: Colors.grey[600])),
+            Icon(Icons.error_outline, size: 48, color: context.textHint),
+            Spacing.gapLG,
+            Text(
+              'Failed to load',
+              style: context.bodyMedium.copyWith(
+                color: context.textSecondary,
+              ),
+            ),
             TextButton(
               onPressed: () => ref.refresh(momentsFeedProvider),
-              child: const Text('Retry'),
+              child: Text(
+                'Retry',
+                style: context.labelLarge.copyWith(color: AppColors.primary),
+              ),
             ),
           ],
         ),
@@ -180,8 +191,8 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
             )
           else
             Container(
-              color: Colors.grey[300],
-              child: const Icon(Icons.image, color: Colors.grey),
+              color: context.containerColor,
+              child: Icon(Icons.image, color: context.textMuted),
             ),
           // Video indicator
           if (hasVideo)
@@ -191,20 +202,19 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.circular(4),
+                  color: AppColors.black.withOpacity(0.54),
+                  borderRadius: AppRadius.borderXS,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.play_arrow, color: Colors.white, size: 14),
+                    const Icon(Icons.play_arrow, color: AppColors.white, size: 14),
                     if (moment.video?.duration != null) ...[
-                      const SizedBox(width: 2),
+                      Spacing.hGapXXS,
                       Text(
                         moment.video!.formattedDuration,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
+                        style: context.captionSmall.copyWith(
+                          color: AppColors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -219,12 +229,12 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
               top: 8,
               right: 8,
               child: Container(
-                padding: const EdgeInsets.all(4),
+                padding: Spacing.paddingXS,
                 decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.circular(4),
+                  color: AppColors.black.withOpacity(0.54),
+                  borderRadius: AppRadius.borderXS,
                 ),
-                child: const Icon(Icons.collections, color: Colors.white, size: 16),
+                child: const Icon(Icons.collections, color: AppColors.white, size: 16),
               ),
             ),
         ],
@@ -246,16 +256,20 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.videocam_off_outlined, size: 64, color: Colors.grey[400]),
-                const SizedBox(height: 16),
+                Icon(Icons.videocam_off_outlined, size: 64, color: context.textHint),
+                Spacing.gapLG,
                 Text(
                   'No videos yet',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                  style: context.bodyLarge.copyWith(
+                    color: context.textSecondary,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 Text(
                   'Be the first to share a video!',
-                  style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                  style: context.bodySmall.copyWith(
+                    color: context.textMuted,
+                  ),
                 ),
               ],
             ),
@@ -272,7 +286,10 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(
-        child: Text('Failed to load videos'),
+        child: Text(
+          'Failed to load videos',
+          style: context.bodyMedium,
+        ),
       ),
     );
   }
@@ -362,26 +379,26 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
               fit: BoxFit.cover,
             )
           else
-            Container(color: Colors.black),
+            Container(color: AppColors.black),
 
           // Loading indicator
           if (!_isInitialized)
             const Center(
-              child: CircularProgressIndicator(color: Colors.white),
+              child: CircularProgressIndicator(color: AppColors.white),
             ),
 
           // Play/Pause indicator
           if (_isInitialized && !_isPlaying)
             Center(
               child: Container(
-                padding: const EdgeInsets.all(16),
+                padding: Spacing.paddingLG,
                 decoration: BoxDecoration(
-                  color: Colors.black45,
+                  color: AppColors.black.withOpacity(0.45),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.play_arrow,
-                  color: Colors.white,
+                  color: AppColors.white,
                   size: 48,
                 ),
               ),
@@ -407,31 +424,28 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
                           ? const Icon(Icons.person, size: 16)
                           : null,
                     ),
-                    const SizedBox(width: 8),
+                    Spacing.hGapSM,
                     Text(
                       widget.moment.user.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                      style: context.titleSmall.copyWith(
+                        color: AppColors.white,
                         shadows: [
-                          Shadow(color: Colors.black54, blurRadius: 4),
+                          Shadow(color: AppColors.black.withOpacity(0.54), blurRadius: 4),
                         ],
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 // Description
                 Text(
                   widget.moment.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+                  style: context.bodyMedium.copyWith(
+                    color: AppColors.white,
                     shadows: [
-                      Shadow(color: Colors.black54, blurRadius: 4),
+                      Shadow(color: AppColors.black.withOpacity(0.54), blurRadius: 4),
                     ],
                   ),
                 ),
@@ -450,13 +464,13 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
                   label: '${widget.moment.likeCount}',
                   onTap: () {},
                 ),
-                const SizedBox(height: 16),
+                Spacing.gapLG,
                 _buildActionButton(
                   icon: Icons.chat_bubble_outline,
                   label: '${widget.moment.commentCount}',
                   onTap: () {},
                 ),
-                const SizedBox(height: 16),
+                Spacing.gapLG,
                 _buildActionButton(
                   icon: Icons.share,
                   label: 'Share',
@@ -479,14 +493,13 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
       onTap: onTap,
       child: Column(
         children: [
-          Icon(icon, color: Colors.white, size: 28),
-          const SizedBox(height: 4),
+          Icon(icon, color: AppColors.white, size: 28),
+          Spacing.gapXS,
           Text(
             label,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              shadows: [Shadow(color: Colors.black54, blurRadius: 4)],
+            style: context.caption.copyWith(
+              color: AppColors.white,
+              shadows: [Shadow(color: AppColors.black.withOpacity(0.54), blurRadius: 4)],
             ),
           ),
         ],
@@ -540,11 +553,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: AppColors.white),
       ),
       extendBodyBehindAppBar: true,
       body: GestureDetector(
@@ -564,7 +577,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                   aspectRatio: _controller!.value.aspectRatio,
                   child: VideoPlayer(_controller!),
                 )
-              : const CircularProgressIndicator(color: Colors.white),
+              : const CircularProgressIndicator(color: AppColors.white),
         ),
       ),
     );

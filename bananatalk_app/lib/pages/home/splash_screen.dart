@@ -2,6 +2,8 @@ import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dar
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -113,10 +115,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Simulate a loading delay
-
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: context.surfaceColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               width: 350,
               height: 321,
             ),
-            SizedBox(height: 20),
+            Spacing.gapXL,
           ],
         ),
       ),

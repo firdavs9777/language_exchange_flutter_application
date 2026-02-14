@@ -2,6 +2,8 @@ import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -88,18 +90,15 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Profile Visitors',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: context.titleLarge,
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -113,7 +112,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     if (_isLoading) {
       return const Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
         ),
       );
     }
@@ -123,22 +122,22 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.error_outline, size: 64, color: Colors.red),
-            const SizedBox(height: 16),
+            const Icon(Icons.error_outline, size: 64, color: AppColors.error),
+            Spacing.gapLG,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Text(
                 'Error: $_error',
-                style: const TextStyle(color: Colors.red),
+                style: context.bodyMedium.copyWith(color: AppColors.error),
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: 16),
+            Spacing.gapLG,
             ElevatedButton(
               onPressed: () => _fetchVisitors(page: 1),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.white,
               ),
               child: Text(AppLocalizations.of(context)!.retry),
             ),
@@ -153,32 +152,29 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(24),
+              padding: Spacing.paddingXXL,
               decoration: BoxDecoration(
-                color: const Color(0xFF00BFA5).withOpacity(0.1),
+                color: AppColors.primary.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.visibility_off_outlined,
                 size: 64,
-                color: Colors.grey[400],
+                color: context.textHint,
               ),
             ),
-            const SizedBox(height: 24),
+            Spacing.gapXXL,
             Text(
               'No visitors yet',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.grey[700],
-                fontWeight: FontWeight.w600,
+              style: context.titleLarge.copyWith(
+                color: context.textSecondary,
               ),
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             Text(
               'When people visit your profile,\nthey will appear here',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[500],
+              style: context.bodyMedium.copyWith(
+                color: context.textMuted,
               ),
               textAlign: TextAlign.center,
             ),
@@ -198,7 +194,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
             ),
           // Visitor list
           SliverPadding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.screenPadding,
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -221,31 +217,21 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     final visitsThisWeek = _stats?['visitsThisWeek'] ?? 0;
 
     return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(20),
+      margin: Spacing.screenPadding,
+      padding: Spacing.paddingXL,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.cardBackground,
+        borderRadius: AppRadius.borderLG,
+        boxShadow: AppShadows.sm,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Visitor Statistics',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+            style: context.titleLarge,
           ),
-          const SizedBox(height: 16),
+          Spacing.gapLG,
           Row(
             children: [
               Expanded(
@@ -264,7 +250,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          Spacing.gapMD,
           Row(
             children: [
               Expanded(
@@ -295,21 +281,16 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
           emoji,
           style: const TextStyle(fontSize: 24),
         ),
-        const SizedBox(height: 4),
+        Spacing.gapXS,
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF00BFA5),
+          style: context.displaySmall.copyWith(
+            color: AppColors.primary,
           ),
         ),
         Text(
           label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[600],
-          ),
+          style: context.caption,
         ),
       ],
     );
@@ -320,7 +301,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     final lastVisit = DateTime.parse(visitor['lastVisit']);
     final visitCount = visitor['visitCount'] ?? 1;
     final source = visitor['source'] ?? 'direct';
-    
+
     final userId = user['_id'];
     final userName = user['name'] ?? 'Unknown User';
     final userPhoto = user['imageUrls'] != null && user['imageUrls'].isNotEmpty
@@ -347,39 +328,33 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
       case 'search':
         sourceIcon = Icons.search;
         sourceText = 'via Search';
-        sourceColor = Colors.blue;
+        sourceColor = AppColors.info;
         break;
       case 'moments':
         sourceIcon = Icons.photo_library;
         sourceText = 'via Moments';
-        sourceColor = Colors.purple;
+        sourceColor = AppColors.accent;
         break;
       case 'chat':
         sourceIcon = Icons.chat;
         sourceText = 'via Chat';
-        sourceColor = Colors.green;
+        sourceColor = AppColors.success;
         break;
       default:
         sourceIcon = Icons.person;
         sourceText = 'Direct visit';
-        sourceColor = Colors.grey;
+        sourceColor = AppColors.gray500;
     }
 
     return GestureDetector(
       onTap: () => _navigateToProfile(userId, userName),
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
+        padding: Spacing.paddingLG,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          color: context.cardBackground,
+          borderRadius: AppRadius.borderLG,
+          boxShadow: AppShadows.sm,
         ),
         child: Row(
           children: [
@@ -390,15 +365,15 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                     ? CachedCircleAvatar(
                         imageUrl: userPhoto,
                         radius: 32,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: context.containerColor,
                       )
                     : CircleAvatar(
                         radius: 32,
-                        backgroundColor: const Color(0xFF00BFA5).withOpacity(0.1),
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
                         child: const Icon(
                           Icons.person,
                           size: 32,
-                          color: Color(0xFF00BFA5),
+                          color: AppColors.primary,
                         ),
                       ),
                 // Visit count badge
@@ -410,15 +385,14 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00BFA5),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white, width: 2),
+                        color: AppColors.primary,
+                        borderRadius: AppRadius.borderSM,
+                        border: Border.all(color: AppColors.white, width: 2),
                       ),
                       child: Text(
                         '$visitCount',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
+                        style: context.captionSmall.copyWith(
+                          color: AppColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -426,7 +400,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                   ),
               ],
             ),
-            const SizedBox(width: 16),
+            Spacing.hGapLG,
             // User Info
             Expanded(
               child: Column(
@@ -434,30 +408,25 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                 children: [
                   Text(
                     userName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    style: context.titleMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  Spacing.gapXS,
                   if (locationText.isNotEmpty)
                     Row(
                       children: [
                         Icon(
                           Icons.location_on,
                           size: 14,
-                          color: Colors.grey[600],
+                          color: context.textSecondary,
                         ),
-                        const SizedBox(width: 4),
+                        Spacing.hGapXS,
                         Expanded(
                           child: Text(
                             locationText,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[600],
+                            style: context.labelMedium.copyWith(
+                              color: context.textSecondary,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -466,7 +435,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                       ],
                     ),
                   if (nativeLanguage.isNotEmpty || learningLanguage.isNotEmpty)
-                    const SizedBox(height: 4),
+                    Spacing.gapXS,
                   if (nativeLanguage.isNotEmpty || learningLanguage.isNotEmpty)
                     Row(
                       children: [
@@ -474,15 +443,12 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                           Icon(
                             Icons.translate,
                             size: 14,
-                            color: Colors.grey[600],
+                            color: context.textSecondary,
                           ),
-                          const SizedBox(width: 4),
+                          Spacing.hGapXS,
                           Text(
                             nativeLanguage,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                            ),
+                            style: context.caption,
                           ),
                         ],
                         if (nativeLanguage.isNotEmpty &&
@@ -492,28 +458,24 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                             child: Icon(
                               Icons.arrow_forward,
                               size: 12,
-                              color: Colors.grey[400],
+                              color: context.textHint,
                             ),
                           ),
                         if (learningLanguage.isNotEmpty)
                           Text(
                             learningLanguage,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                            ),
+                            style: context.caption,
                           ),
                       ],
                     ),
-                  const SizedBox(height: 6),
+                  Spacing.gapSM,
                   Row(
                     children: [
                       Icon(sourceIcon, size: 12, color: sourceColor),
-                      const SizedBox(width: 4),
+                      Spacing.hGapXS,
                       Text(
                         sourceText,
-                        style: TextStyle(
-                          fontSize: 12,
+                        style: context.labelSmall.copyWith(
                           color: sourceColor,
                           fontWeight: FontWeight.w500,
                         ),
@@ -529,15 +491,12 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
               children: [
                 Text(
                   timeago.format(lastVisit, locale: 'en_short'),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[500],
-                  ),
+                  style: context.caption,
                 ),
-                const SizedBox(height: 4),
-                const Icon(
+                Spacing.gapXS,
+                Icon(
                   Icons.chevron_right,
-                  color: Colors.grey,
+                  color: context.textMuted,
                   size: 20,
                 ),
               ],
@@ -548,4 +507,3 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     );
   }
 }
-

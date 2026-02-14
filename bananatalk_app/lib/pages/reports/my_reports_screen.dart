@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -32,7 +33,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
 
     try {
       final result = await _reportService.getMyReports();
-      
+
       if (result['success'] == true) {
         setState(() {
           _reports = result['data'] ?? [];
@@ -109,12 +110,14 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.myReports2),
-        backgroundColor: colorScheme.surface,
+        title: Text(
+          AppLocalizations.of(context)!.myReports2,
+          style: context.titleLarge,
+        ),
+        backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         elevation: 0,
       ),
@@ -128,15 +131,17 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                       Icon(
                         Icons.error_outline,
                         size: 64,
-                        color: colorScheme.error,
+                        color: AppColors.error,
                       ),
-                      const SizedBox(height: 16),
+                      Spacing.gapLG,
                       Text(
                         _error!,
-                        style: TextStyle(color: context.textSecondary),
+                        style: context.bodyMedium.copyWith(
+                          color: context.textSecondary,
+                        ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 24),
+                      Spacing.gapXXL,
                       ElevatedButton(
                         onPressed: _loadReports,
                         child: Text(AppLocalizations.of(context)!.retry),
@@ -152,21 +157,19 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                           Icon(
                             Icons.flag_outlined,
                             size: 64,
-                            color: Colors.grey[400],
+                            color: context.textHint,
                           ),
-                          const SizedBox(height: 16),
+                          Spacing.gapLG,
                           Text(
                             'No reports submitted',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                            style: context.titleLarge.copyWith(
                               color: context.textPrimary,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          Spacing.gapSM,
                           Text(
                             'Reports you submit will appear here',
-                            style: TextStyle(
+                            style: context.bodyMedium.copyWith(
                               color: context.textSecondary,
                             ),
                           ),
@@ -176,24 +179,25 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                   : RefreshIndicator(
                       onRefresh: _loadReports,
                       child: ListView.builder(
-                        padding: const EdgeInsets.all(16),
+                        padding: Spacing.screenPadding,
                         itemCount: _reports.length,
                         itemBuilder: (context, index) {
                           final report = _reports[index];
                           final status = report['status']?.toString() ?? 'pending';
                           final statusColor = _getStatusColor(status);
-                          
+
                           return Card(
                             margin: const EdgeInsets.only(bottom: 12),
+                            color: context.cardBackground,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: AppRadius.borderMD,
                             ),
                             child: ExpansionTile(
                               leading: Container(
-                                padding: const EdgeInsets.all(8),
+                                padding: Spacing.paddingSM,
                                 decoration: BoxDecoration(
                                   color: _getStatusColorValue(statusColor).withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: AppRadius.borderSM,
                                 ),
                                 child: Icon(
                                   Icons.flag_outlined,
@@ -203,33 +207,25 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                               ),
                               title: Text(
                                 '${_getTypeLabel(report['type'])} Report',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: context.titleMedium,
                               ),
                               subtitle: Text(
                                 'Reason: ${_getReasonLabel(report['reason'])}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: context.textSecondary,
-                                ),
+                                style: context.caption,
                               ),
                               trailing: Chip(
                                 label: Text(
                                   status.toUpperCase(),
-                                  style: const TextStyle(
-                                    fontSize: 10,
+                                  style: context.captionSmall.copyWith(
                                     fontWeight: FontWeight.bold,
+                                    color: _getStatusColorValue(statusColor),
                                   ),
                                 ),
                                 backgroundColor: _getStatusColorValue(statusColor).withOpacity(0.1),
-                                labelStyle: TextStyle(
-                                  color: _getStatusColorValue(statusColor),
-                                ),
                               ),
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(16),
+                                  padding: Spacing.paddingLG,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -237,25 +233,25 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                         'Reported ID',
                                         report['reportId']?.toString() ?? 'N/A',
                                       ),
-                                      const SizedBox(height: 8),
+                                      Spacing.gapSM,
                                       _buildInfoRow(
                                         'Status',
                                         status.toUpperCase(),
                                       ),
-                                      const SizedBox(height: 8),
+                                      Spacing.gapSM,
                                       _buildInfoRow(
                                         'Reason',
                                         _getReasonLabel(report['reason']),
                                       ),
                                       if (report['description'] != null &&
                                           report['description'].toString().isNotEmpty) ...[
-                                        const SizedBox(height: 8),
+                                        Spacing.gapSM,
                                         _buildInfoRow(
                                           'Description',
                                           report['description'].toString(),
                                         ),
                                       ],
-                                      const SizedBox(height: 8),
+                                      Spacing.gapSM,
                                       _buildInfoRow(
                                         'Submitted',
                                         report['createdAt'] != null
@@ -263,7 +259,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                             : 'N/A',
                                       ),
                                       if (report['resolvedAt'] != null) ...[
-                                        const SizedBox(height: 8),
+                                        Spacing.gapSM,
                                         _buildInfoRow(
                                           'Resolved',
                                           _formatDate(report['resolvedAt'].toString()),
@@ -271,7 +267,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                       ],
                                       if (report['moderatorNotes'] != null &&
                                           report['moderatorNotes'].toString().isNotEmpty) ...[
-                                        const SizedBox(height: 8),
+                                        Spacing.gapSM,
                                         _buildInfoRow(
                                           'Moderator Notes',
                                           report['moderatorNotes'].toString(),
@@ -297,20 +293,15 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
           width: 100,
           child: Text(
             label,
-            style: TextStyle(
-              fontSize: 12,
+            style: context.labelSmall.copyWith(
               fontWeight: FontWeight.w600,
-              color: context.textSecondary,
             ),
           ),
         ),
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 12,
-              color: context.textPrimary,
-            ),
+            style: context.bodySmall,
           ),
         ),
       ],
@@ -320,15 +311,15 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
   Color _getStatusColorValue(String colorName) {
     switch (colorName) {
       case 'orange':
-        return Colors.orange;
+        return AppColors.warning;
       case 'blue':
-        return Colors.blue;
+        return AppColors.info;
       case 'green':
-        return Colors.green;
+        return AppColors.success;
       case 'grey':
-        return Colors.grey;
+        return AppColors.gray500;
       default:
-        return Colors.grey;
+        return AppColors.gray500;
     }
   }
 
@@ -341,4 +332,3 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
     }
   }
 }
-

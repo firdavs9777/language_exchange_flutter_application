@@ -26,7 +26,7 @@ class ChatNotifier extends ChangeNotifier {
 
     _socket?.onConnect((_) {
       _isConnected = true;
-      print('Connected to the server');
+      debugPrint('Connected to the server');
     });
 
     _socket?.on('initialMessages', (data) {
@@ -43,11 +43,11 @@ class ChatNotifier extends ChangeNotifier {
 
     _socket?.onDisconnect((_) {
       _isConnected = false;
-      print('Disconnected from the server');
+      debugPrint('Disconnected from the server');
     });
 
     _socket?.onError((error) {
-      print('Socket error: $error');
+      debugPrint('Socket error: $error');
       // Handle error scenarios here
     });
 
@@ -67,7 +67,7 @@ class ChatNotifier extends ChangeNotifier {
       notifyListeners();
     } else {
       // Handle case when socket is not connected
-      print('Socket is not connected. Unable to send message.');
+      debugPrint('Socket is not connected. Unable to send message.');
     }
   }
 

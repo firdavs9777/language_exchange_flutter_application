@@ -8,8 +8,12 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
+import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -80,6 +84,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   List<File> _selectedImages = [];
 
+  // Topics selection
+  Set<String> _selectedTopics = {};
+  static const int MAX_TOPICS = 10;
+
   // Error states
   String? _bioError;
   String? _nativeLanguageError;
@@ -88,6 +96,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   String? _birthDateError;
   String? _imagesError;
   String? _locationError;
+  String? _topicsError;
 
   @override
   void initState() {
@@ -173,6 +182,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _latitude = position.latitude;
       _longitude = position.longitude;
 
+      await setLocaleIdentifier('en_US');
       final placemarks = await placemarkFromCoordinates(
         _latitude!,
         _longitude!,
@@ -277,6 +287,16 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     );
 
     if (result != null) {
+      // Validate that native and learning language are not the same
+      if (isNative && _languageToLearn != null && result.code == _languageToLearn!.code) {
+        _showErrorSnackBar('Native language cannot be the same as the language you want to learn');
+        return;
+      }
+      if (!isNative && _nativeLanguage != null && result.code == _nativeLanguage!.code) {
+        _showErrorSnackBar('Learning language cannot be the same as your native language');
+        return;
+      }
+
       setState(() {
         if (isNative) {
           _nativeLanguage = result;
@@ -310,11 +330,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         });
 
         debugPrint(
-          '✅ Selected ${pickedFiles.length} images. Total: ${_selectedImages.length}',
+          'Selected ${pickedFiles.length} images. Total: ${_selectedImages.length}',
         );
       }
     } catch (e) {
-      debugPrint('❌ Error picking images: $e');
+      debugPrint('Error picking images: $e');
       _showErrorSnackBar('Error selecting images: ${e.toString()}');
     }
   }
@@ -336,6 +356,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _birthDateError = null;
       _imagesError = null;
       _locationError = null;
+      _topicsError = null;
     });
 
     // Bio validation
@@ -368,6 +389,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (_languageToLearn == null) {
       setState(() {
         _learnLanguageError = 'Please select the language you want to learn';
+      });
+      isValid = false;
+    }
+
+    // Validate native and learning languages are different
+    if (_nativeLanguage != null && _languageToLearn != null &&
+        _nativeLanguage!.code == _languageToLearn!.code) {
+      setState(() {
+        _learnLanguageError = 'Cannot be the same as your native language';
       });
       isValid = false;
     }
@@ -489,7 +519,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (isOAuthUser) {
       // OAuth User Profile Update
       try {
-        print('🔧 OAuth user completing profile...');
+        debugPrint('OAuth user completing profile...');
 
         final url = Uri.parse(
           '${Endpoints.baseURL}${Endpoints.updateDetailsURL}',
@@ -506,6 +536,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           'native_language': _nativeLanguage?.name ?? '',
           'language_to_learn': _languageToLearn?.name ?? '',
           'profileCompleted': true,
+          'topics': _selectedTopics.toList(),
           'location': {
             'type': 'Point',
             'coordinates': [
@@ -520,7 +551,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           },
         };
 
-        print('📤 Sending profile update...');
+        debugPrint('Sending profile update...');
 
         final response = await http.put(
           url,
@@ -531,10 +562,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           body: jsonEncode(requestBody),
         );
 
-        print('📡 Response status: ${response.statusCode}');
+        debugPrint('Response status: ${response.statusCode}');
 
         if (response.statusCode == 200) {
-          print('✅ Profile update successful!');
+          debugPrint('Profile update successful!');
 
           if (mounted) {
             // Ensure token is available before checking terms
@@ -549,7 +580,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             if (storedToken.isNotEmpty && authService.token.isEmpty) {
               // Token is in storage but not in memory - update it
               authService.token = storedToken;
-              debugPrint('✅ Token refreshed from storage before checking terms');
+              debugPrint('Token refreshed from storage before checking terms');
             }
 
             // Check if user has accepted terms (for OAuth users completing profile)
@@ -628,21 +659,21 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               (route) => false,
             );
 
-            _showSuccessSnackBar('Profile completed! Welcome to BanaTalk! 🎉');
+            _showSuccessSnackBar('Profile completed! Welcome to BanaTalk!');
           }
 
           // Upload images before navigation to avoid ref disposal issues
           final userId = ref.read(authServiceProvider).userId;
           if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-            print('📸 Uploading ${_selectedImages.length} images...');
+            debugPrint('Uploading ${_selectedImages.length} images...');
             try {
               // Upload images synchronously before navigation
               await ref
                   .read(authServiceProvider)
                   .uploadUserPhoto(userId, _selectedImages);
-              print('✅ Images uploaded successfully');
+              debugPrint('Images uploaded successfully');
             } catch (error) {
-              print('❌ Image upload error: $error');
+              debugPrint('Image upload error: $error');
               // Don't block navigation if upload fails - user can upload later
             }
           }
@@ -654,7 +685,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           final errorData = jsonDecode(response.body);
           final errorMessage =
               errorData['message'] ?? 'Failed to update profile';
-          print('❌ Profile update failed: $errorMessage');
+          debugPrint('Profile update failed: $errorMessage');
 
           if (mounted) {
             _showErrorSnackBar(errorMessage);
@@ -664,7 +695,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         setState(() {
           _isSubmitting = false;
         });
-        print('❌ Profile update exception: $error');
+        debugPrint('Profile update exception: $error');
 
         if (mounted) {
           _showErrorSnackBar('Network error: ${error.toString()}');
@@ -684,6 +715,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         birth_year: year,
         native_language: _nativeLanguage?.name ?? '',
         language_to_learn: _languageToLearn?.name ?? '',
+        topics: _selectedTopics.toList(),
         location: LocationModal(
           type: 'Point',
           coordinates: [
@@ -720,10 +752,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 // If not available, assume false (new users need to accept)
                 termsAccepted = userData.termsAccepted;
                 debugPrint(
-                  '📋 Terms status from registration response: $termsAccepted',
+                  'Terms status from registration response: $termsAccepted',
                 );
               } else {
-                debugPrint('⚠️ User data is null in registration response');
+                debugPrint('User data is null in registration response');
               }
             } catch (e) {
               debugPrint('Could not read terms from registration response: $e');
@@ -745,7 +777,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               if (storedToken.isNotEmpty && authService.token.isEmpty) {
                 // Token is in storage but not in memory - update it
                 authService.token = storedToken;
-                debugPrint('✅ Token refreshed from storage before showing terms');
+                debugPrint('Token refreshed from storage before showing terms');
               }
 
               bool shouldProceed = true;
@@ -823,15 +855,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               if (shouldProceed && mounted) {
                 // Upload images before navigation to avoid ref disposal issues
                 if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-                  print('📸 Uploading ${_selectedImages.length} images...');
+                  debugPrint('Uploading ${_selectedImages.length} images...');
                   try {
                     // Upload images synchronously before navigation
                     await ref
                         .read(authServiceProvider)
                         .uploadUserPhoto(userId, _selectedImages);
-                    print('✅ Images uploaded successfully');
+                    debugPrint('Images uploaded successfully');
                   } catch (error) {
-                    print('❌ Image upload error: $error');
+                    debugPrint('Image upload error: $error');
                     // Don't block navigation if upload fails - user can upload later
                   }
                 }
@@ -839,7 +871,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 if (!mounted) return;
 
                 _showSuccessSnackBar(
-                  'Registration Successful! Welcome to BanaTalk! 🎉',
+                  'Registration Successful! Welcome to BanaTalk!',
                 );
 
                 Navigator.of(context).pushAndRemoveUntil(
@@ -851,15 +883,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               // Terms already accepted - proceed directly with image upload and navigation
               // Upload images before navigation to avoid ref disposal issues
               if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-                print('📸 Uploading ${_selectedImages.length} images...');
+                debugPrint('Uploading ${_selectedImages.length} images...');
                 try {
                   // Upload images synchronously before navigation
                   await ref
                       .read(authServiceProvider)
                       .uploadUserPhoto(userId, _selectedImages);
-                  print('✅ Images uploaded successfully');
+                  debugPrint('Images uploaded successfully');
                 } catch (error) {
-                  print('❌ Image upload error: $error');
+                  debugPrint('Image upload error: $error');
                   // Don't block navigation if upload fails - user can upload later
                 }
               }
@@ -867,7 +899,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               if (!mounted) return;
 
               _showSuccessSnackBar(
-                'Registration Successful! Welcome to BanaTalk! 🎉',
+                'Registration Successful! Welcome to BanaTalk!',
               );
 
               Navigator.of(context).pushAndRemoveUntil(
@@ -907,13 +939,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         content: Row(
           children: [
             const Icon(Icons.error_outline, color: Colors.white),
-            const SizedBox(width: 12),
+            Spacing.hGapMD,
             Expanded(child: Text(message)),
           ],
         ),
-        backgroundColor: Colors.red.shade600,
+        backgroundColor: AppColors.error,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
         duration: const Duration(seconds: 4),
       ),
     );
@@ -926,13 +958,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         content: Row(
           children: [
             const Icon(Icons.check_circle_outline, color: Colors.white),
-            const SizedBox(width: 12),
+            Spacing.hGapMD,
             Expanded(child: Text(message)),
           ],
         ),
-        backgroundColor: Colors.green.shade600,
+        backgroundColor: AppColors.success,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
         duration: const Duration(seconds: 3),
       ),
     );
@@ -942,10 +974,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   Widget build(BuildContext context) {
     final bioCharCount = _bioController.text.length;
     final bioCharRemaining = BIO_MAX_LENGTH - bioCharCount;
-    final primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -963,7 +994,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 24),
+                    Spacing.gapXXL,
 
                     // Header
                     _buildHeader(),
@@ -972,14 +1003,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
                     // Bio field
                     _buildSectionTitle('About You', Icons.edit_note),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     _buildBioField(bioCharRemaining),
 
                     const SizedBox(height: 28),
 
                     // Language section with modern cards
                     _buildSectionTitle('Languages', Icons.translate),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     _buildLanguageSelector(
                       label: 'Native Language',
                       language: _nativeLanguage,
@@ -987,7 +1018,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       onTap: () => _openLanguagePicker(isNative: true),
                       icon: Icons.home_outlined,
                     ),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     _buildLanguageSelector(
                       label: 'Language to Learn',
                       language: _languageToLearn,
@@ -1000,17 +1031,32 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
                     // Personal Info section
                     _buildSectionTitle('Personal Information', Icons.person_outline),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     _buildGenderSelector(),
-                    const SizedBox(height: 16),
+                    Spacing.gapLG,
                     _buildBirthDateField(),
 
                     const SizedBox(height: 28),
 
                     // Location section
                     _buildSectionTitle('Location', Icons.location_on_outlined),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     _buildLocationCard(),
+
+                    const SizedBox(height: 28),
+
+                    // Topics/Interests section
+                    _buildSectionTitle('Your Interests', Icons.interests_outlined),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Select topics you\'re interested in (optional, max $MAX_TOPICS)',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: context.textSecondary,
+                      ),
+                    ),
+                    Spacing.gapMD,
+                    _buildTopicsSection(),
 
                     const SizedBox(height: 28),
 
@@ -1021,10 +1067,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       'Add at least 2 photos (max 6)',
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey[600],
+                        color: context.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     _buildImagesSection(),
 
                     const SizedBox(height: 32),
@@ -1049,19 +1095,19 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       child: Row(
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.grey[800], size: 22),
+            icon: Icon(Icons.arrow_back_ios, color: context.textPrimary, size: 22),
             onPressed: () => Navigator.of(context).pop(),
           ),
           const Spacer(),
           Text(
             'Step 2 of 2',
             style: TextStyle(
-              color: Colors.grey[600],
+              color: context.textSecondary,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(width: 16),
+          Spacing.hGapLG,
         ],
       ),
     );
@@ -1076,17 +1122,17 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             child: Container(
               height: 4,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: AppColors.primary,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          Spacing.hGapSM,
           Expanded(
             child: Container(
               height: 4,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: AppColors.primary,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -1105,15 +1151,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Colors.grey[900],
+            color: context.textPrimary,
           ),
         ),
-        const SizedBox(height: 8),
+        Spacing.gapSM,
         Text(
           'Tell us more about yourself to find the perfect language partners',
           style: TextStyle(
             fontSize: 15,
-            color: Colors.grey[600],
+            color: context.textSecondary,
             height: 1.4,
           ),
         ),
@@ -1124,14 +1170,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   Widget _buildSectionTitle(String title, IconData icon) {
     return Row(
       children: [
-        Icon(icon, size: 20, color: Theme.of(context).primaryColor),
-        const SizedBox(width: 8),
+        Icon(icon, size: 20, color: AppColors.primary),
+        Spacing.hGapSM,
         Text(
           title,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: Colors.grey[800],
+            color: context.textPrimary,
           ),
         ),
       ],
@@ -1141,18 +1187,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   Widget _buildBioField(int bioCharRemaining) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: context.cardBackground,
+        borderRadius: AppRadius.borderLG,
         border: Border.all(
-          color: _bioError != null ? Colors.red : Colors.grey.shade200,
+          color: _bioError != null ? AppColors.error : context.dividerColor,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: AppShadows.sm,
       ),
       child: Column(
         children: [
@@ -1162,7 +1202,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             maxLength: BIO_MAX_LENGTH,
             decoration: InputDecoration(
               hintText: 'Tell us about yourself, your interests, and why you want to learn a new language...',
-              hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
+              hintStyle: TextStyle(color: context.textHint, fontSize: 14),
               border: InputBorder.none,
               contentPadding: const EdgeInsets.all(16),
               counterText: '',
@@ -1172,7 +1212,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.grey[50],
+              color: context.containerColor,
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(16),
                 bottomRight: Radius.circular(16),
@@ -1185,7 +1225,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                   Expanded(
                     child: Text(
                       _bioError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
+                      style: TextStyle(color: AppColors.error, fontSize: 12),
                     ),
                   )
                 else
@@ -1194,7 +1234,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                   '${_bioController.text.length}/$BIO_MAX_LENGTH',
                   style: TextStyle(
                     fontSize: 12,
-                    color: bioCharRemaining < 50 ? Colors.orange : Colors.grey[500],
+                    color: bioCharRemaining < 50 ? AppColors.warning : context.textMuted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -1215,22 +1255,16 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   }) {
     return InkWell(
       onTap: _isLoadingLanguages ? null : onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: AppRadius.borderLG,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          color: context.cardBackground,
+          borderRadius: AppRadius.borderLG,
           border: Border.all(
-            color: error != null ? Colors.red : Colors.grey.shade200,
+            color: error != null ? AppColors.error : context.dividerColor,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: AppShadows.sm,
         ),
         child: Row(
           children: [
@@ -1240,9 +1274,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               height: 48,
               decoration: BoxDecoration(
                 color: language != null
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
-                    : Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
+                    ? AppColors.primary.withOpacity(0.1)
+                    : context.containerColor,
+                borderRadius: AppRadius.borderMD,
               ),
               child: Center(
                 child: _isLoadingLanguages
@@ -1252,7 +1286,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).primaryColor,
+                            AppColors.primary,
                           ),
                         ),
                       )
@@ -1263,12 +1297,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                           )
                         : Icon(
                             icon,
-                            color: Colors.grey[400],
+                            color: context.iconColor,
                             size: 24,
                           ),
               ),
             ),
-            const SizedBox(width: 16),
+            Spacing.hGapLG,
 
             // Language info
             Expanded(
@@ -1279,7 +1313,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     label,
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey[500],
+                      color: context.textMuted,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -1289,7 +1323,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: language != null ? Colors.grey[900] : Colors.grey[400],
+                      color: language != null ? context.textPrimary : context.textHint,
                     ),
                   ),
                   if (language != null) ...[
@@ -1298,7 +1332,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       language.nativeName,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey[500],
+                        color: context.textMuted,
                       ),
                     ),
                   ],
@@ -1310,7 +1344,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             Icon(
               Icons.arrow_forward_ios,
               size: 16,
-              color: Colors.grey[400],
+              color: context.iconColor,
             ),
           ],
         ),
@@ -1322,18 +1356,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: context.cardBackground,
+        borderRadius: AppRadius.borderLG,
         border: Border.all(
-          color: _genderError != null ? Colors.red : Colors.grey.shade200,
+          color: _genderError != null ? AppColors.error : context.dividerColor,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: AppShadows.sm,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1350,7 +1378,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               padding: const EdgeInsets.only(left: 12, top: 8, bottom: 4),
               child: Text(
                 _genderError!,
-                style: const TextStyle(color: Colors.red, fontSize: 12),
+                style: TextStyle(color: AppColors.error, fontSize: 12),
               ),
             ),
         ],
@@ -1372,22 +1400,22 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           margin: const EdgeInsets.all(4),
           padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
-            color: isSelected ? Theme.of(context).primaryColor : Colors.grey[50],
-            borderRadius: BorderRadius.circular(12),
+            color: isSelected ? AppColors.primary : context.containerColor,
+            borderRadius: AppRadius.borderMD,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 icon,
-                color: isSelected ? Colors.white : Colors.grey[600],
+                color: isSelected ? Colors.white : context.textSecondary,
                 size: 24,
               ),
               const SizedBox(height: 6),
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey[700],
+                  color: isSelected ? Colors.white : context.textPrimary,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),
@@ -1421,7 +1449,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             return Theme(
               data: Theme.of(context).copyWith(
                 colorScheme: ColorScheme.light(
-                  primary: Theme.of(context).primaryColor,
+                  primary: AppColors.primary,
                 ),
               ),
               child: child!,
@@ -1436,22 +1464,16 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           });
         }
       },
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: AppRadius.borderLG,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          color: context.cardBackground,
+          borderRadius: AppRadius.borderLG,
           border: Border.all(
-            color: _birthDateError != null ? Colors.red : Colors.grey.shade200,
+            color: _birthDateError != null ? AppColors.error : context.dividerColor,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: AppShadows.sm,
         ),
         child: Row(
           children: [
@@ -1459,16 +1481,16 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+                color: AppColors.primary.withOpacity(0.1),
+                borderRadius: AppRadius.borderMD,
               ),
               child: Icon(
                 Icons.cake_outlined,
-                color: Theme.of(context).primaryColor,
+                color: AppColors.primary,
                 size: 24,
               ),
             ),
-            const SizedBox(width: 16),
+            Spacing.hGapLG,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1477,7 +1499,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     'Birth Date',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey[500],
+                      color: context.textMuted,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -1489,14 +1511,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: _birthDate.text.isNotEmpty ? Colors.grey[900] : Colors.grey[400],
+                      color: _birthDate.text.isNotEmpty ? context.textPrimary : context.textHint,
                     ),
                   ),
                   if (_birthDateError != null) ...[
                     const SizedBox(height: 4),
                     Text(
                       _birthDateError!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
+                      style: TextStyle(color: AppColors.error, fontSize: 12),
                     ),
                   ],
                 ],
@@ -1505,7 +1527,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             Icon(
               Icons.calendar_today,
               size: 20,
-              color: Colors.grey[400],
+              color: context.iconColor,
             ),
           ],
         ),
@@ -1530,23 +1552,17 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       children: [
         InkWell(
           onTap: _isFetchingLocation ? null : _getCurrentLocation,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              color: context.cardBackground,
+              borderRadius: AppRadius.borderLG,
               border: Border.all(
-                color: hasError ? Colors.red.shade300 : Colors.grey.shade200,
+                color: hasError ? AppColors.error : context.dividerColor,
                 width: hasError ? 1.5 : 1,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.03),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              boxShadow: AppShadows.sm,
             ),
             child: Row(
               children: [
@@ -1555,11 +1571,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                   height: 48,
                   decoration: BoxDecoration(
                     color: _city != null
-                        ? Theme.of(context).primaryColor.withOpacity(0.1)
+                        ? AppColors.primary.withOpacity(0.1)
                         : hasError
-                            ? Colors.red.withOpacity(0.1)
-                            : Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
+                            ? AppColors.error.withOpacity(0.1)
+                            : context.containerColor,
+                    borderRadius: AppRadius.borderMD,
                   ),
                   child: _isFetchingLocation
                       ? Center(
@@ -1569,7 +1585,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                Theme.of(context).primaryColor,
+                                AppColors.primary,
                               ),
                             ),
                           ),
@@ -1577,14 +1593,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       : Icon(
                           _city != null ? Icons.location_on : Icons.location_off_outlined,
                           color: _city != null
-                              ? Theme.of(context).primaryColor
+                              ? AppColors.primary
                               : hasError
-                                  ? Colors.red[400]
-                                  : Colors.grey[400],
+                                  ? AppColors.error
+                                  : context.iconColor,
                           size: 24,
                         ),
                 ),
-                const SizedBox(width: 16),
+                Spacing.hGapLG,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1595,7 +1611,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                             'Current Location',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey[500],
+                              color: context.textMuted,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -1604,7 +1620,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                             '*',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.red[400],
+                              color: AppColors.error,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -1619,10 +1635,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: _city != null
-                              ? Colors.grey[900]
+                              ? context.textPrimary
                               : hasError
-                                  ? Colors.red[400]
-                                  : Colors.grey[400],
+                                  ? AppColors.error
+                                  : context.textHint,
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -1630,7 +1646,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         'Required - helps find nearby partners',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey[400],
+                          color: context.textHint,
                         ),
                       ),
                     ],
@@ -1639,7 +1655,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 Icon(
                   Icons.gps_fixed,
                   size: 20,
-                  color: Theme.of(context).primaryColor,
+                  color: AppColors.primary,
                 ),
               ],
             ),
@@ -1652,11 +1668,186 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               _locationError!,
               style: TextStyle(
                 fontSize: 12,
-                color: Colors.red[400],
+                color: AppColors.error,
               ),
             ),
           ),
       ],
+    );
+  }
+
+  void _toggleTopic(String topicId) {
+    HapticFeedback.selectionClick();
+    setState(() {
+      if (_selectedTopics.contains(topicId)) {
+        _selectedTopics.remove(topicId);
+      } else {
+        if (_selectedTopics.length < MAX_TOPICS) {
+          _selectedTopics.add(topicId);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Maximum $MAX_TOPICS topics allowed'),
+              backgroundColor: AppColors.warning,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: AppRadius.borderMD,
+              ),
+            ),
+          );
+        }
+      }
+      _topicsError = null;
+    });
+  }
+
+  Widget _buildTopicsSection() {
+    // Group topics by category
+    final categories = Topic.categories;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: context.cardBackground,
+        borderRadius: AppRadius.borderLG,
+        border: Border.all(
+          color: _topicsError != null ? AppColors.error : context.dividerColor,
+        ),
+        boxShadow: AppShadows.sm,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Selected count header
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Select your interests',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: context.textPrimary,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    borderRadius: AppRadius.borderXL,
+                  ),
+                  child: Text(
+                    '${_selectedTopics.length}/$MAX_TOPICS',
+                    style: TextStyle(
+                      color: _selectedTopics.length >= MAX_TOPICS
+                          ? AppColors.warning
+                          : AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Topics grid by category
+          ...categories.map((category) {
+            final categoryTopics = Topic.defaultTopics
+                .where((t) => t.category == category)
+                .toList();
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    Topic.getCategoryLabel(category),
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: context.textSecondary,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: categoryTopics.map((topic) {
+                      final isSelected = _selectedTopics.contains(topic.id);
+                      return GestureDetector(
+                        onTap: () => _toggleTopic(topic.id),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppColors.primary.withOpacity(0.15)
+                                : context.containerColor,
+                            borderRadius: AppRadius.borderXL,
+                            border: Border.all(
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.transparent,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(topic.icon, style: const TextStyle(fontSize: 16)),
+                              const SizedBox(width: 6),
+                              Text(
+                                topic.name,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: isSelected
+                                      ? FontWeight.w600
+                                      : FontWeight.w500,
+                                  color: isSelected
+                                      ? AppColors.primary
+                                      : context.textPrimary,
+                                ),
+                              ),
+                              if (isSelected) ...[
+                                const SizedBox(width: 4),
+                                Icon(
+                                  Icons.check_circle,
+                                  size: 16,
+                                  color: AppColors.primary,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Spacing.gapMD,
+              ],
+            );
+          }),
+
+          if (_topicsError != null)
+            Padding(
+              padding: const EdgeInsets.only(left: 16, bottom: 16),
+              child: Text(
+                _topicsError!,
+                style: TextStyle(color: AppColors.error, fontSize: 12),
+              ),
+            ),
+
+          Spacing.gapSM,
+        ],
+      ),
     );
   }
 
@@ -1667,20 +1858,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         child: Container(
           height: 180,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            color: context.cardBackground,
+            borderRadius: AppRadius.borderLG,
             border: Border.all(
-              color: _imagesError != null ? Colors.red : Colors.grey.shade200,
+              color: _imagesError != null ? AppColors.error : context.dividerColor,
               width: 2,
               strokeAlign: BorderSide.strokeAlignInside,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.03),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            boxShadow: AppShadows.sm,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1689,21 +1874,21 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 width: 64,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.primary.withOpacity(0.1),
+                  borderRadius: AppRadius.borderLG,
                 ),
                 child: Icon(
                   Icons.add_photo_alternate_outlined,
                   size: 32,
-                  color: Theme.of(context).primaryColor,
+                  color: AppColors.primary,
                 ),
               ),
-              const SizedBox(height: 16),
+              Spacing.gapLG,
               Text(
                 'Add Profile Photos',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey[800],
+                  color: context.textPrimary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -1712,14 +1897,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 'Tap to select images',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.grey[500],
+                  color: context.textMuted,
                 ),
               ),
               if (_imagesError != null) ...[
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 Text(
                   _imagesError!,
-                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                  style: TextStyle(color: AppColors.error, fontSize: 12),
                 ),
               ],
             ],
@@ -1746,17 +1931,11 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
+                      borderRadius: AppRadius.borderMD,
+                      boxShadow: AppShadows.sm,
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       child: Image.file(
                         _selectedImages[index],
                         fit: BoxFit.cover,
@@ -1773,14 +1952,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: AppColors.error,
                           shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 4,
-                            ),
-                          ],
+                          boxShadow: AppShadows.sm,
                         ),
                         child: const Icon(
                           Icons.close,
@@ -1800,7 +1974,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: AppColors.primary,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: const Text(
@@ -1820,10 +1994,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                 onTap: _pickImage,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
+                    color: context.containerColor,
+                    borderRadius: AppRadius.borderMD,
                     border: Border.all(
-                      color: Colors.grey.shade300,
+                      color: context.dividerColor,
                       width: 2,
                     ),
                   ),
@@ -1833,14 +2007,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       Icon(
                         Icons.add,
                         size: 32,
-                        color: Colors.grey[400],
+                        color: context.iconColor,
                       ),
                       const SizedBox(height: 4),
                       Text(
                         'Add',
                         style: TextStyle(
                           fontSize: 11,
-                          color: Colors.grey[500],
+                          color: context.textMuted,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -1856,15 +2030,15 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             padding: const EdgeInsets.only(top: 8),
             child: Text(
               _imagesError!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: AppColors.error, fontSize: 12),
             ),
           ),
-        const SizedBox(height: 8),
+        Spacing.gapSM,
         Text(
           '${_selectedImages.length}/6 photos selected',
           style: TextStyle(
             fontSize: 13,
-            color: Colors.grey[600],
+            color: context.textSecondary,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -1879,10 +2053,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       child: ElevatedButton(
         onPressed: _isSubmitting ? null : submit,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: AppRadius.borderLG,
           ),
           elevation: 0,
         ),

@@ -12,6 +12,8 @@ import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -103,9 +105,9 @@ class _LoginState extends ConsumerState<Login> {
                 builder: (context) => const TermsOfServiceScreen(),
               ),
             );
-            
+
             if (!mounted) return;
-            
+
             // Re-check after terms acceptance
             final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
             if (!updatedUser.termsAccepted) {
@@ -129,7 +131,7 @@ class _LoginState extends ConsumerState<Login> {
                 BanaStyles: BananaTextStyles.warning,
               ),
               duration: const Duration(seconds: 3),
-              backgroundColor: Colors.orange,
+              backgroundColor: AppColors.warning,
             ),
           );
           return;
@@ -148,7 +150,7 @@ class _LoginState extends ConsumerState<Login> {
               BanaStyles: BananaTextStyles.success,
             ),
             duration: const Duration(seconds: 2),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.success,
           ),
         );
       } else {
@@ -164,7 +166,7 @@ class _LoginState extends ConsumerState<Login> {
               BanaStyles: BananaTextStyles.error,
             ),
             duration: Duration(seconds: response['isLocked'] == true ? 5 : 3),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -180,7 +182,7 @@ class _LoginState extends ConsumerState<Login> {
             BanaStyles: BananaTextStyles.error,
           ),
           duration: const Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.error,
         ),
       );
     }
@@ -191,13 +193,12 @@ class _LoginState extends ConsumerState<Login> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         title: BananaText(
           'Login',
           BanaStyles: BananaTextStyles.title,
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Center(
@@ -219,7 +220,7 @@ class _LoginState extends ConsumerState<Login> {
                   BanaStyles: BananaTextStyles.title,
                 ),
               ),
-              SizedBox(height: 16.0),
+              Spacing.gapLG,
               Form(
                 child: Column(
                   children: [
@@ -229,8 +230,8 @@ class _LoginState extends ConsumerState<Login> {
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.email_sharp),
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: context.dividerColor),
+                          borderRadius: AppRadius.borderXL,
                         ),
                         label: BananaText(
                           'Email',
@@ -238,7 +239,7 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.0),
+                    Spacing.gapLG,
                     TextFormField(
                       controller: _passwordController,
                       obscureText: _obscureText,
@@ -254,13 +255,13 @@ class _LoginState extends ConsumerState<Login> {
                             _obscureText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: _obscureText ? Colors.grey : Colors.blue,
+                            color: _obscureText ? context.iconColor : AppColors.info,
                           ),
                         ),
                         prefixIcon: const Icon(Icons.password_outlined),
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: context.dividerColor),
+                          borderRadius: AppRadius.borderXL,
                         ),
                         label: BananaText(
                           'Password',
@@ -268,19 +269,19 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 24.0),
+                    Spacing.gapXXL,
                     SizedBox(
                         width: 250.0,
                         child: _isLoading
                             ? Center(
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                      Color(0xFF31A062)),
+                                      AppColors.primary),
                                 ),
                               )
                             : BananaButton(
                                 onPressed: submit,
-                                color: Color(0xFF31A062),
+                                color: AppColors.primary,
                                 BananaText: BananaText(
                                   'Login',
                                   BanaStyles: BananaTextStyles.buttonText,
@@ -289,15 +290,15 @@ class _LoginState extends ConsumerState<Login> {
                                     Theme.of(context).colorScheme.onPrimary,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 12.0, vertical: 12.0),
-                                borderRadius: BorderRadius.circular(8.0),
+                                borderRadius: AppRadius.borderSM,
                               )),
-                    SizedBox(height: 24.0),
+                    Spacing.gapXXL,
                     // OR Divider
                     Row(
                       children: [
                         Expanded(
                           child: Divider(
-                            color: Colors.grey[400],
+                            color: context.dividerColor,
                             thickness: 1,
                           ),
                         ),
@@ -310,13 +311,13 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                         Expanded(
                           child: Divider(
-                            color: Colors.grey[400],
+                            color: context.dividerColor,
                             thickness: 1,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 24.0),
+                    Spacing.gapXXL,
                     // Social Login Buttons
                     SizedBox(
                       width: 250.0,
@@ -328,7 +329,7 @@ class _LoginState extends ConsumerState<Login> {
                           //   height: 50,
                           //   margin: const EdgeInsets.only(bottom: 12.0),
                           //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(20),
+                          //     borderRadius: AppRadius.borderXL,
                           //     boxShadow: [
                           //       BoxShadow(
                           //         color: const Color(0xFF1877F2).withOpacity(0.3),
@@ -358,7 +359,7 @@ class _LoginState extends ConsumerState<Login> {
                           //       backgroundColor: const Color(0xFF1877F2),
                           //       foregroundColor: Colors.white,
                           //       shape: RoundedRectangleBorder(
-                          //         borderRadius: BorderRadius.circular(20),
+                          //         borderRadius: AppRadius.borderXL,
                           //       ),
                           //       elevation: 0,
                           //     ),
@@ -382,7 +383,7 @@ class _LoginState extends ConsumerState<Login> {
                                   },
                                   color: Colors.black, // Apple black color
                                   textColor: Color(0xFFFFFFFF),
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: AppRadius.borderSM,
                                   icon: Icon(
                                     Icons.apple, // Apple icon
                                     color: Colors.white,
@@ -395,7 +396,7 @@ class _LoginState extends ConsumerState<Login> {
                             width: double.infinity,
                             height: 50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: AppRadius.borderXL,
                               boxShadow: [
                                 BoxShadow(
                                   color:
@@ -426,7 +427,7 @@ class _LoginState extends ConsumerState<Login> {
                                 backgroundColor: const Color(0xFF4285F4),
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: AppRadius.borderXL,
                                 ),
                                 elevation: 0,
                               ),
@@ -435,7 +436,7 @@ class _LoginState extends ConsumerState<Login> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8.0),
+                    Spacing.gapSM,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class CreateComment extends ConsumerStatefulWidget {
   final FocusNode focusNode;
@@ -56,7 +57,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       }
     } catch (e) {
       // If limit check fails, allow submitting (fail open)
-      print('Error checking limits: $e');
+      debugPrint('Error checking limits: $e');
     }
 
     try {
@@ -83,7 +84,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           ref.refresh(userLimitsProvider(userId));
         }
       } catch (e) {
-        print('Error refreshing limits: $e');
+        debugPrint('Error refreshing limits: $e');
       }
 
       // Call the callback to update comment count in parent
@@ -94,12 +95,12 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         SnackBar(
           content: Text(AppLocalizations.of(context)!.commentAddedSuccessfully),
           duration: const Duration(seconds: 1),
-          backgroundColor: colorScheme.primary,
+          backgroundColor: AppColors.primary,
         ),
       );
     } catch (e) {
       // Handle 429 errors
-      if (e.toString().contains('429') || 
+      if (e.toString().contains('429') ||
           ApiErrorHandler.isLimitExceededError(e)) {
         try {
           final prefs = await SharedPreferences.getInstance();
@@ -110,7 +111,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
             userId: userId,
           );
         } catch (err) {
-          print('Error handling limit error: $err');
+          debugPrint('Error handling limit error: $err');
         }
       } else {
         // Show error message
@@ -118,7 +119,7 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           SnackBar(
             content: Text('Failed to add comment: ${e.toString().replaceFirst('Exception: ', '')}'),
             duration: const Duration(seconds: 3),
-            backgroundColor: colorScheme.error,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -128,11 +129,10 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final secondaryText = context.textSecondary;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.lg),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceVariant,
+        color: colorScheme.surfaceContainerHighest,
         border: Border(
           top: BorderSide(color: colorScheme.outlineVariant),
         ),
@@ -143,19 +143,12 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: colorScheme.onSurface.withOpacity(0.15),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: Offset(0, 2),
-                  ),
-                ],
+                color: context.surfaceColor,
+                borderRadius: AppRadius.borderXL,
+                boxShadow: AppShadows.sm,
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                 child: TextField(
                   onChanged: (value) {
                     setState(() {
@@ -164,8 +157,10 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                   },
                   focusNode: widget.focusNode,
                   controller: commentController,
+                  style: context.bodyMedium,
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.writeAComment,
+                    hintStyle: context.bodyMedium.copyWith(color: context.textHint),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
                   ),
@@ -173,20 +168,20 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          Spacing.hGapMD,
           ValueListenableBuilder<TextEditingValue>(
             valueListenable: commentController,
             builder: (context, value, child) {
               final hasText = value.text.trim().isNotEmpty;
               return Container(
                 decoration: BoxDecoration(
-                  color: hasText 
-                      ? colorScheme.primary
+                  color: hasText
+                      ? AppColors.primary
                       : colorScheme.outlineVariant,
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                  icon: Icon(Icons.send, color: colorScheme.onPrimary),
+                  icon: Icon(Icons.send, color: AppColors.white),
                   onPressed: hasText ? submitComment : null,
                 ),
               );

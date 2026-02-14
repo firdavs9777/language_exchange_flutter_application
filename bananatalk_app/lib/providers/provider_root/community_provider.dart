@@ -23,27 +23,48 @@ class CommunityService {
     };
   }
 
-  /// Get all community members
+  /// Get all community members (legacy - fetches first page only)
   Future<List<Community>> getCommunity() async {
+    final result = await getCommunityPaginated(page: 1, limit: 20);
+    return result.users;
+  }
+
+  /// Get community members with pagination
+  Future<PaginatedCommunityResponse> getCommunityPaginated({
+    int page = 1,
+    int limit = 20,
+  }) async {
     try {
       final headers = await _getHeaders();
-      final response = await http.get(
-        Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}'),
-        headers: headers,
-      );
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}')
+          .replace(queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+      });
 
-      debugPrint('🔍 getCommunity response status: ${response.statusCode}');
+      final response = await http.get(url, headers: headers);
+
+      debugPrint('🔍 getCommunityPaginated page=$page response status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final dataList = data['data'];
+        final total = data['total'] as int? ?? 0;
+        final pages = data['pages'] as int? ?? 1;
+
         if (dataList == null || dataList is! List) {
-          debugPrint('🔍 getCommunity: dataList is null or not a list');
-          return [];
+          debugPrint('🔍 getCommunityPaginated: dataList is null or not a list');
+          return PaginatedCommunityResponse(
+            users: [],
+            total: 0,
+            page: page,
+            pages: 1,
+            hasMore: false,
+          );
         }
 
-        // Debug: Print first user's data
-        if (dataList.isNotEmpty) {
+        // Debug: Print first user's data on first page
+        if (page == 1 && dataList.isNotEmpty) {
           final firstUser = dataList[0];
           debugPrint('🔍 First user data sample:');
           debugPrint('   id: ${firstUser['_id']}');
@@ -53,11 +74,21 @@ class CommunityService {
           debugPrint('   following: ${firstUser['following']}');
         }
 
-        return dataList
+        final users = dataList
             .where((item) => item != null && item is Map<String, dynamic>)
             .map((postJson) =>
                 Community.fromJson(postJson as Map<String, dynamic>))
             .toList();
+
+        debugPrint('📄 Loaded ${users.length} users (page $page of $pages, total: $total)');
+
+        return PaginatedCommunityResponse(
+          users: users,
+          total: total,
+          page: page,
+          pages: pages,
+          hasMore: page < pages,
+        );
       } else if (response.statusCode == 401) {
         _apiClient.onAuthenticationError?.call();
         throw Exception('Authentication required');
@@ -536,6 +567,159 @@ class Wave {
 
 // Topic model is imported from lib/models/community/topic_model.dart
 
+/// Paginated community response
+class PaginatedCommunityResponse {
+  final List<Community> users;
+  final int total;
+  final int page;
+  final int pages;
+  final bool hasMore;
+
+  PaginatedCommunityResponse({
+    required this.users,
+    required this.total,
+    required this.page,
+    required this.pages,
+    required this.hasMore,
+  });
+}
+
+/// State for paginated community list
+class PaginatedCommunityState {
+  final List<Community> users;
+  final int currentPage;
+  final int totalPages;
+  final int total;
+  final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasMore;
+  final String? error;
+
+  const PaginatedCommunityState({
+    this.users = const [],
+    this.currentPage = 0,
+    this.totalPages = 1,
+    this.total = 0,
+    this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasMore = true,
+    this.error,
+  });
+
+  PaginatedCommunityState copyWith({
+    List<Community>? users,
+    int? currentPage,
+    int? totalPages,
+    int? total,
+    bool? isLoading,
+    bool? isLoadingMore,
+    bool? hasMore,
+    String? error,
+  }) {
+    return PaginatedCommunityState(
+      users: users ?? this.users,
+      currentPage: currentPage ?? this.currentPage,
+      totalPages: totalPages ?? this.totalPages,
+      total: total ?? this.total,
+      isLoading: isLoading ?? this.isLoading,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      error: error,
+    );
+  }
+}
+
+/// State notifier for paginated community
+class PaginatedCommunityNotifier extends StateNotifier<PaginatedCommunityState> {
+  final CommunityService _service;
+  static const int _pageSize = 20;
+
+  PaginatedCommunityNotifier(this._service) : super(const PaginatedCommunityState());
+
+  /// Load initial data (first page)
+  Future<void> loadInitial() async {
+    if (state.isLoading) return;
+
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      final response = await _service.getCommunityPaginated(
+        page: 1,
+        limit: _pageSize,
+      );
+
+      // Sort with VIP users first, then by online status
+      final sortedUsers = List<Community>.from(response.users);
+      sortedUsers.sort((a, b) {
+        if (a.isVip && !b.isVip) return -1;
+        if (!a.isVip && b.isVip) return 1;
+        if (a.isOnline && !b.isOnline) return -1;
+        if (!a.isOnline && b.isOnline) return 1;
+        return 0;
+      });
+
+      state = state.copyWith(
+        users: sortedUsers,
+        currentPage: 1,
+        totalPages: response.pages,
+        total: response.total,
+        hasMore: response.hasMore,
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  /// Load next page
+  Future<void> loadMore() async {
+    if (state.isLoadingMore || !state.hasMore || state.isLoading) return;
+
+    state = state.copyWith(isLoadingMore: true);
+
+    try {
+      final nextPage = state.currentPage + 1;
+      final response = await _service.getCommunityPaginated(
+        page: nextPage,
+        limit: _pageSize,
+      );
+
+      // Sort new users with VIP first
+      final sortedNewUsers = List<Community>.from(response.users);
+      sortedNewUsers.sort((a, b) {
+        if (a.isVip && !b.isVip) return -1;
+        if (!a.isVip && b.isVip) return 1;
+        if (a.isOnline && !b.isOnline) return -1;
+        if (!a.isOnline && b.isOnline) return 1;
+        return 0;
+      });
+
+      state = state.copyWith(
+        users: [...state.users, ...sortedNewUsers],
+        currentPage: nextPage,
+        totalPages: response.pages,
+        total: response.total,
+        hasMore: response.hasMore,
+        isLoadingMore: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoadingMore: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  /// Refresh (reload from first page)
+  Future<void> refresh() async {
+    state = const PaginatedCommunityState();
+    await loadInitial();
+  }
+}
+
 // ==================== PROVIDERS ====================
 
 final communityProvider = FutureProvider<List<Community>>((ref) async {
@@ -559,6 +743,15 @@ final communityProvider = FutureProvider<List<Community>>((ref) async {
 });
 
 final communityServiceProvider = Provider((ref) => CommunityService());
+
+/// Paginated community provider
+final paginatedCommunityProvider =
+    StateNotifierProvider<PaginatedCommunityNotifier, PaginatedCommunityState>(
+  (ref) {
+    final service = ref.read(communityServiceProvider);
+    return PaginatedCommunityNotifier(service);
+  },
+);
 
 /// Nearby users provider with location parameters
 final nearbyUsersProvider = FutureProvider.family<NearbyUsersResponse, NearbyUsersParams>(

@@ -3,6 +3,8 @@ import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Video player widget for moment cards
 class MomentVideoPlayer extends StatefulWidget {
@@ -132,7 +134,7 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
     return GestureDetector(
       onTap: _togglePlay,
       child: ClipRRect(
-        borderRadius: widget.borderRadius ?? BorderRadius.circular(8),
+        borderRadius: widget.borderRadius ?? AppRadius.borderSM,
         child: Container(
           height: widget.height,
           width: double.infinity,
@@ -192,7 +194,7 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(Icons.error_outline, color: Colors.white54, size: 40),
-                      const SizedBox(height: 8),
+                      Spacing.gapSM,
                       const Text(
                         'Failed to load video',
                         style: TextStyle(color: Colors.white54, fontSize: 12),
@@ -221,7 +223,7 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.black54,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: AppRadius.borderXS,
                     ),
                     child: Text(
                       widget.video.formattedDuration,
@@ -248,7 +250,7 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.videocam, color: Colors.white, size: 14),
-                      SizedBox(width: 4),
+                      Spacing.hGapXS,
                       Text(
                         'Video',
                         style: TextStyle(

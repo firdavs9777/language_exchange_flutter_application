@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Export the dialog widget
@@ -47,7 +50,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
             users.add(user);
           }
         } catch (e) {
-          print('Error loading user $userId: $e');
+          debugPrint('Error loading user $userId: $e');
         }
       }
 
@@ -67,31 +70,32 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: AppRadius.borderXL,
       ),
-      title: const Text(
+      backgroundColor: context.surfaceColor,
+      title: Text(
         'Forward Message',
-        style: TextStyle(fontWeight: FontWeight.w600),
+        style: context.titleLarge,
       ),
       content: SizedBox(
         width: double.maxFinite,
         child: _isLoading
-            ? const Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
             : _error.isNotEmpty
-                ? Text(_error, style: const TextStyle(color: Colors.red))
+                ? Text(_error, style: context.bodyMedium.copyWith(color: AppColors.error))
                 : _users.isEmpty
-                    ? Text(AppLocalizations.of(context)!.noUsersAvailableToForwardTo)
+                    ? Text(
+                        AppLocalizations.of(context)!.noUsersAvailableToForwardTo,
+                        style: context.bodyMedium,
+                      )
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             'Select users to forward to:',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
-                            ),
+                            style: context.bodySmall,
                           ),
-                          const SizedBox(height: 16),
+                          Spacing.gapLG,
                           Flexible(
                             child: ListView.builder(
                               shrinkWrap: true,
@@ -99,9 +103,10 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
                               itemBuilder: (context, index) {
                                 final user = _users[index];
                                 final isSelected = _selectedUserIds.contains(user.id);
-                                
+
                                 return CheckboxListTile(
                                   value: isSelected,
+                                  activeColor: AppColors.primary,
                                   onChanged: (value) {
                                     setState(() {
                                       if (value == true) {
@@ -111,23 +116,24 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
                                       }
                                     });
                                   },
-                                  title: Text(user.name),
-                                  subtitle: user.email.isNotEmpty 
-                                      ? Text(user.email) 
+                                  title: Text(user.name, style: context.titleSmall),
+                                  subtitle: user.email.isNotEmpty
+                                      ? Text(user.email, style: context.caption)
                                       : null,
                                   secondary: CircleAvatar(
                                     radius: 20,
-                                    backgroundImage: (user.images.isNotEmpty 
+                                    backgroundColor: context.containerColor,
+                                    backgroundImage: (user.images.isNotEmpty
                                             ? NetworkImage(user.images.first)
                                             : user.imageUrls.isNotEmpty
                                                 ? NetworkImage(user.imageUrls.first)
                                                 : null) as ImageProvider?,
                                     child: (user.images.isEmpty && user.imageUrls.isEmpty)
                                         ? Text(
-                                            user.name.isNotEmpty 
-                                                ? user.name[0].toUpperCase() 
+                                            user.name.isNotEmpty
+                                                ? user.name[0].toUpperCase()
                                                 : '?',
-                                            style: const TextStyle(fontSize: 18),
+                                            style: context.titleMedium,
                                           )
                                         : null,
                                   ),
@@ -143,9 +149,8 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
           onPressed: () => Navigator.pop(context, null),
           child: Text(
             'Cancel',
-            style: TextStyle(
-              color: Colors.grey[700],
-              fontWeight: FontWeight.w600,
+            style: context.labelLarge.copyWith(
+              color: context.textSecondary,
             ),
           ),
         ),
@@ -154,11 +159,18 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
               ? null
               : () => Navigator.pop(context, _selectedUserIds.toList()),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: AppColors.primary,
+            foregroundColor: AppColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: AppRadius.borderMD,
+            ),
           ),
           child: Text(
             'Forward (${_selectedUserIds.length})',
-            style: const TextStyle(fontWeight: FontWeight.w600),
+            style: context.labelLarge.copyWith(
+              color: AppColors.white,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],

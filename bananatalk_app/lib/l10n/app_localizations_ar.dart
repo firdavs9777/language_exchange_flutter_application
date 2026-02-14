@@ -491,7 +491,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get errorLoadingSettings => 'خطأ في تحميل الإعدادات';
 
   @override
-  String get unblockUser => 'إلغاء حظر المستخدم';
+  String get unblockUser => 'إلغاء الحظر';
 
   @override
   String get unblock => 'إلغاء الحظر';
@@ -761,7 +761,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String sent(String emoji) {
-    return 'تم الإرسال $emoji!';
+    return 'تم الإرسال!';
   }
 
   @override
@@ -854,6 +854,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noActiveVIPSubscription => 'لا يوجد اشتراك VIP نشط';
 
   @override
+  String get subscriptionExpired => 'انتهى الاشتراك';
+
+  @override
+  String get vipExpiredMessage => 'انتهى اشتراك VIP الخاص بك. جدد الآن للاستمرار في التمتع بميزات غير محدودة!';
+
+  @override
+  String get expiredOn => 'انتهى في';
+
+  @override
+  String get renewVIP => 'تجديد VIP';
+
+  @override
+  String get whatYoureMissing => 'ما تفتقده';
+
+  @override
+  String get manageInAppStore => 'إدارة في متجر التطبيقات';
+
+  @override
+  String get becomeVIP => 'كن VIP';
+
+  @override
   String get unlimitedMessages => 'رسائل غير محدودة';
 
   @override
@@ -935,10 +956,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get all => 'الكل';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'مسح';
 
   @override
-  String get apply => 'Apply';
+  String get apply => 'تطبيق';
 
   @override
   String get myReports2 => 'تقاريري';
@@ -1038,4 +1059,904 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectNativeLanguage => 'اختر لغتك الأم';
+
+  @override
+  String get subscriptionDetails => 'تفاصيل الاشتراك';
+
+  @override
+  String get activeFeatures => 'الميزات النشطة';
+
+  @override
+  String get legalInformation => 'المعلومات القانونية';
+
+  @override
+  String get termsOfUse => 'شروط الاستخدام';
+
+  @override
+  String get manageSubscription => 'إدارة الاشتراك';
+
+  @override
+  String get manageSubscriptionInSettings => 'لإلغاء اشتراكك، انتقل إلى الإعدادات > [اسمك] > الاشتراكات على جهازك.';
+
+  @override
+  String get contactSupportToCancel => 'لإلغاء اشتراكك، يرجى الاتصال بفريق الدعم لدينا.';
+
+  @override
+  String get status => 'الحالة';
+
+  @override
+  String get active => 'نشط';
+
+  @override
+  String get plan => 'الخطة';
+
+  @override
+  String get startDate => 'تاريخ البدء';
+
+  @override
+  String get endDate => 'تاريخ الانتهاء';
+
+  @override
+  String get nextBillingDate => 'تاريخ الفاتورة التالية';
+
+  @override
+  String get autoRenew => 'التجديد التلقائي';
+
+  @override
+  String get pleaseLogInToContinue => 'يرجى تسجيل الدخول للمتابعة';
+
+  @override
+  String get purchaseCanceledOrFailed => 'تم إلغاء الشراء أو فشل. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get maximumTagsAllowed => 'الحد الأقصى 5 علامات مسموح بها';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVideo => 'يرجى إزالة الصور أولاً لإضافة فيديو';
+
+  @override
+  String get unsupportedFormat => 'تنسيق غير مدعوم';
+
+  @override
+  String get errorProcessingVideo => 'خطأ في معالجة الفيديو';
+
+  @override
+  String get pleaseRemoveImagesFirstToRecordVideo => 'يرجى إزالة الصور أولاً لتسجيل فيديو';
+
+  @override
+  String get locationAdded => 'تمت إضافة الموقع';
+
+  @override
+  String get failedToGetLocation => 'فشل الحصول على الموقع';
+
+  @override
+  String get notNow => 'ليس الآن';
+
+  @override
+  String get videoUploadFailed => 'فشل رفع الفيديو';
+
+  @override
+  String get skipVideo => 'تخطي الفيديو';
+
+  @override
+  String get retryUpload => 'إعادة المحاولة';
+
+  @override
+  String get momentCreatedSuccessfully => 'تم إنشاء اللحظة بنجاح';
+
+  @override
+  String get uploadingMomentInBackground => 'جاري رفع اللحظة في الخلفية...';
+
+  @override
+  String get failedToQueueUpload => 'فشل في إضافة إلى قائمة الرفع';
+
+  @override
+  String get viewProfile => 'عرض الملف الشخصي';
+
+  @override
+  String get mediaLinksAndDocs => 'الوسائط والروابط والمستندات';
+
+  @override
+  String get wallpaper => 'خلفية';
+
+  @override
+  String get userIdNotAvailable => 'معرف المستخدم غير متاح';
+
+  @override
+  String get cannotBlockYourself => 'لا يمكنك حظر نفسك';
+
+  @override
+  String get chatWallpaper => 'خلفية المحادثة';
+
+  @override
+  String get wallpaperSavedLocally => 'تم حفظ الخلفية محلياً';
+
+  @override
+  String get messageCopied => 'تم نسخ الرسالة';
+
+  @override
+  String get forwardFeatureComingSoon => 'ميزة إعادة التوجيه قادمة قريباً';
+
+  @override
+  String get momentUnsaved => 'تم إلغاء حفظ اللحظة';
+
+  @override
+  String get documentPickerComingSoon => 'منتقي المستندات قادم قريباً';
+
+  @override
+  String get contactSharingComingSoon => 'مشاركة جهات الاتصال قادمة قريباً';
+
+  @override
+  String get featureComingSoon => 'الميزة قادمة قريباً';
+
+  @override
+  String get answerSent => 'تم إرسال الإجابة!';
+
+  @override
+  String get noImagesAvailable => 'لا توجد صور متاحة';
+
+  @override
+  String get mentionPickerComingSoon => 'منتقي الإشارات قادم قريباً';
+
+  @override
+  String get musicPickerComingSoon => 'منتقي الموسيقى قادم قريباً';
+
+  @override
+  String get repostFeatureComingSoon => 'ميزة إعادة النشر قادمة قريباً';
+
+  @override
+  String get addFriendsFromYourProfile => 'أضف أصدقاء من ملفك الشخصي';
+
+  @override
+  String get quickReplyAdded => 'تمت إضافة الرد السريع';
+
+  @override
+  String get quickReplyDeleted => 'تم حذف الرد السريع';
+
+  @override
+  String get linkCopied => 'تم نسخ الرابط!';
+
+  @override
+  String get maximumOptionsAllowed => 'الحد الأقصى 10 خيارات مسموح بها';
+
+  @override
+  String get minimumOptionsRequired => 'الحد الأدنى 2 خيارات مطلوبة';
+
+  @override
+  String get pleaseEnterAQuestion => 'يرجى إدخال سؤال';
+
+  @override
+  String get pleaseAddAtLeast2Options => 'يرجى إضافة خيارين على الأقل';
+
+  @override
+  String get pleaseSelectCorrectAnswerForQuiz => 'يرجى اختيار الإجابة الصحيحة للاختبار';
+
+  @override
+  String get correctionSent => 'تم إرسال التصحيح!';
+
+  @override
+  String get sort => 'ترتيب';
+
+  @override
+  String get savedMoments => 'اللحظات المحفوظة';
+
+  @override
+  String get unsave => 'إلغاء الحفظ';
+
+  @override
+  String get playingAudio => 'جاري تشغيل الصوت...';
+
+  @override
+  String get failedToGenerateQuiz => 'فشل في إنشاء الاختبار';
+
+  @override
+  String get failedToAddComment => 'فشل في إضافة التعليق';
+
+  @override
+  String get hello => 'مرحباً!';
+
+  @override
+  String get howAreYou => 'كيف حالك؟';
+
+  @override
+  String get cannotOpen => 'لا يمكن الفتح';
+
+  @override
+  String get errorOpeningLink => 'خطأ في فتح الرابط';
+
+  @override
+  String get saved => 'تم الحفظ';
+
+  @override
+  String get follow => 'متابعة';
+
+  @override
+  String get unfollow => 'إلغاء المتابعة';
+
+  @override
+  String get mute => 'كتم الصوت';
+
+  @override
+  String get online => 'متصل';
+
+  @override
+  String get offline => 'غير متصل';
+
+  @override
+  String get lastSeen => 'آخر ظهور';
+
+  @override
+  String get justNow => 'الآن';
+
+  @override
+  String minutesAgo(String count) {
+    return 'منذ $count دقيقة';
+  }
+
+  @override
+  String hoursAgo(String count) {
+    return 'منذ $count ساعة';
+  }
+
+  @override
+  String get yesterday => 'أمس';
+
+  @override
+  String get signInWithEmail => 'تسجيل الدخول بالبريد الإلكتروني';
+
+  @override
+  String get partners => 'الشركاء';
+
+  @override
+  String get nearby => 'بالقرب';
+
+  @override
+  String get topics => 'المواضيع';
+
+  @override
+  String get waves => 'التحيات';
+
+  @override
+  String get voiceRooms => 'صوت';
+
+  @override
+  String get filters => 'التصفية';
+
+  @override
+  String get searchCommunity => 'البحث بالاسم أو اللغة أو الاهتمامات...';
+
+  @override
+  String get bio => 'نبذة';
+
+  @override
+  String get noBioYet => 'لا توجد نبذة حتى الآن.';
+
+  @override
+  String get languages => 'اللغات';
+
+  @override
+  String get native => 'أصلي';
+
+  @override
+  String get interests => 'الاهتمامات';
+
+  @override
+  String get noMomentsYet => 'لا توجد لحظات بعد';
+
+  @override
+  String get unableToLoadMoments => 'تعذر تحميل اللحظات';
+
+  @override
+  String get map => 'خريطة';
+
+  @override
+  String get mapUnavailable => 'Map unavailable';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get unknownLocation => 'Unknown location';
+
+  @override
+  String get noImagesAvailable2 => 'No images available';
+
+  @override
+  String get permissionsRequired => 'Permissions Required';
+
+  @override
+  String get openSettings => 'Open Settings';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get videoCall => 'فيديو';
+
+  @override
+  String get voiceCall => 'اتصال';
+
+  @override
+  String get message => 'رسالة';
+
+  @override
+  String get pleaseLoginToFollow => 'يرجى تسجيل الدخول للمتابعة';
+
+  @override
+  String get pleaseLoginToCall => 'يرجى تسجيل الدخول للاتصال';
+
+  @override
+  String get cannotCallYourself => 'You cannot call yourself';
+
+  @override
+  String get failedToFollowUser => 'Failed to follow user';
+
+  @override
+  String get failedToUnfollowUser => 'Failed to unfollow user';
+
+  @override
+  String get areYouSureUnfollow => 'Are you sure you want to unfollow this user?';
+
+  @override
+  String get areYouSureUnblock => 'Are you sure you want to unblock this user?';
+
+  @override
+  String get youFollowed => 'You followed';
+
+  @override
+  String get youUnfollowed => 'You unfollowed';
+
+  @override
+  String get alreadyFollowing => 'You are already following';
+
+  @override
+  String get soon => 'قريباً';
+
+  @override
+  String comingSoon(String feature) {
+    return '$feature قريباً!';
+  }
+
+  @override
+  String get muteNotifications => 'كتم الإشعارات';
+
+  @override
+  String get unmuteNotifications => 'إلغاء كتم الإشعارات';
+
+  @override
+  String get operationCompleted => 'تمت العملية';
+
+  @override
+  String get couldNotOpenMaps => 'تعذر فتح الخريطة';
+
+  @override
+  String hasntSharedMoments(Object name) {
+    return '$name لم يشارك أي لحظات بعد';
+  }
+
+  @override
+  String messageUser(String name) {
+    return 'مراسلة $name';
+  }
+
+  @override
+  String notFollowingUser(String name) {
+    return 'لم تكن تتابع $name';
+  }
+
+  @override
+  String youFollowedUser(String name) {
+    return 'تابعت $name';
+  }
+
+  @override
+  String youUnfollowedUser(String name) {
+    return 'ألغيت متابعة $name';
+  }
+
+  @override
+  String unfollowUser(String name) {
+    return 'إلغاء متابعة $name';
+  }
+
+  @override
+  String get typing => 'يكتب';
+
+  @override
+  String get connecting => 'جاري الاتصال...';
+
+  @override
+  String daysAgo(int count) {
+    return 'منذ $count يوم';
+  }
+
+  @override
+  String get maxTagsAllowed => '5 وسوم كحد أقصى';
+
+  @override
+  String maxImagesAllowed(int count) {
+    return '$count صورة كحد أقصى';
+  }
+
+  @override
+  String get pleaseRemoveImagesFirst => 'يرجى إزالة الصور أولاً';
+
+  @override
+  String get exchange3MessagesBeforeCall => 'تحتاج إلى تبادل 3 رسائل على الأقل قبل الاتصال';
+
+  @override
+  String mediaWithUser(String name) {
+    return 'الوسائط مع $name';
+  }
+
+  @override
+  String get errorLoadingMedia => 'خطأ في تحميل الوسائط';
+
+  @override
+  String get savedMomentsTitle => 'اللحظات المحفوظة';
+
+  @override
+  String get removeBookmark => 'إزالة من المحفوظات؟';
+
+  @override
+  String get thisWillRemoveBookmark => 'سيتم إزالة الرسالة من إشاراتك المرجعية.';
+
+  @override
+  String get remove => 'إزالة';
+
+  @override
+  String get bookmarkRemoved => 'تمت إزالة المحفوظة';
+
+  @override
+  String get bookmarkedMessages => 'الرسائل المحفوظة';
+
+  @override
+  String get wallpaperSaved => 'تم حفظ الخلفية محلياً';
+
+  @override
+  String get typeDeleteToConfirm => 'اكتب DELETE للتأكيد';
+
+  @override
+  String get storyArchive => 'أرشيف القصص';
+
+  @override
+  String get newHighlight => 'إبراز جديد';
+
+  @override
+  String get addToHighlight => 'إضافة إلى الإبراز';
+
+  @override
+  String get repost => 'إعادة النشر';
+
+  @override
+  String get repostFeatureSoon => 'ميزة إعادة النشر قريباً';
+
+  @override
+  String get closeFriends => 'الأصدقاء المقربون';
+
+  @override
+  String get addFriends => 'إضافة أصدقاء';
+
+  @override
+  String get highlights => 'الإبرازات';
+
+  @override
+  String get createHighlight => 'إنشاء إبراز';
+
+  @override
+  String get deleteHighlight => 'حذف الإبراز؟';
+
+  @override
+  String get editHighlight => 'تعديل الإبراز';
+
+  @override
+  String get addMoreToStory => 'إضافة المزيد إلى القصة';
+
+  @override
+  String get noViewersYet => 'لا يوجد مشاهدون بعد';
+
+  @override
+  String get noReactionsYet => 'لا توجد تفاعلات بعد';
+
+  @override
+  String get leaveRoom => 'مغادرة الغرفة؟';
+
+  @override
+  String get areYouSureLeaveRoom => 'هل أنت متأكد أنك تريد مغادرة هذه الغرفة؟';
+
+  @override
+  String get stay => 'البقاء';
+
+  @override
+  String get leave => 'مغادرة';
+
+  @override
+  String get enableGPS => 'تفعيل GPS';
+
+  @override
+  String wavedToUser(String name) {
+    return 'لوّحت لـ $name!';
+  }
+
+  @override
+  String get areYouSureFollow => 'هل أنت متأكد أنك تريد متابعة';
+
+  @override
+  String get failedToLoadProfile => 'فشل تحميل الملف الشخصي';
+
+  @override
+  String get noFollowersYet => 'لا يوجد متابعون بعد';
+
+  @override
+  String get noFollowingYet => 'لا تتابع أحداً بعد';
+
+  @override
+  String get searchUsers => 'البحث عن مستخدمين...';
+
+  @override
+  String get noResultsFound => 'لم يتم العثور على نتائج';
+
+  @override
+  String get loadingFailed => 'فشل التحميل';
+
+  @override
+  String get copyLink => 'نسخ الرابط';
+
+  @override
+  String get shareStory => 'مشاركة القصة';
+
+  @override
+  String get thisWillDeleteStory => 'سيؤدي هذا إلى حذف هذه القصة نهائياً.';
+
+  @override
+  String get storyDeleted => 'تم حذف القصة';
+
+  @override
+  String get addCaption => 'إضافة وصف...';
+
+  @override
+  String get yourStory => 'قصتك';
+
+  @override
+  String get sendMessage => 'إرسال رسالة';
+
+  @override
+  String get replyToStory => 'الرد على القصة...';
+
+  @override
+  String get viewAllReplies => 'عرض جميع الردود';
+
+  @override
+  String get preparingVideo => 'جاري تحضير الفيديو...';
+
+  @override
+  String videoOptimized(String size, String savings) {
+    return 'تم تحسين الفيديو: $size ميجابايت (وفر $savings%)';
+  }
+
+  @override
+  String get failedToProcessVideo => 'فشل معالجة الفيديو';
+
+  @override
+  String get optimizingForBestExperience => 'جاري التحسين للحصول على أفضل تجربة';
+
+  @override
+  String get pleaseSelectImageOrVideo => 'يرجى اختيار صورة أو فيديو لقصتك';
+
+  @override
+  String get storyCreatedSuccessfully => 'تم إنشاء القصة بنجاح!';
+
+  @override
+  String get uploadingStoryInBackground => 'جاري رفع القصة في الخلفية...';
+
+  @override
+  String get storyCreationFailed => 'فشل إنشاء القصة';
+
+  @override
+  String get pleaseCheckConnection => 'يرجى التحقق من اتصالك والمحاولة مرة أخرى.';
+
+  @override
+  String get uploadFailed => 'فشل الرفع';
+
+  @override
+  String get tryShorterVideo => 'حاول استخدام فيديو أقصر أو حاول لاحقاً.';
+
+  @override
+  String get shareMomentsThatDisappear => 'شارك لحظات تختفي خلال 24 ساعة';
+
+  @override
+  String get photo => 'صورة';
+
+  @override
+  String get record => 'تسجيل';
+
+  @override
+  String get addSticker => 'إضافة ملصق';
+
+  @override
+  String get poll => 'استطلاع';
+
+  @override
+  String get question => 'سؤال';
+
+  @override
+  String get mention => 'إشارة';
+
+  @override
+  String get music => 'موسيقى';
+
+  @override
+  String get hashtag => 'هاشتاج';
+
+  @override
+  String get whoCanSeeThis => 'من يمكنه رؤية هذا؟';
+
+  @override
+  String get everyone => 'الجميع';
+
+  @override
+  String get anyoneCanSeeStory => 'يمكن لأي شخص رؤية هذه القصة';
+
+  @override
+  String get friendsOnly => 'الأصدقاء فقط';
+
+  @override
+  String get onlyFollowersCanSee => 'فقط متابعوك يمكنهم الرؤية';
+
+  @override
+  String get onlyCloseFriendsCanSee => 'فقط الأصدقاء المقربون يمكنهم الرؤية';
+
+  @override
+  String get backgroundColor => 'لون الخلفية';
+
+  @override
+  String get fontStyle => 'نمط الخط';
+
+  @override
+  String get normal => 'عادي';
+
+  @override
+  String get bold => 'غامق';
+
+  @override
+  String get italic => 'مائل';
+
+  @override
+  String get handwriting => 'خط يدوي';
+
+  @override
+  String get addLocation => 'إضافة موقع';
+
+  @override
+  String get enterLocationName => 'أدخل اسم الموقع';
+
+  @override
+  String get addLink => 'إضافة رابط';
+
+  @override
+  String get buttonText => 'نص الزر';
+
+  @override
+  String get learnMore => 'اعرف المزيد';
+
+  @override
+  String get addHashtags => 'إضافة هاشتاجات';
+
+  @override
+  String get addHashtag => 'إضافة هاشتاج';
+
+  @override
+  String get sendAsMessage => 'إرسال كرسالة';
+
+  @override
+  String get shareExternally => 'مشاركة خارجياً';
+
+  @override
+  String get checkOutStory => 'شاهد هذه القصة على BananaTalk!';
+
+  @override
+  String viewsTab(String count) {
+    return 'المشاهدات ($count)';
+  }
+
+  @override
+  String reactionsTab(String count) {
+    return 'التفاعلات ($count)';
+  }
+
+  @override
+  String get processingVideo => 'جاري معالجة الفيديو...';
+
+  @override
+  String get link => 'رابط';
+
+  @override
+  String unmuteUser(String name) {
+    return 'إلغاء كتم $name؟';
+  }
+
+  @override
+  String get willReceiveNotifications => 'ستتلقى إشعارات للرسائل الجديدة.';
+
+  @override
+  String muteNotificationsFor(String name) {
+    return 'كتم إشعارات $name';
+  }
+
+  @override
+  String notificationsUnmutedFor(String name) {
+    return 'تم إلغاء كتم إشعارات $name';
+  }
+
+  @override
+  String notificationsMutedFor(String name) {
+    return 'تم كتم إشعارات $name';
+  }
+
+  @override
+  String get failedToUpdateMuteSettings => 'فشل تحديث إعدادات الكتم';
+
+  @override
+  String get oneHour => 'ساعة واحدة';
+
+  @override
+  String get eightHours => '8 ساعات';
+
+  @override
+  String get oneWeek => 'أسبوع واحد';
+
+  @override
+  String get always => 'دائماً';
+
+  @override
+  String get failedToLoadBookmarks => 'فشل تحميل المحفوظات';
+
+  @override
+  String get noBookmarkedMessages => 'لا توجد رسائل محفوظة';
+
+  @override
+  String get longPressToBookmark => 'اضغط مطولاً على رسالة لحفظها';
+
+  @override
+  String get thisWillRemoveFromBookmarks => 'سيؤدي هذا إلى إزالة الرسالة من المحفوظات.';
+
+  @override
+  String navigateToMessage(String name) {
+    return 'الانتقال إلى الرسالة في محادثة $name';
+  }
+
+  @override
+  String bookmarkedOn(String date) {
+    return 'تم الحفظ $date';
+  }
+
+  @override
+  String get voiceMessage => 'رسالة صوتية';
+
+  @override
+  String get document => 'مستند';
+
+  @override
+  String get attachment => 'مرفق';
+
+  @override
+  String get sendMeAMessage => 'أرسل لي رسالة';
+
+  @override
+  String get shareWithFriends => 'مشاركة مع الأصدقاء';
+
+  @override
+  String get shareAnywhere => 'مشاركة في أي مكان';
+
+  @override
+  String get emailPreferences => 'تفضيلات البريد';
+
+  @override
+  String get receiveEmailNotifications => 'Receive email notifications from BananaTalk';
+
+  @override
+  String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
+
+  @override
+  String get passwordAndLoginAlerts => 'Password & login alerts';
+
+  @override
+  String get failedToLoadPreferences => 'Failed to load preferences';
+
+  @override
+  String get failedToUpdateSetting => 'Failed to update setting';
+
+  @override
+  String get securityAlertsRecommended => 'We recommend keeping Security Alerts enabled to stay informed about important account activity.';
+
+  @override
+  String chatWallpaperFor(String name) {
+    return 'Chat wallpaper for $name';
+  }
+
+  @override
+  String get solidColors => 'Solid Colors';
+
+  @override
+  String get gradients => 'Gradients';
+
+  @override
+  String get customImage => 'Custom Image';
+
+  @override
+  String get chooseFromGallery => 'Choose from gallery';
+
+  @override
+  String get preview => 'Preview';
+
+  @override
+  String get wallpaperUpdated => 'Wallpaper updated';
+
+  @override
+  String get category => 'الفئة';
+
+  @override
+  String get mood => 'المزاج';
+
+  @override
+  String get sortBy => 'Sort By';
+
+  @override
+  String get timePeriod => 'Time Period';
+
+  @override
+  String get searchLanguages => 'Search languages...';
+
+  @override
+  String get selected => 'Selected';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get moods => 'Moods';
+
+  @override
+  String get applyFilters => 'تطبيق التصفية';
+
+  @override
+  String applyNFilters(int count) {
+    return 'Apply $count Filters';
+  }
+
+  @override
+  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+
+  @override
+  String get failedToRecordVideo => 'Failed to record video';
+
+  @override
+  String get errorSendingVideo => 'Error sending video';
+
+  @override
+  String get errorSendingVoiceMessage => 'Error sending voice message';
+
+  @override
+  String get errorSendingMedia => 'Error sending media';
+
+  @override
+  String get cameraPermissionRequired => 'Camera and microphone permissions are required to record videos.';
+
+  @override
+  String get locationPermissionRequired => 'Location permission is required to share your location.';
+
+  @override
+  String get noInternetConnection => 'No internet connection';
+
+  @override
+  String get tryAgainLater => 'Please try again later';
+
+  @override
+  String get messageSent => 'Message sent';
+
+  @override
+  String get messageDeleted => 'Message deleted';
+
+  @override
+  String get messageEdited => 'Message edited';
 }

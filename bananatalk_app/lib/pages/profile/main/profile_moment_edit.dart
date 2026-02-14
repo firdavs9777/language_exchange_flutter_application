@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +25,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
   late List<String> imageUrls;
   late List<String> originalImages; // Store original image filenames
   late Map<String, String> _urlToFilenameMap; // Map URL to filename
-  
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
         TextEditingController(text: widget.moment.description);
     imageUrls = List<String>.from(widget.moment.imageUrls);
     originalImages = List<String>.from(widget.moment.images);
-    
+
     // Create map of URL to filename (they should be in same order)
     _urlToFilenameMap = {};
     for (int i = 0; i < imageUrls.length && i < originalImages.length; i++) {
@@ -68,23 +70,23 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
       if (url.contains('%')) {
         decodedUrl = Uri.decodeComponent(url);
       }
-      
+
       // Parse URI
       final uri = Uri.parse(decodedUrl);
       String path = uri.path;
-      
+
       // Extract filename from path
       String filename = path.split('/').last;
-      
+
       // If path contains 'uploads/', extract everything after it
       if (path.contains('uploads/')) {
         final uploadsIndex = path.indexOf('uploads/');
         filename = path.substring(uploadsIndex + 8); // 8 = length of "uploads/"
       }
-      
+
       // Remove query parameters if any
       filename = filename.split('?').first;
-      
+
       return filename;
     } catch (e) {
       // Fallback: extract from URL string directly
@@ -97,7 +99,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
   List<String> _getUpdatedImagesList() {
     // Build list of remaining filenames using the map
     final remainingFilenames = <String>[];
-    
+
     for (final url in imageUrls) {
       // Get filename from map, or extract from URL as fallback
       final filename = _urlToFilenameMap[url] ?? _extractFilenameFromUrl(url);
@@ -105,7 +107,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
         remainingFilenames.add(filename);
       }
     }
-    
+
     return remainingFilenames;
   }
 
@@ -113,9 +115,9 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
     // Validate inputs
     if (titleController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a title'),
-          backgroundColor: Colors.red,
+        SnackBar(
+          content: const Text('Please enter a title'),
+          backgroundColor: AppColors.error,
         ),
       );
       return;
@@ -123,9 +125,9 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
 
     if (descriptionController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a description'),
-          backgroundColor: Colors.red,
+        SnackBar(
+          content: const Text('Please enter a description'),
+          backgroundColor: AppColors.error,
         ),
       );
       return;
@@ -138,7 +140,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
     try {
       // Get updated images list (filenames only) - excludes removed images
       final updatedImages = _getUpdatedImagesList();
-      
+
       // Update moment with text content and updated images list
       final updatedMoment = await ref.read(momentsServiceProvider).updateMoment(
         id: widget.moment.id,
@@ -166,7 +168,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Moment updated but image upload failed: ${e.toString()}'),
-                backgroundColor: Colors.orange,
+                backgroundColor: AppColors.warning,
               ),
             );
           }
@@ -190,7 +192,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error: ${e.toString().replaceFirst('Exception: ', '')}'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -206,44 +208,38 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: context.surfaceColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
+          icon: Icon(Icons.arrow_back, color: context.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Edit Moment',
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
+          style: context.titleLarge,
         ),
         actions: [
           if (_isSaving)
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: SizedBox(
+            Padding(
+              padding: Spacing.paddingLG,
+              child: const SizedBox(
                 width: 20,
                 height: 20,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                 ),
               ),
             )
           else
             TextButton(
               onPressed: _isSaving ? null : _saveChanges,
-              child: const Text(
+              child: Text(
                 'Save',
-                style: TextStyle(
-                  color: Color(0xFF00BFA5),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                style: context.titleMedium.copyWith(
+                  color: AppColors.primary,
                 ),
               ),
             ),
@@ -251,98 +247,81 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: Spacing.screenPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Title Field
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.cardBackground,
+                  borderRadius: AppRadius.borderMD,
+                  boxShadow: AppShadows.sm,
                 ),
                 child: TextField(
                   controller: titleController,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: context.titleLarge,
                   decoration: InputDecoration(
                     labelText: 'Title',
-                    labelStyle: TextStyle(color: Colors.grey[600]),
+                    labelStyle: context.bodyMedium.copyWith(
+                      color: context.textSecondary,
+                    ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.all(16),
+                    fillColor: context.cardBackground,
+                    contentPadding: Spacing.paddingLG,
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              
+              Spacing.gapLG,
+
               // Description Field
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.cardBackground,
+                  borderRadius: AppRadius.borderMD,
+                  boxShadow: AppShadows.sm,
                 ),
                 child: TextField(
                   controller: descriptionController,
                   maxLines: 6,
-                  style: const TextStyle(fontSize: 16),
+                  style: context.bodyLarge,
                   decoration: InputDecoration(
                     labelText: 'Description',
-                    labelStyle: TextStyle(color: Colors.grey[600]),
+                    labelStyle: context.bodyMedium.copyWith(
+                      color: context.textSecondary,
+                    ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.all(16),
+                    fillColor: context.cardBackground,
+                    contentPadding: Spacing.paddingLG,
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
-              
+              Spacing.gapXXL,
+
               // Images Section
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.cardBackground,
+                  borderRadius: AppRadius.borderMD,
+                  boxShadow: AppShadows.sm,
                 ),
-                padding: const EdgeInsets.all(16),
+                padding: Spacing.paddingLG,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           'Images',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: context.titleLarge,
                         ),
                         const Spacer(),
                         if (_isUploadingImages)
@@ -351,42 +330,41 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                             height: 16,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
+                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                             ),
                           ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    Spacing.gapMD,
                     if (imageUrls.isEmpty && _selectedImages.isEmpty)
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(24.0),
+                          padding: Spacing.paddingXXL,
                           child: Column(
                             children: [
                               Icon(Icons.photo_library_outlined,
-                                  size: 48, color: Colors.grey[400]),
-                              const SizedBox(height: 12),
+                                  size: 48, color: context.textHint),
+                              Spacing.gapMD,
                               Text(
                                 'No images yet',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 14,
+                                style: context.bodyMedium.copyWith(
+                                  color: context.textSecondary,
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              Spacing.gapLG,
                               ElevatedButton.icon(
                                 onPressed: _pickImage,
                                 icon: const Icon(Icons.add_photo_alternate, size: 20),
                                 label: const Text('Add Images'),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF00BFA5),
-                                  foregroundColor: Colors.white,
+                                  backgroundColor: AppColors.primary,
+                                  foregroundColor: AppColors.white,
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 24,
                                     vertical: 12,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: AppRadius.borderSM,
                                   ),
                                 ),
                               ),
@@ -412,16 +390,16 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                               fit: StackFit.expand,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: AppRadius.borderSM,
                                   child: Image.network(
                                     ImageUtils.normalizeImageUrl(url),
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
-                                        color: Colors.grey[200],
-                                        child: const Icon(
+                                        color: context.containerColor,
+                                        child: Icon(
                                           Icons.broken_image,
-                                          color: Colors.grey,
+                                          color: context.textMuted,
                                         ),
                                       );
                                     },
@@ -434,14 +412,14 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                                     onTap: () => _removeImage(url),
                                     child: Container(
                                       padding: const EdgeInsets.all(4.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.error,
                                         shape: BoxShape.circle,
                                       ),
                                       child: const Icon(
                                         Icons.close,
                                         size: 16,
-                                        color: Colors.white,
+                                        color: AppColors.white,
                                       ),
                                     ),
                                   ),
@@ -454,7 +432,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                               fit: StackFit.expand,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: AppRadius.borderSM,
                                   child: Image.file(
                                     file,
                                     fit: BoxFit.cover,
@@ -470,13 +448,13 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.all(4.0),
                                       decoration: const BoxDecoration(
-                                        color: Colors.red,
+                                        color: AppColors.error,
                                         shape: BoxShape.circle,
                                       ),
                                       child: const Icon(
                                         Icons.close,
                                         size: 16,
-                                        color: Colors.white,
+                                        color: AppColors.white,
                                       ),
                                     ),
                                   ),
@@ -488,17 +466,17 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                               onTap: _pickImage,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[100],
-                                  borderRadius: BorderRadius.circular(8),
+                                  color: context.containerColor,
+                                  borderRadius: AppRadius.borderSM,
                                   border: Border.all(
-                                    color: Colors.grey[300]!,
+                                    color: context.dividerColor,
                                     style: BorderStyle.solid,
                                   ),
                                 ),
                                 child: const Icon(
                                   Icons.add_photo_alternate,
                                   size: 32,
-                                  color: Color(0xFF00BFA5),
+                                  color: AppColors.primary,
                                 ),
                               ),
                             );

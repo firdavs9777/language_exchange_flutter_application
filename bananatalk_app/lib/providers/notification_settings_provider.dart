@@ -76,6 +76,9 @@ class NotificationSettingsNotifier
       case 'moments':
         updatedSettings = currentSettings.copyWith(moments: value);
         break;
+      case 'followerMoments':
+        updatedSettings = currentSettings.copyWith(followerMoments: value);
+        break;
       case 'friendRequests':
         updatedSettings = currentSettings.copyWith(friendRequests: value);
         break;

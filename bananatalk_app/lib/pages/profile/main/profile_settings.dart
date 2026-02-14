@@ -1,5 +1,7 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -170,18 +172,18 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     final userAsync = ref.watch(userProvider);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Privacy',
           style: TextStyle(
-            color: Colors.black87,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
@@ -195,10 +197,10 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, size: 48, color: Colors.red),
-              const SizedBox(height: 16),
-              Text('Error: $error'),
-              const SizedBox(height: 16),
+              Icon(Icons.error_outline, size: 48, color: AppColors.error),
+              Spacing.gapLG,
+              Text('Error: $error', style: context.bodyMedium),
+              Spacing.gapLG,
               ElevatedButton(
                 onPressed: () => ref.refresh(userProvider),
                 child: const Text('Retry'),
@@ -230,28 +232,24 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[50],
+                  color: context.containerColor,
                   border: Border(
-                    bottom: BorderSide(color: Colors.grey[200]!),
+                    bottom: BorderSide(color: context.dividerColor),
                   ),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.location_on, size: 20, color: Colors.grey[600]),
-                    const SizedBox(width: 8),
+                    Icon(Icons.location_on, size: 20, color: context.textSecondary),
+                    Spacing.hGapSM,
                     Text(
                       locationText,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: context.bodySmall.copyWith(fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 8),
+              Spacing.gapSM,
 
               // Location Settings Section
               _buildSettingTile(
@@ -283,15 +281,11 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Update Location',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
+                          style: context.titleMedium,
                         ),
-                        Icon(Icons.chevron_right, color: Colors.grey[400]),
+                        Icon(Icons.chevron_right, color: context.textMuted),
                       ],
                     ),
                   ),
@@ -302,11 +296,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Text(
                   'BanaTalk uses location services to determine which city you live in.',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
-                  ),
+                  style: context.caption,
                 ),
               ),
 
@@ -335,7 +325,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     _updatePrivacySetting('showOnlineStatus', value),
               ),
 
-              const Divider(height: 32),
+              Divider(height: 32, color: context.dividerColor),
 
               // Gifting Level
               _buildSettingTile(
@@ -349,15 +339,11 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Text(
                   'When turned off, your gifting level will only be displayed in Live & Voiceroom',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
-                  ),
+                  style: context.caption,
                 ),
               ),
 
-              const Divider(height: 32),
+              Divider(height: 32, color: context.dividerColor),
 
               // Birthday Notification
               _buildSettingTile(
@@ -371,15 +357,11 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Text(
                   'After turning off, language partners and groups won\'t receive birthday reminders on your birthday',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
-                  ),
+                  style: context.caption,
                 ),
               ),
 
-              const Divider(height: 32),
+              Divider(height: 32, color: context.dividerColor),
 
               // Personalized Ads
               _buildSettingTile(
@@ -393,15 +375,11 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: Text(
                   'Once turned off, ad relevance is reduced. We recommend keeping it on.',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
-                  ),
+                  style: context.caption,
                 ),
               ),
 
-              const SizedBox(height: 24),
+              Spacing.gapXXL,
             ],
           ),
         ),
@@ -421,31 +399,29 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     required bool value,
     required ValueChanged<bool> onChanged,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      child: InkWell(
-        onTap: () => onChanged(!value),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
+    return Builder(
+      builder: (context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+        child: InkWell(
+          onTap: () => onChanged(!value),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: context.titleMedium,
                   ),
                 ),
-              ),
-              Switch(
-                value: value,
-                onChanged: onChanged,
-                activeColor: const Color(0xFF00BFA5),
-              ),
-            ],
+                Switch(
+                  value: value,
+                  onChanged: onChanged,
+                  activeColor: AppColors.primary,
+                ),
+              ],
+            ),
           ),
         ),
       ),

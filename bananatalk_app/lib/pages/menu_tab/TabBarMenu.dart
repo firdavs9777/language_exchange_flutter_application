@@ -2,11 +2,13 @@ import 'package:bananatalk_app/pages/chat/chat_main.dart';
 import 'package:bananatalk_app/pages/moments/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/community_main.dart';
-import 'package:bananatalk_app/pages/explore/explore_main.dart';
+import 'package:bananatalk_app/pages/learning/learning_main.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
-import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
@@ -25,9 +27,22 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void initState() {
     super.initState();
     _selectedPageIndex = widget.initialIndex;
+
+    // Refresh badge count on app load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(badgeCountProvider.notifier).fetchBadgeCount();
+    });
   }
 
   void _selectPage(int index) {
+    // Add haptic feedback for modern feel
+    HapticFeedback.selectionClick();
+
+    // Refresh badge count when switching to Chat or Profile tabs
+    if (index == 0 || index == 4) {
+      ref.read(badgeCountProvider.notifier).fetchBadgeCount();
+    }
+
     setState(() {
       _selectedPageIndex = index;
     });
@@ -35,10 +50,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Watch badgeCountProvider directly to ensure it updates globally, even on other tabs
-    // The badgeCountProvider.messages is automatically updated by chatPartnersProvider
     final badgeCount = ref.watch(badgeCountProvider);
     final messageCount = badgeCount.messages;
+    final isDark = context.isDarkMode;
 
     Widget activePage;
     switch (_selectedPageIndex) {
@@ -49,10 +63,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         activePage = const CommunityMain();
         break;
       case 2:
-        activePage = const ExploreMain(); // New explore/search tab in the middle
+        activePage = MomentsMain();
         break;
       case 3:
-        activePage = MomentsMain();
+        activePage = const LearningMain(); // Combined Learn + AI Hub
         break;
       case 4:
         activePage = const ProfileMain();
@@ -61,76 +75,156 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         activePage = ChatMain();
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         body: activePage,
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Colors.grey[300]!,
-                width: 0.5,
+            color: isDark ? AppColors.gray900 : AppColors.white,
+            boxShadow: AppShadows.md,
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem(
+                    index: 0,
+                    icon: Icons.forum_outlined,
+                    activeIcon: Icons.forum_rounded,
+                    label: AppLocalizations.of(context)!.banaTalk,
+                    badgeCount: messageCount,
+                    badgeColor: AppColors.primary,
+                  ),
+                  _buildNavItem(
+                    index: 1,
+                    icon: Icons.people_outline_rounded,
+                    activeIcon: Icons.people_rounded,
+                    label: AppLocalizations.of(context)!.community,
+                  ),
+                  _buildNavItem(
+                    index: 2,
+                    icon: Icons.auto_awesome_outlined,
+                    activeIcon: Icons.auto_awesome_rounded,
+                    label: AppLocalizations.of(context)!.moments,
+                  ),
+                  _buildNavItem(
+                    index: 3,
+                    icon: Icons.menu_book_outlined,
+                    activeIcon: Icons.menu_book_rounded,
+                    label: 'Study',
+                  ),
+                  _buildNavItem(
+                    index: 4,
+                    icon: Icons.account_circle_outlined,
+                    activeIcon: Icons.account_circle_rounded,
+                    label: AppLocalizations.of(context)!.profile,
+                    badgeCount: badgeCount.notifications,
+                    badgeColor: AppColors.error,
+                  ),
+                ],
               ),
             ),
           ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            elevation: 0,
-            onTap: _selectPage,
-            currentIndex: _selectedPageIndex,
-            selectedItemColor: const Color(0xFF00BFA5),
-            unselectedItemColor: Colors.grey[600],
-            selectedFontSize: 11,
-            unselectedFontSize: 11,
-            items: [
-              BottomNavigationBarItem(
-                icon: Badge(
-                  label: Text('$messageCount'),
-                  isLabelVisible: messageCount > 0,
-                  backgroundColor: const Color(0xFF00BFA5),
-                  child: const Icon(Icons.chat_bubble_outline),
-                ),
-                activeIcon: Badge(
-                  label: Text('$messageCount'),
-                  isLabelVisible: messageCount > 0,
-                  backgroundColor: const Color(0xFF00BFA5),
-                  child: const Icon(Icons.chat_bubble),
-                ),
-                label: AppLocalizations.of(context)!.banaTalk,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem({
+    required int index,
+    required IconData icon,
+    required IconData activeIcon,
+    required String label,
+    int badgeCount = 0,
+    Color? badgeColor,
+  }) {
+    final isSelected = _selectedPageIndex == index;
+    final isDark = context.isDarkMode;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => _selectPage(index),
+        behavior: HitTestBehavior.opaque,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          decoration: isSelected
+              ? BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderLG,
+                )
+              : null,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: Icon(
+                      isSelected ? activeIcon : icon,
+                      key: ValueKey(isSelected),
+                      size: isSelected ? 26 : 24,
+                      color: isSelected
+                          ? AppColors.primary
+                          : isDark
+                              ? AppColors.gray400
+                              : AppColors.gray500,
+                    ),
+                  ),
+                  if (badgeCount > 0)
+                    Positioned(
+                      right: -8,
+                      top: -4,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: badgeColor ?? AppColors.error,
+                          borderRadius: AppRadius.borderSM,
+                          border: Border.all(
+                            color: isDark ? AppColors.gray900 : AppColors.white,
+                            width: 1.5,
+                          ),
+                        ),
+                        constraints: const BoxConstraints(minWidth: 18),
+                        child: Text(
+                          badgeCount > 99 ? '99+' : '$badgeCount',
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.people_outline),
-                activeIcon: const Icon(Icons.people),
-                label: AppLocalizations.of(context)!.community,
-              ),
-              // New Explore/Search tab in the middle (like Instagram)
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                activeIcon: Icon(Icons.search, size: 28),
-                label: 'Explore',
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.public_outlined),
-                activeIcon: const Icon(Icons.public),
-                label: AppLocalizations.of(context)!.moments,
-              ),
-              BottomNavigationBarItem(
-                icon: Badge(
-                  label: Text('${badgeCount.notifications}'),
-                  isLabelVisible: badgeCount.notifications > 0,
-                  backgroundColor: Colors.red,
-                  child: const Icon(Icons.person_outline),
+              Spacing.gapXS,
+              AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                style: TextStyle(
+                  fontSize: isSelected ? 11 : 10,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  color: isSelected
+                      ? AppColors.primary
+                      : isDark
+                          ? AppColors.gray400
+                          : AppColors.gray600,
                 ),
-                activeIcon: Badge(
-                  label: Text('${badgeCount.notifications}'),
-                  isLabelVisible: badgeCount.notifications > 0,
-                  backgroundColor: Colors.red,
-                  child: const Icon(Icons.person),
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                label: AppLocalizations.of(context)!.profile,
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/models/blocked_user.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockedUsersScreen extends StatefulWidget {
@@ -74,7 +75,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(foregroundColor: Colors.green),
+            style: TextButton.styleFrom(foregroundColor: AppColors.success),
             child: Text(AppLocalizations.of(context)!.unblock),
           ),
         ],
@@ -107,7 +108,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
           SnackBar(
             content: Text(unblockResult['message'] ?? 'Operation completed'),
             backgroundColor:
-                unblockResult['success'] ? Colors.green : Colors.red,
+                unblockResult['success'] ? AppColors.success : AppColors.error,
           ),
         );
 
@@ -121,35 +122,37 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('Blocked Users'),
-        backgroundColor: colorScheme.surface,
+        title: Text('Blocked Users', style: context.titleLarge),
+        backgroundColor: context.surfaceColor,
         elevation: 0,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
               ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.error_outline,
-                          size: 64, color: colorScheme.error),
-                      const SizedBox(height: 16),
-                      Text(
-                        _error!,
-                        style: TextStyle(color: colorScheme.error),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _loadBlockedUsers,
-                        child: const Text('Retry'),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: AppSpacing.paddingLG,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.error_outline,
+                            size: 64, color: AppColors.error),
+                        SizedBox(height: AppSpacing.lg),
+                        Text(
+                          _error!,
+                          style: context.bodyMedium.copyWith(color: AppColors.error),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: AppSpacing.lg),
+                        ElevatedButton(
+                          onPressed: _loadBlockedUsers,
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               : _blockedUsers.isEmpty
@@ -159,19 +162,15 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
                         children: [
                           Icon(Icons.block,
                               size: 64, color: context.textSecondary),
-                          const SizedBox(height: 16),
+                          SizedBox(height: AppSpacing.lg),
                           Text(
                             'No blocked users',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: context.textPrimary,
-                            ),
+                            style: context.titleLarge,
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: AppSpacing.sm),
                           Text(
                             'Users you block will appear here',
-                            style: TextStyle(color: context.textSecondary),
+                            style: context.bodyMedium.copyWith(color: context.textSecondary),
                           ),
                         ],
                       ),
@@ -183,59 +182,72 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
                         itemBuilder: (context, index) {
                           final blockedUser = _blockedUsers[index];
 
-                          return ListTile(
-                            leading: CircleAvatar(
-                              radius: 28,
-                              backgroundColor: colorScheme.primaryContainer,
-                              backgroundImage:
-                                  blockedUser.blockedUserAvatar != null
-                                      ? NetworkImage(
-                                          ImageUtils.normalizeImageUrl(
-                                            blockedUser.blockedUserAvatar!,
-                                          ),
-                                        )
-                                      : null,
-                              child: blockedUser.blockedUserAvatar == null
-                                  ? Text(
-                                      blockedUser.blockedUserName.isNotEmpty
-                                          ? blockedUser.blockedUserName[0]
-                                              .toUpperCase()
-                                          : '?',
-                                      style: TextStyle(
-                                        color: colorScheme.onPrimaryContainer,
-                                        fontWeight: FontWeight.bold,
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: AppSpacing.lg,
+                              vertical: AppSpacing.xs,
+                            ),
+                            decoration: BoxDecoration(
+                              color: context.surfaceColor,
+                              borderRadius: AppRadius.borderMD,
+                              boxShadow: context.isDarkMode ? AppShadows.none : AppShadows.sm,
+                            ),
+                            child: ListTile(
+                              contentPadding: AppSpacing.paddingMD,
+                              leading: CircleAvatar(
+                                radius: 28,
+                                backgroundColor: context.containerColor,
+                                backgroundImage:
+                                    blockedUser.blockedUserAvatar != null
+                                        ? NetworkImage(
+                                            ImageUtils.normalizeImageUrl(
+                                              blockedUser.blockedUserAvatar!,
+                                            ),
+                                          )
+                                        : null,
+                                child: blockedUser.blockedUserAvatar == null
+                                    ? Text(
+                                        blockedUser.blockedUserName.isNotEmpty
+                                            ? blockedUser.blockedUserName[0]
+                                                .toUpperCase()
+                                            : '?',
+                                        style: context.titleMedium.copyWith(
+                                          color: context.primaryColor,
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              title: Text(
+                                blockedUser.blockedUserName,
+                                style: context.titleSmall,
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (blockedUser.reason != null)
+                                    Padding(
+                                      padding: EdgeInsets.only(top: AppSpacing.xs),
+                                      child: Text(
+                                        'Reason: ${blockedUser.reason}',
+                                        style: context.caption,
                                       ),
-                                    )
-                                  : null,
-                            ),
-                            title: Text(
-                              blockedUser.blockedUserName,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (blockedUser.reason != null)
-                                  Text(
-                                    'Reason: ${blockedUser.reason}',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: context.textSecondary,
+                                    ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: AppSpacing.xs),
+                                    child: Text(
+                                      'Blocked ${_formatDate(blockedUser.blockedAt)}',
+                                      style: context.caption,
                                     ),
                                   ),
-                                Text(
-                                  'Blocked ${_formatDate(blockedUser.blockedAt)}',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: context.textSecondary,
-                                  ),
+                                ],
+                              ),
+                              trailing: TextButton(
+                                onPressed: () => _unblockUser(blockedUser),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: AppColors.success,
                                 ),
-                              ],
-                            ),
-                            trailing: TextButton(
-                              onPressed: () => _unblockUser(blockedUser),
-                              child: const Text('Unblock'),
+                                child: const Text('Unblock'),
+                              ),
                             ),
                           );
                         },

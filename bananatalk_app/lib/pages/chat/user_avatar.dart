@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? profilePicture;
   final String userName;
   final double radius;
+  final bool isVip;
 
   const UserAvatar({
     Key? key,
     this.profilePicture,
     required this.userName,
     required this.radius,
+    this.isVip = false,
   }) : super(key: key);
 
   @override
@@ -20,7 +23,7 @@ class UserAvatar extends StatelessWidget {
         ? ImageUtils.normalizeImageUrl(profilePicture)
         : null;
 
-    return CircleAvatar(
+    final avatar = CircleAvatar(
       radius: radius,
       backgroundColor: Colors.grey[300],
       child: normalizedUrl != null && normalizedUrl.isNotEmpty
@@ -36,6 +39,16 @@ class UserAvatar extends StatelessWidget {
             )
           : _buildFallbackAvatar(),
     );
+
+    if (isVip) {
+      return VipAvatarFrameCompact(
+        isVip: true,
+        size: radius * 2,
+        child: avatar,
+      );
+    }
+
+    return avatar;
   }
 
   Widget _buildFallbackAvatar() {

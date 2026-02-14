@@ -125,9 +125,12 @@ class NotificationSettings {
       sound: json['sound'] ?? true,
       vibration: json['vibration'] ?? true,
       showPreview: json['showPreview'] ?? true,
-      mutedConversations: json['mutedConversations'] != null
-          ? List<String>.from(json['mutedConversations'])
-          : [],
+      // Backend uses 'mutedChats', frontend uses 'mutedConversations'
+      mutedConversations: json['mutedChats'] != null
+          ? List<String>.from(json['mutedChats'])
+          : (json['mutedConversations'] != null
+              ? List<String>.from(json['mutedConversations'])
+              : []),
     );
   }
 
@@ -143,7 +146,7 @@ class NotificationSettings {
       'sound': sound,
       'vibration': vibration,
       'showPreview': showPreview,
-      'mutedConversations': mutedConversations,
+      'mutedChats': mutedConversations, // Backend expects 'mutedChats'
     };
   }
 
@@ -193,9 +196,11 @@ class BadgeCount {
   }
 
   factory BadgeCount.fromJson(Map<String, dynamic> json) {
+    // Handle both naming conventions from backend
+    // Backend returns: unreadMessages/unreadNotifications OR messages/notifications
     return BadgeCount(
-      messages: json['messages'] ?? 0,
-      notifications: json['notifications'] ?? 0,
+      messages: json['unreadMessages'] ?? json['messages'] ?? 0,
+      notifications: json['unreadNotifications'] ?? json['notifications'] ?? 0,
     );
   }
 

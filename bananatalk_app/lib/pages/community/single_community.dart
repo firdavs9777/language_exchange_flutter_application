@@ -1,17 +1,23 @@
+import 'dart:math' as math;
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
+import 'package:bananatalk_app/pages/moments/single_moment.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/block_user_dialog.dart';
@@ -23,6 +29,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class SingleCommunity extends ConsumerStatefulWidget {
   final Community community;
@@ -286,8 +294,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   void followUser(String userId, String targetUserId) async {
     if (userId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please login to follow users'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseLoginToFollow),
           backgroundColor: Colors.orange,
         ),
       );
@@ -316,11 +324,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         // Refresh this profile to get updated counts
         await _refreshProfile();
         if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(result == 'already_following'
-                  ? 'You are already following ${_community.name}'
-                  : 'You followed ${_community.name}'),
+                  ? '${l10n.alreadyFollowing} ${_community.name}'
+                  : l10n.youFollowedUser(_community.name)),
               backgroundColor: Colors.green,
             ),
           );
@@ -328,8 +337,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Failed to follow user'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.failedToFollowUser),
               backgroundColor: Colors.red,
             ),
           );
@@ -340,7 +349,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to follow user: ${e.toString().replaceAll('Exception: ', '')}'),
+            content: Text('${AppLocalizations.of(context)!.failedToFollowUser}: ${e.toString().replaceAll('Exception: ', '')}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -349,10 +358,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   }
 
   void unFollowUser(String userId, String targetUserId) async {
+    final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please login to manage follows'),
+        SnackBar(
+          content: Text(l10n.pleaseLoginToFollow),
           backgroundColor: Colors.orange,
         ),
       );
@@ -363,16 +373,16 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Unfollow ${_community.name}'),
-          content: const Text('Are you sure you want to unfollow this user?'),
+          title: Text(l10n.unfollowUser(_community.name)),
+          content: Text(l10n.areYouSureUnfollow),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Unfollow'),
+              child: Text(l10n.unfollow),
             ),
           ],
         );
@@ -402,11 +412,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
           // Refresh this profile to get updated counts
           await _refreshProfile();
           if (mounted) {
+            final l10n = AppLocalizations.of(context)!;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(result == 'not_following'
-                    ? 'You were not following ${_community.name}'
-                    : 'You unfollowed ${_community.name}'),
+                    ? l10n.notFollowingUser(_community.name)
+                    : l10n.youUnfollowedUser(_community.name)),
                 backgroundColor: Colors.green,
               ),
             );
@@ -414,8 +425,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         } else {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Failed to unfollow user'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.failedToUnfollowUser),
                 backgroundColor: Colors.red,
               ),
             );
@@ -426,7 +437,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to unfollow user: ${e.toString().replaceAll('Exception: ', '')}'),
+              content: Text('${AppLocalizations.of(context)!.failedToUnfollowUser}: ${e.toString().replaceAll('Exception: ', '')}'),
               backgroundColor: Colors.red,
             ),
           );
@@ -463,10 +474,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   }
 
   Future<void> _makeVideoCall() async {
+    final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please login to make a call'),
+        SnackBar(
+          content: Text(l10n.pleaseLoginToCall),
           backgroundColor: Colors.red,
         ),
       );
@@ -475,8 +487,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
     if (userId == _community.id) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('You cannot call yourself'),
+        SnackBar(
+          content: Text(l10n.cannotCallYourself),
           backgroundColor: Colors.orange,
         ),
       );
@@ -523,10 +535,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   }
 
   Future<void> _makeVoiceCall() async {
+    final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please login to make a call'),
+        SnackBar(
+          content: Text(l10n.pleaseLoginToCall),
           backgroundColor: Colors.red,
         ),
       );
@@ -535,8 +548,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
     if (userId == _community.id) {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('You cannot call yourself'),
+        SnackBar(
+          content: Text(l10n.cannotCallYourself),
           backgroundColor: Colors.orange,
         ),
       );
@@ -583,24 +596,25 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   }
 
   void _handleCallError(BuildContext context, String error) {
+    final l10n = AppLocalizations.of(context)!;
     if (error.startsWith('PERMANENTLY_DENIED:')) {
       final message = error.substring('PERMANENTLY_DENIED:'.length);
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Permissions Required'),
+          title: Text(l10n.permissionsRequired),
           content: Text(message),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(l10n.cancel),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 AppSettings.openAppSettings();
               },
-              child: const Text('Open Settings'),
+              child: Text(l10n.openSettings),
             ),
           ],
         ),
@@ -639,12 +653,18 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
               : _community.name,
         ),
         elevation: 1,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         actions: [
+          // Refresh button
+          IconButton(
+            icon: Icon(Icons.refresh_rounded, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            tooltip: 'Refresh',
+            onPressed: _refreshProfile,
+          ),
           if (userId.isNotEmpty && userId != _community.id)
             PopupMenuButton<String>(
-              icon: const Icon(Icons.more_vert, color: Colors.black87),
+              icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.onSurface),
               onSelected: (value) async {
                 if (value == 'report') {
                   showDialog(
@@ -681,111 +701,63 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   await _handleUnblock();
                 }
               },
-              itemBuilder: (context) => [
-                const PopupMenuItem(
+              itemBuilder: (context) {
+                final l10n = AppLocalizations.of(context)!;
+                return [
+                PopupMenuItem(
                   value: 'report',
                   child: Row(
                     children: [
-                      Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
-                      SizedBox(width: 8),
-                      Text('Report User'),
+                      const Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
+                      const SizedBox(width: 8),
+                      Text(l10n.reportUser),
                     ],
                   ),
                 ),
                 // CONDITIONAL MENU ITEM - Show Block or Unblock
                 if (isBlocked)
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'unblock',
                     child: Row(
                       children: [
-                        Icon(Icons.check_circle, color: Colors.green, size: 20),
-                        SizedBox(width: 8),
-                        Text('Unblock User',
-                            style: TextStyle(color: Colors.green)),
+                        const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                        const SizedBox(width: 8),
+                        Text(l10n.unblockUser,
+                            style: const TextStyle(color: Colors.green)),
                       ],
                     ),
                   )
                 else
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'block',
                     child: Row(
                       children: [
-                        Icon(Icons.block, color: Colors.red, size: 20),
-                        SizedBox(width: 8),
-                        Text('Block User', style: TextStyle(color: Colors.red)),
+                        const Icon(Icons.block, color: Colors.red, size: 20),
+                        const SizedBox(width: 8),
+                        Text(l10n.blockUser, style: const TextStyle(color: Colors.red)),
                       ],
                     ),
                   ),
-              ],
+              ];
+              },
             ),
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center(
-                child: InkWell(
-                  onTap: () {
-                    final imageUrls = _getImageUrls();
-                    if (imageUrls.isNotEmpty) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ImageGallery(
-                                imageUrls: imageUrls),
-                          ));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('No images available')),
-                      );
-                    }
-                  },
-                  child: Hero(
-                    tag: 'profile_${_community.id}',
-                    child: VipAvatarFrame(
-                      isVip: _community.isVip,
-                      size: 160,
-                      frameWidth: 4,
-                      showGlow: true,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: _community.isVip ? null : [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: CircleAvatar(
-                          radius: 80,
-                          backgroundColor: const Color(0xFF00BFA5),
-                          backgroundImage: _getProfileImageUrl() != null
-                              ? NetworkImage(_getProfileImageUrl()!)
-                              : null,
-                          onBackgroundImageError: _getProfileImageUrl() != null
-                              ? (exception, stackTrace) {
-                                  debugPrint('Profile image failed to load: $exception');
-                                }
-                              : null,
-                          child: _getProfileImageUrl() == null
-                              ? const Icon(
-                                  Icons.person,
-                                  size: 80,
-                                  color: Colors.white,
-                                )
-                              : null,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            // Hero Map Header with overlapping avatar
+            _buildHeroMapHeader(),
+            // Space for overlapping avatar
+            const SizedBox(height: 70),
+            // Content below the hero section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+              // Name section
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -793,11 +765,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     Flexible(
                       child: Text(
                         _community.name,
-                        style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
+                        style: context.displayMedium,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -845,40 +813,25 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 ),
               ),
               if (age != null) ...[
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 Center(
-                  child: Text(
-                    '$age years old',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  child: Text('$age years old', style: context.bodySmall),
                 ),
               ],
               if (locationText.isNotEmpty) ...[
-                const SizedBox(height: 8),
+                Spacing.gapXS,
                 Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.location_on,
-                          size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 4),
-                      Text(
-                        locationText,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      Icon(Icons.location_on, size: 14, color: context.textSecondary),
+                      Spacing.hGapXS,
+                      Text(locationText, style: context.bodySmall),
                     ],
                   ),
                 ),
               ],
-              const SizedBox(height: 20),
+              Spacing.gapLG,
 
               // VIP Upsell Banner - shown when viewing VIP user profile
               if (_community.isVip) ...[
@@ -897,17 +850,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
               // Action buttons row - modern style
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.surfaceColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: AppShadows.sm,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -915,28 +862,28 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     // Video call - disabled for now
                     _buildActionButton(
                       Icons.videocam_rounded,
-                      'Video',
+                      AppLocalizations.of(context)!.videoCall,
                       Colors.grey[400]!,
-                      () => _showComingSoonSnackbar('Video call'),
+                      () => _showComingSoonSnackbar(AppLocalizations.of(context)!.videoCall),
                       isDisabled: true,
                     ),
                     // Voice call - disabled for now
                     _buildActionButton(
                       Icons.call_rounded,
-                      'Call',
+                      AppLocalizations.of(context)!.voiceCall,
                       Colors.grey[400]!,
-                      () => _showComingSoonSnackbar('Voice call'),
+                      () => _showComingSoonSnackbar(AppLocalizations.of(context)!.voiceCall),
                       isDisabled: true,
                     ),
                     _buildActionButton(
                       Icons.chat_bubble_rounded,
-                      'Message',
+                      AppLocalizations.of(context)!.message,
                       const Color(0xFF00BFA5),
                       _navigateToChat,
                     ),
                     _buildActionButton(
                       isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
-                      isFollower ? 'Following' : 'Follow',
+                      isFollower ? AppLocalizations.of(context)!.following : AppLocalizations.of(context)!.follow,
                       isFollower ? Colors.green[600]! : Colors.blue[600]!,
                       isFollower
                           ? () => unFollowUser(userId, _community.id)
@@ -946,39 +893,33 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              Spacing.gapMD,
 
               // Stats section - modern card style
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.surfaceColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: AppShadows.sm,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildStatItem(
                       '${_community.followers.length}',
-                      'Followers',
+                      AppLocalizations.of(context)!.followers,
                       Icons.people_rounded,
                       const Color(0xFF00BFA5),
                     ),
                     Container(
                       height: 50,
                       width: 1,
-                      color: Colors.grey[200],
+                      color: Theme.of(context).dividerColor,
                     ),
                     _buildStatItem(
                       '${_community.followings.length}',
-                      'Following',
+                      AppLocalizations.of(context)!.following,
                       Icons.person_add_rounded,
                       Colors.blue[600]!,
                     ),
@@ -986,56 +927,463 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 ),
               ),
 
-              const SizedBox(height: 16),
-              const Divider(color: Colors.grey),
+              Spacing.gapMD,
+
+              // Interests Section
+              _buildInterestsSection(),
+
+              Divider(color: context.dividerColor),
 
               _buildCard(
                 Icons.person,
-                'Bio',
+                AppLocalizations.of(context)!.bio,
                 _community.bio.isNotEmpty
                     ? _community.bio
-                    : 'No bio available yet.',
+                    : AppLocalizations.of(context)!.noBioYet,
                 Colors.blue[600]!,
               ),
 
               _buildCard(
                 Icons.language,
-                'Languages',
-                'Native: ${_community.native_language}\nLearning: ${_community.language_to_learn}',
+                AppLocalizations.of(context)!.languages,
+                '${AppLocalizations.of(context)!.native}: ${_community.native_language}\n${AppLocalizations.of(context)!.learning}: ${_community.language_to_learn}',
                 Colors.green[600]!,
               ),
 
-              // Location Map Section
-              if (_hasValidCoordinates()) ...[
-                const SizedBox(height: 16),
-                _buildLocationMapCard(),
-              ],
-
-              const SizedBox(height: 16),
+              Spacing.gapMD,
 
               // Quick chat button
-              Container(
+              SizedBox(
                 width: double.infinity,
-                margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ElevatedButton.icon(
                   onPressed: _navigateToChat,
-                  icon: const Icon(Icons.chat_bubble_outline),
-                  label:
-                      Text('Start Conversation with ${_community.name}'),
+                  icon: const Icon(Icons.chat_bubble_outline, size: 18),
+                  label: Text(AppLocalizations.of(context)!.messageUser(_community.name)),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple[600],
+                    backgroundColor: AppColors.accent,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    elevation: 2,
+                    elevation: 0,
+                  ),
+                ),
+              ),
+
+              Spacing.gapMD,
+              Divider(color: context.dividerColor),
+              Spacing.gapSM,
+
+              // Moments Section
+              _buildMomentsSection(),
+
+              Spacing.gapLG,
+            ],
+          ),
+        ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Build Interests Section - horizontal scrollable chips showing user's topics
+  Widget _buildInterestsSection() {
+    // Return empty widget if no topics
+    if (_community.topics.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: AppColors.accent.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.interests_rounded,
+                  color: AppColors.accent,
+                  size: 18,
+                ),
+              ),
+              Spacing.hGapSM,
+              Text(AppLocalizations.of(context)!.interests, style: context.titleMedium),
+            ],
+          ),
+        ),
+        // Horizontal list of topic chips
+        SizedBox(
+          height: 36,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: _community.topics.length,
+            separatorBuilder: (context, index) => Spacing.hGapSM,
+            itemBuilder: (context, index) {
+              final topicId = _community.topics[index];
+              // Find the topic from default topics
+              final topic = Topic.defaultTopics.firstWhere(
+                (t) => t.id == topicId,
+                orElse: () => Topic(
+                  id: topicId,
+                  name: topicId.replaceAll('_', ' ').split(' ').map((word) =>
+                    word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : ''
+                  ).join(' '),
+                  icon: '🏷️',
+                  category: 'other',
+                ),
+              );
+
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: context.containerColor,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: context.dividerColor, width: 1),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(topic.icon, style: const TextStyle(fontSize: 14)),
+                    Spacing.hGapXS,
+                    Text(topic.name, style: context.labelMedium),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        Spacing.gapMD,
+      ],
+    );
+  }
+
+  /// Build Moments Section - 3-column grid showing user's moments
+  Widget _buildMomentsSection() {
+    return Consumer(
+      builder: (context, ref, child) {
+        final momentsAsync = ref.watch(userMomentsProvider(_community.id));
+
+        return momentsAsync.when(
+          loading: () => _buildMomentsLoading(),
+          error: (error, stack) => _buildMomentsError(error.toString()),
+          data: (moments) {
+            if (moments.isEmpty) {
+              return _buildMomentsEmpty();
+            }
+            return _buildMomentsGrid(moments);
+          },
+        );
+      },
+    );
+  }
+
+  /// Build moments loading state with shimmer placeholders
+  Widget _buildMomentsLoading() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildMomentsHeader(0, isLoading: true),
+        Spacing.gapSM,
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 2,
+            mainAxisSpacing: 2,
+            childAspectRatio: 1,
+          ),
+          itemCount: 6,
+          itemBuilder: (context, index) {
+            return Container(
+              decoration: BoxDecoration(
+                color: context.containerColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Center(
+                child: Icon(Icons.photo_outlined, color: context.textMuted, size: 20),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  /// Build moments error state
+  Widget _buildMomentsError(String error) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildMomentsHeader(0),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.red[50],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.error_outline, color: Colors.red[400], size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context)!.unableToLoadMoments,
+                  style: TextStyle(
+                    color: Colors.red[700],
+                    fontSize: 14,
                   ),
                 ),
               ),
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  /// Build moments empty state
+  Widget _buildMomentsEmpty() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildMomentsHeader(0),
+        Spacing.gapSM,
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 24),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: context.containerColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: context.dividerColor),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.photo_library_outlined, size: 40, color: context.textMuted),
+              Spacing.gapSM,
+              Text(AppLocalizations.of(context)!.noMomentsYet, style: context.bodyMedium.copyWith(color: context.textSecondary)),
+              Spacing.gapXS,
+              Text(
+                AppLocalizations.of(context)!.hasntSharedMoments(_community.name),
+                style: context.caption,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Build moments header with count badge
+  Widget _buildMomentsHeader(int count, {bool isLoading = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(
+              Icons.photo_library_rounded,
+              color: AppColors.primary,
+              size: 18,
+            ),
+          ),
+          Spacing.hGapSM,
+          Text(AppLocalizations.of(context)!.moments, style: context.titleMedium),
+          Spacing.hGapSM,
+          if (!isLoading && count > 0)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: context.containerColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text('$count', style: context.labelSmall),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// Build moments grid with thumbnails
+  Widget _buildMomentsGrid(List<Moments> moments) {
+    // Show max 9 items in grid
+    final displayMoments = moments.take(9).toList();
+    final hasMore = moments.length > 9;
+    final remainingCount = moments.length - 9;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildMomentsHeader(moments.length),
+        Spacing.gapSM,
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 2,
+            mainAxisSpacing: 2,
+            childAspectRatio: 1,
+          ),
+          itemCount: displayMoments.length,
+          itemBuilder: (context, index) {
+            final moment = displayMoments[index];
+            final isLastItem = index == 8 && hasMore;
+
+            return GestureDetector(
+              onTap: () => _navigateToMoment(moment),
+              child: _buildMomentThumbnail(moment, isLastItem: isLastItem, remainingCount: remainingCount),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  /// Build individual moment thumbnail
+  Widget _buildMomentThumbnail(Moments moment, {bool isLastItem = false, int remainingCount = 0}) {
+    // Determine what to show: video thumbnail, image, or text preview
+    final hasVideo = moment.hasVideo;
+    final hasImages = moment.hasImages;
+    final hasMultipleImages = moment.imageUrls.length > 1;
+
+    Widget thumbnailContent;
+
+    if (hasVideo && moment.video?.thumbnail != null) {
+      // Video with thumbnail
+      thumbnailContent = CachedImageWidget(
+        imageUrl: moment.video!.thumbnail,
+        fit: BoxFit.cover,
+        borderRadius: BorderRadius.circular(4),
+        errorWidget: _buildTextPreview(moment),
+      );
+    } else if (hasImages) {
+      // Image(s)
+      thumbnailContent = CachedImageWidget(
+        imageUrl: moment.imageUrls.first,
+        fit: BoxFit.cover,
+        borderRadius: BorderRadius.circular(4),
+        errorWidget: _buildTextPreview(moment),
+      );
+    } else {
+      // Text-only moment
+      thumbnailContent = _buildTextPreview(moment);
+    }
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: thumbnailContent,
+        ),
+        // Video indicator
+        if (hasVideo)
+          Positioned(
+            bottom: 4,
+            left: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Colors.white,
+                    size: 14,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        // Multiple images indicator
+        if (hasMultipleImages && !hasVideo)
+          Positioned(
+            top: 4,
+            right: 4,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: const Icon(
+                Icons.collections_rounded,
+                color: Colors.white,
+                size: 12,
+              ),
+            ),
+          ),
+        // "+N" overlay for last item when there are more
+        if (isLastItem)
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black54,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Center(
+              child: Text(
+                '+$remainingCount',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// Build text preview for text-only moments
+  Widget _buildTextPreview(Moments moment) {
+    final text = moment.description.isNotEmpty ? moment.description : moment.title;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      padding: const EdgeInsets.all(6),
+      child: Center(
+        child: Text(
+          text,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: context.captionSmall,
+        ),
+      ),
+    );
+  }
+
+  /// Navigate to single moment page
+  void _navigateToMoment(Moments moment) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SingleMoment(moment: moment),
       ),
     );
   }
@@ -1043,8 +1391,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   void _showComingSoonSnackbar(String feature) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$feature is coming soon!'),
-        backgroundColor: Colors.grey[700],
+        content: Text(AppLocalizations.of(context)!.comingSoon(feature)),
+        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         duration: const Duration(seconds: 2),
@@ -1059,62 +1407,45 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     VoidCallback onTap, {
     bool isDisabled = false,
   }) {
-    final displayColor = isDisabled ? Colors.grey[400]! : color;
+    final displayColor = isDisabled ? AppColors.gray400 : color;
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: displayColor.withOpacity(isDisabled ? 0.08 : 0.12),
-                    borderRadius: BorderRadius.circular(16),
+                    color: displayColor.withValues(alpha: isDisabled ? 0.08 : 0.12),
+                    borderRadius: BorderRadius.circular(12),
                     border: isDisabled
                         ? null
-                        : Border.all(
-                            color: displayColor.withOpacity(0.2),
-                            width: 1,
-                          ),
+                        : Border.all(color: displayColor.withValues(alpha: 0.2), width: 1),
                   ),
-                  child: Icon(icon, color: displayColor, size: 26),
+                  child: Icon(icon, color: displayColor, size: 22),
                 ),
                 if (isDisabled)
                   Positioned(
-                    right: 0,
-                    top: 0,
+                    right: -2,
+                    top: -2,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                       decoration: BoxDecoration(
-                        color: Colors.orange[400],
-                        borderRadius: BorderRadius.circular(6),
+                        color: AppColors.warning,
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      child: const Text(
-                        'Soon',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text(AppLocalizations.of(context)!.soon, style: context.captionSmall.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                   ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              label,
-              style: TextStyle(
-                color: displayColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-              ),
-            ),
+            Spacing.gapXS,
+            Text(label, style: context.labelSmall.copyWith(color: displayColor)),
           ],
         ),
       ),
@@ -1125,31 +1456,17 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(icon, color: color, size: 24),
+          child: Icon(icon, color: color, size: 20),
         ),
-        const SizedBox(height: 10),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Spacing.gapSM,
+        Text(value, style: context.displaySmall),
+        Spacing.gapXXS,
+        Text(label, style: context.labelSmall),
       ],
     );
   }
@@ -1157,44 +1474,30 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   Widget _buildCard(
       IconData icon, String title, String content, Color iconColor) {
     return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      elevation: 0,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: Spacing.cardPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: iconColor.withOpacity(0.1),
+                    color: iconColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(icon, color: iconColor, size: 20),
+                  child: Icon(icon, color: iconColor, size: 18),
                 ),
-                const SizedBox(width: 12),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-                ),
+                Spacing.hGapSM,
+                Text(title, style: context.titleMedium),
               ],
             ),
-            const SizedBox(height: 12),
-            Text(
-              content,
-              style: TextStyle(
-                color: Colors.grey[700],
-                fontSize: 15,
-                height: 1.4,
-              ),
-            ),
+            Spacing.gapSM,
+            Text(content, style: context.bodyMedium.copyWith(color: context.textSecondary)),
           ],
         ),
       ),
@@ -1223,17 +1526,304 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     return hasValidCoords && hasLocationInfo;
   }
 
-  /// Get OpenStreetMap static map URL
+  /// Get static map URL (city/district level for privacy)
   String _getStaticMapUrl() {
     final coords = _community.location.coordinates;
-    final lon = coords[0];
-    final lat = coords[1];
-    // Using OpenStreetMap static map service
-    // Zoom level 12 shows neighborhood level (not too precise for privacy)
-    return 'https://staticmap.openstreetmap.de/staticmap.php?center=$lat,$lon&zoom=12&size=600x300&maptype=mapnik&markers=$lat,$lon,red-pushpin';
+    // Round coordinates for privacy
+    final lon = _roundCoordinate(coords[0]);
+    final lat = _roundCoordinate(coords[1]);
+
+    // Zoom 10 = city/district level (privacy-friendly)
+    final zoom = 10;
+
+    // Calculate tile coordinates from lat/lon
+    final n = 1 << zoom; // 2^zoom
+    final x = ((lon + 180) / 360 * n).floor();
+    final latRad = lat * math.pi / 180;
+    final y = ((1 - math.log(math.tan(latRad) + 1 / math.cos(latRad)) / math.pi) / 2 * n).floor();
+
+    // Direct OSM tile - always works, free
+    return 'https://tile.openstreetmap.org/$zoom/$x/$y.png';
   }
 
   /// Build location map card like HelloTalk
+  /// Build hero map header with overlapping profile avatar
+  Widget _buildHeroMapHeader() {
+    final hasLocation = _hasValidCoordinates();
+    final location = _community.location;
+    final locationText = [
+      if (location.city.isNotEmpty) location.city,
+      if (location.country.isNotEmpty) location.country,
+    ].join(', ');
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        // Map or gradient background
+        GestureDetector(
+          onTap: hasLocation ? () => _openLocationInMaps() : null,
+          child: Container(
+            height: 200,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            ),
+            child: hasLocation
+                ? _buildMapTileGrid()
+                : _buildGradientBackground(),
+          ),
+        ),
+        // Gradient overlay on map
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+            height: 100,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withOpacity(0.6),
+                ],
+              ),
+            ),
+          ),
+        ),
+        // Location text on map
+        if (locationText.isNotEmpty)
+          Positioned(
+            bottom: 60,
+            left: 16,
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.location_on_rounded,
+                  color: Colors.white,
+                  size: 16,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  locationText,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    shadows: [
+                      Shadow(
+                        offset: Offset(0, 1),
+                        blurRadius: 3,
+                        color: Colors.black45,
+                      ),
+                    ],
+                  ),
+                ),
+                if (hasLocation) ...[
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.open_in_new, color: Colors.white, size: 10),
+                        const SizedBox(width: 2),
+                        Text(
+                          AppLocalizations.of(context)!.map,
+                          style: const TextStyle(color: Colors.white, fontSize: 10),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        // Profile avatar overlapping the map
+        Positioned(
+          bottom: -60,
+          left: 0,
+          right: 0,
+          child: Center(
+            child: InkWell(
+              onTap: () {
+                final imageUrls = _getImageUrls();
+                if (imageUrls.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageGallery(imageUrls: imageUrls),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(AppLocalizations.of(context)!.noImagesAvailable)),
+                  );
+                }
+              },
+              child: Hero(
+                tag: 'profile_${_community.id}',
+                child: VipAvatarFrame(
+                  isVip: _community.isVip,
+                  size: 140,
+                  frameWidth: 4,
+                  showGlow: true,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 4),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: CircleAvatar(
+                      radius: 66,
+                      backgroundColor: const Color(0xFF00BFA5),
+                      backgroundImage: _getProfileImageUrl() != null
+                          ? NetworkImage(_getProfileImageUrl()!)
+                          : null,
+                      onBackgroundImageError: _getProfileImageUrl() != null
+                          ? (exception, stackTrace) {
+                              debugPrint('Profile image failed to load: $exception');
+                            }
+                          : null,
+                      child: _getProfileImageUrl() == null
+                          ? const Icon(Icons.person, size: 70, color: Colors.white)
+                          : null,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Round coordinates for privacy (reduces precision to ~1km area)
+  /// 2 decimal places = ~1.1km precision
+  /// 1 decimal place = ~11km precision
+  double _roundCoordinate(double coord, {int decimals = 2}) {
+    final factor = math.pow(10, decimals);
+    return (coord * factor).round() / factor;
+  }
+
+  /// Build a grid of OSM tiles to create a map view
+  /// Shows city/district level for privacy (not exact location)
+  Widget _buildMapTileGrid() {
+    final coords = _community.location.coordinates;
+    // Round coordinates to 2 decimal places for privacy (~1km precision)
+    final lon = _roundCoordinate(coords[0]);
+    final lat = _roundCoordinate(coords[1]);
+    // Zoom level 10-11 shows city/district level (privacy-friendly)
+    // Zoom 14 = street level (too precise)
+    // Zoom 11 = city/district level (good for privacy)
+    // Zoom 8 = region level
+    final zoom = 10;
+
+    // Calculate center tile coordinates
+    final n = 1 << zoom;
+    final centerX = ((lon + 180) / 360 * n).floor();
+    final latRad = lat * math.pi / 180;
+    final centerY = ((1 - math.log(math.tan(latRad) + 1 / math.cos(latRad)) / math.pi) / 2 * n).floor();
+
+    // Create a 3x2 grid of tiles (3 wide, 2 tall)
+    return ClipRect(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background color while loading
+          Container(color: const Color(0xFFE8E8E8)),
+          // Tile grid - positioned to center on the location
+          Positioned.fill(
+            child: Row(
+              children: [
+                for (int dx = -1; dx <= 1; dx++)
+                  Expanded(
+                    child: Column(
+                      children: [
+                        for (int dy = 0; dy <= 1; dy++)
+                          Expanded(
+                            child: Image.network(
+                              'https://tile.openstreetmap.org/$zoom/${centerX + dx}/${centerY + dy}.png',
+                              fit: BoxFit.cover,
+                              headers: const {
+                                'User-Agent': 'BananaTalk App',
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: const Color(0xFFE8E8E8),
+                                );
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          // Area indicator (circle showing approximate region, not exact point)
+          Center(
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: const Color(0xFF00BFA5).withOpacity(0.2),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color(0xFF00BFA5).withOpacity(0.6),
+                  width: 2,
+                ),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.location_city_rounded,
+                  color: Color(0xFF00BFA5),
+                  size: 24,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Build gradient background when no map available
+  Widget _buildGradientBackground() {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF00BFA5),
+            Color(0xFF00ACC1),
+            Color(0xFF26C6DA),
+          ],
+        ),
+      ),
+      child: Center(
+        child: Icon(
+          Icons.location_off_rounded,
+          size: 48,
+          color: Colors.white.withOpacity(0.3),
+        ),
+      ),
+    );
+  }
+
   Widget _buildLocationMapCard() {
     final location = _community.location;
     final coords = location.coordinates;
@@ -1279,7 +1869,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     if (loadingProgress == null) return child;
                     return Container(
                       height: 160,
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
                       child: Center(
                         child: CircularProgressIndicator(
                           value: loadingProgress.expectedTotalBytes != null
@@ -1295,15 +1885,15 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       height: 160,
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.map_outlined, size: 48, color: Colors.grey[400]),
+                          Icon(Icons.map_outlined, size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
                           const SizedBox(height: 8),
                           Text(
-                            'Map unavailable',
-                            style: TextStyle(color: Colors.grey[500], fontSize: 14),
+                            AppLocalizations.of(context)!.mapUnavailable,
+                            style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 14),
                           ),
                         ],
                       ),
@@ -1378,21 +1968,21 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Location',
+                      Text(
+                        AppLocalizations.of(context)!.location,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        locationText.isNotEmpty ? locationText : 'Unknown location',
-                        style: const TextStyle(
+                        locationText.isNotEmpty ? locationText : AppLocalizations.of(context)!.unknownLocation,
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ],
@@ -1401,7 +1991,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 // Tap to open indicator
                 Icon(
                   Icons.chevron_right_rounded,
-                  color: Colors.grey[400],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ],
             ),
@@ -1411,18 +2001,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     );
   }
 
-  /// Open location in external maps app
+  /// Open location in external maps app (city level for privacy)
   Future<void> _openLocationInMaps() async {
     final coords = _community.location.coordinates;
     if (coords.length < 2) return;
 
-    final lon = coords[0];
-    final lat = coords[1];
+    // Round coordinates for privacy (~1km precision)
+    final lon = _roundCoordinate(coords[0]);
+    final lat = _roundCoordinate(coords[1]);
     final location = _community.location;
 
-    // Try to open in maps app
+    // Open at city/district level (zoom 10) with rounded coords for privacy
     final Uri mapsUrl = Uri.parse(
-      'https://www.openstreetmap.org/?mlat=$lat&mlon=$lon&zoom=14',
+      'https://www.openstreetmap.org/?mlat=$lat&mlon=$lon&zoom=10',
     );
 
     try {
@@ -1431,7 +2022,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Could not open maps: ${location.city}, ${location.country}'),
+            content: Text('${AppLocalizations.of(context)!.couldNotOpenMaps}: ${location.city}, ${location.country}'),
             backgroundColor: Colors.orange,
           ),
         );

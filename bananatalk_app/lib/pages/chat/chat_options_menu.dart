@@ -12,6 +12,9 @@ import 'package:bananatalk_app/widgets/block_user_dialog.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ChatOptionsMenu extends ConsumerStatefulWidget {
   final String userName;
@@ -84,7 +87,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (mounted) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(const SnackBar(content: Text('User not found')));
+          ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)));
         }
         return;
       }
@@ -133,6 +136,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return PopupMenuButton<String>(
       onSelected: (value) => _handleMenuOption(context, value),
       itemBuilder: (context) => [
@@ -140,7 +144,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           value: 'view_contact',
           child: ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('View Profile'),
+            title: Text(l10n.viewProfile),
             subtitle: Text(
               widget.userName,
               style: const TextStyle(fontSize: 12),
@@ -148,19 +152,19 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             contentPadding: EdgeInsets.zero,
           ),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'media',
           child: ListTile(
-            leading: Icon(Icons.photo_library),
-            title: Text('Media, links, and docs'),
+            leading: const Icon(Icons.photo_library),
+            title: Text(l10n.mediaLinksAndDocs),
             contentPadding: EdgeInsets.zero,
           ),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'search',
           child: ListTile(
-            leading: Icon(Icons.search),
-            title: Text('Search'),
+            leading: const Icon(Icons.search),
+            title: Text(l10n.search),
             contentPadding: EdgeInsets.zero,
           ),
         ),
@@ -171,16 +175,16 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
               widget.isMuted ? Icons.notifications : Icons.notifications_off,
             ),
             title: Text(
-              widget.isMuted ? 'Unmute notifications' : 'Mute notifications',
+              widget.isMuted ? l10n.unmuteNotifications : l10n.muteNotifications,
             ),
             contentPadding: EdgeInsets.zero,
           ),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'wallpaper',
           child: ListTile(
-            leading: Icon(Icons.wallpaper),
-            title: Text('Wallpaper'),
+            leading: const Icon(Icons.wallpaper),
+            title: Text(l10n.wallpaper),
             contentPadding: EdgeInsets.zero,
           ),
         ),
@@ -196,7 +200,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
                 color: _isBlocked == true ? Colors.green : Colors.red,
               ),
               title: Text(
-                _isBlocked == true ? 'Unblock' : 'Block',
+                _isBlocked == true ? l10n.unblock : l10n.block,
                 style: TextStyle(
                   color: _isBlocked == true ? Colors.green : Colors.red,
                 ),
@@ -210,7 +214,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           value: 'report',
           child: ListTile(
             leading: Icon(Icons.flag, color: Colors.orange[700]),
-            title: Text('Report', style: TextStyle(color: Colors.orange[700])),
+            title: Text(l10n.report, style: TextStyle(color: Colors.orange[700])),
             contentPadding: EdgeInsets.zero,
           ),
         ),
@@ -226,8 +230,8 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         } else {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('User ID not available'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.userIdNotAvailable),
                 backgroundColor: Colors.red,
               ),
             );
@@ -319,8 +323,8 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           if (currentUserId == null) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('User ID not found'),
+                SnackBar(
+                  content: Text(AppLocalizations.of(context)!.userIdNotFound),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -332,8 +336,8 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           if (currentUserId == widget.userId) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Cannot block yourself'),
+                SnackBar(
+                  content: Text(AppLocalizations.of(context)!.cannotBlockYourself),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -363,8 +367,8 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         } else {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('User ID not available'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.userIdNotAvailable),
                 backgroundColor: Colors.red,
               ),
             );
@@ -376,12 +380,13 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (widget.userId != null) {
           final prefs = await SharedPreferences.getInstance();
           final currentUserId = prefs.getString('userId');
+          final l10n = AppLocalizations.of(context)!;
 
           if (currentUserId == null) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('User ID not found'),
+                SnackBar(
+                  content: Text(l10n.userIdNotFound),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -394,23 +399,21 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             context: context,
             builder: (context) => AlertDialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: AppRadius.borderMD,
               ),
-              title: const Text('Unblock User'),
-              content: Text(
-                'Are you sure you want to unblock ${widget.userName}?',
-              ),
+              title: Text(l10n.unblockUser),
+              content: Text(l10n.areYouSureUnblock),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context, false),
-                  child: const Text('Cancel'),
+                  child: Text(l10n.cancel),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context, true),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
-                  child: const Text('Unblock'),
+                  child: Text(l10n.unblock),
                 ),
               ],
             ),
@@ -440,7 +443,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(result['message'] ?? 'Operation completed'),
+                  content: Text(result['message'] ?? l10n.operationCompleted),
                   backgroundColor: result['success'] == true
                       ? Colors.green
                       : Colors.red,
@@ -476,8 +479,8 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         } else {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('User ID not available'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.userIdNotAvailable),
                 backgroundColor: Colors.red,
               ),
             );

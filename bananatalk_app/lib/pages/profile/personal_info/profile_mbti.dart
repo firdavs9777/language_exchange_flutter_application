@@ -1,4 +1,6 @@
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,11 +46,18 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('Select Your MBTI'),
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
+        elevation: 0,
+        title: Text(
+          'Select Your MBTI',
+          style: context.titleLarge,
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: Spacing.screenPadding,
         child: Column(
           children: [
             Expanded(
@@ -60,6 +69,7 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
                 ),
                 itemCount: mbtiList.length,
                 itemBuilder: (context, index) {
+                  final isSelected = selectedMBTI == mbtiList[index];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -69,25 +79,24 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: selectedMBTI == mbtiList[index]
-                            ? Colors.blueAccent
-                            : Colors.grey[200],
-                        borderRadius: BorderRadius.circular(8),
+                        color: isSelected
+                            ? context.primaryColor
+                            : context.containerColor,
+                        borderRadius: AppRadius.borderSM,
                         border: Border.all(
-                          color: selectedMBTI == mbtiList[index]
-                              ? Colors.blue
-                              : Colors.grey,
+                          color: isSelected
+                              ? context.primaryColor
+                              : context.dividerColor,
                           width: 2,
                         ),
                       ),
                       child: Text(
                         mbtiList[index],
-                        style: TextStyle(
-                          fontSize: 14,
+                        style: context.labelLarge.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: selectedMBTI == mbtiList[index]
-                              ? Colors.white
-                              : Colors.black,
+                          color: isSelected
+                              ? context.textOnPrimary
+                              : context.textPrimary,
                         ),
                       ),
                     ),
@@ -109,13 +118,20 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
                   Navigator.of(context).pop(selectedMBTI);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.amber,
-                  foregroundColor: Colors.black,
+                  backgroundColor: AppColors.secondary,
+                  foregroundColor: AppColors.gray900,
                   minimumSize: const Size(double.infinity, 50),
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  textStyle: const TextStyle(fontSize: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: AppRadius.borderMD,
+                  ),
                 ),
-                child: const Text('Save'),
+                child: Text(
+                  'Save',
+                  style: context.titleMedium.copyWith(
+                    color: AppColors.gray900,
+                  ),
+                ),
               ),
             ),
           ],

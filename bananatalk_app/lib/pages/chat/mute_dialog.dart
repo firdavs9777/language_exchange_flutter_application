@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class MuteDialog extends StatefulWidget {
   final String conversationId;
@@ -76,20 +79,22 @@ class _MuteDialogState extends State<MuteDialog> {
         if (result['success'] == true) {
           widget.onMuteChanged?.call();
           Navigator.of(context).pop(true);
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
                 widget.isMuted
-                    ? 'Notifications unmuted for ${widget.userName}'
-                    : 'Notifications muted for ${widget.userName}',
+                    ? l10n.notificationsUnmutedFor(widget.userName)
+                    : l10n.notificationsMutedFor(widget.userName),
               ),
               backgroundColor: Colors.green,
             ),
           );
         } else {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? 'Failed to update mute settings'),
+              content: Text(result['error'] ?? l10n.failedToUpdateMuteSettings),
               backgroundColor: Colors.red,
             ),
           );
@@ -118,13 +123,14 @@ class _MuteDialogState extends State<MuteDialog> {
   }
 
   Widget _buildUnmuteDialog() {
+    final l10n = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: Text('Unmute ${widget.userName}?'),
-      content: const Text('You will receive notifications for new messages.'),
+      title: Text(l10n.unmuteUser(widget.userName)),
+      content: Text(l10n.willReceiveNotifications),
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading ? null : _handleMute,
@@ -134,26 +140,33 @@ class _MuteDialogState extends State<MuteDialog> {
                   height: 20,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Unmute'),
+              : Text(l10n.unmute),
         ),
       ],
     );
   }
 
   Widget _buildMuteDialog() {
+    final l10n = AppLocalizations.of(context)!;
+    final durationLabels = {
+      '1 hour': l10n.oneHour,
+      '8 hours': l10n.eightHours,
+      '1 week': l10n.oneWeek,
+      'Always': l10n.always,
+    };
     return AlertDialog(
-      title: const Text('Mute notifications'),
+      title: Text(l10n.muteNotifications),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Mute notifications for ${widget.userName}',
+            l10n.muteNotificationsFor(widget.userName),
             style: TextStyle(color: Colors.grey[600]),
           ),
-          const SizedBox(height: 16),
+          Spacing.gapMD,
           ..._durationOptions.keys.map((duration) => RadioListTile<String>(
-                title: Text(duration),
+                title: Text(durationLabels[duration] ?? duration),
                 value: duration,
                 groupValue: _selectedDuration,
                 onChanged: (value) {
@@ -167,7 +180,7 @@ class _MuteDialogState extends State<MuteDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading || _selectedDuration == null ? null : _handleMute,
@@ -177,7 +190,7 @@ class _MuteDialogState extends State<MuteDialog> {
                   height: 20,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Mute'),
+              : Text(l10n.mute),
         ),
       ],
     );

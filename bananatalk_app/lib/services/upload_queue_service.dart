@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/upload_task.dart';
 import '../providers/provider_root/moments_providers.dart';
@@ -221,7 +222,7 @@ class UploadQueueService {
       await _saveTasks();
 
     } catch (e) {
-      print('Upload error for task ${task.id}: $e');
+      debugPrint('Upload error for task ${task.id}: $e');
 
       // Increment retry count and check if should retry
       final newRetryCount = task.retryCount + 1;
@@ -404,7 +405,7 @@ class UploadQueueService {
       final tasksJson = _tasks.map((t) => t.toJson()).toList();
       await prefs.setString(_storageKey, jsonEncode(tasksJson));
     } catch (e) {
-      print('Error saving upload tasks: $e');
+      debugPrint('Error saving upload tasks: $e');
     }
   }
 
@@ -428,7 +429,7 @@ class UploadQueueService {
         _notifyTasksChanged();
       }
     } catch (e) {
-      print('Error loading upload tasks: $e');
+      debugPrint('Error loading upload tasks: $e');
     }
   }
 

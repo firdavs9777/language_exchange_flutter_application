@@ -6,6 +6,8 @@ import 'package:bananatalk_app/pages/profile/main/profile_moment_edit.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,7 +106,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(e.toString().replaceFirst('Exception: ', '')),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -138,22 +140,31 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
         ),
-        title: const Text(
+        title: Text(
           'Delete Moment?',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.bold),
         ),
-        content: const Text('This action cannot be undone.'),
+        content: Text(
+          'This action cannot be undone.',
+          style: context.bodyMedium,
+        ),
             actions: [
               TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: context.labelLarge.copyWith(color: context.textSecondary),
+            ),
           ),
               TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            style: TextButton.styleFrom(foregroundColor: AppColors.error),
+            child: Text(
+              'Delete',
+              style: context.labelLarge.copyWith(color: AppColors.error),
+            ),
           ),
         ],
       ),
@@ -169,7 +180,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Moment deleted successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.success,
                 behavior: SnackBarBehavior.floating,
               ),
             );
@@ -182,7 +193,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Error: ${e.toString().replaceFirst('Exception: ', '')}'),
-              backgroundColor: Colors.red,
+              backgroundColor: AppColors.error,
               behavior: SnackBarBehavior.floating,
             ),
           );
@@ -209,22 +220,22 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
       setState(() {
         moment = updatedMoment;
       });
-      
+
       // Call the callback again to ensure refresh happens
       widget.onUpdated?.call();
-      
+
       // Also refresh after a small delay to ensure backend data is synced
       Future.delayed(const Duration(milliseconds: 300), () {
         if (mounted) {
           widget.onUpdated?.call();
         }
       });
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Moment updated successfully'),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.success,
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 2),
           ),
@@ -247,15 +258,9 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.cardBackground,
+        borderRadius: AppRadius.borderLG,
+        boxShadow: AppShadows.sm,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,20 +300,20 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: Spacing.paddingLG,
               child: Row(
                 children: [
                   Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF00BFA5),
+                        color: AppColors.primary,
                         width: 2,
                       ),
                     ),
                     child: CircleAvatar(
                       radius: 24,
-                      backgroundColor: const Color(0xFF00BFA5),
+                      backgroundColor: AppColors.primary,
                       backgroundImage: moment.user.imageUrls.isNotEmpty
                           ? NetworkImage(
                               ImageUtils.normalizeImageUrl(moment.user.imageUrls[0]))
@@ -317,7 +322,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                           ? const Icon(
                               Icons.person,
                               size: 24,
-                              color: Colors.white,
+                              color: AppColors.white,
                             )
                           : null,
                       onBackgroundImageError: (exception, stackTrace) {
@@ -325,7 +330,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                       },
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  Spacing.hGapMD,
                   Expanded(
         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,19 +339,16 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                           children: [
                             Text(
                               moment.user.name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                              ),
+                              style: context.titleMedium,
                             ),
-                            const SizedBox(width: 6),
+                            Spacing.hGapSM,
                             Text(
                               languageFlag,
                               style: const TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
+                        Spacing.gapXS,
                         Row(
           children: [
                             Container(
@@ -355,29 +357,25 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF00BFA5).withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(4),
+                                color: AppColors.primary.withOpacity(0.1),
+                                borderRadius: AppRadius.borderXS,
                               ),
                               child: Text(
                                 moment.category,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF00BFA5),
+                                style: context.captionSmall.copyWith(
+                                  color: AppColors.primary,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                             if (moodEmoji.isNotEmpty) ...[
-                              const SizedBox(width: 6),
+                              Spacing.hGapSM,
                               Text(moodEmoji, style: const TextStyle(fontSize: 16)),
                             ],
-                            const SizedBox(width: 8),
+                            Spacing.hGapSM,
                             Text(
                               moment.createdAt.toLocal().toString().split(' ')[0],
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[600],
-                              ),
+                              style: context.caption,
                             ),
                           ],
                         ),
@@ -385,7 +383,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     ),
                   ),
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.more_vert, color: Colors.grey),
+                    icon: Icon(Icons.more_vert, color: context.textMuted),
                 onSelected: (value) {
                   if (value == 'delete') {
                     _deleteMoment(context);
@@ -394,23 +392,23 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                   }
                 },
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  const PopupMenuItem<String>(
+                  PopupMenuItem<String>(
                         value: 'edit',
                         child: Row(
                           children: [
-                            Icon(Icons.edit, size: 20, color: Color(0xFF00BFA5)),
-                            SizedBox(width: 12),
-                            Text('Edit'),
+                            const Icon(Icons.edit, size: 20, color: AppColors.primary),
+                            Spacing.hGapMD,
+                            Text('Edit', style: context.bodyMedium),
                           ],
                     ),
                   ),
-                  const PopupMenuItem<String>(
+                  PopupMenuItem<String>(
                         value: 'delete',
                         child: Row(
                           children: [
-                            Icon(Icons.delete, size: 20, color: Colors.red),
-                            SizedBox(width: 12),
-                            Text('Delete', style: TextStyle(color: Colors.red)),
+                            const Icon(Icons.delete, size: 20, color: AppColors.error),
+                            Spacing.hGapMD,
+                            Text('Delete', style: context.bodyMedium.copyWith(color: AppColors.error)),
                           ],
                         ),
                       ),
@@ -421,29 +419,25 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
             ),
           ),
 
-          const Divider(height: 1),
+          Divider(height: 1, color: context.dividerColor),
 
           // Title and Description
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.paddingLG,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   moment.title,
-                  style: const TextStyle(
-                    fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                  style: context.displaySmall.copyWith(
                     height: 1.3,
                   ),
                 ),
-                const SizedBox(height: 12),
+                Spacing.gapMD,
                 Text(
                   moment.description,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[800],
+                  style: context.bodyLarge.copyWith(
+                    color: context.textSecondary,
                     height: 1.6,
                   ),
                 ),
@@ -463,15 +457,13 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(12),
+                      color: context.containerColor,
+                      borderRadius: AppRadius.borderMD,
                     ),
               child: Text(
                       '#$tag',
-                style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.w500,
+                      style: context.labelMedium.copyWith(
+                        color: context.textSecondary,
                       ),
                     ),
                   );
@@ -488,26 +480,26 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
 
           // Action Buttons
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.paddingLG,
                 child: Row(
               children: [
                 _buildActionButton(
                   icon: isLiked ? Icons.favorite : Icons.favorite_outline,
                   count: likeCount,
-                  color: isLiked ? Colors.red : Colors.grey[600]!,
+                  color: isLiked ? AppColors.error : context.textSecondary,
                   onTap: incrementLike,
                 ),
-                const SizedBox(width: 12),
+                Spacing.hGapMD,
                 _buildActionButton(
                   icon: Icons.chat_bubble_outline,
                   count: commentCount,
-                  color: Colors.grey[600]!,
+                  color: context.textSecondary,
                   onTap: focusCommentField,
                 ),
                 const Spacer(),
                 IconButton(
                   icon: const Icon(Icons.share_outlined),
-                  color: Colors.grey[600],
+                  color: context.textSecondary,
                   onPressed: () => _shareMoment(context),
                 ),
               ],
@@ -517,11 +509,11 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
           // Comments Section
           if (showCommentField)
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: Spacing.paddingLG,
               decoration: BoxDecoration(
-                color: Colors.grey[50],
+                color: context.containerColor,
                 border: Border(
-                  top: BorderSide(color: Colors.grey[200]!),
+                  top: BorderSide(color: context.dividerColor),
                 ),
               ),
               child: Column(
@@ -529,15 +521,11 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                 children: [
                   Text(
                     'Comments',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey[800],
-                    ),
+                    style: context.titleMedium,
                   ),
-                  const SizedBox(height: 12),
+                  Spacing.gapMD,
                   CommentsMain(id: moment.id),
-                  const SizedBox(height: 12),
+                  Spacing.gapMD,
                   CreateComment(
                     focusNode: commentFocusNode,
                     id: moment.id,
@@ -564,20 +552,19 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: AppRadius.borderXL,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           children: [
             Icon(icon, size: 24, color: color),
             if (count > 0) ...[
-              const SizedBox(width: 8),
+              Spacing.hGapSM,
               Text(
                 count > 999
                     ? '${(count / 1000).toStringAsFixed(1)}k'
                     : '$count',
-                style: TextStyle(
-                  fontSize: 14,
+                style: context.labelLarge.copyWith(
                   color: color,
                   fontWeight: FontWeight.w600,
                 ),
@@ -613,11 +600,11 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
             return Container(
               width: double.infinity,
               height: 300,
-              color: Colors.grey[200],
-              child: const Icon(
+              color: context.containerColor,
+              child: Icon(
                 Icons.broken_image,
                 size: 50,
-                color: Colors.grey,
+                color: context.textMuted,
               ),
             );
           },
@@ -626,7 +613,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
             return Container(
               width: double.infinity,
               height: 300,
-              color: Colors.grey[200],
+              color: context.containerColor,
               child: Center(
                 child: CircularProgressIndicator(
                   value: loadingProgress.expectedTotalBytes != null
@@ -634,7 +621,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                           loadingProgress.expectedTotalBytes!
                       : null,
                   valueColor: const AlwaysStoppedAnimation<Color>(
-                    Color(0xFF00BFA5),
+                    AppColors.primary,
                   ),
                 ),
               ),
@@ -678,18 +665,18 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    color: Colors.grey[200],
-                    child: const Icon(
+                    color: context.containerColor,
+                    child: Icon(
                       Icons.broken_image,
                       size: 30,
-                      color: Colors.grey,
+                      color: context.textMuted,
                     ),
                   );
                 },
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
                   return Container(
-                    color: Colors.grey[200],
+                    color: context.containerColor,
                     child: const Center(
                       child: SizedBox(
                         width: 20,
@@ -697,7 +684,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFF00BFA5),
+                            AppColors.primary,
                           ),
                         ),
                       ),
@@ -707,14 +694,12 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
               ),
               if (index == 8 && imageCount > 9)
                 Container(
-                  color: Colors.black.withOpacity(0.5),
+                  color: AppColors.black.withOpacity(0.5),
                   child: Center(
                     child: Text(
                       '+${imageCount - 9}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                      style: context.displaySmall.copyWith(
+                        color: AppColors.white,
                       ),
                     ),
                   ),

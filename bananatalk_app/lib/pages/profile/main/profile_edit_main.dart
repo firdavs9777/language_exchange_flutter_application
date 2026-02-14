@@ -4,9 +4,13 @@ import 'package:bananatalk_app/pages/profile/personal_info/profile_hometown.dart
 import 'package:bananatalk_app/pages/profile/personal_info/profile_language_edit.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_mbti.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_picture_edit.dart';
+import 'package:bananatalk_app/pages/profile/personal_info/profile_topics_edit.dart';
 import 'package:bananatalk_app/pages/profile/about/profile_info_set.dart';
+import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,6 +23,7 @@ class ProfileEdit extends ConsumerStatefulWidget {
   final String languageToLearn;
   final String gender;
   final String bio;
+  final List<String> topics;
   const ProfileEdit({
     super.key,
     required this.userName,
@@ -29,6 +34,7 @@ class ProfileEdit extends ConsumerStatefulWidget {
     required this.languageToLearn,
     required this.gender,
     this.bio = '',
+    this.topics = const [],
   });
 
   @override
@@ -45,6 +51,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   late String selectedGender;
   late String selectedAddress;
   late String selectedBio;
+  late List<String> selectedTopics;
 
   @override
   void initState() {
@@ -61,6 +68,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
         widget.languageToLearn.isEmpty ? "Not Set" : widget.languageToLearn;
     selectedGender = widget.gender.isEmpty ? "Not Set" : widget.gender;
     selectedBio = widget.bio.isEmpty ? "Not Set" : widget.bio;
+    selectedTopics = List.from(widget.topics);
   }
 
   void updateMBTI(String newMBTI) {
@@ -106,21 +114,45 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     });
   }
 
+  void updateTopics(List<String> newTopics) {
+    setState(() {
+      selectedTopics = newTopics;
+    });
+  }
+
+  String _getTopicsDisplayText() {
+    if (selectedTopics.isEmpty) return 'Not Set';
+
+    // Get topic names from IDs
+    final topicNames = selectedTopics
+        .map((id) {
+          final topic = Topic.defaultTopics.firstWhere(
+            (t) => t.id == id,
+            orElse: () => Topic(id: id, name: id, icon: '', category: ''),
+          );
+          return topic.name;
+        })
+        .take(3)
+        .toList();
+
+    if (selectedTopics.length > 3) {
+      return '${topicNames.join(', ')} +${selectedTopics.length - 3} more';
+    }
+    return topicNames.join(', ');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Edit Profile',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: context.titleLarge,
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -163,11 +195,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 );
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             _buildEditCard(
               context: context,
               icon: Icons.person,
-              iconColor: Colors.blue,
+              iconColor: AppColors.info,
               title: 'Name & Gender',
               subtitle: selectedName,
               value: selectedGender != "Not Set" ? selectedGender : null,
@@ -186,11 +218,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             _buildEditCard(
               context: context,
               icon: Icons.description,
-              iconColor: Colors.purple,
+              iconColor: AppColors.accent,
               title: 'Bio',
               subtitle: selectedBio == "Not Set" 
                   ? "Not Set" 
@@ -212,14 +244,14 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
 
             // Language Section
             _buildSectionHeader('Language Exchange', Icons.language),
             _buildEditCard(
               context: context,
               icon: Icons.translate,
-              iconColor: Colors.blue,
+              iconColor: AppColors.info,
               title: 'Native Language',
               subtitle: selectedNatLanguage,
                   onTap: () async {
@@ -229,6 +261,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                             builder: (context) => ProfileLanguageEdit(
                               initialLanguage: selectedNatLanguage,
                               type: 'native',
+                              otherLanguage: selectedLanguageToLearn,
                             ),
                           ),
                         ) ??
@@ -238,11 +271,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             _buildEditCard(
               context: context,
               icon: Icons.school,
-              iconColor: Colors.orange,
+              iconColor: AppColors.warning,
               title: 'Language to Learn',
               subtitle: selectedLanguageToLearn,
                   onTap: () async {
@@ -252,6 +285,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                             builder: (context) => ProfileLanguageEdit(
                               initialLanguage: selectedLanguageToLearn,
                               type: 'learn',
+                              otherLanguage: selectedNatLanguage,
                             ),
                           ),
                         ) ??
@@ -261,14 +295,14 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
 
             // Personal Information Section
             _buildSectionHeader('Personal Information', Icons.info_outline),
             _buildEditCard(
               context: context,
               icon: Icons.psychology,
-              iconColor: Colors.purple,
+              iconColor: AppColors.accent,
               title: 'MBTI',
               subtitle: selectedMBTI,
                   onTap: () async {
@@ -286,11 +320,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             _buildEditCard(
               context: context,
               icon: Icons.bloodtype,
-              iconColor: Colors.red,
+              iconColor: AppColors.error,
               title: 'Blood Type',
               subtitle: selectedBloodType,
                   onTap: () async {
@@ -308,11 +342,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 8),
+            Spacing.gapSM,
             _buildEditCard(
               context: context,
               icon: Icons.location_on,
-              iconColor: Colors.green,
+              iconColor: AppColors.success,
               title: 'Hometown',
               subtitle: selectedAddress,
                   onTap: () async {
@@ -330,7 +364,34 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 }
               },
             ),
-            const SizedBox(height: 24),
+            Spacing.gapSM,
+
+            // Interests Section
+            _buildSectionHeader('Interests', Icons.interests),
+            _buildEditCard(
+              context: context,
+              icon: Icons.favorite,
+              iconColor: const Color(0xFFE91E63),
+              title: 'Topics of Interest',
+              subtitle: selectedTopics.isEmpty
+                  ? 'Not Set'
+                  : _getTopicsDisplayText(),
+              onTap: () async {
+                final List<String>? result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileTopicsEdit(
+                      initialTopics: selectedTopics,
+                      isStandalone: true,
+                    ),
+                  ),
+                );
+                if (result != null) {
+                  updateTopics(result);
+                }
+              },
+            ),
+            Spacing.gapXXL,
           ],
         ),
       ),
@@ -343,20 +404,18 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: Spacing.paddingSM,
             decoration: BoxDecoration(
-              color: const Color(0xFF00BFA5).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: AppRadius.borderSM,
             ),
-            child: Icon(icon, size: 20, color: const Color(0xFF00BFA5)),
+            child: Icon(icon, size: 20, color: AppColors.primary),
           ),
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+          Spacing.hGapMD,
+          Builder(
+            builder: (context) => Text(
+              title,
+              style: context.titleLarge,
             ),
           ),
         ],
@@ -376,67 +435,47 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: context.surfaceColor,
+        borderRadius: AppRadius.borderLG,
+        boxShadow: AppShadows.md,
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLG,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.paddingLG,
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: Spacing.paddingMD,
                   decoration: BoxDecoration(
-                    color: iconColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    color: iconColor.withValues(alpha: 0.1),
+                    borderRadius: AppRadius.borderMD,
                   ),
                   child: Icon(icon, color: iconColor, size: 24),
                 ),
-                const SizedBox(width: 16),
+                Spacing.hGapLG,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
+                        style: context.titleMedium,
                       ),
-                      const SizedBox(height: 4),
+                      Spacing.gapXS,
                       if (value != null)
                         Text(
                           value,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: context.labelSmall,
                         ),
                       Text(
                         subtitle,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: subtitle == "Not Set"
-                              ? Colors.grey[500]
-                              : Colors.grey[700],
-                          fontWeight: subtitle == "Not Set"
-                              ? FontWeight.normal
-                              : FontWeight.w500,
-                        ),
+                        style: subtitle == "Not Set"
+                            ? context.bodySmall.copyWith(color: context.textMuted)
+                            : context.bodySmall.copyWith(fontWeight: FontWeight.w500),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -445,7 +484,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 ),
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.grey[400],
+                  color: context.textMuted,
                 ),
               ],
             ),

@@ -47,7 +47,8 @@ android {
     defaultConfig {
         applicationId = "com.bananatalk.app"
 
-        minSdkVersion = flutter.minSdkVersion
+        // flutter_sound requires minSdk 24
+        minSdk = 24
         targetSdk = 36
 
         // 🔴 CRITICAL FOR GOOGLE PLAY UPDATES

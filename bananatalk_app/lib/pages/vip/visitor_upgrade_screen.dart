@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class VisitorUpgradeScreen extends StatelessWidget {
   final String userId;
@@ -16,8 +17,14 @@ class VisitorUpgradeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.upgradeYourAccount),
+        title: Text(
+          AppLocalizations.of(context)!.upgradeYourAccount,
+          style: context.titleLarge,
+        ),
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -26,41 +33,31 @@ class VisitorUpgradeScreen extends StatelessWidget {
             // Header
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(32),
+              padding: Spacing.paddingXXL,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).primaryColor.withOpacity(0.7),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                gradient: AppColors.primaryGradient,
               ),
               child: Column(
                 children: [
                   const Icon(
                     Icons.upgrade,
                     size: 80,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
+                  Spacing.gapLG,
+                  Text(
                     'Visitor Mode Limit Reached',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    style: context.displayMedium.copyWith(
+                      color: AppColors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
+                  Spacing.gapSM,
                   Text(
                     limitMessage ??
                         'Upgrade to unlock more features and unlimited access',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
+                    style: context.bodyLarge.copyWith(
+                      color: AppColors.white.withOpacity(0.8),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -70,39 +67,41 @@ class VisitorUpgradeScreen extends StatelessWidget {
 
             // Benefits
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: Spacing.paddingXXL,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'What You Get with a Free Account',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.titleLarge,
                   ),
-                  const SizedBox(height: 16),
+                  Spacing.gapLG,
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.message,
                     title: AppLocalizations.of(context)!.moreMessages,
                     description: 'Send up to 50 messages per day',
                   ),
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.visibility,
                     title: AppLocalizations.of(context)!.moreProfileViews,
                     description: 'View up to 100 profiles per day',
                   ),
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.person_add,
                     title: AppLocalizations.of(context)!.connectWithFriends,
                     description: 'Add friends and build your network',
                   ),
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.group,
                     title: 'Join Communities',
                     description: 'Participate in community discussions',
                   ),
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.photo_library,
                     title: 'Share Moments',
                     description: 'Post and share your moments',
@@ -129,64 +128,73 @@ class VisitorUpgradeScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Create Free Account',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: context.titleMedium.copyWith(
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 16),
+            Spacing.gapLG,
 
             // Divider
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
                 children: [
-                  Expanded(child: Divider()),
+                  Expanded(child: Divider(color: context.dividerColor)),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text('OR'),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'OR',
+                      style: context.labelMedium.copyWith(
+                        color: context.textSecondary,
+                      ),
+                    ),
                   ),
-                  Expanded(child: Divider()),
+                  Expanded(child: Divider(color: context.dividerColor)),
                 ],
               ),
             ),
 
-            const SizedBox(height: 16),
+            Spacing.gapLG,
 
             // VIP Benefits
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: Spacing.paddingXXL,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Go VIP for Unlimited Access',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.titleLarge,
                   ),
-                  const SizedBox(height: 16),
+                  Spacing.gapLG,
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.all_inclusive,
                     title: 'Unlimited Everything',
                     description: 'No daily limits on messages or profile views',
                     vip: true,
                   ),
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.trending_up,
                     title: 'Profile Boost',
                     description: 'Get more visibility in search results',
                     vip: true,
                   ),
                   _buildBenefitItem(
+                    context: context,
                     icon: Icons.block,
                     title: 'Ad-Free Experience',
                     description: 'Enjoy the app without advertisements',
@@ -208,25 +216,24 @@ class VisitorUpgradeScreen extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Theme.of(context).primaryColor,
-                    side: BorderSide(
-                      color: Theme.of(context).primaryColor,
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(
+                      color: AppColors.primary,
                       width: 2,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.workspace_premium),
-                      SizedBox(width: 8),
+                      const Icon(Icons.workspace_premium),
+                      Spacing.hGapSM,
                       Text(
                         'Continue as Visitor',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                        style: context.titleMedium.copyWith(
+                          color: AppColors.primary,
                         ),
                       ),
                     ],
@@ -235,7 +242,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 32),
+            Spacing.gapXXL,
           ],
         ),
       ),
@@ -243,6 +250,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
   }
 
   Widget _buildBenefitItem({
+    required BuildContext context,
     required IconData icon,
     required String title,
     required String description,
@@ -253,20 +261,20 @@ class VisitorUpgradeScreen extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: Spacing.paddingMD,
             decoration: BoxDecoration(
               color: vip
-                  ? Colors.amber.withOpacity(0.2)
-                  : Colors.blue.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+                  ? AppColors.secondary.withOpacity(0.2)
+                  : AppColors.info.withOpacity(0.1),
+              borderRadius: AppRadius.borderMD,
             ),
             child: Icon(
               icon,
-              color: vip ? Colors.amber[700] : Colors.blue,
+              color: vip ? AppColors.secondaryDark : AppColors.info,
               size: 24,
             ),
           ),
-          const SizedBox(width: 16),
+          Spacing.hGapLG,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,28 +283,22 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.titleMedium,
                     ),
                     if (vip) ...[
-                      const SizedBox(width: 8),
+                      Spacing.hGapSM,
                       const Icon(
                         Icons.workspace_premium,
                         size: 16,
-                        color: Colors.amber,
+                        color: AppColors.secondary,
                       ),
                     ],
                   ],
                 ),
-                const SizedBox(height: 4),
+                Spacing.gapXS,
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
+                  style: context.bodySmall,
                 ),
               ],
             ),

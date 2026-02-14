@@ -5,9 +5,12 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/media_message_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/message_reaction_widget.dart';
+import 'package:bananatalk_app/widgets/video_player_screen.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -55,14 +58,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
   OverlayEntry? _reactionPickerOverlay;
   String? _currentUserId;
 
-  // Modern chat colors (HelloTalk/KakaoTalk inspired)
-  static const Color myMessageColor = Color(0xFF007AFF); // iOS blue
-  static const Color otherMessageColor = Color(0xFFF0F0F0); // Light gray
-  static const Color myTextColor = Color(0xFFFFFFFF); // White
-  static const Color otherTextColor = Color(0xFF000000); // Black
-  static const Color timestampColor = Color(0xFF8E8E93); // Gray
-  static const Color replyBorderColor = Color(0xFF007AFF); // Blue
-  static const Color backgroundColor = Color(0xFFF2F2F7); // System gray 6
+  // Theme-aware chat colors
+  Color _myMessageColor(BuildContext context) => AppColors.chatBubbleMine;
+  Color _otherMessageColor(BuildContext context) => context.isDarkMode ? AppColors.gray800 : AppColors.chatBubbleOther;
+  Color _myTextColor(BuildContext context) => AppColors.chatTextMine;
+  Color _otherTextColor(BuildContext context) => context.textPrimary;
+  Color _timestampColor(BuildContext context) => context.textSecondary;
+  Color _replyBorderColor(BuildContext context) => AppColors.primary;
+  Color _sendingColor(BuildContext context) => context.textSecondary;
+  Color _failedColor(BuildContext context) => AppColors.error;
 
   @override
   void initState() {
@@ -72,6 +76,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
 
   Future<void> _loadCurrentUserId() async {
     final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
     setState(() {
       _currentUserId = prefs.getString('userId');
     });
@@ -116,9 +121,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         decoration: widget.isSelectionMode
             ? BoxDecoration(
                 color: widget.isSelected
-                    ? Theme.of(context).primaryColor.withOpacity(0.1)
+                    ? AppColors.primary.withValues(alpha: 0.1)
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: AppRadius.borderSM,
               )
             : null,
         child: Row(
@@ -148,10 +153,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                 userName: widget.otherUserName,
                 radius: 18,
               ),
-              const SizedBox(width: 8),
+              Spacing.hGapSM,
             ],
 
-            // Timestamp and read status (left of my messages)
+            // Timestamp and sending status (left of my messages)
             if (widget.isMe && !widget.isSelectionMode)
               Padding(
                 padding: const EdgeInsets.only(right: 4, bottom: 2),
@@ -159,31 +164,45 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    if (!widget.message.read)
+                    // Sending status indicator
+                    _buildSendingStatus(),
+                    // Unread indicator (only show if sent and not read)
+                    if (widget.message.sendingStatus == MessageSendingStatus.none && !widget.message.read)
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 2),
                         margin: const EdgeInsets.only(bottom: 2),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFF3B30), // iOS red
-                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.error,
+                          borderRadius: AppRadius.borderSM,
                         ),
-                        child: const Text(
+                        child: Text(
                           '1',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 9,
+                          style: context.captionSmall.copyWith(
+                            color: AppColors.white,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                    Text(
-                      formatMessageTime(widget.message.createdAt),
-                      style: const TextStyle(
-                        color: timestampColor,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          formatMessageTime(widget.message.createdAt),
+                          style: context.captionSmall.copyWith(
+                            color: widget.message.isFailed ? _failedColor(context) : _timestampColor(context),
+                          ),
+                        ),
+                        // Checkmarks for sent status
+                        if (widget.message.sendingStatus == MessageSendingStatus.none) ...[
+                          Spacing.hGapXXS,
+                          Icon(
+                            widget.message.read ? Icons.done_all : Icons.done,
+                            size: 14,
+                            color: widget.message.read ? _myMessageColor(context) : _timestampColor(context),
+                          ),
+                        ],
+                      ],
                     ),
                   ],
                 ),
@@ -224,10 +243,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                 padding: const EdgeInsets.only(left: 4, bottom: 2),
                 child: Text(
                   formatMessageTime(widget.message.createdAt),
-                  style: const TextStyle(
-                    color: timestampColor,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w400,
+                  style: context.captionSmall.copyWith(
+                    color: _timestampColor(context),
                   ),
                 ),
               ),
@@ -235,6 +252,78 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         ),
       ),
     );
+  }
+
+  /// Build sending status indicator for optimistic messages
+  Widget _buildSendingStatus() {
+    final status = widget.message.sendingStatus;
+
+    if (status == MessageSendingStatus.none) {
+      return const SizedBox.shrink();
+    }
+
+    if (status == MessageSendingStatus.sending) {
+      return Container(
+        margin: const EdgeInsets.only(bottom: 2),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 10,
+              height: 10,
+              child: CircularProgressIndicator(
+                strokeWidth: 1.5,
+                valueColor: AlwaysStoppedAnimation<Color>(_sendingColor(context)),
+              ),
+            ),
+            Spacing.hGapXS,
+            Text(
+              'Sending...',
+              style: context.captionSmall.copyWith(
+                color: _sendingColor(context),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (status == MessageSendingStatus.failed) {
+      return GestureDetector(
+        onTap: () {
+          // TODO: Implement retry
+        },
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: _failedColor(context).withValues(alpha: 0.1),
+            borderRadius: AppRadius.borderSM,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.error_outline,
+                size: 12,
+                color: _failedColor(context),
+              ),
+              Spacing.hGapXS,
+              Text(
+                'Failed · Tap to retry',
+                style: context.captionSmall.copyWith(
+                  color: _failedColor(context),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 
   void _showReactionPicker(BuildContext context) {
@@ -351,10 +440,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: widget.isMe 
-              ? Colors.grey[300]?.withOpacity(0.5)
-              : Colors.grey[200]?.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(16),
+          color: context.containerColor.withValues(alpha: 0.5),
+          borderRadius: AppRadius.borderLG,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -362,14 +449,13 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             Icon(
               Icons.delete_outline,
               size: 16,
-              color: Colors.grey[600],
+              color: context.textSecondary,
             ),
-            const SizedBox(width: 8),
+            Spacing.hGapSM,
             Text(
               'This message was deleted',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
+              style: context.bodySmall.copyWith(
+                color: context.textSecondary,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -400,20 +486,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: widget.isMe ? myMessageColor : otherMessageColor,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(18),
-                topRight: const Radius.circular(18),
-                bottomLeft: Radius.circular(widget.isMe ? 18 : 4),
-                bottomRight: Radius.circular(widget.isMe ? 4 : 18),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  blurRadius: 4,
-                  offset: const Offset(0, 1),
-                ),
-              ],
+              color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
+              borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+              boxShadow: AppShadows.sm,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,11 +497,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                 if (hasText)
                   Text(
                     widget.message.message!,
-                    style: TextStyle(
-                      color: widget.isMe ? myTextColor : otherTextColor,
-                      fontSize: 16,
-                      height: 1.35,
-                      letterSpacing: -0.3,
+                    style: context.bodyMedium.copyWith(
+                      color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
                     ),
                   ),
                 if (widget.message.isEdited)
@@ -434,10 +506,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                     padding: const EdgeInsets.only(top: 2),
                     child: Text(
                       'edited',
-                      style: TextStyle(
-                        color: (widget.isMe ? myTextColor : otherTextColor)
-                            .withOpacity(0.6),
-                        fontSize: 10,
+                      style: context.captionSmall.copyWith(
+                        color: (widget.isMe ? _myTextColor(context) : _otherTextColor(context))
+                            .withValues(alpha: 0.6),
                         fontStyle: FontStyle.italic,
                       ),
                     ),
@@ -453,13 +524,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
   Widget _buildReplyPreview() {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
-      padding: const EdgeInsets.all(8),
+      padding: Spacing.paddingSM,
       decoration: BoxDecoration(
-        color: widget.isMe ? Colors.white.withOpacity(0.2) : Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        color: widget.isMe
+            ? AppColors.white.withValues(alpha: 0.2)
+            : context.surfaceColor,
+        borderRadius: AppRadius.borderMD,
         border: Border(
           left: BorderSide(
-            color: widget.isMe ? Colors.white : replyBorderColor,
+            color: widget.isMe ? AppColors.white : _replyBorderColor(context),
             width: 3,
           ),
         ),
@@ -471,20 +544,20 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             widget.replyToMessage!.sender.id == widget.message.sender.id
                 ? 'You'
                 : widget.otherUserName,
-            style: TextStyle(
-              fontSize: 12,
+            style: context.labelSmall.copyWith(
               fontWeight: FontWeight.w600,
-              color: widget.isMe ? Colors.white : replyBorderColor,
+              color: widget.isMe ? AppColors.white : _replyBorderColor(context),
             ),
           ),
-          const SizedBox(height: 2),
+          Spacing.gapXXS,
           Text(
             widget.replyToMessage!.message ?? '📷 Media',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 13,
-              color: widget.isMe ? Colors.white.withOpacity(0.8) : Colors.grey[700],
+            style: context.bodySmall.copyWith(
+              color: widget.isMe
+                  ? AppColors.white.withValues(alpha: 0.8)
+                  : context.textSecondary,
             ),
           ),
         ],
@@ -498,10 +571,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: widget.isMe 
-              ? Colors.grey[300]?.withOpacity(0.5)
-              : Colors.grey[200]?.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(16),
+          color: context.containerColor.withValues(alpha: 0.5),
+          borderRadius: AppRadius.borderLG,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -509,14 +580,13 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             Icon(
               Icons.delete_outline,
               size: 16,
-              color: Colors.grey[600],
+              color: context.textSecondary,
             ),
-            const SizedBox(width: 8),
+            Spacing.hGapSM,
             Text(
               'This message was deleted',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
+              style: context.bodySmall.copyWith(
+                color: context.textSecondary,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -528,11 +598,16 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
     final mediaType = widget.message.media!.type;
     final mediaUrl = widget.message.media!.url;
 
+    // Location messages have their own simple layout
+    if (mediaType == 'location') {
+      return _buildLocationMessageBubble(context, hasText);
+    }
+
     return GestureDetector(
       onLongPress: () => _showContextMenu(context),
       onTap: () {
         // Open media viewer
-        if (mediaType == 'image' && mediaUrl != null) {
+        if (mediaType == 'image' && mediaUrl.isNotEmpty) {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -542,12 +617,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
               ),
             ),
           );
-        } else if (mediaType == 'video') {
-          // TODO: Open video player
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Video player coming soon'),
-              duration: Duration(seconds: 2),
+        } else if (mediaType == 'video' && mediaUrl.isNotEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VideoPlayerScreen(
+                videoUrl: mediaUrl,
+                thumbnail: widget.message.media?.thumbnail,
+                title: widget.message.media?.fileName,
+              ),
             ),
           );
         }
@@ -563,17 +641,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           // Media container with modern design
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+              borderRadius: AppRadius.borderLG,
+              boxShadow: AppShadows.md,
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: AppRadius.borderLG,
               child: Stack(
                 children: [
                   MediaMessageWidget(
@@ -593,18 +665,20 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                       }
                     },
                   ),
-                  // Gradient overlay for better text visibility
+                  // Gradient overlay for better text visibility (ignore pointer to allow taps through)
                   Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withOpacity(0.3),
-                          ],
-                          stops: const [0.7, 1.0],
+                    child: IgnorePointer(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              AppColors.black.withValues(alpha: 0.3),
+                            ],
+                            stops: const [0.7, 1.0],
+                          ),
                         ),
                       ),
                     ),
@@ -614,14 +688,14 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                     Positioned.fill(
                       child: Center(
                         child: Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: Spacing.paddingMD,
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.6),
+                            color: AppColors.black.withValues(alpha: 0.6),
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(
                             Icons.play_arrow_rounded,
-                            color: Colors.white,
+                            color: AppColors.white,
                             size: 32,
                           ),
                         ),
@@ -635,25 +709,24 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(12),
+                        color: AppColors.black.withValues(alpha: 0.5),
+                        borderRadius: AppRadius.borderMD,
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             formatMessageTime(widget.message.createdAt),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
+                            style: context.captionSmall.copyWith(
+                              color: AppColors.white,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           if (widget.isMe && widget.message.read) ...[
-                            const SizedBox(width: 4),
+                            Spacing.hGapXS,
                             const Icon(
                               Icons.done_all,
-                              color: Colors.blue,
+                              color: AppColors.info,
                               size: 14,
                             ),
                           ],
@@ -671,31 +744,77 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
               margin: const EdgeInsets.only(top: 4),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: widget.isMe ? myMessageColor : otherMessageColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(16),
-                  topRight: const Radius.circular(16),
-                  bottomLeft: Radius.circular(widget.isMe ? 16 : 4),
-                  bottomRight: Radius.circular(widget.isMe ? 4 : 16),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 4,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
+                color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
+                borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+                boxShadow: AppShadows.sm,
               ),
               child: Text(
                 widget.message.message!,
-                style: TextStyle(
-                  color: widget.isMe ? myTextColor : otherTextColor,
-                  fontSize: 16,
-                  height: 1.35,
-                  letterSpacing: -0.3,
+                style: context.bodyMedium.copyWith(
+                  color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
                 ),
               ),
             ),
+        ],
+      ),
+    );
+  }
+
+  /// Build a clean location message bubble (without gradient overlays)
+  Widget _buildLocationMessageBubble(BuildContext context, bool hasText) {
+    return GestureDetector(
+      onLongPress: () => _showContextMenu(context),
+      child: Column(
+        crossAxisAlignment:
+            widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Reply preview if this message is a reply
+          if (widget.replyToMessage != null) _buildReplyPreview(),
+
+          // Location card
+          MediaMessageWidget(
+            media: widget.message.media!,
+            isSentByMe: widget.isMe,
+            onTap: () {}, // Location widget handles its own tap
+          ),
+
+          // Text caption below location
+          if (hasText)
+            Container(
+              margin: const EdgeInsets.only(top: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
+                borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+              ),
+              child: Text(
+                widget.message.message!,
+                style: context.bodyMedium.copyWith(
+                  color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
+                ),
+              ),
+            ),
+
+          // Timestamp
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  formatMessageTime(widget.message.createdAt),
+                  style: context.captionSmall.copyWith(
+                    color: _timestampColor(context),
+                  ),
+                ),
+                if (widget.isMe && widget.message.read) ...[
+                  Spacing.hGapXS,
+                  Icon(Icons.done_all, size: 14, color: AppColors.info),
+                ],
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -748,10 +867,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         MediaQuery.of(context).size.height - menuY - menuHeight,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: AppRadius.borderLG,
       ),
       elevation: 8,
-      color: Colors.white,
+      color: context.surfaceColor,
       items: _buildContextMenuItems(context),
     ).then((value) {
       if (value != null) {
@@ -773,15 +892,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(6),
+                padding: Spacing.paddingSM,
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.info.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderSM,
                 ),
-                child: Icon(Icons.content_copy_rounded, size: 18, color: Colors.blue[700]),
+                child: const Icon(Icons.content_copy_rounded, size: 18, color: AppColors.info),
               ),
-              const SizedBox(width: 12),
-              Text(AppLocalizations.of(context)!.copy, style: const TextStyle(fontSize: 15)),
+              Spacing.hGapMD,
+              Text(AppLocalizations.of(context)!.copy, style: context.bodyMedium),
             ],
           ),
         ),
@@ -797,23 +916,23 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: Spacing.paddingSM,
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.success.withValues(alpha: 0.1),
+                borderRadius: AppRadius.borderSM,
               ),
-              child: Icon(Icons.reply_rounded, size: 18, color: Colors.green[700]),
+              child: const Icon(Icons.reply_rounded, size: 18, color: AppColors.success),
             ),
-            const SizedBox(width: 12),
-            Text(AppLocalizations.of(context)!.reply, style: const TextStyle(fontSize: 15)),
+            Spacing.hGapMD,
+            Text(AppLocalizations.of(context)!.reply, style: context.bodyMedium),
           ],
         ),
       ),
     );
     
     // Edit (only for my messages, within 15 minutes, text only, not deleted)
-    if (widget.isMe && 
-        widget.message.message != null && 
+    if (widget.isMe &&
+        widget.message.message != null &&
         !widget.message.isDeleted &&
         widget.message.media == null &&
         _canEditMessage()) {
@@ -825,15 +944,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(6),
+                padding: Spacing.paddingSM,
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.warning.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderSM,
                 ),
-                child: Icon(Icons.edit_rounded, size: 18, color: Colors.orange[700]),
+                child: const Icon(Icons.edit_rounded, size: 18, color: AppColors.warning),
               ),
-              const SizedBox(width: 12),
-              Text(AppLocalizations.of(context)!.edit, style: const TextStyle(fontSize: 15)),
+              Spacing.hGapMD,
+              Text(AppLocalizations.of(context)!.edit, style: context.bodyMedium),
             ],
           ),
         ),
@@ -849,15 +968,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: Spacing.paddingSM,
               decoration: BoxDecoration(
-                color: Colors.purple.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.accent.withValues(alpha: 0.1),
+                borderRadius: AppRadius.borderSM,
               ),
-              child: Icon(Icons.forward_rounded, size: 18, color: Colors.purple[700]),
+              child: const Icon(Icons.forward_rounded, size: 18, color: AppColors.accent),
             ),
-            const SizedBox(width: 12),
-            Text(AppLocalizations.of(context)!.forward, style: const TextStyle(fontSize: 15)),
+            Spacing.hGapMD,
+            Text(AppLocalizations.of(context)!.forward, style: context.bodyMedium),
           ],
         ),
       ),
@@ -872,21 +991,21 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: Spacing.paddingSM,
               decoration: BoxDecoration(
-                color: Colors.amber.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.secondary.withValues(alpha: 0.1),
+                borderRadius: AppRadius.borderSM,
               ),
               child: Icon(
                 widget.message.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
                 size: 18,
-                color: Colors.amber[700],
+                color: AppColors.secondaryDark,
               ),
             ),
-            const SizedBox(width: 12),
+            Spacing.hGapMD,
             Text(
               widget.message.isPinned ? 'Unpin' : 'Pin',
-              style: TextStyle(fontSize: 15, color: Colors.amber[700]),
+              style: context.bodyMedium.copyWith(color: AppColors.secondaryDark),
             ),
           ],
         ),
@@ -906,15 +1025,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(6),
+                padding: Spacing.paddingSM,
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.warning.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderSM,
                 ),
-                child: Icon(Icons.flag_rounded, size: 18, color: Colors.orange[700]),
+                child: const Icon(Icons.flag_rounded, size: 18, color: AppColors.warning),
               ),
-              const SizedBox(width: 12),
-              Text('Report', style: TextStyle(fontSize: 15, color: Colors.orange[700])),
+              Spacing.hGapMD,
+              Text('Report', style: context.bodyMedium.copyWith(color: AppColors.warning)),
             ],
           ),
         ),
@@ -931,15 +1050,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(6),
+                padding: Spacing.paddingSM,
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.error.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderSM,
                 ),
-                child: Icon(Icons.delete_rounded, size: 18, color: Colors.red[700]),
+                child: const Icon(Icons.delete_rounded, size: 18, color: AppColors.error),
               ),
-              const SizedBox(width: 12),
-              Text('Delete', style: TextStyle(fontSize: 15, color: Colors.red[700])),
+              Spacing.hGapMD,
+              Text('Delete', style: context.bodyMedium.copyWith(color: AppColors.error)),
             ],
           ),
         ),
@@ -955,15 +1074,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: Spacing.paddingSM,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: context.containerColor,
+                borderRadius: AppRadius.borderSM,
               ),
-              child: Icon(Icons.more_horiz_rounded, size: 18, color: Colors.grey[700]),
+              child: Icon(Icons.more_horiz_rounded, size: 18, color: context.textSecondary),
             ),
-            const SizedBox(width: 12),
-            Text(AppLocalizations.of(context)!.moreOptions, style: const TextStyle(fontSize: 15)),
+            Spacing.hGapMD,
+            Text(AppLocalizations.of(context)!.moreOptions, style: context.bodyMedium),
           ],
         ),
       ),
@@ -981,18 +1100,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           Clipboard.setData(ClipboardData(text: widget.message.message!));
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Row(
+              content: Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.white),
-                  SizedBox(width: 12),
-                  Text('Message copied'),
+                  const Icon(Icons.check_circle, color: AppColors.white),
+                  Spacing.hGapMD,
+                  const Text('Message copied'),
                 ],
               ),
               duration: const Duration(seconds: 2),
-              backgroundColor: Colors.black87,
+              backgroundColor: AppColors.gray900,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: AppRadius.borderMD,
               ),
             ),
           );
@@ -1064,9 +1183,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: context.surfaceColor,
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(24),
               topRight: Radius.circular(24),
             ),
@@ -1081,19 +1200,19 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                   width: 36,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(2),
+                    color: context.containerHighColor,
+                    borderRadius: AppRadius.borderXS,
                   ),
                 ),
 
                 // Message preview
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: Spacing.paddingLG,
                   margin:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF8F8F8),
-                    borderRadius: BorderRadius.circular(16),
+                    color: context.containerColor,
+                    borderRadius: AppRadius.borderLG,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1103,38 +1222,31 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                           CircleAvatar(
                             radius: 16,
                             backgroundColor:
-                                widget.isMe ? myMessageColor : Colors.grey[300],
+                                widget.isMe ? _myMessageColor(context) : context.containerHighColor,
                             child: Text(
                               widget.isMe
                                   ? 'You'[0]
                                   : widget.otherUserName.isNotEmpty
                                       ? widget.otherUserName[0].toUpperCase()
                                       : '?',
-                              style: TextStyle(
-                                color: widget.isMe ? Colors.white : Colors.black87,
-                                fontSize: 14,
+                              style: context.labelMedium.copyWith(
+                                color: widget.isMe ? AppColors.white : context.textPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          Spacing.hGapMD,
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   widget.isMe ? 'You' : widget.otherUserName,
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: context.titleSmall,
                                 ),
                                 Text(
                                   formatFullDateTime(widget.message.createdAt),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[600],
-                                  ),
+                                  style: context.caption,
                                 ),
                               ],
                             ),
@@ -1144,22 +1256,21 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 4),
                               decoration: BoxDecoration(
-                                color: Colors.blue.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12),
+                                color: AppColors.info.withValues(alpha: 0.1),
+                                borderRadius: AppRadius.borderMD,
                               ),
                               child: Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.done_all,
                                     size: 14,
-                                    color: Colors.blue[700],
+                                    color: AppColors.info,
                                   ),
-                                  const SizedBox(width: 4),
+                                  Spacing.hGapXS,
                                   Text(
                                     'Read',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      color: Colors.blue[700],
+                                    style: context.captionSmall.copyWith(
+                                      color: AppColors.info,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -1170,15 +1281,12 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                       ),
                       if (widget.message.message != null &&
                           widget.message.message!.isNotEmpty) ...[
-                        const SizedBox(height: 12),
+                        Spacing.gapMD,
                         Text(
                           widget.message.message!,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            height: 1.4,
-                          ),
+                          style: context.bodySmall,
                         ),
                       ],
                     ],
@@ -1198,18 +1306,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: const Row(
+                          content: Row(
                             children: [
-                              Icon(Icons.check_circle, color: Colors.white),
-                              SizedBox(width: 12),
-                              Text('Message copied'),
+                              const Icon(Icons.check_circle, color: AppColors.white),
+                              Spacing.hGapMD,
+                              const Text('Message copied'),
                             ],
                           ),
                           duration: const Duration(seconds: 2),
-                          backgroundColor: Colors.black87,
+                          backgroundColor: AppColors.gray900,
                           behavior: SnackBarBehavior.floating,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: AppRadius.borderMD,
                           ),
                         ),
                       );
@@ -1264,7 +1372,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                   context,
                   icon: widget.message.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
                   label: widget.message.isPinned ? 'Unpin' : 'Pin',
-                  color: Colors.amber[700],
+                  color: AppColors.secondaryDark,
                   onTap: () {
                     Navigator.pop(context);
                     if (widget.message.isPinned) {
@@ -1284,7 +1392,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                     context,
                     icon: Icons.flag_rounded,
                     label: 'Report',
-                    color: const Color(0xFFFF9500),
+                    color: AppColors.warning,
                     onTap: () {
                       Navigator.pop(context);
                       showDialog(
@@ -1303,7 +1411,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                     context,
                     icon: Icons.delete_rounded,
                     label: 'Delete',
-                    color: const Color(0xFFFF3B30),
+                    color: AppColors.error,
                     onTap: () {
                       Navigator.pop(context);
                       if (widget.onDelete != null) {
@@ -1312,7 +1420,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                     },
                   ),
 
-                const SizedBox(height: 16),
+                Spacing.gapLG,
               ],
             ),
           ),
@@ -1334,13 +1442,12 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         child: Row(
           children: [
-            Icon(icon, color: color ?? Colors.black87, size: 22),
-            const SizedBox(width: 16),
+            Icon(icon, color: color ?? context.textPrimary, size: 22),
+            Spacing.hGapLG,
             Text(
               label,
-              style: TextStyle(
-                color: color ?? Colors.black87,
-                fontSize: 16,
+              style: context.bodyLarge.copyWith(
+                color: color ?? context.textPrimary,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -1352,12 +1459,14 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
 
 
   bool _isSticker(String text) {
-    // Check if it's a single emoji
-    return text.length <= 4 &&
-        RegExp(
-          r'^[\u{1f300}-\u{1f9ff}\u{2600}-\u{27bf}]+$',
-          unicode: true,
-        ).hasMatch(text);
+    // Check if it's a single emoji or short emoji sequence (1-3 emojis)
+    // Unicode ranges for emojis including variation selectors and skin tones
+    final emojiPattern = RegExp(
+      r'^(?:[\u{1f300}-\u{1f9ff}]|[\u{2600}-\u{27bf}]|[\u{2300}-\u{23ff}]|[\u{2b50}]|[\u{2764}]|[\u{fe0f}]|[\u{200d}]|[\u{1f3fb}-\u{1f3ff}])+$',
+      unicode: true,
+    );
+    // Also check it's short enough (max ~12 chars for compound emoji like family)
+    return text.length <= 12 && emojiPattern.hasMatch(text);
   }
 
   /// Check if message can be edited (within 15 minutes)

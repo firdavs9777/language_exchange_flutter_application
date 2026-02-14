@@ -768,9 +768,8 @@ class AuthService extends ChangeNotifier {
   /// 5. Clear caches
   Future<void> _clearAuthData() async {
     debugPrint('🧹 Starting complete logout cleanup...');
-    debugPrint(
-      '⚠️ Current token: ${token.substring(0, 20)}... (needed for cleanup)',
-    );
+    final tokenPreview = token.length > 20 ? '${token.substring(0, 20)}...' : (token.isNotEmpty ? token : '(empty)');
+    debugPrint('⚠️ Current token: $tokenPreview (needed for cleanup)');
 
     // 1. FIRST: Disconnect all socket connections (WHILE STILL AUTHENTICATED!)
     // This sends 'logout' event to backend which requires the token

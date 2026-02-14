@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -39,9 +40,9 @@ class MomentsService {
                           'Failed to load moments';
       
       // Log the actual backend error for debugging
-      print('❌ Backend error loading moments: $errorMessage');
-      print('📡 Response status: ${response.statusCode}');
-      print('📡 Response body: ${response.body}');
+      debugPrint('❌ Backend error loading moments: $errorMessage');
+      debugPrint('📡 Response status: ${response.statusCode}');
+      debugPrint('📡 Response body: ${response.body}');
       
       throw Exception(errorMessage);
     }
@@ -419,15 +420,15 @@ class MomentsService {
     );
 
     try {
-      print('📤 Uploading video for moment: $momentId');
-      print('📤 Video file: ${videoFile.path}');
-      print('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
-      print('📤 MIME type: $mimeType');
-      print('📤 URL: $url');
+      debugPrint('📤 Uploading video for moment: $momentId');
+      debugPrint('📤 Video file: ${videoFile.path}');
+      debugPrint('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
+      debugPrint('📤 MIME type: $mimeType');
+      debugPrint('📤 URL: $url');
 
       final streamedResponse = await request.send();
 
-      print('📡 Video upload response status: ${streamedResponse.statusCode}');
+      debugPrint('📡 Video upload response status: ${streamedResponse.statusCode}');
 
       // Track upload progress
       int uploaded = 0;
@@ -447,12 +448,12 @@ class MomentsService {
         headers: streamedResponse.headers,
       );
 
-      print('📡 Video upload response body: ${response.body}');
+      debugPrint('📡 Video upload response body: ${response.body}');
 
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200 && responseData['success'] == true) {
-        print('✅ Video uploaded successfully');
+        debugPrint('✅ Video uploaded successfully');
         return responseData['data'] ?? {};
       } else {
         // Handle specific backend errors
@@ -460,9 +461,9 @@ class MomentsService {
             responseData['message'] ??
             'Failed to upload video';
 
-        print('❌ Video upload failed: $errorMessage');
-        print('❌ Response status: ${response.statusCode}');
-        print('❌ Full response: ${response.body}');
+        debugPrint('❌ Video upload failed: $errorMessage');
+        debugPrint('❌ Response status: ${response.statusCode}');
+        debugPrint('❌ Full response: ${response.body}');
 
         // Check for video service unavailable errors
         if (errorMessage.toString().toLowerCase().contains('unavailable') ||
@@ -474,13 +475,13 @@ class MomentsService {
         throw Exception(errorMessage);
       }
     } on http.ClientException catch (e) {
-      print('❌ Network error uploading video: ${e.message}');
+      debugPrint('❌ Network error uploading video: ${e.message}');
       throw Exception('Network error uploading video: ${e.message}');
     } on FormatException catch (e) {
-      print('❌ Format exception during video upload: $e');
+      debugPrint('❌ Format exception during video upload: $e');
       throw Exception('Invalid response from server. Video service may be unavailable.');
     } catch (e) {
-      print('❌ Video upload exception: $e');
+      debugPrint('❌ Video upload exception: $e');
       if (e is Exception) {
         rethrow;
       }

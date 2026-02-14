@@ -2,7 +2,9 @@ import 'package:bananatalk_app/pages/profile/about/profile_single_moment.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileMoments extends ConsumerStatefulWidget {
@@ -181,7 +183,10 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
         : null;
 
     return GestureDetector(
-      onTap: () => _showMomentDetail(moment),
+      onTap: () {
+        HapticFeedback.selectionClick();
+        _showMomentDetail(moment);
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -193,33 +198,17 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
             fit: StackFit.expand,
             children: [
               if (imageUrl != null)
-                Image.network(
-                  imageUrl,
+                CachedImageWidget(
+                  imageUrl: imageUrl,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[300],
-                      child: const Icon(
-                        Icons.image_not_supported,
-                        color: Colors.grey,
-                      ),
-                    );
-                  },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      color: Colors.grey[200],
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                          strokeWidth: 2,
-                        ),
-                      ),
-                    );
-                  },
+                  useNormalization: false, // Already normalized
+                  errorWidget: Container(
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.image_not_supported,
+                      color: Colors.grey,
+                    ),
+                  ),
                 )
               else
                 Container(
@@ -237,7 +226,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Row(

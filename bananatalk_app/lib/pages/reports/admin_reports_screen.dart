@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -43,7 +44,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         type: _selectedType,
         priority: _selectedPriority,
       );
-      
+
       if (result['success'] == true) {
         setState(() {
           _reports = result['data'] ?? [];
@@ -65,13 +66,13 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
 
   Future<void> _startReview(String reportId) async {
     final result = await _reportService.startReview(reportId);
-    
+
     if (mounted) {
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.reviewStarted),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.success,
           ),
         );
         _loadReports();
@@ -79,7 +80,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(result['error'] ?? 'Failed to start review'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -91,7 +92,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     if (action == null) return;
 
     final notes = await _showNotesDialog();
-    
+
     final result = await _reportService.resolveReport(
       reportId: reportId,
       action: action,
@@ -103,7 +104,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.reportResolved),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.success,
           ),
         );
         _loadReports();
@@ -111,7 +112,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(result['error'] ?? 'Failed to resolve report'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -120,7 +121,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
 
   Future<void> _dismissReport(String reportId) async {
     final notes = await _showNotesDialog();
-    
+
     final result = await _reportService.dismissReport(
       reportId: reportId,
       notes: notes,
@@ -131,7 +132,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.reportDismissed),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.success,
           ),
         );
         _loadReports();
@@ -139,7 +140,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(result['error'] ?? 'Failed to dismiss report'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -150,28 +151,47 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     return showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.selectAction),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+        title: Text(
+          AppLocalizations.of(context)!.selectAction,
+          style: context.titleLarge,
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text(AppLocalizations.of(context)!.noViolation),
+              title: Text(
+                AppLocalizations.of(context)!.noViolation,
+                style: context.bodyMedium,
+              ),
               onTap: () => Navigator.pop(context, 'no_violation'),
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.contentRemoved),
+              title: Text(
+                AppLocalizations.of(context)!.contentRemoved,
+                style: context.bodyMedium,
+              ),
               onTap: () => Navigator.pop(context, 'content_removed'),
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.userWarned),
+              title: Text(
+                AppLocalizations.of(context)!.userWarned,
+                style: context.bodyMedium,
+              ),
               onTap: () => Navigator.pop(context, 'user_warned'),
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.userSuspended),
+              title: Text(
+                AppLocalizations.of(context)!.userSuspended,
+                style: context.bodyMedium,
+              ),
               onTap: () => Navigator.pop(context, 'user_suspended'),
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.userBanned),
+              title: Text(
+                AppLocalizations.of(context)!.userBanned,
+                style: context.bodyMedium,
+              ),
               onTap: () => Navigator.pop(context, 'user_banned'),
             ),
           ],
@@ -185,18 +205,27 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     return showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.addNotesOptional),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+        title: Text(
+          AppLocalizations.of(context)!.addNotesOptional,
+          style: context.titleLarge,
+        ),
         content: TextField(
           controller: controller,
           maxLines: 4,
+          style: context.bodyMedium,
           decoration: InputDecoration(
             hintText: AppLocalizations.of(context)!.enterModeratorNotes,
+            hintStyle: context.bodyMedium.copyWith(color: context.textHint),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, null),
-            child: Text(AppLocalizations.of(context)!.skip),
+            child: Text(
+              AppLocalizations.of(context)!.skip,
+              style: context.labelLarge.copyWith(color: context.textSecondary),
+            ),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, controller.text.trim()),
@@ -209,12 +238,14 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.reportsManagement),
-        backgroundColor: colorScheme.surface,
+        title: Text(
+          AppLocalizations.of(context)!.reportsManagement,
+          style: context.titleLarge,
+        ),
+        backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         elevation: 0,
         actions: [
@@ -232,7 +263,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         children: [
           // Stats Summary
           _buildStatsSummary(),
-          
+
           // Reports List
           Expanded(
             child: _isLoading
@@ -245,15 +276,17 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                             Icon(
                               Icons.error_outline,
                               size: 64,
-                              color: colorScheme.error,
+                              color: AppColors.error,
                             ),
-                            const SizedBox(height: 16),
+                            Spacing.gapLG,
                             Text(
                               _error!,
-                              style: TextStyle(color: context.textSecondary),
+                              style: context.bodyMedium.copyWith(
+                                color: context.textSecondary,
+                              ),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(height: 24),
+                            Spacing.gapXXL,
                             ElevatedButton(
                               onPressed: _loadReports,
                               child: Text(AppLocalizations.of(context)!.retry),
@@ -269,14 +302,12 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                                 Icon(
                                   Icons.flag_outlined,
                                   size: 64,
-                                  color: Colors.grey[400],
+                                  color: context.textHint,
                                 ),
-                                const SizedBox(height: 16),
+                                Spacing.gapLG,
                                 Text(
                                   'No reports found',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                  style: context.titleLarge.copyWith(
                                     color: context.textPrimary,
                                   ),
                                 ),
@@ -286,7 +317,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                         : RefreshIndicator(
                             onRefresh: _loadReports,
                             child: ListView.builder(
-                              padding: const EdgeInsets.all(16),
+                              padding: Spacing.screenPadding,
                               itemCount: _reports.length,
                               itemBuilder: (context, index) {
                                 final report = _reports[index];
@@ -306,12 +337,12 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     final resolvedCount = _reports.where((r) => r['status'] == 'resolved').length;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: Spacing.paddingLG,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: context.surfaceColor,
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey[300]!,
+            color: context.dividerColor,
             width: 1,
           ),
         ),
@@ -319,13 +350,13 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
       child: Row(
         children: [
           Expanded(
-            child: _buildStatItem('Pending', pendingCount, Colors.orange),
+            child: _buildStatItem('Pending', pendingCount, AppColors.warning),
           ),
           Expanded(
-            child: _buildStatItem('Under Review', underReviewCount, Colors.blue),
+            child: _buildStatItem('Under Review', underReviewCount, AppColors.info),
           ),
           Expanded(
-            child: _buildStatItem('Resolved', resolvedCount, Colors.green),
+            child: _buildStatItem('Resolved', resolvedCount, AppColors.success),
           ),
         ],
       ),
@@ -337,19 +368,14 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
       children: [
         Text(
           count.toString(),
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+          style: context.displayMedium.copyWith(
             color: color,
           ),
         ),
-        const SizedBox(height: 4),
+        Spacing.gapXS,
         Text(
           label,
-          style: TextStyle(
-            fontSize: 12,
-            color: context.textSecondary,
-          ),
+          style: context.caption,
         ),
       ],
     );
@@ -358,18 +384,19 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
   Widget _buildReportCard(Map<String, dynamic> report) {
     final status = report['status']?.toString() ?? 'pending';
     final priority = report['priority']?.toString() ?? 'medium';
-    
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
+      color: context.cardBackground,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: AppRadius.borderMD,
       ),
       child: ExpansionTile(
         leading: Container(
-          padding: const EdgeInsets.all(8),
+          padding: Spacing.paddingSM,
           decoration: BoxDecoration(
             color: _getPriorityColor(priority).withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: AppRadius.borderSM,
           ),
           child: Icon(
             Icons.flag_outlined,
@@ -379,31 +406,36 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ),
         title: Text(
           '${_getTypeLabel(report['type'])} Report',
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: context.titleMedium,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Reason: ${_getReasonLabel(report['reason'])}'),
-            const SizedBox(height: 4),
+            Text(
+              'Reason: ${_getReasonLabel(report['reason'])}',
+              style: context.bodySmall,
+            ),
+            Spacing.gapXS,
             Row(
               children: [
                 Chip(
                   label: Text(
                     status.toUpperCase(),
-                    style: const TextStyle(fontSize: 10),
+                    style: context.captionSmall.copyWith(
+                      color: _getStatusColor(status),
+                    ),
                   ),
                   backgroundColor: _getStatusColor(status).withOpacity(0.1),
-                  labelStyle: TextStyle(color: _getStatusColor(status)),
                 ),
-                const SizedBox(width: 8),
+                Spacing.hGapSM,
                 Chip(
                   label: Text(
                     priority.toUpperCase(),
-                    style: const TextStyle(fontSize: 10),
+                    style: context.captionSmall.copyWith(
+                      color: _getPriorityColor(priority),
+                    ),
                   ),
                   backgroundColor: _getPriorityColor(priority).withOpacity(0.1),
-                  labelStyle: TextStyle(color: _getPriorityColor(priority)),
                 ),
               ],
             ),
@@ -417,8 +449,11 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                 child: Row(
                   children: [
                     const Icon(Icons.visibility, size: 20),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.startReview),
+                    Spacing.hGapSM,
+                    Text(
+                      AppLocalizations.of(context)!.startReview,
+                      style: context.bodyMedium,
+                    ),
                   ],
                 ),
               ),
@@ -428,8 +463,11 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                 child: Row(
                   children: [
                     const Icon(Icons.check_circle, size: 20),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.resolve),
+                    Spacing.hGapSM,
+                    Text(
+                      AppLocalizations.of(context)!.resolve,
+                      style: context.bodyMedium,
+                    ),
                   ],
                 ),
               ),
@@ -438,9 +476,12 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                 value: 'dismiss',
                 child: Row(
                   children: [
-                    Icon(Icons.cancel, size: 20),
-                    SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.dismiss),
+                    const Icon(Icons.cancel, size: 20),
+                    Spacing.hGapSM,
+                    Text(
+                      AppLocalizations.of(context)!.dismiss,
+                      style: context.bodyMedium,
+                    ),
                   ],
                 ),
               ),
@@ -461,25 +502,25 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
         ),
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: Spacing.paddingLG,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildInfoRow('Report ID', report['_id']?.toString() ?? 'N/A'),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 _buildInfoRow('Reported By', report['reportedBy']?['name'] ?? 'N/A'),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 _buildInfoRow('Reported User', report['reportedUser']?['name'] ?? 'N/A'),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 _buildInfoRow('Type', _getTypeLabel(report['type'])),
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 _buildInfoRow('Reason', _getReasonLabel(report['reason'])),
                 if (report['description'] != null &&
                     report['description'].toString().isNotEmpty) ...[
-                  const SizedBox(height: 8),
+                  Spacing.gapSM,
                   _buildInfoRow('Description', report['description'].toString()),
                 ],
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 _buildInfoRow(
                   'Submitted',
                   report['createdAt'] != null
@@ -487,7 +528,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                       : 'N/A',
                 ),
                 if (report['resolvedAt'] != null) ...[
-                  const SizedBox(height: 8),
+                  Spacing.gapSM,
                   _buildInfoRow(
                     'Resolved',
                     _formatDate(report['resolvedAt'].toString()),
@@ -495,7 +536,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                 ],
                 if (report['moderatorNotes'] != null &&
                     report['moderatorNotes'].toString().isNotEmpty) ...[
-                  const SizedBox(height: 8),
+                  Spacing.gapSM,
                   _buildInfoRow('Moderator Notes', report['moderatorNotes'].toString()),
                 ],
               ],
@@ -514,20 +555,15 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
           width: 120,
           child: Text(
             label,
-            style: TextStyle(
-              fontSize: 12,
+            style: context.labelSmall.copyWith(
               fontWeight: FontWeight.w600,
-              color: context.textSecondary,
             ),
           ),
         ),
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 12,
-              color: context.textPrimary,
-            ),
+            style: context.bodySmall,
           ),
         ),
       ],
@@ -538,13 +574,20 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.filterReports),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+        title: Text(
+          AppLocalizations.of(context)!.filterReports,
+          style: context.titleLarge,
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             DropdownButtonFormField<String>(
               value: _selectedStatus,
-              decoration: const InputDecoration(labelText: 'Status'),
+              decoration: InputDecoration(
+                labelText: 'Status',
+                labelStyle: context.bodyMedium,
+              ),
               items: [
                 DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context)!.all)),
                 ..._statusFilters.map((s) => DropdownMenuItem(value: s, child: Text(s))),
@@ -557,7 +600,10 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
             ),
             DropdownButtonFormField<String>(
               value: _selectedType,
-              decoration: const InputDecoration(labelText: 'Type'),
+              decoration: InputDecoration(
+                labelText: 'Type',
+                labelStyle: context.bodyMedium,
+              ),
               items: [
                 DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context)!.all)),
                 ..._typeFilters.map((t) => DropdownMenuItem(value: t, child: Text(t))),
@@ -570,7 +616,10 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
             ),
             DropdownButtonFormField<String>(
               value: _selectedPriority,
-              decoration: const InputDecoration(labelText: 'Priority'),
+              decoration: InputDecoration(
+                labelText: 'Priority',
+                labelStyle: context.bodyMedium,
+              ),
               items: [
                 DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context)!.all)),
                 ..._priorityFilters.map((p) => DropdownMenuItem(value: p, child: Text(p))),
@@ -594,7 +643,10 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
               Navigator.pop(context);
               _loadReports();
             },
-            child: Text(AppLocalizations.of(context)!.clear),
+            child: Text(
+              AppLocalizations.of(context)!.clear,
+              style: context.labelLarge.copyWith(color: context.textSecondary),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -651,30 +703,30 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'pending':
-        return Colors.orange;
+        return AppColors.warning;
       case 'under_review':
-        return Colors.blue;
+        return AppColors.info;
       case 'resolved':
-        return Colors.green;
+        return AppColors.success;
       case 'dismissed':
-        return Colors.grey;
+        return AppColors.gray500;
       default:
-        return Colors.grey;
+        return AppColors.gray500;
     }
   }
 
   Color _getPriorityColor(String priority) {
     switch (priority.toLowerCase()) {
       case 'low':
-        return Colors.green;
+        return AppColors.success;
       case 'medium':
-        return Colors.orange;
+        return AppColors.warning;
       case 'high':
-        return Colors.red;
+        return AppColors.error;
       case 'urgent':
-        return Colors.purple;
+        return AppColors.accent;
       default:
-        return Colors.grey;
+        return AppColors.gray500;
     }
   }
 
@@ -687,4 +739,3 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
     }
   }
 }
-

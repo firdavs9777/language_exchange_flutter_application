@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
+import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,9 +38,10 @@ class NotificationHistoryState {
 
 class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState> {
   final NotificationApiClient _apiClient = NotificationApiClient();
+  final Ref _ref;
   static const int _pageSize = 20;
 
-  NotificationHistoryNotifier()
+  NotificationHistoryNotifier(this._ref)
       : super(NotificationHistoryState(
           notifications: [],
           isLoading: false,
@@ -73,7 +75,11 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
         currentPage: 1,
       );
 
-      debugPrint('✅ Loaded ${notifications.length} notifications');
+      // Sync the badge count with actual unread notifications (excluding chat messages)
+      final unreadCount = notifications.where((n) => !n.read).length;
+      _ref.read(badgeCountProvider.notifier).setNotificationCount(unreadCount);
+
+      debugPrint('✅ Loaded ${notifications.length} notifications ($unreadCount unread)');
     } catch (e) {
       debugPrint('❌ Error fetching notification history: $e');
       state = state.copyWith(
@@ -119,7 +125,14 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
   Future<void> markAsRead(String notificationId) async {
     try {
       debugPrint('✅ Marking notification as read: $notificationId');
-      
+
+      // Check if notification was already read
+      final notification = state.notifications.firstWhere(
+        (n) => n.id == notificationId,
+        orElse: () => throw Exception('Notification not found'),
+      );
+      final wasUnread = !notification.read;
+
       // Optimistically update UI
       final updatedNotifications = state.notifications.map((notif) {
         if (notif.id == notificationId) {
@@ -130,6 +143,11 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
 
       state = state.copyWith(notifications: updatedNotifications);
 
+      // Decrement badge count if it was unread
+      if (wasUnread) {
+        _ref.read(badgeCountProvider.notifier).decrementNotifications();
+      }
+
       // Update on backend
       final result = await _apiClient.markAsRead(notificationId);
 
@@ -137,10 +155,13 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
         debugPrint('❌ Failed to mark as read on backend');
         // Revert on failure
         await fetchHistory();
+        // Refresh badge count from backend
+        _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
       }
     } catch (e) {
       debugPrint('❌ Error marking notification as read: $e');
       await fetchHistory();
+      _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
   }
 
@@ -148,13 +169,16 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
   Future<void> markAllAsRead() async {
     try {
       debugPrint('✅ Marking all notifications as read...');
-      
+
       // Optimistically update UI
       final updatedNotifications = state.notifications.map((notif) {
         return notif.copyWith(read: true);
       }).toList();
 
       state = state.copyWith(notifications: updatedNotifications);
+
+      // Reset notifications badge to 0
+      _ref.read(badgeCountProvider.notifier).resetBadge('notifications');
 
       // Update on backend
       final result = await _apiClient.markAllAsRead();
@@ -165,10 +189,12 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
         debugPrint('❌ Failed to mark all as read on backend');
         // Revert on failure
         await fetchHistory();
+        _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
       }
     } catch (e) {
       debugPrint('❌ Error marking all as read: $e');
       await fetchHistory();
+      _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
   }
 
@@ -176,7 +202,7 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
   Future<void> clearAll() async {
     try {
       debugPrint('🗑️ Clearing all notifications...');
-      
+
       final result = await _apiClient.clearAll();
 
       if (result['success'] == true) {
@@ -185,6 +211,8 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
           hasMore: false,
           currentPage: 0,
         );
+        // Reset notifications badge since all cleared
+        _ref.read(badgeCountProvider.notifier).resetBadge('notifications');
         debugPrint('✅ All notifications cleared');
       } else {
         debugPrint('❌ Failed to clear notifications');
@@ -213,7 +241,7 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
 final notificationHistoryProvider =
     StateNotifierProvider<NotificationHistoryNotifier, NotificationHistoryState>(
   (ref) {
-    return NotificationHistoryNotifier();
+    return NotificationHistoryNotifier(ref);
   },
 );
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -30,7 +31,7 @@ class Comments {
         user = Community.fromJson(json['user'] as Map<String, dynamic>);
       } catch (e) {
         // If user parsing fails, try to extract what we can
-        print('Error parsing user in comment: $e');
+        debugPrint('Error parsing user in comment: $e');
         final userData = json['user'] as Map<String, dynamic>?;
         user = Community(
           id: userData?['_id']?.toString() ??

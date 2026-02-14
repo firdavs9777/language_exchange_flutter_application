@@ -69,7 +69,11 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
       latitude = position.latitude;
       longitude = position.longitude;
 
-      final placemarks = await placemarkFromCoordinates(latitude!, longitude!);
+      await setLocaleIdentifier('en_US');
+      final placemarks = await placemarkFromCoordinates(
+        latitude!,
+        longitude!,
+      );
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;

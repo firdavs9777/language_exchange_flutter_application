@@ -1,4 +1,6 @@
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,7 +30,6 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     selectedBloodType = widget.currentSelectedBloodType;
   }
@@ -36,11 +37,18 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('My Blood Type'),
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
+        elevation: 0,
+        title: Text(
+          'My Blood Type',
+          style: context.titleLarge,
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: Spacing.screenPadding,
         child: Column(
           children: [
             // Displaying the blood type options in a grid layout with 4 items per row
@@ -53,6 +61,7 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                 ),
                 itemCount: bloodTypes.length,
                 itemBuilder: (context, index) {
+                  final isSelected = selectedBloodType == bloodTypes[index];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -64,25 +73,24 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
-                        color: selectedBloodType == bloodTypes[index]
-                            ? Colors.blueAccent // Selected color
-                            : Colors.grey[200], // Default color
-                        borderRadius: BorderRadius.circular(8),
+                        color: isSelected
+                            ? context.primaryColor // Selected color
+                            : context.containerColor, // Default color
+                        borderRadius: AppRadius.borderSM,
                         border: Border.all(
-                          color: selectedBloodType == bloodTypes[index]
-                              ? Colors.blue // Border color when selected
-                              : Colors.grey,
+                          color: isSelected
+                              ? context.primaryColor // Border color when selected
+                              : context.dividerColor,
                           width: 1,
                         ),
                       ),
                       child: Text(
                         bloodTypes[index],
-                        style: TextStyle(
-                          fontSize: 14, // Smaller text size
+                        style: context.labelMedium.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: selectedBloodType == bloodTypes[index]
-                              ? Colors.white // White text when selected
-                              : Colors.black, // Black text when not selected
+                          color: isSelected
+                              ? context.textOnPrimary // White text when selected
+                              : context.textPrimary, // Black text when not selected
                         ),
                       ),
                     ),
@@ -95,7 +103,7 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
               padding: const EdgeInsets.only(bottom: 16.0),
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedBloodType != null) {
+                  if (selectedBloodType.isNotEmpty) {
                     await ref
                         .read(authServiceProvider)
                         .updateUserBloodType(bloodType: selectedBloodType);
@@ -112,13 +120,20 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.amber,
-                  foregroundColor: Colors.black,
+                  backgroundColor: AppColors.secondary,
+                  foregroundColor: AppColors.gray900,
                   minimumSize: const Size(double.infinity, 50),
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  textStyle: const TextStyle(fontSize: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: AppRadius.borderMD,
+                  ),
                 ),
-                child: const Text('Save'),
+                child: Text(
+                  'Save',
+                  style: context.titleMedium.copyWith(
+                    color: AppColors.gray900,
+                  ),
+                ),
               ),
             ),
           ],

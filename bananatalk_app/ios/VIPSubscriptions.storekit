@@ -1,0 +1,110 @@
+{
+  "identifier" : "VIPSubscriptions",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1234567890",
+    "_developerTeamID" : "XXXXXXXXXX",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "VIP_MEMBERSHIP",
+      "localizations" : [
+
+      ],
+      "name" : "VIP Membership",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "14.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "vip_month",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited messages, premium filters, and AI study tools",
+              "displayName" : "VIP Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.bananatalk.bananatalkApp.vip.month",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "VIP Monthly",
+          "subscriptionGroupID" : "VIP_MEMBERSHIP",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "19.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "vip_quarter",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited messages, premium filters, and AI study tools. Save 56%!",
+              "displayName" : "VIP Quarterly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.bananatalk.bananatalkApp.vip.quarter",
+          "recurringSubscriptionPeriod" : "P3M",
+          "referenceName" : "VIP Quarterly",
+          "subscriptionGroupID" : "VIP_MEMBERSHIP",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "49.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "vip_year",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited messages, premium filters, and AI study tools. Save 72%!",
+              "displayName" : "VIP Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.bananatalk.bananatalkApp.vip.year",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "VIP Yearly",
+          "subscriptionGroupID" : "VIP_MEMBERSHIP",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

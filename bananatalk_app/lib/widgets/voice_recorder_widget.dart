@@ -136,7 +136,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
 
       await _recorder!.startRecorder(
         toFile: _recordingPath,
-        codec: Codec.aacMP4,
+        codec: Codec.aacADTS, // AAC format - works on iOS, backend should convert if needed
         bitRate: 128000,
         sampleRate: 44100,
       );

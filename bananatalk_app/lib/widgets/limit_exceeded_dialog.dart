@@ -97,6 +97,7 @@ class LimitExceededDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
+      contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
       title: Row(
         children: [
           Container(
@@ -228,6 +229,61 @@ class LimitExceededDialog extends StatelessWidget {
                 ),
               ),
             ],
+            // VIP Benefits Section
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xFFFFD700).withOpacity(0.15),
+                    const Color(0xFFFFA500).withOpacity(0.1),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFFFFD700).withOpacity(0.3),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Icon(
+                          Icons.workspace_premium,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        'VIP Members Get',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  _buildVipBenefit('Unlimited messages'),
+                  _buildVipBenefit('Unlimited profile views'),
+                  _buildVipBenefit('Advanced filters'),
+                  _buildVipBenefit('AI Study tools'),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -235,7 +291,7 @@ class LimitExceededDialog extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'OK',
+            'Maybe Later',
             style: TextStyle(
               color: secondaryText,
               fontWeight: FontWeight.w500,
@@ -253,16 +309,50 @@ class LimitExceededDialog extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: colorScheme.primary,
-            foregroundColor: colorScheme.onPrimary,
+            backgroundColor: const Color(0xFFFFD700),
+            foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
+            elevation: 2,
           ),
-          child: const Text('Upgrade to VIP'),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.workspace_premium, size: 18),
+              SizedBox(width: 6),
+              Text(
+                'Upgrade to VIP',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ],
+    );
+  }
+
+  Widget _buildVipBenefit(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.check_circle,
+            color: Color(0xFF4CAF50),
+            size: 16,
+          ),
+          const SizedBox(width: 8),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

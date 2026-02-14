@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,7 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
 
       return count;
     } catch (e) {
-      print('❌ Error getting message count: $e');
+      debugPrint('❌ Error getting message count: $e');
       return 0;
     }
   }
@@ -76,7 +77,7 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
       final count = messages.length;
       setMessageCount(otherUserId, count);
     } catch (e) {
-      print('❌ Error refreshing message count: $e');
+      debugPrint('❌ Error refreshing message count: $e');
     }
   }
 
@@ -112,7 +113,7 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
 
       state = {...state, cacheKey: newCount};
     } catch (e) {
-      print('❌ Error updating message count: $e');
+      debugPrint('❌ Error updating message count: $e');
     }
   }
 

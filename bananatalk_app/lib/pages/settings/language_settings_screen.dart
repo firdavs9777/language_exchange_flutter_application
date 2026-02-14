@@ -1,6 +1,8 @@
 import 'package:bananatalk_app/services/language_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/main.dart';
@@ -30,7 +32,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
     final messages = await TranslationService.shouldAutoTranslate('messages');
     final moments = await TranslationService.shouldAutoTranslate('moments');
     final comments = await TranslationService.shouldAutoTranslate('comments');
-    
+
     setState(() {
       _autoTranslateMessages = messages;
       _autoTranslateMoments = moments;
@@ -55,7 +57,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
     try {
       await LanguageService.setAppLanguage(languageCode);
       ref.read(languageProvider.notifier).setLanguage(languageCode);
-      
+
       setState(() {
         _selectedLanguage = languageCode;
         _isLoading = false;
@@ -68,7 +70,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
             content: Text(
               l10n.languageChangedTo(LanguageService.getLanguageName(languageCode)),
             ),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.success,
             duration: const Duration(seconds: 2),
           ),
         );
@@ -83,7 +85,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${l10n.errorChangingLanguage}: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
           ),
         );
       }
@@ -97,21 +99,17 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
     final languages = LanguageService.getSupportedLanguagesList();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: context.surfaceColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
+          icon: Icon(Icons.arrow_back, color: context.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           l10n.languageSettings,
-          style: const TextStyle(
-            color: Colors.black87,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
+          style: context.titleLarge,
         ),
         centerTitle: true,
       ),
@@ -124,47 +122,44 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                   // Info section
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.all(16),
+                    padding: Spacing.paddingLG,
+                    margin: Spacing.screenPadding,
                     decoration: BoxDecoration(
-                      color: Colors.blue[50],
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.blue[200]!),
+                      color: AppColors.info.withOpacity(0.1),
+                      borderRadius: AppRadius.borderMD,
+                      border: Border.all(color: AppColors.info.withOpacity(0.3)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.info_outline, color: Colors.blue[700]),
-                            const SizedBox(width: 8),
+                            Icon(Icons.info_outline, color: AppColors.info),
+                            Spacing.hGapSM,
                             Text(
                               l10n.deviceLanguage,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue[900],
+                              style: context.titleMedium.copyWith(
+                                color: AppColors.info,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        Spacing.gapSM,
                         Text(
                           l10n.yourDeviceIsSetTo(
                             LanguageService.getLanguageFlag(deviceLanguage),
                             LanguageService.getLanguageName(deviceLanguage),
                           ),
-                          style: TextStyle(
-                            color: Colors.blue[800],
-                            fontSize: 14,
+                          style: context.bodyMedium.copyWith(
+                            color: AppColors.info,
                           ),
                         ),
                         if (_selectedLanguage != deviceLanguage) ...[
-                          const SizedBox(height: 8),
+                          Spacing.gapSM,
                           Text(
                             l10n.youCanOverride,
-                            style: TextStyle(
-                              color: Colors.blue[700],
-                              fontSize: 12,
+                            style: context.bodySmall.copyWith(
+                              color: AppColors.info,
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -181,23 +176,20 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                       children: [
                         Text(
                           l10n.selectLanguage,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
+                          style: context.titleMedium,
                         ),
-                        const SizedBox(height: 12),
+                        Spacing.gapMD,
                         ...languages.map((lang) {
                           final isSelected = _selectedLanguage == lang['code'];
                           return Card(
                             margin: const EdgeInsets.only(bottom: 8),
                             elevation: isSelected ? 2 : 0,
+                            color: context.cardBackground,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: AppRadius.borderMD,
                               side: BorderSide(
                                 color: isSelected
-                                    ? Colors.blue
+                                    ? AppColors.primary
                                     : Colors.transparent,
                                 width: isSelected ? 2 : 0,
                               ),
@@ -209,7 +201,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                               ),
                               title: Text(
                                 lang['name']!,
-                                style: TextStyle(
+                                style: context.titleMedium.copyWith(
                                   fontWeight: isSelected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
@@ -217,15 +209,12 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                               ),
                               subtitle: Text(
                                 lang['code']!.toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 12,
-                                ),
+                                style: context.caption,
                               ),
                               trailing: isSelected
-                                  ? Icon(
+                                  ? const Icon(
                                       Icons.check_circle,
-                                      color: Colors.blue,
+                                      color: AppColors.primary,
                                     )
                                   : null,
                               onTap: () => _changeLanguage(lang['code']!),
@@ -236,7 +225,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  Spacing.gapXXL,
 
                   // Auto-translate settings
                   Padding(
@@ -246,22 +235,27 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                       children: [
                         Text(
                           l10n.autoTranslateSettings,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
+                          style: context.titleMedium,
                         ),
-                        const SizedBox(height: 12),
+                        Spacing.gapMD,
                         Card(
+                          color: context.cardBackground,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: AppRadius.borderMD,
+                          ),
                           child: Column(
                             children: [
                               SwitchListTile(
-                                title: Text(l10n.autoTranslateMessages),
+                                title: Text(
+                                  l10n.autoTranslateMessages,
+                                  style: context.titleSmall,
+                                ),
                                 subtitle: Text(
                                   l10n.automaticallyTranslateIncomingMessages,
+                                  style: context.bodySmall,
                                 ),
                                 value: _autoTranslateMessages,
+                                activeColor: AppColors.primary,
                                 onChanged: (value) async {
                                   setState(() {
                                     _autoTranslateMessages = value;
@@ -272,13 +266,18 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                                   );
                                 },
                               ),
-                              const Divider(height: 1),
+                              Divider(height: 1, color: context.dividerColor),
                               SwitchListTile(
-                                title: Text(l10n.autoTranslateMoments),
+                                title: Text(
+                                  l10n.autoTranslateMoments,
+                                  style: context.titleSmall,
+                                ),
                                 subtitle: Text(
                                   l10n.automaticallyTranslateMomentsInFeed,
+                                  style: context.bodySmall,
                                 ),
                                 value: _autoTranslateMoments,
+                                activeColor: AppColors.primary,
                                 onChanged: (value) async {
                                   setState(() {
                                     _autoTranslateMoments = value;
@@ -289,13 +288,18 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                                   );
                                 },
                               ),
-                              const Divider(height: 1),
+                              Divider(height: 1, color: context.dividerColor),
                               SwitchListTile(
-                                title: Text(l10n.autoTranslateComments),
+                                title: Text(
+                                  l10n.autoTranslateComments,
+                                  style: context.titleSmall,
+                                ),
                                 subtitle: Text(
                                   l10n.automaticallyTranslateComments,
+                                  style: context.bodySmall,
                                 ),
                                 value: _autoTranslateComments,
+                                activeColor: AppColors.primary,
                                 onChanged: (value) async {
                                   setState(() {
                                     _autoTranslateComments = value;
@@ -313,11 +317,10 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  Spacing.gapXXL,
                 ],
               ),
             ),
     );
   }
 }
-

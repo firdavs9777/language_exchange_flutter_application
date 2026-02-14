@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
@@ -39,9 +40,9 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       final authService = ref.read(authServiceProvider);
       final result = await authService.acceptTerms();
       final token = authService.token;
-      print(result['success']);
-      print(authService.token);
-      print(result);
+      debugPrint(result['success'].toString());
+      debugPrint(authService.token);
+      debugPrint(result.toString());
 
       if (!mounted) return;
 

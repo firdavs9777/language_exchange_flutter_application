@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
@@ -7,6 +8,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
@@ -19,17 +21,15 @@ class CommentsMain extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textPrimary = context.textPrimary;
-    final secondaryText = context.textSecondary;
     // Watching the commentsProvider to get the list of comments for the given id
     final commentsAsyncValue = ref.watch(commentsProvider(id));
 
-    print(commentsAsyncValue);
+    debugPrint(commentsAsyncValue.toString());
 
     return Card(
       color: Colors.transparent,
       elevation: 0,
-      margin: const EdgeInsets.all(16.0),
+      margin: const EdgeInsets.all(AppSpacing.lg),
       child: commentsAsyncValue.when(
         // Handle different states of AsyncValue: data, loading, error
         data: (comments) {
@@ -40,7 +40,7 @@ class CommentsMain extends ConsumerWidget {
                 Container(
                     height: 300,
                     child:
-                        Center(child: Text(l10n.beTheFirstToComment))),
+                        Center(child: Text(l10n.beTheFirstToComment, style: context.bodyMedium))),
               ],
             );
           }
@@ -49,13 +49,10 @@ class CommentsMain extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(AppSpacing.lg),
                 child: Text(
                   '${AppLocalizations.of(context)!.comments} (${comments.length})',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+                  style: context.displaySmall,
                 ),
               ),
               // Mapping comments to ListTiles for display
@@ -66,7 +63,7 @@ class CommentsMain extends ConsumerWidget {
                       color: Colors.transparent,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: AppRadius.borderLG,
                       ),
                       child: Column(
                         children: <Widget>[
@@ -101,7 +98,7 @@ class CommentsMain extends ConsumerWidget {
                                     ? comment.user.imageUrls[0]
                                     : null,
                                 radius: 25,
-                                backgroundColor: const Color(0xFF00BFA5),
+                                backgroundColor: AppColors.primary,
                                 errorWidget: Icon(
                                   Icons.person,
                                   size: 25,
@@ -111,13 +108,10 @@ class CommentsMain extends ConsumerWidget {
                             ),
                             title: Text(
                               comment.user.name ?? 'no',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                              style: context.titleMedium,
                             ),
                             subtitle: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(AppSpacing.sm),
                               child: TranslatedCommentWidget(
                                 commentId: comment.id,
                                 originalText: comment.text.toString(),
@@ -128,24 +122,24 @@ class CommentsMain extends ConsumerWidget {
                               ),
                             ),
                             trailing: PopupMenuButton<String>(
-                              icon: Icon(Icons.more_vert, color: secondaryText),
+                              icon: Icon(Icons.more_vert, color: context.textSecondary),
                               onSelected: (value) async {
                                 if (value == 'report') {
                                   final prefs = await SharedPreferences.getInstance();
                                   final currentUserId = prefs.getString('userId');
                                   final isOwnComment = currentUserId == comment.user.id;
-                                  
+
                                   if (isOwnComment) {
                                     final l10n = AppLocalizations.of(context)!;
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(l10n.cannotReportYourOwnComment),
-                                        backgroundColor: Colors.orange,
+                                        backgroundColor: AppColors.warning,
                                       ),
                                     );
                                     return;
                                   }
-                                  
+
                                   showDialog(
                                     context: context,
                                     builder: (context) => ReportDialog(
@@ -161,8 +155,8 @@ class CommentsMain extends ConsumerWidget {
                                   value: 'report',
                                   child: Row(
                                     children: [
-                                      Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
-                                      SizedBox(width: 8),
+                                      Icon(Icons.flag_outlined, color: AppColors.warning, size: 20),
+                                      Spacing.hGapSM,
                                       Text(AppLocalizations.of(context)!.report),
                                     ],
                                   ),
@@ -182,8 +176,8 @@ class CommentsMain extends ConsumerWidget {
             ],
           );
         },
-        loading: () => Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Text('Error: $error $stack'),
+        loading: () => Center(child: CircularProgressIndicator(color: AppColors.primary)),
+        error: (error, stack) => Text('Error: $error $stack', style: context.bodySmall.copyWith(color: AppColors.error)),
       ),
     );
   }

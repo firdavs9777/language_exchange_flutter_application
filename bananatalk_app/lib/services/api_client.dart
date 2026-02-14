@@ -1,0 +1,660 @@
+// lib/services/api_client.dart
+import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/service/endpoints.dart';
+
+/// Centralized API client with authentication, rate limiting, and error handling
+class ApiClient {
+  static final ApiClient _instance = ApiClient._internal();
+  factory ApiClient() => _instance;
+  ApiClient._internal();
+
+  String? _cachedToken;
+  String? _cachedRefreshToken;
+  DateTime? _lastTokenCheck;
+  static const Duration _tokenCacheTimeout = Duration(minutes: 1);
+
+  // Token refresh state
+  bool _isRefreshing = false;
+  final List<Completer<String?>> _refreshQueue = [];
+
+  // Rate limit tracking
+  final Map<String, RateLimitInfo> _rateLimits = {};
+
+  // Callbacks for global error handling
+  Function()? onAuthenticationError;
+  Function(String message)? onRateLimitError;
+  Function(String message)? onAuthorizationError;
+
+  // Callback for when token refresh completes (notify socket service)
+  Function()? onTokenRefreshed;
+
+  /// Get the base URL
+  String get baseUrl => Endpoints.baseURL;
+
+  /// Get auth token with caching
+  Future<String?> _getToken() async {
+    // Use cached token if recent
+    if (_cachedToken != null && _lastTokenCheck != null) {
+      final elapsed = DateTime.now().difference(_lastTokenCheck!);
+      if (elapsed < _tokenCacheTimeout) {
+        return _cachedToken;
+      }
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    _cachedToken = prefs.getString('token');
+    _cachedRefreshToken = prefs.getString('refreshToken');
+    _lastTokenCheck = DateTime.now();
+    return _cachedToken;
+  }
+
+  /// Clear cached token (call on logout)
+  void clearTokenCache() {
+    _cachedToken = null;
+    _cachedRefreshToken = null;
+    _lastTokenCheck = null;
+  }
+
+  /// Refresh access token using refresh token
+  /// Returns new token on success, null on failure
+  Future<String?> _refreshAccessToken() async {
+    // If already refreshing, wait for the result
+    if (_isRefreshing) {
+      debugPrint('🔄 Token refresh already in progress, waiting...');
+      final completer = Completer<String?>();
+      _refreshQueue.add(completer);
+      return completer.future;
+    }
+
+    _isRefreshing = true;
+
+    try {
+      // Get refresh token from cache or storage
+      if (_cachedRefreshToken == null) {
+        final prefs = await SharedPreferences.getInstance();
+        _cachedRefreshToken = prefs.getString('refreshToken');
+      }
+
+      if (_cachedRefreshToken == null || _cachedRefreshToken!.isEmpty) {
+        debugPrint('❌ No refresh token available');
+        return null;
+      }
+
+      debugPrint('🔄 Attempting token refresh...');
+
+      final url = Uri.parse('$baseUrl${Endpoints.refreshTokenURL}');
+      final response = await http.post(
+        url,
+        body: jsonEncode({'refreshToken': _cachedRefreshToken}),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        final newToken = responseData['token'] ?? responseData['data']?['token'];
+        final newRefreshToken = responseData['refreshToken'] ??
+                                responseData['data']?['refreshToken'];
+
+        if (newToken != null && newToken.isNotEmpty) {
+          // Update cached tokens
+          _cachedToken = newToken;
+          _lastTokenCheck = DateTime.now();
+
+          // Update refresh token if rotated
+          if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
+            _cachedRefreshToken = newRefreshToken;
+          }
+
+          // Save to storage
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', newToken);
+          if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
+            await prefs.setString('refreshToken', newRefreshToken);
+          }
+
+          debugPrint('✅ Token refreshed successfully');
+
+          // Notify listeners (e.g., socket service)
+          onTokenRefreshed?.call();
+
+          // Complete all waiting refresh requests
+          for (final completer in _refreshQueue) {
+            completer.complete(newToken);
+          }
+          _refreshQueue.clear();
+
+          return newToken;
+        }
+      }
+
+      debugPrint('❌ Token refresh failed: ${response.statusCode}');
+
+      // Complete all waiting requests with null
+      for (final completer in _refreshQueue) {
+        completer.complete(null);
+      }
+      _refreshQueue.clear();
+
+      return null;
+    } catch (e) {
+      debugPrint('❌ Token refresh error: $e');
+
+      // Complete all waiting requests with null
+      for (final completer in _refreshQueue) {
+        completer.complete(null);
+      }
+      _refreshQueue.clear();
+
+      return null;
+    } finally {
+      _isRefreshing = false;
+    }
+  }
+
+  /// Get default headers with auth token
+  Future<Map<String, String>> _getHeaders({bool includeAuth = true}) async {
+    final headers = <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    if (includeAuth) {
+      final token = await _getToken();
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+    }
+
+    return headers;
+  }
+
+  /// Parse rate limit headers from response
+  void _parseRateLimitHeaders(http.Response response, String endpoint) {
+    final limit = response.headers['ratelimit-limit'];
+    final remaining = response.headers['ratelimit-remaining'];
+    final reset = response.headers['ratelimit-reset'];
+
+    if (limit != null && remaining != null && reset != null) {
+      _rateLimits[endpoint] = RateLimitInfo(
+        limit: int.tryParse(limit) ?? 0,
+        remaining: int.tryParse(remaining) ?? 0,
+        resetTime: DateTime.fromMillisecondsSinceEpoch(
+          (int.tryParse(reset) ?? 0) * 1000,
+        ),
+      );
+    }
+  }
+
+  /// Get remaining rate limit for an endpoint
+  RateLimitInfo? getRateLimitInfo(String endpoint) => _rateLimits[endpoint];
+
+  /// Check if we should wait before making a request
+  Duration? getWaitTime(String endpoint) {
+    final info = _rateLimits[endpoint];
+    if (info != null && info.remaining <= 0) {
+      final now = DateTime.now();
+      if (info.resetTime.isAfter(now)) {
+        return info.resetTime.difference(now);
+      }
+    }
+    return null;
+  }
+
+  /// Handle response and extract data/error
+  ApiResponse _handleResponse(http.Response response, String endpoint) {
+    _parseRateLimitHeaders(response, endpoint);
+
+    final body = response.body.isNotEmpty
+        ? jsonDecode(response.body) as Map<String, dynamic>
+        : <String, dynamic>{};
+
+    switch (response.statusCode) {
+      case 200:
+      case 201:
+        // If response has pagination info, return full body to preserve it
+        // Otherwise extract 'data' field if available
+        final hasDataAndPagination = body.containsKey('data') && body.containsKey('pagination');
+        return ApiResponse(
+          success: true,
+          data: hasDataAndPagination ? body : (body['data'] ?? body),
+          statusCode: response.statusCode,
+        );
+
+      case 401:
+        // Authentication error - token expired or invalid
+        debugPrint('🔐 401 Unauthorized - Token may be expired');
+        onAuthenticationError?.call();
+        return ApiResponse(
+          success: false,
+          error: body['error'] ?? 'Authentication required. Please log in again.',
+          statusCode: 401,
+        );
+
+      case 403:
+        // Authorization error - user doesn't have permission
+        final errorMessage = body['error'] ?? 'You don\'t have permission to do this';
+        debugPrint('🚫 403 Forbidden - $errorMessage');
+        onAuthorizationError?.call(_getReadableAuthError(errorMessage));
+        return ApiResponse(
+          success: false,
+          error: _getReadableAuthError(errorMessage),
+          statusCode: 403,
+        );
+
+      case 429:
+        // Rate limit exceeded
+        final errorMessage = body['error'] ?? 'Too many requests. Please slow down.';
+        debugPrint('⏱️ 429 Rate Limited - $errorMessage');
+        onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
+        return ApiResponse(
+          success: false,
+          error: _getReadableRateLimitError(errorMessage),
+          statusCode: 429,
+          rateLimitInfo: _rateLimits[endpoint],
+        );
+
+      case 404:
+        return ApiResponse(
+          success: false,
+          error: body['error'] ?? 'Resource not found',
+          statusCode: 404,
+        );
+
+      case 500:
+      case 502:
+      case 503:
+        return ApiResponse(
+          success: false,
+          error: 'Server error. Please try again later.',
+          statusCode: response.statusCode,
+        );
+
+      default:
+        return ApiResponse(
+          success: false,
+          error: body['error'] ?? 'An error occurred',
+          statusCode: response.statusCode,
+        );
+    }
+  }
+
+  /// Convert backend error messages to user-friendly messages
+  String _getReadableAuthError(String error) {
+    if (error.contains('Not authorized to view this message')) {
+      return 'This message is private';
+    }
+    if (error.contains('Not authorized to update this user')) {
+      return 'You can only edit your own profile';
+    }
+    if (error.contains('Not authorized to delete this comment')) {
+      return 'You can only delete your own comments';
+    }
+    if (error.contains('Not authorized')) {
+      return 'You don\'t have permission to do this';
+    }
+    return error;
+  }
+
+  /// Convert rate limit error messages to user-friendly messages
+  String _getReadableRateLimitError(String error) {
+    if (error.contains('interactions')) {
+      return 'Slow down! Try again in a moment';
+    }
+    if (error.contains('reports')) {
+      return 'Report limit reached. Try again in an hour';
+    }
+    if (error.contains('search')) {
+      return 'Search limit reached. Please wait';
+    }
+    if (error.contains('AI') || error.contains('requests')) {
+      return 'AI usage limit reached. Upgrade for more';
+    }
+    return 'Too many requests. Please wait a moment';
+  }
+
+  /// GET request with automatic 401 token refresh
+  Future<ApiResponse> get(
+    String endpoint, {
+    Map<String, String>? queryParams,
+    bool requiresAuth = true,
+  }) async {
+    try {
+      // Check rate limit before request
+      final waitTime = getWaitTime(endpoint);
+      if (waitTime != null) {
+        return ApiResponse(
+          success: false,
+          error: 'Please wait ${waitTime.inSeconds} seconds',
+          statusCode: 429,
+        );
+      }
+
+      final uri = Uri.parse('$baseUrl$endpoint').replace(
+        queryParameters: queryParams,
+      );
+      final headers = await _getHeaders(includeAuth: requiresAuth);
+
+      debugPrint('📡 GET: $uri');
+
+      final response = await http.get(uri, headers: headers);
+      final result = _handleResponse(response, endpoint);
+
+      // Auto-refresh token on 401 and retry
+      if (result.isUnauthorized && requiresAuth) {
+        debugPrint('🔄 Got 401, attempting token refresh...');
+        final newToken = await _refreshAccessToken();
+
+        if (newToken != null) {
+          // Retry with new token
+          debugPrint('🔄 Retrying request with new token...');
+          final retryHeaders = await _getHeaders(includeAuth: true);
+          final retryResponse = await http.get(uri, headers: retryHeaders);
+          return _handleResponse(retryResponse, endpoint);
+        } else {
+          // Token refresh failed - trigger auth error callback
+          debugPrint('❌ Token refresh failed, triggering logout');
+          onAuthenticationError?.call();
+        }
+      }
+
+      return result;
+    } catch (e) {
+      debugPrint('❌ GET Error: $e');
+      return ApiResponse(
+        success: false,
+        error: 'Network error. Please check your connection.',
+        statusCode: 0,
+      );
+    }
+  }
+
+  /// POST request with automatic 401 token refresh
+  Future<ApiResponse> post(
+    String endpoint, {
+    Map<String, dynamic>? body,
+    bool requiresAuth = true,
+  }) async {
+    try {
+      final uri = Uri.parse('$baseUrl$endpoint');
+      final headers = await _getHeaders(includeAuth: requiresAuth);
+
+      debugPrint('📡 POST: $uri');
+      debugPrint('📦 Body: $body');
+
+      final response = await http.post(
+        uri,
+        headers: headers,
+        body: body != null ? jsonEncode(body) : null,
+      );
+      final result = _handleResponse(response, endpoint);
+
+      // Auto-refresh token on 401 and retry
+      if (result.isUnauthorized && requiresAuth) {
+        debugPrint('🔄 Got 401, attempting token refresh...');
+        final newToken = await _refreshAccessToken();
+
+        if (newToken != null) {
+          // Retry with new token
+          debugPrint('🔄 Retrying request with new token...');
+          final retryHeaders = await _getHeaders(includeAuth: true);
+          final retryResponse = await http.post(
+            uri,
+            headers: retryHeaders,
+            body: body != null ? jsonEncode(body) : null,
+          );
+          return _handleResponse(retryResponse, endpoint);
+        } else {
+          // Token refresh failed - trigger auth error callback
+          debugPrint('❌ Token refresh failed, triggering logout');
+          onAuthenticationError?.call();
+        }
+      }
+
+      return result;
+    } catch (e) {
+      debugPrint('❌ POST Error: $e');
+      return ApiResponse(
+        success: false,
+        error: 'Network error. Please check your connection.',
+        statusCode: 0,
+      );
+    }
+  }
+
+  /// PUT request with automatic 401 token refresh
+  Future<ApiResponse> put(
+    String endpoint, {
+    Map<String, dynamic>? body,
+    bool requiresAuth = true,
+  }) async {
+    try {
+      final uri = Uri.parse('$baseUrl$endpoint');
+      final headers = await _getHeaders(includeAuth: requiresAuth);
+
+      debugPrint('📡 PUT: $uri');
+
+      final response = await http.put(
+        uri,
+        headers: headers,
+        body: body != null ? jsonEncode(body) : null,
+      );
+      final result = _handleResponse(response, endpoint);
+
+      // Auto-refresh token on 401 and retry
+      if (result.isUnauthorized && requiresAuth) {
+        debugPrint('🔄 Got 401, attempting token refresh...');
+        final newToken = await _refreshAccessToken();
+
+        if (newToken != null) {
+          // Retry with new token
+          debugPrint('🔄 Retrying request with new token...');
+          final retryHeaders = await _getHeaders(includeAuth: true);
+          final retryResponse = await http.put(
+            uri,
+            headers: retryHeaders,
+            body: body != null ? jsonEncode(body) : null,
+          );
+          return _handleResponse(retryResponse, endpoint);
+        } else {
+          // Token refresh failed - trigger auth error callback
+          debugPrint('❌ Token refresh failed, triggering logout');
+          onAuthenticationError?.call();
+        }
+      }
+
+      return result;
+    } catch (e) {
+      debugPrint('❌ PUT Error: $e');
+      return ApiResponse(
+        success: false,
+        error: 'Network error. Please check your connection.',
+        statusCode: 0,
+      );
+    }
+  }
+
+  /// DELETE request with automatic 401 token refresh
+  Future<ApiResponse> delete(
+    String endpoint, {
+    Map<String, dynamic>? body,
+    bool requiresAuth = true,
+  }) async {
+    try {
+      final uri = Uri.parse('$baseUrl$endpoint');
+      final headers = await _getHeaders(includeAuth: requiresAuth);
+
+      debugPrint('📡 DELETE: $uri');
+
+      final request = http.Request('DELETE', uri)
+        ..headers.addAll(headers);
+
+      if (body != null) {
+        request.body = jsonEncode(body);
+      }
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      final result = _handleResponse(response, endpoint);
+
+      // Auto-refresh token on 401 and retry
+      if (result.isUnauthorized && requiresAuth) {
+        debugPrint('🔄 Got 401, attempting token refresh...');
+        final newToken = await _refreshAccessToken();
+
+        if (newToken != null) {
+          // Retry with new token
+          debugPrint('🔄 Retrying request with new token...');
+          final retryHeaders = await _getHeaders(includeAuth: true);
+          final retryRequest = http.Request('DELETE', uri)
+            ..headers.addAll(retryHeaders);
+
+          if (body != null) {
+            retryRequest.body = jsonEncode(body);
+          }
+
+          final retryStreamedResponse = await retryRequest.send();
+          final retryResponse = await http.Response.fromStream(retryStreamedResponse);
+          return _handleResponse(retryResponse, endpoint);
+        } else {
+          // Token refresh failed - trigger auth error callback
+          debugPrint('❌ Token refresh failed, triggering logout');
+          onAuthenticationError?.call();
+        }
+      }
+
+      return result;
+    } catch (e) {
+      debugPrint('❌ DELETE Error: $e');
+      return ApiResponse(
+        success: false,
+        error: 'Network error. Please check your connection.',
+        statusCode: 0,
+      );
+    }
+  }
+
+  /// Multipart POST (for file uploads)
+  Future<ApiResponse> postMultipart(
+    String endpoint, {
+    required Map<String, String> fields,
+    required List<http.MultipartFile> files,
+    bool requiresAuth = true,
+  }) async {
+    try {
+      final uri = Uri.parse('$baseUrl$endpoint');
+      final token = requiresAuth ? await _getToken() : null;
+
+      debugPrint('📡 POST Multipart: $uri');
+
+      final request = http.MultipartRequest('POST', uri);
+
+      if (token != null && token.isNotEmpty) {
+        request.headers['Authorization'] = 'Bearer $token';
+      }
+
+      request.fields.addAll(fields);
+      request.files.addAll(files);
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      return _handleResponse(response, endpoint);
+    } catch (e) {
+      debugPrint('❌ Multipart POST Error: $e');
+      return ApiResponse(
+        success: false,
+        error: 'Upload failed. Please try again.',
+        statusCode: 0,
+      );
+    }
+  }
+}
+
+/// API Response wrapper
+class ApiResponse {
+  final bool success;
+  final dynamic data;
+  final String? error;
+  final int statusCode;
+  final RateLimitInfo? rateLimitInfo;
+
+  ApiResponse({
+    required this.success,
+    this.data,
+    this.error,
+    required this.statusCode,
+    this.rateLimitInfo,
+  });
+
+  bool get isRateLimited => statusCode == 429;
+  bool get isUnauthorized => statusCode == 401;
+  bool get isForbidden => statusCode == 403;
+  bool get isNotFound => statusCode == 404;
+  bool get isServerError => statusCode >= 500;
+
+  @override
+  String toString() =>
+      'ApiResponse(success: $success, statusCode: $statusCode, error: $error)';
+}
+
+/// Rate limit information
+class RateLimitInfo {
+  final int limit;
+  final int remaining;
+  final DateTime resetTime;
+
+  RateLimitInfo({
+    required this.limit,
+    required this.remaining,
+    required this.resetTime,
+  });
+
+  Duration get timeUntilReset {
+    final now = DateTime.now();
+    return resetTime.isAfter(now) ? resetTime.difference(now) : Duration.zero;
+  }
+
+  bool get isLimited => remaining <= 0;
+
+  @override
+  String toString() =>
+      'RateLimitInfo(remaining: $remaining/$limit, reset: ${timeUntilReset.inSeconds}s)';
+}
+
+/// Debounce helper for UI interactions
+class Debouncer {
+  final Duration delay;
+  Timer? _timer;
+
+  Debouncer({this.delay = const Duration(milliseconds: 300)});
+
+  void run(VoidCallback action) {
+    _timer?.cancel();
+    _timer = Timer(delay, action);
+  }
+
+  void cancel() {
+    _timer?.cancel();
+  }
+}
+
+/// Throttle helper to prevent rapid fire requests
+class Throttler {
+  final Duration delay;
+  DateTime? _lastCall;
+
+  Throttler({this.delay = const Duration(milliseconds: 500)});
+
+  bool call(VoidCallback action) {
+    final now = DateTime.now();
+    if (_lastCall == null || now.difference(_lastCall!) >= delay) {
+      _lastCall = now;
+      action();
+      return true;
+    }
+    return false;
+  }
+}

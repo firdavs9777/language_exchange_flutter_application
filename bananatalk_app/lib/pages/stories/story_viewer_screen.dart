@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/widgets/blocked_content_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:async';
@@ -36,10 +40,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   int _currentStoryIndex = 0;
   bool _isPaused = false;
   Timer? _timer;
-  
+
   late AnimationController _progressController;
   final Duration _storyDuration = const Duration(seconds: 5);
-  
+
   bool _showReplyField = false;
   final TextEditingController _replyController = TextEditingController();
 
@@ -50,22 +54,33 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   VideoPlayerController? _videoController;
   bool _isVideoInitialized = false;
 
+  // Swipe to dismiss
+  double _dragOffset = 0;
+  bool _isDragging = false;
+
+  // Cube transition
+  double _cubeOffset = 0;
+
   @override
   void initState() {
     super.initState();
     _currentUserIndex = widget.initialUserIndex;
+    _cubeOffset = widget.initialUserIndex.toDouble();
     _userPageController = PageController(initialPage: widget.initialUserIndex);
-    
+
     _progressController = AnimationController(
       vsync: this,
       duration: _storyDuration,
     );
-    
+
     _progressController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _nextStory();
       }
     });
+
+    // Set immersive mode for story viewing
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     _initializeCurrentStory();
     _markAsViewed();
@@ -136,6 +151,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
   @override
   void dispose() {
+    // Restore system UI
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _timer?.cancel();
     _videoController?.removeListener(_videoListener);
     _videoController?.dispose();
@@ -393,24 +410,94 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
-        onTapDown: (details) {
+        onTapDown: (details) => _pauseStory(),
+        onTapUp: (details) {
+          _resumeStory();
           final screenWidth = MediaQuery.of(context).size.width;
-          if (details.globalPosition.dx < screenWidth / 3) {
+          // Tap left 30% for previous, right 70% for next
+          if (details.globalPosition.dx < screenWidth * 0.3) {
+            HapticFeedback.selectionClick();
             _previousStory();
-          } else if (details.globalPosition.dx > screenWidth * 2 / 3) {
+          } else if (details.globalPosition.dx > screenWidth * 0.3) {
+            HapticFeedback.selectionClick();
             _nextStory();
           }
         },
-        onLongPressStart: (_) => _pauseStory(),
+        onTapCancel: () => _resumeStory(),
+        onLongPressStart: (_) {
+          HapticFeedback.mediumImpact();
+          _pauseStory();
+        },
         onLongPressEnd: (_) => _resumeStory(),
-        child: PageView.builder(
-          controller: _userPageController,
-          onPageChanged: _onUserPageChanged,
-          itemCount: widget.userStories.length,
-          itemBuilder: (context, userIndex) {
-            return _buildStoryView();
-          },
+        // Swipe down to close
+        onVerticalDragStart: (_) {
+          _isDragging = true;
+          _pauseStory();
+        },
+        onVerticalDragUpdate: (details) {
+          if (details.delta.dy > 0) {
+            setState(() {
+              _dragOffset += details.delta.dy;
+            });
+          }
+        },
+        onVerticalDragEnd: (details) {
+          _isDragging = false;
+          if (_dragOffset > 100 || (details.velocity.pixelsPerSecond.dy > 500)) {
+            // Close the viewer
+            Navigator.pop(context);
+          } else {
+            // Snap back
+            setState(() {
+              _dragOffset = 0;
+            });
+            _resumeStory();
+          }
+        },
+        child: AnimatedContainer(
+          duration: _isDragging ? Duration.zero : const Duration(milliseconds: 200),
+          transform: Matrix4.identity()
+            ..translate(0.0, _dragOffset)
+            ..scale(1 - (_dragOffset / 1000).clamp(0.0, 0.2)),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 100),
+            opacity: 1 - (_dragOffset / 400).clamp(0.0, 0.5),
+            child: _buildCubePageView(),
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCubePageView() {
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification is ScrollUpdateNotification) {
+          setState(() {
+            _cubeOffset = _userPageController.page ?? _currentUserIndex.toDouble();
+          });
+        }
+        return false;
+      },
+      child: PageView.builder(
+        controller: _userPageController,
+        onPageChanged: _onUserPageChanged,
+        itemCount: widget.userStories.length,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, userIndex) {
+          // Calculate cube rotation
+          final diff = userIndex - _cubeOffset;
+          final rotationY = diff * -0.4; // Rotation angle
+          final isOnRight = diff > 0;
+
+          return Transform(
+            alignment: isOnRight ? Alignment.centerLeft : Alignment.centerRight,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001) // Perspective
+              ..rotateY(rotationY),
+            child: _buildStoryView(),
+          );
+        },
       ),
     );
   }
@@ -455,78 +542,105 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
           ),
         ),
 
-        // Progress bars
+        // Progress bars - enhanced with StoryProgressBar
         Positioned(
           top: MediaQuery.of(context).padding.top + 8,
-          left: 8,
-          right: 8,
-          child: Row(
-            children: List.generate(_currentStories.length, (index) {
-              return Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 2),
-                  height: 2,
-                  child: index == _currentStoryIndex
-                      ? AnimatedBuilder(
-                          animation: _progressController,
-                          builder: (context, child) {
-                            return LinearProgressIndicator(
-                              value: _progressController.value,
-                              backgroundColor: Colors.white30,
-                              valueColor: const AlwaysStoppedAnimation(Colors.white),
-                            );
-                          },
-                        )
-                      : Container(
-                          color: index < _currentStoryIndex
-                              ? Colors.white
-                              : Colors.white30,
-                        ),
-                ),
+          left: 12,
+          right: 12,
+          child: AnimatedBuilder(
+            animation: _progressController,
+            builder: (context, child) {
+              return StoryProgressBar(
+                totalSegments: _currentStories.length,
+                currentSegment: _currentStoryIndex,
+                currentProgress: _progressController.value,
+                height: 2.5,
+                spacing: 4,
               );
-            }),
+            },
           ),
         ),
 
         // User info header
         Positioned(
-          top: MediaQuery.of(context).padding.top + 20,
-          left: 8,
-          right: 8,
+          top: MediaQuery.of(context).padding.top + 18,
+          left: 12,
+          right: 12,
           child: Row(
             children: [
-              CachedCircleAvatar(
-                imageUrl: (_currentUser.user.images.isNotEmpty || _currentUser.user.imageUrls.isNotEmpty)
-                    ? (_currentUser.user.images.isNotEmpty
-                        ? _currentUser.user.images.first
-                        : _currentUser.user.imageUrls.first)
-                    : null,
-                radius: 16,
-                errorWidget: (_currentUser.user.images.isEmpty && _currentUser.user.imageUrls.isEmpty)
-                    ? Text(
-                        _currentUser.user.name?.isNotEmpty == true
-                            ? _currentUser.user.name![0].toUpperCase()
-                            : '?',
-                        style: const TextStyle(fontSize: 12),
-                      )
-                    : const SizedBox.shrink(),
+              // Avatar with gradient ring
+              Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: story.privacy == StoryPrivacy.closeFriends
+                      ? const LinearGradient(
+                          colors: [Color(0xFF00C853), Color(0xFF69F0AE)],
+                        )
+                      : null,
+                ),
+                child: CachedCircleAvatar(
+                  imageUrl: (_currentUser.user.images.isNotEmpty || _currentUser.user.imageUrls.isNotEmpty)
+                      ? (_currentUser.user.images.isNotEmpty
+                          ? _currentUser.user.images.first
+                          : _currentUser.user.imageUrls.first)
+                      : null,
+                  radius: 18,
+                  errorWidget: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      _currentUser.user.name?.isNotEmpty == true
+                          ? _currentUser.user.name![0].toUpperCase()
+                          : '?',
+                      style: const TextStyle(fontSize: 14, color: Colors.white70),
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _currentUser.user.name ?? 'User',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          _currentUser.user.name ?? 'User',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                        if (story.privacy == StoryPrivacy.closeFriends) ...[
+                          const SizedBox(width: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF00C853),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Text(
+                              'Close Friends',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
+                    const SizedBox(height: 2),
                     Text(
                       _formatTime(story.createdAt),
                       style: const TextStyle(
-                        color: Colors.white70,
+                        color: Colors.white60,
                         fontSize: 12,
                       ),
                     ),
@@ -657,45 +771,91 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   }
 
   Widget _buildReactionBar() {
-    return Row(
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              _pauseStory();
-              setState(() => _showReplyField = true);
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white30),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: const Text(
-                'Reply to story...',
-                style: TextStyle(color: Colors.white70),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                HapticFeedback.selectionClick();
+                _pauseStory();
+                setState(() => _showReplyField = true);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.send_rounded, color: Colors.white60, size: 18),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Reply to story...',
+                        style: const TextStyle(color: Colors.white60, fontSize: 14),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(width: 12),
-        _buildQuickReaction('❤️'),
-        _buildQuickReaction('😂'),
-        _buildQuickReaction('😮'),
-        _buildQuickReaction('🔥'),
-      ],
+          const SizedBox(width: 8),
+          ..._buildQuickReactions(),
+        ],
+      ),
     );
+  }
+
+  List<Widget> _buildQuickReactions() {
+    const emojis = ['❤️', '😂', '😮', '🔥', '👏', '😢'];
+    return emojis.take(4).map((emoji) => _buildQuickReaction(emoji)).toList();
   }
 
   Widget _buildQuickReaction(String emoji) {
     return GestureDetector(
-      onTap: () => _sendReaction(emoji),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+      onTap: () {
+        HapticFeedback.lightImpact();
+        _sendReaction(emoji);
+        // Show brief animation feedback
+        _showReactionAnimation(emoji);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(6),
         child: Text(
           emoji,
-          style: const TextStyle(fontSize: 28),
+          style: const TextStyle(fontSize: 26),
         ),
+      ),
+    );
+  }
+
+  void _showReactionAnimation(String emoji) {
+    // Show a brief overlay animation for the reaction
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(emoji, style: const TextStyle(fontSize: 24)),
+            const SizedBox(width: 8),
+            const Text('Sent!', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+        duration: const Duration(milliseconds: 800),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.black87,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        margin: const EdgeInsets.only(bottom: 100, left: 80, right: 80),
       ),
     );
   }
