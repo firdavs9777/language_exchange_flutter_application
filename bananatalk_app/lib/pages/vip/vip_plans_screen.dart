@@ -30,13 +30,11 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize store based on platform
+    // Initialize store based on platform (initializeStore already loads products)
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
-      IOSPurchaseService.loadProducts();
     } else if (_isAndroid) {
       AndroidPurchaseService.initializeStore();
-      AndroidPurchaseService.loadProducts();
     }
   }
 

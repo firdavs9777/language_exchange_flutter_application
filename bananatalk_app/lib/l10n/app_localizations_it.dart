@@ -1,0 +1,1965 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Italian (`it`).
+class AppLocalizationsIt extends AppLocalizations {
+  AppLocalizationsIt([String locale = 'it']) : super(locale);
+
+  @override
+  String get appName => 'BananaTalk';
+
+  @override
+  String get login => 'Accedi';
+
+  @override
+  String get signUp => 'Registrati';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgotPassword => 'Password dimenticata?';
+
+  @override
+  String get or => 'OPPURE';
+
+  @override
+  String get signInWithGoogle => 'Accedi con Google';
+
+  @override
+  String get signInWithApple => 'Accedi con Apple';
+
+  @override
+  String get signInWithFacebook => 'Accedi con Facebook';
+
+  @override
+  String get welcome => 'Benvenuto';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get messages => 'Messaggi';
+
+  @override
+  String get moments => 'Momenti';
+
+  @override
+  String get profile => 'Profilo';
+
+  @override
+  String get settings => 'Impostazioni';
+
+  @override
+  String get logout => 'Esci';
+
+  @override
+  String get language => 'Lingua';
+
+  @override
+  String get selectLanguage => 'Seleziona lingua';
+
+  @override
+  String get autoTranslate => 'Traduzione automatica';
+
+  @override
+  String get autoTranslateMessages => 'Traduci automaticamente i messaggi';
+
+  @override
+  String get autoTranslateMoments => 'Traduci automaticamente i momenti';
+
+  @override
+  String get autoTranslateComments => 'Traduci automaticamente i commenti';
+
+  @override
+  String get translate => 'Traduci';
+
+  @override
+  String get translated => 'Tradotto';
+
+  @override
+  String get showOriginal => 'Mostra originale';
+
+  @override
+  String get showTranslation => 'Mostra traduzione';
+
+  @override
+  String get translating => 'Traduzione in corso...';
+
+  @override
+  String get translationFailed => 'Traduzione fallita';
+
+  @override
+  String get noTranslationAvailable => 'Nessuna traduzione disponibile';
+
+  @override
+  String translatedFrom(String language) {
+    return 'Tradotto da $language';
+  }
+
+  @override
+  String get save => 'Salva';
+
+  @override
+  String get cancel => 'Annulla';
+
+  @override
+  String get delete => 'Elimina';
+
+  @override
+  String get edit => 'Modifica';
+
+  @override
+  String get share => 'Condividi';
+
+  @override
+  String get like => 'Mi piace';
+
+  @override
+  String get comment => 'Commenta';
+
+  @override
+  String get send => 'Invia';
+
+  @override
+  String get search => 'Cerca';
+
+  @override
+  String get notifications => 'Notifiche';
+
+  @override
+  String get followers => 'Follower';
+
+  @override
+  String get following => 'Seguiti';
+
+  @override
+  String get posts => 'Post';
+
+  @override
+  String get visitors => 'Visitatori';
+
+  @override
+  String get loading => 'Caricamento...';
+
+  @override
+  String get error => 'Errore';
+
+  @override
+  String get success => 'Successo';
+
+  @override
+  String get tryAgain => 'Riprova';
+
+  @override
+  String get networkError => 'Errore di rete. Controlla la connessione.';
+
+  @override
+  String get somethingWentWrong => 'Qualcosa è andato storto';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get yes => 'Sì';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get languageSettings => 'Impostazioni lingua';
+
+  @override
+  String get deviceLanguage => 'Lingua del dispositivo';
+
+  @override
+  String yourDeviceIsSetTo(String flag, String name) {
+    return 'Il tuo dispositivo è impostato su: $flag $name';
+  }
+
+  @override
+  String get youCanOverride => 'Puoi sovrascrivere la lingua del dispositivo qui sotto.';
+
+  @override
+  String languageChangedTo(String name) {
+    return 'Lingua cambiata in $name';
+  }
+
+  @override
+  String get errorChangingLanguage => 'Errore nel cambio lingua';
+
+  @override
+  String get autoTranslateSettings => 'Impostazioni traduzione automatica';
+
+  @override
+  String get automaticallyTranslateIncomingMessages => 'Traduci automaticamente i messaggi in arrivo';
+
+  @override
+  String get automaticallyTranslateMomentsInFeed => 'Traduci automaticamente i momenti nel feed';
+
+  @override
+  String get automaticallyTranslateComments => 'Traduci automaticamente i commenti';
+
+  @override
+  String get translationServiceBeingConfigured => 'Il servizio di traduzione è in configurazione. Riprova più tardi.';
+
+  @override
+  String get translationUnavailable => 'Traduzione non disponibile';
+
+  @override
+  String get showLess => 'mostra meno';
+
+  @override
+  String get showMore => 'mostra di più';
+
+  @override
+  String get comments => 'Commenti';
+
+  @override
+  String get beTheFirstToComment => 'Sii il primo a commentare.';
+
+  @override
+  String get writeAComment => 'Scrivi un commento...';
+
+  @override
+  String get report => 'Segnala';
+
+  @override
+  String get reportMoment => 'Segnala momento';
+
+  @override
+  String get reportUser => 'Segnala utente';
+
+  @override
+  String get deleteMoment => 'Eliminare il momento?';
+
+  @override
+  String get thisActionCannotBeUndone => 'Questa azione non può essere annullata.';
+
+  @override
+  String get momentDeleted => 'Momento eliminato';
+
+  @override
+  String get editFeatureComingSoon => 'Funzione di modifica in arrivo';
+
+  @override
+  String get userNotFound => 'Utente non trovato';
+
+  @override
+  String get cannotReportYourOwnComment => 'Non puoi segnalare il tuo commento';
+
+  @override
+  String get profileSettings => 'Impostazioni profilo';
+
+  @override
+  String get editYourProfileInformation => 'Modifica le informazioni del profilo';
+
+  @override
+  String get blockedUsers => 'Utenti bloccati';
+
+  @override
+  String get manageBlockedUsers => 'Gestisci utenti bloccati';
+
+  @override
+  String get manageNotificationSettings => 'Gestisci impostazioni notifiche';
+
+  @override
+  String get privacySecurity => 'Privacy e sicurezza';
+
+  @override
+  String get controlYourPrivacy => 'Controlla la tua privacy';
+
+  @override
+  String get changeAppLanguage => 'Cambia lingua dell\'app';
+
+  @override
+  String get appearance => 'Aspetto';
+
+  @override
+  String get themeAndDisplaySettings => 'Impostazioni tema e visualizzazione';
+
+  @override
+  String get myReports => 'Le mie segnalazioni';
+
+  @override
+  String get viewYourSubmittedReports => 'Visualizza le tue segnalazioni';
+
+  @override
+  String get reportsManagement => 'Gestione segnalazioni';
+
+  @override
+  String get manageAllReportsAdmin => 'Gestisci tutte le segnalazioni (Admin)';
+
+  @override
+  String get legalPrivacy => 'Legale e Privacy';
+
+  @override
+  String get termsPrivacySubscriptionInfo => 'Termini, Privacy e info abbonamento';
+
+  @override
+  String get helpCenter => 'Centro assistenza';
+
+  @override
+  String get getHelpAndSupport => 'Ottieni aiuto e supporto';
+
+  @override
+  String get aboutBanaTalk => 'Informazioni su BanaTalk';
+
+  @override
+  String get deleteAccount => 'Elimina account';
+
+  @override
+  String get permanentlyDeleteYourAccount => 'Elimina permanentemente il tuo account';
+
+  @override
+  String get loggedOutSuccessfully => 'Disconnessione riuscita';
+
+  @override
+  String get retry => 'Riprova';
+
+  @override
+  String get giftsLikes => 'Regali/Mi piace';
+
+  @override
+  String get details => 'Dettagli';
+
+  @override
+  String get to => 'a';
+
+  @override
+  String get banaTalk => 'BanaTalk';
+
+  @override
+  String get community => 'Community';
+
+  @override
+  String get editProfile => 'Modifica profilo';
+
+  @override
+  String yearsOld(String age) {
+    return '$age anni';
+  }
+
+  @override
+  String get searchConversations => 'Cerca conversazioni...';
+
+  @override
+  String get visitorTrackingNotAvailable => 'Il tracciamento visitatori non è ancora disponibile. Aggiornamento backend richiesto.';
+
+  @override
+  String get chatList => 'Lista chat';
+
+  @override
+  String get languageExchange => 'Scambio linguistico';
+
+  @override
+  String get nativeLanguage => 'Lingua madre';
+
+  @override
+  String get learning => 'Imparando';
+
+  @override
+  String get notSet => 'Non impostato';
+
+  @override
+  String get about => 'Info';
+
+  @override
+  String get aboutMe => 'Su di me';
+
+  @override
+  String get bloodType => 'Gruppo sanguigno';
+
+  @override
+  String get photos => 'Foto';
+
+  @override
+  String get camera => 'Fotocamera';
+
+  @override
+  String get createMoment => 'Crea momento';
+
+  @override
+  String get addATitle => 'Aggiungi un titolo...';
+
+  @override
+  String get whatsOnYourMind => 'A cosa stai pensando?';
+
+  @override
+  String get addTags => 'Aggiungi tag';
+
+  @override
+  String get done => 'Fatto';
+
+  @override
+  String get add => 'Aggiungi';
+
+  @override
+  String get enterTag => 'Inserisci tag';
+
+  @override
+  String get post => 'Pubblica';
+
+  @override
+  String get commentAddedSuccessfully => 'Commento aggiunto con successo';
+
+  @override
+  String get clearFilters => 'Cancella filtri';
+
+  @override
+  String get notificationSettings => 'Impostazioni notifiche';
+
+  @override
+  String get enableNotifications => 'Abilita notifiche';
+
+  @override
+  String get turnAllNotificationsOnOrOff => 'Attiva o disattiva tutte le notifiche';
+
+  @override
+  String get notificationTypes => 'Tipi di notifiche';
+
+  @override
+  String get chatMessages => 'Messaggi chat';
+
+  @override
+  String get getNotifiedWhenYouReceiveMessages => 'Ricevi notifiche quando ricevi messaggi';
+
+  @override
+  String get likesAndCommentsOnYourMoments => 'Mi piace e commenti sui tuoi momenti';
+
+  @override
+  String get whenPeopleYouFollowPostMoments => 'Quando le persone che segui pubblicano momenti';
+
+  @override
+  String get friendRequests => 'Richieste di amicizia';
+
+  @override
+  String get whenSomeoneFollowsYou => 'Quando qualcuno ti segue';
+
+  @override
+  String get profileVisits => 'Visite al profilo';
+
+  @override
+  String get whenSomeoneViewsYourProfileVIP => 'Quando qualcuno visualizza il tuo profilo (VIP)';
+
+  @override
+  String get marketing => 'Marketing';
+
+  @override
+  String get updatesAndPromotionalMessages => 'Aggiornamenti e messaggi promozionali';
+
+  @override
+  String get notificationPreferences => 'Preferenze notifiche';
+
+  @override
+  String get sound => 'Suono';
+
+  @override
+  String get playNotificationSounds => 'Riproduci suoni di notifica';
+
+  @override
+  String get vibration => 'Vibrazione';
+
+  @override
+  String get vibrateOnNotifications => 'Vibra alle notifiche';
+
+  @override
+  String get showPreview => 'Mostra anteprima';
+
+  @override
+  String get showMessagePreviewInNotifications => 'Mostra anteprima messaggio nelle notifiche';
+
+  @override
+  String get mutedConversations => 'Conversazioni silenziate';
+
+  @override
+  String get conversation => 'Conversazione';
+
+  @override
+  String get unmute => 'Riattiva';
+
+  @override
+  String get systemNotificationSettings => 'Impostazioni notifiche di sistema';
+
+  @override
+  String get manageNotificationsInSystemSettings => 'Gestisci notifiche nelle impostazioni di sistema';
+
+  @override
+  String get errorLoadingSettings => 'Errore nel caricamento delle impostazioni';
+
+  @override
+  String get unblockUser => 'Sblocca utente';
+
+  @override
+  String get unblock => 'Sblocca';
+
+  @override
+  String get goBack => 'Torna indietro';
+
+  @override
+  String get messageSendTimeout => 'Timeout invio messaggio. Controlla la connessione.';
+
+  @override
+  String get failedToSendMessage => 'Invio messaggio fallito';
+
+  @override
+  String get dailyMessageLimitExceeded => 'Limite giornaliero messaggi superato. Passa a VIP per messaggi illimitati.';
+
+  @override
+  String get cannotSendMessageUserMayBeBlocked => 'Impossibile inviare messaggio. L\'utente potrebbe essere bloccato.';
+
+  @override
+  String get sessionExpired => 'Sessione scaduta. Effettua nuovamente l\'accesso.';
+
+  @override
+  String get sendThisSticker => 'Inviare questo sticker?';
+
+  @override
+  String get chooseHowYouWantToDeleteThisMessage => 'Scegli come vuoi eliminare questo messaggio:';
+
+  @override
+  String get deleteForEveryone => 'Elimina per tutti';
+
+  @override
+  String get removesTheMessageForBothYouAndTheRecipient => 'Rimuove il messaggio per te e il destinatario';
+
+  @override
+  String get deleteForMe => 'Elimina per me';
+
+  @override
+  String get removesTheMessageOnlyFromYourChat => 'Rimuove il messaggio solo dalla tua chat';
+
+  @override
+  String get copy => 'Copia';
+
+  @override
+  String get reply => 'Rispondi';
+
+  @override
+  String get forward => 'Inoltra';
+
+  @override
+  String get moreOptions => 'Altre opzioni';
+
+  @override
+  String get noUsersAvailableToForwardTo => 'Nessun utente disponibile per l\'inoltro';
+
+  @override
+  String get searchMoments => 'Cerca momenti...';
+
+  @override
+  String searchInChatWith(String name) {
+    return 'Cerca nella chat con $name';
+  }
+
+  @override
+  String get typeAMessage => 'Scrivi un messaggio...';
+
+  @override
+  String get enterYourMessage => 'Inserisci il tuo messaggio';
+
+  @override
+  String get detectYourLocation => 'Rileva la tua posizione';
+
+  @override
+  String get tapToUpdateLocation => 'Tocca per aggiornare la posizione';
+
+  @override
+  String get helpOthersFindYouNearby => 'Aiuta gli altri a trovarti nelle vicinanze';
+
+  @override
+  String get selectYourNativeLanguage => 'Seleziona la tua lingua madre';
+
+  @override
+  String get whichLanguageDoYouWantToLearn => 'Quale lingua vuoi imparare?';
+
+  @override
+  String get selectYourGender => 'Seleziona il tuo genere';
+
+  @override
+  String get addACaption => 'Aggiungi una didascalia...';
+
+  @override
+  String get typeSomething => 'Scrivi qualcosa...';
+
+  @override
+  String get gallery => 'Galleria';
+
+  @override
+  String get video => 'Video';
+
+  @override
+  String get text => 'Testo';
+
+  @override
+  String get provideMoreInformation => 'Fornisci maggiori informazioni...';
+
+  @override
+  String get searchByNameLanguageOrInterests => 'Cerca per nome, lingua o interessi...';
+
+  @override
+  String get addTagAndPressEnter => 'Aggiungi tag e premi Invio';
+
+  @override
+  String replyTo(String name) {
+    return 'Rispondi a $name...';
+  }
+
+  @override
+  String get highlightName => 'Nome in evidenza';
+
+  @override
+  String get searchCloseFriends => 'Cerca amici stretti...';
+
+  @override
+  String get askAQuestion => 'Fai una domanda...';
+
+  @override
+  String option(String number) {
+    return 'Opzione $number';
+  }
+
+  @override
+  String whyAreYouReportingThis(String type) {
+    return 'Perché stai segnalando questo $type?';
+  }
+
+  @override
+  String get additionalDetailsOptional => 'Dettagli aggiuntivi (opzionale)';
+
+  @override
+  String get warningThisActionIsPermanent => 'Attenzione: questa azione è permanente!';
+
+  @override
+  String get deletingYourAccountWillPermanentlyRemove => 'L\'eliminazione del tuo account rimuoverà permanentemente:\n\n• Il tuo profilo e tutti i dati personali\n• Tutti i tuoi messaggi e conversazioni\n• Tutti i tuoi momenti e storie\n• Il tuo abbonamento VIP (nessun rimborso)\n• Tutti i tuoi collegamenti e follower\n\nQuesta azione non può essere annullata.';
+
+  @override
+  String get clearAllNotifications => 'Cancellare tutte le notifiche?';
+
+  @override
+  String get clearAll => 'Cancella tutto';
+
+  @override
+  String get notificationDebug => 'Debug notifiche';
+
+  @override
+  String get markAllRead => 'Segna tutto come letto';
+
+  @override
+  String get clearAll2 => 'Cancella tutto';
+
+  @override
+  String get emailAddress => 'Indirizzo email';
+
+  @override
+  String get username => 'Nome utente';
+
+  @override
+  String get alreadyHaveAnAccount => 'Hai già un account?';
+
+  @override
+  String get login2 => 'Accedi';
+
+  @override
+  String get selectYourNativeLanguage2 => 'Seleziona la tua lingua madre';
+
+  @override
+  String get whichLanguageDoYouWantToLearn2 => 'Quale lingua vuoi imparare?';
+
+  @override
+  String get selectYourGender2 => 'Seleziona il tuo genere';
+
+  @override
+  String get dateFormat => 'GG.MM.AAAA';
+
+  @override
+  String get detectYourLocation2 => 'Rileva la tua posizione';
+
+  @override
+  String get tapToUpdateLocation2 => 'Tocca per aggiornare la posizione';
+
+  @override
+  String get helpOthersFindYouNearby2 => 'Aiuta gli altri a trovarti nelle vicinanze';
+
+  @override
+  String get couldNotOpenLink => 'Impossibile aprire il link';
+
+  @override
+  String get legalPrivacy2 => 'Legale e Privacy';
+
+  @override
+  String get termsOfUseEULA => 'Termini di utilizzo (EULA)';
+
+  @override
+  String get viewOurTermsAndConditions => 'Visualizza i nostri termini e condizioni';
+
+  @override
+  String get privacyPolicy => 'Informativa sulla privacy';
+
+  @override
+  String get howWeHandleYourData => 'Come gestiamo i tuoi dati';
+
+  @override
+  String get emailNotifications => 'Notifiche email';
+
+  @override
+  String get receiveEmailNotificationsFromBananaTalk => 'Ricevi notifiche email da BananaTalk';
+
+  @override
+  String get weeklySummary => 'Riepilogo settimanale';
+
+  @override
+  String get activityRecapEverySunday => 'Riepilogo attività ogni domenica';
+
+  @override
+  String get newMessages => 'Nuovi messaggi';
+
+  @override
+  String get whenYoureAwayFor24PlusHours => 'Quando sei assente per 24+ ore';
+
+  @override
+  String get newFollowers => 'Nuovi follower';
+
+  @override
+  String get whenSomeoneFollowsYou2 => 'Quando qualcuno ti segue';
+
+  @override
+  String get securityAlerts => 'Avvisi di sicurezza';
+
+  @override
+  String get passwordLoginAlerts => 'Avvisi password e accesso';
+
+  @override
+  String get unblockUser2 => 'Sblocca utente';
+
+  @override
+  String get blockedUsers2 => 'Utenti bloccati';
+
+  @override
+  String get finalWarning => 'Ultimo avviso';
+
+  @override
+  String get deleteForever => 'Elimina per sempre';
+
+  @override
+  String get deleteAccount2 => 'Elimina account';
+
+  @override
+  String get enterYourPassword => 'Inserisci la tua password';
+
+  @override
+  String get yourPassword => 'La tua password';
+
+  @override
+  String get typeDELETEToConfirm => 'Digita ELIMINA per confermare';
+
+  @override
+  String get typeDELETEInCapitalLetters => 'Digita ELIMINA in maiuscolo';
+
+  @override
+  String sent(String emoji) {
+    return '$emoji inviato!';
+  }
+
+  @override
+  String get replySent => 'Risposta inviata!';
+
+  @override
+  String get deleteStory => 'Eliminare la storia?';
+
+  @override
+  String get thisStoryWillBeRemovedPermanently => 'Questa storia verrà rimossa permanentemente.';
+
+  @override
+  String get noStories => 'Nessuna storia';
+
+  @override
+  String views(String count) {
+    return '$count visualizzazioni';
+  }
+
+  @override
+  String get reportStory => 'Segnala storia';
+
+  @override
+  String get reply2 => 'Rispondi...';
+
+  @override
+  String get failedToPickImage => 'Impossibile selezionare l\'immagine';
+
+  @override
+  String get failedToTakePhoto => 'Impossibile scattare la foto';
+
+  @override
+  String get failedToPickVideo => 'Impossibile selezionare il video';
+
+  @override
+  String get pleaseEnterSomeText => 'Inserisci del testo';
+
+  @override
+  String get pleaseSelectMedia => 'Seleziona un media';
+
+  @override
+  String get storyPosted => 'Storia pubblicata!';
+
+  @override
+  String get textOnlyStoriesRequireAnImage => 'Le storie solo testo richiedono un\'immagine';
+
+  @override
+  String get createStory => 'Crea storia';
+
+  @override
+  String get change => 'Cambia';
+
+  @override
+  String get userIdNotFound => 'ID utente non trovato. Effettua nuovamente l\'accesso.';
+
+  @override
+  String get pleaseSelectAPaymentMethod => 'Seleziona un metodo di pagamento';
+
+  @override
+  String get startExploring => 'Inizia a esplorare';
+
+  @override
+  String get close => 'Chiudi';
+
+  @override
+  String get payment => 'Pagamento';
+
+  @override
+  String get upgradeToVIP => 'Passa a VIP';
+
+  @override
+  String get errorLoadingProducts => 'Errore nel caricamento dei prodotti';
+
+  @override
+  String get cancelVIPSubscription => 'Annulla abbonamento VIP';
+
+  @override
+  String get keepVIP => 'Mantieni VIP';
+
+  @override
+  String get cancelSubscription => 'Annulla abbonamento';
+
+  @override
+  String get vipSubscriptionCancelledSuccessfully => 'Abbonamento VIP annullato con successo';
+
+  @override
+  String get vipStatus => 'Stato VIP';
+
+  @override
+  String get noActiveVIPSubscription => 'Nessun abbonamento VIP attivo';
+
+  @override
+  String get subscriptionExpired => 'Abbonamento scaduto';
+
+  @override
+  String get vipExpiredMessage => 'Il tuo abbonamento VIP è scaduto. Rinnova ora per continuare a goderti le funzionalità illimitate!';
+
+  @override
+  String get expiredOn => 'Scaduto il';
+
+  @override
+  String get renewVIP => 'Rinnova VIP';
+
+  @override
+  String get whatYoureMissing => 'Cosa ti stai perdendo';
+
+  @override
+  String get manageInAppStore => 'Gestisci nell\'App Store';
+
+  @override
+  String get becomeVIP => 'Diventa VIP';
+
+  @override
+  String get unlimitedMessages => 'Messaggi illimitati';
+
+  @override
+  String get unlimitedProfileViews => 'Visualizzazioni profilo illimitate';
+
+  @override
+  String get prioritySupport => 'Supporto prioritario';
+
+  @override
+  String get advancedSearch => 'Ricerca avanzata';
+
+  @override
+  String get profileBoost => 'Boost profilo';
+
+  @override
+  String get adFreeExperience => 'Esperienza senza pubblicità';
+
+  @override
+  String get upgradeYourAccount => 'Aggiorna il tuo account';
+
+  @override
+  String get moreMessages => 'Più messaggi';
+
+  @override
+  String get moreProfileViews => 'Più visualizzazioni profilo';
+
+  @override
+  String get connectWithFriends => 'Connettiti con gli amici';
+
+  @override
+  String get reviewStarted => 'Revisione iniziata';
+
+  @override
+  String get reportResolved => 'Segnalazione risolta';
+
+  @override
+  String get reportDismissed => 'Segnalazione respinta';
+
+  @override
+  String get selectAction => 'Seleziona azione';
+
+  @override
+  String get noViolation => 'Nessuna violazione';
+
+  @override
+  String get contentRemoved => 'Contenuto rimosso';
+
+  @override
+  String get userWarned => 'Utente avvisato';
+
+  @override
+  String get userSuspended => 'Utente sospeso';
+
+  @override
+  String get userBanned => 'Utente bannato';
+
+  @override
+  String get addNotesOptional => 'Aggiungi note (opzionale)';
+
+  @override
+  String get enterModeratorNotes => 'Inserisci note del moderatore...';
+
+  @override
+  String get skip => 'Salta';
+
+  @override
+  String get startReview => 'Inizia revisione';
+
+  @override
+  String get resolve => 'Risolvi';
+
+  @override
+  String get dismiss => 'Respingi';
+
+  @override
+  String get filterReports => 'Filtra segnalazioni';
+
+  @override
+  String get all => 'Tutti';
+
+  @override
+  String get clear => 'Cancella';
+
+  @override
+  String get apply => 'Applica';
+
+  @override
+  String get myReports2 => 'Le mie segnalazioni';
+
+  @override
+  String get blockUser => 'Blocca utente';
+
+  @override
+  String get block => 'Blocca';
+
+  @override
+  String get wouldYouAlsoLikeToBlockThisUser => 'Vuoi anche bloccare questo utente?';
+
+  @override
+  String get noThanks => 'No, grazie';
+
+  @override
+  String get yesBlockThem => 'Sì, bloccalo';
+
+  @override
+  String get reportUser2 => 'Segnala utente';
+
+  @override
+  String get submitReport => 'Invia segnalazione';
+
+  @override
+  String get addAQuestionAndAtLeast2Options => 'Aggiungi una domanda e almeno 2 opzioni';
+
+  @override
+  String get addOption => 'Aggiungi opzione';
+
+  @override
+  String get anonymousVoting => 'Voto anonimo';
+
+  @override
+  String get create => 'Crea';
+
+  @override
+  String get typeYourAnswer => 'Scrivi la tua risposta...';
+
+  @override
+  String get send2 => 'Invia';
+
+  @override
+  String get yourPrompt => 'La tua domanda...';
+
+  @override
+  String get add2 => 'Aggiungi';
+
+  @override
+  String get contentNotAvailable => 'Contenuto non disponibile';
+
+  @override
+  String get profileNotAvailable => 'Profilo non disponibile';
+
+  @override
+  String get noMomentsToShow => 'Nessun momento da mostrare';
+
+  @override
+  String get storiesNotAvailable => 'Storie non disponibili';
+
+  @override
+  String get cantMessageThisUser => 'Impossibile inviare messaggi a questo utente';
+
+  @override
+  String get pleaseSelectAReason => 'Seleziona un motivo';
+
+  @override
+  String get reportSubmitted => 'Segnalazione inviata. Grazie per aiutare a mantenere sicura la nostra community.';
+
+  @override
+  String get youHaveAlreadyReportedThisMoment => 'Hai già segnalato questo momento';
+
+  @override
+  String get tellUsMoreAboutWhyYouAreReportingThis => 'Dicci di più sul motivo della segnalazione';
+
+  @override
+  String get errorSharing => 'Errore nella condivisione';
+
+  @override
+  String get deviceInfo => 'Info dispositivo';
+
+  @override
+  String get recommended => 'Consigliato';
+
+  @override
+  String get anyLanguage => 'Qualsiasi lingua';
+
+  @override
+  String get noLanguagesFound => 'Nessuna lingua trovata';
+
+  @override
+  String get selectALanguage => 'Seleziona una lingua';
+
+  @override
+  String get languagesAreStillLoading => 'Le lingue sono ancora in caricamento...';
+
+  @override
+  String get selectNativeLanguage => 'Seleziona lingua madre';
+
+  @override
+  String get subscriptionDetails => 'Dettagli abbonamento';
+
+  @override
+  String get activeFeatures => 'Funzionalità attive';
+
+  @override
+  String get legalInformation => 'Informazioni legali';
+
+  @override
+  String get termsOfUse => 'Termini di utilizzo';
+
+  @override
+  String get manageSubscription => 'Gestisci abbonamento';
+
+  @override
+  String get manageSubscriptionInSettings => 'Per annullare l\'abbonamento, vai su Impostazioni > [Il tuo nome] > Abbonamenti sul dispositivo.';
+
+  @override
+  String get contactSupportToCancel => 'Per annullare l\'abbonamento, contatta il nostro team di supporto.';
+
+  @override
+  String get status => 'Stato';
+
+  @override
+  String get active => 'Attivo';
+
+  @override
+  String get plan => 'Piano';
+
+  @override
+  String get startDate => 'Data inizio';
+
+  @override
+  String get endDate => 'Data fine';
+
+  @override
+  String get nextBillingDate => 'Prossima fatturazione';
+
+  @override
+  String get autoRenew => 'Rinnovo automatico';
+
+  @override
+  String get pleaseLogInToContinue => 'Accedi per continuare';
+
+  @override
+  String get purchaseCanceledOrFailed => 'Acquisto annullato o fallito. Riprova.';
+
+  @override
+  String get maximumTagsAllowed => 'Massimo 5 tag consentiti';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVideo => 'Rimuovi prima le immagini per aggiungere un video';
+
+  @override
+  String get unsupportedFormat => 'Formato non supportato';
+
+  @override
+  String get errorProcessingVideo => 'Errore nell\'elaborazione del video';
+
+  @override
+  String get pleaseRemoveImagesFirstToRecordVideo => 'Rimuovi prima le immagini per registrare un video';
+
+  @override
+  String get locationAdded => 'Posizione aggiunta';
+
+  @override
+  String get failedToGetLocation => 'Impossibile ottenere la posizione';
+
+  @override
+  String get notNow => 'Non ora';
+
+  @override
+  String get videoUploadFailed => 'Caricamento video fallito';
+
+  @override
+  String get skipVideo => 'Salta video';
+
+  @override
+  String get retryUpload => 'Riprova caricamento';
+
+  @override
+  String get momentCreatedSuccessfully => 'Momento creato con successo';
+
+  @override
+  String get uploadingMomentInBackground => 'Caricamento momento in background...';
+
+  @override
+  String get failedToQueueUpload => 'Impossibile mettere in coda il caricamento';
+
+  @override
+  String get viewProfile => 'Visualizza profilo';
+
+  @override
+  String get mediaLinksAndDocs => 'Media, link e documenti';
+
+  @override
+  String get wallpaper => 'Sfondo';
+
+  @override
+  String get userIdNotAvailable => 'ID utente non disponibile';
+
+  @override
+  String get cannotBlockYourself => 'Non puoi bloccare te stesso';
+
+  @override
+  String get chatWallpaper => 'Sfondo chat';
+
+  @override
+  String get wallpaperSavedLocally => 'Sfondo salvato localmente';
+
+  @override
+  String get messageCopied => 'Messaggio copiato';
+
+  @override
+  String get forwardFeatureComingSoon => 'Funzione inoltra in arrivo';
+
+  @override
+  String get momentUnsaved => 'Momento non salvato';
+
+  @override
+  String get documentPickerComingSoon => 'Selettore documenti in arrivo';
+
+  @override
+  String get contactSharingComingSoon => 'Condivisione contatti in arrivo';
+
+  @override
+  String get featureComingSoon => 'Funzionalità in arrivo';
+
+  @override
+  String get answerSent => 'Risposta inviata!';
+
+  @override
+  String get noImagesAvailable => 'Nessuna immagine disponibile';
+
+  @override
+  String get mentionPickerComingSoon => 'Selettore menzioni in arrivo';
+
+  @override
+  String get musicPickerComingSoon => 'Selettore musica in arrivo';
+
+  @override
+  String get repostFeatureComingSoon => 'Funzione repost in arrivo';
+
+  @override
+  String get addFriendsFromYourProfile => 'Aggiungi amici dal tuo profilo';
+
+  @override
+  String get quickReplyAdded => 'Risposta rapida aggiunta';
+
+  @override
+  String get quickReplyDeleted => 'Risposta rapida eliminata';
+
+  @override
+  String get linkCopied => 'Link copiato!';
+
+  @override
+  String get maximumOptionsAllowed => 'Massimo 10 opzioni consentite';
+
+  @override
+  String get minimumOptionsRequired => 'Minimo 2 opzioni richieste';
+
+  @override
+  String get pleaseEnterAQuestion => 'Inserisci una domanda';
+
+  @override
+  String get pleaseAddAtLeast2Options => 'Aggiungi almeno 2 opzioni';
+
+  @override
+  String get pleaseSelectCorrectAnswerForQuiz => 'Seleziona la risposta corretta per il quiz';
+
+  @override
+  String get correctionSent => 'Correzione inviata!';
+
+  @override
+  String get sort => 'Ordina';
+
+  @override
+  String get savedMoments => 'Momenti salvati';
+
+  @override
+  String get unsave => 'Rimuovi';
+
+  @override
+  String get playingAudio => 'Riproduzione audio...';
+
+  @override
+  String get failedToGenerateQuiz => 'Impossibile generare il quiz';
+
+  @override
+  String get failedToAddComment => 'Impossibile aggiungere il commento';
+
+  @override
+  String get hello => 'Ciao!';
+
+  @override
+  String get howAreYou => 'Come stai?';
+
+  @override
+  String get cannotOpen => 'Impossibile aprire';
+
+  @override
+  String get errorOpeningLink => 'Errore nell\'apertura del link';
+
+  @override
+  String get saved => 'Salvato';
+
+  @override
+  String get follow => 'Segui';
+
+  @override
+  String get unfollow => 'Smetti di seguire';
+
+  @override
+  String get mute => 'Silenzia';
+
+  @override
+  String get online => 'Online';
+
+  @override
+  String get offline => 'Offline';
+
+  @override
+  String get lastSeen => 'Ultimo accesso';
+
+  @override
+  String get justNow => 'adesso';
+
+  @override
+  String minutesAgo(String count) {
+    return '$count minuti fa';
+  }
+
+  @override
+  String hoursAgo(String count) {
+    return '$count ore fa';
+  }
+
+  @override
+  String get yesterday => 'Ieri';
+
+  @override
+  String get signInWithEmail => 'Accedi con email';
+
+  @override
+  String get partners => 'Partner';
+
+  @override
+  String get nearby => 'Nelle vicinanze';
+
+  @override
+  String get topics => 'Argomenti';
+
+  @override
+  String get waves => 'Saluti';
+
+  @override
+  String get voiceRooms => 'Voce';
+
+  @override
+  String get filters => 'Filtri';
+
+  @override
+  String get searchCommunity => 'Cerca per nome, lingua o interessi...';
+
+  @override
+  String get bio => 'Bio';
+
+  @override
+  String get noBioYet => 'Nessuna bio disponibile.';
+
+  @override
+  String get languages => 'Lingue';
+
+  @override
+  String get native => 'Madrelingua';
+
+  @override
+  String get interests => 'Interessi';
+
+  @override
+  String get noMomentsYet => 'Nessun momento ancora';
+
+  @override
+  String get unableToLoadMoments => 'Impossibile caricare i momenti';
+
+  @override
+  String get map => 'Mappa';
+
+  @override
+  String get mapUnavailable => 'Mappa non disponibile';
+
+  @override
+  String get location => 'Posizione';
+
+  @override
+  String get unknownLocation => 'Posizione sconosciuta';
+
+  @override
+  String get noImagesAvailable2 => 'Nessuna immagine disponibile';
+
+  @override
+  String get permissionsRequired => 'Permessi richiesti';
+
+  @override
+  String get openSettings => 'Apri impostazioni';
+
+  @override
+  String get refresh => 'Aggiorna';
+
+  @override
+  String get videoCall => 'Video';
+
+  @override
+  String get voiceCall => 'Chiamata';
+
+  @override
+  String get message => 'Messaggio';
+
+  @override
+  String get pleaseLoginToFollow => 'Accedi per seguire gli utenti';
+
+  @override
+  String get pleaseLoginToCall => 'Accedi per effettuare una chiamata';
+
+  @override
+  String get cannotCallYourself => 'Non puoi chiamare te stesso';
+
+  @override
+  String get failedToFollowUser => 'Impossibile seguire l\'utente';
+
+  @override
+  String get failedToUnfollowUser => 'Impossibile smettere di seguire l\'utente';
+
+  @override
+  String get areYouSureUnfollow => 'Sei sicuro di voler smettere di seguire questo utente?';
+
+  @override
+  String get areYouSureUnblock => 'Sei sicuro di voler sbloccare questo utente?';
+
+  @override
+  String get youFollowed => 'Ora segui';
+
+  @override
+  String get youUnfollowed => 'Hai smesso di seguire';
+
+  @override
+  String get alreadyFollowing => 'Stai già seguendo';
+
+  @override
+  String get soon => 'Presto';
+
+  @override
+  String comingSoon(String feature) {
+    return '$feature in arrivo!';
+  }
+
+  @override
+  String get muteNotifications => 'Silenzia notifiche';
+
+  @override
+  String get unmuteNotifications => 'Riattiva notifiche';
+
+  @override
+  String get operationCompleted => 'Operazione completata';
+
+  @override
+  String get couldNotOpenMaps => 'Impossibile aprire le mappe';
+
+  @override
+  String hasntSharedMoments(Object name) {
+    return '$name non ha condiviso momenti';
+  }
+
+  @override
+  String messageUser(String name) {
+    return 'Invia messaggio a $name';
+  }
+
+  @override
+  String notFollowingUser(String name) {
+    return 'Non stavi seguendo $name';
+  }
+
+  @override
+  String youFollowedUser(String name) {
+    return 'Ora segui $name';
+  }
+
+  @override
+  String youUnfollowedUser(String name) {
+    return 'Hai smesso di seguire $name';
+  }
+
+  @override
+  String unfollowUser(String name) {
+    return 'Smetti di seguire $name';
+  }
+
+  @override
+  String get typing => 'sta scrivendo';
+
+  @override
+  String get connecting => 'Connessione...';
+
+  @override
+  String daysAgo(int count) {
+    return '${count}g fa';
+  }
+
+  @override
+  String get maxTagsAllowed => 'Massimo 5 tag consentiti';
+
+  @override
+  String maxImagesAllowed(int count) {
+    return 'Massimo $count immagini consentite';
+  }
+
+  @override
+  String get pleaseRemoveImagesFirst => 'Rimuovi prima le immagini per aggiungere un video';
+
+  @override
+  String get exchange3MessagesBeforeCall => 'Devi scambiare almeno 3 messaggi prima di poter chiamare questo utente';
+
+  @override
+  String mediaWithUser(String name) {
+    return 'Media con $name';
+  }
+
+  @override
+  String get errorLoadingMedia => 'Errore nel caricamento dei media';
+
+  @override
+  String get savedMomentsTitle => 'Momenti salvati';
+
+  @override
+  String get removeBookmark => 'Rimuovere segnalibro?';
+
+  @override
+  String get thisWillRemoveBookmark => 'Questo rimuoverà il messaggio dai tuoi segnalibri.';
+
+  @override
+  String get remove => 'Rimuovi';
+
+  @override
+  String get bookmarkRemoved => 'Segnalibro rimosso';
+
+  @override
+  String get bookmarkedMessages => 'Messaggi con segnalibro';
+
+  @override
+  String get wallpaperSaved => 'Sfondo salvato localmente';
+
+  @override
+  String get typeDeleteToConfirm => 'Type DELETE to confirm';
+
+  @override
+  String get storyArchive => 'Archivio storie';
+
+  @override
+  String get newHighlight => 'Nuovo in evidenza';
+
+  @override
+  String get addToHighlight => 'Aggiungi a in evidenza';
+
+  @override
+  String get repost => 'Ripubblica';
+
+  @override
+  String get repostFeatureSoon => 'Funzione ripubblica in arrivo';
+
+  @override
+  String get closeFriends => 'Amici stretti';
+
+  @override
+  String get addFriends => 'Aggiungi amici';
+
+  @override
+  String get highlights => 'In evidenza';
+
+  @override
+  String get createHighlight => 'Crea in evidenza';
+
+  @override
+  String get deleteHighlight => 'Eliminare in evidenza?';
+
+  @override
+  String get editHighlight => 'Modifica in evidenza';
+
+  @override
+  String get addMoreToStory => 'Aggiungi altro alla storia';
+
+  @override
+  String get noViewersYet => 'Nessun visualizzatore ancora';
+
+  @override
+  String get noReactionsYet => 'Nessuna reazione ancora';
+
+  @override
+  String get leaveRoom => 'Lasciare la stanza?';
+
+  @override
+  String get areYouSureLeaveRoom => 'Sei sicuro di voler lasciare questa stanza vocale?';
+
+  @override
+  String get stay => 'Resta';
+
+  @override
+  String get leave => 'Esci';
+
+  @override
+  String get enableGPS => 'Abilita GPS';
+
+  @override
+  String wavedToUser(String name) {
+    return 'Hai salutato $name!';
+  }
+
+  @override
+  String get areYouSureFollow => 'Sei sicuro di voler seguire';
+
+  @override
+  String get failedToLoadProfile => 'Impossibile caricare il profilo';
+
+  @override
+  String get noFollowersYet => 'Nessun follower ancora';
+
+  @override
+  String get noFollowingYet => 'Non segue ancora nessuno';
+
+  @override
+  String get searchUsers => 'Cerca utenti...';
+
+  @override
+  String get noResultsFound => 'Nessun risultato trovato';
+
+  @override
+  String get loadingFailed => 'Caricamento fallito';
+
+  @override
+  String get copyLink => 'Copia link';
+
+  @override
+  String get shareStory => 'Condividi storia';
+
+  @override
+  String get thisWillDeleteStory => 'Questa storia verrà eliminata permanentemente.';
+
+  @override
+  String get storyDeleted => 'Storia eliminata';
+
+  @override
+  String get addCaption => 'Aggiungi didascalia...';
+
+  @override
+  String get yourStory => 'La tua storia';
+
+  @override
+  String get sendMessage => 'Invia messaggio';
+
+  @override
+  String get replyToStory => 'Rispondi alla storia...';
+
+  @override
+  String get viewAllReplies => 'Visualizza tutte le risposte';
+
+  @override
+  String get preparingVideo => 'Preparazione video...';
+
+  @override
+  String videoOptimized(String size, String savings) {
+    return 'Video ottimizzato: ${size}MB (risparmiato $savings%)';
+  }
+
+  @override
+  String get failedToProcessVideo => 'Impossibile elaborare il video';
+
+  @override
+  String get optimizingForBestExperience => 'Ottimizzazione per la migliore esperienza di storia';
+
+  @override
+  String get pleaseSelectImageOrVideo => 'Seleziona un\'immagine o un video per la tua storia';
+
+  @override
+  String get storyCreatedSuccessfully => 'Storia creata con successo!';
+
+  @override
+  String get uploadingStoryInBackground => 'Caricamento storia in background...';
+
+  @override
+  String get storyCreationFailed => 'Creazione storia fallita';
+
+  @override
+  String get pleaseCheckConnection => 'Controlla la connessione e riprova.';
+
+  @override
+  String get uploadFailed => 'Caricamento fallito';
+
+  @override
+  String get tryShorterVideo => 'Prova con un video più corto o riprova più tardi.';
+
+  @override
+  String get shareMomentsThatDisappear => 'Condividi momenti che scompaiono in 24 ore';
+
+  @override
+  String get photo => 'Foto';
+
+  @override
+  String get record => 'Registra';
+
+  @override
+  String get addSticker => 'Aggiungi sticker';
+
+  @override
+  String get poll => 'Sondaggio';
+
+  @override
+  String get question => 'Domanda';
+
+  @override
+  String get mention => 'Menzione';
+
+  @override
+  String get music => 'Musica';
+
+  @override
+  String get hashtag => 'Hashtag';
+
+  @override
+  String get whoCanSeeThis => 'Chi può vedere questo?';
+
+  @override
+  String get everyone => 'Tutti';
+
+  @override
+  String get anyoneCanSeeStory => 'Chiunque può vedere questa storia';
+
+  @override
+  String get friendsOnly => 'Solo amici';
+
+  @override
+  String get onlyFollowersCanSee => 'Solo i tuoi follower possono vedere';
+
+  @override
+  String get onlyCloseFriendsCanSee => 'Solo i tuoi amici stretti possono vedere';
+
+  @override
+  String get backgroundColor => 'Colore sfondo';
+
+  @override
+  String get fontStyle => 'Stile carattere';
+
+  @override
+  String get normal => 'Normale';
+
+  @override
+  String get bold => 'Grassetto';
+
+  @override
+  String get italic => 'Corsivo';
+
+  @override
+  String get handwriting => 'Scrittura a mano';
+
+  @override
+  String get addLocation => 'Aggiungi posizione';
+
+  @override
+  String get enterLocationName => 'Inserisci nome posizione';
+
+  @override
+  String get addLink => 'Aggiungi link';
+
+  @override
+  String get buttonText => 'Testo pulsante';
+
+  @override
+  String get learnMore => 'Scopri di più';
+
+  @override
+  String get addHashtags => 'Aggiungi hashtag';
+
+  @override
+  String get addHashtag => 'Aggiungi hashtag';
+
+  @override
+  String get sendAsMessage => 'Invia come messaggio';
+
+  @override
+  String get shareExternally => 'Condividi esternamente';
+
+  @override
+  String get checkOutStory => 'Guarda questa storia su BananaTalk!';
+
+  @override
+  String viewsTab(String count) {
+    return 'Visualizzazioni ($count)';
+  }
+
+  @override
+  String reactionsTab(String count) {
+    return 'Reazioni ($count)';
+  }
+
+  @override
+  String get processingVideo => 'Elaborazione video...';
+
+  @override
+  String get link => 'Link';
+
+  @override
+  String unmuteUser(String name) {
+    return 'Riattivare $name?';
+  }
+
+  @override
+  String get willReceiveNotifications => 'Riceverai notifiche per i nuovi messaggi.';
+
+  @override
+  String muteNotificationsFor(String name) {
+    return 'Silenzia notifiche per $name';
+  }
+
+  @override
+  String notificationsUnmutedFor(String name) {
+    return 'Notifiche riattivate per $name';
+  }
+
+  @override
+  String notificationsMutedFor(String name) {
+    return 'Notifiche silenziate per $name';
+  }
+
+  @override
+  String get failedToUpdateMuteSettings => 'Impossibile aggiornare le impostazioni di silenziamento';
+
+  @override
+  String get oneHour => '1 ora';
+
+  @override
+  String get eightHours => '8 ore';
+
+  @override
+  String get oneWeek => '1 settimana';
+
+  @override
+  String get always => 'Sempre';
+
+  @override
+  String get failedToLoadBookmarks => 'Impossibile caricare i segnalibri';
+
+  @override
+  String get noBookmarkedMessages => 'Nessun messaggio con segnalibro';
+
+  @override
+  String get longPressToBookmark => 'Tieni premuto su un messaggio per aggiungerlo ai segnalibri';
+
+  @override
+  String get thisWillRemoveFromBookmarks => 'Questo rimuoverà il messaggio dai tuoi segnalibri.';
+
+  @override
+  String navigateToMessage(String name) {
+    return 'Vai al messaggio nella chat con $name';
+  }
+
+  @override
+  String bookmarkedOn(String date) {
+    return 'Aggiunto ai segnalibri il $date';
+  }
+
+  @override
+  String get voiceMessage => 'Messaggio vocale';
+
+  @override
+  String get document => 'Documento';
+
+  @override
+  String get attachment => 'Allegato';
+
+  @override
+  String get sendMeAMessage => 'Inviami un messaggio';
+
+  @override
+  String get shareWithFriends => 'Condividi con gli amici';
+
+  @override
+  String get shareAnywhere => 'Condividi ovunque';
+
+  @override
+  String get emailPreferences => 'Preferenze email';
+
+  @override
+  String get receiveEmailNotifications => 'Ricevi notifiche email da BananaTalk';
+
+  @override
+  String get whenAwayFor24Hours => 'Quando sei assente per 24+ ore';
+
+  @override
+  String get passwordAndLoginAlerts => 'Avvisi password e accesso';
+
+  @override
+  String get failedToLoadPreferences => 'Impossibile caricare le preferenze';
+
+  @override
+  String get failedToUpdateSetting => 'Impossibile aggiornare l\'impostazione';
+
+  @override
+  String get securityAlertsRecommended => 'Ti consigliamo di tenere attivi gli Avvisi di sicurezza per rimanere informato sulle attività importanti del tuo account.';
+
+  @override
+  String chatWallpaperFor(String name) {
+    return 'Sfondo chat per $name';
+  }
+
+  @override
+  String get solidColors => 'Colori solidi';
+
+  @override
+  String get gradients => 'Gradienti';
+
+  @override
+  String get customImage => 'Immagine personalizzata';
+
+  @override
+  String get chooseFromGallery => 'Scegli dalla galleria';
+
+  @override
+  String get preview => 'Anteprima';
+
+  @override
+  String get wallpaperUpdated => 'Sfondo aggiornato';
+
+  @override
+  String get category => 'Categoria';
+
+  @override
+  String get mood => 'Umore';
+
+  @override
+  String get sortBy => 'Ordina per';
+
+  @override
+  String get timePeriod => 'Periodo';
+
+  @override
+  String get searchLanguages => 'Cerca lingue...';
+
+  @override
+  String get selected => 'Selezionato';
+
+  @override
+  String get categories => 'Categorie';
+
+  @override
+  String get moods => 'Umori';
+
+  @override
+  String get applyFilters => 'Applica filtri';
+
+  @override
+  String applyNFilters(int count) {
+    return 'Applica $count filtri';
+  }
+
+  @override
+  String get videoMustBeUnder1GB => 'Il video deve essere inferiore a 1GB.';
+
+  @override
+  String get failedToRecordVideo => 'Impossibile registrare il video';
+
+  @override
+  String get errorSendingVideo => 'Errore nell\'invio del video';
+
+  @override
+  String get errorSendingVoiceMessage => 'Errore nell\'invio del messaggio vocale';
+
+  @override
+  String get errorSendingMedia => 'Errore nell\'invio del media';
+
+  @override
+  String get cameraPermissionRequired => 'I permessi di fotocamera e microfono sono necessari per registrare video.';
+
+  @override
+  String get locationPermissionRequired => 'Il permesso di posizione è necessario per condividere la tua posizione.';
+
+  @override
+  String get noInternetConnection => 'Nessuna connessione internet';
+
+  @override
+  String get tryAgainLater => 'Riprova più tardi';
+
+  @override
+  String get messageSent => 'Messaggio inviato';
+
+  @override
+  String get messageDeleted => 'Messaggio eliminato';
+
+  @override
+  String get messageEdited => 'Messaggio modificato';
+}

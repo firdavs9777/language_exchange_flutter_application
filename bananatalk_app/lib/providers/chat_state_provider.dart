@@ -1,60 +1,137 @@
 // lib/providers/chat_state_provider.dart
+import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/chat_socket_state_manager.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/unread_count_provider.dart';
+
+/// Connection status enum for clearer state management
+enum ConnectionStatus {
+  connected,
+  connecting,
+  reconnecting,
+  disconnected,
+}
 
 class ChatState {
   final List<Message> messages;
   final bool isLoading;
   final bool isSocketConnected;
+  final ConnectionStatus? connectionStatus; // Nullable - null means don't show status
   final bool isOtherUserTyping;
   final bool isOtherUserOnline;
   final String? otherUserLastSeen;
   final String error;
+  final Message? editingMessage; // Message currently being edited
 
   ChatState({
     this.messages = const [],
     this.isLoading = false,
     this.isSocketConnected = false,
+    this.connectionStatus, // Default null - don't show connection status initially
     this.isOtherUserTyping = false,
     this.isOtherUserOnline = false,
     this.otherUserLastSeen,
     this.error = '',
+    this.editingMessage,
   });
+
+  /// Get all pinned messages (not deleted)
+  List<Message> get pinnedMessages =>
+      messages.where((m) => m.isPinned && !m.isDeleted).toList();
 
   ChatState copyWith({
     List<Message>? messages,
     bool? isLoading,
     bool? isSocketConnected,
+    ConnectionStatus? connectionStatus,
+    bool clearConnectionStatus = false, // Set to true to explicitly set null
     bool? isOtherUserTyping,
     bool? isOtherUserOnline,
     String? otherUserLastSeen,
     String? error,
+    Message? editingMessage,
+    bool clearEditingMessage = false, // Set to true to explicitly clear editing
   }) {
     return ChatState(
       messages: messages ?? this.messages,
       isLoading: isLoading ?? this.isLoading,
       isSocketConnected: isSocketConnected ?? this.isSocketConnected,
+      connectionStatus: clearConnectionStatus ? null : (connectionStatus ?? this.connectionStatus),
       isOtherUserTyping: isOtherUserTyping ?? this.isOtherUserTyping,
       isOtherUserOnline: isOtherUserOnline ?? this.isOtherUserOnline,
       otherUserLastSeen: otherUserLastSeen ?? this.otherUserLastSeen,
       error: error ?? this.error,
+      editingMessage: clearEditingMessage ? null : (editingMessage ?? this.editingMessage),
     );
   }
 }
 
-class ChatStateNotifier extends StateNotifier<ChatState> {
+class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObserver {
   final String chatPartnerId;
   final String currentUserId;
+  final Ref? _ref; // Reference to check active chat
   ChatSocketStateManager? _stateManager;
   bool _isInitialized = false;
+  Timer? _disconnectDebounceTimer;
 
-  ChatStateNotifier({required this.chatPartnerId, required this.currentUserId})
-    : super(ChatState()) {
+  // Track app foreground state
+  bool _isAppInForeground = true;
+
+  // How long to wait before showing reconnecting status (avoids flickering)
+  static const _disconnectDebounceDelay = Duration(seconds: 3);
+
+  ChatStateNotifier({
+    required this.chatPartnerId,
+    required this.currentUserId,
+    Ref? ref,
+  }) : _ref = ref, super(ChatState()) {
     debugPrint('🎯 ChatStateNotifier created for partner: $chatPartnerId');
+    // Start observing app lifecycle
+    WidgetsBinding.instance.addObserver(this);
   }
+
+  /// Check if THIS chat is the currently active one (from global provider)
+  bool get _isThisChatActive {
+    if (_ref == null) return false;
+    try {
+      final activeChatId = _ref!.read(chatPartnersProvider).activeChatUserId;
+      return activeChatId == chatPartnerId;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final wasInForeground = _isAppInForeground;
+    _isAppInForeground = state == AppLifecycleState.resumed;
+    debugPrint('📱 App lifecycle changed: $state (foreground: $_isAppInForeground, activeChat: ${_isThisChatActive ? chatPartnerId : "other"})');
+
+    // When returning to foreground and THIS chat is the active one, mark messages as read
+    if (_isAppInForeground && !wasInForeground && _isThisChatActive) {
+      debugPrint('📱 App resumed with THIS chat active - marking messages as read');
+      _stateManager?.markAsRead();
+    }
+  }
+
+  /// Call this when chat screen becomes visible (kept for compatibility but not used for read logic)
+  void setChatVisible(bool visible) {
+    debugPrint('👁️ Chat visibility changed: $visible (activeChat check: ${_isThisChatActive})');
+
+    // If becoming visible and app is in foreground and THIS is the active chat, mark as read
+    if (visible && _isAppInForeground && _isInitialized && _isThisChatActive) {
+      debugPrint('👁️ Chat now visible - marking messages as read');
+      _stateManager?.markAsRead();
+    }
+  }
+
+  /// Check if we should auto-mark messages as read
+  /// Only mark as read if THIS chat is the active one AND app is in foreground
+  bool get _shouldAutoMarkAsRead => _isThisChatActive && _isAppInForeground;
 
   Future<void> initialize() async {
     if (_isInitialized) {
@@ -74,12 +151,35 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
     // Setup callbacks
     _stateManager!.onConnectionChanged = (isConnected) {
       debugPrint('🔌 Connection changed: $isConnected');
-      state = state.copyWith(isSocketConnected: isConnected);
 
-      // Auto-mark as read when socket reconnects (catch up on missed messages)
-      if (isConnected && state.messages.isNotEmpty) {
-        debugPrint('🔌 Socket reconnected - marking messages as read');
-        _stateManager?.markAsRead();
+      if (isConnected) {
+        // Connected - cancel any pending disconnect timer and clear status
+        _disconnectDebounceTimer?.cancel();
+        state = state.copyWith(
+          isSocketConnected: true,
+          clearConnectionStatus: true, // Hide connection status when connected
+        );
+
+        // Auto-mark as read when socket reconnects (only if chat visible & app foreground)
+        if (state.messages.isNotEmpty && _shouldAutoMarkAsRead) {
+          debugPrint('🔌 Socket reconnected & chat visible - marking messages as read');
+          _stateManager?.markAsRead();
+        } else if (state.messages.isNotEmpty) {
+          debugPrint('🔌 Socket reconnected but chat not visible or app backgrounded - NOT marking as read');
+        }
+      } else {
+        // Disconnected - debounce before showing reconnecting status
+        // This prevents flickering during brief disconnections
+        _disconnectDebounceTimer?.cancel();
+        _disconnectDebounceTimer = Timer(_disconnectDebounceDelay, () {
+          // Only show reconnecting if still disconnected after delay
+          if (!(_stateManager?.isConnected ?? false)) {
+            state = state.copyWith(
+              isSocketConnected: false,
+              connectionStatus: ConnectionStatus.reconnecting,
+            );
+          }
+        });
       }
     };
 
@@ -100,10 +200,16 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
       state = state.copyWith(messages: messages);
       debugPrint('   ✅ State updated with new message');
 
-      // Auto-mark as read since chat is open (KakaoTalk-style instant read)
+      // Only auto-mark as read if chat is visible AND app is in foreground
+      // This ensures notifications are sent when app is backgrounded
       if (message.sender.id == chatPartnerId) {
-        debugPrint('   📖 Auto-marking message as read (chat is open)');
-        _stateManager?.markAsRead();
+        if (_shouldAutoMarkAsRead) {
+          debugPrint('   📖 Auto-marking message as read (chat visible & app foreground)');
+          _stateManager?.markAsRead();
+        } else {
+          debugPrint('   🔔 NOT marking as read - not active chat or app backgrounded');
+          debugPrint('      Active chat: $_isThisChatActive, App foreground: $_isAppInForeground');
+        }
       }
     };
 
@@ -151,6 +257,44 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
       }).toList();
       state = state.copyWith(messages: updatedMessages);
       debugPrint('✅ Updated ${state.messages.where((m) => m.read).length} messages as read');
+    };
+
+    _stateManager!.onReactionUpdated = (messageId, reactions) {
+      debugPrint('💬 Updating reactions for message: $messageId');
+      // Update the message with new reactions
+      final updatedMessages = state.messages.map((msg) {
+        if (msg.id == messageId) {
+          // Parse reactions from the socket data using MessageReaction.fromJson
+          final parsedReactions = reactions.map((r) {
+            if (r is Map) {
+              try {
+                return MessageReaction.fromJson(Map<String, dynamic>.from(r));
+              } catch (e) {
+                debugPrint('⚠️ Error parsing reaction: $e');
+                return null;
+              }
+            }
+            return null;
+          }).whereType<MessageReaction>().toList();
+
+          return msg.copyWith(reactions: parsedReactions);
+        }
+        return msg;
+      }).toList();
+      state = state.copyWith(messages: updatedMessages);
+      debugPrint('✅ Reactions updated for message $messageId');
+    };
+
+    _stateManager!.onMessagePinned = (messageId, isPinned) {
+      debugPrint('📌 Message pinned update: $messageId -> $isPinned');
+      final updatedMessages = state.messages.map((msg) {
+        if (msg.id == messageId) {
+          return msg.copyWith(isPinned: isPinned);
+        }
+        return msg;
+      }).toList();
+      state = state.copyWith(messages: updatedMessages);
+      debugPrint('✅ Pin status updated for message $messageId');
     };
 
     await _stateManager!.initialize();
@@ -338,9 +482,69 @@ class ChatStateNotifier extends StateNotifier<ChatState> {
     _stateManager!.markAsRead();
   }
 
+  // ==================== MESSAGE ACTIONS ====================
+
+  /// Start editing a message
+  void setEditingMessage(Message message) {
+    debugPrint('✏️ Starting to edit message: ${message.id}');
+    state = state.copyWith(editingMessage: message);
+  }
+
+  /// Cancel editing
+  void clearEditingMessage() {
+    debugPrint('✏️ Cancelled editing');
+    state = state.copyWith(clearEditingMessage: true);
+  }
+
+  /// Update a message locally (optimistic update for edit/pin)
+  void updateMessageLocally(String messageId, {
+    String? newText,
+    bool? isPinned,
+    bool? isEdited,
+    bool? isDeleted,
+  }) {
+    final updatedMessages = state.messages.map((msg) {
+      if (msg.id == messageId) {
+        return msg.copyWith(
+          message: newText ?? msg.message,
+          isPinned: isPinned ?? msg.isPinned,
+          isEdited: isEdited ?? msg.isEdited,
+          isDeleted: isDeleted ?? msg.isDeleted,
+        );
+      }
+      return msg;
+    }).toList();
+    state = state.copyWith(messages: updatedMessages);
+  }
+
+  /// Remove a message locally (optimistic delete for "delete for me")
+  void removeMessageLocally(String messageId) {
+    debugPrint('🗑️ Removing message locally: $messageId');
+    final updatedMessages = state.messages.where((msg) => msg.id != messageId).toList();
+    state = state.copyWith(messages: updatedMessages);
+  }
+
+  /// Mark a message as deleted (for "delete for everyone")
+  void markMessageAsDeleted(String messageId) {
+    debugPrint('🗑️ Marking message as deleted: $messageId');
+    updateMessageLocally(messageId, isDeleted: true);
+  }
+
+  /// Toggle pin status locally
+  void togglePinLocally(String messageId) {
+    final message = state.messages.firstWhere(
+      (m) => m.id == messageId,
+      orElse: () => throw Exception('Message not found'),
+    );
+    debugPrint('📌 Toggling pin for message: $messageId (currently: ${message.isPinned})');
+    updateMessageLocally(messageId, isPinned: !message.isPinned);
+  }
+
   @override
   void dispose() {
     debugPrint('🧹 Disposing ChatStateNotifier for $chatPartnerId');
+    WidgetsBinding.instance.removeObserver(this);
+    _disconnectDebounceTimer?.cancel();
     _stateManager?.dispose();
     super.dispose();
   }
@@ -386,5 +590,6 @@ final chatStateProvider =
       return ChatStateNotifier(
         chatPartnerId: params.chatPartnerId,
         currentUserId: params.currentUserId,
+        ref: ref, // Pass ref to check active chat
       );
     });

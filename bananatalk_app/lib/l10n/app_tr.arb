@@ -1,0 +1,848 @@
+{
+  "@@locale": "tr",
+  "appName": "BananaTalk",
+  "@appName": {
+    "description": "The application name"
+  },
+  "login": "Giriş Yap",
+  "signUp": "Kayıt Ol",
+  "email": "E-posta",
+  "password": "Şifre",
+  "forgotPassword": "Şifremi Unuttum?",
+  "or": "VEYA",
+  "signInWithGoogle": "Google ile giriş yap",
+  "signInWithApple": "Apple ile giriş yap",
+  "signInWithFacebook": "Facebook ile giriş yap",
+  "welcome": "Hoş Geldiniz",
+  "home": "Ana Sayfa",
+  "messages": "Mesajlar",
+  "moments": "Anlar",
+  "profile": "Profil",
+  "settings": "Ayarlar",
+  "logout": "Çıkış Yap",
+  "language": "Dil",
+  "selectLanguage": "Dil Seçin",
+  "autoTranslate": "Otomatik Çeviri",
+  "autoTranslateMessages": "Mesajları Otomatik Çevir",
+  "autoTranslateMoments": "Anları Otomatik Çevir",
+  "autoTranslateComments": "Yorumları Otomatik Çevir",
+  "translate": "Çevir",
+  "translated": "Çevrildi",
+  "showOriginal": "Orijinali Göster",
+  "showTranslation": "Çeviriyi Göster",
+  "translating": "Çevriliyor...",
+  "translationFailed": "Çeviri başarısız",
+  "noTranslationAvailable": "Çeviri mevcut değil",
+  "translatedFrom": "{language} dilinden çevrildi",
+  "@translatedFrom": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "save": "Kaydet",
+  "cancel": "İptal",
+  "delete": "Sil",
+  "edit": "Düzenle",
+  "share": "Paylaş",
+  "like": "Beğen",
+  "comment": "Yorum",
+  "send": "Gönder",
+  "search": "Ara",
+  "notifications": "Bildirimler",
+  "followers": "Takipçiler",
+  "following": "Takip Edilenler",
+  "posts": "Gönderiler",
+  "visitors": "Ziyaretçiler",
+  "loading": "Yükleniyor...",
+  "error": "Hata",
+  "success": "Başarılı",
+  "tryAgain": "Tekrar Dene",
+  "networkError": "Ağ hatası. Lütfen bağlantınızı kontrol edin.",
+  "somethingWentWrong": "Bir şeyler ters gitti",
+  "ok": "Tamam",
+  "yes": "Evet",
+  "no": "Hayır",
+  "languageSettings": "Dil Ayarları",
+  "deviceLanguage": "Cihaz Dili",
+  "yourDeviceIsSetTo": "Cihazınız şu dile ayarlı: {flag} {name}",
+  "@yourDeviceIsSetTo": {
+    "placeholders": {
+      "flag": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youCanOverride": "Aşağıdan cihaz dilini değiştirebilirsiniz.",
+  "languageChangedTo": "Dil {name} olarak değiştirildi",
+  "@languageChangedTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorChangingLanguage": "Dil değiştirme hatası",
+  "autoTranslateSettings": "Otomatik Çeviri Ayarları",
+  "automaticallyTranslateIncomingMessages": "Gelen mesajları otomatik çevir",
+  "automaticallyTranslateMomentsInFeed": "Akıştaki anları otomatik çevir",
+  "automaticallyTranslateComments": "Yorumları otomatik çevir",
+  "translationServiceBeingConfigured": "Çeviri hizmeti yapılandırılıyor. Lütfen daha sonra tekrar deneyin.",
+  "translationUnavailable": "Çeviri mevcut değil",
+  "showLess": "daha az göster",
+  "showMore": "daha fazla göster",
+  "comments": "Yorumlar",
+  "beTheFirstToComment": "İlk yorumu siz yapın.",
+  "writeAComment": "Bir yorum yazın...",
+  "report": "Bildir",
+  "reportMoment": "Anı Bildir",
+  "reportUser": "Kullanıcıyı Bildir",
+  "deleteMoment": "An silinsin mi?",
+  "thisActionCannotBeUndone": "Bu işlem geri alınamaz.",
+  "momentDeleted": "An silindi",
+  "editFeatureComingSoon": "Düzenleme özelliği yakında",
+  "userNotFound": "Kullanıcı bulunamadı",
+  "cannotReportYourOwnComment": "Kendi yorumunuzu bildiremezsiniz",
+  "profileSettings": "Profil Ayarları",
+  "editYourProfileInformation": "Profil bilgilerinizi düzenleyin",
+  "blockedUsers": "Engellenen Kullanıcılar",
+  "manageBlockedUsers": "Engellenen kullanıcıları yönet",
+  "manageNotificationSettings": "Bildirim ayarlarını yönet",
+  "privacySecurity": "Gizlilik ve Güvenlik",
+  "controlYourPrivacy": "Gizliliğinizi kontrol edin",
+  "changeAppLanguage": "Uygulama dilini değiştir",
+  "appearance": "Görünüm",
+  "themeAndDisplaySettings": "Tema ve görüntüleme ayarları",
+  "myReports": "Bildirilerim",
+  "viewYourSubmittedReports": "Gönderdiğiniz bildirimleri görüntüleyin",
+  "reportsManagement": "Bildirim Yönetimi",
+  "manageAllReportsAdmin": "Tüm bildirimleri yönet (Admin)",
+  "legalPrivacy": "Yasal ve Gizlilik",
+  "termsPrivacySubscriptionInfo": "Şartlar, Gizlilik ve Abonelik bilgisi",
+  "helpCenter": "Yardım Merkezi",
+  "getHelpAndSupport": "Yardım ve destek alın",
+  "aboutBanaTalk": "BanaTalk Hakkında",
+  "deleteAccount": "Hesabı Sil",
+  "permanentlyDeleteYourAccount": "Hesabınızı kalıcı olarak silin",
+  "loggedOutSuccessfully": "Başarıyla çıkış yapıldı",
+  "retry": "Tekrar Dene",
+  "giftsLikes": "Hediyeler/Beğeniler",
+  "details": "Detaylar",
+  "to": "kime",
+  "banaTalk": "BanaTalk",
+  "community": "Topluluk",
+  "editProfile": "Profili Düzenle",
+  "yearsOld": "{age} yaşında",
+  "@yearsOld": {
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "searchConversations": "Sohbetleri ara...",
+  "visitorTrackingNotAvailable": "Ziyaretçi takibi henüz mevcut değil. Backend güncellemesi gerekli.",
+  "chatList": "Sohbet Listesi",
+  "languageExchange": "Dil Değişimi",
+  "nativeLanguage": "Ana Dil",
+  "learning": "Öğreniyor",
+  "notSet": "Ayarlanmadı",
+  "about": "Hakkında",
+  "aboutMe": "Hakkımda",
+  "bloodType": "Kan Grubu",
+  "photos": "Fotoğraflar",
+  "camera": "Kamera",
+  "createMoment": "An Oluştur",
+  "addATitle": "Başlık ekle...",
+  "whatsOnYourMind": "Aklınızdan ne geçiyor?",
+  "addTags": "Etiket Ekle",
+  "done": "Tamam",
+  "add": "Ekle",
+  "enterTag": "Etiket girin",
+  "post": "Paylaş",
+  "commentAddedSuccessfully": "Yorum başarıyla eklendi",
+  "clearFilters": "Filtreleri Temizle",
+  "notificationSettings": "Bildirim Ayarları",
+  "enableNotifications": "Bildirimleri Etkinleştir",
+  "turnAllNotificationsOnOrOff": "Tüm bildirimleri aç veya kapat",
+  "notificationTypes": "Bildirim Türleri",
+  "chatMessages": "Sohbet Mesajları",
+  "getNotifiedWhenYouReceiveMessages": "Mesaj aldığınızda bildirim alın",
+  "likesAndCommentsOnYourMoments": "Anlarınızdaki beğeniler ve yorumlar",
+  "whenPeopleYouFollowPostMoments": "Takip ettiğiniz kişiler an paylaştığında",
+  "friendRequests": "Arkadaşlık İstekleri",
+  "whenSomeoneFollowsYou": "Biri sizi takip ettiğinde",
+  "profileVisits": "Profil Ziyaretleri",
+  "whenSomeoneViewsYourProfileVIP": "Biri profilinizi görüntülediğinde (VIP)",
+  "marketing": "Pazarlama",
+  "updatesAndPromotionalMessages": "Güncellemeler ve promosyon mesajları",
+  "notificationPreferences": "Bildirim Tercihleri",
+  "sound": "Ses",
+  "playNotificationSounds": "Bildirim seslerini çal",
+  "vibration": "Titreşim",
+  "vibrateOnNotifications": "Bildirimlerde titret",
+  "showPreview": "Önizleme Göster",
+  "showMessagePreviewInNotifications": "Bildirimlerde mesaj önizlemesi göster",
+  "mutedConversations": "Sessize Alınan Sohbetler",
+  "conversation": "Sohbet",
+  "unmute": "Sesi Aç",
+  "systemNotificationSettings": "Sistem Bildirim Ayarları",
+  "manageNotificationsInSystemSettings": "Sistem ayarlarında bildirimleri yönet",
+  "errorLoadingSettings": "Ayarlar yüklenirken hata",
+  "unblockUser": "Kullanıcının Engelini Kaldır",
+  "unblock": "Engeli Kaldır",
+  "goBack": "Geri Dön",
+  "messageSendTimeout": "Mesaj gönderme zaman aşımı. Lütfen bağlantınızı kontrol edin.",
+  "failedToSendMessage": "Mesaj gönderilemedi",
+  "dailyMessageLimitExceeded": "Günlük mesaj limiti aşıldı. Sınırsız mesaj için VIP'e yükseltin.",
+  "cannotSendMessageUserMayBeBlocked": "Mesaj gönderilemiyor. Kullanıcı engellenmiş olabilir.",
+  "sessionExpired": "Oturum süresi doldu. Lütfen tekrar giriş yapın.",
+  "sendThisSticker": "Bu çıkartmayı gönder?",
+  "chooseHowYouWantToDeleteThisMessage": "Bu mesajı nasıl silmek istediğinizi seçin:",
+  "deleteForEveryone": "Herkes için sil",
+  "removesTheMessageForBothYouAndTheRecipient": "Mesajı hem sizin hem de alıcının için siler",
+  "deleteForMe": "Benim için sil",
+  "removesTheMessageOnlyFromYourChat": "Mesajı yalnızca sizin sohbetinizden siler",
+  "copy": "Kopyala",
+  "reply": "Yanıtla",
+  "forward": "İlet",
+  "moreOptions": "Daha Fazla Seçenek",
+  "noUsersAvailableToForwardTo": "İletilecek kullanıcı yok",
+  "searchMoments": "Anları ara...",
+  "searchInChatWith": "{name} ile sohbette ara",
+  "@searchInChatWith": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typeAMessage": "Mesaj yazın...",
+  "enterYourMessage": "Mesajınızı girin",
+  "detectYourLocation": "Konumunuzu algıla",
+  "tapToUpdateLocation": "Konumu güncellemek için dokunun",
+  "helpOthersFindYouNearby": "Başkalarının sizi yakınlarda bulmasına yardımcı olun",
+  "selectYourNativeLanguage": "Ana dilinizi seçin",
+  "whichLanguageDoYouWantToLearn": "Hangi dili öğrenmek istiyorsunuz?",
+  "selectYourGender": "Cinsiyetinizi seçin",
+  "addACaption": "Açıklama ekle...",
+  "typeSomething": "Bir şeyler yazın...",
+  "gallery": "Galeri",
+  "video": "Video",
+  "text": "Metin",
+  "provideMoreInformation": "Daha fazla bilgi verin...",
+  "searchByNameLanguageOrInterests": "İsim, dil veya ilgi alanlarına göre ara...",
+  "addTagAndPressEnter": "Etiket ekle ve Enter'a bas",
+  "replyTo": "{name} adlı kişiye yanıt ver...",
+  "@replyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightName": "Öne çıkan adı",
+  "searchCloseFriends": "Yakın arkadaşları ara...",
+  "askAQuestion": "Soru sor...",
+  "option": "Seçenek {number}",
+  "@option": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "whyAreYouReportingThis": "Bu {type} neden bildiriyorsunuz?",
+  "@whyAreYouReportingThis": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "additionalDetailsOptional": "Ek detaylar (isteğe bağlı)",
+  "warningThisActionIsPermanent": "Uyarı: Bu işlem kalıcıdır!",
+  "deletingYourAccountWillPermanentlyRemove": "Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.",
+  "clearAllNotifications": "Tüm bildirimler silinsin mi?",
+  "clearAll": "Tümünü Temizle",
+  "notificationDebug": "Bildirim Hata Ayıklama",
+  "markAllRead": "Tümünü okundu işaretle",
+  "clearAll2": "Tümünü temizle",
+  "emailAddress": "E-posta adresi",
+  "username": "Kullanıcı adı",
+  "alreadyHaveAnAccount": "Zaten hesabınız var mı?",
+  "login2": "Giriş Yap",
+  "selectYourNativeLanguage2": "Ana dilinizi seçin",
+  "whichLanguageDoYouWantToLearn2": "Hangi dili öğrenmek istiyorsunuz?",
+  "selectYourGender2": "Cinsiyetinizi seçin",
+  "dateFormat": "GG.AA.YYYY",
+  "detectYourLocation2": "Konumunuzu algıla",
+  "tapToUpdateLocation2": "Konumu güncellemek için dokunun",
+  "helpOthersFindYouNearby2": "Başkalarının sizi yakınlarda bulmasına yardımcı olun",
+  "signInWithApple": "Apple ile giriş yap",
+  "couldNotOpenLink": "Bağlantı açılamadı",
+  "legalPrivacy2": "Yasal ve Gizlilik",
+  "termsOfUseEULA": "Kullanım Şartları (EULA)",
+  "viewOurTermsAndConditions": "Şartlar ve koşullarımızı görüntüleyin",
+  "privacyPolicy": "Gizlilik Politikası",
+  "howWeHandleYourData": "Verilerinizi nasıl işliyoruz",
+  "emailNotifications": "E-posta Bildirimleri",
+  "receiveEmailNotificationsFromBananaTalk": "BananaTalk'tan e-posta bildirimleri al",
+  "weeklySummary": "Haftalık Özet",
+  "activityRecapEverySunday": "Her Pazar etkinlik özeti",
+  "newMessages": "Yeni Mesajlar",
+  "whenYoureAwayFor24PlusHours": "24+ saat uzakta olduğunuzda",
+  "newFollowers": "Yeni Takipçiler",
+  "whenSomeoneFollowsYou2": "Biri sizi takip ettiğinde",
+  "securityAlerts": "Güvenlik Uyarıları",
+  "passwordLoginAlerts": "Şifre ve giriş uyarıları",
+  "unblockUser2": "Kullanıcının Engelini Kaldır",
+  "blockedUsers2": "Engellenen Kullanıcılar",
+  "finalWarning": "Son Uyarı",
+  "deleteForever": "Kalıcı Olarak Sil",
+  "deleteAccount2": "Hesabı Sil",
+  "enterYourPassword": "Şifrenizi girin",
+  "yourPassword": "Şifreniz",
+  "typeDELETEToConfirm": "Onaylamak için SİL yazın",
+  "typeDELETEInCapitalLetters": "Büyük harflerle SİL yazın",
+  "sent": "{emoji} gönderildi!",
+  "@sent": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "replySent": "Yanıt gönderildi!",
+  "deleteStory": "Hikaye silinsin mi?",
+  "thisStoryWillBeRemovedPermanently": "Bu hikaye kalıcı olarak kaldırılacak.",
+  "noStories": "Hikaye yok",
+  "views": "{count} görüntüleme",
+  "@views": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reportStory": "Hikayeyi Bildir",
+  "reply2": "Yanıtla...",
+  "failedToPickImage": "Resim seçilemedi",
+  "failedToTakePhoto": "Fotoğraf çekilemedi",
+  "failedToPickVideo": "Video seçilemedi",
+  "pleaseEnterSomeText": "Lütfen metin girin",
+  "pleaseSelectMedia": "Lütfen medya seçin",
+  "storyPosted": "Hikaye paylaşıldı!",
+  "textOnlyStoriesRequireAnImage": "Yalnızca metin hikayeleri bir resim gerektirir",
+  "createStory": "Hikaye Oluştur",
+  "change": "Değiştir",
+  "userIdNotFound": "Kullanıcı kimliği bulunamadı. Lütfen tekrar giriş yapın.",
+  "pleaseSelectAPaymentMethod": "Lütfen bir ödeme yöntemi seçin",
+  "startExploring": "Keşfetmeye Başla",
+  "close": "Kapat",
+  "payment": "Ödeme",
+  "upgradeToVIP": "VIP'e Yükselt",
+  "errorLoadingProducts": "Ürünler yüklenirken hata",
+  "cancelVIPSubscription": "VIP Aboneliğini İptal Et",
+  "keepVIP": "VIP'i Koru",
+  "cancelSubscription": "Aboneliği İptal Et",
+  "vipSubscriptionCancelledSuccessfully": "VIP aboneliği başarıyla iptal edildi",
+  "vipStatus": "VIP Durumu",
+  "noActiveVIPSubscription": "Aktif VIP aboneliği yok",
+  "subscriptionExpired": "Abonelik Süresi Doldu",
+  "vipExpiredMessage": "VIP aboneliğinizin süresi doldu. Sınırsız özelliklerden yararlanmaya devam etmek için şimdi yenileyin!",
+  "expiredOn": "Sona erme tarihi",
+  "renewVIP": "VIP'i Yenile",
+  "whatYoureMissing": "Kaçırdıklarınız",
+  "manageInAppStore": "App Store'da Yönet",
+  "becomeVIP": "VIP Ol",
+  "unlimitedMessages": "Sınırsız Mesaj",
+  "unlimitedProfileViews": "Sınırsız Profil Görüntüleme",
+  "prioritySupport": "Öncelikli Destek",
+  "advancedSearch": "Gelişmiş Arama",
+  "profileBoost": "Profil Öne Çıkarma",
+  "adFreeExperience": "Reklamsız Deneyim",
+  "upgradeYourAccount": "Hesabınızı Yükseltin",
+  "moreMessages": "Daha Fazla Mesaj",
+  "moreProfileViews": "Daha Fazla Profil Görüntüleme",
+  "connectWithFriends": "Arkadaşlarla Bağlan",
+  "reviewStarted": "İnceleme başladı",
+  "reportResolved": "Bildirim çözüldü",
+  "reportDismissed": "Bildirim reddedildi",
+  "selectAction": "İşlem Seç",
+  "noViolation": "İhlal Yok",
+  "contentRemoved": "İçerik Kaldırıldı",
+  "userWarned": "Kullanıcı Uyarıldı",
+  "userSuspended": "Kullanıcı Askıya Alındı",
+  "userBanned": "Kullanıcı Yasaklandı",
+  "addNotesOptional": "Not Ekle (İsteğe Bağlı)",
+  "enterModeratorNotes": "Moderatör notlarını girin...",
+  "skip": "Atla",
+  "startReview": "İncelemeyi Başlat",
+  "resolve": "Çöz",
+  "dismiss": "Reddet",
+  "filterReports": "Bildirimleri Filtrele",
+  "all": "Tümü",
+  "clear": "Temizle",
+  "apply": "Uygula",
+  "myReports2": "Bildirilerim",
+  "blockUser": "Kullanıcıyı Engelle",
+  "block": "Engelle",
+  "wouldYouAlsoLikeToBlockThisUser": "Bu kullanıcıyı da engellemek ister misiniz?",
+  "noThanks": "Hayır, teşekkürler",
+  "yesBlockThem": "Evet, engelle",
+  "reportUser2": "Kullanıcıyı Bildir",
+  "submitReport": "Bildirimi Gönder",
+  "addAQuestionAndAtLeast2Options": "Bir soru ve en az 2 seçenek ekleyin",
+  "addOption": "Seçenek ekle",
+  "anonymousVoting": "Anonim oylama",
+  "create": "Oluştur",
+  "typeYourAnswer": "Yanıtınızı yazın...",
+  "send2": "Gönder",
+  "yourPrompt": "Sorunuz...",
+  "add2": "Ekle",
+  "contentNotAvailable": "İçerik mevcut değil",
+  "profileNotAvailable": "Profil mevcut değil",
+  "noMomentsToShow": "Gösterilecek an yok",
+  "storiesNotAvailable": "Hikayeler mevcut değil",
+  "cantMessageThisUser": "Bu kullanıcıya mesaj gönderilemiyor",
+  "pleaseSelectAReason": "Lütfen bir neden seçin",
+  "reportSubmitted": "Bildirim gönderildi. Topluluğumuzu güvende tutmaya yardımcı olduğunuz için teşekkürler.",
+  "youHaveAlreadyReportedThisMoment": "Bu anı zaten bildirdiniz",
+  "tellUsMoreAboutWhyYouAreReportingThis": "Bunu neden bildirdiğiniz hakkında daha fazla bilgi verin",
+  "errorSharing": "Paylaşım hatası",
+  "deviceInfo": "Cihaz Bilgisi",
+  "recommended": "Önerilen",
+  "anyLanguage": "Herhangi Bir Dil",
+  "noLanguagesFound": "Dil bulunamadı",
+  "selectALanguage": "Bir dil seçin",
+  "languagesAreStillLoading": "Diller hâlâ yükleniyor...",
+  "selectNativeLanguage": "Ana dili seçin",
+  "subscriptionDetails": "Abonelik Detayları",
+  "activeFeatures": "Aktif Özellikler",
+  "legalInformation": "Yasal Bilgiler",
+  "termsOfUse": "Kullanım Şartları",
+  "manageSubscription": "Aboneliği Yönet",
+  "manageSubscriptionInSettings": "Aboneliğinizi iptal etmek için cihazınızda Ayarlar > [Adınız] > Abonelikler'e gidin.",
+  "contactSupportToCancel": "Aboneliğinizi iptal etmek için lütfen destek ekibimizle iletişime geçin.",
+  "status": "Durum",
+  "active": "Aktif",
+  "plan": "Plan",
+  "startDate": "Başlangıç Tarihi",
+  "endDate": "Bitiş Tarihi",
+  "nextBillingDate": "Sonraki Fatura Tarihi",
+  "autoRenew": "Otomatik Yenileme",
+  "pleaseLogInToContinue": "Devam etmek için lütfen giriş yapın",
+  "purchaseCanceledOrFailed": "Satın alma iptal edildi veya başarısız oldu. Lütfen tekrar deneyin.",
+  "maximumTagsAllowed": "Maksimum 5 etiket izni var",
+  "pleaseRemoveImagesFirstToAddVideo": "Video eklemek için lütfen önce resimleri kaldırın",
+  "unsupportedFormat": "Desteklenmeyen format",
+  "errorProcessingVideo": "Video işlenirken hata",
+  "pleaseRemoveImagesFirstToRecordVideo": "Video kaydetmek için lütfen önce resimleri kaldırın",
+  "locationAdded": "Konum eklendi",
+  "failedToGetLocation": "Konum alınamadı",
+  "notNow": "Şimdi Değil",
+  "videoUploadFailed": "Video Yükleme Başarısız",
+  "skipVideo": "Videoyu Atla",
+  "retryUpload": "Yüklemeyi Tekrar Dene",
+  "momentCreatedSuccessfully": "An başarıyla oluşturuldu",
+  "uploadingMomentInBackground": "An arka planda yükleniyor...",
+  "failedToQueueUpload": "Yükleme sıraya alınamadı",
+  "viewProfile": "Profili Görüntüle",
+  "mediaLinksAndDocs": "Medya, bağlantılar ve belgeler",
+  "wallpaper": "Duvar Kağıdı",
+  "userIdNotAvailable": "Kullanıcı kimliği mevcut değil",
+  "cannotBlockYourself": "Kendinizi engelleyemezsiniz",
+  "chatWallpaper": "Sohbet Duvar Kağıdı",
+  "wallpaperSavedLocally": "Duvar kağıdı yerel olarak kaydedildi",
+  "messageCopied": "Mesaj kopyalandı",
+  "forwardFeatureComingSoon": "İletme özelliği yakında",
+  "momentUnsaved": "An kaydedilmedi",
+  "documentPickerComingSoon": "Belge seçici yakında",
+  "contactSharingComingSoon": "Kişi paylaşımı yakında",
+  "featureComingSoon": "Özellik yakında",
+  "answerSent": "Yanıt gönderildi!",
+  "noImagesAvailable": "Resim mevcut değil",
+  "mentionPickerComingSoon": "Bahsetme seçici yakında",
+  "musicPickerComingSoon": "Müzik seçici yakında",
+  "repostFeatureComingSoon": "Yeniden paylaşma özelliği yakında",
+  "addFriendsFromYourProfile": "Profilinizden arkadaş ekleyin",
+  "quickReplyAdded": "Hızlı yanıt eklendi",
+  "quickReplyDeleted": "Hızlı yanıt silindi",
+  "linkCopied": "Bağlantı kopyalandı!",
+  "maximumOptionsAllowed": "Maksimum 10 seçenek izni var",
+  "minimumOptionsRequired": "Minimum 2 seçenek gerekli",
+  "pleaseEnterAQuestion": "Lütfen bir soru girin",
+  "pleaseAddAtLeast2Options": "Lütfen en az 2 seçenek ekleyin",
+  "pleaseSelectCorrectAnswerForQuiz": "Lütfen test için doğru cevabı seçin",
+  "correctionSent": "Düzeltme gönderildi!",
+  "sort": "Sırala",
+  "savedMoments": "Kaydedilen Anlar",
+  "unsave": "Kaydetme",
+  "playingAudio": "Ses oynatılıyor...",
+  "failedToGenerateQuiz": "Test oluşturulamadı",
+  "failedToAddComment": "Yorum eklenemedi",
+  "hello": "Merhaba!",
+  "howAreYou": "Nasılsın?",
+  "cannotOpen": "Açılamıyor",
+  "errorOpeningLink": "Bağlantı açılırken hata",
+  "saved": "Kaydedildi",
+  "follow": "Takip Et",
+  "unfollow": "Takibi Bırak",
+  "mute": "Sessiz",
+  "online": "Çevrimiçi",
+  "offline": "Çevrimdışı",
+  "lastSeen": "Son görülme",
+  "justNow": "şimdi",
+  "minutesAgo": "{count} dakika önce",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hoursAgo": "{count} saat önce",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "yesterday": "Dün",
+  "signInWithEmail": "E-posta ile giriş yap",
+  "partners": "Partnerler",
+  "nearby": "Yakınlarda",
+  "topics": "Konular",
+  "waves": "El Sallama",
+  "voiceRooms": "Sesli",
+  "filters": "Filtreler",
+  "searchCommunity": "İsim, dil veya ilgi alanlarına göre ara...",
+  "bio": "Biyografi",
+  "noBioYet": "Henüz biyografi yok.",
+  "languages": "Diller",
+  "native": "Ana Dil",
+  "interests": "İlgi Alanları",
+  "noMomentsYet": "Henüz an yok",
+  "unableToLoadMoments": "Anlar yüklenemedi",
+  "map": "Harita",
+  "mapUnavailable": "Harita mevcut değil",
+  "location": "Konum",
+  "unknownLocation": "Bilinmeyen konum",
+  "noImagesAvailable2": "Resim mevcut değil",
+  "permissionsRequired": "İzinler Gerekli",
+  "openSettings": "Ayarları Aç",
+  "refresh": "Yenile",
+  "videoCall": "Görüntülü",
+  "voiceCall": "Arama",
+  "message": "Mesaj",
+  "pleaseLoginToFollow": "Kullanıcıları takip etmek için lütfen giriş yapın",
+  "pleaseLoginToCall": "Arama yapmak için lütfen giriş yapın",
+  "cannotCallYourself": "Kendinizi arayamazsınız",
+  "failedToFollowUser": "Kullanıcı takip edilemedi",
+  "failedToUnfollowUser": "Takip bırakılamadı",
+  "areYouSureUnfollow": "Bu kullanıcının takibini bırakmak istediğinizden emin misiniz?",
+  "areYouSureUnblock": "Bu kullanıcının engelini kaldırmak istediğinizden emin misiniz?",
+  "youFollowed": "Takip ettiniz",
+  "youUnfollowed": "Takibi bıraktınız",
+  "alreadyFollowing": "Zaten takip ediyorsunuz",
+  "soon": "Yakında",
+  "comingSoon": "{feature} yakında geliyor!",
+  "@comingSoon": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
+  "muteNotifications": "Bildirimleri sessize al",
+  "unmuteNotifications": "Bildirimlerin sesini aç",
+  "operationCompleted": "İşlem tamamlandı",
+  "couldNotOpenMaps": "Haritalar açılamadı",
+  "hasntSharedMoments": "{name} hiç an paylaşmadı",
+  "messageUser": "{name} adlı kişiye mesaj gönder",
+  "@messageUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notFollowingUser": "{name} adlı kişiyi takip etmiyordunuz",
+  "@notFollowingUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youFollowedUser": "{name} adlı kişiyi takip ettiniz",
+  "@youFollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youUnfollowedUser": "{name} adlı kişinin takibini bıraktınız",
+  "@youUnfollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "unfollowUser": "{name} adlı kişinin takibini bırak",
+  "@unfollowUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typing": "yazıyor",
+  "connecting": "Bağlanıyor...",
+  "daysAgo": "{count}g önce",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "maxTagsAllowed": "Maksimum 5 etiket izni var",
+  "maxImagesAllowed": "Maksimum {count} resim izni var",
+  "@maxImagesAllowed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseRemoveImagesFirst": "Video eklemek için lütfen önce resimleri kaldırın",
+  "exchange3MessagesBeforeCall": "Bu kullanıcıyı aramadan önce en az 3 mesaj alışverişi yapmanız gerekiyor",
+  "mediaWithUser": "{name} ile medya",
+  "@mediaWithUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorLoadingMedia": "Medya yüklenirken hata",
+  "savedMomentsTitle": "Kaydedilen Anlar",
+  "removeBookmark": "Yer imi kaldırılsın mı?",
+  "thisWillRemoveBookmark": "Bu, mesajı yer imlerinizden kaldıracak.",
+  "remove": "Kaldır",
+  "bookmarkRemoved": "Yer imi kaldırıldı",
+  "bookmarkedMessages": "Yer İmli Mesajlar",
+  "wallpaperSaved": "Duvar kağıdı yerel olarak kaydedildi",
+  "storyArchive": "Hikaye Arşivi",
+  "newHighlight": "Yeni Öne Çıkan",
+  "addToHighlight": "Öne Çıkanlara Ekle",
+  "repost": "Yeniden Paylaş",
+  "repostFeatureSoon": "Yeniden paylaşma özelliği yakında",
+  "closeFriends": "Yakın Arkadaşlar",
+  "addFriends": "Arkadaş Ekle",
+  "highlights": "Öne Çıkanlar",
+  "createHighlight": "Öne Çıkan Oluştur",
+  "deleteHighlight": "Öne çıkan silinsin mi?",
+  "editHighlight": "Öne Çıkanı Düzenle",
+  "addMoreToStory": "Hikayeye daha fazla ekle",
+  "noViewersYet": "Henüz izleyici yok",
+  "noReactionsYet": "Henüz tepki yok",
+  "leaveRoom": "Odadan Ayrıl?",
+  "areYouSureLeaveRoom": "Bu sesli odadan ayrılmak istediğinizden emin misiniz?",
+  "stay": "Kal",
+  "leave": "Ayrıl",
+  "enableGPS": "GPS'i Etkinleştir",
+  "wavedToUser": "{name} adlı kişiye el salladınız!",
+  "@wavedToUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "areYouSureFollow": "Takip etmek istediğinizden emin misiniz",
+  "failedToLoadProfile": "Profil yüklenemedi",
+  "noFollowersYet": "Henüz takipçi yok",
+  "noFollowingYet": "Henüz kimseyi takip etmiyor",
+  "searchUsers": "Kullanıcıları ara...",
+  "noResultsFound": "Sonuç bulunamadı",
+  "loadingFailed": "Yükleme başarısız",
+  "copyLink": "Bağlantıyı Kopyala",
+  "shareStory": "Hikayeyi Paylaş",
+  "thisWillDeleteStory": "Bu hikaye kalıcı olarak silinecek.",
+  "storyDeleted": "Hikaye silindi",
+  "addCaption": "Açıklama ekle...",
+  "yourStory": "Hikayeniz",
+  "sendMessage": "Mesaj Gönder",
+  "replyToStory": "Hikayeye yanıt ver...",
+  "viewAllReplies": "Tüm yanıtları görüntüle",
+  "preparingVideo": "Video hazırlanıyor...",
+  "videoOptimized": "Video optimize edildi: {size}MB (%{savings} tasarruf)",
+  "@videoOptimized": {
+    "placeholders": {
+      "size": {"type": "String"},
+      "savings": {"type": "String"}
+    }
+  },
+  "failedToProcessVideo": "Video işlenemedi",
+  "optimizingForBestExperience": "En iyi hikaye deneyimi için optimize ediliyor",
+  "pleaseSelectImageOrVideo": "Hikayeniz için lütfen bir resim veya video seçin",
+  "storyCreatedSuccessfully": "Hikaye başarıyla oluşturuldu!",
+  "uploadingStoryInBackground": "Hikaye arka planda yükleniyor...",
+  "storyCreationFailed": "Hikaye Oluşturma Başarısız",
+  "pleaseCheckConnection": "Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+  "uploadFailed": "Yükleme Başarısız",
+  "tryShorterVideo": "Daha kısa bir video deneyin veya daha sonra tekrar deneyin.",
+  "shareMomentsThatDisappear": "24 saat içinde kaybolan anlar paylaşın",
+  "photo": "Fotoğraf",
+  "record": "Kaydet",
+  "addSticker": "Çıkartma Ekle",
+  "poll": "Anket",
+  "question": "Soru",
+  "mention": "Bahset",
+  "music": "Müzik",
+  "hashtag": "Hashtag",
+  "whoCanSeeThis": "Bunu kim görebilir?",
+  "everyone": "Herkes",
+  "anyoneCanSeeStory": "Herkes bu hikayeyi görebilir",
+  "friendsOnly": "Sadece Arkadaşlar",
+  "onlyFollowersCanSee": "Sadece takipçileriniz görebilir",
+  "onlyCloseFriendsCanSee": "Sadece yakın arkadaşlarınız görebilir",
+  "backgroundColor": "Arka Plan Rengi",
+  "fontStyle": "Yazı Tipi Stili",
+  "normal": "Normal",
+  "bold": "Kalın",
+  "italic": "İtalik",
+  "handwriting": "El Yazısı",
+  "addLocation": "Konum Ekle",
+  "enterLocationName": "Konum adını girin",
+  "addLink": "Bağlantı Ekle",
+  "buttonText": "Düğme metni",
+  "learnMore": "Daha Fazla Bilgi",
+  "addHashtags": "Hashtag Ekle",
+  "addHashtag": "Hashtag ekle",
+  "sendAsMessage": "Mesaj Olarak Gönder",
+  "shareExternally": "Dışarıda Paylaş",
+  "checkOutStory": "BananaTalk'taki bu hikayeye göz at!",
+  "viewsTab": "Görüntüleme ({count})",
+  "@viewsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "reactionsTab": "Tepkiler ({count})",
+  "@reactionsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "processingVideo": "Video işleniyor...",
+  "link": "Bağlantı",
+  "unmuteUser": "{name} sesini aç?",
+  "@unmuteUser": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "willReceiveNotifications": "Yeni mesajlar için bildirim alacaksınız.",
+  "muteNotificationsFor": "{name} için bildirimleri sessize al",
+  "@muteNotificationsFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsUnmutedFor": "{name} için bildirimlerin sesi açıldı",
+  "@notificationsUnmutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsMutedFor": "{name} için bildirimler sessize alındı",
+  "@notificationsMutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "failedToUpdateMuteSettings": "Sessiz ayarları güncellenemedi",
+  "oneHour": "1 saat",
+  "eightHours": "8 saat",
+  "oneWeek": "1 hafta",
+  "always": "Her zaman",
+  "failedToLoadBookmarks": "Yer imleri yüklenemedi",
+  "noBookmarkedMessages": "Yer imli mesaj yok",
+  "longPressToBookmark": "Yer imi eklemek için bir mesaja uzun basın",
+  "thisWillRemoveFromBookmarks": "Bu, mesajı yer imlerinizden kaldıracak.",
+  "navigateToMessage": "{name} ile sohbetteki mesaja git",
+  "@navigateToMessage": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "bookmarkedOn": "{date} tarihinde yer imi eklendi",
+  "@bookmarkedOn": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "voiceMessage": "Sesli mesaj",
+  "document": "Belge",
+  "attachment": "Ek",
+  "sendMeAMessage": "Bana mesaj gönder",
+  "shareWithFriends": "Arkadaşlarla paylaş",
+  "shareAnywhere": "Her yerde paylaş",
+  "emailPreferences": "E-posta Tercihleri",
+  "receiveEmailNotifications": "BananaTalk'tan e-posta bildirimleri al",
+  "whenAwayFor24Hours": "24+ saat uzakta olduğunuzda",
+  "passwordAndLoginAlerts": "Şifre ve giriş uyarıları",
+  "failedToLoadPreferences": "Tercihler yüklenemedi",
+  "failedToUpdateSetting": "Ayar güncellenemedi",
+  "securityAlertsRecommended": "Önemli hesap etkinlikleri hakkında bilgi sahibi olmak için Güvenlik Uyarılarını etkin tutmanızı öneririz.",
+  "chatWallpaperFor": "{name} için sohbet duvar kağıdı",
+  "@chatWallpaperFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "solidColors": "Düz Renkler",
+  "gradients": "Gradyanlar",
+  "customImage": "Özel Resim",
+  "chooseFromGallery": "Galeriden seç",
+  "preview": "Önizleme",
+  "wallpaperUpdated": "Duvar kağıdı güncellendi",
+  "category": "Kategori",
+  "mood": "Ruh Hali",
+  "sortBy": "Sırala",
+  "timePeriod": "Zaman Dilimi",
+  "searchLanguages": "Dil ara...",
+  "selected": "Seçili",
+  "categories": "Kategoriler",
+  "moods": "Ruh Halleri",
+  "applyFilters": "Filtreleri Uygula",
+  "applyNFilters": "{count} Filtre Uygula",
+  "@applyNFilters": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "failedToRecordVideo": "Video kaydedilemedi",
+  "errorSendingVideo": "Video gönderilirken hata",
+  "errorSendingVoiceMessage": "Sesli mesaj gönderilirken hata",
+  "errorSendingMedia": "Medya gönderilirken hata",
+  "cameraPermissionRequired": "Video kaydetmek için kamera ve mikrofon izinleri gereklidir.",
+  "locationPermissionRequired": "Konumunuzu paylaşmak için konum izni gereklidir.",
+  "noInternetConnection": "İnternet bağlantısı yok",
+  "tryAgainLater": "Lütfen daha sonra tekrar deneyin",
+  "messageSent": "Mesaj gönderildi",
+  "messageDeleted": "Mesaj silindi",
+  "messageEdited": "Mesaj düzenlendi",
+  "videoMustBeUnder1GB": "Video 1GB'dan küçük olmalıdır."
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/voice_message_player.dart';
@@ -51,8 +52,9 @@ class MediaMessageWidget extends StatelessWidget {
   }
 
   Widget _buildImageMessage(BuildContext context, ColorScheme colorScheme) {
-    final imageUrl = media.thumbnail ?? media.url;
-    
+    // Use full quality URL, not thumbnail
+    final imageUrl = media.url;
+
     return GestureDetector(
       onTap: onTap,
       child: Stack(
@@ -64,6 +66,8 @@ class MediaMessageWidget extends StatelessWidget {
             fit: BoxFit.cover,
             borderRadius: BorderRadius.circular(12),
             placeholderColor: colorScheme.surfaceVariant,
+            quality: ImageQuality.high, // Use high quality for sharp images
+            highQuality: true,
             errorWidget: Container(
               width: 250,
               height: 250,
@@ -75,34 +79,7 @@ class MediaMessageWidget extends StatelessWidget {
               ),
             ),
           ),
-          if (media.fileName != null)
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withOpacity(0.7),
-                    ],
-                  ),
-                ),
-                child: Text(
-                  media.fileName!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ),
+          // Filename overlay removed for cleaner image display
         ],
       ),
     );
@@ -128,6 +105,8 @@ class MediaMessageWidget extends StatelessWidget {
                 height: 200,
                 fit: BoxFit.cover,
                 borderRadius: BorderRadius.circular(12),
+                quality: ImageQuality.high,
+                highQuality: true,
               ),
             Container(
               width: 60,
@@ -142,22 +121,7 @@ class MediaMessageWidget extends StatelessWidget {
                 size: 40,
               ),
             ),
-            if (media.fileName != null)
-              Positioned(
-                bottom: 8,
-                left: 8,
-                right: 8,
-                child: Text(
-                  media.fileName!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+            // Filename overlay removed for cleaner video display
           ],
         ),
       ),
@@ -165,8 +129,10 @@ class MediaMessageWidget extends StatelessWidget {
   }
 
   Widget _buildVoiceMessage(BuildContext context, ColorScheme colorScheme) {
+    // Normalize audio URL for relative paths
+    final normalizedUrl = ImageUtils.normalizeImageUrl(media.url);
     return VoiceMessagePlayer(
-      audioUrl: media.url,
+      audioUrl: normalizedUrl,
       durationSeconds: media.duration ?? 0,
       waveform: media.waveform,
       isFromMe: isSentByMe,
@@ -175,8 +141,10 @@ class MediaMessageWidget extends StatelessWidget {
   }
 
   Widget _buildAudioMessage(BuildContext context, ColorScheme colorScheme) {
+    // Normalize audio URL for relative paths
+    final normalizedUrl = ImageUtils.normalizeImageUrl(media.url);
     return VoiceMessagePlayer(
-      audioUrl: media.url,
+      audioUrl: normalizedUrl,
       durationSeconds: media.duration ?? 0,
       waveform: media.waveform,
       isFromMe: isSentByMe,

@@ -17,7 +17,7 @@ class ChatMediaPanel extends StatelessWidget {
       animation: animationController,
       builder: (context, child) {
         return Container(
-          height: 280 * animationController.value,
+          height: 180 * animationController.value,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border(
@@ -67,34 +67,10 @@ class ChatMediaPanel extends StatelessWidget {
                         onTap: () => onMediaOption('gallery'),
                       ),
                       MediaOptionButton(
-                        icon: Icons.videocam,
-                        label: 'Video',
-                        color: Colors.indigo,
-                        onTap: () => onMediaOption('video'),
-                      ),
-                      MediaOptionButton(
-                        icon: Icons.insert_drive_file,
-                        label: 'Document',
-                        color: Colors.blue,
-                        onTap: () => onMediaOption('document'),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MediaOptionButton(
                         icon: Icons.location_on,
                         label: 'Location',
                         color: Colors.green,
                         onTap: () => onMediaOption('location'),
-                      ),
-                      MediaOptionButton(
-                        icon: Icons.contact_page,
-                        label: 'Contact',
-                        color: Colors.orange,
-                        onTap: () => onMediaOption('contact'),
                       ),
                       MediaOptionButton(
                         icon: Icons.mic,
@@ -102,14 +78,10 @@ class ChatMediaPanel extends StatelessWidget {
                         color: Colors.red,
                         onTap: () => onMediaOption('audio'),
                       ),
-                      MediaOptionButton(
-                        icon: Icons.video_camera_front,
-                        label: 'Record',
-                        color: Colors.teal,
-                        onTap: () => onMediaOption('record_video'),
-                      ),
                     ],
                   ),
+                  // TODO: Re-enable when ready
+                  // Video, Document, Contact, Record Video - temporarily disabled
                 ],
               ),
             ),

@@ -6,9 +6,9 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
+import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
-import 'package:bananatalk_app/widgets/limit_indicator.dart';
 import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -21,11 +21,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/services/conversation_service.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
   final String id;
   final String name;
+  final String? username;
   final String? avatar;
   final String? lastMessage;
   final int unreadCount;
@@ -34,10 +37,14 @@ class ChatPartner {
   final String status;
   final DateTime? lastSeen;
   final bool isVip;
+  final bool isPinned;
+  final bool isMuted;
+  final String? conversationId;
 
   ChatPartner({
     required this.id,
     required this.name,
+    this.username,
     this.avatar,
     this.lastMessage,
     this.unreadCount = 0,
@@ -46,11 +53,18 @@ class ChatPartner {
     this.status = 'online',
     this.lastSeen,
     this.isVip = false,
+    this.isPinned = false,
+    this.isMuted = false,
+    this.conversationId,
   });
+
+  /// Get display username with @ prefix
+  String? get displayUsername => username != null ? '@$username' : null;
 
   ChatPartner copyWith({
     String? id,
     String? name,
+    String? username,
     String? avatar,
     String? lastMessage,
     int? unreadCount,
@@ -59,10 +73,14 @@ class ChatPartner {
     String? status,
     DateTime? lastSeen,
     bool? isVip,
+    bool? isPinned,
+    bool? isMuted,
+    String? conversationId,
   }) {
     return ChatPartner(
       id: id ?? this.id,
       name: name ?? this.name,
+      username: username ?? this.username,
       avatar: avatar ?? this.avatar,
       lastMessage: lastMessage ?? this.lastMessage,
       unreadCount: unreadCount ?? this.unreadCount,
@@ -71,6 +89,9 @@ class ChatPartner {
       status: status ?? this.status,
       lastSeen: lastSeen ?? this.lastSeen,
       isVip: isVip ?? this.isVip,
+      isPinned: isPinned ?? this.isPinned,
+      isMuted: isMuted ?? this.isMuted,
+      conversationId: conversationId ?? this.conversationId,
     );
   }
 }
@@ -136,6 +157,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
   late Future<List<Message>> _messagesFuture;
   bool _isLoading = false;
+  bool _isRefreshing = false;
   String _error = '';
   String _searchQuery = '';
   List<ChatPartner> _chatPartners = [];
@@ -161,6 +183,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
   late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+
+  // Track locally deleted conversations (workaround until backend filters)
+  final Set<String> _deletedConversationIds = {};
 
   @override
   void initState() {
@@ -191,23 +216,24 @@ class _ChatMainState extends ConsumerState<ChatMain>
       debugPrint('📱 App resumed - checking connection');
       _checkUserChange();
 
-      // Reconnect socket if disconnected - but only if reconnection is allowed
-      if (_chatSocketService.shouldAllowReconnection) {
-        // Validate token still exists before reconnecting
-        SharedPreferences.getInstance().then((prefs) {
+      // Reconnect socket if disconnected
+      // Use forceReset to clear any failed reconnect attempts from background
+      Future.delayed(const Duration(milliseconds: 500), () async {
+        if (!mounted) return;
+
+        // Check if socket needs reconnection
+        if (!_chatSocketService.isConnected) {
+          final prefs = await SharedPreferences.getInstance();
           final token = prefs.getString('token');
           if (token != null && token.isNotEmpty) {
-            if (!_chatSocketService.isConnected) {
-              debugPrint('🔌 Socket disconnected - reconnecting');
-              _chatSocketService.connect();
-            }
-          } else {
-            debugPrint('🚫 Token missing - logout detected, not reconnecting');
+            debugPrint('🔌 Socket disconnected after resume - force reconnecting');
+            // Use forceReset: true to reset reconnect attempts counter
+            _chatSocketService.connect(forceReset: true);
           }
-        });
-      } else {
-        debugPrint('🚫 Reconnection disabled - logout detected');
-      }
+        } else {
+          debugPrint('✅ Socket already connected after resume');
+        }
+      });
     }
   }
 
@@ -223,9 +249,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         'User changed from $_currentUserId to $currentUserId - reconnecting socket',
       );
 
-      // Disconnect old socket
-      await _chatSocketService.disconnect();
-
       if (!mounted) return;
 
       // Clear old data
@@ -238,6 +261,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       // Reinitialize with new user
       await _fetchMessages();
+
+      // Force reconnect socket with new user credentials
+      await _chatSocketService.forceReconnect();
       _subscribeToSocketEvents();
     }
   }
@@ -297,18 +323,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
     _messageReadSub?.cancel();
     _connectionStateSub?.cancel();
 
-    // Error handler for all streams - attempt to reconnect
+    // Error handler for all streams - log only, let socket service handle reconnection
     void onStreamError(dynamic error, StackTrace stackTrace) {
       debugPrint('❌ Socket stream error: $error');
-      // Attempt to reconnect socket on stream errors
-      if (mounted) {
-        Future.delayed(const Duration(seconds: 2), () {
-          if (mounted && !_chatSocketService.isConnected) {
-            debugPrint('🔄 Attempting socket reconnection after stream error...');
-            _chatSocketService.connect();
-          }
-        });
-      }
+      // Don't attempt reconnection here - socket service handles it automatically
+      // Multiple reconnection sources cause instability
     }
 
     // Subscribe to socket events with error handlers
@@ -382,7 +401,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Split into batches and request with small delays
     for (var i = 0; i < partnerIds.length; i += batchSize) {
-      final end = (i + batchSize < partnerIds.length) ? i + batchSize : partnerIds.length;
+      final end = (i + batchSize < partnerIds.length)
+          ? i + batchSize
+          : partnerIds.length;
       final batch = partnerIds.sublist(i, end);
 
       // Small delay between batches to avoid flooding
@@ -404,7 +425,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
     for (final partner in _chatPartners) {
       final providerCount = providerState.unreadCounts[partner.id] ?? 0;
       if (partner.unreadCount != providerCount) {
-        debugPrint('🔄 Syncing unread count from provider: ${partner.name} - ${partner.unreadCount} -> $providerCount');
+        debugPrint(
+          '🔄 Syncing unread count from provider: ${partner.name} - ${partner.unreadCount} -> $providerCount',
+        );
         needsUpdate = true;
         updatedPartners.add(partner.copyWith(unreadCount: providerCount));
       } else {
@@ -440,6 +463,30 @@ class _ChatMainState extends ConsumerState<ChatMain>
     debugPrint('🔄 Force refreshed all unread counts from provider');
   }
 
+  /// Silently refresh conversations without showing loading state
+  /// Used when returning from chat detail to get latest messages
+  Future<void> _silentRefresh() async {
+    if (!mounted) return;
+
+    try {
+      final messageService = ref.read(messageServiceProvider);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString('userId');
+
+      if (userId == null) return;
+
+      // Use efficient endpoint
+      final chatPartners = await messageService.getChatPartners(id: userId, limit: 100);
+      if (mounted) {
+        _processChatPartnersFromServer(chatPartners);
+        debugPrint('🔄 Silently refreshed chat list (${chatPartners.length} partners)');
+      }
+    } catch (e) {
+      debugPrint('⚠️ Silent refresh failed: $e');
+      // Don't show error - this is a background refresh
+    }
+  }
+
   void _syncUnreadCounts() {
     // Only sync if we have partners to avoid unnecessary updates
     if (_chatPartners.isEmpty) return;
@@ -459,14 +506,18 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       if (localCount > providerCount) {
         // Local count is higher (e.g., from initial API load), update provider
-        debugPrint('📊 Syncing local count to provider: ${partner.name} - $localCount (provider had $providerCount)');
+        debugPrint(
+          '📊 Syncing local count to provider: ${partner.name} - $localCount (provider had $providerCount)',
+        );
         notifier.updateUnreadCount(partner.id, localCount);
         updatedPartners.add(partner); // Keep local count
       } else if (localCount != providerCount) {
         // Provider count is different (real-time update), update local state
-        debugPrint('📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)');
+        debugPrint(
+          '📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)',
+        );
         updatedPartners.add(partner.copyWith(unreadCount: providerCount));
-          localStateChanged = true;
+        localStateChanged = true;
       } else {
         // Counts match, keep as is
         updatedPartners.add(partner);
@@ -534,6 +585,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           messageData['sender']?.toString();
       final senderName =
           messageData['sender']?['name']?.toString() ?? 'Unknown';
+      final senderUsername = messageData['sender']?['username']?.toString();
       final senderAvatar = messageData['sender']?['image']?.toString();
       final senderImageUrls =
           (messageData['sender']?['imageUrls'] as List?)
@@ -541,7 +593,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
               .toList() ??
           [];
       // Extract VIP status
-      final senderIsVip = messageData['sender']?['userMode'] == 'vip' ||
+      final senderIsVip =
+          messageData['sender']?['userMode'] == 'vip' ||
           messageData['sender']?['vipSubscription']?['isActive'] == true;
 
       final rawMessageText = messageData['message']?.toString() ?? '';
@@ -599,7 +652,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
         int partnerIndex = _chatPartners.indexWhere((p) => p.id == senderId);
 
         if (partnerIndex != -1) {
-          debugPrint('📝 Updating existing chat partner at index $partnerIndex');
+          debugPrint(
+            '📝 Updating existing chat partner at index $partnerIndex',
+          );
           final existingPartner = _chatPartners[partnerIndex];
 
           // Use provider count instead of calculating locally to avoid double-counting
@@ -624,6 +679,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           final newPartner = ChatPartner(
             id: senderId,
             name: senderName,
+            username: senderUsername,
             avatar: senderAvatar,
             lastMessage: messageText,
             lastMessageTime: createdAt,
@@ -662,6 +718,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           messageData['receiver']?.toString();
       final receiverName =
           messageData['receiver']?['name']?.toString() ?? 'Unknown';
+      final receiverUsername = messageData['receiver']?['username']?.toString();
       final receiverAvatar = messageData['receiver']?['image']?.toString();
       final receiverImageUrls =
           (messageData['receiver']?['imageUrls'] as List?)
@@ -669,7 +726,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
               .toList() ??
           [];
       // Extract VIP status
-      final receiverIsVip = messageData['receiver']?['userMode'] == 'vip' ||
+      final receiverIsVip =
+          messageData['receiver']?['userMode'] == 'vip' ||
           messageData['receiver']?['vipSubscription']?['isActive'] == true;
 
       final rawMessageText = messageData['message']?.toString() ?? '';
@@ -731,6 +789,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           final newPartner = ChatPartner(
             id: receiverId,
             name: receiverName,
+            username: receiverUsername,
             avatar: receiverAvatar,
             lastMessage: messageText,
             lastMessageTime: createdAt,
@@ -812,7 +871,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
     try {
       // Ensure data is a Map
       if (data is! Map) {
-        debugPrint('⚠️ Bulk status update data is not a Map: ${data.runtimeType}');
+        debugPrint(
+          '⚠️ Bulk status update data is not a Map: ${data.runtimeType}',
+        );
         return;
       }
 
@@ -914,7 +975,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
       final readBy = data['readBy']?.toString();
 
       if (readBy != null && readBy.isNotEmpty) {
-        debugPrint('📖 User $readBy read our messages (read receipt only, not clearing unread)');
+        debugPrint(
+          '📖 User $readBy read our messages (read receipt only, not clearing unread)',
+        );
         // No need to update local state here - read receipts are handled in chat detail
       }
     } catch (e) {
@@ -965,9 +1028,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
         await _chatSocketService.connect();
       }
 
-      _messagesFuture = messageService.getUserMessages(id: userId);
-      final messages = await _messagesFuture;
-      _processChatPartners(messages);
+      // Use efficient endpoint that returns unique chat partners directly
+      // This is much faster than loading all messages and grouping client-side
+      final chatPartners = await messageService.getChatPartners(id: userId, limit: 100);
+      _processChatPartnersFromServer(chatPartners);
 
       // Request status updates after chat partners are loaded
       if (_chatSocketService.isConnected && _chatPartners.isNotEmpty) {
@@ -976,15 +1040,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
         );
       }
     } catch (error) {
-      if (mounted) {
-        setState(() {
-          _error = 'Failed to load messages: $error';
-        });
-      }
-      // Attempt to reconnect socket if disconnected
-      if (!_chatSocketService.isConnected) {
-        await _chatSocketService.connect();
-      }
+      debugPrint('❌ Error loading chat partners: $error');
+      // Fallback to old method if new endpoint fails
+      await _fetchMessagesLegacy();
     } finally {
       if (mounted) {
         setState(() {
@@ -994,6 +1052,95 @@ class _ChatMainState extends ConsumerState<ChatMain>
     }
   }
 
+  /// Legacy method - loads individual messages (less efficient)
+  Future<void> _fetchMessagesLegacy() async {
+    try {
+      final messageService = ref.read(messageServiceProvider);
+      final userId = _currentUserId;
+      if (userId == null) return;
+
+      final messages = await messageService.getUserMessages(id: userId, limit: 200);
+      debugPrint('📬 [Legacy] Loaded ${messages.length} messages for chat list');
+      _processChatPartners(messages);
+    } catch (error) {
+      if (mounted) {
+        setState(() {
+          _error = 'Failed to load messages: $error';
+        });
+      }
+    }
+  }
+
+  /// Process chat partners from efficient server endpoint (aggregated data)
+  void _processChatPartnersFromServer(List<ChatPartnerData> serverPartners) {
+    debugPrint('👥 Processing ${serverPartners.length} chat partners from server');
+
+    // Filter out locally deleted conversations
+    final filteredPartners = serverPartners.where((data) {
+      if (data.conversationId != null && _deletedConversationIds.contains(data.conversationId)) {
+        debugPrint('🗑️ Filtering out locally deleted conversation: ${data.name}');
+        return false;
+      }
+      return true;
+    }).toList();
+
+    final partners = filteredPartners.map((data) {
+      return ChatPartner(
+        id: data.id,
+        name: data.name,
+        username: data.username,
+        avatar: data.profileImageUrl,
+        lastMessage: data.lastMessage?.displayText,
+        lastMessageTime: data.lastMessage?.createdAt,
+        unreadCount: data.unreadCount,
+        imageUrls: data.images,
+        status: 'offline', // Will be updated by socket
+        isVip: data.isVip,
+        isPinned: data.isPinned,
+        isMuted: data.isMuted,
+        conversationId: data.conversationId,
+      );
+    }).toList();
+
+    // Sort: pinned first, then by last message time (newest first)
+    partners.sort((a, b) {
+      // Pinned conversations come first
+      if (a.isPinned && !b.isPinned) return -1;
+      if (!a.isPinned && b.isPinned) return 1;
+
+      // Then sort by last message time
+      final aTime = a.lastMessageTime?.millisecondsSinceEpoch ?? 0;
+      final bTime = b.lastMessageTime?.millisecondsSinceEpoch ?? 0;
+      return bTime.compareTo(aTime);
+    });
+
+    if (mounted) {
+      // Get provider counts and update partners with correct unread counts
+      final providerState = ref.read(chatPartnersProvider);
+      final updatedPartners = partners.map((partner) {
+        final providerCount = providerState.unreadCounts[partner.id];
+        if (providerCount != null) {
+          return partner.copyWith(unreadCount: providerCount);
+        }
+        return partner;
+      }).toList();
+
+      setState(() {
+        _chatPartners = updatedPartners;
+      });
+
+      // Sync unread counts to provider
+      final notifier = ref.read(chatPartnersProvider.notifier);
+      for (final partner in updatedPartners) {
+        final providerCount = providerState.unreadCounts[partner.id];
+        if (partner.unreadCount > 0 && providerCount == null) {
+          notifier.updateUnreadCount(partner.id, partner.unreadCount);
+        }
+      }
+    }
+  }
+
+  /// Process chat partners from individual messages (legacy method)
   void _processChatPartners(List<Message> messages) {
     if (_currentUserId == null) return;
 
@@ -1024,6 +1171,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           partnersMap[otherUser.id] = ChatPartner(
             id: otherUser.id,
             name: otherUser.name,
+            username: otherUser.username,
             avatar: otherUser.imageUrls.isNotEmpty
                 ? otherUser.imageUrls[0]
                 : null,
@@ -1066,6 +1214,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
         return bTime.compareTo(aTime);
       });
 
+    debugPrint(
+      '👥 Found ${sortedPartners.length} unique chat partners from ${messages.length} messages',
+    );
+
     if (mounted) {
       // Get provider counts and update partners with correct unread counts
       final providerState = ref.read(chatPartnersProvider);
@@ -1092,7 +1244,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
         final providerCount = providerState.unreadCounts[partner.id];
         // Only sync from API if we have NEVER tracked this user (null = no entry)
         if (partner.unreadCount > 0 && providerCount == null) {
-          debugPrint('📊 Syncing unread count to provider for ${partner.name}: ${partner.unreadCount}');
+          debugPrint(
+            '📊 Syncing unread count to provider for ${partner.name}: ${partner.unreadCount}',
+          );
           notifier.updateUnreadCount(partner.id, partner.unreadCount);
         }
       }
@@ -1136,10 +1290,22 @@ class _ChatMainState extends ConsumerState<ChatMain>
     if (_searchQuery.trim().isEmpty) return _chatPartners;
 
     String normalizedQuery = _searchQuery.toLowerCase().trim();
+    // Remove @ prefix if user typed it for username search
+    String usernameQuery = normalizedQuery.startsWith('@')
+        ? normalizedQuery.substring(1)
+        : normalizedQuery;
 
     return _chatPartners.where((partner) {
+      // Search by name
       if (partner.name.toLowerCase().contains(normalizedQuery)) return true;
 
+      // Search by username (with or without @ prefix)
+      if (partner.username != null &&
+          partner.username!.toLowerCase().contains(usernameQuery)) {
+        return true;
+      }
+
+      // Search by last message
       if (partner.lastMessage?.toLowerCase().contains(normalizedQuery) ==
           true) {
         return true;
@@ -1167,9 +1333,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
       return;
     }
 
-    // Disconnect old socket
-    await _chatSocketService.disconnect();
-
     if (!mounted) return;
 
     // Clear all data
@@ -1183,11 +1346,74 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Fetch messages with new credentials
     await _fetchMessages();
+
+    // Only reconnect socket if not already connected
+    if (!_chatSocketService.isConnected) {
+      debugPrint('🔌 Socket not connected - reconnecting...');
+      await _chatSocketService.forceReconnect();
+    } else {
+      debugPrint('✅ Socket already connected - skipping reconnect');
+    }
     _subscribeToSocketEvents();
   }
 
   Future<void> _refresh() async {
     await _forceRefresh();
+  }
+
+  /// Handle refresh button tap with loading state
+  Future<void> _onRefreshButtonTap() async {
+    if (_isRefreshing) return;
+
+    setState(() => _isRefreshing = true);
+    try {
+      await _forceRefresh();
+    } finally {
+      if (mounted) {
+        setState(() => _isRefreshing = false);
+      }
+    }
+  }
+
+  /// Build floating refresh button
+  Widget _buildRefreshButton(ColorScheme colors) {
+    return Material(
+      elevation: 6,
+      shadowColor: const Color(0xFF00BFA5).withOpacity(0.4),
+      shape: const CircleBorder(),
+      child: InkWell(
+        onTap: _isRefreshing ? null : _onRefreshButtonTap,
+        customBorder: const CircleBorder(),
+        child: Container(
+          width: 52,
+          height: 52,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF00BFA5),
+                Color(0xFF00897B),
+              ],
+            ),
+          ),
+          child: _isRefreshing
+              ? const Padding(
+                  padding: EdgeInsets.all(14),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: Colors.white,
+                  ),
+                )
+              : const Icon(
+                  Icons.refresh_rounded,
+                  color: Colors.white,
+                  size: 26,
+                ),
+        ),
+      ),
+    );
   }
 
   void _onSelectUser(String userId, String userName, String? profilePicture) {
@@ -1220,12 +1446,181 @@ class _ChatMainState extends ConsumerState<ChatMain>
           extra: {'userName': userName, 'profilePicture': profilePicture},
         )
         .then((_) {
-          // Refresh unread counts when returning from chat
-          _forceRefreshUnreadCounts();
+          // Silently refresh conversations when returning from chat
+          // This ensures we get the latest messages without showing loading state
+          _silentRefresh();
           setState(() {
             _activeUserId = null;
           });
         });
+  }
+
+  /// Show dialog to start new chat by username
+  void _showNewChatDialog() {
+    final colors = Theme.of(context).colorScheme;
+    final usernameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Row(
+          children: [
+            Icon(Icons.person_search, color: colors.primary),
+            const SizedBox(width: 12),
+            const Text('New Chat'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Enter username to start a chat',
+              style: TextStyle(color: colors.onSurfaceVariant),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: usernameController,
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: '@username',
+                prefixIcon: const Icon(Icons.alternate_email),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+              ),
+              onSubmitted: (value) {
+                if (value.trim().isNotEmpty) {
+                  Navigator.of(context).pop();
+                  final username = value.trim().startsWith('@')
+                      ? value.trim().substring(1)
+                      : value.trim();
+                  _searchAndStartChat(username);
+                }
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final value = usernameController.text.trim();
+              if (value.isNotEmpty) {
+                Navigator.of(context).pop();
+                final username = value.startsWith('@')
+                    ? value.substring(1)
+                    : value;
+                _searchAndStartChat(username);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.primary,
+              foregroundColor: colors.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: const Text('Find User'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Search for a user by username and start a chat
+  Future<void> _searchAndStartChat(String username) async {
+    final colors = Theme.of(context).colorScheme;
+
+    // Show loading indicator
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(color: colors.primary),
+              const SizedBox(height: 16),
+              Text(
+                'Searching for @$username...',
+                style: TextStyle(color: colors.onSurface),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    try {
+      final userService = UserService();
+      final user = await userService.getUserByUsername(username);
+
+      if (!mounted) return;
+      Navigator.of(context).pop(); // Close loading dialog
+
+      if (user != null) {
+        // Found user - navigate to chat
+        _searchController.clear();
+        setState(() {
+          _searchQuery = '';
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ChatScreen(
+              userId: user.id,
+              userName: user.name,
+              profilePicture: user.profileImageUrl,
+              isVip: user.isVip,
+            ),
+          ),
+        ).then((_) {
+          _silentRefresh();
+        });
+      } else {
+        // User not found
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('User @$username not found'),
+            backgroundColor: colors.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.of(context).pop(); // Close loading dialog
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error searching for user: $e'),
+          backgroundColor: colors.error,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+    }
   }
 
   Color _getStatusColor(String status) {
@@ -1279,7 +1674,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         controller: _searchController,
         focusNode: _searchFocusNode,
         decoration: InputDecoration(
-          hintText: AppLocalizations.of(context)!.searchConversations,
+          hintText: 'Search or type @username',
           hintStyle: TextStyle(color: mutedText, fontSize: 16),
           prefixIcon: Icon(Icons.search, color: mutedText, size: 22),
           suffixIcon: _searchQuery.isNotEmpty
@@ -1322,6 +1717,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // ================= NO SEARCH RESULT =================
     if (_searchQuery.isNotEmpty && displayPartners.isEmpty) {
+      final isUsernameSearch = _searchQuery.trim().startsWith('@');
+      final searchTerm = isUsernameSearch
+          ? _searchQuery.trim().substring(1)
+          : _searchQuery.trim();
+
       return FadeTransition(
         opacity: _fadeAnimation,
         child: Center(
@@ -1333,11 +1733,32 @@ class _ChatMainState extends ConsumerState<ChatMain>
               Text('No matching conversations', style: textTheme.titleMedium),
               const SizedBox(height: 6),
               Text(
-                'Try adjusting your search',
+                isUsernameSearch
+                    ? 'User @$searchTerm not in your chats'
+                    : 'Try adjusting your search',
                 style: textTheme.bodySmall?.copyWith(
                   color: colors.outlineVariant,
                 ),
               ),
+              if (isUsernameSearch && searchTerm.isNotEmpty) ...[
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () => _searchAndStartChat(searchTerm),
+                  icon: const Icon(Icons.person_search, size: 20),
+                  label: Text('Find @$searchTerm'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colors.primary,
+                    foregroundColor: colors.onPrimary,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -1372,36 +1793,79 @@ class _ChatMainState extends ConsumerState<ChatMain>
     // ================= LIST =================
     return FadeTransition(
       opacity: _fadeAnimation,
-      child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        itemCount: displayPartners.length,
-        separatorBuilder: (_, __) => Divider(
-          height: 1,
-          thickness: 0.3,
-          indent: 88,
-          color: colors.outlineVariant.withOpacity(0.3),
-        ),
-        itemBuilder: (context, index) {
-          final partner = displayPartners[index];
-          final isActive = _activeUserId == partner.id;
+      // Auto-close other slidables when opening a new one
+      child: SlidableAutoCloseBehavior(
+        child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          itemCount: displayPartners.length,
+          separatorBuilder: (_, __) => Divider(
+            height: 1,
+            thickness: 0.3,
+            indent: 88,
+            color: colors.outlineVariant.withOpacity(0.3),
+          ),
+          itemBuilder: (context, index) {
+            final partner = displayPartners[index];
+            final isActive = _activeUserId == partner.id;
 
-          return InkWell(
-            onTap: () =>
-                _onSelectUser(partner.id, partner.name, partner.avatar),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: Row(
-                children: [
-                  // ================= AVATAR =================
-                  Stack(
-                    children: [
+            return Slidable(
+            key: ValueKey(partner.id),
+            endActionPane: ActionPane(
+              motion: const BehindMotion(),
+              extentRatio: 0.75, // Increased from 0.6 to show labels fully
+              children: [
+                // Pin/Unpin action
+                SlidableAction(
+                  onPressed: (_) => _handlePinConversation(partner),
+                  backgroundColor: const Color(0xFF2196F3),
+                  foregroundColor: Colors.white,
+                  icon: partner.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
+                  label: partner.isPinned ? 'Unpin' : 'Pin',
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                ),
+                // Mute/Unmute action
+                SlidableAction(
+                  onPressed: (_) => _handleMuteConversation(partner),
+                  backgroundColor: const Color(0xFFFF9800),
+                  foregroundColor: Colors.white,
+                  icon: partner.isMuted ? Icons.notifications : Icons.notifications_off,
+                  label: partner.isMuted ? 'Unmute' : 'Mute',
+                ),
+                // Delete action
+                SlidableAction(
+                  onPressed: (_) => _handleDeleteConversation(partner),
+                  backgroundColor: const Color(0xFFE53935),
+                  foregroundColor: Colors.white,
+                  icon: Icons.delete_outline,
+                  label: 'Delete',
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
+                ),
+              ],
+            ),
+            child: InkWell(
+              onTap: () =>
+                  _onSelectUser(partner.id, partner.name, partner.avatar),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: Row(
+                  children: [
+                    // ================= AVATAR =================
+                    Stack(
+                      children: [
                       VipAvatarFrameCompact(
                         isVip: partner.isVip,
                         size: 56,
                         child: CachedCircleAvatar(
                           imageUrl:
-                              partner.avatar != null && partner.avatar!.isNotEmpty
+                              partner.avatar != null &&
+                                  partner.avatar!.isNotEmpty
                               ? partner.avatar
                               : null,
                           radius: 28,
@@ -1436,7 +1900,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
                             boxShadow: _isUserOnline(partner)
                                 ? [
                                     BoxShadow(
-                                      color: const Color(0xFF4ADE80).withOpacity(0.5),
+                                      color: const Color(
+                                        0xFF4ADE80,
+                                      ).withOpacity(0.5),
                                       blurRadius: 8,
                                       spreadRadius: 2,
                                     ),
@@ -1479,7 +1945,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                       ),
                                       decoration: BoxDecoration(
                                         gradient: const LinearGradient(
-                                          colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                                          colors: [
+                                            Color(0xFFFFD700),
+                                            Color(0xFFFFA500),
+                                          ],
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
                                         ),
@@ -1509,6 +1978,26 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                 ],
                               ),
                             ),
+                            // Pin indicator
+                            if (partner.isPinned)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: Icon(
+                                  Icons.push_pin,
+                                  size: 14,
+                                  color: colors.primary,
+                                ),
+                              ),
+                            // Mute indicator
+                            if (partner.isMuted)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: Icon(
+                                  Icons.notifications_off,
+                                  size: 14,
+                                  color: colors.onSurface.withOpacity(0.4),
+                                ),
+                              ),
                             if (partner.lastMessageTime != null)
                               Text(
                                 _formatTime(partner.lastMessageTime!),
@@ -1540,7 +2029,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                           Container(
                                             width: 6,
                                             height: 6,
-                                            margin: const EdgeInsets.only(right: 6),
+                                            margin: const EdgeInsets.only(
+                                              right: 6,
+                                            ),
                                             decoration: const BoxDecoration(
                                               color: Color(0xFF4ADE80),
                                               shape: BoxShape.circle,
@@ -1549,70 +2040,190 @@ class _ChatMainState extends ConsumerState<ChatMain>
                                         ],
                                         Expanded(
                                           child: Text(
-                                            partner.lastMessage ?? 'No messages yet',
+                                            partner.lastMessage ??
+                                                'No messages yet',
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: textTheme.bodySmall?.copyWith(
-                                              color: partner.unreadCount > 0
-                                                  ? colors.onSurface
-                                                  : colors.onSurface.withOpacity(0.5),
-                                              fontWeight: partner.unreadCount > 0
-                                                  ? FontWeight.w500
-                                                  : FontWeight.normal,
-                                              fontSize: 13,
-                                            ),
+                                            style: textTheme.bodySmall
+                                                ?.copyWith(
+                                                  color: partner.unreadCount > 0
+                                                      ? colors.onSurface
+                                                      : colors.onSurface
+                                                            .withOpacity(0.5),
+                                                  fontWeight:
+                                                      partner.unreadCount > 0
+                                                      ? FontWeight.w500
+                                                      : FontWeight.normal,
+                                                  fontSize: 13,
+                                                ),
                                           ),
                                         ),
                                       ],
                                     ),
                             ),
-                            // Unread badge - KakaoTalk style (red pill)
-                            if (partner.unreadCount > 0)
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: partner.unreadCount > 9 ? 8 : 0,
-                                  vertical: 0,
-                                ),
-                                constraints: const BoxConstraints(
-                                  minWidth: 22,
-                                  minHeight: 22,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFEF4444), // Red-500
-                                  borderRadius: BorderRadius.circular(11),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFFEF4444).withAlpha(77),
-                                      blurRadius: 4,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  partner.unreadCount > 99
-                                      ? '99+'
-                                      : partner.unreadCount.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
+                            // Unread indicator - simple dot (badge removed per user request)
+                            // Tick marks are kept for read status
                           ],
                         ),
                       ],
                     ),
                   ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
         },
+        ),
       ),
     );
+  }
+
+  // ================= SWIPE ACTION HANDLERS =================
+
+  Future<void> _handlePinConversation(ChatPartner partner) async {
+    debugPrint('📌 ====== PIN ACTION ======');
+    debugPrint('📌 Partner: ${partner.name} (${partner.id})');
+    debugPrint('📌 Conversation ID: ${partner.conversationId}');
+    debugPrint('📌 Currently pinned: ${partner.isPinned}');
+    debugPrint('📌 Action: ${partner.isPinned ? "UNPIN" : "PIN"}');
+
+    final conversationService = ConversationService();
+
+    try {
+      final result = partner.isPinned
+          ? await conversationService.unpinConversation(conversationId: partner.conversationId ?? partner.id)
+          : await conversationService.pinConversation(conversationId: partner.conversationId ?? partner.id);
+
+      debugPrint('📌 API Response: $result');
+
+      if (result['success'] == true) {
+        debugPrint('📌 ✅ Success! Refreshing conversations...');
+        // Refresh conversations
+        _silentRefresh();
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(partner.isPinned ? 'Conversation unpinned' : 'Conversation pinned'),
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        debugPrint('📌 ❌ Failed: ${result['message'] ?? 'Unknown error'}');
+      }
+    } catch (e) {
+      debugPrint('📌 ❌ Error pinning conversation: $e');
+    }
+  }
+
+  Future<void> _handleMuteConversation(ChatPartner partner) async {
+    debugPrint('🔇 ====== MUTE ACTION ======');
+    debugPrint('🔇 Partner: ${partner.name} (${partner.id})');
+    debugPrint('🔇 Conversation ID: ${partner.conversationId}');
+    debugPrint('🔇 Currently muted: ${partner.isMuted}');
+    debugPrint('🔇 Action: ${partner.isMuted ? "UNMUTE" : "MUTE"}');
+
+    final conversationService = ConversationService();
+
+    try {
+      final result = partner.isMuted
+          ? await conversationService.unmuteConversation(conversationId: partner.conversationId ?? partner.id)
+          : await conversationService.muteConversation(conversationId: partner.conversationId ?? partner.id);
+
+      debugPrint('🔇 API Response: $result');
+
+      if (result['success'] == true) {
+        debugPrint('🔇 ✅ Success! Refreshing conversations...');
+        // Refresh conversations
+        _silentRefresh();
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(partner.isMuted ? 'Notifications enabled' : 'Conversation muted'),
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        debugPrint('🔇 ❌ Failed: ${result['message'] ?? 'Unknown error'}');
+      }
+    } catch (e) {
+      debugPrint('🔇 ❌ Error muting conversation: $e');
+    }
+  }
+
+  Future<void> _handleDeleteConversation(ChatPartner partner) async {
+    debugPrint('🗑️ ====== DELETE ACTION ======');
+    debugPrint('🗑️ Partner: ${partner.name} (${partner.id})');
+    debugPrint('🗑️ Conversation ID: ${partner.conversationId}');
+    debugPrint('🗑️ Showing confirmation dialog...');
+
+    // Show confirmation dialog
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Conversation'),
+        content: Text('Delete your conversation with ${partner.name}? This cannot be undone.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    debugPrint('🗑️ User confirmed: $confirmed');
+
+    if (confirmed != true) {
+      debugPrint('🗑️ ❌ Cancelled by user');
+      return;
+    }
+
+    final conversationService = ConversationService();
+
+    try {
+      debugPrint('🗑️ Calling deleteConversation API...');
+      final result = await conversationService.deleteConversation(
+        conversationId: partner.conversationId ?? partner.id,
+      );
+
+      debugPrint('🗑️ API Response: $result');
+
+      if (result['success'] == true) {
+        debugPrint('🗑️ ✅ Success! Refreshing conversations...');
+        // Add to locally deleted set for client-side filtering
+        if (partner.conversationId != null) {
+          _deletedConversationIds.add(partner.conversationId!);
+        }
+        // Refresh conversations
+        _silentRefresh();
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Conversation deleted'),
+              duration: Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        debugPrint('🗑️ ❌ Failed: ${result['message'] ?? 'Unknown error'}');
+      }
+    } catch (e) {
+      debugPrint('🗑️ ❌ Error deleting conversation: $e');
+    }
   }
 
   Widget _buildTypingIndicator() {
@@ -1684,7 +2295,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Watch provider to sync unread counts - this will rebuild when provider changes
     final chatPartnersState = ref.watch(chatPartnersProvider);
-    
+
     // Sync local unread counts with provider
     // Use a separate method to avoid setState during build
     _syncUnreadCountsFromProvider(chatPartnersState);
@@ -1707,6 +2318,16 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ),
         ),
         actions: [
+          // New chat button
+          IconButton(
+            icon: Icon(
+              Icons.person_add_alt_1_outlined,
+              color: colors.onBackground,
+              size: 26,
+            ),
+            tooltip: 'New chat by username',
+            onPressed: () => _showNewChatDialog(),
+          ),
           // Notification bell icon with badge
           Consumer(
             builder: (context, ref, child) {
@@ -1781,7 +2402,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 ? ListView.builder(
                     itemCount: 8,
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    itemBuilder: (context, index) => const ChatListItemSkeleton(),
+                    itemBuilder: (context, index) =>
+                        const ChatListItemSkeleton(),
                   )
                 // ---------- Error ----------
                 : _error.isNotEmpty
@@ -1820,16 +2442,26 @@ class _ChatMainState extends ConsumerState<ChatMain>
                     ),
                   )
                 // ---------- Content ----------
-                : RefreshIndicator(
-                    onRefresh: _refresh,
-                    backgroundColor: colors.surface,
-                    color: colors.primary,
-                    child: Column(
-                      children: [
-                        _buildSearchBar(),
-                        Expanded(child: _buildUsersList()),
-                      ],
-                    ),
+                : Stack(
+                    children: [
+                      RefreshIndicator(
+                        onRefresh: _refresh,
+                        backgroundColor: colors.surface,
+                        color: colors.primary,
+                        child: Column(
+                          children: [
+                            _buildSearchBar(),
+                            Expanded(child: _buildUsersList()),
+                          ],
+                        ),
+                      ),
+                      // Floating refresh button
+                      Positioned(
+                        right: 16,
+                        bottom: 16,
+                        child: _buildRefreshButton(colors),
+                      ),
+                    ],
                   ),
           ),
         ],

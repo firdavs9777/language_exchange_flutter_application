@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
+import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
@@ -20,27 +21,30 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final bool isTyping;
   final String? userId;
   final bool? isConnected;
+  final ConnectionStatus? connectionStatus;
   final bool? isOnline;
   final String? lastSeen;
   final VoidCallback? onThemeChanged;
   final bool isVip;
 
   const ChatAppBar({
-    Key? key,
+    super.key,
     required this.userName,
     this.profilePicture,
     required this.isTyping,
     this.userId,
     this.isConnected,
+    this.connectionStatus,
     this.isOnline,
     this.lastSeen,
     this.onThemeChanged,
     this.isVip = false,
-  }) : super(key: key);
+  });
 
   Widget _buildStatusWidget(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    // Priority: typing > connecting > online/offline status
+
+    // Priority: typing > connection issues > online/offline status
     if (isTyping) {
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -58,27 +62,11 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       );
     }
 
-    if (isConnected != null && !isConnected!) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: AppColors.warning,
-              shape: BoxShape.circle,
-            ),
-          ),
-          Spacing.hGapXS,
-          Text(
-            l10n.connecting,
-            style: context.captionSmall.copyWith(
-              color: context.textSecondary,
-            ),
-          ),
-        ],
-      );
+    // Only show connection status if explicitly set AND not connected
+    // This prevents "Connecting..." flash on every chat open
+    if (connectionStatus != null &&
+        connectionStatus != ConnectionStatus.connected) {
+      return _buildConnectionStatus(context, connectionStatus!);
     }
 
     // Show online/offline status
@@ -117,29 +105,100 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
     return const SizedBox.shrink();
   }
+
+  Widget _buildConnectionStatus(BuildContext context, ConnectionStatus status) {
+    Color dotColor;
+    String statusText;
+    bool showPulse = false;
+
+    switch (status) {
+      case ConnectionStatus.connecting:
+        dotColor = AppColors.warning;
+        statusText = 'Connecting...';
+        showPulse = true;
+        break;
+      case ConnectionStatus.reconnecting:
+        dotColor = AppColors.warning;
+        statusText = 'Reconnecting...';
+        showPulse = true;
+        break;
+      case ConnectionStatus.disconnected:
+        dotColor = AppColors.error;
+        statusText = 'Offline';
+        break;
+      case ConnectionStatus.connected:
+        dotColor = AppColors.online;
+        statusText = 'Connected';
+        break;
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (showPulse)
+          _PulsingDot(color: dotColor)
+        else
+          Container(
+            width: 6,
+            height: 6,
+            decoration: BoxDecoration(
+              color: dotColor,
+              shape: BoxShape.circle,
+            ),
+          ),
+        Spacing.hGapXS,
+        Text(
+          statusText,
+          style: context.captionSmall.copyWith(
+            color: context.textSecondary,
+          ),
+        ),
+      ],
+    );
+  }
   
   String _formatLastSeen(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    if (lastSeen == null) return l10n.offline;
+    // If lastSeen is null or empty, user was recently online or we don't have data
+    if (lastSeen == null || lastSeen!.isEmpty || lastSeen == 'null') {
+      return 'Last seen recently';
+    }
 
     try {
       final lastSeenDate = parseToKoreaTime(lastSeen!);
       final now = getKoreaNow();
       final difference = now.difference(lastSeenDate);
 
-      if (difference.inMinutes < 1) {
-        return l10n.justNow;
+      // Handle future dates (clock sync issues) - treat as just now
+      if (difference.isNegative) {
+        return 'Active just now';
+      }
+
+      if (difference.inSeconds < 30) {
+        return 'Active just now';
+      } else if (difference.inMinutes < 1) {
+        return 'Active just now';
+      } else if (difference.inMinutes == 1) {
+        return 'Active 1 min ago';
       } else if (difference.inMinutes < 60) {
-        return l10n.minutesAgo(difference.inMinutes);
+        return 'Active ${difference.inMinutes} min ago';
+      } else if (difference.inHours == 1) {
+        return 'Active 1 hour ago';
       } else if (difference.inHours < 24) {
-        return l10n.hoursAgo(difference.inHours);
+        return 'Active ${difference.inHours}h ago';
+      } else if (difference.inDays == 1) {
+        return 'Active yesterday';
       } else if (difference.inDays < 7) {
-        return '${difference.inDays}d ago';
+        return 'Active ${difference.inDays}d ago';
       } else {
-        return l10n.offline;
+        // Show actual date for 7+ days ago
+        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        final month = months[lastSeenDate.month - 1];
+        return 'Last seen $month ${lastSeenDate.day}';
       }
     } catch (e) {
-      return l10n.offline;
+      debugPrint('❌ Error parsing lastSeen: $e');
+      return 'Last seen recently';
     }
   }
 
@@ -230,27 +289,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.symmetric(vertical: 6),
               child: Row(
                 children: [
-                  Hero(
-                    tag: 'avatar_$userId',
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: isOnline == true
-                              ? AppColors.online.withValues(alpha: 0.3)
-                              : Colors.transparent,
-                          width: 2,
-                        ),
-                      ),
-                      child: UserAvatar(
-                        profilePicture: profilePicture,
-                        userName: userName,
-                        radius: 18,
-                        isVip: isVip,
-                      ),
-                    ),
-                  ),
-                  Spacing.hGapMD,
+                  // User avatar hidden - only show name and status
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -487,8 +526,10 @@ class _CallButton extends StatelessWidget {
   }
 }
 
-/// Animated typing dots indicator
+/// Animated typing dots indicator with visibility-aware animation
 class _TypingDots extends StatefulWidget {
+  const _TypingDots();
+
   @override
   State<_TypingDots> createState() => _TypingDotsState();
 }
@@ -507,6 +548,17 @@ class _TypingDotsState extends State<_TypingDots>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Pause animation when not visible (TickerMode disabled)
+    if (!TickerMode.of(context)) {
+      _controller.stop();
+    } else if (!_controller.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -514,35 +566,99 @@ class _TypingDotsState extends State<_TypingDots>
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(3, (index) {
-        return AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            final delay = index * 0.15;
-            final progress = (_controller.value - delay).clamp(0.0, 1.0);
-            final bounce = (progress < 0.5)
-                ? Curves.easeOut.transform(progress * 2)
-                : Curves.easeIn.transform(2 - progress * 2);
+    // Wrap with RepaintBoundary to isolate repaints
+    return RepaintBoundary(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(3, (index) {
+          return AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              final delay = index * 0.15;
+              final progress = (_controller.value - delay).clamp(0.0, 1.0);
+              final bounce = (progress < 0.5)
+                  ? Curves.easeOut.transform(progress * 2)
+                  : Curves.easeIn.transform(2 - progress * 2);
 
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 1.5),
-              child: Transform.translate(
-                offset: Offset(0, -3 * bounce),
-                child: Container(
-                  width: 5,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.6 + 0.4 * bounce),
-                    shape: BoxShape.circle,
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 1.5),
+                child: Transform.translate(
+                  offset: Offset(0, -3 * bounce),
+                  child: Container(
+                    width: 5,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.6 + 0.4 * bounce),
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          );
+        }),
+      ),
+    );
+  }
+}
+
+/// Pulsing dot for connection status
+class _PulsingDot extends StatefulWidget {
+  final Color color;
+
+  const _PulsingDot({required this.color});
+
+  @override
+  State<_PulsingDot> createState() => _PulsingDotState();
+}
+
+class _PulsingDotState extends State<_PulsingDot>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    )..repeat(reverse: true);
+    _animation = Tween<double>(begin: 0.4, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!TickerMode.of(context)) {
+      _controller.stop();
+    } else if (!_controller.isAnimating) {
+      _controller.repeat(reverse: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(
+            color: widget.color.withValues(alpha: _animation.value),
+            shape: BoxShape.circle,
+          ),
         );
-      }),
+      },
     );
   }
 }

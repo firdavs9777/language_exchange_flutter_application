@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/community/partner_discovery_tab.dart';
 import 'package:bananatalk_app/pages/community/nearby_tab.dart';
 import 'package:bananatalk_app/pages/community/topics_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
-import 'package:bananatalk_app/pages/community/waves_tab.dart';
+import 'package:bananatalk_app/pages/community/single_community.dart';
+// import 'package:bananatalk_app/pages/community/waves_tab.dart'; // Hidden for now
 import 'package:bananatalk_app/pages/community/community_filter.dart';
+import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -20,6 +24,8 @@ class CommunityMain extends ConsumerStatefulWidget {
 
 class _CommunityMainState extends ConsumerState<CommunityMain>
     with SingleTickerProviderStateMixin {
+  static const String _filtersKey = 'community_filters';
+
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
@@ -39,7 +45,47 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
+    _loadSavedFilters();
+  }
+
+  /// Load saved filters from SharedPreferences
+  Future<void> _loadSavedFilters() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedFilters = prefs.getString(_filtersKey);
+      debugPrint('🔍 Loading saved filters: $savedFilters');
+      if (savedFilters != null) {
+        final decoded = json.decode(savedFilters) as Map<String, dynamic>;
+        setState(() {
+          _filters = {
+            'minAge': decoded['minAge'] ?? 18,
+            'maxAge': decoded['maxAge'] ?? 100,
+            'gender': decoded['gender'],
+            'nativeLanguage': decoded['nativeLanguage'],
+            'country': decoded['country'],
+            'topics': List<String>.from(decoded['topics'] ?? []),
+            'languageLevel': decoded['languageLevel'],
+            'onlineOnly': decoded['onlineOnly'] ?? false,
+          };
+        });
+        debugPrint('🔍 Loaded filters: $_filters');
+      } else {
+        debugPrint('🔍 No saved filters found, using defaults');
+      }
+    } catch (e) {
+      debugPrint('Error loading saved filters: $e');
+    }
+  }
+
+  /// Save filters to SharedPreferences
+  Future<void> _saveFilters(Map<String, dynamic> filters) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_filtersKey, json.encode(filters));
+    } catch (e) {
+      debugPrint('Error saving filters: $e');
+    }
   }
 
   @override
@@ -56,9 +102,17 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         pageBuilder: (context, animation, secondaryAnimation) =>
             CommunityFilter(
           onApplyFilters: (filters) {
+            debugPrint('🎛️ Applying new filters from filter screen:');
+            debugPrint('   minAge: ${filters['minAge']}');
+            debugPrint('   maxAge: ${filters['maxAge']}');
+            debugPrint('   gender: ${filters['gender']}');
+            debugPrint('   nativeLanguage: ${filters['nativeLanguage']}');
+            debugPrint('   country: ${filters['country']}');
             setState(() {
               _filters = filters;
             });
+            // Save filters to SharedPreferences for persistence
+            _saveFilters(filters);
           },
           initialFilters: _filters,
         ),
@@ -115,7 +169,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   filters: _filters,
                   searchQuery: _searchQuery,
                 ),
-                const WavesTab(),
                 const VoiceRoomsTab(),
               ],
             ),
@@ -178,6 +231,11 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   Widget _buildSearchBar(ColorScheme colorScheme) {
+    final isUsernameSearch = _searchQuery.trim().startsWith('@');
+    final username = isUsernameSearch && _searchQuery.trim().length > 1
+        ? _searchQuery.trim().substring(1)
+        : '';
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
       decoration: BoxDecoration(
@@ -188,14 +246,30 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         controller: _searchController,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: AppLocalizations.of(context)!.searchCommunity,
+          hintText: 'Search or type @username',
           hintStyle: context.bodyMedium.copyWith(color: context.textSecondary),
           prefixIcon: Icon(
             Icons.search_rounded,
             color: context.primaryColor,
           ),
-          suffixIcon: _searchQuery.isNotEmpty
-              ? IconButton(
+          suffixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Find user button when searching with @
+              if (isUsernameSearch && username.isNotEmpty)
+                TextButton(
+                  onPressed: () => _findUserByUsername(username),
+                  style: TextButton.styleFrom(
+                    foregroundColor: context.primaryColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: const Text('Find', style: TextStyle(fontWeight: FontWeight.w600)),
+                ),
+              // Clear button
+              if (_searchQuery.isNotEmpty)
+                IconButton(
                   icon: Icon(
                     Icons.clear_rounded,
                     color: context.textSecondary,
@@ -207,8 +281,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                       _searchQuery = '';
                     });
                   },
-                )
-              : null,
+                ),
+            ],
+          ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: Spacing.lg,
@@ -221,8 +296,88 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             _searchQuery = value;
           });
         },
+        onSubmitted: (value) {
+          if (isUsernameSearch && username.isNotEmpty) {
+            _findUserByUsername(username);
+          }
+        },
       ),
     );
+  }
+
+  /// Find user by username and navigate to their profile
+  Future<void> _findUserByUsername(String username) async {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    // Show loading
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(color: colorScheme.primary),
+              const SizedBox(height: 16),
+              Text(
+                'Finding @$username...',
+                style: TextStyle(color: colorScheme.onSurface),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    try {
+      final userService = UserService();
+      final user = await userService.getUserByUsername(username);
+
+      if (!mounted) return;
+      Navigator.of(context).pop(); // Close loading
+
+      if (user != null) {
+        // Clear search
+        _searchController.clear();
+        setState(() {
+          _searchQuery = '';
+          _isSearching = false;
+        });
+
+        // Navigate to user profile
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => SingleCommunity(community: user),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('User @$username not found'),
+            backgroundColor: colorScheme.error,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.of(context).pop();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+          backgroundColor: colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   Widget _buildTabBar(ColorScheme colorScheme) {
@@ -278,16 +433,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                 const Icon(Icons.tag_rounded, size: 20),
                 Spacing.hGapSM,
                 Text(AppLocalizations.of(context)!.topics),
-              ],
-            ),
-          ),
-          Tab(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.waving_hand_rounded, size: 20),
-                Spacing.hGapSM,
-                Text(AppLocalizations.of(context)!.waves),
               ],
             ),
           ),

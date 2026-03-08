@@ -1,53 +1,58 @@
 import 'package:intl/intl.dart';
 
-/// Convert UTC DateTime to Korea timezone (Asia/Seoul)
-DateTime toKoreaTime(DateTime utcDateTime) {
-  // Korea is UTC+9
-  return utcDateTime.add(const Duration(hours: 9));
+/// Convert UTC DateTime to user's local timezone
+DateTime toLocalTime(DateTime utcDateTime) {
+  return utcDateTime.toLocal();
 }
 
-/// Parse UTC string and convert to Korea time
-DateTime parseToKoreaTime(String dateString) {
+/// Parse UTC string and convert to user's local time
+DateTime parseToLocalTime(String dateString) {
   try {
     final utcDateTime = DateTime.parse(dateString);
-    // If the string doesn't have timezone info, assume it's UTC
-    if (!dateString.contains('Z') && !dateString.contains('+') && !dateString.contains('-')) {
-      return toKoreaTime(utcDateTime.toUtc());
-    }
-    return toKoreaTime(utcDateTime);
+    // DateTime.parse handles the 'Z' suffix and returns UTC
+    // If it has 'Z' or timezone offset, it's already properly parsed as UTC
+    // Convert to UTC first, then to local time
+    return utcDateTime.toUtc().toLocal();
   } catch (e) {
-    // If parsing fails, return current time in Korea
-    return toKoreaTime(DateTime.now().toUtc());
+    // If parsing fails, return current local time
+    return DateTime.now();
   }
 }
 
-/// Format message time in Korea timezone
+// Legacy functions for backward compatibility - now use local time
+@Deprecated('Use toLocalTime instead')
+DateTime toKoreaTime(DateTime utcDateTime) => toLocalTime(utcDateTime);
+
+@Deprecated('Use parseToLocalTime instead')
+DateTime parseToKoreaTime(String dateString) => parseToLocalTime(dateString);
+
+/// Format message time in user's local timezone
 String formatMessageTime(String dateString) {
   try {
-    final koreaTime = parseToKoreaTime(dateString);
-    final now = toKoreaTime(DateTime.now().toUtc());
-    final difference = now.difference(koreaTime);
+    final localTime = parseToLocalTime(dateString);
+    final now = DateTime.now();
+    final difference = now.difference(localTime);
 
     if (difference.inDays > 6) {
-      return '${koreaTime.month}/${koreaTime.day}/${koreaTime.year.toString().substring(2)}';
+      return '${localTime.month}/${localTime.day}/${localTime.year.toString().substring(2)}';
     } else if (difference.inDays > 0) {
-      return '${koreaTime.month}/${koreaTime.day}';
+      return '${localTime.month}/${localTime.day}';
     } else {
       // 12-hour format with AM/PM
-      int hour = koreaTime.hour;
+      int hour = localTime.hour;
       String period = hour >= 12 ? 'PM' : 'AM';
       hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
-      return '$hour:${koreaTime.minute.toString().padLeft(2, '0')} $period';
+      return '$hour:${localTime.minute.toString().padLeft(2, '0')} $period';
     }
   } catch (e) {
     return dateString;
   }
 }
 
-/// Format full date and time in Korea timezone
+/// Format full date and time in user's local timezone
 String formatFullDateTime(String dateString) {
   try {
-    final koreaTime = parseToKoreaTime(dateString);
+    final localTime = parseToLocalTime(dateString);
     final weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     final months = [
       'Jan',
@@ -64,33 +69,37 @@ String formatFullDateTime(String dateString) {
       'Dec'
     ];
 
-    final weekday = weekdays[koreaTime.weekday - 1];
-    final month = months[koreaTime.month - 1];
+    final weekday = weekdays[localTime.weekday - 1];
+    final month = months[localTime.month - 1];
 
     // 12-hour format
-    int hour = koreaTime.hour;
+    int hour = localTime.hour;
     String period = hour >= 12 ? 'PM' : 'AM';
     hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
-    final time = '$hour:${koreaTime.minute.toString().padLeft(2, '0')} $period';
+    final time = '$hour:${localTime.minute.toString().padLeft(2, '0')} $period';
 
-    return '$weekday, $month ${koreaTime.day}, ${koreaTime.year} at $time';
+    return '$weekday, $month ${localTime.day}, ${localTime.year} at $time';
   } catch (e) {
     return dateString;
   }
 }
 
-/// Format date with DateFormat in Korea timezone
+/// Format date with DateFormat in user's local timezone
 String formatDateWithFormat(String dateString, String format) {
   try {
-    final koreaTime = parseToKoreaTime(dateString);
-    return DateFormat(format).format(koreaTime);
+    final localTime = parseToLocalTime(dateString);
+    return DateFormat(format).format(localTime);
   } catch (e) {
     return dateString;
   }
 }
 
-/// Get current time in Korea timezone
-DateTime getKoreaNow() {
-  return toKoreaTime(DateTime.now().toUtc());
+/// Get current time in user's local timezone
+DateTime getLocalNow() {
+  return DateTime.now();
 }
+
+// Legacy function for backward compatibility
+@Deprecated('Use getLocalNow instead')
+DateTime getKoreaNow() => getLocalNow();
 

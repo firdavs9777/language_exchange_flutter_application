@@ -294,6 +294,15 @@ class Endpoints {
   // Challenges
   static const String challengesURL = 'learning/challenges';
 
+  // ==================== USERNAME ENDPOINTS ====================
+
+  // Get user by username (exact match)
+  // Note: users router is mounted at /auth/users in backend
+  static String getUserByUsernameURL(String username) => 'auth/users/username/$username';
+
+  // Search users by username (partial match)
+  static const String searchByUsernameURL = 'auth/users/search/username';
+
   // ==================== COMMUNITY ENDPOINTS (NEW) ====================
 
   // Nearby Users

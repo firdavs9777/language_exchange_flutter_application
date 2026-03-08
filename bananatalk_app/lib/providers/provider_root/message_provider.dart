@@ -24,11 +24,12 @@ class MessageService {
   }
 
   /// Get all messages for a user (requires auth)
-  Future<List<Message>> getUserMessages({required id}) async {
+  /// limit: number of messages to fetch (default 500 to ensure all conversations are loaded)
+  Future<List<Message>> getUserMessages({required id, int limit = 500}) async {
     try {
       final token = await _getToken();
       final response = await http.get(
-        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.userUrl}/$id'),
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.userUrl}/$id?limit=$limit'),
         headers: _getHeaders(token),
       );
 
@@ -51,23 +52,30 @@ class MessageService {
   }
 
   /// Get conversation between two users (requires auth)
-  Future<List<Message>> getConversation({
+  Future<Map<String, dynamic>> getConversation({
     required senderId,
     required receiverId,
+    int limit = 100,
+    int page = 1,
   }) async {
     try {
       final token = await _getToken();
       final response = await http.get(
-        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/conversation/$senderId/$receiverId'),
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/conversation/$senderId/$receiverId?limit=$limit&page=$page'),
         headers: _getHeaders(token),
       );
 
       if (response.statusCode == 200) {
         debugPrint('Conversation loaded successfully');
         final data = json.decode(response.body);
-        return (data['data'] as List)
+        final messages = (data['data'] as List)
             .map((postJson) => Message.fromJson(postJson))
             .toList();
+        return {
+          'messages': messages,
+          'pagination': data['pagination'],
+          'total': data['total'],
+        };
       } else if (response.statusCode == 401) {
         throw Exception('Authentication required. Please log in again.');
       } else if (response.statusCode == 403) {
@@ -81,7 +89,43 @@ class MessageService {
     }
   }
 
-  /// Get list of senders/chat partners (requires auth)
+  /// Get list of chat partners with last message and unread count (requires auth)
+  /// This is more efficient than getUserMessages as it uses server-side aggregation
+  Future<List<ChatPartnerData>> getChatPartners({required String id, int limit = 50, int page = 1}) async {
+    try {
+      final token = await _getToken();
+      final response = await http.get(
+        Uri.parse('${Endpoints.baseURL}${Endpoints.messageUrl}/${Endpoints.senderUrl}/$id?limit=$limit&page=$page'),
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success'] == true) {
+          final List<dynamic> dataList = data['data'] ?? [];
+          debugPrint('📬 Loaded ${dataList.length} chat partners (page $page)');
+          // Debug: Log raw data for each partner
+          for (final item in dataList) {
+            debugPrint('📬 Raw partner data: conversationId=${item['conversationId']}, isPinned=${item['isPinned']}, isMuted=${item['isMuted']}, name=${item['name']}');
+          }
+          return dataList
+              .map((item) => ChatPartnerData.fromJson(item))
+              .toList();
+        } else {
+          throw Exception('Failed to load chat partners: ${data['message']}');
+        }
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication required. Please log in again.');
+      } else {
+        throw Exception('Failed to load chat partners: ${response.statusCode}');
+      }
+    } catch (error) {
+      debugPrint('Error fetching chat partners: $error');
+      rethrow;
+    }
+  }
+
+  /// Get list of senders/chat partners (requires auth) - Legacy method
   Future<List<Sender>> getSendersList({required id}) async {
     try {
       final token = await _getToken();
@@ -817,3 +861,93 @@ class MessageService {
 }
 
 final messageServiceProvider = Provider((ref) => MessageService());
+
+/// Efficient chat partner data model (from server-side aggregation)
+class ChatPartnerData {
+  final String id;
+  final String name;
+  final String? username;
+  final List<String> images;
+  final LastMessageData? lastMessage;
+  final int unreadCount;
+  final bool isVip;
+  final bool isPinned;
+  final bool isMuted;
+  final String? conversationId;
+
+  ChatPartnerData({
+    required this.id,
+    required this.name,
+    this.username,
+    required this.images,
+    this.lastMessage,
+    this.unreadCount = 0,
+    this.isVip = false,
+    this.isPinned = false,
+    this.isMuted = false,
+    this.conversationId,
+  });
+
+  factory ChatPartnerData.fromJson(Map<String, dynamic> json) {
+    return ChatPartnerData(
+      id: json['_id']?.toString() ?? '',
+      name: json['name']?.toString() ?? 'Unknown',
+      username: json['username']?.toString(),
+      images: (json['images'] as List?)?.map((e) => e.toString()).toList() ??
+              (json['imageUrls'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      lastMessage: json['lastMessage'] != null
+          ? LastMessageData.fromJson(json['lastMessage'])
+          : null,
+      unreadCount: (json['unreadCount'] as num?)?.toInt() ?? 0,
+      isVip: json['userMode'] == 'vip' ||
+             (json['vipSubscription'] as Map?)?['isActive'] == true,
+      isPinned: json['isPinned'] == true,
+      isMuted: json['isMuted'] == true,
+      conversationId: json['conversationId']?.toString(),
+    );
+  }
+
+  String? get profileImageUrl => images.isNotEmpty ? images.first : null;
+}
+
+class LastMessageData {
+  final String? message;
+  final DateTime? createdAt;
+  final String? id;
+  final String? mediaType;
+
+  LastMessageData({
+    this.message,
+    this.createdAt,
+    this.id,
+    this.mediaType,
+  });
+
+  factory LastMessageData.fromJson(Map<String, dynamic> json) {
+    return LastMessageData(
+      message: json['message']?.toString(),
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'].toString())
+          : null,
+      id: json['_id']?.toString(),
+      mediaType: json['media']?['type']?.toString(),
+    );
+  }
+
+  /// Get display text for the message preview
+  String get displayText {
+    if (message != null && message!.isNotEmpty) return message!;
+    if (mediaType != null) {
+      switch (mediaType!.toLowerCase()) {
+        case 'voice': return '🎤 Voice message';
+        case 'audio': return '🎵 Audio';
+        case 'image': return '📷 Photo';
+        case 'video': return '🎬 Video';
+        case 'document': return '📄 Document';
+        case 'location': return '📍 Location';
+        default: return '📎 Attachment';
+      }
+    }
+    return 'Message';
+  }
+}

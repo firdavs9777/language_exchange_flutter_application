@@ -4,6 +4,8 @@ import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dar
 import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
@@ -56,56 +58,90 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
   Future<void> _signInWithGoogleNative() async {
     try {
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('🚀 STEP 1: Initializing GoogleSignIn');
+      debugPrint('   Platform: ${Platform.isIOS ? 'iOS' : 'Android'}');
+
       final googleSignIn = GoogleSignIn(
         scopes: const ['email', 'profile'],
         // iOS uses clientId, Android uses serverClientId
         clientId: Platform.isIOS ? _iosClientId : null,
         serverClientId: Platform.isAndroid ? _webClientId : null,
       );
-      debugPrint(
-        '🔑 Using Google Client ID: ${Platform.isIOS ? _iosClientId : _webClientId}',
-      );
+
+      debugPrint('🔑 STEP 2: Client IDs configured');
+      debugPrint('   iOS Client ID: $_iosClientId');
+      debugPrint('   Web Client ID (for Android): $_webClientId');
+      debugPrint('   Android Client ID (for backend): $_androidClientId');
+      debugPrint('   Using: ${Platform.isIOS ? _iosClientId : _webClientId}');
 
       // Sign out any previously signed-in account to force account picker
       // This ensures the account selection popup appears when user has multiple accounts
+      debugPrint('🔄 STEP 3: Signing out previous session...');
       await googleSignIn.signOut();
+      debugPrint('✅ Previous session signed out');
 
       // Small delay to ensure sign out completes
       await Future.delayed(const Duration(milliseconds: 100));
 
+      debugPrint('📱 STEP 4: Launching Google Sign-In UI...');
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
-        debugPrint('❌ User cancelled Google sign-in');
+        debugPrint('❌ STEP 4 FAILED: User cancelled Google sign-in');
         setState(() {
           _isLoading = false;
         });
         return;
       }
 
-      debugPrint('✅ Google user signed in: ${googleUser.email}');
+      debugPrint('✅ STEP 4 SUCCESS: Google user signed in');
+      debugPrint('   Email: ${googleUser.email}');
+      debugPrint('   Display Name: ${googleUser.displayName}');
+      debugPrint('   ID: ${googleUser.id}');
+      debugPrint('   Photo URL: ${googleUser.photoUrl}');
 
+      debugPrint('🎫 STEP 5: Getting authentication tokens...');
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
+      debugPrint('✅ STEP 5 SUCCESS: Got authentication object');
+      debugPrint('   Access Token: ${googleAuth.accessToken != null ? '${googleAuth.accessToken!.substring(0, 20)}...' : 'NULL'}');
+
       final String? idToken = googleAuth.idToken;
+      debugPrint('   ID Token: ${idToken != null ? '${idToken.substring(0, 50)}...' : 'NULL'}');
 
       if (idToken == null) {
-        debugPrint('❌ Failed to get ID token from Google');
+        debugPrint('❌ STEP 5 FAILED: ID Token is NULL!');
+        debugPrint('   This usually means:');
+        debugPrint('   - Wrong Client ID configured');
+        debugPrint('   - SHA-1 fingerprint mismatch (Android)');
+        debugPrint('   - Bundle ID mismatch (iOS)');
         setState(() {
-          _errorMessage = 'Failed to get ID token from Google';
+          _errorMessage = 'Failed to get ID token from Google. Please check configuration.';
           _isLoading = false;
         });
         return;
       }
 
-      debugPrint('🎫 Got ID token, sending to backend...');
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('🌐 STEP 6: Sending ID token to backend...');
+      debugPrint('   Endpoint: ${Endpoints.baseURL}auth/google/mobile');
+      debugPrint('   ID Token length: ${idToken.length} chars');
 
       final result = await ref
           .read(authServiceProvider)
           .signInWithGoogleNative(idToken);
 
-      debugPrint('$result');
+      debugPrint('📡 STEP 6 RESPONSE:');
+      debugPrint('   Success: ${result['success']}');
+      debugPrint('   Message: ${result['message']}');
+      debugPrint('   Has Token: ${result['token'] != null}');
+      debugPrint('   Has User: ${result['user'] != null}');
+      if (result['user'] != null) {
+        debugPrint('   User ID: ${result['user']['_id']}');
+        debugPrint('   User Email: ${result['user']['email']}');
+      }
       if (result['success'] == true) {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
@@ -116,23 +152,39 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         debugPrint('🔍 Google login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
 
         // Check profileCompleted flag from backend
-        // Only redirect to profile completion if explicitly set to false
-        final bool profileCompleted = user?['profileCompleted'] ?? true;
+        // IMPORTANT: Default to FALSE for safety - new users must complete profile
+        final bool profileCompleted = user?['profileCompleted'] == true;
 
-        // User needs to complete profile only if backend says so
-        final bool needsProfileCompletion = !profileCompleted;
+        // Also check if essential fields are filled (extra safety check)
+        final gender = user?['gender']?.toString() ?? '';
+        final bio = user?['bio']?.toString() ?? '';
+        final birthYear = user?['birth_year']?.toString() ?? '';
+        final images = user?['images'] as List? ?? [];
+
+        final bool hasEssentialFields =
+            gender.isNotEmpty &&
+            bio.isNotEmpty &&
+            birthYear.isNotEmpty &&
+            images.length >= 2;
+
+        // User needs to complete profile if either flag is false OR essential fields missing
+        final bool needsProfileCompletion = !profileCompleted || !hasEssentialFields;
 
         debugPrint('═══════════════════════════════════════');
         debugPrint('🔍 PROFILE COMPLETION CHECK:');
-        debugPrint('   profileCompleted: $profileCompleted');
+        debugPrint('   profileCompleted flag: $profileCompleted');
+        debugPrint('   hasEssentialFields: $hasEssentialFields');
         debugPrint('   needsCompletion: $needsProfileCompletion');
         debugPrint('───────────────────────────────────────');
         debugPrint('📝 User Profile Data:');
         debugPrint('   name: ${user?['name']}');
         debugPrint('   email: ${user?['email']}');
+        debugPrint('   gender: ${user?['gender']}');
+        debugPrint('   bio: ${user?['bio']}');
+        debugPrint('   birth_year: ${user?['birth_year']}');
+        debugPrint('   images count: ${(user?['images'] as List?)?.length ?? 0}');
         debugPrint('   native_language: ${user?['native_language']}');
         debugPrint('   language_to_learn: ${user?['language_to_learn']}');
-        debugPrint('   gender: ${user?['gender']}');
         debugPrint('═══════════════════════════════════════');
 
         setState(() {
@@ -144,18 +196,28 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             // Profile NOT completed - redirect to RegisterTwo
             debugPrint('❌ Profile incomplete - redirecting to RegisterTwo');
 
+            // Get values from backend - use empty strings to force user input
+            final birthYear = user?['birth_year']?.toString() ?? '';
+            final birthMonth = user?['birth_month']?.toString() ?? '';
+            final birthDay = user?['birth_day']?.toString() ?? '';
+
+            // Only use birthdate if all parts are present and valid
+            String birthDate = '';
+            if (birthYear.isNotEmpty && birthMonth.isNotEmpty && birthDay.isNotEmpty) {
+              birthDate = '$birthYear.${birthMonth.padLeft(2, '0')}.${birthDay.padLeft(2, '0')}';
+            }
+
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (ctx) => RegisterTwo(
                   name: user?['name'] ?? '',
                   email: user?['email'] ?? '',
                   password: '', // OAuth users don't have password
-                  bio: user?['bio'] ?? 'Hello! I joined using Google. 👋',
-                  gender: user?['gender'] ?? 'other',
+                  bio: user?['bio'] ?? '', // Empty - user must write bio
+                  gender: user?['gender'] ?? '', // Empty - user must select
                   nativeLanguage: '', // Force empty so user must select
                   languageToLearn: '', // Force empty so user must select
-                  birthDate:
-                      '${user?['birth_year'] ?? '2000'}.${user?['birth_month'] ?? '01'}.${user?['birth_day'] ?? '01'}',
+                  birthDate: birthDate, // Empty if not set - user must select
                 ),
               ),
             );
@@ -225,6 +287,17 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
             if (!mounted) return;
 
+            // NOW connect socket - profile is complete and terms accepted
+            try {
+              debugPrint('🔌 Connecting socket (profile complete)...');
+              final chatSocketService = ChatSocketService();
+              chatSocketService.enableReconnection();
+              await chatSocketService.connect();
+              debugPrint('✅ Chat socket connected after Google login');
+            } catch (e) {
+              debugPrint('⚠️ Error connecting chat socket: $e');
+            }
+
             // Register FCM token for push notifications
             try {
               final notificationService = NotificationService();
@@ -238,6 +311,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                 '⚠️ Error registering FCM token after Google login: $e',
               );
             }
+
+            // Invalidate userProvider to force fresh fetch
+            ref.invalidate(userProvider);
 
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
@@ -268,10 +344,37 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           _isLoading = false;
         });
       }
-    } catch (e) {
-      debugPrint('❌ Google sign-in error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('❌ GOOGLE SIGN-IN ERROR:');
+      debugPrint('   Error: $e');
+      debugPrint('   Type: ${e.runtimeType}');
+      debugPrint('   Stack trace:');
+      debugPrint('$stackTrace');
+      debugPrint('═══════════════════════════════════════════════════════════');
+
+      String userFriendlyMessage = 'Google sign-in error';
+
+      // Parse common errors
+      final errorString = e.toString().toLowerCase();
+      if (errorString.contains('network')) {
+        userFriendlyMessage = 'Network error. Please check your internet connection.';
+      } else if (errorString.contains('canceled') || errorString.contains('cancelled')) {
+        userFriendlyMessage = 'Sign-in was cancelled.';
+      } else if (errorString.contains('configuration') || errorString.contains('client')) {
+        userFriendlyMessage = 'Configuration error. Please contact support.';
+      } else if (errorString.contains('10:')) {
+        userFriendlyMessage = 'Developer error (10). SHA-1 fingerprint may be incorrect.';
+      } else if (errorString.contains('12500')) {
+        userFriendlyMessage = 'Google Play services error. Please update Google Play services.';
+      } else if (errorString.contains('12501')) {
+        userFriendlyMessage = 'Sign-in was cancelled.';
+      } else if (errorString.contains('7:')) {
+        userFriendlyMessage = 'Network error (7). Please check your connection.';
+      }
+
       setState(() {
-        _errorMessage = 'Google sign-in error: ${e.toString()}';
+        _errorMessage = '$userFriendlyMessage\n\nDetails: ${e.toString()}';
         _isLoading = false;
       });
     }

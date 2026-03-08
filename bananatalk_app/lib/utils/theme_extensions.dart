@@ -8,8 +8,10 @@ extension ThemeContext on BuildContext {
   // ============================================================================
   Color get textPrimary => Theme.of(this).colorScheme.onSurface;
   Color get textSecondary => Theme.of(this).colorScheme.onSurfaceVariant;
-  Color get textMuted => Theme.of(this).colorScheme.onSurface.withValues(alpha: 0.6);
-  Color get textHint => Theme.of(this).colorScheme.onSurface.withValues(alpha: 0.4);
+  Color get textMuted =>
+      Theme.of(this).colorScheme.onSurface.withValues(alpha: 0.6);
+  Color get textHint =>
+      Theme.of(this).colorScheme.onSurface.withValues(alpha: 0.4);
   Color get textOnPrimary => Theme.of(this).colorScheme.onPrimary;
 
   // ============================================================================
@@ -18,8 +20,10 @@ extension ThemeContext on BuildContext {
   Color get surfaceColor => Theme.of(this).colorScheme.surface;
   Color get cardBackground => Theme.of(this).cardColor;
   Color get scaffoldBackground => Theme.of(this).scaffoldBackgroundColor;
-  Color get containerColor => isDarkMode ? AppColors.gray800 : AppColors.gray100;
-  Color get containerHighColor => isDarkMode ? AppColors.gray700 : AppColors.gray200;
+  Color get containerColor =>
+      isDarkMode ? AppColors.gray800 : AppColors.gray100;
+  Color get containerHighColor =>
+      isDarkMode ? AppColors.gray700 : AppColors.gray200;
 
   // ============================================================================
   // OTHER COLORS
@@ -259,7 +263,13 @@ class Spacing {
   static const EdgeInsets paddingXXL = EdgeInsets.all(xxl);
 
   // Screen/card padding
-  static const EdgeInsets screenPadding = EdgeInsets.symmetric(horizontal: lg, vertical: md);
+  static const EdgeInsets screenPadding = EdgeInsets.symmetric(
+    horizontal: lg,
+    vertical: md,
+  );
   static const EdgeInsets cardPadding = EdgeInsets.all(md);
-  static const EdgeInsets listItemPadding = EdgeInsets.symmetric(horizontal: lg, vertical: md);
+  static const EdgeInsets listItemPadding = EdgeInsets.symmetric(
+    horizontal: lg,
+    vertical: md,
+  );
 }

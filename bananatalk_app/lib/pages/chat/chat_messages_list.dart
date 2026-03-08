@@ -23,9 +23,16 @@ class ChatMessagesList extends StatelessWidget {
   final Function(Message)? onDelete;
   final Function(Message)? onEdit;
   final Function(Message)? onReply;
+  final Function(String messageId)? onReplyTap; // Scroll to replied message
   final Function(Message)? onPin;
   final Function(Message)? onUnpin;
   final Function(Message)? onForward;
+  final Function(Message)? onRetryMessage; // Retry sending failed message
+  final Function(Message)? onDeleteFailedMessage; // Delete failed message
+  final bool isLoadingMore;
+  final bool hasMoreMessages;
+  final Widget? headerWidget; // User info card shown at top when scrolled up
+  final VoidCallback? onSendWave; // Send wave emoji to start chatting
 
   const ChatMessagesList({
     Key? key,
@@ -44,9 +51,16 @@ class ChatMessagesList extends StatelessWidget {
     this.onDelete,
     this.onEdit,
     this.onReply,
+    this.onReplyTap,
     this.onPin,
     this.onUnpin,
     this.onForward,
+    this.onRetryMessage,
+    this.onDeleteFailedMessage,
+    this.isLoadingMore = false,
+    this.hasMoreMessages = true,
+    this.headerWidget,
+    this.onSendWave,
   }) : super(key: key);
 
   @override
@@ -59,23 +73,116 @@ class ChatMessagesList extends StatelessWidget {
       return ChatErrorWidget(error: error, onRetry: onRetry);
     }
 
+    // Always show header when provided (user info at top of chat)
+    final hasHeader = headerWidget != null;
+
+    // When messages is empty but we have a header, show the header with empty state
     if (messages.isEmpty) {
-      return ChatEmptyState(userName: otherUserName);
+      if (hasHeader) {
+        return ListView(
+          controller: scrollController,
+          children: [
+            // User info header at top
+            headerWidget!,
+            // Say Hi prompt - tappable to send wave
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onSendWave,
+                    borderRadius: BorderRadius.circular(16),
+                    splashColor: AppColors.primary.withValues(alpha: 0.2),
+                    highlightColor: AppColors.primary.withValues(alpha: 0.1),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: AppColors.primary.withValues(alpha: 0.3),
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            '👋',
+                            style: TextStyle(fontSize: 56),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Tap to say hi!',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Send a wave to start chatting',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[500],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+      return ChatEmptyState(userName: otherUserName, onSendWave: onSendWave);
     }
+
+    // Build list with header at top, then messages chronologically (oldest to newest)
+    // Calculate indices: header at 0, then messages, then loading indicator at end
+    final headerOffset = hasHeader ? 1 : 0;
+    final totalItems = headerOffset + messages.length + (isLoadingMore ? 1 : 0);
 
     return Column(
       children: [
         Expanded(
           child: ListView.builder(
             controller: scrollController,
-            reverse: true, // Show newest messages at bottom
+            reverse: false, // Normal order - header at top, newest at bottom
             padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: messages.length,
+            itemCount: totalItems,
             itemBuilder: (context, index) {
-              // Reverse index for reversed list
-              final message = messages[messages.length - 1 - index];
+              // Header at index 0
+              if (hasHeader && index == 0) {
+                return headerWidget!;
+              }
+
+              // Loading indicator at the end (for loading older messages)
+              if (isLoadingMore && index == totalItems - 1) {
+                return const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                );
+              }
+
+              // Get message - adjust index for header offset
+              final messageIndex = index - headerOffset;
+              if (messageIndex < 0 || messageIndex >= messages.length) {
+                return const SizedBox.shrink(); // Safety check
+              }
+              final message = messages[messageIndex];
               final isMe = message.sender.id == currentUserId;
               return ChatMessageBubble(
+                key: ValueKey(message.id), // Key for scrolling to message
                 message: message,
                 isMe: isMe,
                 otherUserName: otherUserName,
@@ -86,9 +193,12 @@ class ChatMessagesList extends StatelessWidget {
                 onDelete: onDelete,
                 onEdit: onEdit,
                 onReply: onReply,
+                onReplyTap: onReplyTap,
                 onPin: onPin,
                 onUnpin: onUnpin,
                 onForward: onForward,
+                onRetry: onRetryMessage,
+                onDeleteFailed: onDeleteFailedMessage,
               );
             },
           ),

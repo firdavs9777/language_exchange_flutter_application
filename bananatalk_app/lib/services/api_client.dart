@@ -24,6 +24,10 @@ class ApiClient {
   // Rate limit tracking
   final Map<String, RateLimitInfo> _rateLimits = {};
 
+  // Request deduplication - prevents duplicate simultaneous requests
+  final Map<String, Future<ApiResponse>> _pendingRequests = {};
+  static const Duration _requestDedupeWindow = Duration(seconds: 1);
+
   // Callbacks for global error handling
   Function()? onAuthenticationError;
   Function(String message)? onRateLimitError;
@@ -316,8 +320,43 @@ class ApiClient {
     return 'Too many requests. Please wait a moment';
   }
 
-  /// GET request with automatic 401 token refresh
+  /// Generate a unique key for request deduplication
+  String _getRequestKey(String method, String endpoint, Map<String, String>? queryParams) {
+    final params = queryParams?.entries.map((e) => '${e.key}=${e.value}').join('&') ?? '';
+    return '$method:$endpoint?$params';
+  }
+
+  /// GET request with automatic 401 token refresh and request deduplication
   Future<ApiResponse> get(
+    String endpoint, {
+    Map<String, String>? queryParams,
+    bool requiresAuth = true,
+    bool deduplicate = true,
+  }) async {
+    // Request deduplication - return existing pending request if available
+    final requestKey = _getRequestKey('GET', endpoint, queryParams);
+    if (deduplicate && _pendingRequests.containsKey(requestKey)) {
+      debugPrint('🔄 Deduplicating GET request: $endpoint');
+      return _pendingRequests[requestKey]!;
+    }
+
+    final future = _executeGet(endpoint, queryParams: queryParams, requiresAuth: requiresAuth);
+
+    if (deduplicate) {
+      _pendingRequests[requestKey] = future;
+      // Clean up after request completes
+      future.whenComplete(() {
+        Future.delayed(_requestDedupeWindow, () {
+          _pendingRequests.remove(requestKey);
+        });
+      });
+    }
+
+    return future;
+  }
+
+  /// Internal GET execution
+  Future<ApiResponse> _executeGet(
     String endpoint, {
     Map<String, String>? queryParams,
     bool requiresAuth = true,
@@ -628,17 +667,58 @@ class RateLimitInfo {
 class Debouncer {
   final Duration delay;
   Timer? _timer;
+  bool _isDisposed = false;
 
   Debouncer({this.delay = const Duration(milliseconds: 300)});
 
+  /// Run action after delay, cancelling any pending action
   void run(VoidCallback action) {
+    if (_isDisposed) return;
     _timer?.cancel();
-    _timer = Timer(delay, action);
+    _timer = Timer(delay, () {
+      if (!_isDisposed) action();
+    });
   }
 
+  /// Run async action after delay, returns future
+  Future<T?> runAsync<T>(Future<T> Function() action) async {
+    if (_isDisposed) return null;
+    _timer?.cancel();
+    final completer = Completer<T?>();
+    _timer = Timer(delay, () async {
+      if (!_isDisposed) {
+        try {
+          final result = await action();
+          completer.complete(result);
+        } catch (e) {
+          completer.completeError(e);
+        }
+      } else {
+        completer.complete(null);
+      }
+    });
+    return completer.future;
+  }
+
+  /// Check if there's a pending action
+  bool get isPending => _timer?.isActive ?? false;
+
+  /// Cancel any pending action
   void cancel() {
     _timer?.cancel();
+    _timer = null;
   }
+
+  /// Dispose the debouncer
+  void dispose() {
+    _isDisposed = true;
+    cancel();
+  }
+}
+
+/// Search debouncer with longer delay optimized for search inputs
+class SearchDebouncer extends Debouncer {
+  SearchDebouncer() : super(delay: const Duration(milliseconds: 500));
 }
 
 /// Throttle helper to prevent rapid fire requests

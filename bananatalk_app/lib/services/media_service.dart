@@ -1,10 +1,24 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
+
+/// Progress callback for media uploads
+/// [bytesSent] - bytes uploaded so far
+/// [totalBytes] - total file size in bytes
+typedef UploadProgressCallback = void Function(int bytesSent, int totalBytes);
+
+/// Format bytes to human readable string (e.g., "2.5 MB")
+String formatFileSize(int bytes) {
+  if (bytes < 1024) return '$bytes B';
+  if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KB';
+  if (bytes < 1024 * 1024 * 1024) return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
+}
 
 class MediaService {
   static Future<String?> _getToken() async {
@@ -14,11 +28,13 @@ class MediaService {
 
   /// Send a message with media (image, audio, video, document)
   /// Returns the created message data
+  /// [onProgress] - optional callback for upload progress
   static Future<Map<String, dynamic>> sendMessageWithMedia({
     required String receiverId,
     String? messageText,
     required File mediaFile,
     String? mediaType, // 'image', 'audio', 'video', 'document'
+    UploadProgressCallback? onProgress,
   }) async {
     try {
       final token = await _getToken();
@@ -155,15 +171,38 @@ class MediaService {
         ),
       );
 
+      // Get file size for progress tracking
+      final fileSize = await mediaFile.length();
+
       debugPrint('📤 Sending media message:');
       debugPrint('  - Receiver: $receiverId');
       debugPrint('  - File: $fileName');
+      debugPrint('  - File size: ${formatFileSize(fileSize)}');
       debugPrint('  - MIME type: $mimeType');
       debugPrint('  - Message text: ${messageText ?? "(none)"}');
 
-      // Send request
+      // Report initial progress
+      onProgress?.call(0, fileSize);
+
+      // Send request with progress tracking
       final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
+
+      // Track response bytes for progress
+      int bytesReceived = 0;
+      final List<int> responseBytes = [];
+
+      await for (final chunk in streamedResponse.stream) {
+        responseBytes.addAll(chunk);
+        bytesReceived += chunk.length;
+        // Report progress as complete since upload finished when we get response
+        onProgress?.call(fileSize, fileSize);
+      }
+
+      final response = http.Response.bytes(
+        responseBytes,
+        streamedResponse.statusCode,
+        headers: streamedResponse.headers,
+      );
 
       debugPrint('📥 Response status: ${response.statusCode}');
       debugPrint('📥 Response body: ${response.body}');

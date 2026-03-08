@@ -374,6 +374,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aboutMe => '自己紹介';
 
   @override
+  String get bloodType => 'Blood Type';
+
+  @override
   String get photos => '写真';
 
   @override

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -60,14 +61,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     
     if (!mounted) return;
     
-    // Check if user has accepted terms of service from backend
+    // Check if user has accepted terms of service
     // Note: For new users, terms are shown during registration.
     // This check is for existing users who haven't accepted yet.
     if (isAuthenticated) {
       try {
         final user = await authService.getLoggedInUser();
-        final termsAccepted = user.termsAccepted;
-        
+        final termsAcceptedBackend = user.termsAccepted;
+
+        // Also check local flag (fallback when backend doesn't save it properly)
+        final prefs = await SharedPreferences.getInstance();
+        final termsAcceptedLocally = prefs.getBool('termsAcceptedLocally') ?? false;
+
+        // User has accepted terms if either backend or local flag is true
+        final termsAccepted = termsAcceptedBackend || termsAcceptedLocally;
+
         if (!termsAccepted) {
           // Show terms screen - user cannot proceed without accepting
           await Navigator.of(context).push(
@@ -75,15 +83,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               builder: (context) => const TermsOfServiceScreen(),
             ),
           );
-          
+
           if (!mounted) return;
-          
-          // Re-check if terms were accepted after returning from terms screen
-          final updatedUser = await authService.getLoggedInUser();
-          if (!updatedUser.termsAccepted) {
-            // If still not accepted, user may have closed the app
-            // On next app launch, they'll see terms again (correct behavior)
-            return;
+
+          // Re-check local flag after terms screen
+          final updatedLocalFlag = prefs.getBool('termsAcceptedLocally') ?? false;
+          if (!updatedLocalFlag) {
+            // Check backend as well
+            final updatedUser = await authService.getLoggedInUser();
+            if (!updatedUser.termsAccepted) {
+              // If still not accepted, user may have closed the app
+              // On next app launch, they'll see terms again (correct behavior)
+              return;
+            }
           }
         }
       } catch (e) {

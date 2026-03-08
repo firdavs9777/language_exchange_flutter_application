@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/router/app_router.dart';
 
 class NotificationRouter {
   /// Handle notification tap and navigate to appropriate screen
+  /// Uses goRouter directly to avoid context mounting issues
   static void handleNotification(
-    BuildContext context,
+    BuildContext? context,
     Map<String, dynamic> data,
   ) {
-    if (!context.mounted) return;
-
     final type = data['type']?.toString() ?? '';
 
     debugPrint('🔔 Handling notification tap: type=$type, data=$data');
 
     try {
+      // First ensure we're on home, then push the target screen
+      // This gives us a proper back stack with back button
       switch (type) {
         case 'chat_message':
           final senderId = data['senderId']?.toString();
           if (senderId != null) {
             debugPrint('📱 Navigating to chat: senderId=$senderId');
-            context.go('/chat/$senderId');
+            // Go to home first, then push chat (gives back button)
+            goRouter.go('/home');
+            goRouter.push('/chat/$senderId');
           } else {
             debugPrint('⚠️ Missing senderId for chat navigation');
-            context.go('/home');
+            goRouter.go('/home');
           }
           break;
 
@@ -31,10 +34,11 @@ class NotificationRouter {
           final momentId = data['momentId']?.toString();
           if (momentId != null) {
             debugPrint('📱 Navigating to moment: momentId=$momentId');
-            context.go('/moment/$momentId');
+            goRouter.go('/home');
+            goRouter.push('/moment/$momentId');
           } else {
             debugPrint('⚠️ Missing momentId for moment navigation');
-            context.go('/home');
+            goRouter.go('/home');
           }
           break;
 
@@ -43,10 +47,11 @@ class NotificationRouter {
           final userId = data['userId']?.toString();
           if (userId != null) {
             debugPrint('📱 Navigating to profile: userId=$userId');
-            context.go('/profile/$userId');
+            goRouter.go('/home');
+            goRouter.push('/profile/$userId');
           } else {
             debugPrint('⚠️ Missing userId for profile navigation');
-            context.go('/home');
+            goRouter.go('/home');
           }
           break;
 
@@ -56,26 +61,27 @@ class NotificationRouter {
           final userId = data['userId']?.toString();
           if (momentId != null) {
             debugPrint('📱 Navigating to follower moment: momentId=$momentId, userId=$userId');
-            context.go('/moment/$momentId');
+            goRouter.go('/home');
+            goRouter.push('/moment/$momentId');
           } else {
             debugPrint('⚠️ Missing momentId for follower moment navigation');
-            context.go('/home');
+            goRouter.go('/home');
           }
           break;
 
         case 'system':
           debugPrint('📱 Navigating to home screen');
-          context.go('/home');
+          goRouter.go('/home');
           break;
 
         default:
           debugPrint('⚠️ Unknown notification type: $type');
-          context.go('/home');
+          goRouter.go('/home');
       }
     } catch (e) {
       debugPrint('❌ Error handling notification: $e');
       try {
-        context.go('/home');
+        goRouter.go('/home');
       } catch (navError) {
         debugPrint('❌ Error navigating to home: $navError');
       }

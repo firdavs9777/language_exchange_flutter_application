@@ -62,11 +62,11 @@ class AppColors {
   static const Color cardLight = Color(0xFFFFFFFF);
   static const Color cardDark = Color(0xFF2C2C2C);
 
-  // Chat Colors
-  static const Color chatBubbleMine = Color(0xFF00BFA5);
-  static const Color chatBubbleOther = Color(0xFFF0F0F0);
+  // Chat Colors - Light and modern
+  static const Color chatBubbleMine = Color(0xFF5DD4C8);  // Soft teal/mint
+  static const Color chatBubbleOther = Color(0xFFF8F8F8);  // Very light gray
   static const Color chatTextMine = Color(0xFFFFFFFF);
-  static const Color chatTextOther = Color(0xFF000000);
+  static const Color chatTextOther = Color(0xFF1A1A1A);  // Darker for contrast
 
   // Online Status
   static const Color online = Color(0xFF4CAF50);

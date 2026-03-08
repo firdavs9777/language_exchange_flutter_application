@@ -12,7 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
-  const TabsScreen({super.key, this.initialIndex = 0});
+  /// Default to Community tab (index 1) - users want to find language partners first
+  const TabsScreen({super.key, this.initialIndex = 1});
 
   final int initialIndex;
 

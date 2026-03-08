@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 
@@ -16,9 +17,11 @@ class CachedImageWidget extends StatelessWidget {
   final Color? placeholderColor;
   final bool useNormalization;
   final bool highQuality;
+  final ImageQuality quality;
+  final bool useRepaintBoundary;
 
   const CachedImageWidget({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.width,
     this.height,
@@ -29,7 +32,9 @@ class CachedImageWidget extends StatelessWidget {
     this.placeholderColor,
     this.useNormalization = true,
     this.highQuality = true,
-  }) : super(key: key);
+    this.quality = ImageQuality.medium,
+    this.useRepaintBoundary = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +46,36 @@ class CachedImageWidget extends StatelessWidget {
         ? ImageUtils.normalizeImageUrl(imageUrl!)
         : imageUrl!;
 
-    // Calculate cache dimensions for high quality
-    // Use 2x for retina displays, capped at reasonable max
+    // Calculate cache dimensions based on quality tier
+    final qualityDimension = ImageUtils.getCacheDimension(quality);
     final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    final cacheMultiplier = highQuality ? devicePixelRatio.clamp(1.0, 3.0) : 1.0;
 
+    // For high quality images, don't limit cache by widget size
+    // This ensures images stay sharp even when displayed small
     int? cacheWidth;
     int? cacheHeight;
 
-    if (width != null && width!.isFinite) {
-      cacheWidth = (width! * cacheMultiplier).toInt().clamp(0, 1200);
+    if (highQuality || quality == ImageQuality.high) {
+      // Use full quality dimension for sharp images
+      cacheWidth = qualityDimension;
+      cacheHeight = qualityDimension;
+    } else {
+      final cacheMultiplier = devicePixelRatio.clamp(1.0, 2.0);
+      if (width != null && width!.isFinite) {
+        cacheWidth = (width! * cacheMultiplier).toInt().clamp(0, qualityDimension);
+      } else {
+        cacheWidth = qualityDimension;
+      }
+      if (height != null && height!.isFinite) {
+        cacheHeight = (height! * cacheMultiplier).toInt().clamp(0, qualityDimension);
+      } else {
+        cacheHeight = qualityDimension;
+      }
     }
-    if (height != null && height!.isFinite) {
-      cacheHeight = (height! * cacheMultiplier).toInt().clamp(0, 1200);
+
+    // Debug logging for image quality troubleshooting
+    if (kDebugMode) {
+      debugPrint('🖼️ CachedImage: quality=$quality, cacheW=$cacheWidth, cacheH=$cacheHeight, diskMax=$qualityDimension');
     }
 
     Widget imageWidget = CachedNetworkImage(
@@ -61,15 +83,16 @@ class CachedImageWidget extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      cacheManager: AppImageCacheManager.instance,
       placeholder: (context, url) => placeholder ?? _buildShimmerPlaceholder(context),
       errorWidget: (context, url, error) =>
           errorWidget ?? _buildErrorWidget(context),
-      fadeInDuration: const Duration(milliseconds: 300),
-      fadeOutDuration: const Duration(milliseconds: 150),
+      fadeInDuration: const Duration(milliseconds: 200),
+      fadeOutDuration: const Duration(milliseconds: 100),
       memCacheWidth: cacheWidth,
       memCacheHeight: cacheHeight,
-      maxWidthDiskCache: 1200,
-      maxHeightDiskCache: 1200,
+      maxWidthDiskCache: qualityDimension,
+      maxHeightDiskCache: qualityDimension,
     );
 
     if (borderRadius != null) {
@@ -77,6 +100,11 @@ class CachedImageWidget extends StatelessWidget {
         borderRadius: borderRadius!,
         child: imageWidget,
       );
+    }
+
+    // Wrap with RepaintBoundary for complex image grids
+    if (useRepaintBoundary) {
+      imageWidget = RepaintBoundary(child: imageWidget);
     }
 
     return imageWidget;
@@ -114,7 +142,7 @@ class CachedImageWidget extends StatelessWidget {
   }
 }
 
-/// Cached network image for CircleAvatar
+/// Cached network image for CircleAvatar with optimized thumbnail loading
 class CachedCircleAvatar extends StatelessWidget {
   final String? imageUrl;
   final double radius;
@@ -124,14 +152,14 @@ class CachedCircleAvatar extends StatelessWidget {
   final bool useNormalization;
 
   const CachedCircleAvatar({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.radius = 20,
     this.backgroundColor,
     this.placeholder,
     this.errorWidget,
     this.useNormalization = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -152,10 +180,16 @@ class CachedCircleAvatar extends StatelessWidget {
         ? ImageUtils.normalizeImageUrl(imageUrl!)
         : imageUrl!;
 
+    // Use thumbnail quality for avatars (200x200 max)
     return CircleAvatar(
       radius: radius,
       backgroundColor: backgroundColor ?? Colors.grey[300],
-      backgroundImage: CachedNetworkImageProvider(normalizedUrl),
+      backgroundImage: CachedNetworkImageProvider(
+        normalizedUrl,
+        cacheManager: AppImageCacheManager.instance,
+        maxWidth: 200,
+        maxHeight: 200,
+      ),
       onBackgroundImageError: (exception, stackTrace) {
         // Error handled by errorWidget
       },
@@ -173,9 +207,10 @@ class CachedAspectRatioImage extends StatelessWidget {
   final Widget? placeholder;
   final Widget? errorWidget;
   final bool useNormalization;
+  final ImageQuality quality;
 
   const CachedAspectRatioImage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.aspectRatio = 16 / 9,
     this.fit = BoxFit.cover,
@@ -183,7 +218,8 @@ class CachedAspectRatioImage extends StatelessWidget {
     this.placeholder,
     this.errorWidget,
     this.useNormalization = true,
-  }) : super(key: key);
+    this.quality = ImageQuality.medium,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -196,6 +232,7 @@ class CachedAspectRatioImage extends StatelessWidget {
         placeholder: placeholder,
         errorWidget: errorWidget,
         useNormalization: useNormalization,
+        quality: quality,
       ),
     );
   }
@@ -233,6 +270,17 @@ class _ShimmerEffectState extends State<_ShimmerEffect>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Pause animation when not visible (TickerMode disabled)
+    if (!TickerMode.of(context)) {
+      _controller.stop();
+    } else if (!_controller.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -240,30 +288,33 @@ class _ShimmerEffectState extends State<_ShimmerEffect>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Container(
-          width: widget.width,
-          height: widget.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.grey[300]!,
-                Colors.grey[100]!,
-                Colors.grey[300]!,
-              ],
-              stops: [
-                (_animation.value - 0.3).clamp(0.0, 1.0),
-                _animation.value.clamp(0.0, 1.0),
-                (_animation.value + 0.3).clamp(0.0, 1.0),
-              ],
+    // Wrap with RepaintBoundary to isolate gradient repaints
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return Container(
+            width: widget.width,
+            height: widget.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.grey[300]!,
+                  Colors.grey[100]!,
+                  Colors.grey[300]!,
+                ],
+                stops: [
+                  (_animation.value - 0.3).clamp(0.0, 1.0),
+                  _animation.value.clamp(0.0, 1.0),
+                  (_animation.value + 0.3).clamp(0.0, 1.0),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

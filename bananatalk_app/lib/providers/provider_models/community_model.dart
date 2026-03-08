@@ -6,6 +6,7 @@ class Community {
     this.appleId,
     this.googleId,
     required this.name,
+    this.username,
     required this.email,
     required this.bio,
     required this.mbti,
@@ -40,6 +41,7 @@ class Community {
   final String? appleId;
   final String? googleId;
   final String name;
+  final String? username;
   final String gender;
   final String email;
   final String bio;
@@ -72,22 +74,26 @@ class Community {
   /// Check if user is VIP (either userMode is vip OR vipSubscription.isActive is true)
   bool get isVip => userMode == UserMode.vip || vipSubscriptionActive;
 
-  /// Get effective image URLs - prefer imageUrls, fallback to images with valid URLs
+  /// Get display username with @ prefix (e.g., @davis7x4k)
+  String? get displayUsername => username != null ? '@$username' : null;
+
+  /// Get effective image URLs - prefer imageUrls, fallback to images
   List<String> get effectiveImageUrls {
     if (imageUrls.isNotEmpty) {
       return imageUrls;
     }
-    // Fallback to images array which may contain full URLs
-    return images.where((url) =>
-      url.isNotEmpty &&
-      (url.startsWith('http://') || url.startsWith('https://'))
-    ).toList();
+    // Fallback to images array - include all non-empty URLs (relative or absolute)
+    return images.where((url) => url.isNotEmpty).toList();
   }
 
   /// Get the first available profile image URL
   String? get profileImageUrl {
     final urls = effectiveImageUrls;
-    return urls.isNotEmpty ? urls[0] : null;
+    if (urls.isEmpty) return null;
+
+    final firstUrl = urls[0];
+    // Return the URL - it will be normalized by ImageUtils when displayed
+    return firstUrl.isNotEmpty ? firstUrl : null;
   }
 
   factory Community.fromJson(Map<String, dynamic> json) {
@@ -103,6 +109,7 @@ class Community {
       googleId: json['googleId'],
       appleId: json['appleId'],
       name: json['name'] ?? '',
+      username: json['username'],
       email: json['email'] ?? '',
       bio: json['bio'] ?? '',
       images: (json['images'] != null
@@ -166,6 +173,7 @@ class Community {
       '_id': id,
       'id': id,
       'name': name,
+      if (username != null) 'username': username,
       'email': email,
       'bio': bio,
       'images': images,

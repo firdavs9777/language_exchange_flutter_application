@@ -9,9 +9,12 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <!-- ==================== LOCATION PERMISSIONS ==================== -->
+    <!-- Only foreground location needed for: nearby users, chat location sharing, profile -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- Explicitly REMOVE background location - we don't need it -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"
+        tools:node="remove" />
 
     <!-- ==================== CAMERA & AUDIO PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -33,10 +36,6 @@
 
     <!-- ==================== FOREGROUND SERVICE PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <!-- ==================== WAKE & VIBRATE ==================== -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -56,9 +55,6 @@
 
     <!-- ==================== NOTIFICATION PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- ==================== CONTACTS PERMISSION ==================== -->
@@ -72,6 +68,9 @@
     <!-- ==================== SYSTEM PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- ==================== BILLING PERMISSION (Google Play In-App Purchases) ==================== -->
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name="${applicationName}"

@@ -23,6 +23,7 @@ import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/media_service.dart';
+import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:geolocator/geolocator.dart';
@@ -33,6 +34,14 @@ import 'package:bananatalk_app/widgets/voice_recorder_widget.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
+import 'package:bananatalk_app/pages/chat/message_actions_bottom_sheet.dart';
+import 'package:bananatalk_app/pages/chat/delete_message_dialog.dart';
+import 'package:bananatalk_app/pages/chat/pinned_messages_bar.dart';
+import 'package:bananatalk_app/pages/chat/forward_message_dialog.dart';
+import 'package:bananatalk_app/pages/chat/chat_user_info_card.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
+import 'package:bananatalk_app/pages/community/single_community.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -53,7 +62,7 @@ class ChatScreen extends ConsumerStatefulWidget {
 }
 
 class _ChatScreenState extends ConsumerState<ChatScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
@@ -67,6 +76,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   bool _isSelectionMode = false;
   Set<String> _selectedMessageIds = {};
   Message? _replyingToMessage;
+  bool _showPinnedBar = true; // Show pinned messages bar by default
+  bool _showScrollButton = false; // Show scroll to bottom button
+  String? _highlightedMessageId; // For highlighting scrolled-to message
+
+  // Upload progress tracking
+  int _uploadBytesSent = 0;
+  int _uploadTotalBytes = 0;
+  String? _uploadFileName;
+
+  // Pagination state
+  int _currentPage = 1;
+  bool _hasMoreMessages = true;
+  bool _isLoadingMore = false;
 
   late AnimationController _mediaPanelController;
   late AnimationController _stickerPanelController;
@@ -74,19 +96,121 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   // Store notifier reference for safe access in dispose
   ChatPartnersNotifier? _chatPartnersNotifier;
 
+  // Theme change listener for wallpaper sync
+  StreamSubscription? _themeChangeSubscription;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initializeAnimations();
     _loadCurrentUser();
     _loadChatWallpaper();
     _setupCallListeners();
+    _setupScrollListener();
+    _setupThemeChangeListener();
     // Set this as the active chat so global listener doesn't increment unread
     // Use post-frame callback to avoid modifying provider during build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _chatPartnersNotifier = ref.read(chatPartnersProvider.notifier);
         _chatPartnersNotifier?.setActiveChat(widget.userId);
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      debugPrint('📱 ChatScreen resumed - checking socket connection');
+      // Ensure socket is connected when returning to chat
+      final socketService = ChatSocketService();
+      if (!socketService.isConnected) {
+        debugPrint('🔌 Socket disconnected in chat - force reconnecting');
+        socketService.connect(forceReset: true);
+      }
+    }
+  }
+
+  void _setupScrollListener() {
+    _scrollController.addListener(() {
+      // Load more when scrolled near top (older messages)
+      if (_scrollController.position.pixels <= 100 &&
+          !_isLoadingMore &&
+          _hasMoreMessages) {
+        _loadMoreMessages();
+      }
+
+      // Show scroll to bottom button when not at bottom
+      // In non-reversed list, check if we're far from maxScrollExtent
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final currentScroll = _scrollController.offset;
+      final showButton = (maxScroll - currentScroll) > 200;
+      if (showButton != _showScrollButton) {
+        setState(() {
+          _showScrollButton = showButton;
+        });
+      }
+    });
+  }
+
+  /// Scroll to bottom (newest messages)
+  void _scrollToBottom({bool animated = true}) {
+    if (!_scrollController.hasClients) return;
+
+    // For non-reversed list, scroll to maxScrollExtent (bottom)
+    final targetPosition = _scrollController.position.maxScrollExtent;
+
+    if (animated) {
+      _scrollController.animateTo(
+        targetPosition,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    } else {
+      _scrollController.jumpTo(targetPosition);
+    }
+  }
+
+  /// Scroll to a specific message by ID
+  void _scrollToMessage(String messageId) {
+    final params = ChatProviderParams(
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId ?? '',
+    );
+    final messages = ref.read(chatStateProvider(params)).messages;
+
+    // Find the message index
+    final index = messages.indexWhere((m) => m.id == messageId);
+    if (index == -1) {
+      debugPrint('Message $messageId not found in list');
+      return;
+    }
+
+    // Calculate position - in reversed list, we need to account for that
+    // The list is reversed, so index 0 is at the bottom
+    final reversedIndex = messages.length - 1 - index;
+
+    // Estimate position (assuming average message height of ~80)
+    final estimatedPosition = reversedIndex * 80.0;
+
+    _scrollController.animateTo(
+      estimatedPosition,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+
+    // Highlight the message briefly
+    setState(() {
+      _highlightedMessageId = messageId;
+    });
+
+    // Remove highlight after animation
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      if (mounted) {
+        setState(() {
+          _highlightedMessageId = null;
+        });
       }
     });
   }
@@ -106,6 +230,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
 
+    // Check mounted after async operation
+    if (!mounted) return;
+
     if (userId != null) {
       setState(() => _currentUserId = userId);
 
@@ -119,12 +246,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       );
 
       await chatNotifier.initialize();
+      if (!mounted) return;
+
+      // Mark chat as visible so auto-read only happens when screen is shown
+      chatNotifier.setChatVisible(true);
+
       await _loadMessages();
     }
   }
 
   Future<void> _loadMessages() async {
-    if (_currentUserId == null) return;
+    if (_currentUserId == null || !mounted) return;
 
     final chatNotifier = ref.read(
       chatStateProvider(
@@ -140,25 +272,32 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     try {
       final messageService = ref.read(messageServiceProvider);
       // Use getConversation instead of filtering all messages
-      final conversationMessages = await messageService.getConversation(
+      final result = await messageService.getConversation(
         senderId: _currentUserId!,
         receiverId: widget.userId,
+        page: 1,
+        limit: 100,
       );
 
-      // Sort messages by creation date (oldest first for proper display)
-      conversationMessages.sort(
-        (a, b) =>
-            DateTime.parse(a.createdAt).compareTo(DateTime.parse(b.createdAt)),
-      );
+      // Check mounted after async operation
+      if (!mounted) return;
+
+      final conversationMessages = result['messages'] as List<Message>;
+      final pagination = result['pagination'];
+
+      // Update pagination state
+      _currentPage = 1;
+      _hasMoreMessages = pagination?['hasNextPage'] ?? false;
 
       debugPrint(
-        'Loaded ${conversationMessages.length} messages for conversation',
+        'Loaded ${conversationMessages.length} messages for conversation (hasMore: $_hasMoreMessages)',
       );
+
       chatNotifier.setMessages(conversationMessages);
 
       ref
           .read(messageCountProvider.notifier)
-          .setMessageCount(widget.userId, conversationMessages.length);
+          .setMessageCount(widget.userId, result['total'] ?? conversationMessages.length);
 
       // Mark messages as read via socket (notifies backend)
       chatNotifier.markAsRead();
@@ -167,25 +306,169 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       ref.read(chatPartnersProvider.notifier).clearUnread(widget.userId);
       debugPrint('✅ Cleared unread count for ${widget.userId}');
 
-      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+      // Scroll to bottom after list is built (double callback ensures list extent is updated)
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToBottom();
+        });
+      });
     } catch (error) {
       debugPrint('Error loading messages: $error');
-      chatNotifier.setError('Failed to load messages: $error');
+      if (mounted) {
+        chatNotifier.setError('Failed to load messages: $error');
+      }
     } finally {
-      chatNotifier.setLoading(false);
+      if (mounted) {
+        chatNotifier.setLoading(false);
+      }
+    }
+  }
+
+  Future<void> _loadMoreMessages() async {
+    if (_currentUserId == null || _isLoadingMore || !_hasMoreMessages || !mounted) return;
+
+    setState(() => _isLoadingMore = true);
+
+    try {
+      final messageService = ref.read(messageServiceProvider);
+      final nextPage = _currentPage + 1;
+
+      final result = await messageService.getConversation(
+        senderId: _currentUserId!,
+        receiverId: widget.userId,
+        page: nextPage,
+        limit: 100,
+      );
+
+      // Check mounted after async operation
+      if (!mounted) return;
+
+      final olderMessages = result['messages'] as List<Message>;
+      final pagination = result['pagination'];
+
+      if (olderMessages.isEmpty) {
+        setState(() {
+          _hasMoreMessages = false;
+          _isLoadingMore = false;
+        });
+        return;
+      }
+
+      // Update pagination state
+      _currentPage = nextPage;
+      _hasMoreMessages = pagination?['hasNextPage'] ?? false;
+
+      debugPrint(
+        'Loaded ${olderMessages.length} older messages (page $_currentPage, hasMore: $_hasMoreMessages)',
+      );
+
+      // Prepend older messages to existing messages
+      final chatNotifier = ref.read(
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
+      );
+
+      final chatState = ref.read(
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ),
+      );
+
+      // Combine: older messages + existing messages
+      final allMessages = [...olderMessages, ...chatState.messages];
+
+      // Remove duplicates by id
+      final seen = <String>{};
+      final uniqueMessages = allMessages.where((m) => seen.add(m.id)).toList();
+
+      chatNotifier.setMessages(uniqueMessages);
+    } catch (error) {
+      debugPrint('Error loading more messages: $error');
+    } finally {
+      if (mounted) {
+        setState(() => _isLoadingMore = false);
+      }
     }
   }
 
   Future<void> _loadChatWallpaper() async {
+    debugPrint('🎨 _loadChatWallpaper called for userId: ${widget.userId}');
     try {
+      // First try to load from backend
+      final conversationService = ConversationService();
+      final result = await conversationService.getConversationTheme(
+        conversationId: widget.userId, // Using partner ID as conversation ID
+      );
+
+      debugPrint('🎨 getConversationTheme result: $result');
+
+      if (result['success'] == true && result['data'] != null) {
+        final themeData = result['data'];
+        debugPrint('🎨 Theme data from server: $themeData');
+        final preset = themeData['preset'] as String?;
+        if (preset != null && mounted) {
+          debugPrint('🎨 Setting wallpaper to: $preset');
+          setState(() => _chatWallpaper = preset);
+          // Also save to local for offline access
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('chat_theme_${widget.userId}', preset);
+          return;
+        }
+      }
+
+      // Fallback to local storage
       final prefs = await SharedPreferences.getInstance();
       final theme = prefs.getString('chat_theme_${widget.userId}');
+      debugPrint('🎨 Fallback to local storage: $theme');
       if (theme != null && mounted) {
         setState(() => _chatWallpaper = theme);
       }
     } catch (e) {
-      debugPrint('Error loading chat wallpaper: $e');
+      debugPrint('🎨 Error loading chat wallpaper: $e');
+      // Fallback to local storage on error
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final theme = prefs.getString('chat_theme_${widget.userId}');
+        if (theme != null && mounted) {
+          setState(() => _chatWallpaper = theme);
+        }
+      } catch (_) {}
     }
+  }
+
+  /// Listen for theme changes from the other user
+  void _setupThemeChangeListener() {
+    final socketService = ChatSocketService();
+    _themeChangeSubscription = socketService.onThemeChanged.listen((data) {
+      debugPrint('🎨 Received theme change event: $data');
+      if (data is Map) {
+        final changedBy = data['changedBy']?.toString();
+        final theme = data['theme'];
+
+        debugPrint('🎨 Theme change - changedBy: $changedBy, partnerId: ${widget.userId}');
+
+        // Check if this theme change was made by our chat partner
+        if (changedBy == widget.userId && theme != null && mounted) {
+          debugPrint('🎨 Theme changed by partner! Applying: $theme');
+          final preset = theme['preset']?.toString();
+          if (preset != null) {
+            setState(() => _chatWallpaper = preset);
+            // Also save locally for offline access
+            SharedPreferences.getInstance().then((prefs) {
+              prefs.setString('chat_theme_${widget.userId}', preset);
+            });
+            debugPrint('🎨 Wallpaper updated to: $preset');
+          }
+        }
+      }
+    });
   }
 
   void _setupCallListeners() {
@@ -258,42 +541,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Future<void> _sendMessage({String? messageText, String? messageType}) async {
-    if (_currentUserId == null) return;
+    if (_currentUserId == null || !mounted) return;
 
     final text = messageText ?? _messageController.text.trim();
-    final type = messageType;
 
     if (text.isEmpty || _isSending) return;
 
-    // Check limits
-    try {
-      final userAsync = ref.read(userProvider);
-      final user = await userAsync.when(
-        data: (user) => user,
-        loading: () => null,
-        error: (_, __) => null,
-      );
-
-      if (user != null) {
-        final limits = ref.read(currentUserLimitsProvider(_currentUserId!));
-        if (!FeatureGate.canSendMessage(user, limits)) {
-          await LimitExceededDialog.show(
-            context: context,
-            limitType: 'messages',
-            limitInfo: limits?.messages,
-            resetTime: limits?.resetTime,
-            userId: _currentUserId!,
-          );
-          return;
-        }
-      }
-    } catch (e) {
-      debugPrint('Error checking limits: $e');
-    }
-
+    // Clear input and hide panels IMMEDIATELY for responsive feel
     if (messageText == null) _messageController.clear();
     _stopTyping();
     _hidePanels();
+
+    if (!mounted) return;
 
     final chatNotifier = ref.read(
       chatStateProvider(
@@ -306,6 +565,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Handle replies via API (can't use optimistic for replies yet)
     if (_replyingToMessage != null) {
+      debugPrint('💬 Sending reply to message: ${_replyingToMessage!.id}');
+      debugPrint('   Reply text: $text');
+      debugPrint('   Receiver: ${widget.userId}');
       setState(() => _isSending = true);
       try {
         final messageService = ref.read(messageServiceProvider);
@@ -315,10 +577,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           receiver: widget.userId,
         );
 
+        debugPrint('💬 Reply result: $result');
+
         if (mounted) setState(() => _isSending = false);
 
-        if (result['success'] == true) {
+        if (result['success'] == true && mounted) {
           final replyMessage = result['data'] as Message;
+          debugPrint('💬 Reply message parsed:');
+          debugPrint('   ID: ${replyMessage.id}');
+          debugPrint('   ReplyTo: ${replyMessage.replyTo}');
+          debugPrint('   ReplyTo ID: ${replyMessage.replyTo?.id}');
+          debugPrint('   ReplyTo message: ${replyMessage.replyTo?.message}');
+          debugPrint('   ReplyTo sender: ${replyMessage.replyTo?.sender.name}');
           final state = ref.read(
             chatStateProvider(
               ChatProviderParams(
@@ -337,18 +607,22 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           );
           chatNotifier.setMessages(messages);
 
-          setState(() => _replyingToMessage = null);
-          _messageController.clear();
-          ref.refresh(userLimitsProvider(_currentUserId!));
+          if (mounted) {
+            setState(() => _replyingToMessage = null);
+            _messageController.clear();
+            ref.refresh(userLimitsProvider(_currentUserId!));
+          }
         }
       } catch (e) {
-        if (mounted) setState(() => _isSending = false);
-        _showSendError(e.toString(), text, messageType);
+        if (mounted) {
+          setState(() => _isSending = false);
+          _showSendError(e.toString(), text, messageType);
+        }
       }
       return;
     }
 
-    // ⚡ OPTIMISTIC SENDING: Add message instantly, send in background
+    // ⚡ INSTANT: Add message to UI immediately (no await before this!)
     final localId = chatNotifier.addOptimisticMessage(
       message: text,
       currentUserId: _currentUserId!,
@@ -356,19 +630,54 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       type: messageType ?? 'text',
     );
 
-    // Scroll to bottom immediately to show the new message
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+    // Scroll to bottom after the optimistic message is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToBottom();
+    });
 
     // Clear reply state
     setState(() => _replyingToMessage = null);
 
-    // Send message in background (don't await)
-    _sendMessageInBackground(text, localId);
+    // Send message in background (don't await) and check limits there
+    _sendMessageInBackground(text, localId, messageType);
   }
 
   /// Send message in background and handle result
-  Future<void> _sendMessageInBackground(String text, String localId) async {
+  /// Checks limits and sends via socket - runs after optimistic UI update
+  Future<void> _sendMessageInBackground(String text, String localId, String? messageType) async {
+    if (!mounted) return;
+
     try {
+      // Check limits in background (after UI already updated)
+      final userAsync = ref.read(userProvider);
+      final user = userAsync.valueOrNull;
+      if (user != null && _currentUserId != null) {
+        final limits = ref.read(currentUserLimitsProvider(_currentUserId!));
+        if (!FeatureGate.canSendMessage(user, limits)) {
+          // Remove optimistic message and show limit dialog
+          final chatNotifier = ref.read(
+            chatStateProvider(
+              ChatProviderParams(
+                chatPartnerId: widget.userId,
+                currentUserId: _currentUserId!,
+              ),
+            ).notifier,
+          );
+          chatNotifier.updateOptimisticMessage(localId, failed: true);
+
+          if (mounted) {
+            await LimitExceededDialog.show(
+              context: context,
+              limitType: 'messages',
+              limitInfo: limits?.messages,
+              resetTime: limits?.resetTime,
+              userId: _currentUserId!,
+            );
+          }
+          return;
+        }
+      }
+
       final chatNotifier = ref.read(
         chatStateProvider(
           ChatProviderParams(
@@ -380,18 +689,22 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
       final result = await chatNotifier.sendMessage(text, localId: localId);
 
+      // Check mounted after async operation
+      if (!mounted) return;
+
       if (result['status'] == 'success') {
-        debugPrint('ChatScreen: Message sent successfully');
+        debugPrint('✅ Message sent successfully');
         ref
             .read(messageCountProvider.notifier)
             .refreshMessageCount(widget.userId);
         ref.refresh(userLimitsProvider(_currentUserId!));
       } else {
-        debugPrint('ChatScreen: Message send failed: ${result['error']}');
-        // Optimistic message already marked as failed in provider
+        debugPrint('❌ Message send failed: ${result['error']}');
+        // Show error to user
+        _showSendError(result['error'] ?? 'Failed to send', text, messageType);
       }
     } catch (error) {
-      debugPrint('ChatScreen: Send error: $error');
+      debugPrint('❌ Send error: $error');
       if (ApiErrorHandler.isLimitExceededError(error) && mounted) {
         await ApiErrorHandler.handleLimitExceededError(
           context: context,
@@ -437,8 +750,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         action: SnackBarAction(
           label: l10n.retry,
           textColor: Colors.white,
-          onPressed: () =>
-              _sendMessage(messageText: originalText, messageType: messageType),
+          onPressed: () {
+            if (mounted) {
+              _sendMessage(messageText: originalText, messageType: messageType);
+            }
+          },
         ),
       ),
     );
@@ -716,6 +1032,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Future<void> _sendVideoMessage(File videoFile) async {
+    if (!mounted) return;
     setState(() => _isSending = true);
 
     try {
@@ -725,10 +1042,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         videoFile: videoFile,
       );
 
+      // Check mounted after async operation
+      if (!mounted) return;
+
       setState(() => _isSending = false);
 
       if (result['success'] == true) {
-        await _loadMessages();
+        // Don't reload - socket already adds the sent message
+        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
@@ -802,7 +1123,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       setState(() => _isSending = false);
 
       if (result['success'] == true) {
-        await _loadMessages();
+        // Don't reload - socket already adds the sent message
+        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
@@ -899,21 +1221,23 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
       debugPrint('📍 Location share result: $result');
 
+      // Check mounted after async operation
+      if (!mounted) return;
+
       if (result['success'] == true) {
-        debugPrint('📍 Location shared successfully, reloading messages...');
-        await _loadMessages();
+        debugPrint('📍 Location shared successfully');
+        // Don't reload - socket already adds the sent message
+        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
       } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? 'Failed to share location'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? 'Failed to share location'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     } catch (e) {
       if (mounted) {
@@ -959,19 +1283,43 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         return;
       }
 
-      setState(() => _isSending = true);
+      // Get file info for progress display
+      final fileName = file.path.split('/').last;
+      final fileSize = await file.length();
+
+      setState(() {
+        _isSending = true;
+        _uploadFileName = fileName;
+        _uploadTotalBytes = fileSize;
+        _uploadBytesSent = 0;
+      });
 
       final result = await MediaService.sendMessageWithMedia(
         receiverId: widget.userId,
         messageText: caption,
         mediaFile: file,
         mediaType: detectedType ?? 'image',
+        onProgress: (bytesSent, totalBytes) {
+          if (mounted) {
+            setState(() {
+              _uploadBytesSent = bytesSent;
+              _uploadTotalBytes = totalBytes;
+            });
+          }
+        },
       );
 
-      setState(() => _isSending = false);
+      setState(() {
+        _isSending = false;
+        _uploadFileName = null;
+        _uploadBytesSent = 0;
+        _uploadTotalBytes = 0;
+      });
 
       if (result['success'] == true) {
-        await _loadMessages();
+        // Don't reload - socket already adds the sent message
+        // Just scroll to bottom to show the new message
+        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
@@ -1034,14 +1382,291 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _typingTimer?.cancel();
   }
 
-  void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      // For reversed ListView, scroll to 0.0 (top of reversed list = bottom visually)
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_scrollController.hasClients) {
-          _scrollController.jumpTo(0.0);
+  // ==================== MESSAGE ACTIONS ====================
+
+  /// Handle edit message action
+  void _handleEditMessage(Message message) async {
+    if (_currentUserId == null) return;
+
+    // Check if message can be edited (within 15 minutes)
+    try {
+      final createdAt = DateTime.parse(message.createdAt);
+      final diff = DateTime.now().difference(createdAt);
+      if (diff.inMinutes >= 15) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Messages can only be edited within 15 minutes'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+        return;
+      }
+    } catch (e) {
+      return;
+    }
+
+    // Show edit dialog
+    final newText = await showDialog<String>(
+      context: context,
+      builder: (context) => _EditMessageDialog(
+        initialText: message.message ?? '',
+      ),
+    );
+
+    if (newText != null && newText.trim().isNotEmpty && mounted) {
+      final chatNotifier = ref.read(
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ).notifier,
+      );
+
+      // Optimistic update
+      chatNotifier.updateMessageLocally(message.id, newText: newText, isEdited: true);
+
+      // Call API
+      final messageService = ref.read(messageServiceProvider);
+      final result = await messageService.editMessage(
+        messageId: message.id,
+        message: newText,
+      );
+
+      if (result['success'] != true && mounted) {
+        // Revert on failure
+        chatNotifier.updateMessageLocally(message.id, newText: message.message);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? 'Failed to edit message'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  /// Handle delete message action
+  void _handleDeleteMessage(Message message) async {
+    if (_currentUserId == null) return;
+
+    await showDeleteMessageDialog(
+      context,
+      message: message,
+      otherUserName: widget.userName,
+      onDelete: (deleteForEveryone) async {
+        // Check mounted before using ref in callback
+        if (!mounted) return;
+
+        final chatNotifier = ref.read(
+          chatStateProvider(
+            ChatProviderParams(
+              chatPartnerId: widget.userId,
+              currentUserId: _currentUserId!,
+            ),
+          ).notifier,
+        );
+
+        // Optimistic update
+        if (deleteForEveryone) {
+          chatNotifier.markMessageAsDeleted(message.id);
+        } else {
+          chatNotifier.removeMessageLocally(message.id);
         }
-      });
+
+        // Call API
+        final messageService = ref.read(messageServiceProvider);
+        final result = await messageService.deleteMessage(
+          messageId: message.id,
+          deleteForEveryone: deleteForEveryone,
+        );
+
+        if (result['success'] != true && mounted) {
+          // Revert on failure - reload messages
+          await _loadMessages();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? 'Failed to delete message'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  /// Handle pin/unpin message action
+  void _handlePinMessage(Message message) async {
+    if (_currentUserId == null || !mounted) return;
+
+    final chatNotifier = ref.read(
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ).notifier,
+    );
+
+    // Optimistic update
+    chatNotifier.togglePinLocally(message.id);
+
+    // Call API
+    final messageService = ref.read(messageServiceProvider);
+    final result = await messageService.pinMessage(messageId: message.id);
+
+    // Check mounted after async operation
+    if (!mounted) return;
+
+    if (result['success'] != true) {
+      // Revert on failure
+      chatNotifier.togglePinLocally(message.id);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result['error'] ?? 'Failed to update pin status'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else if (mounted) {
+      // Show confirmation
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message.isPinned ? 'Message unpinned' : 'Message pinned'),
+          duration: const Duration(seconds: 1),
+        ),
+      );
+    }
+  }
+
+  /// Handle forward message action
+  void _handleForwardMessage(Message message) async {
+    if (_currentUserId == null) return;
+
+    // Get list of chat partners from unread counts (user IDs)
+    final chatPartnersState = ref.read(chatPartnersProvider);
+    final userIds = chatPartnersState.unreadCounts.keys
+        .where((id) => id != widget.userId) // Exclude current chat partner
+        .toList();
+
+    // If no chat partners from unread counts, try to get from current messages
+    if (userIds.isEmpty) {
+      // Get unique user IDs from recent conversations
+      final chatState = ref.read(
+        chatStateProvider(
+          ChatProviderParams(
+            chatPartnerId: widget.userId,
+            currentUserId: _currentUserId!,
+          ),
+        ),
+      );
+
+      // Get unique sender/receiver IDs that aren't current user or current chat partner
+      final uniqueUserIds = <String>{};
+      for (final msg in chatState.messages) {
+        if (msg.sender.id != _currentUserId && msg.sender.id != widget.userId) {
+          uniqueUserIds.add(msg.sender.id);
+        }
+        if (msg.receiver.id != _currentUserId && msg.receiver.id != widget.userId) {
+          uniqueUserIds.add(msg.receiver.id);
+        }
+      }
+      userIds.addAll(uniqueUserIds);
+    }
+
+    if (userIds.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No other users to forward to'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    final messageService = ref.read(messageServiceProvider);
+
+    final result = await showDialog<List<String>>(
+      context: context,
+      builder: (context) => ForwardMessageDialog(
+        userIds: userIds,
+        messageService: messageService,
+      ),
+    );
+
+    if (result != null && result.isNotEmpty && mounted) {
+      final forwardResult = await messageService.forwardMessage(
+        messageId: message.id,
+        receivers: result,
+      );
+
+      if (forwardResult['success'] == true && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Message forwarded to ${result.length} user${result.length > 1 ? 's' : ''}'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(forwardResult['error'] ?? 'Failed to forward message'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  /// Handle retry sending failed message
+  void _handleRetryMessage(Message message) async {
+    if (_currentUserId == null || !mounted) return;
+
+    final messageText = message.message;
+    if (messageText == null || messageText.isEmpty) return;
+
+    debugPrint('🔄 Retrying message: ${message.localId ?? message.id}');
+
+    final chatNotifier = ref.read(
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ).notifier,
+    );
+
+    // Remove the failed message first
+    chatNotifier.removeMessageLocally(message.localId ?? message.id);
+
+    // Send again (only supports text retry for now)
+    await _sendMessage(messageText: messageText);
+  }
+
+  /// Handle deleting failed message from UI
+  void _handleDeleteFailedMessage(Message message) {
+    if (_currentUserId == null || !mounted) return;
+
+    debugPrint('🗑️ Deleting failed message: ${message.localId ?? message.id}');
+
+    final chatNotifier = ref.read(
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ).notifier,
+    );
+
+    // Remove the failed message from the UI
+    chatNotifier.removeMessageLocally(message.localId ?? message.id);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Message deleted'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -1090,13 +1715,33 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     // Clear active chat so global listener can increment unread for new messages
     // Use Future.microtask to defer provider modification until after widget tree finalization
     final notifier = _chatPartnersNotifier;
     if (notifier != null) {
       Future.microtask(() => notifier.clearActiveChat());
     }
+
+    // Mark chat as not visible so messages won't be auto-read
+    if (_currentUserId != null) {
+      try {
+        final chatNotifier = ref.read(
+          chatStateProvider(
+            ChatProviderParams(
+              chatPartnerId: widget.userId,
+              currentUserId: _currentUserId!,
+            ),
+          ).notifier,
+        );
+        chatNotifier.setChatVisible(false);
+      } catch (e) {
+        debugPrint('⚠️ Could not set chat invisible on dispose: $e');
+      }
+    }
+
     _typingTimer?.cancel();
+    _themeChangeSubscription?.cancel();
     // Note: Don't send typing=false here since we can't safely access providers in dispose
     // The backend handles typing timeout automatically (5 seconds)
     _messageController.dispose();
@@ -1112,14 +1757,28 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    final chatState = ref.watch(
-      chatStateProvider(
-        ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        ),
-      ),
+    final chatParams = ChatProviderParams(
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
     );
+
+    // Listen for new messages and auto-scroll to bottom
+    ref.listen<ChatState>(chatStateProvider(chatParams), (previous, next) {
+      // Check if a new message was added (not just loading initial messages)
+      if (previous != null &&
+          next.messages.length > previous.messages.length &&
+          !next.isLoading) {
+        debugPrint('📩 New message detected - auto-scrolling to bottom');
+        // Use double post-frame callback to ensure list has updated
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _scrollToBottom();
+          });
+        });
+      }
+    });
+
+    final chatState = ref.watch(chatStateProvider(chatParams));
 
     debugPrint(
       'Build - Messages: ${chatState.messages.length}, Connected: ${chatState.isSocketConnected}',
@@ -1132,6 +1791,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         isTyping: chatState.isOtherUserTyping,
         userId: widget.userId,
         isConnected: chatState.isSocketConnected,
+        connectionStatus: chatState.connectionStatus,
         isOnline: chatState.isOtherUserOnline,
         lastSeen: chatState.otherUserLastSeen,
         onThemeChanged: _loadChatWallpaper,
@@ -1144,42 +1804,76 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           child: Column(
             children: [
               ConnectionStatusIndicator(),
+              // Pinned messages bar
+              if (chatState.pinnedMessages.isNotEmpty)
+                PinnedMessagesBar(
+                  pinnedMessages: chatState.pinnedMessages,
+                  onTap: () {
+                    if (chatState.pinnedMessages.isNotEmpty) {
+                      _scrollToMessage(chatState.pinnedMessages.first.id);
+                    }
+                  },
+                  onClose: () {
+                    // Unpin the message when X is clicked
+                    if (chatState.pinnedMessages.isNotEmpty) {
+                      _handlePinMessage(chatState.pinnedMessages.first);
+                    }
+                  },
+                ),
               Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _loadMessages,
-                  displacement: 20,
-                  color: const Color(0xFF00BFA5),
-                  child: ChatMessagesList(
-                    isLoading: chatState.isLoading,
-                    error: chatState.error,
-                    messages: chatState.messages,
-                    currentUserId: _currentUserId,
-                    otherUserName: widget.userName,
-                    otherUserPicture: widget.profilePicture,
-                    otherUserTyping: chatState.isOtherUserTyping,
-                    scrollController: _scrollController,
-                    onRetry: _loadMessages,
-                    isSelectionMode: _isSelectionMode,
-                    selectedMessageIds: _selectedMessageIds,
-                    onSelectionChanged: (msg, selected) {
-                      setState(() {
-                        if (selected) {
-                          _selectedMessageIds.add(msg.id);
-                          if (!_isSelectionMode) _isSelectionMode = true;
-                        } else {
-                          _selectedMessageIds.remove(msg.id);
-                          if (_selectedMessageIds.isEmpty)
-                            _isSelectionMode = false;
-                        }
-                      });
-                    },
-                    onDelete: null,
-                    onEdit: null,
-                    onReply: (msg) => setState(() => _replyingToMessage = msg),
-                    onPin: null,
-                    onUnpin: null,
-                    onForward: null,
-                  ),
+                child: Stack(
+                  children: [
+                    RefreshIndicator(
+                      onRefresh: _loadMessages,
+                      displacement: 20,
+                      color: const Color(0xFF00BFA5),
+                      child: ChatMessagesList(
+                              isLoading: chatState.isLoading,
+                              error: chatState.error,
+                              messages: chatState.messages,
+                              currentUserId: _currentUserId,
+                              otherUserName: widget.userName,
+                              otherUserPicture: widget.profilePicture,
+                              otherUserTyping: chatState.isOtherUserTyping,
+                              scrollController: _scrollController,
+                              onRetry: _loadMessages,
+                              isSelectionMode: _isSelectionMode,
+                              selectedMessageIds: _selectedMessageIds,
+                              isLoadingMore: _isLoadingMore,
+                              hasMoreMessages: _hasMoreMessages,
+                              headerWidget: _buildUserInfoHeader(), // User info at top
+                              onSelectionChanged: (msg, selected) {
+                                setState(() {
+                                  if (selected) {
+                                    _selectedMessageIds.add(msg.id);
+                                    if (!_isSelectionMode) _isSelectionMode = true;
+                                  } else {
+                                    _selectedMessageIds.remove(msg.id);
+                                    if (_selectedMessageIds.isEmpty)
+                                      _isSelectionMode = false;
+                                  }
+                                });
+                              },
+                              onDelete: _handleDeleteMessage,
+                              onEdit: _handleEditMessage,
+                              onReply: (msg) => setState(() => _replyingToMessage = msg),
+                              onReplyTap: _scrollToMessage,
+                              onPin: _handlePinMessage,
+                              onUnpin: _handlePinMessage, // Same handler - it toggles
+                              onForward: _handleForwardMessage,
+                              onRetryMessage: _handleRetryMessage,
+                              onDeleteFailedMessage: _handleDeleteFailedMessage,
+                              onSendWave: _sendWaveSticker,
+                            ),
+                    ),
+                    // Scroll to bottom button
+                    if (_showScrollButton)
+                      Positioned(
+                        right: 16,
+                        bottom: 16,
+                        child: _buildScrollToBottomButton(),
+                      ),
+                  ],
                 ),
               ),
               ChatInputSection(
@@ -1201,8 +1895,802 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 otherUserName: widget.userName,
                 onCancelReply: () => setState(() => _replyingToMessage = null),
                 onAudioPressed: _showVoiceRecorder,
+                uploadBytesSent: _uploadBytesSent,
+                uploadTotalBytes: _uploadTotalBytes,
+                uploadFileName: _uploadFileName,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Build compact user info header at top of chat
+  Widget _buildCompactUserInfoHeader() {
+    final communityAsync = ref.watch(singleCommunityProvider(widget.userId));
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return communityAsync.when(
+      data: (user) {
+        // Calculate age from birth_year
+        int? age;
+        if (user?.birth_year != null && user!.birth_year.isNotEmpty) {
+          try {
+            final birthYear = int.parse(user.birth_year);
+            age = DateTime.now().year - birthYear;
+          } catch (_) {}
+        }
+
+        // Get location string
+        String? location;
+        if (user?.location.city != null && user!.location.city.isNotEmpty) {
+          location = user.location.country.isNotEmpty
+              ? '${user.location.city}, ${user.location.country}'
+              : user.location.city;
+        } else if (user?.location.country != null && user!.location.country.isNotEmpty) {
+          location = user.location.country;
+        }
+
+        return GestureDetector(
+          onTap: () => _navigateToProfile(user),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+              color: isDark
+                  ? Colors.grey[900]?.withOpacity(0.9)
+                  : Colors.white.withOpacity(0.95),
+              border: Border(
+                bottom: BorderSide(
+                  color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+                  width: 0.5,
+                ),
+              ),
+            ),
+            child: Row(
+              children: [
+                // Small profile picture
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFF00BFA5).withOpacity(0.3),
+                      width: 2,
+                    ),
+                  ),
+                  child: ClipOval(
+                    child: widget.profilePicture != null
+                        ? Image.network(
+                            widget.profilePicture!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              color: const Color(0xFF00BFA5).withOpacity(0.2),
+                              child: const Icon(Icons.person, size: 20, color: Color(0xFF00BFA5)),
+                            ),
+                          )
+                        : Container(
+                            color: const Color(0xFF00BFA5).withOpacity(0.2),
+                            child: const Icon(Icons.person, size: 20, color: Color(0xFF00BFA5)),
+                          ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // User info
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Name and age
+                      Row(
+                        children: [
+                          Text(
+                            user?.name ?? widget.userName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: isDark ? Colors.white : Colors.black87,
+                            ),
+                          ),
+                          if (age != null) ...[
+                            const SizedBox(width: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF00BFA5).withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                '$age',
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF00BFA5),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                      const SizedBox(height: 2),
+                      // Location and languages in one line
+                      Row(
+                        children: [
+                          if (location != null) ...[
+                            Icon(
+                              Icons.location_on_outlined,
+                              size: 12,
+                              color: isDark ? Colors.grey[400] : Colors.grey[600],
+                            ),
+                            const SizedBox(width: 2),
+                            Flexible(
+                              child: Text(
+                                location,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                          if (location != null && (user?.native_language != null || user?.language_to_learn != null))
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
+                              child: Text(
+                                '•',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: isDark ? Colors.grey[500] : Colors.grey[400],
+                                ),
+                              ),
+                            ),
+                          if (user?.native_language != null)
+                            Text(
+                              user!.native_language,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.green[600],
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          if (user?.native_language != null && user?.language_to_learn != null)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 10,
+                                color: isDark ? Colors.grey[500] : Colors.grey[400],
+                              ),
+                            ),
+                          if (user?.language_to_learn != null)
+                            Text(
+                              user!.language_to_learn,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.blue[600],
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                // Arrow icon to indicate tap action
+                Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                  color: isDark ? Colors.grey[500] : Colors.grey[400],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      loading: () => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: isDark ? Colors.grey[900]?.withOpacity(0.9) : Colors.white.withOpacity(0.95),
+          border: Border(
+            bottom: BorderSide(
+              color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+              width: 0.5,
+            ),
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey[300],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(width: 100, height: 14, color: Colors.grey[300]),
+                const SizedBox(height: 4),
+                Container(width: 150, height: 10, color: Colors.grey[200]),
+              ],
+            ),
+          ],
+        ),
+      ),
+      error: (_, __) => const SizedBox.shrink(),
+    );
+  }
+
+  /// Navigate to full user profile
+  void _navigateToProfile(dynamic user) {
+    if (user != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => SingleCommunity(community: user),
+        ),
+      );
+    }
+  }
+
+  /// Build user info header shown at top of chat (scrollable with messages)
+  Widget _buildUserInfoHeader() {
+    final communityAsync = ref.watch(singleCommunityProvider(widget.userId));
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return communityAsync.when(
+      data: (user) {
+        // Debug: Print user data
+        debugPrint('🔍 User info header data:');
+        debugPrint('   Name: ${user?.name}');
+        debugPrint('   Bio: "${user?.bio}" (isEmpty: ${user?.bio.isEmpty})');
+        debugPrint('   Topics: ${user?.topics} (length: ${user?.topics.length})');
+
+        // Calculate age from birth_year
+        int? age;
+        if (user?.birth_year != null && user!.birth_year.isNotEmpty) {
+          try {
+            final birthYear = int.parse(user.birth_year);
+            age = DateTime.now().year - birthYear;
+          } catch (_) {}
+        }
+
+        // Get location string
+        String? location;
+        if (user?.location.city != null && user!.location.city.isNotEmpty) {
+          location = user.location.country.isNotEmpty
+              ? '${user.location.city}, ${user.location.country}'
+              : user.location.city;
+        } else if (user?.location.country != null && user!.location.country.isNotEmpty) {
+          location = user.location.country;
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Bigger profile picture (100px)
+              GestureDetector(
+                onTap: () => _navigateToProfile(user),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFF00BFA5).withValues(alpha: 0.3),
+                      width: 3,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                        blurRadius: 16,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: ClipOval(
+                    child: widget.profilePicture != null && widget.profilePicture!.isNotEmpty
+                        ? Image.network(
+                            widget.profilePicture!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                              child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                            ),
+                          )
+                        : Container(
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                            child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                          ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // Name and age
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.userName,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : Colors.black87,
+                    ),
+                  ),
+                  if (age != null) ...[
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF00BFA5).withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '$age',
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF00BFA5),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+
+              // Location
+              if (location != null) ...[
+                const SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 14,
+                      color: Colors.grey[600],
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      location,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+
+              // Bio
+              if (user?.bio != null && user!.bio.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? Colors.white.withValues(alpha: 0.05)
+                        : Colors.grey.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    user.bio,
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey[600],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ],
+
+              // Interests / Topics
+              if (user?.topics != null && user!.topics.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: user.topics.take(5).map((topic) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                        ),
+                      ),
+                      child: Text(
+                        topic,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF00BFA5),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+
+              const SizedBox(height: 8),
+
+              // Divider
+              Divider(
+                color: Colors.grey.withValues(alpha: 0.2),
+                height: 1,
+              ),
+            ],
+          ),
+        );
+      },
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+    );
+  }
+
+  /// Build empty chat state - shows user info, bio, interests, and "Say Hi" button
+  Widget _buildEmptyChatWithUserInfo(ChatState chatState) {
+    final communityAsync = ref.watch(singleCommunityProvider(widget.userId));
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return communityAsync.when(
+      data: (user) {
+        // Debug: Print user data
+        debugPrint('🔍 Empty chat user data:');
+        debugPrint('   Name: ${user?.name}');
+        debugPrint('   Bio: "${user?.bio}" (isEmpty: ${user?.bio.isEmpty})');
+        debugPrint('   Topics: ${user?.topics} (length: ${user?.topics.length})');
+
+        // Calculate age from birth_year
+        int? age;
+        if (user?.birth_year != null && user!.birth_year.isNotEmpty) {
+          try {
+            final birthYear = int.parse(user.birth_year);
+            age = DateTime.now().year - birthYear;
+          } catch (_) {}
+        }
+
+        // Get location string
+        String? location;
+        if (user?.location.city != null && user!.location.city.isNotEmpty) {
+          location = user.location.country.isNotEmpty
+              ? '${user.location.city}, ${user.location.country}'
+              : user.location.city;
+        } else if (user?.location.country != null && user!.location.country.isNotEmpty) {
+          location = user.location.country;
+        }
+
+        return ListView(
+          reverse: true,
+          controller: _scrollController,
+          children: [
+            // User info card with image, bio, interests
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Bigger profile picture (100px)
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color(0xFF00BFA5).withValues(alpha: 0.3),
+                        width: 3,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: ClipOval(
+                      child: widget.profilePicture != null && widget.profilePicture!.isNotEmpty
+                          ? Image.network(
+                              widget.profilePicture!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => Container(
+                                color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                                child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                              ),
+                            )
+                          : Container(
+                              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                              child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                            ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Name and age
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.userName,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : Colors.black87,
+                        ),
+                      ),
+                      if (age != null) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '$age',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF00BFA5),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+
+                  // Location
+                  if (location != null) ...[
+                    const SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 14,
+                          color: Colors.grey[600],
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          location,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+
+                  // Bio
+                  if (user?.bio != null && user!.bio.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? Colors.white.withValues(alpha: 0.05)
+                            : Colors.grey.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        user.bio,
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                  ],
+
+                  // Interests / Topics
+                  if (user?.topics != null && user!.topics.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: user.topics.take(5).map((topic) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                            ),
+                          ),
+                          child: Text(
+                            topic,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF00BFA5),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+
+                  const SizedBox(height: 24),
+
+                  // Say Hi button - sends wave sticker
+                  GestureDetector(
+                    onTap: _sendWaveSticker,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFFE082), Color(0xFFFFCA28)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFFFCA28).withValues(alpha: 0.4),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '👋',
+                            style: TextStyle(fontSize: 24),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            'Say Hi!',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF5D4037),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+      loading: () => ListView(
+        reverse: true,
+        controller: _scrollController,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(32),
+            child: Center(child: CircularProgressIndicator()),
+          ),
+        ],
+      ),
+      error: (_, __) => ListView(
+        reverse: true,
+        controller: _scrollController,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '👋',
+                  style: TextStyle(fontSize: 72),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Start a conversation with ${widget.userName}!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: _sendWaveSticker,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFFFE082), Color(0xFFFFCA28)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFFFCA28).withValues(alpha: 0.4),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '👋',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Say Hi!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF5D4037),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Send wave sticker to start conversation
+  void _sendWaveSticker() {
+    _sendMessage(messageText: '👋');
+  }
+
+  /// Build scroll to bottom floating button
+  Widget _buildScrollToBottomButton() {
+    return Material(
+      elevation: 4,
+      shadowColor: Colors.black26,
+      shape: const CircleBorder(),
+      child: InkWell(
+        onTap: _scrollToBottom,
+        customBorder: const CircleBorder(),
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(context).colorScheme.surface,
+            border: Border.all(
+              color: Colors.grey.withValues(alpha: 0.2),
+            ),
+          ),
+          child: Icon(
+            Icons.keyboard_arrow_down_rounded,
+            color: Theme.of(context).colorScheme.primary,
+            size: 28,
           ),
         ),
       ),
@@ -1222,54 +2710,154 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   LinearGradient? _getGradient(String gradientName) {
-    switch (gradientName) {
-      case 'gradient_blue':
-        return const LinearGradient(
-          colors: [Color(0xFF4158D0), Color(0xFFC850C0), Color(0xFFFFCC70)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-      case 'gradient_green':
-        return const LinearGradient(
-          colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-      case 'gradient_pink':
-        return const LinearGradient(
-          colors: [Color(0xFFFF9A9E), Color(0xFFFECFEF)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-      case 'gradient_purple':
-        return const LinearGradient(
-          colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        );
-      default:
-        return null;
-    }
+    const gradients = {
+      'gradient_sunset': [Color(0xFFFF512F), Color(0xFFDD2476)],
+      'gradient_ocean': [Color(0xFF2193B0), Color(0xFF6DD5ED)],
+      'gradient_aurora': [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+      'gradient_purple': [Color(0xFF667EEA), Color(0xFF764BA2)],
+      'gradient_midnight': [Color(0xFF232526), Color(0xFF414345)],
+      'gradient_forest': [Color(0xFF134E5E), Color(0xFF71B280)],
+      'gradient_rose': [Color(0xFFB76E79), Color(0xFFE8B4B8)],
+      'gradient_candy': [Color(0xFFFF9A9E), Color(0xFFFECFEF)],
+      'gradient_neon': [Color(0xFF00F260), Color(0xFF0575E6)],
+      'gradient_fire': [Color(0xFFF12711), Color(0xFFF5AF19)],
+      'gradient_winter': [Color(0xFFE6DADA), Color(0xFF274046)],
+      'gradient_lavender': [Color(0xFFEE9CA7), Color(0xFFFFDDE1)],
+      // Legacy gradients for backwards compatibility
+      'gradient_blue': [Color(0xFF4158D0), Color(0xFFC850C0), Color(0xFFFFCC70)],
+      'gradient_green': [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+      'gradient_pink': [Color(0xFFFF9A9E), Color(0xFFFECFEF)],
+    };
+
+    final colors = gradients[gradientName];
+    if (colors == null) return null;
+
+    return LinearGradient(
+      colors: colors,
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
   }
 
   Color _getColor(String colorName) {
-    switch (colorName) {
-      case 'dark':
-        return const Color(0xFF1A1A2E);
-      case 'light':
-        return const Color(0xFFFFFFFF);
-      case 'blue':
-        return const Color(0xFF1E3A5F);
-      case 'pink':
-        return const Color(0xFFE8B4BC);
-      case 'green':
-        return const Color(0xFF2D5A27);
-      case 'purple':
-        return const Color(0xFF6B5B95);
-      case 'sunset':
-        return const Color(0xFFFF6B6B);
-      default:
-        return Colors.grey[100]!;
-    }
+    const colors = {
+      'default': Color(0xFFF5F5F5),
+      'dark': Color(0xFF0D0D0D),
+      'midnight': Color(0xFF1A1A2E),
+      'charcoal': Color(0xFF2D2D2D),
+      'navy': Color(0xFF0A1628),
+      'ocean': Color(0xFF1E3A5F),
+      'teal': Color(0xFF115E59),
+      'forest': Color(0xFF1B4332),
+      'sage': Color(0xFF4A5D4A),
+      'wine': Color(0xFF4A1942),
+      'plum': Color(0xFF5B2C6F),
+      'rose': Color(0xFF8B3A62),
+      'blush': Color(0xFFE8B4BC),
+      'peach': Color(0xFFE6A67C),
+      'cream': Color(0xFFF5E6D3),
+      'mocha': Color(0xFF4A3728),
+      // Legacy colors for backwards compatibility
+      'light': Color(0xFFFFFFFF),
+      'blue': Color(0xFF1E3A5F),
+      'pink': Color(0xFFE8B4BC),
+      'green': Color(0xFF2D5A27),
+      'purple': Color(0xFF6B5B95),
+      'sunset': Color(0xFFFF6B6B),
+    };
+
+    return colors[colorName] ?? Colors.grey[100]!;
+  }
+}
+
+/// Simple edit message dialog
+class _EditMessageDialog extends StatefulWidget {
+  final String initialText;
+
+  const _EditMessageDialog({required this.initialText});
+
+  @override
+  State<_EditMessageDialog> createState() => _EditMessageDialogState();
+}
+
+class _EditMessageDialogState extends State<_EditMessageDialog> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialText);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return AlertDialog(
+      backgroundColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      title: Text(
+        'Edit Message',
+        style: TextStyle(
+          color: isDark ? Colors.white : Colors.black87,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        maxLines: 5,
+        minLines: 1,
+        maxLength: 2000,
+        style: TextStyle(color: isDark ? Colors.white : Colors.black87),
+        decoration: InputDecoration(
+          hintText: 'Enter message...',
+          hintStyle: TextStyle(color: isDark ? Colors.grey[500] : Colors.grey[600]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: theme.primaryColor, width: 2),
+          ),
+          filled: true,
+          fillColor: isDark ? Colors.grey[800] : Colors.grey[100],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: isDark ? Colors.grey[400] : Colors.grey[600]),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            final text = _controller.text.trim();
+            if (text.isNotEmpty) {
+              Navigator.pop(context, text);
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: theme.primaryColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          child: const Text('Save', style: TextStyle(color: Colors.white)),
+        ),
+      ],
+    );
   }
 }

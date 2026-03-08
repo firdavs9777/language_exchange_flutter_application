@@ -49,6 +49,25 @@ app.*.map.json
 .env
 .env.local
 .env.*.local
+**/.env
+
+# Android signing keys (NEVER commit these!)
+key.properties
+*.jks
+*.keystore
+upload-keystore.jks
+release-keystore.jks
+
+# Backup files
+*_old.json
+*_backup.json
+*.bak
+
+# Screenshots and temporary images (root level)
+../*.png
+
+# Build directories
+lib/pages/authentication/screens/build/
 
 # Note: google-services.json and GoogleService-Info.plist are NOT in .gitignore
 # because they're required for the app to build. These files contain client-side

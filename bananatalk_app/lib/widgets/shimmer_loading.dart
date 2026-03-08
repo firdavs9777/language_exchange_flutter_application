@@ -9,12 +9,12 @@ class ShimmerLoading extends StatefulWidget {
   final Duration duration;
 
   const ShimmerLoading({
-    Key? key,
+    super.key,
     required this.child,
     this.baseColor,
     this.highlightColor,
     this.duration = const Duration(milliseconds: 1500),
-  }) : super(key: key);
+  });
 
   @override
   State<ShimmerLoading> createState() => _ShimmerLoadingState();
@@ -39,6 +39,17 @@ class _ShimmerLoadingState extends State<ShimmerLoading>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Pause animation when not visible (TickerMode disabled)
+    if (!TickerMode.of(context)) {
+      _controller.stop();
+    } else if (!_controller.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -52,30 +63,33 @@ class _ShimmerLoadingState extends State<ShimmerLoading>
     final highlightColor = widget.highlightColor ??
         (isDark ? Colors.grey[700]! : Colors.grey[100]!);
 
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return ShaderMask(
-          shaderCallback: (bounds) {
-            return LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                baseColor,
-                highlightColor,
-                baseColor,
-              ],
-              stops: [
-                _animation.value - 0.3,
-                _animation.value,
-                _animation.value + 0.3,
-              ].map((stop) => stop.clamp(0.0, 1.0)).toList(),
-            ).createShader(bounds);
-          },
-          blendMode: BlendMode.srcIn,
-          child: widget.child,
-        );
-      },
+    // Wrap with RepaintBoundary to isolate shader mask repaints
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return ShaderMask(
+            shaderCallback: (bounds) {
+              return LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  baseColor,
+                  highlightColor,
+                  baseColor,
+                ],
+                stops: [
+                  _animation.value - 0.3,
+                  _animation.value,
+                  _animation.value + 0.3,
+                ].map((stop) => stop.clamp(0.0, 1.0)).toList(),
+              ).createShader(bounds);
+            },
+            blendMode: BlendMode.srcIn,
+            child: widget.child,
+          );
+        },
+      ),
     );
   }
 }
@@ -87,11 +101,11 @@ class ShimmerSkeleton extends StatelessWidget {
   final BorderRadius? borderRadius;
 
   const ShimmerSkeleton({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   /// Circle skeleton (for avatars)
   factory ShimmerSkeleton.circle({required double radius}) {
@@ -146,7 +160,7 @@ class ShimmerSkeleton extends StatelessWidget {
 
 /// Shimmer loading for chat list item
 class ChatListItemSkeleton extends StatelessWidget {
-  const ChatListItemSkeleton({Key? key}) : super(key: key);
+  const ChatListItemSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +196,7 @@ class ChatListItemSkeleton extends StatelessWidget {
 
 /// Shimmer loading for moment card
 class MomentCardSkeleton extends StatelessWidget {
-  const MomentCardSkeleton({Key? key}) : super(key: key);
+  const MomentCardSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +254,7 @@ class MomentCardSkeleton extends StatelessWidget {
 
 /// Shimmer loading for profile header
 class ProfileHeaderSkeleton extends StatelessWidget {
-  const ProfileHeaderSkeleton({Key? key}) : super(key: key);
+  const ProfileHeaderSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +296,7 @@ class ProfileHeaderSkeleton extends StatelessWidget {
 
 /// Shimmer loading for community user card
 class UserCardSkeleton extends StatelessWidget {
-  const UserCardSkeleton({Key? key}) : super(key: key);
+  const UserCardSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {

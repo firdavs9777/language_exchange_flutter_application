@@ -812,6 +812,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   ],
                 ),
               ),
+              // Username
+              if (_community.displayUsername != null) ...[
+                const SizedBox(height: 4),
+                Center(
+                  child: Text(
+                    _community.displayUsername!,
+                    style: context.bodyMedium.copyWith(
+                      color: context.textSecondary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
               if (age != null) ...[
                 Spacing.gapSM,
                 Center(
@@ -949,6 +962,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 '${AppLocalizations.of(context)!.native}: ${_community.native_language}\n${AppLocalizations.of(context)!.learning}: ${_community.language_to_learn}',
                 Colors.green[600]!,
               ),
+
+              // Personal Info Section (MBTI, Blood Type)
+              _buildPersonalInfoSection(),
 
               Spacing.gapMD,
 
@@ -1500,6 +1516,111 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
             Text(content, style: context.bodyMedium.copyWith(color: context.textSecondary)),
           ],
         ),
+      ),
+    );
+  }
+
+  /// Build Personal Info Section (MBTI, Blood Type)
+  Widget _buildPersonalInfoSection() {
+    final hasMbti = _community.mbti.isNotEmpty;
+    final hasBloodType = _community.bloodType.isNotEmpty;
+
+    // Return empty widget if no personal info
+    if (!hasMbti && !hasBloodType) {
+      return const SizedBox.shrink();
+    }
+
+    return Card(
+      elevation: 0,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: Spacing.cardPadding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.purple[600]!.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(Icons.psychology_rounded, color: Colors.purple[600], size: 18),
+                ),
+                Spacing.hGapSM,
+                Text(AppLocalizations.of(context)!.aboutMe, style: context.titleMedium),
+              ],
+            ),
+            Spacing.gapSM,
+            // Personal info chips
+            Wrap(
+              spacing: 10,
+              runSpacing: 8,
+              children: [
+                if (hasMbti)
+                  _buildPersonalInfoChip(
+                    icon: '🧠',
+                    label: 'MBTI',
+                    value: _community.mbti.toUpperCase(),
+                    color: Colors.indigo,
+                  ),
+                if (hasBloodType)
+                  _buildPersonalInfoChip(
+                    icon: '🩸',
+                    label: AppLocalizations.of(context)!.bloodType,
+                    value: _community.bloodType.toUpperCase(),
+                    color: Colors.red,
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Build a personal info chip
+  Widget _buildPersonalInfoChip({
+    required String icon,
+    required String label,
+    required String value,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(icon, style: const TextStyle(fontSize: 16)),
+          Spacing.hGapXS,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: context.captionSmall.copyWith(
+                  color: context.textMuted,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                value,
+                style: context.labelMedium.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

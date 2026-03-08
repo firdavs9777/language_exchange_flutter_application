@@ -374,6 +374,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aboutMe => '자기소개';
 
   @override
+  String get bloodType => '혈액형';
+
+  @override
   String get photos => '사진';
 
   @override

@@ -20,6 +20,7 @@ class User {
     this.vipSubscription,
     this.vipFeatures,
     this.visitorLimitations,
+    this.termsAccepted = false,
   });
 
   final String name;
@@ -39,6 +40,7 @@ class User {
   final VipSubscription? vipSubscription;
   final VipFeatures? vipFeatures;
   final VisitorLimitations? visitorLimitations;
+  final bool termsAccepted;
 
   bool get isVip => userMode == UserMode.vip;
   bool get isVisitor => userMode == UserMode.visitor;
@@ -63,6 +65,7 @@ class User {
       'vipSubscription': vipSubscription?.toJson(),
       'vipFeatures': vipFeatures?.toJson(),
       'visitorLimitations': visitorLimitations?.toJson(),
+      'termsAccepted': termsAccepted,
     };
   }
 
@@ -84,6 +87,7 @@ class User {
     VipSubscription? vipSubscription,
     VipFeatures? vipFeatures,
     VisitorLimitations? visitorLimitations,
+    bool? termsAccepted,
   }) {
     return User(
       name: name ?? this.name,
@@ -103,6 +107,7 @@ class User {
       vipSubscription: vipSubscription ?? this.vipSubscription,
       vipFeatures: vipFeatures ?? this.vipFeatures,
       visitorLimitations: visitorLimitations ?? this.visitorLimitations,
+      termsAccepted: termsAccepted ?? this.termsAccepted,
     );
   }
 }

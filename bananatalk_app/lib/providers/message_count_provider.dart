@@ -11,7 +11,7 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
   final Ref _ref;
 
   /// Get message count for a conversation between current user and another user
-  /// Returns cached count or fetches from API if not cached
+  /// Returns cached count or 0 if not cached (count is set by _loadMessages)
   Future<int> getMessageCount(String otherUserId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -24,24 +24,9 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
       // Create cache key
       final cacheKey = _getCacheKey(currentUserId, otherUserId);
 
-      // Return cached count if available
-      if (state.containsKey(cacheKey)) {
-        return state[cacheKey] ?? 0;
-      }
-
-      // Fetch from API
-      final messageService = _ref.read(messageServiceProvider);
-      final messages = await messageService.getConversation(
-        senderId: currentUserId,
-        receiverId: otherUserId,
-      );
-
-      final count = messages.length;
-      
-      // Update cache
-      state = {...state, cacheKey: count};
-
-      return count;
+      // Return cached count if available, otherwise 0
+      // The count will be set by _loadMessages() when chat is opened
+      return state[cacheKey] ?? 0;
     } catch (e) {
       debugPrint('❌ Error getting message count: $e');
       return 0;

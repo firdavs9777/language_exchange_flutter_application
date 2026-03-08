@@ -27,6 +27,10 @@ class ChatInputSection extends ConsumerWidget {
   final String? otherUserName;
   final VoidCallback? onCancelReply;
   final VoidCallback? onAudioPressed;
+  // Upload progress
+  final int uploadBytesSent;
+  final int uploadTotalBytes;
+  final String? uploadFileName;
 
   const ChatInputSection({
     super.key,
@@ -48,6 +52,9 @@ class ChatInputSection extends ConsumerWidget {
     this.otherUserName,
     this.onCancelReply,
     this.onAudioPressed,
+    this.uploadBytesSent = 0,
+    this.uploadTotalBytes = 0,
+    this.uploadFileName,
   });
 
   @override
@@ -59,6 +66,13 @@ class ChatInputSection extends ConsumerWidget {
 
     return Column(
       children: [
+        // Upload progress indicator
+        if (isSending && uploadTotalBytes > 0)
+          _UploadProgressBanner(
+            fileName: uploadFileName,
+            bytesSent: uploadBytesSent,
+            totalBytes: uploadTotalBytes,
+          ),
         // Message limit indicator for non-VIP users
         if (!isVip && userId.isNotEmpty)
           _MessageLimitIndicator(userId: userId),
@@ -77,6 +91,9 @@ class ChatInputSection extends ConsumerWidget {
           otherUserName: otherUserName,
           onCancelReply: onCancelReply,
           onAudioPressed: onAudioPressed,
+          uploadBytesSent: uploadBytesSent,
+          uploadTotalBytes: uploadTotalBytes,
+          uploadFileName: uploadFileName,
         ),
         if (showMediaPanel)
           ChatMediaPanel(
@@ -209,6 +226,99 @@ class _MessageLimitIndicator extends ConsumerWidget {
       },
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
+    );
+  }
+}
+
+/// Shows upload progress banner (KakaoTalk style)
+class _UploadProgressBanner extends StatelessWidget {
+  final String? fileName;
+  final int bytesSent;
+  final int totalBytes;
+
+  const _UploadProgressBanner({
+    this.fileName,
+    required this.bytesSent,
+    required this.totalBytes,
+  });
+
+  String _formatFileSize(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  }
+
+  String _getMediaType(String? name) {
+    if (name == null) return 'media';
+    final ext = name.split('.').last.toLowerCase();
+    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic'].contains(ext)) return 'photo';
+    if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) return 'video';
+    if (['mp3', 'm4a', 'wav', 'aac'].contains(ext)) return 'audio';
+    return 'file';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final progress = totalBytes > 0 ? bytesSent / totalBytes : 0.0;
+    final percentage = (progress * 100).toInt();
+    final mediaType = _getMediaType(fileName);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE3F2FD),
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.blue.shade200,
+            width: 0.5,
+          ),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.cloud_upload_outlined,
+                size: 18,
+                color: Color(0xFF1976D2),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Sending $mediaType...',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF1976D2),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Text(
+                '$percentage%  ${_formatFileSize(bytesSent)} / ${_formatFileSize(totalBytes)}',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.blue.shade700,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 4,
+              backgroundColor: Colors.blue.shade100,
+              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF1976D2)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -303,6 +303,20 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           // Name
           Text(user.name, style: context.displayMedium, textAlign: TextAlign.center),
 
+          // Username
+          if (user.displayUsername != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                user.displayUsername!,
+                style: context.bodyMedium.copyWith(
+                  color: context.textSecondary,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
           Spacing.gapSM,
 
           // Age and Location with Icons

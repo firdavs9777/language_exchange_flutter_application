@@ -19,6 +19,11 @@ class AndroidPurchaseService {
   static bool _purchasePending = false;
   static String? _queryProductError;
 
+  // Track initialization state to prevent multiple concurrent initializations
+  static bool _isInitializing = false;
+  static Completer<bool>? _initializationCompleter;
+  static bool _isLoadingProducts = false;
+
   // Callback for when purchase completes
   static PurchaseCallback? _purchaseCallback;
 
@@ -41,38 +46,61 @@ class AndroidPurchaseService {
       return false;
     }
 
-    final bool available = await _inAppPurchase.isAvailable();
-    debugPrint('Google Play available: $available');
-    if (!available) {
-      _queryProductError = 'Google Play Store not available';
+    // Already initialized successfully
+    if (_isAvailable && _subscription != null) {
+      debugPrint('Store already initialized');
+      return true;
+    }
+
+    // Initialization already in progress - wait for it
+    if (_isInitializing && _initializationCompleter != null) {
+      debugPrint('Initialization already in progress, waiting...');
+      return _initializationCompleter!.future;
+    }
+
+    _isInitializing = true;
+    _initializationCompleter = Completer<bool>();
+
+    try {
+      final bool available = await _inAppPurchase.isAvailable();
+      debugPrint('Google Play available: $available');
+      if (!available) {
+        _queryProductError = 'Google Play Store not available';
+        _isInitializing = false;
+        _initializationCompleter?.complete(false);
+        return false;
+      }
+
+      _isAvailable = available;
+
+      // Only set up the subscription if not already listening
+      if (_subscription == null) {
+        _subscription = _inAppPurchase.purchaseStream.listen(
+          _onPurchaseUpdate,
+          onDone: () => _subscription?.cancel(),
+          onError: (error) {
+            debugPrint('Purchase stream error: $error');
+          },
+        );
+        debugPrint('Android purchase subscription initialized');
+      }
+
+      // Load products inline to avoid deadlock
+      await _loadProductsInternal();
+
+      _isInitializing = false;
+      _initializationCompleter?.complete(true);
+      return true;
+    } catch (e) {
+      debugPrint('Error initializing store: $e');
+      _isInitializing = false;
+      _initializationCompleter?.complete(false);
       return false;
     }
-
-    _isAvailable = available;
-
-    // Listen to purchase updates
-    _subscription = _inAppPurchase.purchaseStream.listen(
-      _onPurchaseUpdate,
-      onDone: () => _subscription?.cancel(),
-      onError: (error) {
-        debugPrint('Purchase stream error: $error');
-      },
-    );
-
-    debugPrint('Android purchase subscription initialized');
-
-    // Load products
-    await loadProducts();
-
-    return true;
   }
 
-  /// Load available products from Google Play
-  static Future<void> loadProducts() async {
-    if (!_isAvailable) {
-      await initializeStore();
-    }
-
+  /// Internal method to load products (called from initializeStore)
+  static Future<void> _loadProductsInternal() async {
     debugPrint('Querying Google Play products: $_productIds');
 
     final ProductDetailsResponse response =
@@ -107,6 +135,25 @@ class AndroidPurchaseService {
     _products.addAll(response.productDetails);
     _queryProductError = null;
     debugPrint('Loaded ${_products.length} products successfully');
+  }
+
+  /// Load available products from Google Play (public method for manual refresh)
+  static Future<void> loadProducts() async {
+    // If store not available, initialize first
+    if (!_isAvailable) {
+      await initializeStore();
+      return; // initializeStore already loads products
+    }
+
+    // If already loading, skip
+    if (_isLoadingProducts) {
+      debugPrint('Products already loading, skipping');
+      return;
+    }
+
+    _isLoadingProducts = true;
+    await _loadProductsInternal();
+    _isLoadingProducts = false;
   }
 
   /// Get available products
@@ -361,6 +408,9 @@ class AndroidPurchaseService {
     _purchases.clear();
     _purchasePending = false;
     _isAvailable = false;
+    _isInitializing = false;
+    _isLoadingProducts = false;
+    _initializationCompleter = null;
     _queryProductError = null;
     _purchaseCallback = null;
     _purchaseCompleter = null;

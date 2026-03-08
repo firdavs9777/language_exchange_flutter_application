@@ -14,6 +14,8 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/chat/message_actions_bottom_sheet.dart';
+import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
 import 'user_avatar.dart';
 
 class ChatMessageBubble extends ConsumerStatefulWidget {
@@ -24,6 +26,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final Function(Message)? onDelete;
   final Function(Message)? onEdit;
   final Function(Message)? onReply;
+  final Function(String messageId)? onReplyTap; // Tap on reply preview to scroll
   final Message? replyToMessage;
   final bool isSelected;
   final bool isSelectionMode;
@@ -31,6 +34,8 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final Function(Message)? onPin;
   final Function(Message)? onUnpin;
   final Function(Message)? onForward;
+  final Function(Message)? onRetry; // Retry sending failed message
+  final Function(Message)? onDeleteFailed; // Delete failed message from UI
 
   const ChatMessageBubble({
     Key? key,
@@ -41,6 +46,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.onDelete,
     this.onEdit,
     this.onReply,
+    this.onReplyTap,
     this.replyToMessage,
     this.isSelected = false,
     this.isSelectionMode = false,
@@ -48,21 +54,30 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.onPin,
     this.onUnpin,
     this.onForward,
+    this.onRetry,
+    this.onDeleteFailed,
   }) : super(key: key);
 
   @override
   ConsumerState<ChatMessageBubble> createState() => _ChatMessageBubbleState();
 }
 
-class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
+class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
+    with SingleTickerProviderStateMixin {
   OverlayEntry? _reactionPickerOverlay;
   String? _currentUserId;
 
-  // Theme-aware chat colors
+  // Swipe-to-reply state
+  double _swipeOffset = 0;
+  static const double _swipeThreshold = 60.0;
+  late AnimationController _swipeAnimController;
+  late Animation<double> _swipeAnimation;
+
+  // Theme-aware chat colors - Light and modern design
   Color _myMessageColor(BuildContext context) => AppColors.chatBubbleMine;
   Color _otherMessageColor(BuildContext context) => context.isDarkMode ? AppColors.gray800 : AppColors.chatBubbleOther;
   Color _myTextColor(BuildContext context) => AppColors.chatTextMine;
-  Color _otherTextColor(BuildContext context) => context.textPrimary;
+  Color _otherTextColor(BuildContext context) => context.isDarkMode ? AppColors.white : AppColors.chatTextOther;
   Color _timestampColor(BuildContext context) => context.textSecondary;
   Color _replyBorderColor(BuildContext context) => AppColors.primary;
   Color _sendingColor(BuildContext context) => context.textSecondary;
@@ -72,6 +87,22 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
   void initState() {
     super.initState();
     _loadCurrentUserId();
+    _initSwipeAnimation();
+  }
+
+  void _initSwipeAnimation() {
+    _swipeAnimController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _swipeAnimation = Tween<double>(begin: 0, end: 0).animate(
+      CurvedAnimation(parent: _swipeAnimController, curve: Curves.easeOut),
+    );
+    _swipeAnimController.addListener(() {
+      setState(() {
+        _swipeOffset = _swipeAnimation.value;
+      });
+    });
   }
 
   Future<void> _loadCurrentUserId() async {
@@ -85,7 +116,36 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
   @override
   void dispose() {
     _hideReactionPicker();
+    _swipeAnimController.dispose();
     super.dispose();
+  }
+
+  /// Handle horizontal drag for swipe-to-reply (swipe LEFT)
+  void _onHorizontalDragUpdate(DragUpdateDetails details) {
+    if (widget.isSelectionMode) return;
+
+    // Only allow swiping left (negative delta)
+    final newOffset = (_swipeOffset + details.delta.dx).clamp(-_swipeThreshold * 1.5, 0.0);
+    setState(() {
+      _swipeOffset = newOffset;
+    });
+  }
+
+  void _onHorizontalDragEnd(DragEndDetails details) {
+    if (widget.isSelectionMode) return;
+
+    // Check if swiped left past threshold (negative value)
+    if (_swipeOffset <= -_swipeThreshold) {
+      // Trigger reply
+      HapticFeedback.mediumImpact();
+      widget.onReply?.call(widget.message);
+    }
+
+    // Animate back to original position
+    _swipeAnimation = Tween<double>(begin: _swipeOffset, end: 0).animate(
+      CurvedAnimation(parent: _swipeAnimController, curve: Curves.easeOut),
+    );
+    _swipeAnimController.forward(from: 0);
   }
 
   @override
@@ -93,7 +153,14 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
     final hasMedia = widget.message.media != null;
     final hasText = widget.message.message != null && widget.message.message!.isNotEmpty;
 
+    // Calculate reply icon opacity based on swipe progress (using absolute value for left swipe)
+    final swipeProgress = _swipeOffset.abs();
+    final replyIconOpacity = (swipeProgress / _swipeThreshold).clamp(0.0, 1.0);
+    final replyIconScale = (0.5 + (replyIconOpacity * 0.5)).clamp(0.5, 1.0);
+
     return GestureDetector(
+      onHorizontalDragUpdate: _onHorizontalDragUpdate,
+      onHorizontalDragEnd: _onHorizontalDragEnd,
       onLongPress: widget.isSelectionMode
           ? () {
               if (widget.onSelectionChanged != null) {
@@ -113,20 +180,58 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                 _showReactionPicker(context);
               }
             },
-      child: Container(
-        margin: EdgeInsets.symmetric(
-          vertical: 3,
-          horizontal: widget.isSelectionMode ? 4 : 16,
-        ),
-        decoration: widget.isSelectionMode
-            ? BoxDecoration(
-                color: widget.isSelected
-                    ? AppColors.primary.withValues(alpha: 0.1)
-                    : Colors.transparent,
-                borderRadius: AppRadius.borderSM,
-              )
-            : null,
-        child: Row(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          // Reply icon indicator (appears when swiping LEFT - on the right side)
+          if (_swipeOffset < 0)
+            Positioned(
+              right: 8,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: Transform.scale(
+                  scale: replyIconScale,
+                  child: Opacity(
+                    opacity: replyIconOpacity,
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: swipeProgress >= _swipeThreshold
+                            ? AppColors.primary
+                            : AppColors.primary.withValues(alpha: 0.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.reply_rounded,
+                        color: swipeProgress >= _swipeThreshold
+                            ? Colors.white
+                            : AppColors.primary,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          // Message content with swipe transform
+          Transform.translate(
+            offset: Offset(_swipeOffset, 0),
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: widget.isSelectionMode ? 4 : 16,
+              ),
+              decoration: widget.isSelectionMode
+                  ? BoxDecoration(
+                      color: widget.isSelected
+                          ? AppColors.primary.withValues(alpha: 0.1)
+                          : Colors.transparent,
+                      borderRadius: AppRadius.borderSM,
+                    )
+                  : null,
+              child: Row(
           mainAxisAlignment:
               widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -166,24 +271,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                   children: [
                     // Sending status indicator
                     _buildSendingStatus(),
-                    // Unread indicator (only show if sent and not read)
-                    if (widget.message.sendingStatus == MessageSendingStatus.none && !widget.message.read)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 2),
-                        margin: const EdgeInsets.only(bottom: 2),
-                        decoration: BoxDecoration(
-                          color: AppColors.error,
-                          borderRadius: AppRadius.borderSM,
-                        ),
-                        child: Text(
-                          '1',
-                          style: context.captionSmall.copyWith(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
+                    // Unread "1" badge removed per user request - keeping tick marks only
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -219,9 +307,32 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                       ? CrossAxisAlignment.end
                       : CrossAxisAlignment.start,
                   children: [
-                    hasMedia
-                        ? _buildMediaMessage(context, hasText)
-                        : _buildTextMessage(context, hasText),
+                    // Forwarded indicator
+                    if (widget.message.isForwarded)
+                      ForwardedMessageIndicator(
+                        forwardedFrom: widget.message.forwardedFrom,
+                        isMe: widget.isMe,
+                      ),
+                    // Message content with pin indicator
+                    Stack(
+                      children: [
+                        hasMedia
+                            ? _buildMediaMessage(context, hasText)
+                            : _buildTextMessage(context, hasText),
+                        // Pin indicator
+                        if (widget.message.isPinned)
+                          Positioned(
+                            top: 4,
+                            right: widget.isMe ? 4 : null,
+                            left: widget.isMe ? null : 4,
+                            child: Icon(
+                              Icons.push_pin_rounded,
+                              size: 14,
+                              color: AppColors.primary.withOpacity(0.7),
+                            ),
+                          ),
+                      ],
+                    ),
                     // Reactions below message
                     if (widget.message.reactions.isNotEmpty)
                       Padding(
@@ -251,6 +362,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
           ],
         ),
       ),
+          ), // Transform.translate ends
+        ], // Stack children ends
+      ), // Stack ends
     );
   }
 
@@ -291,9 +405,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
 
     if (status == MessageSendingStatus.failed) {
       return GestureDetector(
-        onTap: () {
-          // TODO: Implement retry
-        },
+        onTap: () => _showFailedMessageOptions(context),
         child: Container(
           margin: const EdgeInsets.only(bottom: 2),
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -311,7 +423,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
               ),
               Spacing.hGapXS,
               Text(
-                'Failed · Tap to retry',
+                'Failed · Tap for options',
                 style: context.captionSmall.copyWith(
                   color: _failedColor(context),
                   fontWeight: FontWeight.w600,
@@ -324,6 +436,91 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
     }
 
     return const SizedBox.shrink();
+  }
+
+  /// Show options for failed message (retry or delete)
+  void _showFailedMessageOptions(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  'Message failed to send',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const Divider(),
+              // Retry option
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.refresh, color: AppColors.primary),
+                ),
+                title: Text(l10n?.retry ?? 'Retry'),
+                subtitle: const Text('Try sending this message again'),
+                onTap: () {
+                  Navigator.pop(context);
+                  widget.onRetry?.call(widget.message);
+                },
+              ),
+              // Delete option
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.delete_outline, color: AppColors.error),
+                ),
+                title: Text(
+                  l10n?.delete ?? 'Delete',
+                  style: const TextStyle(color: AppColors.error),
+                ),
+                subtitle: const Text('Remove this message'),
+                onTap: () {
+                  Navigator.pop(context);
+                  widget.onDeleteFailed?.call(widget.message);
+                },
+              ),
+              const SizedBox(height: 8),
+              // Cancel button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(l10n?.cancel ?? 'Cancel'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _showReactionPicker(BuildContext context) {
@@ -463,6 +660,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         ),
       );
     }
+    // Check if it's a wave sticker (👋) - show special "Hi!" greeting card
+    if (_isWaveSticker(widget.message.message ?? '')) {
+      return _buildWaveStickerCard(context);
+    }
+
     if (_isSticker(widget.message.message ?? '')) {
       // Stickers/emojis without bubble - larger size
       return Container(
@@ -481,7 +683,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
             widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           // Reply preview if this message is a reply
-          if (widget.replyToMessage != null) _buildReplyPreview(),
+          if (widget.message.replyTo != null) _buildReplyPreview(),
 
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -499,6 +701,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                     widget.message.message!,
                     style: context.bodyMedium.copyWith(
                       color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.1,
                     ),
                   ),
                 if (widget.message.isEdited)
@@ -522,45 +726,111 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
   }
 
   Widget _buildReplyPreview() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      padding: Spacing.paddingSM,
-      decoration: BoxDecoration(
-        color: widget.isMe
-            ? AppColors.white.withValues(alpha: 0.2)
-            : context.surfaceColor,
-        borderRadius: AppRadius.borderMD,
-        border: Border(
-          left: BorderSide(
-            color: widget.isMe ? AppColors.white : _replyBorderColor(context),
-            width: 3,
+    final replyTo = widget.message.replyTo!;
+    final isDark = context.isDarkMode;
+
+    // Determine if the original message was from the current user
+    final isReplyFromMe = replyTo.sender.id == widget.message.sender.id;
+    final senderName = isReplyFromMe
+        ? 'You'
+        : (replyTo.sender.name.isNotEmpty ? replyTo.sender.name : 'User');
+
+    // Get the reply message preview
+    String replyPreview = replyTo.message ?? '';
+    if (replyPreview.isEmpty) {
+      replyPreview = '📷 Media';
+    }
+
+    // Colors for Telegram-style reply preview
+    final Color borderColor;
+    final Color backgroundColor;
+    final Color nameColor;
+    final Color textColor;
+
+    if (widget.isMe) {
+      // My message bubble (usually green/primary colored)
+      borderColor = Colors.white.withValues(alpha: 0.9);
+      backgroundColor = Colors.black.withValues(alpha: 0.15);
+      nameColor = Colors.white;
+      textColor = Colors.white.withValues(alpha: 0.9);
+    } else {
+      // Other's message bubble
+      borderColor = isReplyFromMe ? AppColors.primary : const Color(0xFF5B9BD5);
+      backgroundColor = isDark
+          ? Colors.white.withValues(alpha: 0.08)
+          : borderColor.withValues(alpha: 0.08);
+      nameColor = borderColor;
+      textColor = isDark ? Colors.white.withValues(alpha: 0.8) : Colors.black87;
+    }
+
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        widget.onReplyTap?.call(replyTo.id);
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.fromLTRB(10, 8, 12, 8),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(8),
+          border: Border(
+            left: BorderSide(
+              color: borderColor,
+              width: 3,
+            ),
           ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.replyToMessage!.sender.id == widget.message.sender.id
-                ? 'You'
-                : widget.otherUserName,
-            style: context.labelSmall.copyWith(
-              fontWeight: FontWeight.w600,
-              color: widget.isMe ? AppColors.white : _replyBorderColor(context),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Reply content
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Sender name with reply icon
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.reply_rounded,
+                        size: 12,
+                        color: nameColor,
+                      ),
+                      const SizedBox(width: 4),
+                      Flexible(
+                        child: Text(
+                          senderName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: nameColor,
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  // Message preview
+                  Text(
+                    replyPreview,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Spacing.gapXXS,
-          Text(
-            widget.replyToMessage!.message ?? '📷 Media',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: context.bodySmall.copyWith(
-              color: widget.isMe
-                  ? AppColors.white.withValues(alpha: 0.8)
-                  : context.textSecondary,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -636,7 +906,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Reply preview if this message is a reply
-          if (widget.replyToMessage != null) _buildReplyPreview(),
+          if (widget.message.replyTo != null) _buildReplyPreview(),
 
           // Media container with modern design
           Container(
@@ -752,6 +1022,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                 widget.message.message!,
                 style: context.bodyMedium.copyWith(
                   color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.1,
                 ),
               ),
             ),
@@ -770,7 +1042,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Reply preview if this message is a reply
-          if (widget.replyToMessage != null) _buildReplyPreview(),
+          if (widget.message.replyTo != null) _buildReplyPreview(),
 
           // Location card
           MediaMessageWidget(
@@ -792,6 +1064,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
                 widget.message.message!,
                 style: context.bodyMedium.copyWith(
                   color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.1,
                 ),
               ),
             ),
@@ -821,62 +1095,26 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
   }
 
   void _showContextMenu(BuildContext context) {
-    HapticFeedback.mediumImpact();
-    
-    // Get the RenderBox for positioning
-    final RenderBox? overlay = Overlay.of(context).context.findRenderObject() as RenderBox?;
-    if (overlay == null) return;
-    
-    // Show popup menu with better positioning
-    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
-    if (renderBox == null) {
-      // Fallback to bottom sheet if positioning fails
-      _showMessageActions(context);
-      return;
-    }
-    
-    final position = renderBox.localToGlobal(Offset.zero);
-    final size = renderBox.size;
-    final screenWidth = MediaQuery.of(context).size.width;
-    
-    // Calculate menu position - appear near the message
-    final menuWidth = 200.0;
-    final menuHeight = 300.0;
-    double menuX;
-    
-    if (widget.isMe) {
-      // For my messages, show menu on the left side
-      menuX = position.dx - menuWidth - 10;
-      if (menuX < 10) menuX = 10; // Ensure it doesn't go off screen
-    } else {
-      // For other messages, show menu on the right side
-      menuX = position.dx + size.width + 10;
-      if (menuX + menuWidth > screenWidth - 10) {
-        menuX = screenWidth - menuWidth - 10;
-      }
-    }
-    
-    final menuY = position.dy - 50;
-    
-    showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(
-        menuX,
-        menuY,
-        screenWidth - menuX - menuWidth,
-        MediaQuery.of(context).size.height - menuY - menuHeight,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: AppRadius.borderLG,
-      ),
-      elevation: 8,
-      color: context.surfaceColor,
-      items: _buildContextMenuItems(context),
-    ).then((value) {
-      if (value != null) {
-        _handleContextMenuAction(context, value);
-      }
-    });
+    // Use the new Telegram-style bottom sheet
+    showMessageActionsBottomSheet(
+      context,
+      message: widget.message,
+      isMe: widget.isMe,
+      currentUserId: _currentUserId ?? '',
+      onReply: () => widget.onReply?.call(widget.message),
+      onForward: () => widget.onForward?.call(widget.message),
+      onEdit: () => widget.onEdit?.call(widget.message),
+      onCopy: () {}, // Handled inside the bottom sheet
+      onPin: () {
+        if (widget.message.isPinned) {
+          widget.onUnpin?.call(widget.message);
+        } else {
+          widget.onPin?.call(widget.message);
+        }
+      },
+      onDelete: () => widget.onDelete?.call(widget.message),
+      onReaction: (emoji) => _handleReactionTap(emoji),
+    );
   }
 
   List<PopupMenuEntry<String>> _buildContextMenuItems(BuildContext context) {
@@ -1467,6 +1705,66 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble> {
     );
     // Also check it's short enough (max ~12 chars for compound emoji like family)
     return text.length <= 12 && emojiPattern.hasMatch(text);
+  }
+
+  /// Check if message is a wave sticker (👋 emoji variants)
+  bool _isWaveSticker(String text) {
+    final trimmed = text.trim();
+    // Check for wave hand emoji (with or without skin tone modifiers)
+    return trimmed == '👋' ||
+        trimmed == '👋🏻' ||
+        trimmed == '👋🏼' ||
+        trimmed == '👋🏽' ||
+        trimmed == '👋🏾' ||
+        trimmed == '👋🏿';
+  }
+
+  /// Build a compact wave sticker card with "Hi!" greeting
+  Widget _buildWaveStickerCard(BuildContext context) {
+    return GestureDetector(
+      onLongPress: () => _showContextMenu(context),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: widget.isMe
+                ? [const Color(0xFFFFE082), const Color(0xFFFFCA28)] // Gold/yellow gradient
+                : [const Color(0xFFE3F2FD), const Color(0xFFBBDEFB)], // Light blue gradient
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: (widget.isMe ? const Color(0xFFFFCA28) : const Color(0xFF90CAF9))
+                  .withValues(alpha: 0.25),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Waving hand
+            const Text(
+              '👋',
+              style: TextStyle(fontSize: 40),
+            ),
+            const SizedBox(width: 8),
+            // "Hi!" text
+            Text(
+              'Hi!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: widget.isMe ? const Color(0xFF5D4037) : const Color(0xFF1565C0),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   /// Check if message can be edited (within 15 minutes)

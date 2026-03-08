@@ -4,8 +4,9 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ChatEmptyState extends StatelessWidget {
   final String userName;
+  final VoidCallback? onSendWave;
 
-  const ChatEmptyState({Key? key, required this.userName}) : super(key: key);
+  const ChatEmptyState({Key? key, required this.userName, this.onSendWave}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +54,37 @@ class ChatEmptyState extends StatelessWidget {
             ),
           ),
           Spacing.gapXXL,
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: AppColors.primaryLight.withValues(alpha: 0.2),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onSendWave,
               borderRadius: AppRadius.borderXL,
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-            ),
-            child: Text(
-              'Say hello!',
-              style: context.labelLarge.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w500,
+              splashColor: AppColors.primary.withValues(alpha: 0.2),
+              highlightColor: AppColors.primary.withValues(alpha: 0.1),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryLight.withValues(alpha: 0.2),
+                  borderRadius: AppRadius.borderXL,
+                  border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      '👋',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Tap to say hi!',
+                      style: context.labelLarge.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

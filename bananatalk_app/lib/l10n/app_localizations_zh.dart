@@ -374,6 +374,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aboutMe => '关于我';
 
   @override
+  String get bloodType => 'Blood Type';
+
+  @override
   String get photos => '照片';
 
   @override
@@ -1959,4 +1962,1961 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get messageEdited => 'Message edited';
+}
+
+/// The translations for Chinese, as used in Taiwan (`zh_TW`).
+class AppLocalizationsZhTw extends AppLocalizationsZh {
+  AppLocalizationsZhTw(): super('zh_TW');
+
+  @override
+  String get appName => 'BananaTalk';
+
+  @override
+  String get login => '登入';
+
+  @override
+  String get signUp => '註冊';
+
+  @override
+  String get email => '電子郵件';
+
+  @override
+  String get password => '密碼';
+
+  @override
+  String get forgotPassword => '忘記密碼？';
+
+  @override
+  String get or => '或';
+
+  @override
+  String get signInWithGoogle => '使用 Google 登入';
+
+  @override
+  String get signInWithApple => '使用 Apple 登入';
+
+  @override
+  String get signInWithFacebook => '使用 Facebook 登入';
+
+  @override
+  String get welcome => '歡迎';
+
+  @override
+  String get home => '首頁';
+
+  @override
+  String get messages => '訊息';
+
+  @override
+  String get moments => '動態';
+
+  @override
+  String get profile => '個人檔案';
+
+  @override
+  String get settings => '設定';
+
+  @override
+  String get logout => '登出';
+
+  @override
+  String get language => '語言';
+
+  @override
+  String get selectLanguage => '選擇語言';
+
+  @override
+  String get autoTranslate => '自動翻譯';
+
+  @override
+  String get autoTranslateMessages => '自動翻譯訊息';
+
+  @override
+  String get autoTranslateMoments => '自動翻譯動態';
+
+  @override
+  String get autoTranslateComments => '自動翻譯留言';
+
+  @override
+  String get translate => '翻譯';
+
+  @override
+  String get translated => '已翻譯';
+
+  @override
+  String get showOriginal => '顯示原文';
+
+  @override
+  String get showTranslation => '顯示翻譯';
+
+  @override
+  String get translating => '翻譯中...';
+
+  @override
+  String get translationFailed => '翻譯失敗';
+
+  @override
+  String get noTranslationAvailable => '無可用翻譯';
+
+  @override
+  String translatedFrom(String language) {
+    return '翻譯自$language';
+  }
+
+  @override
+  String get save => '儲存';
+
+  @override
+  String get cancel => '取消';
+
+  @override
+  String get delete => '刪除';
+
+  @override
+  String get edit => '編輯';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get like => '讚';
+
+  @override
+  String get comment => '留言';
+
+  @override
+  String get send => '傳送';
+
+  @override
+  String get search => '搜尋';
+
+  @override
+  String get notifications => '通知';
+
+  @override
+  String get followers => '粉絲';
+
+  @override
+  String get following => '追蹤中';
+
+  @override
+  String get posts => '貼文';
+
+  @override
+  String get visitors => '訪客';
+
+  @override
+  String get loading => '載入中...';
+
+  @override
+  String get error => '錯誤';
+
+  @override
+  String get success => '成功';
+
+  @override
+  String get tryAgain => '重試';
+
+  @override
+  String get networkError => '網路錯誤。請檢查您的連線。';
+
+  @override
+  String get somethingWentWrong => '發生錯誤';
+
+  @override
+  String get ok => '確定';
+
+  @override
+  String get yes => '是';
+
+  @override
+  String get no => '否';
+
+  @override
+  String get languageSettings => '語言設定';
+
+  @override
+  String get deviceLanguage => '裝置語言';
+
+  @override
+  String yourDeviceIsSetTo(String flag, String name) {
+    return '您的裝置設定為：$flag $name';
+  }
+
+  @override
+  String get youCanOverride => '您可以在下方覆蓋裝置語言。';
+
+  @override
+  String languageChangedTo(String name) {
+    return '語言已變更為$name';
+  }
+
+  @override
+  String get errorChangingLanguage => '變更語言時發生錯誤';
+
+  @override
+  String get autoTranslateSettings => '自動翻譯設定';
+
+  @override
+  String get automaticallyTranslateIncomingMessages => '自動翻譯收到的訊息';
+
+  @override
+  String get automaticallyTranslateMomentsInFeed => '自動翻譯動態消息中的內容';
+
+  @override
+  String get automaticallyTranslateComments => '自動翻譯留言';
+
+  @override
+  String get translationServiceBeingConfigured => '翻譯服務正在設定中。請稍後再試。';
+
+  @override
+  String get translationUnavailable => '翻譯不可用';
+
+  @override
+  String get showLess => '收起';
+
+  @override
+  String get showMore => '展開';
+
+  @override
+  String get comments => '留言';
+
+  @override
+  String get beTheFirstToComment => '成為第一個留言的人。';
+
+  @override
+  String get writeAComment => '寫下留言...';
+
+  @override
+  String get report => '檢舉';
+
+  @override
+  String get reportMoment => '檢舉動態';
+
+  @override
+  String get reportUser => '檢舉用戶';
+
+  @override
+  String get deleteMoment => '刪除動態？';
+
+  @override
+  String get thisActionCannotBeUndone => '此操作無法復原。';
+
+  @override
+  String get momentDeleted => '動態已刪除';
+
+  @override
+  String get editFeatureComingSoon => '編輯功能即將推出';
+
+  @override
+  String get userNotFound => '找不到用戶';
+
+  @override
+  String get cannotReportYourOwnComment => '無法檢舉自己的留言';
+
+  @override
+  String get profileSettings => '個人檔案設定';
+
+  @override
+  String get editYourProfileInformation => '編輯您的個人資料';
+
+  @override
+  String get blockedUsers => '已封鎖的用戶';
+
+  @override
+  String get manageBlockedUsers => '管理已封鎖的用戶';
+
+  @override
+  String get manageNotificationSettings => '管理通知設定';
+
+  @override
+  String get privacySecurity => '隱私與安全';
+
+  @override
+  String get controlYourPrivacy => '控制您的隱私';
+
+  @override
+  String get changeAppLanguage => '變更應用程式語言';
+
+  @override
+  String get appearance => '外觀';
+
+  @override
+  String get themeAndDisplaySettings => '主題和顯示設定';
+
+  @override
+  String get myReports => '我的檢舉';
+
+  @override
+  String get viewYourSubmittedReports => '查看您提交的檢舉';
+
+  @override
+  String get reportsManagement => '檢舉管理';
+
+  @override
+  String get manageAllReportsAdmin => '管理所有檢舉（管理員）';
+
+  @override
+  String get legalPrivacy => '法律與隱私';
+
+  @override
+  String get termsPrivacySubscriptionInfo => '條款、隱私和訂閱資訊';
+
+  @override
+  String get helpCenter => '幫助中心';
+
+  @override
+  String get getHelpAndSupport => '獲取幫助和支援';
+
+  @override
+  String get aboutBanaTalk => '關於 BanaTalk';
+
+  @override
+  String get deleteAccount => '刪除帳戶';
+
+  @override
+  String get permanentlyDeleteYourAccount => '永久刪除您的帳戶';
+
+  @override
+  String get loggedOutSuccessfully => '已成功登出';
+
+  @override
+  String get retry => '重試';
+
+  @override
+  String get giftsLikes => '禮物/讚';
+
+  @override
+  String get details => '詳情';
+
+  @override
+  String get to => '至';
+
+  @override
+  String get banaTalk => 'BanaTalk';
+
+  @override
+  String get community => '社群';
+
+  @override
+  String get editProfile => '編輯個人檔案';
+
+  @override
+  String yearsOld(String age) {
+    return '$age歲';
+  }
+
+  @override
+  String get searchConversations => '搜尋對話...';
+
+  @override
+  String get visitorTrackingNotAvailable => '訪客追蹤功能尚未推出。需要後端更新。';
+
+  @override
+  String get chatList => '聊天列表';
+
+  @override
+  String get languageExchange => '語言交換';
+
+  @override
+  String get nativeLanguage => '母語';
+
+  @override
+  String get learning => '正在學習';
+
+  @override
+  String get notSet => '未設定';
+
+  @override
+  String get about => '關於';
+
+  @override
+  String get aboutMe => '關於我';
+
+  @override
+  String get bloodType => '血型';
+
+  @override
+  String get photos => '照片';
+
+  @override
+  String get camera => '相機';
+
+  @override
+  String get createMoment => '建立動態';
+
+  @override
+  String get addATitle => '新增標題...';
+
+  @override
+  String get whatsOnYourMind => '在想什麼？';
+
+  @override
+  String get addTags => '新增標籤';
+
+  @override
+  String get done => '完成';
+
+  @override
+  String get add => '新增';
+
+  @override
+  String get enterTag => '輸入標籤';
+
+  @override
+  String get post => '發佈';
+
+  @override
+  String get commentAddedSuccessfully => '留言已成功新增';
+
+  @override
+  String get clearFilters => '清除篩選';
+
+  @override
+  String get notificationSettings => '通知設定';
+
+  @override
+  String get enableNotifications => '啟用通知';
+
+  @override
+  String get turnAllNotificationsOnOrOff => '開啟或關閉所有通知';
+
+  @override
+  String get notificationTypes => '通知類型';
+
+  @override
+  String get chatMessages => '聊天訊息';
+
+  @override
+  String get getNotifiedWhenYouReceiveMessages => '收到訊息時獲得通知';
+
+  @override
+  String get likesAndCommentsOnYourMoments => '您動態上的讚和留言';
+
+  @override
+  String get whenPeopleYouFollowPostMoments => '當您追蹤的人發佈動態時';
+
+  @override
+  String get friendRequests => '好友邀請';
+
+  @override
+  String get whenSomeoneFollowsYou => '當有人追蹤您時';
+
+  @override
+  String get profileVisits => '個人檔案瀏覽';
+
+  @override
+  String get whenSomeoneViewsYourProfileVIP => '當有人查看您的個人檔案時（VIP）';
+
+  @override
+  String get marketing => '行銷';
+
+  @override
+  String get updatesAndPromotionalMessages => '更新和促銷訊息';
+
+  @override
+  String get notificationPreferences => '通知偏好設定';
+
+  @override
+  String get sound => '聲音';
+
+  @override
+  String get playNotificationSounds => '播放通知聲音';
+
+  @override
+  String get vibration => '震動';
+
+  @override
+  String get vibrateOnNotifications => '通知時震動';
+
+  @override
+  String get showPreview => '顯示預覽';
+
+  @override
+  String get showMessagePreviewInNotifications => '在通知中顯示訊息預覽';
+
+  @override
+  String get mutedConversations => '已靜音的對話';
+
+  @override
+  String get conversation => '對話';
+
+  @override
+  String get unmute => '取消靜音';
+
+  @override
+  String get systemNotificationSettings => '系統通知設定';
+
+  @override
+  String get manageNotificationsInSystemSettings => '在系統設定中管理通知';
+
+  @override
+  String get errorLoadingSettings => '載入設定時發生錯誤';
+
+  @override
+  String get unblockUser => '解除封鎖用戶';
+
+  @override
+  String get unblock => '解除封鎖';
+
+  @override
+  String get goBack => '返回';
+
+  @override
+  String get messageSendTimeout => '訊息傳送逾時。請檢查您的連線。';
+
+  @override
+  String get failedToSendMessage => '傳送訊息失敗';
+
+  @override
+  String get dailyMessageLimitExceeded => '已超過每日訊息限制。升級為 VIP 以獲得無限訊息。';
+
+  @override
+  String get cannotSendMessageUserMayBeBlocked => '無法傳送訊息。用戶可能已被封鎖。';
+
+  @override
+  String get sessionExpired => '工作階段已過期。請重新登入。';
+
+  @override
+  String get sendThisSticker => '傳送此貼圖？';
+
+  @override
+  String get chooseHowYouWantToDeleteThisMessage => '選擇您要如何刪除此訊息：';
+
+  @override
+  String get deleteForEveryone => '為所有人刪除';
+
+  @override
+  String get removesTheMessageForBothYouAndTheRecipient => '為您和收件人移除訊息';
+
+  @override
+  String get deleteForMe => '僅為自己刪除';
+
+  @override
+  String get removesTheMessageOnlyFromYourChat => '僅從您的聊天中移除訊息';
+
+  @override
+  String get copy => '複製';
+
+  @override
+  String get reply => '回覆';
+
+  @override
+  String get forward => '轉發';
+
+  @override
+  String get moreOptions => '更多選項';
+
+  @override
+  String get noUsersAvailableToForwardTo => '沒有可轉發的用戶';
+
+  @override
+  String get searchMoments => '搜尋動態...';
+
+  @override
+  String searchInChatWith(String name) {
+    return '在與$name的聊天中搜尋';
+  }
+
+  @override
+  String get typeAMessage => '輸入訊息...';
+
+  @override
+  String get enterYourMessage => '輸入您的訊息';
+
+  @override
+  String get detectYourLocation => '偵測您的位置';
+
+  @override
+  String get tapToUpdateLocation => '點擊以更新位置';
+
+  @override
+  String get helpOthersFindYouNearby => '幫助其他人在附近找到您';
+
+  @override
+  String get selectYourNativeLanguage => '選擇您的母語';
+
+  @override
+  String get whichLanguageDoYouWantToLearn => '您想學習哪種語言？';
+
+  @override
+  String get selectYourGender => '選擇您的性別';
+
+  @override
+  String get addACaption => '新增說明...';
+
+  @override
+  String get typeSomething => '輸入內容...';
+
+  @override
+  String get gallery => '相簿';
+
+  @override
+  String get video => '影片';
+
+  @override
+  String get text => '文字';
+
+  @override
+  String get provideMoreInformation => '提供更多資訊...';
+
+  @override
+  String get searchByNameLanguageOrInterests => '按名稱、語言或興趣搜尋...';
+
+  @override
+  String get addTagAndPressEnter => '新增標籤並按 Enter';
+
+  @override
+  String replyTo(String name) {
+    return '回覆$name...';
+  }
+
+  @override
+  String get highlightName => '精選名稱';
+
+  @override
+  String get searchCloseFriends => '搜尋摯友...';
+
+  @override
+  String get askAQuestion => '提出問題...';
+
+  @override
+  String option(String number) {
+    return '選項 $number';
+  }
+
+  @override
+  String whyAreYouReportingThis(String type) {
+    return '您為什麼要檢舉此$type？';
+  }
+
+  @override
+  String get additionalDetailsOptional => '其他詳情（選填）';
+
+  @override
+  String get warningThisActionIsPermanent => '警告：此操作為永久性！';
+
+  @override
+  String get deletingYourAccountWillPermanentlyRemove => '刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。';
+
+  @override
+  String get clearAllNotifications => '清除所有通知？';
+
+  @override
+  String get clearAll => '全部清除';
+
+  @override
+  String get notificationDebug => '通知除錯';
+
+  @override
+  String get markAllRead => '全部標為已讀';
+
+  @override
+  String get clearAll2 => '全部清除';
+
+  @override
+  String get emailAddress => '電子郵件地址';
+
+  @override
+  String get username => '用戶名';
+
+  @override
+  String get alreadyHaveAnAccount => '已有帳戶？';
+
+  @override
+  String get login2 => '登入';
+
+  @override
+  String get selectYourNativeLanguage2 => '選擇您的母語';
+
+  @override
+  String get whichLanguageDoYouWantToLearn2 => '您想學習哪種語言？';
+
+  @override
+  String get selectYourGender2 => '選擇您的性別';
+
+  @override
+  String get dateFormat => '年.月.日';
+
+  @override
+  String get detectYourLocation2 => '偵測您的位置';
+
+  @override
+  String get tapToUpdateLocation2 => '點擊以更新位置';
+
+  @override
+  String get helpOthersFindYouNearby2 => '幫助其他人在附近找到您';
+
+  @override
+  String get couldNotOpenLink => '無法開啟連結';
+
+  @override
+  String get legalPrivacy2 => '法律與隱私';
+
+  @override
+  String get termsOfUseEULA => '使用條款 (EULA)';
+
+  @override
+  String get viewOurTermsAndConditions => '查看我們的條款和條件';
+
+  @override
+  String get privacyPolicy => '隱私政策';
+
+  @override
+  String get howWeHandleYourData => '我們如何處理您的資料';
+
+  @override
+  String get emailNotifications => '電子郵件通知';
+
+  @override
+  String get receiveEmailNotificationsFromBananaTalk => '接收來自 BananaTalk 的電子郵件通知';
+
+  @override
+  String get weeklySummary => '每週摘要';
+
+  @override
+  String get activityRecapEverySunday => '每週日的活動回顧';
+
+  @override
+  String get newMessages => '新訊息';
+
+  @override
+  String get whenYoureAwayFor24PlusHours => '當您離開超過 24 小時時';
+
+  @override
+  String get newFollowers => '新粉絲';
+
+  @override
+  String get whenSomeoneFollowsYou2 => '當有人追蹤您時';
+
+  @override
+  String get securityAlerts => '安全警報';
+
+  @override
+  String get passwordLoginAlerts => '密碼和登入警報';
+
+  @override
+  String get unblockUser2 => '解除封鎖用戶';
+
+  @override
+  String get blockedUsers2 => '已封鎖的用戶';
+
+  @override
+  String get finalWarning => '最後警告';
+
+  @override
+  String get deleteForever => '永久刪除';
+
+  @override
+  String get deleteAccount2 => '刪除帳戶';
+
+  @override
+  String get enterYourPassword => '輸入您的密碼';
+
+  @override
+  String get yourPassword => '您的密碼';
+
+  @override
+  String get typeDELETEToConfirm => '輸入「刪除」以確認';
+
+  @override
+  String get typeDELETEInCapitalLetters => '以大寫輸入「刪除」';
+
+  @override
+  String sent(String emoji) {
+    return '$emoji 已傳送！';
+  }
+
+  @override
+  String get replySent => '回覆已傳送！';
+
+  @override
+  String get deleteStory => '刪除限時動態？';
+
+  @override
+  String get thisStoryWillBeRemovedPermanently => '此限時動態將被永久移除。';
+
+  @override
+  String get noStories => '沒有限時動態';
+
+  @override
+  String views(String count) {
+    return '$count 次觀看';
+  }
+
+  @override
+  String get reportStory => '檢舉限時動態';
+
+  @override
+  String get reply2 => '回覆...';
+
+  @override
+  String get failedToPickImage => '選擇圖片失敗';
+
+  @override
+  String get failedToTakePhoto => '拍照失敗';
+
+  @override
+  String get failedToPickVideo => '選擇影片失敗';
+
+  @override
+  String get pleaseEnterSomeText => '請輸入文字';
+
+  @override
+  String get pleaseSelectMedia => '請選擇媒體';
+
+  @override
+  String get storyPosted => '限時動態已發佈！';
+
+  @override
+  String get textOnlyStoriesRequireAnImage => '純文字限時動態需要圖片';
+
+  @override
+  String get createStory => '建立限時動態';
+
+  @override
+  String get change => '變更';
+
+  @override
+  String get userIdNotFound => '找不到用戶 ID。請重新登入。';
+
+  @override
+  String get pleaseSelectAPaymentMethod => '請選擇付款方式';
+
+  @override
+  String get startExploring => '開始探索';
+
+  @override
+  String get close => '關閉';
+
+  @override
+  String get payment => '付款';
+
+  @override
+  String get upgradeToVIP => '升級為 VIP';
+
+  @override
+  String get errorLoadingProducts => '載入產品時發生錯誤';
+
+  @override
+  String get cancelVIPSubscription => '取消 VIP 訂閱';
+
+  @override
+  String get keepVIP => '保留 VIP';
+
+  @override
+  String get cancelSubscription => '取消訂閱';
+
+  @override
+  String get vipSubscriptionCancelledSuccessfully => 'VIP 訂閱已成功取消';
+
+  @override
+  String get vipStatus => 'VIP 狀態';
+
+  @override
+  String get noActiveVIPSubscription => '沒有有效的 VIP 訂閱';
+
+  @override
+  String get subscriptionExpired => '訂閱已過期';
+
+  @override
+  String get vipExpiredMessage => '您的 VIP 訂閱已過期。立即續訂以繼續享受無限功能！';
+
+  @override
+  String get expiredOn => '過期於';
+
+  @override
+  String get renewVIP => '續訂 VIP';
+
+  @override
+  String get whatYoureMissing => '您錯過了什麼';
+
+  @override
+  String get manageInAppStore => '在 App Store 中管理';
+
+  @override
+  String get becomeVIP => '成為 VIP';
+
+  @override
+  String get unlimitedMessages => '無限訊息';
+
+  @override
+  String get unlimitedProfileViews => '無限個人檔案瀏覽';
+
+  @override
+  String get prioritySupport => '優先支援';
+
+  @override
+  String get advancedSearch => '進階搜尋';
+
+  @override
+  String get profileBoost => '個人檔案提升';
+
+  @override
+  String get adFreeExperience => '無廣告體驗';
+
+  @override
+  String get upgradeYourAccount => '升級您的帳戶';
+
+  @override
+  String get moreMessages => '更多訊息';
+
+  @override
+  String get moreProfileViews => '更多個人檔案瀏覽';
+
+  @override
+  String get connectWithFriends => '與朋友連結';
+
+  @override
+  String get reviewStarted => '審查已開始';
+
+  @override
+  String get reportResolved => '檢舉已解決';
+
+  @override
+  String get reportDismissed => '檢舉已駁回';
+
+  @override
+  String get selectAction => '選擇操作';
+
+  @override
+  String get noViolation => '無違規';
+
+  @override
+  String get contentRemoved => '內容已移除';
+
+  @override
+  String get userWarned => '用戶已收到警告';
+
+  @override
+  String get userSuspended => '用戶已停權';
+
+  @override
+  String get userBanned => '用戶已被封禁';
+
+  @override
+  String get addNotesOptional => '新增備註（選填）';
+
+  @override
+  String get enterModeratorNotes => '輸入版主備註...';
+
+  @override
+  String get skip => '跳過';
+
+  @override
+  String get startReview => '開始審查';
+
+  @override
+  String get resolve => '解決';
+
+  @override
+  String get dismiss => '駁回';
+
+  @override
+  String get filterReports => '篩選檢舉';
+
+  @override
+  String get all => '全部';
+
+  @override
+  String get clear => '清除';
+
+  @override
+  String get apply => '套用';
+
+  @override
+  String get myReports2 => '我的檢舉';
+
+  @override
+  String get blockUser => '封鎖用戶';
+
+  @override
+  String get block => '封鎖';
+
+  @override
+  String get wouldYouAlsoLikeToBlockThisUser => '您是否也要封鎖此用戶？';
+
+  @override
+  String get noThanks => '不用了，謝謝';
+
+  @override
+  String get yesBlockThem => '是的，封鎖他們';
+
+  @override
+  String get reportUser2 => '檢舉用戶';
+
+  @override
+  String get submitReport => '提交檢舉';
+
+  @override
+  String get addAQuestionAndAtLeast2Options => '新增問題和至少 2 個選項';
+
+  @override
+  String get addOption => '新增選項';
+
+  @override
+  String get anonymousVoting => '匿名投票';
+
+  @override
+  String get create => '建立';
+
+  @override
+  String get typeYourAnswer => '輸入您的答案...';
+
+  @override
+  String get send2 => '傳送';
+
+  @override
+  String get yourPrompt => '您的提示...';
+
+  @override
+  String get add2 => '新增';
+
+  @override
+  String get contentNotAvailable => '內容不可用';
+
+  @override
+  String get profileNotAvailable => '個人檔案不可用';
+
+  @override
+  String get noMomentsToShow => '沒有動態可顯示';
+
+  @override
+  String get storiesNotAvailable => '限時動態不可用';
+
+  @override
+  String get cantMessageThisUser => '無法傳送訊息給此用戶';
+
+  @override
+  String get pleaseSelectAReason => '請選擇原因';
+
+  @override
+  String get reportSubmitted => '檢舉已提交。感謝您幫助維護我們社群的安全。';
+
+  @override
+  String get youHaveAlreadyReportedThisMoment => '您已檢舉過此動態';
+
+  @override
+  String get tellUsMoreAboutWhyYouAreReportingThis => '告訴我們更多您檢舉此內容的原因';
+
+  @override
+  String get errorSharing => '分享時發生錯誤';
+
+  @override
+  String get deviceInfo => '裝置資訊';
+
+  @override
+  String get recommended => '推薦';
+
+  @override
+  String get anyLanguage => '任何語言';
+
+  @override
+  String get noLanguagesFound => '找不到語言';
+
+  @override
+  String get selectALanguage => '選擇語言';
+
+  @override
+  String get languagesAreStillLoading => '語言仍在載入中...';
+
+  @override
+  String get selectNativeLanguage => '選擇母語';
+
+  @override
+  String get subscriptionDetails => '訂閱詳情';
+
+  @override
+  String get activeFeatures => '有效功能';
+
+  @override
+  String get legalInformation => '法律資訊';
+
+  @override
+  String get termsOfUse => '使用條款';
+
+  @override
+  String get manageSubscription => '管理訂閱';
+
+  @override
+  String get manageSubscriptionInSettings => '要取消訂閱，請前往裝置上的設定 > [您的名字] > 訂閱。';
+
+  @override
+  String get contactSupportToCancel => '要取消訂閱，請聯繫我們的客服團隊。';
+
+  @override
+  String get status => '狀態';
+
+  @override
+  String get active => '有效';
+
+  @override
+  String get plan => '方案';
+
+  @override
+  String get startDate => '開始日期';
+
+  @override
+  String get endDate => '結束日期';
+
+  @override
+  String get nextBillingDate => '下次帳單日期';
+
+  @override
+  String get autoRenew => '自動續訂';
+
+  @override
+  String get pleaseLogInToContinue => '請登入以繼續';
+
+  @override
+  String get purchaseCanceledOrFailed => '購買已取消或失敗。請重試。';
+
+  @override
+  String get maximumTagsAllowed => '最多允許 5 個標籤';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVideo => '請先移除圖片以新增影片';
+
+  @override
+  String get unsupportedFormat => '不支援的格式';
+
+  @override
+  String get errorProcessingVideo => '處理影片時發生錯誤';
+
+  @override
+  String get pleaseRemoveImagesFirstToRecordVideo => '請先移除圖片以錄製影片';
+
+  @override
+  String get locationAdded => '已新增位置';
+
+  @override
+  String get failedToGetLocation => '取得位置失敗';
+
+  @override
+  String get notNow => '稍後';
+
+  @override
+  String get videoUploadFailed => '影片上傳失敗';
+
+  @override
+  String get skipVideo => '跳過影片';
+
+  @override
+  String get retryUpload => '重試上傳';
+
+  @override
+  String get momentCreatedSuccessfully => '動態已成功建立';
+
+  @override
+  String get uploadingMomentInBackground => '正在背景上傳動態...';
+
+  @override
+  String get failedToQueueUpload => '無法將上傳加入佇列';
+
+  @override
+  String get viewProfile => '查看個人檔案';
+
+  @override
+  String get mediaLinksAndDocs => '媒體、連結和文件';
+
+  @override
+  String get wallpaper => '桌布';
+
+  @override
+  String get userIdNotAvailable => '用戶 ID 不可用';
+
+  @override
+  String get cannotBlockYourself => '無法封鎖自己';
+
+  @override
+  String get chatWallpaper => '聊天桌布';
+
+  @override
+  String get wallpaperSavedLocally => '桌布已儲存至本機';
+
+  @override
+  String get messageCopied => '訊息已複製';
+
+  @override
+  String get forwardFeatureComingSoon => '轉發功能即將推出';
+
+  @override
+  String get momentUnsaved => '動態未儲存';
+
+  @override
+  String get documentPickerComingSoon => '文件選擇器即將推出';
+
+  @override
+  String get contactSharingComingSoon => '聯絡人分享即將推出';
+
+  @override
+  String get featureComingSoon => '功能即將推出';
+
+  @override
+  String get answerSent => '答案已傳送！';
+
+  @override
+  String get noImagesAvailable => '沒有可用的圖片';
+
+  @override
+  String get mentionPickerComingSoon => '提及選擇器即將推出';
+
+  @override
+  String get musicPickerComingSoon => '音樂選擇器即將推出';
+
+  @override
+  String get repostFeatureComingSoon => '轉發功能即將推出';
+
+  @override
+  String get addFriendsFromYourProfile => '從您的個人檔案新增好友';
+
+  @override
+  String get quickReplyAdded => '已新增快速回覆';
+
+  @override
+  String get quickReplyDeleted => '已刪除快速回覆';
+
+  @override
+  String get linkCopied => '連結已複製！';
+
+  @override
+  String get maximumOptionsAllowed => '最多允許 10 個選項';
+
+  @override
+  String get minimumOptionsRequired => '最少需要 2 個選項';
+
+  @override
+  String get pleaseEnterAQuestion => '請輸入問題';
+
+  @override
+  String get pleaseAddAtLeast2Options => '請新增至少 2 個選項';
+
+  @override
+  String get pleaseSelectCorrectAnswerForQuiz => '請選擇測驗的正確答案';
+
+  @override
+  String get correctionSent => '更正已傳送！';
+
+  @override
+  String get sort => '排序';
+
+  @override
+  String get savedMoments => '已儲存的動態';
+
+  @override
+  String get unsave => '取消儲存';
+
+  @override
+  String get playingAudio => '正在播放音訊...';
+
+  @override
+  String get failedToGenerateQuiz => '產生測驗失敗';
+
+  @override
+  String get failedToAddComment => '新增留言失敗';
+
+  @override
+  String get hello => '你好！';
+
+  @override
+  String get howAreYou => '你好嗎？';
+
+  @override
+  String get cannotOpen => '無法開啟';
+
+  @override
+  String get errorOpeningLink => '開啟連結時發生錯誤';
+
+  @override
+  String get saved => '已儲存';
+
+  @override
+  String get follow => '追蹤';
+
+  @override
+  String get unfollow => '取消追蹤';
+
+  @override
+  String get mute => '靜音';
+
+  @override
+  String get online => '線上';
+
+  @override
+  String get offline => '離線';
+
+  @override
+  String get lastSeen => '上次上線';
+
+  @override
+  String get justNow => '剛才';
+
+  @override
+  String minutesAgo(String count) {
+    return '$count 分鐘前';
+  }
+
+  @override
+  String hoursAgo(String count) {
+    return '$count 小時前';
+  }
+
+  @override
+  String get yesterday => '昨天';
+
+  @override
+  String get signInWithEmail => '使用電子郵件登入';
+
+  @override
+  String get partners => '夥伴';
+
+  @override
+  String get nearby => '附近';
+
+  @override
+  String get topics => '主題';
+
+  @override
+  String get waves => '招手';
+
+  @override
+  String get voiceRooms => '語音';
+
+  @override
+  String get filters => '篩選';
+
+  @override
+  String get searchCommunity => '按名稱、語言或興趣搜尋...';
+
+  @override
+  String get bio => '簡介';
+
+  @override
+  String get noBioYet => '尚無簡介。';
+
+  @override
+  String get languages => '語言';
+
+  @override
+  String get native => '母語';
+
+  @override
+  String get interests => '興趣';
+
+  @override
+  String get noMomentsYet => '尚無動態';
+
+  @override
+  String get unableToLoadMoments => '無法載入動態';
+
+  @override
+  String get map => '地圖';
+
+  @override
+  String get mapUnavailable => '地圖不可用';
+
+  @override
+  String get location => '位置';
+
+  @override
+  String get unknownLocation => '未知位置';
+
+  @override
+  String get noImagesAvailable2 => '沒有可用的圖片';
+
+  @override
+  String get permissionsRequired => '需要權限';
+
+  @override
+  String get openSettings => '開啟設定';
+
+  @override
+  String get refresh => '重新整理';
+
+  @override
+  String get videoCall => '視訊';
+
+  @override
+  String get voiceCall => '通話';
+
+  @override
+  String get message => '訊息';
+
+  @override
+  String get pleaseLoginToFollow => '請登入以追蹤用戶';
+
+  @override
+  String get pleaseLoginToCall => '請登入以撥打電話';
+
+  @override
+  String get cannotCallYourself => '無法打給自己';
+
+  @override
+  String get failedToFollowUser => '追蹤用戶失敗';
+
+  @override
+  String get failedToUnfollowUser => '取消追蹤用戶失敗';
+
+  @override
+  String get areYouSureUnfollow => '您確定要取消追蹤此用戶嗎？';
+
+  @override
+  String get areYouSureUnblock => '您確定要解除封鎖此用戶嗎？';
+
+  @override
+  String get youFollowed => '您已追蹤';
+
+  @override
+  String get youUnfollowed => '您已取消追蹤';
+
+  @override
+  String get alreadyFollowing => '您已經在追蹤';
+
+  @override
+  String get soon => '即將';
+
+  @override
+  String comingSoon(String feature) {
+    return '$feature即將推出！';
+  }
+
+  @override
+  String get muteNotifications => '靜音通知';
+
+  @override
+  String get unmuteNotifications => '取消靜音通知';
+
+  @override
+  String get operationCompleted => '操作完成';
+
+  @override
+  String get couldNotOpenMaps => '無法開啟地圖';
+
+  @override
+  String hasntSharedMoments(Object name) {
+    return '$name尚未分享任何動態';
+  }
+
+  @override
+  String messageUser(String name) {
+    return '傳送訊息給$name';
+  }
+
+  @override
+  String notFollowingUser(String name) {
+    return '您沒有追蹤$name';
+  }
+
+  @override
+  String youFollowedUser(String name) {
+    return '您已追蹤$name';
+  }
+
+  @override
+  String youUnfollowedUser(String name) {
+    return '您已取消追蹤$name';
+  }
+
+  @override
+  String unfollowUser(String name) {
+    return '取消追蹤$name';
+  }
+
+  @override
+  String get typing => '正在輸入';
+
+  @override
+  String get connecting => '連線中...';
+
+  @override
+  String daysAgo(int count) {
+    return '$count天前';
+  }
+
+  @override
+  String get maxTagsAllowed => '最多允許 5 個標籤';
+
+  @override
+  String maxImagesAllowed(int count) {
+    return '最多允許 $count 張圖片';
+  }
+
+  @override
+  String get pleaseRemoveImagesFirst => '請先移除圖片以新增影片';
+
+  @override
+  String get exchange3MessagesBeforeCall => '您需要先交換至少 3 條訊息才能撥打電話給此用戶';
+
+  @override
+  String mediaWithUser(String name) {
+    return '與$name的媒體';
+  }
+
+  @override
+  String get errorLoadingMedia => '載入媒體時發生錯誤';
+
+  @override
+  String get savedMomentsTitle => '已儲存的動態';
+
+  @override
+  String get removeBookmark => '移除書籤？';
+
+  @override
+  String get thisWillRemoveBookmark => '這將從您的書籤中移除此訊息。';
+
+  @override
+  String get remove => '移除';
+
+  @override
+  String get bookmarkRemoved => '書籤已移除';
+
+  @override
+  String get bookmarkedMessages => '已加入書籤的訊息';
+
+  @override
+  String get wallpaperSaved => '桌布已儲存至本機';
+
+  @override
+  String get storyArchive => '限時動態存檔';
+
+  @override
+  String get newHighlight => '新精選';
+
+  @override
+  String get addToHighlight => '新增至精選';
+
+  @override
+  String get repost => '轉發';
+
+  @override
+  String get repostFeatureSoon => '轉發功能即將推出';
+
+  @override
+  String get closeFriends => '摯友';
+
+  @override
+  String get addFriends => '新增好友';
+
+  @override
+  String get highlights => '精選';
+
+  @override
+  String get createHighlight => '建立精選';
+
+  @override
+  String get deleteHighlight => '刪除精選？';
+
+  @override
+  String get editHighlight => '編輯精選';
+
+  @override
+  String get addMoreToStory => '新增更多至限時動態';
+
+  @override
+  String get noViewersYet => '尚無觀看者';
+
+  @override
+  String get noReactionsYet => '尚無反應';
+
+  @override
+  String get leaveRoom => '離開房間？';
+
+  @override
+  String get areYouSureLeaveRoom => '您確定要離開此語音房間嗎？';
+
+  @override
+  String get stay => '留下';
+
+  @override
+  String get leave => '離開';
+
+  @override
+  String get enableGPS => '啟用 GPS';
+
+  @override
+  String wavedToUser(String name) {
+    return '您向$name招手了！';
+  }
+
+  @override
+  String get areYouSureFollow => '您確定要追蹤';
+
+  @override
+  String get failedToLoadProfile => '載入個人檔案失敗';
+
+  @override
+  String get noFollowersYet => '尚無粉絲';
+
+  @override
+  String get noFollowingYet => '尚未追蹤任何人';
+
+  @override
+  String get searchUsers => '搜尋用戶...';
+
+  @override
+  String get noResultsFound => '找不到結果';
+
+  @override
+  String get loadingFailed => '載入失敗';
+
+  @override
+  String get copyLink => '複製連結';
+
+  @override
+  String get shareStory => '分享限時動態';
+
+  @override
+  String get thisWillDeleteStory => '此限時動態將被永久刪除。';
+
+  @override
+  String get storyDeleted => '限時動態已刪除';
+
+  @override
+  String get addCaption => '新增說明...';
+
+  @override
+  String get yourStory => '您的限時動態';
+
+  @override
+  String get sendMessage => '傳送訊息';
+
+  @override
+  String get replyToStory => '回覆限時動態...';
+
+  @override
+  String get viewAllReplies => '查看所有回覆';
+
+  @override
+  String get preparingVideo => '準備影片中...';
+
+  @override
+  String videoOptimized(String size, String savings) {
+    return '影片已優化：${size}MB（節省 $savings%）';
+  }
+
+  @override
+  String get failedToProcessVideo => '處理影片失敗';
+
+  @override
+  String get optimizingForBestExperience => '正在優化以獲得最佳限時動態體驗';
+
+  @override
+  String get pleaseSelectImageOrVideo => '請為您的限時動態選擇圖片或影片';
+
+  @override
+  String get storyCreatedSuccessfully => '限時動態已成功建立！';
+
+  @override
+  String get uploadingStoryInBackground => '正在背景上傳限時動態...';
+
+  @override
+  String get storyCreationFailed => '限時動態建立失敗';
+
+  @override
+  String get pleaseCheckConnection => '請檢查您的連線並重試。';
+
+  @override
+  String get uploadFailed => '上傳失敗';
+
+  @override
+  String get tryShorterVideo => '請嘗試較短的影片或稍後重試。';
+
+  @override
+  String get shareMomentsThatDisappear => '分享 24 小時後消失的動態';
+
+  @override
+  String get photo => '照片';
+
+  @override
+  String get record => '錄製';
+
+  @override
+  String get addSticker => '新增貼圖';
+
+  @override
+  String get poll => '投票';
+
+  @override
+  String get question => '問題';
+
+  @override
+  String get mention => '提及';
+
+  @override
+  String get music => '音樂';
+
+  @override
+  String get hashtag => '標籤';
+
+  @override
+  String get whoCanSeeThis => '誰可以看到？';
+
+  @override
+  String get everyone => '所有人';
+
+  @override
+  String get anyoneCanSeeStory => '任何人都可以看到此限時動態';
+
+  @override
+  String get friendsOnly => '僅限好友';
+
+  @override
+  String get onlyFollowersCanSee => '只有您的粉絲可以看到';
+
+  @override
+  String get onlyCloseFriendsCanSee => '只有您的摯友可以看到';
+
+  @override
+  String get backgroundColor => '背景顏色';
+
+  @override
+  String get fontStyle => '字型樣式';
+
+  @override
+  String get normal => '一般';
+
+  @override
+  String get bold => '粗體';
+
+  @override
+  String get italic => '斜體';
+
+  @override
+  String get handwriting => '手寫';
+
+  @override
+  String get addLocation => '新增位置';
+
+  @override
+  String get enterLocationName => '輸入位置名稱';
+
+  @override
+  String get addLink => '新增連結';
+
+  @override
+  String get buttonText => '按鈕文字';
+
+  @override
+  String get learnMore => '了解更多';
+
+  @override
+  String get addHashtags => '新增標籤';
+
+  @override
+  String get addHashtag => '新增標籤';
+
+  @override
+  String get sendAsMessage => '以訊息傳送';
+
+  @override
+  String get shareExternally => '對外分享';
+
+  @override
+  String get checkOutStory => '在 BananaTalk 上查看此限時動態！';
+
+  @override
+  String viewsTab(String count) {
+    return '觀看 ($count)';
+  }
+
+  @override
+  String reactionsTab(String count) {
+    return '反應 ($count)';
+  }
+
+  @override
+  String get processingVideo => '正在處理影片...';
+
+  @override
+  String get link => '連結';
+
+  @override
+  String unmuteUser(String name) {
+    return '取消靜音$name？';
+  }
+
+  @override
+  String get willReceiveNotifications => '您將收到新訊息的通知。';
+
+  @override
+  String muteNotificationsFor(String name) {
+    return '靜音$name的通知';
+  }
+
+  @override
+  String notificationsUnmutedFor(String name) {
+    return '已取消靜音$name的通知';
+  }
+
+  @override
+  String notificationsMutedFor(String name) {
+    return '已靜音$name的通知';
+  }
+
+  @override
+  String get failedToUpdateMuteSettings => '更新靜音設定失敗';
+
+  @override
+  String get oneHour => '1 小時';
+
+  @override
+  String get eightHours => '8 小時';
+
+  @override
+  String get oneWeek => '1 週';
+
+  @override
+  String get always => '永遠';
+
+  @override
+  String get failedToLoadBookmarks => '載入書籤失敗';
+
+  @override
+  String get noBookmarkedMessages => '沒有已加入書籤的訊息';
+
+  @override
+  String get longPressToBookmark => '長按訊息以加入書籤';
+
+  @override
+  String get thisWillRemoveFromBookmarks => '這將從您的書籤中移除此訊息。';
+
+  @override
+  String navigateToMessage(String name) {
+    return '前往與$name聊天中的訊息';
+  }
+
+  @override
+  String bookmarkedOn(String date) {
+    return '已於 $date 加入書籤';
+  }
+
+  @override
+  String get voiceMessage => '語音訊息';
+
+  @override
+  String get document => '文件';
+
+  @override
+  String get attachment => '附件';
+
+  @override
+  String get sendMeAMessage => '傳送訊息給我';
+
+  @override
+  String get shareWithFriends => '與好友分享';
+
+  @override
+  String get shareAnywhere => '任意分享';
+
+  @override
+  String get emailPreferences => '電子郵件偏好設定';
+
+  @override
+  String get receiveEmailNotifications => '接收來自 BananaTalk 的電子郵件通知';
+
+  @override
+  String get whenAwayFor24Hours => '當您離開超過 24 小時時';
+
+  @override
+  String get passwordAndLoginAlerts => '密碼和登入警報';
+
+  @override
+  String get failedToLoadPreferences => '載入偏好設定失敗';
+
+  @override
+  String get failedToUpdateSetting => '更新設定失敗';
+
+  @override
+  String get securityAlertsRecommended => '我們建議您保持安全警報開啟，以便了解重要的帳戶活動。';
+
+  @override
+  String chatWallpaperFor(String name) {
+    return '$name的聊天桌布';
+  }
+
+  @override
+  String get solidColors => '純色';
+
+  @override
+  String get gradients => '漸層';
+
+  @override
+  String get customImage => '自訂圖片';
+
+  @override
+  String get chooseFromGallery => '從相簿選擇';
+
+  @override
+  String get preview => '預覽';
+
+  @override
+  String get wallpaperUpdated => '桌布已更新';
+
+  @override
+  String get category => '類別';
+
+  @override
+  String get mood => '心情';
+
+  @override
+  String get sortBy => '排序依據';
+
+  @override
+  String get timePeriod => '時間段';
+
+  @override
+  String get searchLanguages => '搜尋語言...';
+
+  @override
+  String get selected => '已選取';
+
+  @override
+  String get categories => '類別';
+
+  @override
+  String get moods => '心情';
+
+  @override
+  String get applyFilters => '套用篩選';
+
+  @override
+  String applyNFilters(int count) {
+    return '套用 $count 個篩選';
+  }
+
+  @override
+  String get videoMustBeUnder1GB => '影片必須小於 1GB。';
+
+  @override
+  String get failedToRecordVideo => '錄製影片失敗';
+
+  @override
+  String get errorSendingVideo => '傳送影片時發生錯誤';
+
+  @override
+  String get errorSendingVoiceMessage => '傳送語音訊息時發生錯誤';
+
+  @override
+  String get errorSendingMedia => '傳送媒體時發生錯誤';
+
+  @override
+  String get cameraPermissionRequired => '錄製影片需要相機和麥克風權限。';
+
+  @override
+  String get locationPermissionRequired => '分享您的位置需要位置權限。';
+
+  @override
+  String get noInternetConnection => '沒有網路連線';
+
+  @override
+  String get tryAgainLater => '請稍後再試';
+
+  @override
+  String get messageSent => '訊息已傳送';
+
+  @override
+  String get messageDeleted => '訊息已刪除';
+
+  @override
+  String get messageEdited => '訊息已編輯';
 }

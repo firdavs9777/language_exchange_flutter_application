@@ -139,6 +139,13 @@ class Message {
   }
 
   factory Message.fromJson(Map<String, dynamic> json) {
+    // Debug replyTo parsing
+    if (json['replyTo'] != null) {
+      print('🔍 Message ${json['_id']} has replyTo:');
+      print('   Type: ${json['replyTo'].runtimeType}');
+      print('   Value: ${json['replyTo']}');
+    }
+
     return Message(
       id: json['_id'] ?? '',
       sender: _parseCommunity(json['sender']),
@@ -148,8 +155,8 @@ class Message {
       version: (json['__v'] as num?)?.toInt() ?? 0,
       read: json['read'] ?? false,
       media: _parseMedia(json),
-      replyTo: json['replyTo'] != null && json['replyTo'] is Map<String, dynamic> 
-          ? MessageReply.fromJson(json['replyTo']) 
+      replyTo: json['replyTo'] != null && json['replyTo'] is Map<String, dynamic>
+          ? MessageReply.fromJson(json['replyTo'])
           : null,
       isEdited: json['isEdited'] ?? false,
       editedAt: json['editedAt'],
@@ -207,10 +214,11 @@ class Message {
       return Community.fromJson(data);
     }
     // If it's just a string ID, create a minimal community object
+    // If user data is not populated (only ID string), treat as deleted user
     if (data is String) {
       return Community(
         id: data,
-        name: '',
+        name: 'Deleted User',
         email: '',
         bio: '',
         mbti: '',
@@ -233,11 +241,11 @@ class Message {
     return _defaultCommunity();
   }
   
-  /// Default community for when data is missing
+  /// Default community for when data is missing (deleted user)
   static Community _defaultCommunity() {
     return Community(
       id: '',
-      name: 'Unknown',
+      name: 'Deleted User',
       email: '',
       bio: '',
       mbti: '',

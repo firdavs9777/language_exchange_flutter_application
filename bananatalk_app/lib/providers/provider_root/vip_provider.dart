@@ -16,8 +16,8 @@ final vipStatusProvider = FutureProvider.family<Map<String, dynamic>, String>(
 /// FutureProvider for iOS products
 final iosProductsProvider = FutureProvider<List<ProductDetails>>(
   (ref) async {
+    // initializeStore() already loads products, no need to call loadProducts() separately
     await IOSPurchaseService.initializeStore();
-    await IOSPurchaseService.loadProducts();
     return IOSPurchaseService.getProducts();
   },
 );
@@ -25,8 +25,8 @@ final iosProductsProvider = FutureProvider<List<ProductDetails>>(
 /// FutureProvider for Android products
 final androidProductsProvider = FutureProvider<List<ProductDetails>>(
   (ref) async {
+    // initializeStore() already loads products, no need to call loadProducts() separately
     await AndroidPurchaseService.initializeStore();
-    await AndroidPurchaseService.loadProducts();
     return AndroidPurchaseService.getProducts();
   },
 );

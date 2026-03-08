@@ -374,6 +374,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aboutMe => 'نبذة عني';
 
   @override
+  String get bloodType => 'Blood Type';
+
+  @override
   String get photos => 'الصور';
 
   @override

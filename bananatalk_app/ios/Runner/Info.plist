@@ -91,9 +91,7 @@
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>BananaTalk uses the local network for peer-to-peer calls and faster connections.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>BananaTalk uses your location to help you find language partners nearby and show your city on your profile.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>BananaTalk uses your location to help you find language partners nearby.</string>
+	<string>BananaTalk uses your location to help you find language partners nearby and show your city on your profile. Location is only accessed while you are using the app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>BananaTalk uses your location to help you find language partners nearby and show your city on your profile.</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -106,8 +104,6 @@
 	<string>BananaTalk needs access to your photo library to let you share photos in your moments and messages.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>BananaTalk uses speech recognition to help you practice pronunciation and improve your speaking skills.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>BananaTalk uses this to provide personalized language learning recommendations and improve your experience.</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>BananaTalk may access your music library for audio playback during language learning sessions.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

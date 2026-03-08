@@ -1,0 +1,848 @@
+{
+  "@@locale": "de",
+  "appName": "BananaTalk",
+  "@appName": {
+    "description": "The application name"
+  },
+  "login": "Anmelden",
+  "signUp": "Registrieren",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "forgotPassword": "Passwort vergessen?",
+  "or": "ODER",
+  "signInWithGoogle": "Mit Google anmelden",
+  "signInWithApple": "Mit Apple anmelden",
+  "signInWithFacebook": "Mit Facebook anmelden",
+  "welcome": "Willkommen",
+  "home": "Startseite",
+  "messages": "Nachrichten",
+  "moments": "Momente",
+  "profile": "Profil",
+  "settings": "Einstellungen",
+  "logout": "Abmelden",
+  "language": "Sprache",
+  "selectLanguage": "Sprache auswählen",
+  "autoTranslate": "Automatisch übersetzen",
+  "autoTranslateMessages": "Nachrichten automatisch übersetzen",
+  "autoTranslateMoments": "Momente automatisch übersetzen",
+  "autoTranslateComments": "Kommentare automatisch übersetzen",
+  "translate": "Übersetzen",
+  "translated": "Übersetzt",
+  "showOriginal": "Original anzeigen",
+  "showTranslation": "Übersetzung anzeigen",
+  "translating": "Wird übersetzt...",
+  "translationFailed": "Übersetzung fehlgeschlagen",
+  "noTranslationAvailable": "Keine Übersetzung verfügbar",
+  "translatedFrom": "Übersetzt aus {language}",
+  "@translatedFrom": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "share": "Teilen",
+  "like": "Gefällt mir",
+  "comment": "Kommentieren",
+  "send": "Senden",
+  "search": "Suchen",
+  "notifications": "Benachrichtigungen",
+  "followers": "Follower",
+  "following": "Folge ich",
+  "posts": "Beiträge",
+  "visitors": "Besucher",
+  "loading": "Wird geladen...",
+  "error": "Fehler",
+  "success": "Erfolg",
+  "tryAgain": "Erneut versuchen",
+  "networkError": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.",
+  "somethingWentWrong": "Etwas ist schief gelaufen",
+  "ok": "OK",
+  "yes": "Ja",
+  "no": "Nein",
+  "languageSettings": "Spracheinstellungen",
+  "deviceLanguage": "Gerätesprache",
+  "yourDeviceIsSetTo": "Ihr Gerät ist eingestellt auf: {flag} {name}",
+  "@yourDeviceIsSetTo": {
+    "placeholders": {
+      "flag": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youCanOverride": "Sie können die Gerätesprache unten überschreiben.",
+  "languageChangedTo": "Sprache geändert zu {name}",
+  "@languageChangedTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorChangingLanguage": "Fehler beim Ändern der Sprache",
+  "autoTranslateSettings": "Auto-Übersetzung Einstellungen",
+  "automaticallyTranslateIncomingMessages": "Eingehende Nachrichten automatisch übersetzen",
+  "automaticallyTranslateMomentsInFeed": "Momente im Feed automatisch übersetzen",
+  "automaticallyTranslateComments": "Kommentare automatisch übersetzen",
+  "translationServiceBeingConfigured": "Übersetzungsdienst wird konfiguriert. Bitte versuchen Sie es später erneut.",
+  "translationUnavailable": "Übersetzung nicht verfügbar",
+  "showLess": "weniger anzeigen",
+  "showMore": "mehr anzeigen",
+  "comments": "Kommentare",
+  "beTheFirstToComment": "Sei der Erste, der kommentiert.",
+  "writeAComment": "Schreibe einen Kommentar...",
+  "report": "Melden",
+  "reportMoment": "Moment melden",
+  "reportUser": "Benutzer melden",
+  "deleteMoment": "Moment löschen?",
+  "thisActionCannotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden.",
+  "momentDeleted": "Moment gelöscht",
+  "editFeatureComingSoon": "Bearbeitungsfunktion kommt bald",
+  "userNotFound": "Benutzer nicht gefunden",
+  "cannotReportYourOwnComment": "Sie können Ihren eigenen Kommentar nicht melden",
+  "profileSettings": "Profileinstellungen",
+  "editYourProfileInformation": "Bearbeiten Sie Ihre Profilinformationen",
+  "blockedUsers": "Blockierte Benutzer",
+  "manageBlockedUsers": "Blockierte Benutzer verwalten",
+  "manageNotificationSettings": "Benachrichtigungseinstellungen verwalten",
+  "privacySecurity": "Datenschutz & Sicherheit",
+  "controlYourPrivacy": "Kontrollieren Sie Ihre Privatsphäre",
+  "changeAppLanguage": "App-Sprache ändern",
+  "appearance": "Erscheinungsbild",
+  "themeAndDisplaySettings": "Design- und Anzeigeeinstellungen",
+  "myReports": "Meine Meldungen",
+  "viewYourSubmittedReports": "Ihre eingereichten Meldungen anzeigen",
+  "reportsManagement": "Meldungsverwaltung",
+  "manageAllReportsAdmin": "Alle Meldungen verwalten (Admin)",
+  "legalPrivacy": "Rechtliches & Datenschutz",
+  "termsPrivacySubscriptionInfo": "AGB, Datenschutz & Abo-Infos",
+  "helpCenter": "Hilfecenter",
+  "getHelpAndSupport": "Hilfe und Support erhalten",
+  "aboutBanaTalk": "Über BanaTalk",
+  "deleteAccount": "Konto löschen",
+  "permanentlyDeleteYourAccount": "Ihr Konto dauerhaft löschen",
+  "loggedOutSuccessfully": "Erfolgreich abgemeldet",
+  "retry": "Wiederholen",
+  "giftsLikes": "Geschenke/Likes",
+  "details": "Details",
+  "to": "an",
+  "banaTalk": "BanaTalk",
+  "community": "Community",
+  "editProfile": "Profil bearbeiten",
+  "yearsOld": "{age} Jahre alt",
+  "@yearsOld": {
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "searchConversations": "Unterhaltungen suchen...",
+  "visitorTrackingNotAvailable": "Besucherverfolgung ist noch nicht verfügbar. Backend-Update erforderlich.",
+  "chatList": "Chat-Liste",
+  "languageExchange": "Sprachaustausch",
+  "nativeLanguage": "Muttersprache",
+  "learning": "Lernen",
+  "notSet": "Nicht festgelegt",
+  "about": "Über",
+  "aboutMe": "Über mich",
+  "bloodType": "Blutgruppe",
+  "photos": "Fotos",
+  "camera": "Kamera",
+  "createMoment": "Moment erstellen",
+  "addATitle": "Titel hinzufügen...",
+  "whatsOnYourMind": "Was beschäftigt dich?",
+  "addTags": "Tags hinzufügen",
+  "done": "Fertig",
+  "add": "Hinzufügen",
+  "enterTag": "Tag eingeben",
+  "post": "Posten",
+  "commentAddedSuccessfully": "Kommentar erfolgreich hinzugefügt",
+  "clearFilters": "Filter löschen",
+  "notificationSettings": "Benachrichtigungseinstellungen",
+  "enableNotifications": "Benachrichtigungen aktivieren",
+  "turnAllNotificationsOnOrOff": "Alle Benachrichtigungen ein- oder ausschalten",
+  "notificationTypes": "Benachrichtigungstypen",
+  "chatMessages": "Chat-Nachrichten",
+  "getNotifiedWhenYouReceiveMessages": "Benachrichtigung bei neuen Nachrichten",
+  "likesAndCommentsOnYourMoments": "Likes und Kommentare zu Ihren Momenten",
+  "whenPeopleYouFollowPostMoments": "Wenn Personen, denen Sie folgen, Momente posten",
+  "friendRequests": "Freundschaftsanfragen",
+  "whenSomeoneFollowsYou": "Wenn jemand Ihnen folgt",
+  "profileVisits": "Profilbesuche",
+  "whenSomeoneViewsYourProfileVIP": "Wenn jemand Ihr Profil ansieht (VIP)",
+  "marketing": "Marketing",
+  "updatesAndPromotionalMessages": "Updates und Werbemitteilungen",
+  "notificationPreferences": "Benachrichtigungseinstellungen",
+  "sound": "Ton",
+  "playNotificationSounds": "Benachrichtigungstöne abspielen",
+  "vibration": "Vibration",
+  "vibrateOnNotifications": "Bei Benachrichtigungen vibrieren",
+  "showPreview": "Vorschau anzeigen",
+  "showMessagePreviewInNotifications": "Nachrichtenvorschau in Benachrichtigungen anzeigen",
+  "mutedConversations": "Stummgeschaltete Unterhaltungen",
+  "conversation": "Unterhaltung",
+  "unmute": "Stummschaltung aufheben",
+  "systemNotificationSettings": "System-Benachrichtigungseinstellungen",
+  "manageNotificationsInSystemSettings": "Benachrichtigungen in Systemeinstellungen verwalten",
+  "errorLoadingSettings": "Fehler beim Laden der Einstellungen",
+  "unblockUser": "Benutzer entsperren",
+  "unblock": "Entsperren",
+  "goBack": "Zurück",
+  "messageSendTimeout": "Zeitüberschreitung beim Senden. Bitte überprüfen Sie Ihre Verbindung.",
+  "failedToSendMessage": "Nachricht konnte nicht gesendet werden",
+  "dailyMessageLimitExceeded": "Tägliches Nachrichtenlimit überschritten. Upgrade auf VIP für unbegrenzte Nachrichten.",
+  "cannotSendMessageUserMayBeBlocked": "Nachricht kann nicht gesendet werden. Benutzer ist möglicherweise blockiert.",
+  "sessionExpired": "Sitzung abgelaufen. Bitte melden Sie sich erneut an.",
+  "sendThisSticker": "Diesen Sticker senden?",
+  "chooseHowYouWantToDeleteThisMessage": "Wählen Sie, wie Sie diese Nachricht löschen möchten:",
+  "deleteForEveryone": "Für alle löschen",
+  "removesTheMessageForBothYouAndTheRecipient": "Entfernt die Nachricht für Sie und den Empfänger",
+  "deleteForMe": "Für mich löschen",
+  "removesTheMessageOnlyFromYourChat": "Entfernt die Nachricht nur aus Ihrem Chat",
+  "copy": "Kopieren",
+  "reply": "Antworten",
+  "forward": "Weiterleiten",
+  "moreOptions": "Weitere Optionen",
+  "noUsersAvailableToForwardTo": "Keine Benutzer zum Weiterleiten verfügbar",
+  "searchMoments": "Momente suchen...",
+  "searchInChatWith": "Im Chat mit {name} suchen",
+  "@searchInChatWith": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typeAMessage": "Nachricht eingeben...",
+  "enterYourMessage": "Geben Sie Ihre Nachricht ein",
+  "detectYourLocation": "Standort ermitteln",
+  "tapToUpdateLocation": "Tippen zum Aktualisieren des Standorts",
+  "helpOthersFindYouNearby": "Helfen Sie anderen, Sie in der Nähe zu finden",
+  "selectYourNativeLanguage": "Wählen Sie Ihre Muttersprache",
+  "whichLanguageDoYouWantToLearn": "Welche Sprache möchten Sie lernen?",
+  "selectYourGender": "Wählen Sie Ihr Geschlecht",
+  "addACaption": "Bildunterschrift hinzufügen...",
+  "typeSomething": "Etwas eingeben...",
+  "gallery": "Galerie",
+  "video": "Video",
+  "text": "Text",
+  "provideMoreInformation": "Weitere Informationen angeben...",
+  "searchByNameLanguageOrInterests": "Nach Name, Sprache oder Interessen suchen...",
+  "addTagAndPressEnter": "Tag hinzufügen und Enter drücken",
+  "replyTo": "Antworten an {name}...",
+  "@replyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightName": "Highlight-Name",
+  "searchCloseFriends": "Enge Freunde suchen...",
+  "askAQuestion": "Eine Frage stellen...",
+  "option": "Option {number}",
+  "@option": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "whyAreYouReportingThis": "Warum melden Sie diesen {type}?",
+  "@whyAreYouReportingThis": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "additionalDetailsOptional": "Zusätzliche Details (optional)",
+  "warningThisActionIsPermanent": "Warnung: Diese Aktion ist dauerhaft!",
+  "deletingYourAccountWillPermanentlyRemove": "Das Löschen Ihres Kontos entfernt dauerhaft:\n\n• Ihr Profil und alle persönlichen Daten\n• Alle Ihre Nachrichten und Unterhaltungen\n• Alle Ihre Momente und Stories\n• Ihr VIP-Abonnement (keine Rückerstattung)\n• Alle Ihre Verbindungen und Follower\n\nDiese Aktion kann nicht rückgängig gemacht werden.",
+  "clearAllNotifications": "Alle Benachrichtigungen löschen?",
+  "clearAll": "Alle löschen",
+  "notificationDebug": "Benachrichtigungs-Debug",
+  "markAllRead": "Alle als gelesen markieren",
+  "clearAll2": "Alle löschen",
+  "emailAddress": "E-Mail-Adresse",
+  "username": "Benutzername",
+  "alreadyHaveAnAccount": "Haben Sie bereits ein Konto?",
+  "login2": "Anmelden",
+  "selectYourNativeLanguage2": "Wählen Sie Ihre Muttersprache",
+  "whichLanguageDoYouWantToLearn2": "Welche Sprache möchten Sie lernen?",
+  "selectYourGender2": "Wählen Sie Ihr Geschlecht",
+  "dateFormat": "TT.MM.JJJJ",
+  "detectYourLocation2": "Standort ermitteln",
+  "tapToUpdateLocation2": "Tippen zum Aktualisieren des Standorts",
+  "helpOthersFindYouNearby2": "Helfen Sie anderen, Sie in der Nähe zu finden",
+  "signInWithApple": "Mit Apple anmelden",
+  "couldNotOpenLink": "Link konnte nicht geöffnet werden",
+  "legalPrivacy2": "Rechtliches & Datenschutz",
+  "termsOfUseEULA": "Nutzungsbedingungen (EULA)",
+  "viewOurTermsAndConditions": "Unsere AGB ansehen",
+  "privacyPolicy": "Datenschutzrichtlinie",
+  "howWeHandleYourData": "Wie wir mit Ihren Daten umgehen",
+  "emailNotifications": "E-Mail-Benachrichtigungen",
+  "receiveEmailNotificationsFromBananaTalk": "E-Mail-Benachrichtigungen von BananaTalk erhalten",
+  "weeklySummary": "Wöchentliche Zusammenfassung",
+  "activityRecapEverySunday": "Aktivitätszusammenfassung jeden Sonntag",
+  "newMessages": "Neue Nachrichten",
+  "whenYoureAwayFor24PlusHours": "Wenn Sie 24+ Stunden abwesend sind",
+  "newFollowers": "Neue Follower",
+  "whenSomeoneFollowsYou2": "Wenn jemand Ihnen folgt",
+  "securityAlerts": "Sicherheitswarnungen",
+  "passwordLoginAlerts": "Passwort- und Anmeldewarnungen",
+  "unblockUser2": "Benutzer entsperren",
+  "blockedUsers2": "Blockierte Benutzer",
+  "finalWarning": "Letzte Warnung",
+  "deleteForever": "Dauerhaft löschen",
+  "deleteAccount2": "Konto löschen",
+  "enterYourPassword": "Geben Sie Ihr Passwort ein",
+  "yourPassword": "Ihr Passwort",
+  "typeDELETEToConfirm": "Geben Sie LÖSCHEN zur Bestätigung ein",
+  "typeDELETEInCapitalLetters": "Geben Sie LÖSCHEN in Großbuchstaben ein",
+  "sent": "{emoji} gesendet!",
+  "@sent": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "replySent": "Antwort gesendet!",
+  "deleteStory": "Story löschen?",
+  "thisStoryWillBeRemovedPermanently": "Diese Story wird dauerhaft entfernt.",
+  "noStories": "Keine Stories",
+  "views": "{count} Aufrufe",
+  "@views": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reportStory": "Story melden",
+  "reply2": "Antworten...",
+  "failedToPickImage": "Bild konnte nicht ausgewählt werden",
+  "failedToTakePhoto": "Foto konnte nicht aufgenommen werden",
+  "failedToPickVideo": "Video konnte nicht ausgewählt werden",
+  "pleaseEnterSomeText": "Bitte geben Sie Text ein",
+  "pleaseSelectMedia": "Bitte wählen Sie Medien aus",
+  "storyPosted": "Story gepostet!",
+  "textOnlyStoriesRequireAnImage": "Nur-Text-Stories benötigen ein Bild",
+  "createStory": "Story erstellen",
+  "change": "Ändern",
+  "userIdNotFound": "Benutzer-ID nicht gefunden. Bitte melden Sie sich erneut an.",
+  "pleaseSelectAPaymentMethod": "Bitte wählen Sie eine Zahlungsmethode",
+  "startExploring": "Entdecken starten",
+  "close": "Schließen",
+  "payment": "Zahlung",
+  "upgradeToVIP": "Auf VIP upgraden",
+  "errorLoadingProducts": "Fehler beim Laden der Produkte",
+  "cancelVIPSubscription": "VIP-Abonnement kündigen",
+  "keepVIP": "VIP behalten",
+  "cancelSubscription": "Abonnement kündigen",
+  "vipSubscriptionCancelledSuccessfully": "VIP-Abonnement erfolgreich gekündigt",
+  "vipStatus": "VIP-Status",
+  "noActiveVIPSubscription": "Kein aktives VIP-Abonnement",
+  "subscriptionExpired": "Abonnement abgelaufen",
+  "vipExpiredMessage": "Ihr VIP-Abonnement ist abgelaufen. Erneuern Sie jetzt, um weiterhin unbegrenzte Funktionen zu genießen!",
+  "expiredOn": "Abgelaufen am",
+  "renewVIP": "VIP erneuern",
+  "whatYoureMissing": "Was Sie verpassen",
+  "manageInAppStore": "Im App Store verwalten",
+  "becomeVIP": "VIP werden",
+  "unlimitedMessages": "Unbegrenzte Nachrichten",
+  "unlimitedProfileViews": "Unbegrenzte Profilaufrufe",
+  "prioritySupport": "Prioritäts-Support",
+  "advancedSearch": "Erweiterte Suche",
+  "profileBoost": "Profil-Boost",
+  "adFreeExperience": "Werbefreies Erlebnis",
+  "upgradeYourAccount": "Konto upgraden",
+  "moreMessages": "Mehr Nachrichten",
+  "moreProfileViews": "Mehr Profilaufrufe",
+  "connectWithFriends": "Mit Freunden verbinden",
+  "reviewStarted": "Überprüfung gestartet",
+  "reportResolved": "Meldung gelöst",
+  "reportDismissed": "Meldung abgewiesen",
+  "selectAction": "Aktion auswählen",
+  "noViolation": "Kein Verstoß",
+  "contentRemoved": "Inhalt entfernt",
+  "userWarned": "Benutzer gewarnt",
+  "userSuspended": "Benutzer gesperrt",
+  "userBanned": "Benutzer gebannt",
+  "addNotesOptional": "Notizen hinzufügen (optional)",
+  "enterModeratorNotes": "Moderatornotizen eingeben...",
+  "skip": "Überspringen",
+  "startReview": "Überprüfung starten",
+  "resolve": "Lösen",
+  "dismiss": "Abweisen",
+  "filterReports": "Meldungen filtern",
+  "all": "Alle",
+  "clear": "Löschen",
+  "apply": "Anwenden",
+  "myReports2": "Meine Meldungen",
+  "blockUser": "Benutzer blockieren",
+  "block": "Blockieren",
+  "wouldYouAlsoLikeToBlockThisUser": "Möchten Sie diesen Benutzer auch blockieren?",
+  "noThanks": "Nein, danke",
+  "yesBlockThem": "Ja, blockieren",
+  "reportUser2": "Benutzer melden",
+  "submitReport": "Meldung senden",
+  "addAQuestionAndAtLeast2Options": "Frage und mindestens 2 Optionen hinzufügen",
+  "addOption": "Option hinzufügen",
+  "anonymousVoting": "Anonyme Abstimmung",
+  "create": "Erstellen",
+  "typeYourAnswer": "Ihre Antwort eingeben...",
+  "send2": "Senden",
+  "yourPrompt": "Ihre Frage...",
+  "add2": "Hinzufügen",
+  "contentNotAvailable": "Inhalt nicht verfügbar",
+  "profileNotAvailable": "Profil nicht verfügbar",
+  "noMomentsToShow": "Keine Momente anzuzeigen",
+  "storiesNotAvailable": "Stories nicht verfügbar",
+  "cantMessageThisUser": "Kann diesem Benutzer keine Nachricht senden",
+  "pleaseSelectAReason": "Bitte wählen Sie einen Grund",
+  "reportSubmitted": "Meldung gesendet. Danke, dass Sie unsere Community sicher halten.",
+  "youHaveAlreadyReportedThisMoment": "Sie haben diesen Moment bereits gemeldet",
+  "tellUsMoreAboutWhyYouAreReportingThis": "Erzählen Sie uns mehr, warum Sie dies melden",
+  "errorSharing": "Fehler beim Teilen",
+  "deviceInfo": "Geräteinformationen",
+  "recommended": "Empfohlen",
+  "anyLanguage": "Jede Sprache",
+  "noLanguagesFound": "Keine Sprachen gefunden",
+  "selectALanguage": "Sprache auswählen",
+  "languagesAreStillLoading": "Sprachen werden noch geladen...",
+  "selectNativeLanguage": "Muttersprache auswählen",
+  "subscriptionDetails": "Abonnementdetails",
+  "activeFeatures": "Aktive Funktionen",
+  "legalInformation": "Rechtliche Informationen",
+  "termsOfUse": "Nutzungsbedingungen",
+  "manageSubscription": "Abonnement verwalten",
+  "manageSubscriptionInSettings": "Um Ihr Abonnement zu kündigen, gehen Sie zu Einstellungen > [Ihr Name] > Abonnements auf Ihrem Gerät.",
+  "contactSupportToCancel": "Um Ihr Abonnement zu kündigen, kontaktieren Sie bitte unser Support-Team.",
+  "status": "Status",
+  "active": "Aktiv",
+  "plan": "Plan",
+  "startDate": "Startdatum",
+  "endDate": "Enddatum",
+  "nextBillingDate": "Nächstes Abrechnungsdatum",
+  "autoRenew": "Automatisch erneuern",
+  "pleaseLogInToContinue": "Bitte melden Sie sich an, um fortzufahren",
+  "purchaseCanceledOrFailed": "Kauf wurde abgebrochen oder ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+  "maximumTagsAllowed": "Maximal 5 Tags erlaubt",
+  "pleaseRemoveImagesFirstToAddVideo": "Bitte entfernen Sie zuerst Bilder, um ein Video hinzuzufügen",
+  "unsupportedFormat": "Nicht unterstütztes Format",
+  "errorProcessingVideo": "Fehler bei der Videoverarbeitung",
+  "pleaseRemoveImagesFirstToRecordVideo": "Bitte entfernen Sie zuerst Bilder, um ein Video aufzunehmen",
+  "locationAdded": "Standort hinzugefügt",
+  "failedToGetLocation": "Standort konnte nicht ermittelt werden",
+  "notNow": "Nicht jetzt",
+  "videoUploadFailed": "Video-Upload fehlgeschlagen",
+  "skipVideo": "Video überspringen",
+  "retryUpload": "Upload wiederholen",
+  "momentCreatedSuccessfully": "Moment erfolgreich erstellt",
+  "uploadingMomentInBackground": "Moment wird im Hintergrund hochgeladen...",
+  "failedToQueueUpload": "Upload konnte nicht in die Warteschlange gestellt werden",
+  "viewProfile": "Profil anzeigen",
+  "mediaLinksAndDocs": "Medien, Links und Dokumente",
+  "wallpaper": "Hintergrundbild",
+  "userIdNotAvailable": "Benutzer-ID nicht verfügbar",
+  "cannotBlockYourself": "Sie können sich nicht selbst blockieren",
+  "chatWallpaper": "Chat-Hintergrundbild",
+  "wallpaperSavedLocally": "Hintergrundbild lokal gespeichert",
+  "messageCopied": "Nachricht kopiert",
+  "forwardFeatureComingSoon": "Weiterleitungsfunktion kommt bald",
+  "momentUnsaved": "Moment nicht gespeichert",
+  "documentPickerComingSoon": "Dokumentenauswahl kommt bald",
+  "contactSharingComingSoon": "Kontaktfreigabe kommt bald",
+  "featureComingSoon": "Funktion kommt bald",
+  "answerSent": "Antwort gesendet!",
+  "noImagesAvailable": "Keine Bilder verfügbar",
+  "mentionPickerComingSoon": "Erwähnungsauswahl kommt bald",
+  "musicPickerComingSoon": "Musikauswahl kommt bald",
+  "repostFeatureComingSoon": "Repost-Funktion kommt bald",
+  "addFriendsFromYourProfile": "Freunde über Ihr Profil hinzufügen",
+  "quickReplyAdded": "Schnellantwort hinzugefügt",
+  "quickReplyDeleted": "Schnellantwort gelöscht",
+  "linkCopied": "Link kopiert!",
+  "maximumOptionsAllowed": "Maximal 10 Optionen erlaubt",
+  "minimumOptionsRequired": "Mindestens 2 Optionen erforderlich",
+  "pleaseEnterAQuestion": "Bitte geben Sie eine Frage ein",
+  "pleaseAddAtLeast2Options": "Bitte fügen Sie mindestens 2 Optionen hinzu",
+  "pleaseSelectCorrectAnswerForQuiz": "Bitte wählen Sie die richtige Antwort für das Quiz",
+  "correctionSent": "Korrektur gesendet!",
+  "sort": "Sortieren",
+  "savedMoments": "Gespeicherte Momente",
+  "unsave": "Nicht speichern",
+  "playingAudio": "Audio wird abgespielt...",
+  "failedToGenerateQuiz": "Quiz konnte nicht generiert werden",
+  "failedToAddComment": "Kommentar konnte nicht hinzugefügt werden",
+  "hello": "Hallo!",
+  "howAreYou": "Wie geht es dir?",
+  "cannotOpen": "Kann nicht öffnen",
+  "errorOpeningLink": "Fehler beim Öffnen des Links",
+  "saved": "Gespeichert",
+  "follow": "Folgen",
+  "unfollow": "Entfolgen",
+  "mute": "Stummschalten",
+  "online": "Online",
+  "offline": "Offline",
+  "lastSeen": "Zuletzt gesehen",
+  "justNow": "gerade eben",
+  "minutesAgo": "vor {count} Minuten",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hoursAgo": "vor {count} Stunden",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "yesterday": "Gestern",
+  "signInWithEmail": "Mit E-Mail anmelden",
+  "partners": "Partner",
+  "nearby": "In der Nähe",
+  "topics": "Themen",
+  "waves": "Winken",
+  "voiceRooms": "Sprache",
+  "filters": "Filter",
+  "searchCommunity": "Nach Name, Sprache oder Interessen suchen...",
+  "bio": "Bio",
+  "noBioYet": "Noch keine Bio verfügbar.",
+  "languages": "Sprachen",
+  "native": "Muttersprache",
+  "interests": "Interessen",
+  "noMomentsYet": "Noch keine Momente",
+  "unableToLoadMoments": "Momente können nicht geladen werden",
+  "map": "Karte",
+  "mapUnavailable": "Karte nicht verfügbar",
+  "location": "Standort",
+  "unknownLocation": "Unbekannter Standort",
+  "noImagesAvailable2": "Keine Bilder verfügbar",
+  "permissionsRequired": "Berechtigungen erforderlich",
+  "openSettings": "Einstellungen öffnen",
+  "refresh": "Aktualisieren",
+  "videoCall": "Video",
+  "voiceCall": "Anruf",
+  "message": "Nachricht",
+  "pleaseLoginToFollow": "Bitte melden Sie sich an, um Benutzern zu folgen",
+  "pleaseLoginToCall": "Bitte melden Sie sich an, um anzurufen",
+  "cannotCallYourself": "Sie können sich nicht selbst anrufen",
+  "failedToFollowUser": "Folgen fehlgeschlagen",
+  "failedToUnfollowUser": "Entfolgen fehlgeschlagen",
+  "areYouSureUnfollow": "Möchten Sie diesem Benutzer wirklich entfolgen?",
+  "areYouSureUnblock": "Möchten Sie diesen Benutzer wirklich entsperren?",
+  "youFollowed": "Sie folgen jetzt",
+  "youUnfollowed": "Sie folgen nicht mehr",
+  "alreadyFollowing": "Sie folgen bereits",
+  "soon": "Bald",
+  "comingSoon": "{feature} kommt bald!",
+  "@comingSoon": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
+  "muteNotifications": "Benachrichtigungen stummschalten",
+  "unmuteNotifications": "Benachrichtigungen aktivieren",
+  "operationCompleted": "Vorgang abgeschlossen",
+  "couldNotOpenMaps": "Karten konnten nicht geöffnet werden",
+  "hasntSharedMoments": "{name} hat keine Momente geteilt",
+  "messageUser": "Nachricht an {name}",
+  "@messageUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notFollowingUser": "Sie folgten {name} nicht",
+  "@notFollowingUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youFollowedUser": "Sie folgen jetzt {name}",
+  "@youFollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youUnfollowedUser": "Sie folgen {name} nicht mehr",
+  "@youUnfollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "unfollowUser": "{name} entfolgen",
+  "@unfollowUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typing": "schreibt",
+  "connecting": "Verbinden...",
+  "daysAgo": "vor {count}T",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "maxTagsAllowed": "Maximal 5 Tags erlaubt",
+  "maxImagesAllowed": "Maximal {count} Bilder erlaubt",
+  "@maxImagesAllowed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseRemoveImagesFirst": "Bitte entfernen Sie zuerst Bilder, um ein Video hinzuzufügen",
+  "exchange3MessagesBeforeCall": "Sie müssen mindestens 3 Nachrichten austauschen, bevor Sie diesen Benutzer anrufen können",
+  "mediaWithUser": "Medien mit {name}",
+  "@mediaWithUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorLoadingMedia": "Fehler beim Laden der Medien",
+  "savedMomentsTitle": "Gespeicherte Momente",
+  "removeBookmark": "Lesezeichen entfernen?",
+  "thisWillRemoveBookmark": "Dadurch wird die Nachricht aus Ihren Lesezeichen entfernt.",
+  "remove": "Entfernen",
+  "bookmarkRemoved": "Lesezeichen entfernt",
+  "bookmarkedMessages": "Mit Lesezeichen versehene Nachrichten",
+  "wallpaperSaved": "Hintergrundbild lokal gespeichert",
+  "storyArchive": "Story-Archiv",
+  "newHighlight": "Neues Highlight",
+  "addToHighlight": "Zu Highlight hinzufügen",
+  "repost": "Reposten",
+  "repostFeatureSoon": "Repost-Funktion kommt bald",
+  "closeFriends": "Enge Freunde",
+  "addFriends": "Freunde hinzufügen",
+  "highlights": "Highlights",
+  "createHighlight": "Highlight erstellen",
+  "deleteHighlight": "Highlight löschen?",
+  "editHighlight": "Highlight bearbeiten",
+  "addMoreToStory": "Mehr zur Story hinzufügen",
+  "noViewersYet": "Noch keine Zuschauer",
+  "noReactionsYet": "Noch keine Reaktionen",
+  "leaveRoom": "Raum verlassen?",
+  "areYouSureLeaveRoom": "Möchten Sie diesen Sprachraum wirklich verlassen?",
+  "stay": "Bleiben",
+  "leave": "Verlassen",
+  "enableGPS": "GPS aktivieren",
+  "wavedToUser": "Sie haben {name} zugewinkt!",
+  "@wavedToUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "areYouSureFollow": "Möchten Sie wirklich folgen",
+  "failedToLoadProfile": "Profil konnte nicht geladen werden",
+  "noFollowersYet": "Noch keine Follower",
+  "noFollowingYet": "Folgt noch niemandem",
+  "searchUsers": "Benutzer suchen...",
+  "noResultsFound": "Keine Ergebnisse gefunden",
+  "loadingFailed": "Laden fehlgeschlagen",
+  "copyLink": "Link kopieren",
+  "shareStory": "Story teilen",
+  "thisWillDeleteStory": "Dadurch wird diese Story dauerhaft gelöscht.",
+  "storyDeleted": "Story gelöscht",
+  "addCaption": "Bildunterschrift hinzufügen...",
+  "yourStory": "Ihre Story",
+  "sendMessage": "Nachricht senden",
+  "replyToStory": "Auf Story antworten...",
+  "viewAllReplies": "Alle Antworten anzeigen",
+  "preparingVideo": "Video wird vorbereitet...",
+  "videoOptimized": "Video optimiert: {size}MB (gespart {savings}%)",
+  "@videoOptimized": {
+    "placeholders": {
+      "size": {"type": "String"},
+      "savings": {"type": "String"}
+    }
+  },
+  "failedToProcessVideo": "Video konnte nicht verarbeitet werden",
+  "optimizingForBestExperience": "Optimierung für das beste Story-Erlebnis",
+  "pleaseSelectImageOrVideo": "Bitte wählen Sie ein Bild oder Video für Ihre Story",
+  "storyCreatedSuccessfully": "Story erfolgreich erstellt!",
+  "uploadingStoryInBackground": "Story wird im Hintergrund hochgeladen...",
+  "storyCreationFailed": "Story-Erstellung fehlgeschlagen",
+  "pleaseCheckConnection": "Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  "uploadFailed": "Upload fehlgeschlagen",
+  "tryShorterVideo": "Versuchen Sie ein kürzeres Video oder versuchen Sie es später erneut.",
+  "shareMomentsThatDisappear": "Teilen Sie Momente, die in 24 Stunden verschwinden",
+  "photo": "Foto",
+  "record": "Aufnehmen",
+  "addSticker": "Sticker hinzufügen",
+  "poll": "Umfrage",
+  "question": "Frage",
+  "mention": "Erwähnung",
+  "music": "Musik",
+  "hashtag": "Hashtag",
+  "whoCanSeeThis": "Wer kann das sehen?",
+  "everyone": "Jeder",
+  "anyoneCanSeeStory": "Jeder kann diese Story sehen",
+  "friendsOnly": "Nur Freunde",
+  "onlyFollowersCanSee": "Nur Ihre Follower können sehen",
+  "onlyCloseFriendsCanSee": "Nur Ihre engen Freunde können sehen",
+  "backgroundColor": "Hintergrundfarbe",
+  "fontStyle": "Schriftstil",
+  "normal": "Normal",
+  "bold": "Fett",
+  "italic": "Kursiv",
+  "handwriting": "Handschrift",
+  "addLocation": "Standort hinzufügen",
+  "enterLocationName": "Standortname eingeben",
+  "addLink": "Link hinzufügen",
+  "buttonText": "Schaltflächentext",
+  "learnMore": "Mehr erfahren",
+  "addHashtags": "Hashtags hinzufügen",
+  "addHashtag": "Hashtag hinzufügen",
+  "sendAsMessage": "Als Nachricht senden",
+  "shareExternally": "Extern teilen",
+  "checkOutStory": "Schau dir diese Story auf BananaTalk an!",
+  "viewsTab": "Aufrufe ({count})",
+  "@viewsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "reactionsTab": "Reaktionen ({count})",
+  "@reactionsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "processingVideo": "Video wird verarbeitet...",
+  "link": "Link",
+  "unmuteUser": "{name} Stummschaltung aufheben?",
+  "@unmuteUser": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "willReceiveNotifications": "Sie erhalten Benachrichtigungen für neue Nachrichten.",
+  "muteNotificationsFor": "Benachrichtigungen für {name} stummschalten",
+  "@muteNotificationsFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsUnmutedFor": "Benachrichtigungen für {name} aktiviert",
+  "@notificationsUnmutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsMutedFor": "Benachrichtigungen für {name} stummgeschaltet",
+  "@notificationsMutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "failedToUpdateMuteSettings": "Stummschaltungseinstellungen konnten nicht aktualisiert werden",
+  "oneHour": "1 Stunde",
+  "eightHours": "8 Stunden",
+  "oneWeek": "1 Woche",
+  "always": "Immer",
+  "failedToLoadBookmarks": "Lesezeichen konnten nicht geladen werden",
+  "noBookmarkedMessages": "Keine Nachrichten mit Lesezeichen",
+  "longPressToBookmark": "Lange auf eine Nachricht drücken, um ein Lesezeichen zu setzen",
+  "thisWillRemoveFromBookmarks": "Dadurch wird die Nachricht aus Ihren Lesezeichen entfernt.",
+  "navigateToMessage": "Zur Nachricht im Chat mit {name} navigieren",
+  "@navigateToMessage": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "bookmarkedOn": "Lesezeichen gesetzt am {date}",
+  "@bookmarkedOn": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "voiceMessage": "Sprachnachricht",
+  "document": "Dokument",
+  "attachment": "Anhang",
+  "sendMeAMessage": "Schreib mir eine Nachricht",
+  "shareWithFriends": "Mit Freunden teilen",
+  "shareAnywhere": "Überall teilen",
+  "emailPreferences": "E-Mail-Einstellungen",
+  "receiveEmailNotifications": "E-Mail-Benachrichtigungen von BananaTalk erhalten",
+  "whenAwayFor24Hours": "Wenn Sie 24+ Stunden abwesend sind",
+  "passwordAndLoginAlerts": "Passwort- und Anmeldewarnungen",
+  "failedToLoadPreferences": "Einstellungen konnten nicht geladen werden",
+  "failedToUpdateSetting": "Einstellung konnte nicht aktualisiert werden",
+  "securityAlertsRecommended": "Wir empfehlen, Sicherheitswarnungen aktiviert zu lassen, um über wichtige Kontoaktivitäten informiert zu bleiben.",
+  "chatWallpaperFor": "Chat-Hintergrundbild für {name}",
+  "@chatWallpaperFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "solidColors": "Einfarbig",
+  "gradients": "Farbverläufe",
+  "customImage": "Benutzerdefiniertes Bild",
+  "chooseFromGallery": "Aus Galerie auswählen",
+  "preview": "Vorschau",
+  "wallpaperUpdated": "Hintergrundbild aktualisiert",
+  "category": "Kategorie",
+  "mood": "Stimmung",
+  "sortBy": "Sortieren nach",
+  "timePeriod": "Zeitraum",
+  "searchLanguages": "Sprachen suchen...",
+  "selected": "Ausgewählt",
+  "categories": "Kategorien",
+  "moods": "Stimmungen",
+  "applyFilters": "Filter anwenden",
+  "applyNFilters": "{count} Filter anwenden",
+  "@applyNFilters": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "failedToRecordVideo": "Video konnte nicht aufgenommen werden",
+  "errorSendingVideo": "Fehler beim Senden des Videos",
+  "errorSendingVoiceMessage": "Fehler beim Senden der Sprachnachricht",
+  "errorSendingMedia": "Fehler beim Senden der Medien",
+  "cameraPermissionRequired": "Kamera- und Mikrofonberechtigungen sind für Videoaufnahmen erforderlich.",
+  "locationPermissionRequired": "Standortberechtigung ist erforderlich, um Ihren Standort zu teilen.",
+  "noInternetConnection": "Keine Internetverbindung",
+  "tryAgainLater": "Bitte versuchen Sie es später erneut",
+  "messageSent": "Nachricht gesendet",
+  "messageDeleted": "Nachricht gelöscht",
+  "messageEdited": "Nachricht bearbeitet",
+  "videoMustBeUnder1GB": "Video muss unter 1GB sein."
+}

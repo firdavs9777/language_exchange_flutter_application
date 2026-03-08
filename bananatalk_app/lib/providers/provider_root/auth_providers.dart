@@ -476,7 +476,13 @@ class AuthService extends ChangeNotifier {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/apple/mobile');
 
-      debugPrint('🔍 Sending Apple identity token to: $url');
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('🍎 AUTH SERVICE: signInWithAppleNative');
+      debugPrint('   URL: $url');
+      debugPrint('   Identity Token length: ${identityToken.length}');
+      debugPrint('   Identity Token preview: ${identityToken.substring(0, 50)}...');
+      debugPrint('   Apple User data: $appleUser');
+      debugPrint('   Sending POST request...');
 
       final response = await http.post(
         url,
@@ -484,8 +490,9 @@ class AuthService extends ChangeNotifier {
         body: jsonEncode({'identityToken': identityToken, 'user': appleUser}),
       );
 
-      debugPrint('📡 Response status: ${response.statusCode}');
-      debugPrint('📡 Response body: ${response.body}');
+      debugPrint('📡 APPLE BACKEND RESPONSE:');
+      debugPrint('   Status Code: ${response.statusCode}');
+      debugPrint('   Body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -511,24 +518,13 @@ class AuthService extends ChangeNotifier {
             }
             await prefs.setString('userId', responseUserId);
 
-            // Re-enable socket reconnection for new login
-            final socketService = SocketService();
-            socketService.enableReconnection();
-            debugPrint('✅ Socket reconnection enabled for Apple login');
-
-            // Connect chat socket service
-            try {
-              final chatSocketService = ChatSocketService();
-              chatSocketService.enableReconnection();
-              await chatSocketService.connect();
-              debugPrint('✅ Chat socket connected after Apple login');
-            } catch (e) {
-              debugPrint('⚠️ Error connecting chat socket: $e');
-            }
+            // NOTE: Don't connect socket here - wait until profile is complete
+            // Socket will be connected in apple_login.dart or register_second.dart
+            // after verifying profileCompleted status
+            debugPrint('✅ Apple login successful - userId: $responseUserId');
+            debugPrint('⏳ Socket connection deferred until profile completion check');
 
             notifyListeners();
-
-            debugPrint('✅ Apple login successful - userId: $responseUserId');
 
             return {
               'success': true,
@@ -560,8 +556,13 @@ class AuthService extends ChangeNotifier {
               'Server error: ${response.statusCode}',
         };
       }
-    } catch (e) {
-      debugPrint('❌ Apple Sign-In Error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('❌ AUTH SERVICE: Apple Sign-In Error');
+      debugPrint('   Error: $e');
+      debugPrint('   Type: ${e.runtimeType}');
+      debugPrint('   Stack trace: $stackTrace');
+      debugPrint('═══════════════════════════════════════════════════════════');
       return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
@@ -619,7 +620,12 @@ class AuthService extends ChangeNotifier {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/google/mobile');
 
-      debugPrint('🔍 Sending Google ID token to: $url');
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('🌐 AUTH SERVICE: signInWithGoogleNative');
+      debugPrint('   URL: $url');
+      debugPrint('   ID Token length: ${idToken.length}');
+      debugPrint('   ID Token preview: ${idToken.substring(0, 50)}...');
+      debugPrint('   Sending POST request...');
 
       final response = await http.post(
         url,
@@ -627,8 +633,10 @@ class AuthService extends ChangeNotifier {
         body: jsonEncode({'idToken': idToken}),
       );
 
-      debugPrint('📡 Response status: ${response.statusCode}');
-      debugPrint('📡 Response body: ${response.body}');
+      debugPrint('📡 BACKEND RESPONSE:');
+      debugPrint('   Status Code: ${response.statusCode}');
+      debugPrint('   Headers: ${response.headers}');
+      debugPrint('   Body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -654,24 +662,13 @@ class AuthService extends ChangeNotifier {
             }
             await prefs.setString('userId', responseUserId);
 
-            // Re-enable socket reconnection for new login
-            final socketService = SocketService();
-            socketService.enableReconnection();
-            debugPrint('✅ Socket reconnection enabled for Google login');
-
-            // Connect chat socket service
-            try {
-              final chatSocketService = ChatSocketService();
-              chatSocketService.enableReconnection();
-              await chatSocketService.connect();
-              debugPrint('✅ Chat socket connected after Google login');
-            } catch (e) {
-              debugPrint('⚠️ Error connecting chat socket: $e');
-            }
+            // NOTE: Don't connect socket here - wait until profile is complete
+            // Socket will be connected in google_login.dart or register_second.dart
+            // after verifying profileCompleted status
+            debugPrint('✅ Google login successful - userId: $responseUserId');
+            debugPrint('⏳ Socket connection deferred until profile completion check');
 
             notifyListeners();
-
-            debugPrint('✅ Google login successful - userId: $responseUserId');
 
             return {
               'success': true,
@@ -704,8 +701,13 @@ class AuthService extends ChangeNotifier {
               'Server error: ${response.statusCode}',
         };
       }
-    } catch (e) {
-      debugPrint('❌ Native Google Sign-In Error: $e');
+    } catch (e, stackTrace) {
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('❌ AUTH SERVICE: Google Sign-In Error');
+      debugPrint('   Error: $e');
+      debugPrint('   Type: ${e.runtimeType}');
+      debugPrint('   Stack trace: $stackTrace');
+      debugPrint('═══════════════════════════════════════════════════════════');
       return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }

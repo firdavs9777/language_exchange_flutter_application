@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -29,7 +30,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
   String? _customImagePath;
   bool _isLoading = false;
 
-  // Preset color themes
+  // Preset color themes - Modern minimal colors
   final List<Map<String, dynamic>> _presets = [
     {
       'name': 'default',
@@ -40,68 +41,156 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
     {
       'name': 'dark',
       'label': 'Dark',
-      'backgroundColor': const Color(0xFF1A1A2E),
+      'backgroundColor': const Color(0xFF0D0D0D),
       'icon': Icons.dark_mode,
     },
     {
-      'name': 'light',
-      'label': 'Light',
-      'backgroundColor': const Color(0xFFFFFFFF),
-      'icon': Icons.light_mode,
+      'name': 'midnight',
+      'label': 'Midnight',
+      'backgroundColor': const Color(0xFF1A1A2E),
+      'icon': Icons.nights_stay,
     },
     {
-      'name': 'blue',
-      'label': 'Ocean Blue',
+      'name': 'charcoal',
+      'label': 'Charcoal',
+      'backgroundColor': const Color(0xFF2D2D2D),
+      'icon': Icons.circle,
+    },
+    {
+      'name': 'navy',
+      'label': 'Navy',
+      'backgroundColor': const Color(0xFF0A1628),
+      'icon': Icons.anchor,
+    },
+    {
+      'name': 'ocean',
+      'label': 'Ocean',
       'backgroundColor': const Color(0xFF1E3A5F),
       'icon': Icons.water,
     },
     {
-      'name': 'pink',
-      'label': 'Rose Pink',
-      'backgroundColor': const Color(0xFFE8B4BC),
-      'icon': Icons.favorite,
+      'name': 'teal',
+      'label': 'Teal',
+      'backgroundColor': const Color(0xFF115E59),
+      'icon': Icons.spa,
     },
     {
-      'name': 'green',
-      'label': 'Forest Green',
-      'backgroundColor': const Color(0xFF2D5A27),
+      'name': 'forest',
+      'label': 'Forest',
+      'backgroundColor': const Color(0xFF1B4332),
       'icon': Icons.park,
     },
     {
-      'name': 'purple',
-      'label': 'Lavender',
-      'backgroundColor': const Color(0xFF6B5B95),
+      'name': 'sage',
+      'label': 'Sage',
+      'backgroundColor': const Color(0xFF4A5D4A),
+      'icon': Icons.eco,
+    },
+    {
+      'name': 'wine',
+      'label': 'Wine',
+      'backgroundColor': const Color(0xFF4A1942),
+      'icon': Icons.wine_bar,
+    },
+    {
+      'name': 'plum',
+      'label': 'Plum',
+      'backgroundColor': const Color(0xFF5B2C6F),
       'icon': Icons.auto_awesome,
     },
     {
-      'name': 'sunset',
-      'label': 'Sunset',
-      'backgroundColor': const Color(0xFFFF6B6B),
-      'icon': Icons.wb_twilight,
+      'name': 'rose',
+      'label': 'Rose',
+      'backgroundColor': const Color(0xFF8B3A62),
+      'icon': Icons.favorite,
+    },
+    {
+      'name': 'blush',
+      'label': 'Blush',
+      'backgroundColor': const Color(0xFFE8B4BC),
+      'icon': Icons.favorite_border,
+    },
+    {
+      'name': 'peach',
+      'label': 'Peach',
+      'backgroundColor': const Color(0xFFE6A67C),
+      'icon': Icons.wb_sunny,
+    },
+    {
+      'name': 'cream',
+      'label': 'Cream',
+      'backgroundColor': const Color(0xFFF5E6D3),
+      'icon': Icons.light_mode,
+    },
+    {
+      'name': 'mocha',
+      'label': 'Mocha',
+      'backgroundColor': const Color(0xFF4A3728),
+      'icon': Icons.coffee,
     },
   ];
 
-  // Gradient backgrounds
+  // Gradient backgrounds - Modern gradients
   final List<Map<String, dynamic>> _gradients = [
     {
-      'name': 'gradient_blue',
-      'label': 'Blue Sky',
-      'colors': [const Color(0xFF4158D0), const Color(0xFFC850C0), const Color(0xFFFFCC70)],
+      'name': 'gradient_sunset',
+      'label': 'Sunset',
+      'colors': [const Color(0xFFFF512F), const Color(0xFFDD2476)],
     },
     {
-      'name': 'gradient_green',
+      'name': 'gradient_ocean',
+      'label': 'Ocean',
+      'colors': [const Color(0xFF2193B0), const Color(0xFF6DD5ED)],
+    },
+    {
+      'name': 'gradient_aurora',
       'label': 'Aurora',
       'colors': [const Color(0xFF0F2027), const Color(0xFF203A43), const Color(0xFF2C5364)],
     },
     {
-      'name': 'gradient_pink',
+      'name': 'gradient_purple',
+      'label': 'Cosmic',
+      'colors': [const Color(0xFF667EEA), const Color(0xFF764BA2)],
+    },
+    {
+      'name': 'gradient_midnight',
+      'label': 'Midnight',
+      'colors': [const Color(0xFF232526), const Color(0xFF414345)],
+    },
+    {
+      'name': 'gradient_forest',
+      'label': 'Forest',
+      'colors': [const Color(0xFF134E5E), const Color(0xFF71B280)],
+    },
+    {
+      'name': 'gradient_rose',
+      'label': 'Rose Gold',
+      'colors': [const Color(0xFFB76E79), const Color(0xFFE8B4B8)],
+    },
+    {
+      'name': 'gradient_candy',
       'label': 'Candy',
       'colors': [const Color(0xFFFF9A9E), const Color(0xFFFECFEF)],
     },
     {
-      'name': 'gradient_purple',
-      'label': 'Galaxy',
-      'colors': [const Color(0xFF667EEA), const Color(0xFF764BA2)],
+      'name': 'gradient_neon',
+      'label': 'Neon',
+      'colors': [const Color(0xFF00F260), const Color(0xFF0575E6)],
+    },
+    {
+      'name': 'gradient_fire',
+      'label': 'Fire',
+      'colors': [const Color(0xFFF12711), const Color(0xFFF5AF19)],
+    },
+    {
+      'name': 'gradient_winter',
+      'label': 'Winter',
+      'colors': [const Color(0xFFE6DADA), const Color(0xFF274046)],
+    },
+    {
+      'name': 'gradient_lavender',
+      'label': 'Lavender',
+      'colors': [const Color(0xFFEE9CA7), const Color(0xFFFFDDE1)],
     },
   ];
 
@@ -112,9 +201,28 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
   }
 
   Future<void> _loadCurrentTheme() async {
+    // First try to load from backend
+    try {
+      final result = await _conversationService.getConversationTheme(
+        conversationId: widget.conversationId,
+      );
+
+      if (result['success'] == true && result['data'] != null) {
+        final themeData = result['data'];
+        final preset = themeData['preset'] as String?;
+        if (preset != null && mounted) {
+          setState(() => _selectedPreset = preset);
+          return;
+        }
+      }
+    } catch (e) {
+      debugPrint('Error loading theme from backend: $e');
+    }
+
+    // Fallback to local storage
     final prefs = await SharedPreferences.getInstance();
     final theme = prefs.getString('chat_theme_${widget.conversationId}');
-    if (theme != null) {
+    if (theme != null && mounted) {
       setState(() => _selectedPreset = theme);
     }
   }
@@ -189,10 +297,12 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
       }
 
       // Try to save to server
+      debugPrint('🎨 Saving theme to server: conversationId=${widget.conversationId}, theme=$theme');
       final result = await _conversationService.setConversationTheme(
         conversationId: widget.conversationId,
         theme: theme,
       );
+      debugPrint('🎨 Server response: $result');
 
       // Also save locally for offline access
       await _saveThemeLocally(_selectedPreset!);

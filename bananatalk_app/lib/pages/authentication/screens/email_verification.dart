@@ -208,23 +208,33 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             const SizedBox(height: 40),
             // 6-digit code input
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(6, (index) {
-                return SizedBox(
-                  width: 50,
-                  height: 60,
+                return Container(
+                  width: 45,
+                  height: 55,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
                   child: TextField(
                     controller: _controllers[index],
                     focusNode: _focusNodes[index],
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: context.textPrimary,
+                    ),
                     decoration: InputDecoration(
                       counterText: '',
                       filled: true,
                       fillColor: context.containerColor,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 12),
                       border: OutlineInputBorder(
+                        borderRadius: AppRadius.borderMD,
+                        borderSide: BorderSide(color: context.dividerColor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: AppRadius.borderMD,
                         borderSide: BorderSide(color: context.dividerColor),
                       ),

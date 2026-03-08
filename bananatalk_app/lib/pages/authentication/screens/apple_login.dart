@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dar
 import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
@@ -29,6 +30,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
     });
 
     try {
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('🍎 STEP 1: Starting Apple Sign-In');
+      debugPrint('   Requesting credentials with email and fullName scopes...');
+
       // Request Apple Sign-In credentials
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
@@ -37,9 +42,18 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         ],
       );
 
+      debugPrint('✅ STEP 1 SUCCESS: Got Apple credentials');
+      debugPrint('   User Identifier: ${credential.userIdentifier}');
+      debugPrint('   Email: ${credential.email ?? 'null (hidden or repeat login)'}');
+      debugPrint('   Given Name: ${credential.givenName ?? 'null'}');
+      debugPrint('   Family Name: ${credential.familyName ?? 'null'}');
+
       final String? identityToken = credential.identityToken;
+      debugPrint('🎫 STEP 2: Checking identity token');
+      debugPrint('   Identity Token: ${identityToken != null ? '${identityToken.substring(0, 50)}...' : 'NULL'}');
 
       if (identityToken == null) {
+        debugPrint('❌ STEP 2 FAILED: Identity Token is NULL!');
         setState(() {
           _errorMessage = 'Failed to get identity token from Apple';
           _isLoading = false;
@@ -56,11 +70,21 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         'email': credential.email,
       };
 
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('🌐 STEP 3: Sending identity token to backend...');
+      debugPrint('   Token length: ${identityToken.length} chars');
+
       // Send to backend for verification
       final result = await ref.read(authServiceProvider).signInWithAppleNative(
             identityToken,
             appleUser,
           );
+
+      debugPrint('📡 STEP 3 RESPONSE:');
+      debugPrint('   Success: ${result['success']}');
+      debugPrint('   Message: ${result['message']}');
+      debugPrint('   Has Token: ${result['token'] != null}');
+      debugPrint('   Has User: ${result['user'] != null}');
 
       if (result['success'] == true) {
         // Get user data from response
@@ -72,14 +96,38 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         debugPrint('🔍 Apple login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
 
         // Check profileCompleted flag from backend
-        // Only redirect to profile completion if explicitly set to false
-        final bool profileCompleted = user?['profileCompleted'] ?? true;
+        // IMPORTANT: Default to FALSE for safety - new users must complete profile
+        final bool profileCompleted = user?['profileCompleted'] == true;
 
-        // User needs to complete profile only if backend says so
-        final bool needsProfileCompletion = !profileCompleted;
+        // Also check if essential fields are filled (extra safety check)
+        final gender = user?['gender']?.toString() ?? '';
+        final bio = user?['bio']?.toString() ?? '';
+        final birthYear = user?['birth_year']?.toString() ?? '';
+        final images = user?['images'] as List? ?? [];
 
-        debugPrint(
-            '🔍 Profile check: profileCompleted=$profileCompleted, needsCompletion=$needsProfileCompletion');
+        final bool hasEssentialFields =
+            gender.isNotEmpty &&
+            bio.isNotEmpty &&
+            birthYear.isNotEmpty &&
+            images.length >= 2;
+
+        // User needs to complete profile if either flag is false OR essential fields missing
+        final bool needsProfileCompletion = !profileCompleted || !hasEssentialFields;
+
+        debugPrint('═══════════════════════════════════════');
+        debugPrint('🔍 PROFILE COMPLETION CHECK:');
+        debugPrint('   profileCompleted flag: $profileCompleted');
+        debugPrint('   hasEssentialFields: $hasEssentialFields');
+        debugPrint('   needsCompletion: $needsProfileCompletion');
+        debugPrint('───────────────────────────────────────');
+        debugPrint('📝 User Profile Data:');
+        debugPrint('   name: ${user?['name']}');
+        debugPrint('   email: ${user?['email']}');
+        debugPrint('   gender: ${user?['gender']}');
+        debugPrint('   bio: ${user?['bio']}');
+        debugPrint('   birth_year: ${user?['birth_year']}');
+        debugPrint('   images count: ${(user?['images'] as List?)?.length ?? 0}');
+        debugPrint('═══════════════════════════════════════');
 
         setState(() {
           _isLoading = false;
@@ -87,6 +135,17 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
         if (mounted) {
           if (needsProfileCompletion) {
+            // Get values from backend - use empty strings to force user input
+            final birthYear = user?['birth_year']?.toString() ?? '';
+            final birthMonth = user?['birth_month']?.toString() ?? '';
+            final birthDay = user?['birth_day']?.toString() ?? '';
+
+            // Only use birthdate if all parts are present and valid
+            String birthDate = '';
+            if (birthYear.isNotEmpty && birthMonth.isNotEmpty && birthDay.isNotEmpty) {
+              birthDate = '$birthYear.${birthMonth.padLeft(2, '0')}.${birthDay.padLeft(2, '0')}';
+            }
+
             // Profile not completed - redirect to RegisterTwo
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
@@ -94,12 +153,11 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                   name: user?['name'] ?? '',
                   email: user?['email'] ?? '',
                   password: '', // OAuth users don't have password
-                  bio: user?['bio'] ?? 'Hello! I joined using Apple. 🍎',
-                  gender: user?['gender'] ?? 'other',
+                  bio: user?['bio'] ?? '', // Empty - user must write bio
+                  gender: user?['gender'] ?? '', // Empty - user must select
                   nativeLanguage: '', // Force empty so user must select
                   languageToLearn: '', // Force empty so user must select
-                  birthDate:
-                      '${user?['birth_year'] ?? '2000'}.${user?['birth_month'] ?? '01'}.${user?['birth_day'] ?? '01'}',
+                  birthDate: birthDate, // Empty if not set - user must select
                 ),
               ),
             );
@@ -163,6 +221,17 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
             if (!mounted) return;
 
+            // NOW connect socket - profile is complete and terms accepted
+            try {
+              debugPrint('🔌 Connecting socket (profile complete)...');
+              final chatSocketService = ChatSocketService();
+              chatSocketService.enableReconnection();
+              await chatSocketService.connect();
+              debugPrint('✅ Chat socket connected after Apple login');
+            } catch (e) {
+              debugPrint('⚠️ Error connecting chat socket: $e');
+            }
+
             // Register FCM token for push notifications
             try {
               final notificationService = NotificationService();
@@ -174,6 +243,9 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
             } catch (e) {
               debugPrint('⚠️ Error registering FCM token after Apple login: $e');
             }
+
+            // Invalidate userProvider to force fresh fetch
+            ref.invalidate(userProvider);
 
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
@@ -202,9 +274,31 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
           _isLoading = false;
         });
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      debugPrint('═══════════════════════════════════════════════════════════');
+      debugPrint('❌ APPLE SIGN-IN ERROR:');
+      debugPrint('   Error: $e');
+      debugPrint('   Type: ${e.runtimeType}');
+      debugPrint('   Stack trace:');
+      debugPrint('$stackTrace');
+      debugPrint('═══════════════════════════════════════════════════════════');
+
+      String userFriendlyMessage = 'Apple sign-in error';
+
+      // Parse common errors
+      final errorString = e.toString().toLowerCase();
+      if (errorString.contains('canceled') || errorString.contains('cancelled')) {
+        userFriendlyMessage = 'Sign-in was cancelled.';
+      } else if (errorString.contains('network')) {
+        userFriendlyMessage = 'Network error. Please check your internet connection.';
+      } else if (errorString.contains('credential')) {
+        userFriendlyMessage = 'Failed to get Apple credentials. Please try again.';
+      } else if (errorString.contains('authorization')) {
+        userFriendlyMessage = 'Authorization failed. Please try again.';
+      }
+
       setState(() {
-        _errorMessage = 'Apple sign-in error: ${e.toString()}';
+        _errorMessage = '$userFriendlyMessage\n\nDetails: ${e.toString()}';
         _isLoading = false;
       });
     }

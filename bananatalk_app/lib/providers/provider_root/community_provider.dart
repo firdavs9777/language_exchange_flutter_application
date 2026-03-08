@@ -29,18 +29,66 @@ class CommunityService {
     return result.users;
   }
 
-  /// Get community members with pagination
+  /// Get community members with pagination and server-side filtering
   Future<PaginatedCommunityResponse> getCommunityPaginated({
     int page = 1,
     int limit = 20,
+    String? nativeLanguage,
+    String? learningLanguage,
+    bool matchLanguage = false,
+    String? gender,
+    int? minAge,
+    int? maxAge,
+    bool? onlineOnly,
+    String? country,
+    String? languageLevel,
+    String? search, // Server-side search
   }) async {
     try {
       final headers = await _getHeaders();
-      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}')
-          .replace(queryParameters: {
+      final queryParams = <String, String>{
         'page': page.toString(),
         'limit': limit.toString(),
-      });
+      };
+
+      // Add filter parameters
+      if (matchLanguage && (nativeLanguage != null || learningLanguage != null)) {
+        queryParams['matchLanguage'] = 'true';
+        if (nativeLanguage != null && nativeLanguage.isNotEmpty) {
+          queryParams['nativeLanguage'] = nativeLanguage;
+        }
+        if (learningLanguage != null && learningLanguage.isNotEmpty) {
+          queryParams['learningLanguage'] = learningLanguage;
+        }
+      }
+      if (gender != null && gender.isNotEmpty) {
+        queryParams['gender'] = gender;
+      }
+      if (minAge != null && minAge > 18) {
+        queryParams['minAge'] = minAge.toString();
+      }
+      if (maxAge != null && maxAge < 100) {
+        queryParams['maxAge'] = maxAge.toString();
+      }
+      if (onlineOnly == true) {
+        queryParams['onlineOnly'] = 'true';
+      }
+      if (country != null && country.isNotEmpty) {
+        queryParams['country'] = country;
+      }
+      if (languageLevel != null && languageLevel.isNotEmpty) {
+        queryParams['languageLevel'] = languageLevel;
+      }
+      // Server-side search
+      if (search != null && search.trim().isNotEmpty) {
+        queryParams['search'] = search.trim();
+      }
+
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}')
+          .replace(queryParameters: queryParams);
+
+      debugPrint('🌐 API URL: $url');
+      debugPrint('🔧 Query params: $queryParams');
 
       final response = await http.get(url, headers: headers);
 
@@ -68,10 +116,18 @@ class CommunityService {
           final firstUser = dataList[0];
           debugPrint('🔍 First user data sample:');
           debugPrint('   id: ${firstUser['_id']}');
+          debugPrint('   name: ${firstUser['name']}');
           debugPrint('   images: ${firstUser['images']}');
-          debugPrint('   imageUrls: ${firstUser['imageUrls']}');
-          debugPrint('   followers: ${firstUser['followers']}');
-          debugPrint('   following: ${firstUser['following']}');
+          debugPrint('   native_language: ${firstUser['native_language']}');
+          debugPrint('   language_to_learn: ${firstUser['language_to_learn']}');
+          debugPrint('   topics: ${firstUser['topics']}');
+          debugPrint('   isOnline: ${firstUser['isOnline']}');
+
+          // Debug all users languages
+          debugPrint('📋 All users language summary:');
+          for (var user in dataList) {
+            debugPrint('   ${user['name']}: native=${user['native_language']}, learning=${user['language_to_learn']}, topics=${user['topics']}');
+          }
         }
 
         final users = dataList
@@ -744,6 +800,12 @@ final communityProvider = FutureProvider<List<Community>>((ref) async {
 
 final communityServiceProvider = Provider((ref) => CommunityService());
 
+/// Single user/community provider - fetches user details by ID
+final singleCommunityProvider = FutureProvider.family<Community?, String>((ref, userId) async {
+  final service = ref.read(communityServiceProvider);
+  return service.getSingleCommunity(id: userId);
+});
+
 /// Paginated community provider
 final paginatedCommunityProvider =
     StateNotifierProvider<PaginatedCommunityNotifier, PaginatedCommunityState>(
@@ -818,3 +880,358 @@ final wavesProvider = FutureProvider<List<Wave>>((ref) async {
   final service = ref.read(communityServiceProvider);
   return service.getWavesReceived();
 });
+
+// ==================== TOPIC USERS PAGINATED ====================
+
+/// State for paginated topic users
+class TopicUsersState {
+  final String? topicId;
+  final List<Community> users;
+  final int currentPage;
+  final int total;
+  final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasMore;
+  final String? error;
+
+  const TopicUsersState({
+    this.topicId,
+    this.users = const [],
+    this.currentPage = 0,
+    this.total = 0,
+    this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasMore = true,
+    this.error,
+  });
+
+  TopicUsersState copyWith({
+    String? topicId,
+    List<Community>? users,
+    int? currentPage,
+    int? total,
+    bool? isLoading,
+    bool? isLoadingMore,
+    bool? hasMore,
+    String? error,
+  }) {
+    return TopicUsersState(
+      topicId: topicId ?? this.topicId,
+      users: users ?? this.users,
+      currentPage: currentPage ?? this.currentPage,
+      total: total ?? this.total,
+      isLoading: isLoading ?? this.isLoading,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      error: error,
+    );
+  }
+}
+
+/// Notifier for paginated topic users
+class TopicUsersNotifier extends StateNotifier<TopicUsersState> {
+  final CommunityService _service;
+  static const int _pageSize = 20;
+
+  TopicUsersNotifier(this._service) : super(const TopicUsersState());
+
+  /// Load users for a topic
+  Future<void> loadTopic(String topicId) async {
+    if (state.isLoading) return;
+
+    // Reset if different topic
+    if (state.topicId != topicId) {
+      state = TopicUsersState(topicId: topicId, isLoading: true);
+    } else {
+      state = state.copyWith(isLoading: true, error: null);
+    }
+
+    try {
+      final users = await _service.getUsersByTopic(topicId, page: 1, limit: _pageSize);
+
+      state = state.copyWith(
+        users: users,
+        currentPage: 1,
+        hasMore: users.length >= _pageSize,
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  /// Load more users for current topic
+  Future<void> loadMore() async {
+    if (state.isLoadingMore || !state.hasMore || state.topicId == null) return;
+
+    state = state.copyWith(isLoadingMore: true);
+
+    try {
+      final nextPage = state.currentPage + 1;
+      final users = await _service.getUsersByTopic(
+        state.topicId!,
+        page: nextPage,
+        limit: _pageSize,
+      );
+
+      state = state.copyWith(
+        users: [...state.users, ...users],
+        currentPage: nextPage,
+        hasMore: users.length >= _pageSize,
+        isLoadingMore: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoadingMore: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  /// Clear current topic
+  void clear() {
+    state = const TopicUsersState();
+  }
+}
+
+/// Provider for paginated topic users
+final topicUsersProvider =
+    StateNotifierProvider<TopicUsersNotifier, TopicUsersState>(
+  (ref) {
+    final service = ref.read(communityServiceProvider);
+    return TopicUsersNotifier(service);
+  },
+);
+
+// ==================== PARTNER FILTER (SERVER-SIDE) ====================
+
+/// Filter parameters for partner discovery
+class PartnerFilterParams {
+  final String? nativeLanguage;
+  final String? learningLanguage;
+  final String? gender;
+  final int? minAge;
+  final int? maxAge;
+  final bool onlineOnly;
+  final String? country;
+  final String? languageLevel;
+  final String? search; // Server-side search query
+
+  const PartnerFilterParams({
+    this.nativeLanguage,
+    this.learningLanguage,
+    this.gender,
+    this.minAge,
+    this.maxAge,
+    this.onlineOnly = false,
+    this.country,
+    this.languageLevel,
+    this.search,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PartnerFilterParams &&
+          nativeLanguage == other.nativeLanguage &&
+          learningLanguage == other.learningLanguage &&
+          gender == other.gender &&
+          minAge == other.minAge &&
+          maxAge == other.maxAge &&
+          onlineOnly == other.onlineOnly &&
+          country == other.country &&
+          languageLevel == other.languageLevel &&
+          search == other.search;
+
+  @override
+  int get hashCode =>
+      nativeLanguage.hashCode ^
+      learningLanguage.hashCode ^
+      gender.hashCode ^
+      minAge.hashCode ^
+      maxAge.hashCode ^
+      onlineOnly.hashCode ^
+      country.hashCode ^
+      languageLevel.hashCode ^
+      search.hashCode;
+}
+
+/// State for server-side filtered partners
+class PartnerFilterState {
+  final PartnerFilterParams? filters;
+  final List<Community> users;
+  final int currentPage;
+  final int total;
+  final bool isLoading;
+  final bool isLoadingMore;
+  final bool hasMore;
+  final String? error;
+
+  const PartnerFilterState({
+    this.filters,
+    this.users = const [],
+    this.currentPage = 0,
+    this.total = 0,
+    this.isLoading = false,
+    this.isLoadingMore = false,
+    this.hasMore = true,
+    this.error,
+  });
+
+  PartnerFilterState copyWith({
+    PartnerFilterParams? filters,
+    List<Community>? users,
+    int? currentPage,
+    int? total,
+    bool? isLoading,
+    bool? isLoadingMore,
+    bool? hasMore,
+    String? error,
+  }) {
+    return PartnerFilterState(
+      filters: filters ?? this.filters,
+      users: users ?? this.users,
+      currentPage: currentPage ?? this.currentPage,
+      total: total ?? this.total,
+      isLoading: isLoading ?? this.isLoading,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      hasMore: hasMore ?? this.hasMore,
+      error: error,
+    );
+  }
+}
+
+/// Notifier for server-side filtered partners
+class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
+  final CommunityService _service;
+  static const int _pageSize = 20;
+
+  PartnerFilterNotifier(this._service) : super(const PartnerFilterState());
+
+  /// Load partners with filters (server-side)
+  Future<void> loadWithFilters(PartnerFilterParams filters) async {
+    if (state.isLoading) return;
+
+    debugPrint('🔍 PartnerFilter: Loading with server-side filters');
+    debugPrint('   nativeLanguage: ${filters.nativeLanguage}');
+    debugPrint('   learningLanguage: ${filters.learningLanguage}');
+    debugPrint('   gender: ${filters.gender} (VIP only)');
+    debugPrint('   minAge: ${filters.minAge}');
+    debugPrint('   maxAge: ${filters.maxAge}');
+    debugPrint('   country: ${filters.country} (VIP only)');
+    debugPrint('   onlineOnly: ${filters.onlineOnly}');
+    debugPrint('   languageLevel: ${filters.languageLevel}');
+    debugPrint('   search: ${filters.search}');
+
+    // Reset if different filters
+    if (state.filters != filters) {
+      state = PartnerFilterState(filters: filters, isLoading: true);
+    } else {
+      state = state.copyWith(isLoading: true, error: null);
+    }
+
+    try {
+      final response = await _service.getCommunityPaginated(
+        page: 1,
+        limit: _pageSize,
+        nativeLanguage: filters.nativeLanguage,
+        learningLanguage: filters.learningLanguage,
+        matchLanguage: true,
+        gender: filters.gender,
+        minAge: filters.minAge,
+        maxAge: filters.maxAge,
+        onlineOnly: filters.onlineOnly,
+        country: filters.country,
+        languageLevel: filters.languageLevel,
+        search: filters.search,
+      );
+
+      debugPrint('🔍 PartnerFilter: Loaded ${response.users.length} users (total: ${response.total})');
+
+      // If 0 results returned, set hasMore to false to prevent infinite loading
+      final hasMore = response.users.isNotEmpty && response.hasMore;
+
+      state = state.copyWith(
+        users: response.users,
+        currentPage: 1,
+        total: response.total,
+        hasMore: hasMore,
+        isLoading: false,
+      );
+    } catch (e) {
+      debugPrint('🔍 PartnerFilter ERROR: $e');
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  /// Load more partners with same filters
+  Future<void> loadMore() async {
+    if (state.isLoadingMore || !state.hasMore || state.filters == null) return;
+
+    state = state.copyWith(isLoadingMore: true);
+
+    try {
+      final nextPage = state.currentPage + 1;
+      final response = await _service.getCommunityPaginated(
+        page: nextPage,
+        limit: _pageSize,
+        nativeLanguage: state.filters!.nativeLanguage,
+        learningLanguage: state.filters!.learningLanguage,
+        matchLanguage: true,
+        gender: state.filters!.gender,
+        minAge: state.filters!.minAge,
+        maxAge: state.filters!.maxAge,
+        onlineOnly: state.filters!.onlineOnly,
+        country: state.filters!.country,
+        languageLevel: state.filters!.languageLevel,
+        search: state.filters!.search,
+      );
+
+      debugPrint('🔍 PartnerFilter: Loaded ${response.users.length} more users (page $nextPage)');
+
+      // If 0 results returned on load more, stop trying to load more
+      final hasMore = response.users.isNotEmpty && response.hasMore;
+
+      state = state.copyWith(
+        users: [...state.users, ...response.users],
+        currentPage: nextPage,
+        total: response.total,
+        hasMore: hasMore,
+        isLoadingMore: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoadingMore: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  /// Refresh with current filters
+  Future<void> refresh() async {
+    if (state.filters != null) {
+      state = state.copyWith(users: [], currentPage: 0, hasMore: true);
+      await loadWithFilters(state.filters!);
+    }
+  }
+
+  /// Clear state
+  void clear() {
+    state = const PartnerFilterState();
+  }
+}
+
+/// Provider for server-side filtered partners
+final partnerFilterProvider =
+    StateNotifierProvider<PartnerFilterNotifier, PartnerFilterState>(
+  (ref) {
+    final service = ref.read(communityServiceProvider);
+    return PartnerFilterNotifier(service);
+  },
+);

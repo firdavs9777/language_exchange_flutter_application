@@ -9,8 +9,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
-import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -657,19 +655,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   Widget _buildCountrySection() {
-    final userAsync = ref.watch(userProvider);
-    final isVip = userAsync.valueOrNull?.isVip ?? false;
-
-    return VipLockedFeature(
-      isVip: isVip,
-      featureName: 'Country Filter',
-      description: 'Filter partners by country. Upgrade to VIP to unlock this premium filter!',
-      borderRadius: BorderRadius.circular(12),
-      child: _buildSection(
-        title: 'Country',
-        icon: Icons.public,
-        child: _buildCountrySelector(),
-      ),
+    return _buildSection(
+      title: 'Country',
+      icon: Icons.public,
+      child: _buildCountrySelector(),
     );
   }
 
@@ -682,19 +671,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   Widget _buildGenderSection() {
-    final userAsync = ref.watch(userProvider);
-    final isVip = userAsync.valueOrNull?.isVip ?? false;
-
-    return VipLockedFeature(
-      isVip: isVip,
-      featureName: 'Gender Filter',
-      description: 'Filter partners by gender preference. Upgrade to VIP to unlock this premium filter!',
-      borderRadius: BorderRadius.circular(12),
-      child: _buildSection(
-        title: 'Gender Preference',
-        icon: Icons.person,
-        child: _buildGenderSelector(),
-      ),
+    return _buildSection(
+      title: 'Gender Preference',
+      icon: Icons.person,
+      child: _buildGenderSelector(),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_bar.dart';
@@ -19,8 +20,50 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
-final momentFilterProvider = StateProvider<MomentFilter>(
-  (ref) => const MomentFilter(),
+const String _momentFilterKey = 'moment_filter';
+
+/// Persisted moment filter provider - loads from SharedPreferences on init
+class MomentFilterNotifier extends StateNotifier<MomentFilter> {
+  MomentFilterNotifier() : super(const MomentFilter()) {
+    _loadSavedFilter();
+  }
+
+  Future<void> _loadSavedFilter() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedFilter = prefs.getString(_momentFilterKey);
+      if (savedFilter != null) {
+        final decoded = json.decode(savedFilter) as Map<String, dynamic>;
+        state = MomentFilter.fromJson(decoded);
+      }
+    } catch (e) {
+      debugPrint('Error loading saved moment filter: $e');
+    }
+  }
+
+  Future<void> _saveFilter() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_momentFilterKey, json.encode(state.toJson()));
+    } catch (e) {
+      debugPrint('Error saving moment filter: $e');
+    }
+  }
+
+  void setFilter(MomentFilter filter) {
+    state = filter;
+    _saveFilter();
+  }
+
+  void clearFilters() {
+    state = const MomentFilter();
+    _saveFilter();
+  }
+}
+
+final momentFilterProvider =
+    StateNotifierProvider<MomentFilterNotifier, MomentFilter>(
+  (ref) => MomentFilterNotifier(),
 );
 
 final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
@@ -164,7 +207,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             MomentFilterBar(
               currentFilter: currentFilter,
               onFilterChanged: (filter) =>
-                  ref.read(momentFilterProvider.notifier).state = filter,
+                  ref.read(momentFilterProvider.notifier).setFilter(filter),
             ),
           Expanded(
             child: RefreshIndicator(
@@ -387,8 +430,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 Spacing.gapLG,
                 ElevatedButton(
                   onPressed: () {
-                    ref.read(momentFilterProvider.notifier).state =
-                        const MomentFilter();
+                    ref.read(momentFilterProvider.notifier).clearFilters();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: context.primaryColor,

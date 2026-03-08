@@ -156,7 +156,6 @@ class ConversationService {
         return {
           'success': true,
           'message': data['message'] ?? 'Conversation muted successfully',
-          'data': Conversation.fromJson(data['data']),
         };
       } else {
         final errorData = jsonDecode(response.body);
@@ -191,7 +190,6 @@ class ConversationService {
         return {
           'success': true,
           'message': data['message'] ?? 'Conversation unmuted successfully',
-          'data': Conversation.fromJson(data['data']),
         };
       } else {
         final errorData = jsonDecode(response.body);
@@ -296,7 +294,6 @@ class ConversationService {
         return {
           'success': true,
           'message': data['message'] ?? 'Conversation pinned successfully',
-          'data': Conversation.fromJson(data['data']),
         };
       } else {
         final errorData = jsonDecode(response.body);
@@ -331,7 +328,6 @@ class ConversationService {
         return {
           'success': true,
           'message': data['message'] ?? 'Conversation unpinned successfully',
-          'data': Conversation.fromJson(data['data']),
         };
       } else {
         final errorData = jsonDecode(response.body);
@@ -366,13 +362,46 @@ class ConversationService {
         return {
           'success': true,
           'message': data['message'] ?? 'Conversation marked as read',
-          'data': Conversation.fromJson(data['data']),
         };
       } else {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
           'error': errorData['error'] ?? 'Failed to mark conversation as read',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Delete conversation (soft delete - removes for current user only)
+  Future<Map<String, dynamic>> deleteConversation({
+    required String conversationId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.getConversationURL(conversationId)}');
+
+      final response = await http.delete(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'message': data['message'] ?? 'Conversation deleted',
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to delete conversation',
         };
       }
     } catch (e) {
@@ -463,6 +492,40 @@ class ConversationService {
         return {
           'success': false,
           'error': errorData['error'] ?? 'Failed to update theme',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Get conversation theme/wallpaper
+  Future<Map<String, dynamic>> getConversationTheme({
+    required String conversationId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.conversationThemeURL(conversationId)}');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to get theme',
         };
       }
     } catch (e) {

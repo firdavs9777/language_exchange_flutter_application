@@ -4,9 +4,14 @@ import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TermsOfServiceScreen extends ConsumerStatefulWidget {
-  const TermsOfServiceScreen({Key? key}) : super(key: key);
+  /// If true, this is shown before registration (no token yet)
+  /// Will just return true/false instead of making API call
+  final bool? isPreRegistration;
+
+  const TermsOfServiceScreen({Key? key, this.isPreRegistration}) : super(key: key);
 
   @override
   ConsumerState<TermsOfServiceScreen> createState() =>
@@ -31,6 +36,14 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       return;
     }
 
+    // For pre-registration, just return true (terms will be recorded during registration)
+    if (widget.isPreRegistration == true) {
+      // Save local flag as fallback
+      await _saveLocalTermsAccepted();
+      Navigator.of(context).pop(true);
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -39,14 +52,13 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       // Call backend API to accept terms
       final authService = ref.read(authServiceProvider);
       final result = await authService.acceptTerms();
-      final token = authService.token;
-      debugPrint(result['success'].toString());
-      debugPrint(authService.token);
-      debugPrint(result.toString());
+      debugPrint('Accept terms result: $result');
 
       if (!mounted) return;
 
-      if (token.isNotEmpty) {
+      if (result['success'] == true) {
+        // Save local flag as fallback
+        await _saveLocalTermsAccepted();
         // Terms accepted successfully - navigate back
         Navigator.of(context).pop(true);
       } else {
@@ -77,6 +89,17 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
           duration: const Duration(seconds: 2),
         ),
       );
+    }
+  }
+
+  /// Save local flag to SharedPreferences as fallback when backend doesn't save it
+  Future<void> _saveLocalTermsAccepted() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('termsAcceptedLocally', true);
+      debugPrint('✅ Terms acceptance saved locally');
+    } catch (e) {
+      debugPrint('⚠️ Failed to save local terms flag: $e');
     }
   }
 
@@ -328,77 +351,89 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                     'If you have questions about these Terms of Service or need to report a violation, please contact us through the app\'s support features.',
                     BanaStyles: BananaTextStyles.body,
                   ),
-                  const SizedBox(height: 24),
-
-                  // Acceptance Checkbox
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: _hasAcceptedTerms,
-                          onChanged: (value) {
-                            setState(() {
-                              _hasAcceptedTerms = value ?? false;
-                            });
-                          },
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _hasAcceptedTerms = !_hasAcceptedTerms;
-                              });
-                            },
-                            child: BananaText(
-                              'I have read and agree to the Terms of Service and understand that BananaTalk has zero tolerance for objectionable content and abusive users. I agree to comply with all terms and conditions outlined above.',
-                              BanaStyles: BananaTextStyles.body,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
           ),
 
-          // Accept Button
+          // Fixed bottom section - Checkbox and Accept Button
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 4,
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 8,
                   offset: const Offset(0, -2),
                 ),
               ],
             ),
             child: SafeArea(
-              child: SizedBox(
-                width: double.infinity,
-                child: BananaButton(
-                  BananaText: BananaText(
-                    _isLoading ? 'Processing...' : 'Accept and Continue',
-                    BanaStyles: BananaTextStyles.buttonText,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Acceptance Checkbox - Always visible
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _hasAcceptedTerms = !_hasAcceptedTerms;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: _hasAcceptedTerms,
+                              onChanged: (value) {
+                                setState(() {
+                                  _hasAcceptedTerms = value ?? false;
+                                });
+                              },
+                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'I agree to the Terms of Service and Zero Tolerance Policy',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  onPressed: _isLoading ? null : _acceptTerms,
-                  color: _hasAcceptedTerms
-                      ? Theme.of(context).colorScheme.primary
-                      : Colors.grey,
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                  const SizedBox(height: 12),
+                  // Accept Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: BananaButton(
+                      BananaText: BananaText(
+                        _isLoading ? 'Processing...' : 'Accept and Continue',
+                        BanaStyles: BananaTextStyles.buttonText,
+                      ),
+                      onPressed: _isLoading ? null : _acceptTerms,
+                      color: _hasAcceptedTerms
+                          ? Theme.of(context).colorScheme.primary
+                          : Colors.grey,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

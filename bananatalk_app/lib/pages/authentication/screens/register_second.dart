@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
@@ -73,6 +74,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   bool _isLoadingLanguages = true;
 
   bool _isFetchingLocation = false;
+  bool _isRequestingLocationPermission = false; // Prevent multiple permission requests
   bool _isSubmitting = false;
   String? _country;
   String? _city;
@@ -104,9 +106,8 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     _bioController = TextEditingController(text: widget.bio);
 
     _birthDate = TextEditingController(
-      text: widget.birthDate.isNotEmpty
-          ? widget.birthDate
-          : DateFormat('yyyy.MM.dd').format(DateTime.now()),
+      // If birthDate is empty, show placeholder that requires user to select
+      text: widget.birthDate.isNotEmpty ? widget.birthDate : '',
     );
 
     if (widget.gender.isNotEmpty) {
@@ -143,27 +144,119 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   }
 
   Future<bool> _handleLocationPermission() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      _showErrorSnackBar('Location services are disabled. Please enable them.');
+    // Prevent multiple simultaneous permission requests
+    if (_isRequestingLocationPermission) {
+      debugPrint('⚠️ Location permission request already in progress');
       return false;
     }
 
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        _showErrorSnackBar('Location permissions are denied');
-        return false;
+    _isRequestingLocationPermission = true;
+    debugPrint('📍 Starting location permission check...');
+
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      debugPrint('📍 Location service enabled: $serviceEnabled');
+
+      if (!serviceEnabled) {
+        // Show dialog to ask user to enable location services
+        final shouldOpenSettings = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Location Services Disabled'),
+            content: const Text(
+              'Location services are turned off on your device. '
+              'Please enable them in Settings to detect your location.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Open Settings'),
+              ),
+            ],
+          ),
+        );
+
+        if (shouldOpenSettings == true) {
+          await Geolocator.openLocationSettings();
+          // Wait for user to come back and check again
+          await Future.delayed(const Duration(milliseconds: 500));
+          // Re-check if location is now enabled
+          serviceEnabled = await Geolocator.isLocationServiceEnabled();
+          if (!serviceEnabled) {
+            _showErrorSnackBar('Please enable location services and tap again');
+            return false;
+          }
+        } else {
+          return false;
+        }
       }
-    }
 
-    if (permission == LocationPermission.deniedForever) {
-      _showErrorSnackBar('Location permissions are permanently denied.');
+      LocationPermission permission = await Geolocator.checkPermission();
+      debugPrint('📍 Current permission status: $permission');
+
+      if (permission == LocationPermission.denied) {
+        debugPrint('📍 Requesting permission...');
+        permission = await Geolocator.requestPermission();
+        debugPrint('📍 Permission after request: $permission');
+        if (permission == LocationPermission.denied) {
+          _showErrorSnackBar('Location permissions are denied. Please tap again to grant permission.');
+          return false;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        // Show dialog to open app settings
+        final shouldOpenSettings = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Location Permission Required'),
+            content: const Text(
+              'Location permission is permanently denied. '
+              'Please enable it in App Settings to continue.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Open Settings'),
+              ),
+            ],
+          ),
+        );
+
+        if (shouldOpenSettings == true) {
+          await Geolocator.openAppSettings();
+          // Wait for user to come back and check again
+          await Future.delayed(const Duration(milliseconds: 500));
+          // Re-check permission
+          permission = await Geolocator.checkPermission();
+          if (permission == LocationPermission.deniedForever ||
+              permission == LocationPermission.denied) {
+            _showErrorSnackBar('Please enable location permission and tap again');
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
+
+      debugPrint('✅ Location permission granted!');
+      return true;
+    } catch (e) {
+      debugPrint('❌ Location permission error: $e');
+      _showErrorSnackBar('Error checking location: ${e.toString()}');
       return false;
+    } finally {
+      debugPrint('📍 Resetting permission flag');
+      _isRequestingLocationPermission = false;
     }
-
-    return true;
   }
 
   Future<void> _getCurrentLocation() async {
@@ -411,28 +504,50 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     }
 
     // Age validation
-    List<String> dateParts = _birthDate.text.split('.');
-    String year = dateParts[0];
-    String month = dateParts[1];
-    String day = dateParts[2];
-    DateTime birthDate = DateTime(
-      int.parse(year),
-      int.parse(month),
-      int.parse(day),
-    );
-    DateTime today = DateTime.now();
-
-    int age = today.year - birthDate.year;
-    if (today.month < birthDate.month ||
-        (today.month == birthDate.month && today.day < birthDate.day)) {
-      age--;
-    }
-
-    if (age < 18) {
+    // Age validation - check for empty or invalid date first
+    if (_birthDate.text.isEmpty) {
       setState(() {
-        _birthDateError = 'You must be at least 18 years old';
+        _birthDateError = 'Please select your birth date';
       });
       isValid = false;
+    } else {
+      List<String> dateParts = _birthDate.text.split('.');
+      if (dateParts.length != 3) {
+        setState(() {
+          _birthDateError = 'Please select a valid birth date';
+        });
+        isValid = false;
+      } else {
+        try {
+          String year = dateParts[0];
+          String month = dateParts[1];
+          String day = dateParts[2];
+          DateTime birthDate = DateTime(
+            int.parse(year),
+            int.parse(month),
+            int.parse(day),
+          );
+          DateTime today = DateTime.now();
+
+          int age = today.year - birthDate.year;
+          if (today.month < birthDate.month ||
+              (today.month == birthDate.month && today.day < birthDate.day)) {
+            age--;
+          }
+
+          if (age < 18) {
+            setState(() {
+              _birthDateError = 'You must be at least 18 years old';
+            });
+            isValid = false;
+          }
+        } catch (e) {
+          setState(() {
+            _birthDateError = 'Please select a valid birth date';
+          });
+          isValid = false;
+        }
+      }
     }
 
     // Images validation
@@ -465,6 +580,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     // Check if user has accepted terms of service from backend (required for App Store compliance)
     // For new users registering, we check if they're already logged in (OAuth flow)
     final authService = ref.read(authServiceProvider);
+    final bool isOAuthUser = widget.password.isEmpty;
     bool termsAccepted = false;
 
     try {
@@ -479,25 +595,40 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     }
 
     if (!termsAccepted) {
-      // Show terms screen before allowing registration
-      await Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const TermsOfServiceScreen()),
-      );
+      if (isOAuthUser && authService.isLoggedIn) {
+        // OAuth users have a token - use full terms screen with API call
+        await Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const TermsOfServiceScreen()),
+        );
 
-      if (!mounted) return;
+        if (!mounted) return;
 
-      // Re-check if terms were accepted (for OAuth users)
-      try {
-        if (authService.isLoggedIn && authService.userId.isNotEmpty) {
+        // Re-check if terms were accepted
+        try {
           final updatedUser = await authService.getLoggedInUser();
           if (!updatedUser.termsAccepted) {
-            // User didn't accept terms, cannot proceed with registration
+            // User didn't accept terms, cannot proceed
             return;
           }
+        } catch (e) {
+          debugPrint('Error checking terms: $e');
+          return;
         }
-      } catch (e) {
-        // For email registration, terms acceptance will be handled after account creation
-        debugPrint('Will check terms after registration: $e');
+      } else {
+        // Email registration - show terms for reading only, acceptance will be recorded during registration
+        final accepted = await Navigator.of(context).push<bool>(
+          MaterialPageRoute(
+            builder: (context) => const TermsOfServiceScreen(isPreRegistration: true),
+          ),
+        );
+
+        if (!mounted) return;
+
+        if (accepted != true) {
+          // User didn't accept terms
+          return;
+        }
+        // Terms accepted - will be recorded when registration API is called
       }
     }
 
@@ -513,8 +644,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     final genderValue = _selectedGender != null
         ? _genderMap[_selectedGender] ?? _selectedGender!.toLowerCase()
         : '';
-
-    final bool isOAuthUser = widget.password.isEmpty;
 
     if (isOAuthUser) {
       // OAuth User Profile Update
@@ -537,6 +666,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           'language_to_learn': _languageToLearn?.name ?? '',
           'profileCompleted': true,
           'topics': _selectedTopics.toList(),
+          // Clear Google/Apple default images - user will upload their own
+          // This ensures selected images replace the OAuth provider image
+          'images': [],
           'location': {
             'type': 'Point',
             'coordinates': [
@@ -654,6 +786,20 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               // Continue to app - terms will be checked on next login or app launch
             }
 
+            // NOW connect socket - profile is complete
+            try {
+              debugPrint('🔌 Connecting socket after profile completion...');
+              final chatSocketService = ChatSocketService();
+              chatSocketService.enableReconnection();
+              await chatSocketService.connect();
+              debugPrint('✅ Chat socket connected after profile completion');
+            } catch (e) {
+              debugPrint('⚠️ Error connecting chat socket: $e');
+            }
+
+            // Invalidate userProvider to force fresh fetch
+            ref.invalidate(userProvider);
+
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (ctx) => const TabsScreen()),
               (route) => false,
@@ -703,6 +849,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       }
     } else {
       // Email/Password User Registration
+      // termsAccepted is true because user accepted terms before reaching here
       User user = User(
         name: widget.name,
         password: widget.password,
@@ -716,6 +863,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         native_language: _nativeLanguage?.name ?? '',
         language_to_learn: _languageToLearn?.name ?? '',
         topics: _selectedTopics.toList(),
+        termsAccepted: true, // User accepted terms before registration
         location: LocationModal(
           type: 'Point',
           coordinates: [
@@ -763,8 +911,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               termsAccepted = false;
             }
 
-            // If terms not accepted, show terms screen
-            if (!termsAccepted) {
+            // Skip showing terms screen again for email registration
+            // We already showed terms before registration and sent termsAccepted: true
+            // Only show terms post-registration for OAuth users who might not have accepted yet
+            if (!termsAccepted && isOAuthUser) {
               // Ensure token is available before showing terms screen
               final authService = ref.read(authServiceProvider);
 
@@ -870,9 +1020,23 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
                 if (!mounted) return;
 
+                // Connect socket after registration
+                try {
+                  debugPrint('🔌 Connecting socket after registration...');
+                  final chatSocketService = ChatSocketService();
+                  chatSocketService.enableReconnection();
+                  await chatSocketService.connect();
+                  debugPrint('✅ Chat socket connected after registration');
+                } catch (e) {
+                  debugPrint('⚠️ Error connecting chat socket: $e');
+                }
+
                 _showSuccessSnackBar(
                   'Registration Successful! Welcome to BanaTalk!',
                 );
+
+                // Invalidate userProvider to force fresh fetch
+                ref.invalidate(userProvider);
 
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (ctx) => const TabsScreen()),
@@ -898,9 +1062,23 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
               if (!mounted) return;
 
+              // Connect socket after registration
+              try {
+                debugPrint('🔌 Connecting socket after registration...');
+                final chatSocketService = ChatSocketService();
+                chatSocketService.enableReconnection();
+                await chatSocketService.connect();
+                debugPrint('✅ Chat socket connected after registration');
+              } catch (e) {
+                debugPrint('⚠️ Error connecting chat socket: $e');
+              }
+
               _showSuccessSnackBar(
                 'Registration Successful! Welcome to BanaTalk!',
               );
+
+              // Invalidate userProvider to force fresh fetch
+              ref.invalidate(userProvider);
 
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (ctx) => const TabsScreen()),

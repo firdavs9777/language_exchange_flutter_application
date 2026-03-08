@@ -374,6 +374,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aboutMe => 'О себе';
 
   @override
+  String get bloodType => 'Blood Type';
+
+  @override
   String get photos => 'Фото';
 
   @override

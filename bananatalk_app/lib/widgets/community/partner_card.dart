@@ -5,6 +5,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
 import 'package:bananatalk_app/widgets/community/topic_chip.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Swipeable partner card for discovery
 class PartnerCard extends StatelessWidget {
@@ -63,10 +64,18 @@ class PartnerCard extends StatelessWidget {
     final imageUrl = user.profileImageUrl;
 
     if (imageUrl != null && imageUrl.isNotEmpty) {
-      return CachedImageWidget(
-        imageUrl: imageUrl,
-        fit: BoxFit.cover,
-        errorWidget: _buildFallbackContent(),
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          return CachedImageWidget(
+            imageUrl: imageUrl,
+            fit: BoxFit.cover,
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            quality: ImageQuality.high, // Use high quality for full-screen cards
+            highQuality: true,
+            errorWidget: _buildFallbackContent(),
+          );
+        },
       );
     }
     return _buildFallbackContent();
@@ -120,59 +129,67 @@ class PartnerCard extends StatelessWidget {
   Widget _buildContent(BuildContext context) {
     return Column(
       children: [
-        // Top section - Online status
+        // Top section - Online status & VIP badge
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           child: Row(
               children: [
                 if (user.isOnline)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
+                      horizontal: 10,
+                      vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF4CAF50),
-                      borderRadius: BorderRadius.circular(20),
+                      color: const Color(0xFF43A047),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF43A047).withOpacity(0.3),
+                          blurRadius: 6,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
                           Icons.circle,
-                          size: 8,
+                          size: 7,
                           color: Colors.white,
                         ),
-                        SizedBox(width: 6),
+                        SizedBox(width: 5),
                         Text(
                           'Online',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12,
+                            fontSize: 11,
                             fontWeight: FontWeight.w600,
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ],
                     ),
                   ),
                 if (user.isVip) ...[
-                  if (user.isOnline) const SizedBox(width: 8),
+                  if (user.isOnline) const SizedBox(width: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
+                      horizontal: 9,
+                      vertical: 5,
                     ),
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                        colors: [Color(0xFFFFD54F), Color(0xFFFF9800)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFFFD700).withOpacity(0.4),
-                          blurRadius: 8,
+                          color: const Color(0xFFFFB300).withOpacity(0.35),
+                          blurRadius: 6,
                           offset: const Offset(0, 2),
                         ),
                       ],
@@ -182,16 +199,17 @@ class PartnerCard extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.workspace_premium,
-                          size: 14,
+                          size: 13,
                           color: Colors.white,
                         ),
-                        SizedBox(width: 4),
+                        SizedBox(width: 3),
                         Text(
                           'VIP',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12,
+                            fontSize: 11,
                             fontWeight: FontWeight.w700,
+                            letterSpacing: 0.3,
                           ),
                         ),
                       ],
@@ -201,10 +219,10 @@ class PartnerCard extends StatelessWidget {
                 const Spacer(),
                 // More options button
                 Container(
-                  width: 40,
-                  height: 40,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withOpacity(0.25),
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
@@ -213,7 +231,7 @@ class PartnerCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {},
-                    iconSize: 24,
+                    iconSize: 20,
                     padding: EdgeInsets.zero,
                   ),
                 ),
@@ -232,28 +250,32 @@ class PartnerCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
                         children: [
                           Flexible(
                             child: Text(
                               user.name,
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: -0.5,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: -0.3,
+                                height: 1.1,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           if (user.age != null) ...[
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 10),
                             Text(
                               '${user.age}',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.9),
-                                fontSize: 24,
-                                fontWeight: FontWeight.w500,
+                                color: Colors.white.withOpacity(0.85),
+                                fontSize: 26,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: -0.2,
                               ),
                             ),
                           ],
@@ -262,15 +284,15 @@ class PartnerCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 // Location
                 if (user.location.city.isNotEmpty)
                   Row(
                     children: [
                       Icon(
                         Icons.location_on_rounded,
-                        size: 16,
-                        color: Colors.white.withOpacity(0.8),
+                        size: 15,
+                        color: Colors.white.withOpacity(0.75),
                       ),
                       const SizedBox(width: 4),
                       Text(
@@ -279,13 +301,15 @@ class PartnerCard extends StatelessWidget {
                                 ? ', ${user.location.country}'
                                 : ''),
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withOpacity(0.75),
                           fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 0.1,
                         ),
                       ),
                     ],
                   ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 14),
                 // Language exchange
                 _buildLanguageExchange(),
                 const SizedBox(height: 16),
@@ -303,12 +327,13 @@ class PartnerCard extends StatelessWidget {
 
   Widget _buildLanguageExchange() {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.white.withOpacity(0.15),
+          width: 1,
         ),
       ),
       child: Row(
@@ -319,24 +344,26 @@ class PartnerCard extends StatelessWidget {
               children: [
                 Text(
                   _getLanguageFlag(user.native_language),
-                  style: const TextStyle(fontSize: 28),
+                  style: const TextStyle(fontSize: 26),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 5),
                 Text(
                   'Native',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white.withOpacity(0.65),
                     fontSize: 10,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.3,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 3),
                 Text(
-                  user.native_language.toUpperCase(),
+                  _formatLanguageName(user.native_language),
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.2,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -347,15 +374,15 @@ class PartnerCard extends StatelessWidget {
           ),
           // Arrow
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(7),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withOpacity(0.15),
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.swap_horiz_rounded,
               color: Colors.white,
-              size: 20,
+              size: 18,
             ),
           ),
           // Learning language
@@ -364,18 +391,19 @@ class PartnerCard extends StatelessWidget {
               children: [
                 Text(
                   _getLanguageFlag(user.language_to_learn),
-                  style: const TextStyle(fontSize: 28),
+                  style: const TextStyle(fontSize: 26),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Learning',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withOpacity(0.65),
                         fontSize: 10,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.3,
                       ),
                     ),
                     if (user.languageLevel != null) ...[
@@ -387,13 +415,14 @@ class PartnerCard extends StatelessWidget {
                     ],
                   ],
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 3),
                 Text(
-                  user.language_to_learn.toUpperCase(),
+                  _formatLanguageName(user.language_to_learn),
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.2,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -405,6 +434,18 @@ class PartnerCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// Format language name with proper capitalization
+  String _formatLanguageName(String language) {
+    if (language.isEmpty) return '';
+    // Capitalize first letter of each word
+    return language
+        .split(' ')
+        .map((word) => word.isNotEmpty
+            ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}'
+            : '')
+        .join(' ');
   }
 
   Widget _buildTopics() {

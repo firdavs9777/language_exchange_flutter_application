@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -7,6 +8,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 /// Top-level function for handling background messages
 @pragma('vm:entry-point')
@@ -82,12 +85,8 @@ class NotificationService {
           debugPrint('🔔 App opened from terminated state via notification');
           // Delay navigation slightly to ensure app is fully initialized
           Future.delayed(const Duration(milliseconds: 500), () {
-            if (_context != null && _context!.mounted) {
-              NotificationRouter.handleNotification(
-                _context!,
-                initialMessage.data,
-              );
-            }
+            // Use goRouter directly - no context needed
+            NotificationRouter.handleNotification(null, initialMessage.data);
           });
         }
 
@@ -284,28 +283,24 @@ class NotificationService {
   /// Handle notification tap when app was in background
   void _handleNotificationOpenedApp(RemoteMessage message) {
     debugPrint('🔔 Notification opened app: ${message.messageId}');
-    debugPrint('📱 Context available: ${_context != null}');
-    debugPrint('📱 Context mounted: ${_context?.mounted ?? false}');
     debugPrint('📱 Notification data: ${message.data}');
 
-    if (_context != null && _context!.mounted) {
-      debugPrint('📱 Calling NotificationRouter...');
-      NotificationRouter.handleNotification(_context!, message.data);
-    } else {
-      debugPrint('❌ Cannot navigate: context is null or not mounted');
-    }
+    // Use goRouter directly - no context needed
+    debugPrint('📱 Calling NotificationRouter with goRouter...');
+    NotificationRouter.handleNotification(null, message.data);
   }
 
   /// Handle notification tap from local notification
   void _handleNotificationTap(NotificationResponse response) {
     debugPrint('🔔 Local notification tapped: ${response.payload}');
 
-    if (response.payload != null && _context != null && _context!.mounted) {
+    if (response.payload != null) {
       try {
         // Parse the JSON string payload back to Map
         final data = jsonDecode(response.payload!) as Map<String, dynamic>;
         debugPrint('📱 Navigating with data: $data');
-        NotificationRouter.handleNotification(_context!, data);
+        // Use goRouter directly - no context needed
+        NotificationRouter.handleNotification(null, data);
       } catch (e) {
         debugPrint('❌ Error handling notification tap: $e');
         debugPrint('Payload was: ${response.payload}');
@@ -317,28 +312,80 @@ class NotificationService {
   Future<void> _showLocalNotification(RemoteMessage message) async {
     debugPrint('🔔 📣 _showLocalNotification called for: ${message.messageId}');
     try {
-      const androidDetails = AndroidNotificationDetails(
-        'high_importance_channel',
-        'High Importance Notifications',
-        channelDescription: 'Chat messages and urgent notifications',
-        importance: Importance.high,
-        priority: Priority.high,
-        showWhen: true,
-        enableVibration: true,
-        playSound: true,
-      );
+      // Get sender's image URL from notification or data
+      final imageUrl = message.notification?.android?.imageUrl ??
+          message.notification?.apple?.imageUrl ??
+          message.data['imageUrl'];
 
-      const iosDetails = DarwinNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true,
-        // Ensure notification shows in foreground
-        interruptionLevel: InterruptionLevel.active,
-      );
+      debugPrint('🔔 Image URL: $imageUrl');
+
+      // Prepare notification details with sender's profile picture
+      AndroidNotificationDetails androidDetails;
+      DarwinNotificationDetails iosDetails;
+
+      if (imageUrl != null && imageUrl.isNotEmpty) {
+        // Download and use the sender's profile picture
+        final largeIcon = await _downloadAndSaveImage(imageUrl);
+
+        androidDetails = AndroidNotificationDetails(
+          'high_importance_channel',
+          'High Importance Notifications',
+          channelDescription: 'Chat messages and urgent notifications',
+          importance: Importance.high,
+          priority: Priority.high,
+          showWhen: true,
+          enableVibration: true,
+          playSound: true,
+          largeIcon: largeIcon != null ? FilePathAndroidBitmap(largeIcon) : null,
+          styleInformation: largeIcon != null
+              ? BigTextStyleInformation(
+                  message.notification?.body ?? '',
+                  htmlFormatBigText: false,
+                  contentTitle: message.notification?.title ?? 'BanaTalk',
+                  htmlFormatContentTitle: false,
+                )
+              : null,
+        );
+
+        // For iOS, we use attachment if image is available
+        List<DarwinNotificationAttachment>? attachments;
+        if (largeIcon != null) {
+          attachments = [
+            DarwinNotificationAttachment(largeIcon),
+          ];
+        }
+
+        iosDetails = DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+          interruptionLevel: InterruptionLevel.active,
+          attachments: attachments,
+        );
+      } else {
+        // Default notification without image
+        androidDetails = const AndroidNotificationDetails(
+          'high_importance_channel',
+          'High Importance Notifications',
+          channelDescription: 'Chat messages and urgent notifications',
+          importance: Importance.high,
+          priority: Priority.high,
+          showWhen: true,
+          enableVibration: true,
+          playSound: true,
+        );
+
+        iosDetails = const DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+          interruptionLevel: InterruptionLevel.active,
+        );
+      }
 
       debugPrint('🔔 📣 Preparing to show notification with presentAlert=true');
 
-      const details = NotificationDetails(
+      final details = NotificationDetails(
         android: androidDetails,
         iOS: iosDetails,
       );
@@ -348,11 +395,38 @@ class NotificationService {
         message.notification?.title ?? 'BanaTalk',
         message.notification?.body ?? '',
         details,
-        payload: jsonEncode(message.data), // Encode as proper JSON
+        payload: jsonEncode(message.data),
       );
       debugPrint('🔔 ✅ Local notification shown successfully!');
     } catch (e) {
       debugPrint('❌ Error showing local notification: $e');
+    }
+  }
+
+  /// Download image and save to temporary file for notification
+  Future<String?> _downloadAndSaveImage(String imageUrl) async {
+    try {
+      debugPrint('🖼️ Downloading notification image: $imageUrl');
+
+      final response = await http.get(Uri.parse(imageUrl)).timeout(
+        const Duration(seconds: 5),
+      );
+
+      if (response.statusCode == 200) {
+        final directory = await getTemporaryDirectory();
+        final filePath = '${directory.path}/notification_${DateTime.now().millisecondsSinceEpoch}.jpg';
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+
+        debugPrint('🖼️ Image saved to: $filePath');
+        return filePath;
+      }
+
+      debugPrint('🖼️ Failed to download image: ${response.statusCode}');
+      return null;
+    } catch (e) {
+      debugPrint('🖼️ Error downloading image: $e');
+      return null;
     }
   }
 

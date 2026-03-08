@@ -4,12 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/services/location_service.dart';
-import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -44,9 +42,14 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   @override
   void initState() {
     super.initState();
-    _loadUserId();
-    _loadUserLocation();
+    _initialize();
     _scrollController.addListener(_onScroll);
+  }
+
+  Future<void> _initialize() async {
+    // Load user ID first, then location (userId needed for filtering)
+    await _loadUserId();
+    await _loadUserLocation();
   }
 
   @override
@@ -64,21 +67,25 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
 
   Future<void> _loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _userId = prefs.getString('userId') ?? '';
-    });
+    if (mounted) {
+      setState(() {
+        _userId = prefs.getString('userId') ?? '';
+      });
+    }
   }
 
   Future<void> _loadUserLocation() async {
-    setState(() => _locationLoading = true);
+    if (mounted) setState(() => _locationLoading = true);
 
     final position = await _locationService.getCurrentPosition();
 
-    setState(() {
-      _userPosition = position;
-      _locationLoading = false;
-      _locationDenied = position == null;
-    });
+    if (mounted) {
+      setState(() {
+        _userPosition = position;
+        _locationLoading = false;
+        _locationDenied = position == null;
+      });
+    }
 
     // Load nearby users once we have location
     if (position != null) {
@@ -89,11 +96,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   Future<void> _loadNearbyUsers() async {
     if (_userPosition == null) return;
 
-    setState(() {
-      _currentOffset = 0;
-      _nearbyUsers = [];
-      _hasMore = true;
-    });
+    if (mounted) {
+      setState(() {
+        _currentOffset = 0;
+        _nearbyUsers = [];
+        _hasMore = true;
+      });
+    }
 
     await _fetchNearbyUsers();
   }
@@ -106,7 +115,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   Future<void> _fetchNearbyUsers() async {
     if (_userPosition == null) return;
 
-    setState(() => _isLoadingMore = true);
+    if (mounted) setState(() => _isLoadingMore = true);
 
     try {
       final service = ref.read(communityServiceProvider);
@@ -137,21 +146,26 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         debugPrint('   Last user distance: ${response.users.last.distance}km');
       }
 
-      setState(() {
-        _nearbyUsers.addAll(response.users);
-        _currentOffset += response.users.length;
-        _hasMore = response.pagination.hasMore;
-        _isLoadingMore = false;
-      });
+      // Filter out current user from the list
+      final filteredUsers = response.users.where((user) => user.id != _userId).toList();
+
+      if (mounted) {
+        setState(() {
+          _nearbyUsers.addAll(filteredUsers);
+          _currentOffset += response.users.length; // Keep original offset for pagination
+          _hasMore = response.pagination.hasMore;
+          _isLoadingMore = false;
+        });
+      }
     } catch (e, stack) {
-      setState(() => _isLoadingMore = false);
+      if (mounted) setState(() => _isLoadingMore = false);
       debugPrint('❌ Error loading nearby users: $e');
       debugPrint('Stack trace: $stack');
     }
   }
 
   void _onRadiusChanged(int radius) {
-    setState(() => _selectedRadius = radius);
+    if (mounted) setState(() => _selectedRadius = radius);
     _loadNearbyUsers();
   }
 
@@ -210,14 +224,6 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
 
   @override
   Widget build(BuildContext context) {
-    final userAsync = ref.watch(userProvider);
-    final isVip = userAsync.valueOrNull?.isVip ?? false;
-
-    // Show VIP upgrade prompt for non-VIP users
-    if (!isVip) {
-      return _buildVipUpgradePrompt();
-    }
-
     // Show loading while getting location
     if (_locationLoading) {
       return _buildLoadingState();
@@ -579,158 +585,6 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     );
   }
 
-  Widget _buildVipUpgradePrompt() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(Spacing.xxxl),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // VIP icon with golden glow
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppColors.secondary, Color(0xFFFFA500)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.4),
-                    blurRadius: 20,
-                    spreadRadius: 4,
-                  ),
-                ],
-              ),
-              child: Icon(
-                Icons.location_on_rounded,
-                size: 48,
-                color: context.textOnPrimary,
-              ),
-            ),
-            Spacing.gapXXL,
-            Spacing.gapSM,
-            Text(
-              'Find Nearby Partners',
-              style: context.displayMedium,
-            ),
-            Spacing.gapMD,
-            Text(
-              'Discover language partners near you!\nSee who\'s just around the corner.',
-              textAlign: TextAlign.center,
-              style: context.bodyMedium.copyWith(
-                color: context.textSecondary,
-                height: 1.5,
-              ),
-            ),
-            Spacing.gapXXL,
-            Spacing.gapSM,
-            // Benefits list
-            Container(
-              padding: const EdgeInsets.all(Spacing.xl),
-              decoration: BoxDecoration(
-                color: AppColors.secondary.withOpacity(0.1),
-                borderRadius: AppRadius.borderLG,
-                border: Border.all(
-                  color: AppColors.secondary.withOpacity(0.3),
-                ),
-              ),
-              child: Column(
-                children: [
-                  _buildVipBenefitRow(Icons.near_me_rounded, 'See exact distance to partners'),
-                  Spacing.gapMD,
-                  _buildVipBenefitRow(Icons.sort, 'Partners sorted by proximity'),
-                  Spacing.gapMD,
-                  _buildVipBenefitRow(Icons.location_city, 'Find partners in your city'),
-                ],
-              ),
-            ),
-            Spacing.gapXXL,
-            Spacing.gapSM,
-            // Upgrade button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const VipPlansScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.secondary,
-                  foregroundColor: context.textOnPrimary,
-                  padding: const EdgeInsets.symmetric(vertical: Spacing.lg),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderMD,
-                  ),
-                  elevation: 4,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.workspace_premium, size: 20),
-                    Spacing.hGapSM,
-                    Text(
-                      'Upgrade to VIP',
-                      style: context.titleMedium.copyWith(color: context.textOnPrimary),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Spacing.gapLG,
-            // Lock indicator
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.lock_rounded, size: 14, color: context.textMuted),
-                Spacing.hGapXS,
-                Text(
-                  'VIP Feature',
-                  style: context.labelSmall,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildVipBenefitRow(IconData icon, String text) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(Spacing.sm),
-          decoration: BoxDecoration(
-            color: AppColors.secondary.withOpacity(0.2),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            icon,
-            color: const Color(0xFFFFA500),
-            size: 18,
-          ),
-        ),
-        Spacing.hGapMD,
-        Expanded(
-          child: Text(
-            text,
-            style: context.labelLarge,
-          ),
-        ),
-        const Icon(
-          Icons.check_circle,
-          color: AppColors.success,
-          size: 18,
-        ),
-      ],
-    );
-  }
 }
 
 class _NearbyUserCard extends StatelessWidget {

@@ -19,6 +19,10 @@ class ChatInputBar extends StatefulWidget {
   final String? otherUserName;
   final VoidCallback? onCancelReply;
   final VoidCallback? onAudioPressed;
+  // Upload progress
+  final int uploadBytesSent;
+  final int uploadTotalBytes;
+  final String? uploadFileName;
 
   const ChatInputBar({
     Key? key,
@@ -36,6 +40,9 @@ class ChatInputBar extends StatefulWidget {
     this.otherUserName,
     this.onCancelReply,
     this.onAudioPressed,
+    this.uploadBytesSent = 0,
+    this.uploadTotalBytes = 0,
+    this.uploadFileName,
   }) : super(key: key);
 
   @override
@@ -86,7 +93,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Reply preview
-            if (widget.replyingToMessage != null)
+            if (widget.replyingToMessage != null) ...[
               Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: Spacing.paddingMD,
@@ -151,6 +158,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                   ],
                 ),
               ),
+            ],
             // Input row
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -225,6 +233,8 @@ class _ChatInputBarState extends State<ChatInputBar> {
                   hasContent: hasContentToSend,
                   onSendPressed: () => widget.onSendMessage(),
                   onAudioPressed: widget.onAudioPressed,
+                  uploadBytesSent: widget.uploadBytesSent,
+                  uploadTotalBytes: widget.uploadTotalBytes,
                 ),
               ],
             ),
@@ -280,18 +290,33 @@ class _SendAudioButton extends StatelessWidget {
   final bool hasContent;
   final VoidCallback onSendPressed;
   final VoidCallback? onAudioPressed;
+  // Upload progress
+  final int uploadBytesSent;
+  final int uploadTotalBytes;
 
   const _SendAudioButton({
     required this.isSending,
     required this.hasContent,
     required this.onSendPressed,
     this.onAudioPressed,
+    this.uploadBytesSent = 0,
+    this.uploadTotalBytes = 0,
   });
+
+  String _formatFileSize(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Allow sending text while media is uploading
+    final isUploadingMedia = uploadTotalBytes > 0;
+    final canSend = !isSending || isUploadingMedia;
+
     return GestureDetector(
-      onTap: isSending
+      onTap: !canSend
           ? null
           : hasContent
               ? onSendPressed
@@ -302,7 +327,8 @@ class _SendAudioButton extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: hasContent
               ? LinearGradient(
-                  colors: isSending
+                  // Show active colors when uploading media (user can still send text)
+                  colors: (isSending && !isUploadingMedia)
                       ? [AppColors.gray400, AppColors.gray500]
                       : [AppColors.primary, AppColors.primaryDark],
                   begin: Alignment.topLeft,
@@ -311,7 +337,7 @@ class _SendAudioButton extends StatelessWidget {
               : null,
           color: hasContent ? null : context.containerColor,
           shape: BoxShape.circle,
-          boxShadow: hasContent && !isSending ? AppShadows.colored : AppShadows.none,
+          boxShadow: hasContent && canSend ? AppShadows.colored : AppShadows.none,
         ),
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
@@ -321,31 +347,59 @@ class _SendAudioButton extends StatelessWidget {
               child: child,
             );
           },
-          child: isSending
-              ? const SizedBox(
-                  key: ValueKey('loading'),
-                  width: 22,
-                  height: 22,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
-                  ),
-                )
-              : hasContent
-                  ? const Icon(
-                      Icons.send_rounded,
-                      key: ValueKey('send'),
-                      color: AppColors.white,
-                      size: 22,
-                    )
-                  : Icon(
-                      Icons.mic_rounded,
-                      key: const ValueKey('mic'),
-                      color: context.textSecondary,
-                      size: 22,
-                    ),
+          child: _buildButtonIcon(context),
         ),
       ),
+    );
+  }
+
+  Widget _buildButtonIcon(BuildContext context) {
+    final isUploadingMedia = uploadTotalBytes > 0;
+
+    // Case 1: Sending text message (not media upload) - show spinner
+    if (isSending && !isUploadingMedia) {
+      return const SizedBox(
+        key: ValueKey('loading'),
+        width: 22,
+        height: 22,
+        child: CircularProgressIndicator(
+          strokeWidth: 2.5,
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
+        ),
+      );
+    }
+
+    // Case 2: Has text content - show send icon (even during media upload)
+    if (hasContent) {
+      return const Icon(
+        Icons.send_rounded,
+        key: ValueKey('send'),
+        color: AppColors.white,
+        size: 22,
+      );
+    }
+
+    // Case 3: Uploading media with no text - show upload progress in mic area
+    if (isUploadingMedia) {
+      return SizedBox(
+        key: const ValueKey('uploading'),
+        width: 22,
+        height: 22,
+        child: CircularProgressIndicator(
+          strokeWidth: 2.5,
+          value: uploadBytesSent / uploadTotalBytes,
+          valueColor: AlwaysStoppedAnimation<Color>(context.textSecondary),
+          backgroundColor: context.textMuted.withValues(alpha: 0.3),
+        ),
+      );
+    }
+
+    // Case 4: Default - show mic icon
+    return Icon(
+      Icons.mic_rounded,
+      key: const ValueKey('mic'),
+      color: context.textSecondary,
+      size: 22,
     );
   }
 }

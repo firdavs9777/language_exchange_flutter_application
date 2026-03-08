@@ -1,0 +1,848 @@
+{
+  "@@locale": "zh_TW",
+  "appName": "BananaTalk",
+  "@appName": {
+    "description": "The application name"
+  },
+  "login": "登入",
+  "signUp": "註冊",
+  "email": "電子郵件",
+  "password": "密碼",
+  "forgotPassword": "忘記密碼？",
+  "or": "或",
+  "signInWithGoogle": "使用 Google 登入",
+  "signInWithApple": "使用 Apple 登入",
+  "signInWithFacebook": "使用 Facebook 登入",
+  "welcome": "歡迎",
+  "home": "首頁",
+  "messages": "訊息",
+  "moments": "動態",
+  "profile": "個人檔案",
+  "settings": "設定",
+  "logout": "登出",
+  "language": "語言",
+  "selectLanguage": "選擇語言",
+  "autoTranslate": "自動翻譯",
+  "autoTranslateMessages": "自動翻譯訊息",
+  "autoTranslateMoments": "自動翻譯動態",
+  "autoTranslateComments": "自動翻譯留言",
+  "translate": "翻譯",
+  "translated": "已翻譯",
+  "showOriginal": "顯示原文",
+  "showTranslation": "顯示翻譯",
+  "translating": "翻譯中...",
+  "translationFailed": "翻譯失敗",
+  "noTranslationAvailable": "無可用翻譯",
+  "translatedFrom": "翻譯自{language}",
+  "@translatedFrom": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "save": "儲存",
+  "cancel": "取消",
+  "delete": "刪除",
+  "edit": "編輯",
+  "share": "分享",
+  "like": "讚",
+  "comment": "留言",
+  "send": "傳送",
+  "search": "搜尋",
+  "notifications": "通知",
+  "followers": "粉絲",
+  "following": "追蹤中",
+  "posts": "貼文",
+  "visitors": "訪客",
+  "loading": "載入中...",
+  "error": "錯誤",
+  "success": "成功",
+  "tryAgain": "重試",
+  "networkError": "網路錯誤。請檢查您的連線。",
+  "somethingWentWrong": "發生錯誤",
+  "ok": "確定",
+  "yes": "是",
+  "no": "否",
+  "languageSettings": "語言設定",
+  "deviceLanguage": "裝置語言",
+  "yourDeviceIsSetTo": "您的裝置設定為：{flag} {name}",
+  "@yourDeviceIsSetTo": {
+    "placeholders": {
+      "flag": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youCanOverride": "您可以在下方覆蓋裝置語言。",
+  "languageChangedTo": "語言已變更為{name}",
+  "@languageChangedTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorChangingLanguage": "變更語言時發生錯誤",
+  "autoTranslateSettings": "自動翻譯設定",
+  "automaticallyTranslateIncomingMessages": "自動翻譯收到的訊息",
+  "automaticallyTranslateMomentsInFeed": "自動翻譯動態消息中的內容",
+  "automaticallyTranslateComments": "自動翻譯留言",
+  "translationServiceBeingConfigured": "翻譯服務正在設定中。請稍後再試。",
+  "translationUnavailable": "翻譯不可用",
+  "showLess": "收起",
+  "showMore": "展開",
+  "comments": "留言",
+  "beTheFirstToComment": "成為第一個留言的人。",
+  "writeAComment": "寫下留言...",
+  "report": "檢舉",
+  "reportMoment": "檢舉動態",
+  "reportUser": "檢舉用戶",
+  "deleteMoment": "刪除動態？",
+  "thisActionCannotBeUndone": "此操作無法復原。",
+  "momentDeleted": "動態已刪除",
+  "editFeatureComingSoon": "編輯功能即將推出",
+  "userNotFound": "找不到用戶",
+  "cannotReportYourOwnComment": "無法檢舉自己的留言",
+  "profileSettings": "個人檔案設定",
+  "editYourProfileInformation": "編輯您的個人資料",
+  "blockedUsers": "已封鎖的用戶",
+  "manageBlockedUsers": "管理已封鎖的用戶",
+  "manageNotificationSettings": "管理通知設定",
+  "privacySecurity": "隱私與安全",
+  "controlYourPrivacy": "控制您的隱私",
+  "changeAppLanguage": "變更應用程式語言",
+  "appearance": "外觀",
+  "themeAndDisplaySettings": "主題和顯示設定",
+  "myReports": "我的檢舉",
+  "viewYourSubmittedReports": "查看您提交的檢舉",
+  "reportsManagement": "檢舉管理",
+  "manageAllReportsAdmin": "管理所有檢舉（管理員）",
+  "legalPrivacy": "法律與隱私",
+  "termsPrivacySubscriptionInfo": "條款、隱私和訂閱資訊",
+  "helpCenter": "幫助中心",
+  "getHelpAndSupport": "獲取幫助和支援",
+  "aboutBanaTalk": "關於 BanaTalk",
+  "deleteAccount": "刪除帳戶",
+  "permanentlyDeleteYourAccount": "永久刪除您的帳戶",
+  "loggedOutSuccessfully": "已成功登出",
+  "retry": "重試",
+  "giftsLikes": "禮物/讚",
+  "details": "詳情",
+  "to": "至",
+  "banaTalk": "BanaTalk",
+  "community": "社群",
+  "editProfile": "編輯個人檔案",
+  "yearsOld": "{age}歲",
+  "@yearsOld": {
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "searchConversations": "搜尋對話...",
+  "visitorTrackingNotAvailable": "訪客追蹤功能尚未推出。需要後端更新。",
+  "chatList": "聊天列表",
+  "languageExchange": "語言交換",
+  "nativeLanguage": "母語",
+  "learning": "正在學習",
+  "notSet": "未設定",
+  "about": "關於",
+  "aboutMe": "關於我",
+  "bloodType": "血型",
+  "photos": "照片",
+  "camera": "相機",
+  "createMoment": "建立動態",
+  "addATitle": "新增標題...",
+  "whatsOnYourMind": "在想什麼？",
+  "addTags": "新增標籤",
+  "done": "完成",
+  "add": "新增",
+  "enterTag": "輸入標籤",
+  "post": "發佈",
+  "commentAddedSuccessfully": "留言已成功新增",
+  "clearFilters": "清除篩選",
+  "notificationSettings": "通知設定",
+  "enableNotifications": "啟用通知",
+  "turnAllNotificationsOnOrOff": "開啟或關閉所有通知",
+  "notificationTypes": "通知類型",
+  "chatMessages": "聊天訊息",
+  "getNotifiedWhenYouReceiveMessages": "收到訊息時獲得通知",
+  "likesAndCommentsOnYourMoments": "您動態上的讚和留言",
+  "whenPeopleYouFollowPostMoments": "當您追蹤的人發佈動態時",
+  "friendRequests": "好友邀請",
+  "whenSomeoneFollowsYou": "當有人追蹤您時",
+  "profileVisits": "個人檔案瀏覽",
+  "whenSomeoneViewsYourProfileVIP": "當有人查看您的個人檔案時（VIP）",
+  "marketing": "行銷",
+  "updatesAndPromotionalMessages": "更新和促銷訊息",
+  "notificationPreferences": "通知偏好設定",
+  "sound": "聲音",
+  "playNotificationSounds": "播放通知聲音",
+  "vibration": "震動",
+  "vibrateOnNotifications": "通知時震動",
+  "showPreview": "顯示預覽",
+  "showMessagePreviewInNotifications": "在通知中顯示訊息預覽",
+  "mutedConversations": "已靜音的對話",
+  "conversation": "對話",
+  "unmute": "取消靜音",
+  "systemNotificationSettings": "系統通知設定",
+  "manageNotificationsInSystemSettings": "在系統設定中管理通知",
+  "errorLoadingSettings": "載入設定時發生錯誤",
+  "unblockUser": "解除封鎖用戶",
+  "unblock": "解除封鎖",
+  "goBack": "返回",
+  "messageSendTimeout": "訊息傳送逾時。請檢查您的連線。",
+  "failedToSendMessage": "傳送訊息失敗",
+  "dailyMessageLimitExceeded": "已超過每日訊息限制。升級為 VIP 以獲得無限訊息。",
+  "cannotSendMessageUserMayBeBlocked": "無法傳送訊息。用戶可能已被封鎖。",
+  "sessionExpired": "工作階段已過期。請重新登入。",
+  "sendThisSticker": "傳送此貼圖？",
+  "chooseHowYouWantToDeleteThisMessage": "選擇您要如何刪除此訊息：",
+  "deleteForEveryone": "為所有人刪除",
+  "removesTheMessageForBothYouAndTheRecipient": "為您和收件人移除訊息",
+  "deleteForMe": "僅為自己刪除",
+  "removesTheMessageOnlyFromYourChat": "僅從您的聊天中移除訊息",
+  "copy": "複製",
+  "reply": "回覆",
+  "forward": "轉發",
+  "moreOptions": "更多選項",
+  "noUsersAvailableToForwardTo": "沒有可轉發的用戶",
+  "searchMoments": "搜尋動態...",
+  "searchInChatWith": "在與{name}的聊天中搜尋",
+  "@searchInChatWith": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typeAMessage": "輸入訊息...",
+  "enterYourMessage": "輸入您的訊息",
+  "detectYourLocation": "偵測您的位置",
+  "tapToUpdateLocation": "點擊以更新位置",
+  "helpOthersFindYouNearby": "幫助其他人在附近找到您",
+  "selectYourNativeLanguage": "選擇您的母語",
+  "whichLanguageDoYouWantToLearn": "您想學習哪種語言？",
+  "selectYourGender": "選擇您的性別",
+  "addACaption": "新增說明...",
+  "typeSomething": "輸入內容...",
+  "gallery": "相簿",
+  "video": "影片",
+  "text": "文字",
+  "provideMoreInformation": "提供更多資訊...",
+  "searchByNameLanguageOrInterests": "按名稱、語言或興趣搜尋...",
+  "addTagAndPressEnter": "新增標籤並按 Enter",
+  "replyTo": "回覆{name}...",
+  "@replyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightName": "精選名稱",
+  "searchCloseFriends": "搜尋摯友...",
+  "askAQuestion": "提出問題...",
+  "option": "選項 {number}",
+  "@option": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "whyAreYouReportingThis": "您為什麼要檢舉此{type}？",
+  "@whyAreYouReportingThis": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "additionalDetailsOptional": "其他詳情（選填）",
+  "warningThisActionIsPermanent": "警告：此操作為永久性！",
+  "deletingYourAccountWillPermanentlyRemove": "刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。",
+  "clearAllNotifications": "清除所有通知？",
+  "clearAll": "全部清除",
+  "notificationDebug": "通知除錯",
+  "markAllRead": "全部標為已讀",
+  "clearAll2": "全部清除",
+  "emailAddress": "電子郵件地址",
+  "username": "用戶名",
+  "alreadyHaveAnAccount": "已有帳戶？",
+  "login2": "登入",
+  "selectYourNativeLanguage2": "選擇您的母語",
+  "whichLanguageDoYouWantToLearn2": "您想學習哪種語言？",
+  "selectYourGender2": "選擇您的性別",
+  "dateFormat": "年.月.日",
+  "detectYourLocation2": "偵測您的位置",
+  "tapToUpdateLocation2": "點擊以更新位置",
+  "helpOthersFindYouNearby2": "幫助其他人在附近找到您",
+  "signInWithApple": "使用 Apple 登入",
+  "couldNotOpenLink": "無法開啟連結",
+  "legalPrivacy2": "法律與隱私",
+  "termsOfUseEULA": "使用條款 (EULA)",
+  "viewOurTermsAndConditions": "查看我們的條款和條件",
+  "privacyPolicy": "隱私政策",
+  "howWeHandleYourData": "我們如何處理您的資料",
+  "emailNotifications": "電子郵件通知",
+  "receiveEmailNotificationsFromBananaTalk": "接收來自 BananaTalk 的電子郵件通知",
+  "weeklySummary": "每週摘要",
+  "activityRecapEverySunday": "每週日的活動回顧",
+  "newMessages": "新訊息",
+  "whenYoureAwayFor24PlusHours": "當您離開超過 24 小時時",
+  "newFollowers": "新粉絲",
+  "whenSomeoneFollowsYou2": "當有人追蹤您時",
+  "securityAlerts": "安全警報",
+  "passwordLoginAlerts": "密碼和登入警報",
+  "unblockUser2": "解除封鎖用戶",
+  "blockedUsers2": "已封鎖的用戶",
+  "finalWarning": "最後警告",
+  "deleteForever": "永久刪除",
+  "deleteAccount2": "刪除帳戶",
+  "enterYourPassword": "輸入您的密碼",
+  "yourPassword": "您的密碼",
+  "typeDELETEToConfirm": "輸入「刪除」以確認",
+  "typeDELETEInCapitalLetters": "以大寫輸入「刪除」",
+  "sent": "{emoji} 已傳送！",
+  "@sent": {
+    "placeholders": {
+      "emoji": {
+        "type": "String"
+      }
+    }
+  },
+  "replySent": "回覆已傳送！",
+  "deleteStory": "刪除限時動態？",
+  "thisStoryWillBeRemovedPermanently": "此限時動態將被永久移除。",
+  "noStories": "沒有限時動態",
+  "views": "{count} 次觀看",
+  "@views": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reportStory": "檢舉限時動態",
+  "reply2": "回覆...",
+  "failedToPickImage": "選擇圖片失敗",
+  "failedToTakePhoto": "拍照失敗",
+  "failedToPickVideo": "選擇影片失敗",
+  "pleaseEnterSomeText": "請輸入文字",
+  "pleaseSelectMedia": "請選擇媒體",
+  "storyPosted": "限時動態已發佈！",
+  "textOnlyStoriesRequireAnImage": "純文字限時動態需要圖片",
+  "createStory": "建立限時動態",
+  "change": "變更",
+  "userIdNotFound": "找不到用戶 ID。請重新登入。",
+  "pleaseSelectAPaymentMethod": "請選擇付款方式",
+  "startExploring": "開始探索",
+  "close": "關閉",
+  "payment": "付款",
+  "upgradeToVIP": "升級為 VIP",
+  "errorLoadingProducts": "載入產品時發生錯誤",
+  "cancelVIPSubscription": "取消 VIP 訂閱",
+  "keepVIP": "保留 VIP",
+  "cancelSubscription": "取消訂閱",
+  "vipSubscriptionCancelledSuccessfully": "VIP 訂閱已成功取消",
+  "vipStatus": "VIP 狀態",
+  "noActiveVIPSubscription": "沒有有效的 VIP 訂閱",
+  "subscriptionExpired": "訂閱已過期",
+  "vipExpiredMessage": "您的 VIP 訂閱已過期。立即續訂以繼續享受無限功能！",
+  "expiredOn": "過期於",
+  "renewVIP": "續訂 VIP",
+  "whatYoureMissing": "您錯過了什麼",
+  "manageInAppStore": "在 App Store 中管理",
+  "becomeVIP": "成為 VIP",
+  "unlimitedMessages": "無限訊息",
+  "unlimitedProfileViews": "無限個人檔案瀏覽",
+  "prioritySupport": "優先支援",
+  "advancedSearch": "進階搜尋",
+  "profileBoost": "個人檔案提升",
+  "adFreeExperience": "無廣告體驗",
+  "upgradeYourAccount": "升級您的帳戶",
+  "moreMessages": "更多訊息",
+  "moreProfileViews": "更多個人檔案瀏覽",
+  "connectWithFriends": "與朋友連結",
+  "reviewStarted": "審查已開始",
+  "reportResolved": "檢舉已解決",
+  "reportDismissed": "檢舉已駁回",
+  "selectAction": "選擇操作",
+  "noViolation": "無違規",
+  "contentRemoved": "內容已移除",
+  "userWarned": "用戶已收到警告",
+  "userSuspended": "用戶已停權",
+  "userBanned": "用戶已被封禁",
+  "addNotesOptional": "新增備註（選填）",
+  "enterModeratorNotes": "輸入版主備註...",
+  "skip": "跳過",
+  "startReview": "開始審查",
+  "resolve": "解決",
+  "dismiss": "駁回",
+  "filterReports": "篩選檢舉",
+  "all": "全部",
+  "clear": "清除",
+  "apply": "套用",
+  "myReports2": "我的檢舉",
+  "blockUser": "封鎖用戶",
+  "block": "封鎖",
+  "wouldYouAlsoLikeToBlockThisUser": "您是否也要封鎖此用戶？",
+  "noThanks": "不用了，謝謝",
+  "yesBlockThem": "是的，封鎖他們",
+  "reportUser2": "檢舉用戶",
+  "submitReport": "提交檢舉",
+  "addAQuestionAndAtLeast2Options": "新增問題和至少 2 個選項",
+  "addOption": "新增選項",
+  "anonymousVoting": "匿名投票",
+  "create": "建立",
+  "typeYourAnswer": "輸入您的答案...",
+  "send2": "傳送",
+  "yourPrompt": "您的提示...",
+  "add2": "新增",
+  "contentNotAvailable": "內容不可用",
+  "profileNotAvailable": "個人檔案不可用",
+  "noMomentsToShow": "沒有動態可顯示",
+  "storiesNotAvailable": "限時動態不可用",
+  "cantMessageThisUser": "無法傳送訊息給此用戶",
+  "pleaseSelectAReason": "請選擇原因",
+  "reportSubmitted": "檢舉已提交。感謝您幫助維護我們社群的安全。",
+  "youHaveAlreadyReportedThisMoment": "您已檢舉過此動態",
+  "tellUsMoreAboutWhyYouAreReportingThis": "告訴我們更多您檢舉此內容的原因",
+  "errorSharing": "分享時發生錯誤",
+  "deviceInfo": "裝置資訊",
+  "recommended": "推薦",
+  "anyLanguage": "任何語言",
+  "noLanguagesFound": "找不到語言",
+  "selectALanguage": "選擇語言",
+  "languagesAreStillLoading": "語言仍在載入中...",
+  "selectNativeLanguage": "選擇母語",
+  "subscriptionDetails": "訂閱詳情",
+  "activeFeatures": "有效功能",
+  "legalInformation": "法律資訊",
+  "termsOfUse": "使用條款",
+  "manageSubscription": "管理訂閱",
+  "manageSubscriptionInSettings": "要取消訂閱，請前往裝置上的設定 > [您的名字] > 訂閱。",
+  "contactSupportToCancel": "要取消訂閱，請聯繫我們的客服團隊。",
+  "status": "狀態",
+  "active": "有效",
+  "plan": "方案",
+  "startDate": "開始日期",
+  "endDate": "結束日期",
+  "nextBillingDate": "下次帳單日期",
+  "autoRenew": "自動續訂",
+  "pleaseLogInToContinue": "請登入以繼續",
+  "purchaseCanceledOrFailed": "購買已取消或失敗。請重試。",
+  "maximumTagsAllowed": "最多允許 5 個標籤",
+  "pleaseRemoveImagesFirstToAddVideo": "請先移除圖片以新增影片",
+  "unsupportedFormat": "不支援的格式",
+  "errorProcessingVideo": "處理影片時發生錯誤",
+  "pleaseRemoveImagesFirstToRecordVideo": "請先移除圖片以錄製影片",
+  "locationAdded": "已新增位置",
+  "failedToGetLocation": "取得位置失敗",
+  "notNow": "稍後",
+  "videoUploadFailed": "影片上傳失敗",
+  "skipVideo": "跳過影片",
+  "retryUpload": "重試上傳",
+  "momentCreatedSuccessfully": "動態已成功建立",
+  "uploadingMomentInBackground": "正在背景上傳動態...",
+  "failedToQueueUpload": "無法將上傳加入佇列",
+  "viewProfile": "查看個人檔案",
+  "mediaLinksAndDocs": "媒體、連結和文件",
+  "wallpaper": "桌布",
+  "userIdNotAvailable": "用戶 ID 不可用",
+  "cannotBlockYourself": "無法封鎖自己",
+  "chatWallpaper": "聊天桌布",
+  "wallpaperSavedLocally": "桌布已儲存至本機",
+  "messageCopied": "訊息已複製",
+  "forwardFeatureComingSoon": "轉發功能即將推出",
+  "momentUnsaved": "動態未儲存",
+  "documentPickerComingSoon": "文件選擇器即將推出",
+  "contactSharingComingSoon": "聯絡人分享即將推出",
+  "featureComingSoon": "功能即將推出",
+  "answerSent": "答案已傳送！",
+  "noImagesAvailable": "沒有可用的圖片",
+  "mentionPickerComingSoon": "提及選擇器即將推出",
+  "musicPickerComingSoon": "音樂選擇器即將推出",
+  "repostFeatureComingSoon": "轉發功能即將推出",
+  "addFriendsFromYourProfile": "從您的個人檔案新增好友",
+  "quickReplyAdded": "已新增快速回覆",
+  "quickReplyDeleted": "已刪除快速回覆",
+  "linkCopied": "連結已複製！",
+  "maximumOptionsAllowed": "最多允許 10 個選項",
+  "minimumOptionsRequired": "最少需要 2 個選項",
+  "pleaseEnterAQuestion": "請輸入問題",
+  "pleaseAddAtLeast2Options": "請新增至少 2 個選項",
+  "pleaseSelectCorrectAnswerForQuiz": "請選擇測驗的正確答案",
+  "correctionSent": "更正已傳送！",
+  "sort": "排序",
+  "savedMoments": "已儲存的動態",
+  "unsave": "取消儲存",
+  "playingAudio": "正在播放音訊...",
+  "failedToGenerateQuiz": "產生測驗失敗",
+  "failedToAddComment": "新增留言失敗",
+  "hello": "你好！",
+  "howAreYou": "你好嗎？",
+  "cannotOpen": "無法開啟",
+  "errorOpeningLink": "開啟連結時發生錯誤",
+  "saved": "已儲存",
+  "follow": "追蹤",
+  "unfollow": "取消追蹤",
+  "mute": "靜音",
+  "online": "線上",
+  "offline": "離線",
+  "lastSeen": "上次上線",
+  "justNow": "剛才",
+  "minutesAgo": "{count} 分鐘前",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hoursAgo": "{count} 小時前",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "yesterday": "昨天",
+  "signInWithEmail": "使用電子郵件登入",
+  "partners": "夥伴",
+  "nearby": "附近",
+  "topics": "主題",
+  "waves": "招手",
+  "voiceRooms": "語音",
+  "filters": "篩選",
+  "searchCommunity": "按名稱、語言或興趣搜尋...",
+  "bio": "簡介",
+  "noBioYet": "尚無簡介。",
+  "languages": "語言",
+  "native": "母語",
+  "interests": "興趣",
+  "noMomentsYet": "尚無動態",
+  "unableToLoadMoments": "無法載入動態",
+  "map": "地圖",
+  "mapUnavailable": "地圖不可用",
+  "location": "位置",
+  "unknownLocation": "未知位置",
+  "noImagesAvailable2": "沒有可用的圖片",
+  "permissionsRequired": "需要權限",
+  "openSettings": "開啟設定",
+  "refresh": "重新整理",
+  "videoCall": "視訊",
+  "voiceCall": "通話",
+  "message": "訊息",
+  "pleaseLoginToFollow": "請登入以追蹤用戶",
+  "pleaseLoginToCall": "請登入以撥打電話",
+  "cannotCallYourself": "無法打給自己",
+  "failedToFollowUser": "追蹤用戶失敗",
+  "failedToUnfollowUser": "取消追蹤用戶失敗",
+  "areYouSureUnfollow": "您確定要取消追蹤此用戶嗎？",
+  "areYouSureUnblock": "您確定要解除封鎖此用戶嗎？",
+  "youFollowed": "您已追蹤",
+  "youUnfollowed": "您已取消追蹤",
+  "alreadyFollowing": "您已經在追蹤",
+  "soon": "即將",
+  "comingSoon": "{feature}即將推出！",
+  "@comingSoon": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
+  "muteNotifications": "靜音通知",
+  "unmuteNotifications": "取消靜音通知",
+  "operationCompleted": "操作完成",
+  "couldNotOpenMaps": "無法開啟地圖",
+  "hasntSharedMoments": "{name}尚未分享任何動態",
+  "messageUser": "傳送訊息給{name}",
+  "@messageUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notFollowingUser": "您沒有追蹤{name}",
+  "@notFollowingUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youFollowedUser": "您已追蹤{name}",
+  "@youFollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "youUnfollowedUser": "您已取消追蹤{name}",
+  "@youUnfollowedUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "unfollowUser": "取消追蹤{name}",
+  "@unfollowUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "typing": "正在輸入",
+  "connecting": "連線中...",
+  "daysAgo": "{count}天前",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "maxTagsAllowed": "最多允許 5 個標籤",
+  "maxImagesAllowed": "最多允許 {count} 張圖片",
+  "@maxImagesAllowed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseRemoveImagesFirst": "請先移除圖片以新增影片",
+  "exchange3MessagesBeforeCall": "您需要先交換至少 3 條訊息才能撥打電話給此用戶",
+  "mediaWithUser": "與{name}的媒體",
+  "@mediaWithUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorLoadingMedia": "載入媒體時發生錯誤",
+  "savedMomentsTitle": "已儲存的動態",
+  "removeBookmark": "移除書籤？",
+  "thisWillRemoveBookmark": "這將從您的書籤中移除此訊息。",
+  "remove": "移除",
+  "bookmarkRemoved": "書籤已移除",
+  "bookmarkedMessages": "已加入書籤的訊息",
+  "wallpaperSaved": "桌布已儲存至本機",
+  "storyArchive": "限時動態存檔",
+  "newHighlight": "新精選",
+  "addToHighlight": "新增至精選",
+  "repost": "轉發",
+  "repostFeatureSoon": "轉發功能即將推出",
+  "closeFriends": "摯友",
+  "addFriends": "新增好友",
+  "highlights": "精選",
+  "createHighlight": "建立精選",
+  "deleteHighlight": "刪除精選？",
+  "editHighlight": "編輯精選",
+  "addMoreToStory": "新增更多至限時動態",
+  "noViewersYet": "尚無觀看者",
+  "noReactionsYet": "尚無反應",
+  "leaveRoom": "離開房間？",
+  "areYouSureLeaveRoom": "您確定要離開此語音房間嗎？",
+  "stay": "留下",
+  "leave": "離開",
+  "enableGPS": "啟用 GPS",
+  "wavedToUser": "您向{name}招手了！",
+  "@wavedToUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "areYouSureFollow": "您確定要追蹤",
+  "failedToLoadProfile": "載入個人檔案失敗",
+  "noFollowersYet": "尚無粉絲",
+  "noFollowingYet": "尚未追蹤任何人",
+  "searchUsers": "搜尋用戶...",
+  "noResultsFound": "找不到結果",
+  "loadingFailed": "載入失敗",
+  "copyLink": "複製連結",
+  "shareStory": "分享限時動態",
+  "thisWillDeleteStory": "此限時動態將被永久刪除。",
+  "storyDeleted": "限時動態已刪除",
+  "addCaption": "新增說明...",
+  "yourStory": "您的限時動態",
+  "sendMessage": "傳送訊息",
+  "replyToStory": "回覆限時動態...",
+  "viewAllReplies": "查看所有回覆",
+  "preparingVideo": "準備影片中...",
+  "videoOptimized": "影片已優化：{size}MB（節省 {savings}%）",
+  "@videoOptimized": {
+    "placeholders": {
+      "size": {"type": "String"},
+      "savings": {"type": "String"}
+    }
+  },
+  "failedToProcessVideo": "處理影片失敗",
+  "optimizingForBestExperience": "正在優化以獲得最佳限時動態體驗",
+  "pleaseSelectImageOrVideo": "請為您的限時動態選擇圖片或影片",
+  "storyCreatedSuccessfully": "限時動態已成功建立！",
+  "uploadingStoryInBackground": "正在背景上傳限時動態...",
+  "storyCreationFailed": "限時動態建立失敗",
+  "pleaseCheckConnection": "請檢查您的連線並重試。",
+  "uploadFailed": "上傳失敗",
+  "tryShorterVideo": "請嘗試較短的影片或稍後重試。",
+  "shareMomentsThatDisappear": "分享 24 小時後消失的動態",
+  "photo": "照片",
+  "record": "錄製",
+  "addSticker": "新增貼圖",
+  "poll": "投票",
+  "question": "問題",
+  "mention": "提及",
+  "music": "音樂",
+  "hashtag": "標籤",
+  "whoCanSeeThis": "誰可以看到？",
+  "everyone": "所有人",
+  "anyoneCanSeeStory": "任何人都可以看到此限時動態",
+  "friendsOnly": "僅限好友",
+  "onlyFollowersCanSee": "只有您的粉絲可以看到",
+  "onlyCloseFriendsCanSee": "只有您的摯友可以看到",
+  "backgroundColor": "背景顏色",
+  "fontStyle": "字型樣式",
+  "normal": "一般",
+  "bold": "粗體",
+  "italic": "斜體",
+  "handwriting": "手寫",
+  "addLocation": "新增位置",
+  "enterLocationName": "輸入位置名稱",
+  "addLink": "新增連結",
+  "buttonText": "按鈕文字",
+  "learnMore": "了解更多",
+  "addHashtags": "新增標籤",
+  "addHashtag": "新增標籤",
+  "sendAsMessage": "以訊息傳送",
+  "shareExternally": "對外分享",
+  "checkOutStory": "在 BananaTalk 上查看此限時動態！",
+  "viewsTab": "觀看 ({count})",
+  "@viewsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "reactionsTab": "反應 ({count})",
+  "@reactionsTab": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "processingVideo": "正在處理影片...",
+  "link": "連結",
+  "unmuteUser": "取消靜音{name}？",
+  "@unmuteUser": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "willReceiveNotifications": "您將收到新訊息的通知。",
+  "muteNotificationsFor": "靜音{name}的通知",
+  "@muteNotificationsFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsUnmutedFor": "已取消靜音{name}的通知",
+  "@notificationsUnmutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "notificationsMutedFor": "已靜音{name}的通知",
+  "@notificationsMutedFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "failedToUpdateMuteSettings": "更新靜音設定失敗",
+  "oneHour": "1 小時",
+  "eightHours": "8 小時",
+  "oneWeek": "1 週",
+  "always": "永遠",
+  "failedToLoadBookmarks": "載入書籤失敗",
+  "noBookmarkedMessages": "沒有已加入書籤的訊息",
+  "longPressToBookmark": "長按訊息以加入書籤",
+  "thisWillRemoveFromBookmarks": "這將從您的書籤中移除此訊息。",
+  "navigateToMessage": "前往與{name}聊天中的訊息",
+  "@navigateToMessage": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "bookmarkedOn": "已於 {date} 加入書籤",
+  "@bookmarkedOn": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "voiceMessage": "語音訊息",
+  "document": "文件",
+  "attachment": "附件",
+  "sendMeAMessage": "傳送訊息給我",
+  "shareWithFriends": "與好友分享",
+  "shareAnywhere": "任意分享",
+  "emailPreferences": "電子郵件偏好設定",
+  "receiveEmailNotifications": "接收來自 BananaTalk 的電子郵件通知",
+  "whenAwayFor24Hours": "當您離開超過 24 小時時",
+  "passwordAndLoginAlerts": "密碼和登入警報",
+  "failedToLoadPreferences": "載入偏好設定失敗",
+  "failedToUpdateSetting": "更新設定失敗",
+  "securityAlertsRecommended": "我們建議您保持安全警報開啟，以便了解重要的帳戶活動。",
+  "chatWallpaperFor": "{name}的聊天桌布",
+  "@chatWallpaperFor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "solidColors": "純色",
+  "gradients": "漸層",
+  "customImage": "自訂圖片",
+  "chooseFromGallery": "從相簿選擇",
+  "preview": "預覽",
+  "wallpaperUpdated": "桌布已更新",
+  "category": "類別",
+  "mood": "心情",
+  "sortBy": "排序依據",
+  "timePeriod": "時間段",
+  "searchLanguages": "搜尋語言...",
+  "selected": "已選取",
+  "categories": "類別",
+  "moods": "心情",
+  "applyFilters": "套用篩選",
+  "applyNFilters": "套用 {count} 個篩選",
+  "@applyNFilters": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "failedToRecordVideo": "錄製影片失敗",
+  "errorSendingVideo": "傳送影片時發生錯誤",
+  "errorSendingVoiceMessage": "傳送語音訊息時發生錯誤",
+  "errorSendingMedia": "傳送媒體時發生錯誤",
+  "cameraPermissionRequired": "錄製影片需要相機和麥克風權限。",
+  "locationPermissionRequired": "分享您的位置需要位置權限。",
+  "noInternetConnection": "沒有網路連線",
+  "tryAgainLater": "請稍後再試",
+  "messageSent": "訊息已傳送",
+  "messageDeleted": "訊息已刪除",
+  "messageEdited": "訊息已編輯",
+  "videoMustBeUnder1GB": "影片必須小於 1GB。"
+}

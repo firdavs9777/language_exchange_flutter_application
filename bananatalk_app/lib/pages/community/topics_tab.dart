@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
-import 'package:bananatalk_app/widgets/community/topic_chip.dart';
+import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/compact_user_tile.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -29,20 +29,6 @@ class TopicsTab extends ConsumerStatefulWidget {
 class _TopicsTabState extends ConsumerState<TopicsTab> {
   String? _selectedCategory;
   String? _selectedTopicId;
-  String _userId = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserId();
-  }
-
-  Future<void> _loadUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _userId = prefs.getString('userId') ?? '';
-    });
-  }
 
   List<Topic> get _filteredTopics {
     if (_selectedCategory == null) {
@@ -53,28 +39,9 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
         .toList();
   }
 
-  List<Community> _getUsersForTopic(
-    List<Community> communities,
-    Set<String> blockedUserIds,
-  ) {
-    if (_selectedTopicId == null) return [];
-
-    return communities.where((community) {
-      if (community.id == _userId) return false;
-      if (blockedUserIds.contains(community.id)) return false;
-
-      // Check if user has the selected topic
-      if (!community.topics.contains(_selectedTopicId)) return false;
-
-      // Apply search query
-      if (widget.searchQuery.isNotEmpty) {
-        final query = widget.searchQuery.toLowerCase();
-        return community.name.toLowerCase().contains(query) ||
-            community.bio.toLowerCase().contains(query);
-      }
-
-      return true;
-    }).toList();
+  void _loadTopicUsers(String topicId) {
+    debugPrint('🏷️ Loading users for topic: $topicId (server-side)');
+    ref.read(topicUsersProvider.notifier).loadTopic(topicId);
   }
 
   void _viewProfile(Community community) {
@@ -86,22 +53,37 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
     );
   }
 
-  void _onWave(String userName) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.waving_hand, color: Colors.white, size: 20),
-            const SizedBox(width: 12),
-            Text('Waved to $userName!'),
-          ],
+  // Send Hi message in background (fire and forget)
+  Future<void> _sendHiMessage(String receiverId) async {
+    try {
+      final messageService = ref.read(messageServiceProvider);
+      await messageService.sendMessage(
+        receiver: receiverId,
+        message: 'Hi 👋',
+      );
+    } catch (e) {
+      debugPrint('Error sending Hi message: $e');
+    }
+  }
+
+  void _onWave(Community user) {
+    HapticFeedback.mediumImpact();
+
+    // Navigate to chat
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ChatScreen(
+          userId: user.id,
+          userName: user.name,
+          profilePicture: user.profileImageUrl,
+          isVip: user.isVip,
         ),
-        backgroundColor: const Color(0xFF00BFA5),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
-        duration: const Duration(seconds: 2),
       ),
     );
+
+    // Send "Hi 👋" message in background
+    _sendHiMessage(user.id);
   }
 
   @override
@@ -196,6 +178,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             setState(() {
               _selectedTopicId = topic.id;
             });
+            // Load users from server
+            _loadTopicUsers(topic.id);
           },
         );
       },
@@ -203,8 +187,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   }
 
   Widget _buildUsersForTopic() {
-    final communityAsync = ref.watch(communityProvider);
-    final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
+    final topicUsersState = ref.watch(topicUsersProvider);
 
     final selectedTopic = Topic.defaultTopics.firstWhere(
       (t) => t.id == _selectedTopicId,
@@ -228,6 +211,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                   setState(() {
                     _selectedTopicId = null;
                   });
+                  ref.read(topicUsersProvider.notifier).clear();
                 },
                 icon: const Icon(Icons.arrow_back_rounded),
                 style: IconButton.styleFrom(
@@ -261,12 +245,25 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
           ),
         ),
         const Divider(height: 1),
-        // Users list
+        // Users list - Server-side paginated
         Expanded(
-          child: communityAsync.when(
-            data: (communities) {
-              final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
-              final users = _getUsersForTopic(communities, blockedUserIds);
+          child: Builder(
+            builder: (context) {
+              // Show loading if initial load
+              if (topicUsersState.isLoading && topicUsersState.users.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
+                );
+              }
+
+              // Show error if any
+              if (topicUsersState.error != null && topicUsersState.users.isEmpty) {
+                return Center(
+                  child: Text('Error: ${topicUsersState.error}'),
+                );
+              }
+
+              final users = topicUsersState.users;
 
               if (users.isEmpty) {
                 return _buildNoUsersForTopic();
@@ -274,31 +271,48 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
 
               return RefreshIndicator(
                 onRefresh: () async {
-                  ref.invalidate(communityProvider);
+                  if (_selectedTopicId != null) {
+                    _loadTopicUsers(_selectedTopicId!);
+                  }
                 },
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: users.length,
-                  itemBuilder: (context, index) {
-                    final user = users[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: CompactUserTile(
-                        user: user,
-                        onTap: () => _viewProfile(user),
-                        onWave: () => _onWave(user.name),
-                      ),
-                    );
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (scrollInfo) {
+                    // Load more when near bottom
+                    if (scrollInfo.metrics.pixels >=
+                            scrollInfo.metrics.maxScrollExtent - 200 &&
+                        !topicUsersState.isLoadingMore &&
+                        topicUsersState.hasMore) {
+                      ref.read(topicUsersProvider.notifier).loadMore();
+                    }
+                    return false;
                   },
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: users.length + (topicUsersState.hasMore ? 1 : 0),
+                    itemBuilder: (context, index) {
+                      if (index >= users.length) {
+                        // Loading indicator at bottom
+                        return const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Center(
+                            child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
+                          ),
+                        );
+                      }
+                      final user = users[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: CompactUserTile(
+                          user: user,
+                          onTap: () => _viewProfile(user),
+                          onWave: () => _onWave(user),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               );
             },
-            loading: () => const Center(
-              child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
-            ),
-            error: (e, s) => Center(
-              child: Text('Error: $e'),
-            ),
           ),
         ),
       ],
