@@ -8,6 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/moments_service.dart' as api;
+
+typedef MomentsServiceAPI = api.MomentsService;
 
 class MomentsService {
   int count = 0;
@@ -20,8 +23,18 @@ class MomentsService {
       limit = 50;
     }
 
-    final response = await http.get(Uri.parse(
-        '${Endpoints.baseURL}${Endpoints.momentsURL}?page=$page&limit=$limit'));
+    // Include auth token so backend can filter blocked users and populate likedUsers correctly
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    final response = await http.get(
+      Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}?page=$page&limit=$limit'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -40,9 +53,6 @@ class MomentsService {
                           'Failed to load moments';
       
       // Log the actual backend error for debugging
-      debugPrint('❌ Backend error loading moments: $errorMessage');
-      debugPrint('📡 Response status: ${response.statusCode}');
-      debugPrint('📡 Response body: ${response.body}');
       
       throw Exception(errorMessage);
     }
@@ -420,15 +430,9 @@ class MomentsService {
     );
 
     try {
-      debugPrint('📤 Uploading video for moment: $momentId');
-      debugPrint('📤 Video file: ${videoFile.path}');
-      debugPrint('📤 File size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)}MB');
-      debugPrint('📤 MIME type: $mimeType');
-      debugPrint('📤 URL: $url');
 
       final streamedResponse = await request.send();
 
-      debugPrint('📡 Video upload response status: ${streamedResponse.statusCode}');
 
       // Track upload progress
       int uploaded = 0;
@@ -448,12 +452,10 @@ class MomentsService {
         headers: streamedResponse.headers,
       );
 
-      debugPrint('📡 Video upload response body: ${response.body}');
 
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200 && responseData['success'] == true) {
-        debugPrint('✅ Video uploaded successfully');
         return responseData['data'] ?? {};
       } else {
         // Handle specific backend errors
@@ -461,9 +463,6 @@ class MomentsService {
             responseData['message'] ??
             'Failed to upload video';
 
-        debugPrint('❌ Video upload failed: $errorMessage');
-        debugPrint('❌ Response status: ${response.statusCode}');
-        debugPrint('❌ Full response: ${response.body}');
 
         // Check for video service unavailable errors
         if (errorMessage.toString().toLowerCase().contains('unavailable') ||
@@ -475,13 +474,10 @@ class MomentsService {
         throw Exception(errorMessage);
       }
     } on http.ClientException catch (e) {
-      debugPrint('❌ Network error uploading video: ${e.message}');
       throw Exception('Network error uploading video: ${e.message}');
     } on FormatException catch (e) {
-      debugPrint('❌ Format exception during video upload: $e');
       throw Exception('Invalid response from server. Video service may be unavailable.');
     } catch (e) {
-      debugPrint('❌ Video upload exception: $e');
       if (e is Exception) {
         rethrow;
       }
@@ -522,10 +518,13 @@ class MomentsService {
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/like');
 
+    debugPrint('❤️ [Provider] likeMoment: POST $url');
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
     if (token == null) {
+      debugPrint('❤️ [Provider] likeMoment: No token!');
       throw Exception('Authentication required. Please login again.');
     }
 
@@ -535,8 +534,9 @@ class MomentsService {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      // No body required - user ID is taken from authentication token
     );
+
+    debugPrint('❤️ [Provider] likeMoment: status=${response.statusCode}, body=${response.body}');
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
@@ -551,8 +551,9 @@ class MomentsService {
       }
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ?? 
-                     errorData['message'] ?? 
+      debugPrint('❤️ [Provider] likeMoment ERROR: $errorData');
+      throw Exception(errorData['error'] ??
+                     errorData['message'] ??
                      'Failed to like moment');
     }
   }
@@ -561,10 +562,13 @@ class MomentsService {
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/dislike');
 
+    debugPrint('💔 [Provider] dislikeMoment: POST $url');
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
     if (token == null) {
+      debugPrint('💔 [Provider] dislikeMoment: No token!');
       throw Exception('Authentication required. Please login again.');
     }
 
@@ -574,8 +578,9 @@ class MomentsService {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      // No body required - user ID is taken from authentication token
     );
+
+    debugPrint('💔 [Provider] dislikeMoment: status=${response.statusCode}, body=${response.body}');
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
@@ -590,8 +595,9 @@ class MomentsService {
       }
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ?? 
-                     errorData['message'] ?? 
+      debugPrint('💔 [Provider] dislikeMoment ERROR: $errorData');
+      throw Exception(errorData['error'] ??
+                     errorData['message'] ??
                      'Failed to dislike moment');
     }
   }
@@ -629,3 +635,21 @@ final userMomentsProvider = FutureProvider.family<List<Moments>, String>((ref, u
 });
 
 final momentsServiceProvider = Provider((ref) => MomentsService());
+
+/// Provider for explore/discover moments (backend explore endpoint)
+final exploreMomentsProvider = FutureProvider<List<Moments>>((ref) async {
+  final response = await MomentsServiceAPI.exploreMoments();
+  if (response.success) {
+    return response.data;
+  }
+  return <Moments>[];
+});
+
+/// Provider for trending moments (backend trending endpoint)
+final trendingMomentsProvider = FutureProvider<List<Moments>>((ref) async {
+  final response = await MomentsServiceAPI.getTrendingMoments();
+  if (response.success) {
+    return response.data;
+  }
+  return <Moments>[];
+});

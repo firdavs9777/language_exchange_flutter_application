@@ -160,6 +160,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   bool _isRefreshing = false;
   String _error = '';
   String _searchQuery = '';
+  String _chatFilter = 'all'; // 'all', 'unread', 'online'
   List<ChatPartner> _chatPartners = [];
   String? _currentUserId;
   String? _activeUserId;
@@ -203,9 +204,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
     super.didChangeDependencies();
     // Watch auth state - disconnect sockets if logged out
     final authService = ref.watch(authServiceProvider);
-    if (!authService.isLoggedIn) {
-      debugPrint('🚫 User logged out - socket should be disconnected');
-    }
+    if (!authService.isLoggedIn) {}
     // Check if user changed and reconnect socket if needed
     _checkUserChange();
   }
@@ -213,7 +212,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      debugPrint('📱 App resumed - checking connection');
       _checkUserChange();
 
       // Reconnect socket if disconnected
@@ -226,13 +224,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
           final prefs = await SharedPreferences.getInstance();
           final token = prefs.getString('token');
           if (token != null && token.isNotEmpty) {
-            debugPrint('🔌 Socket disconnected after resume - force reconnecting');
             // Use forceReset: true to reset reconnect attempts counter
             _chatSocketService.connect(forceReset: true);
           }
-        } else {
-          debugPrint('✅ Socket already connected after resume');
-        }
+        } else {}
       });
     }
   }
@@ -245,10 +240,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // If user ID changed (logout/login with different account)
     if (_currentUserId != null && _currentUserId != currentUserId) {
-      debugPrint(
-        'User changed from $_currentUserId to $currentUserId - reconnecting socket',
-      );
-
       if (!mounted) return;
 
       // Clear old data
@@ -325,7 +316,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Error handler for all streams - log only, let socket service handle reconnection
     void onStreamError(dynamic error, StackTrace stackTrace) {
-      debugPrint('❌ Socket stream error: $error');
       // Don't attempt reconnection here - socket service handles it automatically
       // Multiple reconnection sources cause instability
     }
@@ -383,7 +373,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     );
     _connectionStateSub = _chatSocketService.onConnectionStateChange.listen(
       (isConnected) {
-        debugPrint('🔌 Connection state changed: $isConnected');
         if (isConnected && _chatPartners.isNotEmpty) {
           // Batch status requests to avoid O(n) overhead
           _requestStatusUpdatesInBatches();
@@ -425,9 +414,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     for (final partner in _chatPartners) {
       final providerCount = providerState.unreadCounts[partner.id] ?? 0;
       if (partner.unreadCount != providerCount) {
-        debugPrint(
-          '🔄 Syncing unread count from provider: ${partner.name} - ${partner.unreadCount} -> $providerCount',
-        );
         needsUpdate = true;
         updatedPartners.add(partner.copyWith(unreadCount: providerCount));
       } else {
@@ -460,7 +446,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     setState(() {
       _chatPartners = updatedPartners;
     });
-    debugPrint('🔄 Force refreshed all unread counts from provider');
   }
 
   /// Silently refresh conversations without showing loading state
@@ -476,13 +461,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
       if (userId == null) return;
 
       // Use efficient endpoint
-      final chatPartners = await messageService.getChatPartners(id: userId, limit: 100);
+      final chatPartners = await messageService.getChatPartners(
+        id: userId,
+        limit: 100,
+      );
       if (mounted) {
         _processChatPartnersFromServer(chatPartners);
-        debugPrint('🔄 Silently refreshed chat list (${chatPartners.length} partners)');
       }
     } catch (e) {
-      debugPrint('⚠️ Silent refresh failed: $e');
       // Don't show error - this is a background refresh
     }
   }
@@ -506,16 +492,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       if (localCount > providerCount) {
         // Local count is higher (e.g., from initial API load), update provider
-        debugPrint(
-          '📊 Syncing local count to provider: ${partner.name} - $localCount (provider had $providerCount)',
-        );
         notifier.updateUnreadCount(partner.id, localCount);
         updatedPartners.add(partner); // Keep local count
       } else if (localCount != providerCount) {
         // Provider count is different (real-time update), update local state
-        debugPrint(
-          '📊 Syncing provider count to local: ${partner.name} - $providerCount (local had $localCount)',
-        );
         updatedPartners.add(partner.copyWith(unreadCount: providerCount));
         localStateChanged = true;
       } else {
@@ -554,26 +534,19 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       setState(() {
         _typingUsers[userId] = true;
-        debugPrint('✅ User $userId started typing');
       });
       _typingTimer?.cancel();
       _typingTimer = Timer(const Duration(seconds: 5), () {
         if (!mounted) return;
         setState(() {
           _typingUsers[userId] = false;
-          debugPrint('⏰ Typing timeout for user $userId');
         });
       });
-      debugPrint('✅ User $userId started typing');
-    } catch (e) {
-      debugPrint('❌ Error handling typing event: $e');
-    }
+    } catch (e) {}
   }
 
   void _handleNewMessage(dynamic data) {
     try {
-      debugPrint('📨 Processing new message: $data');
-
       if (data == null) return;
 
       // Extract message from the data structure
@@ -630,17 +603,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
       }
 
       if (senderId == null || senderId.isEmpty) {
-        debugPrint('⚠️ No sender ID in message');
         return;
       }
 
       // Don't process own messages
       if (senderId == _currentUserId) {
-        debugPrint('ℹ️ Skipping own message');
         return;
       }
-
-      debugPrint('✅ New message from: $senderName ($senderId)');
 
       if (!mounted) return;
 
@@ -652,9 +621,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         int partnerIndex = _chatPartners.indexWhere((p) => p.id == senderId);
 
         if (partnerIndex != -1) {
-          debugPrint(
-            '📝 Updating existing chat partner at index $partnerIndex',
-          );
           final existingPartner = _chatPartners[partnerIndex];
 
           // Use provider count instead of calculating locally to avoid double-counting
@@ -671,11 +637,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
           // Don't update provider here - GlobalChatListener already handled it
           // Just sync the local UI state with the provider
-          debugPrint(
-            'Moved chat to top with unread count: ${updatedPartner.unreadCount} (from provider)',
-          );
         } else {
-          debugPrint('➕ Creating new chat partner');
           final newPartner = ChatPartner(
             id: senderId,
             name: senderName,
@@ -692,23 +654,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
           _chatPartners.insert(0, newPartner);
 
           // Don't update provider here - GlobalChatListener already handled it
-          debugPrint(
-            'Added new chat partner at top with count: $currentProviderCount (from provider)',
-          );
         }
       });
-
-      debugPrint('✅ Chat list updated successfully');
-    } catch (e, stackTrace) {
-      debugPrint('❌ Error handling new message: $e');
-      debugPrint('Stack trace: $stackTrace');
-    }
+    } catch (e, stackTrace) {}
   }
 
   void _handleMessageSent(dynamic data) {
     try {
-      debugPrint('📤 Processing sent message: $data');
-
       if (data == null) return;
 
       final messageData = data['message'] ?? data;
@@ -763,11 +715,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
       }
 
       if (receiverId == null || receiverId.isEmpty) {
-        debugPrint('⚠️ No receiver ID in sent message');
         return;
       }
-
-      debugPrint('✅ Sent message to: $receiverName ($receiverId)');
 
       if (!mounted) return;
 
@@ -775,7 +724,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         int partnerIndex = _chatPartners.indexWhere((p) => p.id == receiverId);
 
         if (partnerIndex != -1) {
-          debugPrint('📝 Updating existing chat partner for sent message');
           final existingPartner = _chatPartners[partnerIndex];
           final updatedPartner = existingPartner.copyWith(
             lastMessage: messageText,
@@ -785,7 +733,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
           _chatPartners.removeAt(partnerIndex);
           _chatPartners.insert(0, updatedPartner);
         } else {
-          debugPrint('➕ Creating new chat partner for sent message');
           final newPartner = ChatPartner(
             id: receiverId,
             name: receiverName,
@@ -804,11 +751,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       _syncUnreadCounts(); // Sync after update
-      debugPrint('✅ Chat list updated for sent message');
-    } catch (e, stackTrace) {
-      debugPrint('❌ Error handling sent message: $e');
-      debugPrint('Stack trace: $stackTrace');
-    }
+    } catch (e, stackTrace) {}
   }
 
   void _handleStatusUpdate(dynamic data) {
@@ -829,9 +772,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       _processChatPartnersWithStatus();
-    } catch (e) {
-      debugPrint('❌ Error handling status update: $e');
-    }
+    } catch (e) {}
   }
 
   String _getStatusText(String status, DateTime? lastSeen) {
@@ -871,9 +812,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
     try {
       // Ensure data is a Map
       if (data is! Map) {
-        debugPrint(
-          '⚠️ Bulk status update data is not a Map: ${data.runtimeType}',
-        );
         return;
       }
 
@@ -911,10 +849,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       _processChatPartnersWithStatus();
-    } catch (e, stackTrace) {
-      debugPrint('❌ Error handling bulk status update: $e');
-      debugPrint('Stack trace: $stackTrace');
-    }
+    } catch (e, stackTrace) {}
   }
 
   void _handleOnlineUsersUpdate(dynamic data) {
@@ -956,33 +891,22 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
       _processChatPartnersWithStatus();
-    } catch (e) {
-      debugPrint('❌ Error handling single user status: $e');
-    }
+    } catch (e) {}
   }
 
-  void _handleUserStoppedTyping(dynamic data) {
-    debugPrint('User ${data['userId']} stopped typing');
-  }
+  void _handleUserStoppedTyping(dynamic data) {}
 
   void _handleMessagesRead(dynamic data) {
     try {
-      debugPrint('👁️ Messages read receipt received: $data');
-
       // NOTE: This event means someone ELSE read OUR messages (for read receipts/blue ticks)
       // We should NOT clear our unread count here - that only happens when WE open a chat
       // This is just for updating the UI to show that the other user has read our messages
       final readBy = data['readBy']?.toString();
 
       if (readBy != null && readBy.isNotEmpty) {
-        debugPrint(
-          '📖 User $readBy read our messages (read receipt only, not clearing unread)',
-        );
         // No need to update local state here - read receipts are handled in chat detail
       }
-    } catch (e) {
-      debugPrint('❌ Error handling messages read: $e');
-    }
+    } catch (e) {}
   }
 
   void _handleMessageRead(dynamic data) {
@@ -993,11 +917,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       if (senderId == null) return;
 
-      debugPrint('📖 Read receipt from $senderId (not clearing unread)');
       // No need to update unread count - read receipts don't affect our unread counts
-    } catch (e) {
-      debugPrint('❌ Error handling message read: $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> _fetchMessages() async {
@@ -1030,7 +951,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       // Use efficient endpoint that returns unique chat partners directly
       // This is much faster than loading all messages and grouping client-side
-      final chatPartners = await messageService.getChatPartners(id: userId, limit: 100);
+      final chatPartners = await messageService.getChatPartners(
+        id: userId,
+        limit: 100,
+      );
       _processChatPartnersFromServer(chatPartners);
 
       // Request status updates after chat partners are loaded
@@ -1040,7 +964,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         );
       }
     } catch (error) {
-      debugPrint('❌ Error loading chat partners: $error');
       // Fallback to old method if new endpoint fails
       await _fetchMessagesLegacy();
     } finally {
@@ -1059,8 +982,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
       final userId = _currentUserId;
       if (userId == null) return;
 
-      final messages = await messageService.getUserMessages(id: userId, limit: 200);
-      debugPrint('📬 [Legacy] Loaded ${messages.length} messages for chat list');
+      final messages = await messageService.getUserMessages(
+        id: userId,
+        limit: 200,
+      );
       _processChatPartners(messages);
     } catch (error) {
       if (mounted) {
@@ -1073,12 +998,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
   /// Process chat partners from efficient server endpoint (aggregated data)
   void _processChatPartnersFromServer(List<ChatPartnerData> serverPartners) {
-    debugPrint('👥 Processing ${serverPartners.length} chat partners from server');
-
     // Filter out locally deleted conversations
     final filteredPartners = serverPartners.where((data) {
-      if (data.conversationId != null && _deletedConversationIds.contains(data.conversationId)) {
-        debugPrint('🗑️ Filtering out locally deleted conversation: ${data.name}');
+      if (data.conversationId != null &&
+          _deletedConversationIds.contains(data.conversationId)) {
         return false;
       }
       return true;
@@ -1202,9 +1125,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             lastSeen: lastSeen,
           );
         }
-      } catch (e) {
-        debugPrint('Error processing message: $e');
-      }
+      } catch (e) {}
     }
 
     final sortedPartners = partnersMap.values.toList()
@@ -1213,10 +1134,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         final bTime = b.lastMessageTime?.millisecondsSinceEpoch ?? 0;
         return bTime.compareTo(aTime);
       });
-
-    debugPrint(
-      '👥 Found ${sortedPartners.length} unique chat partners from ${messages.length} messages',
-    );
 
     if (mounted) {
       // Get provider counts and update partners with correct unread counts
@@ -1244,9 +1161,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         final providerCount = providerState.unreadCounts[partner.id];
         // Only sync from API if we have NEVER tracked this user (null = no entry)
         if (partner.unreadCount > 0 && providerCount == null) {
-          debugPrint(
-            '📊 Syncing unread count to provider for ${partner.name}: ${partner.unreadCount}',
-          );
           notifier.updateUnreadCount(partner.id, partner.unreadCount);
         }
       }
@@ -1256,9 +1170,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           _chatSocketService.requestStatusUpdates(
             _chatPartners.map((p) => p.id).toList(),
           );
-        } catch (e) {
-          debugPrint('❌ Error requesting status updates: $e');
-        }
+        } catch (e) {}
       }
     }
   }
@@ -1287,44 +1199,47 @@ class _ChatMainState extends ConsumerState<ChatMain>
   }
 
   List<ChatPartner> get _filteredChatPartners {
-    if (_searchQuery.trim().isEmpty) return _chatPartners;
+    // Start with all partners
+    List<ChatPartner> result = _chatPartners;
 
-    String normalizedQuery = _searchQuery.toLowerCase().trim();
-    // Remove @ prefix if user typed it for username search
-    String usernameQuery = normalizedQuery.startsWith('@')
-        ? normalizedQuery.substring(1)
-        : normalizedQuery;
+    // Apply chat filter (unread, online)
+    if (_chatFilter == 'unread') {
+      result = result.where((p) => p.unreadCount > 0).toList();
+    } else if (_chatFilter == 'online') {
+      result = result.where((p) => _isUserOnline(p)).toList();
+    }
 
-    return _chatPartners.where((partner) {
-      // Search by name
-      if (partner.name.toLowerCase().contains(normalizedQuery)) return true;
+    // Apply search query
+    if (_searchQuery.trim().isNotEmpty) {
+      String normalizedQuery = _searchQuery.toLowerCase().trim();
+      String usernameQuery = normalizedQuery.startsWith('@')
+          ? normalizedQuery.substring(1)
+          : normalizedQuery;
 
-      // Search by username (with or without @ prefix)
-      if (partner.username != null &&
-          partner.username!.toLowerCase().contains(usernameQuery)) {
-        return true;
-      }
+      result = result.where((partner) {
+        if (partner.name.toLowerCase().contains(normalizedQuery)) return true;
+        if (partner.username != null &&
+            partner.username!.toLowerCase().contains(usernameQuery)) {
+          return true;
+        }
+        if (partner.lastMessage?.toLowerCase().contains(normalizedQuery) ==
+            true) {
+          return true;
+        }
+        return false;
+      }).toList();
+    }
 
-      // Search by last message
-      if (partner.lastMessage?.toLowerCase().contains(normalizedQuery) ==
-          true) {
-        return true;
-      }
-
-      return false;
-    }).toList();
+    return result;
   }
 
   Future<void> _forceRefresh() async {
-    debugPrint('🔄 Force refreshing chat...');
-
     // Get fresh credentials
     final prefs = await SharedPreferences.getInstance();
     final newUserId = prefs.getString('userId');
     final newToken = prefs.getString('token');
 
     if (newUserId == null || newToken == null) {
-      debugPrint('❌ Cannot refresh - missing credentials');
       if (mounted) {
         setState(() {
           _error = 'Please login again';
@@ -1349,11 +1264,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Only reconnect socket if not already connected
     if (!_chatSocketService.isConnected) {
-      debugPrint('🔌 Socket not connected - reconnecting...');
       await _chatSocketService.forceReconnect();
-    } else {
-      debugPrint('✅ Socket already connected - skipping reconnect');
-    }
+    } else {}
     _subscribeToSocketEvents();
   }
 
@@ -1392,10 +1304,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF00BFA5),
-                Color(0xFF00897B),
-              ],
+              colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
             ),
           ),
           child: _isRefreshing
@@ -1709,6 +1618,63 @@ class _ChatMainState extends ConsumerState<ChatMain>
     );
   }
 
+  Widget _buildChatFilterChips() {
+    final filters = [
+      ('all', 'All', Icons.chat_bubble_outline_rounded),
+      ('unread', 'Unread', Icons.mark_email_unread_outlined),
+      ('online', 'Online', Icons.circle),
+    ];
+
+    return SizedBox(
+      height: 40,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: filters.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final (value, label, icon) = filters[index];
+          final isSelected = _chatFilter == value;
+          return ChoiceChip(
+            label: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon,
+                  size: value == 'online' ? 10 : 16,
+                  color: isSelected
+                      ? colorScheme.onPrimary
+                      : context.textSecondary,
+                ),
+                const SizedBox(width: 6),
+                Text(label),
+              ],
+            ),
+            selected: isSelected,
+            onSelected: (_) {
+              setState(() {
+                _chatFilter = value;
+              });
+            },
+            selectedColor: context.primaryColor,
+            backgroundColor: context.containerColor,
+            labelStyle: TextStyle(
+              color: isSelected ? colorScheme.onPrimary : context.textPrimary,
+              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              fontSize: 13,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            side: BorderSide.none,
+            showCheckmark: false,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _buildUsersList() {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
@@ -1810,270 +1776,307 @@ class _ChatMainState extends ConsumerState<ChatMain>
             final isActive = _activeUserId == partner.id;
 
             return Slidable(
-            key: ValueKey(partner.id),
-            endActionPane: ActionPane(
-              motion: const BehindMotion(),
-              extentRatio: 0.75, // Increased from 0.6 to show labels fully
-              children: [
-                // Pin/Unpin action
-                SlidableAction(
-                  onPressed: (_) => _handlePinConversation(partner),
-                  backgroundColor: const Color(0xFF2196F3),
-                  foregroundColor: Colors.white,
-                  icon: partner.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
-                  label: partner.isPinned ? 'Unpin' : 'Pin',
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    bottomLeft: Radius.circular(12),
+              key: ValueKey(partner.id),
+              endActionPane: ActionPane(
+                motion: const BehindMotion(),
+                extentRatio: 0.75, // Increased from 0.6 to show labels fully
+                children: [
+                  // Pin/Unpin action
+                  SlidableAction(
+                    onPressed: (_) => _handlePinConversation(partner),
+                    backgroundColor: const Color(0xFF2196F3),
+                    foregroundColor: Colors.white,
+                    icon: partner.isPinned
+                        ? Icons.push_pin
+                        : Icons.push_pin_outlined,
+                    label: partner.isPinned ? 'Unpin' : 'Pin',
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    ),
                   ),
-                ),
-                // Mute/Unmute action
-                SlidableAction(
-                  onPressed: (_) => _handleMuteConversation(partner),
-                  backgroundColor: const Color(0xFFFF9800),
-                  foregroundColor: Colors.white,
-                  icon: partner.isMuted ? Icons.notifications : Icons.notifications_off,
-                  label: partner.isMuted ? 'Unmute' : 'Mute',
-                ),
-                // Delete action
-                SlidableAction(
-                  onPressed: (_) => _handleDeleteConversation(partner),
-                  backgroundColor: const Color(0xFFE53935),
-                  foregroundColor: Colors.white,
-                  icon: Icons.delete_outline,
-                  label: 'Delete',
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
+                  // Mute/Unmute action
+                  SlidableAction(
+                    onPressed: (_) => _handleMuteConversation(partner),
+                    backgroundColor: const Color(0xFFFF9800),
+                    foregroundColor: Colors.white,
+                    icon: partner.isMuted
+                        ? Icons.notifications
+                        : Icons.notifications_off,
+                    label: partner.isMuted ? 'Unmute' : 'Mute',
                   ),
-                ),
-              ],
-            ),
-            child: InkWell(
-              onTap: () =>
-                  _onSelectUser(partner.id, partner.name, partner.avatar),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: Row(
-                  children: [
-                    // ================= AVATAR =================
-                    Stack(
-                      children: [
-                      VipAvatarFrameCompact(
-                        isVip: partner.isVip,
-                        size: 56,
-                        child: CachedCircleAvatar(
-                          imageUrl:
-                              partner.avatar != null &&
-                                  partner.avatar!.isNotEmpty
-                              ? partner.avatar
-                              : null,
-                          radius: 28,
-                          backgroundColor: colors.surfaceVariant,
-                          errorWidget: Text(
-                            partner.name.isNotEmpty
-                                ? partner.name[0].toUpperCase()
-                                : '?',
-                            style: textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
+                  // Delete action
+                  SlidableAction(
+                    onPressed: (_) => _handleDeleteConversation(partner),
+                    backgroundColor: const Color(0xFFE53935),
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete_outline,
+                    label: 'Delete',
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
+                  ),
+                ],
+              ),
+              child: InkWell(
+                onTap: () =>
+                    _onSelectUser(partner.id, partner.name, partner.avatar),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  child: Row(
+                    children: [
+                      // ================= AVATAR =================
+                      Stack(
+                        children: [
+                          VipAvatarFrameCompact(
+                            isVip: partner.isVip,
+                            size: 56,
+                            child: CachedCircleAvatar(
+                              imageUrl:
+                                  partner.avatar != null &&
+                                      partner.avatar!.isNotEmpty
+                                  ? partner.avatar
+                                  : null,
+                              radius: 28,
+                              backgroundColor: colors.surfaceVariant,
+                              errorWidget: Text(
+                                partner.name.isNotEmpty
+                                    ? partner.name[0].toUpperCase()
+                                    : '?',
+                                style: textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+
+                          // Online status indicator - KakaoTalk style
+                          Positioned(
+                            bottom: partner.isVip ? 4 : 2,
+                            right: partner.isVip ? 4 : 2,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: _isUserOnline(partner) ? 16 : 12,
+                              height: _isUserOnline(partner) ? 16 : 12,
+                              decoration: BoxDecoration(
+                                color: _getStatusColor(
+                                  _getRealtimeStatus(partner),
+                                ),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: colors.surface,
+                                  width: 2.5,
+                                ),
+                                // Glow effect for online status
+                                boxShadow: _isUserOnline(partner)
+                                    ? [
+                                        BoxShadow(
+                                          color: const Color(
+                                            0xFF4ADE80,
+                                          ).withOpacity(0.5),
+                                          blurRadius: 8,
+                                          spreadRadius: 2,
+                                        ),
+                                      ]
+                                    : null,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
 
-                      // Online status indicator - KakaoTalk style
-                      Positioned(
-                        bottom: partner.isVip ? 4 : 2,
-                        right: partner.isVip ? 4 : 2,
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          width: _isUserOnline(partner) ? 16 : 12,
-                          height: _isUserOnline(partner) ? 16 : 12,
-                          decoration: BoxDecoration(
-                            color: _getStatusColor(_getRealtimeStatus(partner)),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: colors.surface,
-                              width: 2.5,
-                            ),
-                            // Glow effect for online status
-                            boxShadow: _isUserOnline(partner)
-                                ? [
-                                    BoxShadow(
-                                      color: const Color(
-                                        0xFF4ADE80,
-                                      ).withOpacity(0.5),
-                                      blurRadius: 8,
-                                      spreadRadius: 2,
+                      const SizedBox(width: 12),
+
+                      // ================= CONTENT =================
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Name + VIP Badge + Time
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          partner.name,
+                                          style: textTheme.bodyLarge?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      if (partner.isVip) ...[
+                                        const SizedBox(width: 6),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 6,
+                                            vertical: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            gradient: const LinearGradient(
+                                              colors: [
+                                                Color(0xFFFFD700),
+                                                Color(0xFFFFA500),
+                                              ],
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                          ),
+                                          child: const Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.workspace_premium,
+                                                size: 10,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(width: 2),
+                                              Text(
+                                                'VIP',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                                // Pin indicator
+                                if (partner.isPinned)
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 4),
+                                    child: Icon(
+                                      Icons.push_pin,
+                                      size: 14,
+                                      color: colors.primary,
                                     ),
-                                  ]
-                                : null,
-                          ),
+                                  ),
+                                // Mute indicator
+                                if (partner.isMuted)
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 4),
+                                    child: Icon(
+                                      Icons.notifications_off,
+                                      size: 14,
+                                      color: colors.onSurface.withOpacity(0.4),
+                                    ),
+                                  ),
+                                if (partner.lastMessageTime != null)
+                                  Text(
+                                    _formatTime(partner.lastMessageTime!),
+                                    style: TextStyle(
+                                      color: partner.unreadCount > 0
+                                          ? const Color(0xFFEF4444)
+                                          : colors.onSurface.withOpacity(0.4),
+                                      fontSize: 12,
+                                      fontWeight: partner.unreadCount > 0
+                                          ? FontWeight.w600
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                              ],
+                            ),
+
+                            const SizedBox(height: 5),
+
+                            // Last message + unread badge
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _typingUsers[partner.id] == true
+                                      ? _buildTypingIndicator()
+                                      : Row(
+                                          children: [
+                                            // Online indicator text (if online)
+                                            if (_isUserOnline(partner)) ...[
+                                              Container(
+                                                width: 6,
+                                                height: 6,
+                                                margin: const EdgeInsets.only(
+                                                  right: 6,
+                                                ),
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xFF4ADE80),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                            ],
+                                            Expanded(
+                                              child: Text(
+                                                partner.lastMessage ??
+                                                    'No messages yet',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: textTheme.bodySmall
+                                                    ?.copyWith(
+                                                      color:
+                                                          partner.unreadCount >
+                                                              0
+                                                          ? colors.onSurface
+                                                          : colors.onSurface
+                                                                .withOpacity(
+                                                                  0.5,
+                                                                ),
+                                                      fontWeight:
+                                                          partner.unreadCount >
+                                                              0
+                                                          ? FontWeight.w500
+                                                          : FontWeight.normal,
+                                                      fontSize: 13,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                ),
+                                // Unread count badge
+                                if (partner.unreadCount > 0)
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 8),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 7,
+                                      vertical: 3,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFEF4444),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(
+                                      partner.unreadCount > 99
+                                          ? '99+'
+                                          : partner.unreadCount.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-
-                  const SizedBox(width: 12),
-
-                  // ================= CONTENT =================
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Name + VIP Badge + Time
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      partner.name,
-                                      style: textTheme.bodyLarge?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  if (partner.isVip) ...[
-                                    const SizedBox(width: 6),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 6,
-                                        vertical: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                          colors: [
-                                            Color(0xFFFFD700),
-                                            Color(0xFFFFA500),
-                                          ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: const Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(
-                                            Icons.workspace_premium,
-                                            size: 10,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(width: 2),
-                                          Text(
-                                            'VIP',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                            // Pin indicator
-                            if (partner.isPinned)
-                              Padding(
-                                padding: const EdgeInsets.only(right: 4),
-                                child: Icon(
-                                  Icons.push_pin,
-                                  size: 14,
-                                  color: colors.primary,
-                                ),
-                              ),
-                            // Mute indicator
-                            if (partner.isMuted)
-                              Padding(
-                                padding: const EdgeInsets.only(right: 4),
-                                child: Icon(
-                                  Icons.notifications_off,
-                                  size: 14,
-                                  color: colors.onSurface.withOpacity(0.4),
-                                ),
-                              ),
-                            if (partner.lastMessageTime != null)
-                              Text(
-                                _formatTime(partner.lastMessageTime!),
-                                style: TextStyle(
-                                  color: partner.unreadCount > 0
-                                      ? const Color(0xFFEF4444)
-                                      : colors.onSurface.withOpacity(0.4),
-                                  fontSize: 12,
-                                  fontWeight: partner.unreadCount > 0
-                                      ? FontWeight.w600
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        // Last message + unread badge
-                        Row(
-                          children: [
-                            Expanded(
-                              child: _typingUsers[partner.id] == true
-                                  ? _buildTypingIndicator()
-                                  : Row(
-                                      children: [
-                                        // Online indicator text (if online)
-                                        if (_isUserOnline(partner)) ...[
-                                          Container(
-                                            width: 6,
-                                            height: 6,
-                                            margin: const EdgeInsets.only(
-                                              right: 6,
-                                            ),
-                                            decoration: const BoxDecoration(
-                                              color: Color(0xFF4ADE80),
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
-                                        ],
-                                        Expanded(
-                                          child: Text(
-                                            partner.lastMessage ??
-                                                'No messages yet',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: textTheme.bodySmall
-                                                ?.copyWith(
-                                                  color: partner.unreadCount > 0
-                                                      ? colors.onSurface
-                                                      : colors.onSurface
-                                                            .withOpacity(0.5),
-                                                  fontWeight:
-                                                      partner.unreadCount > 0
-                                                      ? FontWeight.w500
-                                                      : FontWeight.normal,
-                                                  fontSize: 13,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                            ),
-                            // Unread indicator - simple dot (badge removed per user request)
-                            // Tick marks are kept for read status
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  ],
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
         ),
       ),
     );
@@ -2082,93 +2085,80 @@ class _ChatMainState extends ConsumerState<ChatMain>
   // ================= SWIPE ACTION HANDLERS =================
 
   Future<void> _handlePinConversation(ChatPartner partner) async {
-    debugPrint('📌 ====== PIN ACTION ======');
-    debugPrint('📌 Partner: ${partner.name} (${partner.id})');
-    debugPrint('📌 Conversation ID: ${partner.conversationId}');
-    debugPrint('📌 Currently pinned: ${partner.isPinned}');
-    debugPrint('📌 Action: ${partner.isPinned ? "UNPIN" : "PIN"}');
-
     final conversationService = ConversationService();
 
     try {
       final result = partner.isPinned
-          ? await conversationService.unpinConversation(conversationId: partner.conversationId ?? partner.id)
-          : await conversationService.pinConversation(conversationId: partner.conversationId ?? partner.id);
-
-      debugPrint('📌 API Response: $result');
+          ? await conversationService.unpinConversation(
+              conversationId: partner.conversationId ?? partner.id,
+            )
+          : await conversationService.pinConversation(
+              conversationId: partner.conversationId ?? partner.id,
+            );
 
       if (result['success'] == true) {
-        debugPrint('📌 ✅ Success! Refreshing conversations...');
         // Refresh conversations
         _silentRefresh();
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(partner.isPinned ? 'Conversation unpinned' : 'Conversation pinned'),
+              content: Text(
+                partner.isPinned
+                    ? 'Conversation unpinned'
+                    : 'Conversation pinned',
+              ),
               duration: const Duration(seconds: 2),
               behavior: SnackBarBehavior.floating,
             ),
           );
         }
-      } else {
-        debugPrint('📌 ❌ Failed: ${result['message'] ?? 'Unknown error'}');
-      }
-    } catch (e) {
-      debugPrint('📌 ❌ Error pinning conversation: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   Future<void> _handleMuteConversation(ChatPartner partner) async {
-    debugPrint('🔇 ====== MUTE ACTION ======');
-    debugPrint('🔇 Partner: ${partner.name} (${partner.id})');
-    debugPrint('🔇 Conversation ID: ${partner.conversationId}');
-    debugPrint('🔇 Currently muted: ${partner.isMuted}');
-    debugPrint('🔇 Action: ${partner.isMuted ? "UNMUTE" : "MUTE"}');
-
     final conversationService = ConversationService();
 
     try {
       final result = partner.isMuted
-          ? await conversationService.unmuteConversation(conversationId: partner.conversationId ?? partner.id)
-          : await conversationService.muteConversation(conversationId: partner.conversationId ?? partner.id);
-
-      debugPrint('🔇 API Response: $result');
+          ? await conversationService.unmuteConversation(
+              conversationId: partner.conversationId ?? partner.id,
+            )
+          : await conversationService.muteConversation(
+              conversationId: partner.conversationId ?? partner.id,
+            );
 
       if (result['success'] == true) {
-        debugPrint('🔇 ✅ Success! Refreshing conversations...');
         // Refresh conversations
         _silentRefresh();
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(partner.isMuted ? 'Notifications enabled' : 'Conversation muted'),
+              content: Text(
+                partner.isMuted
+                    ? 'Notifications enabled'
+                    : 'Conversation muted',
+              ),
               duration: const Duration(seconds: 2),
               behavior: SnackBarBehavior.floating,
             ),
           );
         }
-      } else {
-        debugPrint('🔇 ❌ Failed: ${result['message'] ?? 'Unknown error'}');
-      }
-    } catch (e) {
-      debugPrint('🔇 ❌ Error muting conversation: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   Future<void> _handleDeleteConversation(ChatPartner partner) async {
-    debugPrint('🗑️ ====== DELETE ACTION ======');
-    debugPrint('🗑️ Partner: ${partner.name} (${partner.id})');
-    debugPrint('🗑️ Conversation ID: ${partner.conversationId}');
-    debugPrint('🗑️ Showing confirmation dialog...');
-
     // Show confirmation dialog
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Conversation'),
-        content: Text('Delete your conversation with ${partner.name}? This cannot be undone.'),
+        content: Text(
+          'Delete your conversation with ${partner.name}? This cannot be undone.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -2183,25 +2173,18 @@ class _ChatMainState extends ConsumerState<ChatMain>
       ),
     );
 
-    debugPrint('🗑️ User confirmed: $confirmed');
-
     if (confirmed != true) {
-      debugPrint('🗑️ ❌ Cancelled by user');
       return;
     }
 
     final conversationService = ConversationService();
 
     try {
-      debugPrint('🗑️ Calling deleteConversation API...');
       final result = await conversationService.deleteConversation(
         conversationId: partner.conversationId ?? partner.id,
       );
 
-      debugPrint('🗑️ API Response: $result');
-
       if (result['success'] == true) {
-        debugPrint('🗑️ ✅ Success! Refreshing conversations...');
         // Add to locally deleted set for client-side filtering
         if (partner.conversationId != null) {
           _deletedConversationIds.add(partner.conversationId!);
@@ -2218,12 +2201,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
             ),
           );
         }
-      } else {
-        debugPrint('🗑️ ❌ Failed: ${result['message'] ?? 'Unknown error'}');
-      }
-    } catch (e) {
-      debugPrint('🗑️ ❌ Error deleting conversation: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   Widget _buildTypingIndicator() {
@@ -2310,7 +2289,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         backgroundColor: colors.background,
         elevation: 0,
         title: Text(
-          'Messages',
+          AppLocalizations.of(context)!.chats,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -2392,10 +2371,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       ),
       body: Column(
         children: [
-          // Add connection status indicator
           ConnectionStatusIndicator(),
-
-          // Existing body content
           Expanded(
             child: _isLoading
                 // ---------- Loading with Shimmer ----------
@@ -2441,7 +2417,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       ),
                     ),
                   )
-                // ---------- Content ----------
                 : Stack(
                     children: [
                       RefreshIndicator(
@@ -2451,6 +2426,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                         child: Column(
                           children: [
                             _buildSearchBar(),
+                            _buildChatFilterChips(),
                             Expanded(child: _buildUsersList()),
                           ],
                         ),

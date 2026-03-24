@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/moments_service.dart';
 import 'package:bananatalk_app/pages/moments/moment_card.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class SavedMomentsScreen extends StatefulWidget {
   const SavedMomentsScreen({Key? key}) : super(key: key);
@@ -116,7 +117,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Saved Moments'),
+        title: Text(AppLocalizations.of(context)!.savedMoments),
         actions: [
           if (_moments.isNotEmpty)
             IconButton(
@@ -151,7 +152,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _loadSavedMoments,
-              child: const Text('Retry'),
+              child: Text(AppLocalizations.of(context)!.retry),
             ),
           ],
         ),
@@ -166,7 +167,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             Icon(Icons.bookmark_border, size: 64, color: Colors.grey[300]),
             const SizedBox(height: 16),
             Text(
-              'No saved moments',
+              AppLocalizations.of(context)!.noSavedMoments,
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.grey[600],
@@ -174,7 +175,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Tap the bookmark icon on a moment to save it',
+              AppLocalizations.of(context)!.tapBookmarkToSave,
               style: TextStyle(
                 color: Colors.grey[400],
               ),
@@ -208,12 +209,12 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
               color: Colors.red,
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.only(right: 16),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.bookmark_remove, color: Colors.white),
-                  SizedBox(height: 4),
-                  Text('Unsave', style: TextStyle(color: Colors.white)),
+                  const Icon(Icons.bookmark_remove, color: Colors.white),
+                  const SizedBox(height: 4),
+                  Text(AppLocalizations.of(context)!.unsave, style: const TextStyle(color: Colors.white)),
                 ],
               ),
             ),
@@ -224,7 +225,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             onDismissed: (direction) {
               _removeMoment(moment.id);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Moment unsaved')),
+                SnackBar(content: Text(AppLocalizations.of(context)!.momentUnsaved)),
               );
             },
             child: MomentCard(

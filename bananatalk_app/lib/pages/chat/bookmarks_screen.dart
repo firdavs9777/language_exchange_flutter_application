@@ -202,11 +202,11 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
+            Icon(Icons.error_outline, size: 48, color: context.textMuted),
             Spacing.gapMD,
             Text(
               _error!,
-              style: TextStyle(color: Colors.grey[600]),
+              style: TextStyle(color: context.textSecondary),
               textAlign: TextAlign.center,
             ),
             Spacing.gapMD,
@@ -224,20 +224,20 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.bookmark_border, size: 64, color: Colors.grey[300]),
+            Icon(Icons.bookmark_border, size: 64, color: context.textHint),
             Spacing.gapMD,
             Text(
               l10n.noBookmarkedMessages,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.grey[600],
+                color: context.textSecondary,
               ),
             ),
             Spacing.gapSM,
             Text(
               l10n.longPressToBookmark,
               style: TextStyle(
-                color: Colors.grey[400],
+                color: context.textMuted,
               ),
             ),
           ],
@@ -279,7 +279,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         color: Colors.red,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 16),
-        child: const Icon(Icons.delete, color: Colors.white),
+        child: const Icon(Icons.delete, color: AppColors.white),
       ),
       confirmDismiss: (direction) async {
         final l10n = AppLocalizations.of(context)!;
@@ -357,7 +357,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                             _formatDate(message.createdAt),
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey[500],
+                              color: context.textSecondary,
                             ),
                           ),
                         ],
@@ -376,7 +376,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: context.containerColor,
                     borderRadius: AppRadius.borderMD,
                   ),
                   child: Column(
@@ -389,14 +389,14 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                             Icon(
                               _getMediaIcon(message.media!.type),
                               size: 16,
-                              color: Colors.grey[600],
+                              color: context.textSecondary,
                             ),
                             Spacing.hGapXS,
                             Text(
                               _getMediaLabel(message.media!.type),
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey[600],
+                                color: context.textSecondary,
                               ),
                             ),
                           ],
@@ -421,7 +421,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   'Bookmarked ${_formatDate(bookmark.bookmarkedAt)}',
                   style: TextStyle(
                     fontSize: 11,
-                    color: Colors.grey[400],
+                    color: context.textMuted,
                   ),
                 ),
               ],

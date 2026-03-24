@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
@@ -66,7 +67,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter all 6 digits',
+            AppLocalizations.of(context)!.pleaseEnterAll6Digits,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 2),
@@ -93,7 +94,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Email verified successfully!',
+            AppLocalizations.of(context)!.emailVerifiedSuccessfully,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
@@ -140,7 +141,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Verification code resent!',
+            AppLocalizations.of(context)!.verificationCodeResent,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
@@ -167,7 +168,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
     return Scaffold(
       appBar: AppBar(
         title: BananaText(
-          'Verify Email',
+          AppLocalizations.of(context)!.verifyEmail,
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
       ),
@@ -185,13 +186,13 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             ),
             Spacing.gapXXL,
             BananaText(
-              'Verify Your Email',
+              AppLocalizations.of(context)!.verifyYourEmail,
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
             Spacing.gapLG,
             Text(
-              'We sent a 6-digit code to',
+              AppLocalizations.of(context)!.weSentCodeTo,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
@@ -273,7 +274,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
                     : Text(
-                        'Verify',
+                        AppLocalizations.of(context)!.verify,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -287,7 +288,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Didn't receive the code? ",
+                  AppLocalizations.of(context)!.didntReceiveCode,
                   style: TextStyle(color: context.textSecondary),
                 ),
                 TextButton(
@@ -301,8 +302,8 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                         )
                       : Text(
                           _resendTimer > 0
-                              ? 'Resend (${_resendTimer}s)'
-                              : 'Resend',
+                              ? AppLocalizations.of(context)!.resendWithTimer(_resendTimer.toString())
+                              : AppLocalizations.of(context)!.resend,
                           style: TextStyle(
                             color: _resendTimer > 0
                                 ? context.textMuted

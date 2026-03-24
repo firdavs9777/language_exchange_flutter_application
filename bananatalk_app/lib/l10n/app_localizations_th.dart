@@ -246,6 +246,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get momentDeleted => 'ลบโมเมนต์แล้ว';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'ฟีเจอร์แก้ไขเร็วๆ นี้';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'แชท';
 
   @override
   String get community => 'ชุมชน';
@@ -1181,7 +1190,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get forwardFeatureComingSoon => 'Forward feature coming soon';
 
   @override
-  String get momentUnsaved => 'Moment unsaved';
+  String get momentUnsaved => 'ลบออกจากที่บันทึกแล้ว';
 
   @override
   String get documentPickerComingSoon => 'Document picker coming soon';
@@ -1368,7 +1377,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get permissionsRequired => 'Permissions Required';
 
   @override
-  String get openSettings => 'Open Settings';
+  String get openSettings => 'เปิดการตั้งค่า';
 
   @override
   String get refresh => 'รีเฟรช';
@@ -1962,4 +1971,727 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get messageEdited => 'แก้ไขข้อความแล้ว';
+
+  @override
+  String get edited => '(แก้ไขแล้ว)';
+
+  @override
+  String get now => 'ตอนนี้';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count สัปดาห์ที่แล้ว';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── ดู $count การตอบกลับ';
+  }
+
+  @override
+  String get hideReplies => '── ซ่อนการตอบกลับ';
+
+  @override
+  String get saveMoment => 'บันทึกโมเมนต์';
+
+  @override
+  String get removeFromSaved => 'ลบออกจากที่บันทึก';
+
+  @override
+  String get momentSaved => 'บันทึกแล้ว';
+
+  @override
+  String get failedToSave => 'บันทึกล้มเหลว';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'ดูโมเมนต์นี้: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'โหลดโมเมนต์ล้มเหลว';
+
+  @override
+  String get noMomentsMatchFilters => 'ไม่มีโมเมนต์ตรงกับตัวกรอง';
+
+  @override
+  String get beFirstToShareMoment => 'เป็นคนแรกที่แชร์โมเมนต์!';
+
+  @override
+  String get tryDifferentSearch => 'ลองคำค้นหาอื่น';
+
+  @override
+  String get tryAdjustingFilters => 'ลองปรับตัวกรอง';
+
+  @override
+  String get noSavedMoments => 'ไม่มีโมเมนต์ที่บันทึก';
+
+  @override
+  String get tapBookmarkToSave => 'แตะไอคอนบุ๊กมาร์กเพื่อบันทึกโมเมนต์';
+
+  @override
+  String get failedToLoadVideo => 'โหลดวิดีโอล้มเหลว';
+
+  @override
+  String get titleRequired => 'ต้องระบุชื่อเรื่อง';
+
+  @override
+  String titleTooLong(int max) {
+    return 'ชื่อเรื่องต้องไม่เกิน $max ตัวอักษร';
+  }
+
+  @override
+  String get descriptionRequired => 'ต้องระบุคำอธิบาย';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'คำอธิบายต้องไม่เกิน $max ตัวอักษร';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'วันที่กำหนดต้องเป็นอนาคต';
+
+  @override
+  String get recent => 'ล่าสุด';
+
+  @override
+  String get popular => 'ยอดนิยม';
+
+  @override
+  String get trending => 'กำลังมาแรง';
+
+  @override
+  String get mostRecent => 'ล่าสุด';
+
+  @override
+  String get mostPopular => 'ยอดนิยมที่สุด';
+
+  @override
+  String get allTime => 'ทั้งหมด';
+
+  @override
+  String get today => 'วันนี้';
+
+  @override
+  String get thisWeek => 'สัปดาห์นี้';
+
+  @override
+  String get thisMonth => 'เดือนนี้';
+
+  @override
+  String replyingTo(String userName) {
+    return 'ตอบกลับ $userName';
+  }
+
+  @override
+  String get listView => 'มุมมองรายการ';
+
+  @override
+  String get quickMatch => 'จับคู่ด่วน';
+
+  @override
+  String get onlineNow => 'ออนไลน์อยู่';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'พูด$language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'กำลังเรียน$language';
+  }
+
+  @override
+  String get noPartnersFound => 'ไม่พบคู่หู';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'ไม่พบผู้ใช้ที่พูด$learningเป็นภาษาแม่หรือต้องการเรียน$native';
+  }
+
+  @override
+  String get removeAllFilters => 'ลบตัวกรองทั้งหมด';
+
+  @override
+  String get browseAllUsers => 'ดูผู้ใช้ทั้งหมด';
+
+  @override
+  String get allCaughtUp => 'ดูหมดแล้ว!';
+
+  @override
+  String get loadingMore => 'กำลังโหลดเพิ่ม...';
+
+  @override
+  String get findingMorePartners => 'กำลังค้นหาคู่หูเพิ่ม...';
+
+  @override
+  String get seenAllPartners => 'คุณดูคู่หูทั้งหมดแล้ว';
+
+  @override
+  String get startOver => 'เริ่มใหม่';
+
+  @override
+  String get changeFilters => 'เปลี่ยนตัวกรอง';
+
+  @override
+  String get findingPartners => 'กำลังค้นหาคู่หู...';
+
+  @override
+  String get setLocationReminder => 'ตั้งค่าตำแหน่งเพื่อค้นหาคู่หูใกล้เคียง';
+
+  @override
+  String get updateLocationReminder => 'อัปเดตตำแหน่งเพื่อผลลัพธ์ที่ดีขึ้น';
+
+  @override
+  String get male => 'ชาย';
+
+  @override
+  String get female => 'หญิง';
+
+  @override
+  String get other => 'อื่นๆ';
+
+  @override
+  String get browseMen => 'ดูผู้ชาย';
+
+  @override
+  String get browseWomen => 'ดูผู้หญิง';
+
+  @override
+  String get noMaleUsersFound => 'ไม่พบผู้ใช้ชาย';
+
+  @override
+  String get noFemaleUsersFound => 'ไม่พบผู้ใช้หญิง';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'เฉพาะผู้ใช้ใหม่';
+
+  @override
+  String get showNewUsers => 'แสดงผู้ใช้ใหม่';
+
+  @override
+  String get prioritizeNearby => 'ให้ความสำคัญกับคนใกล้เคียง';
+
+  @override
+  String get showNearbyFirst => 'แสดงคนใกล้เคียงก่อน';
+
+  @override
+  String get setLocationToEnable => 'ตั้งค่าตำแหน่งเพื่อเปิดใช้งาน';
+
+  @override
+  String get radius => 'รัศมี';
+
+  @override
+  String get findingYourLocation => 'กำลังค้นหาตำแหน่งของคุณ...';
+
+  @override
+  String get enableLocationForDistance => 'เปิดใช้งานตำแหน่งสำหรับระยะทาง';
+
+  @override
+  String get enableLocationDescription => 'เปิดใช้บริการตำแหน่งเพื่อค้นหาคู่หูแลกเปลี่ยนภาษาใกล้เคียง';
+
+  @override
+  String get enableGps => 'เปิด GPS';
+
+  @override
+  String get browseByCityCountry => 'ค้นหาตามเมือง/ประเทศ';
+
+  @override
+  String get peopleNearby => 'คนใกล้เคียง';
+
+  @override
+  String get noNearbyUsersFound => 'ไม่พบผู้ใช้ใกล้เคียง';
+
+  @override
+  String get tryExpandingSearch => 'ลองขยายการค้นหา';
+
+  @override
+  String get exploreByCity => 'สำรวจตามเมือง';
+
+  @override
+  String get exploreByCurrentCity => 'สำรวจตามเมืองปัจจุบัน';
+
+  @override
+  String get interactiveWorldMap => 'แผนที่โลกแบบโต้ตอบ';
+
+  @override
+  String get searchByCityName => 'ค้นหาตามชื่อเมือง';
+
+  @override
+  String get seeUserCountsPerCountry => 'ดูจำนวนผู้ใช้ต่อประเทศ';
+
+  @override
+  String get upgradeToVip => 'อัปเกรดเป็น VIP';
+
+  @override
+  String get searchByCity => 'ค้นหาตามเมือง';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count ผู้ใช้ทั่วโลก';
+  }
+
+  @override
+  String get noUsersFound => 'ไม่พบผู้ใช้';
+
+  @override
+  String get tryDifferentCity => 'ลองเมืองอื่น';
+
+  @override
+  String usersCount(String count) {
+    return '$count ผู้ใช้';
+  }
+
+  @override
+  String get searchCountry => 'ค้นหาประเทศ';
+
+  @override
+  String get wave => 'โบกมือ';
+
+  @override
+  String get newUser => 'ผู้ใช้ใหม่';
+
+  @override
+  String get warningPermanent => 'คำเตือน: การกระทำนี้ถาวร!';
+
+  @override
+  String get deleteAccountWarning => 'การลบบัญชีของคุณจะลบอย่างถาวร:\n\n• โปรไฟล์และข้อมูลส่วนตัวทั้งหมดของคุณ\n• ข้อความและการสนทนาทั้งหมดของคุณ\n• โมเมนต์และสตอรี่ทั้งหมดของคุณ\n• การสมัคร VIP ของคุณ (ไม่คืนเงิน)\n• การเชื่อมต่อและผู้ติดตามทั้งหมดของคุณ\n\nการกระทำนี้ไม่สามารถยกเลิกได้';
+
+  @override
+  String get requiredForEmailOnly => 'จำเป็นสำหรับบัญชีอีเมลเท่านั้น';
+
+  @override
+  String get pleaseEnterPassword => 'กรุณาป้อนรหัสผ่านของคุณ';
+
+  @override
+  String get typeDELETE => 'พิมพ์ DELETE';
+
+  @override
+  String get mustTypeDELETE => 'คุณต้องพิมพ์ DELETE เพื่อดำเนินการต่อ';
+
+  @override
+  String get deletingAccount => 'กำลังลบบัญชี...';
+
+  @override
+  String get deleteMyAccountPermanently => 'ลบบัญชีของฉันอย่างถาวร';
+
+  @override
+  String get whatsYourNativeLanguage => 'ภาษาแม่ของคุณคืออะไร?';
+
+  @override
+  String get helpsMatchWithLearners => 'ช่วยจับคู่กับผู้เรียน';
+
+  @override
+  String get whatAreYouLearning => 'คุณกำลังเรียนอะไร?';
+
+  @override
+  String get connectWithNativeSpeakers => 'เชื่อมต่อกับเจ้าของภาษา';
+
+  @override
+  String get selectLearningLanguage => 'เลือกภาษาที่จะเรียน';
+
+  @override
+  String get selectCurrentLevel => 'เลือกระดับปัจจุบัน';
+
+  @override
+  String get beginner => 'เริ่มต้น';
+
+  @override
+  String get elementary => 'พื้นฐาน';
+
+  @override
+  String get intermediate => 'ระดับกลาง';
+
+  @override
+  String get upperIntermediate => 'ระดับกลางขั้นสูง';
+
+  @override
+  String get advanced => 'ขั้นสูง';
+
+  @override
+  String get proficient => 'เชี่ยวชาญ';
+
+  @override
+  String get showingPartnersByDistance => 'แสดงคู่หูตามระยะทาง';
+
+  @override
+  String get enableLocationForResults => 'เปิดใช้งานตำแหน่งเพื่อผลลัพธ์ที่ดีขึ้น';
+
+  @override
+  String get enable => 'เปิดใช้งาน';
+
+  @override
+  String get locationNotSet => 'ยังไม่ได้ตั้งค่าตำแหน่ง';
+
+  @override
+  String get tellUsAboutYourself => 'บอกเราเกี่ยวกับตัวคุณ';
+
+  @override
+  String get justACoupleQuickThings => 'แค่สองสามอย่างสั้นๆ';
+
+  @override
+  String get gender => 'เพศ';
+
+  @override
+  String get birthDate => 'วันเกิด';
+
+  @override
+  String get selectYourBirthDate => 'เลือกวันเกิดของคุณ';
+
+  @override
+  String get continueButton => 'ดำเนินการต่อ';
+
+  @override
+  String get pleaseSelectGender => 'กรุณาเลือกเพศของคุณ';
+
+  @override
+  String get pleaseSelectBirthDate => 'กรุณาเลือกวันเกิดของคุณ';
+
+  @override
+  String get mustBe18 => 'คุณต้องมีอายุอย่างน้อย 18 ปี';
+
+  @override
+  String get invalidDate => 'วันที่ไม่ถูกต้อง';
+
+  @override
+  String get almostDone => 'เกือบเสร็จแล้ว!';
+
+  @override
+  String get addPhotoLocationForMatches => 'เพิ่มรูปภาพและตำแหน่งเพื่อการจับคู่ที่ดีขึ้น';
+
+  @override
+  String get addProfilePhoto => 'เพิ่มรูปโปรไฟล์';
+
+  @override
+  String get optionalUpTo6Photos => 'ไม่บังคับ - สูงสุด 6 รูป';
+
+  @override
+  String get maximum6Photos => 'สูงสุด 6 รูป';
+
+  @override
+  String get tapToDetectLocation => 'แตะเพื่อตรวจหาตำแหน่ง';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'ไม่บังคับ - ช่วยค้นหาคู่หูใกล้เคียง';
+
+  @override
+  String get startLearning => 'เริ่มเรียน';
+
+  @override
+  String get photoLocationOptional => 'รูปภาพและตำแหน่งเป็นทางเลือก';
+
+  @override
+  String get pleaseAcceptTerms => 'กรุณายอมรับข้อกำหนดการใช้บริการ';
+
+  @override
+  String get iAgreeToThe => 'ฉันยอมรับ';
+
+  @override
+  String get termsOfService => 'ข้อกำหนดการใช้บริการ';
+
+  @override
+  String get tapToSelectLanguage => 'แตะเพื่อเลือกภาษา';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'ระดับของคุณใน$language (ไม่บังคับ)';
+  }
+
+  @override
+  String get yourCurrentLevel => 'ระดับปัจจุบันของคุณ';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'ภาษาแม่ต้องไม่เหมือนกับภาษาที่กำลังเรียน';
+
+  @override
+  String get learningCannotBeSameAsNative => 'ภาษาที่กำลังเรียนต้องไม่เหมือนกับภาษาแม่';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'ขั้นตอนที่ $current จาก $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'ดำเนินการต่อด้วย Google';
+
+  @override
+  String get registerLink => 'ลงทะเบียน';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'กรุณากรอกอีเมลและรหัสผ่าน';
+
+  @override
+  String get pleaseEnterValidEmail => 'กรุณากรอกอีเมลที่ถูกต้อง';
+
+  @override
+  String get loginSuccessful => 'เข้าสู่ระบบสำเร็จ!';
+
+  @override
+  String get stepOneOfTwo => 'ขั้นตอนที่ 1 จาก 2';
+
+  @override
+  String get createYourAccount => 'สร้างบัญชีของคุณ';
+
+  @override
+  String get basicInfoToGetStarted => 'ข้อมูลพื้นฐานเพื่อเริ่มต้น';
+
+  @override
+  String get emailVerifiedLabel => 'อีเมล (ยืนยันแล้ว)';
+
+  @override
+  String get nameLabel => 'ชื่อ';
+
+  @override
+  String get yourDisplayName => 'ชื่อที่แสดง';
+
+  @override
+  String get atLeast8Characters => 'อย่างน้อย 8 ตัวอักษร';
+
+  @override
+  String get confirmPasswordHint => 'ยืนยันรหัสผ่าน';
+
+  @override
+  String get nextButton => 'ถัดไป';
+
+  @override
+  String get pleaseEnterYourName => 'กรุณากรอกชื่อ';
+
+  @override
+  String get pleaseEnterAPassword => 'กรุณากรอกรหัสผ่าน';
+
+  @override
+  String get passwordsDoNotMatch => 'รหัสผ่านไม่ตรงกัน';
+
+  @override
+  String get otherGender => 'อื่นๆ';
+
+  @override
+  String get continueWithGoogleAccount => 'ดำเนินการต่อด้วยบัญชี Google\nเพื่อประสบการณ์ที่ราบรื่น';
+
+  @override
+  String get signingYouIn => 'กำลังเข้าสู่ระบบ...';
+
+  @override
+  String get backToSignInMethods => 'กลับไปวิธีเข้าสู่ระบบ';
+
+  @override
+  String get securedByGoogle => 'รักษาความปลอดภัยโดย Google';
+
+  @override
+  String get dataProtectedEncryption => 'ข้อมูลของคุณได้รับการปกป้องด้วยการเข้ารหัสมาตรฐาน';
+
+  @override
+  String get welcomeCompleteProfile => 'ยินดีต้อนรับ! กรุณากรอกโปรไฟล์';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'ยินดีต้อนรับกลับ $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'ดำเนินการต่อด้วย Apple ID\nเพื่อประสบการณ์ที่ปลอดภัย';
+
+  @override
+  String get continueWithApple => 'ดำเนินการต่อด้วย Apple';
+
+  @override
+  String get securedByApple => 'รักษาความปลอดภัยโดย Apple';
+
+  @override
+  String get privacyProtectedApple => 'ความเป็นส่วนตัวของคุณได้รับการปกป้องด้วย Apple Sign-In';
+
+  @override
+  String get createAccount => 'สร้างบัญชี';
+
+  @override
+  String get enterEmailToGetStarted => 'กรอกอีเมลเพื่อเริ่มต้น';
+
+  @override
+  String get continueText => 'ดำเนินการต่อ';
+
+  @override
+  String get pleaseEnterEmailAddress => 'กรุณากรอกที่อยู่อีเมล';
+
+  @override
+  String get verificationCodeSent => 'ส่งรหัสยืนยันแล้ว!';
+
+  @override
+  String get forgotPasswordTitle => 'ลืมรหัสผ่าน';
+
+  @override
+  String get resetPasswordTitle => 'รีเซ็ตรหัสผ่าน';
+
+  @override
+  String get enterEmailForResetCode => 'กรอกอีเมลและเราจะส่งรหัสรีเซ็ตให้คุณ';
+
+  @override
+  String get sendResetCode => 'ส่งรหัสรีเซ็ต';
+
+  @override
+  String get resetCodeSent => 'ส่งรหัสรีเซ็ตแล้ว!';
+
+  @override
+  String get rememberYourPassword => 'จำรหัสผ่านได้?';
+
+  @override
+  String get verifyCode => 'ตรวจสอบรหัส';
+
+  @override
+  String get enterResetCode => 'กรอกรหัสรีเซ็ต';
+
+  @override
+  String get weSentCodeTo => 'เราส่งรหัส 6 หลักไปที่';
+
+  @override
+  String get pleaseEnterAll6Digits => 'กรุณากรอกตัวเลข 6 หลัก';
+
+  @override
+  String get codeVerifiedCreatePassword => 'ยืนยันรหัสแล้ว! สร้างรหัสผ่านใหม่';
+
+  @override
+  String get verify => 'ยืนยัน';
+
+  @override
+  String get didntReceiveCode => 'ไม่ได้รับรหัส?';
+
+  @override
+  String get resend => 'ส่งอีกครั้ง';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'ส่งอีกครั้ง ($timerว)';
+  }
+
+  @override
+  String get resetCodeResent => 'ส่งรหัสรีเซ็ตอีกครั้งแล้ว!';
+
+  @override
+  String get verifyEmail => 'ยืนยันอีเมล';
+
+  @override
+  String get verifyYourEmail => 'ยืนยันอีเมลของคุณ';
+
+  @override
+  String get emailVerifiedSuccessfully => 'ยืนยันอีเมลสำเร็จ!';
+
+  @override
+  String get verificationCodeResent => 'ส่งรหัสยืนยันอีกครั้งแล้ว!';
+
+  @override
+  String get createNewPassword => 'สร้างรหัสผ่านใหม่';
+
+  @override
+  String get enterNewPasswordBelow => 'กรอกรหัสผ่านใหม่ด้านล่าง';
+
+  @override
+  String get newPassword => 'รหัสผ่านใหม่';
+
+  @override
+  String get confirmPasswordLabel => 'ยืนยันรหัสผ่าน';
+
+  @override
+  String get pleaseFillAllFields => 'กรุณากรอกข้อมูลทุกช่อง';
+
+  @override
+  String get passwordResetSuccessful => 'รีเซ็ตรหัสผ่านสำเร็จ! เข้าสู่ระบบด้วยรหัสผ่านใหม่';
+
+  @override
+  String get privacyTitle => 'ความเป็นส่วนตัว';
+
+  @override
+  String get profileVisibility => 'การแสดงโปรไฟล์';
+
+  @override
+  String get showCountryRegion => 'แสดงประเทศ/ภูมิภาค';
+
+  @override
+  String get showCountryRegionDesc => 'แสดงประเทศของคุณในโปรไฟล์';
+
+  @override
+  String get showCity => 'แสดงเมือง';
+
+  @override
+  String get showCityDesc => 'แสดงเมืองของคุณในโปรไฟล์';
+
+  @override
+  String get showAge => 'แสดงอายุ';
+
+  @override
+  String get showAgeDesc => 'แสดงอายุของคุณในโปรไฟล์';
+
+  @override
+  String get showZodiacSign => 'แสดงราศี';
+
+  @override
+  String get showZodiacSignDesc => 'แสดงราศีของคุณในโปรไฟล์';
+
+  @override
+  String get onlineStatusSection => 'สถานะออนไลน์';
+
+  @override
+  String get showOnlineStatus => 'แสดงสถานะออนไลน์';
+
+  @override
+  String get showOnlineStatusDesc => 'ให้ผู้อื่นเห็นเมื่อคุณออนไลน์';
+
+  @override
+  String get otherSettings => 'การตั้งค่าอื่นๆ';
+
+  @override
+  String get showGiftingLevel => 'แสดงระดับของขวัญ';
+
+  @override
+  String get showGiftingLevelDesc => 'แสดงตราระดับของขวัญ';
+
+  @override
+  String get birthdayNotifications => 'การแจ้งเตือนวันเกิด';
+
+  @override
+  String get birthdayNotificationsDesc => 'รับการแจ้งเตือนในวันเกิดของคุณ';
+
+  @override
+  String get personalizedAds => 'โฆษณาส่วนบุคคล';
+
+  @override
+  String get personalizedAdsDesc => 'อนุญาตโฆษณาส่วนบุคคล';
+
+  @override
+  String get saveChanges => 'บันทึกการเปลี่ยนแปลง';
+
+  @override
+  String get privacySettingsSaved => 'บันทึกการตั้งค่าความเป็นส่วนตัวแล้ว';
+
+  @override
+  String get locationSection => 'ตำแหน่ง';
+
+  @override
+  String get updateLocation => 'อัปเดตตำแหน่ง';
+
+  @override
+  String get updateLocationDesc => 'รีเฟรชตำแหน่งปัจจุบัน';
+
+  @override
+  String get currentLocation => 'ตำแหน่งปัจจุบัน';
+
+  @override
+  String get locationNotAvailable => 'ไม่มีตำแหน่ง';
+
+  @override
+  String get locationUpdated => 'อัปเดตตำแหน่งสำเร็จ';
+
+  @override
+  String get locationPermissionDenied => 'ไม่อนุญาตตำแหน่ง กรุณาเปิดในการตั้งค่า';
+
+  @override
+  String get locationServiceDisabled => 'บริการตำแหน่งถูกปิด กรุณาเปิดใช้งาน';
+
+  @override
+  String get updatingLocation => 'กำลังอัปเดตตำแหน่ง...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'ไม่สามารถอัปเดตตำแหน่งได้';
 }

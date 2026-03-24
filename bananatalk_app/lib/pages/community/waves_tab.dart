@@ -48,7 +48,6 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         await service.markWavesAsRead();
       }
     } catch (e) {
-      debugPrint('Error loading waves: $e');
       setState(() {
         _isLoading = false;
         _hasError = true;
@@ -71,7 +70,6 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         );
       }
     } catch (e) {
-      debugPrint('Error loading user profile: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

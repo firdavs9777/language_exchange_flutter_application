@@ -4,6 +4,7 @@ import 'moment_filter_model.dart';
 import 'moment_filter_sheet.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class MomentFilterBar extends StatelessWidget {
   final MomentFilter currentFilter;
@@ -53,7 +54,7 @@ class MomentFilterBar extends StatelessWidget {
                     children: [
                       _buildQuickTab(
                         context: context,
-                        label: 'Recent',
+                        label: AppLocalizations.of(context)!.recent,
                         icon: Icons.access_time,
                         isActive: currentFilter.sortBy == 'recent',
                         onTap: () =>
@@ -62,7 +63,7 @@ class MomentFilterBar extends StatelessWidget {
                       const SizedBox(width: 8),
                       _buildQuickTab(
                         context: context,
-                        label: 'Popular',
+                        label: AppLocalizations.of(context)!.popular,
                         icon: Icons.trending_up,
                         isActive: currentFilter.sortBy == 'popular',
                         onTap: () =>
@@ -71,7 +72,7 @@ class MomentFilterBar extends StatelessWidget {
                       const SizedBox(width: 8),
                       _buildQuickTab(
                         context: context,
-                        label: 'Trending',
+                        label: AppLocalizations.of(context)!.trending,
                         icon: Icons.local_fire_department,
                         isActive: currentFilter.sortBy == 'trending',
                         onTap: () =>
@@ -198,7 +199,7 @@ class MomentFilterBar extends StatelessWidget {
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       child: Text(
-                        'Clear All',
+                        AppLocalizations.of(context)!.clearAll,
                         style: TextStyle(
                           fontSize: 12,
                           color: secondaryText,

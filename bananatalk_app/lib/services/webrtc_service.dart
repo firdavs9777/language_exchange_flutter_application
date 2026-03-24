@@ -43,43 +43,34 @@ class WebRTCService {
   }
 
   Future<bool> requestPermissions(bool isVideo) async {
-    debugPrint('🔐 Requesting permissions (video: $isVideo)');
     
     // Check current permission status first
     final micStatus = await Permission.microphone.status;
-    debugPrint('🎤 Microphone status: $micStatus');
     
     final cameraStatus = isVideo ? await Permission.camera.status : PermissionStatus.granted;
     if (isVideo) {
-      debugPrint('📹 Camera status: $cameraStatus');
     }
     
     // If already granted, return true
     if (micStatus.isGranted && cameraStatus.isGranted) {
-      debugPrint('✅ Permissions already granted');
       return true;
     }
     
     // If permanently denied, return false immediately (don't request again)
     if (micStatus.isPermanentlyDenied || (isVideo && cameraStatus.isPermanentlyDenied)) {
-      debugPrint('❌ Permissions permanently denied');
       return false;
     }
     
     // Request permissions
-    debugPrint('📋 Requesting permissions...');
     Map<Permission, PermissionStatus> statuses = await [
       Permission.microphone,
       if (isVideo) Permission.camera,
     ].request();
 
-    debugPrint('📋 Permission request results:');
     statuses.forEach((permission, status) {
-      debugPrint('   ${permission.toString()}: $status');
     });
 
     bool allGranted = statuses.values.every((status) => status.isGranted);
-    debugPrint('✅ All permissions granted: $allGranted');
     return allGranted;
   }
   
@@ -94,7 +85,6 @@ class WebRTCService {
 
   Future<void> createOffer(bool isVideo) async {
     try {
-      debugPrint('🎥 Creating offer (video: $isVideo)');
 
       // Get user media
       final constraints = <String, dynamic>{
@@ -134,9 +124,7 @@ class WebRTCService {
         onOfferCreated!(offer);
       }
 
-      debugPrint('✅ Offer created successfully');
     } catch (e) {
-      debugPrint('❌ Error creating offer: $e');
       rethrow;
     }
   }
@@ -146,7 +134,6 @@ class WebRTCService {
     bool isVideo,
   ) async {
     try {
-      debugPrint('🎥 Creating answer (video: $isVideo)');
 
       // Get user media
       final constraints = <String, dynamic>{
@@ -189,9 +176,7 @@ class WebRTCService {
         onAnswerCreated!(answer);
       }
 
-      debugPrint('✅ Answer created successfully');
     } catch (e) {
-      debugPrint('❌ Error creating answer: $e');
       rethrow;
     }
   }
@@ -199,9 +184,7 @@ class WebRTCService {
   Future<void> setRemoteDescription(RTCSessionDescription description) async {
     try {
       await _peerConnection?.setRemoteDescription(description);
-      debugPrint('✅ Remote description set');
     } catch (e) {
-      debugPrint('❌ Error setting remote description: $e');
       rethrow;
     }
   }
@@ -210,16 +193,13 @@ class WebRTCService {
     try {
       if (_peerConnection != null) {
         await _peerConnection!.addCandidate(candidate);
-        debugPrint('✅ ICE candidate added');
       }
     } catch (e) {
-      debugPrint('❌ Error adding ICE candidate: $e');
     }
   }
 
   void _setupPeerConnectionListeners() {
     _peerConnection?.onIceCandidate = (RTCIceCandidate candidate) {
-      debugPrint('🧊 ICE candidate generated');
       if (onIceCandidate != null) {
         onIceCandidate!(candidate);
       }
@@ -233,23 +213,19 @@ class WebRTCService {
         if (onRemoteStream != null) {
           onRemoteStream!(_remoteStream!);
         }
-        debugPrint('✅ Remote stream received');
       }
     };
 
     _peerConnection?.onConnectionState = (RTCPeerConnectionState state) {
-      debugPrint('🔌 Connection state: $state');
       if (onConnectionStateChange != null) {
         onConnectionStateChange!();
       }
     };
 
     _peerConnection?.onIceConnectionState = (RTCIceConnectionState state) {
-      debugPrint('🧊 ICE connection state: $state');
     };
 
     _peerConnection?.onIceGatheringState = (RTCIceGatheringState state) {
-      debugPrint('🧊 ICE gathering state: $state');
     };
   }
 
@@ -259,7 +235,6 @@ class WebRTCService {
       if (audioTracks.isNotEmpty) {
         bool enabled = audioTracks[0].enabled;
         audioTracks[0].enabled = !enabled;
-        debugPrint('🎤 Microphone ${!enabled ? "enabled" : "disabled"}');
       }
     }
   }
@@ -270,7 +245,6 @@ class WebRTCService {
       if (videoTracks.isNotEmpty) {
         bool enabled = videoTracks[0].enabled;
         videoTracks[0].enabled = !enabled;
-        debugPrint('📹 Camera ${!enabled ? "enabled" : "disabled"}');
       }
     }
   }
@@ -300,14 +274,12 @@ class WebRTCService {
       final videoTracks = _localStream!.getVideoTracks();
       if (videoTracks.isNotEmpty) {
         await Helper.switchCamera(videoTracks[0]);
-        debugPrint('📹 Camera switched');
       }
     }
   }
 
   Future<void> dispose() async {
     try {
-      debugPrint('🧹 Disposing WebRTC resources');
       _localStream?.getTracks().forEach((track) => track.stop());
       _localStream?.dispose();
       _remoteStream?.getTracks().forEach((track) => track.stop());
@@ -316,9 +288,7 @@ class WebRTCService {
       _peerConnection = null;
       await localRenderer.dispose();
       await remoteRenderer.dispose();
-      debugPrint('✅ WebRTC resources disposed');
     } catch (e) {
-      debugPrint('❌ Error disposing WebRTC: $e');
     }
   }
 

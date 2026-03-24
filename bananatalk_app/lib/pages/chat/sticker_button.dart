@@ -80,16 +80,16 @@ class _StickerButtonState extends State<StickerButton>
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: AppRadius.borderSM,
-                color: _isPressed ? Colors.grey[300] : Colors.grey[100],
+                color: context.containerColor,
                 border: Border.all(
-                  color: _isPressed ? Colors.grey[400]! : Colors.grey[200]!,
+                  color: context.dividerColor,
                   width: 1,
                 ),
                 boxShadow: _isPressed
                     ? null
                     : [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
+                          color: AppColors.black.withValues(alpha: 0.05),
                           blurRadius: 2,
                           offset: const Offset(0, 1),
                         ),

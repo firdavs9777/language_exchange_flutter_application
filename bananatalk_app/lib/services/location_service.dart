@@ -33,7 +33,6 @@ class LocationService {
       // Check if location service is enabled
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        debugPrint('📍 Location services disabled');
         return null;
       }
 
@@ -44,10 +43,8 @@ class LocationService {
       );
       _lastFetchTime = DateTime.now();
 
-      debugPrint('📍 Got location: ${_currentPosition?.latitude}, ${_currentPosition?.longitude}');
       return _currentPosition;
     } catch (e) {
-      debugPrint('📍 Error getting location: $e');
       return null;
     }
   }
@@ -61,12 +58,10 @@ class LocationService {
     }
 
     if (status.isPermanentlyDenied) {
-      debugPrint('📍 Location permission permanently denied');
       return false;
     }
 
     if (!status.isGranted) {
-      debugPrint('📍 Location permission denied');
       return false;
     }
 

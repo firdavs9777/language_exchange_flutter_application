@@ -16,19 +16,15 @@ class NotificationSettingsNotifier
     try {
       state = const AsyncValue.loading();
       
-      debugPrint('📥 Fetching notification settings...');
       final settings = await _apiClient.getSettings();
 
       if (settings != null) {
         state = AsyncValue.data(settings);
-        debugPrint('✅ Notification settings loaded');
       } else {
         // Use default settings if fetch fails
         state = AsyncValue.data(NotificationSettings.defaultSettings());
-        debugPrint('⚠️ Using default notification settings');
       }
     } catch (e, stack) {
-      debugPrint('❌ Error fetching notification settings: $e');
       state = AsyncValue.error(e, stack);
       // Fallback to default settings
       state = AsyncValue.data(NotificationSettings.defaultSettings());
@@ -38,7 +34,6 @@ class NotificationSettingsNotifier
   /// Update notification settings
   Future<void> updateSettings(NotificationSettings settings) async {
     try {
-      debugPrint('📤 Updating notification settings...');
       
       // Optimistically update UI
       state = AsyncValue.data(settings);
@@ -46,14 +41,11 @@ class NotificationSettingsNotifier
       final result = await _apiClient.updateSettings(settings);
 
       if (result['success'] == true) {
-        debugPrint('✅ Notification settings updated successfully');
       } else {
-        debugPrint('❌ Failed to update settings: ${result['message']}');
         // Revert on failure
         await fetchSettings();
       }
     } catch (e) {
-      debugPrint('❌ Error updating notification settings: $e');
       // Revert on error
       await fetchSettings();
     }
@@ -107,38 +99,30 @@ class NotificationSettingsNotifier
   /// Mute a conversation
   Future<void> muteConversation(String conversationId) async {
     try {
-      debugPrint('🔇 Muting conversation: $conversationId');
       
       final result = await _apiClient.muteConversation(conversationId);
 
       if (result['success'] == true) {
-        debugPrint('✅ Conversation muted');
         // Refresh settings to get updated muted conversations list
         await fetchSettings();
       } else {
-        debugPrint('❌ Failed to mute conversation: ${result['message']}');
       }
     } catch (e) {
-      debugPrint('❌ Error muting conversation: $e');
     }
   }
 
   /// Unmute a conversation
   Future<void> unmuteConversation(String conversationId) async {
     try {
-      debugPrint('🔊 Unmuting conversation: $conversationId');
       
       final result = await _apiClient.unmuteConversation(conversationId);
 
       if (result['success'] == true) {
-        debugPrint('✅ Conversation unmuted');
         // Refresh settings to get updated muted conversations list
         await fetchSettings();
       } else {
-        debugPrint('❌ Failed to unmute conversation: ${result['message']}');
       }
     } catch (e) {
-      debugPrint('❌ Error unmuting conversation: $e');
     }
   }
 

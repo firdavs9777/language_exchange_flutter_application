@@ -30,15 +30,12 @@ class LearningService {
     // Check if response is HTML (likely 404 or error page)
     final trimmed = body.trim();
     if (trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || trimmed.startsWith('<HTML')) {
-      debugPrint('⚠️ Received HTML response instead of JSON (endpoint may not exist)');
       return null;
     }
 
     try {
       return jsonDecode(body) as Map<String, dynamic>;
     } catch (e) {
-      debugPrint('❌ JSON decode error: $e');
-      debugPrint('   Response preview: ${body.length > 100 ? body.substring(0, 100) : body}');
       return null;
     }
   }
@@ -59,7 +56,6 @@ class LearningService {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.learningProgressURL}');
 
-      debugPrint('📊 Fetching learning progress...');
 
       final response = await http.get(
         url,
@@ -70,23 +66,19 @@ class LearningService {
 
       if (response.statusCode == 200) {
         if (data == null || data['data'] == null) {
-          debugPrint('⚠️ No progress data returned');
           return {'success': true, 'data': null};
         }
-        debugPrint('✅ Learning progress fetched successfully');
         return {
           'success': true,
           'data': data['data'],
         };
       } else {
-        debugPrint('❌ Failed to fetch progress: ${response.statusCode}');
         return {
           'success': false,
           'error': _getErrorMessage(data, 'Failed to fetch progress'),
         };
       }
     } catch (e) {
-      debugPrint('❌ Error fetching progress: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -219,44 +211,34 @@ class LearningService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.vocabularyURL}')
           .replace(queryParameters: queryParams);
 
-      debugPrint('📚 Fetching vocabulary from: $url');
 
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
-      debugPrint('📚 Vocabulary response: ${response.statusCode}');
 
       final data = _safeJsonDecode(response.body);
 
       if (response.statusCode == 200) {
         final vocabData = data?['data'];
-        debugPrint('📚 Vocabulary data type: ${vocabData.runtimeType}');
         if (vocabData is Map) {
-          debugPrint('📚 Vocabulary data keys: ${vocabData.keys.toList()}');
         }
 
         // Handle both array and object with items
         List<dynamic> items = [];
         if (vocabData is List) {
           items = vocabData;
-          debugPrint('📚 Vocabulary items (direct list): ${items.length}');
         } else if (vocabData is Map) {
           // Try different possible keys
           if (vocabData['items'] != null) {
             items = vocabData['items'] as List;
-            debugPrint('📚 Vocabulary items (from items): ${items.length}');
           } else if (vocabData['words'] != null) {
             items = vocabData['words'] as List;
-            debugPrint('📚 Vocabulary items (from words): ${items.length}');
           } else if (vocabData['vocabulary'] != null) {
             items = vocabData['vocabulary'] as List;
-            debugPrint('📚 Vocabulary items (from vocabulary): ${items.length}');
           } else {
-            debugPrint('📚 Unknown vocabulary structure, trying to use data directly');
             // Maybe the data itself contains the items at a different structure
-            debugPrint('📚 Full data: $vocabData');
           }
         }
 
@@ -266,14 +248,12 @@ class LearningService {
           'pagination': data?['pagination'] ?? vocabData?['pagination'],
         };
       } else {
-        debugPrint('❌ Vocabulary fetch failed: ${response.statusCode}');
         return {
           'success': false,
           'error': _getErrorMessage(data, 'Failed to fetch vocabulary'),
         };
       }
     } catch (e) {
-      debugPrint('❌ Vocabulary fetch error: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -308,7 +288,6 @@ class LearningService {
         if (context != null) 'context': context.toJson(),
       };
 
-      debugPrint('📝 Adding vocabulary: $word');
 
       final response = await http.post(
         url,
@@ -319,20 +298,17 @@ class LearningService {
       final data = _safeJsonDecode(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        debugPrint('✅ Vocabulary added successfully');
         return {
           'success': true,
           'data': data?['data'],
         };
       } else {
-        debugPrint('❌ Failed to add vocabulary: ${response.statusCode}');
         return {
           'success': false,
           'error': _getErrorMessage(data, 'Failed to add vocabulary'),
         };
       }
     } catch (e) {
-      debugPrint('❌ Error adding vocabulary: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -499,19 +475,16 @@ class LearningService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.vocabularyStatsURL}')
           .replace(queryParameters: queryParams.isNotEmpty ? queryParams : null);
 
-      debugPrint('📊 Fetching vocabulary stats from: $url');
 
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
-      debugPrint('📊 Vocabulary stats response: ${response.statusCode}');
 
       // Check if response is HTML (likely 404 page)
       if (response.body.trim().startsWith('<!DOCTYPE') ||
           response.body.trim().startsWith('<html')) {
-        debugPrint('⚠️ Vocabulary stats endpoint returned HTML (endpoint may not exist)');
         return {'success': false, 'error': 'Endpoint not available'};
       }
 
@@ -529,7 +502,6 @@ class LearningService {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error fetching vocabulary stats: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -556,15 +528,12 @@ class LearningService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.lessonsURL}')
           .replace(queryParameters: queryParams.isNotEmpty ? queryParams : null);
 
-      debugPrint('📚 Fetching lessons from: $url');
 
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
-      debugPrint('📚 Lessons response status: ${response.statusCode}');
-      debugPrint('📚 Lessons response body: ${response.body.substring(0, response.body.length > 500 ? 500 : response.body.length)}');
 
       final data = _safeJsonDecode(response.body);
 
@@ -576,12 +545,9 @@ class LearningService {
           lessonsData = lessonsData['lessons'];
         }
 
-        debugPrint('📚 Lessons data type: ${lessonsData?.runtimeType}');
-        debugPrint('📚 Lessons count: ${lessonsData is List ? lessonsData.length : 'not a list'}');
 
         // If no lessons found, try AI-generated lessons
         if (lessonsData == null || (lessonsData is List && lessonsData.isEmpty)) {
-          debugPrint('📚 No regular lessons, trying AI-generated...');
           return await getAIGeneratedLessons(
             language: language,
             level: level,
@@ -594,9 +560,7 @@ class LearningService {
           'data': lessonsData ?? [],
         };
       } else {
-        debugPrint('❌ Failed to fetch lessons: ${response.statusCode}');
         // Try AI-generated lessons as fallback
-        debugPrint('📚 Trying AI-generated lessons as fallback...');
         return await getAIGeneratedLessons(
           language: language,
           level: level,
@@ -604,7 +568,6 @@ class LearningService {
         );
       }
     } catch (e) {
-      debugPrint('❌ Error fetching lessons: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -630,14 +593,12 @@ class LearningService {
       final url = Uri.parse('${Endpoints.baseURL}lessons/ai-generated')
           .replace(queryParameters: queryParams);
 
-      debugPrint('📚 Fetching AI-generated lessons from: $url');
 
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
-      debugPrint('📚 AI lessons response status: ${response.statusCode}');
 
       final data = _safeJsonDecode(response.body);
 
@@ -649,21 +610,18 @@ class LearningService {
           lessonsData = lessonsData['lessons'];
         }
 
-        debugPrint('📚 AI lessons count: ${lessonsData is List ? lessonsData.length : 'not a list'}');
 
         return {
           'success': true,
           'data': lessonsData ?? [],
         };
       } else {
-        debugPrint('❌ Failed to fetch AI lessons: ${response.statusCode}');
         return {
           'success': true,
           'data': [], // Return empty list, not error
         };
       }
     } catch (e) {
-      debugPrint('❌ Error fetching AI lessons: $e');
       return {'success': true, 'data': []}; // Return empty, not error
     }
   }
@@ -682,33 +640,28 @@ class LearningService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.lessonsRecommendedURL}')
           .replace(queryParameters: queryParams.isNotEmpty ? queryParams : null);
 
-      debugPrint('📚 Fetching recommended lessons from: $url');
 
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
-      debugPrint('📚 Recommended lessons response status: ${response.statusCode}');
 
       final data = _safeJsonDecode(response.body);
 
       if (response.statusCode == 200) {
         final lessonsData = data?['data'];
-        debugPrint('📚 Recommended lessons count: ${lessonsData is List ? lessonsData.length : 'not a list'}');
         return {
           'success': true,
           'data': lessonsData ?? [],
         };
       } else {
-        debugPrint('❌ Failed to fetch recommended lessons: ${response.statusCode}');
         return {
           'success': false,
           'error': _getErrorMessage(data, 'Failed to fetch recommended lessons'),
         };
       }
     } catch (e) {
-      debugPrint('❌ Error fetching recommended lessons: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -720,7 +673,6 @@ class LearningService {
 
       // Try regular lessons endpoint first
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.lessonURL(lessonId)}');
-      debugPrint('📚 Fetching lesson from: $url');
 
       var response = await http.get(
         url,
@@ -730,7 +682,6 @@ class LearningService {
       var data = _safeJsonDecode(response.body);
 
       if ((response.statusCode == 200 || response.statusCode == 201) && data?['data'] != null) {
-        debugPrint('✅ Lesson fetched from regular endpoint');
         return {
           'success': true,
           'data': data?['data'],
@@ -738,23 +689,17 @@ class LearningService {
       }
 
       // Try lessons/{id} endpoint
-      debugPrint('📚 Trying lessons/{id} endpoint...');
       final aiUrl = Uri.parse('${Endpoints.baseURL}${Endpoints.aiLessonURL(lessonId)}');
-      debugPrint('📚 Fetching lesson from: $aiUrl');
 
       response = await http.get(
         aiUrl,
         headers: _getHeaders(token),
       );
 
-      debugPrint('📚 Response status: ${response.statusCode}');
-      debugPrint('📚 Response body: ${response.body.length > 1000 ? response.body.substring(0, 1000) : response.body}');
 
       data = _safeJsonDecode(response.body);
 
       if ((response.statusCode == 200 || response.statusCode == 201) && data?['data'] != null) {
-        debugPrint('✅ Lesson fetched from lessons/{id} endpoint');
-        debugPrint('📚 Lesson data keys: ${data?['data']?.keys?.toList()}');
         return {
           'success': true,
           'data': data?['data'],
@@ -763,8 +708,6 @@ class LearningService {
 
       // Try direct data structure (some APIs return lesson directly)
       if ((response.statusCode == 200 || response.statusCode == 201) && data != null && data['_id'] != null) {
-        debugPrint('✅ Lesson fetched directly (no data wrapper)');
-        debugPrint('📚 Lesson data keys: ${data.keys.toList()}');
         return {
           'success': true,
           'data': data,
@@ -772,9 +715,7 @@ class LearningService {
       }
 
       // Try lessons/ai-generated/{id} endpoint
-      debugPrint('📚 Trying lessons/ai-generated/{id} endpoint...');
       final aiGenUrl = Uri.parse('${Endpoints.baseURL}lessons/ai-generated/$lessonId');
-      debugPrint('📚 Fetching lesson from: $aiGenUrl');
 
       response = await http.get(
         aiGenUrl,
@@ -784,7 +725,6 @@ class LearningService {
       data = _safeJsonDecode(response.body);
 
       if ((response.statusCode == 200 || response.statusCode == 201) && data?['data'] != null) {
-        debugPrint('✅ Lesson fetched from lessons/ai-generated/{id} endpoint');
         return {
           'success': true,
           'data': data?['data'],
@@ -793,7 +733,6 @@ class LearningService {
 
       // Try direct data structure
       if ((response.statusCode == 200 || response.statusCode == 201) && data != null && data['_id'] != null) {
-        debugPrint('✅ Lesson fetched directly from ai-generated endpoint');
         return {
           'success': true,
           'data': data,
@@ -801,14 +740,12 @@ class LearningService {
       }
 
       // Last resort: fetch all AI-generated lessons and filter by ID
-      debugPrint('📚 Trying to find lesson in AI-generated list...');
       final aiLessonsResult = await getAIGeneratedLessons(limit: 100);
       if (aiLessonsResult['success'] == true && aiLessonsResult['data'] != null) {
         final lessons = aiLessonsResult['data'] as List;
         for (var lesson in lessons) {
           final id = lesson['_id']?.toString() ?? lesson['id']?.toString();
           if (id == lessonId) {
-            debugPrint('✅ Found lesson in AI-generated list');
             return {
               'success': true,
               'data': lesson,
@@ -817,13 +754,11 @@ class LearningService {
         }
       }
 
-      debugPrint('❌ Failed to fetch lesson from all endpoints');
       return {
         'success': false,
         'error': _getErrorMessage(data, 'Failed to fetch lesson'),
       };
     } catch (e) {
-      debugPrint('❌ Error fetching lesson: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -835,7 +770,6 @@ class LearningService {
 
       // Try regular lessons endpoint first
       var url = Uri.parse('${Endpoints.baseURL}${Endpoints.lessonStartURL(lessonId)}');
-      debugPrint('📚 Starting lesson from: $url');
 
       var response = await http.post(
         url,
@@ -845,7 +779,6 @@ class LearningService {
       var data = _safeJsonDecode(response.body);
 
       if ((response.statusCode == 200 || response.statusCode == 201) && data != null) {
-        debugPrint('✅ Lesson started from regular endpoint');
         return {
           'success': true,
           'data': data['data'] ?? data,
@@ -853,9 +786,7 @@ class LearningService {
       }
 
       // Try AI-generated lessons start endpoint
-      debugPrint('📚 Trying AI lessons start endpoint...');
       url = Uri.parse('${Endpoints.baseURL}lessons/$lessonId/start');
-      debugPrint('📚 Starting lesson from: $url');
 
       response = await http.post(
         url,
@@ -865,7 +796,6 @@ class LearningService {
       data = _safeJsonDecode(response.body);
 
       if ((response.statusCode == 200 || response.statusCode == 201) && data != null) {
-        debugPrint('✅ Lesson started from AI lessons endpoint');
         return {
           'success': true,
           'data': data['data'] ?? data,
@@ -873,9 +803,7 @@ class LearningService {
       }
 
       // Try lessons/ai-generated/{id}/start endpoint
-      debugPrint('📚 Trying lessons/ai-generated/{id}/start endpoint...');
       url = Uri.parse('${Endpoints.baseURL}lessons/ai-generated/$lessonId/start');
-      debugPrint('📚 Starting lesson from: $url');
 
       response = await http.post(
         url,
@@ -885,20 +813,17 @@ class LearningService {
       data = _safeJsonDecode(response.body);
 
       if ((response.statusCode == 200 || response.statusCode == 201) && data != null) {
-        debugPrint('✅ Lesson started from ai-generated start endpoint');
         return {
           'success': true,
           'data': data['data'] ?? data,
         };
       }
 
-      debugPrint('❌ Failed to start lesson from all endpoints');
       return {
         'success': false,
         'error': _getErrorMessage(data, 'Failed to start lesson'),
       };
     } catch (e) {
-      debugPrint('❌ Error starting lesson: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
@@ -916,11 +841,9 @@ class LearningService {
         'timeSpent': timeSpent,
       });
 
-      debugPrint('📝 Submitting lesson with body: $body');
 
       // Try regular lessons endpoint first
       var url = Uri.parse('${Endpoints.baseURL}${Endpoints.lessonSubmitURL(lessonId)}');
-      debugPrint('📝 [1/3] Submitting lesson to: $url');
 
       var response = await http.post(
         url,
@@ -928,13 +851,10 @@ class LearningService {
         body: body,
       );
 
-      debugPrint('📝 [1/3] Response status: ${response.statusCode}');
-      debugPrint('📝 [1/3] Response body preview: ${response.body.length > 200 ? response.body.substring(0, 200) : response.body}');
 
       var data = _safeJsonDecode(response.body);
 
       if (response.statusCode == 200 && data != null) {
-        debugPrint('✅ Lesson submitted successfully via learning/lessons/{id}/submit');
         return {
           'success': true,
           'data': data['data'],
@@ -943,7 +863,6 @@ class LearningService {
 
       // Try lessons/{id}/complete endpoint
       url = Uri.parse('${Endpoints.baseURL}lessons/$lessonId/complete');
-      debugPrint('📝 [2/3] Trying lessons/{id}/complete endpoint: $url');
 
       response = await http.post(
         url,
@@ -951,13 +870,10 @@ class LearningService {
         body: body,
       );
 
-      debugPrint('📝 [2/3] Response status: ${response.statusCode}');
-      debugPrint('📝 [2/3] Response body preview: ${response.body.length > 200 ? response.body.substring(0, 200) : response.body}');
 
       data = _safeJsonDecode(response.body);
 
       if (response.statusCode == 200 && data != null) {
-        debugPrint('✅ Lesson completed successfully via lessons/{id}/complete');
         return {
           'success': true,
           'data': data['data'],
@@ -966,7 +882,6 @@ class LearningService {
 
       // Try lessons/{id}/submit endpoint
       url = Uri.parse('${Endpoints.baseURL}lessons/$lessonId/submit');
-      debugPrint('📝 [3/3] Trying lessons/{id}/submit endpoint: $url');
 
       response = await http.post(
         url,
@@ -974,13 +889,10 @@ class LearningService {
         body: body,
       );
 
-      debugPrint('📝 [3/3] Response status: ${response.statusCode}');
-      debugPrint('📝 [3/3] Response body preview: ${response.body.length > 200 ? response.body.substring(0, 200) : response.body}');
 
       data = _safeJsonDecode(response.body);
 
       if (response.statusCode == 200 && data != null) {
-        debugPrint('✅ Lesson submitted via lessons/{id}/submit');
         return {
           'success': true,
           'data': data['data'],
@@ -988,13 +900,11 @@ class LearningService {
       }
 
       // If all endpoints fail, return success with no XP (graceful degradation)
-      debugPrint('⚠️ All lesson submit endpoints failed (statuses: 1st=${response.statusCode}), using local completion');
       return {
         'success': true,
         'data': {'xpEarned': 0},
       };
     } catch (e) {
-      debugPrint('❌ Error submitting lesson: $e');
       // Return success anyway to not break the UI
       return {
         'success': true,

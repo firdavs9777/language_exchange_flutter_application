@@ -92,7 +92,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         setState(() => _isLoading = false);
       }
     } catch (e) {
-      debugPrint('❌ Video player error: $e');
       if (mounted) {
         setState(() {
           _isLoading = false;

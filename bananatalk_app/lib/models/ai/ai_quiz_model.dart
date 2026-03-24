@@ -34,7 +34,6 @@ class AIQuiz {
   });
 
   factory AIQuiz.fromJson(Map<String, dynamic> json) {
-    debugPrint('📝 AIQuiz.fromJson - raw questions: ${json['questions']?.runtimeType} - length: ${(json['questions'] as List?)?.length ?? 0}');
 
     // Parse questions list
     final rawQuestions = json['questions'];
@@ -45,13 +44,11 @@ class AIQuiz {
         final q = rawQuestions[i];
         if (q is Map) {
           final question = AIQuizQuestion.fromJson(Map<String, dynamic>.from(q));
-          debugPrint('📝 Question $i: ${question.question.substring(0, (question.question.length > 30 ? 30 : question.question.length))}... options: ${question.options?.length ?? 0}');
           questionsList.add(question);
         }
       }
     }
 
-    debugPrint('📝 Parsed ${questionsList.length} questions');
 
     // Get question count from settings or questions length
     int questionCount = 0;

@@ -92,7 +92,6 @@ class ConversationNotifier extends StateNotifier<ConversationState> {
       SendMessageRequest(content: content, responseTime: responseTime),
     );
 
-    debugPrint('📩 Send message result: $result');
 
     if (result['success'] == true) {
       // Get AI response message
@@ -209,7 +208,6 @@ final conversationHistoryProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading conversation history: $e');
     return [];
   }
 });
@@ -231,7 +229,6 @@ final conversationTopicsProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading topics: $e');
     return [];
   }
 });
@@ -253,7 +250,6 @@ final practiceScenariosProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading scenarios: $e');
     return [];
   }
 });
@@ -279,7 +275,6 @@ final grammarFeedbackHistoryProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading grammar feedback history: $e');
     return [];
   }
 });
@@ -305,7 +300,6 @@ final pronunciationHistoryProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading pronunciation history: $e');
     return [];
   }
 });
@@ -324,7 +318,6 @@ final pronunciationStatsProvider =
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading pronunciation stats: $e');
     return null;
   }
 });
@@ -346,7 +339,6 @@ final availableVoicesProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading voices: $e');
     return [];
   }
 });
@@ -372,7 +364,6 @@ final popularTranslationsProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading popular translations: $e');
     return [];
   }
 });
@@ -384,13 +375,10 @@ final popularTranslationsProvider =
 /// AI quizzes provider
 final aiQuizzesProvider = FutureProvider<List<AIQuiz>>((ref) async {
   try {
-    debugPrint('📋 Provider: Fetching AI quizzes...');
     final result = await AIService.getAIQuizzes();
-    debugPrint('📋 Provider: Result success=${result['success']}, data type=${result['data']?.runtimeType}');
     if (result['success'] == true && result['data'] != null) {
       final data = result['data'];
       if (data is List<AIQuiz>) {
-        debugPrint('📋 Provider: Returning ${data.length} quizzes (List<AIQuiz>)');
         return data;
       }
       if (data is List) {
@@ -398,14 +386,11 @@ final aiQuizzesProvider = FutureProvider<List<AIQuiz>>((ref) async {
             .where((e) => e is Map)
             .map((e) => AIQuiz.fromJson(Map<String, dynamic>.from(e)))
             .toList();
-        debugPrint('📋 Provider: Returning ${quizzes.length} quizzes (parsed List)');
         return quizzes;
       }
     }
-    debugPrint('📋 Provider: Returning empty list');
     return [];
   } catch (e) {
-    debugPrint('Error loading AI quizzes: $e');
     return [];
   }
 });
@@ -423,7 +408,6 @@ final aiQuizStatsProvider = FutureProvider<AIQuizStats?>((ref) async {
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading AI quiz stats: $e');
     return null;
   }
 });
@@ -493,7 +477,6 @@ class AIQuizNotifier extends StateNotifier<AIQuizState> {
       if (quiz != null) {
         // If quiz has no questions, we need to start it to load questions
         if (quiz.questions.isEmpty && quiz.id.isNotEmpty) {
-          debugPrint('📝 Quiz generated without questions, starting quiz to load them...');
           return await startQuiz(quiz.id);
         }
         state = state.copyWith(
@@ -514,24 +497,19 @@ class AIQuizNotifier extends StateNotifier<AIQuizState> {
   }
 
   Future<bool> startQuiz(String quizId) async {
-    debugPrint('📝 Provider: startQuiz called with id: $quizId');
     state = state.copyWith(isLoading: true, error: null);
 
     final result = await AIService.startAIQuiz(quizId);
-    debugPrint('📝 Provider: startQuiz result success=${result['success']}, hasData=${result['data'] != null}');
 
     if (result['success'] == true && result['data'] != null) {
       final data = result['data'];
       AIQuiz? quiz;
       if (data is AIQuiz) {
         quiz = data;
-        debugPrint('📝 Provider: Quiz is already AIQuiz with ${quiz.questions.length} questions');
       } else if (data is Map) {
         quiz = AIQuiz.fromJson(Map<String, dynamic>.from(data));
-        debugPrint('📝 Provider: Parsed quiz from Map with ${quiz.questions.length} questions');
       }
       if (quiz != null) {
-        debugPrint('📝 Provider: Setting quiz state with ${quiz.questions.length} questions');
         state = state.copyWith(
           quiz: quiz,
           currentIndex: 0,
@@ -542,7 +520,6 @@ class AIQuizNotifier extends StateNotifier<AIQuizState> {
         return true;
       }
     }
-    debugPrint('📝 Provider: startQuiz failed - ${result['message']}');
     state = state.copyWith(
       isLoading: false,
       error: result['message']?.toString() ?? 'Failed to start quiz',
@@ -645,7 +622,6 @@ final weakAreasProvider = FutureProvider<List<WeakArea>>((ref) async {
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading weak areas: $e');
     return [];
   }
 });

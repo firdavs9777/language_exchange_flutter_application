@@ -74,6 +74,14 @@ class Community {
   /// Check if user is VIP (either userMode is vip OR vipSubscription.isActive is true)
   bool get isVip => userMode == UserMode.vip || vipSubscriptionActive;
 
+  /// Check if user joined within the last 6 days
+  bool get isNewUser {
+    if (createdAt.isEmpty) return false;
+    final joined = DateTime.tryParse(createdAt);
+    if (joined == null) return false;
+    return DateTime.now().difference(joined).inDays <= 6;
+  }
+
   /// Get display username with @ prefix (e.g., @davis7x4k)
   String? get displayUsername => username != null ? '@$username' : null;
 
@@ -256,12 +264,12 @@ class PrivacySettings {
   const PrivacySettings({
     this.showCountryRegion = true,
     this.showCity = true,
-    this.showAge = false,
+    this.showAge = true,
     this.showZodiac = true,
-    this.showOnlineStatus = false,
+    this.showOnlineStatus = true,
     this.showGiftingLevel = true,
     this.birthdayNotification = true,
-    this.personalizedAds = false,
+    this.personalizedAds = true,
   });
 
   final bool showCountryRegion;
@@ -277,12 +285,12 @@ class PrivacySettings {
     return PrivacySettings(
       showCountryRegion: json['showCountryRegion'] ?? true,
       showCity: json['showCity'] ?? true,
-      showAge: json['showAge'] ?? false,
+      showAge: json['showAge'] ?? true,
       showZodiac: json['showZodiac'] ?? true,
-      showOnlineStatus: json['showOnlineStatus'] ?? false,
+      showOnlineStatus: json['showOnlineStatus'] ?? true,
       showGiftingLevel: json['showGiftingLevel'] ?? true,
       birthdayNotification: json['birthdayNotification'] ?? true,
-      personalizedAds: json['personalizedAds'] ?? false,
+      personalizedAds: json['personalizedAds'] ?? true,
     );
   }
 

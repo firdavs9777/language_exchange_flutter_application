@@ -145,7 +145,6 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           }
         }
       } catch (e) {
-        debugPrint('Error parsing start lesson response: $e');
       }
     }
 

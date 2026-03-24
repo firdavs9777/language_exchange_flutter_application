@@ -125,7 +125,7 @@ class ChatMessagesList extends StatelessWidget {
                             'Send a wave to start chatting',
                             style: TextStyle(
                               fontSize: 13,
-                              color: Colors.grey[500],
+                              color: context.textSecondary,
                             ),
                           ),
                         ],
@@ -151,6 +151,7 @@ class ChatMessagesList extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             controller: scrollController,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             reverse: false, // Normal order - header at top, newest at bottom
             padding: const EdgeInsets.symmetric(vertical: 8),
             itemCount: totalItems,

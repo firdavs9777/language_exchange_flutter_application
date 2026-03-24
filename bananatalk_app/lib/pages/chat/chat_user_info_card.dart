@@ -195,8 +195,8 @@ class ChatUserInfoCard extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: isDark
-                    ? Colors.white.withValues(alpha: 0.05)
-                    : Colors.white.withValues(alpha: 0.7),
+                    ? AppColors.white.withValues(alpha: 0.05)
+                    : AppColors.white.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -289,13 +289,13 @@ class ChatUserInfoCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: isNative
-            ? Colors.green.withValues(alpha: 0.15)
-            : Colors.blue.withValues(alpha: 0.15),
+            ? AppColors.success.withValues(alpha: 0.15)
+            : AppColors.info.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isNative
-              ? Colors.green.withValues(alpha: 0.3)
-              : Colors.blue.withValues(alpha: 0.3),
+              ? AppColors.success.withValues(alpha: 0.3)
+              : AppColors.info.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -304,14 +304,14 @@ class ChatUserInfoCard extends StatelessWidget {
           Icon(
             icon,
             size: 14,
-            color: isNative ? Colors.green : Colors.blue,
+            color: isNative ? AppColors.success : AppColors.info,
           ),
           const SizedBox(width: 4),
           Text(
             label,
             style: context.bodySmall.copyWith(
               fontWeight: FontWeight.w500,
-              color: isNative ? Colors.green : Colors.blue,
+              color: isNative ? AppColors.success : AppColors.info,
             ),
           ),
         ],

@@ -157,7 +157,6 @@ class _ModernStoryViewerState extends State<ModernStoryViewer>
           }
         });
     } catch (e) {
-      debugPrint('Error loading video: $e');
       setState(() => _isVideoLoading = false);
       _progressController.duration = _imageDuration;
       _startProgress();
@@ -676,7 +675,7 @@ class _ModernStoryViewerState extends State<ModernStoryViewer>
                           color: const Color(0xFF00A86B),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.star, color: Colors.white, size: 10),
@@ -1006,7 +1005,6 @@ class _ModernStoryViewerState extends State<ModernStoryViewer>
 
   void _openLink(String url) {
     // Use url_launcher to open the link
-    debugPrint('Opening link: $url');
   }
 
   Widget _buildMusicSticker(StoryMusic music) {

@@ -7,8 +7,7 @@ import 'package:bananatalk_app/pages/authentication/screens/forget_password_emai
 import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
-import 'package:bananatalk_app/pages/home/Home.dart';
-import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
@@ -57,7 +56,7 @@ class _LoginState extends ConsumerState<Login> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter both email and password',
+            AppLocalizations.of(context)!.pleaseEnterBothEmailAndPassword,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: const Duration(seconds: 2),
@@ -71,7 +70,7 @@ class _LoginState extends ConsumerState<Login> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter a valid email address',
+            AppLocalizations.of(context)!.pleaseEnterValidEmail,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: const Duration(seconds: 2),
@@ -118,16 +117,13 @@ class _LoginState extends ConsumerState<Login> {
         } catch (e) {
           // If we can't fetch user data, log out and redirect to home
           // This handles cases where token is invalid or network issues
-          debugPrint('Error checking terms after login: $e');
           await ref.read(authServiceProvider).logout();
           if (!mounted) return;
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (ctx) => const HomePage()),
-          );
+          context.go('/login');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: BananaText(
-                'Session expired. Please login again.',
+                AppLocalizations.of(context)!.sessionExpired,
                 BanaStyles: BananaTextStyles.warning,
               ),
               duration: const Duration(seconds: 3),
@@ -139,14 +135,12 @@ class _LoginState extends ConsumerState<Login> {
 
         if (!mounted) return;
 
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => TabsScreen()),
-        );
+        context.go('/home');
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: BananaText(
-              'Login Successful!',
+              AppLocalizations.of(context)!.loginSuccessful,
               BanaStyles: BananaTextStyles.success,
             ),
             duration: const Duration(seconds: 2),
@@ -194,7 +188,7 @@ class _LoginState extends ConsumerState<Login> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: BananaText(
-          'Login',
+          AppLocalizations.of(context)!.login,
           BanaStyles: BananaTextStyles.title,
         ),
       ),
@@ -216,7 +210,7 @@ class _LoginState extends ConsumerState<Login> {
               ),
               Center(
                 child: BananaText(
-                  'Login',
+                  AppLocalizations.of(context)!.login,
                   BanaStyles: BananaTextStyles.title,
                 ),
               ),
@@ -234,7 +228,7 @@ class _LoginState extends ConsumerState<Login> {
                           borderRadius: AppRadius.borderXL,
                         ),
                         label: BananaText(
-                          'Email',
+                          AppLocalizations.of(context)!.email,
                           BanaStyles: BananaTextStyles.inputText,
                         ),
                       ),
@@ -264,7 +258,7 @@ class _LoginState extends ConsumerState<Login> {
                           borderRadius: AppRadius.borderXL,
                         ),
                         label: BananaText(
-                          'Password',
+                          AppLocalizations.of(context)!.password,
                           BanaStyles: BananaTextStyles.inputText,
                         ),
                       ),
@@ -283,7 +277,7 @@ class _LoginState extends ConsumerState<Login> {
                                 onPressed: submit,
                                 color: AppColors.primary,
                                 BananaText: BananaText(
-                                  'Login',
+                                  AppLocalizations.of(context)!.login,
                                   BanaStyles: BananaTextStyles.buttonText,
                                 ),
                                 textColor:
@@ -305,7 +299,7 @@ class _LoginState extends ConsumerState<Login> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: BananaText(
-                            'OR',
+                            AppLocalizations.of(context)!.or,
                             BanaStyles: BananaTextStyles.body,
                           ),
                         ),
@@ -420,7 +414,7 @@ class _LoginState extends ConsumerState<Login> {
                                 size: 24,
                               ),
                               label: BananaText(
-                                'Continue with Google',
+                                AppLocalizations.of(context)!.continueWithGoogle,
                                 BanaStyles: BananaTextStyles.buttonText,
                               ),
                               style: ElevatedButton.styleFrom(
@@ -446,7 +440,7 @@ class _LoginState extends ConsumerState<Login> {
                                 builder: (ctx) => const ForgotPasswordEmail()));
                           },
                           child: BananaText(
-                            'Forgot password?',
+                            AppLocalizations.of(context)!.forgotPassword,
                             BanaStyles: BananaTextStyles.link,
                           ),
                         ),
@@ -456,7 +450,7 @@ class _LoginState extends ConsumerState<Login> {
                                 builder: (ctx) => const EmailInput()));
                           },
                           child: BananaText(
-                            'Register',
+                            AppLocalizations.of(context)!.registerLink,
                             BanaStyles: BananaTextStyles.link,
                           ),
                         ),

@@ -75,7 +75,6 @@ class CachedImageWidget extends StatelessWidget {
 
     // Debug logging for image quality troubleshooting
     if (kDebugMode) {
-      debugPrint('🖼️ CachedImage: quality=$quality, cacheW=$cacheWidth, cacheH=$cacheHeight, diskMax=$qualityDimension');
     }
 
     Widget imageWidget = CachedNetworkImage(

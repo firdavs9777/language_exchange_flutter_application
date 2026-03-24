@@ -246,6 +246,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get momentDeleted => 'An silindi';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'Düzenleme özelliği yakında';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'Sohbetler';
 
   @override
   String get community => 'Topluluk';
@@ -1181,7 +1190,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get forwardFeatureComingSoon => 'İletme özelliği yakında';
 
   @override
-  String get momentUnsaved => 'An kaydedilmedi';
+  String get momentUnsaved => 'Kaydedilenlerden kaldırıldı';
 
   @override
   String get documentPickerComingSoon => 'Belge seçici yakında';
@@ -1962,4 +1971,727 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get messageEdited => 'Mesaj düzenlendi';
+
+  @override
+  String get edited => '(düzenlendi)';
+
+  @override
+  String get now => 'şimdi';
+
+  @override
+  String weeksAgo(int count) {
+    return '${count}h önce';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── $count yanıtı görüntüle';
+  }
+
+  @override
+  String get hideReplies => '── Yanıtları gizle';
+
+  @override
+  String get saveMoment => 'Anı Kaydet';
+
+  @override
+  String get removeFromSaved => 'Kaydedilenlerden Kaldır';
+
+  @override
+  String get momentSaved => 'Kaydedildi';
+
+  @override
+  String get failedToSave => 'Kaydetme başarısız';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'Bu anıya göz at: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'Anılar yüklenemedi';
+
+  @override
+  String get noMomentsMatchFilters => 'Filtrelerinizle eşleşen anı yok';
+
+  @override
+  String get beFirstToShareMoment => 'Bir anı paylaşan ilk kişi olun!';
+
+  @override
+  String get tryDifferentSearch => 'Farklı bir arama terimi deneyin';
+
+  @override
+  String get tryAdjustingFilters => 'Filtrelerinizi ayarlamayı deneyin';
+
+  @override
+  String get noSavedMoments => 'Kaydedilmiş anı yok';
+
+  @override
+  String get tapBookmarkToSave => 'Bir anıyı kaydetmek için yer imi simgesine dokunun';
+
+  @override
+  String get failedToLoadVideo => 'Video yüklenemedi';
+
+  @override
+  String get titleRequired => 'Başlık gerekli';
+
+  @override
+  String titleTooLong(int max) {
+    return 'Başlık $max karakter veya daha az olmalıdır';
+  }
+
+  @override
+  String get descriptionRequired => 'Açıklama gerekli';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'Açıklama $max karakter veya daha az olmalıdır';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'Planlanan tarih gelecekte olmalıdır';
+
+  @override
+  String get recent => 'Son';
+
+  @override
+  String get popular => 'Popüler';
+
+  @override
+  String get trending => 'Trend';
+
+  @override
+  String get mostRecent => 'En son';
+
+  @override
+  String get mostPopular => 'En popüler';
+
+  @override
+  String get allTime => 'Tüm Zamanlar';
+
+  @override
+  String get today => 'Bugün';
+
+  @override
+  String get thisWeek => 'Bu Hafta';
+
+  @override
+  String get thisMonth => 'Bu Ay';
+
+  @override
+  String replyingTo(String userName) {
+    return '$userName adlı kişiye yanıt';
+  }
+
+  @override
+  String get listView => 'Liste görünümü';
+
+  @override
+  String get quickMatch => 'Hızlı eşleşme';
+
+  @override
+  String get onlineNow => 'Şimdi çevrimiçi';
+
+  @override
+  String speaksLanguage(String language) {
+    return '$language konuşuyor';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return '$language öğreniyor';
+  }
+
+  @override
+  String get noPartnersFound => 'Partner bulunamadı';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'Ana dili $learning olan veya $native öğrenmek isteyen kullanıcı bulunamadı.';
+  }
+
+  @override
+  String get removeAllFilters => 'Tüm filtreleri kaldır';
+
+  @override
+  String get browseAllUsers => 'Tüm kullanıcılara göz at';
+
+  @override
+  String get allCaughtUp => 'Hepsini gördünüz!';
+
+  @override
+  String get loadingMore => 'Daha fazla yükleniyor...';
+
+  @override
+  String get findingMorePartners => 'Daha fazla partner aranıyor...';
+
+  @override
+  String get seenAllPartners => 'Tüm partnerleri gördünüz';
+
+  @override
+  String get startOver => 'Baştan başla';
+
+  @override
+  String get changeFilters => 'Filtreleri değiştir';
+
+  @override
+  String get findingPartners => 'Partner aranıyor...';
+
+  @override
+  String get setLocationReminder => 'Yakındaki partnerleri bulmak için konumunuzu ayarlayın';
+
+  @override
+  String get updateLocationReminder => 'Daha iyi sonuçlar için konumunuzu güncelleyin';
+
+  @override
+  String get male => 'Erkek';
+
+  @override
+  String get female => 'Kadın';
+
+  @override
+  String get other => 'Diğer';
+
+  @override
+  String get browseMen => 'Erkeklere göz at';
+
+  @override
+  String get browseWomen => 'Kadınlara göz at';
+
+  @override
+  String get noMaleUsersFound => 'Erkek kullanıcı bulunamadı';
+
+  @override
+  String get noFemaleUsersFound => 'Kadın kullanıcı bulunamadı';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'Yalnızca yeni kullanıcılar';
+
+  @override
+  String get showNewUsers => 'Yeni kullanıcıları göster';
+
+  @override
+  String get prioritizeNearby => 'Yakındakilere öncelik ver';
+
+  @override
+  String get showNearbyFirst => 'Önce yakındakileri göster';
+
+  @override
+  String get setLocationToEnable => 'Etkinleştirmek için konum ayarlayın';
+
+  @override
+  String get radius => 'Yarıçap';
+
+  @override
+  String get findingYourLocation => 'Konumunuz bulunuyor...';
+
+  @override
+  String get enableLocationForDistance => 'Mesafe için konumu etkinleştir';
+
+  @override
+  String get enableLocationDescription => 'Yakındaki dil partnerlerini bulmak için konum hizmetlerini etkinleştirin';
+
+  @override
+  String get enableGps => 'GPS\'i Etkinleştir';
+
+  @override
+  String get browseByCityCountry => 'Şehir/ülkeye göre ara';
+
+  @override
+  String get peopleNearby => 'Yakındaki kişiler';
+
+  @override
+  String get noNearbyUsersFound => 'Yakında kullanıcı bulunamadı';
+
+  @override
+  String get tryExpandingSearch => 'Aramayı genişletmeyi deneyin';
+
+  @override
+  String get exploreByCity => 'Şehre göre keşfet';
+
+  @override
+  String get exploreByCurrentCity => 'Mevcut şehre göre keşfet';
+
+  @override
+  String get interactiveWorldMap => 'İnteraktif dünya haritası';
+
+  @override
+  String get searchByCityName => 'Şehir adına göre ara';
+
+  @override
+  String get seeUserCountsPerCountry => 'Ülke başına kullanıcı sayısını gör';
+
+  @override
+  String get upgradeToVip => 'VIP\'e yükselt';
+
+  @override
+  String get searchByCity => 'Şehre göre ara';
+
+  @override
+  String usersWorldwide(String count) {
+    return 'Dünya genelinde $count kullanıcı';
+  }
+
+  @override
+  String get noUsersFound => 'Kullanıcı bulunamadı';
+
+  @override
+  String get tryDifferentCity => 'Farklı bir şehir deneyin';
+
+  @override
+  String usersCount(String count) {
+    return '$count kullanıcı';
+  }
+
+  @override
+  String get searchCountry => 'Ülke ara';
+
+  @override
+  String get wave => 'El salla';
+
+  @override
+  String get newUser => 'Yeni kullanıcı';
+
+  @override
+  String get warningPermanent => 'Uyarı: Bu işlem kalıcıdır!';
+
+  @override
+  String get deleteAccountWarning => 'Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.';
+
+  @override
+  String get requiredForEmailOnly => 'Yalnızca e-posta hesapları için gerekli';
+
+  @override
+  String get pleaseEnterPassword => 'Lütfen şifrenizi girin';
+
+  @override
+  String get typeDELETE => 'DELETE yazın';
+
+  @override
+  String get mustTypeDELETE => 'Devam etmek için DELETE yazmalısınız';
+
+  @override
+  String get deletingAccount => 'Hesap siliniyor...';
+
+  @override
+  String get deleteMyAccountPermanently => 'Hesabımı kalıcı olarak sil';
+
+  @override
+  String get whatsYourNativeLanguage => 'Ana diliniz nedir?';
+
+  @override
+  String get helpsMatchWithLearners => 'Öğrencilerle eşleşmenize yardımcı olur';
+
+  @override
+  String get whatAreYouLearning => 'Ne öğreniyorsunuz?';
+
+  @override
+  String get connectWithNativeSpeakers => 'Ana dil konuşanlarıyla bağlanın';
+
+  @override
+  String get selectLearningLanguage => 'Öğrenilecek dili seçin';
+
+  @override
+  String get selectCurrentLevel => 'Mevcut seviyenizi seçin';
+
+  @override
+  String get beginner => 'Başlangıç';
+
+  @override
+  String get elementary => 'Temel';
+
+  @override
+  String get intermediate => 'Orta';
+
+  @override
+  String get upperIntermediate => 'Üst orta';
+
+  @override
+  String get advanced => 'İleri';
+
+  @override
+  String get proficient => 'Uzman';
+
+  @override
+  String get showingPartnersByDistance => 'Partnerler mesafeye göre gösteriliyor';
+
+  @override
+  String get enableLocationForResults => 'Daha iyi sonuçlar için konumu etkinleştirin';
+
+  @override
+  String get enable => 'Etkinleştir';
+
+  @override
+  String get locationNotSet => 'Konum ayarlanmadı';
+
+  @override
+  String get tellUsAboutYourself => 'Bize kendinizden bahsedin';
+
+  @override
+  String get justACoupleQuickThings => 'Sadece birkaç hızlı şey';
+
+  @override
+  String get gender => 'Cinsiyet';
+
+  @override
+  String get birthDate => 'Doğum tarihi';
+
+  @override
+  String get selectYourBirthDate => 'Doğum tarihinizi seçin';
+
+  @override
+  String get continueButton => 'Devam';
+
+  @override
+  String get pleaseSelectGender => 'Lütfen cinsiyetinizi seçin';
+
+  @override
+  String get pleaseSelectBirthDate => 'Lütfen doğum tarihinizi seçin';
+
+  @override
+  String get mustBe18 => 'En az 18 yaşında olmalısınız';
+
+  @override
+  String get invalidDate => 'Geçersiz tarih';
+
+  @override
+  String get almostDone => 'Neredeyse bitti!';
+
+  @override
+  String get addPhotoLocationForMatches => 'Daha iyi eşleşmeler için fotoğraf ve konum ekleyin';
+
+  @override
+  String get addProfilePhoto => 'Profil fotoğrafı ekle';
+
+  @override
+  String get optionalUpTo6Photos => 'İsteğe bağlı - 6 fotoğrafa kadar';
+
+  @override
+  String get maximum6Photos => 'Maksimum 6 fotoğraf';
+
+  @override
+  String get tapToDetectLocation => 'Konumu algılamak için dokunun';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'İsteğe bağlı - yakındaki partnerleri bulmaya yardımcı olur';
+
+  @override
+  String get startLearning => 'Öğrenmeye başla';
+
+  @override
+  String get photoLocationOptional => 'Fotoğraf ve konum isteğe bağlıdır';
+
+  @override
+  String get pleaseAcceptTerms => 'Lütfen kullanım şartlarını kabul edin';
+
+  @override
+  String get iAgreeToThe => 'Kabul ediyorum';
+
+  @override
+  String get termsOfService => 'Kullanım Şartları';
+
+  @override
+  String get tapToSelectLanguage => 'Dil seçmek için dokunun';
+
+  @override
+  String yourLevelIn(String language) {
+    return '$language seviyeniz (isteğe bağlı)';
+  }
+
+  @override
+  String get yourCurrentLevel => 'Mevcut seviyeniz';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'Ana dil öğrenilen dille aynı olamaz';
+
+  @override
+  String get learningCannotBeSameAsNative => 'Öğrenilen dil ana dille aynı olamaz';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'Adım $current / $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Google ile devam et';
+
+  @override
+  String get registerLink => 'Kayıt ol';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'E-posta ve şifre girin';
+
+  @override
+  String get pleaseEnterValidEmail => 'Geçerli bir e-posta girin';
+
+  @override
+  String get loginSuccessful => 'Giriş başarılı!';
+
+  @override
+  String get stepOneOfTwo => 'Adım 1 / 2';
+
+  @override
+  String get createYourAccount => 'Hesabını oluştur';
+
+  @override
+  String get basicInfoToGetStarted => 'Başlamak için temel bilgiler';
+
+  @override
+  String get emailVerifiedLabel => 'E-posta (Doğrulanmış)';
+
+  @override
+  String get nameLabel => 'İsim';
+
+  @override
+  String get yourDisplayName => 'Görünen adın';
+
+  @override
+  String get atLeast8Characters => 'En az 8 karakter';
+
+  @override
+  String get confirmPasswordHint => 'Şifreyi onayla';
+
+  @override
+  String get nextButton => 'İleri';
+
+  @override
+  String get pleaseEnterYourName => 'İsmini gir';
+
+  @override
+  String get pleaseEnterAPassword => 'Şifre gir';
+
+  @override
+  String get passwordsDoNotMatch => 'Şifreler uyuşmuyor';
+
+  @override
+  String get otherGender => 'Diğer';
+
+  @override
+  String get continueWithGoogleAccount => 'Google hesabınla devam et\nsorunsuz bir deneyim için';
+
+  @override
+  String get signingYouIn => 'Giriş yapılıyor...';
+
+  @override
+  String get backToSignInMethods => 'Giriş yöntemlerine dön';
+
+  @override
+  String get securedByGoogle => 'Google tarafından korunuyor';
+
+  @override
+  String get dataProtectedEncryption => 'Verilerin standart şifreleme ile korunuyor';
+
+  @override
+  String get welcomeCompleteProfile => 'Hoş geldin! Profilini tamamla';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'Tekrar hoş geldin, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Apple ID ile devam et\ngüvenli bir deneyim için';
+
+  @override
+  String get continueWithApple => 'Apple ile devam et';
+
+  @override
+  String get securedByApple => 'Apple tarafından korunuyor';
+
+  @override
+  String get privacyProtectedApple => 'Gizliliğin Apple Sign-In ile korunuyor';
+
+  @override
+  String get createAccount => 'Hesap oluştur';
+
+  @override
+  String get enterEmailToGetStarted => 'Başlamak için e-postanı gir';
+
+  @override
+  String get continueText => 'Devam et';
+
+  @override
+  String get pleaseEnterEmailAddress => 'E-posta adresini gir';
+
+  @override
+  String get verificationCodeSent => 'Doğrulama kodu gönderildi!';
+
+  @override
+  String get forgotPasswordTitle => 'Şifremi unuttum';
+
+  @override
+  String get resetPasswordTitle => 'Şifreyi sıfırla';
+
+  @override
+  String get enterEmailForResetCode => 'E-postanı gir, şifre sıfırlama kodu gönderelim';
+
+  @override
+  String get sendResetCode => 'Sıfırlama kodu gönder';
+
+  @override
+  String get resetCodeSent => 'Sıfırlama kodu gönderildi!';
+
+  @override
+  String get rememberYourPassword => 'Şifreni hatırlıyor musun?';
+
+  @override
+  String get verifyCode => 'Kodu doğrula';
+
+  @override
+  String get enterResetCode => 'Sıfırlama kodunu gir';
+
+  @override
+  String get weSentCodeTo => '6 haneli kodu gönderdik';
+
+  @override
+  String get pleaseEnterAll6Digits => '6 rakamın hepsini gir';
+
+  @override
+  String get codeVerifiedCreatePassword => 'Kod doğrulandı! Yeni şifre oluştur';
+
+  @override
+  String get verify => 'Doğrula';
+
+  @override
+  String get didntReceiveCode => 'Kodu almadın mı?';
+
+  @override
+  String get resend => 'Tekrar gönder';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'Tekrar gönder (${timer}sn)';
+  }
+
+  @override
+  String get resetCodeResent => 'Sıfırlama kodu tekrar gönderildi!';
+
+  @override
+  String get verifyEmail => 'E-postayı doğrula';
+
+  @override
+  String get verifyYourEmail => 'E-postanı doğrula';
+
+  @override
+  String get emailVerifiedSuccessfully => 'E-posta doğrulandı!';
+
+  @override
+  String get verificationCodeResent => 'Doğrulama kodu tekrar gönderildi!';
+
+  @override
+  String get createNewPassword => 'Yeni şifre oluştur';
+
+  @override
+  String get enterNewPasswordBelow => 'Yeni şifreni aşağıya gir';
+
+  @override
+  String get newPassword => 'Yeni şifre';
+
+  @override
+  String get confirmPasswordLabel => 'Şifreyi onayla';
+
+  @override
+  String get pleaseFillAllFields => 'Tüm alanları doldur';
+
+  @override
+  String get passwordResetSuccessful => 'Şifre sıfırlandı! Yeni şifrenle giriş yap';
+
+  @override
+  String get privacyTitle => 'Gizlilik';
+
+  @override
+  String get profileVisibility => 'Profil Görünürlüğü';
+
+  @override
+  String get showCountryRegion => 'Ülke/Bölge Göster';
+
+  @override
+  String get showCountryRegionDesc => 'Profilinizde ülkenizi gösterin';
+
+  @override
+  String get showCity => 'Şehir Göster';
+
+  @override
+  String get showCityDesc => 'Profilinizde şehrinizi gösterin';
+
+  @override
+  String get showAge => 'Yaş Göster';
+
+  @override
+  String get showAgeDesc => 'Profilinizde yaşınızı gösterin';
+
+  @override
+  String get showZodiacSign => 'Burç Göster';
+
+  @override
+  String get showZodiacSignDesc => 'Profilinizde burcunuzu gösterin';
+
+  @override
+  String get onlineStatusSection => 'Çevrimiçi Durumu';
+
+  @override
+  String get showOnlineStatus => 'Çevrimiçi Durumu Göster';
+
+  @override
+  String get showOnlineStatusDesc => 'Başkalarının çevrimiçi olduğunuzu görmesine izin verin';
+
+  @override
+  String get otherSettings => 'Diğer Ayarlar';
+
+  @override
+  String get showGiftingLevel => 'Hediye Seviyesini Göster';
+
+  @override
+  String get showGiftingLevelDesc => 'Hediye seviyesi rozetinizi gösterin';
+
+  @override
+  String get birthdayNotifications => 'Doğum Günü Bildirimleri';
+
+  @override
+  String get birthdayNotificationsDesc => 'Doğum gününüzde bildirim alın';
+
+  @override
+  String get personalizedAds => 'Kişiselleştirilmiş Reklamlar';
+
+  @override
+  String get personalizedAdsDesc => 'Kişiselleştirilmiş reklamlara izin verin';
+
+  @override
+  String get saveChanges => 'Değişiklikleri Kaydet';
+
+  @override
+  String get privacySettingsSaved => 'Gizlilik ayarları kaydedildi';
+
+  @override
+  String get locationSection => 'Konum';
+
+  @override
+  String get updateLocation => 'Konumu Güncelle';
+
+  @override
+  String get updateLocationDesc => 'Mevcut konumunuzu yenileyin';
+
+  @override
+  String get currentLocation => 'Mevcut konum';
+
+  @override
+  String get locationNotAvailable => 'Konum mevcut değil';
+
+  @override
+  String get locationUpdated => 'Konum başarıyla güncellendi';
+
+  @override
+  String get locationPermissionDenied => 'Konum izni reddedildi. Ayarlardan etkinleştirin.';
+
+  @override
+  String get locationServiceDisabled => 'Konum hizmetleri devre dışı. Lütfen etkinleştirin.';
+
+  @override
+  String get updatingLocation => 'Konum güncelleniyor...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'Konum güncellenemedi';
 }

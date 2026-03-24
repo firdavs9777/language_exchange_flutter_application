@@ -21,7 +21,7 @@ class ChatErrorWidget extends StatelessWidget {
           Icon(
             Icons.error_outline,
             size: 64,
-            color: Colors.red[400],
+            color: AppColors.error,
           ),
           Spacing.gapMD,
           Padding(
@@ -29,8 +29,8 @@ class ChatErrorWidget extends StatelessWidget {
             child: Text(
               error,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.red,
+              style: TextStyle(
+                color: AppColors.error,
                 fontSize: 16,
               ),
             ),
@@ -41,8 +41,8 @@ class ChatErrorWidget extends StatelessWidget {
             icon: const Icon(Icons.refresh),
             label: const Text('Retry'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red[400],
-              foregroundColor: Colors.white,
+              backgroundColor: AppColors.error,
+              foregroundColor: AppColors.white,
               padding: const EdgeInsets.symmetric(
                 horizontal: 24,
                 vertical: 12,

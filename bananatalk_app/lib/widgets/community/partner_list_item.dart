@@ -5,11 +5,13 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// List item for partner discovery (Tandem/HelloTalk style)
 class PartnerListItem extends StatelessWidget {
   final Community user;
+  final Community? currentUser;
   final VoidCallback? onTap;
   final VoidCallback? onWave;
   final VoidCallback? onMessage;
@@ -17,6 +19,7 @@ class PartnerListItem extends StatelessWidget {
   const PartnerListItem({
     super.key,
     required this.user,
+    this.currentUser,
     this.onTap,
     this.onWave,
     this.onMessage,
@@ -29,7 +32,7 @@ class PartnerListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: isDark ? AppColors.gray900 : Colors.white,
         ),
@@ -51,25 +54,27 @@ class PartnerListItem extends StatelessWidget {
   }
 
   Widget _buildAvatar(BuildContext context) {
+    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline;
     return Stack(
       children: [
         // Avatar
         Container(
-          width: 60,
-          height: 60,
+          width: 72,
+          height: 72,
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(22),
             border: Border.all(
-              color: user.isOnline ? AppColors.success : Colors.transparent,
+              color: showOnline ? AppColors.success : Colors.transparent,
               width: 2,
             ),
           ),
-          child: ClipOval(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
             child: user.profileImageUrl != null
                 ? CachedImageWidget(
                     imageUrl: user.profileImageUrl!,
-                    width: 56,
-                    height: 56,
+                    width: 68,
+                    height: 68,
                     fit: BoxFit.cover,
                   )
                 : Container(
@@ -78,7 +83,7 @@ class PartnerListItem extends StatelessWidget {
                       child: Text(
                         user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
@@ -88,10 +93,10 @@ class PartnerListItem extends StatelessWidget {
           ),
         ),
         // Online indicator dot
-        if (user.isOnline)
+        if (showOnline)
           Positioned(
-            right: 2,
-            bottom: 2,
+            right: 0,
+            bottom: 0,
             child: Container(
               width: 14,
               height: 14,
@@ -110,6 +115,10 @@ class PartnerListItem extends StatelessWidget {
   }
 
   Widget _buildUserInfo(BuildContext context) {
+    final matchReason = _getMatchReason();
+    final showAge = PrivacyUtils.shouldShowAge(user);
+    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,7 +135,7 @@ class PartnerListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            if (user.age != null && user.age! > 0) ...[
+            if (showAge && user.age != null && user.age! > 0) ...[
               Text(
                 ', ${user.age}',
                 style: context.bodyMedium.copyWith(
@@ -134,20 +143,121 @@ class PartnerListItem extends StatelessWidget {
                 ),
               ),
             ],
+            if (user.isNewUser) ...[
+              const SizedBox(width: 6),
+              _buildNewBadge(),
+            ],
             if (user.isVip) ...[
               const SizedBox(width: 6),
               _buildVipBadge(),
             ],
           ],
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         // Language exchange row
         _buildLanguageRow(context),
-        const SizedBox(height: 2),
-        // Location row
+        const SizedBox(height: 4),
+        // Location + last active row
         _buildLocationRow(context),
+        // Bio preview
+        if (user.bio.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              user.bio,
+              style: context.bodySmall.copyWith(color: context.textMuted),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        // Match reason + last active
+        if (matchReason != null || (showOnline && !user.isOnline && user.lastActiveText.isNotEmpty))
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Row(
+              children: [
+                // Match reason badge
+                if (matchReason != null)
+                  Flexible(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        matchReason,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.primary,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                if (matchReason != null && showOnline && !user.isOnline && user.lastActiveText.isNotEmpty)
+                  const SizedBox(width: 8),
+                // Last active time (only show if online status is visible)
+                if (showOnline && !user.isOnline && user.lastActiveText.isNotEmpty)
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.access_time_rounded,
+                        size: 12,
+                        color: context.textMuted,
+                      ),
+                      const SizedBox(width: 3),
+                      Text(
+                        user.lastActiveText,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: context.textMuted,
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
       ],
     );
+  }
+
+  /// Get a match reason string based on language compatibility and shared topics
+  String? _getMatchReason() {
+    if (currentUser == null) return null;
+
+    // Check language match
+    if (user.native_language.isNotEmpty &&
+        currentUser!.language_to_learn.isNotEmpty &&
+        user.native_language.toLowerCase() == currentUser!.language_to_learn.toLowerCase()) {
+      return 'Speaks ${_formatLang(user.native_language)}';
+    }
+
+    if (user.language_to_learn.isNotEmpty &&
+        currentUser!.native_language.isNotEmpty &&
+        user.language_to_learn.toLowerCase() == currentUser!.native_language.toLowerCase()) {
+      return 'Learning ${_formatLang(user.language_to_learn)}';
+    }
+
+    // Check shared topics
+    if (user.topics.isNotEmpty && currentUser!.topics.isNotEmpty) {
+      for (final topic in user.topics) {
+        if (currentUser!.topics.contains(topic)) {
+          return 'Also likes $topic';
+        }
+      }
+    }
+
+    return null;
+  }
+
+  String _formatLang(String lang) {
+    if (lang.isEmpty) return lang;
+    return '${lang[0].toUpperCase()}${lang.substring(1).toLowerCase()}';
   }
 
   /// Get flag emoji for a language (handles both codes and names)
@@ -214,16 +324,9 @@ class PartnerListItem extends StatelessWidget {
   }
 
   Widget _buildLocationRow(BuildContext context) {
-    final location = user.location;
-    final parts = <String>[];
-    if (location.city.isNotEmpty) {
-      parts.add(location.city);
-    }
-    if (location.country.isNotEmpty) {
-      parts.add(location.country);
-    }
+    final locationText = PrivacyUtils.getLocationText(user);
 
-    if (parts.isEmpty) return const SizedBox.shrink();
+    if (locationText.isEmpty) return const SizedBox.shrink();
 
     return Row(
       children: [
@@ -235,7 +338,7 @@ class PartnerListItem extends StatelessWidget {
         const SizedBox(width: 2),
         Expanded(
           child: Text(
-            parts.join(', '),
+            locationText,
             style: context.bodySmall.copyWith(
               color: context.textSecondary,
             ),
@@ -244,6 +347,26 @@ class PartnerListItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildNewBadge() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF00E676), Color(0xFF00C853)],
+        ),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: const Text(
+        'NEW',
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 

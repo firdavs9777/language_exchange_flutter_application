@@ -47,6 +47,7 @@ class ChatSocketService {
   final _messageDeliveryController =
       StreamController<Map<String, dynamic>>.broadcast();
   final _messageReactionController = StreamController<dynamic>.broadcast();
+  final _messageCorrectionController = StreamController<dynamic>.broadcast();
   final _themeChangedController = StreamController<dynamic>.broadcast();
 
   // Getters for streams
@@ -59,6 +60,7 @@ class ChatSocketService {
   Stream<Map<String, dynamic>> get onMessageDelivery =>
       _messageDeliveryController.stream;
   Stream<dynamic> get onMessageReaction => _messageReactionController.stream;
+  Stream<dynamic> get onMessageCorrection => _messageCorrectionController.stream;
   Stream<dynamic> get onThemeChanged => _themeChangedController.stream;
 
   bool get isConnected => _socket?.connected ?? false;
@@ -84,13 +86,10 @@ class ChatSocketService {
           _handleConnectivityChange(results);
         },
         onError: (error) {
-          debugPrint('⚠️ Connectivity listener error: $error');
         },
       );
     } catch (e) {
       // Handle MissingPluginException when plugin not properly loaded
-      debugPrint('⚠️ Could not initialize connectivity listener: $e');
-      debugPrint('⚠️ Network auto-reconnect disabled. Full rebuild required.');
     }
   }
 
@@ -99,11 +98,9 @@ class ChatSocketService {
     final hasConnection = results.isNotEmpty &&
         !results.contains(ConnectivityResult.none);
 
-    debugPrint('📶 Network connectivity changed: $results (connected: $hasConnection)');
 
     if (hasConnection && _wasOffline) {
       // Network restored after being offline
-      debugPrint('📶 Network restored, attempting socket reconnection...');
       _wasOffline = false;
 
       // Reset reconnect attempts since this is a fresh network connection
@@ -122,7 +119,6 @@ class ChatSocketService {
       }
     } else if (!hasConnection) {
       // Went offline
-      debugPrint('📶 Network lost');
       _wasOffline = true;
       _safeAdd(_connectionStateController, false);
     }
@@ -158,7 +154,6 @@ class ChatSocketService {
       await prefs.setString('deviceId', _deviceId!);
       return _deviceId!;
     } catch (e) {
-      debugPrint('❌ Error getting device ID: $e');
       _deviceId = 'default_${DateTime.now().millisecondsSinceEpoch}';
       return _deviceId!;
     }
@@ -167,18 +162,15 @@ class ChatSocketService {
   Future<void> connect({bool forceReset = false}) async {
     // FIRST: Check if reconnection is allowed (logout check)
     if (!_shouldAllowReconnection || _isPermanentlyDisconnected) {
-      debugPrint('🚫 Socket connection blocked - reconnection disabled (user logged out)');
       return;
     }
 
     // Prevent concurrent connection attempts
     if (_isConnecting) {
-      debugPrint('⏳ Connection already in progress, skipping');
       return;
     }
 
     if (_socket?.connected ?? false) {
-      debugPrint('✅ Socket already connected');
       return;
     }
 
@@ -186,7 +178,6 @@ class ChatSocketService {
     if (!forceReset && _lastConnectedAt != null) {
       final timeSinceLastConnect = DateTime.now().difference(_lastConnectedAt!);
       if (timeSinceLastConnect < _connectionCooldown) {
-        debugPrint('⏳ Connection cooldown active, skipping (${timeSinceLastConnect.inMilliseconds}ms since last connect)');
         return;
       }
     }
@@ -199,19 +190,16 @@ class ChatSocketService {
       final userId = prefs.getString('userId');
 
       if (token == null || token.isEmpty || userId == null || userId.isEmpty) {
-        debugPrint('❌ Cannot connect socket - missing credentials');
         return;
       }
 
       if (!_shouldAllowReconnection) {
-        debugPrint('❌ Socket reconnection disabled (logout detected)');
         return;
       }
 
       // Reset reconnect attempts on force reset (e.g., app resume)
       // This ensures we try fresh after coming back from background
       if (forceReset) {
-        debugPrint('🔄 Force reset - clearing reconnect attempts');
         _reconnectAttempts = 0;
         _isPermanentlyDisconnected = false;
         _reconnectTimer?.cancel();
@@ -220,7 +208,6 @@ class ChatSocketService {
       _currentUserId = userId;
       final deviceId = await _getDeviceId();
 
-      debugPrint('🔌 Connecting socket for user: $userId (device: $deviceId)');
 
       // IMPORTANT: Disconnect old socket first
       if (_socket != null) {
@@ -251,7 +238,6 @@ class ChatSocketService {
       _setupListeners();
       _socket?.connect();
     } catch (e) {
-      debugPrint('❌ Socket connection error: $e');
       _scheduleReconnect();
     } finally {
       _isConnecting = false;
@@ -260,7 +246,6 @@ class ChatSocketService {
 
   void _setupListeners() {
     _socket?.onConnect((_) {
-      debugPrint('✅ Socket connected');
       _reconnectAttempts = 0;
       _isPermanentlyDisconnected = false;
       _lastConnectedAt = DateTime.now();
@@ -270,18 +255,15 @@ class ChatSocketService {
 
     // Listen for connection verification from backend
     _socket?.on('connectionVerified', (data) {
-      debugPrint('✅ Connection verified by server: $data');
       _reconnectAttempts = 0;
       _isPermanentlyDisconnected = false;
     });
 
     _socket?.onDisconnect((reason) {
-      debugPrint('❌ Socket disconnected: $reason');
       _safeAdd(_connectionStateController, false);
       _stopHeartbeat();
 
       if (!_shouldAllowReconnection) {
-        debugPrint('🚫 Preventing reconnection - logout detected');
         return;
       }
 
@@ -293,13 +275,11 @@ class ChatSocketService {
     });
 
     _socket?.onConnectError((err) {
-      debugPrint('❌ Connection error: $err');
       _safeAdd(_connectionStateController, false);
       _scheduleReconnect();
     });
 
     _socket?.onError((err) {
-      debugPrint('❌ Socket error: $err');
     });
 
     _socket?.on('ping', (_) {
@@ -308,42 +288,35 @@ class ChatSocketService {
 
     // Force disconnect from server
     _socket?.on('forceDisconnect', (data) {
-      debugPrint('🚫 Force disconnected from server: ${data['reason']}');
       _handleForceDisconnect();
     });
 
     // Auth error
     _socket?.on('authError', (data) {
-      debugPrint('🚫 Auth error: ${data['message']}');
       _handleForceDisconnect();
     });
 
     // Token expiring - client should refresh token
     _socket?.on('tokenExpiring', (data) {
-      debugPrint('⚠️ Token expiring soon: ${data['expiresIn']}s remaining');
       // Could trigger token refresh here if needed
     });
 
     // Token expired - disconnect and require re-login
     _socket?.on('tokenExpired', (data) {
-      debugPrint('🚫 Token expired: ${data['reason']}');
       _handleForceDisconnect();
     });
 
     // Message events
     _socket?.on('newMessage', (data) {
-      debugPrint('📨 New message: $data');
       _safeAdd(_newMessageController, data);
     });
 
     _socket?.on('messageSent', (data) {
-      debugPrint('📤 Message sent: $data');
       _safeAdd(_messageSentController, data);
     });
 
     // Voice message received (treat same as newMessage)
     _socket?.on('newVoiceMessage', (data) {
-      debugPrint('🎤 New voice message: $data');
       // Extract message from the data wrapper
       final messageData = data is Map && data['message'] != null
           ? data['message']
@@ -353,7 +326,6 @@ class ChatSocketService {
 
     // Typing events
     _socket?.on('typing', (data) {
-      debugPrint('⌨️ Typing event: $data');
       _safeAdd(_typingController, {
         'userId': data['userId'] ?? data['user'],
         'isTyping': true,
@@ -361,7 +333,6 @@ class ChatSocketService {
     });
 
     _socket?.on('userTyping', (data) {
-      debugPrint('⌨️ User typing: $data');
       _safeAdd(_typingController, {
         'userId': data['userId'] ?? data['user'],
         'isTyping': true,
@@ -369,7 +340,6 @@ class ChatSocketService {
     });
 
     _socket?.on('userStoppedTyping', (data) {
-      debugPrint('⌨️ User stopped typing: $data');
       _safeAdd(_typingController, {
         'userId': data['userId'] ?? data['user'],
         'isTyping': false,
@@ -377,7 +347,6 @@ class ChatSocketService {
     });
 
     _socket?.on('stopTyping', (data) {
-      debugPrint('⌨️ Stop typing: $data');
       _safeAdd(_typingController, {
         'userId': data['userId'] ?? data['user'],
         'isTyping': false,
@@ -386,46 +355,38 @@ class ChatSocketService {
 
     // Status events
     _socket?.on('bulkStatusUpdate', (data) {
-      debugPrint('📊 Status update: $data');
       _safeAdd(_statusUpdateController, data);
     });
 
     _socket?.on('onlineUsers', (data) {
-      debugPrint('👥 Online users: $data');
       _safeAdd(_statusUpdateController, {'type': 'onlineUsers', 'data': data});
     });
 
     _socket?.on('userStatusUpdate', (data) {
-      debugPrint('📡 User status update: $data');
       _safeAdd(_statusUpdateController, {'single': data});
     });
 
     // Read receipt events
     _socket?.on('messageRead', (data) {
-      debugPrint('👁️ Message read: $data');
       _safeAdd(_messageReadController, data);
     });
 
     _socket?.on('messagesRead', (data) {
-      debugPrint('👁️ Messages read: $data');
       _safeAdd(_messageReadController, data);
     });
 
     // Message edited
     _socket?.on('messageEdited', (data) {
-      debugPrint('✏️ Message edited: $data');
       _safeAdd(_newMessageController, {'type': 'edited', 'data': data});
     });
 
     // Message deletion
     _socket?.on('messageDeleted', (data) {
-      debugPrint('🗑️ Message deleted: $data');
       _safeAdd(_newMessageController, {'type': 'deleted', 'data': data});
     });
 
     // Error events
     _socket?.on('messageError', (data) {
-      debugPrint('❌ Message error: $data');
       _safeAdd(_messageDeliveryController, {
         'status': 'error',
         'error': data['error'],
@@ -434,19 +395,21 @@ class ChatSocketService {
 
     // Message reaction events (real-time reaction updates)
     _socket?.on('messageReaction', (data) {
-      debugPrint('💬 Message reaction: $data');
       _safeAdd(_messageReactionController, data);
+    });
+
+    // Message correction events (Tandem-style corrections)
+    _socket?.on('messageCorrection', (data) {
+      _safeAdd(_messageCorrectionController, data);
     });
 
     // Message pinned events (real-time pin updates)
     _socket?.on('messagePinned', (data) {
-      debugPrint('📌 Message pinned: $data');
       _safeAdd(_newMessageController, {'type': 'pinned', 'data': data});
     });
 
     // Theme changed events (wallpaper sync between users)
     _socket?.on('themeChanged', (data) {
-      debugPrint('🎨 Theme changed: $data');
       _safeAdd(_themeChangedController, data);
     });
   }
@@ -460,7 +423,6 @@ class ChatSocketService {
 
   // Refresh connection with new token (call after token refresh)
   Future<void> refreshConnection() async {
-    debugPrint('🔄 Refreshing socket connection with new token');
     _shouldAllowReconnection = true;
     _reconnectAttempts = 0;
 
@@ -506,12 +468,10 @@ class ChatSocketService {
 
   void _scheduleReconnect() {
     if (!_shouldAllowReconnection) {
-      debugPrint('🚫 Reconnection disabled');
       return;
     }
 
     if (_reconnectAttempts >= _maxReconnectAttempts) {
-      debugPrint('❌ Max reconnection attempts reached - waiting for app resume or network change');
       _isPermanentlyDisconnected = true;
       // Don't schedule more reconnects - wait for external trigger (app resume, network change)
       return;
@@ -524,14 +484,10 @@ class ChatSocketService {
           1000 * (1 << _reconnectAttempts.clamp(0, 6)), // Cap at 64 seconds
     );
 
-    debugPrint(
-      '🔄 Scheduling reconnect in ${delay.inSeconds}s (attempt ${_reconnectAttempts + 1}/$_maxReconnectAttempts)',
-    );
 
     _reconnectTimer = Timer(delay, () {
       // Double-check flag before connecting (might have changed during delay)
       if (!_shouldAllowReconnection || _isPermanentlyDisconnected) {
-        debugPrint('🚫 Reconnect timer fired but reconnection is disabled - aborting');
         return;
       }
       _reconnectAttempts++;
@@ -542,7 +498,6 @@ class ChatSocketService {
   /// Force reconnect - resets all retry counters and attempts fresh connection
   /// Use this when app resumes from background or user manually requests reconnection
   Future<void> forceReconnect() async {
-    debugPrint('🔄 Force reconnecting socket...');
     _shouldAllowReconnection = true;
     _reconnectAttempts = 0;
     _isPermanentlyDisconnected = false;
@@ -616,22 +571,18 @@ class ChatSocketService {
   void emit(String event, dynamic data) {
     if (_socket?.connected ?? false) {
       _socket?.emit(event, data);
-      debugPrint('📡 Emitted $event: $data');
     } else {
-      debugPrint('⚠️ Cannot emit $event - socket not connected');
     }
   }
 
   void requestStatusUpdates(List<String> userIds) {
     if (userIds.isEmpty) return;
 
-    debugPrint('📊 Requesting status for ${userIds.length} users');
     emit('requestStatusUpdates', {'userIds': userIds});
   }
 
   Future<Map<String, dynamic>?> getUserStatus(String userId) async {
     if (!isConnected) {
-      debugPrint('⚠️ Cannot get user status - socket not connected');
       return null;
     }
 
@@ -643,7 +594,6 @@ class ChatSocketService {
     try {
       timeoutTimer = Timer(const Duration(seconds: 5), () {
         if (!completer.isCompleted) {
-          debugPrint('⏰ Get user status timeout');
           completer.complete(null);
         }
       });
@@ -667,7 +617,6 @@ class ChatSocketService {
       return await completer.future;
     } catch (e) {
       timeoutTimer?.cancel();
-      debugPrint('❌ Error getting user status: $e');
       if (!completer.isCompleted) {
         completer.complete(null);
       }
@@ -691,7 +640,6 @@ class ChatSocketService {
   }
 
   void disableReconnection() {
-    debugPrint('🚫 Disabling socket reconnection (logout)');
     _shouldAllowReconnection = false;
     _isPermanentlyDisconnected = true;
     _isConnecting = false;
@@ -702,14 +650,12 @@ class ChatSocketService {
   }
 
   void enableReconnection() {
-    debugPrint('✅ Enabling socket reconnection');
     _shouldAllowReconnection = true;
     _isPermanentlyDisconnected = false;
     _reconnectAttempts = 0;
   }
 
   Future<void> disconnect() async {
-    debugPrint('🔌 Disconnecting socket completely');
 
     // 1. FIRST: Disable all reconnection flags
     _shouldAllowReconnection = false;
@@ -728,7 +674,6 @@ class ChatSocketService {
         _socket?.emit('logout', {});
         await Future.delayed(const Duration(milliseconds: 300));
       } catch (e) {
-        debugPrint('⚠️ Error sending logout event: $e');
       }
     }
 
@@ -736,7 +681,6 @@ class ChatSocketService {
     try {
       _socket?.clearListeners();
     } catch (e) {
-      debugPrint('⚠️ Error clearing listeners: $e');
     }
 
     // 5. Disconnect and destroy socket completely
@@ -745,7 +689,6 @@ class ChatSocketService {
       _socket?.dispose();
       _socket?.destroy();
     } catch (e) {
-      debugPrint('⚠️ Error disposing socket: $e');
     }
 
     _socket = null;
@@ -753,7 +696,6 @@ class ChatSocketService {
     _reconnectAttempts = 0;
 
     _safeAdd(_connectionStateController, false);
-    debugPrint('✅ Socket fully disconnected - reconnection disabled');
   }
 
   Future<void> reconnect() async {
@@ -775,6 +717,7 @@ class ChatSocketService {
     _connectionStateController.close();
     _messageDeliveryController.close();
     _messageReactionController.close();
+    _messageCorrectionController.close();
     disconnect();
   }
 }

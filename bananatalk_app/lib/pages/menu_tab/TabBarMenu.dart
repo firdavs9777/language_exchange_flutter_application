@@ -12,8 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
-  /// Default to Community tab (index 1) - users want to find language partners first
-  const TabsScreen({super.key, this.initialIndex = 1});
+  /// Default to Community tab (index 0)
+  const TabsScreen({super.key, this.initialIndex = 0});
 
   final int initialIndex;
 
@@ -40,7 +40,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     HapticFeedback.selectionClick();
 
     // Refresh badge count when switching to Chat or Profile tabs
-    if (index == 0 || index == 4) {
+    if (index == 1 || index == 4) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
 
@@ -58,10 +58,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     Widget activePage;
     switch (_selectedPageIndex) {
       case 0:
-        activePage = ChatMain();
+        activePage = const CommunityMain();
         break;
       case 1:
-        activePage = const CommunityMain();
+        activePage = ChatMain();
         break;
       case 2:
         activePage = MomentsMain();
@@ -73,7 +73,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         activePage = const ProfileMain();
         break;
       default:
-        activePage = ChatMain();
+        activePage = const CommunityMain();
     }
 
     return PopScope(
@@ -83,27 +83,32 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             color: isDark ? AppColors.gray900 : AppColors.white,
-            boxShadow: AppShadows.md,
+            border: Border(
+              top: BorderSide(
+                color: isDark ? AppColors.gray800 : AppColors.gray100,
+                width: 0.5,
+              ),
+            ),
           ),
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildNavItem(
                     index: 0,
-                    icon: Icons.forum_outlined,
-                    activeIcon: Icons.forum_rounded,
-                    label: AppLocalizations.of(context)!.banaTalk,
-                    badgeCount: messageCount,
-                    badgeColor: AppColors.primary,
+                    icon: Icons.explore_outlined,
+                    activeIcon: Icons.explore_rounded,
+                    label: AppLocalizations.of(context)!.community,
                   ),
                   _buildNavItem(
                     index: 1,
-                    icon: Icons.people_outline_rounded,
-                    activeIcon: Icons.people_rounded,
-                    label: AppLocalizations.of(context)!.community,
+                    icon: Icons.message_outlined,
+                    activeIcon: Icons.message_rounded,
+                    label: AppLocalizations.of(context)!.chats,
+                    badgeCount: messageCount,
+                    badgeColor: AppColors.primary,
                   ),
                   _buildNavItem(
                     index: 2,
@@ -150,15 +155,15 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         onTap: () => _selectPage(index),
         behavior: HitTestBehavior.opaque,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 250),
           curve: Curves.easeOutCubic,
-          padding: const EdgeInsets.symmetric(vertical: 6),
-          decoration: isSelected
-              ? BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: AppRadius.borderLG,
-                )
-              : null,
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? AppColors.primary.withValues(alpha: isDark ? 0.15 : 0.1)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -166,11 +171,15 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                 clipBehavior: Clip.none,
                 children: [
                   AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 250),
+                    transitionBuilder: (child, animation) => ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
                     child: Icon(
                       isSelected ? activeIcon : icon,
                       key: ValueKey(isSelected),
-                      size: isSelected ? 26 : 24,
+                      size: isSelected ? 25 : 23,
                       color: isSelected
                           ? AppColors.primary
                           : isDark
@@ -189,9 +198,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                         ),
                         decoration: BoxDecoration(
                           color: badgeColor ?? AppColors.error,
-                          borderRadius: AppRadius.borderSM,
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: isDark ? AppColors.gray900 : AppColors.white,
+                            color: isDark ? AppColors.gray800 : AppColors.gray50,
                             width: 1.5,
                           ),
                         ),
@@ -209,17 +218,18 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                     ),
                 ],
               ),
-              Spacing.gapXS,
+              const SizedBox(height: 4),
               AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 250),
                 style: TextStyle(
-                  fontSize: isSelected ? 11 : 10,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  fontSize: isSelected ? 10.5 : 10,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   color: isSelected
                       ? AppColors.primary
                       : isDark
                           ? AppColors.gray400
                           : AppColors.gray600,
+                  letterSpacing: isSelected ? 0.2 : 0,
                 ),
                 child: Text(
                   label,

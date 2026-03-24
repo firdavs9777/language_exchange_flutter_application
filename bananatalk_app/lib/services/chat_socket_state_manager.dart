@@ -18,6 +18,7 @@ class ChatSocketStateManager {
   StreamSubscription? _statusSub;
   StreamSubscription? _messageReadSub;
   StreamSubscription? _reactionSub;
+  StreamSubscription? _correctionSub;
 
   // Typing timeout - auto-clear after 6 seconds (backend times out at 5s)
   Timer? _typingTimeout;
@@ -37,6 +38,7 @@ class ChatSocketStateManager {
   Function(bool, String?)? onStatusChanged;
   Function(List<String>)? onMessagesRead;
   Function(String messageId, List<dynamic> reactions)? onReactionUpdated;
+  Function(String messageId, Map<String, dynamic> correction)? onCorrectionReceived;
 
   ChatSocketStateManager({
     required this.chatPartnerId,
@@ -46,13 +48,12 @@ class ChatSocketStateManager {
   Future<void> initialize() async {
     await _socketService.connect();
     _setupSubscriptions();
-    _requestUserStatus();
+    requestUserStatus();
     _startStatusRefreshTimer();
 
     // Immediately notify of current connection state
     // This prevents showing "connecting" if socket is already connected
     if (_socketService.isConnected) {
-      debugPrint('✅ Socket already connected at initialization');
       onConnectionChanged?.call(true);
     }
   }
@@ -61,7 +62,7 @@ class ChatSocketStateManager {
     _statusRefreshTimer?.cancel();
     _statusRefreshTimer = Timer.periodic(_statusRefreshInterval, (_) {
       if (_socketService.isConnected) {
-        _requestUserStatus();
+        requestUserStatus();
       }
     });
   }
@@ -71,31 +72,21 @@ class ChatSocketStateManager {
     _connectionSub = _socketService.onConnectionStateChange.listen((
       isConnected,
     ) {
-      debugPrint('🔌 ChatSocketStateManager: Connection state changed to $isConnected');
       onConnectionChanged?.call(isConnected);
-      if (isConnected) {
-        debugPrint('✅ Socket reconnected - requesting user status and marking as read');
-        _requestUserStatus();
-        // Re-mark messages as read after reconnection
-        markAsRead();
-      }
+      // All reconnect actions (requestStatus, markAsRead) are handled by
+      // ChatStateNotifier which checks if THIS is the active chat first
     });
 
     // New messages
     _newMessageSub = _socketService.onNewMessage.listen((data) {
       try {
-        debugPrint('🔔 ChatSocketStateManager: Received new message event');
-        debugPrint('   Data type: ${data.runtimeType}');
-        debugPrint('   Data: $data');
         
         if (data is Map) {
           final type = data['type'];
 
           if (type == 'deleted') {
-            debugPrint('   Type: deleted');
             onMessageDeleted?.call(data['data']);
           } else if (type == 'edited') {
-            debugPrint('   Type: edited');
             final messageData = data['data']['message'] ?? data['data'];
             if (messageData is Map) {
               final message = Message.fromJson(
@@ -104,7 +95,6 @@ class ChatSocketStateManager {
               onMessageEdited?.call(message);
             }
           } else if (type == 'pinned') {
-            debugPrint('   Type: pinned');
             final pinnedData = data['data'];
             if (pinnedData is Map) {
               final messageId = pinnedData['messageId']?.toString();
@@ -114,39 +104,26 @@ class ChatSocketStateManager {
               }
             }
           } else {
-            debugPrint('   Type: new message');
             final messageData = data['message'] ?? data;
-            debugPrint('   Message data: $messageData');
             
             if (messageData is Map) {
               try {
               final message = Message.fromJson(
                 Map<String, dynamic>.from(messageData),
               );
-                debugPrint('   Parsed message - From: ${message.sender.id}, To: ${message.receiver.id}');
-                debugPrint('   Is relevant: ${_isRelevantMessage(message)}');
-                debugPrint('   Partner ID: $chatPartnerId, Current User ID: $currentUserId');
                 
               if (_isRelevantMessage(message)) {
-                  debugPrint('   ✅ Calling onNewMessage callback');
                 onNewMessage?.call(message);
                 } else {
-                  debugPrint('   ⚠️ Message not relevant for this chat');
                 }
               } catch (e, stackTrace) {
-                debugPrint('❌ Error parsing message to Message object: $e');
-                debugPrint('   Stack trace: $stackTrace');
               }
             } else {
-              debugPrint('   ⚠️ Message data is not a Map: ${messageData.runtimeType}');
               }
             }
         } else {
-          debugPrint('   ⚠️ Data is not a Map: ${data.runtimeType}');
         }
       } catch (e, stackTrace) {
-        debugPrint('❌ Error parsing message: $e');
-        debugPrint('   Stack trace: $stackTrace');
       }
     });
 
@@ -163,7 +140,6 @@ class ChatSocketStateManager {
           }
         }
       } catch (e) {
-        debugPrint('❌ Error parsing sent message: $e');
       }
     });
 
@@ -180,7 +156,6 @@ class ChatSocketStateManager {
           // Set typing to true and start auto-clear timeout
           onTypingChanged?.call(true);
           _typingTimeout = Timer(_typingTimeoutDuration, () {
-            debugPrint('⌨️ Typing timeout - auto-clearing indicator');
             onTypingChanged?.call(false);
           });
         } else {
@@ -199,7 +174,6 @@ class ChatSocketStateManager {
           if (statusData['userId'] == chatPartnerId) {
             final isOnline = statusData['status'] == 'online';
             final lastSeen = statusData['lastSeen']?.toString();
-            debugPrint('📡 Status update for partner: online=$isOnline, lastSeen=$lastSeen');
             onStatusChanged?.call(isOnline, lastSeen);
           }
         } else if (data['type'] == 'onlineUsers' && data['data'] is List) {
@@ -212,7 +186,6 @@ class ChatSocketStateManager {
           if (partnerData != null) {
             final isOnline = partnerData['status'] == 'online';
             final lastSeen = partnerData['lastSeen']?.toString();
-            debugPrint('📡 Online users: partner online=$isOnline, lastSeen=$lastSeen');
             onStatusChanged?.call(isOnline, lastSeen);
           } else {
             // Partner not in online list = offline
@@ -225,7 +198,6 @@ class ChatSocketStateManager {
           if (statusData is Map) {
             final isOnline = statusData['status'] == 'online';
             final lastSeen = statusData['lastSeen']?.toString();
-            debugPrint('📡 Bulk status: partner online=$isOnline, lastSeen=$lastSeen');
             onStatusChanged?.call(isOnline, lastSeen);
           }
         }
@@ -245,8 +217,18 @@ class ChatSocketStateManager {
         final messageId = data['messageId']?.toString();
         final reactions = data['reactions'] as List?;
         if (messageId != null && reactions != null) {
-          debugPrint('💬 Reaction update for message: $messageId');
           onReactionUpdated?.call(messageId, reactions);
+        }
+      }
+    });
+
+    // Correction updates (real-time, Tandem-style)
+    _correctionSub = _socketService.onMessageCorrection.listen((data) {
+      if (data is Map) {
+        final messageId = data['messageId']?.toString();
+        final correction = data['correction'];
+        if (messageId != null && correction is Map<String, dynamic>) {
+          onCorrectionReceived?.call(messageId, correction);
         }
       }
     });
@@ -259,7 +241,7 @@ class ChatSocketStateManager {
             message.receiver.id == chatPartnerId);
   }
 
-  void _requestUserStatus() {
+  void requestUserStatus() {
     _socketService.requestStatusUpdates([chatPartnerId]);
   }
 
@@ -271,7 +253,18 @@ class ChatSocketStateManager {
     _socketService.sendTypingIndicator(chatPartnerId, isTyping);
   }
 
-  Future<Map<String, dynamic>> sendMessage(String message) {
+  Future<Map<String, dynamic>> sendMessage(String message) async {
+    // If socket is disconnected, try to reconnect before sending
+    if (!_socketService.isConnected) {
+      await _socketService.connect(forceReset: true);
+      // Wait briefly for connection to establish
+      if (!_socketService.isConnected) {
+        await Future.delayed(const Duration(milliseconds: 1500));
+      }
+      if (!_socketService.isConnected) {
+        return {'status': 'error', 'error': 'Unable to connect to server'};
+      }
+    }
     return _socketService.sendMessage(
       receiverId: chatPartnerId,
       message: message,
@@ -288,6 +281,7 @@ class ChatSocketStateManager {
     _statusSub?.cancel();
     _messageReadSub?.cancel();
     _reactionSub?.cancel();
+    _correctionSub?.cancel();
     _typingTimeout?.cancel();
     _statusRefreshTimer?.cancel();
   }

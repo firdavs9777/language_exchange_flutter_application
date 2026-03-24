@@ -89,7 +89,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     required this.currentUserId,
     Ref? ref,
   }) : _ref = ref, super(ChatState()) {
-    debugPrint('🎯 ChatStateNotifier created for partner: $chatPartnerId');
     // Start observing app lifecycle
     WidgetsBinding.instance.addObserver(this);
   }
@@ -109,22 +108,18 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final wasInForeground = _isAppInForeground;
     _isAppInForeground = state == AppLifecycleState.resumed;
-    debugPrint('📱 App lifecycle changed: $state (foreground: $_isAppInForeground, activeChat: ${_isThisChatActive ? chatPartnerId : "other"})');
 
     // When returning to foreground and THIS chat is the active one, mark messages as read
     if (_isAppInForeground && !wasInForeground && _isThisChatActive) {
-      debugPrint('📱 App resumed with THIS chat active - marking messages as read');
       _stateManager?.markAsRead();
     }
   }
 
   /// Call this when chat screen becomes visible (kept for compatibility but not used for read logic)
   void setChatVisible(bool visible) {
-    debugPrint('👁️ Chat visibility changed: $visible (activeChat check: ${_isThisChatActive})');
 
     // If becoming visible and app is in foreground and THIS is the active chat, mark as read
     if (visible && _isAppInForeground && _isInitialized && _isThisChatActive) {
-      debugPrint('👁️ Chat now visible - marking messages as read');
       _stateManager?.markAsRead();
     }
   }
@@ -135,13 +130,9 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   Future<void> initialize() async {
     if (_isInitialized) {
-      debugPrint('⚠️ ChatStateNotifier already initialized');
       return;
     }
 
-    debugPrint('🚀 Initializing ChatStateNotifier');
-    debugPrint('   Partner ID: $chatPartnerId');
-    debugPrint('   Current User ID: $currentUserId');
 
     _stateManager = ChatSocketStateManager(
       chatPartnerId: chatPartnerId,
@@ -150,7 +141,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
     // Setup callbacks
     _stateManager!.onConnectionChanged = (isConnected) {
-      debugPrint('🔌 Connection changed: $isConnected');
 
       if (isConnected) {
         // Connected - cancel any pending disconnect timer and clear status
@@ -160,12 +150,15 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
           clearConnectionStatus: true, // Hide connection status when connected
         );
 
-        // Auto-mark as read when socket reconnects (only if chat visible & app foreground)
-        if (state.messages.isNotEmpty && _shouldAutoMarkAsRead) {
-          debugPrint('🔌 Socket reconnected & chat visible - marking messages as read');
-          _stateManager?.markAsRead();
-        } else if (state.messages.isNotEmpty) {
-          debugPrint('🔌 Socket reconnected but chat not visible or app backgrounded - NOT marking as read');
+        // Only do reconnect actions for the ACTIVE chat to avoid flooding server
+        if (_isThisChatActive) {
+          // Request user status for partner
+          _stateManager?.requestUserStatus();
+
+          // Mark as read only if app is in foreground
+          if (state.messages.isNotEmpty && _isAppInForeground) {
+            _stateManager?.markAsRead();
+          }
         }
       } else {
         // Disconnected - debounce before showing reconnecting status
@@ -184,37 +177,31 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     };
 
     _stateManager!.onNewMessage = (message) {
-      debugPrint('📨 NEW MESSAGE RECEIVED!');
-      debugPrint('   From: ${message.sender.id}');
-      debugPrint('   To: ${message.receiver.id}');
-      debugPrint('   Text: ${message.message}');
-      debugPrint('   Current messages count: ${state.messages.length}');
 
-      final messages = List<Message>.from(state.messages)..add(message);
-      messages.sort(
-        (a, b) =>
-            DateTime.parse(a.createdAt).compareTo(DateTime.parse(b.createdAt)),
-      );
+      // Dedup: skip if message already exists (e.g. reply added via API response)
+      final alreadyExists = state.messages.any((m) => m.id == message.id);
+      if (alreadyExists) {
+      } else {
+        final messages = List<Message>.from(state.messages)..add(message);
+        messages.sort(
+          (a, b) =>
+              DateTime.parse(a.createdAt).compareTo(DateTime.parse(b.createdAt)),
+        );
 
-      debugPrint('   New messages count: ${messages.length}');
-      state = state.copyWith(messages: messages);
-      debugPrint('   ✅ State updated with new message');
+        state = state.copyWith(messages: messages);
+      }
 
       // Only auto-mark as read if chat is visible AND app is in foreground
       // This ensures notifications are sent when app is backgrounded
       if (message.sender.id == chatPartnerId) {
         if (_shouldAutoMarkAsRead) {
-          debugPrint('   📖 Auto-marking message as read (chat visible & app foreground)');
           _stateManager?.markAsRead();
         } else {
-          debugPrint('   🔔 NOT marking as read - not active chat or app backgrounded');
-          debugPrint('      Active chat: $_isThisChatActive, App foreground: $_isAppInForeground');
         }
       }
     };
 
     _stateManager!.onMessageDeleted = (data) {
-      debugPrint('🗑️ Message deleted: $data');
       final messageId = data['messageId'];
       if (messageId != null) {
         final messages = state.messages
@@ -225,7 +212,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     };
 
     _stateManager!.onMessageEdited = (message) {
-      debugPrint('✏️ Message edited: ${message.id}');
       final messages = state.messages.map((msg) {
         return msg.id == message.id ? message : msg;
       }).toList();
@@ -233,12 +219,10 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     };
 
     _stateManager!.onTypingChanged = (isTyping) {
-      debugPrint('⌨️ Typing indicator: $isTyping');
       state = state.copyWith(isOtherUserTyping: isTyping);
     };
 
     _stateManager!.onStatusChanged = (isOnline, lastSeen) {
-      debugPrint('📡 Status changed - Online: $isOnline, Last seen: $lastSeen');
       state = state.copyWith(
         isOtherUserOnline: isOnline,
         otherUserLastSeen: lastSeen,
@@ -246,7 +230,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     };
 
     _stateManager!.onMessagesRead = (messageIds) {
-      debugPrint('👁️ Messages read by partner: $messageIds');
       // Mark all sent messages as read (the other user read them)
       final updatedMessages = state.messages.map((msg) {
         // Only update messages we sent that aren't already read
@@ -256,11 +239,9 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
         return msg;
       }).toList();
       state = state.copyWith(messages: updatedMessages);
-      debugPrint('✅ Updated ${state.messages.where((m) => m.read).length} messages as read');
     };
 
     _stateManager!.onReactionUpdated = (messageId, reactions) {
-      debugPrint('💬 Updating reactions for message: $messageId');
       // Update the message with new reactions
       final updatedMessages = state.messages.map((msg) {
         if (msg.id == messageId) {
@@ -270,7 +251,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
               try {
                 return MessageReaction.fromJson(Map<String, dynamic>.from(r));
               } catch (e) {
-                debugPrint('⚠️ Error parsing reaction: $e');
                 return null;
               }
             }
@@ -282,11 +262,9 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
         return msg;
       }).toList();
       state = state.copyWith(messages: updatedMessages);
-      debugPrint('✅ Reactions updated for message $messageId');
     };
 
     _stateManager!.onMessagePinned = (messageId, isPinned) {
-      debugPrint('📌 Message pinned update: $messageId -> $isPinned');
       final updatedMessages = state.messages.map((msg) {
         if (msg.id == messageId) {
           return msg.copyWith(isPinned: isPinned);
@@ -294,18 +272,31 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
         return msg;
       }).toList();
       state = state.copyWith(messages: updatedMessages);
-      debugPrint('✅ Pin status updated for message $messageId');
+    };
+
+    _stateManager!.onCorrectionReceived = (messageId, correctionData) {
+      try {
+        final correction = MessageCorrection.fromJson(correctionData);
+        final updatedMessages = state.messages.map((msg) {
+          if (msg.id == messageId) {
+            return msg.copyWith(
+              corrections: [...msg.corrections, correction],
+            );
+          }
+          return msg;
+        }).toList();
+        state = state.copyWith(messages: updatedMessages);
+      } catch (e) {
+        debugPrint('Error parsing correction: $e');
+      }
     };
 
     await _stateManager!.initialize();
     _isInitialized = true;
 
-    debugPrint('✅ ChatStateNotifier initialization complete');
-    debugPrint('   Socket connected: ${_stateManager!.isConnected}');
   }
 
   void setMessages(List<Message> messages) {
-    debugPrint('📝 Setting ${messages.length} messages');
     state = state.copyWith(messages: messages);
   }
 
@@ -314,13 +305,11 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
   }
 
   void setError(String error) {
-    debugPrint('❌ Error: $error');
     state = state.copyWith(error: error);
   }
 
   void sendTyping(bool isTyping) {
     if (!_isInitialized || _stateManager == null) {
-      debugPrint('⚠️ Cannot send typing - not initialized yet');
       return;
     }
     _stateManager!.sendTyping(isTyping);
@@ -370,7 +359,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
       media: media,
     );
 
-    debugPrint('⚡ Adding optimistic message: $localId');
     final messages = List<Message>.from(state.messages)..add(optimisticMessage);
     state = state.copyWith(messages: messages);
 
@@ -385,11 +373,9 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     if (index != -1) {
       if (confirmedMessage != null) {
         // Replace with confirmed message
-        debugPrint('✅ Replacing optimistic message with confirmed: ${confirmedMessage.id}');
         messages[index] = confirmedMessage;
       } else if (failed) {
         // Mark as failed
-        debugPrint('❌ Marking message as failed: $localId');
         messages[index] = messages[index].copyWithStatus(MessageSendingStatus.failed);
       }
       state = state.copyWith(messages: messages);
@@ -421,28 +407,20 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   Future<Map<String, dynamic>> sendMessage(String message, {String? localId}) async {
     if (!_isInitialized || _stateManager == null) {
-      debugPrint('⚠️ Cannot send message - not initialized yet');
       if (localId != null) updateOptimisticMessage(localId, failed: true);
       return {'status': 'error', 'error': 'Chat not initialized'};
     }
-    debugPrint('📤 Sending message: "$message"');
     final result = await _stateManager!.sendMessage(message);
-    debugPrint('📤 Send result: $result');
 
     // If message was sent successfully, update optimistic message or add new
-    debugPrint('🔍 Checking result status: ${result['status']}');
     if (result['status'] == 'success') {
-      debugPrint('✅ Status is success, attempting to add message to state');
       try {
         final messageData = result['message'] ?? result['data'];
-        debugPrint('🔍 Message data type: ${messageData?.runtimeType}');
 
         if (messageData is Map) {
-          debugPrint('✅ Message data is a Map, parsing...');
           final sentMessage = Message.fromJson(
             Map<String, dynamic>.from(messageData),
           );
-          debugPrint('📤 Confirmed message: ${sentMessage.id}');
 
           if (localId != null) {
             // Update the optimistic message with confirmed one
@@ -461,11 +439,8 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
           }
         }
       } catch (e, stackTrace) {
-        debugPrint('❌ Error processing sent message: $e');
-        debugPrint('   Stack trace: $stackTrace');
       }
     } else {
-      debugPrint('⚠️ Status is not success: ${result['status']}');
       if (localId != null) {
         updateOptimisticMessage(localId, failed: true);
       }
@@ -476,7 +451,6 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   void markAsRead() {
     if (!_isInitialized || _stateManager == null) {
-      debugPrint('⚠️ Cannot mark as read - not initialized yet');
       return;
     }
     _stateManager!.markAsRead();
@@ -486,13 +460,11 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   /// Start editing a message
   void setEditingMessage(Message message) {
-    debugPrint('✏️ Starting to edit message: ${message.id}');
     state = state.copyWith(editingMessage: message);
   }
 
   /// Cancel editing
   void clearEditingMessage() {
-    debugPrint('✏️ Cancelled editing');
     state = state.copyWith(clearEditingMessage: true);
   }
 
@@ -519,14 +491,12 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   /// Remove a message locally (optimistic delete for "delete for me")
   void removeMessageLocally(String messageId) {
-    debugPrint('🗑️ Removing message locally: $messageId');
     final updatedMessages = state.messages.where((msg) => msg.id != messageId).toList();
     state = state.copyWith(messages: updatedMessages);
   }
 
   /// Mark a message as deleted (for "delete for everyone")
   void markMessageAsDeleted(String messageId) {
-    debugPrint('🗑️ Marking message as deleted: $messageId');
     updateMessageLocally(messageId, isDeleted: true);
   }
 
@@ -536,13 +506,11 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
       (m) => m.id == messageId,
       orElse: () => throw Exception('Message not found'),
     );
-    debugPrint('📌 Toggling pin for message: $messageId (currently: ${message.isPinned})');
     updateMessageLocally(messageId, isPinned: !message.isPinned);
   }
 
   @override
   void dispose() {
-    debugPrint('🧹 Disposing ChatStateNotifier for $chatPartnerId');
     WidgetsBinding.instance.removeObserver(this);
     _disconnectDebounceTimer?.cancel();
     _stateManager?.dispose();
@@ -584,8 +552,6 @@ final chatStateProvider =
       ChatState,
       ChatProviderParams
     >((ref, params) {
-      debugPrint('🏭 Creating ChatStateNotifier provider');
-      debugPrint('   Params: $params');
 
       return ChatStateNotifier(
         chatPartnerId: params.chatPartnerId,

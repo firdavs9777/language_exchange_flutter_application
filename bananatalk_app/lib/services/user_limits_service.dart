@@ -86,7 +86,6 @@ class UserLimitsService {
       }
     } catch (e) {
       // On error, allow action (fail open)
-      debugPrint('Error checking limits: $e');
       return true;
     }
   }

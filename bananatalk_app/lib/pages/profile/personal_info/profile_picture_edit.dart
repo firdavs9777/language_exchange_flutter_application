@@ -13,6 +13,8 @@ import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ProfilePictureEdit extends ConsumerStatefulWidget {
   final Community user;
@@ -34,7 +36,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   void initState() {
     super.initState();
     _existingImageUrls = List<String>.from(widget.user.imageUrls);
-    debugPrint(_existingImageUrls.length.toString());
   }
 
   Future<String?> _getToken() async {
@@ -195,7 +196,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       });
     } catch (e) {
       Navigator.pop(context);
-      debugPrint('Error removing image: $e');
       _showErrorSnackBar('Failed to remove image');
       setState(() {
         _isRemoving = false;
@@ -329,7 +329,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       });
     } catch (e) {
       Navigator.pop(context);
-      debugPrint('Error uploading images: $e');
       _showErrorSnackBar('Failed to upload images');
       setState(() {
         _isUploading = false;
@@ -540,7 +539,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       });
     } catch (e) {
       Navigator.pop(context);
-      debugPrint('Error removing images: $e');
       _showErrorSnackBar('Failed to remove images');
       setState(() {
         _isRemoving = false;
@@ -687,15 +685,15 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
     final canAddMore = allImages < maxImages;
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         title: const Text(
           'Profile Pictures',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -739,7 +737,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                     Expanded(
                       child: Text(
                         'You can upload up to $maxImages images. Currently: $allImages/$maxImages\nMax 5 images per upload.',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                        style: TextStyle(fontSize: 12, color: context.textSecondary),
                       ),
                     ),
                   ],
@@ -748,12 +746,12 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
               const SizedBox(height: 24),
               // Existing Images Grid
               if (_existingImageUrls.isNotEmpty) ...[
-                const Text(
+                Text(
                   'Current Images',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: context.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -777,10 +775,10 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                             imageUrl: _existingImageUrls[index],
                             fit: BoxFit.cover,
                             errorWidget: Container(
-                              color: Colors.grey[200],
-                              child: const Icon(
+                              color: context.containerColor,
+                              child: Icon(
                                 Icons.broken_image,
-                                color: Colors.grey,
+                                color: context.iconColor,
                               ),
                             ),
                           ),
@@ -840,12 +838,12 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
               ],
               // New Selected Images Grid
               if (_selectedImages.isNotEmpty) ...[
-                const Text(
+                Text(
                   'New Images',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: context.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 12),

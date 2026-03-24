@@ -168,9 +168,10 @@ class WordBreakdown {
 
   factory WordBreakdown.fromJson(Map<String, dynamic> json) {
     return WordBreakdown(
-      original: json['original']?.toString() ?? '',
-      // API uses 'translated' instead of 'translation'
-      translation: json['translation']?.toString() ?? json['translated']?.toString() ?? '',
+      // API may use 'word' or 'original'
+      original: json['original']?.toString() ?? json['word']?.toString() ?? '',
+      // API may use 'translation', 'translated', or 'meaning'
+      translation: json['translation']?.toString() ?? json['translated']?.toString() ?? json['meaning']?.toString() ?? '',
       partOfSpeech: json['partOfSpeech']?.toString() ?? '',
       pronunciation: json['pronunciation']?.toString() ?? json['notes']?.toString(),
       alternatives: (json['alternatives'] as List<dynamic>?)

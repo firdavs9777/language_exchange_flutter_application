@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'user_avatar.dart';
 
 class ChatTypingIndicator extends StatefulWidget {
@@ -100,7 +102,7 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF0F0F0),
+                  color: context.containerColor,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(18),
                     topRight: Radius.circular(18),
@@ -109,7 +111,7 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
+                      color: AppColors.black.withValues(alpha: 0.04),
                       blurRadius: 4,
                       offset: const Offset(0, 1),
                     ),
@@ -130,7 +132,7 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
               Text(
                 'typing',
                 style: TextStyle(
-                  color: Colors.grey[500],
+                  color: context.textSecondary,
                   fontSize: 11,
                   fontStyle: FontStyle.italic,
                 ),
@@ -160,8 +162,8 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
               height: 8,
               decoration: BoxDecoration(
                 color: Color.lerp(
-                  const Color(0xFFBDBDBD), // grey[400]
-                  const Color(0xFF616161), // grey[700]
+                  context.textHint,
+                  context.textSecondary,
                   value,
                 ),
                 shape: BoxShape.circle,
@@ -209,7 +211,7 @@ class _CompactTypingIndicatorState extends State<CompactTypingIndicator>
         Text(
           'typing',
           style: TextStyle(
-            color: Colors.grey[500],
+            color: context.textSecondary,
             fontSize: 13,
             fontStyle: FontStyle.italic,
           ),
@@ -242,7 +244,7 @@ class _CompactTypingIndicatorState extends State<CompactTypingIndicator>
       width: 4,
       height: 4,
       decoration: BoxDecoration(
-        color: const Color(0xFF757575).withValues(alpha: opacity),
+        color: context.textSecondary.withValues(alpha: opacity),
         shape: BoxShape.circle,
       ),
     );

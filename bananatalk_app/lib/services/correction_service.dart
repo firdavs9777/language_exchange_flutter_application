@@ -42,11 +42,21 @@ class CorrectionService {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
+        // Backend returns the full corrections array, grab the last one
+        final responseData = data['data'];
+        MessageCorrection? correction;
+        if (responseData is List && responseData.isNotEmpty) {
+          correction = MessageCorrection.fromJson(
+            Map<String, dynamic>.from(responseData.last),
+          );
+        } else if (responseData is Map) {
+          correction = MessageCorrection.fromJson(
+            Map<String, dynamic>.from(responseData),
+          );
+        }
         return {
           'success': true,
-          'data': data['data'] != null
-              ? MessageCorrection.fromJson(data['data'])
-              : null,
+          'data': correction,
           'message': data['message'] ?? 'Correction sent',
         };
       } else {

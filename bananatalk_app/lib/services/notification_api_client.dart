@@ -29,7 +29,6 @@ class NotificationApiClient {
       final url = Uri.parse('${baseUrl}notifications/register-token');
       final headers = await _getHeaders();
 
-      debugPrint('📤 Registering FCM token for device: $deviceId');
 
       final response = await http.post(
         url,
@@ -42,17 +41,14 @@ class NotificationApiClient {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        debugPrint('✅ FCM token registered successfully');
         return {'success': true, 'message': 'Token registered successfully'};
       } else {
-        debugPrint('❌ Token registration failed: ${response.body}');
         return {
           'success': false,
           'message': 'Failed to register token: ${response.statusCode}',
         };
       }
     } catch (e) {
-      debugPrint('❌ Error registering token: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -64,22 +60,18 @@ class NotificationApiClient {
           Uri.parse('${baseUrl}notifications/remove-token/$deviceId');
       final headers = await _getHeaders();
 
-      debugPrint('📤 Removing FCM token for device: $deviceId');
 
       final response = await http.delete(url, headers: headers);
 
       if (response.statusCode == 200) {
-        debugPrint('✅ FCM token removed successfully');
         return {'success': true, 'message': 'Token removed successfully'};
       } else {
-        debugPrint('❌ Token removal failed: ${response.body}');
         return {
           'success': false,
           'message': 'Failed to remove token: ${response.statusCode}',
         };
       }
     } catch (e) {
-      debugPrint('❌ Error removing token: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -97,11 +89,9 @@ class NotificationApiClient {
         // Backend returns { success: true, data: { settings... } }
         return NotificationSettings.fromJson(data['data'] ?? data['settings'] ?? data);
       } else {
-        debugPrint('❌ Failed to get notification settings: ${response.body}');
         return null;
       }
     } catch (e) {
-      debugPrint('❌ Error getting notification settings: $e');
       return null;
     }
   }
@@ -121,17 +111,14 @@ class NotificationApiClient {
       );
 
       if (response.statusCode == 200) {
-        debugPrint('✅ Notification settings updated successfully');
         return {'success': true, 'message': 'Settings updated successfully'};
       } else {
-        debugPrint('❌ Failed to update settings: ${response.body}');
         return {
           'success': false,
           'message': 'Failed to update settings: ${response.statusCode}',
         };
       }
     } catch (e) {
-      debugPrint('❌ Error updating settings: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -146,17 +133,14 @@ class NotificationApiClient {
       final response = await http.post(url, headers: headers);
 
       if (response.statusCode == 200) {
-        debugPrint('✅ Conversation muted successfully');
         return {'success': true, 'message': 'Conversation muted'};
       } else {
-        debugPrint('❌ Failed to mute conversation: ${response.body}');
         return {
           'success': false,
           'message': 'Failed to mute conversation: ${response.statusCode}',
         };
       }
     } catch (e) {
-      debugPrint('❌ Error muting conversation: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -171,17 +155,14 @@ class NotificationApiClient {
       final response = await http.post(url, headers: headers);
 
       if (response.statusCode == 200) {
-        debugPrint('✅ Conversation unmuted successfully');
         return {'success': true, 'message': 'Conversation unmuted'};
       } else {
-        debugPrint('❌ Failed to unmute conversation: ${response.body}');
         return {
           'success': false,
           'message': 'Failed to unmute conversation: ${response.statusCode}',
         };
       }
     } catch (e) {
-      debugPrint('❌ Error unmuting conversation: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -217,11 +198,9 @@ class NotificationApiClient {
           } else if (innerData is List) {
             notifications = innerData;
           } else {
-            debugPrint('⚠️ Could not find notifications in response');
             return [];
           }
         } else {
-          debugPrint('⚠️ Unexpected response format: ${data.runtimeType}');
           return [];
         }
 
@@ -230,16 +209,13 @@ class NotificationApiClient {
             .where((item) => item['type'] != 'chat_message')
             .toList();
 
-        debugPrint('📥 Found ${filteredNotifications.length} notifications (filtered from ${notifications.length})');
         return filteredNotifications
             .map((item) => NotificationItem.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
-        debugPrint('❌ Failed to get notification history: ${response.body}');
         return [];
       }
     } catch (e) {
-      debugPrint('❌ Error getting notification history: $e');
       return [];
     }
   }
@@ -262,7 +238,6 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error marking as read: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -276,7 +251,6 @@ class NotificationApiClient {
       final response = await http.post(url, headers: headers);
 
       if (response.statusCode == 200) {
-        debugPrint('✅ All notifications marked as read');
         return {'success': true, 'message': 'All marked as read'};
       } else {
         return {
@@ -285,7 +259,6 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error marking all as read: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -299,7 +272,6 @@ class NotificationApiClient {
       final response = await http.delete(url, headers: headers);
 
       if (response.statusCode == 200) {
-        debugPrint('✅ All notifications cleared');
         return {'success': true, 'message': 'All notifications cleared'};
       } else {
         return {
@@ -308,7 +280,6 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error clearing notifications: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -325,11 +296,9 @@ class NotificationApiClient {
         final data = jsonDecode(response.body);
         return BadgeCount.fromJson(data['badges'] ?? data);
       } else {
-        debugPrint('❌ Failed to get badge count: ${response.body}');
         return null;
       }
     } catch (e) {
-      debugPrint('❌ Error getting badge count: $e');
       return null;
     }
   }
@@ -347,7 +316,6 @@ class NotificationApiClient {
       );
 
       if (response.statusCode == 200) {
-        debugPrint('✅ Badge reset successfully for type: $type');
         return {'success': true, 'message': 'Badge reset successfully'};
       } else {
         return {
@@ -356,7 +324,6 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error resetting badge: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -368,20 +335,16 @@ class NotificationApiClient {
       final url = Uri.parse('${baseUrl}notifications/sync-badges');
       final headers = await _getHeaders();
 
-      debugPrint('🔄 Syncing badge counts...');
 
       final response = await http.post(url, headers: headers);
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        debugPrint('✅ Badge sync successful: ${data['data']}');
         return BadgeCount.fromJson(data['data'] ?? data);
       } else {
-        debugPrint('❌ Failed to sync badges: ${response.body}');
         return null;
       }
     } catch (e) {
-      debugPrint('❌ Error syncing badges: $e');
       return null;
     }
   }
@@ -407,7 +370,6 @@ class NotificationApiClient {
       );
 
       if (response.statusCode == 200) {
-        debugPrint('✅ Test notification sent');
         return {'success': true, 'message': 'Test notification sent'};
       } else {
         return {
@@ -416,7 +378,6 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error sending test notification: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }

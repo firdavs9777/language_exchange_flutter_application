@@ -35,27 +35,19 @@ class _OrderingWidgetState extends State<OrderingWidget> {
   }
 
   void _initializeItems() {
-    debugPrint('🔢 Initializing ordering widget...');
-    debugPrint('🔢 scrambledItems: ${widget.exercise.scrambledItems}');
-    debugPrint('🔢 correctOrder: ${widget.exercise.correctOrder}');
-    debugPrint('🔢 correctAnswer: ${widget.exercise.correctAnswer}');
-    debugPrint('🔢 options count: ${widget.exercise.options.length}');
 
     // Try to get items from scrambledItems first (most specific for ordering)
     if (widget.exercise.scrambledItems != null && widget.exercise.scrambledItems!.isNotEmpty) {
       _items = List.from(widget.exercise.scrambledItems!);
-      debugPrint('🔢 Using scrambledItems: $_items');
     }
     // Then try options
     else if (widget.exercise.options.isNotEmpty) {
       _items = widget.exercise.options.map((o) => o.text).toList();
-      debugPrint('🔢 Using options: $_items');
     }
 
     // Try to get correct order from exercise.correctOrder first
     if (widget.exercise.correctOrder != null && widget.exercise.correctOrder!.isNotEmpty) {
       _correctOrder = List.from(widget.exercise.correctOrder!);
-      debugPrint('🔢 Using correctOrder field: $_correctOrder');
     }
     // If correctAnswer is provided, parse it
     else if (widget.exercise.correctAnswer != null) {
@@ -64,26 +56,21 @@ class _OrderingWidgetState extends State<OrderingWidget> {
       if (ca.startsWith('[') && ca.endsWith(']')) {
         final inner = ca.substring(1, ca.length - 1);
         _correctOrder = inner.split(',').map((s) => s.trim()).toList();
-        debugPrint('🔢 Parsed correctAnswer as array: $_correctOrder');
       } else if (ca.contains('|')) {
         // Pipe-separated format
         _correctOrder = ca.split('|').map((s) => s.trim()).toList();
-        debugPrint('🔢 Parsed correctAnswer as pipe-separated: $_correctOrder');
       } else if (ca.contains('/')) {
         // Slash-separated format (common in questions like "Put in order: a / b / c")
         _correctOrder = ca.split('/').map((s) => s.trim()).toList();
-        debugPrint('🔢 Parsed correctAnswer as slash-separated: $_correctOrder');
       } else {
         // Single value
         _correctOrder = [ca.trim()];
-        debugPrint('🔢 correctAnswer as single value: $_correctOrder');
       }
     }
 
     // If items is empty but we have correct order, use that
     if (_items.isEmpty && _correctOrder.isNotEmpty) {
       _items = List.from(_correctOrder);
-      debugPrint('🔢 Using correctOrder as items: $_items');
     }
 
     // Last resort: try to parse items from the question (e.g., "Put in order: 가족 / 나에게 / 모든 것")
@@ -94,7 +81,6 @@ class _OrderingWidgetState extends State<OrderingWidget> {
       if (colonIndex != -1 && question.contains('/')) {
         final itemsPart = question.substring(colonIndex + 1).trim();
         _items = itemsPart.split('/').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
-        debugPrint('🔢 Parsed items from question: $_items');
         // If we got items from question and no correct order, use items order as correct
         if (_correctOrder.isEmpty) {
           _correctOrder = List.from(_items);
@@ -102,8 +88,6 @@ class _OrderingWidgetState extends State<OrderingWidget> {
       }
     }
 
-    debugPrint('🔢 Final items: $_items');
-    debugPrint('🔢 Final correctOrder: $_correctOrder');
 
     // Shuffle items for the exercise (only if we have items)
     if (_items.isNotEmpty) {

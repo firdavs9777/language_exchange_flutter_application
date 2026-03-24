@@ -6,6 +6,8 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -134,9 +136,9 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.error_outline, color: Colors.grey[400], size: 48),
+                      Icon(Icons.error_outline, color: context.iconColor, size: 48),
                       const SizedBox(height: 16),
-                      Text('Error loading media', style: TextStyle(color: Colors.grey[600])),
+                      Text('Error loading media', style: TextStyle(color: context.textSecondary)),
                       const SizedBox(height: 8),
                       TextButton(
                         onPressed: _loadMessages,
@@ -186,7 +188,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
             fit: StackFit.expand,
             children: [
               Container(
-                color: Colors.grey[200],
+                color: context.containerColor,
                 child: CachedImageWidget(
                   imageUrl: media.thumbnail ?? media.url,
                   fit: BoxFit.cover,
@@ -198,10 +200,10 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.5),
+                      color: AppColors.black.withValues(alpha: 0.5),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.play_arrow, color: Colors.white),
+                    child: const Icon(Icons.play_arrow, color: AppColors.white),
                   ),
                 ),
             ],
@@ -254,7 +256,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
             ),
             subtitle: Text(
               _formatDate(message.createdAt),
-              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+              style: TextStyle(color: context.textSecondary, fontSize: 12),
             ),
             onTap: () => _openUrl(url),
           ),
@@ -300,7 +302,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
             ),
             subtitle: Text(
               '${_formatFileSize(media.fileSize)} • ${_formatDate(message.createdAt)}',
-              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+              style: TextStyle(color: context.textSecondary, fontSize: 12),
             ),
             trailing: IconButton(
               icon: const Icon(Icons.download),
@@ -318,11 +320,11 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 64, color: Colors.grey[300]),
+          Icon(icon, size: 64, color: context.textHint),
           const SizedBox(height: 16),
           Text(
             message,
-            style: TextStyle(color: Colors.grey[600], fontSize: 16),
+            style: TextStyle(color: context.textSecondary, fontSize: 16),
           ),
         ],
       ),
@@ -333,7 +335,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
     return Center(
       child: Icon(
         isVideo ? Icons.videocam : Icons.image,
-        color: Colors.grey[400],
+        color: context.iconColor,
         size: 32,
       ),
     );
@@ -412,13 +414,13 @@ class _FullScreenMedia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: AppColors.black,
+        iconTheme: const IconThemeData(color: AppColors.white),
         actions: [
           IconButton(
-            icon: const Icon(Icons.download, color: Colors.white),
+            icon: const Icon(Icons.download, color: AppColors.white),
             onPressed: () async {
               final uri = Uri.parse(media.url);
               if (await canLaunchUrl(uri)) {
@@ -433,9 +435,9 @@ class _FullScreenMedia extends StatelessWidget {
           child: CachedImageWidget(
             imageUrl: media.url,
             fit: BoxFit.contain,
-            placeholderColor: Colors.black,
+            placeholderColor: AppColors.black,
             errorWidget: const Center(
-              child: Icon(Icons.broken_image, color: Colors.white, size: 64),
+              child: Icon(Icons.broken_image, color: AppColors.white, size: 64),
             ),
           ),
         ),

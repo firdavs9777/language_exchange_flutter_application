@@ -42,13 +42,11 @@ class IOSPurchaseService {
 
     // Already initialized successfully
     if (_isAvailable && _subscription != null) {
-      debugPrint('Store already initialized');
       return true;
     }
 
     // Initialization already in progress - wait for it
     if (_isInitializing && _initializationCompleter != null) {
-      debugPrint('Initialization already in progress, waiting...');
       return _initializationCompleter!.future;
     }
 
@@ -57,7 +55,6 @@ class IOSPurchaseService {
 
     try {
       final bool available = await _inAppPurchase.isAvailable();
-      debugPrint('Store available: $available');
       if (!available) {
         _queryProductError = 'Store not available';
         _isInitializing = false;
@@ -73,10 +70,8 @@ class IOSPurchaseService {
           _onPurchaseUpdate,
           onDone: () => _subscription?.cancel(),
           onError: (error) {
-            debugPrint('Purchase stream error: $error');
           },
         );
-        debugPrint('iOS purchase subscription initialized');
       }
 
       // Load products inline to avoid deadlock
@@ -86,7 +81,6 @@ class IOSPurchaseService {
       _initializationCompleter?.complete(true);
       return true;
     } catch (e) {
-      debugPrint('Error initializing store: $e');
       _isInitializing = false;
       _initializationCompleter?.complete(false);
       return false;
@@ -95,40 +89,24 @@ class IOSPurchaseService {
 
   /// Internal method to load products (called from initializeStore)
   static Future<void> _loadProductsInternal() async {
-    debugPrint('🛒 Querying products: $_productIds');
 
     final ProductDetailsResponse response =
         await _inAppPurchase.queryProductDetails(_productIds);
 
-    debugPrint('🛒 Query complete:');
-    debugPrint('   - Products found: ${response.productDetails.length}');
-    debugPrint('   - Products: ${response.productDetails.map((p) => '${p.id}: ${p.price}').toList()}');
-    debugPrint('   - Not found IDs: ${response.notFoundIDs}');
-    debugPrint('   - Has error: ${response.error != null}');
 
     if (response.error != null) {
       _queryProductError = response.error!.message;
-      debugPrint('❌ Error loading products: ${response.error!.message}');
-      debugPrint('   Error code: ${response.error!.code}');
-      debugPrint('   Error details: ${response.error!.details}');
       return;
     }
 
     if (response.productDetails.isEmpty) {
       _queryProductError = 'No products found. Not found IDs: ${response.notFoundIDs}';
-      debugPrint('⚠️ No products found');
-      debugPrint('   This usually means:');
-      debugPrint('   1. Products not yet configured in App Store Connect');
-      debugPrint('   2. Paid Apps Agreement not signed');
-      debugPrint('   3. Build not yet uploaded to App Store Connect');
-      debugPrint('   4. Products not in "Ready to Submit" status');
       return;
     }
 
     _products.clear();
     _products.addAll(response.productDetails);
     _queryProductError = null;
-    debugPrint('✅ Loaded ${_products.length} products successfully');
   }
 
   /// Load available products from App Store (public method for manual refresh)
@@ -141,7 +119,6 @@ class IOSPurchaseService {
 
     // If already loading, skip
     if (_isLoadingProducts) {
-      debugPrint('Products already loading, skipping');
       return;
     }
 
@@ -170,30 +147,24 @@ class IOSPurchaseService {
     if (!_isAvailable) {
       final initialized = await initializeStore();
       if (!initialized || !_isAvailable) {
-        debugPrint('Store not available. Error: $_queryProductError');
         return null;
       }
     }
 
     // Ensure products are loaded
     if (_products.isEmpty) {
-      debugPrint('No products loaded, loading products...');
       await loadProducts();
       if (_products.isEmpty) {
-        debugPrint('Failed to load products. Error: $_queryProductError');
         return null;
       }
     }
 
     final ProductDetails? productDetails = getProduct(productId);
     if (productDetails == null) {
-      debugPrint('Product not found: $productId');
-      debugPrint('Available products: ${_products.map((p) => p.id).toList()}');
       return null;
     }
 
     if (_purchasePending) {
-      debugPrint('Purchase already in progress');
       return null;
     }
 
@@ -207,7 +178,6 @@ class IOSPurchaseService {
     );
 
     try {
-      debugPrint('🛒 Initiating purchase for: $productId');
 
       // For subscriptions, use buyNonConsumable
       final bool initiated = await _inAppPurchase.buyNonConsumable(
@@ -217,17 +187,14 @@ class IOSPurchaseService {
       if (!initiated) {
         _purchasePending = false;
         _purchaseCompleter = null;
-        debugPrint('❌ Failed to initiate subscription purchase');
         return null;
       }
 
-      debugPrint('⏳ Waiting for purchase to complete...');
 
       // Wait for the purchase to complete (with timeout)
       final result = await _purchaseCompleter!.future.timeout(
         const Duration(minutes: 5),
         onTimeout: () {
-          debugPrint('⏰ Purchase timed out');
           return null;
         },
       );
@@ -237,7 +204,6 @@ class IOSPurchaseService {
     } catch (e) {
       _purchasePending = false;
       _purchaseCompleter = null;
-      debugPrint('❌ Purchase error: $e');
       return null;
     }
   }
@@ -261,18 +227,13 @@ class IOSPurchaseService {
   /// Handle purchase updates
   static void _onPurchaseUpdate(List<PurchaseDetails> purchaseDetailsList) {
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-      debugPrint('🛒 Purchase update: ${purchaseDetails.status} for ${purchaseDetails.productID}');
 
       if (purchaseDetails.status == PurchaseStatus.pending) {
         _purchasePending = true;
-        debugPrint('⏳ Purchase pending...');
       } else {
         _purchasePending = false;
 
         if (purchaseDetails.status == PurchaseStatus.error) {
-          debugPrint('❌ Purchase error: ${purchaseDetails.error?.message}');
-          debugPrint('   Error code: ${purchaseDetails.error?.code}');
-          debugPrint('   Error details: ${purchaseDetails.error?.details}');
 
           // Complete the completer with null to indicate failure
           if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
@@ -283,8 +244,6 @@ class IOSPurchaseService {
           _purchaseCallback?.call(purchaseDetails, false, purchaseDetails.error?.message);
         } else if (purchaseDetails.status == PurchaseStatus.purchased ||
             purchaseDetails.status == PurchaseStatus.restored) {
-          debugPrint('✅ Purchase successful: ${purchaseDetails.productID}');
-          debugPrint('   Transaction ID: ${purchaseDetails.purchaseID}');
 
           // Add to purchases list
           if (!_purchases.contains(purchaseDetails)) {
@@ -299,7 +258,6 @@ class IOSPurchaseService {
           // Call callback if set
           _purchaseCallback?.call(purchaseDetails, true, null);
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
-          debugPrint('🚫 Purchase canceled');
 
           // Complete the completer with null
           if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
@@ -312,7 +270,6 @@ class IOSPurchaseService {
 
         // Complete the purchase (acknowledge to App Store)
         if (purchaseDetails.pendingCompletePurchase) {
-          debugPrint('📝 Completing purchase...');
           _inAppPurchase.completePurchase(purchaseDetails);
         }
       }
@@ -334,18 +291,15 @@ class IOSPurchaseService {
     // serverVerificationData is the base64 encoded receipt for server verification
     final serverData = purchase.verificationData.serverVerificationData;
     if (serverData.isNotEmpty) {
-      debugPrint('📄 Got server verification data (${serverData.length} chars)');
       return serverData;
     }
 
     // Fallback to local verification data
     final localData = purchase.verificationData.localVerificationData;
     if (localData.isNotEmpty) {
-      debugPrint('📄 Got local verification data (${localData.length} chars)');
       return localData;
     }
 
-    debugPrint('⚠️ No verification data available');
     return null;
   }
 
@@ -356,7 +310,6 @@ class IOSPurchaseService {
     }
 
     if (_purchases.isEmpty) {
-      debugPrint('⚠️ No purchases available for receipt');
       return null;
     }
 
@@ -364,7 +317,6 @@ class IOSPurchaseService {
       final latestPurchase = _purchases.last;
       return getReceiptFromPurchase(latestPurchase);
     } catch (e) {
-      debugPrint('Error getting receipt: $e');
       return null;
     }
   }
@@ -378,7 +330,6 @@ class IOSPurchaseService {
     try {
       await _inAppPurchase.restorePurchases();
     } catch (e) {
-      debugPrint('Error restoring purchases: $e');
     }
   }
 

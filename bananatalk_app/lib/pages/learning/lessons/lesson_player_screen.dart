@@ -53,10 +53,6 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   void _tryStartLesson(Lesson lesson) {
     if (_lessonStarted) return;
     _lessonStarted = true;
-    debugPrint('📚 ===== STARTING LESSON =====');
-    debugPrint('📚 Title: ${lesson.title}');
-    debugPrint('📚 Total exercises: ${lesson.exercises.length}');
-    debugPrint('📚 Content items: ${lesson.content.length}');
 
     // Log details of each exercise
     for (int i = 0; i < lesson.exercises.length; i++) {
@@ -64,26 +60,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       final questionPreview = ex.question.length > 50
           ? '${ex.question.substring(0, 50)}...'
           : ex.question;
-      debugPrint('📚 Exercise $i:');
-      debugPrint('📚   - Type: ${ex.type}');
-      debugPrint('📚   - Question: $questionPreview');
-      debugPrint('📚   - Options count: ${ex.options.length}');
-      debugPrint('📚   - MatchingPairs count: ${ex.matchingPairs.length}');
 
       if (ex.type.toLowerCase() == 'matching') {
-        debugPrint('📚   - MATCHING EXERCISE DETAILS:');
         for (int j = 0; j < ex.matchingPairs.length; j++) {
-          debugPrint('📚     Pair $j: "${ex.matchingPairs[j].left}" => "${ex.matchingPairs[j].right}"');
         }
       }
       if (ex.type.toLowerCase() == 'ordering') {
-        debugPrint('📚   - ORDERING EXERCISE DETAILS:');
-        debugPrint('📚     scrambledItems: ${ex.scrambledItems}');
-        debugPrint('📚     correctOrder: ${ex.correctOrder}');
-        debugPrint('📚     correctAnswer: ${ex.correctAnswer}');
       }
     }
-    debugPrint('📚 ===== END LESSON INFO =====');
 
     ref.read(lessonPlayerProvider.notifier).startLesson(lesson);
   }
@@ -112,10 +96,6 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
 
   /// Show AI feedback sheet for wrong answer
   void _showAIFeedback(int exerciseIndex, String userAnswerId, Exercise exercise) {
-    debugPrint('🔍 Exercise options: ${exercise.options.map((o) => "id:${o.id}, text:${o.text}, isCorrect:${o.isCorrect}").toList()}');
-    debugPrint('🔍 User answer ID: $userAnswerId');
-    debugPrint('🔍 Exercise correctAnswer: ${exercise.correctAnswer}');
-    debugPrint('🔍 Exercise acceptedAnswers: ${exercise.acceptedAnswers}');
 
     // Convert user answer ID to text
     String userAnswerText = userAnswerId;
@@ -163,8 +143,6 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       correctAnswer = exercise.acceptedAnswers!.first;
     }
 
-    debugPrint('🔍 Final userAnswerText: $userAnswerText');
-    debugPrint('🔍 Final correctAnswer: $correctAnswer');
 
     AnswerFeedbackSheet.show(
       context,

@@ -1,9 +1,6 @@
 {
   "@@locale": "zh_TW",
   "appName": "BananaTalk",
-  "@appName": {
-    "description": "The application name"
-  },
   "login": "登入",
   "signUp": "註冊",
   "email": "電子郵件",
@@ -34,13 +31,6 @@
   "translationFailed": "翻譯失敗",
   "noTranslationAvailable": "無可用翻譯",
   "translatedFrom": "翻譯自{language}",
-  "@translatedFrom": {
-    "placeholders": {
-      "language": {
-        "type": "String"
-      }
-    }
-  },
   "save": "儲存",
   "cancel": "取消",
   "delete": "刪除",
@@ -67,25 +57,8 @@
   "languageSettings": "語言設定",
   "deviceLanguage": "裝置語言",
   "yourDeviceIsSetTo": "您的裝置設定為：{flag} {name}",
-  "@yourDeviceIsSetTo": {
-    "placeholders": {
-      "flag": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "youCanOverride": "您可以在下方覆蓋裝置語言。",
   "languageChangedTo": "語言已變更為{name}",
-  "@languageChangedTo": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "errorChangingLanguage": "變更語言時發生錯誤",
   "autoTranslateSettings": "自動翻譯設定",
   "automaticallyTranslateIncomingMessages": "自動翻譯收到的訊息",
@@ -134,16 +107,10 @@
   "details": "詳情",
   "to": "至",
   "banaTalk": "BanaTalk",
+  "chats": "聊天",
   "community": "社群",
   "editProfile": "編輯個人檔案",
   "yearsOld": "{age}歲",
-  "@yearsOld": {
-    "placeholders": {
-      "age": {
-        "type": "String"
-      }
-    }
-  },
   "searchConversations": "搜尋對話...",
   "visitorTrackingNotAvailable": "訪客追蹤功能尚未推出。需要後端更新。",
   "chatList": "聊天列表",
@@ -214,13 +181,6 @@
   "noUsersAvailableToForwardTo": "沒有可轉發的用戶",
   "searchMoments": "搜尋動態...",
   "searchInChatWith": "在與{name}的聊天中搜尋",
-  "@searchInChatWith": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "typeAMessage": "輸入訊息...",
   "enterYourMessage": "輸入您的訊息",
   "detectYourLocation": "偵測您的位置",
@@ -238,32 +198,11 @@
   "searchByNameLanguageOrInterests": "按名稱、語言或興趣搜尋...",
   "addTagAndPressEnter": "新增標籤並按 Enter",
   "replyTo": "回覆{name}...",
-  "@replyTo": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "highlightName": "精選名稱",
   "searchCloseFriends": "搜尋摯友...",
   "askAQuestion": "提出問題...",
   "option": "選項 {number}",
-  "@option": {
-    "placeholders": {
-      "number": {
-        "type": "String"
-      }
-    }
-  },
   "whyAreYouReportingThis": "您為什麼要檢舉此{type}？",
-  "@whyAreYouReportingThis": {
-    "placeholders": {
-      "type": {
-        "type": "String"
-      }
-    }
-  },
   "additionalDetailsOptional": "其他詳情（選填）",
   "warningThisActionIsPermanent": "警告：此操作為永久性！",
   "deletingYourAccountWillPermanentlyRemove": "刪除您的帳戶將永久移除：\n\n• 您的個人檔案和所有個人資料\n• 您的所有訊息和對話\n• 您的所有動態和限時動態\n• 您的 VIP 訂閱（不退款）\n• 您的所有連結和粉絲\n\n此操作無法復原。",
@@ -283,7 +222,6 @@
   "detectYourLocation2": "偵測您的位置",
   "tapToUpdateLocation2": "點擊以更新位置",
   "helpOthersFindYouNearby2": "幫助其他人在附近找到您",
-  "signInWithApple": "使用 Apple 登入",
   "couldNotOpenLink": "無法開啟連結",
   "legalPrivacy2": "法律與隱私",
   "termsOfUseEULA": "使用條款 (EULA)",
@@ -310,25 +248,11 @@
   "typeDELETEToConfirm": "輸入「刪除」以確認",
   "typeDELETEInCapitalLetters": "以大寫輸入「刪除」",
   "sent": "{emoji} 已傳送！",
-  "@sent": {
-    "placeholders": {
-      "emoji": {
-        "type": "String"
-      }
-    }
-  },
   "replySent": "回覆已傳送！",
   "deleteStory": "刪除限時動態？",
   "thisStoryWillBeRemovedPermanently": "此限時動態將被永久移除。",
   "noStories": "沒有限時動態",
   "views": "{count} 次觀看",
-  "@views": {
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
   "reportStory": "檢舉限時動態",
   "reply2": "回覆...",
   "failedToPickImage": "選擇圖片失敗",
@@ -461,7 +385,7 @@
   "wallpaperSavedLocally": "桌布已儲存至本機",
   "messageCopied": "訊息已複製",
   "forwardFeatureComingSoon": "轉發功能即將推出",
-  "momentUnsaved": "動態未儲存",
+  "momentUnsaved": "已從儲存中移除",
   "documentPickerComingSoon": "文件選擇器即將推出",
   "contactSharingComingSoon": "聯絡人分享即將推出",
   "featureComingSoon": "功能即將推出",
@@ -499,21 +423,7 @@
   "lastSeen": "上次上線",
   "justNow": "剛才",
   "minutesAgo": "{count} 分鐘前",
-  "@minutesAgo": {
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
   "hoursAgo": "{count} 小時前",
-  "@hoursAgo": {
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
   "yesterday": "昨天",
   "signInWithEmail": "使用電子郵件登入",
   "partners": "夥伴",
@@ -553,87 +463,24 @@
   "alreadyFollowing": "您已經在追蹤",
   "soon": "即將",
   "comingSoon": "{feature}即將推出！",
-  "@comingSoon": {
-    "placeholders": {
-      "feature": {
-        "type": "String"
-      }
-    }
-  },
   "muteNotifications": "靜音通知",
   "unmuteNotifications": "取消靜音通知",
   "operationCompleted": "操作完成",
   "couldNotOpenMaps": "無法開啟地圖",
   "hasntSharedMoments": "{name}尚未分享任何動態",
   "messageUser": "傳送訊息給{name}",
-  "@messageUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "notFollowingUser": "您沒有追蹤{name}",
-  "@notFollowingUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "youFollowedUser": "您已追蹤{name}",
-  "@youFollowedUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "youUnfollowedUser": "您已取消追蹤{name}",
-  "@youUnfollowedUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "unfollowUser": "取消追蹤{name}",
-  "@unfollowUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "typing": "正在輸入",
   "connecting": "連線中...",
   "daysAgo": "{count}天前",
-  "@daysAgo": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "maxTagsAllowed": "最多允許 5 個標籤",
   "maxImagesAllowed": "最多允許 {count} 張圖片",
-  "@maxImagesAllowed": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "pleaseRemoveImagesFirst": "請先移除圖片以新增影片",
   "exchange3MessagesBeforeCall": "您需要先交換至少 3 條訊息才能撥打電話給此用戶",
   "mediaWithUser": "與{name}的媒體",
-  "@mediaWithUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "errorLoadingMedia": "載入媒體時發生錯誤",
   "savedMomentsTitle": "已儲存的動態",
   "removeBookmark": "移除書籤？",
@@ -662,13 +509,6 @@
   "leave": "離開",
   "enableGPS": "啟用 GPS",
   "wavedToUser": "您向{name}招手了！",
-  "@wavedToUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "areYouSureFollow": "您確定要追蹤",
   "failedToLoadProfile": "載入個人檔案失敗",
   "noFollowersYet": "尚無粉絲",
@@ -687,12 +527,6 @@
   "viewAllReplies": "查看所有回覆",
   "preparingVideo": "準備影片中...",
   "videoOptimized": "影片已優化：{size}MB（節省 {savings}%）",
-  "@videoOptimized": {
-    "placeholders": {
-      "size": {"type": "String"},
-      "savings": {"type": "String"}
-    }
-  },
   "failedToProcessVideo": "處理影片失敗",
   "optimizingForBestExperience": "正在優化以獲得最佳限時動態體驗",
   "pleaseSelectImageOrVideo": "請為您的限時動態選擇圖片或影片",
@@ -734,44 +568,14 @@
   "shareExternally": "對外分享",
   "checkOutStory": "在 BananaTalk 上查看此限時動態！",
   "viewsTab": "觀看 ({count})",
-  "@viewsTab": {
-    "placeholders": {
-      "count": {"type": "String"}
-    }
-  },
   "reactionsTab": "反應 ({count})",
-  "@reactionsTab": {
-    "placeholders": {
-      "count": {"type": "String"}
-    }
-  },
   "processingVideo": "正在處理影片...",
   "link": "連結",
   "unmuteUser": "取消靜音{name}？",
-  "@unmuteUser": {
-    "placeholders": {
-      "name": {"type": "String"}
-    }
-  },
   "willReceiveNotifications": "您將收到新訊息的通知。",
   "muteNotificationsFor": "靜音{name}的通知",
-  "@muteNotificationsFor": {
-    "placeholders": {
-      "name": {"type": "String"}
-    }
-  },
   "notificationsUnmutedFor": "已取消靜音{name}的通知",
-  "@notificationsUnmutedFor": {
-    "placeholders": {
-      "name": {"type": "String"}
-    }
-  },
   "notificationsMutedFor": "已靜音{name}的通知",
-  "@notificationsMutedFor": {
-    "placeholders": {
-      "name": {"type": "String"}
-    }
-  },
   "failedToUpdateMuteSettings": "更新靜音設定失敗",
   "oneHour": "1 小時",
   "eightHours": "8 小時",
@@ -782,17 +586,7 @@
   "longPressToBookmark": "長按訊息以加入書籤",
   "thisWillRemoveFromBookmarks": "這將從您的書籤中移除此訊息。",
   "navigateToMessage": "前往與{name}聊天中的訊息",
-  "@navigateToMessage": {
-    "placeholders": {
-      "name": {"type": "String"}
-    }
-  },
   "bookmarkedOn": "已於 {date} 加入書籤",
-  "@bookmarkedOn": {
-    "placeholders": {
-      "date": {"type": "String"}
-    }
-  },
   "voiceMessage": "語音訊息",
   "document": "文件",
   "attachment": "附件",
@@ -807,11 +601,6 @@
   "failedToUpdateSetting": "更新設定失敗",
   "securityAlertsRecommended": "我們建議您保持安全警報開啟，以便了解重要的帳戶活動。",
   "chatWallpaperFor": "{name}的聊天桌布",
-  "@chatWallpaperFor": {
-    "placeholders": {
-      "name": {"type": "String"}
-    }
-  },
   "solidColors": "純色",
   "gradients": "漸層",
   "customImage": "自訂圖片",
@@ -828,11 +617,6 @@
   "moods": "心情",
   "applyFilters": "套用篩選",
   "applyNFilters": "套用 {count} 個篩選",
-  "@applyNFilters": {
-    "placeholders": {
-      "count": {"type": "int"}
-    }
-  },
   "failedToRecordVideo": "錄製影片失敗",
   "errorSendingVideo": "傳送影片時發生錯誤",
   "errorSendingVoiceMessage": "傳送語音訊息時發生錯誤",
@@ -844,5 +628,240 @@
   "messageSent": "訊息已傳送",
   "messageDeleted": "訊息已刪除",
   "messageEdited": "訊息已編輯",
-  "videoMustBeUnder1GB": "影片必須小於 1GB。"
+  "videoMustBeUnder1GB": "影片必須小於 1GB。",
+  "edited": "(已編輯)",
+  "now": "剛剛",
+  "weeksAgo": "{count}週前",
+  "viewRepliesCount": "── 查看{count}則回覆",
+  "hideReplies": "── 隱藏回覆",
+  "saveMoment": "儲存動態",
+  "removeFromSaved": "取消儲存",
+  "momentSaved": "已儲存",
+  "failedToSave": "儲存失敗",
+  "checkOutMoment": "看看這則動態: {title}",
+  "failedToLoadMoments": "載入動態失敗",
+  "noMomentsMatchFilters": "沒有符合篩選條件的動態",
+  "beFirstToShareMoment": "成為第一個分享動態的人！",
+  "tryDifferentSearch": "試試其他搜尋詞",
+  "tryAdjustingFilters": "試試調整篩選條件",
+  "noSavedMoments": "沒有儲存的動態",
+  "tapBookmarkToSave": "點擊書籤圖示儲存動態",
+  "failedToLoadVideo": "影片載入失敗",
+  "titleRequired": "標題不能為空",
+  "titleTooLong": "標題不能超過{max}個字元",
+  "descriptionRequired": "說明不能為空",
+  "descriptionTooLong": "說明不能超過{max}個字元",
+  "scheduledDateMustBeFuture": "預約日期必須是未來的日期",
+  "recent": "最新",
+  "popular": "熱門",
+  "trending": "趨勢",
+  "mostRecent": "最新",
+  "mostPopular": "最熱門",
+  "allTime": "全部",
+  "today": "今天",
+  "thisWeek": "本週",
+  "thisMonth": "本月",
+  "replyingTo": "回覆 {userName}",
+  "listView": "列表",
+  "quickMatch": "快速配對",
+  "onlineNow": "在線",
+  "speaksLanguage": "會說{language}",
+  "learningLanguage": "正在學{language}",
+  "noPartnersFound": "未找到語伴",
+  "noUsersFoundForLanguages": "找不到以{learning}為母語或想學{native}的用戶。",
+  "removeAllFilters": "移除所有篩選",
+  "browseAllUsers": "瀏覽所有用戶",
+  "allCaughtUp": "已看完所有！",
+  "loadingMore": "載入更多...",
+  "findingMorePartners": "正在為您尋找更多語伴...",
+  "seenAllPartners": "您已瀏覽所有可用的語伴，稍後再來看看！",
+  "startOver": "重新開始",
+  "changeFilters": "變更篩選條件",
+  "findingPartners": "尋找語伴中...",
+  "setLocationReminder": "在個人資料中設定您的位置，優先顯示附近用戶。",
+  "updateLocationReminder": "在個人資料 > 編輯中更新位置以獲得準確的附近結果。",
+  "male": "男",
+  "female": "女",
+  "other": "其他",
+  "browseMen": "瀏覽男性",
+  "browseWomen": "瀏覽女性",
+  "noMaleUsersFound": "未找到男性用戶",
+  "noFemaleUsersFound": "未找到女性用戶",
+  "vip": "VIP",
+  "newUsersOnly": "僅新用戶",
+  "showNewUsers": "顯示最近6天加入的用戶",
+  "prioritizeNearby": "優先附近",
+  "showNearbyFirst": "在結果中優先顯示附近用戶",
+  "setLocationToEnable": "設定您的位置以啟用此功能",
+  "radius": "半徑",
+  "findingYourLocation": "正在定位...",
+  "enableLocationForDistance": "啟用位置以顯示距離",
+  "enableLocationDescription": "啟用GPS以查看與語伴的精確距離。不開GPS也可以按城市/國家瀏覽。",
+  "enableGps": "啟用GPS",
+  "browseByCityCountry": "按城市/國家瀏覽",
+  "peopleNearby": "附近的人",
+  "noNearbyUsersFound": "未找到附近用戶",
+  "tryExpandingSearch": "嘗試擴大搜索範圍或稍後再試。",
+  "exploreByCity": "按城市探索",
+  "exploreByCurrentCity": "在互動地圖上瀏覽用戶，發現全球語伴。",
+  "interactiveWorldMap": "互動世界地圖",
+  "searchByCityName": "按城市名搜索",
+  "seeUserCountsPerCountry": "查看各國用戶數量",
+  "upgradeToVip": "升級VIP",
+  "searchByCity": "搜索城市...",
+  "usersWorldwide": "全球{count}人",
+  "noUsersFound": "未找到用戶",
+  "tryDifferentCity": "試試其他城市或國家",
+  "usersCount": "{count}人",
+  "searchCountry": "搜索國家...",
+  "wave": "打招呼",
+  "newUser": "NEW",
+  "warningPermanent": "警告：此操作不可撤銷！",
+  "deleteAccountWarning": "刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。",
+  "requiredForEmailOnly": "僅電子郵件帳號需要",
+  "pleaseEnterPassword": "請輸入密碼",
+  "typeDELETE": "輸入DELETE確認",
+  "mustTypeDELETE": "必須輸入DELETE確認",
+  "deletingAccount": "正在刪除帳號...",
+  "deleteMyAccountPermanently": "永久刪除我的帳號",
+  "whatsYourNativeLanguage": "您的母語是什麼？",
+  "helpsMatchWithLearners": "幫助我們為您配對學習者",
+  "whatAreYouLearning": "您在學什麼？",
+  "connectWithNativeSpeakers": "我們會為您連結母語者",
+  "selectLearningLanguage": "請選擇您正在學習的語言",
+  "selectCurrentLevel": "請選擇您的當前程度",
+  "beginner": "入門 — 我認識一些單字",
+  "elementary": "初級 — 我能造簡單的句子",
+  "intermediate": "中級 — 我能進行基本對話",
+  "upperIntermediate": "中高級 — 我能討論大部分話題",
+  "advanced": "高級 — 我說得很流利",
+  "proficient": "精通 — 接近母語程度",
+  "showingPartnersByDistance": "按距離排序顯示語伴",
+  "enableLocationForResults": "啟用定位以獲取基於距離的結果",
+  "enable": "啟用",
+  "locationNotSet": "未設定位置",
+  "tellUsAboutYourself": "介紹一下您自己",
+  "justACoupleQuickThings": "只需幾個簡單問題",
+  "gender": "性別",
+  "birthDate": "出生日期",
+  "selectYourBirthDate": "選擇您的出生日期",
+  "continueButton": "繼續",
+  "pleaseSelectGender": "請選擇您的性別",
+  "pleaseSelectBirthDate": "請選擇您的出生日期",
+  "mustBe18": "您必須年滿18歲",
+  "invalidDate": "日期無效",
+  "almostDone": "快完成了！",
+  "addPhotoLocationForMatches": "添加照片和位置以獲得更多配對",
+  "addProfilePhoto": "添加大頭照",
+  "optionalUpTo6Photos": "選填 — 最多6張照片",
+  "maximum6Photos": "最多6張照片",
+  "tapToDetectLocation": "點擊偵測位置",
+  "optionalHelpsNearbyPartners": "選填 — 幫助找到附近的語伴",
+  "startLearning": "開始學習！",
+  "photoLocationOptional": "照片和位置為選填 — 稍後可以添加",
+  "pleaseAcceptTerms": "請接受服務條款",
+  "iAgreeToThe": "我同意",
+  "termsOfService": "服務條款",
+  "tapToSelectLanguage": "點擊選擇語言",
+  "yourLevelIn": "您的{language}程度（選填）",
+  "yourCurrentLevel": "您的當前程度",
+  "nativeCannotBeSameAsLearning": "母語不能與學習語言相同",
+  "learningCannotBeSameAsNative": "學習語言不能與母語相同",
+  "stepOf": "第{current}步，共{total}步",
+  "continueWithGoogle": "使用Google繼續",
+  "registerLink": "註冊",
+  "pleaseEnterBothEmailAndPassword": "請輸入電子郵件和密碼",
+  "pleaseEnterValidEmail": "請輸入有效的電子郵件",
+  "loginSuccessful": "登入成功！",
+  "sessionExpired": "工作階段已過期，請重新登入。",
+  "stepOneOfTwo": "第1步，共2步",
+  "createYourAccount": "建立帳號",
+  "basicInfoToGetStarted": "開始前的基本資訊",
+  "emailVerifiedLabel": "電子郵件（已驗證）",
+  "nameLabel": "姓名",
+  "yourDisplayName": "顯示名稱",
+  "atLeast8Characters": "至少8個字元",
+  "confirmPasswordHint": "確認密碼",
+  "nextButton": "下一步",
+  "pleaseEnterYourName": "請輸入您的姓名",
+  "pleaseEnterAPassword": "請輸入密碼",
+  "passwordsDoNotMatch": "密碼不相符",
+  "male": "男",
+  "female": "女",
+  "otherGender": "其他",
+  "continueWithGoogleAccount": "使用Google帳號繼續\n享受無縫體驗",
+  "signingYouIn": "正在登入...",
+  "tryAgain": "重試",
+  "backToSignInMethods": "返回登入方式",
+  "securedByGoogle": "由Google保障安全",
+  "dataProtectedEncryption": "您的資料受到業界標準加密保護",
+  "welcomeCompleteProfile": "歡迎！請完善您的個人資料",
+  "welcomeBackName": "歡迎回來，{name}！",
+  "continueWithAppleId": "使用Apple ID繼續\n享受安全體驗",
+  "continueWithApple": "使用Apple繼續",
+  "securedByApple": "由Apple保障安全",
+  "privacyProtectedApple": "Apple登入保護您的隱私",
+  "createAccount": "建立帳號",
+  "enterEmailToGetStarted": "輸入電子郵件開始",
+  "continueText": "繼續",
+  "pleaseEnterEmailAddress": "請輸入電子郵件地址",
+  "verificationCodeSent": "驗證碼已發送到您的信箱！",
+  "forgotPasswordTitle": "忘記密碼",
+  "resetPasswordTitle": "重設密碼",
+  "enterEmailForResetCode": "輸入您的電子郵件，我們將發送重設密碼的驗證碼",
+  "sendResetCode": "發送重設碼",
+  "resetCodeSent": "重設碼已發送！",
+  "rememberYourPassword": "記得密碼？",
+  "verifyCode": "驗證碼",
+  "enterResetCode": "輸入重設碼",
+  "weSentCodeTo": "我們已發送6位驗證碼到",
+  "pleaseEnterAll6Digits": "請輸入所有6位數字",
+  "codeVerifiedCreatePassword": "驗證成功！請建立新密碼",
+  "verify": "驗證",
+  "didntReceiveCode": "沒有收到驗證碼？",
+  "resend": "重新發送",
+  "resendWithTimer": "重新發送（{timer}秒）",
+  "resetCodeResent": "重設碼已重新發送！",
+  "verifyEmail": "驗證信箱",
+  "verifyYourEmail": "驗證您的電子郵件",
+  "emailVerifiedSuccessfully": "電子郵件驗證成功！",
+  "verificationCodeResent": "驗證碼已重新發送！",
+  "createNewPassword": "建立新密碼",
+  "enterNewPasswordBelow": "在下方輸入新密碼",
+  "newPassword": "新密碼",
+  "confirmPasswordLabel": "確認密碼",
+  "pleaseFillAllFields": "請填寫所有欄位",
+  "passwordResetSuccessful": "密碼重設成功！請使用新密碼登入",
+  "privacyTitle": "隱私",
+  "profileVisibility": "個人資料可見性",
+  "showCountryRegion": "顯示國家/地區",
+  "showCountryRegionDesc": "在個人資料中顯示您的國家",
+  "showCity": "顯示城市",
+  "showCityDesc": "在個人資料中顯示您的城市",
+  "showAge": "顯示年齡",
+  "showAgeDesc": "在個人資料中顯示您的年齡",
+  "showZodiacSign": "顯示星座",
+  "showZodiacSignDesc": "在個人資料中顯示您的星座",
+  "onlineStatusSection": "線上狀態",
+  "showOnlineStatus": "顯示線上狀態",
+  "showOnlineStatusDesc": "讓其他人看到您的線上狀態",
+  "otherSettings": "其他設定",
+  "showGiftingLevel": "顯示禮物等級",
+  "showGiftingLevelDesc": "顯示禮物等級徽章",
+  "birthdayNotifications": "生日通知",
+  "birthdayNotificationsDesc": "在生日時接收通知",
+  "personalizedAds": "個人化廣告",
+  "personalizedAdsDesc": "允許個人化廣告",
+  "saveChanges": "儲存變更",
+  "privacySettingsSaved": "隱私設定已儲存",
+  "locationSection": "位置",
+  "updateLocation": "更新位置",
+  "updateLocationDesc": "重新整理您的目前位置",
+  "currentLocation": "目前位置",
+  "locationNotAvailable": "位置不可用",
+  "locationUpdated": "位置更新成功",
+  "locationPermissionDenied": "位置權限被拒絕，請在設定中啟用。",
+  "locationServiceDisabled": "位置服務已停用，請啟用。",
+  "updatingLocation": "正在更新位置...",
+  "locationCouldNotBeUpdated": "無法更新位置"
 }

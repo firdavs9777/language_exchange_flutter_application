@@ -197,7 +197,6 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         return 'Last seen $month ${lastSeenDate.day}';
       }
     } catch (e) {
-      debugPrint('❌ Error parsing lastSeen: $e');
       return 'Last seen recently';
     }
   }
@@ -426,7 +425,6 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     } catch (e) {
       // Error is already handled via the callback, no need to handle again
       // Just log the error for debugging
-      debugPrint('❌ Call initiation failed: $e');
     }
   }
   

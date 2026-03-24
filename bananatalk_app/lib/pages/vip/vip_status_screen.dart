@@ -86,13 +86,11 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
         ),
       ),
       data: (vipStatus) {
-        debugPrint('VIP Status Screen Data: $vipStatus');
         final isVip = vipStatus['isVIP'] == true;
         final userMode = vipStatus['userMode']?.toString() ?? 'regular';
         final subscription = vipStatus['vipSubscription'] as VipSubscription?;
         final rawData = vipStatus['data'] as Map<String, dynamic>?;
 
-        debugPrint('isVip: $isVip, userMode: $userMode, subscription: $subscription');
 
         // Check if user has VIP mode but subscription is not active
         // This could be an expired subscription or a sync issue

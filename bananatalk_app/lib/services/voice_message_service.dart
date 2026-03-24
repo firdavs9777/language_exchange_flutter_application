@@ -71,15 +71,10 @@ class VoiceMessageService {
         request.fields['waveform'] = jsonEncode(waveform);
       }
 
-      debugPrint('📤 Sending voice message to: $url');
-      debugPrint('📤 File path: ${voiceFile.path}');
-      debugPrint('📤 Duration: $durationSeconds seconds');
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      debugPrint('📥 Voice message response status: ${response.statusCode}');
-      debugPrint('📥 Voice message response body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -90,7 +85,6 @@ class VoiceMessageService {
         };
       } else {
         final errorData = jsonDecode(response.body);
-        debugPrint('❌ Voice message error: ${errorData.toString()}');
         return {
           'success': false,
           'error': errorData['error'] ?? errorData['message'] ?? 'Failed to send voice message',
@@ -144,7 +138,6 @@ class VoiceMessageService {
         }
       }
     } catch (e) {
-      debugPrint('Error cleaning up old recordings: $e');
     }
   }
 
@@ -173,7 +166,6 @@ class VoiceMessageService {
       
       return null;
     } catch (e) {
-      debugPrint('Error downloading voice message: $e');
       return null;
     }
   }

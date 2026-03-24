@@ -246,6 +246,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get momentDeleted => '动态已删除';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => '编辑功能即将推出';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => '聊天';
 
   @override
   String get community => '社区';
@@ -515,7 +524,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cannotSendMessageUserMayBeBlocked => '无法发送消息。用户可能已被屏蔽。';
 
   @override
-  String get sessionExpired => '会话已过期。请重新登录。';
+  String get sessionExpired => '会话已过期，请重新登录。';
 
   @override
   String get sendThisSticker => '发送此贴纸？';
@@ -1181,7 +1190,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get forwardFeatureComingSoon => '转发功能即将推出';
 
   @override
-  String get momentUnsaved => '动态已取消保存';
+  String get momentUnsaved => '已从保存中移除';
 
   @override
   String get documentPickerComingSoon => '文档选择器即将推出';
@@ -1962,6 +1971,729 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get messageEdited => 'Message edited';
+
+  @override
+  String get edited => '(已编辑)';
+
+  @override
+  String get now => '刚刚';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count周前';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── 查看$count条回复';
+  }
+
+  @override
+  String get hideReplies => '── 隐藏回复';
+
+  @override
+  String get saveMoment => '保存动态';
+
+  @override
+  String get removeFromSaved => '取消保存';
+
+  @override
+  String get momentSaved => '已保存';
+
+  @override
+  String get failedToSave => '保存失败';
+
+  @override
+  String checkOutMoment(String title) {
+    return '看看这条动态: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => '加载动态失败';
+
+  @override
+  String get noMomentsMatchFilters => '没有匹配筛选条件的动态';
+
+  @override
+  String get beFirstToShareMoment => '成为第一个分享动态的人！';
+
+  @override
+  String get tryDifferentSearch => '试试其他搜索词';
+
+  @override
+  String get tryAdjustingFilters => '试试调整筛选条件';
+
+  @override
+  String get noSavedMoments => '没有保存的动态';
+
+  @override
+  String get tapBookmarkToSave => '点击书签图标保存动态';
+
+  @override
+  String get failedToLoadVideo => '视频加载失败';
+
+  @override
+  String get titleRequired => '标题不能为空';
+
+  @override
+  String titleTooLong(int max) {
+    return '标题不能超过$max个字符';
+  }
+
+  @override
+  String get descriptionRequired => '描述不能为空';
+
+  @override
+  String descriptionTooLong(int max) {
+    return '描述不能超过$max个字符';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => '预约日期必须是将来的日期';
+
+  @override
+  String get recent => '最新';
+
+  @override
+  String get popular => '热门';
+
+  @override
+  String get trending => '趋势';
+
+  @override
+  String get mostRecent => '最新';
+
+  @override
+  String get mostPopular => '最热门';
+
+  @override
+  String get allTime => '全部';
+
+  @override
+  String get today => '今天';
+
+  @override
+  String get thisWeek => '本周';
+
+  @override
+  String get thisMonth => '本月';
+
+  @override
+  String replyingTo(String userName) {
+    return '回复 $userName';
+  }
+
+  @override
+  String get listView => '列表';
+
+  @override
+  String get quickMatch => '快速匹配';
+
+  @override
+  String get onlineNow => '在线';
+
+  @override
+  String speaksLanguage(String language) {
+    return '说$language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return '学习$language';
+  }
+
+  @override
+  String get noPartnersFound => '未找到语伴';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return '未找到以$learning为母语或正在学习$native的用户。';
+  }
+
+  @override
+  String get removeAllFilters => '清除所有筛选';
+
+  @override
+  String get browseAllUsers => '浏览所有用户';
+
+  @override
+  String get allCaughtUp => '已全部查看！';
+
+  @override
+  String get loadingMore => '加载更多...';
+
+  @override
+  String get findingMorePartners => '正在为你寻找更多语伴...';
+
+  @override
+  String get seenAllPartners => '你已查看所有可用语伴。稍后再来看看吧！';
+
+  @override
+  String get startOver => '重新开始';
+
+  @override
+  String get changeFilters => '更改筛选条件';
+
+  @override
+  String get findingPartners => '正在寻找语伴...';
+
+  @override
+  String get setLocationReminder => '在个人资料中设置位置，优先查看附近用户。';
+
+  @override
+  String get updateLocationReminder => '在 个人资料 > 编辑 中更新位置以获得准确的附近结果。';
+
+  @override
+  String get male => '男';
+
+  @override
+  String get female => '女';
+
+  @override
+  String get other => '其他';
+
+  @override
+  String get browseMen => '浏览男性';
+
+  @override
+  String get browseWomen => '浏览女性';
+
+  @override
+  String get noMaleUsersFound => '未找到男性用户';
+
+  @override
+  String get noFemaleUsersFound => '未找到女性用户';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => '仅新用户';
+
+  @override
+  String get showNewUsers => '显示最近6天内加入的用户';
+
+  @override
+  String get prioritizeNearby => '优先附近';
+
+  @override
+  String get showNearbyFirst => '优先显示附近用户';
+
+  @override
+  String get setLocationToEnable => '设置位置以启用此功能';
+
+  @override
+  String get radius => '半径';
+
+  @override
+  String get findingYourLocation => '正在定位...';
+
+  @override
+  String get enableLocationForDistance => '启用定位查看距离';
+
+  @override
+  String get enableLocationDescription => '启用GPS以查看与语伴的精确距离。';
+
+  @override
+  String get enableGps => '启用GPS';
+
+  @override
+  String get browseByCityCountry => '按城市/国家浏览';
+
+  @override
+  String get peopleNearby => '附近的人';
+
+  @override
+  String get noNearbyUsersFound => '未找到附近用户';
+
+  @override
+  String get tryExpandingSearch => '尝试扩大搜索范围或稍后再试。';
+
+  @override
+  String get exploreByCity => '按城市探索';
+
+  @override
+  String get exploreByCurrentCity => '在互动地图上浏览用户，发现全球语伴。';
+
+  @override
+  String get interactiveWorldMap => '互动世界地图';
+
+  @override
+  String get searchByCityName => '按城市名搜索';
+
+  @override
+  String get seeUserCountsPerCountry => '查看各国用户数量';
+
+  @override
+  String get upgradeToVip => '升级VIP';
+
+  @override
+  String get searchByCity => '搜索城市...';
+
+  @override
+  String usersWorldwide(String count) {
+    return '全球$count人';
+  }
+
+  @override
+  String get noUsersFound => '未找到用户';
+
+  @override
+  String get tryDifferentCity => '试试其他城市或国家';
+
+  @override
+  String usersCount(String count) {
+    return '$count人';
+  }
+
+  @override
+  String get searchCountry => '搜索国家...';
+
+  @override
+  String get wave => '打招呼';
+
+  @override
+  String get newUser => 'NEW';
+
+  @override
+  String get warningPermanent => '警告：此操作不可撤销！';
+
+  @override
+  String get deleteAccountWarning => '删除账号将永久删除：\n\n• 你的个人资料和所有个人数据\n• 所有消息和对话\n• 所有动态和故事\n• VIP订阅（不退款）\n• 所有关注和粉丝\n\n此操作不可撤销。';
+
+  @override
+  String get requiredForEmailOnly => '仅邮箱账号需要';
+
+  @override
+  String get pleaseEnterPassword => '请输入密码';
+
+  @override
+  String get typeDELETE => '输入DELETE确认';
+
+  @override
+  String get mustTypeDELETE => '必须输入DELETE确认';
+
+  @override
+  String get deletingAccount => '正在删除账号...';
+
+  @override
+  String get deleteMyAccountPermanently => '永久删除我的账号';
+
+  @override
+  String get whatsYourNativeLanguage => '你的母语是什么？';
+
+  @override
+  String get helpsMatchWithLearners => '帮助我们为你匹配学习者';
+
+  @override
+  String get whatAreYouLearning => '你在学什么？';
+
+  @override
+  String get connectWithNativeSpeakers => '我们会为你连接母语者';
+
+  @override
+  String get selectLearningLanguage => '请选择你正在学习的语言';
+
+  @override
+  String get selectCurrentLevel => '请选择你的当前水平';
+
+  @override
+  String get beginner => '入门 — 我知道一些单词';
+
+  @override
+  String get elementary => '初级 — 我能造简单的句子';
+
+  @override
+  String get intermediate => '中级 — 我能进行基本对话';
+
+  @override
+  String get upperIntermediate => '中高级 — 我能讨论大部分话题';
+
+  @override
+  String get advanced => '高级 — 我说得很流利';
+
+  @override
+  String get proficient => '精通 — 接近母语水平';
+
+  @override
+  String get showingPartnersByDistance => '按距离排序显示语伴';
+
+  @override
+  String get enableLocationForResults => '启用定位以获取基于距离的结果';
+
+  @override
+  String get enable => '启用';
+
+  @override
+  String get locationNotSet => '未设置位置';
+
+  @override
+  String get tellUsAboutYourself => '介绍一下你自己';
+
+  @override
+  String get justACoupleQuickThings => '只需几个简单问题';
+
+  @override
+  String get gender => '性别';
+
+  @override
+  String get birthDate => '出生日期';
+
+  @override
+  String get selectYourBirthDate => '选择你的出生日期';
+
+  @override
+  String get continueButton => '继续';
+
+  @override
+  String get pleaseSelectGender => '请选择你的性别';
+
+  @override
+  String get pleaseSelectBirthDate => '请选择你的出生日期';
+
+  @override
+  String get mustBe18 => '你必须年满18岁';
+
+  @override
+  String get invalidDate => '日期无效';
+
+  @override
+  String get almostDone => '快完成了！';
+
+  @override
+  String get addPhotoLocationForMatches => '添加照片和位置以获得更多匹配';
+
+  @override
+  String get addProfilePhoto => '添加头像';
+
+  @override
+  String get optionalUpTo6Photos => '可选 — 最多6张照片';
+
+  @override
+  String get maximum6Photos => '最多6张照片';
+
+  @override
+  String get tapToDetectLocation => '点击检测位置';
+
+  @override
+  String get optionalHelpsNearbyPartners => '可选 — 帮助找到附近的语伴';
+
+  @override
+  String get startLearning => '开始学习！';
+
+  @override
+  String get photoLocationOptional => '照片和位置是可选的 — 稍后可以添加';
+
+  @override
+  String get pleaseAcceptTerms => '请接受服务条款';
+
+  @override
+  String get iAgreeToThe => '我同意';
+
+  @override
+  String get termsOfService => '服务条款';
+
+  @override
+  String get tapToSelectLanguage => '点击选择语言';
+
+  @override
+  String yourLevelIn(String language) {
+    return '你的$language水平（可选）';
+  }
+
+  @override
+  String get yourCurrentLevel => '你的当前水平';
+
+  @override
+  String get nativeCannotBeSameAsLearning => '母语不能与学习语言相同';
+
+  @override
+  String get learningCannotBeSameAsNative => '学习语言不能与母语相同';
+
+  @override
+  String stepOf(String current, String total) {
+    return '第$current步，共$total步';
+  }
+
+  @override
+  String get continueWithGoogle => '使用Google继续';
+
+  @override
+  String get registerLink => '注册';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => '请输入邮箱和密码';
+
+  @override
+  String get pleaseEnterValidEmail => '请输入有效的邮箱地址';
+
+  @override
+  String get loginSuccessful => '登录成功！';
+
+  @override
+  String get stepOneOfTwo => '第1步，共2步';
+
+  @override
+  String get createYourAccount => '创建账号';
+
+  @override
+  String get basicInfoToGetStarted => '开始前的基本信息';
+
+  @override
+  String get emailVerifiedLabel => '邮箱（已验证）';
+
+  @override
+  String get nameLabel => '姓名';
+
+  @override
+  String get yourDisplayName => '显示名称';
+
+  @override
+  String get atLeast8Characters => '至少8个字符';
+
+  @override
+  String get confirmPasswordHint => '确认密码';
+
+  @override
+  String get nextButton => '下一步';
+
+  @override
+  String get pleaseEnterYourName => '请输入你的姓名';
+
+  @override
+  String get pleaseEnterAPassword => '请输入密码';
+
+  @override
+  String get passwordsDoNotMatch => '密码不匹配';
+
+  @override
+  String get otherGender => '其他';
+
+  @override
+  String get continueWithGoogleAccount => '使用Google账号继续\n享受无缝体验';
+
+  @override
+  String get signingYouIn => '正在登录...';
+
+  @override
+  String get backToSignInMethods => '返回登录方式';
+
+  @override
+  String get securedByGoogle => '由Google保障安全';
+
+  @override
+  String get dataProtectedEncryption => '你的数据受到行业标准加密保护';
+
+  @override
+  String get welcomeCompleteProfile => '欢迎！请完善你的个人资料';
+
+  @override
+  String welcomeBackName(String name) {
+    return '欢迎回来，$name！';
+  }
+
+  @override
+  String get continueWithAppleId => '使用Apple ID继续\n享受安全体验';
+
+  @override
+  String get continueWithApple => '使用Apple继续';
+
+  @override
+  String get securedByApple => '由Apple保障安全';
+
+  @override
+  String get privacyProtectedApple => 'Apple登录保护你的隐私';
+
+  @override
+  String get createAccount => '创建账号';
+
+  @override
+  String get enterEmailToGetStarted => '输入邮箱开始';
+
+  @override
+  String get continueText => '继续';
+
+  @override
+  String get pleaseEnterEmailAddress => '请输入邮箱地址';
+
+  @override
+  String get verificationCodeSent => '验证码已发送到你的邮箱！';
+
+  @override
+  String get forgotPasswordTitle => '忘记密码';
+
+  @override
+  String get resetPasswordTitle => '重置密码';
+
+  @override
+  String get enterEmailForResetCode => '输入你的邮箱地址，我们将发送重置密码的验证码';
+
+  @override
+  String get sendResetCode => '发送重置码';
+
+  @override
+  String get resetCodeSent => '重置码已发送到你的邮箱！';
+
+  @override
+  String get rememberYourPassword => '记得密码？';
+
+  @override
+  String get verifyCode => '验证码';
+
+  @override
+  String get enterResetCode => '输入重置码';
+
+  @override
+  String get weSentCodeTo => '我们发送了6位验证码到';
+
+  @override
+  String get pleaseEnterAll6Digits => '请输入所有6位数字';
+
+  @override
+  String get codeVerifiedCreatePassword => '验证成功！请创建新密码';
+
+  @override
+  String get verify => '验证';
+
+  @override
+  String get didntReceiveCode => '没有收到验证码？';
+
+  @override
+  String get resend => '重新发送';
+
+  @override
+  String resendWithTimer(String timer) {
+    return '重新发送（$timer秒）';
+  }
+
+  @override
+  String get resetCodeResent => '重置码已重新发送！';
+
+  @override
+  String get verifyEmail => '验证邮箱';
+
+  @override
+  String get verifyYourEmail => '验证你的邮箱';
+
+  @override
+  String get emailVerifiedSuccessfully => '邮箱验证成功！';
+
+  @override
+  String get verificationCodeResent => '验证码已重新发送！';
+
+  @override
+  String get createNewPassword => '创建新密码';
+
+  @override
+  String get enterNewPasswordBelow => '在下方输入新密码';
+
+  @override
+  String get newPassword => '新密码';
+
+  @override
+  String get confirmPasswordLabel => '确认密码';
+
+  @override
+  String get pleaseFillAllFields => '请填写所有字段';
+
+  @override
+  String get passwordResetSuccessful => '密码重置成功！请使用新密码登录';
+
+  @override
+  String get privacyTitle => '隐私';
+
+  @override
+  String get profileVisibility => '个人资料可见性';
+
+  @override
+  String get showCountryRegion => '显示国家/地区';
+
+  @override
+  String get showCountryRegionDesc => '在个人资料中显示您的国家';
+
+  @override
+  String get showCity => '显示城市';
+
+  @override
+  String get showCityDesc => '在个人资料中显示您的城市';
+
+  @override
+  String get showAge => '显示年龄';
+
+  @override
+  String get showAgeDesc => '在个人资料中显示您的年龄';
+
+  @override
+  String get showZodiacSign => '显示星座';
+
+  @override
+  String get showZodiacSignDesc => '在个人资料中显示您的星座';
+
+  @override
+  String get onlineStatusSection => '在线状态';
+
+  @override
+  String get showOnlineStatus => '显示在线状态';
+
+  @override
+  String get showOnlineStatusDesc => '让其他人看到您的在线状态';
+
+  @override
+  String get otherSettings => '其他设置';
+
+  @override
+  String get showGiftingLevel => '显示礼物等级';
+
+  @override
+  String get showGiftingLevelDesc => '显示礼物等级徽章';
+
+  @override
+  String get birthdayNotifications => '生日通知';
+
+  @override
+  String get birthdayNotificationsDesc => '在生日时接收通知';
+
+  @override
+  String get personalizedAds => '个性化广告';
+
+  @override
+  String get personalizedAdsDesc => '允许个性化广告';
+
+  @override
+  String get saveChanges => '保存更改';
+
+  @override
+  String get privacySettingsSaved => '隐私设置已保存';
+
+  @override
+  String get locationSection => '位置';
+
+  @override
+  String get updateLocation => '更新位置';
+
+  @override
+  String get updateLocationDesc => '刷新您的当前位置';
+
+  @override
+  String get currentLocation => '当前位置';
+
+  @override
+  String get locationNotAvailable => '位置不可用';
+
+  @override
+  String get locationUpdated => '位置更新成功';
+
+  @override
+  String get locationPermissionDenied => '位置权限被拒绝，请在设置中启用。';
+
+  @override
+  String get locationServiceDisabled => '位置服务已禁用，请启用。';
+
+  @override
+  String get updatingLocation => '正在更新位置...';
+
+  @override
+  String get locationCouldNotBeUpdated => '无法更新位置';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2296,6 +3028,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get banaTalk => 'BanaTalk';
 
   @override
+  String get chats => '聊天';
+
+  @override
   String get community => '社群';
 
   @override
@@ -2475,7 +3210,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get cannotSendMessageUserMayBeBlocked => '無法傳送訊息。用戶可能已被封鎖。';
 
   @override
-  String get sessionExpired => '工作階段已過期。請重新登入。';
+  String get sessionExpired => '工作階段已過期，請重新登入。';
 
   @override
   String get sendThisSticker => '傳送此貼圖？';
@@ -3141,7 +3876,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get forwardFeatureComingSoon => '轉發功能即將推出';
 
   @override
-  String get momentUnsaved => '動態未儲存';
+  String get momentUnsaved => '已從儲存中移除';
 
   @override
   String get documentPickerComingSoon => '文件選擇器即將推出';
@@ -3919,4 +4654,727 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get messageEdited => '訊息已編輯';
+
+  @override
+  String get edited => '(已編輯)';
+
+  @override
+  String get now => '剛剛';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count週前';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── 查看$count則回覆';
+  }
+
+  @override
+  String get hideReplies => '── 隱藏回覆';
+
+  @override
+  String get saveMoment => '儲存動態';
+
+  @override
+  String get removeFromSaved => '取消儲存';
+
+  @override
+  String get momentSaved => '已儲存';
+
+  @override
+  String get failedToSave => '儲存失敗';
+
+  @override
+  String checkOutMoment(String title) {
+    return '看看這則動態: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => '載入動態失敗';
+
+  @override
+  String get noMomentsMatchFilters => '沒有符合篩選條件的動態';
+
+  @override
+  String get beFirstToShareMoment => '成為第一個分享動態的人！';
+
+  @override
+  String get tryDifferentSearch => '試試其他搜尋詞';
+
+  @override
+  String get tryAdjustingFilters => '試試調整篩選條件';
+
+  @override
+  String get noSavedMoments => '沒有儲存的動態';
+
+  @override
+  String get tapBookmarkToSave => '點擊書籤圖示儲存動態';
+
+  @override
+  String get failedToLoadVideo => '影片載入失敗';
+
+  @override
+  String get titleRequired => '標題不能為空';
+
+  @override
+  String titleTooLong(int max) {
+    return '標題不能超過$max個字元';
+  }
+
+  @override
+  String get descriptionRequired => '說明不能為空';
+
+  @override
+  String descriptionTooLong(int max) {
+    return '說明不能超過$max個字元';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => '預約日期必須是未來的日期';
+
+  @override
+  String get recent => '最新';
+
+  @override
+  String get popular => '熱門';
+
+  @override
+  String get trending => '趨勢';
+
+  @override
+  String get mostRecent => '最新';
+
+  @override
+  String get mostPopular => '最熱門';
+
+  @override
+  String get allTime => '全部';
+
+  @override
+  String get today => '今天';
+
+  @override
+  String get thisWeek => '本週';
+
+  @override
+  String get thisMonth => '本月';
+
+  @override
+  String replyingTo(String userName) {
+    return '回覆 $userName';
+  }
+
+  @override
+  String get listView => '列表';
+
+  @override
+  String get quickMatch => '快速配對';
+
+  @override
+  String get onlineNow => '在線';
+
+  @override
+  String speaksLanguage(String language) {
+    return '會說$language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return '正在學$language';
+  }
+
+  @override
+  String get noPartnersFound => '未找到語伴';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return '找不到以$learning為母語或想學$native的用戶。';
+  }
+
+  @override
+  String get removeAllFilters => '移除所有篩選';
+
+  @override
+  String get browseAllUsers => '瀏覽所有用戶';
+
+  @override
+  String get allCaughtUp => '已看完所有！';
+
+  @override
+  String get loadingMore => '載入更多...';
+
+  @override
+  String get findingMorePartners => '正在為您尋找更多語伴...';
+
+  @override
+  String get seenAllPartners => '您已瀏覽所有可用的語伴，稍後再來看看！';
+
+  @override
+  String get startOver => '重新開始';
+
+  @override
+  String get changeFilters => '變更篩選條件';
+
+  @override
+  String get findingPartners => '尋找語伴中...';
+
+  @override
+  String get setLocationReminder => '在個人資料中設定您的位置，優先顯示附近用戶。';
+
+  @override
+  String get updateLocationReminder => '在個人資料 > 編輯中更新位置以獲得準確的附近結果。';
+
+  @override
+  String get male => '男';
+
+  @override
+  String get female => '女';
+
+  @override
+  String get other => '其他';
+
+  @override
+  String get browseMen => '瀏覽男性';
+
+  @override
+  String get browseWomen => '瀏覽女性';
+
+  @override
+  String get noMaleUsersFound => '未找到男性用戶';
+
+  @override
+  String get noFemaleUsersFound => '未找到女性用戶';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => '僅新用戶';
+
+  @override
+  String get showNewUsers => '顯示最近6天加入的用戶';
+
+  @override
+  String get prioritizeNearby => '優先附近';
+
+  @override
+  String get showNearbyFirst => '在結果中優先顯示附近用戶';
+
+  @override
+  String get setLocationToEnable => '設定您的位置以啟用此功能';
+
+  @override
+  String get radius => '半徑';
+
+  @override
+  String get findingYourLocation => '正在定位...';
+
+  @override
+  String get enableLocationForDistance => '啟用位置以顯示距離';
+
+  @override
+  String get enableLocationDescription => '啟用GPS以查看與語伴的精確距離。不開GPS也可以按城市/國家瀏覽。';
+
+  @override
+  String get enableGps => '啟用GPS';
+
+  @override
+  String get browseByCityCountry => '按城市/國家瀏覽';
+
+  @override
+  String get peopleNearby => '附近的人';
+
+  @override
+  String get noNearbyUsersFound => '未找到附近用戶';
+
+  @override
+  String get tryExpandingSearch => '嘗試擴大搜索範圍或稍後再試。';
+
+  @override
+  String get exploreByCity => '按城市探索';
+
+  @override
+  String get exploreByCurrentCity => '在互動地圖上瀏覽用戶，發現全球語伴。';
+
+  @override
+  String get interactiveWorldMap => '互動世界地圖';
+
+  @override
+  String get searchByCityName => '按城市名搜索';
+
+  @override
+  String get seeUserCountsPerCountry => '查看各國用戶數量';
+
+  @override
+  String get upgradeToVip => '升級VIP';
+
+  @override
+  String get searchByCity => '搜索城市...';
+
+  @override
+  String usersWorldwide(String count) {
+    return '全球$count人';
+  }
+
+  @override
+  String get noUsersFound => '未找到用戶';
+
+  @override
+  String get tryDifferentCity => '試試其他城市或國家';
+
+  @override
+  String usersCount(String count) {
+    return '$count人';
+  }
+
+  @override
+  String get searchCountry => '搜索國家...';
+
+  @override
+  String get wave => '打招呼';
+
+  @override
+  String get newUser => 'NEW';
+
+  @override
+  String get warningPermanent => '警告：此操作不可撤銷！';
+
+  @override
+  String get deleteAccountWarning => '刪除帳號將永久刪除：\n\n• 您的個人資料和所有個人數據\n• 所有訊息和對話\n• 所有動態和限時動態\n• VIP訂閱（不退款）\n• 所有關注和粉絲\n\n此操作不可撤銷。';
+
+  @override
+  String get requiredForEmailOnly => '僅電子郵件帳號需要';
+
+  @override
+  String get pleaseEnterPassword => '請輸入密碼';
+
+  @override
+  String get typeDELETE => '輸入DELETE確認';
+
+  @override
+  String get mustTypeDELETE => '必須輸入DELETE確認';
+
+  @override
+  String get deletingAccount => '正在刪除帳號...';
+
+  @override
+  String get deleteMyAccountPermanently => '永久刪除我的帳號';
+
+  @override
+  String get whatsYourNativeLanguage => '您的母語是什麼？';
+
+  @override
+  String get helpsMatchWithLearners => '幫助我們為您配對學習者';
+
+  @override
+  String get whatAreYouLearning => '您在學什麼？';
+
+  @override
+  String get connectWithNativeSpeakers => '我們會為您連結母語者';
+
+  @override
+  String get selectLearningLanguage => '請選擇您正在學習的語言';
+
+  @override
+  String get selectCurrentLevel => '請選擇您的當前程度';
+
+  @override
+  String get beginner => '入門 — 我認識一些單字';
+
+  @override
+  String get elementary => '初級 — 我能造簡單的句子';
+
+  @override
+  String get intermediate => '中級 — 我能進行基本對話';
+
+  @override
+  String get upperIntermediate => '中高級 — 我能討論大部分話題';
+
+  @override
+  String get advanced => '高級 — 我說得很流利';
+
+  @override
+  String get proficient => '精通 — 接近母語程度';
+
+  @override
+  String get showingPartnersByDistance => '按距離排序顯示語伴';
+
+  @override
+  String get enableLocationForResults => '啟用定位以獲取基於距離的結果';
+
+  @override
+  String get enable => '啟用';
+
+  @override
+  String get locationNotSet => '未設定位置';
+
+  @override
+  String get tellUsAboutYourself => '介紹一下您自己';
+
+  @override
+  String get justACoupleQuickThings => '只需幾個簡單問題';
+
+  @override
+  String get gender => '性別';
+
+  @override
+  String get birthDate => '出生日期';
+
+  @override
+  String get selectYourBirthDate => '選擇您的出生日期';
+
+  @override
+  String get continueButton => '繼續';
+
+  @override
+  String get pleaseSelectGender => '請選擇您的性別';
+
+  @override
+  String get pleaseSelectBirthDate => '請選擇您的出生日期';
+
+  @override
+  String get mustBe18 => '您必須年滿18歲';
+
+  @override
+  String get invalidDate => '日期無效';
+
+  @override
+  String get almostDone => '快完成了！';
+
+  @override
+  String get addPhotoLocationForMatches => '添加照片和位置以獲得更多配對';
+
+  @override
+  String get addProfilePhoto => '添加大頭照';
+
+  @override
+  String get optionalUpTo6Photos => '選填 — 最多6張照片';
+
+  @override
+  String get maximum6Photos => '最多6張照片';
+
+  @override
+  String get tapToDetectLocation => '點擊偵測位置';
+
+  @override
+  String get optionalHelpsNearbyPartners => '選填 — 幫助找到附近的語伴';
+
+  @override
+  String get startLearning => '開始學習！';
+
+  @override
+  String get photoLocationOptional => '照片和位置為選填 — 稍後可以添加';
+
+  @override
+  String get pleaseAcceptTerms => '請接受服務條款';
+
+  @override
+  String get iAgreeToThe => '我同意';
+
+  @override
+  String get termsOfService => '服務條款';
+
+  @override
+  String get tapToSelectLanguage => '點擊選擇語言';
+
+  @override
+  String yourLevelIn(String language) {
+    return '您的$language程度（選填）';
+  }
+
+  @override
+  String get yourCurrentLevel => '您的當前程度';
+
+  @override
+  String get nativeCannotBeSameAsLearning => '母語不能與學習語言相同';
+
+  @override
+  String get learningCannotBeSameAsNative => '學習語言不能與母語相同';
+
+  @override
+  String stepOf(String current, String total) {
+    return '第$current步，共$total步';
+  }
+
+  @override
+  String get continueWithGoogle => '使用Google繼續';
+
+  @override
+  String get registerLink => '註冊';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => '請輸入電子郵件和密碼';
+
+  @override
+  String get pleaseEnterValidEmail => '請輸入有效的電子郵件';
+
+  @override
+  String get loginSuccessful => '登入成功！';
+
+  @override
+  String get stepOneOfTwo => '第1步，共2步';
+
+  @override
+  String get createYourAccount => '建立帳號';
+
+  @override
+  String get basicInfoToGetStarted => '開始前的基本資訊';
+
+  @override
+  String get emailVerifiedLabel => '電子郵件（已驗證）';
+
+  @override
+  String get nameLabel => '姓名';
+
+  @override
+  String get yourDisplayName => '顯示名稱';
+
+  @override
+  String get atLeast8Characters => '至少8個字元';
+
+  @override
+  String get confirmPasswordHint => '確認密碼';
+
+  @override
+  String get nextButton => '下一步';
+
+  @override
+  String get pleaseEnterYourName => '請輸入您的姓名';
+
+  @override
+  String get pleaseEnterAPassword => '請輸入密碼';
+
+  @override
+  String get passwordsDoNotMatch => '密碼不相符';
+
+  @override
+  String get otherGender => '其他';
+
+  @override
+  String get continueWithGoogleAccount => '使用Google帳號繼續\n享受無縫體驗';
+
+  @override
+  String get signingYouIn => '正在登入...';
+
+  @override
+  String get backToSignInMethods => '返回登入方式';
+
+  @override
+  String get securedByGoogle => '由Google保障安全';
+
+  @override
+  String get dataProtectedEncryption => '您的資料受到業界標準加密保護';
+
+  @override
+  String get welcomeCompleteProfile => '歡迎！請完善您的個人資料';
+
+  @override
+  String welcomeBackName(String name) {
+    return '歡迎回來，$name！';
+  }
+
+  @override
+  String get continueWithAppleId => '使用Apple ID繼續\n享受安全體驗';
+
+  @override
+  String get continueWithApple => '使用Apple繼續';
+
+  @override
+  String get securedByApple => '由Apple保障安全';
+
+  @override
+  String get privacyProtectedApple => 'Apple登入保護您的隱私';
+
+  @override
+  String get createAccount => '建立帳號';
+
+  @override
+  String get enterEmailToGetStarted => '輸入電子郵件開始';
+
+  @override
+  String get continueText => '繼續';
+
+  @override
+  String get pleaseEnterEmailAddress => '請輸入電子郵件地址';
+
+  @override
+  String get verificationCodeSent => '驗證碼已發送到您的信箱！';
+
+  @override
+  String get forgotPasswordTitle => '忘記密碼';
+
+  @override
+  String get resetPasswordTitle => '重設密碼';
+
+  @override
+  String get enterEmailForResetCode => '輸入您的電子郵件，我們將發送重設密碼的驗證碼';
+
+  @override
+  String get sendResetCode => '發送重設碼';
+
+  @override
+  String get resetCodeSent => '重設碼已發送！';
+
+  @override
+  String get rememberYourPassword => '記得密碼？';
+
+  @override
+  String get verifyCode => '驗證碼';
+
+  @override
+  String get enterResetCode => '輸入重設碼';
+
+  @override
+  String get weSentCodeTo => '我們已發送6位驗證碼到';
+
+  @override
+  String get pleaseEnterAll6Digits => '請輸入所有6位數字';
+
+  @override
+  String get codeVerifiedCreatePassword => '驗證成功！請建立新密碼';
+
+  @override
+  String get verify => '驗證';
+
+  @override
+  String get didntReceiveCode => '沒有收到驗證碼？';
+
+  @override
+  String get resend => '重新發送';
+
+  @override
+  String resendWithTimer(String timer) {
+    return '重新發送（$timer秒）';
+  }
+
+  @override
+  String get resetCodeResent => '重設碼已重新發送！';
+
+  @override
+  String get verifyEmail => '驗證信箱';
+
+  @override
+  String get verifyYourEmail => '驗證您的電子郵件';
+
+  @override
+  String get emailVerifiedSuccessfully => '電子郵件驗證成功！';
+
+  @override
+  String get verificationCodeResent => '驗證碼已重新發送！';
+
+  @override
+  String get createNewPassword => '建立新密碼';
+
+  @override
+  String get enterNewPasswordBelow => '在下方輸入新密碼';
+
+  @override
+  String get newPassword => '新密碼';
+
+  @override
+  String get confirmPasswordLabel => '確認密碼';
+
+  @override
+  String get pleaseFillAllFields => '請填寫所有欄位';
+
+  @override
+  String get passwordResetSuccessful => '密碼重設成功！請使用新密碼登入';
+
+  @override
+  String get privacyTitle => '隱私';
+
+  @override
+  String get profileVisibility => '個人資料可見性';
+
+  @override
+  String get showCountryRegion => '顯示國家/地區';
+
+  @override
+  String get showCountryRegionDesc => '在個人資料中顯示您的國家';
+
+  @override
+  String get showCity => '顯示城市';
+
+  @override
+  String get showCityDesc => '在個人資料中顯示您的城市';
+
+  @override
+  String get showAge => '顯示年齡';
+
+  @override
+  String get showAgeDesc => '在個人資料中顯示您的年齡';
+
+  @override
+  String get showZodiacSign => '顯示星座';
+
+  @override
+  String get showZodiacSignDesc => '在個人資料中顯示您的星座';
+
+  @override
+  String get onlineStatusSection => '線上狀態';
+
+  @override
+  String get showOnlineStatus => '顯示線上狀態';
+
+  @override
+  String get showOnlineStatusDesc => '讓其他人看到您的線上狀態';
+
+  @override
+  String get otherSettings => '其他設定';
+
+  @override
+  String get showGiftingLevel => '顯示禮物等級';
+
+  @override
+  String get showGiftingLevelDesc => '顯示禮物等級徽章';
+
+  @override
+  String get birthdayNotifications => '生日通知';
+
+  @override
+  String get birthdayNotificationsDesc => '在生日時接收通知';
+
+  @override
+  String get personalizedAds => '個人化廣告';
+
+  @override
+  String get personalizedAdsDesc => '允許個人化廣告';
+
+  @override
+  String get saveChanges => '儲存變更';
+
+  @override
+  String get privacySettingsSaved => '隱私設定已儲存';
+
+  @override
+  String get locationSection => '位置';
+
+  @override
+  String get updateLocation => '更新位置';
+
+  @override
+  String get updateLocationDesc => '重新整理您的目前位置';
+
+  @override
+  String get currentLocation => '目前位置';
+
+  @override
+  String get locationNotAvailable => '位置不可用';
+
+  @override
+  String get locationUpdated => '位置更新成功';
+
+  @override
+  String get locationPermissionDenied => '位置權限被拒絕，請在設定中啟用。';
+
+  @override
+  String get locationServiceDisabled => '位置服務已停用，請啟用。';
+
+  @override
+  String get updatingLocation => '正在更新位置...';
+
+  @override
+  String get locationCouldNotBeUpdated => '無法更新位置';
 }

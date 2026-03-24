@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -434,6 +435,48 @@ class MomentsService {
     }
   }
 
+  // ==================== UNLIKE ====================
+
+  /// Unlike/dislike a moment (handles blocking)
+  static Future<Map<String, dynamic>> dislikeMoment({
+    required String momentId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.dislikeMomentURL(momentId)}');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'],
+        };
+      } else if (response.statusCode == 403) {
+        return {
+          'success': false,
+          'blocked': true,
+          'error': 'Cannot unlike this content',
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to unlike moment',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
   // ==================== COMMENTS ====================
 
   /// Get comments for a moment (blocked users filtered automatically)
@@ -480,10 +523,11 @@ class MomentsService {
     }
   }
 
-  /// Add a comment to a moment (handles blocking)
+  /// Add a comment to a moment (handles blocking, supports replies)
   static Future<Map<String, dynamic>> addComment({
     required String momentId,
     required String text,
+    String? parentCommentId,
   }) async {
     try {
       final token = await _getToken();
@@ -492,7 +536,10 @@ class MomentsService {
       final response = await http.post(
         url,
         headers: _getHeaders(token),
-        body: jsonEncode({'text': text}),
+        body: jsonEncode({
+          'text': text,
+          if (parentCommentId != null) 'parentComment': parentCommentId,
+        }),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -512,6 +559,300 @@ class MomentsService {
         return {
           'success': false,
           'error': errorData['error'] ?? 'Failed to add comment',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Delete a comment (owner only)
+  static Future<Map<String, dynamic>> deleteComment({
+    required String momentId,
+    required String commentId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.singleCommentURL(momentId, commentId)}');
+
+      final response = await http.delete(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        return {'success': true};
+      } else if (response.statusCode == 401) {
+        return {
+          'success': false,
+          'error': 'Not authorized to delete this comment',
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to delete comment',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Edit a comment (owner only)
+  static Future<Map<String, dynamic>> editComment({
+    required String momentId,
+    required String commentId,
+    required String text,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.singleCommentURL(momentId, commentId)}');
+
+      final response = await http.put(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'text': text}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {'success': true, 'data': data['data']};
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to edit comment',
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Like/unlike a comment (toggles)
+  static Future<Map<String, dynamic>> likeComment({
+    required String momentId,
+    required String commentId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.likeCommentURL(momentId, commentId)}');
+
+      debugPrint('💬❤️ [Service] likeComment: POST $url');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      debugPrint('💬❤️ [Service] likeComment: status=${response.statusCode}, body=${response.body}');
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'isLiked': data['data']?['isLiked'] ?? false,
+          'likeCount': data['data']?['likeCount'] ?? 0,
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        debugPrint('💬❤️ [Service] likeComment ERROR: $errorData');
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to like comment',
+        };
+      }
+    } catch (e) {
+      debugPrint('💬❤️ [Service] likeComment EXCEPTION: $e');
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Get replies for a comment
+  static Future<Map<String, dynamic>> getReplies({
+    required String momentId,
+    required String commentId,
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.commentRepliesURL(momentId, commentId)}')
+          .replace(queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+      });
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'count': data['count'] ?? 0,
+          'total': data['total'] ?? 0,
+          'data': data['data'] ?? [],
+        };
+      } else {
+        return {'success': false, 'error': 'Failed to get replies'};
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  // ==================== TRANSLATIONS ====================
+
+  /// Translate a moment
+  static Future<Map<String, dynamic>> translateMoment({
+    required String momentId,
+    required String targetLanguage,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.translateMomentURL(momentId)}');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'targetLanguage': targetLanguage}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to translate moment',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Get all translations for a moment
+  static Future<Map<String, dynamic>> getMomentTranslations({
+    required String momentId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.getMomentTranslationsURL(momentId)}');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'] ?? [],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to get translations',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Translate a comment
+  static Future<Map<String, dynamic>> translateComment({
+    required String momentId,
+    required String commentId,
+    required String targetLanguage,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.singleCommentURL(momentId, commentId)}/translate');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'targetLanguage': targetLanguage}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to translate comment',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: ${e.toString()}',
+      };
+    }
+  }
+
+  /// Get all translations for a comment
+  static Future<Map<String, dynamic>> getCommentTranslations({
+    required String momentId,
+    required String commentId,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.singleCommentURL(momentId, commentId)}/translations');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'data': data['data'] ?? [],
+        };
+      } else {
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': errorData['error'] ?? 'Failed to get translations',
         };
       }
     } catch (e) {

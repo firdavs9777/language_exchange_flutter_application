@@ -246,6 +246,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get momentDeleted => '모멘트가 삭제되었습니다';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => '편집 기능이 곧 제공됩니다';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => '채팅';
 
   @override
   String get community => '커뮤니티';
@@ -1181,7 +1190,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get forwardFeatureComingSoon => '전달 기능이 곧 제공됩니다';
 
   @override
-  String get momentUnsaved => '모멘트 저장 취소됨';
+  String get momentUnsaved => '저장에서 삭제됨';
 
   @override
   String get documentPickerComingSoon => '문서 선택기가 곧 제공됩니다';
@@ -1962,4 +1971,727 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get messageEdited => 'Message edited';
+
+  @override
+  String get edited => '(수정됨)';
+
+  @override
+  String get now => '지금';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count주 전';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── $count개 답글 보기';
+  }
+
+  @override
+  String get hideReplies => '── 답글 숨기기';
+
+  @override
+  String get saveMoment => '모멘트 저장';
+
+  @override
+  String get removeFromSaved => '저장 취소';
+
+  @override
+  String get momentSaved => '저장됨';
+
+  @override
+  String get failedToSave => '저장 실패';
+
+  @override
+  String checkOutMoment(String title) {
+    return '이 모멘트를 확인해보세요: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => '모멘트를 불러오지 못했습니다';
+
+  @override
+  String get noMomentsMatchFilters => '필터에 맞는 모멘트가 없습니다';
+
+  @override
+  String get beFirstToShareMoment => '첫 번째 모멘트를 공유해보세요!';
+
+  @override
+  String get tryDifferentSearch => '다른 검색어를 시도해보세요';
+
+  @override
+  String get tryAdjustingFilters => '필터를 조정해보세요';
+
+  @override
+  String get noSavedMoments => '저장된 모멘트 없음';
+
+  @override
+  String get tapBookmarkToSave => '북마크 아이콘을 탭하여 모멘트를 저장하세요';
+
+  @override
+  String get failedToLoadVideo => '동영상 로드 실패';
+
+  @override
+  String get titleRequired => '제목을 입력해주세요';
+
+  @override
+  String titleTooLong(int max) {
+    return '제목은 $max자 이하여야 합니다';
+  }
+
+  @override
+  String get descriptionRequired => '설명을 입력해주세요';
+
+  @override
+  String descriptionTooLong(int max) {
+    return '설명은 $max자 이하여야 합니다';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => '예약 날짜는 미래여야 합니다';
+
+  @override
+  String get recent => '최신';
+
+  @override
+  String get popular => '인기';
+
+  @override
+  String get trending => '트렌딩';
+
+  @override
+  String get mostRecent => '최신순';
+
+  @override
+  String get mostPopular => '인기순';
+
+  @override
+  String get allTime => '전체';
+
+  @override
+  String get today => '오늘';
+
+  @override
+  String get thisWeek => '이번 주';
+
+  @override
+  String get thisMonth => '이번 달';
+
+  @override
+  String replyingTo(String userName) {
+    return '답글 대상: $userName';
+  }
+
+  @override
+  String get listView => '목록';
+
+  @override
+  String get quickMatch => '퀵 매칭';
+
+  @override
+  String get onlineNow => '온라인';
+
+  @override
+  String speaksLanguage(String language) {
+    return '$language 사용자';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return '$language 학습자';
+  }
+
+  @override
+  String get noPartnersFound => '파트너를 찾을 수 없습니다';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return '$learning 원어민이나 $native를 배우는 사용자를 찾을 수 없습니다.';
+  }
+
+  @override
+  String get removeAllFilters => '모든 필터 제거';
+
+  @override
+  String get browseAllUsers => '모든 사용자 보기';
+
+  @override
+  String get allCaughtUp => '모두 확인했어요!';
+
+  @override
+  String get loadingMore => '더 불러오는 중...';
+
+  @override
+  String get findingMorePartners => '더 많은 언어 파트너를 찾고 있어요...';
+
+  @override
+  String get seenAllPartners => '모든 파트너를 확인했습니다. 나중에 다시 확인해 보세요!';
+
+  @override
+  String get startOver => '처음부터';
+
+  @override
+  String get changeFilters => '필터 변경';
+
+  @override
+  String get findingPartners => '파트너 찾는 중...';
+
+  @override
+  String get setLocationReminder => '내 위치를 설정하면 근처 사용자를 먼저 볼 수 있어요.';
+
+  @override
+  String get updateLocationReminder => '프로필 > 편집에서 위치를 업데이트하세요.';
+
+  @override
+  String get male => '남성';
+
+  @override
+  String get female => '여성';
+
+  @override
+  String get other => '기타';
+
+  @override
+  String get browseMen => '남성 탐색';
+
+  @override
+  String get browseWomen => '여성 탐색';
+
+  @override
+  String get noMaleUsersFound => '남성 사용자를 찾을 수 없습니다';
+
+  @override
+  String get noFemaleUsersFound => '여성 사용자를 찾을 수 없습니다';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => '신규 사용자만';
+
+  @override
+  String get showNewUsers => '최근 6일 내 가입한 사용자 표시';
+
+  @override
+  String get prioritizeNearby => '근처 우선';
+
+  @override
+  String get showNearbyFirst => '근처 사용자를 먼저 표시';
+
+  @override
+  String get setLocationToEnable => '이 기능을 사용하려면 위치를 설정하세요';
+
+  @override
+  String get radius => '반경';
+
+  @override
+  String get findingYourLocation => '위치 찾는 중...';
+
+  @override
+  String get enableLocationForDistance => '거리 확인을 위해 위치 활성화';
+
+  @override
+  String get enableLocationDescription => 'GPS를 활성화하면 파트너까지의 정확한 거리를 볼 수 있습니다.';
+
+  @override
+  String get enableGps => 'GPS 활성화';
+
+  @override
+  String get browseByCityCountry => '도시/국가별 탐색';
+
+  @override
+  String get peopleNearby => '근처 사람들';
+
+  @override
+  String get noNearbyUsersFound => '근처 사용자를 찾을 수 없습니다';
+
+  @override
+  String get tryExpandingSearch => '검색 범위를 넓히거나 나중에 다시 확인해 보세요.';
+
+  @override
+  String get exploreByCity => '도시별 탐색';
+
+  @override
+  String get exploreByCurrentCity => '인터랙티브 지도에서 사용자를 탐색하고 전 세계 언어 파트너를 찾아보세요.';
+
+  @override
+  String get interactiveWorldMap => '인터랙티브 세계 지도';
+
+  @override
+  String get searchByCityName => '도시 이름으로 검색';
+
+  @override
+  String get seeUserCountsPerCountry => '국가별 사용자 수 확인';
+
+  @override
+  String get upgradeToVip => 'VIP 업그레이드';
+
+  @override
+  String get searchByCity => '도시 검색...';
+
+  @override
+  String usersWorldwide(String count) {
+    return '전 세계 $count명';
+  }
+
+  @override
+  String get noUsersFound => '사용자를 찾을 수 없습니다';
+
+  @override
+  String get tryDifferentCity => '다른 도시나 국가를 검색해 보세요';
+
+  @override
+  String usersCount(String count) {
+    return '$count명';
+  }
+
+  @override
+  String get searchCountry => '국가 검색...';
+
+  @override
+  String get wave => '인사';
+
+  @override
+  String get newUser => 'NEW';
+
+  @override
+  String get warningPermanent => '경고: 이 작업은 되돌릴 수 없습니다!';
+
+  @override
+  String get deleteAccountWarning => '계정을 삭제하면 영구적으로 삭제됩니다:\n\n• 프로필 및 모든 개인 데이터\n• 모든 메시지 및 대화\n• 모든 모먼트 및 스토리\n• VIP 구독 (환불 불가)\n• 모든 연결 및 팔로워\n\n이 작업은 되돌릴 수 없습니다.';
+
+  @override
+  String get requiredForEmailOnly => '이메일 계정에만 필요합니다';
+
+  @override
+  String get pleaseEnterPassword => '비밀번호를 입력해 주세요';
+
+  @override
+  String get typeDELETE => 'DELETE를 입력하여 확인';
+
+  @override
+  String get mustTypeDELETE => '확인을 위해 DELETE를 입력해야 합니다';
+
+  @override
+  String get deletingAccount => '계정 삭제 중...';
+
+  @override
+  String get deleteMyAccountPermanently => '내 계정 영구 삭제';
+
+  @override
+  String get whatsYourNativeLanguage => '모국어는 무엇인가요?';
+
+  @override
+  String get helpsMatchWithLearners => '학습자와 매칭하는 데 도움이 됩니다';
+
+  @override
+  String get whatAreYouLearning => '무엇을 배우고 있나요?';
+
+  @override
+  String get connectWithNativeSpeakers => '원어민과 연결해 드립니다';
+
+  @override
+  String get selectLearningLanguage => '배우는 언어를 선택해 주세요';
+
+  @override
+  String get selectCurrentLevel => '현재 레벨을 선택해 주세요';
+
+  @override
+  String get beginner => '초급 — 몇 단어를 알고 있어요';
+
+  @override
+  String get elementary => '초중급 — 간단한 문장을 만들 수 있어요';
+
+  @override
+  String get intermediate => '중급 — 기본적인 대화가 가능해요';
+
+  @override
+  String get upperIntermediate => '중상급 — 대부분의 주제를 논의할 수 있어요';
+
+  @override
+  String get advanced => '고급 — 유창하게 말할 수 있어요';
+
+  @override
+  String get proficient => '최고급 — 원어민 수준';
+
+  @override
+  String get showingPartnersByDistance => '거리순으로 파트너 표시 중';
+
+  @override
+  String get enableLocationForResults => '거리 기반 결과를 위해 위치를 활성화하세요';
+
+  @override
+  String get enable => '활성화';
+
+  @override
+  String get locationNotSet => '위치 미설정';
+
+  @override
+  String get tellUsAboutYourself => '자기소개를 해주세요';
+
+  @override
+  String get justACoupleQuickThings => '간단한 질문 몇 가지';
+
+  @override
+  String get gender => '성별';
+
+  @override
+  String get birthDate => '생년월일';
+
+  @override
+  String get selectYourBirthDate => '생년월일을 선택하세요';
+
+  @override
+  String get continueButton => '계속';
+
+  @override
+  String get pleaseSelectGender => '성별을 선택해 주세요';
+
+  @override
+  String get pleaseSelectBirthDate => '생년월일을 선택해 주세요';
+
+  @override
+  String get mustBe18 => '18세 이상이어야 합니다';
+
+  @override
+  String get invalidDate => '잘못된 날짜';
+
+  @override
+  String get almostDone => '거의 다 됐어요!';
+
+  @override
+  String get addPhotoLocationForMatches => '사진과 위치를 추가하여 더 많은 매칭을 받으세요';
+
+  @override
+  String get addProfilePhoto => '프로필 사진 추가';
+
+  @override
+  String get optionalUpTo6Photos => '선택 사항 — 최대 6장';
+
+  @override
+  String get maximum6Photos => '최대 6장';
+
+  @override
+  String get tapToDetectLocation => '탭하여 위치 감지';
+
+  @override
+  String get optionalHelpsNearbyPartners => '선택 사항 — 근처 파트너 찾기에 도움됩니다';
+
+  @override
+  String get startLearning => '학습 시작!';
+
+  @override
+  String get photoLocationOptional => '사진과 위치는 선택 사항입니다 — 나중에 추가할 수 있어요';
+
+  @override
+  String get pleaseAcceptTerms => '서비스 이용약관에 동의해 주세요';
+
+  @override
+  String get iAgreeToThe => '동의합니다: ';
+
+  @override
+  String get termsOfService => '서비스 이용약관';
+
+  @override
+  String get tapToSelectLanguage => '탭하여 언어 선택';
+
+  @override
+  String yourLevelIn(String language) {
+    return '$language 레벨 (선택 사항)';
+  }
+
+  @override
+  String get yourCurrentLevel => '현재 레벨';
+
+  @override
+  String get nativeCannotBeSameAsLearning => '모국어와 학습 언어가 같을 수 없습니다';
+
+  @override
+  String get learningCannotBeSameAsNative => '학습 언어와 모국어가 같을 수 없습니다';
+
+  @override
+  String stepOf(String current, String total) {
+    return '$total단계 중 $current단계';
+  }
+
+  @override
+  String get continueWithGoogle => 'Google로 계속하기';
+
+  @override
+  String get registerLink => '회원가입';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => '이메일과 비밀번호를 모두 입력하세요';
+
+  @override
+  String get pleaseEnterValidEmail => '유효한 이메일 주소를 입력하세요';
+
+  @override
+  String get loginSuccessful => '로그인 성공!';
+
+  @override
+  String get stepOneOfTwo => '1단계 / 2단계';
+
+  @override
+  String get createYourAccount => '계정 만들기';
+
+  @override
+  String get basicInfoToGetStarted => '시작을 위한 기본 정보';
+
+  @override
+  String get emailVerifiedLabel => '이메일 (인증됨)';
+
+  @override
+  String get nameLabel => '이름';
+
+  @override
+  String get yourDisplayName => '표시 이름';
+
+  @override
+  String get atLeast8Characters => '8자 이상';
+
+  @override
+  String get confirmPasswordHint => '비밀번호 확인';
+
+  @override
+  String get nextButton => '다음';
+
+  @override
+  String get pleaseEnterYourName => '이름을 입력하세요';
+
+  @override
+  String get pleaseEnterAPassword => '비밀번호를 입력하세요';
+
+  @override
+  String get passwordsDoNotMatch => '비밀번호가 일치하지 않습니다';
+
+  @override
+  String get otherGender => '기타';
+
+  @override
+  String get continueWithGoogleAccount => 'Google 계정으로 계속하여\n원활한 경험을 즐기세요';
+
+  @override
+  String get signingYouIn => '로그인 중...';
+
+  @override
+  String get backToSignInMethods => '로그인 방법으로 돌아가기';
+
+  @override
+  String get securedByGoogle => 'Google 보안';
+
+  @override
+  String get dataProtectedEncryption => '업계 표준 암호화로 데이터가 보호됩니다';
+
+  @override
+  String get welcomeCompleteProfile => '환영합니다! 프로필을 완성해 주세요';
+
+  @override
+  String welcomeBackName(String name) {
+    return '다시 오신 것을 환영합니다, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Apple ID로 계속하여\n안전한 경험을 즐기세요';
+
+  @override
+  String get continueWithApple => 'Apple로 계속하기';
+
+  @override
+  String get securedByApple => 'Apple 보안';
+
+  @override
+  String get privacyProtectedApple => 'Apple 로그인으로 개인정보가 보호됩니다';
+
+  @override
+  String get createAccount => '계정 만들기';
+
+  @override
+  String get enterEmailToGetStarted => '시작하려면 이메일을 입력하세요';
+
+  @override
+  String get continueText => '계속';
+
+  @override
+  String get pleaseEnterEmailAddress => '이메일 주소를 입력하세요';
+
+  @override
+  String get verificationCodeSent => '인증 코드가 이메일로 전송되었습니다!';
+
+  @override
+  String get forgotPasswordTitle => '비밀번호 찾기';
+
+  @override
+  String get resetPasswordTitle => '비밀번호 재설정';
+
+  @override
+  String get enterEmailForResetCode => '이메일 주소를 입력하면 비밀번호 재설정 코드를 보내드립니다';
+
+  @override
+  String get sendResetCode => '재설정 코드 보내기';
+
+  @override
+  String get resetCodeSent => '재설정 코드가 이메일로 전송되었습니다!';
+
+  @override
+  String get rememberYourPassword => '비밀번호가 기억나시나요?';
+
+  @override
+  String get verifyCode => '코드 확인';
+
+  @override
+  String get enterResetCode => '재설정 코드 입력';
+
+  @override
+  String get weSentCodeTo => '6자리 코드를 보냈습니다';
+
+  @override
+  String get pleaseEnterAll6Digits => '6자리를 모두 입력하세요';
+
+  @override
+  String get codeVerifiedCreatePassword => '코드 확인 완료! 새 비밀번호를 만드세요';
+
+  @override
+  String get verify => '확인';
+
+  @override
+  String get didntReceiveCode => '코드를 받지 못하셨나요?';
+
+  @override
+  String get resend => '재전송';
+
+  @override
+  String resendWithTimer(String timer) {
+    return '재전송 ($timer초)';
+  }
+
+  @override
+  String get resetCodeResent => '재설정 코드가 재전송되었습니다!';
+
+  @override
+  String get verifyEmail => '이메일 인증';
+
+  @override
+  String get verifyYourEmail => '이메일을 인증하세요';
+
+  @override
+  String get emailVerifiedSuccessfully => '이메일이 성공적으로 인증되었습니다!';
+
+  @override
+  String get verificationCodeResent => '인증 코드가 재전송되었습니다!';
+
+  @override
+  String get createNewPassword => '새 비밀번호 만들기';
+
+  @override
+  String get enterNewPasswordBelow => '아래에 새 비밀번호를 입력하세요';
+
+  @override
+  String get newPassword => '새 비밀번호';
+
+  @override
+  String get confirmPasswordLabel => '비밀번호 확인';
+
+  @override
+  String get pleaseFillAllFields => '모든 필드를 입력하세요';
+
+  @override
+  String get passwordResetSuccessful => '비밀번호가 성공적으로 재설정되었습니다! 새 비밀번호로 로그인하세요';
+
+  @override
+  String get privacyTitle => '개인정보';
+
+  @override
+  String get profileVisibility => '프로필 공개 설정';
+
+  @override
+  String get showCountryRegion => '국가/지역 표시';
+
+  @override
+  String get showCountryRegionDesc => '프로필에 국가를 표시합니다';
+
+  @override
+  String get showCity => '도시 표시';
+
+  @override
+  String get showCityDesc => '프로필에 도시를 표시합니다';
+
+  @override
+  String get showAge => '나이 표시';
+
+  @override
+  String get showAgeDesc => '프로필에 나이를 표시합니다';
+
+  @override
+  String get showZodiacSign => '별자리 표시';
+
+  @override
+  String get showZodiacSignDesc => '프로필에 별자리를 표시합니다';
+
+  @override
+  String get onlineStatusSection => '온라인 상태';
+
+  @override
+  String get showOnlineStatus => '온라인 상태 표시';
+
+  @override
+  String get showOnlineStatusDesc => '다른 사용자에게 온라인 상태를 표시합니다';
+
+  @override
+  String get otherSettings => '기타 설정';
+
+  @override
+  String get showGiftingLevel => '선물 레벨 표시';
+
+  @override
+  String get showGiftingLevelDesc => '선물 레벨 배지를 표시합니다';
+
+  @override
+  String get birthdayNotifications => '생일 알림';
+
+  @override
+  String get birthdayNotificationsDesc => '생일에 알림을 받습니다';
+
+  @override
+  String get personalizedAds => '맞춤 광고';
+
+  @override
+  String get personalizedAdsDesc => '맞춤 광고를 허용합니다';
+
+  @override
+  String get saveChanges => '변경사항 저장';
+
+  @override
+  String get privacySettingsSaved => '개인정보 설정이 저장되었습니다';
+
+  @override
+  String get locationSection => '위치';
+
+  @override
+  String get updateLocation => '위치 업데이트';
+
+  @override
+  String get updateLocationDesc => '현재 위치를 새로고침합니다';
+
+  @override
+  String get currentLocation => '현재 위치';
+
+  @override
+  String get locationNotAvailable => '위치를 사용할 수 없습니다';
+
+  @override
+  String get locationUpdated => '위치가 업데이트되었습니다';
+
+  @override
+  String get locationPermissionDenied => '위치 권한이 거부되었습니다. 설정에서 활성화해주세요.';
+
+  @override
+  String get locationServiceDisabled => '위치 서비스가 비활성화되어 있습니다. 활성화해주세요.';
+
+  @override
+  String get updatingLocation => '위치 업데이트 중...';
+
+  @override
+  String get locationCouldNotBeUpdated => '위치를 업데이트할 수 없습니다';
 }

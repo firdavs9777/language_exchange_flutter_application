@@ -417,7 +417,7 @@ abstract class AppLocalizations {
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:
-  /// **'Try again'**
+  /// **'Try Again'**
   String get tryAgain;
 
   /// No description provided for @networkError.
@@ -587,6 +587,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Moment deleted'**
   String get momentDeleted;
+
+  /// No description provided for @deleteComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Comment?'**
+  String get deleteComment;
+
+  /// No description provided for @commentDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment deleted'**
+  String get commentDeleted;
 
   /// No description provided for @editFeatureComingSoon.
   ///
@@ -767,6 +779,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'BanaTalk'**
   String get banaTalk;
+
+  /// No description provided for @chats.
+  ///
+  /// In en, this message translates to:
+  /// **'Chats'**
+  String get chats;
 
   /// No description provided for @community.
   ///
@@ -1125,7 +1143,7 @@ abstract class AppLocalizations {
   /// No description provided for @sessionExpired.
   ///
   /// In en, this message translates to:
-  /// **'Session expired. Please log in again.'**
+  /// **'Session expired. Please login again.'**
   String get sessionExpired;
 
   /// No description provided for @sendThisSticker.
@@ -2193,7 +2211,7 @@ abstract class AppLocalizations {
   /// No description provided for @selectNativeLanguage.
   ///
   /// In en, this message translates to:
-  /// **'Select native language'**
+  /// **'Please select your native language'**
   String get selectNativeLanguage;
 
   /// No description provided for @subscriptionDetails.
@@ -2433,7 +2451,7 @@ abstract class AppLocalizations {
   /// No description provided for @momentUnsaved.
   ///
   /// In en, this message translates to:
-  /// **'Moment unsaved'**
+  /// **'Removed from saved'**
   String get momentUnsaved;
 
   /// No description provided for @documentPickerComingSoon.
@@ -3899,6 +3917,1392 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Message edited'**
   String get messageEdited;
+
+  /// No description provided for @edited.
+  ///
+  /// In en, this message translates to:
+  /// **'(edited)'**
+  String get edited;
+
+  /// No description provided for @now.
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get now;
+
+  /// No description provided for @weeksAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}w ago'**
+  String weeksAgo(int count);
+
+  /// No description provided for @viewRepliesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'── View {count} {count, plural, =1{reply} other{replies}}'**
+  String viewRepliesCount(int count);
+
+  /// No description provided for @hideReplies.
+  ///
+  /// In en, this message translates to:
+  /// **'── Hide replies'**
+  String get hideReplies;
+
+  /// No description provided for @saveMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Moment'**
+  String get saveMoment;
+
+  /// No description provided for @removeFromSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from Saved'**
+  String get removeFromSaved;
+
+  /// No description provided for @momentSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get momentSaved;
+
+  /// No description provided for @failedToSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save'**
+  String get failedToSave;
+
+  /// No description provided for @checkOutMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out this moment: {title}'**
+  String checkOutMoment(String title);
+
+  /// No description provided for @failedToLoadMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load moments'**
+  String get failedToLoadMoments;
+
+  /// No description provided for @noMomentsMatchFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'No moments match your filters'**
+  String get noMomentsMatchFilters;
+
+  /// No description provided for @beFirstToShareMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to share a moment!'**
+  String get beFirstToShareMoment;
+
+  /// No description provided for @tryDifferentSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term'**
+  String get tryDifferentSearch;
+
+  /// No description provided for @tryAdjustingFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Try adjusting your filters to find language exchange partners.'**
+  String get tryAdjustingFilters;
+
+  /// No description provided for @noSavedMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved moments'**
+  String get noSavedMoments;
+
+  /// No description provided for @tapBookmarkToSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the bookmark icon on a moment to save it'**
+  String get tapBookmarkToSave;
+
+  /// No description provided for @failedToLoadVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load video'**
+  String get failedToLoadVideo;
+
+  /// No description provided for @titleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get titleRequired;
+
+  /// No description provided for @titleTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Title must be {max} characters or less'**
+  String titleTooLong(int max);
+
+  /// No description provided for @descriptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Description is required'**
+  String get descriptionRequired;
+
+  /// No description provided for @descriptionTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Description must be {max} characters or less'**
+  String descriptionTooLong(int max);
+
+  /// No description provided for @scheduledDateMustBeFuture.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled date must be in the future'**
+  String get scheduledDateMustBeFuture;
+
+  /// No description provided for @recent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get recent;
+
+  /// No description provided for @popular.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get popular;
+
+  /// No description provided for @trending.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending'**
+  String get trending;
+
+  /// No description provided for @mostRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Recent'**
+  String get mostRecent;
+
+  /// No description provided for @mostPopular.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Popular'**
+  String get mostPopular;
+
+  /// No description provided for @allTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All Time'**
+  String get allTime;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get thisWeek;
+
+  /// No description provided for @thisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get thisMonth;
+
+  /// No description provided for @replyingTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Replying to {userName}'**
+  String replyingTo(String userName);
+
+  /// No description provided for @listView.
+  ///
+  /// In en, this message translates to:
+  /// **'List'**
+  String get listView;
+
+  /// No description provided for @quickMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Match'**
+  String get quickMatch;
+
+  /// No description provided for @onlineNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Now'**
+  String get onlineNow;
+
+  /// No description provided for @speaksLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaks {language}'**
+  String speaksLanguage(String language);
+
+  /// No description provided for @learningLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning {language}'**
+  String learningLanguage(String language);
+
+  /// No description provided for @noPartnersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No partners found'**
+  String get noPartnersFound;
+
+  /// No description provided for @noUsersFoundForLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'No users found who speak {learning} natively or want to learn {native}.'**
+  String noUsersFoundForLanguages(String learning, String native);
+
+  /// No description provided for @removeAllFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all filters'**
+  String get removeAllFilters;
+
+  /// No description provided for @browseAllUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse all users'**
+  String get browseAllUsers;
+
+  /// No description provided for @allCaughtUp.
+  ///
+  /// In en, this message translates to:
+  /// **'All caught up!'**
+  String get allCaughtUp;
+
+  /// No description provided for @loadingMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading more...'**
+  String get loadingMore;
+
+  /// No description provided for @findingMorePartners.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding more language partners for you...'**
+  String get findingMorePartners;
+
+  /// No description provided for @seenAllPartners.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve seen all available partners. Check back later for more!'**
+  String get seenAllPartners;
+
+  /// No description provided for @startOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Over'**
+  String get startOver;
+
+  /// No description provided for @changeFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Filters'**
+  String get changeFilters;
+
+  /// No description provided for @findingPartners.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding partners...'**
+  String get findingPartners;
+
+  /// No description provided for @setLocationReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your location in your profile to see nearby users first.'**
+  String get setLocationReminder;
+
+  /// No description provided for @updateLocationReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your location in Profile > Edit to get accurate nearby results.'**
+  String get updateLocationReminder;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @browseMen.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse men'**
+  String get browseMen;
+
+  /// No description provided for @browseWomen.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse women'**
+  String get browseWomen;
+
+  /// No description provided for @noMaleUsersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No male users found'**
+  String get noMaleUsersFound;
+
+  /// No description provided for @noFemaleUsersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No female users found'**
+  String get noFemaleUsersFound;
+
+  /// No description provided for @vip.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP'**
+  String get vip;
+
+  /// No description provided for @newUsersOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'New Users Only'**
+  String get newUsersOnly;
+
+  /// No description provided for @showNewUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Show users who joined in the last 6 days'**
+  String get showNewUsers;
+
+  /// No description provided for @prioritizeNearby.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize Nearby'**
+  String get prioritizeNearby;
+
+  /// No description provided for @showNearbyFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Show nearby users first in results'**
+  String get showNearbyFirst;
+
+  /// No description provided for @setLocationToEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your location to enable this feature'**
+  String get setLocationToEnable;
+
+  /// No description provided for @radius.
+  ///
+  /// In en, this message translates to:
+  /// **'Radius'**
+  String get radius;
+
+  /// No description provided for @findingYourLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding your location...'**
+  String get findingYourLocation;
+
+  /// No description provided for @enableLocationForDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Location for Distance'**
+  String get enableLocationForDistance;
+
+  /// No description provided for @enableLocationDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable GPS to see exact distance to partners. You can still browse by city/country without GPS.'**
+  String get enableLocationDescription;
+
+  /// No description provided for @enableGps.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable GPS'**
+  String get enableGps;
+
+  /// No description provided for @browseByCityCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse by City/Country'**
+  String get browseByCityCountry;
+
+  /// No description provided for @peopleNearby.
+  ///
+  /// In en, this message translates to:
+  /// **'People Nearby'**
+  String get peopleNearby;
+
+  /// No description provided for @noNearbyUsersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No nearby users found'**
+  String get noNearbyUsersFound;
+
+  /// No description provided for @tryExpandingSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Try expanding your search or check back later.'**
+  String get tryExpandingSearch;
+
+  /// No description provided for @exploreByCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore by City'**
+  String get exploreByCity;
+
+  /// No description provided for @exploreByCurrentCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse users on an interactive map, see who\'s in your city, and discover language partners worldwide.'**
+  String get exploreByCurrentCity;
+
+  /// No description provided for @interactiveWorldMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Interactive world map'**
+  String get interactiveWorldMap;
+
+  /// No description provided for @searchByCityName.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by city name'**
+  String get searchByCityName;
+
+  /// No description provided for @seeUserCountsPerCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'See user counts per country'**
+  String get seeUserCountsPerCountry;
+
+  /// No description provided for @upgradeToVip.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to VIP'**
+  String get upgradeToVip;
+
+  /// No description provided for @searchByCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by city...'**
+  String get searchByCity;
+
+  /// No description provided for @usersWorldwide.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} users worldwide'**
+  String usersWorldwide(String count);
+
+  /// No description provided for @noUsersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No users found'**
+  String get noUsersFound;
+
+  /// No description provided for @tryDifferentCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different city or country'**
+  String get tryDifferentCity;
+
+  /// No description provided for @usersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} users'**
+  String usersCount(String count);
+
+  /// No description provided for @searchCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Search country...'**
+  String get searchCountry;
+
+  /// No description provided for @wave.
+  ///
+  /// In en, this message translates to:
+  /// **'Wave'**
+  String get wave;
+
+  /// No description provided for @newUser.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW'**
+  String get newUser;
+
+  /// No description provided for @warningPermanent.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning: This action is permanent!'**
+  String get warningPermanent;
+
+  /// No description provided for @deleteAccountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.'**
+  String get deleteAccountWarning;
+
+  /// No description provided for @requiredForEmailOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Required for email accounts only'**
+  String get requiredForEmailOnly;
+
+  /// No description provided for @pleaseEnterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get pleaseEnterPassword;
+
+  /// No description provided for @typeDELETE.
+  ///
+  /// In en, this message translates to:
+  /// **'Type DELETE to confirm'**
+  String get typeDELETE;
+
+  /// No description provided for @mustTypeDELETE.
+  ///
+  /// In en, this message translates to:
+  /// **'You must type DELETE to confirm'**
+  String get mustTypeDELETE;
+
+  /// No description provided for @deletingAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting Account...'**
+  String get deletingAccount;
+
+  /// No description provided for @deleteMyAccountPermanently.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete My Account Permanently'**
+  String get deleteMyAccountPermanently;
+
+  /// No description provided for @whatsYourNativeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your native language?'**
+  String get whatsYourNativeLanguage;
+
+  /// No description provided for @helpsMatchWithLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'This helps us match you with learners'**
+  String get helpsMatchWithLearners;
+
+  /// No description provided for @whatAreYouLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'What are you learning?'**
+  String get whatAreYouLearning;
+
+  /// No description provided for @connectWithNativeSpeakers.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll connect you with native speakers'**
+  String get connectWithNativeSpeakers;
+
+  /// No description provided for @selectLearningLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the language you\'re learning'**
+  String get selectLearningLanguage;
+
+  /// No description provided for @selectCurrentLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your current level'**
+  String get selectCurrentLevel;
+
+  /// No description provided for @beginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner — I know a few words'**
+  String get beginner;
+
+  /// No description provided for @elementary.
+  ///
+  /// In en, this message translates to:
+  /// **'Elementary — I can make simple sentences'**
+  String get elementary;
+
+  /// No description provided for @intermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate — I can have basic conversations'**
+  String get intermediate;
+
+  /// No description provided for @upperIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper Intermediate — I can discuss most topics'**
+  String get upperIntermediate;
+
+  /// No description provided for @advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced — I speak fluently with few errors'**
+  String get advanced;
+
+  /// No description provided for @proficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficient — Near-native level'**
+  String get proficient;
+
+  /// No description provided for @showingPartnersByDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing partners sorted by distance'**
+  String get showingPartnersByDistance;
+
+  /// No description provided for @enableLocationForResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable location for distance-based results'**
+  String get enableLocationForResults;
+
+  /// No description provided for @enable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get enable;
+
+  /// No description provided for @locationNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Location not set'**
+  String get locationNotSet;
+
+  /// No description provided for @tellUsAboutYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us about yourself'**
+  String get tellUsAboutYourself;
+
+  /// No description provided for @justACoupleQuickThings.
+  ///
+  /// In en, this message translates to:
+  /// **'Just a couple of quick things'**
+  String get justACoupleQuickThings;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @birthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Date'**
+  String get birthDate;
+
+  /// No description provided for @selectYourBirthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your birth date'**
+  String get selectYourBirthDate;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// No description provided for @pleaseSelectGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your gender'**
+  String get pleaseSelectGender;
+
+  /// No description provided for @pleaseSelectBirthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your birth date'**
+  String get pleaseSelectBirthDate;
+
+  /// No description provided for @mustBe18.
+  ///
+  /// In en, this message translates to:
+  /// **'You must be at least 18 years old'**
+  String get mustBe18;
+
+  /// No description provided for @invalidDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid date'**
+  String get invalidDate;
+
+  /// No description provided for @almostDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost done!'**
+  String get almostDone;
+
+  /// No description provided for @addPhotoLocationForMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo and location to get more matches'**
+  String get addPhotoLocationForMatches;
+
+  /// No description provided for @addProfilePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Profile Photo'**
+  String get addProfilePhoto;
+
+  /// No description provided for @optionalUpTo6Photos.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — up to 6 photos'**
+  String get optionalUpTo6Photos;
+
+  /// No description provided for @maximum6Photos.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 6 photos'**
+  String get maximum6Photos;
+
+  /// No description provided for @tapToDetectLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to detect location'**
+  String get tapToDetectLocation;
+
+  /// No description provided for @optionalHelpsNearbyPartners.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — helps find nearby partners'**
+  String get optionalHelpsNearbyPartners;
+
+  /// No description provided for @startLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Learning!'**
+  String get startLearning;
+
+  /// No description provided for @photoLocationOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo & location are optional — you can add them later'**
+  String get photoLocationOptional;
+
+  /// No description provided for @pleaseAcceptTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Please accept the Terms of Service'**
+  String get pleaseAcceptTerms;
+
+  /// No description provided for @iAgreeToThe.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the '**
+  String get iAgreeToThe;
+
+  /// No description provided for @termsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get termsOfService;
+
+  /// No description provided for @tapToSelectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to select a language'**
+  String get tapToSelectLanguage;
+
+  /// No description provided for @yourLevelIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your level in {language} (optional)'**
+  String yourLevelIn(String language);
+
+  /// No description provided for @yourCurrentLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current level'**
+  String get yourCurrentLevel;
+
+  /// No description provided for @nativeCannotBeSameAsLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Native language cannot be the same as learning language'**
+  String get nativeCannotBeSameAsLearning;
+
+  /// No description provided for @learningCannotBeSameAsNative.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning language cannot be the same as native language'**
+  String get learningCannotBeSameAsNative;
+
+  /// No description provided for @stepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepOf(String current, String total);
+
+  /// No description provided for @continueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogle;
+
+  /// No description provided for @registerLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get registerLink;
+
+  /// No description provided for @pleaseEnterBothEmailAndPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter both email and password'**
+  String get pleaseEnterBothEmailAndPassword;
+
+  /// No description provided for @pleaseEnterValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get pleaseEnterValidEmail;
+
+  /// No description provided for @loginSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Successful!'**
+  String get loginSuccessful;
+
+  /// No description provided for @stepOneOfTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1 of 2'**
+  String get stepOneOfTwo;
+
+  /// No description provided for @createYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Account'**
+  String get createYourAccount;
+
+  /// No description provided for @basicInfoToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic info to get you started'**
+  String get basicInfoToGetStarted;
+
+  /// No description provided for @emailVerifiedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email (Verified)'**
+  String get emailVerifiedLabel;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @yourDisplayName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your display name'**
+  String get yourDisplayName;
+
+  /// No description provided for @atLeast8Characters.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 8 characters'**
+  String get atLeast8Characters;
+
+  /// No description provided for @confirmPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPasswordHint;
+
+  /// No description provided for @nextButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get nextButton;
+
+  /// No description provided for @pleaseEnterYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get pleaseEnterYourName;
+
+  /// No description provided for @pleaseEnterAPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a password'**
+  String get pleaseEnterAPassword;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @otherGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get otherGender;
+
+  /// No description provided for @continueWithGoogleAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with your Google account\nfor a seamless experience'**
+  String get continueWithGoogleAccount;
+
+  /// No description provided for @signingYouIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Signing you in...'**
+  String get signingYouIn;
+
+  /// No description provided for @backToSignInMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to sign-in methods'**
+  String get backToSignInMethods;
+
+  /// No description provided for @securedByGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Secured by Google'**
+  String get securedByGoogle;
+
+  /// No description provided for @dataProtectedEncryption.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is protected with industry-standard encryption'**
+  String get dataProtectedEncryption;
+
+  /// No description provided for @welcomeCompleteProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome! Please complete your profile'**
+  String get welcomeCompleteProfile;
+
+  /// No description provided for @welcomeBackName.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back, {name}!'**
+  String welcomeBackName(String name);
+
+  /// No description provided for @continueWithAppleId.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with your Apple ID\nfor a secure experience'**
+  String get continueWithAppleId;
+
+  /// No description provided for @continueWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get continueWithApple;
+
+  /// No description provided for @securedByApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Secured by Apple'**
+  String get securedByApple;
+
+  /// No description provided for @privacyProtectedApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Your privacy is protected with Apple Sign-In'**
+  String get privacyProtectedApple;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @enterEmailToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email to get started'**
+  String get enterEmailToGetStarted;
+
+  /// No description provided for @continueText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// No description provided for @pleaseEnterEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email address'**
+  String get pleaseEnterEmailAddress;
+
+  /// No description provided for @verificationCodeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code sent to your email!'**
+  String get verificationCodeSent;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @enterEmailForResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a code to reset your password'**
+  String get enterEmailForResetCode;
+
+  /// No description provided for @sendResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Code'**
+  String get sendResetCode;
+
+  /// No description provided for @resetCodeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset code sent to your email!'**
+  String get resetCodeSent;
+
+  /// No description provided for @rememberYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember your password?'**
+  String get rememberYourPassword;
+
+  /// No description provided for @verifyCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Code'**
+  String get verifyCode;
+
+  /// No description provided for @enterResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reset Code'**
+  String get enterResetCode;
+
+  /// No description provided for @weSentCodeTo.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code to'**
+  String get weSentCodeTo;
+
+  /// No description provided for @pleaseEnterAll6Digits.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter all 6 digits'**
+  String get pleaseEnterAll6Digits;
+
+  /// No description provided for @codeVerifiedCreatePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Code verified! Create your new password'**
+  String get codeVerifiedCreatePassword;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @didntReceiveCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive the code?'**
+  String get didntReceiveCode;
+
+  /// No description provided for @resend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend'**
+  String get resend;
+
+  /// No description provided for @resendWithTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend ({timer}s)'**
+  String resendWithTimer(String timer);
+
+  /// No description provided for @resetCodeResent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset code resent!'**
+  String get resetCodeResent;
+
+  /// No description provided for @verifyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Email'**
+  String get verifyEmail;
+
+  /// No description provided for @verifyYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Your Email'**
+  String get verifyYourEmail;
+
+  /// No description provided for @emailVerifiedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Email verified successfully!'**
+  String get emailVerifiedSuccessfully;
+
+  /// No description provided for @verificationCodeResent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code resent!'**
+  String get verificationCodeResent;
+
+  /// No description provided for @createNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Password'**
+  String get createNewPassword;
+
+  /// No description provided for @enterNewPasswordBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your new password below'**
+  String get enterNewPasswordBelow;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @confirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswordLabel;
+
+  /// No description provided for @pleaseFillAllFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all fields'**
+  String get pleaseFillAllFields;
+
+  /// No description provided for @passwordResetSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successful! Please login with your new password'**
+  String get passwordResetSuccessful;
+
+  /// No description provided for @privacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get privacyTitle;
+
+  /// No description provided for @profileVisibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Visibility'**
+  String get profileVisibility;
+
+  /// No description provided for @showCountryRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Country/Region'**
+  String get showCountryRegion;
+
+  /// No description provided for @showCountryRegionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Display your country on your profile'**
+  String get showCountryRegionDesc;
+
+  /// No description provided for @showCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Show City'**
+  String get showCity;
+
+  /// No description provided for @showCityDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Display your city on your profile'**
+  String get showCityDesc;
+
+  /// No description provided for @showAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Age'**
+  String get showAge;
+
+  /// No description provided for @showAgeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Display your age on your profile'**
+  String get showAgeDesc;
+
+  /// No description provided for @showZodiacSign.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Zodiac Sign'**
+  String get showZodiacSign;
+
+  /// No description provided for @showZodiacSignDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Display your zodiac sign on your profile'**
+  String get showZodiacSignDesc;
+
+  /// No description provided for @onlineStatusSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Status'**
+  String get onlineStatusSection;
+
+  /// No description provided for @showOnlineStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Online Status'**
+  String get showOnlineStatus;
+
+  /// No description provided for @showOnlineStatusDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Let others see when you are online'**
+  String get showOnlineStatusDesc;
+
+  /// No description provided for @otherSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Settings'**
+  String get otherSettings;
+
+  /// No description provided for @showGiftingLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Gifting Level'**
+  String get showGiftingLevel;
+
+  /// No description provided for @showGiftingLevelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Display your gifting level badge'**
+  String get showGiftingLevelDesc;
+
+  /// No description provided for @birthdayNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthday Notifications'**
+  String get birthdayNotifications;
+
+  /// No description provided for @birthdayNotificationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive notifications on your birthday'**
+  String get birthdayNotificationsDesc;
+
+  /// No description provided for @personalizedAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized Ads'**
+  String get personalizedAds;
+
+  /// No description provided for @personalizedAdsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow personalized advertisements'**
+  String get personalizedAdsDesc;
+
+  /// No description provided for @saveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// No description provided for @privacySettingsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy settings saved'**
+  String get privacySettingsSaved;
+
+  /// No description provided for @locationSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationSection;
+
+  /// No description provided for @updateLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Location'**
+  String get updateLocation;
+
+  /// No description provided for @updateLocationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh your current location'**
+  String get updateLocationDesc;
+
+  /// No description provided for @currentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Current location'**
+  String get currentLocation;
+
+  /// No description provided for @locationNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Location not available'**
+  String get locationNotAvailable;
+
+  /// No description provided for @locationUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Location updated successfully'**
+  String get locationUpdated;
+
+  /// No description provided for @locationPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission denied. Please enable it in settings.'**
+  String get locationPermissionDenied;
+
+  /// No description provided for @locationServiceDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled. Please enable them.'**
+  String get locationServiceDisabled;
+
+  /// No description provided for @updatingLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating location...'**
+  String get updatingLocation;
+
+  /// No description provided for @locationCouldNotBeUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Location could not be updated'**
+  String get locationCouldNotBeUpdated;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

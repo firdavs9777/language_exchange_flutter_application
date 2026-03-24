@@ -141,9 +141,6 @@ class Message {
   factory Message.fromJson(Map<String, dynamic> json) {
     // Debug replyTo parsing
     if (json['replyTo'] != null) {
-      print('🔍 Message ${json['_id']} has replyTo:');
-      print('   Type: ${json['replyTo'].runtimeType}');
-      print('   Value: ${json['replyTo']}');
     }
 
     return Message(

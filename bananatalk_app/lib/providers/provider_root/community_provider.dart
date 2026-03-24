@@ -87,12 +87,7 @@ class CommunityService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}')
           .replace(queryParameters: queryParams);
 
-      debugPrint('🌐 API URL: $url');
-      debugPrint('🔧 Query params: $queryParams');
-
       final response = await http.get(url, headers: headers);
-
-      debugPrint('🔍 getCommunityPaginated page=$page response status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -101,7 +96,6 @@ class CommunityService {
         final pages = data['pages'] as int? ?? 1;
 
         if (dataList == null || dataList is! List) {
-          debugPrint('🔍 getCommunityPaginated: dataList is null or not a list');
           return PaginatedCommunityResponse(
             users: [],
             total: 0,
@@ -111,23 +105,7 @@ class CommunityService {
           );
         }
 
-        // Debug: Print first user's data on first page
         if (page == 1 && dataList.isNotEmpty) {
-          final firstUser = dataList[0];
-          debugPrint('🔍 First user data sample:');
-          debugPrint('   id: ${firstUser['_id']}');
-          debugPrint('   name: ${firstUser['name']}');
-          debugPrint('   images: ${firstUser['images']}');
-          debugPrint('   native_language: ${firstUser['native_language']}');
-          debugPrint('   language_to_learn: ${firstUser['language_to_learn']}');
-          debugPrint('   topics: ${firstUser['topics']}');
-          debugPrint('   isOnline: ${firstUser['isOnline']}');
-
-          // Debug all users languages
-          debugPrint('📋 All users language summary:');
-          for (var user in dataList) {
-            debugPrint('   ${user['name']}: native=${user['native_language']}, learning=${user['language_to_learn']}, topics=${user['topics']}');
-          }
         }
 
         final users = dataList
@@ -136,7 +114,6 @@ class CommunityService {
                 Community.fromJson(postJson as Map<String, dynamic>))
             .toList();
 
-        debugPrint('📄 Loaded ${users.length} users (page $page of $pages, total: $total)');
 
         return PaginatedCommunityResponse(
           users: users,
@@ -152,7 +129,6 @@ class CommunityService {
         throw Exception('Failed to load community: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching community: $error');
       throw Exception('Failed to load community: $error');
     }
   }
@@ -162,32 +138,21 @@ class CommunityService {
     try {
       final headers = await _getHeaders();
       final url = '${Endpoints.baseURL}${Endpoints.usersURL}/$id';
-      debugPrint('🔍 getSingleCommunity URL: $url');
 
       final response = await http.get(
         Uri.parse(url),
         headers: headers,
       );
 
-      debugPrint('🔍 getSingleCommunity response status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final userData = data['data'];
         if (userData == null || userData is! Map<String, dynamic>) {
-          debugPrint('Warning: User data is null or invalid for id: $id');
           return null;
         }
 
         // Debug: Print user data
-        debugPrint('🔍 Single user data:');
-        debugPrint('   id: ${userData['_id']}');
-        debugPrint('   name: ${userData['name']}');
-        debugPrint('   images: ${userData['images']}');
-        debugPrint('   imageUrls: ${userData['imageUrls']}');
-        debugPrint('   followers: ${userData['followers']}');
-        debugPrint('   following: ${userData['following']}');
-        debugPrint('   location: ${userData['location']}');
 
         return Community.fromJson(userData);
       } else if (response.statusCode == 401) {
@@ -197,7 +162,6 @@ class CommunityService {
         throw Exception('Failed to load user: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching community: $error');
       throw Exception('Failed to load community: $error');
     }
   }
@@ -210,7 +174,6 @@ class CommunityService {
         '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/follow/$targetUserId');
     try {
       final response = await http.put(url, headers: headers);
-      debugPrint('Follow response: ${response.statusCode} - ${response.body}');
 
       if (response.statusCode == 401) {
         _apiClient.onAuthenticationError?.call();
@@ -231,14 +194,11 @@ class CommunityService {
             return 'already_following';
           }
         } catch (_) {}
-        debugPrint('Follow failed with status: ${response.statusCode}');
         return 'error';
       } else {
-        debugPrint('Follow failed with status: ${response.statusCode}');
         return 'error';
       }
     } catch (error) {
-      debugPrint('Error when following the user: $error');
       rethrow;
     }
   }
@@ -251,7 +211,6 @@ class CommunityService {
         '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/unfollow/$targetUserId');
     try {
       final response = await http.put(url, headers: headers);
-      debugPrint('Unfollow response: ${response.statusCode} - ${response.body}');
 
       if (response.statusCode == 401) {
         _apiClient.onAuthenticationError?.call();
@@ -267,14 +226,11 @@ class CommunityService {
             return 'not_following';
           }
         } catch (_) {}
-        debugPrint('Unfollow failed with status: ${response.statusCode}');
         return 'error';
       } else {
-        debugPrint('Unfollow failed with status: ${response.statusCode}');
         return 'error';
       }
     } catch (error) {
-      debugPrint('Error when unfollowing the user: $error');
       rethrow;
     }
   }
@@ -319,7 +275,6 @@ class CommunityService {
         throw Exception(response.error ?? 'Failed to get nearby users');
       }
     } catch (error) {
-      debugPrint('Error getting nearby users: $error');
       rethrow;
     }
   }
@@ -346,7 +301,6 @@ class CommunityService {
         throw Exception(response.error ?? 'Failed to send wave');
       }
     } catch (error) {
-      debugPrint('Error sending wave: $error');
       rethrow;
     }
   }
@@ -376,7 +330,6 @@ class CommunityService {
         throw Exception(response.error ?? 'Failed to get waves');
       }
     } catch (error) {
-      debugPrint('Error getting waves: $error');
       rethrow;
     }
   }
@@ -389,7 +342,6 @@ class CommunityService {
         body: waveIds != null ? {'waveIds': waveIds} : null,
       );
     } catch (error) {
-      debugPrint('Error marking waves as read: $error');
       rethrow;
     }
   }
@@ -414,7 +366,6 @@ class CommunityService {
         throw Exception(response.error ?? 'Failed to get topics');
       }
     } catch (error) {
-      debugPrint('Error getting topics: $error');
       rethrow;
     }
   }
@@ -443,7 +394,6 @@ class CommunityService {
         throw Exception(response.error ?? 'Failed to get users by topic');
       }
     } catch (error) {
-      debugPrint('Error getting users by topic: $error');
       rethrow;
     }
   }
@@ -460,7 +410,6 @@ class CommunityService {
         throw Exception(response.error ?? 'Failed to update topics');
       }
     } catch (error) {
-      debugPrint('Error updating topics: $error');
       rethrow;
     }
   }
@@ -470,9 +419,7 @@ class CommunityService {
     final url = Uri.parse(Endpoints.countriesURL);
     try {
       final response = await http.get(url);
-      debugPrint('Countries response: ${response.statusCode}');
     } catch (error) {
-      debugPrint('Error when getting countries list $error');
       throw Exception('Failed to call the api: $error');
     }
   }
@@ -511,6 +458,8 @@ class NearbyUser {
   final String? languageToLearn;
   final bool isOnline;
   final DateTime? lastSeen;
+  final PrivacySettings? privacySettings;
+  final int? age;
 
   NearbyUser({
     required this.id,
@@ -523,9 +472,21 @@ class NearbyUser {
     this.languageToLearn,
     required this.isOnline,
     this.lastSeen,
+    this.privacySettings,
+    this.age,
   });
 
   factory NearbyUser.fromJson(Map<String, dynamic> json) {
+    // Calculate age from birth_year
+    int? age;
+    final birthYear = json['birth_year'];
+    if (birthYear != null) {
+      final year = int.tryParse(birthYear.toString());
+      if (year != null && year > 0) {
+        age = DateTime.now().year - year;
+      }
+    }
+
     return NearbyUser(
       id: json['_id'] ?? json['id'] ?? '',
       name: json['name'] ?? '',
@@ -539,6 +500,10 @@ class NearbyUser {
       lastSeen: json['lastSeen'] != null
           ? DateTime.tryParse(json['lastSeen'] as String)
           : null,
+      privacySettings: json['privacySettings'] != null
+          ? PrivacySettings.fromJson(json['privacySettings'] as Map<String, dynamic>)
+          : null,
+      age: age,
     );
   }
 }
@@ -1115,16 +1080,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   Future<void> loadWithFilters(PartnerFilterParams filters) async {
     if (state.isLoading) return;
 
-    debugPrint('🔍 PartnerFilter: Loading with server-side filters');
-    debugPrint('   nativeLanguage: ${filters.nativeLanguage}');
-    debugPrint('   learningLanguage: ${filters.learningLanguage}');
-    debugPrint('   gender: ${filters.gender} (VIP only)');
-    debugPrint('   minAge: ${filters.minAge}');
-    debugPrint('   maxAge: ${filters.maxAge}');
-    debugPrint('   country: ${filters.country} (VIP only)');
-    debugPrint('   onlineOnly: ${filters.onlineOnly}');
-    debugPrint('   languageLevel: ${filters.languageLevel}');
-    debugPrint('   search: ${filters.search}');
 
     // Reset if different filters
     if (state.filters != filters) {
@@ -1149,7 +1104,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         search: filters.search,
       );
 
-      debugPrint('🔍 PartnerFilter: Loaded ${response.users.length} users (total: ${response.total})');
 
       // If 0 results returned, set hasMore to false to prevent infinite loading
       final hasMore = response.users.isNotEmpty && response.hasMore;
@@ -1162,7 +1116,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         isLoading: false,
       );
     } catch (e) {
-      debugPrint('🔍 PartnerFilter ERROR: $e');
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
@@ -1193,7 +1146,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         search: state.filters!.search,
       );
 
-      debugPrint('🔍 PartnerFilter: Loaded ${response.users.length} more users (page $nextPage)');
 
       // If 0 results returned on load more, stop trying to load more
       final hasMore = response.users.isNotEmpty && response.hasMore;

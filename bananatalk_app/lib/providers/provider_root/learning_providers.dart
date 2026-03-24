@@ -20,7 +20,6 @@ final learningProgressProvider = FutureProvider<LearningProgress?>((ref) async {
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading learning progress: $e');
     return null;
   }
 });
@@ -34,7 +33,6 @@ final dailyGoalsProvider = FutureProvider<DailyGoalsResponse?>((ref) async {
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading daily goals: $e');
     return null;
   }
 });
@@ -119,7 +117,6 @@ final vocabularyListProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading vocabulary: $e');
     return [];
   }
 });
@@ -142,7 +139,6 @@ final dueReviewsProvider =
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading due reviews: $e');
     return null;
   }
 });
@@ -157,7 +153,6 @@ final vocabularyStatsProvider =
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading vocabulary stats: $e');
     return null;
   }
 });
@@ -334,7 +329,6 @@ final lessonsProvider =
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading lessons: $e');
     return [];
   }
 });
@@ -351,7 +345,6 @@ final recommendedLessonsProvider = FutureProvider<List<Lesson>>((ref) async {
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading recommended lessons: $e');
     return [];
   }
 });
@@ -366,7 +359,6 @@ final lessonDetailProvider =
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading lesson: $e');
     return null;
   }
 });
@@ -463,7 +455,6 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
       isCorrect: isCorrect,
     );
 
-    debugPrint('📝 Stored answer for exercise ${state.currentIndex}: $answer (correct: $isCorrect)');
 
     state = state.copyWith(
       currentAnswer: answer,
@@ -525,7 +516,6 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
     if (correctMatches.isEmpty && exercise.options.isNotEmpty) {
       // The correctAnswer might contain the pairs info
       // For now, consider any complete matching as correct if we can't verify
-      debugPrint('⚠️ No matching pairs to verify against');
       return true; // Give benefit of doubt if we can't verify
     }
 
@@ -578,11 +568,8 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
       }
     }
 
-    debugPrint('🔢 Ordering check - userOrder: $userOrder');
-    debugPrint('🔢 Ordering check - correctOrder: $correctOrder');
 
     if (correctOrder.isEmpty) {
-      debugPrint('⚠️ No correct order found for ordering exercise');
       return true; // Give benefit of doubt
     }
 
@@ -625,9 +612,7 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
 
     // Get all collected answers
     final answers = state.collectedAnswers.values.toList();
-    debugPrint('📝 Completing lesson with ${answers.length} answers');
     for (var i = 0; i < answers.length; i++) {
-      debugPrint('📝 Answer $i: exerciseIndex=${answers[i].exerciseIndex}, answer=${answers[i].answer}, correct=${answers[i].isCorrect}');
     }
 
     final result = await LearningService.submitLesson(
@@ -671,7 +656,6 @@ final quizzesProvider = FutureProvider<List<Quiz>>((ref) async {
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading quizzes: $e');
     return [];
   }
 });
@@ -686,7 +670,6 @@ final quizDetailProvider =
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading quiz: $e');
     return null;
   }
 });
@@ -864,7 +847,6 @@ final achievementsProvider = FutureProvider<List<Achievement>>((ref) async {
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading achievements: $e');
     return [];
   }
 });
@@ -905,7 +887,6 @@ final challengesProvider = FutureProvider<List<Challenge>>((ref) async {
     }
     return [];
   } catch (e) {
-    debugPrint('Error loading challenges: $e');
     return [];
   }
 });
@@ -945,7 +926,6 @@ final leaderboardProvider =
     }
     return null;
   } catch (e) {
-    debugPrint('Error loading leaderboard: $e');
     return null;
   }
 });

@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Screen for selecting/editing user's topics of interest
 /// Can be used in registration flow or profile editing
@@ -144,8 +146,8 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       return Scaffold(
         appBar: AppBar(
           title: Text(widget.title ?? 'Edit Interests'),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          backgroundColor: context.surfaceColor,
+          foregroundColor: context.textPrimary,
           elevation: 0,
           actions: [
             TextButton(
@@ -197,7 +199,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
                   widget.subtitle!,
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.grey[600],
+                    color: context.textSecondary,
                   ),
                 ),
               ],
@@ -281,10 +283,10 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
         selectedColor: const Color(0xFF00BFA5),
         checkmarkColor: Colors.white,
         labelStyle: TextStyle(
-          color: isSelected ? Colors.white : Colors.black87,
+          color: isSelected ? Colors.white : context.textPrimary,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
-        backgroundColor: Colors.grey[100],
+        backgroundColor: context.containerColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -313,7 +315,7 @@ class _TopicCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? const Color(0xFF00BFA5).withValues(alpha: 0.15)
-              : Colors.grey[100],
+              : context.containerColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? const Color(0xFF00BFA5) : Colors.transparent,
@@ -340,7 +342,7 @@ class _TopicCard extends StatelessWidget {
                             isSelected ? FontWeight.bold : FontWeight.w500,
                         color: isSelected
                             ? const Color(0xFF00BFA5)
-                            : Colors.black87,
+                            : context.textPrimary,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

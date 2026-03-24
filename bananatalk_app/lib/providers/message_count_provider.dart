@@ -28,7 +28,6 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
       // The count will be set by _loadMessages() when chat is opened
       return state[cacheKey] ?? 0;
     } catch (e) {
-      debugPrint('❌ Error getting message count: $e');
       return 0;
     }
   }
@@ -62,7 +61,6 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
       final count = messages.length;
       setMessageCount(otherUserId, count);
     } catch (e) {
-      debugPrint('❌ Error refreshing message count: $e');
     }
   }
 
@@ -98,7 +96,6 @@ class MessageCountNotifier extends StateNotifier<Map<String, int>> {
 
       state = {...state, cacheKey: newCount};
     } catch (e) {
-      debugPrint('❌ Error updating message count: $e');
     }
   }
 

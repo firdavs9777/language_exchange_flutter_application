@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
-import 'package:bananatalk_app/pages/home/Home.dart';
-import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -30,9 +30,6 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
     });
 
     try {
-      debugPrint('═══════════════════════════════════════════════════════════');
-      debugPrint('🍎 STEP 1: Starting Apple Sign-In');
-      debugPrint('   Requesting credentials with email and fullName scopes...');
 
       // Request Apple Sign-In credentials
       final credential = await SignInWithApple.getAppleIDCredential(
@@ -42,18 +39,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         ],
       );
 
-      debugPrint('✅ STEP 1 SUCCESS: Got Apple credentials');
-      debugPrint('   User Identifier: ${credential.userIdentifier}');
-      debugPrint('   Email: ${credential.email ?? 'null (hidden or repeat login)'}');
-      debugPrint('   Given Name: ${credential.givenName ?? 'null'}');
-      debugPrint('   Family Name: ${credential.familyName ?? 'null'}');
 
       final String? identityToken = credential.identityToken;
-      debugPrint('🎫 STEP 2: Checking identity token');
-      debugPrint('   Identity Token: ${identityToken != null ? '${identityToken.substring(0, 50)}...' : 'NULL'}');
 
       if (identityToken == null) {
-        debugPrint('❌ STEP 2 FAILED: Identity Token is NULL!');
         setState(() {
           _errorMessage = 'Failed to get identity token from Apple';
           _isLoading = false;
@@ -70,9 +59,6 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         'email': credential.email,
       };
 
-      debugPrint('═══════════════════════════════════════════════════════════');
-      debugPrint('🌐 STEP 3: Sending identity token to backend...');
-      debugPrint('   Token length: ${identityToken.length} chars');
 
       // Send to backend for verification
       final result = await ref.read(authServiceProvider).signInWithAppleNative(
@@ -80,54 +66,33 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
             appleUser,
           );
 
-      debugPrint('📡 STEP 3 RESPONSE:');
-      debugPrint('   Success: ${result['success']}');
-      debugPrint('   Message: ${result['message']}');
-      debugPrint('   Has Token: ${result['token'] != null}');
-      debugPrint('   Has User: ${result['user'] != null}');
 
       if (result['success'] == true) {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
 
         // Debug: Log the full user object to see what backend returns
-        debugPrint('🔍 Apple login - Full user data from backend: $user');
-        debugPrint('🔍 Apple login - profileCompleted raw value: ${user?['profileCompleted']}');
-        debugPrint('🔍 Apple login - profileCompleted type: ${user?['profileCompleted']?.runtimeType}');
 
         // Check profileCompleted flag from backend
         // IMPORTANT: Default to FALSE for safety - new users must complete profile
         final bool profileCompleted = user?['profileCompleted'] == true;
 
-        // Also check if essential fields are filled (extra safety check)
+        // Check core required fields (language + gender + birth year)
+        // Bio and images are optional — don't block login for them
         final gender = user?['gender']?.toString() ?? '';
-        final bio = user?['bio']?.toString() ?? '';
         final birthYear = user?['birth_year']?.toString() ?? '';
-        final images = user?['images'] as List? ?? [];
+        final nativeLang = user?['native_language']?.toString() ?? '';
+        final learningLang = user?['language_to_learn']?.toString() ?? '';
 
-        final bool hasEssentialFields =
+        final bool hasCoreFields =
             gender.isNotEmpty &&
-            bio.isNotEmpty &&
             birthYear.isNotEmpty &&
-            images.length >= 2;
+            nativeLang.isNotEmpty &&
+            learningLang.isNotEmpty;
 
-        // User needs to complete profile if either flag is false OR essential fields missing
-        final bool needsProfileCompletion = !profileCompleted || !hasEssentialFields;
+        // User needs to complete profile if backend flag is false OR core fields missing
+        final bool needsProfileCompletion = !profileCompleted || !hasCoreFields;
 
-        debugPrint('═══════════════════════════════════════');
-        debugPrint('🔍 PROFILE COMPLETION CHECK:');
-        debugPrint('   profileCompleted flag: $profileCompleted');
-        debugPrint('   hasEssentialFields: $hasEssentialFields');
-        debugPrint('   needsCompletion: $needsProfileCompletion');
-        debugPrint('───────────────────────────────────────');
-        debugPrint('📝 User Profile Data:');
-        debugPrint('   name: ${user?['name']}');
-        debugPrint('   email: ${user?['email']}');
-        debugPrint('   gender: ${user?['gender']}');
-        debugPrint('   bio: ${user?['bio']}');
-        debugPrint('   birth_year: ${user?['birth_year']}');
-        debugPrint('   images count: ${(user?['images'] as List?)?.length ?? 0}');
-        debugPrint('═══════════════════════════════════════');
 
         setState(() {
           _isLoading = false;
@@ -153,11 +118,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                   name: user?['name'] ?? '',
                   email: user?['email'] ?? '',
                   password: '', // OAuth users don't have password
-                  bio: user?['bio'] ?? '', // Empty - user must write bio
-                  gender: user?['gender'] ?? '', // Empty - user must select
-                  nativeLanguage: '', // Force empty so user must select
-                  languageToLearn: '', // Force empty so user must select
-                  birthDate: birthDate, // Empty if not set - user must select
+                  gender: user?['gender'] ?? '',
+                  birthDate: birthDate,
+                  nativeLanguage: user?['native_language']?.toString() ?? '',
+                  learningLanguage: user?['language_to_learn']?.toString() ?? '',
                 ),
               ),
             );
@@ -165,7 +129,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: BananaText(
-                  'Welcome! Please complete your profile',
+                  AppLocalizations.of(context)!.welcomeCompleteProfile,
                   BanaStyles: BananaTextStyles.body,
                 ),
                 duration: const Duration(seconds: 3),
@@ -200,16 +164,13 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               }
             } catch (e) {
               // If we can't fetch user data, log out and redirect to home
-              debugPrint('Error checking terms after Apple login: $e');
               await ref.read(authServiceProvider).logout();
               if (!mounted) return;
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) => const HomePage()),
-              );
+              context.go('/login');
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: BananaText(
-                    'Session expired. Please login again.',
+                    AppLocalizations.of(context)!.sessionExpired,
                     BanaStyles: BananaTextStyles.warning,
                   ),
                   duration: const Duration(seconds: 3),
@@ -223,13 +184,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
             // NOW connect socket - profile is complete and terms accepted
             try {
-              debugPrint('🔌 Connecting socket (profile complete)...');
               final chatSocketService = ChatSocketService();
               chatSocketService.enableReconnection();
               await chatSocketService.connect();
-              debugPrint('✅ Chat socket connected after Apple login');
             } catch (e) {
-              debugPrint('⚠️ Error connecting chat socket: $e');
             }
 
             // Register FCM token for push notifications
@@ -238,23 +196,19 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               final userId = ref.read(authServiceProvider).userId;
               if (userId.isNotEmpty) {
                 await notificationService.registerToken(userId);
-                debugPrint('✅ FCM token registered after Apple login');
               }
             } catch (e) {
-              debugPrint('⚠️ Error registering FCM token after Apple login: $e');
             }
 
             // Invalidate userProvider to force fresh fetch
             ref.invalidate(userProvider);
 
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => const TabsScreen()),
-            );
+            context.go('/home');
 
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: BananaText(
-                  'Welcome back, ${user?['name'] ?? 'User'}! 👋',
+                  AppLocalizations.of(context)!.welcomeBackName(user?['name'] ?? ''),
                   BanaStyles: BananaTextStyles.success,
                 ),
                 duration: const Duration(seconds: 2),
@@ -275,13 +229,6 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         });
       }
     } catch (e, stackTrace) {
-      debugPrint('═══════════════════════════════════════════════════════════');
-      debugPrint('❌ APPLE SIGN-IN ERROR:');
-      debugPrint('   Error: $e');
-      debugPrint('   Type: ${e.runtimeType}');
-      debugPrint('   Stack trace:');
-      debugPrint('$stackTrace');
-      debugPrint('═══════════════════════════════════════════════════════════');
 
       String userFriendlyMessage = 'Apple sign-in error';
 
@@ -381,7 +328,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
                     // Title
                     BananaText(
-                      'Sign in with Apple',
+                      AppLocalizations.of(context)!.signInWithApple,
                       BanaStyles: BananaTextStyles.titleLarge,
                     ),
 
@@ -389,7 +336,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
                     // Description
                     BananaText(
-                      'Continue with your Apple ID\nfor a secure experience',
+                      AppLocalizations.of(context)!.continueWithAppleId,
                       textAlign: TextAlign.center,
                       BanaStyles: BananaTextStyles.body,
                     ),
@@ -425,7 +372,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                             ),
                             const SizedBox(height: 16),
                             BananaText(
-                              'Signing you in...',
+                              AppLocalizations.of(context)!.signingYouIn,
                               BanaStyles: BananaTextStyles.body,
                             ),
                           ],
@@ -448,7 +395,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                         ),
                         child: BananaButton(
                           BananaText: BananaText(
-                            'Continue with Apple',
+                            AppLocalizations.of(context)!.continueWithApple,
                             BanaStyles: BananaTextStyles.buttonText,
                           ),
                           onPressed: _signInWithApple,
@@ -524,9 +471,9 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                child: const Text(
-                                  'Try Again',
-                                  style: TextStyle(
+                                child: Text(
+                                  AppLocalizations.of(context)!.tryAgain,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -546,9 +493,9 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                         Icons.arrow_back,
                         size: 18,
                       ),
-                      label: const Text(
-                        'Back to sign-in methods',
-                        style: TextStyle(
+                      label: Text(
+                        AppLocalizations.of(context)!.backToSignInMethods,
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                         ),
@@ -579,7 +526,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                'Secured by Apple',
+                                AppLocalizations.of(context)!.securedByApple,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey[600],
@@ -590,7 +537,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Your privacy is protected with Apple Sign-In',
+                            AppLocalizations.of(context)!.privacyProtectedApple,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 11,

@@ -162,7 +162,7 @@ class _MuteDialogState extends State<MuteDialog> {
         children: [
           Text(
             l10n.muteNotificationsFor(widget.userName),
-            style: TextStyle(color: Colors.grey[600]),
+            style: TextStyle(color: context.textSecondary),
           ),
           Spacing.gapMD,
           ..._durationOptions.keys.map((duration) => RadioListTile<String>(

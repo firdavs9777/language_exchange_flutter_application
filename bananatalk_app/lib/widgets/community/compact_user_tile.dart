@@ -5,6 +5,7 @@ import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
 import 'package:bananatalk_app/widgets/community/quick_action_buttons.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 
 /// Compact user tile for lists
 class CompactUserTile extends StatelessWidget {
@@ -101,7 +102,7 @@ class CompactUserTile extends StatelessWidget {
                             ),
                           ),
                         ],
-                        if (user.age != null) ...[
+                        if (PrivacyUtils.shouldShowAge(user) && user.age != null) ...[
                           const SizedBox(width: 6),
                           Text(
                             '${user.age}',
@@ -144,64 +145,70 @@ class CompactUserTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     // Location or last active
-                    Row(
-                      children: [
-                        if (showDistance && distance != null) ...[
-                          Icon(
-                            Icons.location_on_rounded,
-                            size: 12,
-                            color: Colors.grey[500],
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            _formatDistance(distance!),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[500],
-                            ),
-                          ),
-                        ] else if (user.location.city.isNotEmpty) ...[
-                          Icon(
-                            Icons.location_on_rounded,
-                            size: 12,
-                            color: Colors.grey[500],
-                          ),
-                          const SizedBox(width: 2),
-                          Flexible(
-                            child: Text(
-                              user.location.city,
-                              style: TextStyle(
-                                fontSize: 12,
+                    Builder(
+                      builder: (context) {
+                        final locationText = PrivacyUtils.getLocationText(user);
+                        final hasLocation = showDistance && distance != null || locationText.isNotEmpty;
+                        return Row(
+                          children: [
+                            if (showDistance && distance != null) ...[
+                              Icon(
+                                Icons.location_on_rounded,
+                                size: 12,
                                 color: Colors.grey[500],
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                        if (user.lastActiveText.isNotEmpty) ...[
-                          if (showDistance || user.location.city.isNotEmpty)
-                            Text(
-                              ' · ',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[400],
+                              const SizedBox(width: 2),
+                              Text(
+                                _formatDistance(distance!),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[500],
+                                ),
                               ),
-                            ),
-                          Text(
-                            user.lastActiveText,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: user.isOnline
-                                  ? const Color(0xFF4CAF50)
-                                  : Colors.grey[500],
-                              fontWeight: user.isOnline
-                                  ? FontWeight.w600
-                                  : FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ],
+                            ] else if (locationText.isNotEmpty) ...[
+                              Icon(
+                                Icons.location_on_rounded,
+                                size: 12,
+                                color: Colors.grey[500],
+                              ),
+                              const SizedBox(width: 2),
+                              Flexible(
+                                child: Text(
+                                  locationText,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[500],
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                            if (PrivacyUtils.shouldShowOnlineStatus(user) && user.lastActiveText.isNotEmpty) ...[
+                              if (hasLocation)
+                                Text(
+                                  ' · ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              Text(
+                                user.lastActiveText,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: user.isOnline
+                                      ? const Color(0xFF4CAF50)
+                                      : Colors.grey[500],
+                                  fontWeight: user.isOnline
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ],
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -265,7 +272,7 @@ class CompactUserTile extends StatelessWidget {
           child: avatarContent,
         ),
         // Online indicator
-        if (user.isOnline)
+        if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline)
           Positioned(
             right: user.isVip ? 2 : 0,
             bottom: user.isVip ? 2 : 0,

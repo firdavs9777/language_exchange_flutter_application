@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
@@ -21,11 +23,13 @@ import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/media_service.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -93,8 +97,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   late AnimationController _mediaPanelController;
   late AnimationController _stickerPanelController;
 
-  // Store notifier reference for safe access in dispose
+  // Store notifier references for safe access in dispose
   ChatPartnersNotifier? _chatPartnersNotifier;
+  ChatStateNotifier? _chatStateNotifier;
 
   // Theme change listener for wallpaper sync
   StreamSubscription? _themeChangeSubscription;
@@ -119,17 +124,36 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
   }
 
+  // Track keyboard height to detect open/close
+  double _previousBottomInset = 0;
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      debugPrint('📱 ChatScreen resumed - checking socket connection');
       // Ensure socket is connected when returning to chat
       final socketService = ChatSocketService();
       if (!socketService.isConnected) {
-        debugPrint('🔌 Socket disconnected in chat - force reconnecting');
         socketService.connect(forceReset: true);
       }
     }
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    // When keyboard opens/closes, the body resizes and scroll position
+    // needs to stay anchored to the bottom to prevent content jumping
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+      if (bottomInset != _previousBottomInset) {
+        _previousBottomInset = bottomInset;
+        // Keyboard opened — scroll to bottom instantly to prevent jump
+        if (bottomInset > 0 && _scrollController.hasClients) {
+          _scrollToBottom(animated: false);
+        }
+      }
+    });
   }
 
   void _setupScrollListener() {
@@ -161,10 +185,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // For non-reversed list, scroll to maxScrollExtent (bottom)
     final targetPosition = _scrollController.position.maxScrollExtent;
 
-    if (animated) {
+    if (animated && targetPosition > 0) {
       _scrollController.animateTo(
         targetPosition,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
       );
     } else {
@@ -183,7 +207,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // Find the message index
     final index = messages.indexWhere((m) => m.id == messageId);
     if (index == -1) {
-      debugPrint('Message $messageId not found in list');
       return;
     }
 
@@ -244,6 +267,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           ),
         ).notifier,
       );
+      // Cache for safe access in dispose (ref is not usable after dispose)
+      _chatStateNotifier = chatNotifier;
 
       await chatNotifier.initialize();
       if (!mounted) return;
@@ -289,10 +314,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       _currentPage = 1;
       _hasMoreMessages = pagination?['hasNextPage'] ?? false;
 
-      debugPrint(
-        'Loaded ${conversationMessages.length} messages for conversation (hasMore: $_hasMoreMessages)',
-      );
-
       chatNotifier.setMessages(conversationMessages);
 
       ref
@@ -304,16 +325,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
       // Clear unread count locally for this chat partner (updates badge)
       ref.read(chatPartnersProvider.notifier).clearUnread(widget.userId);
-      debugPrint('✅ Cleared unread count for ${widget.userId}');
 
-      // Scroll to bottom after list is built (double callback ensures list extent is updated)
+      // Jump to bottom instantly after list is built — no visible scroll animation
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          _scrollToBottom();
+          if (mounted) _scrollToBottom(animated: false);
         });
       });
     } catch (error) {
-      debugPrint('Error loading messages: $error');
       if (mounted) {
         chatNotifier.setError('Failed to load messages: $error');
       }
@@ -358,10 +378,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       _currentPage = nextPage;
       _hasMoreMessages = pagination?['hasNextPage'] ?? false;
 
-      debugPrint(
-        'Loaded ${olderMessages.length} older messages (page $_currentPage, hasMore: $_hasMoreMessages)',
-      );
-
       // Prepend older messages to existing messages
       final chatNotifier = ref.read(
         chatStateProvider(
@@ -390,7 +406,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
       chatNotifier.setMessages(uniqueMessages);
     } catch (error) {
-      debugPrint('Error loading more messages: $error');
     } finally {
       if (mounted) {
         setState(() => _isLoadingMore = false);
@@ -399,7 +414,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Future<void> _loadChatWallpaper() async {
-    debugPrint('🎨 _loadChatWallpaper called for userId: ${widget.userId}');
     try {
       // First try to load from backend
       final conversationService = ConversationService();
@@ -407,14 +421,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         conversationId: widget.userId, // Using partner ID as conversation ID
       );
 
-      debugPrint('🎨 getConversationTheme result: $result');
 
       if (result['success'] == true && result['data'] != null) {
         final themeData = result['data'];
-        debugPrint('🎨 Theme data from server: $themeData');
         final preset = themeData['preset'] as String?;
         if (preset != null && mounted) {
-          debugPrint('🎨 Setting wallpaper to: $preset');
           setState(() => _chatWallpaper = preset);
           // Also save to local for offline access
           final prefs = await SharedPreferences.getInstance();
@@ -426,12 +437,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       // Fallback to local storage
       final prefs = await SharedPreferences.getInstance();
       final theme = prefs.getString('chat_theme_${widget.userId}');
-      debugPrint('🎨 Fallback to local storage: $theme');
       if (theme != null && mounted) {
         setState(() => _chatWallpaper = theme);
       }
     } catch (e) {
-      debugPrint('🎨 Error loading chat wallpaper: $e');
       // Fallback to local storage on error
       try {
         final prefs = await SharedPreferences.getInstance();
@@ -447,16 +456,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   void _setupThemeChangeListener() {
     final socketService = ChatSocketService();
     _themeChangeSubscription = socketService.onThemeChanged.listen((data) {
-      debugPrint('🎨 Received theme change event: $data');
       if (data is Map) {
         final changedBy = data['changedBy']?.toString();
         final theme = data['theme'];
 
-        debugPrint('🎨 Theme change - changedBy: $changedBy, partnerId: ${widget.userId}');
 
         // Check if this theme change was made by our chat partner
         if (changedBy == widget.userId && theme != null && mounted) {
-          debugPrint('🎨 Theme changed by partner! Applying: $theme');
           final preset = theme['preset']?.toString();
           if (preset != null) {
             setState(() => _chatWallpaper = preset);
@@ -464,7 +470,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             SharedPreferences.getInstance().then((prefs) {
               prefs.setString('chat_theme_${widget.userId}', preset);
             });
-            debugPrint('🎨 Wallpaper updated to: $preset');
           }
         }
       }
@@ -499,7 +504,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     super.didChangeDependencies();
     final authService = ref.watch(authServiceProvider);
     if (!authService.isLoggedIn && _currentUserId != null) {
-      debugPrint('User logged out - disposing chat');
     }
   }
 
@@ -530,6 +534,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   void _hidePanels() {
+    FocusScope.of(context).unfocus();
     if (_showMediaPanel) {
       setState(() => _showMediaPanel = false);
       _mediaPanelController.reverse();
@@ -565,9 +570,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Handle replies via API (can't use optimistic for replies yet)
     if (_replyingToMessage != null) {
-      debugPrint('💬 Sending reply to message: ${_replyingToMessage!.id}');
-      debugPrint('   Reply text: $text');
-      debugPrint('   Receiver: ${widget.userId}');
       setState(() => _isSending = true);
       try {
         final messageService = ref.read(messageServiceProvider);
@@ -577,18 +579,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           receiver: widget.userId,
         );
 
-        debugPrint('💬 Reply result: $result');
 
         if (mounted) setState(() => _isSending = false);
 
         if (result['success'] == true && mounted) {
           final replyMessage = result['data'] as Message;
-          debugPrint('💬 Reply message parsed:');
-          debugPrint('   ID: ${replyMessage.id}');
-          debugPrint('   ReplyTo: ${replyMessage.replyTo}');
-          debugPrint('   ReplyTo ID: ${replyMessage.replyTo?.id}');
-          debugPrint('   ReplyTo message: ${replyMessage.replyTo?.message}');
-          debugPrint('   ReplyTo sender: ${replyMessage.replyTo?.sender.name}');
           final state = ref.read(
             chatStateProvider(
               ChatProviderParams(
@@ -598,14 +593,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             ),
           );
 
-          final messages = List<Message>.from(state.messages)
-            ..add(replyMessage);
-          messages.sort(
-            (a, b) => DateTime.parse(
-              a.createdAt,
-            ).compareTo(DateTime.parse(b.createdAt)),
-          );
-          chatNotifier.setMessages(messages);
+          // Dedup: socket may have already added this message before API returned
+          final alreadyExists = state.messages.any((m) => m.id == replyMessage.id);
+          if (!alreadyExists) {
+            final messages = List<Message>.from(state.messages)
+              ..add(replyMessage);
+            messages.sort(
+              (a, b) => DateTime.parse(
+                a.createdAt,
+              ).compareTo(DateTime.parse(b.createdAt)),
+            );
+            chatNotifier.setMessages(messages);
+          } else {
+          }
 
           if (mounted) {
             setState(() => _replyingToMessage = null);
@@ -631,8 +631,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     );
 
     // Scroll to bottom after the optimistic message is rendered
+    // Use double callback to ensure ListView has calculated new extent
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToBottom();
+      if (mounted) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _scrollToBottom(animated: false);
+        });
+      }
     });
 
     // Clear reply state
@@ -693,18 +698,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (!mounted) return;
 
       if (result['status'] == 'success') {
-        debugPrint('✅ Message sent successfully');
         ref
             .read(messageCountProvider.notifier)
             .refreshMessageCount(widget.userId);
         ref.refresh(userLimitsProvider(_currentUserId!));
       } else {
-        debugPrint('❌ Message send failed: ${result['error']}');
         // Show error to user
         _showSendError(result['error'] ?? 'Failed to send', text, messageType);
       }
     } catch (error) {
-      debugPrint('❌ Send error: $error');
       if (ApiErrorHandler.isLimitExceededError(error) && mounted) {
         await ApiErrorHandler.handleLimitExceededError(
           context: context,
@@ -790,12 +792,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           await _recordVideo();
           break;
         case 'document':
-          if (mounted) {
-            final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.documentPickerComingSoon)),
-            );
-          }
+          await _pickDocument();
           break;
         case 'audio':
           await _showVoiceRecorder();
@@ -972,6 +969,57 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   /// Process video through editor before sending
+  Future<void> _pickDocument() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty && result.files.single.path != null && mounted) {
+        final pickedFile = result.files.single;
+        final file = File(pickedFile.path!);
+
+        // Validate file size (max 50MB)
+        final fileSize = pickedFile.size;
+        if (fileSize > 50 * 1024 * 1024) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Document must be under 50MB.'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+          return;
+        }
+
+        // Determine media type from extension
+        final ext = pickedFile.extension?.toLowerCase() ?? '';
+        final imageExts = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic'];
+        final videoExts = ['mp4', 'mov', 'avi', 'mkv', 'webm'];
+
+        String mediaType = 'document';
+        if (imageExts.contains(ext)) {
+          mediaType = 'image';
+        } else if (videoExts.contains(ext)) {
+          mediaType = 'video';
+        }
+
+        await _sendMediaFile(file, mediaType);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to pick file: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _processAndSendVideo(File videoFile) async {
     // Open video editor for trimming and filters
     final editorResult = await Navigator.push<VideoEditorResult>(
@@ -1002,21 +1050,24 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => AlertDialog(
-          backgroundColor: Colors.grey[900],
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CircularProgressIndicator(color: Color(0xFF00BFA5)),
-              const SizedBox(height: 16),
-              const Text(
-                'Compressing video...',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
+        builder: (dialogCtx) {
+          final dialogDark = Theme.of(dialogCtx).brightness == Brightness.dark;
+          return AlertDialog(
+            backgroundColor: dialogDark ? AppColors.gray900 : AppColors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircularProgressIndicator(color: AppColors.primary),
+                const SizedBox(height: 16),
+                Text(
+                  'Compressing video...',
+                  style: TextStyle(color: dialogDark ? AppColors.white : AppColors.gray900),
+                ),
+              ],
+            ),
+          );
+        },
       );
 
       finalVideoFile = await compressionService.compressVideo(editedVideoFile);
@@ -1206,7 +1257,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           placeName = place.name;
         }
       } catch (e) {
-        debugPrint('Error reverse geocoding: $e');
       }
 
       if (mounted) Navigator.of(context).pop();
@@ -1219,13 +1269,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         placeName: placeName,
       );
 
-      debugPrint('📍 Location share result: $result');
 
       // Check mounted after async operation
       if (!mounted) return;
 
       if (result['success'] == true) {
-        debugPrint('📍 Location shared successfully');
         // Don't reload - socket already adds the sent message
         WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
@@ -1624,7 +1672,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final messageText = message.message;
     if (messageText == null || messageText.isEmpty) return;
 
-    debugPrint('🔄 Retrying message: ${message.localId ?? message.id}');
 
     final chatNotifier = ref.read(
       chatStateProvider(
@@ -1646,7 +1693,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   void _handleDeleteFailedMessage(Message message) {
     if (_currentUserId == null || !mounted) return;
 
-    debugPrint('🗑️ Deleting failed message: ${message.localId ?? message.id}');
 
     final chatNotifier = ref.read(
       chatStateProvider(
@@ -1724,21 +1770,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     }
 
     // Mark chat as not visible so messages won't be auto-read
-    if (_currentUserId != null) {
-      try {
-        final chatNotifier = ref.read(
-          chatStateProvider(
-            ChatProviderParams(
-              chatPartnerId: widget.userId,
-              currentUserId: _currentUserId!,
-            ),
-          ).notifier,
-        );
-        chatNotifier.setChatVisible(false);
-      } catch (e) {
-        debugPrint('⚠️ Could not set chat invisible on dispose: $e');
-      }
-    }
+    // Use cached notifier since ref is not usable after dispose
+    _chatStateNotifier?.setChatVisible(false);
 
     _typingTimer?.cancel();
     _themeChangeSubscription?.cancel();
@@ -1768,21 +1801,30 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (previous != null &&
           next.messages.length > previous.messages.length &&
           !next.isLoading) {
-        debugPrint('📩 New message detected - auto-scrolling to bottom');
-        // Use double post-frame callback to ensure list has updated
-        WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Only auto-scroll if user is near the bottom (not reading old messages)
+        final isNearBottom = !_scrollController.hasClients ||
+            (_scrollController.position.maxScrollExtent - _scrollController.offset) < 300;
+        if (isNearBottom) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            _scrollToBottom();
+            if (mounted) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) _scrollToBottom(animated: false);
+              });
+            }
           });
-        });
+        }
       }
     });
 
     final chatState = ref.watch(chatStateProvider(chatParams));
 
-    debugPrint(
-      'Build - Messages: ${chatState.messages.length}, Connected: ${chatState.isSocketConnected}',
-    );
+    // Check the other user's privacy settings to decide whether to show online status
+    final otherUserAsync = ref.watch(singleCommunityProvider(widget.userId));
+    final showOnlineStatus = otherUserAsync.whenOrNull(
+      data: (community) => community != null
+          ? PrivacyUtils.shouldShowOnlineStatus(community)
+          : true,
+    ) ?? true;
 
     return Scaffold(
       appBar: ChatAppBar(
@@ -1792,8 +1834,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         userId: widget.userId,
         isConnected: chatState.isSocketConnected,
         connectionStatus: chatState.connectionStatus,
-        isOnline: chatState.isOtherUserOnline,
-        lastSeen: chatState.otherUserLastSeen,
+        isOnline: showOnlineStatus ? chatState.isOtherUserOnline : null,
+        lastSeen: showOnlineStatus ? chatState.otherUserLastSeen : null,
         onThemeChanged: _loadChatWallpaper,
         isVip: widget.isVip,
       ),
@@ -1826,7 +1868,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     RefreshIndicator(
                       onRefresh: _loadMessages,
                       displacement: 20,
-                      color: const Color(0xFF00BFA5),
+                      color: AppColors.primary,
                       child: ChatMessagesList(
                               isLoading: chatState.isLoading,
                               error: chatState.error,
@@ -1922,14 +1964,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } catch (_) {}
         }
 
-        // Get location string
+        // Get location string (respects privacy settings)
         String? location;
-        if (user?.location.city != null && user!.location.city.isNotEmpty) {
-          location = user.location.country.isNotEmpty
-              ? '${user.location.city}, ${user.location.country}'
-              : user.location.city;
-        } else if (user?.location.country != null && user!.location.country.isNotEmpty) {
-          location = user.location.country;
+        if (user != null) {
+          final locText = PrivacyUtils.getLocationText(user);
+          if (locText.isNotEmpty) {
+            location = locText;
+          }
         }
 
         return GestureDetector(
@@ -1938,11 +1979,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
               color: isDark
-                  ? Colors.grey[900]?.withOpacity(0.9)
-                  : Colors.white.withOpacity(0.95),
+                  ? AppColors.gray900.withValues(alpha: 0.9)
+                  : AppColors.white.withValues(alpha: 0.95),
               border: Border(
                 bottom: BorderSide(
-                  color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+                  color: isDark ? AppColors.gray800 : AppColors.gray200,
                   width: 0.5,
                 ),
               ),
@@ -1956,7 +1997,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0xFF00BFA5).withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       width: 2,
                     ),
                   ),
@@ -1966,13 +2007,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             widget.profilePicture!,
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => Container(
-                              color: const Color(0xFF00BFA5).withOpacity(0.2),
-                              child: const Icon(Icons.person, size: 20, color: Color(0xFF00BFA5)),
+                              color: AppColors.primary.withOpacity(0.2),
+                              child: const Icon(Icons.person, size: 20, color: AppColors.primary),
                             ),
                           )
                         : Container(
-                            color: const Color(0xFF00BFA5).withOpacity(0.2),
-                            child: const Icon(Icons.person, size: 20, color: Color(0xFF00BFA5)),
+                            color: AppColors.primary.withOpacity(0.2),
+                            child: const Icon(Icons.person, size: 20, color: AppColors.primary),
                           ),
                   ),
                 ),
@@ -1991,7 +2032,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
-                              color: isDark ? Colors.white : Colors.black87,
+                              color: isDark ? AppColors.white : AppColors.gray900,
                             ),
                           ),
                           if (age != null) ...[
@@ -1999,7 +2040,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF00BFA5).withOpacity(0.15),
+                                color: AppColors.primary.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
@@ -2007,7 +2048,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                                 style: const TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF00BFA5),
+                                  color: AppColors.primary,
                                 ),
                               ),
                             ),
@@ -2022,7 +2063,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             Icon(
                               Icons.location_on_outlined,
                               size: 12,
-                              color: isDark ? Colors.grey[400] : Colors.grey[600],
+                              color: isDark ? AppColors.gray400 : AppColors.gray600,
                             ),
                             const SizedBox(width: 2),
                             Flexible(
@@ -2030,7 +2071,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                                 location,
                                 style: TextStyle(
                                   fontSize: 11,
-                                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                                  color: isDark ? AppColors.gray400 : AppColors.gray600,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -2044,7 +2085,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                                 '•',
                                 style: TextStyle(
                                   fontSize: 11,
-                                  color: isDark ? Colors.grey[500] : Colors.grey[400],
+                                  color: isDark ? AppColors.gray500 : AppColors.gray400,
                                 ),
                               ),
                             ),
@@ -2053,7 +2094,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                               user!.native_language,
                               style: TextStyle(
                                 fontSize: 11,
-                                color: Colors.green[600],
+                                color: AppColors.success,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -2063,7 +2104,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                               child: Icon(
                                 Icons.arrow_forward,
                                 size: 10,
-                                color: isDark ? Colors.grey[500] : Colors.grey[400],
+                                color: isDark ? AppColors.gray500 : AppColors.gray400,
                               ),
                             ),
                           if (user?.language_to_learn != null)
@@ -2071,7 +2112,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                               user!.language_to_learn,
                               style: TextStyle(
                                 fontSize: 11,
-                                color: Colors.blue[600],
+                                color: AppColors.info,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -2084,7 +2125,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 Icon(
                   Icons.chevron_right,
                   size: 20,
-                  color: isDark ? Colors.grey[500] : Colors.grey[400],
+                  color: isDark ? AppColors.gray500 : AppColors.gray400,
                 ),
               ],
             ),
@@ -2094,10 +2135,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       loading: () => Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isDark ? Colors.grey[900]?.withOpacity(0.9) : Colors.white.withOpacity(0.95),
+          color: isDark ? AppColors.gray900.withValues(alpha: 0.9) : AppColors.white.withValues(alpha: 0.95),
           border: Border(
             bottom: BorderSide(
-              color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+              color: isDark ? AppColors.gray800 : AppColors.gray200,
               width: 0.5,
             ),
           ),
@@ -2109,16 +2150,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
               height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey[300],
+                color: isDark ? AppColors.gray700 : AppColors.gray300,
               ),
             ),
             const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(width: 100, height: 14, color: Colors.grey[300]),
+                Container(width: 100, height: 14, color: isDark ? AppColors.gray700 : AppColors.gray300),
                 const SizedBox(height: 4),
-                Container(width: 150, height: 10, color: Colors.grey[200]),
+                Container(width: 150, height: 10, color: isDark ? AppColors.gray700 : AppColors.gray200),
               ],
             ),
           ],
@@ -2148,10 +2189,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     return communityAsync.when(
       data: (user) {
         // Debug: Print user data
-        debugPrint('🔍 User info header data:');
-        debugPrint('   Name: ${user?.name}');
-        debugPrint('   Bio: "${user?.bio}" (isEmpty: ${user?.bio.isEmpty})');
-        debugPrint('   Topics: ${user?.topics} (length: ${user?.topics.length})');
 
         // Calculate age from birth_year
         int? age;
@@ -2162,14 +2199,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } catch (_) {}
         }
 
-        // Get location string
+        // Get location string (respects privacy settings)
         String? location;
-        if (user?.location.city != null && user!.location.city.isNotEmpty) {
-          location = user.location.country.isNotEmpty
-              ? '${user.location.city}, ${user.location.country}'
-              : user.location.city;
-        } else if (user?.location.country != null && user!.location.country.isNotEmpty) {
-          location = user.location.country;
+        if (user != null) {
+          final locText = PrivacyUtils.getLocationText(user);
+          if (locText.isNotEmpty) {
+            location = locText;
+          }
         }
 
         return Padding(
@@ -2186,12 +2222,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0xFF00BFA5).withValues(alpha: 0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       width: 3,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                        color: AppColors.primary.withValues(alpha: 0.2),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),
@@ -2203,13 +2239,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             widget.profilePicture!,
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => Container(
-                              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
-                              child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                              color: AppColors.primary.withValues(alpha: 0.2),
+                              child: const Icon(Icons.person, size: 50, color: AppColors.primary),
                             ),
                           )
                         : Container(
-                            color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
-                            child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                            color: AppColors.primary.withValues(alpha: 0.2),
+                            child: const Icon(Icons.person, size: 50, color: AppColors.primary),
                           ),
                   ),
                 ),
@@ -2225,7 +2261,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.black87,
+                      color: isDark ? AppColors.white : AppColors.gray900,
                     ),
                   ),
                   if (age != null) ...[
@@ -2233,7 +2269,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00BFA5).withValues(alpha: 0.15),
+                        color: AppColors.primary.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -2241,7 +2277,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF00BFA5),
+                          color: AppColors.primary,
                         ),
                       ),
                     ),
@@ -2258,14 +2294,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     Icon(
                       Icons.location_on_outlined,
                       size: 14,
-                      color: Colors.grey[600],
+                      color: isDark ? AppColors.gray400 : AppColors.gray600,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       location,
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey[600],
+                        color: isDark ? AppColors.gray400 : AppColors.gray600,
                       ),
                     ),
                   ],
@@ -2280,8 +2316,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: isDark
-                        ? Colors.white.withValues(alpha: 0.05)
-                        : Colors.grey.withValues(alpha: 0.08),
+                        ? AppColors.white.withValues(alpha: 0.05)
+                        : AppColors.gray500.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -2291,7 +2327,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 13,
-                      color: Colors.grey[600],
+                      color: isDark ? AppColors.gray400 : AppColors.gray600,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -2309,17 +2345,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
-                          color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Text(
                         topic,
                         style: const TextStyle(
                           fontSize: 11,
-                          color: Color(0xFF00BFA5),
+                          color: AppColors.primary,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -2332,7 +2368,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
               // Divider
               Divider(
-                color: Colors.grey.withValues(alpha: 0.2),
+                color: isDark ? AppColors.gray700 : AppColors.gray300,
                 height: 1,
               ),
             ],
@@ -2352,10 +2388,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     return communityAsync.when(
       data: (user) {
         // Debug: Print user data
-        debugPrint('🔍 Empty chat user data:');
-        debugPrint('   Name: ${user?.name}');
-        debugPrint('   Bio: "${user?.bio}" (isEmpty: ${user?.bio.isEmpty})');
-        debugPrint('   Topics: ${user?.topics} (length: ${user?.topics.length})');
 
         // Calculate age from birth_year
         int? age;
@@ -2366,14 +2398,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } catch (_) {}
         }
 
-        // Get location string
+        // Get location string (respects privacy settings)
         String? location;
-        if (user?.location.city != null && user!.location.city.isNotEmpty) {
-          location = user.location.country.isNotEmpty
-              ? '${user.location.city}, ${user.location.country}'
-              : user.location.city;
-        } else if (user?.location.country != null && user!.location.country.isNotEmpty) {
-          location = user.location.country;
+        if (user != null) {
+          final locText = PrivacyUtils.getLocationText(user);
+          if (locText.isNotEmpty) {
+            location = locText;
+          }
         }
 
         return ListView(
@@ -2393,12 +2424,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: const Color(0xFF00BFA5).withValues(alpha: 0.3),
+                        color: AppColors.primary.withValues(alpha: 0.3),
                         width: 3,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                           blurRadius: 16,
                           offset: const Offset(0, 6),
                         ),
@@ -2410,13 +2441,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                               widget.profilePicture!,
                               fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Container(
-                                color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
-                                child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                                color: AppColors.primary.withValues(alpha: 0.2),
+                                child: const Icon(Icons.person, size: 50, color: AppColors.primary),
                               ),
                             )
                           : Container(
-                              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
-                              child: const Icon(Icons.person, size: 50, color: Color(0xFF00BFA5)),
+                              color: AppColors.primary.withValues(alpha: 0.2),
+                              child: const Icon(Icons.person, size: 50, color: AppColors.primary),
                             ),
                     ),
                   ),
@@ -2431,7 +2462,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.white : Colors.black87,
+                          color: isDark ? AppColors.white : AppColors.gray900,
                         ),
                       ),
                       if (age != null) ...[
@@ -2439,7 +2470,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5).withValues(alpha: 0.15),
+                            color: AppColors.primary.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
@@ -2447,7 +2478,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF00BFA5),
+                              color: AppColors.primary,
                             ),
                           ),
                         ),
@@ -2464,14 +2495,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         Icon(
                           Icons.location_on_outlined,
                           size: 14,
-                          color: Colors.grey[600],
+                          color: isDark ? AppColors.gray400 : AppColors.gray600,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           location,
                           style: TextStyle(
                             fontSize: 13,
-                            color: Colors.grey[600],
+                            color: isDark ? AppColors.gray400 : AppColors.gray600,
                           ),
                         ),
                       ],
@@ -2486,8 +2517,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: isDark
-                            ? Colors.white.withValues(alpha: 0.05)
-                            : Colors.grey.withValues(alpha: 0.1),
+                            ? AppColors.white.withValues(alpha: 0.05)
+                            : AppColors.gray500.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -2497,7 +2528,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey[600],
+                          color: isDark ? AppColors.gray400 : AppColors.gray600,
                           fontStyle: FontStyle.italic,
                         ),
                       ),
@@ -2515,17 +2546,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
+                              color: AppColors.primary.withValues(alpha: 0.2),
                             ),
                           ),
                           child: Text(
                             topic,
                             style: const TextStyle(
                               fontSize: 12,
-                              color: Color(0xFF00BFA5),
+                              color: AppColors.primary,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -2611,7 +2642,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey[600],
+                    color: isDark ? AppColors.gray400 : AppColors.gray600,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -2670,6 +2701,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   /// Build scroll to bottom floating button
   Widget _buildScrollToBottomButton() {
+    final isDarkBtn = Theme.of(context).brightness == Brightness.dark;
     return Material(
       elevation: 4,
       shadowColor: Colors.black26,
@@ -2684,7 +2716,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             shape: BoxShape.circle,
             color: Theme.of(context).colorScheme.surface,
             border: Border.all(
-              color: Colors.grey.withValues(alpha: 0.2),
+              color: isDarkBtn ? AppColors.gray700 : AppColors.gray300,
             ),
           ),
           child: Icon(
@@ -2699,7 +2731,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   BoxDecoration _getWallpaperDecoration() {
     if (_chatWallpaper == null) {
-      return BoxDecoration(color: Colors.grey[100]);
+      final isDark = Theme.of(context).brightness == Brightness.dark;
+      return BoxDecoration(color: isDark ? AppColors.backgroundDark : AppColors.gray100);
     }
 
     if (_chatWallpaper!.startsWith('gradient_')) {
@@ -2740,8 +2773,27 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Color _getColor(String colorName) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 'default' and 'light' adapt to the current theme
+    if (colorName == 'default' || colorName == 'light') {
+      return isDark ? AppColors.backgroundDark : const Color(0xFFF5F5F5);
+    }
+
+    // Light colors get dark variants in dark mode
+    if (isDark) {
+      const darkOverrides = {
+        'blush': Color(0xFF5C1A3A),
+        'peach': Color(0xFF4A3728),
+        'cream': Color(0xFF2D2D2D),
+        'pink': Color(0xFF5C1A3A),
+      };
+      if (darkOverrides.containsKey(colorName)) {
+        return darkOverrides[colorName]!;
+      }
+    }
+
     const colors = {
-      'default': Color(0xFFF5F5F5),
       'dark': Color(0xFF0D0D0D),
       'midnight': Color(0xFF1A1A2E),
       'charcoal': Color(0xFF2D2D2D),
@@ -2757,8 +2809,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       'peach': Color(0xFFE6A67C),
       'cream': Color(0xFFF5E6D3),
       'mocha': Color(0xFF4A3728),
+      // New dark-mode colors
+      'slate': Color(0xFF1E293B),
+      'ember': Color(0xFF3B1A1A),
+      'deep_sea': Color(0xFF0B2545),
       // Legacy colors for backwards compatibility
-      'light': Color(0xFFFFFFFF),
       'blue': Color(0xFF1E3A5F),
       'pink': Color(0xFFE8B4BC),
       'green': Color(0xFF2D5A27),
@@ -2766,7 +2821,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       'sunset': Color(0xFFFF6B6B),
     };
 
-    return colors[colorName] ?? Colors.grey[100]!;
+    return colors[colorName] ?? (isDark ? AppColors.backgroundDark : AppColors.gray100);
   }
 }
 
@@ -2801,12 +2856,12 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
     final isDark = theme.brightness == Brightness.dark;
 
     return AlertDialog(
-      backgroundColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+      backgroundColor: isDark ? AppColors.cardDark : AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: Text(
         'Edit Message',
         style: TextStyle(
-          color: isDark ? Colors.white : Colors.black87,
+          color: isDark ? AppColors.white : AppColors.gray900,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -2816,24 +2871,24 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
         maxLines: 5,
         minLines: 1,
         maxLength: 2000,
-        style: TextStyle(color: isDark ? Colors.white : Colors.black87),
+        style: TextStyle(color: isDark ? AppColors.white : AppColors.gray900),
         decoration: InputDecoration(
           hintText: 'Enter message...',
-          hintStyle: TextStyle(color: isDark ? Colors.grey[500] : Colors.grey[600]),
+          hintStyle: TextStyle(color: isDark ? AppColors.gray500 : AppColors.gray600),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+            borderSide: BorderSide(color: isDark ? AppColors.gray700 : AppColors.gray300),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+            borderSide: BorderSide(color: isDark ? AppColors.gray700 : AppColors.gray300),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: theme.primaryColor, width: 2),
           ),
           filled: true,
-          fillColor: isDark ? Colors.grey[800] : Colors.grey[100],
+          fillColor: isDark ? AppColors.gray800 : AppColors.gray100,
         ),
       ),
       actions: [
@@ -2841,7 +2896,7 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
           onPressed: () => Navigator.pop(context),
           child: Text(
             'Cancel',
-            style: TextStyle(color: isDark ? Colors.grey[400] : Colors.grey[600]),
+            style: TextStyle(color: isDark ? AppColors.gray400 : AppColors.gray600),
           ),
         ),
         ElevatedButton(
@@ -2855,7 +2910,7 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
             backgroundColor: theme.primaryColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
-          child: const Text('Save', style: TextStyle(color: Colors.white)),
+          child: const Text('Save', style: TextStyle(color: AppColors.white)),
         ),
       ],
     );

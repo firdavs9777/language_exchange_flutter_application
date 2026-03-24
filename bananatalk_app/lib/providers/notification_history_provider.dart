@@ -61,7 +61,6 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
         error: null,
       );
 
-      debugPrint('📥 Fetching notification history (page 1)...');
       
       final notifications = await _apiClient.getHistory(
         page: 1,
@@ -79,9 +78,7 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
       final unreadCount = notifications.where((n) => !n.read).length;
       _ref.read(badgeCountProvider.notifier).setNotificationCount(unreadCount);
 
-      debugPrint('✅ Loaded ${notifications.length} notifications ($unreadCount unread)');
     } catch (e) {
-      debugPrint('❌ Error fetching notification history: $e');
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
@@ -97,7 +94,6 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
       state = state.copyWith(isLoading: true);
 
       final nextPage = state.currentPage + 1;
-      debugPrint('📥 Loading more notifications (page $nextPage)...');
 
       final newNotifications = await _apiClient.getHistory(
         page: nextPage,
@@ -111,9 +107,7 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
         currentPage: nextPage,
       );
 
-      debugPrint('✅ Loaded ${newNotifications.length} more notifications');
     } catch (e) {
-      debugPrint('❌ Error loading more notifications: $e');
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
@@ -124,7 +118,6 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
   /// Mark a notification as read
   Future<void> markAsRead(String notificationId) async {
     try {
-      debugPrint('✅ Marking notification as read: $notificationId');
 
       // Check if notification was already read
       final notification = state.notifications.firstWhere(
@@ -152,14 +145,12 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
       final result = await _apiClient.markAsRead(notificationId);
 
       if (result['success'] != true) {
-        debugPrint('❌ Failed to mark as read on backend');
         // Revert on failure
         await fetchHistory();
         // Refresh badge count from backend
         _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
       }
     } catch (e) {
-      debugPrint('❌ Error marking notification as read: $e');
       await fetchHistory();
       _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
@@ -168,7 +159,6 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
   /// Mark all notifications as read
   Future<void> markAllAsRead() async {
     try {
-      debugPrint('✅ Marking all notifications as read...');
 
       // Optimistically update UI
       final updatedNotifications = state.notifications.map((notif) {
@@ -184,15 +174,12 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
       final result = await _apiClient.markAllAsRead();
 
       if (result['success'] == true) {
-        debugPrint('✅ All notifications marked as read');
       } else {
-        debugPrint('❌ Failed to mark all as read on backend');
         // Revert on failure
         await fetchHistory();
         _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
       }
     } catch (e) {
-      debugPrint('❌ Error marking all as read: $e');
       await fetchHistory();
       _ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
@@ -201,7 +188,6 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
   /// Clear all notifications
   Future<void> clearAll() async {
     try {
-      debugPrint('🗑️ Clearing all notifications...');
 
       final result = await _apiClient.clearAll();
 
@@ -213,12 +199,9 @@ class NotificationHistoryNotifier extends StateNotifier<NotificationHistoryState
         );
         // Reset notifications badge since all cleared
         _ref.read(badgeCountProvider.notifier).resetBadge('notifications');
-        debugPrint('✅ All notifications cleared');
       } else {
-        debugPrint('❌ Failed to clear notifications');
       }
     } catch (e) {
-      debugPrint('❌ Error clearing notifications: $e');
     }
   }
 

@@ -16,6 +16,7 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/moments_service.dart' as api;
 
 class SingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -30,13 +31,16 @@ class SingleMoment extends ConsumerStatefulWidget {
 }
 
 class _SingleMomentState extends ConsumerState<SingleMoment> {
-  late bool isLiked;
-  late int likeCount;
-  late int commentCount;
+  bool isLiked = false;
+  int likeCount = 0;
+  int commentCount = 0;
   bool isSaved = false;
+  bool _likePending = false;
   TextEditingController commentController = TextEditingController();
   bool showCommentField = false;
   final FocusNode commentFocusNode = FocusNode();
+  String? _replyToCommentId;
+  String? _replyToUserName;
 
   final Map<String, String> _languageFlags = {
     'en': '🇺🇸',
@@ -95,18 +99,20 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     return _languageFlags[langLower] ?? '🌍';
   }
 
-  String _getRelativeTime(DateTime dateTime) {
-    final now = DateTime.now();
-    final difference = now.difference(dateTime);
+  String _getRelativeTime(BuildContext context, DateTime dateTime) {
+    final l10n = AppLocalizations.of(context)!;
+    final difference = DateTime.now().difference(dateTime);
 
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} minutes ago';
+    if (difference.inMinutes < 1) {
+      return l10n.justNow;
+    } else if (difference.inMinutes < 60) {
+      return l10n.minutesAgo('${difference.inMinutes}');
     } else if (difference.inHours < 24) {
-      return '${difference.inHours} hours ago';
+      return l10n.hoursAgo('${difference.inHours}');
     } else if (difference.inDays < 7) {
-      return '${difference.inDays} days ago';
+      return l10n.daysAgo(difference.inDays);
     } else {
-      return '${(difference.inDays / 7).floor()} weeks ago';
+      return l10n.weeksAgo((difference.inDays / 7).floor());
     }
   }
 
@@ -115,53 +121,54 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     super.initState();
     likeCount = widget.moment.likeCount;
     commentCount = widget.moment.commentCount;
-    isLiked =
-        widget.moment.likedUsers?.contains(widget.moment.user.id) ?? false;
-    _loadSavedStatus();
+    _initLikeAndSaveStatus();
   }
 
-  Future<void> _loadSavedStatus() async {
+  Future<void> _initLikeAndSaveStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedMoments = prefs.getStringList('savedMoments') ?? [];
-    if (mounted) {
+    final currentUserId = prefs.getString('userId');
+    if (mounted && currentUserId != null) {
       setState(() {
-        isSaved = savedMoments.contains(widget.moment.id);
+        isLiked = widget.moment.likedUsers?.contains(currentUserId) ?? false;
+        isSaved = widget.moment.savedBy.contains(currentUserId);
       });
     }
   }
 
   Future<void> _toggleSave() async {
-    // Haptic feedback for save action
     HapticFeedback.mediumImpact();
 
-    final prefs = await SharedPreferences.getInstance();
-    final savedMoments = prefs.getStringList('savedMoments') ?? [];
+    final previousSaved = isSaved;
+    setState(() => isSaved = !isSaved);
 
-    setState(() {
-      if (isSaved) {
-        savedMoments.remove(widget.moment.id);
-        isSaved = false;
-      } else {
-        savedMoments.add(widget.moment.id);
-        isSaved = true;
+    final result = await api.MomentsService.toggleSave(
+      momentId: widget.moment.id,
+      currentlySaved: previousSaved,
+    );
+
+    if (result['success'] == true) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(isSaved ? AppLocalizations.of(context)!.momentSaved : AppLocalizations.of(context)!.momentUnsaved),
+            duration: const Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: const Color(0xFF00BFA5),
+          ),
+        );
       }
-    });
-
-    await prefs.setStringList('savedMoments', savedMoments);
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(isSaved ? '✓ Saved' : 'Removed from saved'),
-          duration: const Duration(seconds: 1),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: const Color(0xFF00BFA5),
-        ),
-      );
+    } else {
+      if (mounted) {
+        setState(() => isSaved = previousSaved);
+      }
     }
   }
 
   void incrementLike() async {
+    // Prevent rapid double-taps
+    if (_likePending) return;
+    _likePending = true;
+
     // Haptic feedback for like action
     HapticFeedback.lightImpact();
 
@@ -181,11 +188,11 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       Map<String, dynamic> result;
       if (previousLiked) {
         result = await ref
-            .watch(momentsServiceProvider)
+            .read(momentsServiceProvider)
             .dislikeMoment(widget.moment.id);
       } else {
         result = await ref
-            .watch(momentsServiceProvider)
+            .read(momentsServiceProvider)
             .likeMoment(widget.moment.id);
       }
 
@@ -209,6 +216,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
           ),
         );
       }
+    } finally {
+      _likePending = false;
     }
   }
 
@@ -228,7 +237,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   }
 
   void _shareMoment() {
-    final momentText = 'Check out this moment: ${widget.moment.title}';
+    final l10n = AppLocalizations.of(context)!;
+    final momentText = l10n.checkOutMoment(widget.moment.title);
     final momentUrl = 'https://banatalk.com/moment/${widget.moment.id}';
     Share.share('$momentText\n\n$momentUrl');
   }
@@ -263,7 +273,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   isSaved ? Icons.bookmark : Icons.bookmark_outline,
                   color: const Color(0xFF00BFA5),
                 ),
-                title: Text(isSaved ? 'Remove from Saved' : 'Save Moment'),
+                title: Text(isSaved ? AppLocalizations.of(context)!.removeFromSaved : AppLocalizations.of(context)!.saveMoment),
                 onTap: () {
                   Navigator.pop(context);
                   _toggleSave();
@@ -407,7 +417,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       if (community == null) {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('User not found')),
+                            SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)),
                           );
                         }
                         return;
@@ -510,7 +520,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             ),
                           ),
                           Text(
-                            _getRelativeTime(widget.moment.createdAt),
+                            _getRelativeTime(context, widget.moment.createdAt),
                             style: context.captionSmall.copyWith(color: context.textMuted),
                           ),
                         ],
@@ -611,7 +621,16 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       style: context.titleSmall,
                     ),
                   ),
-                  CommentsMain(id: widget.moment.id),
+                  CommentsMain(
+                    id: widget.moment.id,
+                    onReply: (commentId, userName) {
+                      setState(() {
+                        _replyToCommentId = commentId;
+                        _replyToUserName = userName;
+                      });
+                      commentFocusNode.requestFocus();
+                    },
+                  ),
                   const SizedBox(height: 80),
                 ],
               ),
@@ -621,6 +640,14 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
             focusNode: commentFocusNode,
             id: widget.moment.id,
             onCommentAdded: updateCommentCount,
+            parentCommentId: _replyToCommentId,
+            replyToUserName: _replyToUserName,
+            onCancelReply: () {
+              setState(() {
+                _replyToCommentId = null;
+                _replyToUserName = null;
+              });
+            },
           ),
         ],
       ),

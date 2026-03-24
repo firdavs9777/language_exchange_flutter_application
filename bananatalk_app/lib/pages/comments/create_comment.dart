@@ -15,13 +15,19 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 class CreateComment extends ConsumerStatefulWidget {
   final FocusNode focusNode;
   final String id;
-  final VoidCallback onCommentAdded; // Callback when a comment is added
+  final VoidCallback onCommentAdded;
+  final String? parentCommentId;
+  final String? replyToUserName;
+  final VoidCallback? onCancelReply;
 
   const CreateComment({
     super.key,
     required this.id,
     required this.focusNode,
-    required this.onCommentAdded, // Pass the callback here
+    required this.onCommentAdded,
+    this.parentCommentId,
+    this.replyToUserName,
+    this.onCancelReply,
   });
 
   @override
@@ -57,15 +63,18 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       }
     } catch (e) {
       // If limit check fails, allow submitting (fail open)
-      debugPrint('Error checking limits: $e');
     }
 
     try {
-      // Create the comment
+      // Create the comment (or reply)
       await ref.read(commentsServiceProvider).createComment(
         title: commentText,
         id: widget.id,
+        parentCommentId: widget.parentCommentId,
       );
+
+      // Clear reply state after successful submission
+      widget.onCancelReply?.call();
 
       // Clear the text field after successful submission
       commentController.clear();
@@ -84,7 +93,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           ref.refresh(userLimitsProvider(userId));
         }
       } catch (e) {
-        debugPrint('Error refreshing limits: $e');
       }
 
       // Call the callback to update comment count in parent
@@ -111,7 +119,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
             userId: userId,
           );
         } catch (err) {
-          debugPrint('Error handling limit error: $err');
         }
       } else {
         // Show error message
@@ -129,12 +136,49 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Reply indicator
+        if (widget.parentCommentId != null && widget.replyToUserName != null)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 8),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest,
+              border: Border(
+                top: BorderSide(color: colorScheme.outlineVariant),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.reply, size: 16, color: AppColors.primary),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.replyingTo(widget.replyToUserName ?? ''),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: widget.onCancelReply,
+                  child: Icon(Icons.close, size: 18, color: colorScheme.onSurfaceVariant),
+                ),
+              ],
+            ),
+          ),
+        Container(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.lg),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest,
         border: Border(
-          top: BorderSide(color: colorScheme.outlineVariant),
+          top: widget.parentCommentId == null
+              ? BorderSide(color: colorScheme.outlineVariant)
+              : BorderSide.none,
         ),
       ),
       child: Row(
@@ -159,7 +203,9 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                   controller: commentController,
                   style: context.bodyMedium,
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.writeAComment,
+                    hintText: widget.parentCommentId != null
+                        ? '${AppLocalizations.of(context)!.reply}...'
+                        : AppLocalizations.of(context)!.writeAComment,
                     hintStyle: context.bodyMedium.copyWith(color: context.textHint),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
@@ -189,6 +235,8 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           ),
         ],
       ),
+    ),
+      ],
     );
   }
 }

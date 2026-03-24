@@ -45,13 +45,11 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
     final totalUnread = state.totalUnread;
     _ref.read(badgeCountProvider.notifier).updateMessageCount(totalUnread);
     
-    debugPrint('📊 Updated unread count for $userId: $count (Total: $totalUnread)');
   }
 
   void incrementUnread(String userId) {
     // Don't increment if user is currently viewing this chat (KakaoTalk-style instant read)
     if (state.isInChat(userId)) {
-      debugPrint('📊 Skipping increment for $userId - user is currently in this chat');
       return;
     }
     final currentCount = state.unreadCounts[userId] ?? 0;
@@ -65,19 +63,16 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
   /// Set the active chat when user enters a chat screen
   void setActiveChat(String userId) {
     state = state.copyWith(activeChatUserId: userId);
-    debugPrint('📊 Set active chat: $userId');
   }
 
   /// Clear the active chat when user leaves a chat screen
   void clearActiveChat() {
     state = state.copyWith(clearActiveChat: true);
-    debugPrint('📊 Cleared active chat');
   }
 
   void reset() {
     state = ChatPartnersState();
     _ref.read(badgeCountProvider.notifier).updateMessageCount(0);
-    debugPrint('📊 Chat partners state reset');
   }
 }
 

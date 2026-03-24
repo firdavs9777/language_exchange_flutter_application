@@ -126,7 +126,6 @@ class VideoEditorService {
         );
       }
     } catch (e) {
-      debugPrint('Error trimming video: $e');
       return VideoEditResult(
         success: false,
         error: 'Error trimming video: $e',

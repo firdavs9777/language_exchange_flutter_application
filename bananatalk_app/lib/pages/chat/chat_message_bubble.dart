@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/media_message_widget.dart';
-import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/message_reaction_widget.dart';
 import 'package:bananatalk_app/widgets/video_player_screen.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
@@ -14,8 +13,11 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/pages/chat/message_actions_bottom_sheet.dart';
 import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
+import 'package:bananatalk_app/widgets/linkified_text.dart';
+import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
+import 'package:bananatalk_app/widgets/correction_bottom_sheet.dart';
+import 'package:bananatalk_app/services/correction_service.dart';
 import 'user_avatar.dart';
 
 class ChatMessageBubble extends ConsumerStatefulWidget {
@@ -66,6 +68,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     with SingleTickerProviderStateMixin {
   OverlayEntry? _reactionPickerOverlay;
   String? _currentUserId;
+  final GlobalKey _bubbleKey = GlobalKey();
 
   // Swipe-to-reply state
   double _swipeOffset = 0;
@@ -168,6 +171,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               }
             }
           : () => _showContextMenu(context),
+      onDoubleTap: widget.isSelectionMode
+          ? null
+          : () => _showContextMenu(context),
       onTap: widget.isSelectionMode
           ? () {
               if (widget.onSelectionChanged != null) {
@@ -175,10 +181,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               }
             }
           : () {
-              // Single tap - show emoji picker (Telegram style)
-              if (!hasMedia) {
-                _showReactionPicker(context);
-              }
+              // Single tap - show reaction picker
+              _showReactionPicker(context);
             },
       child: Stack(
         clipBehavior: Clip.none,
@@ -206,7 +210,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       child: Icon(
                         Icons.reply_rounded,
                         color: swipeProgress >= _swipeThreshold
-                            ? Colors.white
+                            ? AppColors.white
                             : AppColors.primary,
                         size: 20,
                       ),
@@ -231,132 +235,148 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       borderRadius: AppRadius.borderSM,
                     )
                   : null,
-              child: Row(
-          mainAxisAlignment:
-              widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
+              child: Column(
+          crossAxisAlignment: widget.isMe
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.start,
           children: [
-            // Selection checkbox
-            if (widget.isSelectionMode) ...[
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Checkbox(
-                  value: widget.isSelected,
-                  onChanged: (value) {
-                    if (widget.onSelectionChanged != null) {
-                      widget.onSelectionChanged!(widget.message, value ?? false);
-                    }
-                  },
-                ),
-              ),
-            ],
-
-            // Avatar for other user (left side)
-            if (!widget.isMe && !widget.isSelectionMode) ...[
-              UserAvatar(
-                profilePicture: widget.otherUserPicture,
-                userName: widget.otherUserName,
-                radius: 18,
-              ),
-              Spacing.hGapSM,
-            ],
-
-            // Timestamp and sending status (left of my messages)
-            if (widget.isMe && !widget.isSelectionMode)
-              Padding(
-                padding: const EdgeInsets.only(right: 4, bottom: 2),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    // Sending status indicator
-                    _buildSendingStatus(),
-                    // Unread "1" badge removed per user request - keeping tick marks only
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          formatMessageTime(widget.message.createdAt),
-                          style: context.captionSmall.copyWith(
-                            color: widget.message.isFailed ? _failedColor(context) : _timestampColor(context),
-                          ),
-                        ),
-                        // Checkmarks for sent status
-                        if (widget.message.sendingStatus == MessageSendingStatus.none) ...[
-                          Spacing.hGapXXS,
-                          Icon(
-                            widget.message.read ? Icons.done_all : Icons.done,
-                            size: 14,
-                            color: widget.message.read ? _myMessageColor(context) : _timestampColor(context),
-                          ),
-                        ],
-                      ],
+            Row(
+              mainAxisAlignment:
+                  widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // Selection checkbox
+                if (widget.isSelectionMode) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Checkbox(
+                      value: widget.isSelected,
+                      onChanged: (value) {
+                        if (widget.onSelectionChanged != null) {
+                          widget.onSelectionChanged!(widget.message, value ?? false);
+                        }
+                      },
                     ),
-                  ],
-                ),
-              ),
-
-            // Message bubble
-            Flexible(
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
-                ),
-                child: Column(
-                  crossAxisAlignment: widget.isMe
-                      ? CrossAxisAlignment.end
-                      : CrossAxisAlignment.start,
-                  children: [
-                    // Forwarded indicator
-                    if (widget.message.isForwarded)
-                      ForwardedMessageIndicator(
-                        forwardedFrom: widget.message.forwardedFrom,
-                        isMe: widget.isMe,
-                      ),
-                    // Message content with pin indicator
-                    Stack(
-                      children: [
-                        hasMedia
-                            ? _buildMediaMessage(context, hasText)
-                            : _buildTextMessage(context, hasText),
-                        // Pin indicator
-                        if (widget.message.isPinned)
-                          Positioned(
-                            top: 4,
-                            right: widget.isMe ? 4 : null,
-                            left: widget.isMe ? null : 4,
-                            child: Icon(
-                              Icons.push_pin_rounded,
-                              size: 14,
-                              color: AppColors.primary.withOpacity(0.7),
-                            ),
-                          ),
-                      ],
-                    ),
-                    // Reactions below message
-                    if (widget.message.reactions.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: MessageReactionWidget(
-                          reactions: widget.message.reactions,
-                          currentUserId: _currentUserId,
-                          onReactionTap: (emoji) => _handleReactionTap(emoji),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Timestamp (right of other user's messages)
-            if (!widget.isMe && !widget.isSelectionMode)
-              Padding(
-                padding: const EdgeInsets.only(left: 4, bottom: 2),
-                child: Text(
-                  formatMessageTime(widget.message.createdAt),
-                  style: context.captionSmall.copyWith(
-                    color: _timestampColor(context),
                   ),
+                ],
+
+                // Avatar for other user (left side)
+                if (!widget.isMe && !widget.isSelectionMode) ...[
+                  UserAvatar(
+                    profilePicture: widget.otherUserPicture,
+                    userName: widget.otherUserName,
+                    radius: 18,
+                  ),
+                  Spacing.hGapSM,
+                ],
+
+                // Timestamp and sending status (left of my messages)
+                if (widget.isMe && !widget.isSelectionMode)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4, bottom: 2),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        // Sending status indicator
+                        _buildSendingStatus(),
+                        // Unread "1" badge removed per user request - keeping tick marks only
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              formatMessageTime(widget.message.createdAt),
+                              style: context.captionSmall.copyWith(
+                                color: widget.message.isFailed ? _failedColor(context) : _timestampColor(context),
+                              ),
+                            ),
+                            // Checkmarks for sent status
+                            if (widget.message.sendingStatus == MessageSendingStatus.none) ...[
+                              Spacing.hGapXXS,
+                              Icon(
+                                widget.message.read ? Icons.done_all : Icons.done,
+                                size: 14,
+                                color: widget.message.read ? _myMessageColor(context) : _timestampColor(context),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                // Message bubble
+                Flexible(
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.7,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: widget.isMe
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
+                      children: [
+                        // Forwarded indicator
+                        if (widget.message.isForwarded)
+                          ForwardedMessageIndicator(
+                            forwardedFrom: widget.message.forwardedFrom,
+                            isMe: widget.isMe,
+                          ),
+                        // Message content with pin indicator
+                        Stack(
+                          key: _bubbleKey,
+                          children: [
+                            hasMedia
+                                ? _buildMediaMessage(context, hasText)
+                                : _buildTextMessage(context, hasText),
+                            // Pin indicator
+                            if (widget.message.isPinned)
+                              Positioned(
+                                top: 4,
+                                right: widget.isMe ? 4 : null,
+                                left: widget.isMe ? null : 4,
+                                child: Icon(
+                                  Icons.push_pin_rounded,
+                                  size: 14,
+                                  color: AppColors.primary.withOpacity(0.7),
+                                ),
+                              ),
+                          ],
+                        ),
+                        // Correction display (Tandem-style)
+                        if (widget.message.corrections.isNotEmpty)
+                          _buildCorrectionDisplay(context),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Timestamp (right of other user's messages)
+                if (!widget.isMe && !widget.isSelectionMode)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4, bottom: 2),
+                    child: Text(
+                      formatMessageTime(widget.message.createdAt),
+                      style: context.captionSmall.copyWith(
+                        color: _timestampColor(context),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            // Reactions below the message row — outside the avatar Row
+            // so they don't push the avatar down
+            if (widget.message.reactions.isNotEmpty)
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 2,
+                  // Indent reactions to align under the message bubble (past avatar)
+                  left: !widget.isMe && !widget.isSelectionMode ? 44 : 0,
+                ),
+                child: MessageReactionWidget(
+                  reactions: widget.message.reactions,
+                  currentUserId: _currentUserId,
+                  onReactionTap: (emoji) => _handleReactionTap(emoji),
                 ),
               ),
           ],
@@ -446,7 +466,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+      backgroundColor: isDark ? AppColors.cardDark : AppColors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -525,43 +545,66 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   void _showReactionPicker(BuildContext context) {
     _hideReactionPicker();
-    
-    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+    HapticFeedback.lightImpact();
+
+    // Use the bubble key for accurate position
+    final RenderBox? renderBox = _bubbleKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
-    
+
     final position = renderBox.localToGlobal(Offset.zero);
     final size = renderBox.size;
-    
+    final screenWidth = MediaQuery.of(context).size.width;
+
     // Show reaction picker above the message
     final overlay = Overlay.of(context);
-    final screenHeight = MediaQuery.of(context).size.height;
-    final pickerHeight = 60.0;
+    const pickerHeight = 56.0;
+    const pickerWidth = 260.0;
     final pickerY = position.dy - pickerHeight - 10;
-    
+
+    // Align picker with message bubble side
+    double pickerX;
+    if (widget.isMe) {
+      pickerX = (screenWidth - pickerWidth - 16).clamp(16.0, screenWidth - pickerWidth - 16);
+    } else {
+      pickerX = 56.0; // Past avatar
+    }
+
     _reactionPickerOverlay = OverlayEntry(
-      builder: (context) => Positioned(
-        left: position.dx + (size.width / 2) - 120,
-        top: pickerY > 0 ? pickerY : position.dy + size.height + 10,
-        child: Material(
-          color: Colors.transparent,
-          child: ReactionPicker(
-            onEmojiSelected: (emoji) {
-              _handleReactionTap(emoji);
-              _hideReactionPicker();
-            },
-            currentReactions: widget.message.reactions
-                .where((r) => r.user.id == _currentUserId)
-                .map((r) => r.emoji)
-                .toList(),
+      builder: (context) => Stack(
+        children: [
+          // Invisible scrim to dismiss on tap outside
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: _hideReactionPicker,
+              behavior: HitTestBehavior.translucent,
+              child: const SizedBox.expand(),
+            ),
           ),
-        ),
+          Positioned(
+            left: pickerX,
+            top: pickerY > 0 ? pickerY : position.dy + size.height + 10,
+            child: Material(
+              color: Colors.transparent,
+              child: ReactionPicker(
+                onEmojiSelected: (emoji) {
+                  _handleReactionTap(emoji);
+                  _hideReactionPicker();
+                },
+                currentReactions: widget.message.reactions
+                    .where((r) => r.user.id == _currentUserId)
+                    .map((r) => r.emoji)
+                    .toList(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
-    
+
     overlay.insert(_reactionPickerOverlay!);
-    
-    // Auto-hide after 3 seconds
-    Future.delayed(const Duration(seconds: 3), () {
+
+    // Auto-hide after 5 seconds
+    Future.delayed(const Duration(seconds: 5), () {
       _hideReactionPicker();
     });
   }
@@ -569,6 +612,16 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   void _hideReactionPicker() {
     _reactionPickerOverlay?.remove();
     _reactionPickerOverlay = null;
+  }
+
+  void _showTranslation(BuildContext context) {
+    final text = widget.message.message;
+    if (text == null || text.isEmpty) return;
+    showTranslationBottomSheet(
+      context,
+      messageId: widget.message.id,
+      originalText: text,
+    );
   }
 
   Future<void> _handleReactionTap(String emoji) async {
@@ -697,12 +750,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (hasText)
-                  Text(
-                    widget.message.message!,
+                  LinkifiedText(
+                    text: widget.message.message!,
                     style: context.bodyMedium.copyWith(
                       color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
                       fontWeight: FontWeight.w500,
                       letterSpacing: 0.1,
+                    ),
+                    linkStyle: context.bodyMedium.copyWith(
+                      color: widget.isMe ? Colors.white.withValues(alpha: 0.9) : const Color(0xFF1E88E5),
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline,
+                      decorationColor: widget.isMe ? Colors.white.withValues(alpha: 0.7) : const Color(0xFF1E88E5),
                     ),
                   ),
                 if (widget.message.isEdited)
@@ -720,6 +779,111 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               ],
             ),
           ),
+
+        ],
+      ),
+    );
+  }
+
+  /// Tandem-style correction card below the message bubble
+  Widget _buildCorrectionDisplay(BuildContext context) {
+    final correction = widget.message.corrections.last;
+    final isDark = context.isDarkMode;
+    final diffs = CorrectionService.getDifferences(
+      correction.originalText,
+      correction.correctedText,
+    );
+
+    return Container(
+      margin: const EdgeInsets.only(top: 4),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.green.withValues(alpha: 0.1)
+            : Colors.green.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isDark
+              ? Colors.green.withValues(alpha: 0.25)
+              : Colors.green.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Header
+          Row(
+            children: [
+              Icon(
+                Icons.spellcheck_rounded,
+                size: 14,
+                color: Colors.green[600],
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Corrected by ${correction.corrector.name}',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.green[600],
+                ),
+              ),
+              if (correction.isAccepted) ...[
+                const SizedBox(width: 4),
+                Icon(Icons.check_circle, size: 12, color: Colors.green[600]),
+              ],
+            ],
+          ),
+          const SizedBox(height: 6),
+          // Diff display
+          Text.rich(
+            TextSpan(
+              children: diffs.map((diff) {
+                switch (diff.type) {
+                  case DiffType.unchanged:
+                    return TextSpan(
+                      text: '${diff.text} ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: isDark ? AppColors.gray300 : AppColors.gray700,
+                      ),
+                    );
+                  case DiffType.deleted:
+                    return TextSpan(
+                      text: '${diff.text} ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.red[400],
+                        decoration: TextDecoration.lineThrough,
+                        decorationColor: Colors.red[400],
+                      ),
+                    );
+                  case DiffType.added:
+                    return TextSpan(
+                      text: '${diff.text} ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.green[600],
+                        fontWeight: FontWeight.w600,
+                      ),
+                    );
+                }
+              }).toList(),
+            ),
+          ),
+          // Explanation
+          if (correction.explanation != null && correction.explanation!.isNotEmpty) ...[
+            const SizedBox(height: 4),
+            Text(
+              correction.explanation!,
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark ? AppColors.gray400 : AppColors.gray600,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -749,18 +913,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     if (widget.isMe) {
       // My message bubble (usually green/primary colored)
-      borderColor = Colors.white.withValues(alpha: 0.9);
-      backgroundColor = Colors.black.withValues(alpha: 0.15);
-      nameColor = Colors.white;
-      textColor = Colors.white.withValues(alpha: 0.9);
+      borderColor = AppColors.white.withValues(alpha: 0.9);
+      backgroundColor = AppColors.black.withValues(alpha: 0.15);
+      nameColor = AppColors.white;
+      textColor = AppColors.white.withValues(alpha: 0.9);
     } else {
       // Other's message bubble
-      borderColor = isReplyFromMe ? AppColors.primary : const Color(0xFF5B9BD5);
+      borderColor = isReplyFromMe ? AppColors.primary : AppColors.info;
       backgroundColor = isDark
-          ? Colors.white.withValues(alpha: 0.08)
+          ? AppColors.white.withValues(alpha: 0.08)
           : borderColor.withValues(alpha: 0.08);
       nameColor = borderColor;
-      textColor = isDark ? Colors.white.withValues(alpha: 0.8) : Colors.black87;
+      textColor = isDark ? AppColors.white.withValues(alpha: 0.8) : AppColors.gray900;
     }
 
     return GestureDetector(
@@ -1018,8 +1182,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
                 boxShadow: AppShadows.sm,
               ),
-              child: Text(
-                widget.message.message!,
+              child: LinkifiedText(
+                text: widget.message.message!,
                 style: context.bodyMedium.copyWith(
                   color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
                   fontWeight: FontWeight.w500,
@@ -1060,8 +1224,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
                 borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
               ),
-              child: Text(
-                widget.message.message!,
+              child: LinkifiedText(
+                text: widget.message.message!,
                 style: context.bodyMedium.copyWith(
                   color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
                   fontWeight: FontWeight.w500,
@@ -1095,606 +1259,209 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   }
 
   void _showContextMenu(BuildContext context) {
-    // Use the new Telegram-style bottom sheet
-    showMessageActionsBottomSheet(
-      context,
-      message: widget.message,
-      isMe: widget.isMe,
-      currentUserId: _currentUserId ?? '',
-      onReply: () => widget.onReply?.call(widget.message),
-      onForward: () => widget.onForward?.call(widget.message),
-      onEdit: () => widget.onEdit?.call(widget.message),
-      onCopy: () {}, // Handled inside the bottom sheet
-      onPin: () {
+    _hideReactionPicker();
+    HapticFeedback.mediumImpact();
+
+    // Use the bubble key to get position of actual message bubble, not the full row
+    final RenderBox? renderBox = _bubbleKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) return;
+
+    final position = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    final screenSize = MediaQuery.of(context).size;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final hasText = widget.message.message != null && widget.message.message!.isNotEmpty;
+
+    // Check if user can edit (within 15 minutes)
+    bool canEdit = false;
+    if (widget.isMe && !widget.message.isDeleted && widget.message.type == 'text') {
+      try {
+        final diff = DateTime.now().difference(DateTime.parse(widget.message.createdAt));
+        canEdit = diff.inMinutes < 15;
+      } catch (_) {}
+    }
+
+    // Build menu items list: Reply, Copy, Correct, Translate, Pin/Unpin, Edit, Delete
+    final menuItems = <_ContextMenuItem>[];
+
+    menuItems.add(_ContextMenuItem(
+      icon: Icons.reply_rounded,
+      label: 'Reply',
+      onTap: () {
+        _hideReactionPicker();
+        widget.onReply?.call(widget.message);
+      },
+    ));
+
+    if (hasText) {
+      menuItems.add(_ContextMenuItem(
+        icon: Icons.copy_rounded,
+        label: 'Copy',
+        onTap: () {
+          _hideReactionPicker();
+          Clipboard.setData(ClipboardData(text: widget.message.message!));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Copied'), duration: Duration(seconds: 1)),
+          );
+        },
+      ));
+    }
+
+    if (hasText && !widget.isMe) {
+      menuItems.add(_ContextMenuItem(
+        icon: Icons.spellcheck_rounded,
+        label: 'Correct',
+        onTap: () {
+          _hideReactionPicker();
+          showCorrectionBottomSheet(
+            context,
+            messageId: widget.message.id,
+            originalText: widget.message.message!,
+            senderName: widget.otherUserName,
+          );
+        },
+      ));
+    }
+
+    if (hasText) {
+      menuItems.add(_ContextMenuItem(
+        icon: Icons.translate_rounded,
+        label: 'Translate',
+        onTap: () {
+          _hideReactionPicker();
+          _showTranslation(context);
+        },
+      ));
+    }
+
+    menuItems.add(_ContextMenuItem(
+      icon: widget.message.isPinned ? Icons.push_pin_outlined : Icons.push_pin_rounded,
+      label: widget.message.isPinned ? 'Unpin' : 'Pin',
+      onTap: () {
+        _hideReactionPicker();
         if (widget.message.isPinned) {
           widget.onUnpin?.call(widget.message);
         } else {
           widget.onPin?.call(widget.message);
         }
       },
-      onDelete: () => widget.onDelete?.call(widget.message),
-      onReaction: (emoji) => _handleReactionTap(emoji),
-    );
-  }
+    ));
 
-  List<PopupMenuEntry<String>> _buildContextMenuItems(BuildContext context) {
-    final items = <PopupMenuEntry<String>>[];
-    
-    // Copy (for text messages)
-    if (widget.message.message != null && widget.message.message!.isNotEmpty) {
-      items.add(
-        PopupMenuItem<String>(
-          value: 'copy',
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: Spacing.paddingSM,
-                decoration: BoxDecoration(
-                  color: AppColors.info.withValues(alpha: 0.1),
-                  borderRadius: AppRadius.borderSM,
-                ),
-                child: const Icon(Icons.content_copy_rounded, size: 18, color: AppColors.info),
-              ),
-              Spacing.hGapMD,
-              Text(AppLocalizations.of(context)!.copy, style: context.bodyMedium),
-            ],
-          ),
-        ),
-      );
+    if (canEdit) {
+      menuItems.add(_ContextMenuItem(
+        icon: Icons.edit_rounded,
+        label: 'Edit',
+        onTap: () {
+          _hideReactionPicker();
+          widget.onEdit?.call(widget.message);
+        },
+      ));
     }
-    
-    // Reply
-    items.add(
-      PopupMenuItem<String>(
-        value: 'reply',
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: Spacing.paddingSM,
-              decoration: BoxDecoration(
-                color: AppColors.success.withValues(alpha: 0.1),
-                borderRadius: AppRadius.borderSM,
-              ),
-              child: const Icon(Icons.reply_rounded, size: 18, color: AppColors.success),
-            ),
-            Spacing.hGapMD,
-            Text(AppLocalizations.of(context)!.reply, style: context.bodyMedium),
-          ],
-        ),
-      ),
-    );
-    
-    // Edit (only for my messages, within 15 minutes, text only, not deleted)
-    if (widget.isMe &&
-        widget.message.message != null &&
-        !widget.message.isDeleted &&
-        widget.message.media == null &&
-        _canEditMessage()) {
-      items.add(
-        PopupMenuItem<String>(
-          value: 'edit',
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: Spacing.paddingSM,
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.1),
-                  borderRadius: AppRadius.borderSM,
-                ),
-                child: const Icon(Icons.edit_rounded, size: 18, color: AppColors.warning),
-              ),
-              Spacing.hGapMD,
-              Text(AppLocalizations.of(context)!.edit, style: context.bodyMedium),
-            ],
-          ),
-        ),
-      );
-    }
-    
-    // Forward
-    items.add(
-      PopupMenuItem<String>(
-        value: 'forward',
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: Spacing.paddingSM,
-              decoration: BoxDecoration(
-                color: AppColors.accent.withValues(alpha: 0.1),
-                borderRadius: AppRadius.borderSM,
-              ),
-              child: const Icon(Icons.forward_rounded, size: 18, color: AppColors.accent),
-            ),
-            Spacing.hGapMD,
-            Text(AppLocalizations.of(context)!.forward, style: context.bodyMedium),
-          ],
-        ),
-      ),
-    );
-    
-    // Pin/Unpin (for all messages)
-    items.add(
-      PopupMenuItem<String>(
-        value: widget.message.isPinned ? 'unpin' : 'pin',
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: Spacing.paddingSM,
-              decoration: BoxDecoration(
-                color: AppColors.secondary.withValues(alpha: 0.1),
-                borderRadius: AppRadius.borderSM,
-              ),
-              child: Icon(
-                widget.message.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
-                size: 18,
-                color: AppColors.secondaryDark,
-              ),
-            ),
-            Spacing.hGapMD,
-            Text(
-              widget.message.isPinned ? 'Unpin' : 'Pin',
-              style: context.bodyMedium.copyWith(color: AppColors.secondaryDark),
-            ),
-          ],
-        ),
-      ),
-    );
-    
-    // Divider
-    items.add(const PopupMenuDivider(height: 8));
-    
-    // Report (only for other user's messages)
-    if (!widget.isMe) {
-      items.add(
-        PopupMenuItem<String>(
-          value: 'report',
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: Spacing.paddingSM,
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.1),
-                  borderRadius: AppRadius.borderSM,
-                ),
-                child: const Icon(Icons.flag_rounded, size: 18, color: AppColors.warning),
-              ),
-              Spacing.hGapMD,
-              Text('Report', style: context.bodyMedium.copyWith(color: AppColors.warning)),
-            ],
-          ),
-        ),
-      );
-    }
-    
-    // Delete (only for my messages, not deleted)
+
     if (widget.isMe && !widget.message.isDeleted) {
-      items.add(
-        PopupMenuItem<String>(
-          value: 'delete',
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: Spacing.paddingSM,
+      menuItems.add(_ContextMenuItem(
+        icon: Icons.delete_rounded,
+        label: 'Delete',
+        isDestructive: true,
+        onTap: () {
+          _hideReactionPicker();
+          widget.onDelete?.call(widget.message);
+        },
+      ));
+    }
+
+    // Calculate menu size
+    const itemHeight = 44.0;
+    const menuPaddingV = 8.0;
+    final menuHeight = (menuItems.length * itemHeight) + (menuPaddingV * 2);
+    const menuWidth = 160.0;
+
+    // Position: below the message bubble, aligned to same side
+    double menuX;
+    if (widget.isMe) {
+      // My bubble is right-aligned → menu right-aligned below
+      menuX = (position.dx + size.width - menuWidth).clamp(8.0, screenSize.width - menuWidth - 8);
+    } else {
+      // Other's bubble is left-aligned → menu left-aligned below
+      menuX = position.dx.clamp(8.0, screenSize.width - menuWidth - 8);
+    }
+
+    // Vertical: directly below the bubble with small gap, clamped to screen
+    final menuY = (position.dy + size.height + 6).clamp(40.0, screenSize.height - menuHeight - 40);
+
+    _reactionPickerOverlay = OverlayEntry(
+      builder: (ctx) => Stack(
+        children: [
+          // Scrim - tap to dismiss
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: _hideReactionPicker,
+              child: Container(color: AppColors.black.withValues(alpha: 0.3)),
+            ),
+          ),
+          // Vertical context menu
+          Positioned(
+            left: menuX,
+            top: menuY,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: menuWidth,
                 decoration: BoxDecoration(
-                  color: AppColors.error.withValues(alpha: 0.1),
-                  borderRadius: AppRadius.borderSM,
+                  color: isDark ? AppColors.cardDark : AppColors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withValues(alpha: 0.15),
+                      blurRadius: 20,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: const Icon(Icons.delete_rounded, size: 18, color: AppColors.error),
-              ),
-              Spacing.hGapMD,
-              Text('Delete', style: context.bodyMedium.copyWith(color: AppColors.error)),
-            ],
-          ),
-        ),
-      );
-    }
-    
-    // More options
-    items.add(
-      PopupMenuItem<String>(
-        value: 'more',
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: Spacing.paddingSM,
-              decoration: BoxDecoration(
-                color: context.containerColor,
-                borderRadius: AppRadius.borderSM,
-              ),
-              child: Icon(Icons.more_horiz_rounded, size: 18, color: context.textSecondary),
-            ),
-            Spacing.hGapMD,
-            Text(AppLocalizations.of(context)!.moreOptions, style: context.bodyMedium),
-          ],
-        ),
-      ),
-    );
-    
-    return items;
-  }
-
-  void _handleContextMenuAction(BuildContext context, String? value) {
-    if (value == null) return;
-    
-    switch (value) {
-      case 'copy':
-        if (widget.message.message != null && widget.message.message!.isNotEmpty) {
-          Clipboard.setData(ClipboardData(text: widget.message.message!));
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  const Icon(Icons.check_circle, color: AppColors.white),
-                  Spacing.hGapMD,
-                  const Text('Message copied'),
-                ],
-              ),
-              duration: const Duration(seconds: 2),
-              backgroundColor: AppColors.gray900,
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: AppRadius.borderMD,
-              ),
-            ),
-          );
-        }
-        break;
-        
-      case 'reply':
-        if (widget.onReply != null) {
-          widget.onReply!(widget.message);
-        }
-        break;
-        
-      case 'edit':
-        if (widget.isMe && widget.onEdit != null) {
-          widget.onEdit!(widget.message);
-        }
-        break;
-        
-      case 'pin':
-        if (widget.onPin != null) {
-          widget.onPin!(widget.message);
-        }
-        break;
-        
-      case 'unpin':
-        if (widget.onUnpin != null) {
-          widget.onUnpin!(widget.message);
-        }
-        break;
-        
-      case 'forward':
-        if (widget.onForward != null) {
-          widget.onForward!(widget.message);
-        }
-        break;
-        
-      case 'report':
-        if (!widget.isMe) {
-          showDialog(
-            context: context,
-            builder: (context) => ReportDialog(
-              type: 'message',
-              reportedId: widget.message.id,
-              reportedUserId: widget.message.sender.id,
-            ),
-          );
-        }
-        break;
-        
-      case 'delete':
-        if (widget.isMe && widget.onDelete != null) {
-          widget.onDelete!(widget.message);
-        }
-        break;
-        
-      case 'more':
-        // Show full bottom sheet with all options
-        _showMessageActions(context);
-        break;
-    }
-  }
-
-  void _showMessageActions(BuildContext context) {
-    HapticFeedback.mediumImpact();
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.surfaceColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24),
-              topRight: Radius.circular(24),
-            ),
-          ),
-          child: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Handle bar
-                Container(
-                  margin: const EdgeInsets.only(top: 12, bottom: 8),
-                  width: 36,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: context.containerHighColor,
-                    borderRadius: AppRadius.borderXS,
-                  ),
-                ),
-
-                // Message preview
-                Container(
-                  padding: Spacing.paddingLG,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: context.containerColor,
-                    borderRadius: AppRadius.borderLG,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 16,
-                            backgroundColor:
-                                widget.isMe ? _myMessageColor(context) : context.containerHighColor,
-                            child: Text(
-                              widget.isMe
-                                  ? 'You'[0]
-                                  : widget.otherUserName.isNotEmpty
-                                      ? widget.otherUserName[0].toUpperCase()
-                                      : '?',
-                              style: context.labelMedium.copyWith(
-                                color: widget.isMe ? AppColors.white : context.textPrimary,
-                                fontWeight: FontWeight.w600,
+                padding: const EdgeInsets.symmetric(vertical: menuPaddingV),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: menuItems.map((item) {
+                    final color = item.isDestructive
+                        ? AppColors.error
+                        : (isDark ? AppColors.gray200 : AppColors.gray900);
+                    return InkWell(
+                      onTap: () {
+                        HapticFeedback.lightImpact();
+                        item.onTap();
+                      },
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        height: itemHeight,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            Icon(item.icon, size: 20, color: color),
+                            const SizedBox(width: 12),
+                            Text(
+                              item.label,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: color,
                               ),
                             ),
-                          ),
-                          Spacing.hGapMD,
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.isMe ? 'You' : widget.otherUserName,
-                                  style: context.titleSmall,
-                                ),
-                                Text(
-                                  formatFullDateTime(widget.message.createdAt),
-                                  style: context.caption,
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (widget.message.read && widget.isMe)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: AppColors.info.withValues(alpha: 0.1),
-                                borderRadius: AppRadius.borderMD,
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.done_all,
-                                    size: 14,
-                                    color: AppColors.info,
-                                  ),
-                                  Spacing.hGapXS,
-                                  Text(
-                                    'Read',
-                                    style: context.captionSmall.copyWith(
-                                      color: AppColors.info,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                      if (widget.message.message != null &&
-                          widget.message.message!.isNotEmpty) ...[
-                        Spacing.gapMD,
-                        Text(
-                          widget.message.message!,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: context.bodySmall,
+                          ],
                         ),
-                      ],
-                    ],
-                  ),
-                ),
-
-                const Divider(height: 1),
-
-                // Action buttons
-                if (widget.message.message != null && widget.message.message!.isNotEmpty)
-                  _buildActionTile(
-                    context,
-                    icon: Icons.content_copy_rounded,
-                    label: AppLocalizations.of(context)!.copy,
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: widget.message.message!));
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              const Icon(Icons.check_circle, color: AppColors.white),
-                              Spacing.hGapMD,
-                              const Text('Message copied'),
-                            ],
-                          ),
-                          duration: const Duration(seconds: 2),
-                          backgroundColor: AppColors.gray900,
-                          behavior: SnackBarBehavior.floating,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: AppRadius.borderMD,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-
-                if (widget.isMe && 
-                    widget.message.message != null && 
-                    !widget.message.isDeleted &&
-                    widget.message.media == null &&
-                    _canEditMessage())
-                  _buildActionTile(
-                    context,
-                    icon: Icons.edit_rounded,
-                    label: AppLocalizations.of(context)!.edit,
-                    onTap: () {
-                      Navigator.pop(context);
-                      if (widget.onEdit != null) {
-                        widget.onEdit!(widget.message);
-                      }
-                    },
-                  ),
-
-                _buildActionTile(
-                  context,
-                  icon: Icons.reply_rounded,
-                  label: AppLocalizations.of(context)!.reply,
-                  onTap: () {
-                    Navigator.pop(context);
-                    if (widget.onReply != null) {
-                      widget.onReply!(widget.message);
-                    }
-                  },
-                ),
-
-                _buildActionTile(
-                  context,
-                  icon: Icons.forward_rounded,
-                  label: AppLocalizations.of(context)!.forward,
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Forward feature coming soon'),
-                        duration: Duration(seconds: 2),
                       ),
                     );
-                  },
+                  }).toList(),
                 ),
-
-                _buildActionTile(
-                  context,
-                  icon: widget.message.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
-                  label: widget.message.isPinned ? 'Unpin' : 'Pin',
-                  color: AppColors.secondaryDark,
-                  onTap: () {
-                    Navigator.pop(context);
-                    if (widget.message.isPinned) {
-                      if (widget.onUnpin != null) {
-                        widget.onUnpin!(widget.message);
-                      }
-                    } else {
-                      if (widget.onPin != null) {
-                        widget.onPin!(widget.message);
-                      }
-                    }
-                  },
-                ),
-
-                if (!widget.isMe)
-                  _buildActionTile(
-                    context,
-                    icon: Icons.flag_rounded,
-                    label: 'Report',
-                    color: AppColors.warning,
-                    onTap: () {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (context) => ReportDialog(
-                          type: 'message',
-                          reportedId: widget.message.id,
-                          reportedUserId: widget.message.sender.id,
-                        ),
-                      );
-                    },
-                  ),
-
-                if (widget.isMe && !widget.message.isDeleted)
-                  _buildActionTile(
-                    context,
-                    icon: Icons.delete_rounded,
-                    label: 'Delete',
-                    color: AppColors.error,
-                    onTap: () {
-                      Navigator.pop(context);
-                      if (widget.onDelete != null) {
-                        widget.onDelete!(widget.message);
-                      }
-                    },
-                  ),
-
-                Spacing.gapLG,
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildActionTile(
-    BuildContext context, {
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-    Color? color,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        child: Row(
-          children: [
-            Icon(icon, color: color ?? context.textPrimary, size: 22),
-            Spacing.hGapLG,
-            Text(
-              label,
-              style: context.bodyLarge.copyWith(
-                color: color ?? context.textPrimary,
-                fontWeight: FontWeight.w500,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-  }
 
+    Overlay.of(context).insert(_reactionPickerOverlay!);
+  }
 
   bool _isSticker(String text) {
     // Check if it's a single emoji or short emoji sequence (1-3 emojis)
@@ -1772,7 +1539,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     if (widget.message.isDeleted || widget.message.media != null) {
       return false; // Cannot edit deleted messages or messages with media
     }
-    
+
     try {
       final messageTime = parseToKoreaTime(widget.message.createdAt);
       final now = getKoreaNow();
@@ -1782,5 +1549,18 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       return false;
     }
   }
+}
 
+class _ContextMenuItem {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  final bool isDestructive;
+
+  const _ContextMenuItem({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.isDestructive = false,
+  });
 }

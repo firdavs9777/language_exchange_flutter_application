@@ -17,7 +17,6 @@ class UserService {
           : username;
 
       if (cleanUsername.isEmpty) {
-        debugPrint('⚠️ Empty username provided');
         return null;
       }
 
@@ -29,10 +28,8 @@ class UserService {
         return Community.fromJson(response.data);
       }
 
-      debugPrint('⚠️ User not found: $username');
       return null;
     } catch (e) {
-      debugPrint('❌ Error fetching user by username: $e');
       return null;
     }
   }
@@ -50,7 +47,6 @@ class UserService {
           : query;
 
       if (cleanQuery.length < 2) {
-        debugPrint('⚠️ Search query too short (min 2 characters)');
         return [];
       }
 
@@ -70,7 +66,6 @@ class UserService {
 
       return [];
     } catch (e) {
-      debugPrint('❌ Error searching users by username: $e');
       return [];
     }
   }

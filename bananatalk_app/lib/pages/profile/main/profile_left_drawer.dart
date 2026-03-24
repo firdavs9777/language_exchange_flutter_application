@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:bananatalk_app/pages/authentication/screens/login.dart';
+import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_settings.dart';
@@ -396,7 +396,6 @@ class LeftDrawer extends ConsumerWidget {
                             ImageUtils.normalizeImageUrl(user.imageUrls[0]),
                           ),
                           onBackgroundImageError: (exception, stackTrace) {
-                            debugPrint('Failed to load profile image: $exception');
                           },
                         )
                       : const CircleAvatar(
@@ -620,13 +619,20 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   void _navigateToDeleteAccount(BuildContext context, WidgetRef ref) {
-    debugPrint(user.appleId.toString());
-    final isOAuthUser = true;
+    final userAsync = ref.read(userProvider);
+    final user = userAsync.valueOrNull;
+    final isGoogleUser = user?.googleId != null && user!.googleId!.isNotEmpty;
+    final isAppleUser = user?.appleId != null && user!.appleId!.isNotEmpty;
+    final isOAuthUser = isGoogleUser || isAppleUser;
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => DeleteAccountScreen(isOAuthUser: isOAuthUser),
+        builder: (_) => DeleteAccountScreen(
+          isOAuthUser: isOAuthUser,
+          isGoogleUser: isGoogleUser,
+          isAppleUser: isAppleUser,
+        ),
       ),
     );
   }
@@ -751,7 +757,7 @@ class LeftDrawer extends ConsumerWidget {
                         child: Text(
                           'Cancel',
                           style: TextStyle(
-                            color: Colors.grey[600],
+                            color: context.textSecondary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -763,25 +769,20 @@ class LeftDrawer extends ConsumerWidget {
                           });
 
                           try {
-                            debugPrint('Starting logout sequence...');
 
                             // 1. Stop global chat listener FIRST
                             GlobalChatListener().stop();
-                            debugPrint('Global chat listener stopped');
 
                             // 2. Disconnect socket and perform backend logout
                             await ref.read(authServiceProvider).logout();
-                            debugPrint('Backend logout successful');
 
                             // 3. Reset all providers and badge counts
                             ref.read(badgeCountProvider.notifier).reset();
                             ref.read(chatPartnersProvider.notifier).reset();
-                            debugPrint('Badge counts reset');
 
                             // 4. Invalidate providers
                             ref.invalidate(userProvider);
                             ref.invalidate(authServiceProvider);
-                            debugPrint('Providers invalidated');
 
                             if (dialogContext.mounted) {
                               Navigator.pop(dialogContext); // Close dialog
@@ -791,12 +792,7 @@ class LeftDrawer extends ConsumerWidget {
                               Navigator.pop(context); // Close drawer
 
                               // 5. Navigate to login and clear all routes
-                              Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (context) => const Login(),
-                                ),
-                                (route) => false,
-                              );
+                              context.go('/login');
 
                               // Show success message
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -827,7 +823,6 @@ class LeftDrawer extends ConsumerWidget {
                               );
                             }
                           } catch (error) {
-                            debugPrint('Logout error: $error');
 
                             setState(() {
                               isLoggingOut = false;

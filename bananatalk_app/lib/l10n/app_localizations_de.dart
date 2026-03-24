@@ -246,6 +246,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get momentDeleted => 'Moment gelöscht';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'Bearbeitungsfunktion kommt bald';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'Chats';
 
   @override
   String get community => 'Community';
@@ -515,7 +524,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get cannotSendMessageUserMayBeBlocked => 'Nachricht kann nicht gesendet werden. Benutzer ist möglicherweise blockiert.';
 
   @override
-  String get sessionExpired => 'Sitzung abgelaufen. Bitte melden Sie sich erneut an.';
+  String get sessionExpired => 'Sitzung abgelaufen. Bitte erneut anmelden.';
 
   @override
   String get sendThisSticker => 'Diesen Sticker senden?';
@@ -1181,7 +1190,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get forwardFeatureComingSoon => 'Weiterleitungsfunktion kommt bald';
 
   @override
-  String get momentUnsaved => 'Moment nicht gespeichert';
+  String get momentUnsaved => 'Aus Gespeicherten entfernt';
 
   @override
   String get documentPickerComingSoon => 'Dokumentenauswahl kommt bald';
@@ -1962,4 +1971,727 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get messageEdited => 'Nachricht bearbeitet';
+
+  @override
+  String get edited => '(bearbeitet)';
+
+  @override
+  String get now => 'jetzt';
+
+  @override
+  String weeksAgo(int count) {
+    return 'vor ${count}W';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── $count Antworten anzeigen';
+  }
+
+  @override
+  String get hideReplies => '── Antworten ausblenden';
+
+  @override
+  String get saveMoment => 'Moment speichern';
+
+  @override
+  String get removeFromSaved => 'Aus Gespeicherten entfernen';
+
+  @override
+  String get momentSaved => 'Gespeichert';
+
+  @override
+  String get failedToSave => 'Speichern fehlgeschlagen';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'Schau dir diesen Moment an: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'Momente konnten nicht geladen werden';
+
+  @override
+  String get noMomentsMatchFilters => 'Keine Momente entsprechen deinen Filtern';
+
+  @override
+  String get beFirstToShareMoment => 'Sei der Erste, der einen Moment teilt!';
+
+  @override
+  String get tryDifferentSearch => 'Versuche einen anderen Suchbegriff';
+
+  @override
+  String get tryAdjustingFilters => 'Versuche deine Filter anzupassen';
+
+  @override
+  String get noSavedMoments => 'Keine gespeicherten Momente';
+
+  @override
+  String get tapBookmarkToSave => 'Tippe auf das Lesezeichen-Symbol, um einen Moment zu speichern';
+
+  @override
+  String get failedToLoadVideo => 'Video konnte nicht geladen werden';
+
+  @override
+  String get titleRequired => 'Titel ist erforderlich';
+
+  @override
+  String titleTooLong(int max) {
+    return 'Titel darf maximal $max Zeichen haben';
+  }
+
+  @override
+  String get descriptionRequired => 'Beschreibung ist erforderlich';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'Beschreibung darf maximal $max Zeichen haben';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'Geplantes Datum muss in der Zukunft liegen';
+
+  @override
+  String get recent => 'Neueste';
+
+  @override
+  String get popular => 'Beliebt';
+
+  @override
+  String get trending => 'Trending';
+
+  @override
+  String get mostRecent => 'Neueste';
+
+  @override
+  String get mostPopular => 'Beliebteste';
+
+  @override
+  String get allTime => 'Alle Zeit';
+
+  @override
+  String get today => 'Heute';
+
+  @override
+  String get thisWeek => 'Diese Woche';
+
+  @override
+  String get thisMonth => 'Diesen Monat';
+
+  @override
+  String replyingTo(String userName) {
+    return 'Antwort an $userName';
+  }
+
+  @override
+  String get listView => 'Listenansicht';
+
+  @override
+  String get quickMatch => 'Schnellzuordnung';
+
+  @override
+  String get onlineNow => 'Jetzt online';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'Spricht $language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'Lernt $language';
+  }
+
+  @override
+  String get noPartnersFound => 'Keine Partner gefunden';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'Keine Benutzer für $learning und $native gefunden';
+  }
+
+  @override
+  String get removeAllFilters => 'Alle Filter entfernen';
+
+  @override
+  String get browseAllUsers => 'Alle Benutzer durchsuchen';
+
+  @override
+  String get allCaughtUp => 'Du bist auf dem neuesten Stand!';
+
+  @override
+  String get loadingMore => 'Mehr laden...';
+
+  @override
+  String get findingMorePartners => 'Weitere Partner suchen...';
+
+  @override
+  String get seenAllPartners => 'Du hast alle Partner gesehen';
+
+  @override
+  String get startOver => 'Von vorne beginnen';
+
+  @override
+  String get changeFilters => 'Filter ändern';
+
+  @override
+  String get findingPartners => 'Partner suchen...';
+
+  @override
+  String get setLocationReminder => 'Lege deinen Standort fest, um Partner in der Nähe zu finden';
+
+  @override
+  String get updateLocationReminder => 'Aktualisiere deinen Standort für bessere Ergebnisse';
+
+  @override
+  String get male => 'Männlich';
+
+  @override
+  String get female => 'Weiblich';
+
+  @override
+  String get other => 'Divers';
+
+  @override
+  String get browseMen => 'Männer durchsuchen';
+
+  @override
+  String get browseWomen => 'Frauen durchsuchen';
+
+  @override
+  String get noMaleUsersFound => 'Keine männlichen Benutzer gefunden';
+
+  @override
+  String get noFemaleUsersFound => 'Keine weiblichen Benutzer gefunden';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'Nur neue Benutzer';
+
+  @override
+  String get showNewUsers => 'Neue Benutzer anzeigen';
+
+  @override
+  String get prioritizeNearby => 'Nahe bevorzugen';
+
+  @override
+  String get showNearbyFirst => 'Nahe zuerst anzeigen';
+
+  @override
+  String get setLocationToEnable => 'Standort festlegen zum Aktivieren';
+
+  @override
+  String get radius => 'Radius';
+
+  @override
+  String get findingYourLocation => 'Standort wird ermittelt...';
+
+  @override
+  String get enableLocationForDistance => 'Standort aktivieren, um Entfernungen zu sehen';
+
+  @override
+  String get enableLocationDescription => 'Erlaube den Standortzugriff, um Sprachpartner in deiner Nähe zu finden';
+
+  @override
+  String get enableGps => 'GPS aktivieren';
+
+  @override
+  String get browseByCityCountry => 'Nach Stadt oder Land suchen';
+
+  @override
+  String get peopleNearby => 'Personen in der Nähe';
+
+  @override
+  String get noNearbyUsersFound => 'Keine Benutzer in der Nähe gefunden';
+
+  @override
+  String get tryExpandingSearch => 'Versuche, deine Suche zu erweitern';
+
+  @override
+  String get exploreByCity => 'Nach Stadt erkunden';
+
+  @override
+  String get exploreByCurrentCity => 'Nach aktueller Stadt erkunden';
+
+  @override
+  String get interactiveWorldMap => 'Interaktive Weltkarte';
+
+  @override
+  String get searchByCityName => 'Nach Stadtname suchen';
+
+  @override
+  String get seeUserCountsPerCountry => 'Benutzeranzahl pro Land anzeigen';
+
+  @override
+  String get upgradeToVip => 'Auf VIP upgraden';
+
+  @override
+  String get searchByCity => 'Nach Stadt suchen';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count Benutzer weltweit';
+  }
+
+  @override
+  String get noUsersFound => 'Keine Benutzer gefunden';
+
+  @override
+  String get tryDifferentCity => 'Versuche eine andere Stadt';
+
+  @override
+  String usersCount(String count) {
+    return '$count Benutzer';
+  }
+
+  @override
+  String get searchCountry => 'Land suchen';
+
+  @override
+  String get wave => 'Winken';
+
+  @override
+  String get newUser => 'Neu';
+
+  @override
+  String get warningPermanent => 'Warnung: Diese Aktion ist dauerhaft!';
+
+  @override
+  String get deleteAccountWarning => 'Das Löschen deines Kontos entfernt dauerhaft alle deine Daten, Nachrichten, Momente und Verbindungen. Diese Aktion kann nicht rückgängig gemacht werden.';
+
+  @override
+  String get requiredForEmailOnly => 'Nur für E-Mail-Konten erforderlich';
+
+  @override
+  String get pleaseEnterPassword => 'Bitte gib dein Passwort ein';
+
+  @override
+  String get typeDELETE => 'Gib DELETE ein';
+
+  @override
+  String get mustTypeDELETE => 'Du musst DELETE eingeben, um zu bestätigen';
+
+  @override
+  String get deletingAccount => 'Konto wird gelöscht...';
+
+  @override
+  String get deleteMyAccountPermanently => 'Mein Konto dauerhaft löschen';
+
+  @override
+  String get whatsYourNativeLanguage => 'Was ist deine Muttersprache?';
+
+  @override
+  String get helpsMatchWithLearners => 'Hilft, dich mit Lernenden deiner Sprache zu verbinden';
+
+  @override
+  String get whatAreYouLearning => 'Was lernst du?';
+
+  @override
+  String get connectWithNativeSpeakers => 'Verbinde dich mit Muttersprachlern';
+
+  @override
+  String get selectLearningLanguage => 'Wähle die Sprache, die du lernst';
+
+  @override
+  String get selectCurrentLevel => 'Wähle dein aktuelles Niveau';
+
+  @override
+  String get beginner => 'Anfänger';
+
+  @override
+  String get elementary => 'Grundkenntnisse';
+
+  @override
+  String get intermediate => 'Mittelstufe';
+
+  @override
+  String get upperIntermediate => 'Gehobene Mittelstufe';
+
+  @override
+  String get advanced => 'Fortgeschritten';
+
+  @override
+  String get proficient => 'Fließend';
+
+  @override
+  String get showingPartnersByDistance => 'Partner nach Entfernung anzeigen';
+
+  @override
+  String get enableLocationForResults => 'Standort aktivieren für Ergebnisse';
+
+  @override
+  String get enable => 'Aktivieren';
+
+  @override
+  String get locationNotSet => 'Standort nicht festgelegt';
+
+  @override
+  String get tellUsAboutYourself => 'Erzähl uns etwas über dich';
+
+  @override
+  String get justACoupleQuickThings => 'Nur ein paar kurze Fragen';
+
+  @override
+  String get gender => 'Geschlecht';
+
+  @override
+  String get birthDate => 'Geburtsdatum';
+
+  @override
+  String get selectYourBirthDate => 'Wähle dein Geburtsdatum';
+
+  @override
+  String get continueButton => 'Weiter';
+
+  @override
+  String get pleaseSelectGender => 'Bitte wähle dein Geschlecht';
+
+  @override
+  String get pleaseSelectBirthDate => 'Bitte wähle dein Geburtsdatum';
+
+  @override
+  String get mustBe18 => 'Du musst mindestens 18 Jahre alt sein';
+
+  @override
+  String get invalidDate => 'Ungültiges Datum';
+
+  @override
+  String get almostDone => 'Fast geschafft!';
+
+  @override
+  String get addPhotoLocationForMatches => 'Füge ein Foto und deinen Standort hinzu für bessere Treffer';
+
+  @override
+  String get addProfilePhoto => 'Profilfoto hinzufügen';
+
+  @override
+  String get optionalUpTo6Photos => 'Optional — bis zu 6 Fotos';
+
+  @override
+  String get maximum6Photos => 'Maximal 6 Fotos';
+
+  @override
+  String get tapToDetectLocation => 'Tippen, um Standort zu erkennen';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'Optional — hilft, Partner in der Nähe zu finden';
+
+  @override
+  String get startLearning => 'Lernen beginnen';
+
+  @override
+  String get photoLocationOptional => 'Foto und Standort sind optional';
+
+  @override
+  String get pleaseAcceptTerms => 'Bitte akzeptiere die Nutzungsbedingungen';
+
+  @override
+  String get iAgreeToThe => 'Ich stimme den';
+
+  @override
+  String get termsOfService => 'Nutzungsbedingungen';
+
+  @override
+  String get tapToSelectLanguage => 'Tippen, um Sprache auszuwählen';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'Dein Niveau in $language';
+  }
+
+  @override
+  String get yourCurrentLevel => 'Dein aktuelles Niveau';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'Muttersprache darf nicht gleich der Lernsprache sein';
+
+  @override
+  String get learningCannotBeSameAsNative => 'Lernsprache darf nicht gleich der Muttersprache sein';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'Schritt $current von $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Weiter mit Google';
+
+  @override
+  String get registerLink => 'Registrieren';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'Bitte E-Mail und Passwort eingeben';
+
+  @override
+  String get pleaseEnterValidEmail => 'Bitte gültige E-Mail eingeben';
+
+  @override
+  String get loginSuccessful => 'Anmeldung erfolgreich!';
+
+  @override
+  String get stepOneOfTwo => 'Schritt 1 von 2';
+
+  @override
+  String get createYourAccount => 'Konto erstellen';
+
+  @override
+  String get basicInfoToGetStarted => 'Grundlegende Infos zum Starten';
+
+  @override
+  String get emailVerifiedLabel => 'E-Mail (Verifiziert)';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get yourDisplayName => 'Dein Anzeigename';
+
+  @override
+  String get atLeast8Characters => 'Mindestens 8 Zeichen';
+
+  @override
+  String get confirmPasswordHint => 'Passwort bestätigen';
+
+  @override
+  String get nextButton => 'Weiter';
+
+  @override
+  String get pleaseEnterYourName => 'Bitte gib deinen Namen ein';
+
+  @override
+  String get pleaseEnterAPassword => 'Bitte gib ein Passwort ein';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwörter stimmen nicht überein';
+
+  @override
+  String get otherGender => 'Andere';
+
+  @override
+  String get continueWithGoogleAccount => 'Weiter mit deinem Google-Konto\nfür ein nahtloses Erlebnis';
+
+  @override
+  String get signingYouIn => 'Anmeldung läuft...';
+
+  @override
+  String get backToSignInMethods => 'Zurück zu Anmeldemethoden';
+
+  @override
+  String get securedByGoogle => 'Gesichert durch Google';
+
+  @override
+  String get dataProtectedEncryption => 'Deine Daten sind mit Standardverschlüsselung geschützt';
+
+  @override
+  String get welcomeCompleteProfile => 'Willkommen! Bitte vervollständige dein Profil';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'Willkommen zurück, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Weiter mit deiner Apple ID\nfür ein sicheres Erlebnis';
+
+  @override
+  String get continueWithApple => 'Weiter mit Apple';
+
+  @override
+  String get securedByApple => 'Gesichert durch Apple';
+
+  @override
+  String get privacyProtectedApple => 'Deine Privatsphäre ist mit Apple Sign-In geschützt';
+
+  @override
+  String get createAccount => 'Konto erstellen';
+
+  @override
+  String get enterEmailToGetStarted => 'E-Mail eingeben zum Starten';
+
+  @override
+  String get continueText => 'Weiter';
+
+  @override
+  String get pleaseEnterEmailAddress => 'Bitte gib deine E-Mail-Adresse ein';
+
+  @override
+  String get verificationCodeSent => 'Bestätigungscode gesendet!';
+
+  @override
+  String get forgotPasswordTitle => 'Passwort vergessen';
+
+  @override
+  String get resetPasswordTitle => 'Passwort zurücksetzen';
+
+  @override
+  String get enterEmailForResetCode => 'Gib deine E-Mail ein und wir senden dir einen Code zum Zurücksetzen';
+
+  @override
+  String get sendResetCode => 'Code senden';
+
+  @override
+  String get resetCodeSent => 'Code zum Zurücksetzen gesendet!';
+
+  @override
+  String get rememberYourPassword => 'Erinnerst du dich an dein Passwort?';
+
+  @override
+  String get verifyCode => 'Code überprüfen';
+
+  @override
+  String get enterResetCode => 'Code eingeben';
+
+  @override
+  String get weSentCodeTo => 'Wir haben einen 6-stelligen Code gesendet an';
+
+  @override
+  String get pleaseEnterAll6Digits => 'Bitte alle 6 Ziffern eingeben';
+
+  @override
+  String get codeVerifiedCreatePassword => 'Code bestätigt! Erstelle dein neues Passwort';
+
+  @override
+  String get verify => 'Überprüfen';
+
+  @override
+  String get didntReceiveCode => 'Code nicht erhalten?';
+
+  @override
+  String get resend => 'Erneut senden';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'Erneut senden (${timer}s)';
+  }
+
+  @override
+  String get resetCodeResent => 'Code erneut gesendet!';
+
+  @override
+  String get verifyEmail => 'E-Mail bestätigen';
+
+  @override
+  String get verifyYourEmail => 'Bestätige deine E-Mail';
+
+  @override
+  String get emailVerifiedSuccessfully => 'E-Mail erfolgreich bestätigt!';
+
+  @override
+  String get verificationCodeResent => 'Bestätigungscode erneut gesendet!';
+
+  @override
+  String get createNewPassword => 'Neues Passwort erstellen';
+
+  @override
+  String get enterNewPasswordBelow => 'Gib dein neues Passwort ein';
+
+  @override
+  String get newPassword => 'Neues Passwort';
+
+  @override
+  String get confirmPasswordLabel => 'Passwort bestätigen';
+
+  @override
+  String get pleaseFillAllFields => 'Bitte alle Felder ausfüllen';
+
+  @override
+  String get passwordResetSuccessful => 'Passwort zurückgesetzt! Melde dich mit deinem neuen Passwort an';
+
+  @override
+  String get privacyTitle => 'Datenschutz';
+
+  @override
+  String get profileVisibility => 'Profil-Sichtbarkeit';
+
+  @override
+  String get showCountryRegion => 'Land/Region anzeigen';
+
+  @override
+  String get showCountryRegionDesc => 'Zeigt dein Land in deinem Profil an';
+
+  @override
+  String get showCity => 'Stadt anzeigen';
+
+  @override
+  String get showCityDesc => 'Zeigt deine Stadt in deinem Profil an';
+
+  @override
+  String get showAge => 'Alter anzeigen';
+
+  @override
+  String get showAgeDesc => 'Zeigt dein Alter in deinem Profil an';
+
+  @override
+  String get showZodiacSign => 'Sternzeichen anzeigen';
+
+  @override
+  String get showZodiacSignDesc => 'Zeigt dein Sternzeichen in deinem Profil an';
+
+  @override
+  String get onlineStatusSection => 'Online-Status';
+
+  @override
+  String get showOnlineStatus => 'Online-Status anzeigen';
+
+  @override
+  String get showOnlineStatusDesc => 'Andere sehen lassen, wenn du online bist';
+
+  @override
+  String get otherSettings => 'Andere Einstellungen';
+
+  @override
+  String get showGiftingLevel => 'Geschenk-Level anzeigen';
+
+  @override
+  String get showGiftingLevelDesc => 'Zeigt dein Geschenk-Level-Abzeichen an';
+
+  @override
+  String get birthdayNotifications => 'Geburtstags-Benachrichtigungen';
+
+  @override
+  String get birthdayNotificationsDesc => 'Benachrichtigungen an deinem Geburtstag erhalten';
+
+  @override
+  String get personalizedAds => 'Personalisierte Werbung';
+
+  @override
+  String get personalizedAdsDesc => 'Personalisierte Werbung erlauben';
+
+  @override
+  String get saveChanges => 'Änderungen speichern';
+
+  @override
+  String get privacySettingsSaved => 'Datenschutzeinstellungen gespeichert';
+
+  @override
+  String get locationSection => 'Standort';
+
+  @override
+  String get updateLocation => 'Standort aktualisieren';
+
+  @override
+  String get updateLocationDesc => 'Aktuellen Standort aktualisieren';
+
+  @override
+  String get currentLocation => 'Aktueller Standort';
+
+  @override
+  String get locationNotAvailable => 'Standort nicht verfügbar';
+
+  @override
+  String get locationUpdated => 'Standort erfolgreich aktualisiert';
+
+  @override
+  String get locationPermissionDenied => 'Standortberechtigung verweigert. Bitte in den Einstellungen aktivieren.';
+
+  @override
+  String get locationServiceDisabled => 'Standortdienste sind deaktiviert. Bitte aktivieren.';
+
+  @override
+  String get updatingLocation => 'Standort wird aktualisiert...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'Standort konnte nicht aktualisiert werden';
 }

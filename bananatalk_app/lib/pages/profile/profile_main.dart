@@ -389,6 +389,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       gender: user.gender,
                       bio: user.bio,
                       topics: user.topics,
+                      languageLevel: user.languageLevel,
                     ),
                   ),
                 );
@@ -675,7 +676,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   end: Alignment.bottomRight,
                 )
               : null,
-          color: isVip ? null : Colors.white,
+          color: isVip ? null : context.cardBackground,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -729,7 +730,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: isVip ? Colors.white : Colors.black87,
+                            color: isVip ? AppColors.white : context.textPrimary,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -740,8 +741,8 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                           style: TextStyle(
                             fontSize: 13,
                             color: isVip
-                                ? Colors.white.withOpacity(0.9)
-                                : Colors.grey[600],
+                                ? AppColors.white.withValues(alpha: 0.9)
+                                : context.textSecondary,
                           ),
                         ),
                       ],
@@ -842,7 +843,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -874,10 +875,10 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               const SizedBox(width: 12),
               Text(
                 AppLocalizations.of(context)!.languageExchange,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: context.textPrimary,
                 ),
               ),
             ],
@@ -892,7 +893,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             const Color(0xFF00BFA5),
           ),
           const SizedBox(height: 16),
-          Divider(color: Colors.grey[200]),
+          Divider(color: context.dividerColor),
           const SizedBox(height: 16),
           _buildLanguageRow(
             AppLocalizations.of(context)!.learning,
@@ -932,17 +933,17 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 label,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.grey[600],
+                  color: context.textSecondary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 language,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: context.textPrimary,
                 ),
               ),
             ],
@@ -962,7 +963,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -995,10 +996,10 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                 const SizedBox(width: 12),
                 Text(
                   AppLocalizations.of(context)!.aboutMe,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: context.textPrimary,
                   ),
                 ),
               ],
@@ -1008,7 +1009,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               user.bio,
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.grey[800],
+                color: context.textPrimary,
                 height: 1.6,
               ),
             ),
@@ -1082,7 +1083,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.cardBackground,
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
@@ -1098,12 +1099,12 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Recent Moments',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: context.textPrimary,
                         ),
                       ),
                       TextButton(
@@ -1151,19 +1152,19 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                                 imageUrl: imageUrl,
                                 fit: BoxFit.cover,
                                 errorWidget: Container(
-                                  color: Colors.grey[200],
+                                  color: context.containerColor,
                                   child: Icon(
                                     Icons.broken_image_outlined,
-                                    color: Colors.grey[400],
+                                    color: context.iconColor,
                                     size: 32,
                                   ),
                                 ),
                               )
                             : Container(
-                                color: Colors.grey[200],
+                                color: context.containerColor,
                                 child: Icon(
                                   Icons.image_outlined,
-                                  color: Colors.grey[400],
+                                  color: context.iconColor,
                                   size: 32,
                                 ),
                               ),

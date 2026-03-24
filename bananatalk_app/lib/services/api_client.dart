@@ -68,7 +68,6 @@ class ApiClient {
   Future<String?> _refreshAccessToken() async {
     // If already refreshing, wait for the result
     if (_isRefreshing) {
-      debugPrint('🔄 Token refresh already in progress, waiting...');
       final completer = Completer<String?>();
       _refreshQueue.add(completer);
       return completer.future;
@@ -84,11 +83,9 @@ class ApiClient {
       }
 
       if (_cachedRefreshToken == null || _cachedRefreshToken!.isEmpty) {
-        debugPrint('❌ No refresh token available');
         return null;
       }
 
-      debugPrint('🔄 Attempting token refresh...');
 
       final url = Uri.parse('$baseUrl${Endpoints.refreshTokenURL}');
       final response = await http.post(
@@ -120,7 +117,6 @@ class ApiClient {
             await prefs.setString('refreshToken', newRefreshToken);
           }
 
-          debugPrint('✅ Token refreshed successfully');
 
           // Notify listeners (e.g., socket service)
           onTokenRefreshed?.call();
@@ -135,7 +131,6 @@ class ApiClient {
         }
       }
 
-      debugPrint('❌ Token refresh failed: ${response.statusCode}');
 
       // Complete all waiting requests with null
       for (final completer in _refreshQueue) {
@@ -145,7 +140,6 @@ class ApiClient {
 
       return null;
     } catch (e) {
-      debugPrint('❌ Token refresh error: $e');
 
       // Complete all waiting requests with null
       for (final completer in _refreshQueue) {
@@ -230,7 +224,6 @@ class ApiClient {
 
       case 401:
         // Authentication error - token expired or invalid
-        debugPrint('🔐 401 Unauthorized - Token may be expired');
         onAuthenticationError?.call();
         return ApiResponse(
           success: false,
@@ -241,7 +234,6 @@ class ApiClient {
       case 403:
         // Authorization error - user doesn't have permission
         final errorMessage = body['error'] ?? 'You don\'t have permission to do this';
-        debugPrint('🚫 403 Forbidden - $errorMessage');
         onAuthorizationError?.call(_getReadableAuthError(errorMessage));
         return ApiResponse(
           success: false,
@@ -252,7 +244,6 @@ class ApiClient {
       case 429:
         // Rate limit exceeded
         final errorMessage = body['error'] ?? 'Too many requests. Please slow down.';
-        debugPrint('⏱️ 429 Rate Limited - $errorMessage');
         onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
         return ApiResponse(
           success: false,
@@ -336,7 +327,6 @@ class ApiClient {
     // Request deduplication - return existing pending request if available
     final requestKey = _getRequestKey('GET', endpoint, queryParams);
     if (deduplicate && _pendingRequests.containsKey(requestKey)) {
-      debugPrint('🔄 Deduplicating GET request: $endpoint');
       return _pendingRequests[requestKey]!;
     }
 
@@ -377,32 +367,27 @@ class ApiClient {
       );
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-      debugPrint('📡 GET: $uri');
 
       final response = await http.get(uri, headers: headers);
       final result = _handleResponse(response, endpoint);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
-        debugPrint('🔄 Got 401, attempting token refresh...');
         final newToken = await _refreshAccessToken();
 
         if (newToken != null) {
           // Retry with new token
-          debugPrint('🔄 Retrying request with new token...');
           final retryHeaders = await _getHeaders(includeAuth: true);
           final retryResponse = await http.get(uri, headers: retryHeaders);
           return _handleResponse(retryResponse, endpoint);
         } else {
           // Token refresh failed - trigger auth error callback
-          debugPrint('❌ Token refresh failed, triggering logout');
           onAuthenticationError?.call();
         }
       }
 
       return result;
     } catch (e) {
-      debugPrint('❌ GET Error: $e');
       return ApiResponse(
         success: false,
         error: 'Network error. Please check your connection.',
@@ -421,8 +406,6 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-      debugPrint('📡 POST: $uri');
-      debugPrint('📦 Body: $body');
 
       final response = await http.post(
         uri,
@@ -433,12 +416,10 @@ class ApiClient {
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
-        debugPrint('🔄 Got 401, attempting token refresh...');
         final newToken = await _refreshAccessToken();
 
         if (newToken != null) {
           // Retry with new token
-          debugPrint('🔄 Retrying request with new token...');
           final retryHeaders = await _getHeaders(includeAuth: true);
           final retryResponse = await http.post(
             uri,
@@ -448,14 +429,12 @@ class ApiClient {
           return _handleResponse(retryResponse, endpoint);
         } else {
           // Token refresh failed - trigger auth error callback
-          debugPrint('❌ Token refresh failed, triggering logout');
           onAuthenticationError?.call();
         }
       }
 
       return result;
     } catch (e) {
-      debugPrint('❌ POST Error: $e');
       return ApiResponse(
         success: false,
         error: 'Network error. Please check your connection.',
@@ -474,7 +453,6 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-      debugPrint('📡 PUT: $uri');
 
       final response = await http.put(
         uri,
@@ -485,12 +463,10 @@ class ApiClient {
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
-        debugPrint('🔄 Got 401, attempting token refresh...');
         final newToken = await _refreshAccessToken();
 
         if (newToken != null) {
           // Retry with new token
-          debugPrint('🔄 Retrying request with new token...');
           final retryHeaders = await _getHeaders(includeAuth: true);
           final retryResponse = await http.put(
             uri,
@@ -500,14 +476,12 @@ class ApiClient {
           return _handleResponse(retryResponse, endpoint);
         } else {
           // Token refresh failed - trigger auth error callback
-          debugPrint('❌ Token refresh failed, triggering logout');
           onAuthenticationError?.call();
         }
       }
 
       return result;
     } catch (e) {
-      debugPrint('❌ PUT Error: $e');
       return ApiResponse(
         success: false,
         error: 'Network error. Please check your connection.',
@@ -526,7 +500,6 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-      debugPrint('📡 DELETE: $uri');
 
       final request = http.Request('DELETE', uri)
         ..headers.addAll(headers);
@@ -541,12 +514,10 @@ class ApiClient {
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
-        debugPrint('🔄 Got 401, attempting token refresh...');
         final newToken = await _refreshAccessToken();
 
         if (newToken != null) {
           // Retry with new token
-          debugPrint('🔄 Retrying request with new token...');
           final retryHeaders = await _getHeaders(includeAuth: true);
           final retryRequest = http.Request('DELETE', uri)
             ..headers.addAll(retryHeaders);
@@ -560,14 +531,12 @@ class ApiClient {
           return _handleResponse(retryResponse, endpoint);
         } else {
           // Token refresh failed - trigger auth error callback
-          debugPrint('❌ Token refresh failed, triggering logout');
           onAuthenticationError?.call();
         }
       }
 
       return result;
     } catch (e) {
-      debugPrint('❌ DELETE Error: $e');
       return ApiResponse(
         success: false,
         error: 'Network error. Please check your connection.',
@@ -587,7 +556,6 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final token = requiresAuth ? await _getToken() : null;
 
-      debugPrint('📡 POST Multipart: $uri');
 
       final request = http.MultipartRequest('POST', uri);
 
@@ -602,7 +570,6 @@ class ApiClient {
       final response = await http.Response.fromStream(streamedResponse);
       return _handleResponse(response, endpoint);
     } catch (e) {
-      debugPrint('❌ Multipart POST Error: $e');
       return ApiResponse(
         success: false,
         error: 'Upload failed. Please try again.',

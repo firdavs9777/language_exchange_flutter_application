@@ -1,4 +1,5 @@
-import 'package:bananatalk_app/pages/authentication/screens/login.dart';
+import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -37,6 +38,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
   }
 
   Future<void> _resetPassword() async {
+    final l10n = AppLocalizations.of(context)!;
     final password = _passwordController.text;
     final confirmPassword = _confirmPasswordController.text;
 
@@ -44,7 +46,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please fill in all fields',
+            l10n.pleaseFillAllFields,
             BanaStyles: BananaTextStyles.warning,
           ),
           backgroundColor: AppColors.error,
@@ -73,7 +75,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Passwords do not match',
+            l10n.passwordsDoNotMatch,
             BanaStyles: BananaTextStyles.warning,
           ),
           backgroundColor: AppColors.error,
@@ -96,7 +98,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Password reset successful! Please login with your new password',
+            l10n.passwordResetSuccessful,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 3),
@@ -105,10 +107,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
       );
 
       // Navigate to login screen
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (ctx) => Login()),
-        (route) => false,
-      );
+      context.go('/login');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -125,10 +124,11 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: BananaText(
-          'Reset Password',
+          l10n.resetPasswordTitle,
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
         automaticallyImplyLeading: false,
@@ -155,13 +155,13 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
               ),
               Spacing.gapLG,
               BananaText(
-                'Create New Password',
+                l10n.createNewPassword,
                 BanaStyles: BananaTextStyles.heading,
                 textAlign: TextAlign.center,
               ),
               Spacing.gapMD,
               Text(
-                'Enter your new password below',
+                l10n.enterNewPasswordBelow,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: context.textSecondary,
@@ -195,7 +195,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
                     borderSide: BorderSide(color: AppColors.primary, width: 2),
                     borderRadius: AppRadius.borderMD,
                   ),
-                  labelText: 'New Password',
+                  labelText: l10n.newPassword,
                 ),
               ),
               Spacing.gapLG,
@@ -227,7 +227,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
                     borderSide: BorderSide(color: AppColors.primary, width: 2),
                     borderRadius: AppRadius.borderMD,
                   ),
-                  labelText: 'Confirm Password',
+                  labelText: l10n.confirmPasswordLabel,
                 ),
               ),
               const SizedBox(height: 32),
@@ -245,7 +245,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
                   child: _isLoading
                       ? CircularProgressIndicator(color: Colors.white)
                       : Text(
-                          'Reset Password',
+                          l10n.resetPasswordTitle,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

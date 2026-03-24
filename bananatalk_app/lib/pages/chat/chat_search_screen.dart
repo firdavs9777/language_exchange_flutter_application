@@ -140,7 +140,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         text,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.grey[600]),
+        style: TextStyle(color: context.textSecondary),
       );
     }
 
@@ -153,7 +153,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         text,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.grey[600]),
+        style: TextStyle(color: context.textSecondary),
       );
     }
 
@@ -161,15 +161,15 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
-        style: TextStyle(color: Colors.grey[600]),
+        style: TextStyle(color: context.textSecondary),
         children: [
           if (matchIndex > 0)
             TextSpan(text: text.substring(0, matchIndex)),
           TextSpan(
             text: text.substring(matchIndex, matchIndex + query.length),
-            style: const TextStyle(
-              backgroundColor: Color(0xFFFFEB3B),
-              color: Colors.black,
+            style: TextStyle(
+              backgroundColor: AppColors.primary.withValues(alpha: 0.2),
+              color: context.textPrimary,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -191,7 +191,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
           decoration: InputDecoration(
             hintText: AppLocalizations.of(context)!.searchInChatWith(widget.otherUserName),
             border: InputBorder.none,
-            hintStyle: TextStyle(color: Colors.grey[400]),
+            hintStyle: TextStyle(color: context.textHint),
           ),
           style: const TextStyle(fontSize: 16),
         ),
@@ -222,11 +222,11 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
+            Icon(Icons.error_outline, size: 48, color: context.textHint),
             Spacing.gapMD,
             Text(
               _error!,
-              style: TextStyle(color: Colors.grey[600]),
+              style: TextStyle(color: context.textSecondary),
               textAlign: TextAlign.center,
             ),
             Spacing.gapMD,
@@ -244,20 +244,20 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.search, size: 64, color: Colors.grey[300]),
+            Icon(Icons.search, size: 64, color: context.textHint),
             Spacing.gapMD,
             Text(
               'Search messages',
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.grey[600],
+                color: context.textSecondary,
               ),
             ),
             Spacing.gapSM,
             Text(
               'Enter keywords to find messages',
               style: TextStyle(
-                color: Colors.grey[400],
+                color: context.textHint,
               ),
             ),
           ],
@@ -270,20 +270,20 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.search_off, size: 64, color: Colors.grey[300]),
+            Icon(Icons.search_off, size: 64, color: context.textHint),
             Spacing.gapMD,
             Text(
               'No results found',
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.grey[600],
+                color: context.textSecondary,
               ),
             ),
             Spacing.gapSM,
             Text(
               'Try searching with different keywords',
               style: TextStyle(
-                color: Colors.grey[400],
+                color: context.textHint,
               ),
             ),
           ],
@@ -331,7 +331,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
             _formatDate(message.createdAt),
             style: TextStyle(
               fontSize: 12,
-              color: Colors.grey[400],
+              color: context.textHint,
             ),
           ),
         ],

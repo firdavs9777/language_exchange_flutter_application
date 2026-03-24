@@ -4,10 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/community/partner_discovery_tab.dart';
 import 'package:bananatalk_app/pages/community/nearby_tab.dart';
+import 'package:bananatalk_app/pages/community/city_tab.dart';
+import 'package:bananatalk_app/pages/community/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/topics_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
-// import 'package:bananatalk_app/pages/community/waves_tab.dart'; // Hidden for now
 import 'package:bananatalk_app/pages/community/community_filter.dart';
 import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -31,21 +32,26 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   bool _isSearching = false;
   String _searchQuery = '';
 
-  Map<String, dynamic> _filters = {
+  static const Map<String, dynamic> _defaultFilters = {
     'minAge': 18,
     'maxAge': 100,
     'gender': null,
     'nativeLanguage': null,
+    'learningLanguage': null,
     'country': null,
     'topics': <String>[],
     'languageLevel': null,
     'onlineOnly': false,
+    'newUsersOnly': false,
+    'prioritizeNearby': false,
   };
+
+  Map<String, dynamic> _filters = Map<String, dynamic>.from(_defaultFilters);
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _loadSavedFilters();
   }
 
@@ -54,7 +60,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     try {
       final prefs = await SharedPreferences.getInstance();
       final savedFilters = prefs.getString(_filtersKey);
-      debugPrint('🔍 Loading saved filters: $savedFilters');
       if (savedFilters != null) {
         final decoded = json.decode(savedFilters) as Map<String, dynamic>;
         setState(() {
@@ -63,18 +68,18 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             'maxAge': decoded['maxAge'] ?? 100,
             'gender': decoded['gender'],
             'nativeLanguage': decoded['nativeLanguage'],
+            'learningLanguage': decoded['learningLanguage'],
             'country': decoded['country'],
             'topics': List<String>.from(decoded['topics'] ?? []),
             'languageLevel': decoded['languageLevel'],
             'onlineOnly': decoded['onlineOnly'] ?? false,
+            'newUsersOnly': decoded['newUsersOnly'] ?? false,
+            'prioritizeNearby': decoded['prioritizeNearby'] ?? false,
           };
         });
-        debugPrint('🔍 Loaded filters: $_filters');
       } else {
-        debugPrint('🔍 No saved filters found, using defaults');
       }
     } catch (e) {
-      debugPrint('Error loading saved filters: $e');
     }
   }
 
@@ -84,7 +89,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_filtersKey, json.encode(filters));
     } catch (e) {
-      debugPrint('Error saving filters: $e');
     }
   }
 
@@ -102,12 +106,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         pageBuilder: (context, animation, secondaryAnimation) =>
             CommunityFilter(
           onApplyFilters: (filters) {
-            debugPrint('🎛️ Applying new filters from filter screen:');
-            debugPrint('   minAge: ${filters['minAge']}');
-            debugPrint('   maxAge: ${filters['maxAge']}');
-            debugPrint('   gender: ${filters['gender']}');
-            debugPrint('   nativeLanguage: ${filters['nativeLanguage']}');
-            debugPrint('   country: ${filters['country']}');
             setState(() {
               _filters = filters;
             });
@@ -158,9 +156,25 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   key: ValueKey('partners_${_filters.hashCode}'),
                   filters: _filters,
                   searchQuery: _searchQuery,
+                  onClearFilters: () {
+                    setState(() {
+                      _filters = Map<String, dynamic>.from(_defaultFilters);
+                    });
+                    _saveFilters(_filters);
+                  },
+                ),
+                GendersTab(
+                  key: ValueKey('genders_${_filters.hashCode}'),
+                  filters: _filters,
+                  searchQuery: _searchQuery,
                 ),
                 NearbyTab(
                   key: ValueKey('nearby_${_filters.hashCode}'),
+                  filters: _filters,
+                  searchQuery: _searchQuery,
+                ),
+                CityTab(
+                  key: ValueKey('city_${_filters.hashCode}'),
                   filters: _filters,
                   searchQuery: _searchQuery,
                 ),
@@ -412,7 +426,17 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               children: [
                 const Icon(Icons.people_rounded, size: 20),
                 Spacing.hGapSM,
-                Text(AppLocalizations.of(context)!.partners),
+                const Text('All'),
+              ],
+            ),
+          ),
+          Tab(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.wc_rounded, size: 20),
+                Spacing.hGapSM,
+                const Text('Gender'),
               ],
             ),
           ),
@@ -423,6 +447,16 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                 const Icon(Icons.near_me_rounded, size: 20),
                 Spacing.hGapSM,
                 Text(AppLocalizations.of(context)!.nearby),
+              ],
+            ),
+          ),
+          Tab(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.location_city_rounded, size: 20),
+                Spacing.hGapSM,
+                const Text('City'),
               ],
             ),
           ),

@@ -93,7 +93,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       // Auto-start recording
       await _startRecording();
     } catch (e) {
-      debugPrint('Error initializing recorder: $e');
       setState(() {
         _error = 'Failed to initialize recorder';
       });
@@ -143,7 +142,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
 
       setState(() => _isRecording = true);
     } catch (e) {
-      debugPrint('Error starting recording: $e');
       setState(() {
         _error = 'Failed to start recording';
       });
@@ -157,7 +155,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       await _recorder!.pauseRecorder();
       setState(() => _isPaused = true);
     } catch (e) {
-      debugPrint('Error pausing recording: $e');
     }
   }
 
@@ -168,7 +165,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       await _recorder!.resumeRecorder();
       setState(() => _isPaused = false);
     } catch (e) {
-      debugPrint('Error resuming recording: $e');
     }
   }
 
@@ -204,7 +200,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
         widget.onCancel?.call();
       }
     } catch (e) {
-      debugPrint('Error stopping recording: $e');
       widget.onCancel?.call();
     }
   }
@@ -225,7 +220,6 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
         }
       }
     } catch (e) {
-      debugPrint('Error canceling recording: $e');
     }
 
     widget.onCancel?.call();

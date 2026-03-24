@@ -104,6 +104,8 @@
   "deleteMoment": "Delete Moment?",
   "thisActionCannotBeUndone": "This action cannot be undone.",
   "momentDeleted": "Moment deleted",
+  "deleteComment": "Delete Comment?",
+  "commentDeleted": "Comment deleted",
   "editFeatureComingSoon": "Edit feature coming soon",
   "userNotFound": "User not found",
   "cannotReportYourOwnComment": "Cannot report your own comment",
@@ -134,6 +136,7 @@
   "details": "Details",
   "to": "to",
   "banaTalk": "BanaTalk",
+  "chats": "Chats",
   "community": "Community",
   "editProfile": "Edit Profile",
   "yearsOld": "{age} years old",
@@ -904,6 +907,360 @@
   "tryAgainLater": "Please try again later",
   "messageSent": "Message sent",
   "messageDeleted": "Message deleted",
-  "messageEdited": "Message edited"
+  "messageEdited": "Message edited",
+  "edited": "(edited)",
+  "now": "now",
+  "weeksAgo": "{count}w ago",
+  "@weeksAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "viewRepliesCount": "── View {count} {count, plural, =1{reply} other{replies}}",
+  "@viewRepliesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hideReplies": "── Hide replies",
+  "saveMoment": "Save Moment",
+  "removeFromSaved": "Remove from Saved",
+  "momentSaved": "Saved",
+  "momentUnsaved": "Removed from saved",
+  "failedToSave": "Failed to save",
+  "checkOutMoment": "Check out this moment: {title}",
+  "@checkOutMoment": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "failedToLoadMoments": "Failed to load moments",
+  "noMomentsMatchFilters": "No moments match your filters",
+  "beFirstToShareMoment": "Be the first to share a moment!",
+  "tryDifferentSearch": "Try a different search term",
+  "tryAdjustingFilters": "Try adjusting your filters",
+  "noSavedMoments": "No saved moments",
+  "tapBookmarkToSave": "Tap the bookmark icon on a moment to save it",
+  "failedToLoadVideo": "Failed to load video",
+  "titleRequired": "Title is required",
+  "titleTooLong": "Title must be {max} characters or less",
+  "@titleTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "descriptionRequired": "Description is required",
+  "descriptionTooLong": "Description must be {max} characters or less",
+  "@descriptionTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "scheduledDateMustBeFuture": "Scheduled date must be in the future",
+  "recent": "Recent",
+  "popular": "Popular",
+  "trending": "Trending",
+  "mostRecent": "Most Recent",
+  "mostPopular": "Most Popular",
+  "allTime": "All Time",
+  "today": "Today",
+  "thisWeek": "This Week",
+  "thisMonth": "This Month",
+  "replyingTo": "Replying to {userName}",
+  "@replyingTo": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "listView": "List",
+  "quickMatch": "Quick Match",
+  "onlineNow": "Online Now",
+  "speaksLanguage": "Speaks {language}",
+  "@speaksLanguage": {
+    "placeholders": {
+      "language": { "type": "String" }
+    }
+  },
+  "learningLanguage": "Learning {language}",
+  "@learningLanguage": {
+    "placeholders": {
+      "language": { "type": "String" }
+    }
+  },
+  "noPartnersFound": "No partners found",
+  "noUsersFoundForLanguages": "No users found who speak {learning} natively or want to learn {native}.",
+  "@noUsersFoundForLanguages": {
+    "placeholders": {
+      "learning": { "type": "String" },
+      "native": { "type": "String" }
+    }
+  },
+  "tryAdjustingFilters": "Try adjusting your filters to find language exchange partners.",
+  "removeAllFilters": "Remove all filters",
+  "browseAllUsers": "Browse all users",
+  "allCaughtUp": "All caught up!",
+  "loadingMore": "Loading more...",
+  "findingMorePartners": "Finding more language partners for you...",
+  "seenAllPartners": "You've seen all available partners. Check back later for more!",
+  "startOver": "Start Over",
+  "changeFilters": "Change Filters",
+  "findingPartners": "Finding partners...",
+  "somethingWentWrong": "Something went wrong",
+  "retry": "Retry",
+  "setLocationReminder": "Set your location in your profile to see nearby users first.",
+  "updateLocationReminder": "Update your location in Profile > Edit to get accurate nearby results.",
+
+  "male": "Male",
+  "female": "Female",
+  "other": "Other",
+  "browseMen": "Browse men",
+  "browseWomen": "Browse women",
+  "noMaleUsersFound": "No male users found",
+  "noFemaleUsersFound": "No female users found",
+  "vip": "VIP",
+
+  "newUsersOnly": "New Users Only",
+  "showNewUsers": "Show users who joined in the last 6 days",
+  "prioritizeNearby": "Prioritize Nearby",
+  "showNearbyFirst": "Show nearby users first in results",
+  "setLocationToEnable": "Set your location to enable this feature",
+
+  "radius": "Radius",
+  "findingYourLocation": "Finding your location...",
+  "enableLocationForDistance": "Enable Location for Distance",
+  "enableLocationDescription": "Enable GPS to see exact distance to partners. You can still browse by city/country without GPS.",
+  "enableGps": "Enable GPS",
+  "browseByCityCountry": "Browse by City/Country",
+  "peopleNearby": "People Nearby",
+  "noNearbyUsersFound": "No nearby users found",
+  "tryExpandingSearch": "Try expanding your search or check back later.",
+
+  "exploreByCity": "Explore by City",
+  "exploreByCurrentCity": "Browse users on an interactive map, see who's in your city, and discover language partners worldwide.",
+  "interactiveWorldMap": "Interactive world map",
+  "searchByCityName": "Search by city name",
+  "seeUserCountsPerCountry": "See user counts per country",
+  "upgradeToVip": "Upgrade to VIP",
+  "searchByCity": "Search by city...",
+  "loading": "Loading...",
+  "usersWorldwide": "{count} users worldwide",
+  "@usersWorldwide": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "noUsersFound": "No users found",
+  "tryDifferentCity": "Try a different city or country",
+  "usersCount": "{count} users",
+  "@usersCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+
+  "searchCountry": "Search country...",
+  "wave": "Wave",
+  "newUser": "NEW",
+
+  "deleteAccount": "Delete Account",
+  "warningPermanent": "Warning: This action is permanent!",
+  "deleteAccountWarning": "Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.",
+  "enterYourPassword": "Enter your password",
+  "requiredForEmailOnly": "Required for email accounts only",
+  "pleaseEnterPassword": "Please enter your password",
+  "typeDELETE": "Type DELETE to confirm",
+  "mustTypeDELETE": "You must type DELETE to confirm",
+  "deletingAccount": "Deleting Account...",
+  "deleteMyAccountPermanently": "Delete My Account Permanently",
+
+  "whatsYourNativeLanguage": "What's your native language?",
+  "helpsMatchWithLearners": "This helps us match you with learners",
+  "whatAreYouLearning": "What are you learning?",
+  "connectWithNativeSpeakers": "We'll connect you with native speakers",
+  "selectNativeLanguage": "Please select your native language",
+  "selectLearningLanguage": "Please select the language you're learning",
+  "selectCurrentLevel": "Please select your current level",
+  "beginner": "Beginner — I know a few words",
+  "elementary": "Elementary — I can make simple sentences",
+  "intermediate": "Intermediate — I can have basic conversations",
+  "upperIntermediate": "Upper Intermediate — I can discuss most topics",
+  "advanced": "Advanced — I speak fluently with few errors",
+  "proficient": "Proficient — Near-native level",
+
+  "showingPartnersByDistance": "Showing partners sorted by distance",
+  "enableLocationForResults": "Enable location for distance-based results",
+  "enable": "Enable",
+  "locationNotSet": "Location not set",
+
+  "tellUsAboutYourself": "Tell us about yourself",
+  "justACoupleQuickThings": "Just a couple of quick things",
+  "gender": "Gender",
+  "birthDate": "Birth Date",
+  "selectYourBirthDate": "Select your birth date",
+  "continueButton": "Continue",
+  "pleaseSelectGender": "Please select your gender",
+  "pleaseSelectBirthDate": "Please select your birth date",
+  "mustBe18": "You must be at least 18 years old",
+  "invalidDate": "Invalid date",
+  "almostDone": "Almost done!",
+  "addPhotoLocationForMatches": "Add a photo and location to get more matches",
+  "addProfilePhoto": "Add Profile Photo",
+  "optionalUpTo6Photos": "Optional — up to 6 photos",
+  "maximum6Photos": "Maximum 6 photos",
+  "tapToDetectLocation": "Tap to detect location",
+  "optionalHelpsNearbyPartners": "Optional — helps find nearby partners",
+  "startLearning": "Start Learning!",
+  "photoLocationOptional": "Photo & location are optional — you can add them later",
+  "pleaseAcceptTerms": "Please accept the Terms of Service",
+  "iAgreeToThe": "I agree to the ",
+  "termsOfService": "Terms of Service",
+  "tapToSelectLanguage": "Tap to select a language",
+  "yourLevelIn": "Your level in {language} (optional)",
+  "@yourLevelIn": {
+    "placeholders": {
+      "language": { "type": "String" }
+    }
+  },
+  "yourCurrentLevel": "Your current level",
+  "nativeCannotBeSameAsLearning": "Native language cannot be the same as learning language",
+  "learningCannotBeSameAsNative": "Learning language cannot be the same as native language",
+  "stepOf": "Step {current} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+
+  "continueWithGoogle": "Continue with Google",
+  "registerLink": "Register",
+  "pleaseEnterBothEmailAndPassword": "Please enter both email and password",
+  "pleaseEnterValidEmail": "Please enter a valid email address",
+  "loginSuccessful": "Login Successful!",
+  "sessionExpired": "Session expired. Please login again.",
+
+  "stepOneOfTwo": "Step 1 of 2",
+  "createYourAccount": "Create Your Account",
+  "basicInfoToGetStarted": "Basic info to get you started",
+  "emailVerifiedLabel": "Email (Verified)",
+  "nameLabel": "Name",
+  "yourDisplayName": "Your display name",
+  "atLeast8Characters": "At least 8 characters",
+  "confirmPasswordHint": "Confirm password",
+  "nextButton": "Next",
+  "pleaseEnterYourName": "Please enter your name",
+  "pleaseEnterAPassword": "Please enter a password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "male": "Male",
+  "female": "Female",
+  "otherGender": "Other",
+
+  "continueWithGoogleAccount": "Continue with your Google account\nfor a seamless experience",
+  "signingYouIn": "Signing you in...",
+  "tryAgain": "Try Again",
+  "backToSignInMethods": "Back to sign-in methods",
+  "securedByGoogle": "Secured by Google",
+  "dataProtectedEncryption": "Your data is protected with industry-standard encryption",
+  "welcomeCompleteProfile": "Welcome! Please complete your profile",
+  "welcomeBackName": "Welcome back, {name}!",
+  "@welcomeBackName": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+
+  "continueWithAppleId": "Continue with your Apple ID\nfor a secure experience",
+  "continueWithApple": "Continue with Apple",
+  "securedByApple": "Secured by Apple",
+  "privacyProtectedApple": "Your privacy is protected with Apple Sign-In",
+
+  "createAccount": "Create Account",
+  "enterEmailToGetStarted": "Enter your email to get started",
+  "continueText": "Continue",
+  "pleaseEnterEmailAddress": "Please enter your email address",
+  "verificationCodeSent": "Verification code sent to your email!",
+
+  "forgotPasswordTitle": "Forgot Password",
+  "resetPasswordTitle": "Reset Password",
+  "enterEmailForResetCode": "Enter your email address and we'll send you a code to reset your password",
+  "sendResetCode": "Send Reset Code",
+  "resetCodeSent": "Reset code sent to your email!",
+  "rememberYourPassword": "Remember your password?",
+
+  "verifyCode": "Verify Code",
+  "enterResetCode": "Enter Reset Code",
+  "weSentCodeTo": "We sent a 6-digit code to",
+  "pleaseEnterAll6Digits": "Please enter all 6 digits",
+  "codeVerifiedCreatePassword": "Code verified! Create your new password",
+  "verify": "Verify",
+  "didntReceiveCode": "Didn't receive the code?",
+  "resend": "Resend",
+  "resendWithTimer": "Resend ({timer}s)",
+  "@resendWithTimer": {
+    "placeholders": {
+      "timer": { "type": "String" }
+    }
+  },
+  "resetCodeResent": "Reset code resent!",
+
+  "verifyEmail": "Verify Email",
+  "verifyYourEmail": "Verify Your Email",
+  "emailVerifiedSuccessfully": "Email verified successfully!",
+  "verificationCodeResent": "Verification code resent!",
+
+  "createNewPassword": "Create New Password",
+  "enterNewPasswordBelow": "Enter your new password below",
+  "newPassword": "New Password",
+  "confirmPasswordLabel": "Confirm Password",
+  "pleaseFillAllFields": "Please fill in all fields",
+  "passwordResetSuccessful": "Password reset successful! Please login with your new password",
+
+  "privacyTitle": "Privacy",
+  "profileVisibility": "Profile Visibility",
+  "showCountryRegion": "Show Country/Region",
+  "showCountryRegionDesc": "Display your country on your profile",
+  "showCity": "Show City",
+  "showCityDesc": "Display your city on your profile",
+  "showAge": "Show Age",
+  "showAgeDesc": "Display your age on your profile",
+  "showZodiacSign": "Show Zodiac Sign",
+  "showZodiacSignDesc": "Display your zodiac sign on your profile",
+  "onlineStatusSection": "Online Status",
+  "showOnlineStatus": "Show Online Status",
+  "showOnlineStatusDesc": "Let others see when you are online",
+  "otherSettings": "Other Settings",
+  "showGiftingLevel": "Show Gifting Level",
+  "showGiftingLevelDesc": "Display your gifting level badge",
+  "birthdayNotifications": "Birthday Notifications",
+  "birthdayNotificationsDesc": "Receive notifications on your birthday",
+  "personalizedAds": "Personalized Ads",
+  "personalizedAdsDesc": "Allow personalized advertisements",
+  "saveChanges": "Save Changes",
+  "privacySettingsSaved": "Privacy settings saved",
+  "failedToSave": "Failed to save",
+  "locationSection": "Location",
+  "updateLocation": "Update Location",
+  "updateLocationDesc": "Refresh your current location",
+  "currentLocation": "Current location",
+  "locationNotAvailable": "Location not available",
+  "locationUpdated": "Location updated successfully",
+  "locationPermissionDenied": "Location permission denied. Please enable it in settings.",
+  "locationServiceDisabled": "Location services are disabled. Please enable them.",
+  "updatingLocation": "Updating location...",
+  "openSettings": "Open Settings",
+  "locationCouldNotBeUpdated": "Location could not be updated"
 }
 

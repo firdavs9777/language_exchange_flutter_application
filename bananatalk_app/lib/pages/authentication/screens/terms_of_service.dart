@@ -52,7 +52,6 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
       // Call backend API to accept terms
       final authService = ref.read(authServiceProvider);
       final result = await authService.acceptTerms();
-      debugPrint('Accept terms result: $result');
 
       if (!mounted) return;
 
@@ -97,9 +96,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('termsAcceptedLocally', true);
-      debugPrint('✅ Terms acceptance saved locally');
     } catch (e) {
-      debugPrint('⚠️ Failed to save local terms flag: $e');
     }
   }
 
@@ -112,7 +109,11 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(

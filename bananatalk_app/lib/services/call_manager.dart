@@ -32,7 +32,6 @@ class CallManager {
   Future<void> initialize(ChatSocketService chatSocketService) async {
     // Prevent duplicate initialization with same socket
     if (_isInitialized && _chatSocketService == chatSocketService && _socket == chatSocketService.socket) {
-      debugPrint('⚠️ CallManager already initialized with same socket, skipping');
       return;
     }
 
@@ -42,18 +41,15 @@ class CallManager {
     _setupSocketListeners();
     _setupWebRTCCallbacks();
     _isInitialized = true;
-    debugPrint('✅ CallManager initialized');
   }
 
   void _setupSocketListeners() {
     if (_socket == null) {
-      debugPrint('⚠️ Socket is null, cannot setup listeners');
       return;
     }
 
     // Listen for incoming call
     _socket!.on('call:incoming', (data) async {
-      debugPrint('📞 Incoming call: $data');
 
       try {
         final call = CallModel.fromJson(
@@ -66,7 +62,6 @@ class CallManager {
           onIncomingCall!(call);
         }
       } catch (e) {
-        debugPrint('❌ Error parsing incoming call: $e');
         if (onCallError != null) {
           onCallError!('Failed to parse incoming call');
         }
@@ -75,7 +70,6 @@ class CallManager {
 
     // Listen for call accepted (when receiver accepts)
     _socket!.on('call:accepted', (data) async {
-      debugPrint('✅ Call accepted: $data');
 
       if (currentCall != null) {
         currentCall = currentCall!.copyWith(status: CallStatus.connecting);
@@ -90,7 +84,6 @@ class CallManager {
               currentCall!.callType == CallType.video,
             );
           } catch (e) {
-            debugPrint('❌ Error creating offer after acceptance: $e');
             if (onCallError != null) {
               onCallError!('Failed to establish connection');
             }
@@ -101,7 +94,6 @@ class CallManager {
 
     // Listen for call rejected
     _socket!.on('call:rejected', (data) {
-      debugPrint('❌ Call rejected: $data');
 
       if (currentCall != null) {
         currentCall = currentCall!.copyWith(status: CallStatus.rejected);
@@ -114,7 +106,6 @@ class CallManager {
 
     // Listen for WebRTC offer
     _socket!.on('call:offer', (data) async {
-      debugPrint('📡 Received offer: $data');
 
       try {
         final offerData = data['offer'] ?? data;
@@ -128,7 +119,6 @@ class CallManager {
           currentCall?.callType == CallType.video,
         );
       } catch (e) {
-        debugPrint('❌ Error handling offer: $e');
         if (onCallError != null) {
           onCallError!('Failed to process call offer');
         }
@@ -137,7 +127,6 @@ class CallManager {
 
     // Listen for WebRTC answer
     _socket!.on('call:answer-sdp', (data) async {
-      debugPrint('📡 Received answer: $data');
 
       try {
         final answerData = data['answer'] ?? data;
@@ -148,7 +137,6 @@ class CallManager {
 
         await _webrtcService.setRemoteDescription(answer);
       } catch (e) {
-        debugPrint('❌ Error handling answer: $e');
         if (onCallError != null) {
           onCallError!('Failed to process call answer');
         }
@@ -157,7 +145,6 @@ class CallManager {
 
     // Listen for ICE candidates
     _socket!.on('call:ice-candidate', (data) async {
-      debugPrint('🧊 Received ICE candidate');
 
       try {
         final candidateData = data['candidate'] ?? data;
@@ -169,13 +156,11 @@ class CallManager {
 
         await _webrtcService.addIceCandidate(candidate);
       } catch (e) {
-        debugPrint('❌ Error adding ICE candidate: $e');
       }
     });
 
     // Listen for call ended
     _socket!.on('call:ended', (data) {
-      debugPrint('📴 Call ended: $data');
 
       if (currentCall != null) {
         final duration = data is Map ? data['duration'] : null;
@@ -195,7 +180,6 @@ class CallManager {
 
     // 🔧 FIX: Listen for missed calls
     _socket!.on('call:missed', (data) {
-      debugPrint('📵 Call missed: $data');
 
       if (currentCall != null) {
         currentCall = currentCall!.copyWith(
@@ -214,10 +198,8 @@ class CallManager {
 
   void _setupWebRTCCallbacks() {
     _webrtcService.onOfferCreated = (RTCSessionDescription offer) {
-      debugPrint('📤 Sending offer');
 
       if (_socket == null || currentCall == null) {
-        debugPrint('⚠️ Socket or currentCall is null');
         return;
       }
 
@@ -229,10 +211,8 @@ class CallManager {
     };
 
     _webrtcService.onAnswerCreated = (RTCSessionDescription answer) {
-      debugPrint('📤 Sending answer');
 
       if (_socket == null || currentCall == null) {
-        debugPrint('⚠️ Socket or currentCall is null');
         return;
       }
 
@@ -244,7 +224,6 @@ class CallManager {
     };
 
     _webrtcService.onIceCandidate = (RTCIceCandidate candidate) {
-      debugPrint('📤 Sending ICE candidate');
 
       if (_socket == null || currentCall == null) {
         return;
@@ -262,7 +241,6 @@ class CallManager {
     };
 
     _webrtcService.onRemoteStream = (MediaStream stream) {
-      debugPrint('📺 Remote stream received');
 
       if (currentCall != null) {
         currentCall = currentCall!.copyWith(status: CallStatus.connected);
@@ -277,10 +255,6 @@ class CallManager {
     CallType callType,
   ) async {
     try {
-      debugPrint(
-        '📞 Initiating ${callType == CallType.video ? 'video' : 'audio'} call to $targetUserId',
-      );
-
       // Check socket connection
       if (_socket == null || !(_chatSocketService?.isConnected ?? false)) {
         final error = 'Not connected to server. Please check your connection.';
@@ -291,7 +265,6 @@ class CallManager {
       }
 
       // Request permissions
-      debugPrint('🔐 Requesting permissions for ${callType == CallType.video ? "video" : "audio"} call');
       bool permissionsGranted = await _webrtcService.requestPermissions(
         callType == CallType.video,
       );
@@ -303,7 +276,6 @@ class CallManager {
             ? await Permission.camera.status 
             : PermissionStatus.granted;
         
-        debugPrint('❌ Permissions denied - Mic: $micStatus, Camera: $cameraStatus');
         
         String error;
         if (callType == CallType.video) {
@@ -329,14 +301,12 @@ class CallManager {
           }
         }
         
-        debugPrint('❌ Permission error: $error');
         if (onCallError != null) {
           onCallError!(error);
         }
         throw Exception(error);
       }
       
-      debugPrint('✅ Permissions granted');
 
       // Create call model
       currentCall = CallModel(
@@ -373,7 +343,6 @@ class CallManager {
               }
 
               // ✅ Don't create offer here - wait for call:accepted event
-              debugPrint('✅ Call initiated successfully, callId: ${currentCall?.callId}');
               completer.complete();
             } else {
               final error = response['error'] ?? 'Failed to initiate call';
@@ -410,7 +379,6 @@ class CallManager {
         },
       );
     } catch (e) {
-      debugPrint('❌ Error initiating call: $e');
       if (onCallError != null && e is! TimeoutException) {
         // Preserve the original error if it has permission prefixes
         final errorStr = e.toString();
@@ -431,7 +399,6 @@ class CallManager {
     if (currentCall == null) return;
 
     try {
-      debugPrint('✅ Accepting call: ${currentCall!.callId}');
 
       if (_socket == null) {
         if (onCallError != null) {
@@ -491,7 +458,6 @@ class CallManager {
 
       // Note: The offer will come via 'call:offer' event, then we create answer
     } catch (e) {
-      debugPrint('❌ Error accepting call: $e');
       rejectCall();
     }
   }
@@ -499,7 +465,6 @@ class CallManager {
   void rejectCall() {
     if (currentCall == null) return;
 
-    debugPrint('❌ Rejecting call: ${currentCall!.callId}');
 
     if (_socket != null) {
       _socket!.emit('call:answer', {
@@ -520,7 +485,6 @@ class CallManager {
   void endCall() {
     if (currentCall == null) return;
 
-    debugPrint('📴 Ending call: ${currentCall!.callId}');
 
     if (_socket != null) {
       _socket!.emit('call:end', {'callId': currentCall!.callId});
@@ -558,7 +522,6 @@ class CallManager {
   }
 
   void _cleanup() {
-    debugPrint('🧹 Cleaning up call resources...');
     _webrtcService.dispose();
     currentCall = null;
   }

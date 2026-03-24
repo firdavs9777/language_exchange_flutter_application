@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
 import 'package:bananatalk_app/pages/moments/video_player_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -29,10 +30,11 @@ class MomentCard extends ConsumerStatefulWidget {
 }
 
 class _MomentCardState extends ConsumerState<MomentCard> {
-  late bool isLiked;
+  bool isLiked = false;
   late int likeCount;
   bool isSaved = false;
   bool isExpanded = false;
+  bool _likePending = false;
 
   // Language code to flag emoji mapping
   final Map<String, String> _languageFlags = {
@@ -99,54 +101,79 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   @override
   void initState() {
     super.initState();
-    isLiked = false;
     likeCount = widget.moments.likeCount;
+    _initLikeStatus();
     _loadSavedStatus();
   }
 
-  Future<void> _loadSavedStatus() async {
+  Future<void> _initLikeStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedMoments = prefs.getStringList('savedMoments') ?? [];
-    if (mounted) {
+    final currentUserId = prefs.getString('userId');
+    if (mounted && currentUserId != null) {
       setState(() {
-        isSaved = savedMoments.contains(widget.moments.id);
+        isLiked = widget.moments.likedUsers?.contains(currentUserId) ?? false;
+      });
+      debugPrint('❤️ _initLikeStatus: momentId=${widget.moments.id}, userId=$currentUserId, isLiked=$isLiked, likeCount=$likeCount, likedUsers=${widget.moments.likedUsers}');
+    }
+  }
+
+  Future<void> _loadSavedStatus() async {
+    // Check if moment is saved via the savedBy list from backend
+    final prefs = await SharedPreferences.getInstance();
+    final currentUserId = prefs.getString('userId');
+    if (mounted && currentUserId != null) {
+      setState(() {
+        isSaved = widget.moments.savedBy.contains(currentUserId);
       });
     }
   }
 
   Future<void> _toggleSave() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedMoments = prefs.getStringList('savedMoments') ?? [];
+    // Optimistic update
+    final previousSaved = isSaved;
+    setState(() => isSaved = !isSaved);
 
-    setState(() {
-      if (isSaved) {
-        savedMoments.remove(widget.moments.id);
-        isSaved = false;
-      } else {
-        savedMoments.add(widget.moments.id);
-        isSaved = true;
+    final result = await api.MomentsService.toggleSave(
+      momentId: widget.moments.id,
+      currentlySaved: previousSaved,
+    );
+
+    if (result['success'] == true) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(isSaved ? AppLocalizations.of(context)!.momentSaved : AppLocalizations.of(context)!.momentUnsaved),
+            duration: const Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            backgroundColor: const Color(0xFF00BFA5),
+          ),
+        );
       }
-    });
-
-    await prefs.setStringList('savedMoments', savedMoments);
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(isSaved ? '✓ Saved' : 'Removed from saved'),
-          duration: const Duration(seconds: 1),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          backgroundColor: const Color(0xFF00BFA5),
-        ),
-      );
+    } else {
+      // Revert on error
+      if (mounted) {
+        setState(() => isSaved = previousSaved);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     }
   }
 
   void toggleLike() async {
+    // Prevent rapid double-taps
+    if (_likePending) return;
+    _likePending = true;
+
     // Optimistically update UI
     final previousLiked = isLiked;
     final previousCount = likeCount;
+
+    debugPrint('❤️ toggleLike: momentId=${widget.moments.id}, wasLiked=$previousLiked, prevCount=$previousCount');
 
     setState(() {
       if (isLiked) {
@@ -161,28 +188,38 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     try {
       Map<String, dynamic> result;
       if (previousLiked) {
+        debugPrint('❤️ Calling dislikeMoment...');
         result = await ref
             .read(momentsServiceProvider)
             .dislikeMoment(widget.moments.id);
       } else {
+        debugPrint('❤️ Calling likeMoment...');
         result = await ref
             .read(momentsServiceProvider)
             .likeMoment(widget.moments.id);
       }
+
+      debugPrint('❤️ API result: $result');
 
       if (mounted) {
         setState(() {
           isLiked = result['isLiked'] ?? !previousLiked;
           likeCount = result['likeCount'] ?? previousCount;
         });
+        debugPrint('❤️ Updated state: isLiked=$isLiked, likeCount=$likeCount');
+
+        // Invalidate moments provider so fresh data (with updated likedUsers) is fetched on next load
+        ref.invalidate(momentsFeedProvider);
       }
     } catch (e) {
+      debugPrint('❤️ ERROR: $e');
       // Revert on error
       if (mounted) {
         setState(() {
           isLiked = previousLiked;
           likeCount = previousCount;
         });
+        debugPrint('❤️ Reverted to: isLiked=$previousLiked, likeCount=$previousCount');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(e.toString().replaceFirst('Exception: ', '')),
@@ -192,11 +229,14 @@ class _MomentCardState extends ConsumerState<MomentCard> {
           ),
         );
       }
+    } finally {
+      _likePending = false;
     }
   }
 
   void _shareMoment(BuildContext context, String id) {
-    final momentText = 'Check out this moment: ${widget.moments.title}';
+    final l10n = AppLocalizations.of(context)!;
+    final momentText = l10n.checkOutMoment(widget.moments.title);
     final momentUrl = 'https://banatalk.com/moment/$id';
     Share.share('$momentText\n\n$momentUrl');
   }
@@ -231,7 +271,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   isSaved ? Icons.bookmark : Icons.bookmark_outline,
                   color: const Color(0xFF00BFA5),
                 ),
-                title: Text(isSaved ? 'Remove from Saved' : 'Save Moment'),
+                title: Text(isSaved ? AppLocalizations.of(context)!.removeFromSaved : AppLocalizations.of(context)!.saveMoment),
                 onTap: () {
                   Navigator.pop(context);
                   _toggleSave();
@@ -361,18 +401,20 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     );
   }
 
-  String _getRelativeTime(DateTime dateTime) {
-    final now = DateTime.now();
-    final difference = now.difference(dateTime);
+  String _getRelativeTime(BuildContext context, DateTime dateTime) {
+    final l10n = AppLocalizations.of(context)!;
+    final difference = DateTime.now().difference(dateTime);
 
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} minutes ago';
+    if (difference.inMinutes < 1) {
+      return l10n.justNow;
+    } else if (difference.inMinutes < 60) {
+      return l10n.minutesAgo('${difference.inMinutes}');
     } else if (difference.inHours < 24) {
-      return '${difference.inHours} hours ago';
+      return l10n.hoursAgo('${difference.inHours}');
     } else if (difference.inDays < 7) {
-      return '${difference.inDays} days ago';
+      return l10n.daysAgo(difference.inDays);
     } else {
-      return '${(difference.inDays / 7).floor()} weeks ago';
+      return l10n.weeksAgo((difference.inDays / 7).floor());
     }
   }
 
@@ -564,7 +606,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        _getRelativeTime(widget.moments.createdAt),
+                        _getRelativeTime(context, widget.moments.createdAt),
                         style: context.captionSmall.copyWith(color: context.textMuted),
                       ),
                     ],

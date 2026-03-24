@@ -389,7 +389,6 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         privacy: _privacy,
       );
 
-      debugPrint('Story creation result: success=${result.success}, error=${result.error}');
 
       if (result.success) {
         if (mounted) {
@@ -405,7 +404,6 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
       } else {
         // Handle specific video errors
         final errorMsg = result.error ?? 'Failed to create story';
-        debugPrint('Story creation error: $errorMsg');
 
         if (errorMsg.contains('Video Service') ||
             errorMsg.contains('processing unavailable')) {
@@ -417,7 +415,6 @@ class _StoryCreationScreenState extends ConsumerState<StoryCreationScreen> {
         setState(() => _isCreating = false);
       }
     } catch (e) {
-      debugPrint('Story creation exception: $e');
       if (mounted) {
         _showErrorDialog('Exception: $e');
         setState(() => _isCreating = false);

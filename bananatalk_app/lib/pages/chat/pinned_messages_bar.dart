@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Bar showing pinned messages at the top of the chat
 class PinnedMessagesBar extends StatelessWidget {
@@ -21,15 +22,14 @@ class PinnedMessagesBar extends StatelessWidget {
     if (pinnedMessages.isEmpty) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final message = pinnedMessages.first; // Show first pinned message
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+        color: context.surfaceColor,
         border: Border(
           bottom: BorderSide(
-            color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+            color: context.dividerColor,
             width: 1,
           ),
         ),
@@ -106,7 +106,7 @@ class PinnedMessagesBar extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 14,
-                          color: isDark ? Colors.grey[300] : Colors.grey[700],
+                          color: context.textHint,
                         ),
                       ),
                     ],
@@ -124,7 +124,7 @@ class PinnedMessagesBar extends StatelessWidget {
                     child: Icon(
                       Icons.close_rounded,
                       size: 20,
-                      color: isDark ? Colors.grey[500] : Colors.grey[600],
+                      color: context.textSecondary,
                     ),
                   ),
                 ),

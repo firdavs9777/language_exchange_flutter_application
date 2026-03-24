@@ -50,7 +50,6 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
             users.add(user);
           }
         } catch (e) {
-          debugPrint('Error loading user $userId: $e');
         }
       }
 

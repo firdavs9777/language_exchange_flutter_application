@@ -1,25 +1,33 @@
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
-import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
 class Comments {
-  const Comments(
-      {required this.id,
-      required this.text,
-      required this.user,
-      // required this.moment,
-      required this.createdAt,
-      required this.version,
-      this.translations = const []});
+  const Comments({
+    required this.id,
+    required this.text,
+    required this.user,
+    required this.createdAt,
+    required this.version,
+    this.translations = const [],
+    this.likedUsers = const [],
+    this.likeCount = 0,
+    this.replyCount = 0,
+    this.isEdited = false,
+    this.parentComment,
+  });
 
   final String id;
   final String text;
   final Community user;
-  // final Moments moment;
   final DateTime createdAt;
   final int version;
   final List<MessageTranslation> translations;
+  final List<String> likedUsers;
+  final int likeCount;
+  final int replyCount;
+  final bool isEdited;
+  final String? parentComment;
 
   factory Comments.fromJson(Map<String, dynamic> json) {
     // Handle null, incomplete, or string ID user data gracefully
@@ -31,7 +39,6 @@ class Comments {
         user = Community.fromJson(json['user'] as Map<String, dynamic>);
       } catch (e) {
         // If user parsing fails, try to extract what we can
-        debugPrint('Error parsing user in comment: $e');
         final userData = json['user'] as Map<String, dynamic>?;
         user = Community(
           id: userData?['_id']?.toString() ??
@@ -119,7 +126,6 @@ class Comments {
         id: json['_id']?.toString() ?? '',
         text: json['text']?.toString() ?? '',
         user: user,
-        // moment: Moments.fromJson(json['moment']),
         createdAt: json['createdAt'] != null
             ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
             : DateTime.now(),
@@ -129,6 +135,16 @@ class Comments {
                 .where((t) => t != null && t is Map<String, dynamic>)
                 .map((t) => MessageTranslation.fromJson(t))
                 .toList()
-            : []);
+            : [],
+        likedUsers: json['likedUsers'] != null && json['likedUsers'] is List
+            ? (json['likedUsers'] as List)
+                .map((e) => e.toString())
+                .toList()
+            : [],
+        likeCount: json['likeCount'] is int ? json['likeCount'] : 0,
+        replyCount: json['replyCount'] is int ? json['replyCount'] : 0,
+        isEdited: json['isEdited'] == true,
+        parentComment: json['parentComment']?.toString(),
+    );
   }
 }

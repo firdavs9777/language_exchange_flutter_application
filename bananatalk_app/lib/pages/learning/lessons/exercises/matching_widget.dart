@@ -40,27 +40,17 @@ class _MatchingWidgetState extends State<MatchingWidget> {
   void _initializeItems() {
     // Extract pairs from matching pairs or options
     final pairs = widget.exercise.matchingPairs;
-    debugPrint('🔗 ===== MATCHING WIDGET DEBUG =====');
-    debugPrint('🔗 Exercise type: ${widget.exercise.type}');
-    debugPrint('🔗 Exercise question: ${widget.exercise.question}');
-    debugPrint('🔗 Matching pairs count: ${pairs.length}');
-    debugPrint('🔗 Options count: ${widget.exercise.options.length}');
-    debugPrint('🔗 Correct answer: ${widget.exercise.correctAnswer}');
 
     // Log each pair
     for (int i = 0; i < pairs.length; i++) {
-      debugPrint('🔗 Pair $i: left="${pairs[i].left}", right="${pairs[i].right}"');
     }
 
     if (pairs.isNotEmpty) {
       _leftItems = pairs.map((p) => p.left).toList();
       _rightItems = pairs.map((p) => p.right).toList()..shuffle();
       _correctMatches = {for (var p in pairs) p.left: p.right};
-      debugPrint('🔗 Using matchingPairs - left: $_leftItems, right: $_rightItems');
     } else {
       // Fallback to options if no matching pairs
-      debugPrint('🔗 No matching pairs found, trying options fallback...');
-      debugPrint('🔗 Options: ${widget.exercise.options.map((o) => "id:${o.id}, text:${o.text}").toList()}');
 
       _leftItems = widget.exercise.options
           .where((o) => o.id.startsWith('l'))
@@ -72,19 +62,14 @@ class _MatchingWidgetState extends State<MatchingWidget> {
           .toList()
         ..shuffle();
       _correctMatches = {};
-      debugPrint('🔗 Using options fallback - left: $_leftItems, right: $_rightItems');
 
       // If still empty, try to use all options as left items (last resort)
       if (_leftItems.isEmpty && widget.exercise.options.isNotEmpty) {
-        debugPrint('🔗 Options fallback empty, using all options as items...');
         _leftItems = widget.exercise.options.map((o) => o.text).toList();
         _rightItems = [];
-        debugPrint('🔗 Last resort - left: $_leftItems');
       }
     }
 
-    debugPrint('🔗 Final state - leftItems: ${_leftItems.length}, rightItems: ${_rightItems.length}');
-    debugPrint('🔗 ===== END MATCHING DEBUG =====');
   }
 
   void _checkResults() {

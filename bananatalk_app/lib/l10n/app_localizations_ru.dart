@@ -246,6 +246,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get momentDeleted => 'Момент удален';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'Функция редактирования скоро появится';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'Чаты';
 
   @override
   String get community => 'Сообщество';
@@ -515,7 +524,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cannotSendMessageUserMayBeBlocked => 'Не удалось отправить сообщение. Пользователь может быть заблокирован.';
 
   @override
-  String get sessionExpired => 'Сеанс истек. Пожалуйста, войдите снова.';
+  String get sessionExpired => 'Сессия истекла. Войдите снова.';
 
   @override
   String get sendThisSticker => 'Отправить этот стикер?';
@@ -1181,7 +1190,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get forwardFeatureComingSoon => 'Функция пересылки скоро появится';
 
   @override
-  String get momentUnsaved => 'Момент удален из сохраненных';
+  String get momentUnsaved => 'Удалено из сохранённых';
 
   @override
   String get documentPickerComingSoon => 'Выбор документов скоро появится';
@@ -1368,7 +1377,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get permissionsRequired => 'Permissions Required';
 
   @override
-  String get openSettings => 'Open Settings';
+  String get openSettings => 'Открыть настройки';
 
   @override
   String get refresh => 'Refresh';
@@ -1962,4 +1971,727 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get messageEdited => 'Message edited';
+
+  @override
+  String get edited => '(изменено)';
+
+  @override
+  String get now => 'сейчас';
+
+  @override
+  String weeksAgo(int count) {
+    return '$countнед назад';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── Показать $count ответов';
+  }
+
+  @override
+  String get hideReplies => '── Скрыть ответы';
+
+  @override
+  String get saveMoment => 'Сохранить момент';
+
+  @override
+  String get removeFromSaved => 'Удалить из сохранённых';
+
+  @override
+  String get momentSaved => 'Сохранено';
+
+  @override
+  String get failedToSave => 'Не удалось сохранить';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'Посмотрите этот момент: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'Не удалось загрузить моменты';
+
+  @override
+  String get noMomentsMatchFilters => 'Нет моментов, соответствующих фильтрам';
+
+  @override
+  String get beFirstToShareMoment => 'Будьте первым, кто поделится моментом!';
+
+  @override
+  String get tryDifferentSearch => 'Попробуйте другой поисковый запрос';
+
+  @override
+  String get tryAdjustingFilters => 'Попробуйте изменить фильтры';
+
+  @override
+  String get noSavedMoments => 'Нет сохранённых моментов';
+
+  @override
+  String get tapBookmarkToSave => 'Нажмите на закладку, чтобы сохранить момент';
+
+  @override
+  String get failedToLoadVideo => 'Не удалось загрузить видео';
+
+  @override
+  String get titleRequired => 'Заголовок обязателен';
+
+  @override
+  String titleTooLong(int max) {
+    return 'Заголовок должен быть не более $max символов';
+  }
+
+  @override
+  String get descriptionRequired => 'Описание обязательно';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'Описание должно быть не более $max символов';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'Запланированная дата должна быть в будущем';
+
+  @override
+  String get recent => 'Новые';
+
+  @override
+  String get popular => 'Популярные';
+
+  @override
+  String get trending => 'В тренде';
+
+  @override
+  String get mostRecent => 'Самые новые';
+
+  @override
+  String get mostPopular => 'Самые популярные';
+
+  @override
+  String get allTime => 'Всё время';
+
+  @override
+  String get today => 'Сегодня';
+
+  @override
+  String get thisWeek => 'На этой неделе';
+
+  @override
+  String get thisMonth => 'В этом месяце';
+
+  @override
+  String replyingTo(String userName) {
+    return 'Ответ для $userName';
+  }
+
+  @override
+  String get listView => 'Список';
+
+  @override
+  String get quickMatch => 'Быстрый подбор';
+
+  @override
+  String get onlineNow => 'Сейчас онлайн';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'Говорит на $language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'Изучает $language';
+  }
+
+  @override
+  String get noPartnersFound => 'Партнёры не найдены';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'Не найдено пользователей для $learning и $native';
+  }
+
+  @override
+  String get removeAllFilters => 'Убрать все фильтры';
+
+  @override
+  String get browseAllUsers => 'Просмотреть всех пользователей';
+
+  @override
+  String get allCaughtUp => 'Вы всё посмотрели!';
+
+  @override
+  String get loadingMore => 'Загружаем ещё...';
+
+  @override
+  String get findingMorePartners => 'Ищем ещё партнёров...';
+
+  @override
+  String get seenAllPartners => 'Вы видели всех партнёров';
+
+  @override
+  String get startOver => 'Начать сначала';
+
+  @override
+  String get changeFilters => 'Изменить фильтры';
+
+  @override
+  String get findingPartners => 'Поиск партнёров...';
+
+  @override
+  String get setLocationReminder => 'Укажите местоположение, чтобы найти партнёров поблизости';
+
+  @override
+  String get updateLocationReminder => 'Обновите местоположение для лучших результатов';
+
+  @override
+  String get male => 'Мужской';
+
+  @override
+  String get female => 'Женский';
+
+  @override
+  String get other => 'Другой';
+
+  @override
+  String get browseMen => 'Смотреть мужчин';
+
+  @override
+  String get browseWomen => 'Смотреть женщин';
+
+  @override
+  String get noMaleUsersFound => 'Пользователи мужского пола не найдены';
+
+  @override
+  String get noFemaleUsersFound => 'Пользователи женского пола не найдены';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'Только новые пользователи';
+
+  @override
+  String get showNewUsers => 'Показать новых пользователей';
+
+  @override
+  String get prioritizeNearby => 'Приоритет ближайшим';
+
+  @override
+  String get showNearbyFirst => 'Показывать ближайших первыми';
+
+  @override
+  String get setLocationToEnable => 'Укажите местоположение для активации';
+
+  @override
+  String get radius => 'Радиус';
+
+  @override
+  String get findingYourLocation => 'Определяем ваше местоположение...';
+
+  @override
+  String get enableLocationForDistance => 'Включите геолокацию, чтобы видеть расстояния';
+
+  @override
+  String get enableLocationDescription => 'Разрешите доступ к местоположению, чтобы найти языковых партнёров рядом';
+
+  @override
+  String get enableGps => 'Включить GPS';
+
+  @override
+  String get browseByCityCountry => 'Поиск по городу или стране';
+
+  @override
+  String get peopleNearby => 'Люди поблизости';
+
+  @override
+  String get noNearbyUsersFound => 'Пользователи поблизости не найдены';
+
+  @override
+  String get tryExpandingSearch => 'Попробуйте расширить область поиска';
+
+  @override
+  String get exploreByCity => 'Искать по городу';
+
+  @override
+  String get exploreByCurrentCity => 'Искать по текущему городу';
+
+  @override
+  String get interactiveWorldMap => 'Интерактивная карта мира';
+
+  @override
+  String get searchByCityName => 'Поиск по названию города';
+
+  @override
+  String get seeUserCountsPerCountry => 'Посмотреть количество пользователей по странам';
+
+  @override
+  String get upgradeToVip => 'Перейти на VIP';
+
+  @override
+  String get searchByCity => 'Поиск по городу';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count пользователей по всему миру';
+  }
+
+  @override
+  String get noUsersFound => 'Пользователи не найдены';
+
+  @override
+  String get tryDifferentCity => 'Попробуйте другой город';
+
+  @override
+  String usersCount(String count) {
+    return '$count пользователей';
+  }
+
+  @override
+  String get searchCountry => 'Поиск страны';
+
+  @override
+  String get wave => 'Помахать';
+
+  @override
+  String get newUser => 'Новый';
+
+  @override
+  String get warningPermanent => 'Внимание: это действие необратимо!';
+
+  @override
+  String get deleteAccountWarning => 'Удаление аккаунта навсегда сотрёт все ваши данные, сообщения, моменты и связи. Это действие нельзя отменить.';
+
+  @override
+  String get requiredForEmailOnly => 'Требуется только для аккаунтов с электронной почтой';
+
+  @override
+  String get pleaseEnterPassword => 'Пожалуйста, введите пароль';
+
+  @override
+  String get typeDELETE => 'Введите DELETE';
+
+  @override
+  String get mustTypeDELETE => 'Необходимо ввести DELETE для подтверждения';
+
+  @override
+  String get deletingAccount => 'Удаление аккаунта...';
+
+  @override
+  String get deleteMyAccountPermanently => 'Удалить мой аккаунт навсегда';
+
+  @override
+  String get whatsYourNativeLanguage => 'Какой ваш родной язык?';
+
+  @override
+  String get helpsMatchWithLearners => 'Поможет найти изучающих ваш язык';
+
+  @override
+  String get whatAreYouLearning => 'Что вы изучаете?';
+
+  @override
+  String get connectWithNativeSpeakers => 'Общайтесь с носителями языка';
+
+  @override
+  String get selectLearningLanguage => 'Выберите изучаемый язык';
+
+  @override
+  String get selectCurrentLevel => 'Выберите текущий уровень';
+
+  @override
+  String get beginner => 'Начинающий';
+
+  @override
+  String get elementary => 'Элементарный';
+
+  @override
+  String get intermediate => 'Средний';
+
+  @override
+  String get upperIntermediate => 'Выше среднего';
+
+  @override
+  String get advanced => 'Продвинутый';
+
+  @override
+  String get proficient => 'Свободное владение';
+
+  @override
+  String get showingPartnersByDistance => 'Показ партнёров по расстоянию';
+
+  @override
+  String get enableLocationForResults => 'Включите геолокацию для результатов';
+
+  @override
+  String get enable => 'Включить';
+
+  @override
+  String get locationNotSet => 'Местоположение не указано';
+
+  @override
+  String get tellUsAboutYourself => 'Расскажите о себе';
+
+  @override
+  String get justACoupleQuickThings => 'Всего пара быстрых вопросов';
+
+  @override
+  String get gender => 'Пол';
+
+  @override
+  String get birthDate => 'Дата рождения';
+
+  @override
+  String get selectYourBirthDate => 'Выберите дату рождения';
+
+  @override
+  String get continueButton => 'Продолжить';
+
+  @override
+  String get pleaseSelectGender => 'Пожалуйста, выберите пол';
+
+  @override
+  String get pleaseSelectBirthDate => 'Пожалуйста, выберите дату рождения';
+
+  @override
+  String get mustBe18 => 'Вам должно быть не менее 18 лет';
+
+  @override
+  String get invalidDate => 'Неверная дата';
+
+  @override
+  String get almostDone => 'Почти готово!';
+
+  @override
+  String get addPhotoLocationForMatches => 'Добавьте фото и местоположение для лучших совпадений';
+
+  @override
+  String get addProfilePhoto => 'Добавить фото профиля';
+
+  @override
+  String get optionalUpTo6Photos => 'Необязательно — до 6 фото';
+
+  @override
+  String get maximum6Photos => 'Максимум 6 фото';
+
+  @override
+  String get tapToDetectLocation => 'Нажмите для определения местоположения';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'Необязательно — помогает найти партнёров поблизости';
+
+  @override
+  String get startLearning => 'Начать обучение';
+
+  @override
+  String get photoLocationOptional => 'Фото и местоположение необязательны';
+
+  @override
+  String get pleaseAcceptTerms => 'Пожалуйста, примите условия использования';
+
+  @override
+  String get iAgreeToThe => 'Я принимаю';
+
+  @override
+  String get termsOfService => 'Условия использования';
+
+  @override
+  String get tapToSelectLanguage => 'Нажмите, чтобы выбрать язык';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'Ваш уровень в $language';
+  }
+
+  @override
+  String get yourCurrentLevel => 'Ваш текущий уровень';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'Родной язык не может совпадать с изучаемым';
+
+  @override
+  String get learningCannotBeSameAsNative => 'Изучаемый язык не может совпадать с родным';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'Шаг $current из $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Продолжить через Google';
+
+  @override
+  String get registerLink => 'Регистрация';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'Введите email и пароль';
+
+  @override
+  String get pleaseEnterValidEmail => 'Введите действительный email';
+
+  @override
+  String get loginSuccessful => 'Вход выполнен!';
+
+  @override
+  String get stepOneOfTwo => 'Шаг 1 из 2';
+
+  @override
+  String get createYourAccount => 'Создайте аккаунт';
+
+  @override
+  String get basicInfoToGetStarted => 'Базовая информация для начала';
+
+  @override
+  String get emailVerifiedLabel => 'Email (Подтверждён)';
+
+  @override
+  String get nameLabel => 'Имя';
+
+  @override
+  String get yourDisplayName => 'Отображаемое имя';
+
+  @override
+  String get atLeast8Characters => 'Минимум 8 символов';
+
+  @override
+  String get confirmPasswordHint => 'Подтвердите пароль';
+
+  @override
+  String get nextButton => 'Далее';
+
+  @override
+  String get pleaseEnterYourName => 'Введите ваше имя';
+
+  @override
+  String get pleaseEnterAPassword => 'Введите пароль';
+
+  @override
+  String get passwordsDoNotMatch => 'Пароли не совпадают';
+
+  @override
+  String get otherGender => 'Другой';
+
+  @override
+  String get continueWithGoogleAccount => 'Продолжите через Google-аккаунт\nдля удобного входа';
+
+  @override
+  String get signingYouIn => 'Выполняется вход...';
+
+  @override
+  String get backToSignInMethods => 'Назад к способам входа';
+
+  @override
+  String get securedByGoogle => 'Защищено Google';
+
+  @override
+  String get dataProtectedEncryption => 'Ваши данные защищены стандартным шифрованием';
+
+  @override
+  String get welcomeCompleteProfile => 'Добро пожаловать! Заполните профиль';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'С возвращением, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Продолжите через Apple ID\nдля безопасного входа';
+
+  @override
+  String get continueWithApple => 'Продолжить через Apple';
+
+  @override
+  String get securedByApple => 'Защищено Apple';
+
+  @override
+  String get privacyProtectedApple => 'Ваша конфиденциальность защищена Apple Sign-In';
+
+  @override
+  String get createAccount => 'Создать аккаунт';
+
+  @override
+  String get enterEmailToGetStarted => 'Введите email для начала';
+
+  @override
+  String get continueText => 'Продолжить';
+
+  @override
+  String get pleaseEnterEmailAddress => 'Введите ваш email';
+
+  @override
+  String get verificationCodeSent => 'Код отправлен на ваш email!';
+
+  @override
+  String get forgotPasswordTitle => 'Забыли пароль';
+
+  @override
+  String get resetPasswordTitle => 'Сброс пароля';
+
+  @override
+  String get enterEmailForResetCode => 'Введите email и мы отправим код для сброса пароля';
+
+  @override
+  String get sendResetCode => 'Отправить код';
+
+  @override
+  String get resetCodeSent => 'Код сброса отправлен!';
+
+  @override
+  String get rememberYourPassword => 'Помните пароль?';
+
+  @override
+  String get verifyCode => 'Проверить код';
+
+  @override
+  String get enterResetCode => 'Введите код';
+
+  @override
+  String get weSentCodeTo => 'Мы отправили 6-значный код на';
+
+  @override
+  String get pleaseEnterAll6Digits => 'Введите все 6 цифр';
+
+  @override
+  String get codeVerifiedCreatePassword => 'Код подтверждён! Создайте новый пароль';
+
+  @override
+  String get verify => 'Подтвердить';
+
+  @override
+  String get didntReceiveCode => 'Не получили код?';
+
+  @override
+  String get resend => 'Отправить повторно';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'Повторно ($timerс)';
+  }
+
+  @override
+  String get resetCodeResent => 'Код отправлен повторно!';
+
+  @override
+  String get verifyEmail => 'Подтвердить email';
+
+  @override
+  String get verifyYourEmail => 'Подтвердите ваш email';
+
+  @override
+  String get emailVerifiedSuccessfully => 'Email подтверждён!';
+
+  @override
+  String get verificationCodeResent => 'Код подтверждения отправлен повторно!';
+
+  @override
+  String get createNewPassword => 'Создать новый пароль';
+
+  @override
+  String get enterNewPasswordBelow => 'Введите новый пароль ниже';
+
+  @override
+  String get newPassword => 'Новый пароль';
+
+  @override
+  String get confirmPasswordLabel => 'Подтвердите пароль';
+
+  @override
+  String get pleaseFillAllFields => 'Заполните все поля';
+
+  @override
+  String get passwordResetSuccessful => 'Пароль сброшен! Войдите с новым паролем';
+
+  @override
+  String get privacyTitle => 'Конфиденциальность';
+
+  @override
+  String get profileVisibility => 'Видимость профиля';
+
+  @override
+  String get showCountryRegion => 'Показать страну/регион';
+
+  @override
+  String get showCountryRegionDesc => 'Отображать вашу страну в профиле';
+
+  @override
+  String get showCity => 'Показать город';
+
+  @override
+  String get showCityDesc => 'Отображать ваш город в профиле';
+
+  @override
+  String get showAge => 'Показать возраст';
+
+  @override
+  String get showAgeDesc => 'Отображать ваш возраст в профиле';
+
+  @override
+  String get showZodiacSign => 'Показать знак зодиака';
+
+  @override
+  String get showZodiacSignDesc => 'Отображать знак зодиака в профиле';
+
+  @override
+  String get onlineStatusSection => 'Статус онлайн';
+
+  @override
+  String get showOnlineStatus => 'Показать статус онлайн';
+
+  @override
+  String get showOnlineStatusDesc => 'Позволить другим видеть, когда вы онлайн';
+
+  @override
+  String get otherSettings => 'Другие настройки';
+
+  @override
+  String get showGiftingLevel => 'Показать уровень подарков';
+
+  @override
+  String get showGiftingLevelDesc => 'Отображать значок уровня подарков';
+
+  @override
+  String get birthdayNotifications => 'Уведомления о дне рождения';
+
+  @override
+  String get birthdayNotificationsDesc => 'Получать уведомления в день рождения';
+
+  @override
+  String get personalizedAds => 'Персонализированная реклама';
+
+  @override
+  String get personalizedAdsDesc => 'Разрешить персонализированную рекламу';
+
+  @override
+  String get saveChanges => 'Сохранить изменения';
+
+  @override
+  String get privacySettingsSaved => 'Настройки конфиденциальности сохранены';
+
+  @override
+  String get locationSection => 'Местоположение';
+
+  @override
+  String get updateLocation => 'Обновить местоположение';
+
+  @override
+  String get updateLocationDesc => 'Обновить текущее местоположение';
+
+  @override
+  String get currentLocation => 'Текущее местоположение';
+
+  @override
+  String get locationNotAvailable => 'Местоположение недоступно';
+
+  @override
+  String get locationUpdated => 'Местоположение обновлено';
+
+  @override
+  String get locationPermissionDenied => 'Разрешение на определение местоположения отклонено. Включите в настройках.';
+
+  @override
+  String get locationServiceDisabled => 'Службы определения местоположения отключены. Пожалуйста, включите их.';
+
+  @override
+  String get updatingLocation => 'Обновление местоположения...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'Не удалось обновить местоположение';
 }

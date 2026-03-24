@@ -27,7 +27,6 @@ class VideoCompressionService {
     try {
       return await VideoCompress.getMediaInfo(videoFile.path);
     } catch (e) {
-      debugPrint('Error getting video info: $e');
       return null;
     }
   }
@@ -120,10 +119,6 @@ class VideoCompressionService {
         final compressedSize = await compressedFile.length();
         final originalSize = await videoFile.length();
 
-        debugPrint('Video compression complete:');
-        debugPrint('  Original: ${(originalSize / 1024 / 1024).toStringAsFixed(2)}MB');
-        debugPrint('  Compressed: ${(compressedSize / 1024 / 1024).toStringAsFixed(2)}MB');
-        debugPrint('  Savings: ${((1 - compressedSize / originalSize) * 100).toStringAsFixed(1)}%');
 
         return compressedFile;
       }
@@ -131,7 +126,6 @@ class VideoCompressionService {
       // Return original if compression fails
       return videoFile;
     } catch (e) {
-      debugPrint('Video compression error: $e');
       _subscription?.unsubscribe();
       _subscription = null;
       // Return original file on error
@@ -153,7 +147,6 @@ class VideoCompressionService {
       );
       return thumbnail;
     } catch (e) {
-      debugPrint('Error generating thumbnail: $e');
       return null;
     }
   }
@@ -165,7 +158,6 @@ class VideoCompressionService {
       _subscription?.unsubscribe();
       _subscription = null;
     } catch (e) {
-      debugPrint('Error canceling compression: $e');
     }
   }
 
@@ -174,7 +166,6 @@ class VideoCompressionService {
     try {
       await VideoCompress.deleteAllCache();
     } catch (e) {
-      debugPrint('Error deleting video cache: $e');
     }
   }
 

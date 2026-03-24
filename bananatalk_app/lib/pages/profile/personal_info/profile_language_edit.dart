@@ -8,6 +8,8 @@ import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class ProfileLanguageEdit extends ConsumerStatefulWidget {
   final String initialLanguage;
@@ -72,7 +74,6 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
               });
             }
             if (kDebugMode) {
-              debugPrint('Initial language "${widget.initialLanguage}" not found, using first language');
             }
           }
         }
@@ -80,7 +81,6 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         throw Exception('Failed to load languages');
       }
     } catch (e) {
-      debugPrint('Error fetching languages: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to load languages')),
       );
@@ -157,8 +157,8 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        border: Border.all(color: Colors.grey[300]!),
+                        color: context.containerColor,
+                        border: Border.all(color: context.dividerColor),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Row(
@@ -178,10 +178,10 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                               child: Icon(
                                 Icons.language,
                                 size: 32,
-                                color: Colors.grey[600],
+                                color: context.textSecondary,
                               ),
                             ),
-                          
+
                           // Language names
                           Expanded(
                             child: Column(
@@ -193,7 +193,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                                       : 'Language to Learn (Required)',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: Colors.grey[600],
+                                    color: context.textSecondary,
                                   ),
                                 ),
                                 const SizedBox(height: 4),
@@ -203,8 +203,8 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: _selectedLanguage != null
-                                        ? Colors.black87
-                                        : Colors.grey[600],
+                                        ? context.textPrimary
+                                        : context.textSecondary,
                                   ),
                                 ),
                                 if (_selectedLanguage != null) ...[
@@ -213,7 +213,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                                     _selectedLanguage!.nativeName,
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Colors.grey[600],
+                                      color: context.textSecondary,
                                     ),
                                   ),
                                 ],
@@ -225,7 +225,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                           Icon(
                             Icons.arrow_forward_ios,
                             size: 16,
-                            color: Colors.grey[400],
+                            color: context.iconColor,
                           ),
                         ],
                       ),
@@ -284,7 +284,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,
-                      foregroundColor: Colors.black,
+                      foregroundColor: context.textPrimary,
                       minimumSize: const Size(double.infinity, 50),
                       textStyle: const TextStyle(fontSize: 16),
                     ),

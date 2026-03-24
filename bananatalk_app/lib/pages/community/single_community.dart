@@ -59,7 +59,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   /// Refresh profile data after follow/unfollow
   Future<void> _refreshProfile() async {
     try {
-      debugPrint('🔄 Refreshing profile...');
       final communityService = ref.read(communityServiceProvider);
       final refreshedData = await communityService.getSingleCommunity(
         id: widget.community.id,
@@ -72,39 +71,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
           _updatedCommunity = refreshedData;
           isFollower = isNowFollowing;
         });
-        debugPrint('✅ Profile refreshed:');
-        debugPrint('   - Followers: ${refreshedData.followers.length} (${refreshedData.followers})');
-        debugPrint('   - Following: ${refreshedData.followings.length}');
-        debugPrint('   - isFollower updated to: $isNowFollowing');
       }
     } catch (e) {
-      debugPrint('⚠️ Failed to refresh profile: $e');
     }
   }
 
   void _debugCommunityData() {
-    debugPrint('========== COMMUNITY DETAIL DEBUG ==========');
-    debugPrint('User ID: ${_community.id}');
-    debugPrint('User Name: ${_community.name}');
-    debugPrint('Images array: ${_community.images}');
-    debugPrint('Images count: ${_community.images.length}');
-    debugPrint('ImageUrls array: ${_community.imageUrls}');
-    debugPrint('ImageUrls count: ${_community.imageUrls.length}');
-    debugPrint('Effective image URLs: ${_getImageUrls()}');
-    debugPrint('Followers: ${_community.followers}');
-    debugPrint('Followers count: ${_community.followers.length}');
-    debugPrint('Following: ${_community.followings}');
-    debugPrint('Following count: ${_community.followings.length}');
-    debugPrint('---------- LOCATION DEBUG ----------');
-    debugPrint('Location city: "${_community.location.city}"');
-    debugPrint('Location country: "${_community.location.country}"');
-    debugPrint('Location state: "${_community.location.state}"');
-    debugPrint('Location street: "${_community.location.street}"');
-    debugPrint('Location formattedAddress: "${_community.location.formattedAddress}"');
-    debugPrint('Location coordinates: ${_community.location.coordinates}');
-    debugPrint('Location type: "${_community.location.type}"');
-    debugPrint('Has valid coords for map: ${_hasValidCoordinates()}');
-    debugPrint('============================================');
   }
 
   /// Get the best available image URLs - uses model's effectiveImageUrls
@@ -126,7 +98,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         });
       }
     } catch (e) {
-      debugPrint('Error checking block status: $e');
     }
   }
 
@@ -144,10 +115,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         final isFollowingFromCurrentUser = currentUser.followings.contains(_community.id);
         final isFollowingFromProfile = _community.followers.contains(userId);
 
-        debugPrint('🔍 Follow check - userId: $userId, profileId: ${_community.id}');
-        debugPrint('🔍 Current user followings: ${currentUser.followings}');
-        debugPrint('🔍 Is following (from current user): $isFollowingFromCurrentUser');
-        debugPrint('🔍 Is following (from profile): $isFollowingFromProfile');
 
         setState(() {
           // Use current user's following list as the source of truth
@@ -160,7 +127,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         });
       }
     } catch (e) {
-      debugPrint('⚠️ Error checking follow status: $e');
       // Fallback to checking profile's followers list
       setState(() {
         isFollower = _community.followers.contains(userId);
@@ -184,10 +150,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         userId: _community.id,
         source: 'direct', // You can track source: 'search', 'moments', 'chat', etc.
       );
-      debugPrint('✅ Profile visit recorded');
     } catch (e) {
       // Silently fail - don't disrupt user experience
-      debugPrint('⚠️ Failed to record profile visit: $e');
     }
   }
 
@@ -219,7 +183,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
       }
     } catch (e) {
       // If limit check fails, allow viewing (fail open)
-      debugPrint('Error checking profile view limits: $e');
     }
   }
 
@@ -303,15 +266,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     }
 
     try {
-      debugPrint('📤 Following - userId: $userId, targetUserId: $targetUserId');
-      debugPrint('📤 Current isFollower state: $isFollower');
 
       final result = await ref.read(communityServiceProvider).followUser(
             userId: userId,
             targetUserId: targetUserId,
           );
 
-      debugPrint('📥 Follow result: $result');
 
       if (result == 'success' || result == 'already_following') {
         setState(() {
@@ -345,7 +305,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         }
       }
     } catch (e) {
-      debugPrint('Follow error: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -391,15 +350,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
 
     if (shouldUnfollow == true) {
       try {
-        debugPrint('📤 Unfollowing - userId: $userId, targetUserId: $targetUserId');
-        debugPrint('📤 Current isFollower state: $isFollower');
 
         final result = await ref.read(communityServiceProvider).unfollowUser(
               userId: userId,
               targetUserId: targetUserId,
             );
 
-        debugPrint('📥 Unfollow result: $result');
 
         if (result == 'success' || result == 'not_following') {
           setState(() {
@@ -433,7 +389,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
           }
         }
       } catch (e) {
-        debugPrint('Unfollow error: $e');
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -527,10 +482,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         }
       }
 
-      debugPrint('✅ Video call initiated to ${_community.name}');
     } catch (e) {
       // Error is already handled via the callback, no need to handle again
-      debugPrint('❌ Error initiating video call: $e');
     }
   }
 
@@ -588,10 +541,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   }
       }
 
-      debugPrint('✅ Voice call initiated to ${_community.name}');
     } catch (e) {
       // Error is already handled via the callback, no need to handle again
-      debugPrint('❌ Error initiating voice call: $e');
     }
   }
 
@@ -876,7 +827,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     _buildActionButton(
                       Icons.videocam_rounded,
                       AppLocalizations.of(context)!.videoCall,
-                      Colors.grey[400]!,
+                      AppColors.gray400,
                       () => _showComingSoonSnackbar(AppLocalizations.of(context)!.videoCall),
                       isDisabled: true,
                     ),
@@ -884,7 +835,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                     _buildActionButton(
                       Icons.call_rounded,
                       AppLocalizations.of(context)!.voiceCall,
-                      Colors.grey[400]!,
+                      AppColors.gray400,
                       () => _showComingSoonSnackbar(AppLocalizations.of(context)!.voiceCall),
                       isDisabled: true,
                     ),
@@ -1814,7 +1765,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                           : null,
                       onBackgroundImageError: _getProfileImageUrl() != null
                           ? (exception, stackTrace) {
-                              debugPrint('Profile image failed to load: $exception');
                             }
                           : null,
                       child: _getProfileImageUrl() == null
@@ -1864,7 +1814,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         fit: StackFit.expand,
         children: [
           // Background color while loading
-          Container(color: const Color(0xFFE8E8E8)),
+          Container(color: AppColors.gray300),
           // Tile grid - positioned to center on the location
           Positioned.fill(
             child: Row(
@@ -1883,7 +1833,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                               },
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
-                                  color: const Color(0xFFE8E8E8),
+                                  color: AppColors.gray300,
                                 );
                               },
                             ),
@@ -2047,7 +1997,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: context.cardBackground,
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(

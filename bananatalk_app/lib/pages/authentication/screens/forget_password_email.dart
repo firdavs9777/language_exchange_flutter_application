@@ -33,7 +33,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter your email address',
+            AppLocalizations.of(context)!.pleaseEnterEmailAddress,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 2),
@@ -49,7 +49,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter a valid email address',
+            AppLocalizations.of(context)!.pleaseEnterValidEmail,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 2),
@@ -74,7 +74,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Reset code sent to your email!',
+            AppLocalizations.of(context)!.resetCodeSent,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
@@ -107,7 +107,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
     return Scaffold(
       appBar: AppBar(
         title: BananaText(
-          'Forgot Password',
+          AppLocalizations.of(context)!.forgotPasswordTitle,
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
       ),
@@ -125,13 +125,13 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
             ),
             Spacing.gapXXL,
             BananaText(
-              'Reset Password',
+              AppLocalizations.of(context)!.resetPasswordTitle,
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
             Spacing.gapMD,
             Text(
-              'Enter your email address and we\'ll send you a code to reset your password',
+              AppLocalizations.of(context)!.enterEmailForResetCode,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
@@ -168,7 +168,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
                     : Text(
-                        'Send Reset Code',
+                        AppLocalizations.of(context)!.sendResetCode,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -182,7 +182,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Remember your password? ',
+                  AppLocalizations.of(context)!.rememberYourPassword,
                   style: TextStyle(color: context.textSecondary),
                 ),
                 TextButton(
@@ -190,7 +190,7 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    'Login',
+                    AppLocalizations.of(context)!.login,
                     style: TextStyle(
                       color: AppColors.error,
                       fontWeight: FontWeight.bold,

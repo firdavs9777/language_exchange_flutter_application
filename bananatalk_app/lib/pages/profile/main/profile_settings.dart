@@ -2,6 +2,10 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/services/location_service.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,17 +17,18 @@ class ProfileSettings extends ConsumerStatefulWidget {
 }
 
 class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
-  // Privacy settings state - these will be loaded from backend
+  // Privacy settings state — defaults match backend (all true)
   bool _showCountryRegion = true;
   bool _showCity = true;
-  bool _showAge = false;
+  bool _showAge = true;
   bool _showZodiac = true;
-  bool _showOnlineStatus = false;
+  bool _showOnlineStatus = true;
   bool _showGiftingLevel = true;
   bool _birthdayNotification = true;
-  bool _personalizedAds = false;
+  bool _personalizedAds = true;
 
   bool _isLoading = false;
+  bool _isUpdatingLocation = false;
 
   @override
   void initState() {
@@ -114,11 +119,11 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Privacy setting updated'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.privacySettingsSaved),
             backgroundColor: Colors.green,
             behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       }
@@ -167,6 +172,99 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     }
   }
 
+  Future<void> _updateLocation() async {
+    final l10n = AppLocalizations.of(context)!;
+    setState(() => _isUpdatingLocation = true);
+
+    try {
+      final locationService = LocationService();
+
+      final hasPermission = await locationService.checkAndRequestPermission();
+      if (!hasPermission) {
+        if (mounted) {
+          final permStatus = await locationService.getPermissionStatus();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.locationPermissionDenied),
+              backgroundColor: Colors.orange,
+              behavior: SnackBarBehavior.floating,
+              action: permStatus.isPermanentlyDenied
+                  ? SnackBarAction(
+                      label: l10n.openSettings,
+                      textColor: Colors.white,
+                      onPressed: () => LocationService().openSettings(),
+                    )
+                  : null,
+            ),
+          );
+        }
+        return;
+      }
+
+      final position = await locationService.getCurrentPosition(forceRefresh: true);
+      if (position == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.locationServiceDisabled),
+              backgroundColor: Colors.orange,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+        return;
+      }
+
+      String? city;
+      String? country;
+      try {
+        final placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+          city = place.locality ?? place.subAdministrativeArea;
+          country = place.country;
+        }
+      } catch (_) {}
+
+      final authService = ref.read(authServiceProvider);
+      await authService.updateUserHometown(
+        city: city ?? '',
+        country: country ?? '',
+        latitude: position.latitude,
+        longitude: position.longitude,
+      );
+
+      ref.invalidate(userProvider);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.locationUpdated),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${l10n.locationCouldNotBeUpdated}: ${e.toString().replaceFirst('Exception: ', '')}'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingLocation = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userAsync = ref.watch(userProvider);
@@ -181,7 +279,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Privacy',
+          AppLocalizations.of(context)!.privacyTitle,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
             fontSize: 18,
@@ -213,12 +311,13 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
   }
 
   Widget _buildContent(Community user) {
+    final l10n = AppLocalizations.of(context)!;
     final locationText =
         user.location.city.isNotEmpty && user.location.country.isNotEmpty
             ? '${user.location.city}, ${user.location.country}'
             : user.location.country.isNotEmpty
                 ? user.location.country
-                : 'Location not set';
+                : l10n.locationNotAvailable;
 
     return Stack(
       children: [
@@ -241,9 +340,13 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                   children: [
                     Icon(Icons.location_on, size: 20, color: context.textSecondary),
                     Spacing.hGapSM,
-                    Text(
-                      locationText,
-                      style: context.bodySmall.copyWith(fontWeight: FontWeight.w500),
+                    Expanded(
+                      child: Text(
+                        locationText,
+                        style: context.bodySmall.copyWith(fontWeight: FontWeight.w500),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),
@@ -252,14 +355,15 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               Spacing.gapSM,
 
               // Location Settings Section
+              _buildSectionLabel(l10n.locationSection),
               _buildSettingTile(
-                title: 'Show Country/Region',
+                title: l10n.showCountryRegion,
                 value: _showCountryRegion,
                 onChanged: (value) =>
                     _updatePrivacySetting('showCountryRegion', value),
               ),
               _buildSettingTile(
-                title: 'Show City',
+                title: l10n.showCity,
                 value: _showCity,
                 onChanged: (value) => _updatePrivacySetting('showCity', value),
               ),
@@ -267,59 +371,54 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: InkWell(
-                  onTap: () {
-                    // TODO: Navigate to location update screen
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Location update feature coming soon'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
+                  onTap: _isUpdatingLocation ? null : _updateLocation,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Update Location',
-                          style: context.titleMedium,
+                          l10n.updateLocation,
+                          style: context.titleMedium.copyWith(
+                            color: AppColors.primary,
+                          ),
                         ),
-                        Icon(Icons.chevron_right, color: context.textMuted),
+                        _isUpdatingLocation
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : const Icon(Icons.my_location_rounded, color: AppColors.primary, size: 20),
                       ],
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text(
-                  'BanaTalk uses location services to determine which city you live in.',
-                  style: context.caption,
-                ),
-              ),
 
-              const Divider(height: 32),
+              Divider(height: 32, color: context.dividerColor),
 
-              // Personal Information Settings
+              // Personal Information
+              _buildSectionLabel(l10n.profileVisibility),
               _buildSettingTile(
-                title: 'Show Age',
+                title: l10n.showAge,
                 value: _showAge,
                 onChanged: (value) => _updatePrivacySetting('showAge', value),
               ),
               _buildSettingTile(
-                title: 'Show Zodiac',
+                title: l10n.showZodiacSign,
                 value: _showZodiac,
                 onChanged: (value) =>
                     _updatePrivacySetting('showZodiac', value),
               ),
 
-              const Divider(height: 32),
+              Divider(height: 32, color: context.dividerColor),
 
-              // Status Settings
+              // Online Status
+              _buildSectionLabel(l10n.onlineStatusSection),
               _buildSettingTile(
-                title: 'Show Online Status',
+                title: l10n.showOnlineStatus,
+                subtitle: l10n.showOnlineStatusDesc,
                 value: _showOnlineStatus,
                 onChanged: (value) =>
                     _updatePrivacySetting('showOnlineStatus', value),
@@ -328,55 +427,35 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               Divider(height: 32, color: context.dividerColor),
 
               // Gifting Level
+              _buildSectionLabel(l10n.otherSettings),
               _buildSettingTile(
-                title: 'Show My Gifting Level',
+                title: l10n.showGiftingLevel,
+                subtitle: l10n.showGiftingLevelDesc,
                 value: _showGiftingLevel,
                 onChanged: (value) =>
                     _updatePrivacySetting('showGiftingLevel', value),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text(
-                  'When turned off, your gifting level will only be displayed in Live & Voiceroom',
-                  style: context.caption,
-                ),
-              ),
 
-              Divider(height: 32, color: context.dividerColor),
+              Divider(height: 1, color: context.dividerColor),
 
               // Birthday Notification
               _buildSettingTile(
-                title: 'Birthday Notification',
+                title: l10n.birthdayNotifications,
+                subtitle: l10n.birthdayNotificationsDesc,
                 value: _birthdayNotification,
                 onChanged: (value) =>
                     _updatePrivacySetting('birthdayNotification', value),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text(
-                  'After turning off, language partners and groups won\'t receive birthday reminders on your birthday',
-                  style: context.caption,
-                ),
-              ),
 
-              Divider(height: 32, color: context.dividerColor),
+              Divider(height: 1, color: context.dividerColor),
 
               // Personalized Ads
               _buildSettingTile(
-                title: 'Personalized Ads',
+                title: l10n.personalizedAds,
+                subtitle: l10n.personalizedAdsDesc,
                 value: _personalizedAds,
                 onChanged: (value) =>
                     _updatePrivacySetting('personalizedAds', value),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text(
-                  'Once turned off, ad relevance is reduced. We recommend keeping it on.',
-                  style: context.caption,
-                ),
               ),
 
               Spacing.gapXXL,
@@ -385,7 +464,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
         ),
         if (_isLoading)
           Container(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha: 0.3),
             child: const Center(
               child: CircularProgressIndicator(),
             ),
@@ -394,8 +473,23 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     );
   }
 
+  Widget _buildSectionLabel(String label) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
+      child: Text(
+        label,
+        style: context.caption.copyWith(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w600,
+          fontSize: 13,
+        ),
+      ),
+    );
+  }
+
   Widget _buildSettingTile({
     required String title,
+    String? subtitle,
     required bool value,
     required ValueChanged<bool> onChanged,
   }) {
@@ -405,14 +499,25 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
         child: InkWell(
           onTap: () => onChanged(!value),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(
-                    title,
-                    style: context.titleMedium,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: context.titleMedium,
+                      ),
+                      if (subtitle != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: context.caption,
+                        ),
+                      ],
+                    ],
                   ),
                 ),
                 Switch(

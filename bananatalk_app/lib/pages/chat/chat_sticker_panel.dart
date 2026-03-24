@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'sticker_button.dart';
 
 class ChatStickerPanel extends StatelessWidget {
@@ -127,16 +129,16 @@ class ChatStickerPanel extends StatelessWidget {
         return Container(
           height: 280 * animationController.value,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.surfaceColor,
             border: Border(
               top: BorderSide(
-                color: Colors.grey[200]!,
+                color: context.dividerColor,
                 width: 0.5,
               ),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: AppColors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, -2),
               ),
@@ -148,7 +150,6 @@ class ChatStickerPanel extends StatelessWidget {
             child: DefaultTabController(
               length: _stickerCategories.length,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   // Tab bar
                   Container(
@@ -157,7 +158,7 @@ class ChatStickerPanel extends StatelessWidget {
                     child: TabBar(
                       isScrollable: true,
                       labelColor: Theme.of(context).primaryColor,
-                      unselectedLabelColor: Colors.grey[600],
+                      unselectedLabelColor: context.textSecondary,
                       indicatorColor: Theme.of(context).primaryColor,
                       indicatorWeight: 2,
                       labelStyle: const TextStyle(

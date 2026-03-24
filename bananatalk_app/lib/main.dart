@@ -32,11 +32,7 @@ Future<void> main() async {
   // Load environment variables
   try {
     await dotenv.load(fileName: '.env');
-    debugPrint('✅ Environment variables loaded successfully');
   } catch (e) {
-    debugPrint('❌ Error: Could not load .env file: $e');
-    debugPrint('   Please ensure .env file exists in the project root with Firebase configuration.');
-    debugPrint('   Copy .env.example to .env and fill in your values.');
     rethrow; // Fail fast if .env is missing
   }
 
@@ -47,9 +43,7 @@ Future<void> main() async {
     // Register background message handler
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-    debugPrint('✅ Firebase initialized successfully');
   } catch (e) {
-    debugPrint('❌ Error initializing Firebase: $e');
   }
 
   // Initialize socket and notification services if user is logged in
@@ -62,25 +56,19 @@ Future<void> main() async {
     final apiClient = ApiClient();
     final chatSocketService = ChatSocketService();
     apiClient.onTokenRefreshed = () {
-      debugPrint('🔄 Token refreshed, reconnecting socket...');
       chatSocketService.refreshConnection();
     };
 
     if (token != null && token.isNotEmpty && userId != null && userId.isNotEmpty) {
-      debugPrint('🔌 Initializing socket at app startup for user: $userId');
       await chatSocketService.connect();
 
       // Initialize notification service for logged-in users
-      debugPrint('🔔 Initializing NotificationService at app startup');
       final notificationService = NotificationService();
       await notificationService.initialize();
       await notificationService.registerToken(userId);
-      debugPrint('✅ Notification service initialized');
     } else {
-      debugPrint('ℹ️ No token found - services will initialize after login');
     }
   } catch (e) {
-    debugPrint('❌ Error initializing services at startup: $e');
   }
 
   runApp(const ProviderScope(child: MyApp()));
@@ -181,7 +169,6 @@ class MyApp extends ConsumerWidget {
         final callNotifier = ref.read(callProvider.notifier);
         callNotifier.callManager.initialize(chatSocketService);
       } catch (e) {
-        debugPrint('❌ Error initializing CallManager: $e');
       }
     });
 

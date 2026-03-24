@@ -251,20 +251,9 @@ class Exercise {
 
       // Debug logging for matching exercises
       if (exerciseType.toLowerCase() == 'matching') {
-        debugPrint('🔧 Parsing MATCHING exercise:');
-        debugPrint('🔧 Raw json keys: ${json.keys.toList()}');
-        debugPrint('🔧 pairs field: ${json['pairs']}');
-        debugPrint('🔧 matchingPairs field: ${json['matchingPairs']}');
-        debugPrint('🔧 items field: ${json['items']}');
-        debugPrint('🔧 leftItems field: ${json['leftItems']}');
-        debugPrint('🔧 rightItems field: ${json['rightItems']}');
-        debugPrint('🔧 leftColumn field: ${json['leftColumn']}');
-        debugPrint('🔧 rightColumn field: ${json['rightColumn']}');
-        debugPrint('🔧 options field: ${json['options']}');
       }
 
       if (pairsData != null && pairsData is List && pairsData.isNotEmpty) {
-        debugPrint('🔧 Using pairs/matchingPairs field with ${pairsData.length} items');
         return pairsData
             .map((e) => MatchingPair.fromJson(
                 e is Map ? Map<String, dynamic>.from(e) : {'left': '', 'right': ''}))
@@ -274,7 +263,6 @@ class Exercise {
       // Try 'items' field
       final items = json['items'];
       if (items != null && items is List && items.isNotEmpty) {
-        debugPrint('🔧 Using items field with ${items.length} items');
         return items
             .map((e) => MatchingPair.fromJson(
                 e is Map ? Map<String, dynamic>.from(e) : {'left': '', 'right': ''}))
@@ -287,7 +275,6 @@ class Exercise {
       if (leftItems != null && rightItems != null &&
           leftItems is List && rightItems is List &&
           leftItems.isNotEmpty && rightItems.isNotEmpty) {
-        debugPrint('🔧 Using leftItems/rightItems with ${leftItems.length} + ${rightItems.length} items');
         final pairs = <MatchingPair>[];
         final minLen = leftItems.length < rightItems.length ? leftItems.length : rightItems.length;
         for (int i = 0; i < minLen; i++) {
@@ -302,12 +289,10 @@ class Exercise {
       // Try to construct pairs from options (AI might generate options for matching)
       final options = json['options'];
       if (options != null && options is List && options.isNotEmpty) {
-        debugPrint('🔧 Trying to construct pairs from ${options.length} options');
         final firstOpt = options.first;
 
         // Check if options have text/matchWith structure (AI-generated matching)
         if (firstOpt is Map && firstOpt['text'] != null && firstOpt['matchWith'] != null) {
-          debugPrint('🔧 Found text/matchWith structure in options');
           final pairs = <MatchingPair>[];
           for (var opt in options) {
             if (opt is Map && opt['text'] != null && opt['matchWith'] != null) {
@@ -318,7 +303,6 @@ class Exercise {
             }
           }
           if (pairs.isNotEmpty) {
-            debugPrint('🔧 Constructed ${pairs.length} pairs from text/matchWith options');
             return pairs;
           }
         }
@@ -333,7 +317,6 @@ class Exercise {
 
         // Check if options have term/definition structure (another common format)
         if (firstOpt is Map && firstOpt['term'] != null && firstOpt['definition'] != null) {
-          debugPrint('🔧 Found term/definition structure in options');
           final pairs = <MatchingPair>[];
           for (var opt in options) {
             if (opt is Map && opt['term'] != null && opt['definition'] != null) {
@@ -344,13 +327,11 @@ class Exercise {
             }
           }
           if (pairs.isNotEmpty) {
-            debugPrint('🔧 Constructed ${pairs.length} pairs from term/definition options');
             return pairs;
           }
         }
       }
 
-      debugPrint('🔧 No matching pairs found');
       return [];
     }
 

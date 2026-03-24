@@ -48,7 +48,6 @@ class InteractionService {
     } catch (e) {
       // Cache locally on network error
       await _addToLocalCache(_skippedCacheKey, targetUserId);
-      debugPrint('Skip user error (cached locally): $e');
       return {'success': false, 'error': e.toString(), 'cached': true};
     }
   }
@@ -78,7 +77,6 @@ class InteractionService {
       }
     } catch (e) {
       await _addToLocalCache(_wavedCacheKey, targetUserId);
-      debugPrint('Wave user error (cached locally): $e');
       return {'success': false, 'error': e.toString(), 'cached': true};
     }
   }
@@ -103,7 +101,6 @@ class InteractionService {
         return ids.map((id) => id.toString()).toSet();
       }
     } catch (e) {
-      debugPrint('Get excluded users error: $e');
     }
 
     // Fallback to local cache
@@ -124,7 +121,6 @@ class InteractionService {
         return ids.map((id) => id.toString()).toSet();
       }
     } catch (e) {
-      debugPrint('Get skipped users error: $e');
     }
 
     // Fallback to local cache
@@ -145,7 +141,6 @@ class InteractionService {
         return ids.map((id) => id.toString()).toSet();
       }
     } catch (e) {
-      debugPrint('Get waved users error: $e');
     }
 
     // Fallback to local cache
@@ -166,7 +161,6 @@ class InteractionService {
       return response.statusCode == 200;
     } catch (e) {
       await _removeFromLocalCache(_skippedCacheKey, targetUserId);
-      debugPrint('Undo skip error: $e');
       return false;
     }
   }
@@ -185,7 +179,6 @@ class InteractionService {
 
       return response.statusCode == 200;
     } catch (e) {
-      debugPrint('Clear skips error: $e');
       return false;
     }
   }
@@ -223,9 +216,7 @@ class InteractionService {
       await prefs.remove(_skippedCacheKey);
       await prefs.remove(_wavedCacheKey);
 
-      debugPrint('Synced ${interactions.length} interactions to server');
     } catch (e) {
-      debugPrint('Sync interactions error: $e');
     }
   }
 

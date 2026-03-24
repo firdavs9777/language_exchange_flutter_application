@@ -32,14 +32,12 @@ class AIService {
     // Check if response is HTML (likely 404 or error page)
     final trimmed = body.trim();
     if (trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || trimmed.startsWith('<HTML')) {
-      debugPrint('⚠️ AI Service: Received HTML response instead of JSON');
       return null;
     }
 
     try {
       return jsonDecode(body) as Map<String, dynamic>;
     } catch (e) {
-      debugPrint('❌ AI Service JSON decode error: $e');
       return null;
     }
   }
@@ -67,7 +65,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('🚀 Start conversation response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -94,7 +91,6 @@ class AIService {
         }
 
         if (convJson == null) {
-          debugPrint('❌ No conversation found in response: $responseData');
           return {'success': false, 'message': 'No conversation data returned'};
         }
 
@@ -104,7 +100,6 @@ class AIService {
           convData['messages'] = [initialMsgJson];
         }
 
-        debugPrint('📝 Parsed conversation with ${convData['messages']?.length ?? 0} messages');
 
         return {
           'success': true,
@@ -113,7 +108,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to start conversation')};
     } catch (e) {
-      debugPrint('❌ Start conversation error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -129,7 +123,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('📨 Send message response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -187,7 +180,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to send message')};
     } catch (e) {
-      debugPrint('❌ Send message error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -854,7 +846,6 @@ class AIService {
       );
 
       final data = _safeJsonDecode(response.body);
-      debugPrint('🎯 Generate quiz response: $data');
       if (data == null) {
         return {'success': false, 'message': 'Invalid response from server'};
       }
@@ -878,9 +869,7 @@ class AIService {
         } else {
           return {'success': false, 'message': 'Invalid quiz data format'};
         }
-        debugPrint('🎯 Quiz json data: questions count = ${(jsonData['questions'] as List?)?.length ?? 0}');
         final quiz = AIQuiz.fromJson(jsonData);
-        debugPrint('🎯 Parsed quiz: ${quiz.questions.length} questions');
         return {
           'success': true,
           'data': quiz,
@@ -888,7 +877,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate quiz')};
     } catch (e) {
-      debugPrint('🎯 Generate quiz error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -898,30 +886,24 @@ class AIService {
     try {
       final token = await _getToken();
       final url = '${Endpoints.baseURL}learning/quizzes/ai?limit=$limit';
-      debugPrint('📋 Fetching AI quizzes from: $url');
 
       final response = await http.get(
         Uri.parse(url),
         headers: _getHeaders(token),
       );
 
-      debugPrint('📋 AI quizzes response status: ${response.statusCode}');
-      debugPrint('📋 AI quizzes response body: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
-        debugPrint('📋 AI quizzes: null data');
         return {'success': true, 'data': <AIQuiz>[]};
       }
 
       if (response.statusCode == 200) {
         final listData = data['data'];
-        debugPrint('📋 AI quizzes listData type: ${listData?.runtimeType}, length: ${listData is List ? listData.length : 'N/A'}');
         if (listData is! List) {
           // Check if data is nested differently (e.g., data.quizzes)
           if (data['data'] is Map && data['data']['quizzes'] is List) {
             final quizzesList = data['data']['quizzes'] as List;
-            debugPrint('📋 Found nested quizzes: ${quizzesList.length}');
             final quizzes = quizzesList
                 .map((e) => AIQuiz.fromJson(e as Map<String, dynamic>))
                 .toList();
@@ -932,13 +914,10 @@ class AIService {
         final quizzes = listData
             .map((e) => AIQuiz.fromJson(e as Map<String, dynamic>))
             .toList();
-        debugPrint('📋 Parsed ${quizzes.length} quizzes');
         return {'success': true, 'data': quizzes};
       }
-      debugPrint('📋 AI quizzes: non-200 status code');
       return {'success': true, 'data': <AIQuiz>[]};
     } catch (e) {
-      debugPrint('📋 AI quizzes error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -953,7 +932,6 @@ class AIService {
       );
 
       final data = _safeJsonDecode(response.body);
-      debugPrint('🎯 Start quiz response: $data');
       if (data == null) {
         return {'success': false, 'message': 'Invalid response from server'};
       }
@@ -968,7 +946,6 @@ class AIService {
           // Check if quiz is nested inside data.quiz
           if (converted['quiz'] is Map) {
             jsonData = Map<String, dynamic>.from(converted['quiz']);
-            debugPrint('🎯 Found nested quiz structure');
           } else {
             jsonData = converted;
           }
@@ -978,9 +955,7 @@ class AIService {
           return {'success': false, 'message': 'Invalid quiz data format'};
         }
 
-        debugPrint('🎯 Start quiz: questions count = ${(jsonData['questions'] as List?)?.length ?? 0}');
         final quiz = AIQuiz.fromJson(jsonData);
-        debugPrint('🎯 Parsed started quiz: ${quiz.questions.length} questions');
         return {
           'success': true,
           'data': quiz,
@@ -988,7 +963,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to start quiz')};
     } catch (e) {
-      debugPrint('🎯 Start quiz error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -1418,7 +1392,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('🎓 Generate lesson response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1441,7 +1414,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate lesson')};
     } catch (e) {
-      debugPrint('🎓 Generate lesson error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -1456,7 +1428,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('🎓 Generate exercises response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1479,7 +1450,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate exercises')};
     } catch (e) {
-      debugPrint('🎓 Generate exercises error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -1494,7 +1464,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('🎓 Generate vocabulary response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1517,7 +1486,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate vocabulary')};
     } catch (e) {
-      debugPrint('🎓 Generate vocabulary error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -1532,7 +1500,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('🎓 Generate curriculum response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1555,7 +1522,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate curriculum')};
     } catch (e) {
-      debugPrint('🎓 Generate curriculum error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -1573,7 +1539,6 @@ class AIService {
         body: jsonEncode(request.toJson()),
       );
 
-      debugPrint('🎓 Enhance lesson response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1596,7 +1561,6 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to enhance lesson')};
     } catch (e) {
-      debugPrint('🎓 Enhance lesson error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }
@@ -1623,7 +1587,6 @@ class AIService {
 
       final response = await http.get(uri, headers: _getHeaders(token));
 
-      debugPrint('🎓 Get AI lessons response: ${response.body}');
 
       final data = _safeJsonDecode(response.body);
       if (data == null) {
@@ -1646,7 +1609,6 @@ class AIService {
       }
       return {'success': true, 'data': <GeneratedLesson>[]};
     } catch (e) {
-      debugPrint('🎓 Get AI lessons error: $e');
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
   }

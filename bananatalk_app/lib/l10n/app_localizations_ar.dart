@@ -246,6 +246,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get momentDeleted => 'تم حذف اللحظة';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'ميزة التحرير قادمة قريباً';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'الدردشات';
 
   @override
   String get community => 'المجتمع';
@@ -515,7 +524,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cannotSendMessageUserMayBeBlocked => 'لا يمكن إرسال الرسالة. قد يكون المستخدم محظوراً.';
 
   @override
-  String get sessionExpired => 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.';
+  String get sessionExpired => 'انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.';
 
   @override
   String get sendThisSticker => 'إرسال هذا الملصق؟';
@@ -1181,7 +1190,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get forwardFeatureComingSoon => 'ميزة إعادة التوجيه قادمة قريباً';
 
   @override
-  String get momentUnsaved => 'تم إلغاء حفظ اللحظة';
+  String get momentUnsaved => 'تمت الإزالة من المحفوظات';
 
   @override
   String get documentPickerComingSoon => 'منتقي المستندات قادم قريباً';
@@ -1368,7 +1377,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get permissionsRequired => 'Permissions Required';
 
   @override
-  String get openSettings => 'Open Settings';
+  String get openSettings => 'فتح الإعدادات';
 
   @override
   String get refresh => 'Refresh';
@@ -1962,4 +1971,727 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get messageEdited => 'Message edited';
+
+  @override
+  String get edited => '(معدّل)';
+
+  @override
+  String get now => 'الآن';
+
+  @override
+  String weeksAgo(int count) {
+    return 'منذ $count أسبوع';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── عرض $count ردود';
+  }
+
+  @override
+  String get hideReplies => '── إخفاء الردود';
+
+  @override
+  String get saveMoment => 'حفظ اللحظة';
+
+  @override
+  String get removeFromSaved => 'إزالة من المحفوظات';
+
+  @override
+  String get momentSaved => 'تم الحفظ';
+
+  @override
+  String get failedToSave => 'فشل في الحفظ';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'شاهد هذه اللحظة: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'فشل في تحميل اللحظات';
+
+  @override
+  String get noMomentsMatchFilters => 'لا توجد لحظات تطابق الفلاتر';
+
+  @override
+  String get beFirstToShareMoment => 'كن أول من يشارك لحظة!';
+
+  @override
+  String get tryDifferentSearch => 'جرّب مصطلح بحث مختلف';
+
+  @override
+  String get tryAdjustingFilters => 'جرّب تعديل الفلاتر';
+
+  @override
+  String get noSavedMoments => 'لا توجد لحظات محفوظة';
+
+  @override
+  String get tapBookmarkToSave => 'اضغط على أيقونة الإشارة المرجعية لحفظ لحظة';
+
+  @override
+  String get failedToLoadVideo => 'فشل في تحميل الفيديو';
+
+  @override
+  String get titleRequired => 'العنوان مطلوب';
+
+  @override
+  String titleTooLong(int max) {
+    return 'يجب أن يكون العنوان $max حرفاً أو أقل';
+  }
+
+  @override
+  String get descriptionRequired => 'الوصف مطلوب';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'يجب أن يكون الوصف $max حرفاً أو أقل';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'يجب أن يكون التاريخ المجدول في المستقبل';
+
+  @override
+  String get recent => 'الأحدث';
+
+  @override
+  String get popular => 'الأكثر شعبية';
+
+  @override
+  String get trending => 'رائج';
+
+  @override
+  String get mostRecent => 'الأحدث';
+
+  @override
+  String get mostPopular => 'الأكثر شعبية';
+
+  @override
+  String get allTime => 'كل الأوقات';
+
+  @override
+  String get today => 'اليوم';
+
+  @override
+  String get thisWeek => 'هذا الأسبوع';
+
+  @override
+  String get thisMonth => 'هذا الشهر';
+
+  @override
+  String replyingTo(String userName) {
+    return 'الرد على $userName';
+  }
+
+  @override
+  String get listView => 'قائمة';
+
+  @override
+  String get quickMatch => 'مطابقة سريعة';
+
+  @override
+  String get onlineNow => 'متصل الآن';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'يتحدث $language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'يتعلم $language';
+  }
+
+  @override
+  String get noPartnersFound => 'لم يتم العثور على شركاء';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'لم يتم العثور على مستخدمين يتحدثون $learning أو يتعلمون $native.';
+  }
+
+  @override
+  String get removeAllFilters => 'إزالة جميع الفلاتر';
+
+  @override
+  String get browseAllUsers => 'تصفح جميع المستخدمين';
+
+  @override
+  String get allCaughtUp => 'لقد اطلعت على الكل!';
+
+  @override
+  String get loadingMore => 'جاري التحميل...';
+
+  @override
+  String get findingMorePartners => 'جاري البحث عن المزيد من شركاء اللغة...';
+
+  @override
+  String get seenAllPartners => 'لقد شاهدت جميع الشركاء المتاحين. عد لاحقاً!';
+
+  @override
+  String get startOver => 'ابدأ من جديد';
+
+  @override
+  String get changeFilters => 'تغيير الفلاتر';
+
+  @override
+  String get findingPartners => 'جاري البحث عن شركاء...';
+
+  @override
+  String get setLocationReminder => 'حدد موقعك في ملفك الشخصي لرؤية المستخدمين القريبين أولاً.';
+
+  @override
+  String get updateLocationReminder => 'حدّث موقعك في الملف الشخصي > تعديل للحصول على نتائج دقيقة.';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get female => 'أنثى';
+
+  @override
+  String get other => 'آخر';
+
+  @override
+  String get browseMen => 'تصفح الرجال';
+
+  @override
+  String get browseWomen => 'تصفح النساء';
+
+  @override
+  String get noMaleUsersFound => 'لم يتم العثور على مستخدمين ذكور';
+
+  @override
+  String get noFemaleUsersFound => 'لم يتم العثور على مستخدمات';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'المستخدمون الجدد فقط';
+
+  @override
+  String get showNewUsers => 'عرض المستخدمين الذين انضموا في آخر 6 أيام';
+
+  @override
+  String get prioritizeNearby => 'الأولوية للقريبين';
+
+  @override
+  String get showNearbyFirst => 'عرض المستخدمين القريبين أولاً';
+
+  @override
+  String get setLocationToEnable => 'حدد موقعك لتفعيل هذه الميزة';
+
+  @override
+  String get radius => 'النطاق';
+
+  @override
+  String get findingYourLocation => 'جاري تحديد موقعك...';
+
+  @override
+  String get enableLocationForDistance => 'فعّل الموقع لمعرفة المسافة';
+
+  @override
+  String get enableLocationDescription => 'فعّل GPS لرؤية المسافة الدقيقة للشركاء.';
+
+  @override
+  String get enableGps => 'تفعيل GPS';
+
+  @override
+  String get browseByCityCountry => 'التصفح حسب المدينة/الدولة';
+
+  @override
+  String get peopleNearby => 'أشخاص بالقرب';
+
+  @override
+  String get noNearbyUsersFound => 'لم يتم العثور على مستخدمين قريبين';
+
+  @override
+  String get tryExpandingSearch => 'حاول توسيع نطاق البحث أو عد لاحقاً.';
+
+  @override
+  String get exploreByCity => 'استكشف حسب المدينة';
+
+  @override
+  String get exploreByCurrentCity => 'تصفح المستخدمين على خريطة تفاعلية واكتشف شركاء لغة حول العالم.';
+
+  @override
+  String get interactiveWorldMap => 'خريطة عالمية تفاعلية';
+
+  @override
+  String get searchByCityName => 'البحث باسم المدينة';
+
+  @override
+  String get seeUserCountsPerCountry => 'عرض عدد المستخدمين حسب الدولة';
+
+  @override
+  String get upgradeToVip => 'ترقية إلى VIP';
+
+  @override
+  String get searchByCity => 'البحث بالمدينة...';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count مستخدم حول العالم';
+  }
+
+  @override
+  String get noUsersFound => 'لم يتم العثور على مستخدمين';
+
+  @override
+  String get tryDifferentCity => 'جرب مدينة أو دولة أخرى';
+
+  @override
+  String usersCount(String count) {
+    return '$count مستخدم';
+  }
+
+  @override
+  String get searchCountry => 'البحث عن دولة...';
+
+  @override
+  String get wave => 'تحية';
+
+  @override
+  String get newUser => 'جديد';
+
+  @override
+  String get warningPermanent => 'تحذير: هذا الإجراء نهائي!';
+
+  @override
+  String get deleteAccountWarning => 'حذف حسابك سيزيل نهائياً:\n\n• ملفك الشخصي وجميع بياناتك\n• جميع رسائلك ومحادثاتك\n• جميع لحظاتك وقصصك\n• اشتراك VIP (بدون استرداد)\n• جميع متابعيك ومتابعاتك\n\nلا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get requiredForEmailOnly => 'مطلوب لحسابات البريد الإلكتروني فقط';
+
+  @override
+  String get pleaseEnterPassword => 'يرجى إدخال كلمة المرور';
+
+  @override
+  String get typeDELETE => 'اكتب DELETE للتأكيد';
+
+  @override
+  String get mustTypeDELETE => 'يجب كتابة DELETE للتأكيد';
+
+  @override
+  String get deletingAccount => 'جاري حذف الحساب...';
+
+  @override
+  String get deleteMyAccountPermanently => 'حذف حسابي نهائياً';
+
+  @override
+  String get whatsYourNativeLanguage => 'ما هي لغتك الأم؟';
+
+  @override
+  String get helpsMatchWithLearners => 'يساعدنا في مطابقتك مع المتعلمين';
+
+  @override
+  String get whatAreYouLearning => 'ماذا تتعلم؟';
+
+  @override
+  String get connectWithNativeSpeakers => 'سنربطك بمتحدثين أصليين';
+
+  @override
+  String get selectLearningLanguage => 'يرجى اختيار اللغة التي تتعلمها';
+
+  @override
+  String get selectCurrentLevel => 'يرجى اختيار مستواك الحالي';
+
+  @override
+  String get beginner => 'مبتدئ — أعرف بعض الكلمات';
+
+  @override
+  String get elementary => 'أساسي — أستطيع تكوين جمل بسيطة';
+
+  @override
+  String get intermediate => 'متوسط — أستطيع إجراء محادثات بسيطة';
+
+  @override
+  String get upperIntermediate => 'فوق المتوسط — أستطيع مناقشة معظم المواضيع';
+
+  @override
+  String get advanced => 'متقدم — أتحدث بطلاقة';
+
+  @override
+  String get proficient => 'متمكن — مستوى شبه أصلي';
+
+  @override
+  String get showingPartnersByDistance => 'عرض الشركاء حسب المسافة';
+
+  @override
+  String get enableLocationForResults => 'فعّل الموقع للحصول على نتائج حسب المسافة';
+
+  @override
+  String get enable => 'تفعيل';
+
+  @override
+  String get locationNotSet => 'لم يتم تحديد الموقع';
+
+  @override
+  String get tellUsAboutYourself => 'أخبرنا عن نفسك';
+
+  @override
+  String get justACoupleQuickThings => 'فقط بعض الأسئلة السريعة';
+
+  @override
+  String get gender => 'الجنس';
+
+  @override
+  String get birthDate => 'تاريخ الميلاد';
+
+  @override
+  String get selectYourBirthDate => 'اختر تاريخ ميلادك';
+
+  @override
+  String get continueButton => 'متابعة';
+
+  @override
+  String get pleaseSelectGender => 'يرجى اختيار جنسك';
+
+  @override
+  String get pleaseSelectBirthDate => 'يرجى اختيار تاريخ ميلادك';
+
+  @override
+  String get mustBe18 => 'يجب أن يكون عمرك 18 سنة على الأقل';
+
+  @override
+  String get invalidDate => 'تاريخ غير صالح';
+
+  @override
+  String get almostDone => 'أوشكت على الانتهاء!';
+
+  @override
+  String get addPhotoLocationForMatches => 'أضف صورة وموقعاً للحصول على مزيد من التطابقات';
+
+  @override
+  String get addProfilePhoto => 'إضافة صورة شخصية';
+
+  @override
+  String get optionalUpTo6Photos => 'اختياري — حتى 6 صور';
+
+  @override
+  String get maximum6Photos => 'الحد الأقصى 6 صور';
+
+  @override
+  String get tapToDetectLocation => 'انقر لاكتشاف الموقع';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'اختياري — يساعد في العثور على شركاء قريبين';
+
+  @override
+  String get startLearning => 'ابدأ التعلم!';
+
+  @override
+  String get photoLocationOptional => 'الصورة والموقع اختياريان — يمكنك إضافتهما لاحقاً';
+
+  @override
+  String get pleaseAcceptTerms => 'يرجى الموافقة على شروط الخدمة';
+
+  @override
+  String get iAgreeToThe => 'أوافق على ';
+
+  @override
+  String get termsOfService => 'شروط الخدمة';
+
+  @override
+  String get tapToSelectLanguage => 'انقر لاختيار لغة';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'مستواك في $language (اختياري)';
+  }
+
+  @override
+  String get yourCurrentLevel => 'مستواك الحالي';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'لا يمكن أن تكون اللغة الأم نفس لغة التعلم';
+
+  @override
+  String get learningCannotBeSameAsNative => 'لا يمكن أن تكون لغة التعلم نفس اللغة الأم';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'الخطوة $current من $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'المتابعة مع Google';
+
+  @override
+  String get registerLink => 'تسجيل';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'يرجى إدخال البريد الإلكتروني وكلمة المرور';
+
+  @override
+  String get pleaseEnterValidEmail => 'يرجى إدخال بريد إلكتروني صالح';
+
+  @override
+  String get loginSuccessful => 'تم تسجيل الدخول بنجاح!';
+
+  @override
+  String get stepOneOfTwo => 'الخطوة 1 من 2';
+
+  @override
+  String get createYourAccount => 'إنشاء حسابك';
+
+  @override
+  String get basicInfoToGetStarted => 'معلومات أساسية للبدء';
+
+  @override
+  String get emailVerifiedLabel => 'البريد الإلكتروني (تم التحقق)';
+
+  @override
+  String get nameLabel => 'الاسم';
+
+  @override
+  String get yourDisplayName => 'اسم العرض';
+
+  @override
+  String get atLeast8Characters => '8 أحرف على الأقل';
+
+  @override
+  String get confirmPasswordHint => 'تأكيد كلمة المرور';
+
+  @override
+  String get nextButton => 'التالي';
+
+  @override
+  String get pleaseEnterYourName => 'يرجى إدخال اسمك';
+
+  @override
+  String get pleaseEnterAPassword => 'يرجى إدخال كلمة مرور';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمات المرور غير متطابقة';
+
+  @override
+  String get otherGender => 'أخرى';
+
+  @override
+  String get continueWithGoogleAccount => 'تابع بحساب Google\nللحصول على تجربة سلسة';
+
+  @override
+  String get signingYouIn => 'جاري تسجيل الدخول...';
+
+  @override
+  String get backToSignInMethods => 'العودة لطرق تسجيل الدخول';
+
+  @override
+  String get securedByGoogle => 'محمي بواسطة Google';
+
+  @override
+  String get dataProtectedEncryption => 'بياناتك محمية بتشفير معياري';
+
+  @override
+  String get welcomeCompleteProfile => 'مرحباً! يرجى إكمال ملفك الشخصي';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'مرحباً بعودتك، $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'تابع بحساب Apple ID\nللحصول على تجربة آمنة';
+
+  @override
+  String get continueWithApple => 'المتابعة مع Apple';
+
+  @override
+  String get securedByApple => 'محمي بواسطة Apple';
+
+  @override
+  String get privacyProtectedApple => 'خصوصيتك محمية مع Apple Sign-In';
+
+  @override
+  String get createAccount => 'إنشاء حساب';
+
+  @override
+  String get enterEmailToGetStarted => 'أدخل بريدك الإلكتروني للبدء';
+
+  @override
+  String get continueText => 'متابعة';
+
+  @override
+  String get pleaseEnterEmailAddress => 'يرجى إدخال بريدك الإلكتروني';
+
+  @override
+  String get verificationCodeSent => 'تم إرسال رمز التحقق إلى بريدك!';
+
+  @override
+  String get forgotPasswordTitle => 'نسيت كلمة المرور';
+
+  @override
+  String get resetPasswordTitle => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get enterEmailForResetCode => 'أدخل بريدك الإلكتروني وسنرسل لك رمز إعادة تعيين كلمة المرور';
+
+  @override
+  String get sendResetCode => 'إرسال رمز إعادة التعيين';
+
+  @override
+  String get resetCodeSent => 'تم إرسال رمز إعادة التعيين!';
+
+  @override
+  String get rememberYourPassword => 'تتذكر كلمة المرور؟';
+
+  @override
+  String get verifyCode => 'التحقق من الرمز';
+
+  @override
+  String get enterResetCode => 'أدخل رمز إعادة التعيين';
+
+  @override
+  String get weSentCodeTo => 'أرسلنا رمزاً مكوناً من 6 أرقام إلى';
+
+  @override
+  String get pleaseEnterAll6Digits => 'يرجى إدخال الأرقام الستة';
+
+  @override
+  String get codeVerifiedCreatePassword => 'تم التحقق! أنشئ كلمة مرور جديدة';
+
+  @override
+  String get verify => 'تحقق';
+
+  @override
+  String get didntReceiveCode => 'لم تستلم الرمز؟';
+
+  @override
+  String get resend => 'إعادة إرسال';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'إعادة إرسال ($timerث)';
+  }
+
+  @override
+  String get resetCodeResent => 'تم إعادة إرسال رمز إعادة التعيين!';
+
+  @override
+  String get verifyEmail => 'التحقق من البريد';
+
+  @override
+  String get verifyYourEmail => 'تحقق من بريدك الإلكتروني';
+
+  @override
+  String get emailVerifiedSuccessfully => 'تم التحقق من البريد بنجاح!';
+
+  @override
+  String get verificationCodeResent => 'تم إعادة إرسال رمز التحقق!';
+
+  @override
+  String get createNewPassword => 'إنشاء كلمة مرور جديدة';
+
+  @override
+  String get enterNewPasswordBelow => 'أدخل كلمة المرور الجديدة أدناه';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get confirmPasswordLabel => 'تأكيد كلمة المرور';
+
+  @override
+  String get pleaseFillAllFields => 'يرجى ملء جميع الحقول';
+
+  @override
+  String get passwordResetSuccessful => 'تم إعادة تعيين كلمة المرور بنجاح! سجل الدخول بكلمة المرور الجديدة';
+
+  @override
+  String get privacyTitle => 'الخصوصية';
+
+  @override
+  String get profileVisibility => 'ظهور الملف الشخصي';
+
+  @override
+  String get showCountryRegion => 'إظهار الدولة/المنطقة';
+
+  @override
+  String get showCountryRegionDesc => 'عرض دولتك في ملفك الشخصي';
+
+  @override
+  String get showCity => 'إظهار المدينة';
+
+  @override
+  String get showCityDesc => 'عرض مدينتك في ملفك الشخصي';
+
+  @override
+  String get showAge => 'إظهار العمر';
+
+  @override
+  String get showAgeDesc => 'عرض عمرك في ملفك الشخصي';
+
+  @override
+  String get showZodiacSign => 'إظهار البرج';
+
+  @override
+  String get showZodiacSignDesc => 'عرض برجك في ملفك الشخصي';
+
+  @override
+  String get onlineStatusSection => 'حالة الاتصال';
+
+  @override
+  String get showOnlineStatus => 'إظهار حالة الاتصال';
+
+  @override
+  String get showOnlineStatusDesc => 'السماح للآخرين برؤية حالة اتصالك';
+
+  @override
+  String get otherSettings => 'إعدادات أخرى';
+
+  @override
+  String get showGiftingLevel => 'إظهار مستوى الهدايا';
+
+  @override
+  String get showGiftingLevelDesc => 'عرض شارة مستوى الهدايا';
+
+  @override
+  String get birthdayNotifications => 'إشعارات عيد الميلاد';
+
+  @override
+  String get birthdayNotificationsDesc => 'تلقي إشعارات في عيد ميلادك';
+
+  @override
+  String get personalizedAds => 'إعلانات مخصصة';
+
+  @override
+  String get personalizedAdsDesc => 'السماح بالإعلانات المخصصة';
+
+  @override
+  String get saveChanges => 'حفظ التغييرات';
+
+  @override
+  String get privacySettingsSaved => 'تم حفظ إعدادات الخصوصية';
+
+  @override
+  String get locationSection => 'الموقع';
+
+  @override
+  String get updateLocation => 'تحديث الموقع';
+
+  @override
+  String get updateLocationDesc => 'تحديث موقعك الحالي';
+
+  @override
+  String get currentLocation => 'الموقع الحالي';
+
+  @override
+  String get locationNotAvailable => 'الموقع غير متاح';
+
+  @override
+  String get locationUpdated => 'تم تحديث الموقع بنجاح';
+
+  @override
+  String get locationPermissionDenied => 'تم رفض إذن الموقع. يرجى تفعيله في الإعدادات.';
+
+  @override
+  String get locationServiceDisabled => 'خدمات الموقع معطلة. يرجى تفعيلها.';
+
+  @override
+  String get updatingLocation => 'جارٍ تحديث الموقع...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'تعذر تحديث الموقع';
 }

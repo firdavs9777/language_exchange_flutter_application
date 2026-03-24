@@ -75,13 +75,6 @@ class ReportService {
       final body = json.encode(requestBody);
       
       // Debug logging
-      debugPrint('📋 Creating report:');
-      debugPrint('   Type: $type');
-      debugPrint('   Report ID: $reportId');
-      debugPrint('   Reported User: $reportedUser');
-      debugPrint('   Reason: $reason');
-      debugPrint('   Description: ${description ?? 'none'}');
-      debugPrint('   URL: ${Endpoints.baseURL}reports');
 
       final response = await http.post(
         Uri.parse('${Endpoints.baseURL}reports'),
@@ -89,8 +82,6 @@ class ReportService {
         body: body,
       );
       
-      debugPrint('📥 Response status: ${response.statusCode}');
-      debugPrint('📥 Response body: ${response.body}');
 
       final responseData = json.decode(response.body);
 

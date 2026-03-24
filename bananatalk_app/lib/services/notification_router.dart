@@ -10,80 +10,42 @@ class NotificationRouter {
   ) {
     final type = data['type']?.toString() ?? '';
 
-    debugPrint('🔔 Handling notification tap: type=$type, data=$data');
-
     try {
-      // First ensure we're on home, then push the target screen
-      // This gives us a proper back stack with back button
+      String? targetPath;
+
       switch (type) {
         case 'chat_message':
           final senderId = data['senderId']?.toString();
-          if (senderId != null) {
-            debugPrint('📱 Navigating to chat: senderId=$senderId');
-            // Go to home first, then push chat (gives back button)
-            goRouter.go('/home');
-            goRouter.push('/chat/$senderId');
-          } else {
-            debugPrint('⚠️ Missing senderId for chat navigation');
-            goRouter.go('/home');
-          }
+          if (senderId != null) targetPath = '/chat/$senderId';
           break;
 
         case 'moment_like':
         case 'moment_comment':
+        case 'follower_moment':
           final momentId = data['momentId']?.toString();
-          if (momentId != null) {
-            debugPrint('📱 Navigating to moment: momentId=$momentId');
-            goRouter.go('/home');
-            goRouter.push('/moment/$momentId');
-          } else {
-            debugPrint('⚠️ Missing momentId for moment navigation');
-            goRouter.go('/home');
-          }
+          if (momentId != null) targetPath = '/moment/$momentId';
           break;
 
         case 'friend_request':
         case 'profile_visit':
           final userId = data['userId']?.toString();
-          if (userId != null) {
-            debugPrint('📱 Navigating to profile: userId=$userId');
-            goRouter.go('/home');
-            goRouter.push('/profile/$userId');
-          } else {
-            debugPrint('⚠️ Missing userId for profile navigation');
-            goRouter.go('/home');
-          }
+          if (userId != null) targetPath = '/profile/$userId';
           break;
+      }
 
-        case 'follower_moment':
-          // When someone you follow posts a moment
-          final momentId = data['momentId']?.toString();
-          final userId = data['userId']?.toString();
-          if (momentId != null) {
-            debugPrint('📱 Navigating to follower moment: momentId=$momentId, userId=$userId');
-            goRouter.go('/home');
-            goRouter.push('/moment/$momentId');
-          } else {
-            debugPrint('⚠️ Missing momentId for follower moment navigation');
-            goRouter.go('/home');
-          }
-          break;
-
-        case 'system':
-          debugPrint('📱 Navigating to home screen');
-          goRouter.go('/home');
-          break;
-
-        default:
-          debugPrint('⚠️ Unknown notification type: $type');
-          goRouter.go('/home');
+      // Navigate to home first, then push the target screen after
+      // a frame delay to ensure the home route is fully settled.
+      // This creates a proper back stack so the back button works.
+      goRouter.go('/home');
+      if (targetPath != null) {
+        Future.delayed(const Duration(milliseconds: 300), () {
+          goRouter.push(targetPath!);
+        });
       }
     } catch (e) {
-      debugPrint('❌ Error handling notification: $e');
       try {
         goRouter.go('/home');
       } catch (navError) {
-        debugPrint('❌ Error navigating to home: $navError');
       }
     }
   }

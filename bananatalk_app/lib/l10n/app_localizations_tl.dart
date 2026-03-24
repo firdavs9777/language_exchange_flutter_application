@@ -246,6 +246,12 @@ class AppLocalizationsTl extends AppLocalizations {
   String get momentDeleted => 'Nabura ang sandali';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'Malapit nang dumating ang edit feature';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'Mga Chat';
 
   @override
   String get community => 'Komunidad';
@@ -1181,7 +1190,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get forwardFeatureComingSoon => 'Malapit nang dumating ang forward feature';
 
   @override
-  String get momentUnsaved => 'Na-unsave ang sandali';
+  String get momentUnsaved => 'Inalis sa naka-save';
 
   @override
   String get documentPickerComingSoon => 'Malapit nang dumating ang document picker';
@@ -1962,4 +1971,727 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get messageEdited => 'Na-edit ang mensahe';
+
+  @override
+  String get edited => '(na-edit)';
+
+  @override
+  String get now => 'ngayon';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count linggo ang nakalipas';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── Tingnan ang $count tugon';
+  }
+
+  @override
+  String get hideReplies => '── Itago ang mga tugon';
+
+  @override
+  String get saveMoment => 'I-save ang Moment';
+
+  @override
+  String get removeFromSaved => 'Alisin sa Naka-save';
+
+  @override
+  String get momentSaved => 'Na-save';
+
+  @override
+  String get failedToSave => 'Hindi na-save';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'Tingnan ang moment na ito: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'Hindi na-load ang mga moment';
+
+  @override
+  String get noMomentsMatchFilters => 'Walang moment na tumutugma sa iyong mga filter';
+
+  @override
+  String get beFirstToShareMoment => 'Maging una sa pagbahagi ng moment!';
+
+  @override
+  String get tryDifferentSearch => 'Subukan ang ibang salita sa paghahanap';
+
+  @override
+  String get tryAdjustingFilters => 'Subukang i-adjust ang iyong mga filter';
+
+  @override
+  String get noSavedMoments => 'Walang naka-save na moment';
+
+  @override
+  String get tapBookmarkToSave => 'I-tap ang bookmark icon para i-save ang moment';
+
+  @override
+  String get failedToLoadVideo => 'Hindi na-load ang video';
+
+  @override
+  String get titleRequired => 'Kailangan ang pamagat';
+
+  @override
+  String titleTooLong(int max) {
+    return 'Ang pamagat ay dapat $max character o mas kaunti';
+  }
+
+  @override
+  String get descriptionRequired => 'Kailangan ang paglalarawan';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'Ang paglalarawan ay dapat $max character o mas kaunti';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'Ang naka-schedule na petsa ay dapat sa hinaharap';
+
+  @override
+  String get recent => 'Kamakailan';
+
+  @override
+  String get popular => 'Sikat';
+
+  @override
+  String get trending => 'Trending';
+
+  @override
+  String get mostRecent => 'Pinakabago';
+
+  @override
+  String get mostPopular => 'Pinakasikat';
+
+  @override
+  String get allTime => 'Lahat ng Oras';
+
+  @override
+  String get today => 'Ngayon';
+
+  @override
+  String get thisWeek => 'Ngayong Linggo';
+
+  @override
+  String get thisMonth => 'Ngayong Buwan';
+
+  @override
+  String replyingTo(String userName) {
+    return 'Sumasagot kay $userName';
+  }
+
+  @override
+  String get listView => 'Listahan';
+
+  @override
+  String get quickMatch => 'Mabilis na match';
+
+  @override
+  String get onlineNow => 'Online ngayon';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'Nagsasalita ng $language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'Nag-aaral ng $language';
+  }
+
+  @override
+  String get noPartnersFound => 'Walang nahanap na partner';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'Walang nahanap na user na nagsasalita ng $learning bilang katutubong wika o gustong matuto ng $native.';
+  }
+
+  @override
+  String get removeAllFilters => 'Alisin lahat ng filter';
+
+  @override
+  String get browseAllUsers => 'Tingnan lahat ng user';
+
+  @override
+  String get allCaughtUp => 'Nakita mo na lahat!';
+
+  @override
+  String get loadingMore => 'Naglo-load pa...';
+
+  @override
+  String get findingMorePartners => 'Naghahanap pa ng mga partner...';
+
+  @override
+  String get seenAllPartners => 'Nakita mo na lahat ng partner';
+
+  @override
+  String get startOver => 'Magsimula muli';
+
+  @override
+  String get changeFilters => 'Baguhin ang mga filter';
+
+  @override
+  String get findingPartners => 'Naghahanap ng mga partner...';
+
+  @override
+  String get setLocationReminder => 'I-set ang iyong lokasyon para mahanap ang mga partner na malapit';
+
+  @override
+  String get updateLocationReminder => 'I-update ang iyong lokasyon para sa mas magandang resulta';
+
+  @override
+  String get male => 'Lalaki';
+
+  @override
+  String get female => 'Babae';
+
+  @override
+  String get other => 'Iba pa';
+
+  @override
+  String get browseMen => 'Maghanap ng mga lalaki';
+
+  @override
+  String get browseWomen => 'Maghanap ng mga babae';
+
+  @override
+  String get noMaleUsersFound => 'Walang nahanap na lalaking user';
+
+  @override
+  String get noFemaleUsersFound => 'Walang nahanap na babaeng user';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'Mga bagong user lamang';
+
+  @override
+  String get showNewUsers => 'Ipakita ang mga bagong user';
+
+  @override
+  String get prioritizeNearby => 'Unahin ang mga malapit';
+
+  @override
+  String get showNearbyFirst => 'Ipakita muna ang mga malapit';
+
+  @override
+  String get setLocationToEnable => 'I-set ang lokasyon para ma-enable';
+
+  @override
+  String get radius => 'Radius';
+
+  @override
+  String get findingYourLocation => 'Hinahanap ang iyong lokasyon...';
+
+  @override
+  String get enableLocationForDistance => 'I-enable ang lokasyon para sa distansya';
+
+  @override
+  String get enableLocationDescription => 'I-enable ang mga serbisyo ng lokasyon para mahanap ang mga partner sa malapit';
+
+  @override
+  String get enableGps => 'I-enable ang GPS';
+
+  @override
+  String get browseByCityCountry => 'Maghanap ayon sa lungsod/bansa';
+
+  @override
+  String get peopleNearby => 'Mga tao sa malapit';
+
+  @override
+  String get noNearbyUsersFound => 'Walang nahanap na malapit na user';
+
+  @override
+  String get tryExpandingSearch => 'Subukang palawakin ang paghahanap';
+
+  @override
+  String get exploreByCity => 'Mag-explore ayon sa lungsod';
+
+  @override
+  String get exploreByCurrentCity => 'Mag-explore ayon sa kasalukuyang lungsod';
+
+  @override
+  String get interactiveWorldMap => 'Interactive na mapa ng mundo';
+
+  @override
+  String get searchByCityName => 'Maghanap ayon sa pangalan ng lungsod';
+
+  @override
+  String get seeUserCountsPerCountry => 'Tingnan ang bilang ng mga user bawat bansa';
+
+  @override
+  String get upgradeToVip => 'Mag-upgrade sa VIP';
+
+  @override
+  String get searchByCity => 'Maghanap ayon sa lungsod';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count user sa buong mundo';
+  }
+
+  @override
+  String get noUsersFound => 'Walang nahanap na user';
+
+  @override
+  String get tryDifferentCity => 'Subukan ang ibang lungsod';
+
+  @override
+  String usersCount(String count) {
+    return '$count user';
+  }
+
+  @override
+  String get searchCountry => 'Maghanap ng bansa';
+
+  @override
+  String get wave => 'Kumaway';
+
+  @override
+  String get newUser => 'Bagong user';
+
+  @override
+  String get warningPermanent => 'Babala: Permanente ang aksyong ito!';
+
+  @override
+  String get deleteAccountWarning => 'Ang pagbura ng iyong account ay permanenteng mag-aalis ng:\n\n• Iyong profile at lahat ng personal na data\n• Lahat ng iyong mensahe at usapan\n• Lahat ng iyong mga sandali at story\n• Iyong VIP subscription (walang refund)\n• Lahat ng iyong koneksyon at tagasunod\n\nHindi na maaaring bawiin ang aksyong ito.';
+
+  @override
+  String get requiredForEmailOnly => 'Kailangan lang para sa mga email account';
+
+  @override
+  String get pleaseEnterPassword => 'Mangyaring ilagay ang iyong password';
+
+  @override
+  String get typeDELETE => 'I-type ang DELETE';
+
+  @override
+  String get mustTypeDELETE => 'Kailangan mong i-type ang DELETE para magpatuloy';
+
+  @override
+  String get deletingAccount => 'Binubura ang account...';
+
+  @override
+  String get deleteMyAccountPermanently => 'Permanenteng burahin ang aking account';
+
+  @override
+  String get whatsYourNativeLanguage => 'Ano ang iyong katutubong wika?';
+
+  @override
+  String get helpsMatchWithLearners => 'Tumutulong sa paghahanap ng mga nag-aaral';
+
+  @override
+  String get whatAreYouLearning => 'Ano ang pinag-aaralan mo?';
+
+  @override
+  String get connectWithNativeSpeakers => 'Kumonekta sa mga native speaker';
+
+  @override
+  String get selectLearningLanguage => 'Pumili ng wikang aaraling';
+
+  @override
+  String get selectCurrentLevel => 'Pumili ng kasalukuyang antas';
+
+  @override
+  String get beginner => 'Baguhan';
+
+  @override
+  String get elementary => 'Elementarya';
+
+  @override
+  String get intermediate => 'Katamtaman';
+
+  @override
+  String get upperIntermediate => 'Mataas na katamtaman';
+
+  @override
+  String get advanced => 'Abansado';
+
+  @override
+  String get proficient => 'Bihasa';
+
+  @override
+  String get showingPartnersByDistance => 'Mga partner ayon sa distansya';
+
+  @override
+  String get enableLocationForResults => 'I-enable ang lokasyon para sa mas magandang resulta';
+
+  @override
+  String get enable => 'I-enable';
+
+  @override
+  String get locationNotSet => 'Hindi pa naka-set ang lokasyon';
+
+  @override
+  String get tellUsAboutYourself => 'Sabihin sa amin tungkol sa iyo';
+
+  @override
+  String get justACoupleQuickThings => 'Ilang mabilis na bagay lang';
+
+  @override
+  String get gender => 'Kasarian';
+
+  @override
+  String get birthDate => 'Petsa ng kapanganakan';
+
+  @override
+  String get selectYourBirthDate => 'Piliin ang iyong petsa ng kapanganakan';
+
+  @override
+  String get continueButton => 'Magpatuloy';
+
+  @override
+  String get pleaseSelectGender => 'Mangyaring piliin ang iyong kasarian';
+
+  @override
+  String get pleaseSelectBirthDate => 'Mangyaring piliin ang iyong petsa ng kapanganakan';
+
+  @override
+  String get mustBe18 => 'Dapat ay 18 taong gulang ka o higit pa';
+
+  @override
+  String get invalidDate => 'Hindi wastong petsa';
+
+  @override
+  String get almostDone => 'Halos tapos na!';
+
+  @override
+  String get addPhotoLocationForMatches => 'Magdagdag ng larawan at lokasyon para sa mas magandang match';
+
+  @override
+  String get addProfilePhoto => 'Magdagdag ng profile photo';
+
+  @override
+  String get optionalUpTo6Photos => 'Opsyonal - hanggang 6 na larawan';
+
+  @override
+  String get maximum6Photos => 'Maximum na 6 na larawan';
+
+  @override
+  String get tapToDetectLocation => 'I-tap para i-detect ang lokasyon';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'Opsyonal - tumutulong mahanap ang mga partner sa malapit';
+
+  @override
+  String get startLearning => 'Magsimulang matuto';
+
+  @override
+  String get photoLocationOptional => 'Ang larawan at lokasyon ay opsyonal';
+
+  @override
+  String get pleaseAcceptTerms => 'Mangyaring tanggapin ang mga tuntunin ng serbisyo';
+
+  @override
+  String get iAgreeToThe => 'Sumasang-ayon ako sa';
+
+  @override
+  String get termsOfService => 'Mga Tuntunin ng Serbisyo';
+
+  @override
+  String get tapToSelectLanguage => 'I-tap para pumili ng wika';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'Ang iyong antas sa $language (opsyonal)';
+  }
+
+  @override
+  String get yourCurrentLevel => 'Ang iyong kasalukuyang antas';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'Ang katutubong wika ay hindi maaaring pareho sa wikang pinag-aaralan';
+
+  @override
+  String get learningCannotBeSameAsNative => 'Ang wikang pinag-aaralan ay hindi maaaring pareho sa katutubong wika';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'Hakbang $current ng $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Magpatuloy gamit ang Google';
+
+  @override
+  String get registerLink => 'Mag-register';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'Ilagay ang email at password';
+
+  @override
+  String get pleaseEnterValidEmail => 'Maglagay ng wastong email';
+
+  @override
+  String get loginSuccessful => 'Matagumpay na naka-login!';
+
+  @override
+  String get stepOneOfTwo => 'Hakbang 1 ng 2';
+
+  @override
+  String get createYourAccount => 'Gumawa ng account';
+
+  @override
+  String get basicInfoToGetStarted => 'Basic na impormasyon para magsimula';
+
+  @override
+  String get emailVerifiedLabel => 'Email (Na-verify)';
+
+  @override
+  String get nameLabel => 'Pangalan';
+
+  @override
+  String get yourDisplayName => 'Display name mo';
+
+  @override
+  String get atLeast8Characters => 'Hindi bababa sa 8 character';
+
+  @override
+  String get confirmPasswordHint => 'Kumpirmahin ang password';
+
+  @override
+  String get nextButton => 'Susunod';
+
+  @override
+  String get pleaseEnterYourName => 'Ilagay ang iyong pangalan';
+
+  @override
+  String get pleaseEnterAPassword => 'Maglagay ng password';
+
+  @override
+  String get passwordsDoNotMatch => 'Hindi magkatugma ang mga password';
+
+  @override
+  String get otherGender => 'Iba pa';
+
+  @override
+  String get continueWithGoogleAccount => 'Magpatuloy gamit ang Google account\npara sa magandang karanasan';
+
+  @override
+  String get signingYouIn => 'Nag-si-sign in...';
+
+  @override
+  String get backToSignInMethods => 'Bumalik sa mga paraan ng pag-sign in';
+
+  @override
+  String get securedByGoogle => 'Pinoprotektahan ng Google';
+
+  @override
+  String get dataProtectedEncryption => 'Ang data mo ay protektado ng standard encryption';
+
+  @override
+  String get welcomeCompleteProfile => 'Welcome! Kumpletuhin ang profile mo';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'Welcome back, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Magpatuloy gamit ang Apple ID\npara sa ligtas na karanasan';
+
+  @override
+  String get continueWithApple => 'Magpatuloy gamit ang Apple';
+
+  @override
+  String get securedByApple => 'Pinoprotektahan ng Apple';
+
+  @override
+  String get privacyProtectedApple => 'Protektado ang privacy mo sa Apple Sign-In';
+
+  @override
+  String get createAccount => 'Gumawa ng account';
+
+  @override
+  String get enterEmailToGetStarted => 'Ilagay ang email mo para magsimula';
+
+  @override
+  String get continueText => 'Magpatuloy';
+
+  @override
+  String get pleaseEnterEmailAddress => 'Ilagay ang email address mo';
+
+  @override
+  String get verificationCodeSent => 'Naipadala na ang verification code!';
+
+  @override
+  String get forgotPasswordTitle => 'Nakalimutan ang password';
+
+  @override
+  String get resetPasswordTitle => 'I-reset ang password';
+
+  @override
+  String get enterEmailForResetCode => 'Ilagay ang email mo at padadalhan ka namin ng reset code';
+
+  @override
+  String get sendResetCode => 'Ipadala ang reset code';
+
+  @override
+  String get resetCodeSent => 'Naipadala na ang reset code!';
+
+  @override
+  String get rememberYourPassword => 'Naalala mo ba ang password?';
+
+  @override
+  String get verifyCode => 'I-verify ang code';
+
+  @override
+  String get enterResetCode => 'Ilagay ang reset code';
+
+  @override
+  String get weSentCodeTo => 'Nagpadala kami ng 6-digit code sa';
+
+  @override
+  String get pleaseEnterAll6Digits => 'Ilagay lahat ng 6 digits';
+
+  @override
+  String get codeVerifiedCreatePassword => 'Na-verify ang code! Gumawa ng bagong password';
+
+  @override
+  String get verify => 'I-verify';
+
+  @override
+  String get didntReceiveCode => 'Hindi natanggap ang code?';
+
+  @override
+  String get resend => 'Ipadala ulit';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'Ipadala ulit (${timer}s)';
+  }
+
+  @override
+  String get resetCodeResent => 'Naipadala ulit ang reset code!';
+
+  @override
+  String get verifyEmail => 'I-verify ang email';
+
+  @override
+  String get verifyYourEmail => 'I-verify ang email mo';
+
+  @override
+  String get emailVerifiedSuccessfully => 'Na-verify na ang email!';
+
+  @override
+  String get verificationCodeResent => 'Naipadala ulit ang verification code!';
+
+  @override
+  String get createNewPassword => 'Gumawa ng bagong password';
+
+  @override
+  String get enterNewPasswordBelow => 'Ilagay ang bagong password sa ibaba';
+
+  @override
+  String get newPassword => 'Bagong password';
+
+  @override
+  String get confirmPasswordLabel => 'Kumpirmahin ang password';
+
+  @override
+  String get pleaseFillAllFields => 'Punan lahat ng fields';
+
+  @override
+  String get passwordResetSuccessful => 'Na-reset na ang password! Mag-login gamit ang bagong password';
+
+  @override
+  String get privacyTitle => 'Privacy';
+
+  @override
+  String get profileVisibility => 'Visibility ng Profile';
+
+  @override
+  String get showCountryRegion => 'Ipakita ang Bansa/Rehiyon';
+
+  @override
+  String get showCountryRegionDesc => 'Ipakita ang iyong bansa sa profile';
+
+  @override
+  String get showCity => 'Ipakita ang Lungsod';
+
+  @override
+  String get showCityDesc => 'Ipakita ang iyong lungsod sa profile';
+
+  @override
+  String get showAge => 'Ipakita ang Edad';
+
+  @override
+  String get showAgeDesc => 'Ipakita ang iyong edad sa profile';
+
+  @override
+  String get showZodiacSign => 'Ipakita ang Zodiac Sign';
+
+  @override
+  String get showZodiacSignDesc => 'Ipakita ang iyong zodiac sign sa profile';
+
+  @override
+  String get onlineStatusSection => 'Status ng Online';
+
+  @override
+  String get showOnlineStatus => 'Ipakita ang Online Status';
+
+  @override
+  String get showOnlineStatusDesc => 'Hayaan ang iba na makita kapag ikaw ay online';
+
+  @override
+  String get otherSettings => 'Ibang Settings';
+
+  @override
+  String get showGiftingLevel => 'Ipakita ang Gifting Level';
+
+  @override
+  String get showGiftingLevelDesc => 'Ipakita ang badge ng gifting level';
+
+  @override
+  String get birthdayNotifications => 'Birthday Notifications';
+
+  @override
+  String get birthdayNotificationsDesc => 'Tumanggap ng notifications sa iyong birthday';
+
+  @override
+  String get personalizedAds => 'Personalized Ads';
+
+  @override
+  String get personalizedAdsDesc => 'Payagan ang personalized advertisements';
+
+  @override
+  String get saveChanges => 'I-save ang Pagbabago';
+
+  @override
+  String get privacySettingsSaved => 'Na-save ang privacy settings';
+
+  @override
+  String get locationSection => 'Lokasyon';
+
+  @override
+  String get updateLocation => 'I-update ang Lokasyon';
+
+  @override
+  String get updateLocationDesc => 'I-refresh ang kasalukuyang lokasyon';
+
+  @override
+  String get currentLocation => 'Kasalukuyang lokasyon';
+
+  @override
+  String get locationNotAvailable => 'Hindi available ang lokasyon';
+
+  @override
+  String get locationUpdated => 'Matagumpay na na-update ang lokasyon';
+
+  @override
+  String get locationPermissionDenied => 'Tinanggihan ang lokasyon permission. I-enable sa settings.';
+
+  @override
+  String get locationServiceDisabled => 'Naka-disable ang location services. I-enable.';
+
+  @override
+  String get updatingLocation => 'Ina-update ang lokasyon...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'Hindi ma-update ang lokasyon';
 }

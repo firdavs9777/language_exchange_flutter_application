@@ -60,22 +60,16 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
 
     try {
       // Load my stories
-      debugPrint('Loading my stories...');
       final myStoriesResponse = await StoriesService.getMyStories();
-      debugPrint('My stories response: success=${myStoriesResponse.success}, count=${myStoriesResponse.count}, data.length=${myStoriesResponse.data.length}');
 
       if (myStoriesResponse.success && myStoriesResponse.data.isNotEmpty) {
         _myStories = myStoriesResponse.data.first;
-        debugPrint('My stories loaded: ${_myStories?.stories.length} stories, active=${_myStories?.activeStories.length}');
       } else {
-        debugPrint('No my stories found: ${myStoriesResponse.error ?? myStoriesResponse.message}');
         _myStories = null;
       }
 
       // Load stories feed
-      debugPrint('Loading stories feed...');
       final response = await StoriesService.getStoriesFeed();
-      debugPrint('Feed response: success=${response.success}, count=${response.count}, data.length=${response.data.length}');
 
       if (mounted) {
         if (response.success) {
@@ -102,7 +96,6 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             _isRefreshing = false;
             _hasLoadedOnce = true;
           });
-          debugPrint('Stories feed loaded: ${_stories.length} users with stories (filtered from ${response.data.length}, removed own stories)');
         } else if (response.blocked) {
           setState(() {
             _stories = [];
@@ -116,11 +109,9 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             _isLoading = false;
             _isRefreshing = false;
           });
-          debugPrint('Stories feed error: ${response.error}');
         }
       }
     } catch (e) {
-      debugPrint('Exception loading stories: $e');
       if (mounted) {
         setState(() {
           _error = _hasLoadedOnce ? null : 'Failed to load stories: $e'; // Don't show error if we have cached data

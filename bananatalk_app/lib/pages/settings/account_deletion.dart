@@ -1,6 +1,7 @@
-import 'package:bananatalk_app/pages/home/Home.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -10,10 +11,14 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   final bool isOAuthUser; // Google, Facebook, or Apple user
+  final bool isGoogleUser;
+  final bool isAppleUser;
 
   const DeleteAccountScreen({
     super.key,
     required this.isOAuthUser,
+    this.isGoogleUser = false,
+    this.isAppleUser = false,
   });
 
   @override
@@ -65,6 +70,18 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     setState(() => _isLoading = true);
 
     try {
+      // Disconnect Google account before deletion (revokes access)
+      if (widget.isGoogleUser) {
+        try {
+          final googleSignIn = GoogleSignIn();
+          await googleSignIn.disconnect(); // Revokes Google access + sign out
+        } catch (_) {
+          // Don't block deletion if Google disconnect fails
+        }
+      }
+
+      // Apple token revocation is handled server-side (requires client secret)
+
       final result = await ref.read(authServiceProvider).deleteAccount(
             password: widget.isOAuthUser ? null : _passwordController.text,
             confirmText: _confirmController.text,
@@ -80,10 +97,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
             ),
           );
 
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (ctx) => const HomePage()),
-            (route) => false,
-          );
+          context.go('/login');
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -114,7 +128,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: Text('Delete Account', style: context.titleLarge.copyWith(color: AppColors.white)),
+        title: Text(AppLocalizations.of(context)!.deleteAccount, style: context.titleLarge.copyWith(color: AppColors.white)),
         backgroundColor: AppColors.error,
         foregroundColor: AppColors.white,
         elevation: 0,
@@ -146,20 +160,14 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                       Icon(Icons.warning_amber_rounded,
                           size: 60, color: AppColors.error),
                       SizedBox(height: AppSpacing.lg),
-                      BananaText(
-                        'Warning: This action is permanent!',
-                        BanaStyles: BananaTextStyles.titleLarge,
+                      Text(
+                        AppLocalizations.of(context)!.warningPermanent,
+                        style: context.titleLarge,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: AppSpacing.md),
                       Text(
-                        'Deleting your account will permanently remove:\n\n'
-                        '• Your profile and all personal data\n'
-                        '• All your messages and conversations\n'
-                        '• All your moments and stories\n'
-                        '• Your VIP subscription (no refund)\n'
-                        '• All your connections and followers\n\n'
-                        'This action cannot be undone.',
+                        AppLocalizations.of(context)!.deleteAccountWarning,
                         textAlign: TextAlign.left,
                         style: context.bodyMedium.copyWith(height: 1.5),
                       ),
@@ -168,15 +176,15 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                 ),
                 SizedBox(height: AppSpacing.xxxl),
                 if (!widget.isOAuthUser) ...[
-                  BananaText('Enter your password',
-                      BanaStyles: BananaTextStyles.title),
+                  Text(AppLocalizations.of(context)!.enterYourPassword,
+                      style: context.titleMedium),
                   SizedBox(height: AppSpacing.sm),
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.yourPassword,
-                      helperText: 'Required for email accounts only',
+                      helperText: AppLocalizations.of(context)!.requiredForEmailOnly,
                       helperStyle: context.caption,
                       border: OutlineInputBorder(
                           borderRadius: AppRadius.borderMD),
@@ -190,13 +198,13 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                       ),
                     ),
                     validator: (value) => value == null || value.isEmpty
-                        ? 'Please enter your password'
+                        ? AppLocalizations.of(context)!.pleaseEnterPassword
                         : null,
                   ),
                   SizedBox(height: AppSpacing.xxl),
                 ],
-                BananaText('Type DELETE to confirm',
-                    BanaStyles: BananaTextStyles.title),
+                Text(AppLocalizations.of(context)!.typeDELETE,
+                    style: context.titleMedium),
                 SizedBox(height: AppSpacing.sm),
                 TextFormField(
                   controller: _confirmController,
@@ -207,7 +215,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                     prefixIcon: const Icon(Icons.delete_forever),
                   ),
                   validator: (value) => value != 'DELETE'
-                      ? 'You must type DELETE to confirm'
+                      ? AppLocalizations.of(context)!.mustTypeDELETE
                       : null,
                 ),
                 SizedBox(height: AppSpacing.xxxl),
@@ -217,8 +225,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                   child: BananaButton(
                     BananaText: BananaText(
                       _isLoading
-                          ? 'Deleting Account...'
-                          : 'Delete My Account Permanently',
+                          ? AppLocalizations.of(context)!.deletingAccount
+                          : AppLocalizations.of(context)!.deleteMyAccountPermanently,
                       BanaStyles: BananaTextStyles.buttonText,
                     ),
                     onPressed: _isLoading ? null : _deleteAccount,
@@ -247,7 +255,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: AppRadius.borderMD),
                     ),
-                    child: Text('Cancel', style: context.titleMedium),
+                    child: Text(AppLocalizations.of(context)!.cancel, style: context.titleMedium),
                   ),
                 ),
               ],

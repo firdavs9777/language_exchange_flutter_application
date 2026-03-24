@@ -46,7 +46,6 @@ class MessageService {
         throw Exception('Failed to load messages: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching messages: $error');
       rethrow;
     }
   }
@@ -66,7 +65,6 @@ class MessageService {
       );
 
       if (response.statusCode == 200) {
-        debugPrint('Conversation loaded successfully');
         final data = json.decode(response.body);
         final messages = (data['data'] as List)
             .map((postJson) => Message.fromJson(postJson))
@@ -84,7 +82,6 @@ class MessageService {
         throw Exception('Failed to load conversation: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching conversation: $error');
       rethrow;
     }
   }
@@ -103,10 +100,8 @@ class MessageService {
         final data = json.decode(response.body);
         if (data['success'] == true) {
           final List<dynamic> dataList = data['data'] ?? [];
-          debugPrint('📬 Loaded ${dataList.length} chat partners (page $page)');
           // Debug: Log raw data for each partner
           for (final item in dataList) {
-            debugPrint('📬 Raw partner data: conversationId=${item['conversationId']}, isPinned=${item['isPinned']}, isMuted=${item['isMuted']}, name=${item['name']}');
           }
           return dataList
               .map((item) => ChatPartnerData.fromJson(item))
@@ -120,7 +115,6 @@ class MessageService {
         throw Exception('Failed to load chat partners: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching chat partners: $error');
       rethrow;
     }
   }
@@ -149,7 +143,6 @@ class MessageService {
         throw Exception('Failed to load senders: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching senders: $error');
       rethrow;
     }
   }
@@ -176,7 +169,6 @@ class MessageService {
         throw Exception('Failed to load messages: ${response.statusCode}');
       }
     } catch (error) {
-      debugPrint('Error fetching messages: $error');
       rethrow;
     }
   }

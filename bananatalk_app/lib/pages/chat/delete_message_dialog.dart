@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Dialog for delete options: Delete for Me vs Delete for Everyone
 class DeleteMessageDialog extends StatelessWidget {
@@ -51,10 +52,9 @@ class DeleteMessageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Dialog(
-      backgroundColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+      backgroundColor: context.surfaceColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -84,7 +84,7 @@ class DeleteMessageDialog extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: isDark ? Colors.white : Colors.black87,
+                color: context.textPrimary,
               ),
             ),
             const SizedBox(height: 8),
@@ -94,7 +94,7 @@ class DeleteMessageDialog extends StatelessWidget {
               'This action cannot be undone.',
               style: TextStyle(
                 fontSize: 14,
-                color: isDark ? Colors.grey[400] : Colors.grey[600],
+                color: context.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -171,7 +171,6 @@ class DeleteMessageDialog extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Opacity(
       opacity: enabled ? 1.0 : 0.5,
@@ -181,10 +180,10 @@ class DeleteMessageDialog extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: isDark ? Colors.grey[800] : Colors.grey[100],
+            color: context.containerColor,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isDark ? Colors.grey[700]! : Colors.grey[300]!,
+              color: context.dividerColor,
               width: 1,
             ),
           ),
@@ -194,7 +193,7 @@ class DeleteMessageDialog extends StatelessWidget {
                 icon,
                 size: 24,
                 color: enabled
-                    ? (isDark ? Colors.white : Colors.black87)
+                    ? context.textPrimary
                     : Colors.grey,
               ),
               const SizedBox(width: 16),
@@ -208,7 +207,7 @@ class DeleteMessageDialog extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: enabled
-                            ? (isDark ? Colors.white : Colors.black87)
+                            ? context.textPrimary
                             : Colors.grey,
                       ),
                     ),
@@ -217,7 +216,7 @@ class DeleteMessageDialog extends StatelessWidget {
                       subtitle,
                       style: TextStyle(
                         fontSize: 13,
-                        color: isDark ? Colors.grey[400] : Colors.grey[600],
+                        color: context.textSecondary,
                       ),
                     ),
                   ],
@@ -232,7 +231,7 @@ class DeleteMessageDialog extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: enabled
                         ? theme.primaryColor.withOpacity(0.1)
-                        : Colors.grey.withOpacity(0.1),
+                        : context.dividerColor,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(

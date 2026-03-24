@@ -1,7 +1,7 @@
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
-import 'package:bananatalk_app/services/notification_router.dart';
+import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,6 +19,9 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
+  // Store initial notification to handle after auth completes
+  RemoteMessage? _pendingNotification;
+
   @override
   void initState() {
     super.initState();
@@ -30,90 +33,121 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     // Initialize notification service
     try {
       await NotificationService().initialize(context: context);
-      
+
       // Clear app badge when app opens
       await NotificationService().clearBadge();
-      debugPrint('🔔 App badge cleared');
-      
-      // Handle notification tap (if app opened from notification)
-      FirebaseMessaging.instance.getInitialMessage().then((message) {
-        if (message != null && mounted) {
-          // Delay navigation to let the app fully initialize
-          Future.delayed(const Duration(seconds: 3), () {
-            if (mounted) {
-              NotificationRouter.handleNotification(context, message.data);
-            }
-          });
-        }
-      });
-      
-      debugPrint('✅ Notification service initialized');
+
+      // Check if app was opened from a notification (cold start)
+      // Store it — we'll handle navigation AFTER auth completes
+      final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+      if (initialMessage != null) {
+        _pendingNotification = initialMessage;
+      }
+
     } catch (e) {
-      debugPrint('⚠️ Error initializing notification service: $e');
     }
-    
+
     // Wait for auth initialization to complete
     final authService = ref.read(authServiceProvider);
     final isAuthenticated = await authService.initializeAuth();
-    
+
     // Add minimum splash screen duration for better UX
     await Future.delayed(const Duration(seconds: 2));
-    
+
     if (!mounted) return;
-    
+
     // Check if user has accepted terms of service
     // Note: For new users, terms are shown during registration.
     // This check is for existing users who haven't accepted yet.
     if (isAuthenticated) {
-      try {
-        final user = await authService.getLoggedInUser();
-        final termsAcceptedBackend = user.termsAccepted;
+      final prefs = await SharedPreferences.getInstance();
+      final termsAcceptedLocally = prefs.getBool('termsAcceptedLocally') ?? false;
 
-        // Also check local flag (fallback when backend doesn't save it properly)
-        final prefs = await SharedPreferences.getInstance();
-        final termsAcceptedLocally = prefs.getBool('termsAcceptedLocally') ?? false;
+      // If terms already accepted locally, skip the network check entirely
+      // This prevents logging users out when they're offline
+      if (!termsAcceptedLocally) {
+        try {
+          final user = await authService.getLoggedInUser();
+          final termsAccepted = user.termsAccepted;
 
-        // User has accepted terms if either backend or local flag is true
-        final termsAccepted = termsAcceptedBackend || termsAcceptedLocally;
+          if (termsAccepted) {
+            // Save locally so we don't need network next time
+            await prefs.setBool('termsAcceptedLocally', true);
+          } else {
+            // Show terms screen - user cannot proceed without accepting
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const TermsOfServiceScreen(),
+              ),
+            );
 
-        if (!termsAccepted) {
-          // Show terms screen - user cannot proceed without accepting
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const TermsOfServiceScreen(),
-            ),
-          );
+            if (!mounted) return;
 
-          if (!mounted) return;
-
-          // Re-check local flag after terms screen
-          final updatedLocalFlag = prefs.getBool('termsAcceptedLocally') ?? false;
-          if (!updatedLocalFlag) {
-            // Check backend as well
-            final updatedUser = await authService.getLoggedInUser();
-            if (!updatedUser.termsAccepted) {
-              // If still not accepted, user may have closed the app
-              // On next app launch, they'll see terms again (correct behavior)
-              return;
+            // Re-check local flag after terms screen
+            final updatedLocalFlag = prefs.getBool('termsAcceptedLocally') ?? false;
+            if (!updatedLocalFlag) {
+              final updatedUser = await authService.getLoggedInUser();
+              if (!updatedUser.termsAccepted) {
+                return;
+              }
             }
           }
+        } catch (e) {
+          // Network error - don't log the user out, just skip terms check
+          // Terms will be checked again on next online launch
         }
-      } catch (e) {
-        // If we can't fetch user data, redirect to login screen
-        // This handles cases where token is invalid or network issues
-        debugPrint('Error checking terms acceptance: $e');
-        if (!mounted) return;
-        context.go('/login');
-        return;
       }
     }
-    
+
     // Navigate based on authentication status
     if (isAuthenticated) {
       context.go('/home');
+
+      // If app was opened from a notification, navigate to the target screen
+      // after a short delay to let /home settle first
+      if (_pendingNotification != null) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        if (mounted) {
+          _handlePendingNotification(_pendingNotification!.data);
+        }
+      }
     } else {
       // Navigate to login page if not authenticated
       context.go('/login');
+    }
+  }
+
+  /// Handle notification navigation without calling go('/home') again
+  /// since we're already on /home — just push the target screen
+  void _handlePendingNotification(Map<String, dynamic> data) {
+    final type = data['type']?.toString() ?? '';
+
+    try {
+      switch (type) {
+        case 'chat_message':
+          final senderId = data['senderId']?.toString();
+          if (senderId != null) {
+            goRouter.push('/chat/$senderId');
+          }
+          break;
+        case 'moment_like':
+        case 'moment_comment':
+        case 'follower_moment':
+          final momentId = data['momentId']?.toString();
+          if (momentId != null) {
+            goRouter.push('/moment/$momentId');
+          }
+          break;
+        case 'friend_request':
+        case 'profile_visit':
+          final userId = data['userId']?.toString();
+          if (userId != null) {
+            goRouter.push('/profile/$userId');
+          }
+          break;
+        default:
+      }
+    } catch (e) {
     }
   }
 

@@ -167,7 +167,6 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
               Expanded(
                 child: lessonsAsync.when(
                   data: (lessons) {
-                    debugPrint('📚 Lessons list count: ${lessons.length}');
                     if (lessons.isEmpty) {
                       return _buildEmptyState();
                     }

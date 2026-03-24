@@ -6,6 +6,7 @@ import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
 import 'package:bananatalk_app/widgets/community/topic_chip.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 
 /// Swipeable partner card for discovery
 class PartnerCard extends StatelessWidget {
@@ -134,7 +135,7 @@ class PartnerCard extends StatelessWidget {
           padding: const EdgeInsets.all(14),
           child: Row(
               children: [
-                if (user.isOnline)
+                if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline)
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
@@ -173,7 +174,7 @@ class PartnerCard extends StatelessWidget {
                     ),
                   ),
                 if (user.isVip) ...[
-                  if (user.isOnline) const SizedBox(width: 6),
+                  if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline) const SizedBox(width: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 9,
@@ -240,10 +241,11 @@ class PartnerCard extends StatelessWidget {
           ),
           const Spacer(),
           // Bottom section - User info
-          Container(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 // Name and age
                 Row(
@@ -258,7 +260,7 @@ class PartnerCard extends StatelessWidget {
                               user.name,
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 30,
+                                fontSize: 28,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: -0.3,
                                 height: 1.1,
@@ -267,13 +269,13 @@ class PartnerCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          if (user.age != null) ...[
+                          if (PrivacyUtils.shouldShowAge(user) && user.age != null) ...[
                             const SizedBox(width: 10),
                             Text(
                               '${user.age}',
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.85),
-                                fontSize: 26,
+                                fontSize: 24,
                                 fontWeight: FontWeight.w400,
                                 letterSpacing: -0.2,
                               ),
@@ -284,38 +286,44 @@ class PartnerCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
                 // Location
-                if (user.location.city.isNotEmpty)
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_rounded,
-                        size: 15,
-                        color: Colors.white.withOpacity(0.75),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        user.location.city +
-                            (user.location.country.isNotEmpty
-                                ? ', ${user.location.country}'
-                                : ''),
-                        style: TextStyle(
+                Builder(
+                  builder: (context) {
+                    final locationText = PrivacyUtils.getLocationText(user);
+                    if (locationText.isEmpty) return const SizedBox.shrink();
+                    return Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_rounded,
+                          size: 15,
                           color: Colors.white.withOpacity(0.75),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.1,
                         ),
-                      ),
-                    ],
-                  ),
-                const SizedBox(height: 14),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            locationText,
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.75),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 0.1,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
                 // Language exchange
                 _buildLanguageExchange(),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 // Topics
                 if (user.topics.isNotEmpty) _buildTopics(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 // Action buttons
                 _buildActionButtons(),
               ],

@@ -127,7 +127,6 @@ class BlockService {
       }
       return [];
     } catch (e) {
-      debugPrint('Error in getBlockedUsers: $e');
       return [];
     }
   }

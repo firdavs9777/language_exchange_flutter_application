@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/pages/authentication/screens/reset_password.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
@@ -66,7 +67,7 @@ class _ForgotPasswordVerificationState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter all 6 digits',
+            AppLocalizations.of(context)!.pleaseEnterAll6Digits,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 2),
@@ -92,7 +93,7 @@ class _ForgotPasswordVerificationState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Code verified! Create your new password',
+            AppLocalizations.of(context)!.codeVerifiedCreatePassword,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
@@ -142,7 +143,7 @@ class _ForgotPasswordVerificationState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Reset code resent!',
+            AppLocalizations.of(context)!.resetCodeResent,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
@@ -169,7 +170,7 @@ class _ForgotPasswordVerificationState
     return Scaffold(
       appBar: AppBar(
         title: BananaText(
-          'Verify Code',
+          AppLocalizations.of(context)!.verifyCode,
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
       ),
@@ -187,13 +188,13 @@ class _ForgotPasswordVerificationState
             ),
             SizedBox(height: 24),
             BananaText(
-              'Enter Reset Code',
+              AppLocalizations.of(context)!.enterResetCode,
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 16),
             Text(
-              'We sent a 6-digit code to',
+              AppLocalizations.of(context)!.weSentCodeTo,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
@@ -265,7 +266,7 @@ class _ForgotPasswordVerificationState
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
                     : Text(
-                        'Verify',
+                        AppLocalizations.of(context)!.verify,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -279,7 +280,7 @@ class _ForgotPasswordVerificationState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Didn't receive the code? ",
+                  AppLocalizations.of(context)!.didntReceiveCode,
                   style: TextStyle(color: Colors.grey[600]),
                 ),
                 TextButton(
@@ -293,8 +294,8 @@ class _ForgotPasswordVerificationState
                         )
                       : Text(
                           _resendTimer > 0
-                              ? 'Resend (${_resendTimer}s)'
-                              : 'Resend',
+                              ? AppLocalizations.of(context)!.resendWithTimer(_resendTimer.toString())
+                              : AppLocalizations.of(context)!.resend,
                           style: TextStyle(
                             color: _resendTimer > 0
                                 ? Colors.grey

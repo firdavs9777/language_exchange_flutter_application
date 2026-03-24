@@ -134,6 +134,7 @@
   "details": "Details",
   "to": "an",
   "banaTalk": "BanaTalk",
+  "chats": "Chats",
   "community": "Community",
   "editProfile": "Profil bearbeiten",
   "yearsOld": "{age} Jahre alt",
@@ -283,7 +284,6 @@
   "detectYourLocation2": "Standort ermitteln",
   "tapToUpdateLocation2": "Tippen zum Aktualisieren des Standorts",
   "helpOthersFindYouNearby2": "Helfen Sie anderen, Sie in der Nähe zu finden",
-  "signInWithApple": "Mit Apple anmelden",
   "couldNotOpenLink": "Link konnte nicht geöffnet werden",
   "legalPrivacy2": "Rechtliches & Datenschutz",
   "termsOfUseEULA": "Nutzungsbedingungen (EULA)",
@@ -461,7 +461,7 @@
   "wallpaperSavedLocally": "Hintergrundbild lokal gespeichert",
   "messageCopied": "Nachricht kopiert",
   "forwardFeatureComingSoon": "Weiterleitungsfunktion kommt bald",
-  "momentUnsaved": "Moment nicht gespeichert",
+  "momentUnsaved": "Aus Gespeicherten entfernt",
   "documentPickerComingSoon": "Dokumentenauswahl kommt bald",
   "contactSharingComingSoon": "Kontaktfreigabe kommt bald",
   "featureComingSoon": "Funktion kommt bald",
@@ -689,8 +689,12 @@
   "videoOptimized": "Video optimiert: {size}MB (gespart {savings}%)",
   "@videoOptimized": {
     "placeholders": {
-      "size": {"type": "String"},
-      "savings": {"type": "String"}
+      "size": {
+        "type": "String"
+      },
+      "savings": {
+        "type": "String"
+      }
     }
   },
   "failedToProcessVideo": "Video konnte nicht verarbeitet werden",
@@ -736,13 +740,17 @@
   "viewsTab": "Aufrufe ({count})",
   "@viewsTab": {
     "placeholders": {
-      "count": {"type": "String"}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "reactionsTab": "Reaktionen ({count})",
   "@reactionsTab": {
     "placeholders": {
-      "count": {"type": "String"}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "processingVideo": "Video wird verarbeitet...",
@@ -750,26 +758,34 @@
   "unmuteUser": "{name} Stummschaltung aufheben?",
   "@unmuteUser": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "willReceiveNotifications": "Sie erhalten Benachrichtigungen für neue Nachrichten.",
   "muteNotificationsFor": "Benachrichtigungen für {name} stummschalten",
   "@muteNotificationsFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notificationsUnmutedFor": "Benachrichtigungen für {name} aktiviert",
   "@notificationsUnmutedFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notificationsMutedFor": "Benachrichtigungen für {name} stummgeschaltet",
   "@notificationsMutedFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdateMuteSettings": "Stummschaltungseinstellungen konnten nicht aktualisiert werden",
@@ -784,13 +800,17 @@
   "navigateToMessage": "Zur Nachricht im Chat mit {name} navigieren",
   "@navigateToMessage": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "bookmarkedOn": "Lesezeichen gesetzt am {date}",
   "@bookmarkedOn": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
   "voiceMessage": "Sprachnachricht",
@@ -809,7 +829,9 @@
   "chatWallpaperFor": "Chat-Hintergrundbild für {name}",
   "@chatWallpaperFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "solidColors": "Einfarbig",
@@ -830,7 +852,9 @@
   "applyNFilters": "{count} Filter anwenden",
   "@applyNFilters": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "failedToRecordVideo": "Video konnte nicht aufgenommen werden",
@@ -844,5 +868,252 @@
   "messageSent": "Nachricht gesendet",
   "messageDeleted": "Nachricht gelöscht",
   "messageEdited": "Nachricht bearbeitet",
-  "videoMustBeUnder1GB": "Video muss unter 1GB sein."
+  "videoMustBeUnder1GB": "Video muss unter 1GB sein.",
+  "edited": "(bearbeitet)",
+  "now": "jetzt",
+  "weeksAgo": "vor {count}W",
+  "viewRepliesCount": "── {count} Antworten anzeigen",
+  "hideReplies": "── Antworten ausblenden",
+  "saveMoment": "Moment speichern",
+  "removeFromSaved": "Aus Gespeicherten entfernen",
+  "momentSaved": "Gespeichert",
+  "failedToSave": "Speichern fehlgeschlagen",
+  "checkOutMoment": "Schau dir diesen Moment an: {title}",
+  "failedToLoadMoments": "Momente konnten nicht geladen werden",
+  "noMomentsMatchFilters": "Keine Momente entsprechen deinen Filtern",
+  "beFirstToShareMoment": "Sei der Erste, der einen Moment teilt!",
+  "tryDifferentSearch": "Versuche einen anderen Suchbegriff",
+  "tryAdjustingFilters": "Versuche deine Filter anzupassen",
+  "noSavedMoments": "Keine gespeicherten Momente",
+  "tapBookmarkToSave": "Tippe auf das Lesezeichen-Symbol, um einen Moment zu speichern",
+  "failedToLoadVideo": "Video konnte nicht geladen werden",
+  "titleRequired": "Titel ist erforderlich",
+  "titleTooLong": "Titel darf maximal {max} Zeichen haben",
+  "descriptionRequired": "Beschreibung ist erforderlich",
+  "descriptionTooLong": "Beschreibung darf maximal {max} Zeichen haben",
+  "scheduledDateMustBeFuture": "Geplantes Datum muss in der Zukunft liegen",
+  "recent": "Neueste",
+  "popular": "Beliebt",
+  "trending": "Trending",
+  "mostRecent": "Neueste",
+  "mostPopular": "Beliebteste",
+  "allTime": "Alle Zeit",
+  "today": "Heute",
+  "thisWeek": "Diese Woche",
+  "thisMonth": "Diesen Monat",
+  "replyingTo": "Antwort an {userName}",
+  "@replyingTo": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+  "listView": "Listenansicht",
+  "quickMatch": "Schnellzuordnung",
+  "onlineNow": "Jetzt online",
+  "speaksLanguage": "Spricht {language}",
+  "learningLanguage": "Lernt {language}",
+  "noPartnersFound": "Keine Partner gefunden",
+  "noUsersFoundForLanguages": "Keine Benutzer für {learning} und {native} gefunden",
+  "tryAdjustingFilters": "Versuche deine Filter anzupassen",
+  "removeAllFilters": "Alle Filter entfernen",
+  "browseAllUsers": "Alle Benutzer durchsuchen",
+  "allCaughtUp": "Du bist auf dem neuesten Stand!",
+  "loadingMore": "Mehr laden...",
+  "findingMorePartners": "Weitere Partner suchen...",
+  "seenAllPartners": "Du hast alle Partner gesehen",
+  "startOver": "Von vorne beginnen",
+  "changeFilters": "Filter ändern",
+  "findingPartners": "Partner suchen...",
+  "somethingWentWrong": "Etwas ist schief gelaufen",
+  "retry": "Wiederholen",
+  "setLocationReminder": "Lege deinen Standort fest, um Partner in der Nähe zu finden",
+  "updateLocationReminder": "Aktualisiere deinen Standort für bessere Ergebnisse",
+  "male": "Männlich",
+  "female": "Weiblich",
+  "other": "Divers",
+  "browseMen": "Männer durchsuchen",
+  "browseWomen": "Frauen durchsuchen",
+  "noMaleUsersFound": "Keine männlichen Benutzer gefunden",
+  "noFemaleUsersFound": "Keine weiblichen Benutzer gefunden",
+  "vip": "VIP",
+  "newUsersOnly": "Nur neue Benutzer",
+  "showNewUsers": "Neue Benutzer anzeigen",
+  "prioritizeNearby": "Nahe bevorzugen",
+  "showNearbyFirst": "Nahe zuerst anzeigen",
+  "setLocationToEnable": "Standort festlegen zum Aktivieren",
+  "radius": "Radius",
+  "findingYourLocation": "Standort wird ermittelt...",
+  "enableLocationForDistance": "Standort aktivieren, um Entfernungen zu sehen",
+  "enableLocationDescription": "Erlaube den Standortzugriff, um Sprachpartner in deiner Nähe zu finden",
+  "enableGps": "GPS aktivieren",
+  "browseByCityCountry": "Nach Stadt oder Land suchen",
+  "peopleNearby": "Personen in der Nähe",
+  "noNearbyUsersFound": "Keine Benutzer in der Nähe gefunden",
+  "tryExpandingSearch": "Versuche, deine Suche zu erweitern",
+  "exploreByCity": "Nach Stadt erkunden",
+  "exploreByCurrentCity": "Nach aktueller Stadt erkunden",
+  "interactiveWorldMap": "Interaktive Weltkarte",
+  "searchByCityName": "Nach Stadtname suchen",
+  "seeUserCountsPerCountry": "Benutzeranzahl pro Land anzeigen",
+  "upgradeToVip": "Auf VIP upgraden",
+  "searchByCity": "Nach Stadt suchen",
+  "loading": "Wird geladen...",
+  "usersWorldwide": "{count} Benutzer weltweit",
+  "noUsersFound": "Keine Benutzer gefunden",
+  "tryDifferentCity": "Versuche eine andere Stadt",
+  "usersCount": "{count} Benutzer",
+  "searchCountry": "Land suchen",
+  "wave": "Winken",
+  "newUser": "Neu",
+  "warningPermanent": "Warnung: Diese Aktion ist dauerhaft!",
+  "deleteAccountWarning": "Das Löschen deines Kontos entfernt dauerhaft alle deine Daten, Nachrichten, Momente und Verbindungen. Diese Aktion kann nicht rückgängig gemacht werden.",
+  "requiredForEmailOnly": "Nur für E-Mail-Konten erforderlich",
+  "pleaseEnterPassword": "Bitte gib dein Passwort ein",
+  "typeDELETE": "Gib DELETE ein",
+  "mustTypeDELETE": "Du musst DELETE eingeben, um zu bestätigen",
+  "deletingAccount": "Konto wird gelöscht...",
+  "deleteMyAccountPermanently": "Mein Konto dauerhaft löschen",
+  "whatsYourNativeLanguage": "Was ist deine Muttersprache?",
+  "helpsMatchWithLearners": "Hilft, dich mit Lernenden deiner Sprache zu verbinden",
+  "whatAreYouLearning": "Was lernst du?",
+  "connectWithNativeSpeakers": "Verbinde dich mit Muttersprachlern",
+  "selectLearningLanguage": "Wähle die Sprache, die du lernst",
+  "selectCurrentLevel": "Wähle dein aktuelles Niveau",
+  "beginner": "Anfänger",
+  "elementary": "Grundkenntnisse",
+  "intermediate": "Mittelstufe",
+  "upperIntermediate": "Gehobene Mittelstufe",
+  "advanced": "Fortgeschritten",
+  "proficient": "Fließend",
+  "showingPartnersByDistance": "Partner nach Entfernung anzeigen",
+  "enableLocationForResults": "Standort aktivieren für Ergebnisse",
+  "enable": "Aktivieren",
+  "locationNotSet": "Standort nicht festgelegt",
+  "tellUsAboutYourself": "Erzähl uns etwas über dich",
+  "justACoupleQuickThings": "Nur ein paar kurze Fragen",
+  "gender": "Geschlecht",
+  "birthDate": "Geburtsdatum",
+  "selectYourBirthDate": "Wähle dein Geburtsdatum",
+  "continueButton": "Weiter",
+  "pleaseSelectGender": "Bitte wähle dein Geschlecht",
+  "pleaseSelectBirthDate": "Bitte wähle dein Geburtsdatum",
+  "mustBe18": "Du musst mindestens 18 Jahre alt sein",
+  "invalidDate": "Ungültiges Datum",
+  "almostDone": "Fast geschafft!",
+  "addPhotoLocationForMatches": "Füge ein Foto und deinen Standort hinzu für bessere Treffer",
+  "addProfilePhoto": "Profilfoto hinzufügen",
+  "optionalUpTo6Photos": "Optional — bis zu 6 Fotos",
+  "maximum6Photos": "Maximal 6 Fotos",
+  "tapToDetectLocation": "Tippen, um Standort zu erkennen",
+  "optionalHelpsNearbyPartners": "Optional — hilft, Partner in der Nähe zu finden",
+  "startLearning": "Lernen beginnen",
+  "photoLocationOptional": "Foto und Standort sind optional",
+  "pleaseAcceptTerms": "Bitte akzeptiere die Nutzungsbedingungen",
+  "iAgreeToThe": "Ich stimme den",
+  "termsOfService": "Nutzungsbedingungen",
+  "tapToSelectLanguage": "Tippen, um Sprache auszuwählen",
+  "yourLevelIn": "Dein Niveau in {language}",
+  "yourCurrentLevel": "Dein aktuelles Niveau",
+  "nativeCannotBeSameAsLearning": "Muttersprache darf nicht gleich der Lernsprache sein",
+  "learningCannotBeSameAsNative": "Lernsprache darf nicht gleich der Muttersprache sein",
+  "stepOf": "Schritt {current} von {total}",
+  "continueWithGoogle": "Weiter mit Google",
+  "registerLink": "Registrieren",
+  "pleaseEnterBothEmailAndPassword": "Bitte E-Mail und Passwort eingeben",
+  "pleaseEnterValidEmail": "Bitte gültige E-Mail eingeben",
+  "loginSuccessful": "Anmeldung erfolgreich!",
+  "sessionExpired": "Sitzung abgelaufen. Bitte erneut anmelden.",
+  "stepOneOfTwo": "Schritt 1 von 2",
+  "createYourAccount": "Konto erstellen",
+  "basicInfoToGetStarted": "Grundlegende Infos zum Starten",
+  "emailVerifiedLabel": "E-Mail (Verifiziert)",
+  "nameLabel": "Name",
+  "yourDisplayName": "Dein Anzeigename",
+  "atLeast8Characters": "Mindestens 8 Zeichen",
+  "confirmPasswordHint": "Passwort bestätigen",
+  "nextButton": "Weiter",
+  "pleaseEnterYourName": "Bitte gib deinen Namen ein",
+  "pleaseEnterAPassword": "Bitte gib ein Passwort ein",
+  "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+  "male": "Männlich",
+  "female": "Weiblich",
+  "otherGender": "Andere",
+  "continueWithGoogleAccount": "Weiter mit deinem Google-Konto\nfür ein nahtloses Erlebnis",
+  "signingYouIn": "Anmeldung läuft...",
+  "tryAgain": "Erneut versuchen",
+  "backToSignInMethods": "Zurück zu Anmeldemethoden",
+  "securedByGoogle": "Gesichert durch Google",
+  "dataProtectedEncryption": "Deine Daten sind mit Standardverschlüsselung geschützt",
+  "welcomeCompleteProfile": "Willkommen! Bitte vervollständige dein Profil",
+  "welcomeBackName": "Willkommen zurück, {name}!",
+  "continueWithAppleId": "Weiter mit deiner Apple ID\nfür ein sicheres Erlebnis",
+  "continueWithApple": "Weiter mit Apple",
+  "securedByApple": "Gesichert durch Apple",
+  "privacyProtectedApple": "Deine Privatsphäre ist mit Apple Sign-In geschützt",
+  "createAccount": "Konto erstellen",
+  "enterEmailToGetStarted": "E-Mail eingeben zum Starten",
+  "continueText": "Weiter",
+  "pleaseEnterEmailAddress": "Bitte gib deine E-Mail-Adresse ein",
+  "verificationCodeSent": "Bestätigungscode gesendet!",
+  "forgotPasswordTitle": "Passwort vergessen",
+  "resetPasswordTitle": "Passwort zurücksetzen",
+  "enterEmailForResetCode": "Gib deine E-Mail ein und wir senden dir einen Code zum Zurücksetzen",
+  "sendResetCode": "Code senden",
+  "resetCodeSent": "Code zum Zurücksetzen gesendet!",
+  "rememberYourPassword": "Erinnerst du dich an dein Passwort?",
+  "verifyCode": "Code überprüfen",
+  "enterResetCode": "Code eingeben",
+  "weSentCodeTo": "Wir haben einen 6-stelligen Code gesendet an",
+  "pleaseEnterAll6Digits": "Bitte alle 6 Ziffern eingeben",
+  "codeVerifiedCreatePassword": "Code bestätigt! Erstelle dein neues Passwort",
+  "verify": "Überprüfen",
+  "didntReceiveCode": "Code nicht erhalten?",
+  "resend": "Erneut senden",
+  "resendWithTimer": "Erneut senden ({timer}s)",
+  "resetCodeResent": "Code erneut gesendet!",
+  "verifyEmail": "E-Mail bestätigen",
+  "verifyYourEmail": "Bestätige deine E-Mail",
+  "emailVerifiedSuccessfully": "E-Mail erfolgreich bestätigt!",
+  "verificationCodeResent": "Bestätigungscode erneut gesendet!",
+  "createNewPassword": "Neues Passwort erstellen",
+  "enterNewPasswordBelow": "Gib dein neues Passwort ein",
+  "newPassword": "Neues Passwort",
+  "confirmPasswordLabel": "Passwort bestätigen",
+  "pleaseFillAllFields": "Bitte alle Felder ausfüllen",
+  "passwordResetSuccessful": "Passwort zurückgesetzt! Melde dich mit deinem neuen Passwort an",
+  "privacyTitle": "Datenschutz",
+  "profileVisibility": "Profil-Sichtbarkeit",
+  "showCountryRegion": "Land/Region anzeigen",
+  "showCountryRegionDesc": "Zeigt dein Land in deinem Profil an",
+  "showCity": "Stadt anzeigen",
+  "showCityDesc": "Zeigt deine Stadt in deinem Profil an",
+  "showAge": "Alter anzeigen",
+  "showAgeDesc": "Zeigt dein Alter in deinem Profil an",
+  "showZodiacSign": "Sternzeichen anzeigen",
+  "showZodiacSignDesc": "Zeigt dein Sternzeichen in deinem Profil an",
+  "onlineStatusSection": "Online-Status",
+  "showOnlineStatus": "Online-Status anzeigen",
+  "showOnlineStatusDesc": "Andere sehen lassen, wenn du online bist",
+  "otherSettings": "Andere Einstellungen",
+  "showGiftingLevel": "Geschenk-Level anzeigen",
+  "showGiftingLevelDesc": "Zeigt dein Geschenk-Level-Abzeichen an",
+  "birthdayNotifications": "Geburtstags-Benachrichtigungen",
+  "birthdayNotificationsDesc": "Benachrichtigungen an deinem Geburtstag erhalten",
+  "personalizedAds": "Personalisierte Werbung",
+  "personalizedAdsDesc": "Personalisierte Werbung erlauben",
+  "saveChanges": "Änderungen speichern",
+  "privacySettingsSaved": "Datenschutzeinstellungen gespeichert",
+  "locationSection": "Standort",
+  "updateLocation": "Standort aktualisieren",
+  "updateLocationDesc": "Aktuellen Standort aktualisieren",
+  "currentLocation": "Aktueller Standort",
+  "locationNotAvailable": "Standort nicht verfügbar",
+  "locationUpdated": "Standort erfolgreich aktualisiert",
+  "locationPermissionDenied": "Standortberechtigung verweigert. Bitte in den Einstellungen aktivieren.",
+  "locationServiceDisabled": "Standortdienste sind deaktiviert. Bitte aktivieren.",
+  "updatingLocation": "Standort wird aktualisiert...",
+  "openSettings": "Einstellungen öffnen",
+  "locationCouldNotBeUpdated": "Standort konnte nicht aktualisiert werden"
 }

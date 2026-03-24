@@ -48,13 +48,11 @@ class AndroidPurchaseService {
 
     // Already initialized successfully
     if (_isAvailable && _subscription != null) {
-      debugPrint('Store already initialized');
       return true;
     }
 
     // Initialization already in progress - wait for it
     if (_isInitializing && _initializationCompleter != null) {
-      debugPrint('Initialization already in progress, waiting...');
       return _initializationCompleter!.future;
     }
 
@@ -63,7 +61,6 @@ class AndroidPurchaseService {
 
     try {
       final bool available = await _inAppPurchase.isAvailable();
-      debugPrint('Google Play available: $available');
       if (!available) {
         _queryProductError = 'Google Play Store not available';
         _isInitializing = false;
@@ -79,10 +76,8 @@ class AndroidPurchaseService {
           _onPurchaseUpdate,
           onDone: () => _subscription?.cancel(),
           onError: (error) {
-            debugPrint('Purchase stream error: $error');
           },
         );
-        debugPrint('Android purchase subscription initialized');
       }
 
       // Load products inline to avoid deadlock
@@ -92,7 +87,6 @@ class AndroidPurchaseService {
       _initializationCompleter?.complete(true);
       return true;
     } catch (e) {
-      debugPrint('Error initializing store: $e');
       _isInitializing = false;
       _initializationCompleter?.complete(false);
       return false;
@@ -101,40 +95,24 @@ class AndroidPurchaseService {
 
   /// Internal method to load products (called from initializeStore)
   static Future<void> _loadProductsInternal() async {
-    debugPrint('Querying Google Play products: $_productIds');
 
     final ProductDetailsResponse response =
         await _inAppPurchase.queryProductDetails(_productIds);
 
-    debugPrint('Query complete:');
-    debugPrint('   - Products found: ${response.productDetails.length}');
-    debugPrint(
-        '   - Products: ${response.productDetails.map((p) => '${p.id}: ${p.price}').toList()}');
-    debugPrint('   - Not found IDs: ${response.notFoundIDs}');
-    debugPrint('   - Has error: ${response.error != null}');
-
     if (response.error != null) {
       _queryProductError = response.error!.message;
-      debugPrint('Error loading products: ${response.error!.message}');
       return;
     }
 
     if (response.productDetails.isEmpty) {
       _queryProductError =
           'No products found. Not found IDs: ${response.notFoundIDs}';
-      debugPrint('No products found');
-      debugPrint('   This usually means:');
-      debugPrint('   1. Products not yet configured in Google Play Console');
-      debugPrint('   2. App not published or in testing track');
-      debugPrint('   3. Product IDs do not match');
-      debugPrint('   4. Billing library not properly initialized');
       return;
     }
 
     _products.clear();
     _products.addAll(response.productDetails);
     _queryProductError = null;
-    debugPrint('Loaded ${_products.length} products successfully');
   }
 
   /// Load available products from Google Play (public method for manual refresh)
@@ -147,7 +125,6 @@ class AndroidPurchaseService {
 
     // If already loading, skip
     if (_isLoadingProducts) {
-      debugPrint('Products already loading, skipping');
       return;
     }
 
@@ -177,30 +154,24 @@ class AndroidPurchaseService {
     if (!_isAvailable) {
       final initialized = await initializeStore();
       if (!initialized || !_isAvailable) {
-        debugPrint('Store not available. Error: $_queryProductError');
         return null;
       }
     }
 
     // Ensure products are loaded
     if (_products.isEmpty) {
-      debugPrint('No products loaded, loading products...');
       await loadProducts();
       if (_products.isEmpty) {
-        debugPrint('Failed to load products. Error: $_queryProductError');
         return null;
       }
     }
 
     final ProductDetails? productDetails = getProduct(productId);
     if (productDetails == null) {
-      debugPrint('Product not found: $productId');
-      debugPrint('Available products: ${_products.map((p) => p.id).toList()}');
       return null;
     }
 
     if (_purchasePending) {
-      debugPrint('Purchase already in progress');
       return null;
     }
 
@@ -214,7 +185,6 @@ class AndroidPurchaseService {
     );
 
     try {
-      debugPrint('Initiating purchase for: $productId');
 
       // For subscriptions, use buyNonConsumable
       final bool initiated = await _inAppPurchase.buyNonConsumable(
@@ -224,17 +194,14 @@ class AndroidPurchaseService {
       if (!initiated) {
         _purchasePending = false;
         _purchaseCompleter = null;
-        debugPrint('Failed to initiate subscription purchase');
         return null;
       }
 
-      debugPrint('Waiting for purchase to complete...');
 
       // Wait for the purchase to complete (with timeout)
       final result = await _purchaseCompleter!.future.timeout(
         const Duration(minutes: 5),
         onTimeout: () {
-          debugPrint('Purchase timed out');
           return null;
         },
       );
@@ -244,7 +211,6 @@ class AndroidPurchaseService {
     } catch (e) {
       _purchasePending = false;
       _purchaseCompleter = null;
-      debugPrint('Purchase error: $e');
       return null;
     }
   }
@@ -268,19 +234,12 @@ class AndroidPurchaseService {
   /// Handle purchase updates from Google Play
   static void _onPurchaseUpdate(List<PurchaseDetails> purchaseDetailsList) {
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-      debugPrint(
-          'Purchase update: ${purchaseDetails.status} for ${purchaseDetails.productID}');
-
       if (purchaseDetails.status == PurchaseStatus.pending) {
         _purchasePending = true;
-        debugPrint('Purchase pending...');
       } else {
         _purchasePending = false;
 
         if (purchaseDetails.status == PurchaseStatus.error) {
-          debugPrint('Purchase error: ${purchaseDetails.error?.message}');
-          debugPrint('   Error code: ${purchaseDetails.error?.code}');
-          debugPrint('   Error details: ${purchaseDetails.error?.details}');
 
           // Complete the completer with null to indicate failure
           if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
@@ -292,8 +251,6 @@ class AndroidPurchaseService {
               purchaseDetails, false, purchaseDetails.error?.message);
         } else if (purchaseDetails.status == PurchaseStatus.purchased ||
             purchaseDetails.status == PurchaseStatus.restored) {
-          debugPrint('Purchase successful: ${purchaseDetails.productID}');
-          debugPrint('   Purchase ID: ${purchaseDetails.purchaseID}');
 
           // Add to purchases list
           if (!_purchases.contains(purchaseDetails)) {
@@ -308,7 +265,6 @@ class AndroidPurchaseService {
           // Call callback if set
           _purchaseCallback?.call(purchaseDetails, true, null);
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
-          debugPrint('Purchase canceled');
 
           // Complete the completer with null
           if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
@@ -322,7 +278,6 @@ class AndroidPurchaseService {
 
         // Complete/acknowledge the purchase (required for Google Play)
         if (purchaseDetails.pendingCompletePurchase) {
-          debugPrint('Completing/acknowledging purchase...');
           _inAppPurchase.completePurchase(purchaseDetails);
         }
       }
@@ -335,11 +290,9 @@ class AndroidPurchaseService {
     // For Android, serverVerificationData contains the purchase token
     final serverData = purchase.verificationData.serverVerificationData;
     if (serverData.isNotEmpty) {
-      debugPrint('Got purchase token (${serverData.length} chars)');
       return serverData;
     }
 
-    debugPrint('No purchase token available');
     return null;
   }
 
@@ -351,7 +304,6 @@ class AndroidPurchaseService {
   /// Get purchase token from the latest purchase
   static String? getLatestPurchaseToken() {
     if (_purchases.isEmpty) {
-      debugPrint('No purchases available');
       return null;
     }
 
@@ -359,7 +311,6 @@ class AndroidPurchaseService {
       final latestPurchase = _purchases.last;
       return getPurchaseToken(latestPurchase);
     } catch (e) {
-      debugPrint('Error getting purchase token: $e');
       return null;
     }
   }
@@ -379,7 +330,6 @@ class AndroidPurchaseService {
     try {
       await _inAppPurchase.restorePurchases();
     } catch (e) {
-      debugPrint('Error restoring purchases: $e');
     }
   }
 

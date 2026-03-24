@@ -14,10 +14,6 @@ import 'package:path_provider/path_provider.dart';
 /// Top-level function for handling background messages
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint('🔔 Handling background message: ${message.messageId}');
-  debugPrint('📨 Title: ${message.notification?.title}');
-  debugPrint('📨 Body: ${message.notification?.body}');
-  debugPrint('📨 Data: ${message.data}');
 }
 
 class NotificationService {
@@ -42,13 +38,11 @@ class NotificationService {
   /// Initialize Firebase Cloud Messaging and request permissions
   Future<void> initialize({BuildContext? context}) async {
     if (_isInitialized) {
-      debugPrint('⚠️ NotificationService already initialized');
       return;
     }
 
     _context = context;
 
-    debugPrint('🔔 Initializing NotificationService...');
 
     try {
       // Initialize Firebase Messaging
@@ -59,7 +53,6 @@ class NotificationService {
 
       if (settings.authorizationStatus == AuthorizationStatus.authorized ||
           settings.authorizationStatus == AuthorizationStatus.provisional) {
-        debugPrint('✅ Notification permissions granted');
 
         // Initialize local notifications
         await _initializeLocalNotifications();
@@ -71,7 +64,6 @@ class NotificationService {
           badge: true,   // Allow badge updates
           sound: false,  // Don't auto-play sound (we play via local notifications)
         );
-        debugPrint('🔔 Foreground presentation: alert=false (manual handling)');
 
         // Get FCM token
         await _getFCMToken();
@@ -82,28 +74,22 @@ class NotificationService {
         // Check if app was opened from terminated state via notification
         final initialMessage = await _fcm!.getInitialMessage();
         if (initialMessage != null) {
-          debugPrint('🔔 App opened from terminated state via notification');
-          // Delay navigation slightly to ensure app is fully initialized
-          Future.delayed(const Duration(milliseconds: 500), () {
+          // Delay navigation to ensure app and GoRouter are fully initialized
+          Future.delayed(const Duration(milliseconds: 1000), () {
             // Use goRouter directly - no context needed
             NotificationRouter.handleNotification(null, initialMessage.data);
           });
         }
 
         _isInitialized = true;
-        debugPrint('✅ NotificationService initialized successfully');
       } else {
-        debugPrint('❌ Notification permissions denied');
       }
     } catch (e, stackTrace) {
-      debugPrint('❌ Error initializing NotificationService: $e');
-      debugPrint('Stack trace: $stackTrace');
     }
   }
 
   /// Request notification permissions
   Future<NotificationSettings> _requestPermission() async {
-    debugPrint('📋 Requesting notification permissions...');
 
     final settings = await _fcm!.requestPermission(
       alert: true,
@@ -115,13 +101,11 @@ class NotificationService {
       sound: true,
     );
 
-    debugPrint('📋 Permission status: ${settings.authorizationStatus}');
     return settings;
   }
 
   /// Initialize local notifications plugin
   Future<void> _initializeLocalNotifications() async {
-    debugPrint('🔔 Initializing local notifications...');
 
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
@@ -135,7 +119,6 @@ class NotificationService {
       // Enable foreground notification presentation
       notificationCategories: [],
       onDidReceiveLocalNotification: (id, title, body, payload) {
-        debugPrint('🔔 iOS foreground local notification: $title');
       },
     );
 
@@ -167,7 +150,6 @@ class NotificationService {
           ?.createNotificationChannel(channel);
     }
 
-    debugPrint('✅ Local notifications initialized');
   }
 
   /// Get FCM token
@@ -175,14 +157,12 @@ class NotificationService {
     try {
       // On iOS, we need to get APNS token first
       if (Platform.isIOS) {
-        debugPrint('📱 Requesting APNS token for iOS...');
 
         // Request APNS token
         String? apnsToken = await _fcm!.getAPNSToken();
 
         // If APNS token is not available immediately, wait for it
         if (apnsToken == null) {
-          debugPrint('⏳ Waiting for APNS token...');
 
           // Wait up to 10 seconds for APNS token
           int attempts = 0;
@@ -193,22 +173,14 @@ class NotificationService {
           }
 
           if (apnsToken != null) {
-            debugPrint(
-              '✅ APNS token received: ${apnsToken.substring(0, 20)}...',
-            );
           } else {
-            debugPrint('⚠️ APNS token not available after waiting');
           }
         } else {
-          debugPrint(
-            '✅ APNS token available: ${apnsToken.substring(0, 20)}...',
-          );
         }
       }
 
       // Now get FCM token
       _fcmToken = await _fcm!.getToken();
-      debugPrint('🔑 FCM Token: $_fcmToken');
 
       if (_fcmToken != null) {
         // Save token locally
@@ -218,17 +190,14 @@ class NotificationService {
 
       // Listen for token refresh
       _fcm!.onTokenRefresh.listen((newToken) {
-        debugPrint('🔄 FCM Token refreshed: $newToken');
         _fcmToken = newToken;
         // Use stored currentUserId to ensure we register with correct user after account switch
         if (_currentUserId != null) {
           _registerTokenWithBackend(_currentUserId);
         } else {
-          debugPrint('⚠️ Token refreshed but no current user set, skipping registration');
         }
       });
     } catch (e) {
-      debugPrint('❌ Error getting FCM token: $e');
     }
   }
 
@@ -248,16 +217,9 @@ class NotificationService {
   Future<void> _handleForegroundMessage(RemoteMessage message) async {
     final messageId = message.messageId ?? '${message.hashCode}';
 
-    debugPrint('🔔 ====== FOREGROUND MESSAGE ======');
-    debugPrint('🔔 Message ID: $messageId');
-    debugPrint('🔔 Title: ${message.notification?.title}');
-    debugPrint('🔔 Body: ${message.notification?.body}');
-    debugPrint('🔔 Data: ${message.data}');
-    debugPrint('🔔 Already processed: ${_processedMessageIds.contains(messageId)}');
 
     // Prevent duplicate processing
     if (_processedMessageIds.contains(messageId)) {
-      debugPrint('🔔 ⚠️ DUPLICATE - Skipping already processed message');
       return;
     }
     _processedMessageIds.add(messageId);
@@ -271,53 +233,42 @@ class NotificationService {
     // The socket already handles real-time message delivery
     final notificationType = message.data['type']?.toString().toLowerCase();
     if (notificationType == 'chat_message') {
-      debugPrint('🔔 Skipping local notification for chat_message (handled by socket)');
       return;
     }
 
-    debugPrint('🔔 ✅ Showing local notification for type: $notificationType');
     // Show local notification for other notification types
     await _showLocalNotification(message);
   }
 
   /// Handle notification tap when app was in background
   void _handleNotificationOpenedApp(RemoteMessage message) {
-    debugPrint('🔔 Notification opened app: ${message.messageId}');
-    debugPrint('📱 Notification data: ${message.data}');
 
     // Use goRouter directly - no context needed
-    debugPrint('📱 Calling NotificationRouter with goRouter...');
     NotificationRouter.handleNotification(null, message.data);
   }
 
   /// Handle notification tap from local notification
   void _handleNotificationTap(NotificationResponse response) {
-    debugPrint('🔔 Local notification tapped: ${response.payload}');
 
     if (response.payload != null) {
       try {
         // Parse the JSON string payload back to Map
         final data = jsonDecode(response.payload!) as Map<String, dynamic>;
-        debugPrint('📱 Navigating with data: $data');
         // Use goRouter directly - no context needed
         NotificationRouter.handleNotification(null, data);
       } catch (e) {
-        debugPrint('❌ Error handling notification tap: $e');
-        debugPrint('Payload was: ${response.payload}');
       }
     }
   }
 
   /// Show local notification for foreground messages
   Future<void> _showLocalNotification(RemoteMessage message) async {
-    debugPrint('🔔 📣 _showLocalNotification called for: ${message.messageId}');
     try {
       // Get sender's image URL from notification or data
       final imageUrl = message.notification?.android?.imageUrl ??
           message.notification?.apple?.imageUrl ??
           message.data['imageUrl'];
 
-      debugPrint('🔔 Image URL: $imageUrl');
 
       // Prepare notification details with sender's profile picture
       AndroidNotificationDetails androidDetails;
@@ -383,7 +334,6 @@ class NotificationService {
         );
       }
 
-      debugPrint('🔔 📣 Preparing to show notification with presentAlert=true');
 
       final details = NotificationDetails(
         android: androidDetails,
@@ -397,16 +347,13 @@ class NotificationService {
         details,
         payload: jsonEncode(message.data),
       );
-      debugPrint('🔔 ✅ Local notification shown successfully!');
     } catch (e) {
-      debugPrint('❌ Error showing local notification: $e');
     }
   }
 
   /// Download image and save to temporary file for notification
   Future<String?> _downloadAndSaveImage(String imageUrl) async {
     try {
-      debugPrint('🖼️ Downloading notification image: $imageUrl');
 
       final response = await http.get(Uri.parse(imageUrl)).timeout(
         const Duration(seconds: 5),
@@ -418,14 +365,11 @@ class NotificationService {
         final file = File(filePath);
         await file.writeAsBytes(response.bodyBytes);
 
-        debugPrint('🖼️ Image saved to: $filePath');
         return filePath;
       }
 
-      debugPrint('🖼️ Failed to download image: ${response.statusCode}');
       return null;
     } catch (e) {
-      debugPrint('🖼️ Error downloading image: $e');
       return null;
     }
   }
@@ -433,7 +377,6 @@ class NotificationService {
   /// Register FCM token with backend
   Future<void> _registerTokenWithBackend([String? userId]) async {
     if (_fcmToken == null) {
-      debugPrint('⚠️ No FCM token available for registration');
       return;
     }
 
@@ -447,17 +390,12 @@ class NotificationService {
       }
 
       if (userIdToUse == null) {
-        debugPrint('⚠️ No userId available, skipping token registration');
         return;
       }
 
       final deviceId = await _getDeviceId();
       final platform = Platform.isIOS ? 'ios' : 'android';
 
-      debugPrint('📤 Registering token with backend for user: $userIdToUse');
-      debugPrint('📤 FCM Token: ${_fcmToken!.substring(0, 50)}...');
-      debugPrint('📤 Device ID: $deviceId');
-      debugPrint('📤 Platform: $platform');
 
       final result = await _apiClient.registerToken(
         _fcmToken!,
@@ -466,30 +404,24 @@ class NotificationService {
       );
 
       if (result['success'] == true) {
-        debugPrint('✅ Token registered with backend successfully!');
       } else {
-        debugPrint('❌ Failed to register token: ${result['message']}');
       }
     } catch (e) {
-      debugPrint('❌ Error registering token with backend: $e');
     }
   }
 
   /// Register token with backend (public method called after login)
   Future<void> registerToken(String userId) async {
-    debugPrint('🔑 Registering token for user: $userId');
 
     // Store the current user ID for token refresh events
     _currentUserId = userId;
 
     // Wait a bit to ensure FCM token is available
     if (_fcmToken == null) {
-      debugPrint('⏳ FCM token not ready yet, waiting...');
       await Future.delayed(const Duration(seconds: 1));
     }
 
     if (_fcmToken == null) {
-      debugPrint('❌ FCM token still not available after waiting');
       return;
     }
 
@@ -501,11 +433,9 @@ class NotificationService {
     try {
       final deviceId = await _getDeviceId();
 
-      debugPrint('📤 Removing token from backend...');
       final result = await _apiClient.removeToken(deviceId);
 
       if (result['success'] == true) {
-        debugPrint('✅ Token removed from backend');
         _fcmToken = null;
         // Clear current user ID to prevent token refresh registering with old user
         _currentUserId = null;
@@ -514,10 +444,8 @@ class NotificationService {
         final prefs = await SharedPreferences.getInstance();
         await prefs.remove('fcm_token');
       } else {
-        debugPrint('❌ Failed to remove token: ${result['message']}');
       }
     } catch (e) {
-      debugPrint('⚠️ Error removing token (may be already logged out): $e');
       // Clear current user ID even on error
       _currentUserId = null;
       // Don't throw error on logout - token might already be removed
@@ -548,14 +476,12 @@ class NotificationService {
   Future<void> updateBadgeCount(int count) async {
     // Badge count is managed via local notifications plugin
     // The actual badge update happens through FlutterLocalNotificationsPlugin
-    debugPrint('🔔 Badge count updated: $count');
   }
 
   /// Clear app badge (set to 0)
   Future<void> clearBadge() async {
     // Badge will be managed by the backend via notification payloads
     // iOS clears badge when notifications are read
-    debugPrint('🔔 Badge clear requested (handled by notification system)');
   }
 
   /// Check notification permission status
@@ -569,7 +495,6 @@ class NotificationService {
   /// Open app notification settings
   Future<void> openSettings() async {
     // This will be handled by app_settings package
-    debugPrint('🔔 Opening notification settings...');
     // Implementation will be in the UI layer using app_settings package
   }
 

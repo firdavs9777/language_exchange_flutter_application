@@ -1,6 +1,7 @@
 // lib/pages/chat/message_actions_bottom_sheet.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
 /// Telegram-style bottom sheet for message actions
@@ -14,6 +15,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
   final VoidCallback? onCopy;
   final VoidCallback? onPin;
   final VoidCallback? onDelete;
+  final VoidCallback? onTranslate;
   final Function(String emoji)? onReaction;
 
   const MessageActionsBottomSheet({
@@ -27,6 +29,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
     this.onCopy,
     this.onPin,
     this.onDelete,
+    this.onTranslate,
     this.onReaction,
   });
 
@@ -78,7 +81,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+        color: isDark ? AppColors.surfaceDark : AppColors.white,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: SafeArea(
@@ -91,7 +94,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: isDark ? Colors.grey[700] : Colors.grey[300],
+                color: isDark ? AppColors.gray700 : AppColors.gray300,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -102,7 +105,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                 margin: const EdgeInsets.all(16),
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[800] : Colors.grey[100],
+                  color: isDark ? AppColors.gray800 : AppColors.gray100,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -134,7 +137,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: isDark ? Colors.grey[300] : Colors.grey[700],
+                              color: isDark ? AppColors.gray300 : AppColors.gray700,
                               fontSize: 14,
                             ),
                           ),
@@ -183,7 +186,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
             const SizedBox(height: 8),
             Divider(
               height: 1,
-              color: isDark ? Colors.grey[800] : Colors.grey[200],
+              color: isDark ? AppColors.gray800 : AppColors.gray200,
             ),
 
             // Action items
@@ -212,6 +215,17 @@ class MessageActionsBottomSheet extends StatelessWidget {
                       duration: Duration(seconds: 1),
                     ),
                   );
+                },
+              ),
+
+            if (message.message != null && message.message!.isNotEmpty)
+              _buildActionItem(
+                context,
+                icon: Icons.translate_rounded,
+                label: 'Translate',
+                onTap: () {
+                  Navigator.pop(context);
+                  onTranslate?.call();
                 },
               ),
 
@@ -276,7 +290,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
   }) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final color = isDestructive ? Colors.red : (isDark ? Colors.white : Colors.black87);
+    final color = isDestructive ? AppColors.error : (isDark ? AppColors.white : AppColors.gray900);
 
     return InkWell(
       onTap: () {
@@ -308,7 +322,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                 subtitle,
                 style: TextStyle(
                   fontSize: 13,
-                  color: isDark ? Colors.grey[500] : Colors.grey[600],
+                  color: isDark ? AppColors.gray500 : AppColors.gray600,
                 ),
               ),
           ],
@@ -330,6 +344,7 @@ Future<void> showMessageActionsBottomSheet(
   VoidCallback? onCopy,
   VoidCallback? onPin,
   VoidCallback? onDelete,
+  VoidCallback? onTranslate,
   Function(String emoji)? onReaction,
 }) {
   HapticFeedback.mediumImpact();
@@ -348,6 +363,7 @@ Future<void> showMessageActionsBottomSheet(
       onCopy: onCopy,
       onPin: onPin,
       onDelete: onDelete,
+      onTranslate: onTranslate,
       onReaction: onReaction,
     ),
   );

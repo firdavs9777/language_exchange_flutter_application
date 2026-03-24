@@ -222,7 +222,6 @@ class UploadQueueService {
       await _saveTasks();
 
     } catch (e) {
-      debugPrint('Upload error for task ${task.id}: $e');
 
       // Increment retry count and check if should retry
       final newRetryCount = task.retryCount + 1;
@@ -405,7 +404,6 @@ class UploadQueueService {
       final tasksJson = _tasks.map((t) => t.toJson()).toList();
       await prefs.setString(_storageKey, jsonEncode(tasksJson));
     } catch (e) {
-      debugPrint('Error saving upload tasks: $e');
     }
   }
 
@@ -429,7 +427,6 @@ class UploadQueueService {
         _notifyTasksChanged();
       }
     } catch (e) {
-      debugPrint('Error loading upload tasks: $e');
     }
   }
 

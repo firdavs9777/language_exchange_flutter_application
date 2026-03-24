@@ -32,7 +32,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter your email address',
+            AppLocalizations.of(context)!.pleaseEnterEmailAddress,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 2),
@@ -48,7 +48,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Please enter a valid email address',
+            AppLocalizations.of(context)!.pleaseEnterValidEmail,
             BanaStyles: BananaTextStyles.warning,
           ),
           duration: Duration(seconds: 2),
@@ -73,7 +73,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BananaText(
-            'Verification code sent to your email!',
+            AppLocalizations.of(context)!.verificationCodeSent,
             BanaStyles: BananaTextStyles.success,
           ),
           duration: Duration(seconds: 2),
@@ -117,7 +117,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
     return Scaffold(
       appBar: AppBar(
         title: BananaText(
-          'Sign Up',
+          AppLocalizations.of(context)!.signUp,
           BanaStyles: BananaTextStyles.appBarTitle,
         ),
       ),
@@ -136,13 +136,13 @@ class _EmailInputState extends ConsumerState<EmailInput> {
               ),
             ),
             BananaText(
-              'Create Account',
+              AppLocalizations.of(context)!.createAccount,
               BanaStyles: BananaTextStyles.heading,
               textAlign: TextAlign.center,
             ),
             Spacing.gapMD,
             Text(
-              'Enter your email to get started',
+              AppLocalizations.of(context)!.enterEmailToGetStarted,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: context.textSecondary),
             ),
@@ -179,7 +179,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
                     : Text(
-                        'Continue',
+                        AppLocalizations.of(context)!.continueText,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -193,7 +193,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already have an account? ',
+                  AppLocalizations.of(context)!.alreadyHaveAnAccount,
                   style: TextStyle(color: context.textSecondary),
                 ),
                 TextButton(
@@ -203,7 +203,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
                     );
                   },
                   child: Text(
-                    'Login',
+                    AppLocalizations.of(context)!.login,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,

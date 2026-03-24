@@ -141,6 +141,14 @@ class Endpoints {
   static String getCommentTranslationsURL(String commentId) =>
       'comments/$commentId/translations';
   
+  // Message TTS
+  static String messageTtsURL(String messageId) =>
+      'messages/$messageId/tts';
+
+  // Message Vocabulary (save word from translation)
+  static String messageVocabularyURL(String messageId) =>
+      'messages/$messageId/vocabulary';
+
   // Message Bookmarks
   static String bookmarkMessageURL(String messageId) =>
       'messages/$messageId/bookmark';
@@ -191,10 +199,17 @@ class Endpoints {
   static String userMomentsURL(String userId) => 'moments/user/$userId';
   static String singleMomentURL(String momentId) => 'moments/$momentId';
   static String likeMomentURL(String momentId) => 'moments/$momentId/like';
-  
+  static String dislikeMomentURL(String momentId) => 'moments/$momentId/dislike';
+
   // Moments - Comments
   static String momentCommentsURL(String momentId) =>
       'moments/$momentId/comments';
+  static String singleCommentURL(String momentId, String commentId) =>
+      'moments/$momentId/comments/$commentId';
+  static String likeCommentURL(String momentId, String commentId) =>
+      'moments/$momentId/comments/$commentId/like';
+  static String commentRepliesURL(String momentId, String commentId) =>
+      'moments/$momentId/comments/$commentId/replies';
   
   // Stories - Basic
   static const String storiesURL = 'stories';

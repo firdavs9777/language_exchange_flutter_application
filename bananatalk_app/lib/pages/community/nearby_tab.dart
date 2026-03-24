@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/services/location_service.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -138,12 +143,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         onlineOnly: onlineOnly ? true : null,
       );
 
-      debugPrint('📍 Nearby users response for ${_selectedRadius}km radius:');
-      debugPrint('   Users count: ${response.users.length}');
-      debugPrint('   Has more: ${response.pagination.hasMore}');
       if (response.users.isNotEmpty) {
-        debugPrint('   First user distance: ${response.users.first.distance}km');
-        debugPrint('   Last user distance: ${response.users.last.distance}km');
       }
 
       // Filter out current user from the list
@@ -159,8 +159,6 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       }
     } catch (e, stack) {
       if (mounted) setState(() => _isLoadingMore = false);
-      debugPrint('❌ Error loading nearby users: $e');
-      debugPrint('Stack trace: $stack');
     }
   }
 
@@ -169,48 +167,34 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     _loadNearbyUsers();
   }
 
-  Future<void> _onWave(String userId, String userName) async {
+  Future<void> _onWave(NearbyUser user) async {
+    HapticFeedback.mediumImpact();
+
+    // Navigate to chat immediately
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ChatScreen(
+          userId: user.id,
+          userName: user.name,
+          profilePicture: user.images.isNotEmpty ? user.images.first : null,
+        ),
+      ),
+    );
+
+    // Send wave API + wave sticker message in background
     try {
       final service = ref.read(communityServiceProvider);
-      await service.sendWave(targetUserId: userId);
+      await service.sendWave(targetUserId: user.id);
+    } catch (_) {}
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.waving_hand, color: Colors.white, size: 20),
-                const SizedBox(width: 12),
-                Text('Waved to $userName!'),
-              ],
-            ),
-            backgroundColor: const Color(0xFF00BFA5),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-    } catch (e) {
-      debugPrint('❌ Error sending wave: $e');
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline, color: Colors.white, size: 20),
-                const SizedBox(width: 12),
-                Expanded(child: Text(e.toString().replaceAll('Exception: ', ''))),
-              ],
-            ),
-            backgroundColor: Colors.red.shade700,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            duration: const Duration(seconds: 3),
-          ),
-        );
-      }
-    }
+    try {
+      final messageService = ref.read(messageServiceProvider);
+      await messageService.sendMessage(
+        receiver: user.id,
+        message: '\u{1F44B}',
+      );
+    } catch (_) {}
   }
 
   @override
@@ -268,7 +252,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                   return _NearbyUserCardFromApi(
                     user: user,
                     onTap: () => _viewNearbyUserProfile(user),
-                    onWave: () => _onWave(user.id, user.name),
+                    onWave: () => _onWave(user),
                   );
                 },
                 childCount: _nearbyUsers.length,
@@ -302,7 +286,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           Icon(Icons.radar, color: context.primaryColor, size: 20),
           Spacing.hGapSM,
           Text(
-            'Radius:',
+            '${AppLocalizations.of(context)!.radius}:',
             style: context.labelLarge,
           ),
           Spacing.hGapMD,
@@ -342,7 +326,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           CircularProgressIndicator(color: context.primaryColor),
           Spacing.gapLG,
           Text(
-            'Finding your location...',
+            AppLocalizations.of(context)!.findingYourLocation,
             style: context.bodyMedium.copyWith(color: context.textSecondary),
           ),
         ],
@@ -364,7 +348,6 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         );
       }
     } catch (e) {
-      debugPrint('Error loading user profile: $e');
     }
   }
 
@@ -390,12 +373,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             ),
             Spacing.gapXXL,
             Text(
-              'Enable Location for Distance',
+              AppLocalizations.of(context)!.enableLocationForDistance,
               style: context.displaySmall,
             ),
             Spacing.gapMD,
             Text(
-              'Enable GPS to see exact distance to partners. You can still browse by city/country without GPS.',
+              AppLocalizations.of(context)!.enableLocationDescription,
               textAlign: TextAlign.center,
               style: context.bodyMedium.copyWith(
                 color: context.textSecondary,
@@ -415,7 +398,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 }
               },
               icon: const Icon(Icons.near_me_rounded),
-              label: const Text('Enable GPS'),
+              label: Text(AppLocalizations.of(context)!.enableGps),
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.primaryColor,
                 foregroundColor: context.textOnPrimary,
@@ -435,7 +418,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 });
               },
               child: Text(
-                'Browse by City/Country',
+                AppLocalizations.of(context)!.browseByCityCountry,
                 style: context.labelLarge.copyWith(
                   color: context.primaryColor,
                 ),
@@ -494,13 +477,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'People Nearby',
+                  AppLocalizations.of(context)!.peopleNearby,
                   style: context.titleMedium,
                 ),
                 Text(
                   hasLocation
-                      ? 'Showing partners sorted by distance'
-                      : 'Enable location for distance-based results',
+                      ? AppLocalizations.of(context)!.showingPartnersByDistance
+                      : AppLocalizations.of(context)!.enableLocationForResults,
                   style: context.caption,
                 ),
               ],
@@ -512,7 +495,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 await _loadUserLocation();
               },
               child: Text(
-                'Enable',
+                AppLocalizations.of(context)!.enable,
                 style: context.labelLarge.copyWith(
                   color: context.primaryColor,
                 ),
@@ -537,12 +520,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             ),
             Spacing.gapLG,
             Text(
-              'No nearby users found',
+              AppLocalizations.of(context)!.noNearbyUsersFound,
               style: context.titleLarge,
             ),
             Spacing.gapSM,
             Text(
-              'Try expanding your search or check back later.',
+              AppLocalizations.of(context)!.tryExpandingSearch,
               textAlign: TextAlign.center,
               style: context.bodySmall,
             ),
@@ -566,14 +549,14 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             ),
             Spacing.gapLG,
             Text(
-              'Something went wrong',
+              AppLocalizations.of(context)!.somethingWentWrong,
               style: context.titleLarge,
             ),
             Spacing.gapXXL,
             ElevatedButton.icon(
               onPressed: () => ref.invalidate(communityProvider),
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Retry'),
+              label: Text(AppLocalizations.of(context)!.retry),
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.primaryColor,
                 foregroundColor: context.textOnPrimary,
@@ -602,6 +585,8 @@ class _NearbyUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user);
+    final showAge = PrivacyUtils.shouldShowAge(user);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -648,8 +633,8 @@ class _NearbyUserCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Online indicator
-                  if (user.isOnline)
+                  // Online indicator (respects privacy)
+                  if (showOnline && user.isOnline)
                     Positioned(
                       top: 10,
                       right: 10,
@@ -726,7 +711,7 @@ class _NearbyUserCard extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              if (user.age != null)
+                              if (showAge && user.age != null)
                                 Text(
                                   ', ${user.age}',
                                   style: const TextStyle(
@@ -750,7 +735,7 @@ class _NearbyUserCard extends StatelessWidget {
                                 child: Text(
                                   distance != null
                                       ? LocationService.formatDistance(distance!)
-                                      : _getLocationText(user),
+                                      : _getLocationText(context, user),
                                   style: TextStyle(
                                     color: distance != null ? const Color(0xFF00E5CC) : Colors.white60,
                                     fontSize: 11,
@@ -817,14 +802,14 @@ class _NearbyUserCard extends StatelessWidget {
                         color: const Color(0xFF00BFA5),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.waving_hand_rounded, size: 12, color: Colors.white),
-                          SizedBox(width: 3),
+                          const Icon(Icons.waving_hand_rounded, size: 12, color: Colors.white),
+                          const SizedBox(width: 3),
                           Text(
-                            'Wave',
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.wave,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -888,7 +873,7 @@ class _NearbyUserCard extends StatelessWidget {
   }
 
   /// Get location text with city and country
-  String _getLocationText(Community user) {
+  String _getLocationText(BuildContext context, Community user) {
     final city = user.location.city;
     final country = user.location.country;
 
@@ -899,7 +884,7 @@ class _NearbyUserCard extends StatelessWidget {
     } else if (country.isNotEmpty) {
       return country;
     }
-    return 'Location not set';
+    return AppLocalizations.of(context)!.locationNotSet;
   }
 }
 
@@ -963,8 +948,8 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Online indicator
-                  if (user.isOnline)
+                  // Online indicator (respect privacy settings)
+                  if ((user.privacySettings?.showOnlineStatus ?? true) && user.isOnline)
                     Positioned(
                       top: 10,
                       right: 10,
@@ -1026,9 +1011,9 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          if (user.city != null || user.country != null)
+                          if (_getPrivacyLocationText() != null)
                             Text(
-                              '${user.city ?? ''}${user.city != null && user.country != null ? ', ' : ''}${user.country ?? ''}',
+                              _getPrivacyLocationText()!,
                               style: TextStyle(
                                 color: Colors.white.withValues(alpha: 0.8),
                                 fontSize: 11,
@@ -1089,14 +1074,14 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                         color: const Color(0xFF00BFA5),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.waving_hand_rounded, size: 12, color: Colors.white),
-                          SizedBox(width: 3),
+                          const Icon(Icons.waving_hand_rounded, size: 12, color: Colors.white),
+                          const SizedBox(width: 3),
                           Text(
-                            'Wave',
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.wave,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -1156,5 +1141,19 @@ class _NearbyUserCardFromApi extends StatelessWidget {
       'japanese': 'ja', 'korean': 'ko', 'arabic': 'ar',
     };
     return LanguageFlags.getFlag(nameToCodeMap[langLower] ?? langLower);
+  }
+
+  /// Returns location text respecting privacy settings, or null if hidden
+  String? _getPrivacyLocationText() {
+    final showCity = user.privacySettings?.showCity ?? true;
+    final showCountry = user.privacySettings?.showCountryRegion ?? true;
+
+    final city = showCity ? user.city : null;
+    final country = showCountry ? user.country : null;
+
+    if (city != null && country != null) return '$city, $country';
+    if (city != null) return city;
+    if (country != null) return country;
+    return null;
   }
 }

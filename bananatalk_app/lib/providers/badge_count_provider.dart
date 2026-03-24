@@ -16,20 +16,17 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   /// Uses sync endpoint to recalculate accurate counts
   Future<void> fetchBadgeCount() async {
     try {
-      debugPrint('📥 Fetching and syncing badge count...');
 
       // Use sync endpoint to get accurate counts from actual data
       final badgeCount = await _apiClient.syncBadges();
 
       if (badgeCount != null) {
         state = badgeCount;
-        debugPrint('✅ Badge count synced: ${badgeCount.total} (messages: ${badgeCount.messages}, notifications: ${badgeCount.notifications})');
 
         // Update iOS badge
         await _notificationService.updateBadgeCount(badgeCount.total);
       } else {
         // Fallback to regular getBadgeCount if sync fails
-        debugPrint('⚠️ Sync failed, falling back to getBadgeCount');
         final fallbackCount = await _apiClient.getBadgeCount();
         if (fallbackCount != null) {
           state = fallbackCount;
@@ -37,14 +34,12 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
         }
       }
     } catch (e) {
-      debugPrint('❌ Error fetching badge count: $e');
     }
   }
 
   /// Reset specific badge type
   Future<void> resetBadge(String type) async {
     try {
-      debugPrint('🔄 Resetting $type badge...');
       
       // Optimistically update UI
       if (type == 'messages') {
@@ -60,14 +55,11 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
       final result = await _apiClient.resetBadge(type);
 
       if (result['success'] == true) {
-        debugPrint('✅ Badge reset successfully');
       } else {
-        debugPrint('❌ Failed to reset badge on backend');
         // Refresh from backend
         await fetchBadgeCount();
       }
     } catch (e) {
-      debugPrint('❌ Error resetting badge: $e');
       await fetchBadgeCount();
     }
   }
@@ -76,14 +68,12 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   void incrementMessages() {
     state = state.copyWith(messages: state.messages + 1);
     _notificationService.updateBadgeCount(state.total);
-    debugPrint('📬 Messages badge incremented: ${state.messages}');
   }
 
   /// Increment notifications badge (local update)
   void incrementNotifications() {
     state = state.copyWith(notifications: state.notifications + 1);
     _notificationService.updateBadgeCount(state.total);
-    debugPrint('🔔 Notifications badge incremented: ${state.notifications}');
   }
 
   /// Decrement messages badge (local update)
@@ -91,7 +81,6 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
     if (state.messages > 0) {
       state = state.copyWith(messages: state.messages - 1);
       _notificationService.updateBadgeCount(state.total);
-      debugPrint('📬 Messages badge decremented: ${state.messages}');
     }
   }
 
@@ -100,7 +89,6 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
     if (state.notifications > 0) {
       state = state.copyWith(notifications: state.notifications - 1);
       _notificationService.updateBadgeCount(state.total);
-      debugPrint('🔔 Notifications badge decremented: ${state.notifications}');
     }
   }
 
@@ -108,19 +96,16 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   void setNotificationCount(int count) {
     state = state.copyWith(notifications: count);
     _notificationService.updateBadgeCount(state.total);
-    debugPrint('🔔 Notifications badge set to: $count');
   }
 
   /// Update message badge count directly (for real-time updates)
   void updateMessageCount(int count) {
-    debugPrint('🔔 Updating message badge count to: $count');
     state = state.copyWith(messages: count);
     _notificationService.updateBadgeCount(state.total);
   }
 
   /// Reset all badge counts (for logout)
   void reset() {
-    debugPrint('🔔 Resetting all badge counts');
     state = BadgeCount.zero();
     _notificationService.updateBadgeCount(0);
   }
@@ -128,7 +113,6 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   /// Reset all badges
   Future<void> resetAllBadges() async {
     try {
-      debugPrint('🔄 Resetting all badges...');
       
       state = BadgeCount.zero();
       await _notificationService.updateBadgeCount(0);
@@ -137,9 +121,7 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
       await _apiClient.resetBadge('messages');
       await _apiClient.resetBadge('notifications');
 
-      debugPrint('✅ All badges reset');
     } catch (e) {
-      debugPrint('❌ Error resetting all badges: $e');
     }
   }
 }

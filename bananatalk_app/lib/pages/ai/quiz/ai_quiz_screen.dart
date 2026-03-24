@@ -61,7 +61,6 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
         });
       }
     } catch (e) {
-      debugPrint('Error fetching languages: $e');
       setState(() {
         _isLoadingLanguages = false;
       });
@@ -681,12 +680,9 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
   }
 
   void _startQuiz(AIQuiz quiz) async {
-    debugPrint('🎮 Starting quiz: ${quiz.id} (${quiz.questions.length} questions in list)');
     final success = await ref.read(aiQuizProvider.notifier).startQuiz(quiz.id);
-    debugPrint('🎮 Start quiz result: $success');
     if (success && mounted) {
       final state = ref.read(aiQuizProvider);
-      debugPrint('🎮 Navigating to player with ${state.quiz?.questions.length ?? 0} questions');
       Navigator.push(
         context,
         MaterialPageRoute(

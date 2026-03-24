@@ -246,6 +246,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get momentDeleted => 'Đã xóa khoảnh khắc';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'Tính năng chỉnh sửa sắp ra mắt';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'Trò chuyện';
 
   @override
   String get community => 'Cộng đồng';
@@ -1181,7 +1190,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get forwardFeatureComingSoon => 'Forward feature coming soon';
 
   @override
-  String get momentUnsaved => 'Moment unsaved';
+  String get momentUnsaved => 'Đã xóa khỏi đã lưu';
 
   @override
   String get documentPickerComingSoon => 'Document picker coming soon';
@@ -1368,7 +1377,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get permissionsRequired => 'Permissions Required';
 
   @override
-  String get openSettings => 'Open Settings';
+  String get openSettings => 'Mở cài đặt';
 
   @override
   String get refresh => 'Làm mới';
@@ -1962,4 +1971,727 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get messageEdited => 'Đã sửa tin nhắn';
+
+  @override
+  String get edited => '(đã sửa)';
+
+  @override
+  String get now => 'vừa xong';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count tuần trước';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── Xem $count phản hồi';
+  }
+
+  @override
+  String get hideReplies => '── Ẩn phản hồi';
+
+  @override
+  String get saveMoment => 'Lưu khoảnh khắc';
+
+  @override
+  String get removeFromSaved => 'Xóa khỏi đã lưu';
+
+  @override
+  String get momentSaved => 'Đã lưu';
+
+  @override
+  String get failedToSave => 'Lưu thất bại';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'Xem khoảnh khắc này: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'Không thể tải khoảnh khắc';
+
+  @override
+  String get noMomentsMatchFilters => 'Không có khoảnh khắc nào phù hợp với bộ lọc';
+
+  @override
+  String get beFirstToShareMoment => 'Hãy là người đầu tiên chia sẻ khoảnh khắc!';
+
+  @override
+  String get tryDifferentSearch => 'Thử từ khóa tìm kiếm khác';
+
+  @override
+  String get tryAdjustingFilters => 'Thử điều chỉnh bộ lọc';
+
+  @override
+  String get noSavedMoments => 'Không có khoảnh khắc đã lưu';
+
+  @override
+  String get tapBookmarkToSave => 'Nhấn vào biểu tượng đánh dấu để lưu khoảnh khắc';
+
+  @override
+  String get failedToLoadVideo => 'Không thể tải video';
+
+  @override
+  String get titleRequired => 'Tiêu đề là bắt buộc';
+
+  @override
+  String titleTooLong(int max) {
+    return 'Tiêu đề phải có $max ký tự trở xuống';
+  }
+
+  @override
+  String get descriptionRequired => 'Mô tả là bắt buộc';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'Mô tả phải có $max ký tự trở xuống';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'Ngày hẹn phải ở tương lai';
+
+  @override
+  String get recent => 'Gần đây';
+
+  @override
+  String get popular => 'Phổ biến';
+
+  @override
+  String get trending => 'Xu hướng';
+
+  @override
+  String get mostRecent => 'Mới nhất';
+
+  @override
+  String get mostPopular => 'Phổ biến nhất';
+
+  @override
+  String get allTime => 'Tất cả';
+
+  @override
+  String get today => 'Hôm nay';
+
+  @override
+  String get thisWeek => 'Tuần này';
+
+  @override
+  String get thisMonth => 'Tháng này';
+
+  @override
+  String replyingTo(String userName) {
+    return 'Đang trả lời $userName';
+  }
+
+  @override
+  String get listView => 'Dạng danh sách';
+
+  @override
+  String get quickMatch => 'Ghép nhanh';
+
+  @override
+  String get onlineNow => 'Đang trực tuyến';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'Nói $language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'Đang học $language';
+  }
+
+  @override
+  String get noPartnersFound => 'Không tìm thấy đối tác';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'Không tìm thấy người dùng nói $learning bản ngữ hoặc muốn học $native.';
+  }
+
+  @override
+  String get removeAllFilters => 'Xóa tất cả bộ lọc';
+
+  @override
+  String get browseAllUsers => 'Xem tất cả người dùng';
+
+  @override
+  String get allCaughtUp => 'Đã xem hết!';
+
+  @override
+  String get loadingMore => 'Đang tải thêm...';
+
+  @override
+  String get findingMorePartners => 'Đang tìm thêm đối tác...';
+
+  @override
+  String get seenAllPartners => 'Bạn đã xem tất cả đối tác';
+
+  @override
+  String get startOver => 'Bắt đầu lại';
+
+  @override
+  String get changeFilters => 'Thay đổi bộ lọc';
+
+  @override
+  String get findingPartners => 'Đang tìm đối tác...';
+
+  @override
+  String get setLocationReminder => 'Đặt vị trí để tìm đối tác gần bạn';
+
+  @override
+  String get updateLocationReminder => 'Cập nhật vị trí để có kết quả tốt hơn';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get other => 'Khác';
+
+  @override
+  String get browseMen => 'Tìm nam';
+
+  @override
+  String get browseWomen => 'Tìm nữ';
+
+  @override
+  String get noMaleUsersFound => 'Không tìm thấy người dùng nam';
+
+  @override
+  String get noFemaleUsersFound => 'Không tìm thấy người dùng nữ';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'Chỉ người dùng mới';
+
+  @override
+  String get showNewUsers => 'Hiển thị người dùng mới';
+
+  @override
+  String get prioritizeNearby => 'Ưu tiên gần đây';
+
+  @override
+  String get showNearbyFirst => 'Hiển thị gần đây trước';
+
+  @override
+  String get setLocationToEnable => 'Đặt vị trí để kích hoạt';
+
+  @override
+  String get radius => 'Bán kính';
+
+  @override
+  String get findingYourLocation => 'Đang tìm vị trí của bạn...';
+
+  @override
+  String get enableLocationForDistance => 'Bật vị trí để tính khoảng cách';
+
+  @override
+  String get enableLocationDescription => 'Bật dịch vụ vị trí để tìm đối tác ngôn ngữ gần bạn';
+
+  @override
+  String get enableGps => 'Bật GPS';
+
+  @override
+  String get browseByCityCountry => 'Tìm theo thành phố/quốc gia';
+
+  @override
+  String get peopleNearby => 'Người gần đây';
+
+  @override
+  String get noNearbyUsersFound => 'Không tìm thấy người dùng gần đây';
+
+  @override
+  String get tryExpandingSearch => 'Thử mở rộng tìm kiếm';
+
+  @override
+  String get exploreByCity => 'Khám phá theo thành phố';
+
+  @override
+  String get exploreByCurrentCity => 'Khám phá theo thành phố hiện tại';
+
+  @override
+  String get interactiveWorldMap => 'Bản đồ thế giới tương tác';
+
+  @override
+  String get searchByCityName => 'Tìm theo tên thành phố';
+
+  @override
+  String get seeUserCountsPerCountry => 'Xem số người dùng theo quốc gia';
+
+  @override
+  String get upgradeToVip => 'Nâng cấp lên VIP';
+
+  @override
+  String get searchByCity => 'Tìm theo thành phố';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count người dùng trên toàn thế giới';
+  }
+
+  @override
+  String get noUsersFound => 'Không tìm thấy người dùng';
+
+  @override
+  String get tryDifferentCity => 'Thử thành phố khác';
+
+  @override
+  String usersCount(String count) {
+    return '$count người dùng';
+  }
+
+  @override
+  String get searchCountry => 'Tìm quốc gia';
+
+  @override
+  String get wave => 'Vẫy tay';
+
+  @override
+  String get newUser => 'Người dùng mới';
+
+  @override
+  String get warningPermanent => 'Cảnh báo: Hành động này là vĩnh viễn!';
+
+  @override
+  String get deleteAccountWarning => 'Xóa tài khoản của bạn sẽ xóa vĩnh viễn:\n\n• Hồ sơ và tất cả dữ liệu cá nhân của bạn\n• Tất cả tin nhắn và cuộc trò chuyện của bạn\n• Tất cả khoảnh khắc và story của bạn\n• Đăng ký VIP của bạn (không hoàn tiền)\n• Tất cả kết nối và người theo dõi của bạn\n\nHành động này không thể hoàn tác.';
+
+  @override
+  String get requiredForEmailOnly => 'Chỉ bắt buộc cho tài khoản email';
+
+  @override
+  String get pleaseEnterPassword => 'Vui lòng nhập mật khẩu của bạn';
+
+  @override
+  String get typeDELETE => 'Nhập DELETE';
+
+  @override
+  String get mustTypeDELETE => 'Bạn phải nhập DELETE để tiếp tục';
+
+  @override
+  String get deletingAccount => 'Đang xóa tài khoản...';
+
+  @override
+  String get deleteMyAccountPermanently => 'Xóa vĩnh viễn tài khoản của tôi';
+
+  @override
+  String get whatsYourNativeLanguage => 'Ngôn ngữ mẹ đẻ của bạn là gì?';
+
+  @override
+  String get helpsMatchWithLearners => 'Giúp ghép đôi với người đang học';
+
+  @override
+  String get whatAreYouLearning => 'Bạn đang học gì?';
+
+  @override
+  String get connectWithNativeSpeakers => 'Kết nối với người bản ngữ';
+
+  @override
+  String get selectLearningLanguage => 'Chọn ngôn ngữ muốn học';
+
+  @override
+  String get selectCurrentLevel => 'Chọn trình độ hiện tại';
+
+  @override
+  String get beginner => 'Mới bắt đầu';
+
+  @override
+  String get elementary => 'Sơ cấp';
+
+  @override
+  String get intermediate => 'Trung cấp';
+
+  @override
+  String get upperIntermediate => 'Trung cấp cao';
+
+  @override
+  String get advanced => 'Nâng cao';
+
+  @override
+  String get proficient => 'Thành thạo';
+
+  @override
+  String get showingPartnersByDistance => 'Hiển thị đối tác theo khoảng cách';
+
+  @override
+  String get enableLocationForResults => 'Bật vị trí để có kết quả tốt hơn';
+
+  @override
+  String get enable => 'Bật';
+
+  @override
+  String get locationNotSet => 'Chưa đặt vị trí';
+
+  @override
+  String get tellUsAboutYourself => 'Cho chúng tôi biết về bạn';
+
+  @override
+  String get justACoupleQuickThings => 'Chỉ vài điều nhanh thôi';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get birthDate => 'Ngày sinh';
+
+  @override
+  String get selectYourBirthDate => 'Chọn ngày sinh của bạn';
+
+  @override
+  String get continueButton => 'Tiếp tục';
+
+  @override
+  String get pleaseSelectGender => 'Vui lòng chọn giới tính';
+
+  @override
+  String get pleaseSelectBirthDate => 'Vui lòng chọn ngày sinh';
+
+  @override
+  String get mustBe18 => 'Bạn phải đủ 18 tuổi trở lên';
+
+  @override
+  String get invalidDate => 'Ngày không hợp lệ';
+
+  @override
+  String get almostDone => 'Sắp xong rồi!';
+
+  @override
+  String get addPhotoLocationForMatches => 'Thêm ảnh và vị trí để ghép đôi tốt hơn';
+
+  @override
+  String get addProfilePhoto => 'Thêm ảnh hồ sơ';
+
+  @override
+  String get optionalUpTo6Photos => 'Tùy chọn - tối đa 6 ảnh';
+
+  @override
+  String get maximum6Photos => 'Tối đa 6 ảnh';
+
+  @override
+  String get tapToDetectLocation => 'Nhấn để phát hiện vị trí';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'Tùy chọn - giúp tìm đối tác gần bạn';
+
+  @override
+  String get startLearning => 'Bắt đầu học';
+
+  @override
+  String get photoLocationOptional => 'Ảnh và vị trí là tùy chọn';
+
+  @override
+  String get pleaseAcceptTerms => 'Vui lòng chấp nhận điều khoản dịch vụ';
+
+  @override
+  String get iAgreeToThe => 'Tôi đồng ý với';
+
+  @override
+  String get termsOfService => 'Điều khoản dịch vụ';
+
+  @override
+  String get tapToSelectLanguage => 'Nhấn để chọn ngôn ngữ';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'Trình độ của bạn trong $language (tùy chọn)';
+  }
+
+  @override
+  String get yourCurrentLevel => 'Trình độ hiện tại của bạn';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ đang học';
+
+  @override
+  String get learningCannotBeSameAsNative => 'Ngôn ngữ đang học không thể giống ngôn ngữ mẹ đẻ';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'Bước $current / $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Tiếp tục với Google';
+
+  @override
+  String get registerLink => 'Đăng ký';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'Vui lòng nhập email và mật khẩu';
+
+  @override
+  String get pleaseEnterValidEmail => 'Vui lòng nhập email hợp lệ';
+
+  @override
+  String get loginSuccessful => 'Đăng nhập thành công!';
+
+  @override
+  String get stepOneOfTwo => 'Bước 1 / 2';
+
+  @override
+  String get createYourAccount => 'Tạo tài khoản';
+
+  @override
+  String get basicInfoToGetStarted => 'Thông tin cơ bản để bắt đầu';
+
+  @override
+  String get emailVerifiedLabel => 'Email (Đã xác minh)';
+
+  @override
+  String get nameLabel => 'Tên';
+
+  @override
+  String get yourDisplayName => 'Tên hiển thị';
+
+  @override
+  String get atLeast8Characters => 'Ít nhất 8 ký tự';
+
+  @override
+  String get confirmPasswordHint => 'Xác nhận mật khẩu';
+
+  @override
+  String get nextButton => 'Tiếp theo';
+
+  @override
+  String get pleaseEnterYourName => 'Vui lòng nhập tên';
+
+  @override
+  String get pleaseEnterAPassword => 'Vui lòng nhập mật khẩu';
+
+  @override
+  String get passwordsDoNotMatch => 'Mật khẩu không khớp';
+
+  @override
+  String get otherGender => 'Khác';
+
+  @override
+  String get continueWithGoogleAccount => 'Tiếp tục với tài khoản Google\nđể có trải nghiệm mượt mà';
+
+  @override
+  String get signingYouIn => 'Đang đăng nhập...';
+
+  @override
+  String get backToSignInMethods => 'Quay lại phương thức đăng nhập';
+
+  @override
+  String get securedByGoogle => 'Được bảo mật bởi Google';
+
+  @override
+  String get dataProtectedEncryption => 'Dữ liệu được bảo vệ bằng mã hóa tiêu chuẩn';
+
+  @override
+  String get welcomeCompleteProfile => 'Chào mừng! Vui lòng hoàn thiện hồ sơ';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'Chào mừng trở lại, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Tiếp tục với Apple ID\nđể có trải nghiệm an toàn';
+
+  @override
+  String get continueWithApple => 'Tiếp tục với Apple';
+
+  @override
+  String get securedByApple => 'Được bảo mật bởi Apple';
+
+  @override
+  String get privacyProtectedApple => 'Quyền riêng tư được bảo vệ với Apple Sign-In';
+
+  @override
+  String get createAccount => 'Tạo tài khoản';
+
+  @override
+  String get enterEmailToGetStarted => 'Nhập email để bắt đầu';
+
+  @override
+  String get continueText => 'Tiếp tục';
+
+  @override
+  String get pleaseEnterEmailAddress => 'Vui lòng nhập địa chỉ email';
+
+  @override
+  String get verificationCodeSent => 'Mã xác minh đã được gửi!';
+
+  @override
+  String get forgotPasswordTitle => 'Quên mật khẩu';
+
+  @override
+  String get resetPasswordTitle => 'Đặt lại mật khẩu';
+
+  @override
+  String get enterEmailForResetCode => 'Nhập email và chúng tôi sẽ gửi mã đặt lại';
+
+  @override
+  String get sendResetCode => 'Gửi mã đặt lại';
+
+  @override
+  String get resetCodeSent => 'Mã đặt lại đã được gửi!';
+
+  @override
+  String get rememberYourPassword => 'Nhớ mật khẩu?';
+
+  @override
+  String get verifyCode => 'Xác minh mã';
+
+  @override
+  String get enterResetCode => 'Nhập mã đặt lại';
+
+  @override
+  String get weSentCodeTo => 'Chúng tôi đã gửi mã 6 chữ số đến';
+
+  @override
+  String get pleaseEnterAll6Digits => 'Vui lòng nhập đủ 6 chữ số';
+
+  @override
+  String get codeVerifiedCreatePassword => 'Xác minh thành công! Tạo mật khẩu mới';
+
+  @override
+  String get verify => 'Xác minh';
+
+  @override
+  String get didntReceiveCode => 'Không nhận được mã?';
+
+  @override
+  String get resend => 'Gửi lại';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'Gửi lại (${timer}g)';
+  }
+
+  @override
+  String get resetCodeResent => 'Mã đặt lại đã được gửi lại!';
+
+  @override
+  String get verifyEmail => 'Xác minh email';
+
+  @override
+  String get verifyYourEmail => 'Xác minh email của bạn';
+
+  @override
+  String get emailVerifiedSuccessfully => 'Xác minh email thành công!';
+
+  @override
+  String get verificationCodeResent => 'Mã xác minh đã được gửi lại!';
+
+  @override
+  String get createNewPassword => 'Tạo mật khẩu mới';
+
+  @override
+  String get enterNewPasswordBelow => 'Nhập mật khẩu mới bên dưới';
+
+  @override
+  String get newPassword => 'Mật khẩu mới';
+
+  @override
+  String get confirmPasswordLabel => 'Xác nhận mật khẩu';
+
+  @override
+  String get pleaseFillAllFields => 'Vui lòng điền tất cả các trường';
+
+  @override
+  String get passwordResetSuccessful => 'Đặt lại mật khẩu thành công! Đăng nhập bằng mật khẩu mới';
+
+  @override
+  String get privacyTitle => 'Quyền riêng tư';
+
+  @override
+  String get profileVisibility => 'Hiển thị hồ sơ';
+
+  @override
+  String get showCountryRegion => 'Hiển thị quốc gia/khu vực';
+
+  @override
+  String get showCountryRegionDesc => 'Hiển thị quốc gia trên hồ sơ';
+
+  @override
+  String get showCity => 'Hiển thị thành phố';
+
+  @override
+  String get showCityDesc => 'Hiển thị thành phố trên hồ sơ';
+
+  @override
+  String get showAge => 'Hiển thị tuổi';
+
+  @override
+  String get showAgeDesc => 'Hiển thị tuổi trên hồ sơ';
+
+  @override
+  String get showZodiacSign => 'Hiển thị cung hoàng đạo';
+
+  @override
+  String get showZodiacSignDesc => 'Hiển thị cung hoàng đạo trên hồ sơ';
+
+  @override
+  String get onlineStatusSection => 'Trạng thái trực tuyến';
+
+  @override
+  String get showOnlineStatus => 'Hiển thị trạng thái trực tuyến';
+
+  @override
+  String get showOnlineStatusDesc => 'Cho phép người khác thấy khi bạn trực tuyến';
+
+  @override
+  String get otherSettings => 'Cài đặt khác';
+
+  @override
+  String get showGiftingLevel => 'Hiển thị cấp quà tặng';
+
+  @override
+  String get showGiftingLevelDesc => 'Hiển thị huy hiệu cấp quà tặng';
+
+  @override
+  String get birthdayNotifications => 'Thông báo sinh nhật';
+
+  @override
+  String get birthdayNotificationsDesc => 'Nhận thông báo vào ngày sinh nhật';
+
+  @override
+  String get personalizedAds => 'Quảng cáo cá nhân hóa';
+
+  @override
+  String get personalizedAdsDesc => 'Cho phép quảng cáo cá nhân hóa';
+
+  @override
+  String get saveChanges => 'Lưu thay đổi';
+
+  @override
+  String get privacySettingsSaved => 'Đã lưu cài đặt quyền riêng tư';
+
+  @override
+  String get locationSection => 'Vị trí';
+
+  @override
+  String get updateLocation => 'Cập nhật vị trí';
+
+  @override
+  String get updateLocationDesc => 'Làm mới vị trí hiện tại';
+
+  @override
+  String get currentLocation => 'Vị trí hiện tại';
+
+  @override
+  String get locationNotAvailable => 'Vị trí không khả dụng';
+
+  @override
+  String get locationUpdated => 'Cập nhật vị trí thành công';
+
+  @override
+  String get locationPermissionDenied => 'Quyền vị trí bị từ chối. Vui lòng bật trong cài đặt.';
+
+  @override
+  String get locationServiceDisabled => 'Dịch vụ vị trí đã tắt. Vui lòng bật.';
+
+  @override
+  String get updatingLocation => 'Đang cập nhật vị trí...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'Không thể cập nhật vị trí';
 }

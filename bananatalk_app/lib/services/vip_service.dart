@@ -19,7 +19,6 @@ class VipService {
       try {
         return DateTime.parse(value);
       } catch (e) {
-        debugPrint('Error parsing date: $value - $e');
         return null;
       }
     }
@@ -45,8 +44,6 @@ class VipService {
       final url = Uri.parse(
           '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/vip/activate');
 
-      debugPrint('VIP Activate URL: $url');
-      debugPrint('VIP Activate Request: plan=${plan.toJson()}, payment=$paymentMethod');
 
       final response = await http.post(
         url,
@@ -57,8 +54,6 @@ class VipService {
         }),
       );
 
-      debugPrint('VIP Activate Response Status: ${response.statusCode}');
-      debugPrint('VIP Activate Response Body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         try {
@@ -68,7 +63,6 @@ class VipService {
             'data': data,
           };
         } catch (e) {
-          debugPrint('JSON Parse Error: $e');
           return {
             'success': false,
             'error': 'Invalid response format from server',
@@ -89,7 +83,6 @@ class VipService {
         }
       }
     } catch (e) {
-      debugPrint('VIP Activate Error: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',
@@ -140,24 +133,18 @@ class VipService {
       final url = Uri.parse(
           '${Endpoints.baseURL}${Endpoints.getVipStatusURL(userId)}');
 
-      debugPrint('VIP Status URL: $url');
 
       final response = await http.get(
         url,
         headers: _getHeaders(token),
       );
 
-      debugPrint('VIP Status Response: ${response.statusCode}');
-      debugPrint('VIP Status Body: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
         if (data['success'] == true && data['data'] != null) {
           final vipData = data['data'];
-          debugPrint('VIP Data: $vipData');
-          debugPrint('isVIP: ${vipData['isVIP']}');
-          debugPrint('vipSubscription: ${vipData['vipSubscription']}');
 
           // Try to parse subscription from multiple possible locations
           VipSubscription? subscription;
@@ -165,7 +152,6 @@ class VipService {
             if (vipData['vipSubscription'] != null &&
                 vipData['vipSubscription'] is Map) {
               final subData = vipData['vipSubscription'] as Map<String, dynamic>;
-              debugPrint('Parsing vipSubscription: $subData');
               // Only parse if the subscription has meaningful data
               if (subData['plan'] != null || subData['isActive'] == true) {
                 subscription = VipSubscription.fromJson(subData);
@@ -176,12 +162,10 @@ class VipService {
                   vipData['subscription'] as Map<String, dynamic>);
             }
           } catch (e) {
-            debugPrint('Error parsing subscription: $e');
           }
 
           // If isVIP is true but we couldn't parse subscription, create one from available data
           if (subscription == null && vipData['isVIP'] == true) {
-            debugPrint('Creating subscription from available data');
             subscription = VipSubscription(
               id: 'vip_$userId',
               plan: vipData['plan']?.toString() ??
@@ -226,7 +210,6 @@ class VipService {
         };
       }
     } catch (e) {
-      debugPrint('VIP Status Error: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',
@@ -326,8 +309,6 @@ class VipService {
         requestBody['orderId'] = orderId;
       }
 
-      debugPrint('Android Verify URL: $url');
-      debugPrint('Android Verify Request: productId=$productId');
 
       final response = await http.post(
         url,
@@ -335,8 +316,6 @@ class VipService {
         body: jsonEncode(requestBody),
       );
 
-      debugPrint('Android Verify Response Status: ${response.statusCode}');
-      debugPrint('Android Verify Response Body: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -378,7 +357,6 @@ class VipService {
         };
       }
     } catch (e) {
-      debugPrint('Android Verify Error: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',

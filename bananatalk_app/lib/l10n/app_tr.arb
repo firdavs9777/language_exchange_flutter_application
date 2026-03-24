@@ -134,6 +134,7 @@
   "details": "Detaylar",
   "to": "kime",
   "banaTalk": "BanaTalk",
+  "chats": "Sohbetler",
   "community": "Topluluk",
   "editProfile": "Profili Düzenle",
   "yearsOld": "{age} yaşında",
@@ -283,7 +284,6 @@
   "detectYourLocation2": "Konumunuzu algıla",
   "tapToUpdateLocation2": "Konumu güncellemek için dokunun",
   "helpOthersFindYouNearby2": "Başkalarının sizi yakınlarda bulmasına yardımcı olun",
-  "signInWithApple": "Apple ile giriş yap",
   "couldNotOpenLink": "Bağlantı açılamadı",
   "legalPrivacy2": "Yasal ve Gizlilik",
   "termsOfUseEULA": "Kullanım Şartları (EULA)",
@@ -461,7 +461,7 @@
   "wallpaperSavedLocally": "Duvar kağıdı yerel olarak kaydedildi",
   "messageCopied": "Mesaj kopyalandı",
   "forwardFeatureComingSoon": "İletme özelliği yakında",
-  "momentUnsaved": "An kaydedilmedi",
+  "momentUnsaved": "Kaydedilenlerden kaldırıldı",
   "documentPickerComingSoon": "Belge seçici yakında",
   "contactSharingComingSoon": "Kişi paylaşımı yakında",
   "featureComingSoon": "Özellik yakında",
@@ -689,8 +689,12 @@
   "videoOptimized": "Video optimize edildi: {size}MB (%{savings} tasarruf)",
   "@videoOptimized": {
     "placeholders": {
-      "size": {"type": "String"},
-      "savings": {"type": "String"}
+      "size": {
+        "type": "String"
+      },
+      "savings": {
+        "type": "String"
+      }
     }
   },
   "failedToProcessVideo": "Video işlenemedi",
@@ -736,13 +740,17 @@
   "viewsTab": "Görüntüleme ({count})",
   "@viewsTab": {
     "placeholders": {
-      "count": {"type": "String"}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "reactionsTab": "Tepkiler ({count})",
   "@reactionsTab": {
     "placeholders": {
-      "count": {"type": "String"}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "processingVideo": "Video işleniyor...",
@@ -750,26 +758,34 @@
   "unmuteUser": "{name} sesini aç?",
   "@unmuteUser": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "willReceiveNotifications": "Yeni mesajlar için bildirim alacaksınız.",
   "muteNotificationsFor": "{name} için bildirimleri sessize al",
   "@muteNotificationsFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notificationsUnmutedFor": "{name} için bildirimlerin sesi açıldı",
   "@notificationsUnmutedFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notificationsMutedFor": "{name} için bildirimler sessize alındı",
   "@notificationsMutedFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdateMuteSettings": "Sessiz ayarları güncellenemedi",
@@ -784,13 +800,17 @@
   "navigateToMessage": "{name} ile sohbetteki mesaja git",
   "@navigateToMessage": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "bookmarkedOn": "{date} tarihinde yer imi eklendi",
   "@bookmarkedOn": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
   "voiceMessage": "Sesli mesaj",
@@ -809,7 +829,9 @@
   "chatWallpaperFor": "{name} için sohbet duvar kağıdı",
   "@chatWallpaperFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "solidColors": "Düz Renkler",
@@ -830,7 +852,9 @@
   "applyNFilters": "{count} Filtre Uygula",
   "@applyNFilters": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "failedToRecordVideo": "Video kaydedilemedi",
@@ -844,5 +868,247 @@
   "messageSent": "Mesaj gönderildi",
   "messageDeleted": "Mesaj silindi",
   "messageEdited": "Mesaj düzenlendi",
-  "videoMustBeUnder1GB": "Video 1GB'dan küçük olmalıdır."
+  "videoMustBeUnder1GB": "Video 1GB'dan küçük olmalıdır.",
+  "edited": "(düzenlendi)",
+  "now": "şimdi",
+  "weeksAgo": "{count}h önce",
+  "viewRepliesCount": "── {count} yanıtı görüntüle",
+  "hideReplies": "── Yanıtları gizle",
+  "saveMoment": "Anı Kaydet",
+  "removeFromSaved": "Kaydedilenlerden Kaldır",
+  "momentSaved": "Kaydedildi",
+  "failedToSave": "Kaydetme başarısız",
+  "checkOutMoment": "Bu anıya göz at: {title}",
+  "failedToLoadMoments": "Anılar yüklenemedi",
+  "noMomentsMatchFilters": "Filtrelerinizle eşleşen anı yok",
+  "beFirstToShareMoment": "Bir anı paylaşan ilk kişi olun!",
+  "tryDifferentSearch": "Farklı bir arama terimi deneyin",
+  "tryAdjustingFilters": "Filtrelerinizi ayarlamayı deneyin",
+  "noSavedMoments": "Kaydedilmiş anı yok",
+  "tapBookmarkToSave": "Bir anıyı kaydetmek için yer imi simgesine dokunun",
+  "failedToLoadVideo": "Video yüklenemedi",
+  "titleRequired": "Başlık gerekli",
+  "titleTooLong": "Başlık {max} karakter veya daha az olmalıdır",
+  "descriptionRequired": "Açıklama gerekli",
+  "descriptionTooLong": "Açıklama {max} karakter veya daha az olmalıdır",
+  "scheduledDateMustBeFuture": "Planlanan tarih gelecekte olmalıdır",
+  "recent": "Son",
+  "popular": "Popüler",
+  "trending": "Trend",
+  "mostRecent": "En son",
+  "mostPopular": "En popüler",
+  "allTime": "Tüm Zamanlar",
+  "today": "Bugün",
+  "thisWeek": "Bu Hafta",
+  "thisMonth": "Bu Ay",
+  "replyingTo": "{userName} adlı kişiye yanıt",
+  "@replyingTo": {
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+  "listView": "Liste görünümü",
+  "quickMatch": "Hızlı eşleşme",
+  "onlineNow": "Şimdi çevrimiçi",
+  "speaksLanguage": "{language} konuşuyor",
+  "learningLanguage": "{language} öğreniyor",
+  "noPartnersFound": "Partner bulunamadı",
+  "noUsersFoundForLanguages": "Ana dili {learning} olan veya {native} öğrenmek isteyen kullanıcı bulunamadı.",
+  "tryAdjustingFilters": "Filtrelerinizi ayarlamayı deneyin",
+  "removeAllFilters": "Tüm filtreleri kaldır",
+  "browseAllUsers": "Tüm kullanıcılara göz at",
+  "allCaughtUp": "Hepsini gördünüz!",
+  "loadingMore": "Daha fazla yükleniyor...",
+  "findingMorePartners": "Daha fazla partner aranıyor...",
+  "seenAllPartners": "Tüm partnerleri gördünüz",
+  "startOver": "Baştan başla",
+  "changeFilters": "Filtreleri değiştir",
+  "findingPartners": "Partner aranıyor...",
+  "somethingWentWrong": "Bir şeyler ters gitti",
+  "retry": "Tekrar Dene",
+  "setLocationReminder": "Yakındaki partnerleri bulmak için konumunuzu ayarlayın",
+  "updateLocationReminder": "Daha iyi sonuçlar için konumunuzu güncelleyin",
+  "male": "Erkek",
+  "female": "Kadın",
+  "other": "Diğer",
+  "browseMen": "Erkeklere göz at",
+  "browseWomen": "Kadınlara göz at",
+  "noMaleUsersFound": "Erkek kullanıcı bulunamadı",
+  "noFemaleUsersFound": "Kadın kullanıcı bulunamadı",
+  "vip": "VIP",
+  "newUsersOnly": "Yalnızca yeni kullanıcılar",
+  "showNewUsers": "Yeni kullanıcıları göster",
+  "prioritizeNearby": "Yakındakilere öncelik ver",
+  "showNearbyFirst": "Önce yakındakileri göster",
+  "setLocationToEnable": "Etkinleştirmek için konum ayarlayın",
+  "radius": "Yarıçap",
+  "findingYourLocation": "Konumunuz bulunuyor...",
+  "enableLocationForDistance": "Mesafe için konumu etkinleştir",
+  "enableLocationDescription": "Yakındaki dil partnerlerini bulmak için konum hizmetlerini etkinleştirin",
+  "enableGps": "GPS'i Etkinleştir",
+  "browseByCityCountry": "Şehir/ülkeye göre ara",
+  "peopleNearby": "Yakındaki kişiler",
+  "noNearbyUsersFound": "Yakında kullanıcı bulunamadı",
+  "tryExpandingSearch": "Aramayı genişletmeyi deneyin",
+  "exploreByCity": "Şehre göre keşfet",
+  "exploreByCurrentCity": "Mevcut şehre göre keşfet",
+  "interactiveWorldMap": "İnteraktif dünya haritası",
+  "searchByCityName": "Şehir adına göre ara",
+  "seeUserCountsPerCountry": "Ülke başına kullanıcı sayısını gör",
+  "upgradeToVip": "VIP'e yükselt",
+  "searchByCity": "Şehre göre ara",
+  "loading": "Yükleniyor...",
+  "usersWorldwide": "Dünya genelinde {count} kullanıcı",
+  "noUsersFound": "Kullanıcı bulunamadı",
+  "tryDifferentCity": "Farklı bir şehir deneyin",
+  "usersCount": "{count} kullanıcı",
+  "searchCountry": "Ülke ara",
+  "wave": "El salla",
+  "newUser": "Yeni kullanıcı",
+  "warningPermanent": "Uyarı: Bu işlem kalıcıdır!",
+  "deleteAccountWarning": "Hesabınızı silmek şunları kalıcı olarak kaldırır:\n\n• Profiliniz ve tüm kişisel verileriniz\n• Tüm mesajlarınız ve sohbetleriniz\n• Tüm anlarınız ve hikayeleriniz\n• VIP aboneliğiniz (iade yok)\n• Tüm bağlantılarınız ve takipçileriniz\n\nBu işlem geri alınamaz.",
+  "requiredForEmailOnly": "Yalnızca e-posta hesapları için gerekli",
+  "pleaseEnterPassword": "Lütfen şifrenizi girin",
+  "typeDELETE": "DELETE yazın",
+  "mustTypeDELETE": "Devam etmek için DELETE yazmalısınız",
+  "deletingAccount": "Hesap siliniyor...",
+  "deleteMyAccountPermanently": "Hesabımı kalıcı olarak sil",
+  "whatsYourNativeLanguage": "Ana diliniz nedir?",
+  "helpsMatchWithLearners": "Öğrencilerle eşleşmenize yardımcı olur",
+  "whatAreYouLearning": "Ne öğreniyorsunuz?",
+  "connectWithNativeSpeakers": "Ana dil konuşanlarıyla bağlanın",
+  "selectLearningLanguage": "Öğrenilecek dili seçin",
+  "selectCurrentLevel": "Mevcut seviyenizi seçin",
+  "beginner": "Başlangıç",
+  "elementary": "Temel",
+  "intermediate": "Orta",
+  "upperIntermediate": "Üst orta",
+  "advanced": "İleri",
+  "proficient": "Uzman",
+  "showingPartnersByDistance": "Partnerler mesafeye göre gösteriliyor",
+  "enableLocationForResults": "Daha iyi sonuçlar için konumu etkinleştirin",
+  "enable": "Etkinleştir",
+  "locationNotSet": "Konum ayarlanmadı",
+  "tellUsAboutYourself": "Bize kendinizden bahsedin",
+  "justACoupleQuickThings": "Sadece birkaç hızlı şey",
+  "gender": "Cinsiyet",
+  "birthDate": "Doğum tarihi",
+  "selectYourBirthDate": "Doğum tarihinizi seçin",
+  "continueButton": "Devam",
+  "pleaseSelectGender": "Lütfen cinsiyetinizi seçin",
+  "pleaseSelectBirthDate": "Lütfen doğum tarihinizi seçin",
+  "mustBe18": "En az 18 yaşında olmalısınız",
+  "invalidDate": "Geçersiz tarih",
+  "almostDone": "Neredeyse bitti!",
+  "addPhotoLocationForMatches": "Daha iyi eşleşmeler için fotoğraf ve konum ekleyin",
+  "addProfilePhoto": "Profil fotoğrafı ekle",
+  "optionalUpTo6Photos": "İsteğe bağlı - 6 fotoğrafa kadar",
+  "maximum6Photos": "Maksimum 6 fotoğraf",
+  "tapToDetectLocation": "Konumu algılamak için dokunun",
+  "optionalHelpsNearbyPartners": "İsteğe bağlı - yakındaki partnerleri bulmaya yardımcı olur",
+  "startLearning": "Öğrenmeye başla",
+  "photoLocationOptional": "Fotoğraf ve konum isteğe bağlıdır",
+  "pleaseAcceptTerms": "Lütfen kullanım şartlarını kabul edin",
+  "iAgreeToThe": "Kabul ediyorum",
+  "termsOfService": "Kullanım Şartları",
+  "tapToSelectLanguage": "Dil seçmek için dokunun",
+  "yourLevelIn": "{language} seviyeniz (isteğe bağlı)",
+  "yourCurrentLevel": "Mevcut seviyeniz",
+  "nativeCannotBeSameAsLearning": "Ana dil öğrenilen dille aynı olamaz",
+  "learningCannotBeSameAsNative": "Öğrenilen dil ana dille aynı olamaz",
+  "stepOf": "Adım {current} / {total}",
+  "continueWithGoogle": "Google ile devam et",
+  "registerLink": "Kayıt ol",
+  "pleaseEnterBothEmailAndPassword": "E-posta ve şifre girin",
+  "pleaseEnterValidEmail": "Geçerli bir e-posta girin",
+  "loginSuccessful": "Giriş başarılı!",
+  "stepOneOfTwo": "Adım 1 / 2",
+  "createYourAccount": "Hesabını oluştur",
+  "basicInfoToGetStarted": "Başlamak için temel bilgiler",
+  "emailVerifiedLabel": "E-posta (Doğrulanmış)",
+  "nameLabel": "İsim",
+  "yourDisplayName": "Görünen adın",
+  "atLeast8Characters": "En az 8 karakter",
+  "confirmPasswordHint": "Şifreyi onayla",
+  "nextButton": "İleri",
+  "pleaseEnterYourName": "İsmini gir",
+  "pleaseEnterAPassword": "Şifre gir",
+  "passwordsDoNotMatch": "Şifreler uyuşmuyor",
+  "otherGender": "Diğer",
+  "continueWithGoogleAccount": "Google hesabınla devam et\nsorunsuz bir deneyim için",
+  "signingYouIn": "Giriş yapılıyor...",
+  "backToSignInMethods": "Giriş yöntemlerine dön",
+  "securedByGoogle": "Google tarafından korunuyor",
+  "dataProtectedEncryption": "Verilerin standart şifreleme ile korunuyor",
+  "welcomeCompleteProfile": "Hoş geldin! Profilini tamamla",
+  "welcomeBackName": "Tekrar hoş geldin, {name}!",
+  "continueWithAppleId": "Apple ID ile devam et\ngüvenli bir deneyim için",
+  "continueWithApple": "Apple ile devam et",
+  "securedByApple": "Apple tarafından korunuyor",
+  "privacyProtectedApple": "Gizliliğin Apple Sign-In ile korunuyor",
+  "createAccount": "Hesap oluştur",
+  "enterEmailToGetStarted": "Başlamak için e-postanı gir",
+  "continueText": "Devam et",
+  "pleaseEnterEmailAddress": "E-posta adresini gir",
+  "verificationCodeSent": "Doğrulama kodu gönderildi!",
+  "forgotPasswordTitle": "Şifremi unuttum",
+  "resetPasswordTitle": "Şifreyi sıfırla",
+  "enterEmailForResetCode": "E-postanı gir, şifre sıfırlama kodu gönderelim",
+  "sendResetCode": "Sıfırlama kodu gönder",
+  "resetCodeSent": "Sıfırlama kodu gönderildi!",
+  "rememberYourPassword": "Şifreni hatırlıyor musun?",
+  "verifyCode": "Kodu doğrula",
+  "enterResetCode": "Sıfırlama kodunu gir",
+  "weSentCodeTo": "6 haneli kodu gönderdik",
+  "pleaseEnterAll6Digits": "6 rakamın hepsini gir",
+  "codeVerifiedCreatePassword": "Kod doğrulandı! Yeni şifre oluştur",
+  "verify": "Doğrula",
+  "didntReceiveCode": "Kodu almadın mı?",
+  "resend": "Tekrar gönder",
+  "resendWithTimer": "Tekrar gönder ({timer}sn)",
+  "resetCodeResent": "Sıfırlama kodu tekrar gönderildi!",
+  "verifyEmail": "E-postayı doğrula",
+  "verifyYourEmail": "E-postanı doğrula",
+  "emailVerifiedSuccessfully": "E-posta doğrulandı!",
+  "verificationCodeResent": "Doğrulama kodu tekrar gönderildi!",
+  "createNewPassword": "Yeni şifre oluştur",
+  "enterNewPasswordBelow": "Yeni şifreni aşağıya gir",
+  "newPassword": "Yeni şifre",
+  "confirmPasswordLabel": "Şifreyi onayla",
+  "pleaseFillAllFields": "Tüm alanları doldur",
+  "passwordResetSuccessful": "Şifre sıfırlandı! Yeni şifrenle giriş yap",
+  "privacyTitle": "Gizlilik",
+  "profileVisibility": "Profil Görünürlüğü",
+  "showCountryRegion": "Ülke/Bölge Göster",
+  "showCountryRegionDesc": "Profilinizde ülkenizi gösterin",
+  "showCity": "Şehir Göster",
+  "showCityDesc": "Profilinizde şehrinizi gösterin",
+  "showAge": "Yaş Göster",
+  "showAgeDesc": "Profilinizde yaşınızı gösterin",
+  "showZodiacSign": "Burç Göster",
+  "showZodiacSignDesc": "Profilinizde burcunuzu gösterin",
+  "onlineStatusSection": "Çevrimiçi Durumu",
+  "showOnlineStatus": "Çevrimiçi Durumu Göster",
+  "showOnlineStatusDesc": "Başkalarının çevrimiçi olduğunuzu görmesine izin verin",
+  "otherSettings": "Diğer Ayarlar",
+  "showGiftingLevel": "Hediye Seviyesini Göster",
+  "showGiftingLevelDesc": "Hediye seviyesi rozetinizi gösterin",
+  "birthdayNotifications": "Doğum Günü Bildirimleri",
+  "birthdayNotificationsDesc": "Doğum gününüzde bildirim alın",
+  "personalizedAds": "Kişiselleştirilmiş Reklamlar",
+  "personalizedAdsDesc": "Kişiselleştirilmiş reklamlara izin verin",
+  "saveChanges": "Değişiklikleri Kaydet",
+  "privacySettingsSaved": "Gizlilik ayarları kaydedildi",
+  "locationSection": "Konum",
+  "updateLocation": "Konumu Güncelle",
+  "updateLocationDesc": "Mevcut konumunuzu yenileyin",
+  "currentLocation": "Mevcut konum",
+  "locationNotAvailable": "Konum mevcut değil",
+  "locationUpdated": "Konum başarıyla güncellendi",
+  "locationPermissionDenied": "Konum izni reddedildi. Ayarlardan etkinleştirin.",
+  "locationServiceDisabled": "Konum hizmetleri devre dışı. Lütfen etkinleştirin.",
+  "updatingLocation": "Konum güncelleniyor...",
+  "locationCouldNotBeUpdated": "Konum güncellenemedi"
 }

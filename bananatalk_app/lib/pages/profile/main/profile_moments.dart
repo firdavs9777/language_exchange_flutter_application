@@ -3,6 +3,8 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +43,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
     final momentsAsync = ref.watch(userMomentsProvider(widget.id));
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         title: const Text(
           'My Moments',
@@ -51,8 +53,8 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -97,14 +99,14 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
               shape: BoxShape.circle,
             ),
             child: Icon(Icons.photo_library_outlined,
-                size: 64, color: Colors.grey[400]),
+                size: 64, color: context.iconColor),
           ),
           const SizedBox(height: 24),
           Text(
             'No moments yet',
             style: TextStyle(
               fontSize: 20,
-              color: Colors.grey[700],
+              color: context.textSecondary,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -113,7 +115,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
             'Share your language learning journey!',
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey[500],
+              color: context.textSecondary,
             ),
           ),
         ],
@@ -190,7 +192,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.grey[200],
+          color: context.containerColor,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -203,19 +205,19 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                   fit: BoxFit.cover,
                   useNormalization: false, // Already normalized
                   errorWidget: Container(
-                    color: Colors.grey[300],
-                    child: const Icon(
+                    color: context.containerColor,
+                    child: Icon(
                       Icons.image_not_supported,
-                      color: Colors.grey,
+                      color: context.iconColor,
                     ),
                   ),
                 )
               else
                 Container(
-                  color: Colors.grey[300],
-                  child: const Icon(
+                  color: context.containerColor,
+                  child: Icon(
                     Icons.image_not_supported,
-                    color: Colors.grey,
+                    color: context.iconColor,
                   ),
                 ),
               // Overlay for multiple images indicator
@@ -290,9 +292,9 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
         maxChildSize: 0.95,
         builder: (context, scrollController) {
           return Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
+            decoration: BoxDecoration(
+              color: context.surfaceColor,
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
             ),

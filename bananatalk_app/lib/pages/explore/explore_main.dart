@@ -25,7 +25,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -85,6 +85,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
           indicatorColor: AppColors.primary,
           tabs: const [
             Tab(icon: Icon(Icons.grid_view)),
+            Tab(icon: Icon(Icons.local_fire_department_outlined)),
             Tab(icon: Icon(Icons.play_circle_outline)),
           ],
         ),
@@ -93,15 +94,16 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
         controller: _tabController,
         children: [
           _buildGridView(),
+          _buildTrendingView(),
           _buildVideoFeed(),
         ],
       ),
     );
   }
 
-  /// Grid view of moments (like Instagram explore grid)
+  /// Grid view of moments (like Instagram explore grid) - uses explore endpoint
   Widget _buildGridView() {
-    final momentsAsync = ref.watch(momentsFeedProvider);
+    final momentsAsync = ref.watch(exploreMomentsProvider);
 
     return momentsAsync.when(
       data: (moments) {
@@ -123,18 +125,21 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
           );
         }
 
-        return GridView.builder(
-          padding: const EdgeInsets.all(2),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2,
+        return RefreshIndicator(
+          onRefresh: () async => ref.invalidate(exploreMomentsProvider),
+          child: GridView.builder(
+            padding: const EdgeInsets.all(2),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 2,
+              mainAxisSpacing: 2,
+            ),
+            itemCount: moments.length,
+            itemBuilder: (context, index) {
+              final moment = moments[index];
+              return _buildGridItem(moment);
+            },
           ),
-          itemCount: moments.length,
-          itemBuilder: (context, index) {
-            final moment = moments[index];
-            return _buildGridItem(moment);
-          },
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -151,11 +156,158 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
               ),
             ),
             TextButton(
-              onPressed: () => ref.refresh(momentsFeedProvider),
+              onPressed: () => ref.invalidate(exploreMomentsProvider),
               child: Text(
                 'Retry',
                 style: context.labelLarge.copyWith(color: AppColors.primary),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Trending moments tab
+  Widget _buildTrendingView() {
+    final trendingAsync = ref.watch(trendingMomentsProvider);
+
+    return trendingAsync.when(
+      data: (moments) {
+        if (moments.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.local_fire_department_outlined, size: 64, color: context.textHint),
+                Spacing.gapLG,
+                Text(
+                  'No trending moments yet',
+                  style: context.bodyLarge.copyWith(color: context.textSecondary),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return RefreshIndicator(
+          onRefresh: () async => ref.invalidate(trendingMomentsProvider),
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            itemCount: moments.length,
+            itemBuilder: (context, index) {
+              final moment = moments[index];
+              return _buildTrendingItem(moment, index + 1);
+            },
+          ),
+        );
+      },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error_outline, size: 48, color: context.textHint),
+            Spacing.gapLG,
+            TextButton(
+              onPressed: () => ref.invalidate(trendingMomentsProvider),
+              child: Text('Retry', style: context.labelLarge.copyWith(color: AppColors.primary)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTrendingItem(Moments moment, int rank) {
+    final thumbnailUrl = moment.hasVideo
+        ? moment.video?.thumbnail
+        : (moment.imageUrls.isNotEmpty ? moment.imageUrls.first : null);
+
+    return InkWell(
+      onTap: () {
+        if (moment.hasVideo) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VideoPlayerScreen(moment: moment),
+            ),
+          );
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Row(
+          children: [
+            // Rank number
+            SizedBox(
+              width: 28,
+              child: Text(
+                '#$rank',
+                style: context.titleMedium.copyWith(
+                  color: rank <= 3 ? AppColors.primary : context.textSecondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Spacing.hGapSM,
+            // Thumbnail
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: thumbnailUrl != null
+                    ? CachedImageWidget(imageUrl: thumbnailUrl, fit: BoxFit.cover)
+                    : Container(
+                        color: context.containerColor,
+                        child: Icon(Icons.image, color: context.textMuted),
+                      ),
+              ),
+            ),
+            Spacing.hGapMD,
+            // Content
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    moment.user.name,
+                    style: context.labelLarge,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Spacing.gapXXS,
+                  Text(
+                    moment.title.isNotEmpty ? moment.title : moment.description,
+                    style: context.bodySmall.copyWith(color: context.textSecondary),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            // Stats
+            Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.favorite, size: 14, color: AppColors.error),
+                    Spacing.hGapXXS,
+                    Text('${moment.likeCount}', style: context.captionSmall),
+                  ],
+                ),
+                Spacing.gapXXS,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.chat_bubble_outline, size: 14, color: context.textMuted),
+                    Spacing.hGapXXS,
+                    Text('${moment.commentCount}', style: context.captionSmall),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -244,7 +396,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
 
   /// Instagram Reels-style video feed
   Widget _buildVideoFeed() {
-    final momentsAsync = ref.watch(momentsFeedProvider);
+    final momentsAsync = ref.watch(exploreMomentsProvider);
 
     return momentsAsync.when(
       data: (moments) {
@@ -334,7 +486,6 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
         });
       }
     } catch (e) {
-      debugPrint('Error initializing video: $e');
     }
   }
 

@@ -40,6 +40,26 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
     super.dispose();
   }
 
+  String _localizedSortLabel(BuildContext context, String value) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (value) {
+      case 'recent': return l10n.mostRecent;
+      case 'popular': return l10n.mostPopular;
+      case 'trending': return l10n.trending;
+      default: return value;
+    }
+  }
+
+  String _localizedDateLabel(BuildContext context, DateFilterType value) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (value) {
+      case DateFilterType.allTime: return l10n.allTime;
+      case DateFilterType.today: return l10n.today;
+      case DateFilterType.thisWeek: return l10n.thisWeek;
+      case DateFilterType.thisMonth: return l10n.thisMonth;
+    }
+  }
+
   void _toggleLanguage(String langCode) {
     setState(() {
       final languages = List<String>.from(_tempFilter.languages);
@@ -159,7 +179,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                       children: [
                         const Icon(Icons.sort, size: 16),
                         const SizedBox(width: 4),
-                        const Text('Sort'),
+                        Text(AppLocalizations.of(context)!.sort),
                       ],
                     ),
                   ),
@@ -169,7 +189,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                       children: [
                         const Icon(Icons.translate, size: 16),
                         const SizedBox(width: 4),
-                        const Text('Language'),
+                        Text(AppLocalizations.of(context)!.language),
                         if (_tempFilter.languages.isNotEmpty) ...[
                           const SizedBox(width: 4),
                           _buildBadge(_tempFilter.languages.length),
@@ -183,7 +203,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                       children: [
                         const Icon(Icons.category, size: 16),
                         const SizedBox(width: 4),
-                        const Text('Category'),
+                        Text(AppLocalizations.of(context)!.category),
                         if (_tempFilter.categories.isNotEmpty) ...[
                           const SizedBox(width: 4),
                           _buildBadge(_tempFilter.categories.length),
@@ -197,7 +217,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                       children: [
                         const Icon(Icons.emoji_emotions, size: 16),
                         const SizedBox(width: 4),
-                        const Text('Mood'),
+                        Text(AppLocalizations.of(context)!.mood),
                         if (_tempFilter.moods.isNotEmpty) ...[
                           const SizedBox(width: 4),
                           _buildBadge(_tempFilter.moods.length),
@@ -259,7 +279,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
           TextButton(
             onPressed: _clearAll,
             child: Text(
-              'Clear All',
+              AppLocalizations.of(context)!.clearAll,
               style: TextStyle(
                 color: secondaryText,
                 fontSize: 15,
@@ -271,7 +291,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
               Icon(Icons.tune, size: 20, color: colorScheme.primary),
               const SizedBox(width: 8),
               Text(
-                'Filters',
+                AppLocalizations.of(context)!.filters,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -288,7 +308,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    '${_tempFilter.activeFilterCount} active',
+                    '${_tempFilter.activeFilterCount} ${AppLocalizations.of(context)!.active}',
                     style: TextStyle(
                       color: colorScheme.primary,
                       fontSize: 12,
@@ -326,23 +346,23 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle(context, 'Sort By', Icons.sort),
+          _buildSectionTitle(context, AppLocalizations.of(context)!.sortBy, Icons.sort),
           const SizedBox(height: 12),
           ...FilterOptions.sortOptions.map((option) {
             final value = option['value']!;
-            final label = option['label']!;
+            final label = _localizedSortLabel(context, value);
             final isSelected = _tempFilter.sortBy == value;
             return _buildSortOption(context, label, value, isSelected);
           }),
           const SizedBox(height: 24),
-          _buildSectionTitle(context, 'Time Period', Icons.calendar_today),
+          _buildSectionTitle(context, AppLocalizations.of(context)!.timePeriod, Icons.calendar_today),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: FilterOptions.dateFilters.map((filter) {
-              final label = filter['label'] as String;
               final value = filter['value'] as DateFilterType;
+              final label = _localizedDateLabel(context, value);
               final isSelected = _tempFilter.dateFilter == value;
 
               return _buildFilterChip(
@@ -430,7 +450,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
             controller: _languageSearchController,
             onChanged: (value) => setState(() => _languageQuery = value),
             decoration: InputDecoration(
-              hintText: 'Search languages...',
+              hintText: AppLocalizations.of(context)!.searchLanguages,
               prefixIcon: Icon(Icons.search, color: context.textSecondary),
               filled: true,
               fillColor: colorScheme.surfaceVariant.withOpacity(0.5),
@@ -462,7 +482,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                 Row(
                   children: [
                     Text(
-                      'Selected',
+                      AppLocalizations.of(context)!.selected,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -568,7 +588,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle(context, 'Categories', Icons.category),
+          _buildSectionTitle(context, AppLocalizations.of(context)!.categories, Icons.category),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
@@ -599,7 +619,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle(context, 'Moods', Icons.emoji_emotions),
+          _buildSectionTitle(context, AppLocalizations.of(context)!.moods, Icons.emoji_emotions),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
@@ -755,8 +775,8 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                 const SizedBox(width: 8),
                 Text(
                   _tempFilter.activeFilterCount > 0
-                      ? 'Apply ${_tempFilter.activeFilterCount} Filters'
-                      : 'Apply Filters',
+                      ? AppLocalizations.of(context)!.applyNFilters(_tempFilter.activeFilterCount)
+                      : AppLocalizations.of(context)!.applyFilters,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

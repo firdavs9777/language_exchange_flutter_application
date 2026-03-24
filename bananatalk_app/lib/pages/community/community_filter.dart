@@ -10,6 +10,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -32,12 +33,17 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   late double _maxAge = 100;
   late String? _selectedGender;
   Language? _selectedLanguage;
+  Language? _selectedLearningLanguage;
+  String? _selectedLanguageLevel;
   String? _selectedCountry;
+  bool _newUsersOnly = false;
+  bool _prioritizeNearby = false;
   List<Language> _languages = [];
   bool _isLoadingLanguages = true;
   bool _isDetectingLocation = false;
   String _errorMessage = '';
   final List<String> genders = ['Male', 'Female', 'Other'];
+  static const List<String> _languageLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
   // Complete list of all countries with flags (alphabetically sorted)
   static const List<Map<String, String>> _countries = [
@@ -254,6 +260,8 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     _maxAge = (widget.initialFilters['maxAge'] ?? 100).toDouble();
     _selectedGender = widget.initialFilters['gender'];
     _selectedCountry = widget.initialFilters['country'];
+    _newUsersOnly = widget.initialFilters['newUsersOnly'] ?? false;
+    _prioritizeNearby = widget.initialFilters['prioritizeNearby'] ?? false;
     // _selectedLanguage will be set after languages are loaded in fetchLanguages()
   }
 
@@ -290,9 +298,32 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           } catch (e) {
             // Language not found, leave as null (Any Language)
             if (kDebugMode) {
-              debugPrint('Initial language "$initialLangName" not found in language list');
             }
           }
+        }
+
+        // Set selected learning language from initial filters
+        if (widget.initialFilters['learningLanguage'] != null && _languages.isNotEmpty) {
+          final initialLearningLangName = widget.initialFilters['learningLanguage'];
+          try {
+            final matchingLanguage = _languages.firstWhere(
+              (lang) => lang.name == initialLearningLangName,
+            );
+            if (mounted) {
+              setState(() {
+                _selectedLearningLanguage = matchingLanguage;
+              });
+            }
+          } catch (e) {
+            // Language not found
+          }
+        }
+
+        // Set selected language level from initial filters
+        if (widget.initialFilters['languageLevel'] != null && mounted) {
+          setState(() {
+            _selectedLanguageLevel = widget.initialFilters['languageLevel'] as String?;
+          });
         }
       } else {
         throw Exception('Failed to load languages');
@@ -303,7 +334,6 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         _errorMessage = 'Failed to load languages. Please try again.';
       });
       if (kDebugMode) {
-        debugPrint('Error fetching languages: $e');
       }
     }
   }
@@ -314,7 +344,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       _maxAge = 100.0;
       _selectedGender = null;
       _selectedLanguage = null;
+      _selectedLearningLanguage = null;
+      _selectedLanguageLevel = null;
       _selectedCountry = null;
+      _newUsersOnly = false;
+      _prioritizeNearby = false;
     });
   }
 
@@ -327,7 +361,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'maxAge': _maxAge.toInt(),
       'gender': genderValue,
       'nativeLanguage': _selectedLanguage?.name,
+      'learningLanguage': _selectedLearningLanguage?.name,
+      'languageLevel': _selectedLanguageLevel,
       'country': _selectedCountry,
+      'newUsersOnly': _newUsersOnly,
+      'prioritizeNearby': _prioritizeNearby,
     };
 
     widget.onApplyFilters(filters);
@@ -391,7 +429,6 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
       if (placemarks.isNotEmpty) {
         final country = placemarks[0].country;
-        debugPrint('📍 Detected country: $country');
 
         // Find matching country in our list
         if (country != null) {
@@ -438,7 +475,6 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         );
       }
     } catch (e) {
-      debugPrint('Error detecting location: $e');
       setState(() {
         _isDetectingLocation = false;
       });
@@ -493,6 +529,35 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     }
   }
 
+  // Open learning language picker
+  Future<void> _openLearningLanguagePicker() async {
+    if (_languages.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.languagesAreStillLoading),
+          backgroundColor: const Color(0xFF00BFA5),
+        ),
+      );
+      return;
+    }
+
+    final result = await Navigator.push<Language>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LanguagePickerScreen(
+          languages: _languages,
+          selectedLanguage: _selectedLearningLanguage,
+        ),
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedLearningLanguage = result;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -541,11 +606,19 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                   children: [
                     _buildLanguageSection(),
                     const SizedBox(height: 24),
+                    _buildLearningLanguageSection(),
+                    const SizedBox(height: 24),
+                    _buildLanguageLevelSection(),
+                    const SizedBox(height: 24),
                     _buildCountrySection(),
                     const SizedBox(height: 24),
                     _buildAgeSection(),
                     const SizedBox(height: 24),
                     _buildGenderSection(),
+                    const SizedBox(height: 24),
+                    _buildNewUsersToggle(),
+                    const SizedBox(height: 24),
+                    _buildPrioritizeNearbyToggle(),
                     const SizedBox(height: 32),
                   ],
                 ),
@@ -654,6 +727,139 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     );
   }
 
+  Widget _buildLearningLanguageSection() {
+    return _buildSection(
+      title: 'Learning Language',
+      icon: Icons.school,
+      child: _isLoadingLanguages
+          ? _buildLoadingCard()
+          : _errorMessage.isNotEmpty
+              ? _buildErrorCard()
+              : _buildLearningLanguageSelector(),
+    );
+  }
+
+  Widget _buildLearningLanguageSelector() {
+    return InkWell(
+      onTap: _openLearningLanguagePicker,
+      borderRadius: AppRadius.borderMD,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.lg),
+        decoration: BoxDecoration(
+          color: context.surfaceColor,
+          borderRadius: AppRadius.borderMD,
+          border: Border.all(color: context.dividerColor),
+        ),
+        child: Row(
+          children: [
+            if (_selectedLearningLanguage != null)
+              Padding(
+                padding: const EdgeInsets.only(right: Spacing.md),
+                child: Text(
+                  _selectedLearningLanguage!.flag,
+                  style: const TextStyle(fontSize: 28),
+                ),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.only(right: Spacing.md),
+                child: Icon(
+                  Icons.school,
+                  size: 28,
+                  color: context.textMuted,
+                ),
+              ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _selectedLearningLanguage?.name ?? AppLocalizations.of(context)!.anyLanguage,
+                    style: context.titleMedium.copyWith(
+                      color: _selectedLearningLanguage != null
+                          ? context.textPrimary
+                          : context.textSecondary,
+                    ),
+                  ),
+                  if (_selectedLearningLanguage != null) ...[
+                    Spacing.gapXXS,
+                    Text(
+                      _selectedLearningLanguage!.nativeName,
+                      style: context.bodySmall,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+              color: context.textMuted,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageLevelSection() {
+    return _buildSection(
+      title: 'Language Level',
+      icon: Icons.signal_cellular_alt,
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          // "Any" chip
+          ChoiceChip(
+            label: const Text('Any'),
+            selected: _selectedLanguageLevel == null,
+            onSelected: (selected) {
+              if (selected) {
+                setState(() => _selectedLanguageLevel = null);
+              }
+            },
+            selectedColor: context.primaryColor,
+            labelStyle: TextStyle(
+              color: _selectedLanguageLevel == null ? Colors.white : context.textPrimary,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+            ),
+            backgroundColor: context.containerColor,
+            side: BorderSide(
+              color: _selectedLanguageLevel == null ? context.primaryColor : context.dividerColor,
+            ),
+            shape: RoundedRectangleBorder(borderRadius: AppRadius.borderSM),
+          ),
+          // Level chips
+          ..._languageLevels.map((level) {
+            final isSelected = _selectedLanguageLevel == level;
+            return ChoiceChip(
+              label: Text(level),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(() {
+                  _selectedLanguageLevel = selected ? level : null;
+                });
+              },
+              selectedColor: context.primaryColor,
+              labelStyle: TextStyle(
+                color: isSelected ? Colors.white : context.textPrimary,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
+              backgroundColor: context.containerColor,
+              side: BorderSide(
+                color: isSelected ? context.primaryColor : context.dividerColor,
+              ),
+              shape: RoundedRectangleBorder(borderRadius: AppRadius.borderSM),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
   Widget _buildCountrySection() {
     return _buildSection(
       title: 'Country',
@@ -675,6 +881,115 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       title: 'Gender Preference',
       icon: Icons.person,
       child: _buildGenderSelector(),
+    );
+  }
+
+  Widget _buildNewUsersToggle() {
+    return _buildToggleSection(
+      title: 'New Users Only',
+      subtitle: 'Show users who joined in the last 6 days',
+      icon: Icons.fiber_new_rounded,
+      value: _newUsersOnly,
+      activeColor: const Color(0xFF00C853),
+      onChanged: (val) => setState(() => _newUsersOnly = val),
+    );
+  }
+
+  Widget _buildPrioritizeNearbyToggle() {
+    final userAsync = ref.watch(userProvider);
+    final hasLocation = userAsync.whenOrNull(
+      data: (user) {
+        final coords = user.location.coordinates;
+        return coords.length >= 2 && (coords[0] != 0.0 || coords[1] != 0.0);
+      },
+    ) ?? false;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildToggleSection(
+          title: AppLocalizations.of(context)!.prioritizeNearby,
+          subtitle: hasLocation
+              ? AppLocalizations.of(context)!.showNearbyFirst
+              : AppLocalizations.of(context)!.setLocationToEnable,
+          icon: Icons.near_me_rounded,
+          value: _prioritizeNearby,
+          activeColor: context.primaryColor,
+          onChanged: (val) => setState(() => _prioritizeNearby = val),
+        ),
+        if (_prioritizeNearby && !hasLocation) ...[
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.orange.withValues(alpha: 0.1),
+              borderRadius: AppRadius.borderSM,
+              border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.info_outline, size: 18, color: Colors.orange),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.updateLocationReminder,
+                    style: context.caption.copyWith(color: Colors.orange.shade800),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildToggleSection({
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required bool value,
+    required Color activeColor,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: value ? activeColor.withValues(alpha: 0.08) : context.surfaceColor,
+        borderRadius: AppRadius.borderMD,
+        border: Border.all(
+          color: value ? activeColor.withValues(alpha: 0.3) : context.dividerColor,
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 22, color: value ? activeColor : context.textSecondary),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: context.titleSmall.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: value ? activeColor : context.textPrimary,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: context.caption.copyWith(color: context.textMuted),
+                ),
+              ],
+            ),
+          ),
+          Switch.adaptive(
+            value: value,
+            onChanged: onChanged,
+            activeColor: activeColor,
+          ),
+        ],
+      ),
     );
   }
 

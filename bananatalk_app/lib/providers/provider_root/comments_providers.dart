@@ -13,7 +13,6 @@ class CommentsService {
         .get(Uri.parse('${Endpoints.baseURL}${Endpoints.commentUrl}'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      debugPrint(data['data'].toString());
       return (data['data'] as List)
           .map((postJson) => Comments.fromJson(postJson))
           .toList();
@@ -22,10 +21,10 @@ class CommentsService {
     }
   }
 
-  Future<Comments> createComment({required String title, required String id}) async {
+  Future<Comments> createComment({required String title, required String id, String? parentCommentId}) async {
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.momentsURL}/$id/${Endpoints.commentUrl}');
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
@@ -33,11 +32,14 @@ class CommentsService {
       throw Exception('Authentication required. Please login again.');
     }
 
+    final body = <String, dynamic>{'text': title};
+    if (parentCommentId != null) {
+      body['parentComment'] = parentCommentId;
+    }
+
     final response = await http.post(
       url,
-      body: jsonEncode({
-        'text': title,
-      }),
+      body: jsonEncode(body),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -70,7 +72,6 @@ class CommentsService {
       
       // Handle 500 errors from backend (backend issue with user population)
       if (response.statusCode == 500) {
-        debugPrint('Backend 500 error - likely user population issue');
         // Return empty list to prevent UI crash
         // The backend needs to fix the user population issue
         return [];
@@ -82,7 +83,6 @@ class CommentsService {
         // Check if response has error from backend
         if (data['success'] == false) {
           final errorMsg = data['error'] ?? 'Failed to load comments';
-          debugPrint('Backend error loading comments: $errorMsg');
           
           // If backend has an error but it's a data issue, try to return what we can
           if (data['data'] != null && data['data'] is List) {
@@ -95,7 +95,6 @@ class CommentsService {
                     }
                     return null;
                   } catch (e) {
-                    debugPrint('Error parsing comment: $e');
                     return null;
                   }
                 })
@@ -121,12 +120,10 @@ class CommentsService {
             .map((commentJson) {
               try {
                 if (commentJson is! Map<String, dynamic>) {
-                  debugPrint('Invalid comment format: $commentJson');
                   return null;
                 }
                 return Comments.fromJson(commentJson);
               } catch (e) {
-                debugPrint('Error parsing comment: $e, commentJson: $commentJson');
                 // Skip invalid comments instead of crashing
                 return null;
               }
@@ -141,15 +138,12 @@ class CommentsService {
           final errorMsg = errorData['error'] ?? 
                           errorData['message'] ?? 
                           'Failed to load comments';
-          debugPrint('HTTP error ${response.statusCode}: $errorMsg');
         } catch (_) {
-          debugPrint('HTTP error ${response.statusCode}: ${response.body}');
         }
         // Return empty list for non-critical errors
         return [];
       }
     } catch (e) {
-      debugPrint('Error in getSingleComment: $e');
       // Return empty list instead of throwing to prevent UI crashes
       return [];
     }

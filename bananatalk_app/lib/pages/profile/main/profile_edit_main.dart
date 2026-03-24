@@ -24,6 +24,7 @@ class ProfileEdit extends ConsumerStatefulWidget {
   final String gender;
   final String bio;
   final List<String> topics;
+  final String? languageLevel;
   const ProfileEdit({
     super.key,
     required this.userName,
@@ -35,6 +36,7 @@ class ProfileEdit extends ConsumerStatefulWidget {
     required this.gender,
     this.bio = '',
     this.topics = const [],
+    this.languageLevel,
   });
 
   @override
@@ -52,6 +54,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   late String selectedAddress;
   late String selectedBio;
   late List<String> selectedTopics;
+  late String? selectedLanguageLevel;
 
   @override
   void initState() {
@@ -69,6 +72,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     selectedGender = widget.gender.isEmpty ? "Not Set" : widget.gender;
     selectedBio = widget.bio.isEmpty ? "Not Set" : widget.bio;
     selectedTopics = List.from(widget.topics);
+    selectedLanguageLevel = widget.languageLevel;
   }
 
   void updateMBTI(String newMBTI) {
@@ -161,7 +165,10 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -296,6 +303,18 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               },
             ),
             Spacing.gapSM,
+            _buildEditCard(
+              context: context,
+              icon: Icons.bar_chart_rounded,
+              iconColor: const Color(0xFF7C4DFF),
+              title: 'Language Level',
+              subtitle: selectedLanguageLevel ?? 'Not Set',
+              value: selectedLanguageLevel != null
+                  ? _getLanguageLevelDescription(selectedLanguageLevel!)
+                  : null,
+              onTap: () => _showLanguageLevelPicker(),
+            ),
+            Spacing.gapSM,
 
             // Personal Information Section
             _buildSectionHeader('Personal Information', Icons.info_outline),
@@ -394,6 +413,176 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
             Spacing.gapXXL,
           ],
         ),
+      ),
+      ),
+    );
+  }
+
+  String _getLanguageLevelDescription(String level) {
+    switch (level) {
+      case 'A1': return 'Beginner';
+      case 'A2': return 'Elementary';
+      case 'B1': return 'Intermediate';
+      case 'B2': return 'Upper Intermediate';
+      case 'C1': return 'Advanced';
+      case 'C2': return 'Proficient';
+      default: return '';
+    }
+  }
+
+  void _showLanguageLevelPicker() {
+    final levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    final colorScheme = Theme.of(context).colorScheme;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: context.surfaceColor,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => DraggableScrollableSheet(
+        initialChildSize: 0.65,
+        maxChildSize: 0.85,
+        minChildSize: 0.4,
+        expand: false,
+        builder: (ctx, scrollController) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: context.dividerColor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              Spacing.gapLG,
+              Text(
+                'Select Your Level',
+                style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                'How well do you speak ${selectedLanguageToLearn != "Not Set" ? selectedLanguageToLearn : "the language"}?',
+                style: context.bodySmall.copyWith(color: context.textSecondary),
+              ),
+              Spacing.gapLG,
+              Expanded(
+                child: ListView(
+                  controller: scrollController,
+                  children: levels.map((level) {
+                final isSelected = selectedLanguageLevel == level;
+                final desc = _getLanguageLevelDescription(level);
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.pop(ctx);
+                        setState(() {
+                          selectedLanguageLevel = level;
+                        });
+                        try {
+                          await ref
+                              .read(authServiceProvider)
+                              .updateUserLanguageLevel(languageLevel: level);
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Language level set to $level'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Failed to update: $e'),
+                                backgroundColor: colorScheme.error,
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      borderRadius: AppRadius.borderMD,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? const Color(0xFF7C4DFF).withValues(alpha: 0.1)
+                              : context.containerColor,
+                          borderRadius: AppRadius.borderMD,
+                          border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFF7C4DFF)
+                                : context.dividerColor,
+                            width: isSelected ? 2 : 1,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? const Color(0xFF7C4DFF)
+                                    : context.containerHighColor,
+                                borderRadius: AppRadius.borderSM,
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                level,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : context.textPrimary,
+                                ),
+                              ),
+                            ),
+                            Spacing.hGapMD,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    desc,
+                                    style: context.titleSmall.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (isSelected)
+                              const Icon(
+                                Icons.check_circle_rounded,
+                                color: Color(0xFF7C4DFF),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       ),
     );
   }

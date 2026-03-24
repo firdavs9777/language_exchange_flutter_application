@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
-import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/provider_models//users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
-import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -19,33 +18,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/providers/provider_models/location_modal.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Multi-step registration wizard (Step 2 of 2)
+/// Flow: Native Language → Learning Language → Optional extras + Terms → Done
 class RegisterTwo extends ConsumerStatefulWidget {
   final String name;
   final String email;
   final String password;
-  final String bio;
   final String gender;
-  final String nativeLanguage;
-  final String languageToLearn;
   final String birthDate;
+  final String nativeLanguage;
+  final String learningLanguage;
 
   const RegisterTwo({
     super.key,
     required this.name,
     required this.email,
     required this.password,
-    this.bio = '',
     this.gender = '',
-    this.nativeLanguage = '',
-    this.languageToLearn = '',
     this.birthDate = '',
+    this.nativeLanguage = '',
+    this.learningLanguage = '',
   });
 
   @override
@@ -53,219 +50,229 @@ class RegisterTwo extends ConsumerStatefulWidget {
 }
 
 class _RegisterTwoState extends ConsumerState<RegisterTwo> {
-  // Character limits
-  static const int BIO_MAX_LENGTH = 300;
-  static const int BIO_MIN_LENGTH = 10;
-
-  late String? _selectedGender;
-  final List<String?> _genders = ['Male', 'Female', 'Other'];
-  final Map<String, String> _genderMap = {
-    'Male': 'male',
-    'Female': 'female',
-    'Other': 'other',
+  static const List<String> _cefrLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+  static const Map<String, String> _levelDescriptions = {
+    'A1': 'Beginner — I know a few words',
+    'A2': 'Elementary — I can make simple sentences',
+    'B1': 'Intermediate — I can have basic conversations',
+    'B2': 'Upper Intermediate — I can discuss most topics',
+    'C1': 'Advanced — I speak fluently with few errors',
+    'C2': 'Proficient — Near-native level',
   };
 
-  late TextEditingController _bioController;
+  // Page controller for the wizard
+  final PageController _pageController = PageController();
+  int _currentStep = 0;
 
-  // Language selection with Language model
+  // Whether we need personal info step (OAuth users missing gender/birthdate)
+  late final bool _needsPersonalInfo;
+  late final int _totalSteps;
+
+  // Personal info (for OAuth users)
+  String? _selectedGender;
+  final TextEditingController _birthDateController = TextEditingController();
+  String? _genderError;
+  String? _birthDateError;
+
+  // Languages
   Language? _nativeLanguage;
-  Language? _languageToLearn;
+  String? _nativeLevel;
+  Language? _learningLanguage;
+  String? _learningLevel;
   List<Language> _languages = [];
   bool _isLoadingLanguages = true;
 
+  // Optional fields
+  List<File> _selectedImages = [];
   bool _isFetchingLocation = false;
-  bool _isRequestingLocationPermission = false; // Prevent multiple permission requests
-  bool _isSubmitting = false;
   String? _country;
   String? _city;
   double? _latitude;
   double? _longitude;
+  bool _termsAccepted = false;
 
-  late TextEditingController _birthDate;
-  late TextEditingController _image;
+  // Submission
+  bool _isSubmitting = false;
 
-  List<File> _selectedImages = [];
-
-  // Topics selection
-  Set<String> _selectedTopics = {};
-  static const int MAX_TOPICS = 10;
-
-  // Error states
-  String? _bioError;
-  String? _nativeLanguageError;
-  String? _learnLanguageError;
-  String? _genderError;
-  String? _birthDateError;
-  String? _imagesError;
-  String? _locationError;
-  String? _topicsError;
+  // Whether languages are already set (returning OAuth user)
+  late final bool _hasExistingLanguages;
 
   @override
   void initState() {
     super.initState();
-    _bioController = TextEditingController(text: widget.bio);
+    // OAuth users who are missing gender or birth date need an extra step
+    _needsPersonalInfo = widget.gender.isEmpty || widget.birthDate.isEmpty;
+    // If both languages are already set, skip language steps entirely
+    _hasExistingLanguages = widget.nativeLanguage.isNotEmpty && widget.learningLanguage.isNotEmpty;
 
-    _birthDate = TextEditingController(
-      // If birthDate is empty, show placeholder that requires user to select
-      text: widget.birthDate.isNotEmpty ? widget.birthDate : '',
-    );
+    // Calculate total steps: [personal info?] + [native lang?] + [learning lang?] + finish
+    _totalSteps = (_needsPersonalInfo ? 1 : 0) +
+        (_hasExistingLanguages ? 0 : 2) +
+        1; // finish step always shown
 
     if (widget.gender.isNotEmpty) {
-      final displayGender = _genderMap.entries
-          .firstWhere(
-            (entry) => entry.value == widget.gender.toLowerCase(),
-            orElse: () => MapEntry(widget.gender, widget.gender),
-          )
-          .key;
-      _selectedGender = displayGender;
-    } else {
-      _selectedGender = null;
+      _selectedGender = widget.gender;
+    }
+    if (widget.birthDate.isNotEmpty) {
+      _birthDateController.text = widget.birthDate;
     }
 
-    _image = TextEditingController();
-    fetchLanguages();
-
-    // Add listener to bio for real-time validation
-    _bioController.addListener(() {
-      if (_bioError != null) {
-        setState(() {
-          _bioError = null;
-        });
-      }
-    });
+    _fetchLanguages();
   }
 
   @override
   void dispose() {
-    _bioController.dispose();
-    _birthDate.dispose();
-    _image.dispose();
+    _pageController.dispose();
+    _birthDateController.dispose();
     super.dispose();
   }
 
-  Future<bool> _handleLocationPermission() async {
-    // Prevent multiple simultaneous permission requests
-    if (_isRequestingLocationPermission) {
-      debugPrint('⚠️ Location permission request already in progress');
-      return false;
-    }
+  // ─── Language Loading ────────────────────────────────────────────
 
-    _isRequestingLocationPermission = true;
-    debugPrint('📍 Starting location permission check...');
-
+  Future<void> _fetchLanguages() async {
     try {
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      debugPrint('📍 Location service enabled: $serviceEnabled');
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.languagesURL}');
+      final response = await http.get(url);
 
-      if (!serviceEnabled) {
-        // Show dialog to ask user to enable location services
-        final shouldOpenSettings = await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Location Services Disabled'),
-            content: const Text(
-              'Location services are turned off on your device. '
-              'Please enable them in Settings to detect your location.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Open Settings'),
-              ),
-            ],
-          ),
-        );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final List<dynamic> languagesData = data['data'] ?? [];
 
-        if (shouldOpenSettings == true) {
-          await Geolocator.openLocationSettings();
-          // Wait for user to come back and check again
-          await Future.delayed(const Duration(milliseconds: 500));
-          // Re-check if location is now enabled
-          serviceEnabled = await Geolocator.isLocationServiceEnabled();
-          if (!serviceEnabled) {
-            _showErrorSnackBar('Please enable location services and tap again');
-            return false;
-          }
-        } else {
-          return false;
+        if (mounted) {
+          setState(() {
+            _languages = languagesData
+                .map<Language>((json) => Language.fromJson(json))
+                .toList();
+            _isLoadingLanguages = false;
+          });
+        }
+      } else {
+        if (mounted) {
+          setState(() => _isLoadingLanguages = false);
+          _showError('Failed to load languages');
         }
       }
-
-      LocationPermission permission = await Geolocator.checkPermission();
-      debugPrint('📍 Current permission status: $permission');
-
-      if (permission == LocationPermission.denied) {
-        debugPrint('📍 Requesting permission...');
-        permission = await Geolocator.requestPermission();
-        debugPrint('📍 Permission after request: $permission');
-        if (permission == LocationPermission.denied) {
-          _showErrorSnackBar('Location permissions are denied. Please tap again to grant permission.');
-          return false;
-        }
-      }
-
-      if (permission == LocationPermission.deniedForever) {
-        // Show dialog to open app settings
-        final shouldOpenSettings = await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Location Permission Required'),
-            content: const Text(
-              'Location permission is permanently denied. '
-              'Please enable it in App Settings to continue.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Open Settings'),
-              ),
-            ],
-          ),
-        );
-
-        if (shouldOpenSettings == true) {
-          await Geolocator.openAppSettings();
-          // Wait for user to come back and check again
-          await Future.delayed(const Duration(milliseconds: 500));
-          // Re-check permission
-          permission = await Geolocator.checkPermission();
-          if (permission == LocationPermission.deniedForever ||
-              permission == LocationPermission.denied) {
-            _showErrorSnackBar('Please enable location permission and tap again');
-            return false;
-          }
-        } else {
-          return false;
-        }
-      }
-
-      debugPrint('✅ Location permission granted!');
-      return true;
     } catch (e) {
-      debugPrint('❌ Location permission error: $e');
-      _showErrorSnackBar('Error checking location: ${e.toString()}');
-      return false;
-    } finally {
-      debugPrint('📍 Resetting permission flag');
-      _isRequestingLocationPermission = false;
+      if (mounted) {
+        setState(() => _isLoadingLanguages = false);
+        _showError('Error loading languages');
+      }
     }
   }
 
-  Future<void> _getCurrentLocation() async {
-    final hasPermission = await _handleLocationPermission();
-    if (!hasPermission) return;
+  // ─── Navigation ──────────────────────────────────────────────────
 
-    setState(() {
-      _isFetchingLocation = true;
-    });
+  void _goToNext() {
+    if (_currentStep < _totalSteps - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _goBack() {
+    if (_currentStep > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
+  // ─── Language Picker ─────────────────────────────────────────────
+
+  Future<void> _openLanguagePicker({required bool isNative}) async {
+    if (_languages.isEmpty) {
+      _showError(AppLocalizations.of(context)!.languagesAreStillLoading);
+      return;
+    }
+
+    final result = await Navigator.push<Language>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LanguagePickerScreen(
+          languages: _languages,
+          selectedLanguage: isNative ? _nativeLanguage : _learningLanguage,
+        ),
+      ),
+    );
+
+    if (result != null) {
+      // Don't allow same language for both
+      if (isNative && _learningLanguage != null && result.code == _learningLanguage!.code) {
+        _showError(AppLocalizations.of(context)!.nativeCannotBeSameAsLearning);
+        return;
+      }
+      if (!isNative && _nativeLanguage != null && result.code == _nativeLanguage!.code) {
+        _showError(AppLocalizations.of(context)!.learningCannotBeSameAsNative);
+        return;
+      }
+
+      setState(() {
+        if (isNative) {
+          _nativeLanguage = result;
+        } else {
+          _learningLanguage = result;
+        }
+      });
+    }
+  }
+
+  // ─── Image Picker ────────────────────────────────────────────────
+
+  Future<void> _pickImage() async {
+    try {
+      final picker = ImagePicker();
+      final pickedFiles = await picker.pickMultiImage(imageQuality: 85);
+
+      if (pickedFiles.isNotEmpty) {
+        if (_selectedImages.length + pickedFiles.length > 6) {
+          _showError(AppLocalizations.of(context)!.maximum6Photos);
+          return;
+        }
+        setState(() {
+          _selectedImages.addAll(
+            pickedFiles.map((f) => File(f.path)),
+          );
+        });
+      }
+    } catch (e) {
+      _showError('Error selecting images');
+    }
+  }
+
+  void _removeImage(int index) {
+    setState(() => _selectedImages.removeAt(index));
+  }
+
+  // ─── Location ────────────────────────────────────────────────────
+
+  Future<void> _getCurrentLocation() async {
+    if (_isFetchingLocation) return;
+
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _showError('Please enable location services');
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        _showError('Location permission denied');
+        return;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      _showError('Location permission permanently denied. Enable in Settings.');
+      return;
+    }
+
+    setState(() => _isFetchingLocation = true);
 
     try {
       final position = await Geolocator.getCurrentPosition(
@@ -276,414 +283,78 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       _longitude = position.longitude;
 
       await setLocaleIdentifier('en_US');
-      final placemarks = await placemarkFromCoordinates(
-        _latitude!,
-        _longitude!,
-      );
+      final placemarks = await placemarkFromCoordinates(_latitude!, _longitude!);
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
         setState(() {
           _country = place.country ?? 'Unknown';
-          _city =
-              place.locality ??
+          _city = place.locality ??
               place.subAdministrativeArea ??
               place.administrativeArea ??
               'Unknown';
         });
-
-        _showSuccessSnackBar('Location detected: $_city, $_country');
       }
     } catch (e) {
-      _showErrorSnackBar('Failed to get location: ${e.toString()}');
+      _showError(AppLocalizations.of(context)!.failedToGetLocation);
     } finally {
-      setState(() {
-        _isFetchingLocation = false;
-      });
+      setState(() => _isFetchingLocation = false);
     }
   }
 
-  Future<void> fetchLanguages() async {
-    try {
-      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.languagesURL}');
-      final response = await http.get(url);
+  // ─── Submit ──────────────────────────────────────────────────────
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        List<dynamic> languagesData = data['data'] ?? [];
-
-        if (mounted) {
-          setState(() {
-            _languages = languagesData
-                .map<Language>((json) => Language.fromJson(json))
-                .toList();
-            _isLoadingLanguages = false;
-          });
-
-          // Set initial values if provided
-          if (widget.nativeLanguage.isNotEmpty && _languages.isNotEmpty) {
-            try {
-              _nativeLanguage = _languages.firstWhere(
-                (lang) => lang.name == widget.nativeLanguage,
-              );
-            } catch (e) {
-              // Language not found
-            }
-          }
-
-          if (widget.languageToLearn.isNotEmpty && _languages.isNotEmpty) {
-            try {
-              _languageToLearn = _languages.firstWhere(
-                (lang) => lang.name == widget.languageToLearn,
-              );
-            } catch (e) {
-              // Language not found
-            }
-          }
-        }
-      } else {
-        if (mounted) {
-          _showErrorSnackBar(
-            'Failed to load languages. Status: ${response.statusCode}',
-          );
-          setState(() {
-            _languages = [];
-            _isLoadingLanguages = false;
-          });
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        _showErrorSnackBar('Error loading languages: ${e.toString()}');
-        setState(() {
-          _languages = [];
-          _isLoadingLanguages = false;
-        });
-      }
-    }
-  }
-
-  Future<void> _openLanguagePicker({required bool isNative}) async {
-    if (_languages.isEmpty) {
-      _showErrorSnackBar('Languages are still loading. Please wait...');
-      return;
-    }
-
-    final result = await Navigator.push<Language>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LanguagePickerScreen(
-          languages: _languages,
-          selectedLanguage: isNative ? _nativeLanguage : _languageToLearn,
-        ),
-      ),
-    );
-
-    if (result != null) {
-      // Validate that native and learning language are not the same
-      if (isNative && _languageToLearn != null && result.code == _languageToLearn!.code) {
-        _showErrorSnackBar('Native language cannot be the same as the language you want to learn');
-        return;
-      }
-      if (!isNative && _nativeLanguage != null && result.code == _nativeLanguage!.code) {
-        _showErrorSnackBar('Learning language cannot be the same as your native language');
-        return;
-      }
-
-      setState(() {
-        if (isNative) {
-          _nativeLanguage = result;
-          _nativeLanguageError = null;
-        } else {
-          _languageToLearn = result;
-          _learnLanguageError = null;
-        }
-      });
-    }
-  }
-
-  Future<void> _pickImage() async {
-    try {
-      final ImagePicker picker = ImagePicker();
-      final pickedFiles = await picker.pickMultiImage(
-        imageQuality: 85, // Compress images to reduce upload size
-      );
-
-      if (pickedFiles != null && pickedFiles.isNotEmpty) {
-        if (_selectedImages.length + pickedFiles.length > 6) {
-          _showErrorSnackBar('You can only select up to 6 images');
-          return;
-        }
-
-        setState(() {
-          _selectedImages.addAll(
-            pickedFiles.map((pickedFile) => File(pickedFile.path)),
-          );
-          _imagesError = null;
-        });
-
-        debugPrint(
-          'Selected ${pickedFiles.length} images. Total: ${_selectedImages.length}',
-        );
-      }
-    } catch (e) {
-      debugPrint('Error picking images: $e');
-      _showErrorSnackBar('Error selecting images: ${e.toString()}');
-    }
-  }
-
-  void _removeImage(int index) {
-    setState(() {
-      _selectedImages.removeAt(index);
-    });
-  }
-
-  bool _validateForm() {
-    bool isValid = true;
-
-    setState(() {
-      _bioError = null;
-      _nativeLanguageError = null;
-      _learnLanguageError = null;
-      _genderError = null;
-      _birthDateError = null;
-      _imagesError = null;
-      _locationError = null;
-      _topicsError = null;
-    });
-
-    // Bio validation
-    if (_bioController.text.trim().isEmpty) {
-      setState(() {
-        _bioError = 'Bio is required';
-      });
-      isValid = false;
-    } else if (_bioController.text.trim().length < BIO_MIN_LENGTH) {
-      setState(() {
-        _bioError = 'Bio must be at least $BIO_MIN_LENGTH characters';
-      });
-      isValid = false;
-    } else if (_bioController.text.trim().length > BIO_MAX_LENGTH) {
-      setState(() {
-        _bioError = 'Bio cannot exceed $BIO_MAX_LENGTH characters';
-      });
-      isValid = false;
-    }
-
-    // Native language validation
-    if (_nativeLanguage == null) {
-      setState(() {
-        _nativeLanguageError = 'Please select your native language';
-      });
-      isValid = false;
-    }
-
-    // Language to learn validation
-    if (_languageToLearn == null) {
-      setState(() {
-        _learnLanguageError = 'Please select the language you want to learn';
-      });
-      isValid = false;
-    }
-
-    // Validate native and learning languages are different
-    if (_nativeLanguage != null && _languageToLearn != null &&
-        _nativeLanguage!.code == _languageToLearn!.code) {
-      setState(() {
-        _learnLanguageError = 'Cannot be the same as your native language';
-      });
-      isValid = false;
-    }
-
-    // Gender validation
-    if (_selectedGender == null || _selectedGender.toString().isEmpty) {
-      setState(() {
-        _genderError = 'Please select your gender';
-      });
-      isValid = false;
-    }
-
-    // Age validation
-    // Age validation - check for empty or invalid date first
-    if (_birthDate.text.isEmpty) {
-      setState(() {
-        _birthDateError = 'Please select your birth date';
-      });
-      isValid = false;
-    } else {
-      List<String> dateParts = _birthDate.text.split('.');
-      if (dateParts.length != 3) {
-        setState(() {
-          _birthDateError = 'Please select a valid birth date';
-        });
-        isValid = false;
-      } else {
-        try {
-          String year = dateParts[0];
-          String month = dateParts[1];
-          String day = dateParts[2];
-          DateTime birthDate = DateTime(
-            int.parse(year),
-            int.parse(month),
-            int.parse(day),
-          );
-          DateTime today = DateTime.now();
-
-          int age = today.year - birthDate.year;
-          if (today.month < birthDate.month ||
-              (today.month == birthDate.month && today.day < birthDate.day)) {
-            age--;
-          }
-
-          if (age < 18) {
-            setState(() {
-              _birthDateError = 'You must be at least 18 years old';
-            });
-            isValid = false;
-          }
-        } catch (e) {
-          setState(() {
-            _birthDateError = 'Please select a valid birth date';
-          });
-          isValid = false;
-        }
-      }
-    }
-
-    // Images validation
-    if (_selectedImages.length < 2) {
-      setState(() {
-        _imagesError = 'Please select at least 2 profile images';
-      });
-      isValid = false;
-    }
-
-    // Location validation (required for matching and community features)
-    if (_city == null || _country == null) {
-      setState(() {
-        _locationError = 'Please detect your location';
-      });
-      isValid = false;
-    }
-
-    return isValid;
-  }
-
-  void submit() async {
+  Future<void> _submit() async {
     if (_isSubmitting) return;
 
-    if (!_validateForm()) {
-      _showErrorSnackBar('Please fix the errors before continuing');
+    if (!_termsAccepted) {
+      _showError(AppLocalizations.of(context)!.pleaseAcceptTerms);
       return;
     }
 
-    // Check if user has accepted terms of service from backend (required for App Store compliance)
-    // For new users registering, we check if they're already logged in (OAuth flow)
+    setState(() => _isSubmitting = true);
+
+    final birthDate = _birthDateController.text.isNotEmpty
+        ? _birthDateController.text
+        : widget.birthDate;
+    final dateParts = birthDate.split('.');
+    final year = dateParts.isNotEmpty ? dateParts[0] : '';
+    final month = dateParts.length > 1 ? dateParts[1] : '';
+    final day = dateParts.length > 2 ? dateParts[2] : '';
+    final gender = _selectedGender ?? widget.gender;
+
     final authService = ref.read(authServiceProvider);
     final bool isOAuthUser = widget.password.isEmpty;
-    bool termsAccepted = false;
-
-    try {
-      // If user is already authenticated (OAuth flow), check their terms status
-      if (authService.isLoggedIn && authService.userId.isNotEmpty) {
-        final user = await authService.getLoggedInUser();
-        termsAccepted = user.termsAccepted;
-      }
-    } catch (e) {
-      // If not authenticated yet (email registration), terms will be false
-      debugPrint('User not authenticated yet, will show terms: $e');
-    }
-
-    if (!termsAccepted) {
-      if (isOAuthUser && authService.isLoggedIn) {
-        // OAuth users have a token - use full terms screen with API call
-        await Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const TermsOfServiceScreen()),
-        );
-
-        if (!mounted) return;
-
-        // Re-check if terms were accepted
-        try {
-          final updatedUser = await authService.getLoggedInUser();
-          if (!updatedUser.termsAccepted) {
-            // User didn't accept terms, cannot proceed
-            return;
-          }
-        } catch (e) {
-          debugPrint('Error checking terms: $e');
-          return;
-        }
-      } else {
-        // Email registration - show terms for reading only, acceptance will be recorded during registration
-        final accepted = await Navigator.of(context).push<bool>(
-          MaterialPageRoute(
-            builder: (context) => const TermsOfServiceScreen(isPreRegistration: true),
-          ),
-        );
-
-        if (!mounted) return;
-
-        if (accepted != true) {
-          // User didn't accept terms
-          return;
-        }
-        // Terms accepted - will be recorded when registration API is called
-      }
-    }
-
-    setState(() {
-      _isSubmitting = true;
-    });
-
-    List<String> dateParts = _birthDate.text.split('.');
-    String year = dateParts[0];
-    String month = dateParts[1];
-    String day = dateParts[2];
-
-    final genderValue = _selectedGender != null
-        ? _genderMap[_selectedGender] ?? _selectedGender!.toLowerCase()
-        : '';
 
     if (isOAuthUser) {
-      // OAuth User Profile Update
+      // OAuth user → profile update
       try {
-        debugPrint('OAuth user completing profile...');
-
-        final url = Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.updateDetailsURL}',
-        );
-        final token = ref.read(authServiceProvider).token;
+        final url = Uri.parse('${Endpoints.baseURL}${Endpoints.updateDetailsURL}');
+        final token = authService.token;
 
         final requestBody = {
           'name': widget.name,
-          'gender': genderValue,
-          'bio': _bioController.text.trim(),
+          'gender': gender,
           'birth_year': year,
           'birth_month': month,
           'birth_day': day,
-          'native_language': _nativeLanguage?.name ?? '',
-          'language_to_learn': _languageToLearn?.name ?? '',
+          'native_language': _nativeLanguage?.name ?? widget.nativeLanguage,
+          'language_to_learn': _learningLanguage?.name ?? widget.learningLanguage,
           'profileCompleted': true,
-          'topics': _selectedTopics.toList(),
-          // Clear Google/Apple default images - user will upload their own
-          // This ensures selected images replace the OAuth provider image
           'images': [],
-          'location': {
-            'type': 'Point',
-            'coordinates': [
-              (_longitude ?? 0.0).toDouble(),
-              (_latitude ?? 0.0).toDouble(),
-            ],
-            'formattedAddress': _city != null && _country != null
-                ? '$_city, $_country'
-                : '',
-            'city': _city ?? '',
-            'country': _country ?? '',
-          },
+          if (_nativeLevel != null) 'languageLevel': _learningLevel ?? _nativeLevel,
+          if (_city != null && _country != null)
+            'location': {
+              'type': 'Point',
+              'coordinates': [
+                (_longitude ?? 0.0).toDouble(),
+                (_latitude ?? 0.0).toDouble(),
+              ],
+              'formattedAddress': '$_city, $_country',
+              'city': _city ?? '',
+              'country': _country ?? '',
+            },
         };
-
-        debugPrint('Sending profile update...');
 
         final response = await http.put(
           url,
@@ -694,591 +365,203 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           body: jsonEncode(requestBody),
         );
 
-        debugPrint('Response status: ${response.statusCode}');
-
         if (response.statusCode == 200) {
-          debugPrint('Profile update successful!');
-
           if (mounted) {
-            // Ensure token is available before checking terms
-            final authService = ref.read(authServiceProvider);
-
-            // Wait a bit and verify token is available
-            await Future.delayed(const Duration(milliseconds: 800));
-
-            // Refresh token from SharedPreferences to ensure it's available
-            final prefs = await SharedPreferences.getInstance();
-            final storedToken = prefs.getString('token') ?? '';
-            if (storedToken.isNotEmpty && authService.token.isEmpty) {
-              // Token is in storage but not in memory - update it
-              authService.token = storedToken;
-              debugPrint('Token refreshed from storage before checking terms');
-            }
-
-            // Check if user has accepted terms (for OAuth users completing profile)
+            // Accept terms via API
             try {
+              final prefs = await SharedPreferences.getInstance();
+              final storedToken = prefs.getString('token') ?? '';
+              if (storedToken.isNotEmpty && authService.token.isEmpty) {
+                authService.token = storedToken;
+              }
               if (authService.token.isNotEmpty || storedToken.isNotEmpty) {
-                // Try to fetch user data with retry logic
-                Community? user;
-                for (int attempt = 0; attempt < 3; attempt++) {
-                  try {
-                    if (attempt > 0) {
-                      await Future.delayed(
-                        Duration(milliseconds: 500 * attempt),
-                      );
-                    }
-                    user = await authService.getLoggedInUser();
-                    break; // Success, exit retry loop
-                  } catch (e) {
-                    debugPrint(
-                      'Attempt ${attempt + 1} to fetch user failed: $e',
-                    );
-                    if (attempt == 2) {
-                      // Last attempt failed, allow user to proceed
-                      debugPrint(
-                        'Could not fetch user after 3 attempts, allowing to proceed',
-                      );
-                    }
-                  }
-                }
-
-                if (user != null && !user.termsAccepted) {
-                  // Show terms screen before entering app
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const TermsOfServiceScreen(),
-                    ),
-                  );
-
-                  if (!mounted) return;
-
-                  // Re-check after terms acceptance with retry
-                  Community? updatedUser;
-                  for (int attempt = 0; attempt < 3; attempt++) {
-                    try {
-                      if (attempt > 0) {
-                        await Future.delayed(
-                          Duration(milliseconds: 500 * attempt),
-                        );
-                      }
-                      updatedUser = await authService.getLoggedInUser();
-                      break;
-                    } catch (e) {
-                      debugPrint(
-                        'Attempt ${attempt + 1} to re-fetch user failed: $e',
-                      );
-                    }
-                  }
-
-                  if (updatedUser != null && !updatedUser.termsAccepted) {
-                    // User didn't accept, stay on registration screen
-                    setState(() {
-                      _isSubmitting = false;
-                    });
-                    return;
-                  }
-                }
+                await authService.acceptTerms();
               }
             } catch (e) {
-              // If we can't fetch user data, allow them to proceed
-              // This handles edge cases where API might be temporarily unavailable
-              debugPrint('Error checking terms after profile completion: $e');
-              // Continue to app - terms will be checked on next login or app launch
+              // Non-blocking
             }
 
-            // NOW connect socket - profile is complete
+            // Upload images
+            final userId = authService.userId;
+            if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+              try {
+                await authService.uploadUserPhoto(userId, _selectedImages);
+              } catch (e) {
+                // Non-blocking
+              }
+            }
+
+            // Connect socket
             try {
-              debugPrint('🔌 Connecting socket after profile completion...');
               final chatSocketService = ChatSocketService();
               chatSocketService.enableReconnection();
               await chatSocketService.connect();
-              debugPrint('✅ Chat socket connected after profile completion');
-            } catch (e) {
-              debugPrint('⚠️ Error connecting chat socket: $e');
-            }
+            } catch (e) {}
 
-            // Invalidate userProvider to force fresh fetch
             ref.invalidate(userProvider);
-
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (ctx) => const TabsScreen()),
-              (route) => false,
-            );
-
-            _showSuccessSnackBar('Profile completed! Welcome to BanaTalk!');
-          }
-
-          // Upload images before navigation to avoid ref disposal issues
-          final userId = ref.read(authServiceProvider).userId;
-          if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-            debugPrint('Uploading ${_selectedImages.length} images...');
-            try {
-              // Upload images synchronously before navigation
-              await ref
-                  .read(authServiceProvider)
-                  .uploadUserPhoto(userId, _selectedImages);
-              debugPrint('Images uploaded successfully');
-            } catch (error) {
-              debugPrint('Image upload error: $error');
-              // Don't block navigation if upload fails - user can upload later
-            }
+            if (mounted) context.go('/home');
           }
         } else {
-          setState(() {
-            _isSubmitting = false;
-          });
-
+          setState(() => _isSubmitting = false);
           final errorData = jsonDecode(response.body);
-          final errorMessage =
-              errorData['message'] ?? 'Failed to update profile';
-          debugPrint('Profile update failed: $errorMessage');
-
-          if (mounted) {
-            _showErrorSnackBar(errorMessage);
-          }
+          _showError(errorData['message'] ?? 'Failed to update profile');
         }
-      } catch (error) {
-        setState(() {
-          _isSubmitting = false;
-        });
-        debugPrint('Profile update exception: $error');
-
-        if (mounted) {
-          _showErrorSnackBar('Network error: ${error.toString()}');
-        }
+      } catch (e) {
+        setState(() => _isSubmitting = false);
+        _showError('Network error: $e');
       }
     } else {
-      // Email/Password User Registration
-      // termsAccepted is true because user accepted terms before reaching here
-      User user = User(
+      // Email/Password registration
+      final user = User(
         name: widget.name,
         password: widget.password,
         email: widget.email,
-        bio: _bioController.text.trim(),
-        gender: genderValue,
+        bio: '',
+        gender: gender,
         images: [],
         birth_day: day,
         birth_month: month,
         birth_year: year,
-        native_language: _nativeLanguage?.name ?? '',
-        language_to_learn: _languageToLearn?.name ?? '',
-        topics: _selectedTopics.toList(),
-        termsAccepted: true, // User accepted terms before registration
+        native_language: _nativeLanguage?.name ?? widget.nativeLanguage,
+        language_to_learn: _learningLanguage?.name ?? widget.learningLanguage,
+        topics: [],
+        termsAccepted: true,
         location: LocationModal(
           type: 'Point',
           coordinates: [
             (_longitude ?? 0.0).toDouble(),
             (_latitude ?? 0.0).toDouble(),
           ],
-          formattedAddress: _city != null && _country != null
-              ? '$_city, $_country'
-              : '',
+          formattedAddress:
+              _city != null && _country != null ? '$_city, $_country' : '',
           city: _city ?? '',
           country: _country ?? '',
         ),
       );
 
       try {
-        final response = await ref.read(authServiceProvider).register(user);
+        final response = await authService.register(user);
 
         if (response['success'] == true) {
           final userData = response['user'] as Community?;
-          String userId = '';
-
-          if (userData != null) {
-            userId = userData.id;
-          }
+          final userId = userData?.id ?? '';
 
           if (mounted) {
-            // Check terms using user data from registration response first
-            // This avoids making an extra API call immediately after registration
-            bool termsAccepted = false;
+            // Upload images
+            if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+              try {
+                await authService.uploadUserPhoto(userId, _selectedImages);
+              } catch (e) {
+                // Non-blocking
+              }
+            }
+
+            // Update language level if set
+            if (_learningLevel != null || _nativeLevel != null) {
+              try {
+                await authService.updateUserLanguageLevel(
+                  languageLevel: _learningLevel ?? _nativeLevel!,
+                );
+              } catch (e) {
+                // Non-blocking
+              }
+            }
+
+            // Connect socket
             try {
-              // Try to get termsAccepted from the registration response user data
-              if (userData != null) {
-                // Check if user data has termsAccepted field (from backend response)
-                // If not available, assume false (new users need to accept)
-                termsAccepted = userData.termsAccepted;
-                debugPrint(
-                  'Terms status from registration response: $termsAccepted',
-                );
-              } else {
-                debugPrint('User data is null in registration response');
-              }
-            } catch (e) {
-              debugPrint('Could not read terms from registration response: $e');
-              // Default to false if we can't read it
-              termsAccepted = false;
-            }
+              final chatSocketService = ChatSocketService();
+              chatSocketService.enableReconnection();
+              await chatSocketService.connect();
+            } catch (e) {}
 
-            // Skip showing terms screen again for email registration
-            // We already showed terms before registration and sent termsAccepted: true
-            // Only show terms post-registration for OAuth users who might not have accepted yet
-            if (!termsAccepted && isOAuthUser) {
-              // Ensure token is available before showing terms screen
-              final authService = ref.read(authServiceProvider);
-
-              // Wait a bit and verify token is available
-              await Future.delayed(const Duration(milliseconds: 800));
-
-              // Refresh token from SharedPreferences to ensure it's available
-              final prefs = await SharedPreferences.getInstance();
-              final storedToken = prefs.getString('token') ?? '';
-              if (storedToken.isNotEmpty && authService.token.isEmpty) {
-                // Token is in storage but not in memory - update it
-                authService.token = storedToken;
-                debugPrint('Token refreshed from storage before showing terms');
-              }
-
-              bool shouldProceed = true;
-
-              try {
-                if (authService.token.isNotEmpty || storedToken.isNotEmpty) {
-                  // Try to fetch user data with retry logic
-                  Community? user;
-                  for (int attempt = 0; attempt < 3; attempt++) {
-                    try {
-                      if (attempt > 0) {
-                        await Future.delayed(
-                          Duration(milliseconds: 500 * attempt),
-                        );
-                      }
-                      user = await authService.getLoggedInUser();
-                      break; // Success, exit retry loop
-                    } catch (e) {
-                      debugPrint(
-                        'Attempt ${attempt + 1} to fetch user failed: $e',
-                      );
-                      if (attempt == 2) {
-                        // Last attempt failed, allow user to proceed
-                        debugPrint(
-                          'Could not fetch user after 3 attempts, allowing to proceed',
-                        );
-                      }
-                    }
-                  }
-
-                  if (user != null && !user.termsAccepted) {
-                    // Show terms screen before entering app
-                    final termsResult = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const TermsOfServiceScreen(),
-                      ),
-                    );
-
-                    if (!mounted) return;
-
-                    // Re-check after terms acceptance
-                    Community? updatedUser;
-                    for (int attempt = 0; attempt < 3; attempt++) {
-                      try {
-                        if (attempt > 0) {
-                          await Future.delayed(
-                            Duration(milliseconds: 500 * attempt),
-                          );
-                        }
-                        updatedUser = await authService.getLoggedInUser();
-                        break;
-                      } catch (e) {
-                        debugPrint(
-                          'Attempt ${attempt + 1} to re-fetch user failed: $e',
-                        );
-                      }
-                    }
-
-                    if (updatedUser != null && !updatedUser.termsAccepted) {
-                      // User didn't accept, stay on registration screen
-                      setState(() {
-                        _isSubmitting = false;
-                      });
-                      shouldProceed = false;
-                    }
-                  }
-                }
-              } catch (e) {
-                // If we can't fetch user data, allow them to proceed
-                debugPrint('Error checking terms after registration: $e');
-                // Continue to app - terms will be checked on next login or app launch
-              }
-
-              // Only proceed with image upload and navigation if terms were accepted
-              if (shouldProceed && mounted) {
-                // Upload images before navigation to avoid ref disposal issues
-                if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-                  debugPrint('Uploading ${_selectedImages.length} images...');
-                  try {
-                    // Upload images synchronously before navigation
-                    await ref
-                        .read(authServiceProvider)
-                        .uploadUserPhoto(userId, _selectedImages);
-                    debugPrint('Images uploaded successfully');
-                  } catch (error) {
-                    debugPrint('Image upload error: $error');
-                    // Don't block navigation if upload fails - user can upload later
-                  }
-                }
-
-                if (!mounted) return;
-
-                // Connect socket after registration
-                try {
-                  debugPrint('🔌 Connecting socket after registration...');
-                  final chatSocketService = ChatSocketService();
-                  chatSocketService.enableReconnection();
-                  await chatSocketService.connect();
-                  debugPrint('✅ Chat socket connected after registration');
-                } catch (e) {
-                  debugPrint('⚠️ Error connecting chat socket: $e');
-                }
-
-                _showSuccessSnackBar(
-                  'Registration Successful! Welcome to BanaTalk!',
-                );
-
-                // Invalidate userProvider to force fresh fetch
-                ref.invalidate(userProvider);
-
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (ctx) => const TabsScreen()),
-                  (route) => false,
-                );
-              }
-            } else {
-              // Terms already accepted - proceed directly with image upload and navigation
-              // Upload images before navigation to avoid ref disposal issues
-              if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
-                debugPrint('Uploading ${_selectedImages.length} images...');
-                try {
-                  // Upload images synchronously before navigation
-                  await ref
-                      .read(authServiceProvider)
-                      .uploadUserPhoto(userId, _selectedImages);
-                  debugPrint('Images uploaded successfully');
-                } catch (error) {
-                  debugPrint('Image upload error: $error');
-                  // Don't block navigation if upload fails - user can upload later
-                }
-              }
-
-              if (!mounted) return;
-
-              // Connect socket after registration
-              try {
-                debugPrint('🔌 Connecting socket after registration...');
-                final chatSocketService = ChatSocketService();
-                chatSocketService.enableReconnection();
-                await chatSocketService.connect();
-                debugPrint('✅ Chat socket connected after registration');
-              } catch (e) {
-                debugPrint('⚠️ Error connecting chat socket: $e');
-              }
-
-              _showSuccessSnackBar(
-                'Registration Successful! Welcome to BanaTalk!',
-              );
-
-              // Invalidate userProvider to force fresh fetch
-              ref.invalidate(userProvider);
-
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (ctx) => const TabsScreen()),
-                (route) => false,
-              );
-            }
+            ref.invalidate(userProvider);
+            if (mounted) context.go('/home');
           }
         } else {
-          setState(() {
-            _isSubmitting = false;
-          });
-
-          String errorMessage =
-              response['message'] ?? 'Registration failed. Please try again.';
-          _showErrorSnackBar(errorMessage);
+          setState(() => _isSubmitting = false);
+          _showError(response['message'] ?? 'Registration failed');
         }
-      } catch (error) {
-        setState(() {
-          _isSubmitting = false;
-        });
-
-        String errorMessage = 'An unknown error occurred';
-        if (error.toString().contains('Duplicate field value')) {
-          errorMessage = 'Email already exists. Please use a different email.';
+      } catch (e) {
+        setState(() => _isSubmitting = false);
+        String msg = 'An unknown error occurred';
+        if (e.toString().contains('Duplicate field value')) {
+          msg = 'Email already exists. Please use a different email.';
         }
-
-        _showErrorSnackBar(errorMessage);
+        _showError(msg);
       }
     }
   }
 
-  void _showErrorSnackBar(String message) {
+  // ─── Helpers ─────────────────────────────────────────────────────
+
+  void _showError(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.error_outline, color: Colors.white),
-            Spacing.hGapMD,
+            const Icon(Icons.error_outline, color: Colors.white, size: 18),
+            const SizedBox(width: 8),
             Expanded(child: Text(message)),
           ],
         ),
         backgroundColor: AppColors.error,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
-        duration: const Duration(seconds: 4),
       ),
     );
   }
 
-  void _showSuccessSnackBar(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_outline, color: Colors.white),
-            Spacing.hGapMD,
-            Expanded(child: Text(message)),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
+  // ─── Build ───────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
-    final bioCharCount = _bioController.text.length;
-    final bioCharRemaining = BIO_MAX_LENGTH - bioCharCount;
-
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Custom App Bar
-            _buildAppBar(context),
-
-            // Progress Indicator
-            _buildProgressIndicator(),
-
-            // Scrollable Content
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: context.scaffoldBackground,
+        body: SafeArea(
+          child: Column(
+            children: [
+              // App bar
+              _buildAppBar(),
+              // Progress bar
+              _buildProgress(),
+              // Pages
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (index) {
+                    setState(() => _currentStep = index);
+                  },
                   children: [
-                    Spacing.gapXXL,
-
-                    // Header
-                    _buildHeader(),
-
-                    const SizedBox(height: 32),
-
-                    // Bio field
-                    _buildSectionTitle('About You', Icons.edit_note),
-                    Spacing.gapMD,
-                    _buildBioField(bioCharRemaining),
-
-                    const SizedBox(height: 28),
-
-                    // Language section with modern cards
-                    _buildSectionTitle('Languages', Icons.translate),
-                    Spacing.gapMD,
-                    _buildLanguageSelector(
-                      label: 'Native Language',
-                      language: _nativeLanguage,
-                      error: _nativeLanguageError,
-                      onTap: () => _openLanguagePicker(isNative: true),
-                      icon: Icons.home_outlined,
-                    ),
-                    Spacing.gapMD,
-                    _buildLanguageSelector(
-                      label: 'Language to Learn',
-                      language: _languageToLearn,
-                      error: _learnLanguageError,
-                      onTap: () => _openLanguagePicker(isNative: false),
-                      icon: Icons.school_outlined,
-                    ),
-
-                    const SizedBox(height: 28),
-
-                    // Personal Info section
-                    _buildSectionTitle('Personal Information', Icons.person_outline),
-                    Spacing.gapMD,
-                    _buildGenderSelector(),
-                    Spacing.gapLG,
-                    _buildBirthDateField(),
-
-                    const SizedBox(height: 28),
-
-                    // Location section
-                    _buildSectionTitle('Location', Icons.location_on_outlined),
-                    Spacing.gapMD,
-                    _buildLocationCard(),
-
-                    const SizedBox(height: 28),
-
-                    // Topics/Interests section
-                    _buildSectionTitle('Your Interests', Icons.interests_outlined),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Select topics you\'re interested in (optional, max $MAX_TOPICS)',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: context.textSecondary,
-                      ),
-                    ),
-                    Spacing.gapMD,
-                    _buildTopicsSection(),
-
-                    const SizedBox(height: 28),
-
-                    // Images section
-                    _buildSectionTitle('Profile Photos', Icons.photo_library_outlined),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Add at least 2 photos (max 6)',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: context.textSecondary,
-                      ),
-                    ),
-                    Spacing.gapMD,
-                    _buildImagesSection(),
-
-                    const SizedBox(height: 32),
-
-                    // Submit Button
-                    _buildSubmitButton(),
-
-                    const SizedBox(height: 40),
+                    if (_needsPersonalInfo) _buildPersonalInfoStep(),
+                    if (!_hasExistingLanguages) _buildNativeLanguageStep(),
+                    if (!_hasExistingLanguages) _buildLearningLanguageStep(),
+                    _buildFinishStep(),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
-    return Container(
+  Widget _buildAppBar() {
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Row(
         children: [
           IconButton(
             icon: Icon(Icons.arrow_back_ios, color: context.textPrimary, size: 22),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: _goBack,
           ),
           const Spacer(),
           Text(
-            'Step 2 of 2',
+            AppLocalizations.of(context)!.stepOf("2", "2"),
             style: TextStyle(
               color: context.textSecondary,
               fontSize: 14,
@@ -1291,11 +574,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     );
   }
 
-  Widget _buildProgressIndicator() {
+  Widget _buildProgress() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
+          // Step 1 of overall flow (always filled)
           Expanded(
             child: Container(
               height: 4,
@@ -1306,114 +590,25 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             ),
           ),
           Spacing.hGapSM,
+          // Step 2 progress (sub-steps)
           Expanded(
-            child: Container(
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Complete Your Profile',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: context.textPrimary,
-          ),
-        ),
-        Spacing.gapSM,
-        Text(
-          'Tell us more about yourself to find the perfect language partners',
-          style: TextStyle(
-            fontSize: 15,
-            color: context.textSecondary,
-            height: 1.4,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSectionTitle(String title, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, size: 20, color: AppColors.primary),
-        Spacing.hGapSM,
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: context.textPrimary,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBioField(int bioCharRemaining) {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.cardBackground,
-        borderRadius: AppRadius.borderLG,
-        border: Border.all(
-          color: _bioError != null ? AppColors.error : context.dividerColor,
-        ),
-        boxShadow: AppShadows.sm,
-      ),
-      child: Column(
-        children: [
-          TextField(
-            controller: _bioController,
-            maxLines: 4,
-            maxLength: BIO_MAX_LENGTH,
-            decoration: InputDecoration(
-              hintText: 'Tell us about yourself, your interests, and why you want to learn a new language...',
-              hintStyle: TextStyle(color: context.textHint, fontSize: 14),
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(16),
-              counterText: '',
-            ),
-            onChanged: (value) => setState(() {}),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: context.containerColor,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Stack(
               children: [
-                if (_bioError != null)
-                  Expanded(
-                    child: Text(
-                      _bioError!,
-                      style: TextStyle(color: AppColors.error, fontSize: 12),
+                Container(
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: context.dividerColor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                FractionallySizedBox(
+                  widthFactor: (_currentStep + 1) / _totalSteps,
+                  child: Container(
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(2),
                     ),
-                  )
-                else
-                  const SizedBox(),
-                Text(
-                  '${_bioController.text.length}/$BIO_MAX_LENGTH',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: bioCharRemaining < 50 ? AppColors.warning : context.textMuted,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -1424,667 +619,697 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     );
   }
 
-  Widget _buildLanguageSelector({
-    required String label,
-    required Language? language,
-    required String? error,
-    required VoidCallback onTap,
-    required IconData icon,
-  }) {
-    return InkWell(
-      onTap: _isLoadingLanguages ? null : onTap,
-      borderRadius: AppRadius.borderLG,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: context.cardBackground,
-          borderRadius: AppRadius.borderLG,
-          border: Border.all(
-            color: error != null ? AppColors.error : context.dividerColor,
-          ),
-          boxShadow: AppShadows.sm,
-        ),
-        child: Row(
-          children: [
-            // Flag or Icon
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: language != null
-                    ? AppColors.primary.withOpacity(0.1)
-                    : context.containerColor,
-                borderRadius: AppRadius.borderMD,
-              ),
-              child: Center(
-                child: _isLoadingLanguages
-                    ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            AppColors.primary,
-                          ),
-                        ),
-                      )
-                    : language != null
-                        ? Text(
-                            language.flag,
-                            style: const TextStyle(fontSize: 28),
-                          )
-                        : Icon(
-                            icon,
-                            color: context.iconColor,
-                            size: 24,
-                          ),
-              ),
-            ),
-            Spacing.hGapLG,
+  // ─── Personal Info Step (OAuth users only) ────────────────────────
 
-            // Language info
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: context.textMuted,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    language?.name ?? 'Select a language',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: language != null ? context.textPrimary : context.textHint,
-                    ),
-                  ),
-                  if (language != null) ...[
-                    const SizedBox(height: 2),
-                    Text(
-                      language.nativeName,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: context.textMuted,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-
-            // Arrow
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: context.iconColor,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildGenderSelector() {
-    return Container(
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: context.cardBackground,
-        borderRadius: AppRadius.borderLG,
-        border: Border.all(
-          color: _genderError != null ? AppColors.error : context.dividerColor,
-        ),
-        boxShadow: AppShadows.sm,
-      ),
+  Widget _buildPersonalInfoStep() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              _buildGenderButton('Male', 'Male', Icons.man),
-              _buildGenderButton('Female', 'Female', Icons.woman),
-              _buildGenderButton('Other', 'Other', Icons.person_outline),
-            ],
+          const SizedBox(height: 24),
+
+          Text(
+            AppLocalizations.of(context)!.tellUsAboutYourself,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
+              letterSpacing: -0.5,
+            ),
           ),
-          if (_genderError != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 12, top: 8, bottom: 4),
-              child: Text(
-                _genderError!,
-                style: TextStyle(color: AppColors.error, fontSize: 12),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGenderButton(String label, String? value, IconData icon) {
-    final isSelected = _selectedGender == value;
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            _selectedGender = value;
-            _genderError = null;
-          });
-        },
-        child: Container(
-          margin: const EdgeInsets.all(4),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary : context.containerColor,
-            borderRadius: AppRadius.borderMD,
+          const SizedBox(height: 6),
+          Text(
+            AppLocalizations.of(context)!.justACoupleQuickThings,
+            style: TextStyle(fontSize: 15, color: context.textSecondary),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                color: isSelected ? Colors.white : context.textSecondary,
-                size: 24,
-              ),
-              const SizedBox(height: 6),
-              Text(
-                label,
-                style: TextStyle(
-                  color: isSelected ? Colors.white : context.textPrimary,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget _buildBirthDateField() {
-    return InkWell(
-      onTap: () async {
-        DateTime initialDate = DateTime.now().subtract(const Duration(days: 365 * 20));
+          const SizedBox(height: 32),
 
-        if (_birthDate.text.isNotEmpty) {
-          try {
-            initialDate = DateFormat('yyyy.MM.dd').parse(_birthDate.text);
-          } catch (e) {
-            initialDate = DateTime.now().subtract(const Duration(days: 365 * 20));
-          }
-        }
-
-        DateTime? pickedDate = await showDatePicker(
-          context: context,
-          initialDate: initialDate,
-          firstDate: DateTime(1900),
-          lastDate: DateTime.now(),
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.light(
-                  primary: AppColors.primary,
-                ),
-              ),
-              child: child!,
-            );
-          },
-        );
-
-        if (pickedDate != null) {
-          setState(() {
-            _birthDate.text = DateFormat('yyyy.MM.dd').format(pickedDate);
-            _birthDateError = null;
-          });
-        }
-      },
-      borderRadius: AppRadius.borderLG,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: context.cardBackground,
-          borderRadius: AppRadius.borderLG,
-          border: Border.all(
-            color: _birthDateError != null ? AppColors.error : context.dividerColor,
-          ),
-          boxShadow: AppShadows.sm,
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
-                borderRadius: AppRadius.borderMD,
-              ),
-              child: Icon(
-                Icons.cake_outlined,
-                color: AppColors.primary,
-                size: 24,
+          // Gender
+          if (widget.gender.isEmpty) ...[
+            Text(
+              AppLocalizations.of(context)!.gender,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: context.textPrimary,
               ),
             ),
-            Spacing.hGapLG,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Birth Date',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: context.textMuted,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    _birthDate.text.isNotEmpty
-                        ? _formatDisplayDate(_birthDate.text)
-                        : 'Select your birth date',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: _birthDate.text.isNotEmpty ? context.textPrimary : context.textHint,
-                    ),
-                  ),
-                  if (_birthDateError != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      _birthDateError!,
-                      style: TextStyle(color: AppColors.error, fontSize: 12),
-                    ),
-                  ],
-                ],
+            if (_genderError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(_genderError!,
+                    style: TextStyle(color: AppColors.error, fontSize: 12)),
               ),
-            ),
-            Icon(
-              Icons.calendar_today,
-              size: 20,
-              color: context.iconColor,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _formatDisplayDate(String date) {
-    try {
-      final parsed = DateFormat('yyyy.MM.dd').parse(date);
-      return DateFormat('MMMM d, yyyy').format(parsed);
-    } catch (e) {
-      return date;
-    }
-  }
-
-  Widget _buildLocationCard() {
-    final hasError = _locationError != null;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InkWell(
-          onTap: _isFetchingLocation ? null : _getCurrentLocation,
-          borderRadius: AppRadius.borderLG,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: context.cardBackground,
-              borderRadius: AppRadius.borderLG,
-              border: Border.all(
-                color: hasError ? AppColors.error : context.dividerColor,
-                width: hasError ? 1.5 : 1,
-              ),
-              boxShadow: AppShadows.sm,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _city != null
-                        ? AppColors.primary.withOpacity(0.1)
-                        : hasError
-                            ? AppColors.error.withOpacity(0.1)
+            const SizedBox(height: 12),
+            Row(
+              children: ['male', 'female', 'other'].map((g) {
+                final isSelected = _selectedGender == g;
+                final l10n = AppLocalizations.of(context)!;
+                final label = g == 'male' ? l10n.male : g == 'female' ? l10n.female : l10n.other;
+                final icons = {
+                  'male': Icons.male_rounded,
+                  'female': Icons.female_rounded,
+                  'other': Icons.transgender_rounded,
+                };
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      HapticFeedback.selectionClick();
+                      setState(() {
+                        _selectedGender = g;
+                        _genderError = null;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? AppColors.primary
                             : context.containerColor,
-                    borderRadius: AppRadius.borderMD,
-                  ),
-                  child: _isFetchingLocation
-                      ? Center(
-                          child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.primary,
-                              ),
-                            ),
-                          ),
-                        )
-                      : Icon(
-                          _city != null ? Icons.location_on : Icons.location_off_outlined,
-                          color: _city != null
+                        borderRadius: AppRadius.borderMD,
+                        border: Border.all(
+                          color: isSelected
                               ? AppColors.primary
-                              : hasError
-                                  ? AppColors.error
-                                  : context.iconColor,
-                          size: 24,
+                              : context.dividerColor,
                         ),
-                ),
-                Spacing.hGapLG,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                      ),
+                      child: Column(
                         children: [
-                          Text(
-                            'Current Location',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: context.textMuted,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          Icon(
+                            icons[g] ?? Icons.person,
+                            color: isSelected
+                                ? Colors.white
+                                : context.textSecondary,
+                            size: 22,
                           ),
-                          const SizedBox(width: 4),
+                          const SizedBox(height: 4),
                           Text(
-                            '*',
+                            label,
                             style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.error,
-                              fontWeight: FontWeight.bold,
+                              color: isSelected
+                                  ? Colors.white
+                                  : context.textPrimary,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        _city != null && _country != null
-                            ? '$_city, $_country'
-                            : 'Tap to detect your location',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: _city != null
-                              ? context.textPrimary
-                              : hasError
-                                  ? AppColors.error
-                                  : context.textHint,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Required - helps find nearby partners',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: context.textHint,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                Icon(
-                  Icons.gps_fixed,
-                  size: 20,
-                  color: AppColors.primary,
-                ),
-              ],
+                );
+              }).toList(),
             ),
-          ),
-        ),
-        if (hasError)
-          Padding(
-            padding: const EdgeInsets.only(left: 12, top: 6),
-            child: Text(
-              _locationError!,
+            const SizedBox(height: 28),
+          ],
+
+          // Birth date
+          if (widget.birthDate.isEmpty) ...[
+            Text(
+              AppLocalizations.of(context)!.birthDate,
               style: TextStyle(
-                fontSize: 12,
-                color: AppColors.error,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: context.textPrimary,
               ),
             ),
-          ),
-      ],
-    );
-  }
+            const SizedBox(height: 12),
+            GestureDetector(
+              onTap: () async {
+                final initialDate =
+                    DateTime.now().subtract(const Duration(days: 365 * 20));
 
-  void _toggleTopic(String topicId) {
-    HapticFeedback.selectionClick();
-    setState(() {
-      if (_selectedTopics.contains(topicId)) {
-        _selectedTopics.remove(topicId);
-      } else {
-        if (_selectedTopics.length < MAX_TOPICS) {
-          _selectedTopics.add(topicId);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Maximum $MAX_TOPICS topics allowed'),
-              backgroundColor: AppColors.warning,
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: AppRadius.borderMD,
-              ),
-            ),
-          );
-        }
-      }
-      _topicsError = null;
-    });
-  }
+                final pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: initialDate,
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now(),
+                  builder: (context, child) {
+                    return Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme:
+                            ColorScheme.light(primary: AppColors.primary),
+                      ),
+                      child: child!,
+                    );
+                  },
+                );
 
-  Widget _buildTopicsSection() {
-    // Group topics by category
-    final categories = Topic.categories;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: context.cardBackground,
-        borderRadius: AppRadius.borderLG,
-        border: Border.all(
-          color: _topicsError != null ? AppColors.error : context.dividerColor,
-        ),
-        boxShadow: AppShadows.sm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Selected count header
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Select your interests',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: context.textPrimary,
+                if (pickedDate != null) {
+                  setState(() {
+                    _birthDateController.text =
+                        '${pickedDate.year}.${pickedDate.month.toString().padLeft(2, '0')}.${pickedDate.day.toString().padLeft(2, '0')}';
+                    _birthDateError = null;
+                  });
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: context.cardBackground,
+                  borderRadius: AppRadius.borderLG,
+                  border: Border.all(
+                    color: _birthDateError != null
+                        ? AppColors.error
+                        : context.dividerColor,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
-                    borderRadius: AppRadius.borderXL,
-                  ),
-                  child: Text(
-                    '${_selectedTopics.length}/$MAX_TOPICS',
-                    style: TextStyle(
-                      color: _selectedTopics.length >= MAX_TOPICS
-                          ? AppColors.warning
-                          : AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Topics grid by category
-          ...categories.map((category) {
-            final categoryTopics = Topic.defaultTopics
-                .where((t) => t.category == category)
-                .toList();
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text(
-                    Topic.getCategoryLabel(category),
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: context.textSecondary,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: categoryTopics.map((topic) {
-                      final isSelected = _selectedTopics.contains(topic.id);
-                      return GestureDetector(
-                        onTap: () => _toggleTopic(topic.id),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColors.primary.withOpacity(0.15)
-                                : context.containerColor,
-                            borderRadius: AppRadius.borderXL,
-                            border: Border.all(
-                              color: isSelected
-                                  ? AppColors.primary
-                                  : Colors.transparent,
-                              width: 1.5,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(topic.icon, style: const TextStyle(fontSize: 16)),
-                              const SizedBox(width: 6),
-                              Text(
-                                topic.name,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: isSelected
-                                      ? FontWeight.w600
-                                      : FontWeight.w500,
-                                  color: isSelected
-                                      ? AppColors.primary
-                                      : context.textPrimary,
-                                ),
-                              ),
-                              if (isSelected) ...[
-                                const SizedBox(width: 4),
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 16,
-                                  color: AppColors.primary,
-                                ),
-                              ],
-                            ],
-                          ),
+                child: Row(
+                  children: [
+                    Icon(Icons.cake_outlined,
+                        color: AppColors.primary, size: 20),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        _birthDateController.text.isNotEmpty
+                            ? _birthDateController.text
+                            : AppLocalizations.of(context)!.selectYourBirthDate,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: _birthDateController.text.isNotEmpty
+                              ? context.textPrimary
+                              : context.textHint,
                         ),
-                      );
-                    }).toList(),
-                  ),
+                      ),
+                    ),
+                    Icon(Icons.calendar_today_outlined,
+                        size: 18, color: context.iconColor),
+                  ],
                 ),
-                Spacing.gapMD,
-              ],
-            );
-          }),
-
-          if (_topicsError != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 16, bottom: 16),
-              child: Text(
-                _topicsError!,
-                style: TextStyle(color: AppColors.error, fontSize: 12),
               ),
             ),
+            if (_birthDateError != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 4, top: 6),
+                child: Text(_birthDateError!,
+                    style: TextStyle(color: AppColors.error, fontSize: 12)),
+              ),
+          ],
 
-          Spacing.gapSM,
+          const SizedBox(height: 32),
+
+          // Next button
+          SizedBox(
+            width: double.infinity,
+            height: 56,
+            child: ElevatedButton(
+              onPressed: () {
+                bool valid = true;
+                final l10n = AppLocalizations.of(context)!;
+                if (widget.gender.isEmpty && _selectedGender == null) {
+                  setState(() => _genderError = l10n.pleaseSelectGender);
+                  valid = false;
+                }
+                if (widget.birthDate.isEmpty &&
+                    _birthDateController.text.isEmpty) {
+                  setState(
+                      () => _birthDateError = l10n.pleaseSelectBirthDate);
+                  valid = false;
+                }
+                // Age check
+                if (_birthDateController.text.isNotEmpty) {
+                  try {
+                    final parts = _birthDateController.text.split('.');
+                    final bd = DateTime(
+                      int.parse(parts[0]),
+                      int.parse(parts[1]),
+                      int.parse(parts[2]),
+                    );
+                    final age =
+                        DateTime.now().difference(bd).inDays ~/ 365;
+                    if (age < 18) {
+                      setState(() => _birthDateError =
+                          l10n.mustBe18);
+                      valid = false;
+                    }
+                  } catch (e) {
+                    setState(() => _birthDateError = l10n.invalidDate);
+                    valid = false;
+                  }
+                }
+                if (valid) _goToNext();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: AppRadius.borderLG),
+                elevation: 0,
+              ),
+              child: Text(
+                AppLocalizations.of(context)!.continueButton,
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 40),
         ],
       ),
     );
   }
 
-  Widget _buildImagesSection() {
+  // ─── Native Language Step ──────────────────────────────────────────
+
+  Widget _buildNativeLanguageStep() {
+    final l10n = AppLocalizations.of(context)!;
+    return _buildLanguageStep(
+      title: l10n.whatsYourNativeLanguage,
+      subtitle: l10n.helpsMatchWithLearners,
+      selectedLanguage: _nativeLanguage,
+      selectedLevel: _nativeLevel,
+      isNative: true,
+      onLevelChanged: (level) => setState(() => _nativeLevel = level),
+      onNext: () {
+        if (_nativeLanguage == null) {
+          _showError(l10n.selectNativeLanguage);
+          return;
+        }
+        _goToNext();
+      },
+    );
+  }
+
+  // ─── Step 2: Learning Language ───────────────────────────────────
+
+  Widget _buildLearningLanguageStep() {
+    final l10n = AppLocalizations.of(context)!;
+    return _buildLanguageStep(
+      title: l10n.whatAreYouLearning,
+      subtitle: l10n.connectWithNativeSpeakers,
+      selectedLanguage: _learningLanguage,
+      selectedLevel: _learningLevel,
+      isNative: false,
+      onLevelChanged: (level) => setState(() => _learningLevel = level),
+      onNext: () {
+        if (_learningLanguage == null) {
+          _showError(l10n.selectLearningLanguage);
+          return;
+        }
+        if (_learningLevel == null) {
+          _showError(l10n.selectCurrentLevel);
+          return;
+        }
+        _goToNext();
+      },
+    );
+  }
+
+  Widget _buildLanguageStep({
+    required String title,
+    required String subtitle,
+    required Language? selectedLanguage,
+    required String? selectedLevel,
+    required bool isNative,
+    required ValueChanged<String> onLevelChanged,
+    required VoidCallback onNext,
+  }) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 24),
+
+          // Title
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: TextStyle(fontSize: 15, color: context.textSecondary),
+          ),
+
+          const SizedBox(height: 32),
+
+          // Language picker card
+          _buildLanguageCard(
+            selectedLanguage: selectedLanguage,
+            onTap: () => _openLanguagePicker(isNative: isNative),
+          ),
+
+          // Level selection (always show for learning, optional for native)
+          if (selectedLanguage != null) ...[
+            const SizedBox(height: 28),
+            Text(
+              isNative
+                  ? AppLocalizations.of(context)!.yourLevelIn(selectedLanguage.name)
+                  : AppLocalizations.of(context)!.yourCurrentLevel,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: context.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            ..._cefrLevels.map((level) => _buildLevelTile(
+                  level: level,
+                  isSelected: selectedLevel == level,
+                  onTap: () {
+                    HapticFeedback.selectionClick();
+                    onLevelChanged(level);
+                  },
+                )),
+          ],
+
+          const SizedBox(height: 32),
+
+          // Next button
+          SizedBox(
+            width: double.infinity,
+            height: 56,
+            child: ElevatedButton(
+              onPressed: onNext,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+                elevation: 0,
+              ),
+              child: Text(
+                AppLocalizations.of(context)!.continueButton,
+                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageCard({
+    required Language? selectedLanguage,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: _isLoadingLanguages ? null : onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: selectedLanguage != null
+              ? AppColors.primary.withValues(alpha: 0.06)
+              : context.cardBackground,
+          borderRadius: AppRadius.borderLG,
+          border: Border.all(
+            color: selectedLanguage != null
+                ? AppColors.primary.withValues(alpha: 0.3)
+                : context.dividerColor,
+            width: selectedLanguage != null ? 2 : 1,
+          ),
+        ),
+        child: _isLoadingLanguages
+            ? const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              )
+            : Row(
+                children: [
+                  if (selectedLanguage != null) ...[
+                    Text(selectedLanguage.flag,
+                        style: const TextStyle(fontSize: 36)),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            selectedLanguage.name,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: context.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            selectedLanguage.nativeName,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: context.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ] else ...[
+                    Container(
+                      width: 52,
+                      height: 52,
+                      decoration: BoxDecoration(
+                        color: context.containerColor,
+                        borderRadius: AppRadius.borderMD,
+                      ),
+                      child: Icon(Icons.language,
+                          size: 28, color: context.textSecondary),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        AppLocalizations.of(context)!.tapToSelectLanguage,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: context.textHint,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                  Icon(Icons.chevron_right, color: context.textSecondary),
+                ],
+              ),
+      ),
+    );
+  }
+
+  Widget _buildLevelTile({
+    required String level,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? AppColors.primary.withValues(alpha: 0.08)
+                : context.cardBackground,
+            borderRadius: AppRadius.borderMD,
+            border: Border.all(
+              color: isSelected
+                  ? AppColors.primary
+                  : context.dividerColor,
+              width: isSelected ? 2 : 1,
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? AppColors.primary
+                      : context.containerColor,
+                  borderRadius: AppRadius.borderSM,
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  level,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                    color: isSelected ? Colors.white : context.textPrimary,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  _getLocalizedLevelDescription(context, level),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: context.textPrimary,
+                  ),
+                ),
+              ),
+              if (isSelected)
+                Icon(Icons.check_circle_rounded,
+                    color: AppColors.primary, size: 22),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _getLocalizedLevelDescription(BuildContext context, String level) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (level) {
+      case 'A1':
+        return l10n.beginner;
+      case 'A2':
+        return l10n.elementary;
+      case 'B1':
+        return l10n.intermediate;
+      case 'B2':
+        return l10n.upperIntermediate;
+      case 'C1':
+        return l10n.advanced;
+      case 'C2':
+        return l10n.proficient;
+      default:
+        return level;
+    }
+  }
+
+  // ─── Step 3: Finish (photo + location + terms) ───────────────────
+
+  Widget _buildFinishStep() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 24),
+
+          Text(
+            AppLocalizations.of(context)!.almostDone,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            AppLocalizations.of(context)!.addPhotoLocationForMatches,
+            style: TextStyle(fontSize: 15, color: context.textSecondary),
+          ),
+
+          const SizedBox(height: 28),
+
+          // Photo section
+          _buildPhotoSection(),
+
+          const SizedBox(height: 20),
+
+          // Location section
+          _buildLocationSection(),
+
+          const SizedBox(height: 24),
+
+          // Terms checkbox
+          _buildTermsCheckbox(),
+
+          const SizedBox(height: 24),
+
+          // Submit button
+          SizedBox(
+            width: double.infinity,
+            height: 56,
+            child: ElevatedButton(
+              onPressed: _isSubmitting ? null : _submit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+                elevation: 0,
+              ),
+              child: _isSubmitting
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      AppLocalizations.of(context)!.startLearning,
+                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+            ),
+          ),
+
+          const SizedBox(height: 12),
+
+          // Skip note
+          Center(
+            child: Text(
+              AppLocalizations.of(context)!.photoLocationOptional,
+              style: TextStyle(fontSize: 12, color: context.textMuted),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
+          const SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhotoSection() {
     if (_selectedImages.isEmpty) {
       return GestureDetector(
         onTap: _pickImage,
         child: Container(
-          height: 180,
+          height: 140,
           decoration: BoxDecoration(
             color: context.cardBackground,
             borderRadius: AppRadius.borderLG,
-            border: Border.all(
-              color: _imagesError != null ? AppColors.error : context.dividerColor,
-              width: 2,
-              strokeAlign: BorderSide.strokeAlignInside,
-            ),
-            boxShadow: AppShadows.sm,
+            border: Border.all(color: context.dividerColor, width: 1.5),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 64,
-                height: 64,
+                width: 52,
+                height: 52,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
-                  borderRadius: AppRadius.borderLG,
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderMD,
                 ),
-                child: Icon(
-                  Icons.add_photo_alternate_outlined,
-                  size: 32,
-                  color: AppColors.primary,
-                ),
+                child: Icon(Icons.add_a_photo_outlined,
+                    size: 26, color: AppColors.primary),
               ),
-              Spacing.gapLG,
+              const SizedBox(height: 10),
               Text(
-                'Add Profile Photos',
+                AppLocalizations.of(context)!.addProfilePhoto,
                 style: TextStyle(
-                  fontSize: 16,
-                  color: context.textPrimary,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600,
+                  color: context.textPrimary,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2),
               Text(
-                'Tap to select images',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: context.textMuted,
-                ),
+                AppLocalizations.of(context)!.optionalUpTo6Photos,
+                style: TextStyle(fontSize: 13, color: context.textMuted),
               ),
-              if (_imagesError != null) ...[
-                Spacing.gapSM,
-                Text(
-                  _imagesError!,
-                  style: TextStyle(color: AppColors.error, fontSize: 12),
-                ),
-              ],
             ],
           ),
         ),
@@ -2093,167 +1318,199 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
     return Column(
       children: [
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1,
-          ),
-          itemCount: _selectedImages.length + (_selectedImages.length < 6 ? 1 : 0),
-          itemBuilder: (context, index) {
-            if (index < _selectedImages.length) {
-              return Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: AppRadius.borderMD,
-                      boxShadow: AppShadows.sm,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: AppRadius.borderMD,
-                      child: Image.file(
-                        _selectedImages[index],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 6,
-                    right: 6,
-                    child: GestureDetector(
-                      onTap: () => _removeImage(index),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: AppColors.error,
-                          shape: BoxShape.circle,
-                          boxShadow: AppShadows.sm,
-                        ),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (index == 0)
-                    Positioned(
-                      bottom: 6,
-                      left: 6,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'Main',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            } else {
-              return GestureDetector(
-                onTap: _pickImage,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: context.containerColor,
-                    borderRadius: AppRadius.borderMD,
-                    border: Border.all(
-                      color: context.dividerColor,
-                      width: 2,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        SizedBox(
+          height: 100,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _selectedImages.length + (_selectedImages.length < 6 ? 1 : 0),
+            itemBuilder: (context, index) {
+              if (index < _selectedImages.length) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Stack(
                     children: [
-                      Icon(
-                        Icons.add,
-                        size: 32,
-                        color: context.iconColor,
+                      ClipRRect(
+                        borderRadius: AppRadius.borderMD,
+                        child: Image.file(
+                          _selectedImages[index],
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Add',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: context.textMuted,
-                          fontWeight: FontWeight.w500,
+                      Positioned(
+                        top: 4,
+                        right: 4,
+                        child: GestureDetector(
+                          onTap: () => _removeImage(index),
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: const BoxDecoration(
+                              color: AppColors.error,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.close,
+                                color: Colors.white, size: 12),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              );
-            }
-          },
-        ),
-        if (_imagesError != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              _imagesError!,
-              style: TextStyle(color: AppColors.error, fontSize: 12),
-            ),
-          ),
-        Spacing.gapSM,
-        Text(
-          '${_selectedImages.length}/6 photos selected',
-          style: TextStyle(
-            fontSize: 13,
-            color: context.textSecondary,
-            fontWeight: FontWeight.w500,
+                );
+              } else {
+                return GestureDetector(
+                  onTap: _pickImage,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: context.containerColor,
+                      borderRadius: AppRadius.borderMD,
+                      border: Border.all(color: context.dividerColor),
+                    ),
+                    child: Icon(Icons.add, size: 28, color: context.iconColor),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSubmitButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: ElevatedButton(
-        onPressed: _isSubmitting ? null : submit,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: AppRadius.borderLG,
-          ),
-          elevation: 0,
+  Widget _buildLocationSection() {
+    return GestureDetector(
+      onTap: _isFetchingLocation ? null : _getCurrentLocation,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: context.cardBackground,
+          borderRadius: AppRadius.borderLG,
+          border: Border.all(color: context.dividerColor),
         ),
-        child: _isSubmitting
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.5,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
-            : const Text(
-                'Complete Registration',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: _city != null
+                    ? AppColors.primary.withValues(alpha: 0.1)
+                    : context.containerColor,
+                borderRadius: AppRadius.borderMD,
+              ),
+              child: _isFetchingLocation
+                  ? const Center(
+                      child: SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    )
+                  : Icon(
+                      _city != null
+                          ? Icons.location_on
+                          : Icons.location_off_outlined,
+                      color:
+                          _city != null ? AppColors.primary : context.iconColor,
+                      size: 22,
+                    ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _city != null && _country != null
+                        ? '$_city, $_country'
+                        : AppLocalizations.of(context)!.tapToDetectLocation,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          _city != null ? context.textPrimary : context.textHint,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    AppLocalizations.of(context)!.optionalHelpsNearbyPartners,
+                    style: TextStyle(fontSize: 12, color: context.textMuted),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.gps_fixed, size: 18, color: AppColors.primary),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTermsCheckbox() {
+    return GestureDetector(
+      onTap: () => setState(() => _termsAccepted = !_termsAccepted),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          color: _termsAccepted
+              ? AppColors.primary.withValues(alpha: 0.08)
+              : context.containerColor,
+          borderRadius: AppRadius.borderMD,
+          border: Border.all(
+            color: _termsAccepted
+                ? AppColors.primary.withValues(alpha: 0.3)
+                : context.dividerColor,
+          ),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: Checkbox(
+                value: _termsAccepted,
+                onChanged: (v) => setState(() => _termsAccepted = v ?? false),
+                activeColor: AppColors.primary,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const TermsOfServiceScreen(isPreRegistration: true),
+                    ),
+                  );
+                },
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: context.textPrimary,
+                      height: 1.4,
+                    ),
+                    children: [
+                      TextSpan(text: AppLocalizations.of(context)!.iAgreeToThe),
+                      TextSpan(
+                        text: AppLocalizations.of(context)!.termsOfService,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+            ),
+          ],
+        ),
       ),
     );
   }

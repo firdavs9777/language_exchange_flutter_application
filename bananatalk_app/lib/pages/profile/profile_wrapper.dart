@@ -41,7 +41,6 @@ class _ProfileWrapperState extends ConsumerState<ProfileWrapper> {
         });
       }
     } catch (e) {
-      debugPrint('❌ Error fetching user profile: $e');
       if (mounted) {
         setState(() {
           _error = 'Failed to load profile';
@@ -54,8 +53,12 @@ class _ProfileWrapperState extends ConsumerState<ProfileWrapper> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
-        body: Center(
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
           ),

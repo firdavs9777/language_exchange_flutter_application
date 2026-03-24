@@ -122,7 +122,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
         _videoController!.addListener(_videoListener);
       }
     } catch (e) {
-      debugPrint('Error initializing video: $e');
       // Fall back to default timer if video fails
       _startStoryTimer();
     }

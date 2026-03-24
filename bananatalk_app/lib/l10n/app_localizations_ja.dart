@@ -155,7 +155,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get success => '成功';
 
   @override
-  String get tryAgain => '再試行';
+  String get tryAgain => 'もう一度試す';
 
   @override
   String get networkError => 'ネットワークエラー。接続を確認してください。';
@@ -246,6 +246,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get momentDeleted => 'モーメントが削除されました';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => '編集機能は近日公開';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'チャット';
 
   @override
   String get community => 'コミュニティ';
@@ -1181,7 +1190,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get forwardFeatureComingSoon => '転送機能は近日公開';
 
   @override
-  String get momentUnsaved => 'モーメントの保存を解除しました';
+  String get momentUnsaved => '保存から削除しました';
 
   @override
   String get documentPickerComingSoon => 'ドキュメント選択は近日公開';
@@ -1962,4 +1971,727 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get messageEdited => 'Message edited';
+
+  @override
+  String get edited => '(編集済み)';
+
+  @override
+  String get now => '今';
+
+  @override
+  String weeksAgo(int count) {
+    return '$count週間前';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── $count件の返信を表示';
+  }
+
+  @override
+  String get hideReplies => '── 返信を非表示';
+
+  @override
+  String get saveMoment => 'モーメントを保存';
+
+  @override
+  String get removeFromSaved => '保存から削除';
+
+  @override
+  String get momentSaved => '保存しました';
+
+  @override
+  String get failedToSave => '保存に失敗しました';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'このモーメントをチェック: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'モーメントの読み込みに失敗しました';
+
+  @override
+  String get noMomentsMatchFilters => 'フィルターに一致するモーメントがありません';
+
+  @override
+  String get beFirstToShareMoment => '最初のモーメントを共有しましょう！';
+
+  @override
+  String get tryDifferentSearch => '別の検索語を試してください';
+
+  @override
+  String get tryAdjustingFilters => 'フィルターを調整してみてください';
+
+  @override
+  String get noSavedMoments => '保存したモーメントはありません';
+
+  @override
+  String get tapBookmarkToSave => 'ブックマークアイコンをタップしてモーメントを保存';
+
+  @override
+  String get failedToLoadVideo => '動画の読み込みに失敗しました';
+
+  @override
+  String get titleRequired => 'タイトルは必須です';
+
+  @override
+  String titleTooLong(int max) {
+    return 'タイトルは$max文字以下にしてください';
+  }
+
+  @override
+  String get descriptionRequired => '説明は必須です';
+
+  @override
+  String descriptionTooLong(int max) {
+    return '説明は$max文字以下にしてください';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => '予約日は未来の日付にしてください';
+
+  @override
+  String get recent => '最新';
+
+  @override
+  String get popular => '人気';
+
+  @override
+  String get trending => 'トレンド';
+
+  @override
+  String get mostRecent => '最新順';
+
+  @override
+  String get mostPopular => '人気順';
+
+  @override
+  String get allTime => '全期間';
+
+  @override
+  String get today => '今日';
+
+  @override
+  String get thisWeek => '今週';
+
+  @override
+  String get thisMonth => '今月';
+
+  @override
+  String replyingTo(String userName) {
+    return '$userNameに返信';
+  }
+
+  @override
+  String get listView => 'リスト';
+
+  @override
+  String get quickMatch => 'クイックマッチ';
+
+  @override
+  String get onlineNow => 'オンライン';
+
+  @override
+  String speaksLanguage(String language) {
+    return '$languageを話す';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return '$languageを学習中';
+  }
+
+  @override
+  String get noPartnersFound => 'パートナーが見つかりません';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return '$learningのネイティブや$nativeを学んでいるユーザーが見つかりません。';
+  }
+
+  @override
+  String get removeAllFilters => 'すべてのフィルターを解除';
+
+  @override
+  String get browseAllUsers => 'すべてのユーザーを見る';
+
+  @override
+  String get allCaughtUp => 'すべて確認済み！';
+
+  @override
+  String get loadingMore => '読み込み中...';
+
+  @override
+  String get findingMorePartners => 'もっと言語パートナーを探しています...';
+
+  @override
+  String get seenAllPartners => 'すべてのパートナーを確認しました。また後で確認してください！';
+
+  @override
+  String get startOver => '最初から';
+
+  @override
+  String get changeFilters => 'フィルターを変更';
+
+  @override
+  String get findingPartners => 'パートナーを探しています...';
+
+  @override
+  String get setLocationReminder => 'プロフィールで位置情報を設定すると、近くのユーザーが優先表示されます。';
+
+  @override
+  String get updateLocationReminder => 'プロフィール > 編集から位置情報を更新してください。';
+
+  @override
+  String get male => '男性';
+
+  @override
+  String get female => '女性';
+
+  @override
+  String get other => 'その他';
+
+  @override
+  String get browseMen => '男性を見る';
+
+  @override
+  String get browseWomen => '女性を見る';
+
+  @override
+  String get noMaleUsersFound => '男性ユーザーが見つかりません';
+
+  @override
+  String get noFemaleUsersFound => '女性ユーザーが見つかりません';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => '新規ユーザーのみ';
+
+  @override
+  String get showNewUsers => '過去6日以内に参加したユーザーを表示';
+
+  @override
+  String get prioritizeNearby => '近くを優先';
+
+  @override
+  String get showNearbyFirst => '近くのユーザーを優先表示';
+
+  @override
+  String get setLocationToEnable => 'この機能を有効にするには位置情報を設定してください';
+
+  @override
+  String get radius => '範囲';
+
+  @override
+  String get findingYourLocation => '位置を特定中...';
+
+  @override
+  String get enableLocationForDistance => '距離を確認するために位置情報を有効にする';
+
+  @override
+  String get enableLocationDescription => 'GPSを有効にするとパートナーまでの正確な距離が表示されます。';
+
+  @override
+  String get enableGps => 'GPSを有効にする';
+
+  @override
+  String get browseByCityCountry => '都市/国で探す';
+
+  @override
+  String get peopleNearby => '近くの人';
+
+  @override
+  String get noNearbyUsersFound => '近くにユーザーが見つかりません';
+
+  @override
+  String get tryExpandingSearch => '検索範囲を広げるか、後でもう一度お試しください。';
+
+  @override
+  String get exploreByCity => '都市で探す';
+
+  @override
+  String get exploreByCurrentCity => 'インタラクティブマップでユーザーを探し、世界中の言語パートナーを見つけましょう。';
+
+  @override
+  String get interactiveWorldMap => 'インタラクティブ世界地図';
+
+  @override
+  String get searchByCityName => '都市名で検索';
+
+  @override
+  String get seeUserCountsPerCountry => '国別ユーザー数を確認';
+
+  @override
+  String get upgradeToVip => 'VIPにアップグレード';
+
+  @override
+  String get searchByCity => '都市を検索...';
+
+  @override
+  String usersWorldwide(String count) {
+    return '世界中の$count人';
+  }
+
+  @override
+  String get noUsersFound => 'ユーザーが見つかりません';
+
+  @override
+  String get tryDifferentCity => '別の都市や国を試してみてください';
+
+  @override
+  String usersCount(String count) {
+    return '$count人';
+  }
+
+  @override
+  String get searchCountry => '国を検索...';
+
+  @override
+  String get wave => '挨拶';
+
+  @override
+  String get newUser => 'NEW';
+
+  @override
+  String get warningPermanent => '警告：この操作は元に戻せません！';
+
+  @override
+  String get deleteAccountWarning => 'アカウントを削除すると完全に削除されます：\n\n• プロフィールとすべての個人データ\n• すべてのメッセージと会話\n• すべてのモーメントとストーリー\n• VIPサブスクリプション（返金なし）\n• すべてのフォロワーとフォロー\n\nこの操作は元に戻せません。';
+
+  @override
+  String get requiredForEmailOnly => 'メールアカウントのみ必要';
+
+  @override
+  String get pleaseEnterPassword => 'パスワードを入力してください';
+
+  @override
+  String get typeDELETE => 'DELETEと入力して確認';
+
+  @override
+  String get mustTypeDELETE => '確認のためDELETEと入力してください';
+
+  @override
+  String get deletingAccount => 'アカウント削除中...';
+
+  @override
+  String get deleteMyAccountPermanently => 'アカウントを完全に削除';
+
+  @override
+  String get whatsYourNativeLanguage => 'あなたの母語は？';
+
+  @override
+  String get helpsMatchWithLearners => '学習者とのマッチングに役立ちます';
+
+  @override
+  String get whatAreYouLearning => '何を学んでいますか？';
+
+  @override
+  String get connectWithNativeSpeakers => 'ネイティブスピーカーとつなげます';
+
+  @override
+  String get selectLearningLanguage => '学習中の言語を選択してください';
+
+  @override
+  String get selectCurrentLevel => '現在のレベルを選択してください';
+
+  @override
+  String get beginner => '初級 — いくつかの単語を知っている';
+
+  @override
+  String get elementary => '初中級 — 簡単な文が作れる';
+
+  @override
+  String get intermediate => '中級 — 基本的な会話ができる';
+
+  @override
+  String get upperIntermediate => '中上級 — ほとんどの話題を議論できる';
+
+  @override
+  String get advanced => '上級 — 流暢に話せる';
+
+  @override
+  String get proficient => '熟達 — ネイティブレベル';
+
+  @override
+  String get showingPartnersByDistance => '距離順でパートナーを表示中';
+
+  @override
+  String get enableLocationForResults => '距離ベースの結果を得るには位置情報を有効にしてください';
+
+  @override
+  String get enable => '有効にする';
+
+  @override
+  String get locationNotSet => '位置情報未設定';
+
+  @override
+  String get tellUsAboutYourself => '自己紹介をしましょう';
+
+  @override
+  String get justACoupleQuickThings => '簡単な質問です';
+
+  @override
+  String get gender => '性別';
+
+  @override
+  String get birthDate => '生年月日';
+
+  @override
+  String get selectYourBirthDate => '生年月日を選択';
+
+  @override
+  String get continueButton => '続ける';
+
+  @override
+  String get pleaseSelectGender => '性別を選択してください';
+
+  @override
+  String get pleaseSelectBirthDate => '生年月日を選択してください';
+
+  @override
+  String get mustBe18 => '18歳以上である必要があります';
+
+  @override
+  String get invalidDate => '無効な日付';
+
+  @override
+  String get almostDone => 'もう少しです！';
+
+  @override
+  String get addPhotoLocationForMatches => '写真と位置を追加してマッチングを増やしましょう';
+
+  @override
+  String get addProfilePhoto => 'プロフィール写真を追加';
+
+  @override
+  String get optionalUpTo6Photos => '任意 — 最大6枚';
+
+  @override
+  String get maximum6Photos => '最大6枚まで';
+
+  @override
+  String get tapToDetectLocation => 'タップして位置を検出';
+
+  @override
+  String get optionalHelpsNearbyPartners => '任意 — 近くのパートナーを見つけるのに役立ちます';
+
+  @override
+  String get startLearning => '学習を始めよう！';
+
+  @override
+  String get photoLocationOptional => '写真と位置は任意です — 後で追加できます';
+
+  @override
+  String get pleaseAcceptTerms => '利用規約に同意してください';
+
+  @override
+  String get iAgreeToThe => '同意します：';
+
+  @override
+  String get termsOfService => '利用規約';
+
+  @override
+  String get tapToSelectLanguage => 'タップして言語を選択';
+
+  @override
+  String yourLevelIn(String language) {
+    return '$languageのレベル（任意）';
+  }
+
+  @override
+  String get yourCurrentLevel => '現在のレベル';
+
+  @override
+  String get nativeCannotBeSameAsLearning => '母語と学習言語は同じにできません';
+
+  @override
+  String get learningCannotBeSameAsNative => '学習言語と母語は同じにできません';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'ステップ$current/$total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Googleで続ける';
+
+  @override
+  String get registerLink => '登録';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'メールアドレスとパスワードを入力してください';
+
+  @override
+  String get pleaseEnterValidEmail => '有効なメールアドレスを入力してください';
+
+  @override
+  String get loginSuccessful => 'ログイン成功！';
+
+  @override
+  String get stepOneOfTwo => 'ステップ1/2';
+
+  @override
+  String get createYourAccount => 'アカウント作成';
+
+  @override
+  String get basicInfoToGetStarted => '始めるための基本情報';
+
+  @override
+  String get emailVerifiedLabel => 'メール（認証済み）';
+
+  @override
+  String get nameLabel => '名前';
+
+  @override
+  String get yourDisplayName => '表示名';
+
+  @override
+  String get atLeast8Characters => '8文字以上';
+
+  @override
+  String get confirmPasswordHint => 'パスワード確認';
+
+  @override
+  String get nextButton => '次へ';
+
+  @override
+  String get pleaseEnterYourName => '名前を入力してください';
+
+  @override
+  String get pleaseEnterAPassword => 'パスワードを入力してください';
+
+  @override
+  String get passwordsDoNotMatch => 'パスワードが一致しません';
+
+  @override
+  String get otherGender => 'その他';
+
+  @override
+  String get continueWithGoogleAccount => 'Googleアカウントで続けて\nスムーズな体験をお楽しみください';
+
+  @override
+  String get signingYouIn => 'サインイン中...';
+
+  @override
+  String get backToSignInMethods => 'サインイン方法に戻る';
+
+  @override
+  String get securedByGoogle => 'Googleのセキュリティ';
+
+  @override
+  String get dataProtectedEncryption => '業界標準の暗号化でデータが保護されています';
+
+  @override
+  String get welcomeCompleteProfile => 'ようこそ！プロフィールを完成させてください';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'おかえりなさい、$nameさん！';
+  }
+
+  @override
+  String get continueWithAppleId => 'Apple IDで続けて\n安全な体験をお楽しみください';
+
+  @override
+  String get continueWithApple => 'Appleで続ける';
+
+  @override
+  String get securedByApple => 'Appleのセキュリティ';
+
+  @override
+  String get privacyProtectedApple => 'Apple サインインでプライバシーが保護されています';
+
+  @override
+  String get createAccount => 'アカウント作成';
+
+  @override
+  String get enterEmailToGetStarted => 'メールアドレスを入力して始めましょう';
+
+  @override
+  String get continueText => '続ける';
+
+  @override
+  String get pleaseEnterEmailAddress => 'メールアドレスを入力してください';
+
+  @override
+  String get verificationCodeSent => '認証コードをメールに送信しました！';
+
+  @override
+  String get forgotPasswordTitle => 'パスワードを忘れた';
+
+  @override
+  String get resetPasswordTitle => 'パスワードリセット';
+
+  @override
+  String get enterEmailForResetCode => 'メールアドレスを入力すると、パスワードリセットコードを送信します';
+
+  @override
+  String get sendResetCode => 'リセットコード送信';
+
+  @override
+  String get resetCodeSent => 'リセットコードをメールに送信しました！';
+
+  @override
+  String get rememberYourPassword => 'パスワードを覚えていますか？';
+
+  @override
+  String get verifyCode => 'コード確認';
+
+  @override
+  String get enterResetCode => 'リセットコード入力';
+
+  @override
+  String get weSentCodeTo => '6桁のコードを送信しました';
+
+  @override
+  String get pleaseEnterAll6Digits => '6桁すべて入力してください';
+
+  @override
+  String get codeVerifiedCreatePassword => 'コード確認完了！新しいパスワードを作成してください';
+
+  @override
+  String get verify => '確認';
+
+  @override
+  String get didntReceiveCode => 'コードが届きませんでしたか？';
+
+  @override
+  String get resend => '再送信';
+
+  @override
+  String resendWithTimer(String timer) {
+    return '再送信（$timer秒）';
+  }
+
+  @override
+  String get resetCodeResent => 'リセットコードを再送信しました！';
+
+  @override
+  String get verifyEmail => 'メール認証';
+
+  @override
+  String get verifyYourEmail => 'メールアドレスを認証';
+
+  @override
+  String get emailVerifiedSuccessfully => 'メール認証が完了しました！';
+
+  @override
+  String get verificationCodeResent => '認証コードを再送信しました！';
+
+  @override
+  String get createNewPassword => '新しいパスワード作成';
+
+  @override
+  String get enterNewPasswordBelow => '以下に新しいパスワードを入力してください';
+
+  @override
+  String get newPassword => '新しいパスワード';
+
+  @override
+  String get confirmPasswordLabel => 'パスワード確認';
+
+  @override
+  String get pleaseFillAllFields => 'すべてのフィールドを入力してください';
+
+  @override
+  String get passwordResetSuccessful => 'パスワードのリセットに成功しました！新しいパスワードでログインしてください';
+
+  @override
+  String get privacyTitle => 'プライバシー';
+
+  @override
+  String get profileVisibility => 'プロフィール表示設定';
+
+  @override
+  String get showCountryRegion => '国/地域を表示';
+
+  @override
+  String get showCountryRegionDesc => 'プロフィールに国を表示します';
+
+  @override
+  String get showCity => '都市を表示';
+
+  @override
+  String get showCityDesc => 'プロフィールに都市を表示します';
+
+  @override
+  String get showAge => '年齢を表示';
+
+  @override
+  String get showAgeDesc => 'プロフィールに年齢を表示します';
+
+  @override
+  String get showZodiacSign => '星座を表示';
+
+  @override
+  String get showZodiacSignDesc => 'プロフィールに星座を表示します';
+
+  @override
+  String get onlineStatusSection => 'オンライン状態';
+
+  @override
+  String get showOnlineStatus => 'オンライン状態を表示';
+
+  @override
+  String get showOnlineStatusDesc => 'オンライン時に他のユーザーに表示します';
+
+  @override
+  String get otherSettings => 'その他の設定';
+
+  @override
+  String get showGiftingLevel => 'ギフトレベルを表示';
+
+  @override
+  String get showGiftingLevelDesc => 'ギフトレベルバッジを表示します';
+
+  @override
+  String get birthdayNotifications => '誕生日通知';
+
+  @override
+  String get birthdayNotificationsDesc => '誕生日に通知を受け取ります';
+
+  @override
+  String get personalizedAds => 'パーソナライズ広告';
+
+  @override
+  String get personalizedAdsDesc => 'パーソナライズされた広告を許可します';
+
+  @override
+  String get saveChanges => '変更を保存';
+
+  @override
+  String get privacySettingsSaved => 'プライバシー設定が保存されました';
+
+  @override
+  String get locationSection => '位置情報';
+
+  @override
+  String get updateLocation => '位置情報を更新';
+
+  @override
+  String get updateLocationDesc => '現在の位置情報を更新します';
+
+  @override
+  String get currentLocation => '現在の位置';
+
+  @override
+  String get locationNotAvailable => '位置情報は利用できません';
+
+  @override
+  String get locationUpdated => '位置情報が更新されました';
+
+  @override
+  String get locationPermissionDenied => '位置情報の許可が拒否されました。設定で有効にしてください。';
+
+  @override
+  String get locationServiceDisabled => '位置情報サービスが無効です。有効にしてください。';
+
+  @override
+  String get updatingLocation => '位置情報を更新中...';
+
+  @override
+  String get locationCouldNotBeUpdated => '位置情報を更新できませんでした';
 }

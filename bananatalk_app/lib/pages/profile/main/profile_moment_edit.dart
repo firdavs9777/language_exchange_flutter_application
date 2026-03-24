@@ -245,9 +245,12 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
             ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: Spacing.screenPadding,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Padding(
+            padding: Spacing.screenPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -490,6 +493,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

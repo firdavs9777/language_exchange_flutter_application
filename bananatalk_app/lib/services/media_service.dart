@@ -174,12 +174,6 @@ class MediaService {
       // Get file size for progress tracking
       final fileSize = await mediaFile.length();
 
-      debugPrint('📤 Sending media message:');
-      debugPrint('  - Receiver: $receiverId');
-      debugPrint('  - File: $fileName');
-      debugPrint('  - File size: ${formatFileSize(fileSize)}');
-      debugPrint('  - MIME type: $mimeType');
-      debugPrint('  - Message text: ${messageText ?? "(none)"}');
 
       // Report initial progress
       onProgress?.call(0, fileSize);
@@ -204,8 +198,6 @@ class MediaService {
         headers: streamedResponse.headers,
       );
 
-      debugPrint('📥 Response status: ${response.statusCode}');
-      debugPrint('📥 Response body: ${response.body}');
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -223,7 +215,6 @@ class MediaService {
         };
       }
     } catch (e) {
-      debugPrint('❌ Error in sendMessageWithMedia: $e');
       return {
         'success': false,
         'error': 'Network error: ${e.toString()}',
@@ -271,12 +262,9 @@ class MediaService {
         }),
       );
 
-      debugPrint('📍 Location API response status: ${response.statusCode}');
-      debugPrint('📍 Location API response body: ${response.body}');
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        debugPrint('📍 Location API parsed data: ${data['data']}');
         return {
           'success': true,
           'data': data['data'],

@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/services/location_service.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePrivacy extends ConsumerStatefulWidget {
@@ -16,16 +19,21 @@ class ProfilePrivacy extends ConsumerStatefulWidget {
 class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
   bool _isLoading = false;
   bool _isSaving = false;
+  bool _isUpdatingLocation = false;
 
-  // Privacy settings (matching backend model)
+  // Privacy settings — defaults match backend (all true)
   bool _showCountryRegion = true;
   bool _showCity = true;
-  bool _showAge = false;
+  bool _showAge = true;
   bool _showZodiac = true;
-  bool _showOnlineStatus = false;
+  bool _showOnlineStatus = true;
   bool _showGiftingLevel = true;
   bool _birthdayNotification = true;
-  bool _personalizedAds = false;
+  bool _personalizedAds = true;
+
+  // Current location info
+  String? _currentCity;
+  String? _currentCountry;
 
   @override
   void initState() {
@@ -39,22 +47,31 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
     try {
       final userAsync = ref.read(userProvider);
       userAsync.whenData((user) {
-        if (user?.privacySettings != null && mounted) {
-          final settings = user!.privacySettings!;
-          setState(() {
-            _showCountryRegion = settings.showCountryRegion;
-            _showCity = settings.showCity;
-            _showAge = settings.showAge;
-            _showZodiac = settings.showZodiac;
-            _showOnlineStatus = settings.showOnlineStatus;
-            _showGiftingLevel = settings.showGiftingLevel;
-            _birthdayNotification = settings.birthdayNotification;
-            _personalizedAds = settings.personalizedAds;
-          });
+        if (mounted) {
+          // Load privacy settings
+          if (user.privacySettings != null) {
+            final settings = user.privacySettings!;
+            setState(() {
+              _showCountryRegion = settings.showCountryRegion;
+              _showCity = settings.showCity;
+              _showAge = settings.showAge;
+              _showZodiac = settings.showZodiac;
+              _showOnlineStatus = settings.showOnlineStatus;
+              _showGiftingLevel = settings.showGiftingLevel;
+              _birthdayNotification = settings.birthdayNotification;
+              _personalizedAds = settings.personalizedAds;
+            });
+          }
+          // Load current location
+          if (user.location.city.isNotEmpty || user.location.country.isNotEmpty) {
+            setState(() {
+              _currentCity = user.location.city.isNotEmpty ? user.location.city : null;
+              _currentCountry = user.location.country.isNotEmpty ? user.location.country : null;
+            });
+          }
         }
       });
     } catch (e) {
-      debugPrint('Error loading privacy settings: $e');
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);
@@ -64,6 +81,8 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
@@ -71,7 +90,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
         backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         title: Text(
-          'Privacy',
+          l10n.privacyTitle,
           style: context.titleLarge,
         ),
       ),
@@ -81,35 +100,41 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Location Section
+                  _buildSectionHeader(l10n.locationSection),
+                  _buildLocationTile(l10n),
+
+                  Spacing.gapLG,
+
                   // Profile Visibility Section
-                  _buildSectionHeader('Profile Visibility'),
+                  _buildSectionHeader(l10n.profileVisibility),
                   _buildSettingTile(
-                    title: 'Show Country/Region',
-                    subtitle: 'Display your country on your profile',
+                    title: l10n.showCountryRegion,
+                    subtitle: l10n.showCountryRegionDesc,
                     value: _showCountryRegion,
                     onChanged: (value) {
                       setState(() => _showCountryRegion = value);
                     },
                   ),
                   _buildSettingTile(
-                    title: 'Show City',
-                    subtitle: 'Display your city on your profile',
+                    title: l10n.showCity,
+                    subtitle: l10n.showCityDesc,
                     value: _showCity,
                     onChanged: (value) {
                       setState(() => _showCity = value);
                     },
                   ),
                   _buildSettingTile(
-                    title: 'Show Age',
-                    subtitle: 'Display your age on your profile',
+                    title: l10n.showAge,
+                    subtitle: l10n.showAgeDesc,
                     value: _showAge,
                     onChanged: (value) {
                       setState(() => _showAge = value);
                     },
                   ),
                   _buildSettingTile(
-                    title: 'Show Zodiac Sign',
-                    subtitle: 'Display your zodiac sign on your profile',
+                    title: l10n.showZodiacSign,
+                    subtitle: l10n.showZodiacSignDesc,
                     value: _showZodiac,
                     onChanged: (value) {
                       setState(() => _showZodiac = value);
@@ -119,10 +144,10 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                   Spacing.gapLG,
 
                   // Online Status Section
-                  _buildSectionHeader('Online Status'),
+                  _buildSectionHeader(l10n.onlineStatusSection),
                   _buildSettingTile(
-                    title: 'Show Online Status',
-                    subtitle: 'Let others see when you are online',
+                    title: l10n.showOnlineStatus,
+                    subtitle: l10n.showOnlineStatusDesc,
                     value: _showOnlineStatus,
                     onChanged: (value) {
                       setState(() => _showOnlineStatus = value);
@@ -132,26 +157,26 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                   Spacing.gapLG,
 
                   // Other Settings Section
-                  _buildSectionHeader('Other Settings'),
+                  _buildSectionHeader(l10n.otherSettings),
                   _buildSettingTile(
-                    title: 'Show Gifting Level',
-                    subtitle: 'Display your gifting level badge',
+                    title: l10n.showGiftingLevel,
+                    subtitle: l10n.showGiftingLevelDesc,
                     value: _showGiftingLevel,
                     onChanged: (value) {
                       setState(() => _showGiftingLevel = value);
                     },
                   ),
                   _buildSettingTile(
-                    title: 'Birthday Notifications',
-                    subtitle: 'Receive notifications on your birthday',
+                    title: l10n.birthdayNotifications,
+                    subtitle: l10n.birthdayNotificationsDesc,
                     value: _birthdayNotification,
                     onChanged: (value) {
                       setState(() => _birthdayNotification = value);
                     },
                   ),
                   _buildSettingTile(
-                    title: 'Personalized Ads',
-                    subtitle: 'Allow personalized advertisements',
+                    title: l10n.personalizedAds,
+                    subtitle: l10n.personalizedAdsDesc,
                     value: _personalizedAds,
                     onChanged: (value) {
                       setState(() => _personalizedAds = value);
@@ -184,7 +209,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                               ),
                             )
                           : Text(
-                              'Save Changes',
+                              l10n.saveChanges,
                               style: context.titleMedium.copyWith(
                                 color: AppColors.white,
                               ),
@@ -235,7 +260,148 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
     );
   }
 
+  Widget _buildLocationTile(AppLocalizations l10n) {
+    final hasLocation = _currentCity != null || _currentCountry != null;
+    final locationDisplay = hasLocation
+        ? [
+            if (_currentCity != null) _currentCity!,
+            if (_currentCountry != null) _currentCountry!,
+          ].join(', ')
+        : l10n.locationNotAvailable;
+
+    return Container(
+      color: context.cardBackground,
+      child: ListTile(
+        title: Text(
+          l10n.updateLocation,
+          style: context.titleSmall,
+        ),
+        subtitle: Text(
+          locationDisplay,
+          style: context.caption.copyWith(
+            color: hasLocation ? AppColors.success : context.textMuted,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: _isUpdatingLocation
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Icon(Icons.my_location_rounded, color: AppColors.primary, size: 22),
+        onTap: _isUpdatingLocation ? null : _updateLocation,
+      ),
+    );
+  }
+
+  Future<void> _updateLocation() async {
+    final l10n = AppLocalizations.of(context)!;
+    setState(() => _isUpdatingLocation = true);
+
+    try {
+      final locationService = LocationService();
+
+      // Check and request permission
+      final hasPermission = await locationService.checkAndRequestPermission();
+      if (!hasPermission) {
+        if (mounted) {
+          final permStatus = await locationService.getPermissionStatus();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.locationPermissionDenied),
+              backgroundColor: Colors.orange,
+              behavior: SnackBarBehavior.floating,
+              action: permStatus.isPermanentlyDenied
+                  ? SnackBarAction(
+                      label: l10n.openSettings,
+                      textColor: Colors.white,
+                      onPressed: () => LocationService().openSettings(),
+                    )
+                  : null,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Get current position
+      final position = await locationService.getCurrentPosition(forceRefresh: true);
+      if (position == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.locationServiceDisabled),
+              backgroundColor: Colors.orange,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Reverse geocode to get city and country
+      String? city;
+      String? country;
+      try {
+        final placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+          city = place.locality ?? place.subAdministrativeArea;
+          country = place.country;
+        }
+      } catch (_) {
+        // Geocoding failed, still update coordinates
+      }
+
+      // Update on backend
+      final authService = ref.read(authServiceProvider);
+      await authService.updateUserHometown(
+        city: city ?? '',
+        country: country ?? '',
+        latitude: position.latitude,
+        longitude: position.longitude,
+      );
+
+      // Refresh user data
+      ref.invalidate(userProvider);
+
+      if (mounted) {
+        setState(() {
+          _currentCity = city;
+          _currentCountry = country;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.locationUpdated),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${l10n.locationCouldNotBeUpdated}: ${e.toString().replaceFirst('Exception: ', '')}'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdatingLocation = false);
+      }
+    }
+  }
+
   Future<void> _savePrivacySettings() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() => _isSaving = true);
 
     try {
@@ -267,8 +433,8 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Privacy settings saved'),
+          SnackBar(
+            content: Text(l10n.privacySettingsSaved),
             backgroundColor: AppColors.success,
             behavior: SnackBarBehavior.floating,
           ),
@@ -279,7 +445,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to save: ${e.toString().replaceFirst('Exception: ', '')}'),
+            content: Text('${l10n.failedToSave}: ${e.toString().replaceFirst('Exception: ', '')}'),
             backgroundColor: Colors.red,
             behavior: SnackBarBehavior.floating,
           ),

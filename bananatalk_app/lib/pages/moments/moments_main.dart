@@ -169,7 +169,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 onChanged: _performSearch,
               )
             : Text(
-                'Moments',
+                AppLocalizations.of(context)!.moments,
                 style: context.displaySmall,
               ),
         actions: [
@@ -371,14 +371,14 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             ),
             Spacing.gapLG,
             Text(
-              'Failed to load moments',
+              AppLocalizations.of(context)!.failedToLoadMoments,
               style: context.bodyLarge.copyWith(color: context.textSecondary),
             ),
             Spacing.gapSM,
             TextButton(
               onPressed: _refresh,
               child: Text(
-                'Retry',
+                AppLocalizations.of(context)!.retry,
                 style: context.labelLarge.copyWith(color: context.primaryColor),
               ),
             ),
@@ -411,19 +411,19 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
               Spacing.gapLG,
               Text(
                 isSearching
-                    ? 'No results found'
+                    ? AppLocalizations.of(context)!.noResultsFound
                     : currentFilter.hasActiveFilters
-                    ? 'No moments match your filters'
-                    : 'No moments yet',
+                    ? AppLocalizations.of(context)!.noMomentsMatchFilters
+                    : AppLocalizations.of(context)!.noMomentsYet,
                 style: context.titleLarge,
               ),
               Spacing.gapSM,
               Text(
                 isSearching
-                    ? 'Try a different search term'
+                    ? AppLocalizations.of(context)!.tryDifferentSearch
                     : currentFilter.hasActiveFilters
-                    ? 'Try adjusting your filters'
-                    : 'Be the first to share a moment!',
+                    ? AppLocalizations.of(context)!.tryAdjustingFilters
+                    : AppLocalizations.of(context)!.beFirstToShareMoment,
                 style: context.bodySmall,
               ),
               if (currentFilter.hasActiveFilters) ...[

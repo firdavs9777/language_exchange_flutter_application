@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -22,11 +24,13 @@ enum PartnerViewMode { list, swipe }
 class PartnerDiscoveryTab extends ConsumerStatefulWidget {
   final Map<String, dynamic> filters;
   final String searchQuery;
+  final VoidCallback? onClearFilters;
 
   const PartnerDiscoveryTab({
     super.key,
     required this.filters,
     required this.searchQuery,
+    this.onClearFilters,
   });
 
   @override
@@ -48,6 +52,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   PartnerViewMode _viewMode = PartnerViewMode.list; // Default to list view
   static const _viewModeKey = 'partner_discovery_view_mode';
   final ScrollController _scrollController = ScrollController();
+
+  // Quick filter chips state
+  bool _quickOnlineOnly = false;
+  String? _quickNativeLanguage; // "Show users who speak X natively"
+  String? _quickLearningLanguage; // "Show users who are learning X"
 
   @override
   void initState() {
@@ -119,9 +128,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           _serverExcludedUsers = excluded;
         });
       }
-      debugPrint('📋 Loaded ${excluded.length} excluded users from server');
     } catch (e) {
-      debugPrint('❌ Error loading excluded users: $e');
     }
   }
 
@@ -165,9 +172,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   /// So when the user selects "Native Language: French" in filter (wants to SEE French speakers),
   /// we pass it as learningLanguage to the API.
   PartnerFilterParams _buildFilterParams(String? myNative, String? myLearning) {
-    debugPrint('🎯 _buildFilterParams called');
-    debugPrint('   My profile: native=$myNative, learning=$myLearning');
-    debugPrint('   UI filters received: ${widget.filters}');
     // Check if filter screen has language selections
     // Filter native = "show users who speak X natively"
     // Filter learning = "show users who are learning X"
@@ -199,10 +203,16 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       apiNativeParam = myNative;
     }
 
-    debugPrint('🔧 Filter transform:');
-    debugPrint('   UI filterNative=$filterNative → API learningLanguage=$apiLearningParam');
-    debugPrint('   UI filterLearning=$filterLearning → API nativeLanguage=$apiNativeParam');
-    debugPrint('   Mode: ${(hasFilterNative || hasFilterLearning) ? 'EXPLICIT FILTER' : 'EXCHANGE MATCHING'}');
+
+    // Quick filter chips override full filter screen values
+    if (_quickNativeLanguage != null) {
+      // Quick chip: "Speaks X" → pass as learningLanguage to API (inverted semantics)
+      apiLearningParam = _quickNativeLanguage;
+    }
+    if (_quickLearningLanguage != null) {
+      // Quick chip: "Learning X" → pass as nativeLanguage to API (inverted semantics)
+      apiNativeParam = _quickLearningLanguage;
+    }
 
     final params = PartnerFilterParams(
       nativeLanguage: apiNativeParam,
@@ -210,20 +220,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       gender: widget.filters['gender']?.toString(),
       minAge: widget.filters['minAge'] as int?,
       maxAge: widget.filters['maxAge'] as int?,
-      onlineOnly: widget.filters['onlineOnly'] == true,
+      onlineOnly: widget.filters['onlineOnly'] == true || _quickOnlineOnly,
       country: widget.filters['country']?.toString(),
       languageLevel: widget.filters['languageLevel']?.toString(),
       search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
     );
 
-    debugPrint('📤 Final PartnerFilterParams:');
-    debugPrint('   nativeLanguage: ${params.nativeLanguage}');
-    debugPrint('   learningLanguage: ${params.learningLanguage}');
-    debugPrint('   gender: ${params.gender}');
-    debugPrint('   minAge: ${params.minAge}');
-    debugPrint('   maxAge: ${params.maxAge}');
-    debugPrint('   country: ${params.country}');
-    debugPrint('   onlineOnly: ${params.onlineOnly}');
 
     return params;
   }
@@ -254,7 +256,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         message: '👋',  // Wave emoji - renders as big sticker
       );
     } catch (e) {
-      debugPrint('Error sending wave sticker: $e');
     }
   }
 
@@ -266,7 +267,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
     // Persist to server in background
     InteractionService.waveUser(community.id).then((result) {
-      debugPrint('👋 Wave result: $result');
     });
 
     // Navigate to chat
@@ -294,7 +294,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
     // Persist to server in background
     InteractionService.waveUser(community.id).then((result) {
-      debugPrint('👋 Wave (swipe) result: $result');
     });
 
     // Update state to show next card
@@ -385,12 +384,52 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
 
         // Apply session-based filters (skipped, waved, search)
-        final filteredCommunities = _filterSessionUsers(
+        var filteredCommunities = _filterSessionUsers(
           partnerState.users,
           blockedUserIds,
         );
 
-        debugPrint('🔍 Partner filter (server-side): ${partnerState.users.length} users, ${filteredCommunities.length} after session filter');
+        // Client-side: filter new users only
+        if (widget.filters['newUsersOnly'] == true) {
+          filteredCommunities = filteredCommunities
+              .where((u) => u.isNewUser)
+              .toList();
+        }
+
+        // Client-side: prioritize nearby (sort by distance from current user)
+        if (widget.filters['prioritizeNearby'] == true) {
+          final myCoords = currentUser.location.coordinates;
+          final myHasCoords = myCoords.length >= 2 && (myCoords[0] != 0.0 || myCoords[1] != 0.0);
+
+          filteredCommunities.sort((a, b) {
+            final aCoords = a.location.coordinates;
+            final bCoords = b.location.coordinates;
+            final aHasCoords = aCoords.length >= 2 && (aCoords[0] != 0.0 || aCoords[1] != 0.0);
+            final bHasCoords = bCoords.length >= 2 && (bCoords[0] != 0.0 || bCoords[1] != 0.0);
+
+            // Users without coordinates go to the bottom
+            if (aHasCoords && !bHasCoords) return -1;
+            if (!aHasCoords && bHasCoords) return 1;
+            if (!aHasCoords && !bHasCoords) return 0;
+
+            // If current user has coordinates, sort by distance
+            if (myHasCoords) {
+              final aDist = _haversineDistance(myCoords[0], myCoords[1], aCoords[0], aCoords[1]);
+              final bDist = _haversineDistance(myCoords[0], myCoords[1], bCoords[0], bCoords[1]);
+              return aDist.compareTo(bDist);
+            }
+
+            // Fallback: same country first
+            final myCountry = currentUser.location.country;
+            if (myCountry.isNotEmpty) {
+              final aMatch = a.location.country == myCountry;
+              final bMatch = b.location.country == myCountry;
+              if (aMatch && !bMatch) return -1;
+              if (!aMatch && bMatch) return 1;
+            }
+            return 0;
+          });
+        }
 
         // Load more when running low on users
         // But don't load more if server returned 0 users (search/filters matched nothing)
@@ -411,15 +450,24 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           return _buildEmptyState();
         }
 
+        // Check if user has location set (for nearby banner)
+        final myCoords = currentUser.location.coordinates;
+        final userHasLocation = myCoords.length >= 2 && (myCoords[0] != 0.0 || myCoords[1] != 0.0);
+
         // Build content based on view mode
         return Column(
           children: [
             // View mode toggle
             _buildViewToggle(),
+            // Quick filter chips
+            _buildQuickFilterChips(currentUser),
+            // Location reminder when prioritize nearby is on but no location
+            if (widget.filters['prioritizeNearby'] == true && !userHasLocation)
+              _buildLocationReminder(),
             // Content
             Expanded(
               child: _viewMode == PartnerViewMode.list
-                  ? _buildListView(filteredCommunities, partnerState.isLoadingMore, partnerState.hasMore)
+                  ? _buildListView(filteredCommunities, partnerState.isLoadingMore, partnerState.hasMore, currentUser)
                   : _buildCardStack(filteredCommunities, partnerState.isLoadingMore),
             ),
           ],
@@ -448,7 +496,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               children: [
                 _buildViewModeButton(
                   icon: Icons.view_list_rounded,
-                  label: 'List',
+                  label: AppLocalizations.of(context)!.listView,
                   isSelected: _viewMode == PartnerViewMode.list,
                   onTap: () {
                     if (_viewMode != PartnerViewMode.list) _toggleViewMode();
@@ -456,7 +504,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 ),
                 _buildViewModeButton(
                   icon: Icons.style_rounded,
-                  label: 'Quick Match',
+                  label: AppLocalizations.of(context)!.quickMatch,
                   isSelected: _viewMode == PartnerViewMode.swipe,
                   onTap: () {
                     if (_viewMode != PartnerViewMode.swipe) _toggleViewMode();
@@ -507,8 +555,167 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     );
   }
 
+  /// Build quick filter chips
+  Widget _buildQuickFilterChips(dynamic currentUser) {
+    final String userLearning = currentUser.language_to_learn ?? '';
+    final String userNative = currentUser.native_language ?? '';
+
+    return SizedBox(
+      height: 44,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          // Online Now chip
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: FilterChip(
+              label: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: const BoxDecoration(
+                      color: AppColors.success,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(AppLocalizations.of(context)!.onlineNow),
+                ],
+              ),
+              selected: _quickOnlineOnly,
+              onSelected: (selected) {
+                setState(() => _quickOnlineOnly = selected);
+                _lastFilters = null; // Force reload
+              },
+              selectedColor: context.primaryColor,
+              labelStyle: TextStyle(
+                color: _quickOnlineOnly ? Colors.white : context.textPrimary,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
+              backgroundColor: context.containerColor,
+              side: BorderSide(
+                color: _quickOnlineOnly ? context.primaryColor : context.dividerColor,
+              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              showCheckmark: false,
+            ),
+          ),
+          // "Speaks [user's learning language]" chip
+          if (userLearning.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: FilterChip(
+                label: Text(AppLocalizations.of(context)!.speaksLanguage(_capitalizeFirst(userLearning))),
+                selected: _quickNativeLanguage == userLearning,
+                onSelected: (selected) {
+                  setState(() {
+                    _quickNativeLanguage = selected ? userLearning : null;
+                  });
+                  _lastFilters = null; // Force reload
+                },
+                selectedColor: context.primaryColor,
+                labelStyle: TextStyle(
+                  color: _quickNativeLanguage == userLearning ? Colors.white : context.textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+                backgroundColor: context.containerColor,
+                side: BorderSide(
+                  color: _quickNativeLanguage == userLearning ? context.primaryColor : context.dividerColor,
+                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                showCheckmark: false,
+              ),
+            ),
+          // "Learning [user's native language]" chip
+          if (userNative.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: FilterChip(
+                label: Text(AppLocalizations.of(context)!.learningLanguage(_capitalizeFirst(userNative))),
+                selected: _quickLearningLanguage == userNative,
+                onSelected: (selected) {
+                  setState(() {
+                    _quickLearningLanguage = selected ? userNative : null;
+                  });
+                  _lastFilters = null; // Force reload
+                },
+                selectedColor: context.primaryColor,
+                labelStyle: TextStyle(
+                  color: _quickLearningLanguage == userNative ? Colors.white : context.textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+                backgroundColor: context.containerColor,
+                side: BorderSide(
+                  color: _quickLearningLanguage == userNative ? context.primaryColor : context.dividerColor,
+                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                showCheckmark: false,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// Banner reminding user to set location for nearby feature
+  Widget _buildLocationReminder() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.orange.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.location_off_rounded, size: 18, color: Colors.orange),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              AppLocalizations.of(context)!.setLocationReminder,
+              style: TextStyle(fontSize: 12, color: Colors.orange.shade800),
+            ),
+          ),
+          const SizedBox(width: 4),
+          GestureDetector(
+            onTap: () {
+              // Dismiss the banner by turning off prioritize nearby
+              setState(() {});
+            },
+            child: Icon(Icons.close, size: 16, color: Colors.orange.shade400),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Haversine distance in km between two coordinates
+  double _haversineDistance(double lat1, double lon1, double lat2, double lon2) {
+    const R = 6371.0; // Earth's radius in km
+    final dLat = _toRadians(lat2 - lat1);
+    final dLon = _toRadians(lon2 - lon1);
+    final a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+        math.cos(_toRadians(lat1)) * math.cos(_toRadians(lat2)) *
+        math.sin(dLon / 2) * math.sin(dLon / 2);
+    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
+  }
+
+  double _toRadians(double deg) => deg * math.pi / 180;
+
+  String _capitalizeFirst(String s) {
+    if (s.isEmpty) return s;
+    return '${s[0].toUpperCase()}${s.substring(1).toLowerCase()}';
+  }
+
   /// Build list view of partners
-  Widget _buildListView(List<Community> communities, bool isLoadingMore, bool hasMore) {
+  Widget _buildListView(List<Community> communities, bool isLoadingMore, bool hasMore, [dynamic currentUser]) {
     return RefreshIndicator(
       onRefresh: () async {
         ref.read(partnerFilterProvider.notifier).refresh();
@@ -540,6 +747,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           final community = communities[index];
           return PartnerListItem(
             user: community,
+            currentUser: currentUser is Community ? currentUser : null,
             onTap: () => _viewProfile(community),
             onWave: () => _onWaveFromButton(community),
             onMessage: () => _onMessage(community),
@@ -616,7 +824,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   _sessionSkippedUsers.add(currentCommunity.id);
                   // Persist to server in background
                   InteractionService.skipUser(currentCommunity.id).then((result) {
-                    debugPrint('⏭️ Skip (swipe) result: $result');
                   });
                   setState(() {
                     _isProcessingSwipe = false;
@@ -636,7 +843,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   _sessionSkippedUsers.add(currentCommunity.id);
                   // Persist to server in background
                   InteractionService.skipUser(currentCommunity.id).then((result) {
-                    debugPrint('⏭️ Skip (button) result: $result');
                   });
                   setState(() {});
                 },
@@ -681,6 +887,22 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     );
   }
 
+  /// Check if any non-default filters are active
+  bool get _hasActiveFilters {
+    final f = widget.filters;
+    return f['gender'] != null ||
+        f['nativeLanguage'] != null ||
+        f['learningLanguage'] != null ||
+        f['languageLevel'] != null ||
+        f['country'] != null ||
+        (f['minAge'] != null && f['minAge'] != 18) ||
+        (f['maxAge'] != null && f['maxAge'] != 100) ||
+        f['onlineOnly'] == true ||
+        _quickOnlineOnly ||
+        _quickNativeLanguage != null ||
+        _quickLearningLanguage != null;
+  }
+
   Widget _buildEmptyState() {
     final currentUserAsync = ref.watch(userProvider);
 
@@ -690,7 +912,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         final learningLang = currentUser.language_to_learn;
 
         return Center(
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(Spacing.xxxl),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -710,39 +932,95 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 ),
                 Spacing.gapXXL,
                 Text(
-                  'No partners found',
+                  AppLocalizations.of(context)!.noPartnersFound,
                   style: context.displaySmall,
                 ),
                 Spacing.gapMD,
                 Text(
                   learningLang.isNotEmpty && nativeLang.isNotEmpty
-                      ? 'No users found who speak $learningLang natively or want to learn $nativeLang.'
-                      : 'Try adjusting your filters to find language exchange partners.',
+                      ? AppLocalizations.of(context)!.noUsersFoundForLanguages(learningLang, nativeLang)
+                      : AppLocalizations.of(context)!.tryAdjustingFilters,
                   textAlign: TextAlign.center,
                   style: context.bodyMedium.copyWith(color: context.textSecondary),
                 ),
-                Spacing.gapSM,
-                Text(
-                  'Try adjusting your filters or check back later.',
-                  textAlign: TextAlign.center,
-                  style: context.bodySmall.copyWith(color: context.textMuted),
-                ),
                 Spacing.gapXXL,
-                ElevatedButton.icon(
-                  onPressed: () {
-                    ref.read(partnerFilterProvider.notifier).refresh();
-                  },
-                  icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('Refresh'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: context.primaryColor,
-                    foregroundColor: context.textOnPrimary,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Spacing.xxl,
-                      vertical: Spacing.md,
+                // Actionable buttons
+                if (_hasActiveFilters) ...[
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        // Clear quick filters
+                        setState(() {
+                          _quickOnlineOnly = false;
+                          _quickNativeLanguage = null;
+                          _quickLearningLanguage = null;
+                        });
+                        // Clear full filters
+                        widget.onClearFilters?.call();
+                      },
+                      icon: const Icon(Icons.filter_alt_off_rounded),
+                      label: Text(AppLocalizations.of(context)!.removeAllFilters),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: context.primaryColor,
+                        side: BorderSide(color: context.primaryColor),
+                        padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: AppRadius.borderMD,
+                        ),
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: AppRadius.borderMD,
+                  ),
+                  Spacing.gapSM,
+                ],
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      // Clear only language filters, keep other filters
+                      setState(() {
+                        _quickNativeLanguage = null;
+                        _quickLearningLanguage = null;
+                        _lastFilters = null;
+                      });
+                      ref.read(partnerFilterProvider.notifier).loadWithFilters(
+                        PartnerFilterParams(
+                          gender: widget.filters['gender']?.toString(),
+                          minAge: widget.filters['minAge'] as int?,
+                          maxAge: widget.filters['maxAge'] as int?,
+                          country: widget.filters['country']?.toString(),
+                          onlineOnly: _quickOnlineOnly,
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.people_rounded),
+                    label: Text(AppLocalizations.of(context)!.browseAllUsers),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: context.textSecondary,
+                      side: BorderSide(color: context.dividerColor),
+                      padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.borderMD,
+                      ),
+                    ),
+                  ),
+                ),
+                Spacing.gapSM,
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      ref.read(partnerFilterProvider.notifier).refresh();
+                    },
+                    icon: const Icon(Icons.refresh_rounded),
+                    label: Text(AppLocalizations.of(context)!.refresh),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: context.primaryColor,
+                      foregroundColor: context.textOnPrimary,
+                      padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.borderMD,
+                      ),
                     ),
                   ),
                 ),
@@ -765,12 +1043,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               ),
               Spacing.gapLG,
               Text(
-                'No partners found',
+                AppLocalizations.of(context)!.noPartnersFound,
                 style: context.titleLarge,
               ),
               Spacing.gapSM,
               Text(
-                'Try adjusting your filters or search.',
+                AppLocalizations.of(context)!.tryAdjustingFilters,
                 textAlign: TextAlign.center,
                 style: context.bodyMedium.copyWith(color: context.textSecondary),
               ),
@@ -805,14 +1083,14 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             ),
             Spacing.gapXXL,
             Text(
-              partnerState.hasMore ? 'Loading more...' : 'All caught up!',
+              partnerState.hasMore ? AppLocalizations.of(context)!.loadingMore : AppLocalizations.of(context)!.allCaughtUp,
               style: context.displaySmall,
             ),
             Spacing.gapMD,
             Text(
               partnerState.hasMore
-                  ? 'Finding more language partners for you...'
-                  : 'You\'ve seen all available partners. Check back later for more!',
+                  ? AppLocalizations.of(context)!.findingMorePartners
+                  : AppLocalizations.of(context)!.seenAllPartners,
               textAlign: TextAlign.center,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
@@ -834,10 +1112,35 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 _loadServerExcludedUsers();
               },
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Start Over'),
+              label: Text(AppLocalizations.of(context)!.startOver),
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.primaryColor,
                 foregroundColor: context.textOnPrimary,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.xxl,
+                  vertical: Spacing.md,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: AppRadius.borderMD,
+                ),
+              ),
+            ),
+            Spacing.gapSM,
+            OutlinedButton.icon(
+              onPressed: () {
+                // Clear quick filters and full filters
+                setState(() {
+                  _quickOnlineOnly = false;
+                  _quickNativeLanguage = null;
+                  _quickLearningLanguage = null;
+                });
+                widget.onClearFilters?.call();
+              },
+              icon: const Icon(Icons.tune_rounded),
+              label: Text(AppLocalizations.of(context)!.changeFilters),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: context.primaryColor,
+                side: BorderSide(color: context.primaryColor),
                 padding: const EdgeInsets.symmetric(
                   horizontal: Spacing.xxl,
                   vertical: Spacing.md,
@@ -863,7 +1166,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           ),
           Spacing.gapLG,
           Text(
-            'Finding partners...',
+            AppLocalizations.of(context)!.findingPartners,
             style: context.bodyMedium.copyWith(color: context.textSecondary),
           ),
         ],
@@ -885,7 +1188,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             ),
             Spacing.gapLG,
             Text(
-              'Something went wrong',
+              AppLocalizations.of(context)!.somethingWentWrong,
               style: context.titleLarge,
             ),
             Spacing.gapSM,
@@ -900,7 +1203,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 ref.read(partnerFilterProvider.notifier).refresh();
               },
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Retry'),
+              label: Text(AppLocalizations.of(context)!.retry),
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.primaryColor,
                 foregroundColor: context.textOnPrimary,

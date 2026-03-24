@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'media_option_button.dart';
 
 class ChatMediaPanel extends StatelessWidget {
@@ -17,18 +19,18 @@ class ChatMediaPanel extends StatelessWidget {
       animation: animationController,
       builder: (context, child) {
         return Container(
-          height: 180 * animationController.value,
+          height: 260 * animationController.value,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.surfaceColor,
             border: Border(
               top: BorderSide(
-                color: Colors.grey[200]!,
+                color: context.dividerColor,
                 width: 0.5,
               ),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: AppColors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, -2),
               ),
@@ -47,7 +49,7 @@ class ChatMediaPanel extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Colors.grey[800],
+                      color: context.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -80,8 +82,26 @@ class ChatMediaPanel extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // TODO: Re-enable when ready
-                  // Video, Document, Contact, Record Video - temporarily disabled
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      MediaOptionButton(
+                        icon: Icons.insert_drive_file,
+                        label: 'Document',
+                        color: Colors.orange,
+                        onTap: () => onMediaOption('document'),
+                      ),
+                      MediaOptionButton(
+                        icon: Icons.videocam,
+                        label: 'Video',
+                        color: Colors.blue,
+                        onTap: () => onMediaOption('video'),
+                      ),
+                      const SizedBox(width: 60), // spacer
+                      const SizedBox(width: 60), // spacer
+                    ],
+                  ),
                 ],
               ),
             ),

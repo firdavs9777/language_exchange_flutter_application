@@ -40,7 +40,6 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   }
 
   void _loadTopicUsers(String topicId) {
-    debugPrint('🏷️ Loading users for topic: $topicId (server-side)');
     ref.read(topicUsersProvider.notifier).loadTopic(topicId);
   }
 
@@ -62,7 +61,6 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
         message: 'Hi 👋',
       );
     } catch (e) {
-      debugPrint('Error sending Hi message: $e');
     }
   }
 

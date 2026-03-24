@@ -65,7 +65,6 @@ class ProfileVisitorService {
         };
       }
     } catch (e) {
-      debugPrint('Error recording profile visit: $e');
       return {'success': false, 'error': e.toString()};
     }
   }
@@ -185,7 +184,6 @@ class ProfileVisitorService {
         };
       }
     } catch (e) {
-      debugPrint('Error clearing visitors: $e');
       return {'success': false, 'error': e.toString()};
     }
   }
@@ -223,7 +221,6 @@ class ProfileVisitorService {
         };
       }
     } catch (e) {
-      debugPrint('Error fetching visited profiles: $e');
       return {'success': false, 'error': e.toString()};
     }
   }

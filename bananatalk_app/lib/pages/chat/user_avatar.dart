@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? profilePicture;
@@ -29,17 +31,17 @@ class UserAvatar extends StatelessWidget {
             imageBuilder: (context, imageProvider) => CircleAvatar(
               radius: radius,
               backgroundImage: imageProvider,
-              backgroundColor: Colors.grey[300],
+              backgroundColor: context.containerColor,
             ),
-            placeholder: (context, url) => _buildShimmerAvatar(),
-            errorWidget: (context, url, error) => _buildFallbackAvatar(),
+            placeholder: (context, url) => _buildShimmerAvatar(context),
+            errorWidget: (context, url, error) => _buildFallbackAvatar(context),
             fadeInDuration: const Duration(milliseconds: 150),
             fadeOutDuration: const Duration(milliseconds: 100),
             memCacheWidth: (radius * 4).toInt(), // 2x for retina
             memCacheHeight: (radius * 4).toInt(),
             cacheManager: AppImageCacheManager.instance,
           )
-        : _buildFallbackAvatar();
+        : _buildFallbackAvatar(context);
 
     if (isVip) {
       return VipAvatarFrameCompact(
@@ -52,14 +54,14 @@ class UserAvatar extends StatelessWidget {
     return avatar;
   }
 
-  Widget _buildFallbackAvatar() {
+  Widget _buildFallbackAvatar(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: Colors.grey[300],
+      backgroundColor: context.containerColor,
       child: Text(
         userName.isNotEmpty ? userName[0].toUpperCase() : '?',
         style: TextStyle(
-          color: Colors.white,
+          color: AppColors.white,
           fontSize: radius * 0.7,
           fontWeight: FontWeight.bold,
         ),
@@ -67,10 +69,10 @@ class UserAvatar extends StatelessWidget {
     );
   }
 
-  Widget _buildShimmerAvatar() {
+  Widget _buildShimmerAvatar(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: Colors.grey[200],
+      backgroundColor: context.containerColor,
       child: _AvatarShimmer(radius: radius),
     );
   }
@@ -129,9 +131,9 @@ class _AvatarShimmerState extends State<_AvatarShimmer>
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.grey[300]!,
-                Colors.grey[100]!,
-                Colors.grey[300]!,
+                context.containerColor,
+                context.containerColor.withOpacity(0.5),
+                context.containerColor,
               ],
               stops: [
                 (_controller.value - 0.3).clamp(0.0, 1.0),

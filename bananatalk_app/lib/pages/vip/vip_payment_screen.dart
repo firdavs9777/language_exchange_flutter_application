@@ -117,7 +117,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     try {
       // Initialize store if not already done
       if (!IOSPurchaseService.isAvailable) {
-        debugPrint('Initializing store...');
         final initialized = await IOSPurchaseService.initializeStore();
         if (!initialized) {
           throw Exception('Store not available. Please check your internet connection and App Store settings.');
@@ -125,7 +124,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       }
 
       // Load products
-      debugPrint('Loading products...');
       await IOSPurchaseService.loadProducts();
 
       // Check if products loaded successfully
@@ -155,7 +153,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         throw Exception('Product "$productId" not found. Available products: ${products.map((p) => p.id).join(", ")}');
       }
 
-      debugPrint('Starting purchase for: $productId (${product.price})');
 
       // Initiate purchase and wait for completion
       final purchaseDetails = await IOSPurchaseService.purchaseProductAndWait(productId);
@@ -176,7 +173,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         return;
       }
 
-      debugPrint('Purchase completed, verifying with backend...');
 
       // Get receipt data from the purchase
       final receiptData = IOSPurchaseService.getReceiptFromPurchase(purchaseDetails);
@@ -186,8 +182,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         throw Exception('Failed to get receipt data from purchase. Please contact support.');
       }
 
-      debugPrint('Receipt data length: ${receiptData.length}');
-      debugPrint('Transaction ID: $transactionId');
 
       // Verify purchase with backend
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.verifying;
@@ -198,7 +192,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         transactionId: transactionId,
       );
 
-      debugPrint('Verification result: $verifyResult');
 
       setState(() {
         isProcessing = false;
@@ -220,7 +213,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         _showErrorDialog('Purchase Verification Failed', verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
       }
     } catch (e) {
-      debugPrint('Purchase error: $e');
       setState(() {
         isProcessing = false;
       });
@@ -242,7 +234,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     try {
       // Initialize store if not already done
       if (!AndroidPurchaseService.isAvailable) {
-        debugPrint('Initializing Google Play store...');
         final initialized = await AndroidPurchaseService.initializeStore();
         if (!initialized) {
           throw Exception(
@@ -251,7 +242,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       }
 
       // Load products
-      debugPrint('Loading products...');
       await AndroidPurchaseService.loadProducts();
 
       // Check if products loaded successfully
@@ -283,7 +273,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             'Product "$productId" not found. Available products: ${products.map((p) => p.id).join(", ")}');
       }
 
-      debugPrint('Starting purchase for: $productId (${product.price})');
 
       // Initiate purchase and wait for completion
       final purchaseDetails =
@@ -305,7 +294,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         return;
       }
 
-      debugPrint('Purchase completed, verifying with backend...');
 
       // Get purchase token for verification
       final purchaseToken =
@@ -317,8 +305,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             'Failed to get purchase token from Google Play. Please contact support.');
       }
 
-      debugPrint('Purchase token length: ${purchaseToken.length}');
-      debugPrint('Order ID: $orderId');
 
       // Verify purchase with backend
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.verifying;
@@ -329,7 +315,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         orderId: orderId,
       );
 
-      debugPrint('Verification result: $verifyResult');
 
       setState(() {
         isProcessing = false;
@@ -352,7 +337,6 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
       }
     } catch (e) {
-      debugPrint('Android purchase error: $e');
       setState(() {
         isProcessing = false;
       });

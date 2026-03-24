@@ -155,7 +155,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get success => 'Berhasil';
 
   @override
-  String get tryAgain => 'Coba Lagi';
+  String get tryAgain => 'Coba lagi';
 
   @override
   String get networkError => 'Error jaringan. Periksa koneksi Anda.';
@@ -246,6 +246,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get momentDeleted => 'Momen dihapus';
 
   @override
+  String get deleteComment => 'Delete Comment?';
+
+  @override
+  String get commentDeleted => 'Comment deleted';
+
+  @override
   String get editFeatureComingSoon => 'Fitur edit segera hadir';
 
   @override
@@ -334,6 +340,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get banaTalk => 'BanaTalk';
+
+  @override
+  String get chats => 'Obrolan';
 
   @override
   String get community => 'Komunitas';
@@ -515,7 +524,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get cannotSendMessageUserMayBeBlocked => 'Tidak dapat mengirim pesan. Pengguna mungkin diblokir.';
 
   @override
-  String get sessionExpired => 'Sesi berakhir. Silakan masuk lagi.';
+  String get sessionExpired => 'Sesi berakhir. Silakan login kembali.';
 
   @override
   String get sendThisSticker => 'Kirim stiker ini?';
@@ -1181,7 +1190,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get forwardFeatureComingSoon => 'Forward feature coming soon';
 
   @override
-  String get momentUnsaved => 'Moment unsaved';
+  String get momentUnsaved => 'Dihapus dari tersimpan';
 
   @override
   String get documentPickerComingSoon => 'Document picker coming soon';
@@ -1368,7 +1377,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get permissionsRequired => 'Permissions Required';
 
   @override
-  String get openSettings => 'Open Settings';
+  String get openSettings => 'Buka Pengaturan';
 
   @override
   String get refresh => 'Segarkan';
@@ -1962,4 +1971,727 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get messageEdited => 'Pesan diedit';
+
+  @override
+  String get edited => '(diedit)';
+
+  @override
+  String get now => 'baru saja';
+
+  @override
+  String weeksAgo(int count) {
+    return '${count}m lalu';
+  }
+
+  @override
+  String viewRepliesCount(int count) {
+    return '── Lihat $count balasan';
+  }
+
+  @override
+  String get hideReplies => '── Sembunyikan balasan';
+
+  @override
+  String get saveMoment => 'Simpan Momen';
+
+  @override
+  String get removeFromSaved => 'Hapus dari Tersimpan';
+
+  @override
+  String get momentSaved => 'Tersimpan';
+
+  @override
+  String get failedToSave => 'Gagal menyimpan';
+
+  @override
+  String checkOutMoment(String title) {
+    return 'Lihat momen ini: $title';
+  }
+
+  @override
+  String get failedToLoadMoments => 'Gagal memuat momen';
+
+  @override
+  String get noMomentsMatchFilters => 'Tidak ada momen yang cocok dengan filter Anda';
+
+  @override
+  String get beFirstToShareMoment => 'Jadilah yang pertama berbagi momen!';
+
+  @override
+  String get tryDifferentSearch => 'Coba kata pencarian lain';
+
+  @override
+  String get tryAdjustingFilters => 'Coba sesuaikan filter Anda';
+
+  @override
+  String get noSavedMoments => 'Tidak ada momen tersimpan';
+
+  @override
+  String get tapBookmarkToSave => 'Ketuk ikon bookmark untuk menyimpan momen';
+
+  @override
+  String get failedToLoadVideo => 'Gagal memuat video';
+
+  @override
+  String get titleRequired => 'Judul wajib diisi';
+
+  @override
+  String titleTooLong(int max) {
+    return 'Judul harus $max karakter atau kurang';
+  }
+
+  @override
+  String get descriptionRequired => 'Deskripsi wajib diisi';
+
+  @override
+  String descriptionTooLong(int max) {
+    return 'Deskripsi harus $max karakter atau kurang';
+  }
+
+  @override
+  String get scheduledDateMustBeFuture => 'Tanggal terjadwal harus di masa depan';
+
+  @override
+  String get recent => 'Terbaru';
+
+  @override
+  String get popular => 'Populer';
+
+  @override
+  String get trending => 'Trending';
+
+  @override
+  String get mostRecent => 'Terbaru';
+
+  @override
+  String get mostPopular => 'Terpopuler';
+
+  @override
+  String get allTime => 'Semua Waktu';
+
+  @override
+  String get today => 'Hari Ini';
+
+  @override
+  String get thisWeek => 'Minggu Ini';
+
+  @override
+  String get thisMonth => 'Bulan Ini';
+
+  @override
+  String replyingTo(String userName) {
+    return 'Membalas $userName';
+  }
+
+  @override
+  String get listView => 'Tampilan daftar';
+
+  @override
+  String get quickMatch => 'Match cepat';
+
+  @override
+  String get onlineNow => 'Online sekarang';
+
+  @override
+  String speaksLanguage(String language) {
+    return 'Berbicara $language';
+  }
+
+  @override
+  String learningLanguage(String language) {
+    return 'Sedang belajar $language';
+  }
+
+  @override
+  String get noPartnersFound => 'Tidak ada partner ditemukan';
+
+  @override
+  String noUsersFoundForLanguages(String learning, String native) {
+    return 'Tidak ada pengguna yang berbicara $learning secara asli atau ingin belajar $native.';
+  }
+
+  @override
+  String get removeAllFilters => 'Hapus semua filter';
+
+  @override
+  String get browseAllUsers => 'Jelajahi semua pengguna';
+
+  @override
+  String get allCaughtUp => 'Sudah semua!';
+
+  @override
+  String get loadingMore => 'Memuat lebih banyak...';
+
+  @override
+  String get findingMorePartners => 'Mencari partner lainnya...';
+
+  @override
+  String get seenAllPartners => 'Anda sudah melihat semua partner';
+
+  @override
+  String get startOver => 'Mulai lagi';
+
+  @override
+  String get changeFilters => 'Ubah filter';
+
+  @override
+  String get findingPartners => 'Mencari partner...';
+
+  @override
+  String get setLocationReminder => 'Atur lokasi untuk menemukan partner terdekat';
+
+  @override
+  String get updateLocationReminder => 'Perbarui lokasi untuk hasil yang lebih baik';
+
+  @override
+  String get male => 'Laki-laki';
+
+  @override
+  String get female => 'Perempuan';
+
+  @override
+  String get other => 'Lainnya';
+
+  @override
+  String get browseMen => 'Cari laki-laki';
+
+  @override
+  String get browseWomen => 'Cari perempuan';
+
+  @override
+  String get noMaleUsersFound => 'Tidak ada pengguna laki-laki ditemukan';
+
+  @override
+  String get noFemaleUsersFound => 'Tidak ada pengguna perempuan ditemukan';
+
+  @override
+  String get vip => 'VIP';
+
+  @override
+  String get newUsersOnly => 'Hanya pengguna baru';
+
+  @override
+  String get showNewUsers => 'Tampilkan pengguna baru';
+
+  @override
+  String get prioritizeNearby => 'Utamakan yang terdekat';
+
+  @override
+  String get showNearbyFirst => 'Tampilkan terdekat dulu';
+
+  @override
+  String get setLocationToEnable => 'Atur lokasi untuk mengaktifkan';
+
+  @override
+  String get radius => 'Radius';
+
+  @override
+  String get findingYourLocation => 'Mencari lokasi Anda...';
+
+  @override
+  String get enableLocationForDistance => 'Aktifkan lokasi untuk jarak';
+
+  @override
+  String get enableLocationDescription => 'Aktifkan layanan lokasi untuk menemukan partner bahasa terdekat';
+
+  @override
+  String get enableGps => 'Aktifkan GPS';
+
+  @override
+  String get browseByCityCountry => 'Cari berdasarkan kota/negara';
+
+  @override
+  String get peopleNearby => 'Orang terdekat';
+
+  @override
+  String get noNearbyUsersFound => 'Tidak ada pengguna terdekat';
+
+  @override
+  String get tryExpandingSearch => 'Coba perluas pencarian';
+
+  @override
+  String get exploreByCity => 'Jelajahi berdasarkan kota';
+
+  @override
+  String get exploreByCurrentCity => 'Jelajahi berdasarkan kota saat ini';
+
+  @override
+  String get interactiveWorldMap => 'Peta dunia interaktif';
+
+  @override
+  String get searchByCityName => 'Cari berdasarkan nama kota';
+
+  @override
+  String get seeUserCountsPerCountry => 'Lihat jumlah pengguna per negara';
+
+  @override
+  String get upgradeToVip => 'Upgrade ke VIP';
+
+  @override
+  String get searchByCity => 'Cari berdasarkan kota';
+
+  @override
+  String usersWorldwide(String count) {
+    return '$count pengguna di seluruh dunia';
+  }
+
+  @override
+  String get noUsersFound => 'Tidak ada pengguna ditemukan';
+
+  @override
+  String get tryDifferentCity => 'Coba kota lain';
+
+  @override
+  String usersCount(String count) {
+    return '$count pengguna';
+  }
+
+  @override
+  String get searchCountry => 'Cari negara';
+
+  @override
+  String get wave => 'Lambaikan tangan';
+
+  @override
+  String get newUser => 'Pengguna baru';
+
+  @override
+  String get warningPermanent => 'Peringatan: Tindakan ini permanen!';
+
+  @override
+  String get deleteAccountWarning => 'Menghapus akun Anda akan menghapus secara permanen:\n\n• Profil dan semua data pribadi Anda\n• Semua pesan dan percakapan Anda\n• Semua momen dan story Anda\n• Langganan VIP Anda (tanpa pengembalian dana)\n• Semua koneksi dan pengikut Anda\n\nTindakan ini tidak dapat dibatalkan.';
+
+  @override
+  String get requiredForEmailOnly => 'Diperlukan hanya untuk akun email';
+
+  @override
+  String get pleaseEnterPassword => 'Silakan masukkan kata sandi Anda';
+
+  @override
+  String get typeDELETE => 'Ketik DELETE';
+
+  @override
+  String get mustTypeDELETE => 'Anda harus mengetik DELETE untuk melanjutkan';
+
+  @override
+  String get deletingAccount => 'Menghapus akun...';
+
+  @override
+  String get deleteMyAccountPermanently => 'Hapus akun saya secara permanen';
+
+  @override
+  String get whatsYourNativeLanguage => 'Apa bahasa ibu Anda?';
+
+  @override
+  String get helpsMatchWithLearners => 'Membantu mencocokkan dengan pelajar';
+
+  @override
+  String get whatAreYouLearning => 'Apa yang sedang Anda pelajari?';
+
+  @override
+  String get connectWithNativeSpeakers => 'Terhubung dengan penutur asli';
+
+  @override
+  String get selectLearningLanguage => 'Pilih bahasa yang ingin dipelajari';
+
+  @override
+  String get selectCurrentLevel => 'Pilih level saat ini';
+
+  @override
+  String get beginner => 'Pemula';
+
+  @override
+  String get elementary => 'Dasar';
+
+  @override
+  String get intermediate => 'Menengah';
+
+  @override
+  String get upperIntermediate => 'Menengah atas';
+
+  @override
+  String get advanced => 'Mahir';
+
+  @override
+  String get proficient => 'Fasih';
+
+  @override
+  String get showingPartnersByDistance => 'Partner ditampilkan berdasarkan jarak';
+
+  @override
+  String get enableLocationForResults => 'Aktifkan lokasi untuk hasil yang lebih baik';
+
+  @override
+  String get enable => 'Aktifkan';
+
+  @override
+  String get locationNotSet => 'Lokasi belum diatur';
+
+  @override
+  String get tellUsAboutYourself => 'Ceritakan tentang diri Anda';
+
+  @override
+  String get justACoupleQuickThings => 'Hanya beberapa hal singkat';
+
+  @override
+  String get gender => 'Jenis kelamin';
+
+  @override
+  String get birthDate => 'Tanggal lahir';
+
+  @override
+  String get selectYourBirthDate => 'Pilih tanggal lahir Anda';
+
+  @override
+  String get continueButton => 'Lanjutkan';
+
+  @override
+  String get pleaseSelectGender => 'Silakan pilih jenis kelamin Anda';
+
+  @override
+  String get pleaseSelectBirthDate => 'Silakan pilih tanggal lahir Anda';
+
+  @override
+  String get mustBe18 => 'Anda harus berusia minimal 18 tahun';
+
+  @override
+  String get invalidDate => 'Tanggal tidak valid';
+
+  @override
+  String get almostDone => 'Hampir selesai!';
+
+  @override
+  String get addPhotoLocationForMatches => 'Tambahkan foto dan lokasi untuk pencocokan yang lebih baik';
+
+  @override
+  String get addProfilePhoto => 'Tambah foto profil';
+
+  @override
+  String get optionalUpTo6Photos => 'Opsional - hingga 6 foto';
+
+  @override
+  String get maximum6Photos => 'Maksimal 6 foto';
+
+  @override
+  String get tapToDetectLocation => 'Ketuk untuk mendeteksi lokasi';
+
+  @override
+  String get optionalHelpsNearbyPartners => 'Opsional - membantu menemukan partner terdekat';
+
+  @override
+  String get startLearning => 'Mulai belajar';
+
+  @override
+  String get photoLocationOptional => 'Foto dan lokasi bersifat opsional';
+
+  @override
+  String get pleaseAcceptTerms => 'Silakan terima ketentuan layanan';
+
+  @override
+  String get iAgreeToThe => 'Saya menyetujui';
+
+  @override
+  String get termsOfService => 'Ketentuan Layanan';
+
+  @override
+  String get tapToSelectLanguage => 'Ketuk untuk memilih bahasa';
+
+  @override
+  String yourLevelIn(String language) {
+    return 'Level Anda di $language (opsional)';
+  }
+
+  @override
+  String get yourCurrentLevel => 'Level Anda saat ini';
+
+  @override
+  String get nativeCannotBeSameAsLearning => 'Bahasa ibu tidak boleh sama dengan bahasa yang dipelajari';
+
+  @override
+  String get learningCannotBeSameAsNative => 'Bahasa yang dipelajari tidak boleh sama dengan bahasa ibu';
+
+  @override
+  String stepOf(String current, String total) {
+    return 'Langkah $current dari $total';
+  }
+
+  @override
+  String get continueWithGoogle => 'Lanjutkan dengan Google';
+
+  @override
+  String get registerLink => 'Daftar';
+
+  @override
+  String get pleaseEnterBothEmailAndPassword => 'Masukkan email dan kata sandi';
+
+  @override
+  String get pleaseEnterValidEmail => 'Masukkan email yang valid';
+
+  @override
+  String get loginSuccessful => 'Login berhasil!';
+
+  @override
+  String get stepOneOfTwo => 'Langkah 1 dari 2';
+
+  @override
+  String get createYourAccount => 'Buat akunmu';
+
+  @override
+  String get basicInfoToGetStarted => 'Info dasar untuk memulai';
+
+  @override
+  String get emailVerifiedLabel => 'Email (Terverifikasi)';
+
+  @override
+  String get nameLabel => 'Nama';
+
+  @override
+  String get yourDisplayName => 'Nama tampilan';
+
+  @override
+  String get atLeast8Characters => 'Minimal 8 karakter';
+
+  @override
+  String get confirmPasswordHint => 'Konfirmasi kata sandi';
+
+  @override
+  String get nextButton => 'Berikutnya';
+
+  @override
+  String get pleaseEnterYourName => 'Masukkan namamu';
+
+  @override
+  String get pleaseEnterAPassword => 'Masukkan kata sandi';
+
+  @override
+  String get passwordsDoNotMatch => 'Kata sandi tidak cocok';
+
+  @override
+  String get otherGender => 'Lainnya';
+
+  @override
+  String get continueWithGoogleAccount => 'Lanjutkan dengan akun Google\nuntuk pengalaman lancar';
+
+  @override
+  String get signingYouIn => 'Sedang masuk...';
+
+  @override
+  String get backToSignInMethods => 'Kembali ke metode masuk';
+
+  @override
+  String get securedByGoogle => 'Diamankan oleh Google';
+
+  @override
+  String get dataProtectedEncryption => 'Data kamu dilindungi dengan enkripsi standar';
+
+  @override
+  String get welcomeCompleteProfile => 'Selamat datang! Lengkapi profilmu';
+
+  @override
+  String welcomeBackName(String name) {
+    return 'Selamat datang kembali, $name!';
+  }
+
+  @override
+  String get continueWithAppleId => 'Lanjutkan dengan Apple ID\nuntuk pengalaman aman';
+
+  @override
+  String get continueWithApple => 'Lanjutkan dengan Apple';
+
+  @override
+  String get securedByApple => 'Diamankan oleh Apple';
+
+  @override
+  String get privacyProtectedApple => 'Privasimu dilindungi dengan Apple Sign-In';
+
+  @override
+  String get createAccount => 'Buat akun';
+
+  @override
+  String get enterEmailToGetStarted => 'Masukkan email untuk memulai';
+
+  @override
+  String get continueText => 'Lanjutkan';
+
+  @override
+  String get pleaseEnterEmailAddress => 'Masukkan alamat emailmu';
+
+  @override
+  String get verificationCodeSent => 'Kode verifikasi terkirim!';
+
+  @override
+  String get forgotPasswordTitle => 'Lupa kata sandi';
+
+  @override
+  String get resetPasswordTitle => 'Reset kata sandi';
+
+  @override
+  String get enterEmailForResetCode => 'Masukkan emailmu dan kami akan mengirim kode reset';
+
+  @override
+  String get sendResetCode => 'Kirim kode reset';
+
+  @override
+  String get resetCodeSent => 'Kode reset terkirim!';
+
+  @override
+  String get rememberYourPassword => 'Ingat kata sandi?';
+
+  @override
+  String get verifyCode => 'Verifikasi kode';
+
+  @override
+  String get enterResetCode => 'Masukkan kode reset';
+
+  @override
+  String get weSentCodeTo => 'Kami mengirim kode 6 digit ke';
+
+  @override
+  String get pleaseEnterAll6Digits => 'Masukkan semua 6 digit';
+
+  @override
+  String get codeVerifiedCreatePassword => 'Kode terverifikasi! Buat kata sandi baru';
+
+  @override
+  String get verify => 'Verifikasi';
+
+  @override
+  String get didntReceiveCode => 'Tidak menerima kode?';
+
+  @override
+  String get resend => 'Kirim ulang';
+
+  @override
+  String resendWithTimer(String timer) {
+    return 'Kirim ulang (${timer}d)';
+  }
+
+  @override
+  String get resetCodeResent => 'Kode reset terkirim ulang!';
+
+  @override
+  String get verifyEmail => 'Verifikasi email';
+
+  @override
+  String get verifyYourEmail => 'Verifikasi emailmu';
+
+  @override
+  String get emailVerifiedSuccessfully => 'Email terverifikasi!';
+
+  @override
+  String get verificationCodeResent => 'Kode verifikasi terkirim ulang!';
+
+  @override
+  String get createNewPassword => 'Buat kata sandi baru';
+
+  @override
+  String get enterNewPasswordBelow => 'Masukkan kata sandi baru di bawah';
+
+  @override
+  String get newPassword => 'Kata sandi baru';
+
+  @override
+  String get confirmPasswordLabel => 'Konfirmasi kata sandi';
+
+  @override
+  String get pleaseFillAllFields => 'Isi semua kolom';
+
+  @override
+  String get passwordResetSuccessful => 'Kata sandi berhasil direset! Login dengan kata sandi baru';
+
+  @override
+  String get privacyTitle => 'Privasi';
+
+  @override
+  String get profileVisibility => 'Visibilitas Profil';
+
+  @override
+  String get showCountryRegion => 'Tampilkan Negara/Wilayah';
+
+  @override
+  String get showCountryRegionDesc => 'Tampilkan negara Anda di profil';
+
+  @override
+  String get showCity => 'Tampilkan Kota';
+
+  @override
+  String get showCityDesc => 'Tampilkan kota Anda di profil';
+
+  @override
+  String get showAge => 'Tampilkan Usia';
+
+  @override
+  String get showAgeDesc => 'Tampilkan usia Anda di profil';
+
+  @override
+  String get showZodiacSign => 'Tampilkan Zodiak';
+
+  @override
+  String get showZodiacSignDesc => 'Tampilkan zodiak Anda di profil';
+
+  @override
+  String get onlineStatusSection => 'Status Online';
+
+  @override
+  String get showOnlineStatus => 'Tampilkan Status Online';
+
+  @override
+  String get showOnlineStatusDesc => 'Biarkan orang lain melihat saat Anda online';
+
+  @override
+  String get otherSettings => 'Pengaturan Lain';
+
+  @override
+  String get showGiftingLevel => 'Tampilkan Level Hadiah';
+
+  @override
+  String get showGiftingLevelDesc => 'Tampilkan lencana level hadiah';
+
+  @override
+  String get birthdayNotifications => 'Notifikasi Ulang Tahun';
+
+  @override
+  String get birthdayNotificationsDesc => 'Terima notifikasi di hari ulang tahun';
+
+  @override
+  String get personalizedAds => 'Iklan Personal';
+
+  @override
+  String get personalizedAdsDesc => 'Izinkan iklan yang dipersonalisasi';
+
+  @override
+  String get saveChanges => 'Simpan Perubahan';
+
+  @override
+  String get privacySettingsSaved => 'Pengaturan privasi disimpan';
+
+  @override
+  String get locationSection => 'Lokasi';
+
+  @override
+  String get updateLocation => 'Perbarui Lokasi';
+
+  @override
+  String get updateLocationDesc => 'Segarkan lokasi Anda saat ini';
+
+  @override
+  String get currentLocation => 'Lokasi saat ini';
+
+  @override
+  String get locationNotAvailable => 'Lokasi tidak tersedia';
+
+  @override
+  String get locationUpdated => 'Lokasi berhasil diperbarui';
+
+  @override
+  String get locationPermissionDenied => 'Izin lokasi ditolak. Aktifkan di pengaturan.';
+
+  @override
+  String get locationServiceDisabled => 'Layanan lokasi dinonaktifkan. Aktifkan.';
+
+  @override
+  String get updatingLocation => 'Memperbarui lokasi...';
+
+  @override
+  String get locationCouldNotBeUpdated => 'Lokasi tidak dapat diperbarui';
 }

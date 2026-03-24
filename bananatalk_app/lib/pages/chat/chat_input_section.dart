@@ -4,6 +4,8 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'chat_input_bar.dart';
 import 'chat_media_panel.dart';
 import 'chat_sticker_panel.dart';
@@ -119,6 +121,7 @@ class _MessageLimitIndicator extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final limitsAsync = ref.watch(userLimitsProvider(userId));
+    final isDark = context.isDarkMode;
 
     return limitsAsync.when(
       data: (limits) {
@@ -131,21 +134,27 @@ class _MessageLimitIndicator extends ConsumerWidget {
         final isLow = remaining <= 2;
         final isOut = remaining <= 0;
 
+        final statusColor = isOut
+            ? AppColors.error
+            : isLow
+                ? AppColors.warning
+                : context.textSecondary;
+
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             color: isOut
-                ? const Color(0xFFFFEBEE)
+                ? AppColors.error.withValues(alpha: isDark ? 0.15 : 0.08)
                 : isLow
-                    ? const Color(0xFFFFF8E1)
-                    : const Color(0xFFF5F5F5),
+                    ? AppColors.warning.withValues(alpha: isDark ? 0.15 : 0.08)
+                    : context.containerColor,
             border: Border(
               bottom: BorderSide(
                 color: isOut
-                    ? const Color(0xFFEF5350)
+                    ? AppColors.error.withValues(alpha: 0.5)
                     : isLow
-                        ? const Color(0xFFFFB300)
-                        : Colors.grey.shade300,
+                        ? AppColors.warning.withValues(alpha: 0.5)
+                        : context.dividerColor,
                 width: 0.5,
               ),
             ),
@@ -159,11 +168,7 @@ class _MessageLimitIndicator extends ConsumerWidget {
                         ? Icons.warning_amber_rounded
                         : Icons.info_outline,
                 size: 16,
-                color: isOut
-                    ? const Color(0xFFEF5350)
-                    : isLow
-                        ? const Color(0xFFFF8F00)
-                        : Colors.grey.shade600,
+                color: statusColor,
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -173,11 +178,7 @@ class _MessageLimitIndicator extends ConsumerWidget {
                       : '$remaining message${remaining == 1 ? '' : 's'} remaining today',
                   style: TextStyle(
                     fontSize: 12,
-                    color: isOut
-                        ? const Color(0xFFEF5350)
-                        : isLow
-                            ? const Color(0xFFFF8F00)
-                            : Colors.grey.shade600,
+                    color: statusColor,
                     fontWeight: isLow || isOut ? FontWeight.w600 : FontWeight.normal,
                   ),
                 ),
@@ -205,13 +206,13 @@ class _MessageLimitIndicator extends ConsumerWidget {
                       Icon(
                         Icons.workspace_premium,
                         size: 12,
-                        color: Colors.white,
+                        color: AppColors.white,
                       ),
                       SizedBox(width: 4),
                       Text(
                         'Unlimited',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
                         ),
@@ -262,14 +263,15 @@ class _UploadProgressBanner extends StatelessWidget {
     final progress = totalBytes > 0 ? bytesSent / totalBytes : 0.0;
     final percentage = (progress * 100).toInt();
     final mediaType = _getMediaType(fileName);
+    final isDark = context.isDarkMode;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFE3F2FD),
+        color: AppColors.info.withValues(alpha: isDark ? 0.15 : 0.1),
         border: Border(
           bottom: BorderSide(
-            color: Colors.blue.shade200,
+            color: AppColors.info.withValues(alpha: 0.3),
             width: 0.5,
           ),
         ),
@@ -279,18 +281,18 @@ class _UploadProgressBanner extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.cloud_upload_outlined,
                 size: 18,
-                color: Color(0xFF1976D2),
+                color: AppColors.info,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'Sending $mediaType...',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
-                    color: Color(0xFF1976D2),
+                    color: AppColors.info,
                     fontWeight: FontWeight.w500,
                   ),
                   maxLines: 1,
@@ -301,7 +303,7 @@ class _UploadProgressBanner extends StatelessWidget {
                 '$percentage%  ${_formatFileSize(bytesSent)} / ${_formatFileSize(totalBytes)}',
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.blue.shade700,
+                  color: AppColors.info,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -313,8 +315,8 @@ class _UploadProgressBanner extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress,
               minHeight: 4,
-              backgroundColor: Colors.blue.shade100,
-              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF1976D2)),
+              backgroundColor: AppColors.info.withValues(alpha: 0.2),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.info),
             ),
           ),
         ],
