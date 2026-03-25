@@ -186,9 +186,9 @@ class VoiceRoomManager {
   // Callbacks
   Function(VoiceRoom)? onRoomJoined;
   Function(RoomParticipant)? onParticipantJoined;
-  Function(String odeparticipants? on departicipantLeftParticipantLeft;
-  Function(String odeparticipants,bool)? onParticipantSpeaking;
-  Function(String odeparticipants,bool)? onParticipantMuted;
+  Function(String participantId)? onParticipantLeft;
+  Function(String participantId, bool isSpeaking)? onParticipantSpeaking;
+  Function(String participantId, bool isMuted)? onParticipantMuted;
   Function(RoomParticipant)? onHandRaised;
   Function(ChatMessage)? onChatMessage;
   Function()? onRoomEnded;
@@ -207,14 +207,14 @@ class VoiceRoomManager {
   void sendChatMessage(String message);
 
   // Host actions
-  void muteParticipant(String odeparticipants);
-  void kickParticipant(String odeparticipants);
-  void promoteToCoHost(String odeparticipants);
+  void muteParticipant(String participantId);
+  void kickParticipant(String participantId);
+  void promoteToCoHost(String participantId);
   void endRoom();
 
   // WebRTC mesh management
-  Future<void> _connectToPeer(String odeparticipants);
-  void _disconnectFromPeer(String odeparticipants);
+  Future<void> _connectToPeer(String participantId);
+  void _disconnectFromPeer(String participantId);
   void _handleNewParticipant(RoomParticipant participant);
 }
 ```
@@ -252,8 +252,8 @@ class VoiceRoomNotifier extends ChangeNotifier {
   void sendChat(String message);
 
   // Host-only
-  void muteParticipant(String odeparticipants);
-  void kickParticipant(String odeparticipants);
+  void muteParticipant(String participantId);
+  void kickParticipant(String participantId);
   void endRoom();
 }
 
@@ -275,7 +275,7 @@ class CallHistoryService {
   });
 
   /// Get call history for specific user (for in-chat display)
-  Future<List<CallRecord>> getCallHistoryWithUser(String odeparticipants);
+  Future<List<CallRecord>> getCallHistoryWithUser(String recipientId);
 
   /// Get missed calls count (for badge)
   Future<int> getMissedCallsCount();
@@ -288,7 +288,7 @@ class CallHistoryService {
 }
 
 class CallRecord {
-  final String id visib;
+  final String id;
   final List<CallParticipant> participants;
   final CallType type;
   final CallRecordStatus status; // answered, missed, rejected
@@ -345,6 +345,86 @@ class CallRecord {
 | `voiceroom:ice_candidate` | Bidirectional | ICE candidate to specific peer |
 | `voiceroom:ended` | Server → Client | Room closed by host |
 | `voiceroom:error` | Server → Client | Error occurred |
+
+---
+
+## REST API Endpoints
+
+### Call History
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | `/api/v1/calls?page=1&limit=20` | Get paginated call history |
+| GET | `/api/v1/calls/:id` | Get single call details |
+| GET | `/api/v1/calls/missed/count` | Get missed calls count |
+| GET | `/api/v1/calls/ice-servers` | Get TURN/STUN server credentials |
+
+**Response format for GET /api/v1/calls:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "call123",
+      "participants": [
+        { "_id": "user1", "name": "John", "profilePicture": "..." }
+      ],
+      "type": "video",
+      "status": "ended",
+      "duration": 120,
+      "initiator": "user1",
+      "startTime": "2024-03-24T10:00:00Z",
+      "endTime": "2024-03-24T10:02:00Z"
+    }
+  ],
+  "pagination": { "page": 1, "totalPages": 5 }
+}
+```
+
+### Voice Rooms
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | `/api/v1/voicerooms?language=en&topic=casual` | List active rooms with filters |
+| POST | `/api/v1/voicerooms` | Create new room |
+| GET | `/api/v1/voicerooms/:id` | Get room details |
+| POST | `/api/v1/voicerooms/:id/join` | Join room (REST, before socket) |
+| POST | `/api/v1/voicerooms/:id/leave` | Leave room |
+| POST | `/api/v1/voicerooms/:id/end` | End room (host only) |
+| PUT | `/api/v1/voicerooms/:id/promote/:userId` | Promote to co-host |
+
+**Request body for POST /api/v1/voicerooms:**
+```json
+{
+  "title": "English Conversation",
+  "topic": "casual",
+  "language": "en",
+  "maxParticipants": 10,
+  "settings": {
+    "allowRaiseHand": true,
+    "allowChat": true
+  }
+}
+```
+
+**Response format for GET /api/v1/voicerooms:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "room123",
+      "title": "English Practice",
+      "topic": "casual",
+      "language": "en",
+      "host": { "_id": "user1", "name": "John" },
+      "participantCount": 5,
+      "maxParticipants": 10,
+      "status": "active"
+    }
+  ]
+}
+```
 
 ---
 
@@ -460,7 +540,7 @@ class CallButtons extends ConsumerWidget {
 ```dart
 class CallModel {
   final String callId;
-  final String odeparticipants;
+  final String recipientId;
   final String userName;
   final String? userProfilePicture;
   final CallType callType;
@@ -483,7 +563,7 @@ enum ConnectionState { connecting, connected, reconnecting, failed }
 
 ```dart
 class VoiceRoom {
-  final String id visib;
+  final String id;
   final String title;
   final String topic;
   final String language;
@@ -498,7 +578,7 @@ class VoiceRoom {
 }
 
 class RoomParticipant {
-  final String id visib;
+  final String id;
   final String name;
   final String avatar;
   final bool isHost;
