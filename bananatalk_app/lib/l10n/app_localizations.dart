@@ -3897,7 +3897,7 @@ abstract class AppLocalizations {
   /// No description provided for @tryAgainLater.
   ///
   /// In en, this message translates to:
-  /// **'Please try again later'**
+  /// **'Try again later'**
   String get tryAgainLater;
 
   /// No description provided for @messageSent.
@@ -5759,6 +5759,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} people'**
   String nPeople(int count);
+
+  /// No description provided for @leaderboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaderboard'**
+  String get leaderboard;
+
+  /// No description provided for @competeWithLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Compete with other learners!'**
+  String get competeWithLearners;
+
+  /// No description provided for @xpRankings.
+  ///
+  /// In en, this message translates to:
+  /// **'XP Rankings'**
+  String get xpRankings;
+
+  /// No description provided for @streaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaks'**
+  String get streaks;
+
+  /// No description provided for @friends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get friends;
+
+  /// No description provided for @myRanks.
+  ///
+  /// In en, this message translates to:
+  /// **'My Ranks'**
+  String get myRanks;
+
+  /// No description provided for @currentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get currentStreak;
+
+  /// No description provided for @longestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest Streak'**
+  String get longestStreak;
+
+  /// No description provided for @weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get weekly;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly;
+
+  /// No description provided for @yourRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Rank'**
+  String get yourRank;
+
+  /// No description provided for @outOf.
+  ///
+  /// In en, this message translates to:
+  /// **'out of {total}'**
+  String outOf(int total);
+
+  /// No description provided for @topPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Top {percent}%'**
+  String topPercent(String percent);
+
+  /// No description provided for @xpRank.
+  ///
+  /// In en, this message translates to:
+  /// **'XP Rank'**
+  String get xpRank;
+
+  /// No description provided for @streakRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Rank'**
+  String get streakRank;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get days;
+
+  /// No description provided for @learningStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Stats'**
+  String get learningStats;
+
+  /// No description provided for @totalXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Total XP'**
+  String get totalXp;
+
+  /// No description provided for @lessonsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons Completed'**
+  String get lessonsCompleted;
+
+  /// No description provided for @rankings.
+  ///
+  /// In en, this message translates to:
+  /// **'Rankings'**
+  String get rankings;
+
+  /// No description provided for @yourPosition.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Position'**
+  String get yourPosition;
+
+  /// No description provided for @keepLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep learning to climb!'**
+  String get keepLearning;
+
+  /// No description provided for @noRankingsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No rankings yet'**
+  String get noRankingsYet;
+
+  /// No description provided for @startLearningToAppear.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning to appear on the leaderboard!'**
+  String get startLearningToAppear;
+
+  /// No description provided for @noFriendsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No friends yet'**
+  String get noFriendsYet;
+
+  /// No description provided for @addFriendsToCompete.
+  ///
+  /// In en, this message translates to:
+  /// **'Add friends to compete with them!'**
+  String get addFriendsToCompete;
+
+  /// No description provided for @failedToLoadLeaderboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load leaderboard'**
+  String get failedToLoadLeaderboard;
+
+  /// No description provided for @you.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get you;
+
+  /// No description provided for @findPartners.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Partners'**
+  String get findPartners;
+
+  /// No description provided for @discoverLanguagePartners.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover language partners'**
+  String get discoverLanguagePartners;
+
+  /// No description provided for @byLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'By Language'**
+  String get byLanguage;
+
+  /// No description provided for @match.
+  ///
+  /// In en, this message translates to:
+  /// **'match'**
+  String get match;
+
+  /// No description provided for @matchScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Match Score'**
+  String get matchScore;
+
+  /// No description provided for @noMatchesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches found'**
+  String get noMatchesFound;
+
+  /// No description provided for @noUsersOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'No users online'**
+  String get noUsersOnline;
+
+  /// No description provided for @checkBackLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back later'**
+  String get checkBackLater;
+
+  /// No description provided for @selectLanguagePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a language'**
+  String get selectLanguagePrompt;
+
+  /// No description provided for @findPartnersByLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Find partners who speak or learn this language'**
+  String get findPartnersByLanguage;
+
+  /// No description provided for @noPartnersForLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'No partners for {language}'**
+  String noPartnersForLanguage(String language);
+
+  /// No description provided for @tryAnotherLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Try selecting another language'**
+  String get tryAnotherLanguage;
+
+  /// No description provided for @failedToLoadMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load matches'**
+  String get failedToLoadMatches;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +11,13 @@ import 'package:bananatalk_app/models/learning/quiz_model.dart';
 /// Learning Service
 /// Handles all API calls for the learning feature
 class LearningService {
+  static const String _tag = '🏆 LearningService';
+
+  static void _log(String message) {
+    developer.log(message, name: _tag);
+    // ignore: avoid_print
+    print('$_tag: $message');
+  }
   /// Get authentication token from SharedPreferences
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -118,6 +126,185 @@ class LearningService {
         };
       }
     } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Get XP leaderboard with period filter
+  static Future<Map<String, dynamic>> getXpLeaderboard({
+    String period = 'all', // 'all', 'weekly', 'monthly'
+    String? language,
+    int limit = 50,
+  }) async {
+    try {
+      final token = await _getToken();
+      final queryParams = <String, String>{
+        'period': period,
+        'limit': limit.toString(),
+        if (language != null) 'language': language,
+      };
+      final url = Uri.parse('${Endpoints.baseURL}leaderboard/xp')
+          .replace(queryParameters: queryParams);
+
+      _log('📤 GET $url (period: $period)');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      _log('📥 Response Status: ${response.statusCode}');
+      _log('📥 Response Body: ${response.body.substring(0, response.body.length > 500 ? 500 : response.body.length)}...');
+
+      final data = _safeJsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        final entries = (data?['data']?['entries'] as List?)?.length ?? 0;
+        _log('✅ Success: Got $entries XP leaderboard entries');
+        return {
+          'success': true,
+          'data': data?['data'],
+        };
+      } else {
+        final error = _getErrorMessage(data, 'Failed to fetch XP leaderboard');
+        _log('❌ Error: $error');
+        return {
+          'success': false,
+          'error': error,
+        };
+      }
+    } catch (e) {
+      _log('❌ Exception: $e');
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Get streak leaderboard
+  static Future<Map<String, dynamic>> getStreakLeaderboard({
+    String type = 'current', // 'current', 'longest'
+    int limit = 50,
+  }) async {
+    try {
+      final token = await _getToken();
+      final queryParams = <String, String>{
+        'type': type,
+        'limit': limit.toString(),
+      };
+      final url = Uri.parse('${Endpoints.baseURL}leaderboard/streaks')
+          .replace(queryParameters: queryParams);
+
+      _log('📤 GET $url (type: $type)');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      _log('📥 Response Status: ${response.statusCode}');
+      _log('📥 Response Body: ${response.body.substring(0, response.body.length > 500 ? 500 : response.body.length)}...');
+
+      final data = _safeJsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        final entries = (data?['data']?['entries'] as List?)?.length ?? 0;
+        _log('✅ Success: Got $entries streak leaderboard entries');
+        return {
+          'success': true,
+          'data': data?['data'],
+        };
+      } else {
+        final error = _getErrorMessage(data, 'Failed to fetch streak leaderboard');
+        _log('❌ Error: $error');
+        return {
+          'success': false,
+          'error': error,
+        };
+      }
+    } catch (e) {
+      _log('❌ Exception: $e');
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Get friends leaderboard
+  static Future<Map<String, dynamic>> getFriendsLeaderboard({
+    int limit = 50,
+  }) async {
+    try {
+      final token = await _getToken();
+      final queryParams = <String, String>{
+        'limit': limit.toString(),
+      };
+      final url = Uri.parse('${Endpoints.baseURL}leaderboard/friends')
+          .replace(queryParameters: queryParams);
+
+      _log('📤 GET $url');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      _log('📥 Response Status: ${response.statusCode}');
+      _log('📥 Response Body: ${response.body.substring(0, response.body.length > 500 ? 500 : response.body.length)}...');
+
+      final data = _safeJsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        final entries = (data?['data']?['entries'] as List?)?.length ?? 0;
+        _log('✅ Success: Got $entries friends leaderboard entries');
+        return {
+          'success': true,
+          'data': data?['data'],
+        };
+      } else {
+        final error = _getErrorMessage(data, 'Failed to fetch friends leaderboard');
+        _log('❌ Error: $error');
+        return {
+          'success': false,
+          'error': error,
+        };
+      }
+    } catch (e) {
+      _log('❌ Exception: $e');
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  /// Get current user's ranks
+  static Future<Map<String, dynamic>> getMyRanks() async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}leaderboard/me');
+
+      _log('📤 GET $url');
+
+      final response = await http.get(
+        url,
+        headers: _getHeaders(token),
+      );
+
+      _log('📥 Response Status: ${response.statusCode}');
+      _log('📥 Response Body: ${response.body.substring(0, response.body.length > 500 ? 500 : response.body.length)}...');
+
+      final data = _safeJsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        _log('✅ Success: Got my ranks data');
+        return {
+          'success': true,
+          'data': data?['data'],
+        };
+      } else {
+        final error = _getErrorMessage(data, 'Failed to fetch your ranks');
+        _log('❌ Error: $error');
+        return {
+          'success': false,
+          'error': error,
+        };
+      }
+    } catch (e) {
+      _log('❌ Exception: $e');
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }

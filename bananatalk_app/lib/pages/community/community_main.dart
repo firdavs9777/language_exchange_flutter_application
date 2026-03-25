@@ -14,6 +14,7 @@ import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
@@ -208,6 +209,15 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               ),
             ),
       actions: [
+        // Smart Match button
+        IconButton(
+          onPressed: () => context.push('/matching'),
+          icon: Icon(
+            Icons.auto_awesome_rounded,
+            color: AppColors.primary,
+          ),
+          tooltip: AppLocalizations.of(context)!.findPartners,
+        ),
         // Search button
         IconButton(
           onPressed: () {

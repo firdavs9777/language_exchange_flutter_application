@@ -1386,6 +1386,76 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "leaderboard": "Leaderboard",
+  "competeWithLearners": "Compete with other learners!",
+  "xpRankings": "XP Rankings",
+  "streaks": "Streaks",
+  "friends": "Friends",
+  "myRanks": "My Ranks",
+  "currentStreak": "Current Streak",
+  "longestStreak": "Longest Streak",
+  "allTime": "All Time",
+  "weekly": "Weekly",
+  "monthly": "Monthly",
+  "yourRank": "Your Rank",
+  "outOf": "out of {total}",
+  "@outOf": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "topPercent": "Top {percent}%",
+  "@topPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "xpRank": "XP Rank",
+  "streakRank": "Streak Rank",
+  "days": "days",
+  "learningStats": "Learning Stats",
+  "totalXp": "Total XP",
+  "lessonsCompleted": "Lessons Completed",
+  "rankings": "Rankings",
+  "yourPosition": "Your Position",
+  "keepLearning": "Keep learning to climb!",
+  "noRankingsYet": "No rankings yet",
+  "startLearningToAppear": "Start learning to appear on the leaderboard!",
+  "noFriendsYet": "No friends yet",
+  "addFriendsToCompete": "Add friends to compete with them!",
+  "failedToLoadLeaderboard": "Failed to load leaderboard",
+  "you": "You",
+
+  "findPartners": "Find Partners",
+  "discoverLanguagePartners": "Discover language partners",
+  "recommended": "Recommended",
+  "onlineNow": "Online Now",
+  "byLanguage": "By Language",
+  "match": "match",
+  "matchScore": "Match Score",
+  "viewProfile": "View Profile",
+  "message": "Message",
+  "noMatchesFound": "No matches found",
+  "tryAgainLater": "Try again later",
+  "noUsersOnline": "No users online",
+  "checkBackLater": "Check back later",
+  "selectLanguagePrompt": "Select a language",
+  "findPartnersByLanguage": "Find partners who speak or learn this language",
+  "noPartnersForLanguage": "No partners for {language}",
+  "@noPartnersForLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "tryAnotherLanguage": "Try selecting another language",
+  "failedToLoadMatches": "Failed to load matches"
 }
 
