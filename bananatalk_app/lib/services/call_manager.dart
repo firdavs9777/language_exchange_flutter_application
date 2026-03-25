@@ -26,6 +26,15 @@ class CallManager {
   Function(CallModel)? onCallEnded;
   Function(String)? onCallError;
 
+  // Peer state callbacks
+  Function(bool)? onPeerMuteChanged;
+  Function(bool)? onPeerVideoChanged;
+  Function()? onPeerReconnecting;
+  Function()? onPeerReconnected;
+  Function()? onCallTimeout;
+  Function()? onReconnecting;
+  Function()? onReconnected;
+
   WebRTCService get webrtcService => _webrtcService;
   bool get isInitialized => _isInitialized;
 
@@ -192,6 +201,51 @@ class CallManager {
         }
 
         _cleanup();
+      }
+    });
+
+    // Listen for peer mute state
+    _socket!.on('call:mute', (data) {
+      if (data['callId'] == currentCall?.callId && data['userId'] != null) {
+        final isMuted = data['isMuted'] == true;
+        if (currentCall != null) {
+          currentCall = currentCall!.copyWith(isPeerMuted: isMuted);
+        }
+        onPeerMuteChanged?.call(isMuted);
+      }
+    });
+
+    // Listen for peer video state
+    _socket!.on('call:video-toggle', (data) {
+      if (data['callId'] == currentCall?.callId && data['userId'] != null) {
+        final isVideoEnabled = data['isVideoEnabled'] == true;
+        if (currentCall != null) {
+          currentCall = currentCall!.copyWith(isPeerVideoEnabled: isVideoEnabled);
+        }
+        onPeerVideoChanged?.call(isVideoEnabled);
+      }
+    });
+
+    // Listen for call timeout
+    _socket!.on('call:timeout', (data) {
+      if (currentCall != null) {
+        currentCall = currentCall!.copyWith(status: CallStatus.missed);
+        onCallTimeout?.call();
+        _cleanup();
+      }
+    });
+
+    // Listen for peer reconnecting
+    _socket!.on('call:peer-reconnecting', (data) {
+      if (data['callId'] == currentCall?.callId) {
+        onPeerReconnecting?.call();
+      }
+    });
+
+    // Listen for peer reconnected
+    _socket!.on('call:peer-reconnected', (data) {
+      if (data['callId'] == currentCall?.callId) {
+        onPeerReconnected?.call();
       }
     });
   }
@@ -508,10 +562,24 @@ class CallManager {
 
   void toggleMute() {
     _webrtcService.toggleMicrophone();
+    // Emit mute state to server
+    if (_socket != null && currentCall != null) {
+      _socket!.emit('call:mute', {
+        'callId': currentCall!.callId,
+        'isMuted': !_webrtcService.isMicrophoneEnabled,
+      });
+    }
   }
 
   void toggleVideo() {
     _webrtcService.toggleCamera();
+    // Emit video state to server
+    if (_socket != null && currentCall != null) {
+      _socket!.emit('call:video-toggle', {
+        'callId': currentCall!.callId,
+        'isVideoEnabled': _webrtcService.isCameraEnabled,
+      });
+    }
   }
 
   bool get isMuted => !_webrtcService.isMicrophoneEnabled;
