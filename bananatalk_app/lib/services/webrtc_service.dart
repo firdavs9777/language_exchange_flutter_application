@@ -11,6 +11,18 @@ class WebRTCService {
   final RTCVideoRenderer localRenderer = RTCVideoRenderer();
   final RTCVideoRenderer remoteRenderer = RTCVideoRenderer();
 
+  // Multi-peer support for voice rooms
+  final Map<String, RTCPeerConnection> _peerConnections = {};
+  final Map<String, MediaStream> _remoteStreams = {};
+
+  // Callbacks for multi-peer
+  Function(String peerId, RTCSessionDescription)? onMultiPeerOfferCreated;
+  Function(String peerId, RTCSessionDescription)? onMultiPeerAnswerCreated;
+  Function(String peerId, RTCIceCandidate)? onMultiPeerIceCandidate;
+  Function(String peerId, MediaStream)? onMultiPeerRemoteStream;
+  Function(String peerId)? onMultiPeerConnected;
+  Function(String peerId)? onMultiPeerDisconnected;
+
   // TURN server configuration
   final Map<String, dynamic> _iceServers = {
     'iceServers': [
@@ -295,5 +307,177 @@ class WebRTCService {
   bool get isConnected =>
       _peerConnection?.connectionState ==
       RTCPeerConnectionState.RTCPeerConnectionStateConnected;
+
+  // ============ Multi-Peer Methods for Voice Rooms ============
+
+  /// Initialize local stream for voice room (audio only)
+  Future<void> initLocalStreamForRoom() async {
+    if (_localStream != null) return;
+
+    final constraints = <String, dynamic>{
+      'audio': true,
+      'video': false,
+    };
+
+    _localStream = await navigator.mediaDevices.getUserMedia(constraints);
+    localRenderer.srcObject = _localStream;
+  }
+
+  /// Create offer for a specific peer in multi-peer mode
+  Future<void> createOfferForPeer(String peerId) async {
+    try {
+      // Ensure local stream is initialized
+      await initLocalStreamForRoom();
+
+      // Create peer connection for this peer
+      final pc = await createPeerConnection(_iceServers, _config);
+      _peerConnections[peerId] = pc;
+
+      // Add local stream tracks
+      _localStream!.getTracks().forEach((track) {
+        pc.addTrack(track, _localStream!);
+      });
+
+      // Setup listeners for this peer
+      _setupMultiPeerListeners(peerId, pc);
+
+      // Create offer
+      RTCSessionDescription offer = await pc.createOffer({
+        'offerToReceiveAudio': true,
+        'offerToReceiveVideo': false,
+      });
+
+      await pc.setLocalDescription(offer);
+      onMultiPeerOfferCreated?.call(peerId, offer);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Create answer for a specific peer's offer in multi-peer mode
+  Future<void> createAnswerForPeer(
+    String peerId,
+    RTCSessionDescription offer,
+  ) async {
+    try {
+      // Ensure local stream is initialized
+      await initLocalStreamForRoom();
+
+      // Create peer connection for this peer
+      final pc = await createPeerConnection(_iceServers, _config);
+      _peerConnections[peerId] = pc;
+
+      // Add local stream tracks
+      _localStream!.getTracks().forEach((track) {
+        pc.addTrack(track, _localStream!);
+      });
+
+      // Setup listeners for this peer
+      _setupMultiPeerListeners(peerId, pc);
+
+      // Set remote description (offer)
+      await pc.setRemoteDescription(offer);
+
+      // Create answer
+      RTCSessionDescription answer = await pc.createAnswer({
+        'offerToReceiveAudio': true,
+        'offerToReceiveVideo': false,
+      });
+
+      await pc.setLocalDescription(answer);
+      onMultiPeerAnswerCreated?.call(peerId, answer);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Set remote description for a specific peer
+  Future<void> setRemoteDescriptionForPeer(
+    String peerId,
+    RTCSessionDescription description,
+  ) async {
+    final pc = _peerConnections[peerId];
+    if (pc != null) {
+      await pc.setRemoteDescription(description);
+    }
+  }
+
+  /// Add ICE candidate for a specific peer
+  Future<void> addIceCandidateForPeer(
+    String peerId,
+    RTCIceCandidate candidate,
+  ) async {
+    final pc = _peerConnections[peerId];
+    if (pc != null) {
+      await pc.addCandidate(candidate);
+    }
+  }
+
+  /// Disconnect from a specific peer
+  Future<void> disconnectFromPeer(String peerId) async {
+    final pc = _peerConnections.remove(peerId);
+    await pc?.close();
+
+    final stream = _remoteStreams.remove(peerId);
+    stream?.getTracks().forEach((track) => track.stop());
+    stream?.dispose();
+  }
+
+  /// Cleanup all multi-peer connections
+  Future<void> disposeMultiPeer() async {
+    // Close all peer connections
+    for (final entry in _peerConnections.entries) {
+      await entry.value.close();
+    }
+    _peerConnections.clear();
+
+    // Dispose all remote streams
+    for (final stream in _remoteStreams.values) {
+      stream.getTracks().forEach((track) => track.stop());
+      await stream.dispose();
+    }
+    _remoteStreams.clear();
+
+    // Dispose local stream
+    _localStream?.getTracks().forEach((track) => track.stop());
+    await _localStream?.dispose();
+    _localStream = null;
+  }
+
+  void _setupMultiPeerListeners(String peerId, RTCPeerConnection pc) {
+    pc.onIceCandidate = (RTCIceCandidate candidate) {
+      onMultiPeerIceCandidate?.call(peerId, candidate);
+    };
+
+    pc.onTrack = (RTCTrackEvent event) {
+      if (event.streams.isNotEmpty) {
+        _remoteStreams[peerId] = event.streams[0];
+        onMultiPeerRemoteStream?.call(peerId, event.streams[0]);
+      }
+    };
+
+    pc.onConnectionState = (RTCPeerConnectionState state) {
+      if (state == RTCPeerConnectionState.RTCPeerConnectionStateConnected) {
+        onMultiPeerConnected?.call(peerId);
+      } else if (state == RTCPeerConnectionState.RTCPeerConnectionStateDisconnected ||
+          state == RTCPeerConnectionState.RTCPeerConnectionStateFailed ||
+          state == RTCPeerConnectionState.RTCPeerConnectionStateClosed) {
+        onMultiPeerDisconnected?.call(peerId);
+      }
+    };
+  }
+
+  /// Get the number of active peer connections
+  int get peerCount => _peerConnections.length;
+
+  /// Check if connected to a specific peer
+  bool isPeerConnected(String peerId) {
+    final pc = _peerConnections[peerId];
+    return pc?.connectionState ==
+        RTCPeerConnectionState.RTCPeerConnectionStateConnected;
+  }
+
+  /// Get remote stream for a specific peer
+  MediaStream? getRemoteStream(String peerId) => _remoteStreams[peerId];
 }
 
