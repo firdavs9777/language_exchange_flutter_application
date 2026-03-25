@@ -31,6 +31,9 @@ import 'package:app_settings/app_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/widgets/community/language_match_card.dart';
+import 'package:bananatalk_app/widgets/community/engagement_stats_bar.dart';
+import 'package:bananatalk_app/widgets/community/conversation_starters_card.dart';
 
 class SingleCommunity extends ConsumerStatefulWidget {
   final Community community;
@@ -812,6 +815,14 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 const SizedBox(height: 16),
               ],
 
+              // Language Match Card - shows language compatibility
+              LanguageMatchCard(profile: _community),
+
+              // Engagement Stats Bar - online status, response rate
+              EngagementStatsBar(profile: _community),
+
+              Spacing.gapSM,
+
               // Action buttons row - modern style
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
@@ -937,6 +948,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
               ),
 
               Spacing.gapMD,
+
+              // Conversation Starters - smart ice-breakers
+              ConversationStartersCard(profile: _community),
+
               Divider(color: context.dividerColor),
               Spacing.gapSM,
 
@@ -954,16 +969,30 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   }
 
   /// Build Interests Section - horizontal scrollable chips showing user's topics
+  /// Highlights shared interests with the current user
   Widget _buildInterestsSection() {
     // Return empty widget if no topics
     if (_community.topics.isEmpty) {
       return const SizedBox.shrink();
     }
 
+    // Get current user's topics for comparison
+    final currentUserAsync = ref.watch(userProvider);
+    final currentUser = currentUserAsync.valueOrNull;
+    final myTopics = currentUser?.topics.toSet() ?? <String>{};
+    final theirTopics = _community.topics.toSet();
+    final sharedTopics = myTopics.intersection(theirTopics);
+
+    // Sort: shared first, then unique
+    final sortedTopics = [
+      ...sharedTopics,
+      ...theirTopics.difference(sharedTopics),
+    ].toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header
+        // Header with shared count
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
@@ -982,6 +1011,23 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
               ),
               Spacing.hGapSM,
               Text(AppLocalizations.of(context)!.interests, style: context.titleMedium),
+              if (sharedTopics.isNotEmpty) ...[
+                Spacing.hGapSM,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '${sharedTopics.length} shared',
+                    style: context.captionSmall.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -990,10 +1036,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
           height: 36,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: _community.topics.length,
+            itemCount: sortedTopics.length,
             separatorBuilder: (context, index) => Spacing.hGapSM,
             itemBuilder: (context, index) {
-              final topicId = _community.topics[index];
+              final topicId = sortedTopics[index];
+              final isShared = sharedTopics.contains(topicId);
+
               // Find the topic from default topics
               final topic = Topic.defaultTopics.firstWhere(
                 (t) => t.id == topicId,
@@ -1010,16 +1058,34 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
-                  color: context.containerColor,
+                  color: isShared
+                      ? AppColors.primary.withOpacity(0.1)
+                      : context.containerColor,
                   borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: context.dividerColor, width: 1),
+                  border: Border.all(
+                    color: isShared ? AppColors.primary : context.dividerColor,
+                    width: isShared ? 1.5 : 1,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(topic.icon, style: const TextStyle(fontSize: 14)),
                     Spacing.hGapXS,
-                    Text(topic.name, style: context.labelMedium),
+                    Text(
+                      topic.name,
+                      style: context.labelMedium.copyWith(
+                        color: isShared ? AppColors.primary : null,
+                      ),
+                    ),
+                    if (isShared) ...[
+                      Spacing.hGapXS,
+                      Icon(
+                        Icons.check,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
+                    ],
                   ],
                 ),
               );

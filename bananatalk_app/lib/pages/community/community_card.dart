@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart' show HapticFeedback;
 
@@ -95,24 +97,8 @@ class _CommunityCardState extends State<CommunityCard>
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Colors.white, Colors.grey[50]!],
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF00BFA5).withOpacity(0.08),
-                      blurRadius: 20,
-                      offset: const Offset(0, 4),
-                      spreadRadius: 0,
-                    ),
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: context.surfaceColor,
+                  boxShadow: context.isDarkMode ? [] : AppShadows.md,
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
@@ -121,22 +107,22 @@ class _CommunityCardState extends State<CommunityCard>
                     child: InkWell(
                       borderRadius: BorderRadius.circular(24),
                       onTap: widget.onTap,
-                      splashColor: const Color(0xFF00BFA5).withOpacity(0.1),
-                      highlightColor: const Color(0xFF00BFA5).withOpacity(0.05),
+                      splashColor: AppColors.primary.withOpacity(0.1),
+                      highlightColor: AppColors.primary.withOpacity(0.05),
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildHeader(),
+                            _buildHeader(context),
                             const SizedBox(height: 16),
-                            _buildLanguageExchange(),
+                            _buildLanguageExchange(context),
                             if (widget.community.bio.isNotEmpty) ...[
                               const SizedBox(height: 12),
-                              _buildBio(),
+                              _buildBio(context),
                             ],
                             const SizedBox(height: 16),
-                            _buildFooter(),
+                            _buildFooter(context),
                           ],
                         ),
                       ),
@@ -151,10 +137,10 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       children: [
-        _buildModernAvatar(),
+        _buildModernAvatar(context),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
@@ -165,30 +151,30 @@ class _CommunityCardState extends State<CommunityCard>
                   Expanded(
                     child: Text(
                       widget.community.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
-                        color: Colors.black87,
+                        color: context.textPrimary,
                         letterSpacing: -0.5,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  if (widget.isFollowing) _buildFollowingBadge(),
+                  if (widget.isFollowing) _buildFollowingBadge(context),
                 ],
               ),
               const SizedBox(height: 6),
-              _buildMetaInfo(),
+              _buildMetaInfo(context),
             ],
           ),
         ),
-        _buildQuickAction(),
+        _buildQuickAction(context),
       ],
     );
   }
 
-  Widget _buildModernAvatar() {
+  Widget _buildModernAvatar(BuildContext context) {
     return Container(
       width: 70,
       height: 70,
@@ -196,8 +182,8 @@ class _CommunityCardState extends State<CommunityCard>
         shape: BoxShape.circle,
         gradient: LinearGradient(
           colors: [
-            const Color(0xFF00BFA5).withOpacity(0.2),
-            const Color(0xFF00ACC1).withOpacity(0.1),
+            AppColors.primary.withOpacity(0.2),
+            AppColors.primary.withOpacity(0.1),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -215,14 +201,14 @@ class _CommunityCardState extends State<CommunityCard>
                     shape: BoxShape.circle,
                     gradient: profileImage == null
                         ? const LinearGradient(
-                            colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+                            colors: [AppColors.primary, Color(0xFF00ACC1)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )
                         : null,
-                    boxShadow: [
+                    boxShadow: context.isDarkMode ? [] : [
                       BoxShadow(
-                        color: const Color(0xFF00BFA5).withOpacity(0.3),
+                        color: AppColors.primary.withOpacity(0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -237,7 +223,7 @@ class _CommunityCardState extends State<CommunityCard>
                             fit: BoxFit.cover,
                             errorWidget: _buildFallbackAvatar(),
                             placeholder: Container(
-                              color: Colors.grey[100],
+                              color: context.containerColor,
                               child: Center(
                                 child: SizedBox(
                                   width: 24,
@@ -245,7 +231,7 @@ class _CommunityCardState extends State<CommunityCard>
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                      const Color(0xFF00BFA5).withOpacity(0.5),
+                                      AppColors.primary.withOpacity(0.5),
                                     ),
                                   ),
                                 ),
@@ -257,7 +243,7 @@ class _CommunityCardState extends State<CommunityCard>
                 );
               },
             ),
-            // Flag badge with glassmorphism
+            // Flag badge
             Positioned(
               bottom: 0,
               right: 0,
@@ -266,8 +252,8 @@ class _CommunityCardState extends State<CommunityCard>
                 height: 26,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
-                  boxShadow: [
+                  color: context.surfaceColor,
+                  boxShadow: context.isDarkMode ? [] : [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 8,
@@ -279,7 +265,7 @@ class _CommunityCardState extends State<CommunityCard>
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
-                      color: Colors.white.withOpacity(0.9),
+                      color: context.surfaceColor.withOpacity(0.9),
                       child: Center(
                         child: Text(
                           _getLanguageFlag(widget.community.native_language),
@@ -301,11 +287,11 @@ class _CommunityCardState extends State<CommunityCard>
                   height: 14,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFF4CAF50),
-                    border: Border.all(color: Colors.white, width: 2),
+                    color: AppColors.online,
+                    border: Border.all(color: context.surfaceColor, width: 2),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF4CAF50).withOpacity(0.5),
+                        color: AppColors.online.withOpacity(0.5),
                         blurRadius: 4,
                         spreadRadius: 1,
                       ),
@@ -323,7 +309,7 @@ class _CommunityCardState extends State<CommunityCard>
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+          colors: [AppColors.primary, Color(0xFF00ACC1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -344,19 +330,14 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildFollowingBadge() {
+  Widget _buildFollowingBadge(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF4CAF50).withOpacity(0.15),
-            const Color(0xFF66BB6A).withOpacity(0.1),
-          ],
-        ),
+        color: AppColors.success.withOpacity(context.isDarkMode ? 0.2 : 0.15),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: const Color(0xFF4CAF50).withOpacity(0.3),
+          color: AppColors.success.withOpacity(0.3),
           width: 1,
         ),
       ),
@@ -368,15 +349,15 @@ class _CommunityCardState extends State<CommunityCard>
             height: 6,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFF4CAF50),
+              color: AppColors.success,
             ),
           ),
           const SizedBox(width: 6),
-          const Text(
+          Text(
             'Following',
             style: TextStyle(
               fontSize: 11,
-              color: Color(0xFF2E7D32),
+              color: context.isDarkMode ? AppColors.success : const Color(0xFF2E7D32),
               fontWeight: FontWeight.w700,
               letterSpacing: 0.5,
             ),
@@ -386,20 +367,20 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildMetaInfo() {
+  Widget _buildMetaInfo(BuildContext context) {
     final locationText = PrivacyUtils.getLocationText(widget.community);
 
     return Row(
       children: [
         if (locationText.isNotEmpty) ...[
-          Icon(Icons.location_on_rounded, size: 14, color: Colors.grey[500]),
+          Icon(Icons.location_on_rounded, size: 14, color: context.textMuted),
           const SizedBox(width: 4),
           Flexible(
             child: Text(
               locationText,
               style: TextStyle(
                 fontSize: 13,
-                color: Colors.grey[600],
+                color: context.textSecondary,
                 fontWeight: FontWeight.w500,
               ),
               maxLines: 1,
@@ -411,20 +392,20 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildQuickAction() {
+  Widget _buildQuickAction(BuildContext context) {
     return Container(
       width: 50,
       height: 50,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+          colors: [AppColors.primary, Color(0xFF00ACC1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
+        boxShadow: context.isDarkMode ? [] : [
           BoxShadow(
-            color: const Color(0xFF00BFA5).withOpacity(0.4),
+            color: AppColors.primary.withOpacity(0.4),
             blurRadius: 12,
             offset: const Offset(0, 4),
             spreadRadius: 0,
@@ -450,7 +431,7 @@ class _CommunityCardState extends State<CommunityCard>
                     Text('Waved to ${widget.community.name}! 👋'),
                   ],
                 ),
-                backgroundColor: const Color(0xFF00BFA5),
+                backgroundColor: AppColors.primary,
                 behavior: SnackBarBehavior.floating,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -469,21 +450,14 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildLanguageExchange() {
+  Widget _buildLanguageExchange(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF00BFA5).withOpacity(0.08),
-            const Color(0xFF00ACC1).withOpacity(0.05),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: AppColors.primary.withOpacity(context.isDarkMode ? 0.15 : 0.08),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFF00BFA5).withOpacity(0.15),
+          color: AppColors.primary.withOpacity(0.15),
           width: 1.5,
         ),
       ),
@@ -491,6 +465,7 @@ class _CommunityCardState extends State<CommunityCard>
         children: [
           Expanded(
             child: _buildLanguageChip(
+              context,
               widget.community.native_language,
               true,
               _getLanguageFlag(widget.community.native_language),
@@ -501,9 +476,9 @@ class _CommunityCardState extends State<CommunityCard>
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.surfaceColor,
                 shape: BoxShape.circle,
-                boxShadow: [
+                boxShadow: context.isDarkMode ? [] : [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
                     blurRadius: 8,
@@ -511,15 +486,16 @@ class _CommunityCardState extends State<CommunityCard>
                   ),
                 ],
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.swap_horiz_rounded,
-                color: const Color(0xFF00BFA5),
+                color: AppColors.primary,
                 size: 20,
               ),
             ),
           ),
           Expanded(
             child: _buildLanguageChip(
+              context,
               widget.community.language_to_learn,
               false,
               _getLanguageFlag(widget.community.language_to_learn),
@@ -530,7 +506,7 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildLanguageChip(String language, bool isNative, String flag) {
+  Widget _buildLanguageChip(BuildContext context, String language, bool isNative, String flag) {
     return Column(
       children: [
         Text(flag, style: const TextStyle(fontSize: 32)),
@@ -539,7 +515,7 @@ class _CommunityCardState extends State<CommunityCard>
           isNative ? 'Native' : 'Learning',
           style: TextStyle(
             fontSize: 10,
-            color: Colors.grey[500],
+            color: context.textMuted,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
           ),
@@ -550,7 +526,7 @@ class _CommunityCardState extends State<CommunityCard>
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w800,
-            color: isNative ? const Color(0xFF00BFA5) : Colors.grey[700],
+            color: isNative ? AppColors.primary : context.textSecondary,
             letterSpacing: 0.5,
           ),
           textAlign: TextAlign.center,
@@ -561,25 +537,25 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildBio() {
+  Widget _buildBio(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: context.containerColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!, width: 1),
+        border: Border.all(color: context.dividerColor, width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.format_quote_rounded, size: 18, color: Colors.grey[400]),
+          Icon(Icons.format_quote_rounded, size: 18, color: context.textMuted),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               widget.community.bio,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey[700],
+                color: context.textSecondary,
                 height: 1.4,
                 fontWeight: FontWeight.w500,
               ),
@@ -592,41 +568,42 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(BuildContext context) {
     return Row(
       children: [
         _buildStatChip(
+          context,
           Icons.groups_rounded,
-          '${_randomFollowers()}',
+          '${widget.community.followers.length}',
           'followers',
         ),
         const SizedBox(width: 12),
-        _buildStatChip(Icons.chat_bubble_rounded, 'Active', 'status'),
+        _buildStatChip(context, Icons.chat_bubble_rounded, 'Active', 'status'),
         const Spacer(),
-        _buildViewProfileButton(),
+        _buildViewProfileButton(context),
       ],
     );
   }
 
-  Widget _buildStatChip(IconData icon, String value, String label) {
+  Widget _buildStatChip(BuildContext context, IconData icon, String value, String label) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.surfaceColor,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey[200]!, width: 1),
+        border: Border.all(color: context.dividerColor, width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: const Color(0xFF00BFA5)),
+          Icon(icon, size: 16, color: AppColors.primary),
           const SizedBox(width: 6),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
-              color: Colors.black87,
+              color: context.textPrimary,
             ),
           ),
         ],
@@ -634,33 +611,33 @@ class _CommunityCardState extends State<CommunityCard>
     );
   }
 
-  Widget _buildViewProfileButton() {
+  Widget _buildViewProfileButton(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.surfaceColor,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: const Color(0xFF00BFA5).withOpacity(0.3),
+          color: AppColors.primary.withOpacity(0.3),
           width: 1.5,
         ),
       ),
-      child: Row(
+      child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             'View Profile',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF00BFA5),
+              color: AppColors.primary,
             ),
           ),
-          const SizedBox(width: 4),
-          const Icon(
+          SizedBox(width: 4),
+          Icon(
             Icons.arrow_forward_rounded,
             size: 14,
-            color: Color(0xFF00BFA5),
+            color: AppColors.primary,
           ),
         ],
       ),
@@ -729,10 +706,5 @@ class _CommunityCardState extends State<CommunityCard>
     }
 
     return LanguageFlags.getFlag('');
-  }
-
-  int _randomFollowers() {
-    // TODO: Replace with real follower count from backend
-    return (widget.community.name.length * 17) % 999 + 50;
   }
 }
