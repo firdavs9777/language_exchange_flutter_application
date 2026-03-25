@@ -4,7 +4,7 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;

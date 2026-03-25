@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class IncomingCallScreen extends ConsumerWidget {
   final CallModel call;

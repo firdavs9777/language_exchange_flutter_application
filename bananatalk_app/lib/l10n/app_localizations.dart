@@ -3015,7 +3015,7 @@ abstract class AppLocalizations {
   /// No description provided for @exchange3MessagesBeforeCall.
   ///
   /// In en, this message translates to:
-  /// **'You need to exchange at least 3 messages before you can call this user'**
+  /// **'Exchange 3+ messages before calling'**
   String get exchange3MessagesBeforeCall;
 
   /// No description provided for @mediaWithUser.
@@ -3165,7 +3165,7 @@ abstract class AppLocalizations {
   /// No description provided for @leaveRoom.
   ///
   /// In en, this message translates to:
-  /// **'Leave Room?'**
+  /// **'Leave Room'**
   String get leaveRoom;
 
   /// No description provided for @areYouSureLeaveRoom.
@@ -5303,6 +5303,462 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Location could not be updated'**
   String get locationCouldNotBeUpdated;
+
+  /// No description provided for @incomingAudioCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming Audio Call'**
+  String get incomingAudioCall;
+
+  /// No description provided for @incomingVideoCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming Video Call'**
+  String get incomingVideoCall;
+
+  /// No description provided for @outgoingCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Calling...'**
+  String get outgoingCall;
+
+  /// No description provided for @callRinging.
+  ///
+  /// In en, this message translates to:
+  /// **'Ringing...'**
+  String get callRinging;
+
+  /// No description provided for @callConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting...'**
+  String get callConnecting;
+
+  /// No description provided for @callConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get callConnected;
+
+  /// No description provided for @callReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting...'**
+  String get callReconnecting;
+
+  /// No description provided for @callEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Call Ended'**
+  String get callEnded;
+
+  /// No description provided for @callFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Call Failed'**
+  String get callFailed;
+
+  /// No description provided for @callMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed Call'**
+  String get callMissed;
+
+  /// No description provided for @callDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'Call Declined'**
+  String get callDeclined;
+
+  /// No description provided for @callDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'{duration}'**
+  String callDuration(String duration);
+
+  /// No description provided for @acceptCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get acceptCall;
+
+  /// No description provided for @declineCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get declineCall;
+
+  /// No description provided for @endCall.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get endCall;
+
+  /// No description provided for @muteCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get muteCall;
+
+  /// No description provided for @unmuteCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute'**
+  String get unmuteCall;
+
+  /// No description provided for @speakerOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker'**
+  String get speakerOn;
+
+  /// No description provided for @speakerOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Earpiece'**
+  String get speakerOff;
+
+  /// No description provided for @videoOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Video On'**
+  String get videoOn;
+
+  /// No description provided for @videoOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Off'**
+  String get videoOff;
+
+  /// No description provided for @switchCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Camera'**
+  String get switchCamera;
+
+  /// No description provided for @callPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission is required for calls'**
+  String get callPermissionDenied;
+
+  /// No description provided for @cameraPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission is required for video calls'**
+  String get cameraPermissionDenied;
+
+  /// No description provided for @callConnectionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect. Please try again.'**
+  String get callConnectionFailed;
+
+  /// No description provided for @userBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'User is busy'**
+  String get userBusy;
+
+  /// No description provided for @userOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'User is offline'**
+  String get userOffline;
+
+  /// No description provided for @callHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Call History'**
+  String get callHistory;
+
+  /// No description provided for @noCallHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No call history'**
+  String get noCallHistory;
+
+  /// No description provided for @missedCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed Calls'**
+  String get missedCalls;
+
+  /// No description provided for @allCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'All Calls'**
+  String get allCalls;
+
+  /// No description provided for @callBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Call Back'**
+  String get callBack;
+
+  /// No description provided for @callAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Call at {time}'**
+  String callAt(String time);
+
+  /// No description provided for @audioCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Call'**
+  String get audioCall;
+
+  /// No description provided for @voiceRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Room'**
+  String get voiceRoom;
+
+  /// No description provided for @noVoiceRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'No voice rooms active'**
+  String get noVoiceRooms;
+
+  /// No description provided for @createVoiceRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Voice Room'**
+  String get createVoiceRoom;
+
+  /// No description provided for @joinRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Room'**
+  String get joinRoom;
+
+  /// No description provided for @leaveRoomConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Room?'**
+  String get leaveRoomConfirm;
+
+  /// No description provided for @leaveRoomMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to leave this room?'**
+  String get leaveRoomMessage;
+
+  /// No description provided for @roomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Room Title'**
+  String get roomTitle;
+
+  /// No description provided for @roomTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter room title'**
+  String get roomTitleHint;
+
+  /// No description provided for @roomTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get roomTopic;
+
+  /// No description provided for @roomLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get roomLanguage;
+
+  /// No description provided for @roomHost.
+  ///
+  /// In en, this message translates to:
+  /// **'Host'**
+  String get roomHost;
+
+  /// No description provided for @roomParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} participants'**
+  String roomParticipants(int count);
+
+  /// No description provided for @roomMaxParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'Max {count} participants'**
+  String roomMaxParticipants(int count);
+
+  /// No description provided for @selectTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Topic'**
+  String get selectTopic;
+
+  /// No description provided for @raiseHand.
+  ///
+  /// In en, this message translates to:
+  /// **'Raise Hand'**
+  String get raiseHand;
+
+  /// No description provided for @lowerHand.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower Hand'**
+  String get lowerHand;
+
+  /// No description provided for @handRaisedNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand raised! The host will see your request.'**
+  String get handRaisedNotification;
+
+  /// No description provided for @handLoweredNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand lowered'**
+  String get handLoweredNotification;
+
+  /// No description provided for @muteParticipant.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute Participant'**
+  String get muteParticipant;
+
+  /// No description provided for @kickParticipant.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from Room'**
+  String get kickParticipant;
+
+  /// No description provided for @promoteToCoHost.
+  ///
+  /// In en, this message translates to:
+  /// **'Make Co-Host'**
+  String get promoteToCoHost;
+
+  /// No description provided for @endRoomConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'End Room?'**
+  String get endRoomConfirm;
+
+  /// No description provided for @endRoomMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This will end the room for all participants.'**
+  String get endRoomMessage;
+
+  /// No description provided for @roomEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Room ended by host'**
+  String get roomEnded;
+
+  /// No description provided for @youWereRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'You were removed from the room'**
+  String get youWereRemoved;
+
+  /// No description provided for @roomIsFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Room is full'**
+  String get roomIsFull;
+
+  /// No description provided for @roomChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Room Chat'**
+  String get roomChat;
+
+  /// No description provided for @noMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get noMessages;
+
+  /// No description provided for @typeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message...'**
+  String get typeMessage;
+
+  /// No description provided for @voiceRoomsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Join live conversations and practice speaking'**
+  String get voiceRoomsDescription;
+
+  /// No description provided for @liveRoomsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Live'**
+  String liveRoomsCount(int count);
+
+  /// No description provided for @noActiveRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'No active rooms'**
+  String get noActiveRooms;
+
+  /// No description provided for @noActiveRoomsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to start a voice room and practice speaking with others!'**
+  String get noActiveRoomsDescription;
+
+  /// No description provided for @startRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a Room'**
+  String get startRoom;
+
+  /// No description provided for @createRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Room'**
+  String get createRoom;
+
+  /// No description provided for @roomCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Room created successfully!'**
+  String get roomCreated;
+
+  /// No description provided for @failedToCreateRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create room'**
+  String get failedToCreateRoom;
+
+  /// No description provided for @errorLoadingRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading rooms'**
+  String get errorLoadingRooms;
+
+  /// No description provided for @pleaseEnterRoomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a room title'**
+  String get pleaseEnterRoomTitle;
+
+  /// No description provided for @startLiveConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a live conversation'**
+  String get startLiveConversation;
+
+  /// No description provided for @maxParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Participants'**
+  String get maxParticipants;
+
+  /// No description provided for @nPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} people'**
+  String nPeople(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

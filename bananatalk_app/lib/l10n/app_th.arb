@@ -675,5 +675,116 @@
   "locationServiceDisabled": "บริการตำแหน่งถูกปิด กรุณาเปิดใช้งาน",
   "updatingLocation": "กำลังอัปเดตตำแหน่ง...",
   "openSettings": "เปิดการตั้งค่า",
-  "locationCouldNotBeUpdated": "ไม่สามารถอัปเดตตำแหน่งได้"
+  "locationCouldNotBeUpdated": "ไม่สามารถอัปเดตตำแหน่งได้",
+  "incomingAudioCall": "สายเรียกเข้าเสียง",
+  "incomingVideoCall": "สายเรียกเข้าวิดีโอ",
+  "outgoingCall": "กำลังโทร...",
+  "callRinging": "กำลังเรียก...",
+  "callConnecting": "กำลังเชื่อมต่อ...",
+  "callConnected": "เชื่อมต่อแล้ว",
+  "callReconnecting": "กำลังเชื่อมต่อใหม่...",
+  "callEnded": "สายสิ้นสุด",
+  "callFailed": "โทรไม่สำเร็จ",
+  "callMissed": "สายที่ไม่ได้รับ",
+  "callDeclined": "ปฏิเสธสาย",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "รับสาย",
+  "declineCall": "ปฏิเสธ",
+  "endCall": "วางสาย",
+  "muteCall": "ปิดเสียง",
+  "unmuteCall": "เปิดเสียง",
+  "speakerOn": "ลำโพง",
+  "speakerOff": "หูฟัง",
+  "videoOn": "เปิดวิดีโอ",
+  "videoOff": "ปิดวิดีโอ",
+  "switchCamera": "สลับกล้อง",
+  "callPermissionDenied": "ต้องการสิทธิ์ไมโครโฟนสำหรับการโทร",
+  "cameraPermissionDenied": "ต้องการสิทธิ์กล้องสำหรับวิดีโอคอล",
+  "callConnectionFailed": "ไม่สามารถเชื่อมต่อได้ กรุณาลองใหม่",
+  "userBusy": "ผู้ใช้ไม่ว่าง",
+  "userOffline": "ผู้ใช้ออฟไลน์",
+  "callHistory": "ประวัติการโทร",
+  "noCallHistory": "ไม่มีประวัติการโทร",
+  "missedCalls": "สายที่ไม่ได้รับ",
+  "allCalls": "ทุกสาย",
+  "callBack": "โทรกลับ",
+  "callAt": "โทรเวลา {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "สายเสียง",
+  "tryAgain": "ลองใหม่",
+  "voiceRoom": "ห้องเสียง",
+  "noVoiceRooms": "ไม่มีห้องเสียงที่ใช้งานอยู่",
+  "createVoiceRoom": "สร้างห้องเสียง",
+  "joinRoom": "เข้าร่วมห้อง",
+  "leaveRoom": "ออกจากห้อง",
+  "leaveRoomConfirm": "ออกจากห้อง?",
+  "leaveRoomMessage": "คุณแน่ใจหรือไม่ว่าต้องการออกจากห้องนี้?",
+  "stay": "อยู่",
+  "leave": "ออก",
+  "roomTitle": "ชื่อห้อง",
+  "roomTitleHint": "ป้อนชื่อห้อง",
+  "roomTopic": "หัวข้อ",
+  "roomLanguage": "ภาษา",
+  "roomHost": "โฮสต์",
+  "roomParticipants": "{count} ผู้เข้าร่วม",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "สูงสุด {count} ผู้เข้าร่วม",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "เลือกหัวข้อ",
+  "selectLanguage": "เลือกภาษา",
+  "raiseHand": "ยกมือ",
+  "lowerHand": "ลดมือ",
+  "handRaisedNotification": "ยกมือแล้ว! โฮสต์จะเห็นคำขอของคุณ",
+  "handLoweredNotification": "ลดมือแล้ว",
+  "muteParticipant": "ปิดเสียงผู้เข้าร่วม",
+  "kickParticipant": "นำออกจากห้อง",
+  "promoteToCoHost": "เลื่อนเป็นโค-โฮสต์",
+  "endRoomConfirm": "สิ้นสุดห้อง?",
+  "endRoomMessage": "นี่จะสิ้นสุดห้องสำหรับผู้เข้าร่วมทุกคน",
+  "roomEnded": "ห้องสิ้นสุดโดยโฮสต์",
+  "youWereRemoved": "คุณถูกนำออกจากห้อง",
+  "roomIsFull": "ห้องเต็ม",
+  "roomChat": "แชทห้อง",
+  "noMessages": "ยังไม่มีข้อความ",
+  "typeMessage": "พิมพ์ข้อความ...",
+  "voiceRoomsDescription": "เข้าร่วมการสนทนาสดและฝึกพูด",
+  "liveRoomsCount": "{count} สด",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "ไม่มีห้องที่ใช้งานอยู่",
+  "noActiveRoomsDescription": "เป็นคนแรกที่เริ่มห้องเสียงและฝึกพูดกับคนอื่น!",
+  "startRoom": "เริ่มห้อง",
+  "createRoom": "สร้างห้อง",
+  "roomCreated": "สร้างห้องสำเร็จ!",
+  "failedToCreateRoom": "สร้างห้องไม่สำเร็จ",
+  "errorLoadingRooms": "เกิดข้อผิดพลาดในการโหลดห้อง",
+  "pleaseEnterRoomTitle": "กรุณาป้อนชื่อห้อง",
+  "startLiveConversation": "เริ่มการสนทนาสด",
+  "maxParticipants": "ผู้เข้าร่วมสูงสุด",
+  "nPeople": "{count} คน",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

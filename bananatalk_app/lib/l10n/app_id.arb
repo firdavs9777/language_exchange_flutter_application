@@ -679,5 +679,116 @@
   "locationServiceDisabled": "Layanan lokasi dinonaktifkan. Aktifkan.",
   "updatingLocation": "Memperbarui lokasi...",
   "openSettings": "Buka Pengaturan",
-  "locationCouldNotBeUpdated": "Lokasi tidak dapat diperbarui"
+  "locationCouldNotBeUpdated": "Lokasi tidak dapat diperbarui",
+  "incomingAudioCall": "Panggilan Suara Masuk",
+  "incomingVideoCall": "Panggilan Video Masuk",
+  "outgoingCall": "Memanggil...",
+  "callRinging": "Berdering...",
+  "callConnecting": "Menghubungkan...",
+  "callConnected": "Terhubung",
+  "callReconnecting": "Menghubungkan ulang...",
+  "callEnded": "Panggilan Berakhir",
+  "callFailed": "Panggilan Gagal",
+  "callMissed": "Panggilan Tak Terjawab",
+  "callDeclined": "Panggilan Ditolak",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Terima",
+  "declineCall": "Tolak",
+  "endCall": "Akhiri",
+  "muteCall": "Bisukan",
+  "unmuteCall": "Bunyikan",
+  "speakerOn": "Speaker",
+  "speakerOff": "Earpiece",
+  "videoOn": "Video Nyala",
+  "videoOff": "Video Mati",
+  "switchCamera": "Ganti Kamera",
+  "callPermissionDenied": "Izin mikrofon diperlukan untuk panggilan",
+  "cameraPermissionDenied": "Izin kamera diperlukan untuk panggilan video",
+  "callConnectionFailed": "Tidak dapat terhubung. Silakan coba lagi.",
+  "userBusy": "Pengguna sibuk",
+  "userOffline": "Pengguna offline",
+  "callHistory": "Riwayat Panggilan",
+  "noCallHistory": "Tidak ada riwayat panggilan",
+  "missedCalls": "Panggilan Tak Terjawab",
+  "allCalls": "Semua Panggilan",
+  "callBack": "Panggil Balik",
+  "callAt": "Panggilan pada {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Panggilan Suara",
+  "tryAgain": "Coba Lagi",
+  "voiceRoom": "Ruang Suara",
+  "noVoiceRooms": "Tidak ada ruang suara aktif",
+  "createVoiceRoom": "Buat Ruang Suara",
+  "joinRoom": "Gabung Ruang",
+  "leaveRoom": "Tinggalkan Ruang",
+  "leaveRoomConfirm": "Tinggalkan Ruang?",
+  "leaveRoomMessage": "Apakah Anda yakin ingin meninggalkan ruang ini?",
+  "stay": "Tetap",
+  "leave": "Tinggalkan",
+  "roomTitle": "Judul Ruang",
+  "roomTitleHint": "Masukkan judul ruang",
+  "roomTopic": "Topik",
+  "roomLanguage": "Bahasa",
+  "roomHost": "Host",
+  "roomParticipants": "{count} peserta",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Maks. {count} peserta",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Pilih Topik",
+  "selectLanguage": "Pilih Bahasa",
+  "raiseHand": "Angkat Tangan",
+  "lowerHand": "Turunkan Tangan",
+  "handRaisedNotification": "Tangan diangkat! Host akan melihat permintaan Anda.",
+  "handLoweredNotification": "Tangan diturunkan",
+  "muteParticipant": "Bisukan Peserta",
+  "kickParticipant": "Keluarkan dari Ruang",
+  "promoteToCoHost": "Jadikan Co-Host",
+  "endRoomConfirm": "Akhiri Ruang?",
+  "endRoomMessage": "Ini akan mengakhiri ruang untuk semua peserta.",
+  "roomEnded": "Ruang diakhiri oleh host",
+  "youWereRemoved": "Anda dikeluarkan dari ruang",
+  "roomIsFull": "Ruang penuh",
+  "roomChat": "Chat Ruang",
+  "noMessages": "Belum ada pesan",
+  "typeMessage": "Ketik pesan...",
+  "voiceRoomsDescription": "Gabung percakapan langsung dan berlatih berbicara",
+  "liveRoomsCount": "{count} Live",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Tidak ada ruang aktif",
+  "noActiveRoomsDescription": "Jadilah yang pertama memulai ruang suara dan berlatih berbicara dengan yang lain!",
+  "startRoom": "Mulai Ruang",
+  "createRoom": "Buat Ruang",
+  "roomCreated": "Ruang berhasil dibuat!",
+  "failedToCreateRoom": "Gagal membuat ruang",
+  "errorLoadingRooms": "Gagal memuat ruang",
+  "pleaseEnterRoomTitle": "Silakan masukkan judul ruang",
+  "startLiveConversation": "Mulai percakapan langsung",
+  "maxParticipants": "Maks. Peserta",
+  "nPeople": "{count} orang",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

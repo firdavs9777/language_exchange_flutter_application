@@ -854,5 +854,116 @@
   "locationServiceDisabled": "خدمات الموقع معطلة. يرجى تفعيلها.",
   "updatingLocation": "جارٍ تحديث الموقع...",
   "openSettings": "فتح الإعدادات",
-  "locationCouldNotBeUpdated": "تعذر تحديث الموقع"
+  "locationCouldNotBeUpdated": "تعذر تحديث الموقع",
+  "incomingAudioCall": "مكالمة صوتية واردة",
+  "incomingVideoCall": "مكالمة فيديو واردة",
+  "outgoingCall": "جاري الاتصال...",
+  "callRinging": "يرن...",
+  "callConnecting": "جاري الاتصال...",
+  "callConnected": "متصل",
+  "callReconnecting": "جاري إعادة الاتصال...",
+  "callEnded": "انتهت المكالمة",
+  "callFailed": "فشلت المكالمة",
+  "callMissed": "مكالمة فائتة",
+  "callDeclined": "مكالمة مرفوضة",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "قبول",
+  "declineCall": "رفض",
+  "endCall": "إنهاء",
+  "muteCall": "كتم",
+  "unmuteCall": "إلغاء الكتم",
+  "speakerOn": "مكبر الصوت",
+  "speakerOff": "سماعة الأذن",
+  "videoOn": "الفيديو مفعل",
+  "videoOff": "الفيديو معطل",
+  "switchCamera": "تبديل الكاميرا",
+  "callPermissionDenied": "إذن الميكروفون مطلوب للمكالمات",
+  "cameraPermissionDenied": "إذن الكاميرا مطلوب لمكالمات الفيديو",
+  "callConnectionFailed": "تعذر الاتصال. يرجى المحاولة مرة أخرى.",
+  "userBusy": "المستخدم مشغول",
+  "userOffline": "المستخدم غير متصل",
+  "callHistory": "سجل المكالمات",
+  "noCallHistory": "لا يوجد سجل مكالمات",
+  "missedCalls": "المكالمات الفائتة",
+  "allCalls": "جميع المكالمات",
+  "callBack": "معاودة الاتصال",
+  "callAt": "مكالمة في {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "مكالمة صوتية",
+  "tryAgain": "حاول مرة أخرى",
+  "voiceRoom": "غرفة صوتية",
+  "noVoiceRooms": "لا توجد غرف صوتية نشطة",
+  "createVoiceRoom": "إنشاء غرفة صوتية",
+  "joinRoom": "انضمام للغرفة",
+  "leaveRoom": "مغادرة الغرفة",
+  "leaveRoomConfirm": "مغادرة الغرفة؟",
+  "leaveRoomMessage": "هل أنت متأكد أنك تريد مغادرة هذه الغرفة؟",
+  "stay": "البقاء",
+  "leave": "مغادرة",
+  "roomTitle": "عنوان الغرفة",
+  "roomTitleHint": "أدخل عنوان الغرفة",
+  "roomTopic": "الموضوع",
+  "roomLanguage": "اللغة",
+  "roomHost": "المضيف",
+  "roomParticipants": "{count} مشاركين",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "الحد الأقصى {count} مشاركين",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "اختر الموضوع",
+  "selectLanguage": "اختر اللغة",
+  "raiseHand": "رفع اليد",
+  "lowerHand": "خفض اليد",
+  "handRaisedNotification": "تم رفع اليد! سيرى المضيف طلبك.",
+  "handLoweredNotification": "تم خفض اليد",
+  "muteParticipant": "كتم المشارك",
+  "kickParticipant": "إزالة من الغرفة",
+  "promoteToCoHost": "ترقية إلى مضيف مشارك",
+  "endRoomConfirm": "إنهاء الغرفة؟",
+  "endRoomMessage": "سيتم إنهاء الغرفة لجميع المشاركين.",
+  "roomEnded": "تم إنهاء الغرفة من قبل المضيف",
+  "youWereRemoved": "تمت إزالتك من الغرفة",
+  "roomIsFull": "الغرفة ممتلئة",
+  "roomChat": "دردشة الغرفة",
+  "noMessages": "لا توجد رسائل بعد",
+  "typeMessage": "اكتب رسالة...",
+  "voiceRoomsDescription": "انضم إلى المحادثات المباشرة وتدرب على التحدث",
+  "liveRoomsCount": "{count} مباشر",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "لا توجد غرف نشطة",
+  "noActiveRoomsDescription": "كن أول من يبدأ غرفة صوتية وتدرب على التحدث مع الآخرين!",
+  "startRoom": "بدء غرفة",
+  "createRoom": "إنشاء غرفة",
+  "roomCreated": "تم إنشاء الغرفة بنجاح!",
+  "failedToCreateRoom": "فشل إنشاء الغرفة",
+  "errorLoadingRooms": "خطأ في تحميل الغرف",
+  "pleaseEnterRoomTitle": "يرجى إدخال عنوان الغرفة",
+  "startLiveConversation": "بدء محادثة مباشرة",
+  "maxParticipants": "الحد الأقصى للمشاركين",
+  "nPeople": "{count} أشخاص",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

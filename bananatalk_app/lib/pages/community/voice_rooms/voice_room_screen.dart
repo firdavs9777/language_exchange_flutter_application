@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
+import 'package:bananatalk_app/providers/voice_room_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Voice Room Screen - Active voice chat room
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -20,8 +22,6 @@ class VoiceRoomScreen extends ConsumerStatefulWidget {
 
 class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     with SingleTickerProviderStateMixin {
-  bool _isMuted = true;
-  bool _isHandRaised = false;
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
@@ -35,6 +35,11 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.15).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
+
+    // Join the room via provider
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(voiceRoomProvider).joinRoom(widget.room);
+    });
   }
 
   @override
@@ -45,20 +50,18 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 
   void _toggleMute() {
     HapticFeedback.lightImpact();
-    setState(() {
-      _isMuted = !_isMuted;
-    });
+    ref.read(voiceRoomProvider).toggleMute();
   }
 
   void _toggleHandRaise() {
     HapticFeedback.lightImpact();
-    setState(() {
-      _isHandRaised = !_isHandRaised;
-    });
+    ref.read(voiceRoomProvider).toggleHandRaised();
+    final l10n = AppLocalizations.of(context)!;
+    final isHandRaised = ref.read(voiceRoomProvider).isHandRaised;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          _isHandRaised ? 'Hand raised! The host will see your request.' : 'Hand lowered',
+          isHandRaised ? l10n.handRaisedNotification : l10n.handLoweredNotification,
         ),
         backgroundColor: const Color(0xFF00BFA5),
         behavior: SnackBarBehavior.floating,
@@ -69,27 +72,29 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
   }
 
   void _leaveRoom() {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('Leave Room?'),
-        content: const Text('Are you sure you want to leave this voice room?'),
+        title: Text(l10n.leaveRoomConfirm),
+        content: Text(l10n.leaveRoomMessage),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Stay'),
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.stay),
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context); // Close dialog
+              ref.read(voiceRoomProvider).leaveRoom();
+              Navigator.pop(dialogContext); // Close dialog
               Navigator.pop(context); // Leave room
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Leave'),
+            child: Text(l10n.leave),
           ),
         ],
       ),
@@ -259,18 +264,35 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
   }
 
   Widget _buildParticipants() {
-    final allParticipants = [
-      // Add host as first participant
-      RoomParticipant(
-        id: widget.room.hostId,
-        name: widget.room.hostName,
-        avatar: widget.room.hostAvatar,
-        isHost: true,
-        isSpeaking: true,
-        joinedAt: widget.room.createdAt,
-      ),
-      ...widget.room.participants,
-    ];
+    final voiceRoom = ref.watch(voiceRoomProvider);
+    final providerParticipants = voiceRoom.participants;
+
+    // Use provider participants if available, otherwise fall back to room data
+    final allParticipants = providerParticipants.isNotEmpty
+        ? [
+            // Add host as first participant
+            RoomParticipant(
+              id: widget.room.hostId,
+              name: widget.room.hostName,
+              avatar: widget.room.hostAvatar,
+              isHost: true,
+              isSpeaking: true,
+              joinedAt: widget.room.createdAt,
+            ),
+            ...providerParticipants.where((p) => p.id != widget.room.hostId),
+          ]
+        : [
+            // Add host as first participant
+            RoomParticipant(
+              id: widget.room.hostId,
+              name: widget.room.hostName,
+              avatar: widget.room.hostAvatar,
+              isHost: true,
+              isSpeaking: true,
+              joinedAt: widget.room.createdAt,
+            ),
+            ...widget.room.participants,
+          ];
 
     return GridView.builder(
       padding: const EdgeInsets.all(16),
@@ -286,12 +308,18 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         return _ParticipantTile(
           participant: participant,
           isHost: index == 0,
+          hostLabel: AppLocalizations.of(context)!.roomHost,
         );
       },
     );
   }
 
   Widget _buildControls() {
+    final l10n = AppLocalizations.of(context)!;
+    final voiceRoom = ref.watch(voiceRoomProvider);
+    final isMuted = voiceRoom.isMuted;
+    final isHandRaised = voiceRoom.isHandRaised;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -304,22 +332,22 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           children: [
             // Raise hand
             _ControlButton(
-              icon: _isHandRaised
+              icon: isHandRaised
                   ? Icons.front_hand_rounded
                   : Icons.front_hand_outlined,
-              label: _isHandRaised ? 'Lower' : 'Raise',
-              color: _isHandRaised ? const Color(0xFFFFB74D) : Colors.white,
-              backgroundColor: _isHandRaised
+              label: isHandRaised ? l10n.lowerHand : l10n.raiseHand,
+              color: isHandRaised ? const Color(0xFFFFB74D) : Colors.white,
+              backgroundColor: isHandRaised
                   ? const Color(0xFFFFB74D).withOpacity(0.2)
                   : Colors.white.withOpacity(0.1),
               onTap: _toggleHandRaise,
             ),
             // Mute/Unmute
             _ControlButton(
-              icon: _isMuted ? Icons.mic_off_rounded : Icons.mic_rounded,
-              label: _isMuted ? 'Unmute' : 'Mute',
-              color: _isMuted ? Colors.red : const Color(0xFF00BFA5),
-              backgroundColor: _isMuted
+              icon: isMuted ? Icons.mic_off_rounded : Icons.mic_rounded,
+              label: isMuted ? l10n.unmute : l10n.mute,
+              color: isMuted ? Colors.red : const Color(0xFF00BFA5),
+              backgroundColor: isMuted
                   ? Colors.red.withOpacity(0.2)
                   : const Color(0xFF00BFA5).withOpacity(0.2),
               onTap: _toggleMute,
@@ -328,7 +356,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
             // Leave
             _ControlButton(
               icon: Icons.call_end_rounded,
-              label: 'Leave',
+              label: l10n.leave,
               color: Colors.red,
               backgroundColor: Colors.red.withOpacity(0.2),
               onTap: _leaveRoom,
@@ -343,9 +371,11 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 class _ParticipantTile extends StatelessWidget {
   final RoomParticipant participant;
   final bool isHost;
+  final String hostLabel;
 
   const _ParticipantTile({
     required this.participant,
+    required this.hostLabel,
     this.isHost = false,
   });
 
@@ -445,7 +475,7 @@ class _ParticipantTile extends StatelessWidget {
         ),
         if (isHost)
           Text(
-            'Host',
+            hostLabel,
             style: TextStyle(
               fontSize: 11,
               color: Colors.white.withOpacity(0.5),

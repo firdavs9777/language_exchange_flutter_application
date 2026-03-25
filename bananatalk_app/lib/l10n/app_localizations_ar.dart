@@ -1571,7 +1571,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noReactionsYet => 'لا توجد تفاعلات بعد';
 
   @override
-  String get leaveRoom => 'مغادرة الغرفة؟';
+  String get leaveRoom => 'مغادرة الغرفة';
 
   @override
   String get areYouSureLeaveRoom => 'هل أنت متأكد أنك تريد مغادرة هذه الغرفة؟';
@@ -2694,4 +2694,244 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => 'تعذر تحديث الموقع';
+
+  @override
+  String get incomingAudioCall => 'مكالمة صوتية واردة';
+
+  @override
+  String get incomingVideoCall => 'مكالمة فيديو واردة';
+
+  @override
+  String get outgoingCall => 'جاري الاتصال...';
+
+  @override
+  String get callRinging => 'يرن...';
+
+  @override
+  String get callConnecting => 'جاري الاتصال...';
+
+  @override
+  String get callConnected => 'متصل';
+
+  @override
+  String get callReconnecting => 'جاري إعادة الاتصال...';
+
+  @override
+  String get callEnded => 'انتهت المكالمة';
+
+  @override
+  String get callFailed => 'فشلت المكالمة';
+
+  @override
+  String get callMissed => 'مكالمة فائتة';
+
+  @override
+  String get callDeclined => 'مكالمة مرفوضة';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => 'قبول';
+
+  @override
+  String get declineCall => 'رفض';
+
+  @override
+  String get endCall => 'إنهاء';
+
+  @override
+  String get muteCall => 'كتم';
+
+  @override
+  String get unmuteCall => 'إلغاء الكتم';
+
+  @override
+  String get speakerOn => 'مكبر الصوت';
+
+  @override
+  String get speakerOff => 'سماعة الأذن';
+
+  @override
+  String get videoOn => 'الفيديو مفعل';
+
+  @override
+  String get videoOff => 'الفيديو معطل';
+
+  @override
+  String get switchCamera => 'تبديل الكاميرا';
+
+  @override
+  String get callPermissionDenied => 'إذن الميكروفون مطلوب للمكالمات';
+
+  @override
+  String get cameraPermissionDenied => 'إذن الكاميرا مطلوب لمكالمات الفيديو';
+
+  @override
+  String get callConnectionFailed => 'تعذر الاتصال. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get userBusy => 'المستخدم مشغول';
+
+  @override
+  String get userOffline => 'المستخدم غير متصل';
+
+  @override
+  String get callHistory => 'سجل المكالمات';
+
+  @override
+  String get noCallHistory => 'لا يوجد سجل مكالمات';
+
+  @override
+  String get missedCalls => 'المكالمات الفائتة';
+
+  @override
+  String get allCalls => 'جميع المكالمات';
+
+  @override
+  String get callBack => 'معاودة الاتصال';
+
+  @override
+  String callAt(String time) {
+    return 'مكالمة في $time';
+  }
+
+  @override
+  String get audioCall => 'مكالمة صوتية';
+
+  @override
+  String get voiceRoom => 'غرفة صوتية';
+
+  @override
+  String get noVoiceRooms => 'لا توجد غرف صوتية نشطة';
+
+  @override
+  String get createVoiceRoom => 'إنشاء غرفة صوتية';
+
+  @override
+  String get joinRoom => 'انضمام للغرفة';
+
+  @override
+  String get leaveRoomConfirm => 'مغادرة الغرفة؟';
+
+  @override
+  String get leaveRoomMessage => 'هل أنت متأكد أنك تريد مغادرة هذه الغرفة؟';
+
+  @override
+  String get roomTitle => 'عنوان الغرفة';
+
+  @override
+  String get roomTitleHint => 'أدخل عنوان الغرفة';
+
+  @override
+  String get roomTopic => 'الموضوع';
+
+  @override
+  String get roomLanguage => 'اللغة';
+
+  @override
+  String get roomHost => 'المضيف';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count مشاركين';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return 'الحد الأقصى $count مشاركين';
+  }
+
+  @override
+  String get selectTopic => 'اختر الموضوع';
+
+  @override
+  String get raiseHand => 'رفع اليد';
+
+  @override
+  String get lowerHand => 'خفض اليد';
+
+  @override
+  String get handRaisedNotification => 'تم رفع اليد! سيرى المضيف طلبك.';
+
+  @override
+  String get handLoweredNotification => 'تم خفض اليد';
+
+  @override
+  String get muteParticipant => 'كتم المشارك';
+
+  @override
+  String get kickParticipant => 'إزالة من الغرفة';
+
+  @override
+  String get promoteToCoHost => 'ترقية إلى مضيف مشارك';
+
+  @override
+  String get endRoomConfirm => 'إنهاء الغرفة؟';
+
+  @override
+  String get endRoomMessage => 'سيتم إنهاء الغرفة لجميع المشاركين.';
+
+  @override
+  String get roomEnded => 'تم إنهاء الغرفة من قبل المضيف';
+
+  @override
+  String get youWereRemoved => 'تمت إزالتك من الغرفة';
+
+  @override
+  String get roomIsFull => 'الغرفة ممتلئة';
+
+  @override
+  String get roomChat => 'دردشة الغرفة';
+
+  @override
+  String get noMessages => 'لا توجد رسائل بعد';
+
+  @override
+  String get typeMessage => 'اكتب رسالة...';
+
+  @override
+  String get voiceRoomsDescription => 'انضم إلى المحادثات المباشرة وتدرب على التحدث';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count مباشر';
+  }
+
+  @override
+  String get noActiveRooms => 'لا توجد غرف نشطة';
+
+  @override
+  String get noActiveRoomsDescription => 'كن أول من يبدأ غرفة صوتية وتدرب على التحدث مع الآخرين!';
+
+  @override
+  String get startRoom => 'بدء غرفة';
+
+  @override
+  String get createRoom => 'إنشاء غرفة';
+
+  @override
+  String get roomCreated => 'تم إنشاء الغرفة بنجاح!';
+
+  @override
+  String get failedToCreateRoom => 'فشل إنشاء الغرفة';
+
+  @override
+  String get errorLoadingRooms => 'خطأ في تحميل الغرف';
+
+  @override
+  String get pleaseEnterRoomTitle => 'يرجى إدخال عنوان الغرفة';
+
+  @override
+  String get startLiveConversation => 'بدء محادثة مباشرة';
+
+  @override
+  String get maxParticipants => 'الحد الأقصى للمشاركين';
+
+  @override
+  String nPeople(int count) {
+    return '$count أشخاص';
+  }
 }

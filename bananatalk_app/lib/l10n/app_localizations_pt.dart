@@ -63,7 +63,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get language => 'Idioma';
 
   @override
-  String get selectLanguage => 'Selecionar Idioma';
+  String get selectLanguage => 'Selecionar idioma';
 
   @override
   String get autoTranslate => 'Tradução Automática';
@@ -1571,7 +1571,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noReactionsYet => 'Nenhuma reação ainda';
 
   @override
-  String get leaveRoom => 'Sair da sala?';
+  String get leaveRoom => 'Sair da sala';
 
   @override
   String get areYouSureLeaveRoom => 'Tem certeza que deseja sair desta sala de voz?';
@@ -2694,4 +2694,244 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => 'Não foi possível atualizar a localização';
+
+  @override
+  String get incomingAudioCall => 'Chamada de áudio recebida';
+
+  @override
+  String get incomingVideoCall => 'Videochamada recebida';
+
+  @override
+  String get outgoingCall => 'Chamando...';
+
+  @override
+  String get callRinging => 'Tocando...';
+
+  @override
+  String get callConnecting => 'Conectando...';
+
+  @override
+  String get callConnected => 'Conectado';
+
+  @override
+  String get callReconnecting => 'Reconectando...';
+
+  @override
+  String get callEnded => 'Chamada encerrada';
+
+  @override
+  String get callFailed => 'Chamada falhou';
+
+  @override
+  String get callMissed => 'Chamada perdida';
+
+  @override
+  String get callDeclined => 'Chamada recusada';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => 'Aceitar';
+
+  @override
+  String get declineCall => 'Recusar';
+
+  @override
+  String get endCall => 'Encerrar';
+
+  @override
+  String get muteCall => 'Mudo';
+
+  @override
+  String get unmuteCall => 'Ativar som';
+
+  @override
+  String get speakerOn => 'Alto-falante';
+
+  @override
+  String get speakerOff => 'Auricular';
+
+  @override
+  String get videoOn => 'Vídeo ligado';
+
+  @override
+  String get videoOff => 'Vídeo desligado';
+
+  @override
+  String get switchCamera => 'Trocar câmera';
+
+  @override
+  String get callPermissionDenied => 'Permissão de microfone necessária para chamadas';
+
+  @override
+  String get cameraPermissionDenied => 'Permissão de câmera necessária para videochamadas';
+
+  @override
+  String get callConnectionFailed => 'Não foi possível conectar. Tente novamente.';
+
+  @override
+  String get userBusy => 'Usuário ocupado';
+
+  @override
+  String get userOffline => 'Usuário offline';
+
+  @override
+  String get callHistory => 'Histórico de chamadas';
+
+  @override
+  String get noCallHistory => 'Sem histórico de chamadas';
+
+  @override
+  String get missedCalls => 'Chamadas perdidas';
+
+  @override
+  String get allCalls => 'Todas as chamadas';
+
+  @override
+  String get callBack => 'Retornar chamada';
+
+  @override
+  String callAt(String time) {
+    return 'Chamada às $time';
+  }
+
+  @override
+  String get audioCall => 'Chamada de áudio';
+
+  @override
+  String get voiceRoom => 'Sala de voz';
+
+  @override
+  String get noVoiceRooms => 'Nenhuma sala de voz ativa';
+
+  @override
+  String get createVoiceRoom => 'Criar sala de voz';
+
+  @override
+  String get joinRoom => 'Entrar na sala';
+
+  @override
+  String get leaveRoomConfirm => 'Sair da sala?';
+
+  @override
+  String get leaveRoomMessage => 'Tem certeza de que deseja sair desta sala?';
+
+  @override
+  String get roomTitle => 'Título da sala';
+
+  @override
+  String get roomTitleHint => 'Digite o título da sala';
+
+  @override
+  String get roomTopic => 'Tópico';
+
+  @override
+  String get roomLanguage => 'Idioma';
+
+  @override
+  String get roomHost => 'Anfitrião';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count participantes';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return 'Máx. $count participantes';
+  }
+
+  @override
+  String get selectTopic => 'Selecionar tópico';
+
+  @override
+  String get raiseHand => 'Levantar mão';
+
+  @override
+  String get lowerHand => 'Abaixar mão';
+
+  @override
+  String get handRaisedNotification => 'Mão levantada! O anfitrião verá sua solicitação.';
+
+  @override
+  String get handLoweredNotification => 'Mão abaixada';
+
+  @override
+  String get muteParticipant => 'Silenciar participante';
+
+  @override
+  String get kickParticipant => 'Remover da sala';
+
+  @override
+  String get promoteToCoHost => 'Promover a co-anfitrião';
+
+  @override
+  String get endRoomConfirm => 'Encerrar sala?';
+
+  @override
+  String get endRoomMessage => 'Isso encerrará a sala para todos os participantes.';
+
+  @override
+  String get roomEnded => 'Sala encerrada pelo anfitrião';
+
+  @override
+  String get youWereRemoved => 'Você foi removido da sala';
+
+  @override
+  String get roomIsFull => 'A sala está cheia';
+
+  @override
+  String get roomChat => 'Chat da sala';
+
+  @override
+  String get noMessages => 'Ainda não há mensagens';
+
+  @override
+  String get typeMessage => 'Digite uma mensagem...';
+
+  @override
+  String get voiceRoomsDescription => 'Participe de conversas ao vivo e pratique falar';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count ao vivo';
+  }
+
+  @override
+  String get noActiveRooms => 'Nenhuma sala ativa';
+
+  @override
+  String get noActiveRoomsDescription => 'Seja o primeiro a iniciar uma sala de voz e pratique falar com outros!';
+
+  @override
+  String get startRoom => 'Iniciar sala';
+
+  @override
+  String get createRoom => 'Criar sala';
+
+  @override
+  String get roomCreated => 'Sala criada com sucesso!';
+
+  @override
+  String get failedToCreateRoom => 'Falha ao criar sala';
+
+  @override
+  String get errorLoadingRooms => 'Erro ao carregar salas';
+
+  @override
+  String get pleaseEnterRoomTitle => 'Por favor, digite um título para a sala';
+
+  @override
+  String get startLiveConversation => 'Iniciar conversa ao vivo';
+
+  @override
+  String get maxParticipants => 'Máx. participantes';
+
+  @override
+  String nPeople(int count) {
+    return '$count pessoas';
+  }
 }

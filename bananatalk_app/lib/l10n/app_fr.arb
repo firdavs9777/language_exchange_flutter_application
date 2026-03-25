@@ -1115,5 +1115,116 @@
   "locationServiceDisabled": "Les services de localisation sont désactivés. Veuillez les activer.",
   "updatingLocation": "Mise à jour de la position...",
   "openSettings": "Ouvrir les paramètres",
-  "locationCouldNotBeUpdated": "Impossible de mettre à jour la position"
+  "locationCouldNotBeUpdated": "Impossible de mettre à jour la position",
+  "incomingAudioCall": "Appel audio entrant",
+  "incomingVideoCall": "Appel vidéo entrant",
+  "outgoingCall": "Appel en cours...",
+  "callRinging": "Sonnerie...",
+  "callConnecting": "Connexion...",
+  "callConnected": "Connecté",
+  "callReconnecting": "Reconnexion...",
+  "callEnded": "Appel terminé",
+  "callFailed": "Appel échoué",
+  "callMissed": "Appel manqué",
+  "callDeclined": "Appel refusé",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Accepter",
+  "declineCall": "Refuser",
+  "endCall": "Terminer",
+  "muteCall": "Muet",
+  "unmuteCall": "Réactiver",
+  "speakerOn": "Haut-parleur",
+  "speakerOff": "Écouteur",
+  "videoOn": "Vidéo activée",
+  "videoOff": "Vidéo désactivée",
+  "switchCamera": "Changer de caméra",
+  "callPermissionDenied": "L'autorisation du microphone est requise pour les appels",
+  "cameraPermissionDenied": "L'autorisation de la caméra est requise pour les appels vidéo",
+  "callConnectionFailed": "Connexion impossible. Veuillez réessayer.",
+  "userBusy": "Utilisateur occupé",
+  "userOffline": "Utilisateur hors ligne",
+  "callHistory": "Historique des appels",
+  "noCallHistory": "Aucun historique d'appels",
+  "missedCalls": "Appels manqués",
+  "allCalls": "Tous les appels",
+  "callBack": "Rappeler",
+  "callAt": "Appel à {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Appel audio",
+  "tryAgain": "Réessayer",
+  "voiceRoom": "Salon vocal",
+  "noVoiceRooms": "Aucun salon vocal actif",
+  "createVoiceRoom": "Créer un salon vocal",
+  "joinRoom": "Rejoindre le salon",
+  "leaveRoom": "Quitter le salon",
+  "leaveRoomConfirm": "Quitter le salon?",
+  "leaveRoomMessage": "Êtes-vous sûr de vouloir quitter ce salon?",
+  "stay": "Rester",
+  "leave": "Quitter",
+  "roomTitle": "Titre du salon",
+  "roomTitleHint": "Entrez le titre du salon",
+  "roomTopic": "Sujet",
+  "roomLanguage": "Langue",
+  "roomHost": "Hôte",
+  "roomParticipants": "{count} participants",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Max. {count} participants",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Sélectionner le sujet",
+  "selectLanguage": "Sélectionner la langue",
+  "raiseHand": "Lever la main",
+  "lowerHand": "Baisser la main",
+  "handRaisedNotification": "Main levée! L'hôte verra votre demande.",
+  "handLoweredNotification": "Main baissée",
+  "muteParticipant": "Mettre en sourdine",
+  "kickParticipant": "Retirer du salon",
+  "promoteToCoHost": "Promouvoir co-hôte",
+  "endRoomConfirm": "Terminer le salon?",
+  "endRoomMessage": "Cela terminera le salon pour tous les participants.",
+  "roomEnded": "Salon fermé par l'hôte",
+  "youWereRemoved": "Vous avez été retiré du salon",
+  "roomIsFull": "Le salon est plein",
+  "roomChat": "Chat du salon",
+  "noMessages": "Pas encore de messages",
+  "typeMessage": "Tapez un message...",
+  "voiceRoomsDescription": "Rejoignez des conversations en direct et pratiquez la parole",
+  "liveRoomsCount": "{count} en direct",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Aucun salon actif",
+  "noActiveRoomsDescription": "Soyez le premier à lancer un salon vocal et pratiquez avec les autres!",
+  "startRoom": "Démarrer un salon",
+  "createRoom": "Créer un salon",
+  "roomCreated": "Salon créé avec succès!",
+  "failedToCreateRoom": "Échec de création du salon",
+  "errorLoadingRooms": "Erreur de chargement des salons",
+  "pleaseEnterRoomTitle": "Veuillez entrer un titre de salon",
+  "startLiveConversation": "Démarrer une conversation en direct",
+  "maxParticipants": "Max. participants",
+  "nPeople": "{count} personnes",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

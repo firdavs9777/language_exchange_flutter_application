@@ -1359,6 +1359,33 @@
   "roomIsFull": "Room is full",
   "roomChat": "Room Chat",
   "noMessages": "No messages yet",
-  "typeMessage": "Type a message..."
+  "typeMessage": "Type a message...",
+  "voiceRoomsDescription": "Join live conversations and practice speaking",
+  "liveRoomsCount": "{count} Live",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noActiveRooms": "No active rooms",
+  "noActiveRoomsDescription": "Be the first to start a voice room and practice speaking with others!",
+  "startRoom": "Start a Room",
+  "createRoom": "Create Room",
+  "roomCreated": "Room created successfully!",
+  "failedToCreateRoom": "Failed to create room",
+  "errorLoadingRooms": "Error loading rooms",
+  "pleaseEnterRoomTitle": "Please enter a room title",
+  "startLiveConversation": "Start a live conversation",
+  "maxParticipants": "Max Participants",
+  "nPeople": "{count} people",
+  "@nPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
 

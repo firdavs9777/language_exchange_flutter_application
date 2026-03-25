@@ -1571,7 +1571,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get noReactionsYet => 'Nessuna reazione ancora';
 
   @override
-  String get leaveRoom => 'Lasciare la stanza?';
+  String get leaveRoom => 'Esci dalla stanza';
 
   @override
   String get areYouSureLeaveRoom => 'Sei sicuro di voler lasciare questa stanza vocale?';
@@ -2694,4 +2694,244 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => 'Impossibile aggiornare la posizione';
+
+  @override
+  String get incomingAudioCall => 'Chiamata audio in arrivo';
+
+  @override
+  String get incomingVideoCall => 'Videochiamata in arrivo';
+
+  @override
+  String get outgoingCall => 'Chiamata in corso...';
+
+  @override
+  String get callRinging => 'Squilla...';
+
+  @override
+  String get callConnecting => 'Connessione...';
+
+  @override
+  String get callConnected => 'Connesso';
+
+  @override
+  String get callReconnecting => 'Riconnessione...';
+
+  @override
+  String get callEnded => 'Chiamata terminata';
+
+  @override
+  String get callFailed => 'Chiamata fallita';
+
+  @override
+  String get callMissed => 'Chiamata persa';
+
+  @override
+  String get callDeclined => 'Chiamata rifiutata';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => 'Accetta';
+
+  @override
+  String get declineCall => 'Rifiuta';
+
+  @override
+  String get endCall => 'Termina';
+
+  @override
+  String get muteCall => 'Muto';
+
+  @override
+  String get unmuteCall => 'Riattiva audio';
+
+  @override
+  String get speakerOn => 'Altoparlante';
+
+  @override
+  String get speakerOff => 'Auricolare';
+
+  @override
+  String get videoOn => 'Video attivo';
+
+  @override
+  String get videoOff => 'Video disattivo';
+
+  @override
+  String get switchCamera => 'Cambia fotocamera';
+
+  @override
+  String get callPermissionDenied => 'È richiesto il permesso del microfono per le chiamate';
+
+  @override
+  String get cameraPermissionDenied => 'È richiesto il permesso della fotocamera per le videochiamate';
+
+  @override
+  String get callConnectionFailed => 'Impossibile connettersi. Riprova.';
+
+  @override
+  String get userBusy => 'Utente occupato';
+
+  @override
+  String get userOffline => 'Utente offline';
+
+  @override
+  String get callHistory => 'Cronologia chiamate';
+
+  @override
+  String get noCallHistory => 'Nessuna cronologia chiamate';
+
+  @override
+  String get missedCalls => 'Chiamate perse';
+
+  @override
+  String get allCalls => 'Tutte le chiamate';
+
+  @override
+  String get callBack => 'Richiama';
+
+  @override
+  String callAt(String time) {
+    return 'Chiamata alle $time';
+  }
+
+  @override
+  String get audioCall => 'Chiamata audio';
+
+  @override
+  String get voiceRoom => 'Stanza vocale';
+
+  @override
+  String get noVoiceRooms => 'Nessuna stanza vocale attiva';
+
+  @override
+  String get createVoiceRoom => 'Crea stanza vocale';
+
+  @override
+  String get joinRoom => 'Entra nella stanza';
+
+  @override
+  String get leaveRoomConfirm => 'Uscire dalla stanza?';
+
+  @override
+  String get leaveRoomMessage => 'Sei sicuro di voler uscire da questa stanza?';
+
+  @override
+  String get roomTitle => 'Titolo stanza';
+
+  @override
+  String get roomTitleHint => 'Inserisci il titolo della stanza';
+
+  @override
+  String get roomTopic => 'Argomento';
+
+  @override
+  String get roomLanguage => 'Lingua';
+
+  @override
+  String get roomHost => 'Host';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count partecipanti';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return 'Max $count partecipanti';
+  }
+
+  @override
+  String get selectTopic => 'Seleziona argomento';
+
+  @override
+  String get raiseHand => 'Alza la mano';
+
+  @override
+  String get lowerHand => 'Abbassa la mano';
+
+  @override
+  String get handRaisedNotification => 'Mano alzata! L\'host vedrà la tua richiesta.';
+
+  @override
+  String get handLoweredNotification => 'Mano abbassata';
+
+  @override
+  String get muteParticipant => 'Silenzia partecipante';
+
+  @override
+  String get kickParticipant => 'Rimuovi dalla stanza';
+
+  @override
+  String get promoteToCoHost => 'Promuovi a co-host';
+
+  @override
+  String get endRoomConfirm => 'Terminare la stanza?';
+
+  @override
+  String get endRoomMessage => 'Questo terminerà la stanza per tutti i partecipanti.';
+
+  @override
+  String get roomEnded => 'Stanza terminata dall\'host';
+
+  @override
+  String get youWereRemoved => 'Sei stato rimosso dalla stanza';
+
+  @override
+  String get roomIsFull => 'La stanza è piena';
+
+  @override
+  String get roomChat => 'Chat della stanza';
+
+  @override
+  String get noMessages => 'Ancora nessun messaggio';
+
+  @override
+  String get typeMessage => 'Scrivi un messaggio...';
+
+  @override
+  String get voiceRoomsDescription => 'Partecipa a conversazioni dal vivo e pratica il parlato';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count Live';
+  }
+
+  @override
+  String get noActiveRooms => 'Nessuna stanza attiva';
+
+  @override
+  String get noActiveRoomsDescription => 'Sii il primo a creare una stanza vocale e pratica con gli altri!';
+
+  @override
+  String get startRoom => 'Avvia stanza';
+
+  @override
+  String get createRoom => 'Crea stanza';
+
+  @override
+  String get roomCreated => 'Stanza creata con successo!';
+
+  @override
+  String get failedToCreateRoom => 'Creazione stanza fallita';
+
+  @override
+  String get errorLoadingRooms => 'Errore nel caricamento delle stanze';
+
+  @override
+  String get pleaseEnterRoomTitle => 'Inserisci un titolo per la stanza';
+
+  @override
+  String get startLiveConversation => 'Avvia una conversazione dal vivo';
+
+  @override
+  String get maxParticipants => 'Max partecipanti';
+
+  @override
+  String nPeople(int count) {
+    return '$count persone';
+  }
 }

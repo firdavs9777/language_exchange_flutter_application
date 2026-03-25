@@ -1571,13 +1571,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get noReactionsYet => '아직 반응이 없습니다';
 
   @override
-  String get leaveRoom => '방을 나가시겠습니까?';
+  String get leaveRoom => '방 나가기';
 
   @override
   String get areYouSureLeaveRoom => '이 음성 방을 나가시겠습니까?';
 
   @override
-  String get stay => '머무르기';
+  String get stay => '머물기';
 
   @override
   String get leave => '나가기';
@@ -2694,4 +2694,244 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => '위치를 업데이트할 수 없습니다';
+
+  @override
+  String get incomingAudioCall => '음성 통화 수신';
+
+  @override
+  String get incomingVideoCall => '영상 통화 수신';
+
+  @override
+  String get outgoingCall => '전화 거는 중...';
+
+  @override
+  String get callRinging => '벨 울리는 중...';
+
+  @override
+  String get callConnecting => '연결 중...';
+
+  @override
+  String get callConnected => '연결됨';
+
+  @override
+  String get callReconnecting => '재연결 중...';
+
+  @override
+  String get callEnded => '통화 종료';
+
+  @override
+  String get callFailed => '통화 실패';
+
+  @override
+  String get callMissed => '부재중 전화';
+
+  @override
+  String get callDeclined => '통화 거절됨';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => '받기';
+
+  @override
+  String get declineCall => '거절';
+
+  @override
+  String get endCall => '종료';
+
+  @override
+  String get muteCall => '음소거';
+
+  @override
+  String get unmuteCall => '음소거 해제';
+
+  @override
+  String get speakerOn => '스피커';
+
+  @override
+  String get speakerOff => '이어폰';
+
+  @override
+  String get videoOn => '비디오 켜기';
+
+  @override
+  String get videoOff => '비디오 끄기';
+
+  @override
+  String get switchCamera => '카메라 전환';
+
+  @override
+  String get callPermissionDenied => '통화에는 마이크 권한이 필요합니다';
+
+  @override
+  String get cameraPermissionDenied => '영상 통화에는 카메라 권한이 필요합니다';
+
+  @override
+  String get callConnectionFailed => '연결할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get userBusy => '사용자가 통화 중입니다';
+
+  @override
+  String get userOffline => '사용자가 오프라인입니다';
+
+  @override
+  String get callHistory => '통화 기록';
+
+  @override
+  String get noCallHistory => '통화 기록 없음';
+
+  @override
+  String get missedCalls => '부재중 전화';
+
+  @override
+  String get allCalls => '모든 통화';
+
+  @override
+  String get callBack => '다시 전화';
+
+  @override
+  String callAt(String time) {
+    return '$time에 통화';
+  }
+
+  @override
+  String get audioCall => '음성 통화';
+
+  @override
+  String get voiceRoom => '음성 채팅방';
+
+  @override
+  String get noVoiceRooms => '활성화된 음성 채팅방 없음';
+
+  @override
+  String get createVoiceRoom => '음성 채팅방 만들기';
+
+  @override
+  String get joinRoom => '방 참여';
+
+  @override
+  String get leaveRoomConfirm => '방을 나가시겠습니까?';
+
+  @override
+  String get leaveRoomMessage => '정말 이 방을 나가시겠습니까?';
+
+  @override
+  String get roomTitle => '방 제목';
+
+  @override
+  String get roomTitleHint => '방 제목 입력';
+
+  @override
+  String get roomTopic => '주제';
+
+  @override
+  String get roomLanguage => '언어';
+
+  @override
+  String get roomHost => '호스트';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count명 참여';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return '최대 $count명';
+  }
+
+  @override
+  String get selectTopic => '주제 선택';
+
+  @override
+  String get raiseHand => '손 들기';
+
+  @override
+  String get lowerHand => '손 내리기';
+
+  @override
+  String get handRaisedNotification => '손을 들었습니다! 호스트가 요청을 확인합니다.';
+
+  @override
+  String get handLoweredNotification => '손을 내렸습니다';
+
+  @override
+  String get muteParticipant => '참여자 음소거';
+
+  @override
+  String get kickParticipant => '방에서 내보내기';
+
+  @override
+  String get promoteToCoHost => '공동 호스트로 승격';
+
+  @override
+  String get endRoomConfirm => '방을 종료하시겠습니까?';
+
+  @override
+  String get endRoomMessage => '모든 참여자의 방이 종료됩니다.';
+
+  @override
+  String get roomEnded => '호스트가 방을 종료했습니다';
+
+  @override
+  String get youWereRemoved => '방에서 내보내졌습니다';
+
+  @override
+  String get roomIsFull => '방이 가득 찼습니다';
+
+  @override
+  String get roomChat => '방 채팅';
+
+  @override
+  String get noMessages => '아직 메시지가 없습니다';
+
+  @override
+  String get typeMessage => '메시지 입력...';
+
+  @override
+  String get voiceRoomsDescription => '라이브 대화에 참여하고 말하기 연습하세요';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count개 라이브';
+  }
+
+  @override
+  String get noActiveRooms => '활성화된 방 없음';
+
+  @override
+  String get noActiveRoomsDescription => '첫 번째로 음성 채팅방을 시작하고 다른 사람들과 말하기 연습하세요!';
+
+  @override
+  String get startRoom => '방 시작';
+
+  @override
+  String get createRoom => '방 만들기';
+
+  @override
+  String get roomCreated => '방이 생성되었습니다!';
+
+  @override
+  String get failedToCreateRoom => '방 생성 실패';
+
+  @override
+  String get errorLoadingRooms => '방 로드 오류';
+
+  @override
+  String get pleaseEnterRoomTitle => '방 제목을 입력해 주세요';
+
+  @override
+  String get startLiveConversation => '라이브 대화 시작';
+
+  @override
+  String get maxParticipants => '최대 참여자';
+
+  @override
+  String nPeople(int count) {
+    return '$count명';
+  }
 }

@@ -1571,7 +1571,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noReactionsYet => '暂无反应';
 
   @override
-  String get leaveRoom => '离开房间？';
+  String get leaveRoom => '离开房间';
 
   @override
   String get areYouSureLeaveRoom => '确定要离开这个语音房间吗？';
@@ -2694,6 +2694,246 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => '无法更新位置';
+
+  @override
+  String get incomingAudioCall => '来电语音通话';
+
+  @override
+  String get incomingVideoCall => '来电视频通话';
+
+  @override
+  String get outgoingCall => '呼叫中...';
+
+  @override
+  String get callRinging => '响铃中...';
+
+  @override
+  String get callConnecting => '连接中...';
+
+  @override
+  String get callConnected => '已连接';
+
+  @override
+  String get callReconnecting => '重新连接中...';
+
+  @override
+  String get callEnded => '通话结束';
+
+  @override
+  String get callFailed => '通话失败';
+
+  @override
+  String get callMissed => '未接来电';
+
+  @override
+  String get callDeclined => '通话已拒绝';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => '接听';
+
+  @override
+  String get declineCall => '拒绝';
+
+  @override
+  String get endCall => '结束';
+
+  @override
+  String get muteCall => '静音';
+
+  @override
+  String get unmuteCall => '取消静音';
+
+  @override
+  String get speakerOn => '扬声器';
+
+  @override
+  String get speakerOff => '听筒';
+
+  @override
+  String get videoOn => '开启视频';
+
+  @override
+  String get videoOff => '关闭视频';
+
+  @override
+  String get switchCamera => '切换摄像头';
+
+  @override
+  String get callPermissionDenied => '通话需要麦克风权限';
+
+  @override
+  String get cameraPermissionDenied => '视频通话需要摄像头权限';
+
+  @override
+  String get callConnectionFailed => '无法连接。请重试。';
+
+  @override
+  String get userBusy => '用户忙碌';
+
+  @override
+  String get userOffline => '用户离线';
+
+  @override
+  String get callHistory => '通话记录';
+
+  @override
+  String get noCallHistory => '没有通话记录';
+
+  @override
+  String get missedCalls => '未接来电';
+
+  @override
+  String get allCalls => '所有通话';
+
+  @override
+  String get callBack => '回拨';
+
+  @override
+  String callAt(String time) {
+    return '$time的通话';
+  }
+
+  @override
+  String get audioCall => '语音通话';
+
+  @override
+  String get voiceRoom => '语音房间';
+
+  @override
+  String get noVoiceRooms => '没有活跃的语音房间';
+
+  @override
+  String get createVoiceRoom => '创建语音房间';
+
+  @override
+  String get joinRoom => '加入房间';
+
+  @override
+  String get leaveRoomConfirm => '离开房间？';
+
+  @override
+  String get leaveRoomMessage => '确定要离开这个房间吗？';
+
+  @override
+  String get roomTitle => '房间标题';
+
+  @override
+  String get roomTitleHint => '输入房间标题';
+
+  @override
+  String get roomTopic => '话题';
+
+  @override
+  String get roomLanguage => '语言';
+
+  @override
+  String get roomHost => '房主';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count位参与者';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return '最多$count位参与者';
+  }
+
+  @override
+  String get selectTopic => '选择话题';
+
+  @override
+  String get raiseHand => '举手';
+
+  @override
+  String get lowerHand => '放下手';
+
+  @override
+  String get handRaisedNotification => '已举手！房主将看到您的请求。';
+
+  @override
+  String get handLoweredNotification => '已放下手';
+
+  @override
+  String get muteParticipant => '将参与者静音';
+
+  @override
+  String get kickParticipant => '移出房间';
+
+  @override
+  String get promoteToCoHost => '设为副房主';
+
+  @override
+  String get endRoomConfirm => '结束房间？';
+
+  @override
+  String get endRoomMessage => '这将结束所有参与者的房间。';
+
+  @override
+  String get roomEnded => '房主已结束房间';
+
+  @override
+  String get youWereRemoved => '您已被移出房间';
+
+  @override
+  String get roomIsFull => '房间已满';
+
+  @override
+  String get roomChat => '房间聊天';
+
+  @override
+  String get noMessages => '暂无消息';
+
+  @override
+  String get typeMessage => '输入消息...';
+
+  @override
+  String get voiceRoomsDescription => '加入实时对话，练习口语';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count个直播';
+  }
+
+  @override
+  String get noActiveRooms => '没有活跃房间';
+
+  @override
+  String get noActiveRoomsDescription => '成为第一个创建语音房间的人，与他人一起练习口语！';
+
+  @override
+  String get startRoom => '开始房间';
+
+  @override
+  String get createRoom => '创建房间';
+
+  @override
+  String get roomCreated => '房间创建成功！';
+
+  @override
+  String get failedToCreateRoom => '创建房间失败';
+
+  @override
+  String get errorLoadingRooms => '加载房间出错';
+
+  @override
+  String get pleaseEnterRoomTitle => '请输入房间标题';
+
+  @override
+  String get startLiveConversation => '开始实时对话';
+
+  @override
+  String get maxParticipants => '最大参与者';
+
+  @override
+  String nPeople(int count) {
+    return '$count人';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -4254,7 +4494,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get noReactionsYet => '尚無反應';
 
   @override
-  String get leaveRoom => '離開房間？';
+  String get leaveRoom => '離開房間';
 
   @override
   String get areYouSureLeaveRoom => '您確定要離開此語音房間嗎？';
@@ -5377,4 +5617,244 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get locationCouldNotBeUpdated => '無法更新位置';
+
+  @override
+  String get incomingAudioCall => '來電語音通話';
+
+  @override
+  String get incomingVideoCall => '來電視訊通話';
+
+  @override
+  String get outgoingCall => '撥打中...';
+
+  @override
+  String get callRinging => '響鈴中...';
+
+  @override
+  String get callConnecting => '連接中...';
+
+  @override
+  String get callConnected => '已連接';
+
+  @override
+  String get callReconnecting => '重新連接中...';
+
+  @override
+  String get callEnded => '通話結束';
+
+  @override
+  String get callFailed => '通話失敗';
+
+  @override
+  String get callMissed => '未接來電';
+
+  @override
+  String get callDeclined => '通話已拒絕';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => '接聽';
+
+  @override
+  String get declineCall => '拒絕';
+
+  @override
+  String get endCall => '結束';
+
+  @override
+  String get muteCall => '靜音';
+
+  @override
+  String get unmuteCall => '取消靜音';
+
+  @override
+  String get speakerOn => '擴音器';
+
+  @override
+  String get speakerOff => '聽筒';
+
+  @override
+  String get videoOn => '開啟視訊';
+
+  @override
+  String get videoOff => '關閉視訊';
+
+  @override
+  String get switchCamera => '切換鏡頭';
+
+  @override
+  String get callPermissionDenied => '通話需要麥克風權限';
+
+  @override
+  String get cameraPermissionDenied => '視訊通話需要鏡頭權限';
+
+  @override
+  String get callConnectionFailed => '無法連接。請重試。';
+
+  @override
+  String get userBusy => '使用者忙碌';
+
+  @override
+  String get userOffline => '使用者離線';
+
+  @override
+  String get callHistory => '通話記錄';
+
+  @override
+  String get noCallHistory => '沒有通話記錄';
+
+  @override
+  String get missedCalls => '未接來電';
+
+  @override
+  String get allCalls => '所有通話';
+
+  @override
+  String get callBack => '回撥';
+
+  @override
+  String callAt(String time) {
+    return '$time的通話';
+  }
+
+  @override
+  String get audioCall => '語音通話';
+
+  @override
+  String get voiceRoom => '語音房間';
+
+  @override
+  String get noVoiceRooms => '沒有活躍的語音房間';
+
+  @override
+  String get createVoiceRoom => '建立語音房間';
+
+  @override
+  String get joinRoom => '加入房間';
+
+  @override
+  String get leaveRoomConfirm => '離開房間？';
+
+  @override
+  String get leaveRoomMessage => '確定要離開這個房間嗎？';
+
+  @override
+  String get roomTitle => '房間標題';
+
+  @override
+  String get roomTitleHint => '輸入房間標題';
+
+  @override
+  String get roomTopic => '話題';
+
+  @override
+  String get roomLanguage => '語言';
+
+  @override
+  String get roomHost => '房主';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count位參與者';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return '最多$count位參與者';
+  }
+
+  @override
+  String get selectTopic => '選擇話題';
+
+  @override
+  String get raiseHand => '舉手';
+
+  @override
+  String get lowerHand => '放下手';
+
+  @override
+  String get handRaisedNotification => '已舉手！房主將看到您的請求。';
+
+  @override
+  String get handLoweredNotification => '已放下手';
+
+  @override
+  String get muteParticipant => '將參與者靜音';
+
+  @override
+  String get kickParticipant => '移出房間';
+
+  @override
+  String get promoteToCoHost => '設為副房主';
+
+  @override
+  String get endRoomConfirm => '結束房間？';
+
+  @override
+  String get endRoomMessage => '這將結束所有參與者的房間。';
+
+  @override
+  String get roomEnded => '房主已結束房間';
+
+  @override
+  String get youWereRemoved => '您已被移出房間';
+
+  @override
+  String get roomIsFull => '房間已滿';
+
+  @override
+  String get roomChat => '房間聊天';
+
+  @override
+  String get noMessages => '暫無訊息';
+
+  @override
+  String get typeMessage => '輸入訊息...';
+
+  @override
+  String get voiceRoomsDescription => '加入即時對話，練習口說';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count個直播';
+  }
+
+  @override
+  String get noActiveRooms => '沒有活躍房間';
+
+  @override
+  String get noActiveRoomsDescription => '成為第一個建立語音房間的人，與他人一起練習口說！';
+
+  @override
+  String get startRoom => '開始房間';
+
+  @override
+  String get createRoom => '建立房間';
+
+  @override
+  String get roomCreated => '房間建立成功！';
+
+  @override
+  String get failedToCreateRoom => '建立房間失敗';
+
+  @override
+  String get errorLoadingRooms => '載入房間出錯';
+
+  @override
+  String get pleaseEnterRoomTitle => '請輸入房間標題';
+
+  @override
+  String get startLiveConversation => '開始即時對話';
+
+  @override
+  String get maxParticipants => '最大參與者';
+
+  @override
+  String nPeople(int count) {
+    return '$count人';
+  }
 }

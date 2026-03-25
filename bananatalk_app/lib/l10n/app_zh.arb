@@ -853,5 +853,116 @@
   "locationPermissionDenied": "位置权限被拒绝，请在设置中启用。",
   "locationServiceDisabled": "位置服务已禁用，请启用。",
   "updatingLocation": "正在更新位置...",
-  "locationCouldNotBeUpdated": "无法更新位置"
+  "locationCouldNotBeUpdated": "无法更新位置",
+  "incomingAudioCall": "来电语音通话",
+  "incomingVideoCall": "来电视频通话",
+  "outgoingCall": "呼叫中...",
+  "callRinging": "响铃中...",
+  "callConnecting": "连接中...",
+  "callConnected": "已连接",
+  "callReconnecting": "重新连接中...",
+  "callEnded": "通话结束",
+  "callFailed": "通话失败",
+  "callMissed": "未接来电",
+  "callDeclined": "通话已拒绝",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "接听",
+  "declineCall": "拒绝",
+  "endCall": "结束",
+  "muteCall": "静音",
+  "unmuteCall": "取消静音",
+  "speakerOn": "扬声器",
+  "speakerOff": "听筒",
+  "videoOn": "开启视频",
+  "videoOff": "关闭视频",
+  "switchCamera": "切换摄像头",
+  "callPermissionDenied": "通话需要麦克风权限",
+  "cameraPermissionDenied": "视频通话需要摄像头权限",
+  "callConnectionFailed": "无法连接。请重试。",
+  "userBusy": "用户忙碌",
+  "userOffline": "用户离线",
+  "callHistory": "通话记录",
+  "noCallHistory": "没有通话记录",
+  "missedCalls": "未接来电",
+  "allCalls": "所有通话",
+  "callBack": "回拨",
+  "callAt": "{time}的通话",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "语音通话",
+  "tryAgain": "重试",
+  "voiceRoom": "语音房间",
+  "noVoiceRooms": "没有活跃的语音房间",
+  "createVoiceRoom": "创建语音房间",
+  "joinRoom": "加入房间",
+  "leaveRoom": "离开房间",
+  "leaveRoomConfirm": "离开房间？",
+  "leaveRoomMessage": "确定要离开这个房间吗？",
+  "stay": "留下",
+  "leave": "离开",
+  "roomTitle": "房间标题",
+  "roomTitleHint": "输入房间标题",
+  "roomTopic": "话题",
+  "roomLanguage": "语言",
+  "roomHost": "房主",
+  "roomParticipants": "{count}位参与者",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "最多{count}位参与者",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "选择话题",
+  "selectLanguage": "选择语言",
+  "raiseHand": "举手",
+  "lowerHand": "放下手",
+  "handRaisedNotification": "已举手！房主将看到您的请求。",
+  "handLoweredNotification": "已放下手",
+  "muteParticipant": "将参与者静音",
+  "kickParticipant": "移出房间",
+  "promoteToCoHost": "设为副房主",
+  "endRoomConfirm": "结束房间？",
+  "endRoomMessage": "这将结束所有参与者的房间。",
+  "roomEnded": "房主已结束房间",
+  "youWereRemoved": "您已被移出房间",
+  "roomIsFull": "房间已满",
+  "roomChat": "房间聊天",
+  "noMessages": "暂无消息",
+  "typeMessage": "输入消息...",
+  "voiceRoomsDescription": "加入实时对话，练习口语",
+  "liveRoomsCount": "{count}个直播",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "没有活跃房间",
+  "noActiveRoomsDescription": "成为第一个创建语音房间的人，与他人一起练习口语！",
+  "startRoom": "开始房间",
+  "createRoom": "创建房间",
+  "roomCreated": "房间创建成功！",
+  "failedToCreateRoom": "创建房间失败",
+  "errorLoadingRooms": "加载房间出错",
+  "pleaseEnterRoomTitle": "请输入房间标题",
+  "startLiveConversation": "开始实时对话",
+  "maxParticipants": "最大参与者",
+  "nPeople": "{count}人",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

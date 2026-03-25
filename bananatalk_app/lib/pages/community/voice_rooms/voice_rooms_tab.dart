@@ -5,8 +5,10 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/widgets/community/voice_room_card.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_screen.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/create_room_sheet.dart';
+import 'package:bananatalk_app/providers/voice_room_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -17,108 +19,66 @@ class VoiceRoomsTab extends ConsumerStatefulWidget {
 }
 
 class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
-  // Mock data for voice rooms (replace with actual provider when backend is ready)
-  final List<VoiceRoom> _mockRooms = [
-    VoiceRoom(
-      id: '1',
-      title: 'English Practice - Beginners Welcome!',
-      hostId: 'host1',
-      hostName: 'Sarah',
-      hostAvatar: '',
-      topic: 'Language Tips',
-      language: 'English',
-      participants: [
-        RoomParticipant(
-          id: 'p1',
-          name: 'John',
-          avatar: '',
-          isSpeaking: true,
-          joinedAt: DateTime.now(),
-        ),
-        RoomParticipant(
-          id: 'p2',
-          name: 'Maria',
-          avatar: '',
-          joinedAt: DateTime.now(),
-        ),
-        RoomParticipant(
-          id: 'p3',
-          name: 'Kim',
-          avatar: '',
-          joinedAt: DateTime.now(),
-        ),
-      ],
-      maxParticipants: 8,
-      isLive: true,
-      createdAt: DateTime.now().subtract(const Duration(minutes: 15)),
-    ),
-    VoiceRoom(
-      id: '2',
-      title: 'Korean Drama Discussion',
-      hostId: 'host2',
-      hostName: 'Min-Ji',
-      hostAvatar: '',
-      topic: 'Movies & TV',
-      language: 'Korean',
-      participants: [
-        RoomParticipant(
-          id: 'p4',
-          name: 'Alex',
-          avatar: '',
-          joinedAt: DateTime.now(),
-        ),
-        RoomParticipant(
-          id: 'p5',
-          name: 'Emma',
-          avatar: '',
-          isSpeaking: true,
-          joinedAt: DateTime.now(),
-        ),
-      ],
-      maxParticipants: 6,
-      isLive: true,
-      createdAt: DateTime.now().subtract(const Duration(minutes: 32)),
-    ),
-    VoiceRoom(
-      id: '3',
-      title: 'Japanese Music Lovers',
-      hostId: 'host3',
-      hostName: 'Yuki',
-      hostAvatar: '',
-      topic: 'Music',
-      language: 'Japanese',
-      participants: [
-        RoomParticipant(
-          id: 'p6',
-          name: 'David',
-          avatar: '',
-          joinedAt: DateTime.now(),
-        ),
-      ],
-      maxParticipants: 10,
-      isLive: true,
-      createdAt: DateTime.now().subtract(const Duration(hours: 1)),
-    ),
-  ];
+  late Future<List<VoiceRoom>> _roomsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _roomsFuture = ref.read(voiceRoomProvider).fetchRooms();
+  }
+
+  Future<void> _refreshRooms() async {
+    setState(() {
+      _roomsFuture = ref.read(voiceRoomProvider).fetchRooms();
+    });
+  }
 
   void _createRoom() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => CreateRoomSheet(
-        onCreateRoom: (title, topic, language, maxParticipants) {
-          // TODO: Call backend to create room
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Room created! Feature coming soon.'),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: AppRadius.borderMD,
-              ),
-            ),
-          );
+      builder: (sheetContext) => CreateRoomSheet(
+        onCreateRoom: (title, topic, language, maxParticipants) async {
+          Navigator.pop(sheetContext);
+          try {
+            final request = CreateRoomRequest(
+              title: title,
+              topic: topic,
+              language: language,
+              maxParticipants: maxParticipants,
+            );
+            final room = await ref.read(voiceRoomProvider).createRoom(request);
+            _refreshRooms();
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(l10n.roomCreated),
+                  backgroundColor: const Color(0xFF00BFA5),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: AppRadius.borderMD,
+                  ),
+                ),
+              );
+              // Navigate to the newly created room
+              _joinRoom(room);
+            }
+          } catch (e) {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(l10n.failedToCreateRoom),
+                  backgroundColor: Colors.red,
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: AppRadius.borderMD,
+                  ),
+                ),
+              );
+            }
+          }
         },
       ),
     );
@@ -135,16 +95,33 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: _mockRooms.isEmpty ? _buildEmptyState() : _buildRoomsList(),
+      body: FutureBuilder<List<VoiceRoom>>(
+        future: _roomsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xFF00BFA5),
+              ),
+            );
+          }
+          if (snapshot.hasError) {
+            return _buildErrorState(l10n, snapshot.error.toString());
+          }
+          final rooms = snapshot.data ?? [];
+          return rooms.isEmpty ? _buildEmptyState() : _buildRoomsList(rooms);
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _createRoom,
         backgroundColor: const Color(0xFF00BFA5),
         icon: const Icon(Icons.add_rounded, color: Colors.white),
-        label: const Text(
-          'Create Room',
-          style: TextStyle(
+        label: Text(
+          l10n.createRoom,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
@@ -153,17 +130,48 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     );
   }
 
-  Widget _buildRoomsList() {
+  Widget _buildErrorState(AppLocalizations l10n, String error) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.error_outline_rounded,
+              size: 64,
+              color: Colors.red,
+            ),
+            Spacing.gapLG,
+            Text(
+              l10n.errorLoadingRooms,
+              style: context.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+            Spacing.gapMD,
+            ElevatedButton.icon(
+              onPressed: _refreshRooms,
+              icon: const Icon(Icons.refresh_rounded),
+              label: Text(l10n.tryAgain),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF00BFA5),
+                foregroundColor: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRoomsList(List<VoiceRoom> rooms) {
     return RefreshIndicator(
-      onRefresh: () async {
-        // TODO: Refresh rooms from backend
-        await Future.delayed(const Duration(seconds: 1));
-      },
+      onRefresh: _refreshRooms,
       child: CustomScrollView(
         slivers: [
           // Header
           SliverToBoxAdapter(
-            child: _buildHeader(),
+            child: _buildHeader(rooms.length),
           ),
           // Rooms list
           SliverPadding(
@@ -171,7 +179,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  final room = _mockRooms[index];
+                  final room = rooms[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: VoiceRoomCard(
@@ -181,7 +189,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                     ),
                   );
                 },
-                childCount: _mockRooms.length,
+                childCount: rooms.length,
               ),
             ),
           ),
@@ -194,7 +202,8 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(int roomCount) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -233,11 +242,11 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Voice Rooms',
+                    l10n.voiceRooms,
                     style: context.titleMedium,
                   ),
                   Text(
-                    'Join live conversations and practice speaking',
+                    l10n.voiceRoomsDescription,
                     style: context.caption,
                   ),
                 ],
@@ -266,7 +275,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 ),
                 Spacing.hGapSM,
                 Text(
-                  '${_mockRooms.length} Live',
+                  l10n.liveRoomsCount(roomCount),
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -282,6 +291,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   }
 
   Widget _buildEmptyState() {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -306,14 +316,14 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             Spacing.gapLG,
             Builder(
               builder: (context) => Text(
-                'No active rooms',
+                l10n.noActiveRooms,
                 style: context.titleLarge,
               ),
             ),
             Spacing.gapMD,
             Builder(
               builder: (context) => Text(
-                'Be the first to start a voice room and practice speaking with others!',
+                l10n.noActiveRoomsDescription,
                 textAlign: TextAlign.center,
                 style: context.bodyMedium.copyWith(
                   color: context.textSecondary,
@@ -324,7 +334,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             ElevatedButton.icon(
               onPressed: _createRoom,
               icon: const Icon(Icons.add_rounded),
-              label: const Text('Start a Room'),
+              label: Text(l10n.startRoom),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF00BFA5),
                 foregroundColor: Colors.white,

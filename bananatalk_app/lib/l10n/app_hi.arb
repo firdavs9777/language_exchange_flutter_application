@@ -844,5 +844,116 @@
   "locationServiceDisabled": "स्थान सेवाएं अक्षम हैं। कृपया सक्षम करें।",
   "updatingLocation": "स्थान अपडेट हो रहा है...",
   "openSettings": "सेटिंग्स खोलें",
-  "locationCouldNotBeUpdated": "स्थान अपडेट नहीं हो सका"
+  "locationCouldNotBeUpdated": "स्थान अपडेट नहीं हो सका",
+  "incomingAudioCall": "इनकमिंग ऑडियो कॉल",
+  "incomingVideoCall": "इनकमिंग वीडियो कॉल",
+  "outgoingCall": "कॉल कर रहे हैं...",
+  "callRinging": "रिंग हो रहा है...",
+  "callConnecting": "कनेक्ट हो रहा है...",
+  "callConnected": "कनेक्टेड",
+  "callReconnecting": "पुनः कनेक्ट हो रहा है...",
+  "callEnded": "कॉल समाप्त",
+  "callFailed": "कॉल विफल",
+  "callMissed": "मिस्ड कॉल",
+  "callDeclined": "कॉल अस्वीकृत",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "स्वीकार करें",
+  "declineCall": "अस्वीकार करें",
+  "endCall": "समाप्त करें",
+  "muteCall": "म्यूट",
+  "unmuteCall": "अनम्यूट",
+  "speakerOn": "स्पीकर",
+  "speakerOff": "ईयरपीस",
+  "videoOn": "वीडियो चालू",
+  "videoOff": "वीडियो बंद",
+  "switchCamera": "कैमरा बदलें",
+  "callPermissionDenied": "कॉल के लिए माइक्रोफ़ोन अनुमति आवश्यक है",
+  "cameraPermissionDenied": "वीडियो कॉल के लिए कैमरा अनुमति आवश्यक है",
+  "callConnectionFailed": "कनेक्ट नहीं हो सका। कृपया पुनः प्रयास करें।",
+  "userBusy": "उपयोगकर्ता व्यस्त है",
+  "userOffline": "उपयोगकर्ता ऑफ़लाइन है",
+  "callHistory": "कॉल इतिहास",
+  "noCallHistory": "कोई कॉल इतिहास नहीं",
+  "missedCalls": "मिस्ड कॉल्स",
+  "allCalls": "सभी कॉल्स",
+  "callBack": "वापस कॉल करें",
+  "callAt": "{time} पर कॉल",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "ऑडियो कॉल",
+  "tryAgain": "पुनः प्रयास करें",
+  "voiceRoom": "वॉयस रूम",
+  "noVoiceRooms": "कोई सक्रिय वॉयस रूम नहीं",
+  "createVoiceRoom": "वॉयस रूम बनाएं",
+  "joinRoom": "रूम में शामिल हों",
+  "leaveRoom": "रूम छोड़ें",
+  "leaveRoomConfirm": "रूम छोड़ें?",
+  "leaveRoomMessage": "क्या आप वाकई इस रूम को छोड़ना चाहते हैं?",
+  "stay": "रहें",
+  "leave": "छोड़ें",
+  "roomTitle": "रूम का शीर्षक",
+  "roomTitleHint": "रूम का शीर्षक दर्ज करें",
+  "roomTopic": "विषय",
+  "roomLanguage": "भाषा",
+  "roomHost": "होस्ट",
+  "roomParticipants": "{count} प्रतिभागी",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "अधिकतम {count} प्रतिभागी",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "विषय चुनें",
+  "selectLanguage": "भाषा चुनें",
+  "raiseHand": "हाथ उठाएं",
+  "lowerHand": "हाथ नीचे करें",
+  "handRaisedNotification": "हाथ उठाया! होस्ट आपका अनुरोध देखेगा।",
+  "handLoweredNotification": "हाथ नीचे किया",
+  "muteParticipant": "प्रतिभागी को म्यूट करें",
+  "kickParticipant": "रूम से हटाएं",
+  "promoteToCoHost": "को-होस्ट बनाएं",
+  "endRoomConfirm": "रूम समाप्त करें?",
+  "endRoomMessage": "यह सभी प्रतिभागियों के लिए रूम समाप्त कर देगा।",
+  "roomEnded": "होस्ट द्वारा रूम समाप्त",
+  "youWereRemoved": "आपको रूम से हटा दिया गया",
+  "roomIsFull": "रूम भरा हुआ है",
+  "roomChat": "रूम चैट",
+  "noMessages": "अभी तक कोई संदेश नहीं",
+  "typeMessage": "संदेश लिखें...",
+  "voiceRoomsDescription": "लाइव बातचीत में शामिल हों और बोलने का अभ्यास करें",
+  "liveRoomsCount": "{count} लाइव",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "कोई सक्रिय रूम नहीं",
+  "noActiveRoomsDescription": "पहले वॉयस रूम शुरू करें और दूसरों के साथ बोलने का अभ्यास करें!",
+  "startRoom": "रूम शुरू करें",
+  "createRoom": "रूम बनाएं",
+  "roomCreated": "रूम सफलतापूर्वक बनाया गया!",
+  "failedToCreateRoom": "रूम बनाने में विफल",
+  "errorLoadingRooms": "रूम लोड करने में त्रुटि",
+  "pleaseEnterRoomTitle": "कृपया रूम का शीर्षक दर्ज करें",
+  "startLiveConversation": "लाइव बातचीत शुरू करें",
+  "maxParticipants": "अधिकतम प्रतिभागी",
+  "nPeople": "{count} लोग",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

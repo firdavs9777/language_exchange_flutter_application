@@ -844,5 +844,116 @@
   "locationServiceDisabled": "Os serviços de localização estão desativados. Ative-os.",
   "updatingLocation": "Atualizando localização...",
   "openSettings": "Abrir configurações",
-  "locationCouldNotBeUpdated": "Não foi possível atualizar a localização"
+  "locationCouldNotBeUpdated": "Não foi possível atualizar a localização",
+  "incomingAudioCall": "Chamada de áudio recebida",
+  "incomingVideoCall": "Videochamada recebida",
+  "outgoingCall": "Chamando...",
+  "callRinging": "Tocando...",
+  "callConnecting": "Conectando...",
+  "callConnected": "Conectado",
+  "callReconnecting": "Reconectando...",
+  "callEnded": "Chamada encerrada",
+  "callFailed": "Chamada falhou",
+  "callMissed": "Chamada perdida",
+  "callDeclined": "Chamada recusada",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Aceitar",
+  "declineCall": "Recusar",
+  "endCall": "Encerrar",
+  "muteCall": "Mudo",
+  "unmuteCall": "Ativar som",
+  "speakerOn": "Alto-falante",
+  "speakerOff": "Auricular",
+  "videoOn": "Vídeo ligado",
+  "videoOff": "Vídeo desligado",
+  "switchCamera": "Trocar câmera",
+  "callPermissionDenied": "Permissão de microfone necessária para chamadas",
+  "cameraPermissionDenied": "Permissão de câmera necessária para videochamadas",
+  "callConnectionFailed": "Não foi possível conectar. Tente novamente.",
+  "userBusy": "Usuário ocupado",
+  "userOffline": "Usuário offline",
+  "callHistory": "Histórico de chamadas",
+  "noCallHistory": "Sem histórico de chamadas",
+  "missedCalls": "Chamadas perdidas",
+  "allCalls": "Todas as chamadas",
+  "callBack": "Retornar chamada",
+  "callAt": "Chamada às {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Chamada de áudio",
+  "tryAgain": "Tentar novamente",
+  "voiceRoom": "Sala de voz",
+  "noVoiceRooms": "Nenhuma sala de voz ativa",
+  "createVoiceRoom": "Criar sala de voz",
+  "joinRoom": "Entrar na sala",
+  "leaveRoom": "Sair da sala",
+  "leaveRoomConfirm": "Sair da sala?",
+  "leaveRoomMessage": "Tem certeza de que deseja sair desta sala?",
+  "stay": "Ficar",
+  "leave": "Sair",
+  "roomTitle": "Título da sala",
+  "roomTitleHint": "Digite o título da sala",
+  "roomTopic": "Tópico",
+  "roomLanguage": "Idioma",
+  "roomHost": "Anfitrião",
+  "roomParticipants": "{count} participantes",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Máx. {count} participantes",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Selecionar tópico",
+  "selectLanguage": "Selecionar idioma",
+  "raiseHand": "Levantar mão",
+  "lowerHand": "Abaixar mão",
+  "handRaisedNotification": "Mão levantada! O anfitrião verá sua solicitação.",
+  "handLoweredNotification": "Mão abaixada",
+  "muteParticipant": "Silenciar participante",
+  "kickParticipant": "Remover da sala",
+  "promoteToCoHost": "Promover a co-anfitrião",
+  "endRoomConfirm": "Encerrar sala?",
+  "endRoomMessage": "Isso encerrará a sala para todos os participantes.",
+  "roomEnded": "Sala encerrada pelo anfitrião",
+  "youWereRemoved": "Você foi removido da sala",
+  "roomIsFull": "A sala está cheia",
+  "roomChat": "Chat da sala",
+  "noMessages": "Ainda não há mensagens",
+  "typeMessage": "Digite uma mensagem...",
+  "voiceRoomsDescription": "Participe de conversas ao vivo e pratique falar",
+  "liveRoomsCount": "{count} ao vivo",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Nenhuma sala ativa",
+  "noActiveRoomsDescription": "Seja o primeiro a iniciar uma sala de voz e pratique falar com outros!",
+  "startRoom": "Iniciar sala",
+  "createRoom": "Criar sala",
+  "roomCreated": "Sala criada com sucesso!",
+  "failedToCreateRoom": "Falha ao criar sala",
+  "errorLoadingRooms": "Erro ao carregar salas",
+  "pleaseEnterRoomTitle": "Por favor, digite um título para a sala",
+  "startLiveConversation": "Iniciar conversa ao vivo",
+  "maxParticipants": "Máx. participantes",
+  "nPeople": "{count} pessoas",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

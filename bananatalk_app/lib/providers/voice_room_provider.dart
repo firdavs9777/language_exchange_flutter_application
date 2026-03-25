@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/services/voice_room_manager.dart';
-import 'package:bananatalk_app/service/api_client.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 
 /// State for voice room
 class VoiceRoomState {
@@ -126,7 +126,7 @@ class VoiceRoomNotifier extends ChangeNotifier {
     try {
       final response = await _apiClient.post(
         '/api/v1/voicerooms',
-        data: request.toJson(),
+        body: request.toJson(),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {

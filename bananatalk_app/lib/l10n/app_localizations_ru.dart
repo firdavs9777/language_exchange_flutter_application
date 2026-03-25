@@ -155,7 +155,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get success => 'Успешно';
 
   @override
-  String get tryAgain => 'Попробовать снова';
+  String get tryAgain => 'Повторить';
 
   @override
   String get networkError => 'Ошибка сети. Проверьте подключение.';
@@ -1571,7 +1571,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noReactionsYet => 'Пока нет реакций';
 
   @override
-  String get leaveRoom => 'Покинуть комнату?';
+  String get leaveRoom => 'Покинуть комнату';
 
   @override
   String get areYouSureLeaveRoom => 'Вы уверены, что хотите покинуть эту комнату?';
@@ -1580,7 +1580,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get stay => 'Остаться';
 
   @override
-  String get leave => 'Выйти';
+  String get leave => 'Покинуть';
 
   @override
   String get enableGPS => 'Включить GPS';
@@ -2694,4 +2694,244 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => 'Не удалось обновить местоположение';
+
+  @override
+  String get incomingAudioCall => 'Входящий аудиозвонок';
+
+  @override
+  String get incomingVideoCall => 'Входящий видеозвонок';
+
+  @override
+  String get outgoingCall => 'Вызов...';
+
+  @override
+  String get callRinging => 'Звонит...';
+
+  @override
+  String get callConnecting => 'Подключение...';
+
+  @override
+  String get callConnected => 'Подключено';
+
+  @override
+  String get callReconnecting => 'Переподключение...';
+
+  @override
+  String get callEnded => 'Звонок завершен';
+
+  @override
+  String get callFailed => 'Звонок не удался';
+
+  @override
+  String get callMissed => 'Пропущенный звонок';
+
+  @override
+  String get callDeclined => 'Звонок отклонен';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => 'Принять';
+
+  @override
+  String get declineCall => 'Отклонить';
+
+  @override
+  String get endCall => 'Завершить';
+
+  @override
+  String get muteCall => 'Выкл. звук';
+
+  @override
+  String get unmuteCall => 'Вкл. звук';
+
+  @override
+  String get speakerOn => 'Динамик';
+
+  @override
+  String get speakerOff => 'Наушник';
+
+  @override
+  String get videoOn => 'Видео вкл.';
+
+  @override
+  String get videoOff => 'Видео выкл.';
+
+  @override
+  String get switchCamera => 'Переключить камеру';
+
+  @override
+  String get callPermissionDenied => 'Для звонков требуется разрешение микрофона';
+
+  @override
+  String get cameraPermissionDenied => 'Для видеозвонков требуется разрешение камеры';
+
+  @override
+  String get callConnectionFailed => 'Не удалось подключиться. Попробуйте снова.';
+
+  @override
+  String get userBusy => 'Пользователь занят';
+
+  @override
+  String get userOffline => 'Пользователь не в сети';
+
+  @override
+  String get callHistory => 'История звонков';
+
+  @override
+  String get noCallHistory => 'Нет истории звонков';
+
+  @override
+  String get missedCalls => 'Пропущенные звонки';
+
+  @override
+  String get allCalls => 'Все звонки';
+
+  @override
+  String get callBack => 'Перезвонить';
+
+  @override
+  String callAt(String time) {
+    return 'Звонок в $time';
+  }
+
+  @override
+  String get audioCall => 'Аудиозвонок';
+
+  @override
+  String get voiceRoom => 'Голосовая комната';
+
+  @override
+  String get noVoiceRooms => 'Нет активных голосовых комнат';
+
+  @override
+  String get createVoiceRoom => 'Создать голосовую комнату';
+
+  @override
+  String get joinRoom => 'Присоединиться';
+
+  @override
+  String get leaveRoomConfirm => 'Покинуть комнату?';
+
+  @override
+  String get leaveRoomMessage => 'Вы уверены, что хотите покинуть эту комнату?';
+
+  @override
+  String get roomTitle => 'Название комнаты';
+
+  @override
+  String get roomTitleHint => 'Введите название комнаты';
+
+  @override
+  String get roomTopic => 'Тема';
+
+  @override
+  String get roomLanguage => 'Язык';
+
+  @override
+  String get roomHost => 'Ведущий';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count участников';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return 'Макс. $count участников';
+  }
+
+  @override
+  String get selectTopic => 'Выбрать тему';
+
+  @override
+  String get raiseHand => 'Поднять руку';
+
+  @override
+  String get lowerHand => 'Опустить руку';
+
+  @override
+  String get handRaisedNotification => 'Рука поднята! Ведущий увидит ваш запрос.';
+
+  @override
+  String get handLoweredNotification => 'Рука опущена';
+
+  @override
+  String get muteParticipant => 'Выключить звук участника';
+
+  @override
+  String get kickParticipant => 'Удалить из комнаты';
+
+  @override
+  String get promoteToCoHost => 'Сделать со-ведущим';
+
+  @override
+  String get endRoomConfirm => 'Завершить комнату?';
+
+  @override
+  String get endRoomMessage => 'Это завершит комнату для всех участников.';
+
+  @override
+  String get roomEnded => 'Комната завершена ведущим';
+
+  @override
+  String get youWereRemoved => 'Вас удалили из комнаты';
+
+  @override
+  String get roomIsFull => 'Комната заполнена';
+
+  @override
+  String get roomChat => 'Чат комнаты';
+
+  @override
+  String get noMessages => 'Пока нет сообщений';
+
+  @override
+  String get typeMessage => 'Введите сообщение...';
+
+  @override
+  String get voiceRoomsDescription => 'Присоединяйтесь к живым разговорам и практикуйте речь';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count онлайн';
+  }
+
+  @override
+  String get noActiveRooms => 'Нет активных комнат';
+
+  @override
+  String get noActiveRoomsDescription => 'Будьте первым, кто создаст голосовую комнату и практикуйтесь с другими!';
+
+  @override
+  String get startRoom => 'Начать комнату';
+
+  @override
+  String get createRoom => 'Создать комнату';
+
+  @override
+  String get roomCreated => 'Комната успешно создана!';
+
+  @override
+  String get failedToCreateRoom => 'Не удалось создать комнату';
+
+  @override
+  String get errorLoadingRooms => 'Ошибка загрузки комнат';
+
+  @override
+  String get pleaseEnterRoomTitle => 'Пожалуйста, введите название комнаты';
+
+  @override
+  String get startLiveConversation => 'Начать живой разговор';
+
+  @override
+  String get maxParticipants => 'Макс. участников';
+
+  @override
+  String nPeople(int count) {
+    return '$count человек';
+  }
 }

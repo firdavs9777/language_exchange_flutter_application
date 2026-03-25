@@ -1494,7 +1494,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
 
   @override
-  String get exchange3MessagesBeforeCall => 'You need to exchange at least 3 messages before you can call this user';
+  String get exchange3MessagesBeforeCall => 'Exchange 3+ messages before calling';
 
   @override
   String mediaWithUser(String name) {
@@ -1571,7 +1571,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noReactionsYet => 'No reactions yet';
 
   @override
-  String get leaveRoom => 'Leave Room?';
+  String get leaveRoom => 'Leave Room';
 
   @override
   String get areYouSureLeaveRoom => 'Are you sure you want to leave this voice room?';
@@ -2700,4 +2700,244 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => 'Location could not be updated';
+
+  @override
+  String get incomingAudioCall => 'Incoming Audio Call';
+
+  @override
+  String get incomingVideoCall => 'Incoming Video Call';
+
+  @override
+  String get outgoingCall => 'Calling...';
+
+  @override
+  String get callRinging => 'Ringing...';
+
+  @override
+  String get callConnecting => 'Connecting...';
+
+  @override
+  String get callConnected => 'Connected';
+
+  @override
+  String get callReconnecting => 'Reconnecting...';
+
+  @override
+  String get callEnded => 'Call Ended';
+
+  @override
+  String get callFailed => 'Call Failed';
+
+  @override
+  String get callMissed => 'Missed Call';
+
+  @override
+  String get callDeclined => 'Call Declined';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => 'Accept';
+
+  @override
+  String get declineCall => 'Decline';
+
+  @override
+  String get endCall => 'End';
+
+  @override
+  String get muteCall => 'Mute';
+
+  @override
+  String get unmuteCall => 'Unmute';
+
+  @override
+  String get speakerOn => 'Speaker';
+
+  @override
+  String get speakerOff => 'Earpiece';
+
+  @override
+  String get videoOn => 'Video On';
+
+  @override
+  String get videoOff => 'Video Off';
+
+  @override
+  String get switchCamera => 'Switch Camera';
+
+  @override
+  String get callPermissionDenied => 'Microphone permission is required for calls';
+
+  @override
+  String get cameraPermissionDenied => 'Camera permission is required for video calls';
+
+  @override
+  String get callConnectionFailed => 'Could not connect. Please try again.';
+
+  @override
+  String get userBusy => 'User is busy';
+
+  @override
+  String get userOffline => 'User is offline';
+
+  @override
+  String get callHistory => 'Call History';
+
+  @override
+  String get noCallHistory => 'No call history';
+
+  @override
+  String get missedCalls => 'Missed Calls';
+
+  @override
+  String get allCalls => 'All Calls';
+
+  @override
+  String get callBack => 'Call Back';
+
+  @override
+  String callAt(String time) {
+    return 'Call at $time';
+  }
+
+  @override
+  String get audioCall => 'Audio Call';
+
+  @override
+  String get voiceRoom => 'Voice Room';
+
+  @override
+  String get noVoiceRooms => 'No voice rooms active';
+
+  @override
+  String get createVoiceRoom => 'Create Voice Room';
+
+  @override
+  String get joinRoom => 'Join Room';
+
+  @override
+  String get leaveRoomConfirm => 'Leave Room?';
+
+  @override
+  String get leaveRoomMessage => 'Are you sure you want to leave this room?';
+
+  @override
+  String get roomTitle => 'Room Title';
+
+  @override
+  String get roomTitleHint => 'Enter room title';
+
+  @override
+  String get roomTopic => 'Topic';
+
+  @override
+  String get roomLanguage => 'Language';
+
+  @override
+  String get roomHost => 'Host';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count participants';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return 'Max $count participants';
+  }
+
+  @override
+  String get selectTopic => 'Select Topic';
+
+  @override
+  String get raiseHand => 'Raise Hand';
+
+  @override
+  String get lowerHand => 'Lower Hand';
+
+  @override
+  String get handRaisedNotification => 'Hand raised! The host will see your request.';
+
+  @override
+  String get handLoweredNotification => 'Hand lowered';
+
+  @override
+  String get muteParticipant => 'Mute Participant';
+
+  @override
+  String get kickParticipant => 'Remove from Room';
+
+  @override
+  String get promoteToCoHost => 'Make Co-Host';
+
+  @override
+  String get endRoomConfirm => 'End Room?';
+
+  @override
+  String get endRoomMessage => 'This will end the room for all participants.';
+
+  @override
+  String get roomEnded => 'Room ended by host';
+
+  @override
+  String get youWereRemoved => 'You were removed from the room';
+
+  @override
+  String get roomIsFull => 'Room is full';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get noMessages => 'No messages yet';
+
+  @override
+  String get typeMessage => 'Type a message...';
+
+  @override
+  String get voiceRoomsDescription => 'Join live conversations and practice speaking';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count Live';
+  }
+
+  @override
+  String get noActiveRooms => 'No active rooms';
+
+  @override
+  String get noActiveRoomsDescription => 'Be the first to start a voice room and practice speaking with others!';
+
+  @override
+  String get startRoom => 'Start a Room';
+
+  @override
+  String get createRoom => 'Create Room';
+
+  @override
+  String get roomCreated => 'Room created successfully!';
+
+  @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get errorLoadingRooms => 'Error loading rooms';
+
+  @override
+  String get pleaseEnterRoomTitle => 'Please enter a room title';
+
+  @override
+  String get startLiveConversation => 'Start a live conversation';
+
+  @override
+  String get maxParticipants => 'Max Participants';
+
+  @override
+  String nPeople(int count) {
+    return '$count people';
+  }
 }
