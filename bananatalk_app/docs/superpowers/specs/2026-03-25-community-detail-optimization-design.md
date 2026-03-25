@@ -88,7 +88,7 @@ style: TextStyle(color: context.textPrimary, ...)
 ### single_community.dart
 
 Minor fixes needed:
-- Error state background: `Colors.red[50]` → `AppColors.errorLight` or theme-aware
+- Error state background: `Colors.red[50]` → `AppColors.errorLight`
 - Ensure all new sections use theme extensions
 
 ---
@@ -164,13 +164,13 @@ class LanguageMatchCard extends ConsumerWidget {
   }
 
   MatchType _calculateMatchType(User currentUser, Community profile) {
-    final iLearnTheirNative = currentUser.languageToLearn == profile.native_language;
-    final theyLearnMyNative = profile.language_to_learn == currentUser.nativeLanguage;
+    final iLearnTheirNative = currentUser.language_to_learn == profile.native_language;
+    final theyLearnMyNative = profile.language_to_learn == currentUser.native_language;
 
     if (iLearnTheirNative && theyLearnMyNative) return MatchType.perfect;
     if (iLearnTheirNative) return MatchType.youLearnTheirs;
     if (theyLearnMyNative) return MatchType.theyLearnYours;
-    if (currentUser.nativeLanguage == profile.native_language) return MatchType.sameNative;
+    if (currentUser.native_language == profile.native_language) return MatchType.sameNative;
     return MatchType.none;
   }
 }
@@ -237,6 +237,8 @@ Below Language Match Card, above action buttons.
 | Reply Speed | Future field | ⏱️ <1hr / <1day / ~3days |
 | New User | `isNewUser` | 🆕 New (if joined <7 days) |
 
+**Note:** The `lastActiveText` getter already exists on the `Community` model and returns formatted strings like "Online now", "Active 5m ago", etc.
+
 ### Widget Implementation
 
 ```dart
@@ -292,6 +294,33 @@ class EngagementStatsBar extends StatelessWidget {
     return _StatChip(
       icon: Icon(Icons.bolt, size: 14, color: color),
       value: '${rate.round()}% replies',
+    );
+  }
+
+  Widget _buildNewBadge(BuildContext context) {
+    return _StatChip(
+      icon: const Text('🆕', style: TextStyle(fontSize: 12)),
+      value: 'New',
+    );
+  }
+}
+
+/// Helper widget for displaying stat indicators
+class _StatChip extends StatelessWidget {
+  final Widget icon;
+  final String value;
+
+  const _StatChip({required this.icon, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        icon,
+        Spacing.hGapXS,
+        Text(value, style: context.captionSmall),
+      ],
     );
   }
 }
@@ -523,7 +552,7 @@ class ConversationStartersCard extends ConsumerWidget {
       }
 
       // 2. Language match
-      if (currentUser.languageToLearn == profile.native_language) {
+      if (currentUser.language_to_learn == profile.native_language) {
         starters.add(StarterSuggestion(
           icon: '🗣️',
           text: 'You\'re learning ${profile.native_language} - ask for tips!',
