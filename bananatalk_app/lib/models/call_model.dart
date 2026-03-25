@@ -12,6 +12,8 @@ enum CallStatus {
   failed
 }
 
+enum CallConnectionState { connecting, connected, reconnecting, failed }
+
 class CallModel {
   final String callId;
   final String userId;
@@ -23,6 +25,9 @@ class CallModel {
   final DateTime startTime;
   DateTime? endTime;
   int? duration; // Duration in seconds
+  final bool isPeerMuted;
+  final bool isPeerVideoEnabled;
+  final CallConnectionState connectionState;
 
   CallModel({
     required this.callId,
@@ -35,6 +40,9 @@ class CallModel {
     required this.startTime,
     this.endTime,
     this.duration,
+    this.isPeerMuted = false,
+    this.isPeerVideoEnabled = true,
+    this.connectionState = CallConnectionState.connecting,
   });
 
   factory CallModel.fromJson(
@@ -99,6 +107,9 @@ class CallModel {
     DateTime? startTime,
     DateTime? endTime,
     int? duration,
+    bool? isPeerMuted,
+    bool? isPeerVideoEnabled,
+    CallConnectionState? connectionState,
   }) {
     return CallModel(
       callId: callId ?? this.callId,
@@ -111,6 +122,9 @@ class CallModel {
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       duration: duration ?? this.duration,
+      isPeerMuted: isPeerMuted ?? this.isPeerMuted,
+      isPeerVideoEnabled: isPeerVideoEnabled ?? this.isPeerVideoEnabled,
+      connectionState: connectionState ?? this.connectionState,
     );
   }
 }
