@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
@@ -17,10 +19,17 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
   bool _isMuted = false;
   bool _isVideoEnabled = true;
   bool _isSpeakerOn = true;
+  DateTime? _connectedTime;
+  bool _isPeerMuted = false;
 
   @override
   void initState() {
     super.initState();
+
+    // Check if call is already connected
+    if (widget.call.status == CallStatus.connected) {
+      _connectedTime = DateTime.now();
+    }
 
     // Setup call ended callback
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -29,11 +38,34 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
           Navigator.pop(context);
         }
       });
+
+      // Setup callback to track when call connects
+      ref.read(callProvider.notifier).setCallAcceptedCallback((call) {
+        if (mounted && call.status == CallStatus.connected && _connectedTime == null) {
+          setState(() => _connectedTime = DateTime.now());
+        }
+      });
+
+      // Listen for peer mute state
+      final callManager = ref.read(callProvider.notifier).callManager;
+      callManager.onPeerMuteChanged = (isMuted) {
+        if (mounted) {
+          setState(() => _isPeerMuted = isMuted);
+        }
+      };
+
+      // Watch for status changes
+      ref.listenManual(callProvider, (previous, next) {
+        if (next?.currentCall?.status == CallStatus.connected && _connectedTime == null) {
+          setState(() => _connectedTime = DateTime.now());
+        }
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final callNotifier = ref.read(callProvider.notifier);
     final webrtcService = callNotifier.callManager.webrtcService;
 
@@ -80,13 +112,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      Text(
-                        _getCallStatusText(),
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 18,
-                        ),
-                      ),
+                      _buildCallStatus(l10n),
                     ],
                   ),
                 ),
@@ -148,13 +174,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          Text(
-                            _getCallStatusText(),
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
+                          _buildCallStatus(l10n),
                         ],
                       ),
                       Icon(
@@ -193,7 +213,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                       // Mute/Unmute
                       _ControlButton(
                         icon: _isMuted ? Icons.mic_off : Icons.mic,
-                        label: _isMuted ? 'Unmute' : 'Mute',
+                        label: _isMuted ? l10n.unmuteCall : l10n.muteCall,
                         onPressed: () {
                           setState(() => _isMuted = !_isMuted);
                           callNotifier.toggleMute();
@@ -206,7 +226,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                       // End Call
                       _ControlButton(
                         icon: Icons.call_end,
-                        label: 'End',
+                        label: l10n.endCall,
                         onPressed: () {
                           callNotifier.endCall();
                           if (mounted) {
@@ -225,7 +245,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                               ? Icons.videocam
                               : Icons.videocam_off,
                           label:
-                              _isVideoEnabled ? 'Stop Video' : 'Start Video',
+                              _isVideoEnabled ? l10n.videoOff : l10n.videoOn,
                           onPressed: () {
                             setState(() => _isVideoEnabled = !_isVideoEnabled);
                             callNotifier.toggleVideo();
@@ -239,7 +259,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                         // Speaker Toggle (for audio calls)
                         _ControlButton(
                           icon: _isSpeakerOn ? Icons.volume_up : Icons.volume_off,
-                          label: _isSpeakerOn ? 'Speaker' : 'Earpiece',
+                          label: _isSpeakerOn ? l10n.speakerOn : l10n.speakerOff,
                           onPressed: () {
                             setState(() => _isSpeakerOn = !_isSpeakerOn);
                             // TODO: Implement speaker toggle
@@ -274,19 +294,38 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
     );
   }
 
-  String _getCallStatusText() {
+  Widget _buildCallStatus(AppLocalizations l10n) {
     final call = widget.call;
 
+    if (call.status == CallStatus.connected && _connectedTime != null) {
+      return CallDurationTimer(
+        startTime: _connectedTime!,
+        style: const TextStyle(
+          color: Colors.white70,
+          fontSize: 14,
+        ),
+      );
+    }
+
+    String statusText;
     switch (call.status) {
       case CallStatus.ringing:
-        return 'Ringing...';
+        statusText = l10n.callRinging;
       case CallStatus.connecting:
-        return 'Connecting...';
+        statusText = l10n.callConnecting;
       case CallStatus.connected:
-        return 'Connected';
+        statusText = l10n.callConnected;
       default:
-        return '';
+        statusText = '';
     }
+
+    return Text(
+      statusText,
+      style: const TextStyle(
+        color: Colors.white70,
+        fontSize: 14,
+      ),
+    );
   }
 }
 
