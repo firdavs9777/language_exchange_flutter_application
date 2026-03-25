@@ -1110,5 +1110,116 @@
   "locationPermissionDenied": "Konum izni reddedildi. Ayarlardan etkinleştirin.",
   "locationServiceDisabled": "Konum hizmetleri devre dışı. Lütfen etkinleştirin.",
   "updatingLocation": "Konum güncelleniyor...",
-  "locationCouldNotBeUpdated": "Konum güncellenemedi"
+  "locationCouldNotBeUpdated": "Konum güncellenemedi",
+  "incomingAudioCall": "Gelen Sesli Arama",
+  "incomingVideoCall": "Gelen Görüntülü Arama",
+  "outgoingCall": "Aranıyor...",
+  "callRinging": "Çalıyor...",
+  "callConnecting": "Bağlanıyor...",
+  "callConnected": "Bağlandı",
+  "callReconnecting": "Yeniden bağlanıyor...",
+  "callEnded": "Arama Sona Erdi",
+  "callFailed": "Arama Başarısız",
+  "callMissed": "Cevapsız Arama",
+  "callDeclined": "Arama Reddedildi",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Kabul Et",
+  "declineCall": "Reddet",
+  "endCall": "Bitir",
+  "muteCall": "Sessiz",
+  "unmuteCall": "Sesi Aç",
+  "speakerOn": "Hoparlör",
+  "speakerOff": "Kulaklık",
+  "videoOn": "Video Açık",
+  "videoOff": "Video Kapalı",
+  "switchCamera": "Kamera Değiştir",
+  "callPermissionDenied": "Aramalar için mikrofon izni gerekli",
+  "cameraPermissionDenied": "Görüntülü aramalar için kamera izni gerekli",
+  "callConnectionFailed": "Bağlanılamadı. Lütfen tekrar deneyin.",
+  "userBusy": "Kullanıcı meşgul",
+  "userOffline": "Kullanıcı çevrimdışı",
+  "callHistory": "Arama Geçmişi",
+  "noCallHistory": "Arama geçmişi yok",
+  "missedCalls": "Cevapsız Aramalar",
+  "allCalls": "Tüm Aramalar",
+  "callBack": "Geri Ara",
+  "callAt": "{time} saatinde arama",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Sesli Arama",
+  "tryAgain": "Tekrar Dene",
+  "voiceRoom": "Ses Odası",
+  "noVoiceRooms": "Aktif ses odası yok",
+  "createVoiceRoom": "Ses Odası Oluştur",
+  "joinRoom": "Odaya Katıl",
+  "leaveRoom": "Odadan Ayrıl",
+  "leaveRoomConfirm": "Odadan Ayrıl?",
+  "leaveRoomMessage": "Bu odadan ayrılmak istediğinizden emin misiniz?",
+  "stay": "Kal",
+  "leave": "Ayrıl",
+  "roomTitle": "Oda Başlığı",
+  "roomTitleHint": "Oda başlığı girin",
+  "roomTopic": "Konu",
+  "roomLanguage": "Dil",
+  "roomHost": "Ev Sahibi",
+  "roomParticipants": "{count} katılımcı",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Maks. {count} katılımcı",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Konu Seç",
+  "selectLanguage": "Dil Seç",
+  "raiseHand": "El Kaldır",
+  "lowerHand": "El İndir",
+  "handRaisedNotification": "El kaldırıldı! Ev sahibi isteğinizi görecek.",
+  "handLoweredNotification": "El indirildi",
+  "muteParticipant": "Katılımcıyı Sessize Al",
+  "kickParticipant": "Odadan Çıkar",
+  "promoteToCoHost": "Yardımcı Ev Sahibi Yap",
+  "endRoomConfirm": "Odayı Sonlandır?",
+  "endRoomMessage": "Bu, tüm katılımcılar için odayı sonlandıracak.",
+  "roomEnded": "Oda ev sahibi tarafından sonlandırıldı",
+  "youWereRemoved": "Odadan çıkarıldınız",
+  "roomIsFull": "Oda dolu",
+  "roomChat": "Oda Sohbeti",
+  "noMessages": "Henüz mesaj yok",
+  "typeMessage": "Mesaj yazın...",
+  "voiceRoomsDescription": "Canlı sohbetlere katıl ve konuşma pratiği yap",
+  "liveRoomsCount": "{count} Canlı",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Aktif oda yok",
+  "noActiveRoomsDescription": "İlk sen bir ses odası başlat ve başkalarıyla konuşma pratiği yap!",
+  "startRoom": "Oda Başlat",
+  "createRoom": "Oda Oluştur",
+  "roomCreated": "Oda başarıyla oluşturuldu!",
+  "failedToCreateRoom": "Oda oluşturulamadı",
+  "errorLoadingRooms": "Odalar yüklenirken hata",
+  "pleaseEnterRoomTitle": "Lütfen bir oda başlığı girin",
+  "startLiveConversation": "Canlı sohbet başlat",
+  "maxParticipants": "Maks. Katılımcı",
+  "nPeople": "{count} kişi",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

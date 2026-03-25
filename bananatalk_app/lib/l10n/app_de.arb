@@ -1115,5 +1115,116 @@
   "locationServiceDisabled": "Standortdienste sind deaktiviert. Bitte aktivieren.",
   "updatingLocation": "Standort wird aktualisiert...",
   "openSettings": "Einstellungen öffnen",
-  "locationCouldNotBeUpdated": "Standort konnte nicht aktualisiert werden"
+  "locationCouldNotBeUpdated": "Standort konnte nicht aktualisiert werden",
+  "incomingAudioCall": "Eingehender Audioanruf",
+  "incomingVideoCall": "Eingehender Videoanruf",
+  "outgoingCall": "Rufe an...",
+  "callRinging": "Klingelt...",
+  "callConnecting": "Verbinde...",
+  "callConnected": "Verbunden",
+  "callReconnecting": "Verbinde erneut...",
+  "callEnded": "Anruf beendet",
+  "callFailed": "Anruf fehlgeschlagen",
+  "callMissed": "Verpasster Anruf",
+  "callDeclined": "Anruf abgelehnt",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Annehmen",
+  "declineCall": "Ablehnen",
+  "endCall": "Beenden",
+  "muteCall": "Stumm",
+  "unmuteCall": "Ton an",
+  "speakerOn": "Lautsprecher",
+  "speakerOff": "Ohrhörer",
+  "videoOn": "Video an",
+  "videoOff": "Video aus",
+  "switchCamera": "Kamera wechseln",
+  "callPermissionDenied": "Mikrofonberechtigung für Anrufe erforderlich",
+  "cameraPermissionDenied": "Kameraberechtigung für Videoanrufe erforderlich",
+  "callConnectionFailed": "Verbindung fehlgeschlagen. Bitte erneut versuchen.",
+  "userBusy": "Benutzer ist beschäftigt",
+  "userOffline": "Benutzer ist offline",
+  "callHistory": "Anrufverlauf",
+  "noCallHistory": "Keine Anrufe",
+  "missedCalls": "Verpasste Anrufe",
+  "allCalls": "Alle Anrufe",
+  "callBack": "Zurückrufen",
+  "callAt": "Anruf um {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Audioanruf",
+  "tryAgain": "Erneut versuchen",
+  "voiceRoom": "Sprachraum",
+  "noVoiceRooms": "Keine aktiven Sprachräume",
+  "createVoiceRoom": "Sprachraum erstellen",
+  "joinRoom": "Raum beitreten",
+  "leaveRoom": "Raum verlassen",
+  "leaveRoomConfirm": "Raum verlassen?",
+  "leaveRoomMessage": "Möchtest du diesen Raum wirklich verlassen?",
+  "stay": "Bleiben",
+  "leave": "Verlassen",
+  "roomTitle": "Raumtitel",
+  "roomTitleHint": "Raumtitel eingeben",
+  "roomTopic": "Thema",
+  "roomLanguage": "Sprache",
+  "roomHost": "Gastgeber",
+  "roomParticipants": "{count} Teilnehmer",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Max. {count} Teilnehmer",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Thema wählen",
+  "selectLanguage": "Sprache wählen",
+  "raiseHand": "Hand heben",
+  "lowerHand": "Hand senken",
+  "handRaisedNotification": "Hand gehoben! Der Gastgeber sieht deine Anfrage.",
+  "handLoweredNotification": "Hand gesenkt",
+  "muteParticipant": "Teilnehmer stummschalten",
+  "kickParticipant": "Aus Raum entfernen",
+  "promoteToCoHost": "Zum Co-Host machen",
+  "endRoomConfirm": "Raum beenden?",
+  "endRoomMessage": "Dies beendet den Raum für alle Teilnehmer.",
+  "roomEnded": "Raum vom Gastgeber beendet",
+  "youWereRemoved": "Du wurdest aus dem Raum entfernt",
+  "roomIsFull": "Raum ist voll",
+  "roomChat": "Raum-Chat",
+  "noMessages": "Noch keine Nachrichten",
+  "typeMessage": "Nachricht eingeben...",
+  "voiceRoomsDescription": "Nimm an Live-Gesprächen teil und übe das Sprechen",
+  "liveRoomsCount": "{count} Live",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Keine aktiven Räume",
+  "noActiveRoomsDescription": "Sei der Erste, der einen Sprachraum startet und übe mit anderen!",
+  "startRoom": "Raum starten",
+  "createRoom": "Raum erstellen",
+  "roomCreated": "Raum erfolgreich erstellt!",
+  "failedToCreateRoom": "Raum erstellen fehlgeschlagen",
+  "errorLoadingRooms": "Fehler beim Laden der Räume",
+  "pleaseEnterRoomTitle": "Bitte Raumtitel eingeben",
+  "startLiveConversation": "Live-Gespräch starten",
+  "maxParticipants": "Max. Teilnehmer",
+  "nPeople": "{count} Personen",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

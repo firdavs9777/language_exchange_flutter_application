@@ -50,6 +50,18 @@ class ChatSocketService {
   final _messageCorrectionController = StreamController<dynamic>.broadcast();
   final _themeChangedController = StreamController<dynamic>.broadcast();
 
+  // Voice room stream controllers
+  final _voiceRoomParticipantJoinedController = StreamController<dynamic>.broadcast();
+  final _voiceRoomParticipantLeftController = StreamController<dynamic>.broadcast();
+  final _voiceRoomOfferController = StreamController<dynamic>.broadcast();
+  final _voiceRoomAnswerController = StreamController<dynamic>.broadcast();
+  final _voiceRoomIceCandidateController = StreamController<dynamic>.broadcast();
+  final _voiceRoomMuteController = StreamController<dynamic>.broadcast();
+  final _voiceRoomHandRaisedController = StreamController<dynamic>.broadcast();
+  final _voiceRoomChatController = StreamController<dynamic>.broadcast();
+  final _voiceRoomEndedController = StreamController<dynamic>.broadcast();
+  final _voiceRoomKickedController = StreamController<dynamic>.broadcast();
+
   // Getters for streams
   Stream<dynamic> get onNewMessage => _newMessageController.stream;
   Stream<dynamic> get onMessageSent => _messageSentController.stream;
@@ -62,6 +74,18 @@ class ChatSocketService {
   Stream<dynamic> get onMessageReaction => _messageReactionController.stream;
   Stream<dynamic> get onMessageCorrection => _messageCorrectionController.stream;
   Stream<dynamic> get onThemeChanged => _themeChangedController.stream;
+
+  // Voice room stream getters
+  Stream<dynamic> get onVoiceRoomParticipantJoined => _voiceRoomParticipantJoinedController.stream;
+  Stream<dynamic> get onVoiceRoomParticipantLeft => _voiceRoomParticipantLeftController.stream;
+  Stream<dynamic> get onVoiceRoomOffer => _voiceRoomOfferController.stream;
+  Stream<dynamic> get onVoiceRoomAnswer => _voiceRoomAnswerController.stream;
+  Stream<dynamic> get onVoiceRoomIceCandidate => _voiceRoomIceCandidateController.stream;
+  Stream<dynamic> get onVoiceRoomMute => _voiceRoomMuteController.stream;
+  Stream<dynamic> get onVoiceRoomHandRaised => _voiceRoomHandRaisedController.stream;
+  Stream<dynamic> get onVoiceRoomChat => _voiceRoomChatController.stream;
+  Stream<dynamic> get onVoiceRoomEnded => _voiceRoomEndedController.stream;
+  Stream<dynamic> get onVoiceRoomKicked => _voiceRoomKickedController.stream;
 
   bool get isConnected => _socket?.connected ?? false;
   bool get shouldAllowReconnection => _shouldAllowReconnection;
@@ -411,6 +435,58 @@ class ChatSocketService {
     // Theme changed events (wallpaper sync between users)
     _socket?.on('themeChanged', (data) {
       _safeAdd(_themeChangedController, data);
+    });
+
+    // ============ Voice Room Events ============
+
+    // Participant joined the room
+    _socket?.on('voiceroom:participant-joined', (data) {
+      _safeAdd(_voiceRoomParticipantJoinedController, data);
+    });
+
+    // Participant left the room
+    _socket?.on('voiceroom:participant-left', (data) {
+      _safeAdd(_voiceRoomParticipantLeftController, data);
+    });
+
+    // WebRTC offer from peer
+    _socket?.on('voiceroom:offer', (data) {
+      _safeAdd(_voiceRoomOfferController, data);
+    });
+
+    // WebRTC answer from peer
+    _socket?.on('voiceroom:answer', (data) {
+      _safeAdd(_voiceRoomAnswerController, data);
+    });
+
+    // ICE candidate from peer
+    _socket?.on('voiceroom:ice-candidate', (data) {
+      _safeAdd(_voiceRoomIceCandidateController, data);
+    });
+
+    // Participant mute state changed
+    _socket?.on('voiceroom:mute', (data) {
+      _safeAdd(_voiceRoomMuteController, data);
+    });
+
+    // Participant raised/lowered hand
+    _socket?.on('voiceroom:hand-raised', (data) {
+      _safeAdd(_voiceRoomHandRaisedController, data);
+    });
+
+    // Room chat message
+    _socket?.on('voiceroom:chat', (data) {
+      _safeAdd(_voiceRoomChatController, data);
+    });
+
+    // Room ended by host
+    _socket?.on('voiceroom:ended', (data) {
+      _safeAdd(_voiceRoomEndedController, data);
+    });
+
+    // Participant kicked from room
+    _socket?.on('voiceroom:kicked', (data) {
+      _safeAdd(_voiceRoomKickedController, data);
     });
   }
 

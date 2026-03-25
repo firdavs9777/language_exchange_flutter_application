@@ -854,5 +854,116 @@
   "locationPermissionDenied": "위치 권한이 거부되었습니다. 설정에서 활성화해주세요.",
   "locationServiceDisabled": "위치 서비스가 비활성화되어 있습니다. 활성화해주세요.",
   "updatingLocation": "위치 업데이트 중...",
-  "locationCouldNotBeUpdated": "위치를 업데이트할 수 없습니다"
+  "locationCouldNotBeUpdated": "위치를 업데이트할 수 없습니다",
+  "incomingAudioCall": "음성 통화 수신",
+  "incomingVideoCall": "영상 통화 수신",
+  "outgoingCall": "전화 거는 중...",
+  "callRinging": "벨 울리는 중...",
+  "callConnecting": "연결 중...",
+  "callConnected": "연결됨",
+  "callReconnecting": "재연결 중...",
+  "callEnded": "통화 종료",
+  "callFailed": "통화 실패",
+  "callMissed": "부재중 전화",
+  "callDeclined": "통화 거절됨",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "받기",
+  "declineCall": "거절",
+  "endCall": "종료",
+  "muteCall": "음소거",
+  "unmuteCall": "음소거 해제",
+  "speakerOn": "스피커",
+  "speakerOff": "이어폰",
+  "videoOn": "비디오 켜기",
+  "videoOff": "비디오 끄기",
+  "switchCamera": "카메라 전환",
+  "callPermissionDenied": "통화에는 마이크 권한이 필요합니다",
+  "cameraPermissionDenied": "영상 통화에는 카메라 권한이 필요합니다",
+  "callConnectionFailed": "연결할 수 없습니다. 다시 시도해 주세요.",
+  "userBusy": "사용자가 통화 중입니다",
+  "userOffline": "사용자가 오프라인입니다",
+  "callHistory": "통화 기록",
+  "noCallHistory": "통화 기록 없음",
+  "missedCalls": "부재중 전화",
+  "allCalls": "모든 통화",
+  "callBack": "다시 전화",
+  "callAt": "{time}에 통화",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "음성 통화",
+  "tryAgain": "다시 시도",
+  "voiceRoom": "음성 채팅방",
+  "noVoiceRooms": "활성화된 음성 채팅방 없음",
+  "createVoiceRoom": "음성 채팅방 만들기",
+  "joinRoom": "방 참여",
+  "leaveRoom": "방 나가기",
+  "leaveRoomConfirm": "방을 나가시겠습니까?",
+  "leaveRoomMessage": "정말 이 방을 나가시겠습니까?",
+  "stay": "머물기",
+  "leave": "나가기",
+  "roomTitle": "방 제목",
+  "roomTitleHint": "방 제목 입력",
+  "roomTopic": "주제",
+  "roomLanguage": "언어",
+  "roomHost": "호스트",
+  "roomParticipants": "{count}명 참여",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "최대 {count}명",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "주제 선택",
+  "selectLanguage": "언어 선택",
+  "raiseHand": "손 들기",
+  "lowerHand": "손 내리기",
+  "handRaisedNotification": "손을 들었습니다! 호스트가 요청을 확인합니다.",
+  "handLoweredNotification": "손을 내렸습니다",
+  "muteParticipant": "참여자 음소거",
+  "kickParticipant": "방에서 내보내기",
+  "promoteToCoHost": "공동 호스트로 승격",
+  "endRoomConfirm": "방을 종료하시겠습니까?",
+  "endRoomMessage": "모든 참여자의 방이 종료됩니다.",
+  "roomEnded": "호스트가 방을 종료했습니다",
+  "youWereRemoved": "방에서 내보내졌습니다",
+  "roomIsFull": "방이 가득 찼습니다",
+  "roomChat": "방 채팅",
+  "noMessages": "아직 메시지가 없습니다",
+  "typeMessage": "메시지 입력...",
+  "voiceRoomsDescription": "라이브 대화에 참여하고 말하기 연습하세요",
+  "liveRoomsCount": "{count}개 라이브",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "활성화된 방 없음",
+  "noActiveRoomsDescription": "첫 번째로 음성 채팅방을 시작하고 다른 사람들과 말하기 연습하세요!",
+  "startRoom": "방 시작",
+  "createRoom": "방 만들기",
+  "roomCreated": "방이 생성되었습니다!",
+  "failedToCreateRoom": "방 생성 실패",
+  "errorLoadingRooms": "방 로드 오류",
+  "pleaseEnterRoomTitle": "방 제목을 입력해 주세요",
+  "startLiveConversation": "라이브 대화 시작",
+  "maxParticipants": "최대 참여자",
+  "nPeople": "{count}명",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

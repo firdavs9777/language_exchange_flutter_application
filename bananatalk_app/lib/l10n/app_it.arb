@@ -1115,5 +1115,116 @@
   "locationServiceDisabled": "I servizi di localizzazione sono disabilitati. Abilitali.",
   "updatingLocation": "Aggiornamento posizione...",
   "openSettings": "Apri impostazioni",
-  "locationCouldNotBeUpdated": "Impossibile aggiornare la posizione"
+  "locationCouldNotBeUpdated": "Impossibile aggiornare la posizione",
+  "incomingAudioCall": "Chiamata audio in arrivo",
+  "incomingVideoCall": "Videochiamata in arrivo",
+  "outgoingCall": "Chiamata in corso...",
+  "callRinging": "Squilla...",
+  "callConnecting": "Connessione...",
+  "callConnected": "Connesso",
+  "callReconnecting": "Riconnessione...",
+  "callEnded": "Chiamata terminata",
+  "callFailed": "Chiamata fallita",
+  "callMissed": "Chiamata persa",
+  "callDeclined": "Chiamata rifiutata",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Accetta",
+  "declineCall": "Rifiuta",
+  "endCall": "Termina",
+  "muteCall": "Muto",
+  "unmuteCall": "Riattiva audio",
+  "speakerOn": "Altoparlante",
+  "speakerOff": "Auricolare",
+  "videoOn": "Video attivo",
+  "videoOff": "Video disattivo",
+  "switchCamera": "Cambia fotocamera",
+  "callPermissionDenied": "È richiesto il permesso del microfono per le chiamate",
+  "cameraPermissionDenied": "È richiesto il permesso della fotocamera per le videochiamate",
+  "callConnectionFailed": "Impossibile connettersi. Riprova.",
+  "userBusy": "Utente occupato",
+  "userOffline": "Utente offline",
+  "callHistory": "Cronologia chiamate",
+  "noCallHistory": "Nessuna cronologia chiamate",
+  "missedCalls": "Chiamate perse",
+  "allCalls": "Tutte le chiamate",
+  "callBack": "Richiama",
+  "callAt": "Chiamata alle {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Chiamata audio",
+  "tryAgain": "Riprova",
+  "voiceRoom": "Stanza vocale",
+  "noVoiceRooms": "Nessuna stanza vocale attiva",
+  "createVoiceRoom": "Crea stanza vocale",
+  "joinRoom": "Entra nella stanza",
+  "leaveRoom": "Esci dalla stanza",
+  "leaveRoomConfirm": "Uscire dalla stanza?",
+  "leaveRoomMessage": "Sei sicuro di voler uscire da questa stanza?",
+  "stay": "Resta",
+  "leave": "Esci",
+  "roomTitle": "Titolo stanza",
+  "roomTitleHint": "Inserisci il titolo della stanza",
+  "roomTopic": "Argomento",
+  "roomLanguage": "Lingua",
+  "roomHost": "Host",
+  "roomParticipants": "{count} partecipanti",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Max {count} partecipanti",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Seleziona argomento",
+  "selectLanguage": "Seleziona lingua",
+  "raiseHand": "Alza la mano",
+  "lowerHand": "Abbassa la mano",
+  "handRaisedNotification": "Mano alzata! L'host vedrà la tua richiesta.",
+  "handLoweredNotification": "Mano abbassata",
+  "muteParticipant": "Silenzia partecipante",
+  "kickParticipant": "Rimuovi dalla stanza",
+  "promoteToCoHost": "Promuovi a co-host",
+  "endRoomConfirm": "Terminare la stanza?",
+  "endRoomMessage": "Questo terminerà la stanza per tutti i partecipanti.",
+  "roomEnded": "Stanza terminata dall'host",
+  "youWereRemoved": "Sei stato rimosso dalla stanza",
+  "roomIsFull": "La stanza è piena",
+  "roomChat": "Chat della stanza",
+  "noMessages": "Ancora nessun messaggio",
+  "typeMessage": "Scrivi un messaggio...",
+  "voiceRoomsDescription": "Partecipa a conversazioni dal vivo e pratica il parlato",
+  "liveRoomsCount": "{count} Live",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Nessuna stanza attiva",
+  "noActiveRoomsDescription": "Sii il primo a creare una stanza vocale e pratica con gli altri!",
+  "startRoom": "Avvia stanza",
+  "createRoom": "Crea stanza",
+  "roomCreated": "Stanza creata con successo!",
+  "failedToCreateRoom": "Creazione stanza fallita",
+  "errorLoadingRooms": "Errore nel caricamento delle stanze",
+  "pleaseEnterRoomTitle": "Inserisci un titolo per la stanza",
+  "startLiveConversation": "Avvia una conversazione dal vivo",
+  "maxParticipants": "Max partecipanti",
+  "nPeople": "{count} persone",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

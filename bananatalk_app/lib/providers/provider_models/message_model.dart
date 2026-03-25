@@ -390,7 +390,7 @@ class Message {
 
 class MessageMedia {
   final String url;
-  final String type; // 'image', 'audio', 'video', 'document', 'location', 'voice'
+  final String type; // 'image', 'audio', 'video', 'document', 'location', 'voice', 'call'
   final String? thumbnail;
   final String? fileName;
   final int? fileSize;
@@ -399,6 +399,7 @@ class MessageMedia {
   final LocationData? location;
   final int? duration; // For audio/video/voice in seconds
   final List<double>? waveform; // For voice messages - amplitude data (0-1)
+  final Map<String, dynamic>? callData; // For call records
 
   MessageMedia({
     required this.url,
@@ -411,6 +412,7 @@ class MessageMedia {
     this.location,
     this.duration,
     this.waveform,
+    this.callData,
   });
 
   factory MessageMedia.fromJson(Map<String, dynamic> json) {
@@ -431,6 +433,9 @@ class MessageMedia {
       waveform: json['waveform'] != null
           ? (json['waveform'] as List).map((w) => (w as num).toDouble()).toList()
           : null,
+      callData: json['callData'] != null
+          ? Map<String, dynamic>.from(json['callData'])
+          : null,
     );
   }
 
@@ -446,6 +451,7 @@ class MessageMedia {
       'location': location?.toJson(),
       'duration': duration,
       'waveform': waveform,
+      'callData': callData,
     };
   }
 }

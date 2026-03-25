@@ -839,5 +839,116 @@
   "locationPermissionDenied": "位置情報の許可が拒否されました。設定で有効にしてください。",
   "locationServiceDisabled": "位置情報サービスが無効です。有効にしてください。",
   "updatingLocation": "位置情報を更新中...",
-  "locationCouldNotBeUpdated": "位置情報を更新できませんでした"
+  "locationCouldNotBeUpdated": "位置情報を更新できませんでした",
+  "incomingAudioCall": "音声通話着信",
+  "incomingVideoCall": "ビデオ通話着信",
+  "outgoingCall": "発信中...",
+  "callRinging": "呼び出し中...",
+  "callConnecting": "接続中...",
+  "callConnected": "接続済み",
+  "callReconnecting": "再接続中...",
+  "callEnded": "通話終了",
+  "callFailed": "通話失敗",
+  "callMissed": "不在着信",
+  "callDeclined": "通話拒否",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "応答",
+  "declineCall": "拒否",
+  "endCall": "終了",
+  "muteCall": "ミュート",
+  "unmuteCall": "ミュート解除",
+  "speakerOn": "スピーカー",
+  "speakerOff": "イヤホン",
+  "videoOn": "ビデオオン",
+  "videoOff": "ビデオオフ",
+  "switchCamera": "カメラ切替",
+  "callPermissionDenied": "通話にはマイクの許可が必要です",
+  "cameraPermissionDenied": "ビデオ通話にはカメラの許可が必要です",
+  "callConnectionFailed": "接続できませんでした。もう一度お試しください。",
+  "userBusy": "相手は通話中です",
+  "userOffline": "相手はオフラインです",
+  "callHistory": "通話履歴",
+  "noCallHistory": "通話履歴がありません",
+  "missedCalls": "不在着信",
+  "allCalls": "すべての通話",
+  "callBack": "折り返し",
+  "callAt": "{time}に通話",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "音声通話",
+  "tryAgain": "再試行",
+  "voiceRoom": "ボイスルーム",
+  "noVoiceRooms": "アクティブなボイスルームはありません",
+  "createVoiceRoom": "ボイスルームを作成",
+  "joinRoom": "ルームに参加",
+  "leaveRoom": "ルームを退出",
+  "leaveRoomConfirm": "ルームを退出しますか？",
+  "leaveRoomMessage": "本当にこのルームを退出しますか？",
+  "stay": "残る",
+  "leave": "退出",
+  "roomTitle": "ルームタイトル",
+  "roomTitleHint": "ルームタイトルを入力",
+  "roomTopic": "トピック",
+  "roomLanguage": "言語",
+  "roomHost": "ホスト",
+  "roomParticipants": "{count}人の参加者",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "最大{count}人",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "トピックを選択",
+  "selectLanguage": "言語を選択",
+  "raiseHand": "手を挙げる",
+  "lowerHand": "手を下げる",
+  "handRaisedNotification": "手を挙げました！ホストにリクエストが表示されます。",
+  "handLoweredNotification": "手を下げました",
+  "muteParticipant": "参加者をミュート",
+  "kickParticipant": "ルームから削除",
+  "promoteToCoHost": "共同ホストに昇格",
+  "endRoomConfirm": "ルームを終了しますか？",
+  "endRoomMessage": "これにより、すべての参加者のルームが終了します。",
+  "roomEnded": "ホストがルームを終了しました",
+  "youWereRemoved": "ルームから削除されました",
+  "roomIsFull": "ルームは満員です",
+  "roomChat": "ルームチャット",
+  "noMessages": "まだメッセージはありません",
+  "typeMessage": "メッセージを入力...",
+  "voiceRoomsDescription": "ライブ会話に参加してスピーキングを練習",
+  "liveRoomsCount": "{count}ライブ",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "アクティブなルームはありません",
+  "noActiveRoomsDescription": "最初にボイスルームを作成して、他の人と話す練習をしましょう！",
+  "startRoom": "ルームを開始",
+  "createRoom": "ルームを作成",
+  "roomCreated": "ルームが正常に作成されました！",
+  "failedToCreateRoom": "ルームの作成に失敗しました",
+  "errorLoadingRooms": "ルームの読み込みエラー",
+  "pleaseEnterRoomTitle": "ルームタイトルを入力してください",
+  "startLiveConversation": "ライブ会話を開始",
+  "maxParticipants": "最大参加者数",
+  "nPeople": "{count}人",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

@@ -155,7 +155,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get success => 'สำเร็จ';
 
   @override
-  String get tryAgain => 'ลองอีกครั้ง';
+  String get tryAgain => 'ลองใหม่';
 
   @override
   String get networkError => 'ข้อผิดพลาดของเครือข่าย กรุณาตรวจสอบการเชื่อมต่อ';
@@ -1494,7 +1494,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get pleaseRemoveImagesFirst => 'Please remove images first to add a video';
 
   @override
-  String get exchange3MessagesBeforeCall => 'You need to exchange at least 3 messages before you can call this user';
+  String get exchange3MessagesBeforeCall => 'Exchange 3+ messages before calling';
 
   @override
   String mediaWithUser(String name) {
@@ -1571,7 +1571,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get noReactionsYet => 'No reactions yet';
 
   @override
-  String get leaveRoom => 'Leave Room?';
+  String get leaveRoom => 'ออกจากห้อง';
 
   @override
   String get areYouSureLeaveRoom => 'Are you sure you want to leave this voice room?';
@@ -2694,4 +2694,373 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => 'ไม่สามารถอัปเดตตำแหน่งได้';
+
+  @override
+  String get incomingAudioCall => 'สายเรียกเข้าเสียง';
+
+  @override
+  String get incomingVideoCall => 'สายเรียกเข้าวิดีโอ';
+
+  @override
+  String get outgoingCall => 'กำลังโทร...';
+
+  @override
+  String get callRinging => 'กำลังเรียก...';
+
+  @override
+  String get callConnecting => 'กำลังเชื่อมต่อ...';
+
+  @override
+  String get callConnected => 'เชื่อมต่อแล้ว';
+
+  @override
+  String get callReconnecting => 'กำลังเชื่อมต่อใหม่...';
+
+  @override
+  String get callEnded => 'สายสิ้นสุด';
+
+  @override
+  String get callFailed => 'โทรไม่สำเร็จ';
+
+  @override
+  String get callMissed => 'สายที่ไม่ได้รับ';
+
+  @override
+  String get callDeclined => 'ปฏิเสธสาย';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => 'รับสาย';
+
+  @override
+  String get declineCall => 'ปฏิเสธ';
+
+  @override
+  String get endCall => 'วางสาย';
+
+  @override
+  String get muteCall => 'ปิดเสียง';
+
+  @override
+  String get unmuteCall => 'เปิดเสียง';
+
+  @override
+  String get speakerOn => 'ลำโพง';
+
+  @override
+  String get speakerOff => 'หูฟัง';
+
+  @override
+  String get videoOn => 'เปิดวิดีโอ';
+
+  @override
+  String get videoOff => 'ปิดวิดีโอ';
+
+  @override
+  String get switchCamera => 'สลับกล้อง';
+
+  @override
+  String get callPermissionDenied => 'ต้องการสิทธิ์ไมโครโฟนสำหรับการโทร';
+
+  @override
+  String get cameraPermissionDenied => 'ต้องการสิทธิ์กล้องสำหรับวิดีโอคอล';
+
+  @override
+  String get callConnectionFailed => 'ไม่สามารถเชื่อมต่อได้ กรุณาลองใหม่';
+
+  @override
+  String get userBusy => 'ผู้ใช้ไม่ว่าง';
+
+  @override
+  String get userOffline => 'ผู้ใช้ออฟไลน์';
+
+  @override
+  String get callHistory => 'ประวัติการโทร';
+
+  @override
+  String get noCallHistory => 'ไม่มีประวัติการโทร';
+
+  @override
+  String get missedCalls => 'สายที่ไม่ได้รับ';
+
+  @override
+  String get allCalls => 'ทุกสาย';
+
+  @override
+  String get callBack => 'โทรกลับ';
+
+  @override
+  String callAt(String time) {
+    return 'โทรเวลา $time';
+  }
+
+  @override
+  String get audioCall => 'สายเสียง';
+
+  @override
+  String get voiceRoom => 'ห้องเสียง';
+
+  @override
+  String get noVoiceRooms => 'ไม่มีห้องเสียงที่ใช้งานอยู่';
+
+  @override
+  String get createVoiceRoom => 'สร้างห้องเสียง';
+
+  @override
+  String get joinRoom => 'เข้าร่วมห้อง';
+
+  @override
+  String get leaveRoomConfirm => 'ออกจากห้อง?';
+
+  @override
+  String get leaveRoomMessage => 'คุณแน่ใจหรือไม่ว่าต้องการออกจากห้องนี้?';
+
+  @override
+  String get roomTitle => 'ชื่อห้อง';
+
+  @override
+  String get roomTitleHint => 'ป้อนชื่อห้อง';
+
+  @override
+  String get roomTopic => 'หัวข้อ';
+
+  @override
+  String get roomLanguage => 'ภาษา';
+
+  @override
+  String get roomHost => 'โฮสต์';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count ผู้เข้าร่วม';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return 'สูงสุด $count ผู้เข้าร่วม';
+  }
+
+  @override
+  String get selectTopic => 'เลือกหัวข้อ';
+
+  @override
+  String get raiseHand => 'ยกมือ';
+
+  @override
+  String get lowerHand => 'ลดมือ';
+
+  @override
+  String get handRaisedNotification => 'ยกมือแล้ว! โฮสต์จะเห็นคำขอของคุณ';
+
+  @override
+  String get handLoweredNotification => 'ลดมือแล้ว';
+
+  @override
+  String get muteParticipant => 'ปิดเสียงผู้เข้าร่วม';
+
+  @override
+  String get kickParticipant => 'นำออกจากห้อง';
+
+  @override
+  String get promoteToCoHost => 'เลื่อนเป็นโค-โฮสต์';
+
+  @override
+  String get endRoomConfirm => 'สิ้นสุดห้อง?';
+
+  @override
+  String get endRoomMessage => 'นี่จะสิ้นสุดห้องสำหรับผู้เข้าร่วมทุกคน';
+
+  @override
+  String get roomEnded => 'ห้องสิ้นสุดโดยโฮสต์';
+
+  @override
+  String get youWereRemoved => 'คุณถูกนำออกจากห้อง';
+
+  @override
+  String get roomIsFull => 'ห้องเต็ม';
+
+  @override
+  String get roomChat => 'แชทห้อง';
+
+  @override
+  String get noMessages => 'ยังไม่มีข้อความ';
+
+  @override
+  String get typeMessage => 'พิมพ์ข้อความ...';
+
+  @override
+  String get voiceRoomsDescription => 'เข้าร่วมการสนทนาสดและฝึกพูด';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$count สด';
+  }
+
+  @override
+  String get noActiveRooms => 'ไม่มีห้องที่ใช้งานอยู่';
+
+  @override
+  String get noActiveRoomsDescription => 'เป็นคนแรกที่เริ่มห้องเสียงและฝึกพูดกับคนอื่น!';
+
+  @override
+  String get startRoom => 'เริ่มห้อง';
+
+  @override
+  String get createRoom => 'สร้างห้อง';
+
+  @override
+  String get roomCreated => 'สร้างห้องสำเร็จ!';
+
+  @override
+  String get failedToCreateRoom => 'สร้างห้องไม่สำเร็จ';
+
+  @override
+  String get errorLoadingRooms => 'เกิดข้อผิดพลาดในการโหลดห้อง';
+
+  @override
+  String get pleaseEnterRoomTitle => 'กรุณาป้อนชื่อห้อง';
+
+  @override
+  String get startLiveConversation => 'เริ่มการสนทนาสด';
+
+  @override
+  String get maxParticipants => 'ผู้เข้าร่วมสูงสุด';
+
+  @override
+  String nPeople(int count) {
+    return '$count คน';
+  }
+
+  @override
+  String get leaderboard => 'Leaderboard';
+
+  @override
+  String get competeWithLearners => 'Compete with other learners!';
+
+  @override
+  String get xpRankings => 'XP Rankings';
+
+  @override
+  String get streaks => 'Streaks';
+
+  @override
+  String get friends => 'Friends';
+
+  @override
+  String get myRanks => 'My Ranks';
+
+  @override
+  String get currentStreak => 'Current Streak';
+
+  @override
+  String get longestStreak => 'Longest Streak';
+
+  @override
+  String get weekly => 'Weekly';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get yourRank => 'Your Rank';
+
+  @override
+  String outOf(int total) {
+    return 'out of $total';
+  }
+
+  @override
+  String topPercent(String percent) {
+    return 'Top $percent%';
+  }
+
+  @override
+  String get xpRank => 'XP Rank';
+
+  @override
+  String get streakRank => 'Streak Rank';
+
+  @override
+  String get days => 'days';
+
+  @override
+  String get learningStats => 'Learning Stats';
+
+  @override
+  String get totalXp => 'Total XP';
+
+  @override
+  String get lessonsCompleted => 'Lessons Completed';
+
+  @override
+  String get rankings => 'Rankings';
+
+  @override
+  String get yourPosition => 'Your Position';
+
+  @override
+  String get keepLearning => 'Keep learning to climb!';
+
+  @override
+  String get noRankingsYet => 'No rankings yet';
+
+  @override
+  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+
+  @override
+  String get noFriendsYet => 'No friends yet';
+
+  @override
+  String get addFriendsToCompete => 'Add friends to compete with them!';
+
+  @override
+  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+
+  @override
+  String get you => 'You';
+
+  @override
+  String get findPartners => 'Find Partners';
+
+  @override
+  String get discoverLanguagePartners => 'Discover language partners';
+
+  @override
+  String get byLanguage => 'By Language';
+
+  @override
+  String get match => 'match';
+
+  @override
+  String get matchScore => 'Match Score';
+
+  @override
+  String get noMatchesFound => 'No matches found';
+
+  @override
+  String get noUsersOnline => 'No users online';
+
+  @override
+  String get checkBackLater => 'Check back later';
+
+  @override
+  String get selectLanguagePrompt => 'Select a language';
+
+  @override
+  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+
+  @override
+  String noPartnersForLanguage(String language) {
+    return 'No partners for $language';
+  }
+
+  @override
+  String get tryAnotherLanguage => 'Try selecting another language';
+
+  @override
+  String get failedToLoadMatches => 'Failed to load matches';
 }

@@ -155,7 +155,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get success => '成功';
 
   @override
-  String get tryAgain => 'もう一度試す';
+  String get tryAgain => '再試行';
 
   @override
   String get networkError => 'ネットワークエラー。接続を確認してください。';
@@ -1571,7 +1571,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noReactionsYet => 'まだリアクションがありません';
 
   @override
-  String get leaveRoom => '退出しますか？';
+  String get leaveRoom => 'ルームを退出';
 
   @override
   String get areYouSureLeaveRoom => 'このボイスルームを退出しますか？';
@@ -1961,7 +1961,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noInternetConnection => 'No internet connection';
 
   @override
-  String get tryAgainLater => 'Please try again later';
+  String get tryAgainLater => 'Try again later';
 
   @override
   String get messageSent => 'Message sent';
@@ -2694,4 +2694,373 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get locationCouldNotBeUpdated => '位置情報を更新できませんでした';
+
+  @override
+  String get incomingAudioCall => '音声通話着信';
+
+  @override
+  String get incomingVideoCall => 'ビデオ通話着信';
+
+  @override
+  String get outgoingCall => '発信中...';
+
+  @override
+  String get callRinging => '呼び出し中...';
+
+  @override
+  String get callConnecting => '接続中...';
+
+  @override
+  String get callConnected => '接続済み';
+
+  @override
+  String get callReconnecting => '再接続中...';
+
+  @override
+  String get callEnded => '通話終了';
+
+  @override
+  String get callFailed => '通話失敗';
+
+  @override
+  String get callMissed => '不在着信';
+
+  @override
+  String get callDeclined => '通話拒否';
+
+  @override
+  String callDuration(String duration) {
+    return '$duration';
+  }
+
+  @override
+  String get acceptCall => '応答';
+
+  @override
+  String get declineCall => '拒否';
+
+  @override
+  String get endCall => '終了';
+
+  @override
+  String get muteCall => 'ミュート';
+
+  @override
+  String get unmuteCall => 'ミュート解除';
+
+  @override
+  String get speakerOn => 'スピーカー';
+
+  @override
+  String get speakerOff => 'イヤホン';
+
+  @override
+  String get videoOn => 'ビデオオン';
+
+  @override
+  String get videoOff => 'ビデオオフ';
+
+  @override
+  String get switchCamera => 'カメラ切替';
+
+  @override
+  String get callPermissionDenied => '通話にはマイクの許可が必要です';
+
+  @override
+  String get cameraPermissionDenied => 'ビデオ通話にはカメラの許可が必要です';
+
+  @override
+  String get callConnectionFailed => '接続できませんでした。もう一度お試しください。';
+
+  @override
+  String get userBusy => '相手は通話中です';
+
+  @override
+  String get userOffline => '相手はオフラインです';
+
+  @override
+  String get callHistory => '通話履歴';
+
+  @override
+  String get noCallHistory => '通話履歴がありません';
+
+  @override
+  String get missedCalls => '不在着信';
+
+  @override
+  String get allCalls => 'すべての通話';
+
+  @override
+  String get callBack => '折り返し';
+
+  @override
+  String callAt(String time) {
+    return '$timeに通話';
+  }
+
+  @override
+  String get audioCall => '音声通話';
+
+  @override
+  String get voiceRoom => 'ボイスルーム';
+
+  @override
+  String get noVoiceRooms => 'アクティブなボイスルームはありません';
+
+  @override
+  String get createVoiceRoom => 'ボイスルームを作成';
+
+  @override
+  String get joinRoom => 'ルームに参加';
+
+  @override
+  String get leaveRoomConfirm => 'ルームを退出しますか？';
+
+  @override
+  String get leaveRoomMessage => '本当にこのルームを退出しますか？';
+
+  @override
+  String get roomTitle => 'ルームタイトル';
+
+  @override
+  String get roomTitleHint => 'ルームタイトルを入力';
+
+  @override
+  String get roomTopic => 'トピック';
+
+  @override
+  String get roomLanguage => '言語';
+
+  @override
+  String get roomHost => 'ホスト';
+
+  @override
+  String roomParticipants(int count) {
+    return '$count人の参加者';
+  }
+
+  @override
+  String roomMaxParticipants(int count) {
+    return '最大$count人';
+  }
+
+  @override
+  String get selectTopic => 'トピックを選択';
+
+  @override
+  String get raiseHand => '手を挙げる';
+
+  @override
+  String get lowerHand => '手を下げる';
+
+  @override
+  String get handRaisedNotification => '手を挙げました！ホストにリクエストが表示されます。';
+
+  @override
+  String get handLoweredNotification => '手を下げました';
+
+  @override
+  String get muteParticipant => '参加者をミュート';
+
+  @override
+  String get kickParticipant => 'ルームから削除';
+
+  @override
+  String get promoteToCoHost => '共同ホストに昇格';
+
+  @override
+  String get endRoomConfirm => 'ルームを終了しますか？';
+
+  @override
+  String get endRoomMessage => 'これにより、すべての参加者のルームが終了します。';
+
+  @override
+  String get roomEnded => 'ホストがルームを終了しました';
+
+  @override
+  String get youWereRemoved => 'ルームから削除されました';
+
+  @override
+  String get roomIsFull => 'ルームは満員です';
+
+  @override
+  String get roomChat => 'ルームチャット';
+
+  @override
+  String get noMessages => 'まだメッセージはありません';
+
+  @override
+  String get typeMessage => 'メッセージを入力...';
+
+  @override
+  String get voiceRoomsDescription => 'ライブ会話に参加してスピーキングを練習';
+
+  @override
+  String liveRoomsCount(int count) {
+    return '$countライブ';
+  }
+
+  @override
+  String get noActiveRooms => 'アクティブなルームはありません';
+
+  @override
+  String get noActiveRoomsDescription => '最初にボイスルームを作成して、他の人と話す練習をしましょう！';
+
+  @override
+  String get startRoom => 'ルームを開始';
+
+  @override
+  String get createRoom => 'ルームを作成';
+
+  @override
+  String get roomCreated => 'ルームが正常に作成されました！';
+
+  @override
+  String get failedToCreateRoom => 'ルームの作成に失敗しました';
+
+  @override
+  String get errorLoadingRooms => 'ルームの読み込みエラー';
+
+  @override
+  String get pleaseEnterRoomTitle => 'ルームタイトルを入力してください';
+
+  @override
+  String get startLiveConversation => 'ライブ会話を開始';
+
+  @override
+  String get maxParticipants => '最大参加者数';
+
+  @override
+  String nPeople(int count) {
+    return '$count人';
+  }
+
+  @override
+  String get leaderboard => 'Leaderboard';
+
+  @override
+  String get competeWithLearners => 'Compete with other learners!';
+
+  @override
+  String get xpRankings => 'XP Rankings';
+
+  @override
+  String get streaks => 'Streaks';
+
+  @override
+  String get friends => 'Friends';
+
+  @override
+  String get myRanks => 'My Ranks';
+
+  @override
+  String get currentStreak => 'Current Streak';
+
+  @override
+  String get longestStreak => 'Longest Streak';
+
+  @override
+  String get weekly => 'Weekly';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get yourRank => 'Your Rank';
+
+  @override
+  String outOf(int total) {
+    return 'out of $total';
+  }
+
+  @override
+  String topPercent(String percent) {
+    return 'Top $percent%';
+  }
+
+  @override
+  String get xpRank => 'XP Rank';
+
+  @override
+  String get streakRank => 'Streak Rank';
+
+  @override
+  String get days => 'days';
+
+  @override
+  String get learningStats => 'Learning Stats';
+
+  @override
+  String get totalXp => 'Total XP';
+
+  @override
+  String get lessonsCompleted => 'Lessons Completed';
+
+  @override
+  String get rankings => 'Rankings';
+
+  @override
+  String get yourPosition => 'Your Position';
+
+  @override
+  String get keepLearning => 'Keep learning to climb!';
+
+  @override
+  String get noRankingsYet => 'No rankings yet';
+
+  @override
+  String get startLearningToAppear => 'Start learning to appear on the leaderboard!';
+
+  @override
+  String get noFriendsYet => 'No friends yet';
+
+  @override
+  String get addFriendsToCompete => 'Add friends to compete with them!';
+
+  @override
+  String get failedToLoadLeaderboard => 'Failed to load leaderboard';
+
+  @override
+  String get you => 'You';
+
+  @override
+  String get findPartners => 'Find Partners';
+
+  @override
+  String get discoverLanguagePartners => 'Discover language partners';
+
+  @override
+  String get byLanguage => 'By Language';
+
+  @override
+  String get match => 'match';
+
+  @override
+  String get matchScore => 'Match Score';
+
+  @override
+  String get noMatchesFound => 'No matches found';
+
+  @override
+  String get noUsersOnline => 'No users online';
+
+  @override
+  String get checkBackLater => 'Check back later';
+
+  @override
+  String get selectLanguagePrompt => 'Select a language';
+
+  @override
+  String get findPartnersByLanguage => 'Find partners who speak or learn this language';
+
+  @override
+  String noPartnersForLanguage(String language) {
+    return 'No partners for $language';
+  }
+
+  @override
+  String get tryAnotherLanguage => 'Try selecting another language';
+
+  @override
+  String get failedToLoadMatches => 'Failed to load matches';
 }

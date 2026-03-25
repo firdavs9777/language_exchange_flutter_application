@@ -346,22 +346,22 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
             ),
           ),
           actions: [
-            // Video and Audio call buttons - disabled for now
-            // TODO: Re-enable when call feature is ready
-            // _CallButton(
-            //   icon: Icons.videocam_rounded,
-            //   isEnabled: canCall,
-            //   onPressed: canCall && userId != null
-            //       ? () => _initiateCall(context, ref, CallType.video)
-            //       : () => _showCallDisabledTooltip(context),
-            // ),
-            // _CallButton(
-            //   icon: Icons.call_rounded,
-            //   isEnabled: canCall,
-            //   onPressed: canCall && userId != null
-            //       ? () => _initiateCall(context, ref, CallType.audio)
-            //       : () => _showCallDisabledTooltip(context),
-            // ),
+            // Video call button
+            _CallButton(
+              icon: Icons.videocam_rounded,
+              isEnabled: canCall,
+              onPressed: canCall && userId != null
+                  ? () => _initiateCall(context, ref, CallType.video)
+                  : () => _showCallDisabledTooltip(context),
+            ),
+            // Audio call button
+            _CallButton(
+              icon: Icons.call_rounded,
+              isEnabled: canCall,
+              onPressed: canCall && userId != null
+                  ? () => _initiateCall(context, ref, CallType.audio)
+                  : () => _showCallDisabledTooltip(context),
+            ),
             ChatOptionsMenu(
               userName: userName,
               userId: userId,
@@ -374,12 +374,11 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   void _showCallDisabledTooltip(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'You need to exchange at least 3 messages before you can call this user',
-        ),
-        duration: Duration(seconds: 3),
+      SnackBar(
+        content: Text(l10n.exchange3MessagesBeforeCall),
+        duration: const Duration(seconds: 3),
         backgroundColor: Colors.orange,
       ),
     );

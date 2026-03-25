@@ -1261,6 +1261,201 @@
   "locationServiceDisabled": "Location services are disabled. Please enable them.",
   "updatingLocation": "Updating location...",
   "openSettings": "Open Settings",
-  "locationCouldNotBeUpdated": "Location could not be updated"
+  "locationCouldNotBeUpdated": "Location could not be updated",
+
+  "incomingAudioCall": "Incoming Audio Call",
+  "incomingVideoCall": "Incoming Video Call",
+  "outgoingCall": "Calling...",
+  "callRinging": "Ringing...",
+  "callConnecting": "Connecting...",
+  "callConnected": "Connected",
+  "callReconnecting": "Reconnecting...",
+  "callEnded": "Call Ended",
+  "callFailed": "Call Failed",
+  "callMissed": "Missed Call",
+  "callDeclined": "Call Declined",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "acceptCall": "Accept",
+  "declineCall": "Decline",
+  "endCall": "End",
+  "muteCall": "Mute",
+  "unmuteCall": "Unmute",
+  "speakerOn": "Speaker",
+  "speakerOff": "Earpiece",
+  "videoOn": "Video On",
+  "videoOff": "Video Off",
+  "switchCamera": "Switch Camera",
+  "callPermissionDenied": "Microphone permission is required for calls",
+  "cameraPermissionDenied": "Camera permission is required for video calls",
+  "callConnectionFailed": "Could not connect. Please try again.",
+  "userBusy": "User is busy",
+  "userOffline": "User is offline",
+  "callHistory": "Call History",
+  "noCallHistory": "No call history",
+  "missedCalls": "Missed Calls",
+  "allCalls": "All Calls",
+  "callBack": "Call Back",
+  "callAt": "Call at {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "audioCall": "Audio Call",
+  "exchange3MessagesBeforeCall": "Exchange 3+ messages before calling",
+  "tryAgain": "Try Again",
+  "voiceRoom": "Voice Room",
+  "noVoiceRooms": "No voice rooms active",
+  "createVoiceRoom": "Create Voice Room",
+  "joinRoom": "Join Room",
+  "leaveRoom": "Leave Room",
+  "leaveRoomConfirm": "Leave Room?",
+  "leaveRoomMessage": "Are you sure you want to leave this room?",
+  "stay": "Stay",
+  "leave": "Leave",
+  "roomTitle": "Room Title",
+  "roomTitleHint": "Enter room title",
+  "roomTopic": "Topic",
+  "roomLanguage": "Language",
+  "roomHost": "Host",
+  "roomParticipants": "{count} participants",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomMaxParticipants": "Max {count} participants",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "selectTopic": "Select Topic",
+  "selectLanguage": "Select Language",
+  "raiseHand": "Raise Hand",
+  "lowerHand": "Lower Hand",
+  "handRaisedNotification": "Hand raised! The host will see your request.",
+  "handLoweredNotification": "Hand lowered",
+  "muteParticipant": "Mute Participant",
+  "kickParticipant": "Remove from Room",
+  "promoteToCoHost": "Make Co-Host",
+  "endRoomConfirm": "End Room?",
+  "endRoomMessage": "This will end the room for all participants.",
+  "roomEnded": "Room ended by host",
+  "youWereRemoved": "You were removed from the room",
+  "roomIsFull": "Room is full",
+  "roomChat": "Room Chat",
+  "noMessages": "No messages yet",
+  "typeMessage": "Type a message...",
+  "voiceRoomsDescription": "Join live conversations and practice speaking",
+  "liveRoomsCount": "{count} Live",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noActiveRooms": "No active rooms",
+  "noActiveRoomsDescription": "Be the first to start a voice room and practice speaking with others!",
+  "startRoom": "Start a Room",
+  "createRoom": "Create Room",
+  "roomCreated": "Room created successfully!",
+  "failedToCreateRoom": "Failed to create room",
+  "errorLoadingRooms": "Error loading rooms",
+  "pleaseEnterRoomTitle": "Please enter a room title",
+  "startLiveConversation": "Start a live conversation",
+  "maxParticipants": "Max Participants",
+  "nPeople": "{count} people",
+  "@nPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "leaderboard": "Leaderboard",
+  "competeWithLearners": "Compete with other learners!",
+  "xpRankings": "XP Rankings",
+  "streaks": "Streaks",
+  "friends": "Friends",
+  "myRanks": "My Ranks",
+  "currentStreak": "Current Streak",
+  "longestStreak": "Longest Streak",
+  "allTime": "All Time",
+  "weekly": "Weekly",
+  "monthly": "Monthly",
+  "yourRank": "Your Rank",
+  "outOf": "out of {total}",
+  "@outOf": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "topPercent": "Top {percent}%",
+  "@topPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "xpRank": "XP Rank",
+  "streakRank": "Streak Rank",
+  "days": "days",
+  "learningStats": "Learning Stats",
+  "totalXp": "Total XP",
+  "lessonsCompleted": "Lessons Completed",
+  "rankings": "Rankings",
+  "yourPosition": "Your Position",
+  "keepLearning": "Keep learning to climb!",
+  "noRankingsYet": "No rankings yet",
+  "startLearningToAppear": "Start learning to appear on the leaderboard!",
+  "noFriendsYet": "No friends yet",
+  "addFriendsToCompete": "Add friends to compete with them!",
+  "failedToLoadLeaderboard": "Failed to load leaderboard",
+  "you": "You",
+
+  "findPartners": "Find Partners",
+  "discoverLanguagePartners": "Discover language partners",
+  "recommended": "Recommended",
+  "onlineNow": "Online Now",
+  "byLanguage": "By Language",
+  "match": "match",
+  "matchScore": "Match Score",
+  "viewProfile": "View Profile",
+  "message": "Message",
+  "noMatchesFound": "No matches found",
+  "tryAgainLater": "Try again later",
+  "noUsersOnline": "No users online",
+  "checkBackLater": "Check back later",
+  "selectLanguagePrompt": "Select a language",
+  "findPartnersByLanguage": "Find partners who speak or learn this language",
+  "noPartnersForLanguage": "No partners for {language}",
+  "@noPartnersForLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "tryAnotherLanguage": "Try selecting another language",
+  "failedToLoadMatches": "Failed to load matches"
 }
 

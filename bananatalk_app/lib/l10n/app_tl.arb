@@ -834,5 +834,116 @@
   "locationPermissionDenied": "Tinanggihan ang lokasyon permission. I-enable sa settings.",
   "locationServiceDisabled": "Naka-disable ang location services. I-enable.",
   "updatingLocation": "Ina-update ang lokasyon...",
-  "locationCouldNotBeUpdated": "Hindi ma-update ang lokasyon"
+  "locationCouldNotBeUpdated": "Hindi ma-update ang lokasyon",
+  "incomingAudioCall": "Papasok na Audio Call",
+  "incomingVideoCall": "Papasok na Video Call",
+  "outgoingCall": "Tumatawag...",
+  "callRinging": "Nag-ring...",
+  "callConnecting": "Kumokonekta...",
+  "callConnected": "Nakakonekta",
+  "callReconnecting": "Muling kumokonekta...",
+  "callEnded": "Natapos ang Tawag",
+  "callFailed": "Nabigo ang Tawag",
+  "callMissed": "Hindi Nasagot na Tawag",
+  "callDeclined": "Tinanggihan ang Tawag",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Sagutin",
+  "declineCall": "Tanggihan",
+  "endCall": "Tapusin",
+  "muteCall": "I-mute",
+  "unmuteCall": "I-unmute",
+  "speakerOn": "Speaker",
+  "speakerOff": "Earpiece",
+  "videoOn": "Video On",
+  "videoOff": "Video Off",
+  "switchCamera": "Palitan ang Camera",
+  "callPermissionDenied": "Kailangan ang microphone permission para sa mga tawag",
+  "cameraPermissionDenied": "Kailangan ang camera permission para sa video calls",
+  "callConnectionFailed": "Hindi makakonekta. Subukan ulit.",
+  "userBusy": "Abala ang user",
+  "userOffline": "Offline ang user",
+  "callHistory": "Kasaysayan ng Tawag",
+  "noCallHistory": "Walang kasaysayan ng tawag",
+  "missedCalls": "Hindi Nasagot na Tawag",
+  "allCalls": "Lahat ng Tawag",
+  "callBack": "Tawagan Muli",
+  "callAt": "Tawag noong {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Audio Call",
+  "tryAgain": "Subukan Muli",
+  "voiceRoom": "Voice Room",
+  "noVoiceRooms": "Walang aktibong voice rooms",
+  "createVoiceRoom": "Gumawa ng Voice Room",
+  "joinRoom": "Sumali sa Room",
+  "leaveRoom": "Umalis sa Room",
+  "leaveRoomConfirm": "Umalis sa Room?",
+  "leaveRoomMessage": "Sigurado ka bang gusto mong umalis sa room na ito?",
+  "stay": "Manatili",
+  "leave": "Umalis",
+  "roomTitle": "Pamagat ng Room",
+  "roomTitleHint": "Ilagay ang pamagat ng room",
+  "roomTopic": "Paksa",
+  "roomLanguage": "Wika",
+  "roomHost": "Host",
+  "roomParticipants": "{count} kalahok",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Max {count} kalahok",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Pumili ng Paksa",
+  "selectLanguage": "Pumili ng Wika",
+  "raiseHand": "Itaas ang Kamay",
+  "lowerHand": "Ibaba ang Kamay",
+  "handRaisedNotification": "Nakataas ang kamay! Makikita ng host ang iyong request.",
+  "handLoweredNotification": "Nakababa ang kamay",
+  "muteParticipant": "I-mute ang Kalahok",
+  "kickParticipant": "Alisin sa Room",
+  "promoteToCoHost": "Gawing Co-Host",
+  "endRoomConfirm": "Tapusin ang Room?",
+  "endRoomMessage": "Ito ay magtatapus ng room para sa lahat ng kalahok.",
+  "roomEnded": "Natapos ang room ng host",
+  "youWereRemoved": "Inalis ka sa room",
+  "roomIsFull": "Puno na ang room",
+  "roomChat": "Room Chat",
+  "noMessages": "Wala pang mensahe",
+  "typeMessage": "Mag-type ng mensahe...",
+  "voiceRoomsDescription": "Sumali sa live na usapan at magsanay sa pagsasalita",
+  "liveRoomsCount": "{count} Live",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Walang aktibong rooms",
+  "noActiveRoomsDescription": "Maging una sa pagsimula ng voice room at magsanay sa pagsasalita kasama ang iba!",
+  "startRoom": "Magsimula ng Room",
+  "createRoom": "Gumawa ng Room",
+  "roomCreated": "Matagumpay na nagawa ang room!",
+  "failedToCreateRoom": "Hindi nagawa ang room",
+  "errorLoadingRooms": "Error sa pagload ng rooms",
+  "pleaseEnterRoomTitle": "Pakiusap maglagay ng pamagat ng room",
+  "startLiveConversation": "Magsimula ng live na usapan",
+  "maxParticipants": "Max na Kalahok",
+  "nPeople": "{count} tao",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

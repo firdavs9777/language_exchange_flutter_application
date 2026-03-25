@@ -675,5 +675,116 @@
   "locationServiceDisabled": "Dịch vụ vị trí đã tắt. Vui lòng bật.",
   "updatingLocation": "Đang cập nhật vị trí...",
   "openSettings": "Mở cài đặt",
-  "locationCouldNotBeUpdated": "Không thể cập nhật vị trí"
+  "locationCouldNotBeUpdated": "Không thể cập nhật vị trí",
+  "incomingAudioCall": "Cuộc gọi thoại đến",
+  "incomingVideoCall": "Cuộc gọi video đến",
+  "outgoingCall": "Đang gọi...",
+  "callRinging": "Đang đổ chuông...",
+  "callConnecting": "Đang kết nối...",
+  "callConnected": "Đã kết nối",
+  "callReconnecting": "Đang kết nối lại...",
+  "callEnded": "Cuộc gọi kết thúc",
+  "callFailed": "Cuộc gọi thất bại",
+  "callMissed": "Cuộc gọi nhỡ",
+  "callDeclined": "Cuộc gọi bị từ chối",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Chấp nhận",
+  "declineCall": "Từ chối",
+  "endCall": "Kết thúc",
+  "muteCall": "Tắt tiếng",
+  "unmuteCall": "Bật tiếng",
+  "speakerOn": "Loa ngoài",
+  "speakerOff": "Tai nghe",
+  "videoOn": "Bật video",
+  "videoOff": "Tắt video",
+  "switchCamera": "Đổi camera",
+  "callPermissionDenied": "Cần quyền micro để gọi điện",
+  "cameraPermissionDenied": "Cần quyền camera để gọi video",
+  "callConnectionFailed": "Không thể kết nối. Vui lòng thử lại.",
+  "userBusy": "Người dùng bận",
+  "userOffline": "Người dùng ngoại tuyến",
+  "callHistory": "Lịch sử cuộc gọi",
+  "noCallHistory": "Không có lịch sử cuộc gọi",
+  "missedCalls": "Cuộc gọi nhỡ",
+  "allCalls": "Tất cả cuộc gọi",
+  "callBack": "Gọi lại",
+  "callAt": "Cuộc gọi lúc {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Cuộc gọi thoại",
+  "tryAgain": "Thử lại",
+  "voiceRoom": "Phòng thoại",
+  "noVoiceRooms": "Không có phòng thoại đang hoạt động",
+  "createVoiceRoom": "Tạo phòng thoại",
+  "joinRoom": "Tham gia phòng",
+  "leaveRoom": "Rời phòng",
+  "leaveRoomConfirm": "Rời phòng?",
+  "leaveRoomMessage": "Bạn có chắc muốn rời khỏi phòng này không?",
+  "stay": "Ở lại",
+  "leave": "Rời đi",
+  "roomTitle": "Tiêu đề phòng",
+  "roomTitleHint": "Nhập tiêu đề phòng",
+  "roomTopic": "Chủ đề",
+  "roomLanguage": "Ngôn ngữ",
+  "roomHost": "Chủ phòng",
+  "roomParticipants": "{count} người tham gia",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Tối đa {count} người",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Chọn chủ đề",
+  "selectLanguage": "Chọn ngôn ngữ",
+  "raiseHand": "Giơ tay",
+  "lowerHand": "Hạ tay",
+  "handRaisedNotification": "Đã giơ tay! Chủ phòng sẽ thấy yêu cầu của bạn.",
+  "handLoweredNotification": "Đã hạ tay",
+  "muteParticipant": "Tắt tiếng người tham gia",
+  "kickParticipant": "Xóa khỏi phòng",
+  "promoteToCoHost": "Nâng lên đồng chủ phòng",
+  "endRoomConfirm": "Kết thúc phòng?",
+  "endRoomMessage": "Điều này sẽ kết thúc phòng cho tất cả người tham gia.",
+  "roomEnded": "Chủ phòng đã kết thúc phòng",
+  "youWereRemoved": "Bạn đã bị xóa khỏi phòng",
+  "roomIsFull": "Phòng đã đầy",
+  "roomChat": "Chat phòng",
+  "noMessages": "Chưa có tin nhắn",
+  "typeMessage": "Nhập tin nhắn...",
+  "voiceRoomsDescription": "Tham gia trò chuyện trực tiếp và luyện nói",
+  "liveRoomsCount": "{count} đang phát",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Không có phòng đang hoạt động",
+  "noActiveRoomsDescription": "Hãy là người đầu tiên tạo phòng thoại và luyện nói với người khác!",
+  "startRoom": "Bắt đầu phòng",
+  "createRoom": "Tạo phòng",
+  "roomCreated": "Tạo phòng thành công!",
+  "failedToCreateRoom": "Tạo phòng thất bại",
+  "errorLoadingRooms": "Lỗi tải phòng",
+  "pleaseEnterRoomTitle": "Vui lòng nhập tiêu đề phòng",
+  "startLiveConversation": "Bắt đầu trò chuyện trực tiếp",
+  "maxParticipants": "Số người tối đa",
+  "nPeople": "{count} người",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

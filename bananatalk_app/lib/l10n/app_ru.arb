@@ -858,5 +858,116 @@
   "locationServiceDisabled": "Службы определения местоположения отключены. Пожалуйста, включите их.",
   "updatingLocation": "Обновление местоположения...",
   "openSettings": "Открыть настройки",
-  "locationCouldNotBeUpdated": "Не удалось обновить местоположение"
+  "locationCouldNotBeUpdated": "Не удалось обновить местоположение",
+  "incomingAudioCall": "Входящий аудиозвонок",
+  "incomingVideoCall": "Входящий видеозвонок",
+  "outgoingCall": "Вызов...",
+  "callRinging": "Звонит...",
+  "callConnecting": "Подключение...",
+  "callConnected": "Подключено",
+  "callReconnecting": "Переподключение...",
+  "callEnded": "Звонок завершен",
+  "callFailed": "Звонок не удался",
+  "callMissed": "Пропущенный звонок",
+  "callDeclined": "Звонок отклонен",
+  "callDuration": "{duration}",
+  "@callDuration": {
+    "placeholders": {
+      "duration": {"type": "String"}
+    }
+  },
+  "acceptCall": "Принять",
+  "declineCall": "Отклонить",
+  "endCall": "Завершить",
+  "muteCall": "Выкл. звук",
+  "unmuteCall": "Вкл. звук",
+  "speakerOn": "Динамик",
+  "speakerOff": "Наушник",
+  "videoOn": "Видео вкл.",
+  "videoOff": "Видео выкл.",
+  "switchCamera": "Переключить камеру",
+  "callPermissionDenied": "Для звонков требуется разрешение микрофона",
+  "cameraPermissionDenied": "Для видеозвонков требуется разрешение камеры",
+  "callConnectionFailed": "Не удалось подключиться. Попробуйте снова.",
+  "userBusy": "Пользователь занят",
+  "userOffline": "Пользователь не в сети",
+  "callHistory": "История звонков",
+  "noCallHistory": "Нет истории звонков",
+  "missedCalls": "Пропущенные звонки",
+  "allCalls": "Все звонки",
+  "callBack": "Перезвонить",
+  "callAt": "Звонок в {time}",
+  "@callAt": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "audioCall": "Аудиозвонок",
+  "tryAgain": "Повторить",
+  "voiceRoom": "Голосовая комната",
+  "noVoiceRooms": "Нет активных голосовых комнат",
+  "createVoiceRoom": "Создать голосовую комнату",
+  "joinRoom": "Присоединиться",
+  "leaveRoom": "Покинуть комнату",
+  "leaveRoomConfirm": "Покинуть комнату?",
+  "leaveRoomMessage": "Вы уверены, что хотите покинуть эту комнату?",
+  "stay": "Остаться",
+  "leave": "Покинуть",
+  "roomTitle": "Название комнаты",
+  "roomTitleHint": "Введите название комнаты",
+  "roomTopic": "Тема",
+  "roomLanguage": "Язык",
+  "roomHost": "Ведущий",
+  "roomParticipants": "{count} участников",
+  "@roomParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "roomMaxParticipants": "Макс. {count} участников",
+  "@roomMaxParticipants": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectTopic": "Выбрать тему",
+  "selectLanguage": "Выбрать язык",
+  "raiseHand": "Поднять руку",
+  "lowerHand": "Опустить руку",
+  "handRaisedNotification": "Рука поднята! Ведущий увидит ваш запрос.",
+  "handLoweredNotification": "Рука опущена",
+  "muteParticipant": "Выключить звук участника",
+  "kickParticipant": "Удалить из комнаты",
+  "promoteToCoHost": "Сделать со-ведущим",
+  "endRoomConfirm": "Завершить комнату?",
+  "endRoomMessage": "Это завершит комнату для всех участников.",
+  "roomEnded": "Комната завершена ведущим",
+  "youWereRemoved": "Вас удалили из комнаты",
+  "roomIsFull": "Комната заполнена",
+  "roomChat": "Чат комнаты",
+  "noMessages": "Пока нет сообщений",
+  "typeMessage": "Введите сообщение...",
+  "voiceRoomsDescription": "Присоединяйтесь к живым разговорам и практикуйте речь",
+  "liveRoomsCount": "{count} онлайн",
+  "@liveRoomsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noActiveRooms": "Нет активных комнат",
+  "noActiveRoomsDescription": "Будьте первым, кто создаст голосовую комнату и практикуйтесь с другими!",
+  "startRoom": "Начать комнату",
+  "createRoom": "Создать комнату",
+  "roomCreated": "Комната успешно создана!",
+  "failedToCreateRoom": "Не удалось создать комнату",
+  "errorLoadingRooms": "Ошибка загрузки комнат",
+  "pleaseEnterRoomTitle": "Пожалуйста, введите название комнаты",
+  "startLiveConversation": "Начать живой разговор",
+  "maxParticipants": "Макс. участников",
+  "nPeople": "{count} человек",
+  "@nPeople": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

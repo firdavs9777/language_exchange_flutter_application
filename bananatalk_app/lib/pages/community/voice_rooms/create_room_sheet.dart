@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Create Room Bottom Sheet
 class CreateRoomSheet extends StatefulWidget {
@@ -46,10 +47,11 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   }
 
   void _createRoom() {
+    final l10n = AppLocalizations.of(context)!;
     if (_titleController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Please enter a room title'),
+          content: Text(l10n.pleaseEnterRoomTitle),
           backgroundColor: Colors.red,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
@@ -66,7 +68,6 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
       _selectedLanguage,
       _maxParticipants,
     );
-    Navigator.pop(context);
   }
 
   @override
@@ -97,174 +98,182 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
               ),
             ),
             // Header
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFFE91E63), Color(0xFF9C27B0)],
-                      ),
-                      borderRadius: AppRadius.borderMD,
-                    ),
-                    child: const Icon(
-                      Icons.mic_rounded,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Spacing.hGapMD,
-                  Expanded(
-                    child: Builder(
-                      builder: (context) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Create Voice Room',
-                            style: context.titleLarge,
-                          ),
-                          Text(
-                            'Start a live conversation',
-                            style: context.bodyMedium.copyWith(
-                              color: context.textSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.close_rounded),
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.grey[100],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(height: 1),
-            // Form
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Room title
-                  const Text(
-                    'Room Title',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Spacing.gapSM,
-                  TextField(
-                    controller: _titleController,
-                    decoration: InputDecoration(
-                      hintText: 'e.g., English Practice - Beginners Welcome!',
-                      filled: true,
-                      fillColor: Colors.grey[100],
-                      border: OutlineInputBorder(
-                        borderRadius: AppRadius.borderMD,
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.all(16),
-                    ),
-                    maxLength: 50,
-                  ),
-                  Spacing.gapMD,
-                  // Topic
-                  const Text(
-                    'Topic',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Spacing.gapSM,
-                  _buildTopicSelector(),
-                  Spacing.gapLG,
-                  // Language
-                  const Text(
-                    'Language',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Spacing.gapSM,
-                  _buildLanguageSelector(),
-                  Spacing.gapLG,
-                  // Max participants
-                  Row(
+            Builder(
+              builder: (context) {
+                final l10n = AppLocalizations.of(context)!;
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
                     children: [
-                      const Text(
-                        'Max Participants',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFE91E63), Color(0xFF9C27B0)],
+                          ),
+                          borderRadius: AppRadius.borderMD,
+                        ),
+                        child: const Icon(
+                          Icons.mic_rounded,
+                          color: Colors.white,
                         ),
                       ),
-                      const Spacer(),
-                      Text(
-                        '$_maxParticipants people',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[600],
+                      Spacing.hGapMD,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.createVoiceRoom,
+                              style: context.titleLarge,
+                            ),
+                            Text(
+                              l10n.startLiveConversation,
+                              style: context.bodyMedium.copyWith(
+                                color: context.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.close_rounded),
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.grey[100],
                         ),
                       ),
                     ],
                   ),
-                  Spacing.gapSM,
-                  Slider(
-                    value: _maxParticipants.toDouble(),
-                    min: 2,
-                    max: 20,
-                    divisions: 18,
-                    activeColor: const Color(0xFF00BFA5),
-                    onChanged: (value) {
-                      setState(() {
-                        _maxParticipants = value.toInt();
-                      });
-                    },
-                  ),
-                  Spacing.gapLG,
-                  // Create button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _createRoom,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF00BFA5),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: AppRadius.borderMD,
+                );
+              },
+            ),
+            const Divider(height: 1),
+            // Form
+            Builder(
+              builder: (context) {
+                final l10n = AppLocalizations.of(context)!;
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Room title
+                      Text(
+                        l10n.roomTitle,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                         ),
-                        elevation: 0,
                       ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Spacing.gapSM,
+                      TextField(
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                          hintText: l10n.roomTitleHint,
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                          border: OutlineInputBorder(
+                            borderRadius: AppRadius.borderMD,
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.all(16),
+                        ),
+                        maxLength: 50,
+                      ),
+                      Spacing.gapMD,
+                      // Topic
+                      Text(
+                        l10n.roomTopic,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Spacing.gapSM,
+                      _buildTopicSelector(),
+                      Spacing.gapLG,
+                      // Language
+                      Text(
+                        l10n.roomLanguage,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Spacing.gapSM,
+                      _buildLanguageSelector(),
+                      Spacing.gapLG,
+                      // Max participants
+                      Row(
                         children: [
-                          Icon(Icons.mic_rounded),
-                          SizedBox(width: 8),
                           Text(
-                            'Start Room',
+                            l10n.maxParticipants,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            l10n.nPeople(_maxParticipants),
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[600],
                             ),
                           ),
                         ],
                       ),
-                    ),
+                      Spacing.gapSM,
+                      Slider(
+                        value: _maxParticipants.toDouble(),
+                        min: 2,
+                        max: 20,
+                        divisions: 18,
+                        activeColor: const Color(0xFF00BFA5),
+                        onChanged: (value) {
+                          setState(() {
+                            _maxParticipants = value.toInt();
+                          });
+                        },
+                      ),
+                      Spacing.gapLG,
+                      // Create button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _createRoom,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF00BFA5),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: AppRadius.borderMD,
+                            ),
+                            elevation: 0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.mic_rounded),
+                              const SizedBox(width: 8),
+                              Text(
+                                l10n.startRoom,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
             SizedBox(height: MediaQuery.of(context).padding.bottom + 16),
           ],

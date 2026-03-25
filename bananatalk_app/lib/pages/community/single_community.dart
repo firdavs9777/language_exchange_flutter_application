@@ -823,21 +823,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    // Video call - disabled for now
+                    // Video call
                     _buildActionButton(
                       Icons.videocam_rounded,
                       AppLocalizations.of(context)!.videoCall,
-                      AppColors.gray400,
-                      () => _showComingSoonSnackbar(AppLocalizations.of(context)!.videoCall),
-                      isDisabled: true,
+                      Colors.blue[600]!,
+                      _makeVideoCall,
                     ),
-                    // Voice call - disabled for now
+                    // Voice call
                     _buildActionButton(
                       Icons.call_rounded,
                       AppLocalizations.of(context)!.voiceCall,
-                      AppColors.gray400,
-                      () => _showComingSoonSnackbar(AppLocalizations.of(context)!.voiceCall),
-                      isDisabled: true,
+                      Colors.green[600]!,
+                      _makeVoiceCall,
                     ),
                     _buildActionButton(
                       Icons.chat_bubble_rounded,
