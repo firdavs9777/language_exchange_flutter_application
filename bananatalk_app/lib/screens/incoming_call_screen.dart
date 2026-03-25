@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IncomingCallScreen extends ConsumerWidget {
   final CallModel call;
@@ -11,6 +12,8 @@ class IncomingCallScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     return PopScope(
       canPop: false, // Prevent back button
       child: Scaffold(
@@ -25,7 +28,9 @@ class IncomingCallScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Incoming ${call.callType == CallType.video ? 'Video' : 'Audio'} Call',
+                      call.callType == CallType.video
+                          ? l10n.incomingVideoCall
+                          : l10n.incomingAudioCall,
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 16,
@@ -72,9 +77,9 @@ class IncomingCallScreen extends ConsumerWidget {
                   const SizedBox(height: 10),
 
                   // Ringing Status
-                  const Text(
-                    'Ringing...',
-                    style: TextStyle(
+                  Text(
+                    l10n.callRinging,
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 18,
                     ),
@@ -91,7 +96,7 @@ class IncomingCallScreen extends ConsumerWidget {
                     // Reject Button
                     _CallActionButton(
                       icon: Icons.call_end,
-                      label: 'Decline',
+                      label: l10n.declineCall,
                       color: Colors.red,
                       onPressed: () {
                         ref.read(callProvider.notifier).rejectCall();
@@ -102,7 +107,7 @@ class IncomingCallScreen extends ConsumerWidget {
                     // Accept Button
                     _CallActionButton(
                       icon: Icons.call,
-                      label: 'Accept',
+                      label: l10n.acceptCall,
                       color: Colors.green,
                       onPressed: () async {
                         await ref.read(callProvider.notifier).acceptCall();
