@@ -7,6 +7,7 @@
   "password": "密码",
   "forgotPassword": "忘记密码？",
   "or": "或",
+  "more": "更多",
   "signInWithGoogle": "使用 Google 登录",
   "signInWithApple": "使用 Apple 登录",
   "signInWithFacebook": "使用 Facebook 登录",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "更改应用语言",
   "appearance": "外观",
   "themeAndDisplaySettings": "主题和显示设置",
+  "clearCache": "清除缓存",
+  "clearCacheSubtitle": "释放存储空间",
+  "clearCacheDescription": "这将清除所有缓存的图片、视频和音频文件。在重新下载媒体内容期间，应用可能会暂时加载较慢。",
+  "clearCacheHint": "如果图片或音频无法正常加载，请使用此功能。",
+  "clearingCache": "正在清除缓存...",
+  "cacheCleared": "缓存已成功清除！图片将重新加载。",
+  "clearCacheFailed": "清除缓存失败",
   "myReports": "我的举报",
   "viewYourSubmittedReports": "查看您提交的举报",
   "reportsManagement": "报告管理",
@@ -965,5 +973,212 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "数据与存储",
+  "manageStorageAndDownloads": "管理存储和下载",
+  "storageUsage": "存储使用情况",
+  "totalCacheSize": "总缓存大小",
+  "imageCache": "图片缓存",
+  "voiceMessagesCache": "语音消息",
+  "videoCache": "视频缓存",
+  "otherCache": "其他缓存",
+  "autoDownloadMedia": "自动下载媒体",
+  "currentNetwork": "当前网络",
+  "images": "图片",
+  "videos": "视频",
+  "voiceMessagesShort": "语音消息",
+  "documentsLabel": "文档",
+  "wifiOnly": "仅Wi-Fi",
+  "never": "从不",
+  "clearAllCache": "清除所有缓存",
+  "allCache": "所有缓存",
+  "clearAllCacheConfirmation": "这将清除所有缓存的图片、语音消息、视频和其他文件。应用可能会暂时加载内容较慢。",
+  "clearCacheConfirmationFor": "清除{category}？",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "将释放{size}",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "计算中...",
+  "noDataToShow": "无数据显示",
+  "profileCompletion": "资料完成度",
+  "justGettingStarted": "刚开始",
+  "lookingGood": "很不错！",
+  "almostThere": "快完成了！",
+  "addMissingFields": "添加: {fields}",
+  "profilePicture": "头像",
+  "nativeSpeaker": "母语者",
+  "beginner": "入门",
+  "elementary": "初级",
+  "intermediate": "中级",
+  "upperIntermediate": "中高级",
+  "advanced": "高级",
+  "proficient": "精通",
+  "peopleInterestedInTopic": "对此话题感兴趣的人",
+  "noUsersFound": "未找到用户",
+  "beFirstToAddTopic": "成为第一个添加此话题的人！",
+  "recentMoments": "最近动态",
+  "seeAll": "查看全部",
+  "study": "学习",
+  "followerMoments": "关注者动态",
+  "whenPeopleYouFollowPost": "当你关注的人发布新动态时",
+  "noNotificationsYet": "暂无通知",
+  "whenYouGetNotifications": "收到通知后将在此显示",
+  "failedToLoadNotifications": "加载通知失败",
+  "clearAllNotificationsConfirm": "确定要清除所有通知吗？此操作无法撤销。",
+
+  "tapToChange": "点击更改",
+  "noPictureSet": "未设置照片",
+  "nameAndGender": "姓名与性别",
+  "languageLevel": "语言水平",
+  "personalInformation": "个人信息",
+  "mbti": "MBTI",
+  "topicsOfInterest": "兴趣话题",
+  "levelBeginner": "入门",
+  "levelElementary": "初级",
+  "levelIntermediate": "中级",
+  "levelUpperIntermediate": "中高级",
+  "levelAdvanced": "高级",
+  "levelProficient": "精通",
+  "selectYourLevel": "选择您的水平",
+  "howWellDoYouSpeak": "您的{language}水平如何？",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "语言",
+  "languageLevelSetTo": "语言水平已设置为{level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "更新失败",
+
+  "editHometown": "编辑家乡",
+  "useCurrentLocation": "使用当前位置",
+  "detecting": "检测中...",
+  "getCurrentLocation": "获取当前位置",
+  "country": "国家",
+  "city": "城市",
+  "coordinates": "坐标",
+  "noLocationDetectedYet": "尚未检测到位置。",
+  "detected": "已检测",
+  "savedHometown": "家乡已保存",
+  "locationServicesDisabled": "位置服务已禁用。请启用它们。",
+  "locationPermissionPermanentlyDenied": "位置权限已被永久拒绝。",
+  "unknown": "未知",
+
+  "editBio": "编辑简介",
+  "bioUpdatedSuccessfully": "简介已成功更新",
+  "tellOthersAboutYourself": "介绍一下自己...",
+  "charactersCount": "{count}/500字符",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "selectYourMbti": "选择您的MBTI",
+  "myBloodType": "我的血型",
+  "pleaseSelectABloodType": "请选择血型",
+
+  "nativeLanguageRequired": "母语（必填）",
+  "languageToLearnRequired": "学习语言（必填）",
+  "nativeLanguageCannotBeSame": "母语不能与正在学习的语言相同",
+  "learningLanguageCannotBeSame": "学习语言不能与母语相同",
+  "pleaseSelectALanguage": "请选择语言",
+
+  "editInterests": "编辑兴趣",
+  "maxTopicsAllowed": "最多可选择{count}个话题",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "话题已成功更新！",
+  "failedToUpdateTopics": "更新话题失败",
+  "selectedCount": "已选择{count}/{max}",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+
+  "profilePictures": "头像",
+  "addImages": "添加图片",
+  "selectUpToImages": "最多选择5张图片",
+  "takeAPhoto": "拍照",
+  "removeImage": "删除图片",
+  "removeImageConfirm": "确定要删除这张图片吗？",
+  "removeAll": "全部删除",
+  "removeAllSelectedImages": "删除所有选中的图片",
+  "removeAllSelectedImagesConfirm": "确定要删除所有选中的图片吗？",
+  "yourProfilePictureWillBeKept": "您现有的头像将被保留",
+  "removeAllImages": "删除所有图片",
+  "removeAllImagesConfirm": "确定要删除所有头像吗？",
+  "currentImages": "当前图片",
+  "newImages": "新图片",
+  "addMoreImages": "添加更多图片",
+  "uploadImages": "上传{count}张图片",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "图片已成功删除",
+  "imagesUploadedSuccessfully": "图片已成功上传",
+  "selectedImagesCleared": "已清除选中的图片",
+  "extraImagesRemovedSuccessfully": "多余图片已成功删除",
+  "mustKeepAtLeastOneProfilePicture": "必须保留至少一张头像",
+  "noProfilePicturesToRemove": "没有可删除的头像",
+  "authenticationTokenNotFound": "未找到认证令牌",
+  "saveChangesQuestion": "保存更改？",
+  "youHaveUnuploadedImages": "您已选择{count}张图片但未上传。是否现在上传？",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "放弃",
+  "upload": "上传",
+  "maxImagesInfo": "最多可上传{max}张图片。当前: {current}/{max}\n每次最多上传5张图片。",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "只能再添加{count}张图片。最多{max}张。",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "每次最多只能上传5张图片。只有前5张会被添加。",
+  "canOnlyHaveMaxImages": "最多只能有{max}张图片",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "图片大小超过10MB限制",
+  "unsupportedImageFormat": "不支持的图片格式",
+  "pleaseSelectAtLeastOneImage": "请至少选择一张图片上传",
+
+  "basicInformation": "基本信息",
+  "languageToLearn": "学习语言",
+  "hometown": "家乡",
+  "characters": "字符",
+  "failedToLoadLanguages": "加载语言失败"
 }

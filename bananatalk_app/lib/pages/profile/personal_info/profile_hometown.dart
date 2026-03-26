@@ -1,4 +1,7 @@
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -23,10 +26,14 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
 
   // Check location permission
   Future<bool> _handleLocationPermission() async {
+    final l10n = AppLocalizations.of(context)!;
+
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Location services are disabled. Please enable them.'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(l10n.locationServicesDisabled),
+        backgroundColor: Colors.orange,
+        behavior: SnackBarBehavior.floating,
       ));
       return false;
     }
@@ -35,16 +42,20 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Location permissions are denied'),
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(l10n.locationPermissionDenied),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
         ));
         return false;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Location permissions are permanently denied.'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(l10n.locationPermissionPermanentlyDenied),
+        backgroundColor: Colors.orange,
+        behavior: SnackBarBehavior.floating,
       ));
       return false;
     }
@@ -54,6 +65,7 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
 
   // Get current location
   Future<void> getCurrentLocation() async {
+    final l10n = AppLocalizations.of(context)!;
     final hasPermission = await _handleLocationPermission();
     if (!hasPermission) return;
 
@@ -78,22 +90,24 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
         setState(() {
-          country = place.country ?? 'Unknown';
+          country = place.country ?? l10n.unknown;
           city = place.locality ??
               place.subAdministrativeArea ??
               place.administrativeArea ??
-              'Unknown';
+              l10n.unknown;
         });
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Detected: $city, $country'),
-          backgroundColor: Colors.green,
+          content: Text('${l10n.detected}: $city, $country'),
+          backgroundColor: AppColors.success,
+          behavior: SnackBarBehavior.floating,
         ));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Failed to get location: $e'),
-        backgroundColor: Colors.red,
+        content: Text('${l10n.failedToGetLocation}: $e'),
+        backgroundColor: AppColors.error,
+        behavior: SnackBarBehavior.floating,
       ));
     } finally {
       setState(() {
@@ -103,11 +117,12 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
   }
 
   Future<void> saveHometown() async {
+    final l10n = AppLocalizations.of(context)!;
     if (country == null || city == null) return;
 
     setState(() => isSaving = true);
     try {
-      final response = await ref.read(authServiceProvider).updateUserHometown(
+      await ref.read(authServiceProvider).updateUserHometown(
             city: city!,
             country: country!,
             latitude: latitude,
@@ -115,15 +130,17 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
           );
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Saved hometown: $city, $country'),
-        backgroundColor: Colors.green,
+        content: Text('${l10n.savedHometown}: $city, $country'),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
       ));
 
       Navigator.pop(context, '$city, $country');
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Failed to save: $error'),
-        backgroundColor: Colors.red,
+        content: Text('${l10n.failedToSave}: $error'),
+        backgroundColor: AppColors.error,
+        behavior: SnackBarBehavior.floating,
       ));
     } finally {
       setState(() => isSaving = false);
@@ -132,59 +149,130 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text('Edit Hometown'),
-        backgroundColor: Colors.teal,
+        title: Text(
+          l10n.editHometown,
+          style: context.titleLarge,
+        ),
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
+        elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: Spacing.screenPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Use Current Location',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              l10n.useCurrentLocation,
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
+            Spacing.gapLG,
 
             OutlinedButton.icon(
               onPressed: isFetchingLocation ? null : getCurrentLocation,
               icon: isFetchingLocation
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 16,
                       height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          context.primaryColor,
+                        ),
+                      ),
                     )
-                  : const Icon(Icons.my_location),
+                  : Icon(Icons.my_location, color: context.primaryColor),
               label: Text(
-                  isFetchingLocation ? 'Detecting...' : 'Get Current Location'),
+                isFetchingLocation ? l10n.detecting : l10n.getCurrentLocation,
+              ),
               style: OutlinedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 45),
+                foregroundColor: context.primaryColor,
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: AppRadius.borderMD,
                 ),
+                side: BorderSide(color: context.primaryColor),
               ),
             ),
 
-            const SizedBox(height: 30),
-            const Divider(),
+            Spacing.gapXL,
+            Divider(color: context.dividerColor),
+            Spacing.gapLG,
 
             // Display results
             if (country != null || city != null) ...[
-              Text('Country: ${country ?? '-'}',
-                  style: const TextStyle(fontSize: 16)),
-              Text('City: ${city ?? '-'}',
-                  style: const TextStyle(fontSize: 16)),
-              if (latitude != null && longitude != null)
-                Text(
-                  'Coordinates: ${latitude!.toStringAsFixed(4)}, ${longitude!.toStringAsFixed(4)}',
-                  style: const TextStyle(fontSize: 14, color: Colors.grey),
+              Container(
+                padding: Spacing.paddingLG,
+                decoration: BoxDecoration(
+                  color: context.containerColor,
+                  borderRadius: AppRadius.borderMD,
+                  border: Border.all(color: context.dividerColor),
                 ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.flag_outlined, color: context.textSecondary, size: 20),
+                        Spacing.hGapSM,
+                        Text(
+                          '${l10n.country}: ${country ?? '-'}',
+                          style: context.bodyLarge,
+                        ),
+                      ],
+                    ),
+                    Spacing.gapSM,
+                    Row(
+                      children: [
+                        Icon(Icons.location_city_outlined, color: context.textSecondary, size: 20),
+                        Spacing.hGapSM,
+                        Text(
+                          '${l10n.city}: ${city ?? '-'}',
+                          style: context.bodyLarge,
+                        ),
+                      ],
+                    ),
+                    if (latitude != null && longitude != null) ...[
+                      Spacing.gapSM,
+                      Row(
+                        children: [
+                          Icon(Icons.pin_drop_outlined, color: context.textSecondary, size: 20),
+                          Spacing.hGapSM,
+                          Expanded(
+                            child: Text(
+                              '${l10n.coordinates}: ${latitude!.toStringAsFixed(4)}, ${longitude!.toStringAsFixed(4)}',
+                              style: context.bodySmall.copyWith(color: context.textSecondary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ],
+                ),
+              ),
             ] else
-              const Text(
-                'No location detected yet.',
-                style: TextStyle(color: Colors.grey),
+              Container(
+                padding: Spacing.paddingLG,
+                decoration: BoxDecoration(
+                  color: context.containerColor,
+                  borderRadius: AppRadius.borderMD,
+                  border: Border.all(color: context.dividerColor),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.info_outline, color: context.textMuted, size: 20),
+                    Spacing.hGapSM,
+                    Text(
+                      l10n.noLocationDetectedYet,
+                      style: context.bodyMedium.copyWith(color: context.textMuted),
+                    ),
+                  ],
+                ),
               ),
 
             const Spacer(),
@@ -194,9 +282,14 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
                   ? saveHometown
                   : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                foregroundColor: Colors.black,
+                backgroundColor: AppColors.secondary,
+                foregroundColor: AppColors.gray900,
+                disabledBackgroundColor: context.containerHighColor,
+                disabledForegroundColor: context.textMuted,
                 minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: AppRadius.borderMD,
+                ),
               ),
               child: isSaving
                   ? const SizedBox(
@@ -204,11 +297,17 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
                       width: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.gray900),
                       ),
                     )
-                  : const Text('Save', style: TextStyle(fontSize: 16)),
+                  : Text(
+                      l10n.save,
+                      style: context.titleMedium.copyWith(
+                        color: AppColors.gray900,
+                      ),
+                    ),
             ),
+            Spacing.gapLG,
           ],
         ),
       ),

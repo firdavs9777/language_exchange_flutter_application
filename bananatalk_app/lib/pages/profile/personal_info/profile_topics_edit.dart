@@ -6,27 +6,15 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Screen for selecting/editing user's topics of interest
-/// Can be used in registration flow or profile editing
 class ProfileTopicsEdit extends ConsumerStatefulWidget {
-  /// Initial selected topic IDs
   final List<String> initialTopics;
-
-  /// If true, shows as a standalone screen with save button
-  /// If false, can be embedded and uses callback
   final bool isStandalone;
-
-  /// Callback when topics are selected (for embedded use)
   final void Function(List<String>)? onTopicsChanged;
-
-  /// Title to show (defaults to "Select Your Interests")
   final String? title;
-
-  /// Subtitle/description
   final String? subtitle;
-
-  /// Maximum topics allowed (default 10)
   final int maxTopics;
 
   const ProfileTopicsEdit({
@@ -64,6 +52,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
   }
 
   void _toggleTopic(String topicId) {
+    final l10n = AppLocalizations.of(context)!;
     HapticFeedback.selectionClick();
 
     setState(() {
@@ -73,10 +62,9 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
         if (_selectedTopics.length < widget.maxTopics) {
           _selectedTopics.add(topicId);
         } else {
-          // Show max limit reached
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Maximum ${widget.maxTopics} topics allowed'),
+              content: Text(l10n.maxTopicsAllowed(widget.maxTopics)),
               backgroundColor: Colors.orange,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -88,12 +76,12 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       }
     });
 
-    // Notify parent if callback provided
     widget.onTopicsChanged?.call(_selectedTopics.toList());
   }
 
   Future<void> _saveTopics() async {
     if (_isSaving) return;
+    final l10n = AppLocalizations.of(context)!;
 
     setState(() => _isSaving = true);
 
@@ -101,20 +89,19 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       final service = ref.read(communityServiceProvider);
       await service.updateMyTopics(_selectedTopics.toList());
 
-      // Refresh user data
       ref.invalidate(userProvider);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Row(
+            content: Row(
               children: [
-                Icon(Icons.check_circle, color: Colors.white),
-                SizedBox(width: 12),
-                Text('Topics updated successfully!'),
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 12),
+                Text(l10n.topicsUpdatedSuccessfully),
               ],
             ),
-            backgroundColor: const Color(0xFF00BFA5),
+            backgroundColor: AppColors.success,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -127,8 +114,8 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update topics: $e'),
-            backgroundColor: Colors.red,
+            content: Text('${l10n.failedToUpdateTopics}: $e'),
+            backgroundColor: AppColors.error,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -142,10 +129,16 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (widget.isStandalone) {
       return Scaffold(
+        backgroundColor: context.scaffoldBackground,
         appBar: AppBar(
-          title: Text(widget.title ?? 'Edit Interests'),
+          title: Text(
+            widget.title ?? l10n.editInterests,
+            style: context.titleLarge,
+          ),
           backgroundColor: context.surfaceColor,
           foregroundColor: context.textPrimary,
           elevation: 0,
@@ -158,65 +151,61 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text(
-                      'Save',
+                  : Text(
+                      l10n.save,
                       style: TextStyle(
-                        color: Color(0xFF00BFA5),
+                        color: AppColors.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
             ),
           ],
         ),
-        body: _buildContent(),
+        body: _buildContent(l10n),
       );
     }
 
-    return _buildContent();
+    return _buildContent(l10n);
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: Spacing.screenPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (widget.title != null && !widget.isStandalone)
                 Text(
                   widget.title!,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style: context.titleLarge.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               if (widget.subtitle != null) ...[
-                const SizedBox(height: 8),
+                Spacing.gapSM,
                 Text(
                   widget.subtitle!,
-                  style: TextStyle(
-                    fontSize: 15,
+                  style: context.bodyMedium.copyWith(
                     color: context.textSecondary,
                   ),
                 ),
               ],
-              const SizedBox(height: 12),
-              // Selected count
+              Spacing.gapMD,
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  '${_selectedTopics.length}/${widget.maxTopics} selected',
+                  l10n.selectedCount(_selectedTopics.length, widget.maxTopics),
                   style: TextStyle(
                     color: _selectedTopics.length >= widget.maxTopics
                         ? Colors.orange
-                        : const Color(0xFF00BFA5),
+                        : AppColors.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -225,14 +214,13 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
           ),
         ),
 
-        // Category tabs
         SizedBox(
           height: 40,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             children: [
-              _buildCategoryChip(null, 'All'),
+              _buildCategoryChip(null, l10n.all),
               ...Topic.categories.map(
                 (cat) => _buildCategoryChip(cat, Topic.getCategoryLabel(cat)),
               ),
@@ -240,12 +228,11 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
           ),
         ),
 
-        const SizedBox(height: 16),
+        Spacing.gapLG,
 
-        // Topics grid
         Expanded(
           child: GridView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: Spacing.screenPadding,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 2.5,
@@ -280,7 +267,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
         onSelected: (_) {
           setState(() => _selectedCategory = category);
         },
-        selectedColor: const Color(0xFF00BFA5),
+        selectedColor: AppColors.primary,
         checkmarkColor: Colors.white,
         labelStyle: TextStyle(
           color: isSelected ? Colors.white : context.textPrimary,
@@ -314,11 +301,11 @@ class _TopicCard extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFF00BFA5).withValues(alpha: 0.15)
+              ? AppColors.primary.withValues(alpha: 0.15)
               : context.containerColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFF00BFA5) : Colors.transparent,
+            color: isSelected ? AppColors.primary : Colors.transparent,
             width: 2,
           ),
         ),
@@ -338,10 +325,9 @@ class _TopicCard extends StatelessWidget {
                       topic.name,
                       style: TextStyle(
                         fontSize: 14,
-                        fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.w500,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                         color: isSelected
-                            ? const Color(0xFF00BFA5)
+                            ? AppColors.primary
                             : context.textPrimary,
                       ),
                       maxLines: 2,
@@ -351,7 +337,6 @@ class _TopicCard extends StatelessWidget {
                 ],
               ),
             ),
-            // Checkmark for selected
             if (isSelected)
               Positioned(
                 top: 6,
@@ -359,8 +344,8 @@ class _TopicCard extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 20,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF00BFA5),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(

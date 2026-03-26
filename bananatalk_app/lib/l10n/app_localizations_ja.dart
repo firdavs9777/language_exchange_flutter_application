@@ -30,6 +30,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get or => 'または';
 
   @override
+  String get more => '他';
+
+  @override
   String get signInWithGoogle => 'Googleでサインイン';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'テーマと表示設定';
+
+  @override
+  String get clearCache => 'キャッシュをクリア';
+
+  @override
+  String get clearCacheSubtitle => 'ストレージ容量を解放';
+
+  @override
+  String get clearCacheDescription => 'キャッシュされたすべての画像、動画、音声ファイルがクリアされます。メディアを再ダウンロードする間、一時的にコンテンツの読み込みが遅くなる場合があります。';
+
+  @override
+  String get clearCacheHint => '画像や音声が正しく読み込まれない場合に使用してください。';
+
+  @override
+  String get clearingCache => 'キャッシュをクリア中...';
+
+  @override
+  String get cacheCleared => 'キャッシュが正常にクリアされました！画像が新しく読み込まれます。';
+
+  @override
+  String get clearCacheFailed => 'キャッシュのクリアに失敗しました';
 
   @override
   String get myReports => '私の報告';
@@ -1899,7 +1923,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Preview';
@@ -2301,22 +2325,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get selectCurrentLevel => '現在のレベルを選択してください';
 
   @override
-  String get beginner => '初級 — いくつかの単語を知っている';
+  String get beginner => '入門';
 
   @override
-  String get elementary => '初中級 — 簡単な文が作れる';
+  String get elementary => '初級';
 
   @override
-  String get intermediate => '中級 — 基本的な会話ができる';
+  String get intermediate => '中級';
 
   @override
-  String get upperIntermediate => '中上級 — ほとんどの話題を議論できる';
+  String get upperIntermediate => '中上級';
 
   @override
-  String get advanced => '上級 — 流暢に話せる';
+  String get advanced => '上級';
 
   @override
-  String get proficient => '熟達 — ネイティブレベル';
+  String get proficient => '堪能';
 
   @override
   String get showingPartnersByDistance => '距離順でパートナーを表示中';
@@ -3066,4 +3090,416 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'データとストレージ';
+
+  @override
+  String get manageStorageAndDownloads => 'ストレージとダウンロードを管理';
+
+  @override
+  String get storageUsage => 'ストレージ使用量';
+
+  @override
+  String get totalCacheSize => 'キャッシュ合計サイズ';
+
+  @override
+  String get imageCache => '画像キャッシュ';
+
+  @override
+  String get voiceMessagesCache => '音声メッセージ';
+
+  @override
+  String get videoCache => '動画キャッシュ';
+
+  @override
+  String get otherCache => 'その他のキャッシュ';
+
+  @override
+  String get autoDownloadMedia => 'メディアの自動ダウンロード';
+
+  @override
+  String get currentNetwork => '現在のネットワーク';
+
+  @override
+  String get images => '画像';
+
+  @override
+  String get videos => '動画';
+
+  @override
+  String get voiceMessagesShort => '音声メッセージ';
+
+  @override
+  String get documentsLabel => 'ドキュメント';
+
+  @override
+  String get wifiOnly => 'Wi-Fiのみ';
+
+  @override
+  String get never => 'しない';
+
+  @override
+  String get clearAllCache => 'すべてのキャッシュを削除';
+
+  @override
+  String get allCache => 'すべてのキャッシュ';
+
+  @override
+  String get clearAllCacheConfirmation => 'すべてのキャッシュされた画像、音声メッセージ、動画、その他のファイルが削除されます。アプリは一時的にコンテンツの読み込みが遅くなる場合があります。';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return '$categoryを削除しますか？';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '$sizeが解放されます';
+  }
+
+  @override
+  String get calculating => '計算中...';
+
+  @override
+  String get noDataToShow => '表示するデータがありません';
+
+  @override
+  String get profileCompletion => 'プロフィール完成度';
+
+  @override
+  String get justGettingStarted => '始めたばかり';
+
+  @override
+  String get lookingGood => 'いい感じ！';
+
+  @override
+  String get almostThere => 'もう少し！';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return '追加: $fields';
+  }
+
+  @override
+  String get profilePicture => 'プロフィール写真';
+
+  @override
+  String get nativeSpeaker => 'ネイティブスピーカー';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return 'このトピックに興味がある人';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'このトピックを興味に追加する最初の人になりましょう！';
+
+  @override
+  String get recentMoments => '最近のモーメント';
+
+  @override
+  String get seeAll => 'すべて見る';
+
+  @override
+  String get study => '学習';
+
+  @override
+  String get followerMoments => 'フォロワーモーメント';
+
+  @override
+  String get whenPeopleYouFollowPost => 'フォロー中の人が新しいモーメントを投稿したとき';
+
+  @override
+  String get noNotificationsYet => 'まだ通知がありません';
+
+  @override
+  String get whenYouGetNotifications => '通知が届くとここに表示されます';
+
+  @override
+  String get failedToLoadNotifications => '通知の読み込みに失敗しました';
+
+  @override
+  String get clearAllNotificationsConfirm => 'すべての通知を削除しますか？この操作は元に戻せません。';
+
+  @override
+  String get tapToChange => 'タップして変更';
+
+  @override
+  String get noPictureSet => '写真未設定';
+
+  @override
+  String get nameAndGender => '名前と性別';
+
+  @override
+  String get languageLevel => '言語レベル';
+
+  @override
+  String get personalInformation => '個人情報';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => '興味のあるトピック';
+
+  @override
+  String get levelBeginner => '入門';
+
+  @override
+  String get levelElementary => '初級';
+
+  @override
+  String get levelIntermediate => '中級';
+
+  @override
+  String get levelUpperIntermediate => '中上級';
+
+  @override
+  String get levelAdvanced => '上級';
+
+  @override
+  String get levelProficient => '堪能';
+
+  @override
+  String get selectYourLevel => 'レベルを選択';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return '$languageをどのくらい話せますか？';
+  }
+
+  @override
+  String get theLanguage => '言語';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return '言語レベルが$levelに設定されました';
+  }
+
+  @override
+  String get failedToUpdate => '更新に失敗しました';
+
+  @override
+  String get editHometown => '出身地を編集';
+
+  @override
+  String get useCurrentLocation => '現在地を使用';
+
+  @override
+  String get detecting => '検出中...';
+
+  @override
+  String get getCurrentLocation => '現在地を取得';
+
+  @override
+  String get country => '国';
+
+  @override
+  String get city => '都市';
+
+  @override
+  String get coordinates => '座標';
+
+  @override
+  String get noLocationDetectedYet => 'まだ位置が検出されていません。';
+
+  @override
+  String get detected => '検出済み';
+
+  @override
+  String get savedHometown => '出身地が保存されました';
+
+  @override
+  String get locationServicesDisabled => '位置情報サービスが無効です。有効にしてください。';
+
+  @override
+  String get locationPermissionPermanentlyDenied => '位置情報の許可が永久に拒否されています。';
+
+  @override
+  String get unknown => '不明';
+
+  @override
+  String get editBio => '自己紹介を編集';
+
+  @override
+  String get bioUpdatedSuccessfully => '自己紹介が正常に更新されました';
+
+  @override
+  String get tellOthersAboutYourself => 'あなた自身について教えてください...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500文字';
+  }
+
+  @override
+  String get selectYourMbti => 'MBTIを選択';
+
+  @override
+  String get myBloodType => '私の血液型';
+
+  @override
+  String get pleaseSelectABloodType => '血液型を選択してください';
+
+  @override
+  String get nativeLanguageRequired => '母国語（必須）';
+
+  @override
+  String get languageToLearnRequired => '学習言語（必須）';
+
+  @override
+  String get nativeLanguageCannotBeSame => '母国語は学習中の言語と同じにできません';
+
+  @override
+  String get learningLanguageCannotBeSame => '学習言語は母国語と同じにできません';
+
+  @override
+  String get pleaseSelectALanguage => '言語を選択してください';
+
+  @override
+  String get editInterests => '興味を編集';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return '最大$count個のトピックまで選択可能';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'トピックが正常に更新されました！';
+
+  @override
+  String get failedToUpdateTopics => 'トピックの更新に失敗しました';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count/$max選択済み';
+  }
+
+  @override
+  String get profilePictures => 'プロフィール写真';
+
+  @override
+  String get addImages => '画像を追加';
+
+  @override
+  String get selectUpToImages => '最大5枚の画像を選択';
+
+  @override
+  String get takeAPhoto => '写真を撮影';
+
+  @override
+  String get removeImage => '画像を削除';
+
+  @override
+  String get removeImageConfirm => 'この画像を削除しますか？';
+
+  @override
+  String get removeAll => 'すべて削除';
+
+  @override
+  String get removeAllSelectedImages => '選択した画像をすべて削除';
+
+  @override
+  String get removeAllSelectedImagesConfirm => '選択したすべての画像を削除しますか？';
+
+  @override
+  String get yourProfilePictureWillBeKept => '既存のプロフィール写真は保持されます';
+
+  @override
+  String get removeAllImages => 'すべての画像を削除';
+
+  @override
+  String get removeAllImagesConfirm => 'すべてのプロフィール写真を削除しますか？';
+
+  @override
+  String get currentImages => '現在の画像';
+
+  @override
+  String get newImages => '新しい画像';
+
+  @override
+  String get addMoreImages => '画像をさらに追加';
+
+  @override
+  String uploadImages(int count) {
+    return '$count枚の画像をアップロード';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => '画像が正常に削除されました';
+
+  @override
+  String get imagesUploadedSuccessfully => '画像が正常にアップロードされました';
+
+  @override
+  String get selectedImagesCleared => '選択した画像がクリアされました';
+
+  @override
+  String get extraImagesRemovedSuccessfully => '余分な画像が正常に削除されました';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'プロフィール写真は最低1枚必要です';
+
+  @override
+  String get noProfilePicturesToRemove => '削除するプロフィール写真がありません';
+
+  @override
+  String get authenticationTokenNotFound => '認証トークンが見つかりません';
+
+  @override
+  String get saveChangesQuestion => '変更を保存しますか？';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '$count枚の画像が選択されていますがアップロードされていません。今すぐアップロードしますか？';
+  }
+
+  @override
+  String get discard => '破棄';
+
+  @override
+  String get upload => 'アップロード';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return '最大$max枚の画像をアップロードできます。現在: $current/$max\n一度に最大5枚の画像。';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'あと$count枚しか追加できません。最大は$max枚です。';
+  }
+
+  @override
+  String get maxImagesPerUpload => '一度に最大5枚の画像しかアップロードできません。最初の5枚のみが追加されます。';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return '最大$max枚の画像のみ持つことができます';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => '画像サイズが10MBの制限を超えています';
+
+  @override
+  String get unsupportedImageFormat => 'サポートされていない画像形式';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'アップロードする画像を少なくとも1枚選択してください';
+
+  @override
+  String get basicInformation => '基本情報';
+
+  @override
+  String get languageToLearn => '学習言語';
+
+  @override
+  String get hometown => '出身地';
+
+  @override
+  String get characters => '文字';
+
+  @override
+  String get failedToLoadLanguages => '言語の読み込みに失敗しました';
 }

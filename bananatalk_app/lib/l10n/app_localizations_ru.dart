@@ -30,6 +30,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get or => 'ИЛИ';
 
   @override
+  String get more => 'ещё';
+
+  @override
   String get signInWithGoogle => 'Войти через Google';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'Настройки темы и отображения';
+
+  @override
+  String get clearCache => 'Очистить кэш';
+
+  @override
+  String get clearCacheSubtitle => 'Освободить место в хранилище';
+
+  @override
+  String get clearCacheDescription => 'Это удалит все кэшированные изображения, видео и аудиофайлы. Приложение может временно загружать контент медленнее, пока повторно загружает медиафайлы.';
+
+  @override
+  String get clearCacheHint => 'Используйте это, если изображения или аудио не загружаются правильно.';
+
+  @override
+  String get clearingCache => 'Очистка кэша...';
+
+  @override
+  String get cacheCleared => 'Кэш успешно очищен! Изображения будут загружены заново.';
+
+  @override
+  String get clearCacheFailed => 'Не удалось очистить кэш';
 
   @override
   String get myReports => 'Мои жалобы';
@@ -1899,7 +1923,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Preview';
@@ -2316,7 +2340,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get advanced => 'Продвинутый';
 
   @override
-  String get proficient => 'Свободное владение';
+  String get proficient => 'Свободный';
 
   @override
   String get showingPartnersByDistance => 'Показ партнёров по расстоянию';
@@ -3066,4 +3090,416 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'Данные и Хранилище';
+
+  @override
+  String get manageStorageAndDownloads => 'Управление хранилищем и загрузками';
+
+  @override
+  String get storageUsage => 'Использование Хранилища';
+
+  @override
+  String get totalCacheSize => 'Общий Размер Кэша';
+
+  @override
+  String get imageCache => 'Кэш Изображений';
+
+  @override
+  String get voiceMessagesCache => 'Голосовые Сообщения';
+
+  @override
+  String get videoCache => 'Кэш Видео';
+
+  @override
+  String get otherCache => 'Другой Кэш';
+
+  @override
+  String get autoDownloadMedia => 'Автозагрузка Медиа';
+
+  @override
+  String get currentNetwork => 'Текущая Сеть';
+
+  @override
+  String get images => 'Изображения';
+
+  @override
+  String get videos => 'Видео';
+
+  @override
+  String get voiceMessagesShort => 'Голосовые Сообщения';
+
+  @override
+  String get documentsLabel => 'Документы';
+
+  @override
+  String get wifiOnly => 'Только WiFi';
+
+  @override
+  String get never => 'Никогда';
+
+  @override
+  String get clearAllCache => 'Очистить Весь Кэш';
+
+  @override
+  String get allCache => 'Весь Кэш';
+
+  @override
+  String get clearAllCacheConfirmation => 'Это удалит все кэшированные изображения, голосовые сообщения, видео и другие файлы. Приложение может временно загружать контент медленнее.';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return 'Очистить $category?';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '$size будет освобождено';
+  }
+
+  @override
+  String get calculating => 'Вычисление...';
+
+  @override
+  String get noDataToShow => 'Нет данных для отображения';
+
+  @override
+  String get profileCompletion => 'Заполненность профиля';
+
+  @override
+  String get justGettingStarted => 'Только начинаем';
+
+  @override
+  String get lookingGood => 'Хорошо!';
+
+  @override
+  String get almostThere => 'Почти готово!';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return 'Добавить: $fields';
+  }
+
+  @override
+  String get profilePicture => 'Фото профиля';
+
+  @override
+  String get nativeSpeaker => 'Носитель языка';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return 'Люди, интересующиеся этой темой';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'Будьте первым, кто добавит эту тему в свои интересы!';
+
+  @override
+  String get recentMoments => 'Недавние моменты';
+
+  @override
+  String get seeAll => 'Смотреть все';
+
+  @override
+  String get study => 'Учиться';
+
+  @override
+  String get followerMoments => 'Моменты подписок';
+
+  @override
+  String get whenPeopleYouFollowPost => 'Когда люди, на которых вы подписаны, публикуют новые моменты';
+
+  @override
+  String get noNotificationsYet => 'Пока нет уведомлений';
+
+  @override
+  String get whenYouGetNotifications => 'Когда вы получите уведомления, они появятся здесь';
+
+  @override
+  String get failedToLoadNotifications => 'Не удалось загрузить уведомления';
+
+  @override
+  String get clearAllNotificationsConfirm => 'Вы уверены, что хотите удалить все уведомления? Это действие нельзя отменить.';
+
+  @override
+  String get tapToChange => 'Нажмите для изменения';
+
+  @override
+  String get noPictureSet => 'Фото не установлено';
+
+  @override
+  String get nameAndGender => 'Имя и Пол';
+
+  @override
+  String get languageLevel => 'Уровень Языка';
+
+  @override
+  String get personalInformation => 'Личная Информация';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => 'Темы Интересов';
+
+  @override
+  String get levelBeginner => 'Начинающий';
+
+  @override
+  String get levelElementary => 'Элементарный';
+
+  @override
+  String get levelIntermediate => 'Средний';
+
+  @override
+  String get levelUpperIntermediate => 'Выше Среднего';
+
+  @override
+  String get levelAdvanced => 'Продвинутый';
+
+  @override
+  String get levelProficient => 'Свободный';
+
+  @override
+  String get selectYourLevel => 'Выберите Ваш Уровень';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return 'Насколько хорошо вы говорите на $language?';
+  }
+
+  @override
+  String get theLanguage => 'язык';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return 'Уровень языка установлен на $level';
+  }
+
+  @override
+  String get failedToUpdate => 'Не удалось обновить';
+
+  @override
+  String get editHometown => 'Изменить Родной Город';
+
+  @override
+  String get useCurrentLocation => 'Использовать Текущее Местоположение';
+
+  @override
+  String get detecting => 'Определение...';
+
+  @override
+  String get getCurrentLocation => 'Получить Текущее Местоположение';
+
+  @override
+  String get country => 'Страна';
+
+  @override
+  String get city => 'Город';
+
+  @override
+  String get coordinates => 'Координаты';
+
+  @override
+  String get noLocationDetectedYet => 'Местоположение еще не определено.';
+
+  @override
+  String get detected => 'Определено';
+
+  @override
+  String get savedHometown => 'Родной город сохранен';
+
+  @override
+  String get locationServicesDisabled => 'Службы геолокации отключены. Пожалуйста, включите их.';
+
+  @override
+  String get locationPermissionPermanentlyDenied => 'Разрешения на геолокацию постоянно отклонены.';
+
+  @override
+  String get unknown => 'Неизвестно';
+
+  @override
+  String get editBio => 'Изменить Биографию';
+
+  @override
+  String get bioUpdatedSuccessfully => 'Биография успешно обновлена';
+
+  @override
+  String get tellOthersAboutYourself => 'Расскажите о себе...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500 символов';
+  }
+
+  @override
+  String get selectYourMbti => 'Выберите Ваш MBTI';
+
+  @override
+  String get myBloodType => 'Моя Группа Крови';
+
+  @override
+  String get pleaseSelectABloodType => 'Пожалуйста, выберите группу крови';
+
+  @override
+  String get nativeLanguageRequired => 'Родной Язык (Обязательно)';
+
+  @override
+  String get languageToLearnRequired => 'Изучаемый Язык (Обязательно)';
+
+  @override
+  String get nativeLanguageCannotBeSame => 'Родной язык не может совпадать с изучаемым';
+
+  @override
+  String get learningLanguageCannotBeSame => 'Изучаемый язык не может совпадать с родным';
+
+  @override
+  String get pleaseSelectALanguage => 'Пожалуйста, выберите язык';
+
+  @override
+  String get editInterests => 'Изменить Интересы';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return 'Максимум $count тем';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'Темы успешно обновлены!';
+
+  @override
+  String get failedToUpdateTopics => 'Не удалось обновить темы';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count/$max выбрано';
+  }
+
+  @override
+  String get profilePictures => 'Фото Профиля';
+
+  @override
+  String get addImages => 'Добавить Изображения';
+
+  @override
+  String get selectUpToImages => 'Выберите до 5 изображений';
+
+  @override
+  String get takeAPhoto => 'Сделать Фото';
+
+  @override
+  String get removeImage => 'Удалить Изображение';
+
+  @override
+  String get removeImageConfirm => 'Удалить это изображение?';
+
+  @override
+  String get removeAll => 'Удалить Все';
+
+  @override
+  String get removeAllSelectedImages => 'Удалить Все Выбранные';
+
+  @override
+  String get removeAllSelectedImagesConfirm => 'Удалить все выбранные изображения?';
+
+  @override
+  String get yourProfilePictureWillBeKept => 'Ваше фото профиля будет сохранено';
+
+  @override
+  String get removeAllImages => 'Удалить Все Изображения';
+
+  @override
+  String get removeAllImagesConfirm => 'Удалить все фото профиля?';
+
+  @override
+  String get currentImages => 'Текущие Изображения';
+
+  @override
+  String get newImages => 'Новые Изображения';
+
+  @override
+  String get addMoreImages => 'Добавить Еще';
+
+  @override
+  String uploadImages(int count) {
+    return 'Загрузить $count';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => 'Изображение удалено';
+
+  @override
+  String get imagesUploadedSuccessfully => 'Изображения загружены';
+
+  @override
+  String get selectedImagesCleared => 'Выбранные изображения удалены';
+
+  @override
+  String get extraImagesRemovedSuccessfully => 'Дополнительные изображения удалены';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'Нужно хотя бы одно фото профиля';
+
+  @override
+  String get noProfilePicturesToRemove => 'Нет фото для удаления';
+
+  @override
+  String get authenticationTokenNotFound => 'Токен не найден';
+
+  @override
+  String get saveChangesQuestion => 'Сохранить Изменения?';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '$count изображений не загружено. Загрузить?';
+  }
+
+  @override
+  String get discard => 'Отменить';
+
+  @override
+  String get upload => 'Загрузить';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return 'Максимум $max изображений. Текущее: $current/$max';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'Можно добавить еще $count. Максимум $max.';
+  }
+
+  @override
+  String get maxImagesPerUpload => 'Максимум 5 изображений за раз';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return 'Максимум $max изображений';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => 'Размер превышает 10МБ';
+
+  @override
+  String get unsupportedImageFormat => 'Неподдерживаемый формат';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'Выберите хотя бы одно изображение';
+
+  @override
+  String get basicInformation => 'Основная Информация';
+
+  @override
+  String get languageToLearn => 'Изучаемый Язык';
+
+  @override
+  String get hometown => 'Родной Город';
+
+  @override
+  String get characters => 'символов';
+
+  @override
+  String get failedToLoadLanguages => 'Не удалось загрузить языки';
 }

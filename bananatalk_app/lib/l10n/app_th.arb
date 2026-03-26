@@ -7,6 +7,7 @@
   "password": "รหัสผ่าน",
   "forgotPassword": "ลืมรหัสผ่าน?",
   "or": "หรือ",
+  "more": "เพิ่มเติม",
   "signInWithGoogle": "เข้าสู่ระบบด้วย Google",
   "signInWithApple": "เข้าสู่ระบบด้วย Apple",
   "signInWithFacebook": "เข้าสู่ระบบด้วย Facebook",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "เปลี่ยนภาษาแอป",
   "appearance": "รูปลักษณ์",
   "themeAndDisplaySettings": "ตั้งค่าธีมและการแสดงผล",
+  "clearCache": "ล้างแคช",
+  "clearCacheSubtitle": "เพิ่มพื้นที่จัดเก็บ",
+  "clearCacheDescription": "การดำเนินการนี้จะล้างรูปภาพ วิดีโอ และไฟล์เสียงที่แคชไว้ทั้งหมด แอปอาจโหลดเนื้อหาช้าลงชั่วคราวขณะดาวน์โหลดสื่อใหม่",
+  "clearCacheHint": "ใช้ตัวเลือกนี้หากรูปภาพหรือเสียงไม่โหลดอย่างถูกต้อง",
+  "clearingCache": "กำลังล้างแคช...",
+  "cacheCleared": "ล้างแคชสำเร็จ! รูปภาพจะโหลดใหม่",
+  "clearCacheFailed": "ล้างแคชไม่สำเร็จ",
   "myReports": "รายงานของฉัน",
   "viewYourSubmittedReports": "ดูรายงานที่คุณส่ง",
   "reportsManagement": "การจัดการรายงาน",
@@ -787,5 +795,199 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "ข้อมูลและพื้นที่จัดเก็บ",
+  "manageStorageAndDownloads": "จัดการพื้นที่จัดเก็บและการดาวน์โหลด",
+  "storageUsage": "การใช้พื้นที่จัดเก็บ",
+  "totalCacheSize": "ขนาดแคชทั้งหมด",
+  "imageCache": "แคชรูปภาพ",
+  "voiceMessagesCache": "ข้อความเสียง",
+  "videoCache": "แคชวิดีโอ",
+  "otherCache": "แคชอื่นๆ",
+  "autoDownloadMedia": "ดาวน์โหลดสื่ออัตโนมัติ",
+  "currentNetwork": "เครือข่ายปัจจุบัน",
+  "images": "รูปภาพ",
+  "videos": "วิดีโอ",
+  "voiceMessagesShort": "ข้อความเสียง",
+  "documentsLabel": "เอกสาร",
+  "wifiOnly": "WiFi เท่านั้น",
+  "never": "ไม่เลย",
+  "clearAllCache": "ล้างแคชทั้งหมด",
+  "allCache": "แคชทั้งหมด",
+  "clearAllCacheConfirmation": "การดำเนินการนี้จะลบรูปภาพ ข้อความเสียง วิดีโอ และไฟล์อื่นๆ ที่แคชไว้ทั้งหมด แอปอาจโหลดเนื้อหาช้าลงชั่วคราว",
+  "clearCacheConfirmationFor": "ล้าง{category}?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} จะถูกปลดปล่อย",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "กำลังคำนวณ...",
+  "noDataToShow": "ไม่มีข้อมูลที่จะแสดง",
+
+  "profileCompletion": "ความสมบูรณ์ของโปรไฟล์",
+  "justGettingStarted": "เพิ่งเริ่มต้น",
+  "lookingGood": "ดูดี!",
+  "almostThere": "เกือบเสร็จแล้ว!",
+  "addMissingFields": "เพิ่ม {field} เพื่อให้โปรไฟล์สมบูรณ์",
+  "profilePicture": "รูปโปรไฟล์",
+  "nativeSpeaker": "เจ้าของภาษา",
+  "peopleInterestedInTopic": "{count} คนสนใจ",
+  "beFirstToAddTopic": "เป็นคนแรกที่เพิ่มหัวข้อนี้!",
+  "recentMoments": "โมเมนต์ล่าสุด",
+  "seeAll": "ดูทั้งหมด",
+  "study": "เรียน",
+  "followerMoments": "โมเมนต์จากผู้ติดตาม",
+  "whenPeopleYouFollowPost": "เมื่อคนที่คุณติดตามโพสต์โมเมนต์ใหม่",
+  "noNotificationsYet": "ยังไม่มีการแจ้งเตือน",
+  "whenYouGetNotifications": "เมื่อคุณได้รับการแจ้งเตือน จะแสดงที่นี่",
+  "failedToLoadNotifications": "โหลดการแจ้งเตือนไม่สำเร็จ",
+  "clearAllNotificationsConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบการแจ้งเตือนทั้งหมด? การดำเนินการนี้ไม่สามารถยกเลิกได้",
+
+  "tapToChange": "แตะเพื่อเปลี่ยน",
+  "noPictureSet": "ไม่มีรูปภาพ",
+  "nameAndGender": "ชื่อและเพศ",
+  "languageLevel": "ระดับภาษา",
+  "personalInformation": "ข้อมูลส่วนตัว",
+  "mbti": "MBTI",
+  "topicsOfInterest": "หัวข้อที่สนใจ",
+  "levelBeginner": "เริ่มต้น",
+  "levelElementary": "พื้นฐาน",
+  "levelIntermediate": "ปานกลาง",
+  "levelUpperIntermediate": "ปานกลางสูง",
+  "levelAdvanced": "ขั้นสูง",
+  "levelProficient": "เชี่ยวชาญ",
+  "selectYourLevel": "เลือกระดับของคุณ",
+  "howWellDoYouSpeak": "คุณพูด{language}ได้ดีแค่ไหน?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "ภาษา",
+  "languageLevelSetTo": "ระดับภาษาตั้งเป็น {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "อัปเดตไม่สำเร็จ",
+  "editHometown": "แก้ไขบ้านเกิด",
+  "useCurrentLocation": "ใช้ตำแหน่งปัจจุบัน",
+  "detecting": "กำลังตรวจหา...",
+  "getCurrentLocation": "รับตำแหน่งปัจจุบัน",
+  "country": "ประเทศ",
+  "city": "เมือง",
+  "coordinates": "พิกัด",
+  "noLocationDetectedYet": "ยังไม่พบตำแหน่ง",
+  "detected": "ตรวจพบ",
+  "savedHometown": "บันทึกบ้านเกิดแล้ว",
+  "locationServicesDisabled": "บริการตำแหน่งถูกปิด",
+  "locationPermissionPermanentlyDenied": "สิทธิ์ตำแหน่งถูกปฏิเสธ",
+  "unknown": "ไม่ทราบ",
+  "editBio": "แก้ไขประวัติ",
+  "bioUpdatedSuccessfully": "อัปเดตประวัติสำเร็จ",
+  "tellOthersAboutYourself": "บอกเล่าเกี่ยวกับตัวคุณ...",
+  "charactersCount": "{count}/500 ตัวอักษร",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "เลือก MBTI ของคุณ",
+  "myBloodType": "กรุ๊ปเลือดของฉัน",
+  "pleaseSelectABloodType": "กรุณาเลือกกรุ๊ปเลือด",
+  "nativeLanguageRequired": "ภาษาแม่ (จำเป็น)",
+  "languageToLearnRequired": "ภาษาที่เรียน (จำเป็น)",
+  "nativeLanguageCannotBeSame": "ภาษาแม่ไม่สามารถเหมือนภาษาที่เรียน",
+  "learningLanguageCannotBeSame": "ภาษาที่เรียนไม่สามารถเหมือนภาษาแม่",
+  "pleaseSelectALanguage": "กรุณาเลือกภาษา",
+  "editInterests": "แก้ไขความสนใจ",
+  "maxTopicsAllowed": "สูงสุด {count} หัวข้อ",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "อัปเดตหัวข้อสำเร็จ!",
+  "failedToUpdateTopics": "อัปเดตหัวข้อไม่สำเร็จ",
+  "selectedCount": "{count}/{max} ที่เลือก",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "profilePictures": "รูปโปรไฟล์",
+  "addImages": "เพิ่มรูปภาพ",
+  "selectUpToImages": "เลือกได้สูงสุด 5 รูป",
+  "takeAPhoto": "ถ่ายรูป",
+  "removeImage": "ลบรูปภาพ",
+  "removeImageConfirm": "ลบรูปนี้?",
+  "removeAll": "ลบทั้งหมด",
+  "removeAllSelectedImages": "ลบรูปที่เลือกทั้งหมด",
+  "removeAllSelectedImagesConfirm": "ลบรูปที่เลือกทั้งหมด?",
+  "yourProfilePictureWillBeKept": "รูปโปรไฟล์ปัจจุบันจะถูกเก็บไว้",
+  "removeAllImages": "ลบรูปทั้งหมด",
+  "removeAllImagesConfirm": "ลบรูปโปรไฟล์ทั้งหมด?",
+  "currentImages": "รูปปัจจุบัน",
+  "newImages": "รูปใหม่",
+  "addMoreImages": "เพิ่มรูปเพิ่มเติม",
+  "uploadImages": "อัปโหลด {count} รูป",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "ลบรูปสำเร็จ",
+  "imagesUploadedSuccessfully": "อัปโหลดรูปสำเร็จ",
+  "selectedImagesCleared": "ล้างรูปที่เลือกแล้ว",
+  "extraImagesRemovedSuccessfully": "ลบรูปเพิ่มเติมสำเร็จ",
+  "mustKeepAtLeastOneProfilePicture": "ต้องเก็บรูปโปรไฟล์อย่างน้อย 1 รูป",
+  "noProfilePicturesToRemove": "ไม่มีรูปโปรไฟล์ให้ลบ",
+  "authenticationTokenNotFound": "ไม่พบโทเค็น",
+  "saveChangesQuestion": "บันทึกการเปลี่ยนแปลง?",
+  "youHaveUnuploadedImages": "{count} รูปยังไม่ได้อัปโหลด อัปโหลดเลย?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "ยกเลิก",
+  "upload": "อัปโหลด",
+  "maxImagesInfo": "สูงสุด {max} รูป ปัจจุบัน: {current}/{max}",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "เพิ่มได้อีก {count} รูป สูงสุด {max}",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "สูงสุด 5 รูปต่อครั้ง",
+  "canOnlyHaveMaxImages": "สูงสุด {max} รูป",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "ขนาดเกิน 10MB",
+  "unsupportedImageFormat": "รูปแบบไม่รองรับ",
+  "pleaseSelectAtLeastOneImage": "กรุณาเลือกอย่างน้อย 1 รูป",
+  "basicInformation": "ข้อมูลพื้นฐาน",
+  "languageToLearn": "ภาษาที่เรียน",
+  "hometown": "บ้านเกิด",
+  "characters": "ตัวอักษร",
+  "failedToLoadLanguages": "โหลดภาษาไม่สำเร็จ"
 }

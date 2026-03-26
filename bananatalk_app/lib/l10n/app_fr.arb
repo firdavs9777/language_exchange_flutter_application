@@ -10,6 +10,7 @@
   "password": "Mot de passe",
   "forgotPassword": "Mot de passe oublié ?",
   "or": "OU",
+  "more": "plus",
   "signInWithGoogle": "Se connecter avec Google",
   "signInWithApple": "Se connecter avec Apple",
   "signInWithFacebook": "Se connecter avec Facebook",
@@ -118,6 +119,13 @@
   "changeAppLanguage": "Changer la langue de l'application",
   "appearance": "Apparence",
   "themeAndDisplaySettings": "Paramètres de thème et d'affichage",
+  "clearCache": "Vider le cache",
+  "clearCacheSubtitle": "Libérer de l'espace de stockage",
+  "clearCacheDescription": "Cela supprimera toutes les images, vidéos et fichiers audio mis en cache. L'application peut charger le contenu plus lentement temporairement pendant le re-téléchargement des médias.",
+  "clearCacheHint": "Utilisez ceci si les images ou l'audio ne se chargent pas correctement.",
+  "clearingCache": "Vidage du cache...",
+  "cacheCleared": "Cache vidé avec succès ! Les images se rechargeront.",
+  "clearCacheFailed": "Échec du vidage du cache",
   "myReports": "Mes signalements",
   "viewYourSubmittedReports": "Voir vos signalements soumis",
   "reportsManagement": "Gestion des signalements",
@@ -1227,5 +1235,212 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Données et Stockage",
+  "manageStorageAndDownloads": "Gérer le stockage et les téléchargements",
+  "storageUsage": "Utilisation du Stockage",
+  "totalCacheSize": "Taille Totale du Cache",
+  "imageCache": "Cache d'Images",
+  "voiceMessagesCache": "Messages Vocaux",
+  "videoCache": "Cache Vidéo",
+  "otherCache": "Autre Cache",
+  "autoDownloadMedia": "Téléchargement Auto des Médias",
+  "currentNetwork": "Réseau Actuel",
+  "images": "Images",
+  "videos": "Vidéos",
+  "voiceMessagesShort": "Messages Vocaux",
+  "documentsLabel": "Documents",
+  "wifiOnly": "WiFi Uniquement",
+  "never": "Jamais",
+  "clearAllCache": "Effacer Tout le Cache",
+  "allCache": "Tout le Cache",
+  "clearAllCacheConfirmation": "Cela supprimera toutes les images, messages vocaux, vidéos et autres fichiers en cache. L'application peut charger le contenu plus lentement temporairement.",
+  "clearCacheConfirmationFor": "Effacer {category}?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} seront libérés",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Calcul en cours...",
+  "noDataToShow": "Aucune donnée à afficher",
+  "profileCompletion": "Profil complété",
+  "justGettingStarted": "Tout juste commencé",
+  "lookingGood": "C'est bien !",
+  "almostThere": "Presque fini !",
+  "addMissingFields": "Ajouter : {fields}",
+  "profilePicture": "Photo de profil",
+  "nativeSpeaker": "Locuteur natif",
+  "beginner": "Débutant",
+  "elementary": "Élémentaire",
+  "intermediate": "Intermédiaire",
+  "upperIntermediate": "Intermédiaire supérieur",
+  "advanced": "Avancé",
+  "proficient": "Maîtrise",
+  "peopleInterestedInTopic": "Personnes intéressées par ce sujet",
+  "noUsersFound": "Aucun utilisateur trouvé",
+  "beFirstToAddTopic": "Soyez le premier à ajouter ce sujet à vos intérêts !",
+  "recentMoments": "Moments récents",
+  "seeAll": "Voir tout",
+  "study": "Étudier",
+  "followerMoments": "Moments des abonnements",
+  "whenPeopleYouFollowPost": "Quand les personnes que vous suivez publient de nouveaux moments",
+  "noNotificationsYet": "Pas encore de notifications",
+  "whenYouGetNotifications": "Quand vous recevrez des notifications, elles apparaîtront ici",
+  "failedToLoadNotifications": "Échec du chargement des notifications",
+  "clearAllNotificationsConfirm": "Êtes-vous sûr de vouloir effacer toutes les notifications ? Cette action est irréversible.",
+
+  "tapToChange": "Appuyez pour modifier",
+  "noPictureSet": "Aucune photo définie",
+  "nameAndGender": "Nom et Genre",
+  "languageLevel": "Niveau de Langue",
+  "personalInformation": "Informations Personnelles",
+  "mbti": "MBTI",
+  "topicsOfInterest": "Centres d'Intérêt",
+  "levelBeginner": "Débutant",
+  "levelElementary": "Élémentaire",
+  "levelIntermediate": "Intermédiaire",
+  "levelUpperIntermediate": "Intermédiaire Supérieur",
+  "levelAdvanced": "Avancé",
+  "levelProficient": "Maîtrise",
+  "selectYourLevel": "Sélectionnez Votre Niveau",
+  "howWellDoYouSpeak": "Quel est votre niveau en {language} ?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "la langue",
+  "languageLevelSetTo": "Niveau de langue défini sur {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Échec de la mise à jour",
+
+  "editHometown": "Modifier la Ville d'Origine",
+  "useCurrentLocation": "Utiliser la Position Actuelle",
+  "detecting": "Détection...",
+  "getCurrentLocation": "Obtenir la Position Actuelle",
+  "country": "Pays",
+  "city": "Ville",
+  "coordinates": "Coordonnées",
+  "noLocationDetectedYet": "Aucune position détectée pour l'instant.",
+  "detected": "Détecté",
+  "savedHometown": "Ville d'origine enregistrée",
+  "locationServicesDisabled": "Les services de localisation sont désactivés. Veuillez les activer.",
+  "locationPermissionPermanentlyDenied": "Les autorisations de localisation sont définitivement refusées.",
+  "unknown": "Inconnu",
+
+  "editBio": "Modifier la Bio",
+  "bioUpdatedSuccessfully": "Bio mise à jour avec succès",
+  "tellOthersAboutYourself": "Parlez-nous de vous...",
+  "charactersCount": "{count}/500 caractères",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "selectYourMbti": "Sélectionnez Votre MBTI",
+  "myBloodType": "Mon Groupe Sanguin",
+  "pleaseSelectABloodType": "Veuillez sélectionner un groupe sanguin",
+
+  "nativeLanguageRequired": "Langue Maternelle (Obligatoire)",
+  "languageToLearnRequired": "Langue à Apprendre (Obligatoire)",
+  "nativeLanguageCannotBeSame": "La langue maternelle ne peut pas être la même que la langue que vous apprenez",
+  "learningLanguageCannotBeSame": "La langue que vous apprenez ne peut pas être la même que votre langue maternelle",
+  "pleaseSelectALanguage": "Veuillez sélectionner une langue",
+
+  "editInterests": "Modifier les Intérêts",
+  "maxTopicsAllowed": "Maximum {count} sujets autorisés",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Sujets mis à jour avec succès !",
+  "failedToUpdateTopics": "Échec de la mise à jour des sujets",
+  "selectedCount": "{count}/{max} sélectionnés",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+
+  "profilePictures": "Photos de Profil",
+  "addImages": "Ajouter des Images",
+  "selectUpToImages": "Sélectionnez jusqu'à 5 images",
+  "takeAPhoto": "Prendre une Photo",
+  "removeImage": "Supprimer l'Image",
+  "removeImageConfirm": "Êtes-vous sûr de vouloir supprimer cette image ?",
+  "removeAll": "Tout Supprimer",
+  "removeAllSelectedImages": "Supprimer Toutes les Images Sélectionnées",
+  "removeAllSelectedImagesConfirm": "Êtes-vous sûr de vouloir supprimer toutes les images sélectionnées ?",
+  "yourProfilePictureWillBeKept": "Votre photo de profil existante sera conservée",
+  "removeAllImages": "Supprimer Toutes les Images",
+  "removeAllImagesConfirm": "Êtes-vous sûr de vouloir supprimer toutes les photos de profil ?",
+  "currentImages": "Images Actuelles",
+  "newImages": "Nouvelles Images",
+  "addMoreImages": "Ajouter Plus d'Images",
+  "uploadImages": "Télécharger {count} Image(s)",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "Image supprimée avec succès",
+  "imagesUploadedSuccessfully": "Images téléchargées avec succès",
+  "selectedImagesCleared": "Images sélectionnées supprimées",
+  "extraImagesRemovedSuccessfully": "Images supplémentaires supprimées avec succès",
+  "mustKeepAtLeastOneProfilePicture": "Vous devez garder au moins une photo de profil",
+  "noProfilePicturesToRemove": "Aucune photo de profil à supprimer",
+  "authenticationTokenNotFound": "Jeton d'authentification non trouvé",
+  "saveChangesQuestion": "Enregistrer les Modifications ?",
+  "youHaveUnuploadedImages": "Vous avez {count} image(s) sélectionnée(s) mais non téléchargée(s). Voulez-vous les télécharger maintenant ?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "Abandonner",
+  "upload": "Télécharger",
+  "maxImagesInfo": "Vous pouvez télécharger jusqu'à {max} images. Actuel : {current}/{max}\nMax 5 images par téléchargement.",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "Vous ne pouvez ajouter que {count} image(s) supplémentaire(s). Maximum {max} images.",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "Vous ne pouvez télécharger que 5 images maximum à la fois. Seules les 5 premières seront ajoutées.",
+  "canOnlyHaveMaxImages": "Vous ne pouvez avoir que {max} images maximum",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "La taille de l'image dépasse la limite de 10 Mo",
+  "unsupportedImageFormat": "Format d'image non pris en charge",
+  "pleaseSelectAtLeastOneImage": "Veuillez sélectionner au moins une image à télécharger",
+
+  "basicInformation": "Informations de Base",
+  "languageToLearn": "Langue à Apprendre",
+  "hometown": "Ville d'Origine",
+  "characters": "caractères",
+  "failedToLoadLanguages": "Échec du chargement des langues"
 }

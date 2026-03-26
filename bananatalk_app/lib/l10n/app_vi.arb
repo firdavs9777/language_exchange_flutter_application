@@ -7,6 +7,7 @@
   "password": "Mật khẩu",
   "forgotPassword": "Quên mật khẩu?",
   "or": "HOẶC",
+  "more": "thêm",
   "signInWithGoogle": "Đăng nhập với Google",
   "signInWithApple": "Đăng nhập với Apple",
   "signInWithFacebook": "Đăng nhập với Facebook",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "Đổi ngôn ngữ ứng dụng",
   "appearance": "Giao diện",
   "themeAndDisplaySettings": "Cài đặt chủ đề và hiển thị",
+  "clearCache": "Xóa bộ nhớ đệm",
+  "clearCacheSubtitle": "Giải phóng dung lượng lưu trữ",
+  "clearCacheDescription": "Thao tác này sẽ xóa tất cả hình ảnh, video và file âm thanh đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời khi tải lại phương tiện.",
+  "clearCacheHint": "Sử dụng tính năng này nếu hình ảnh hoặc âm thanh không tải đúng cách.",
+  "clearingCache": "Đang xóa bộ nhớ đệm...",
+  "cacheCleared": "Đã xóa bộ nhớ đệm thành công! Hình ảnh sẽ được tải lại.",
+  "clearCacheFailed": "Không thể xóa bộ nhớ đệm",
   "myReports": "Báo cáo của tôi",
   "viewYourSubmittedReports": "Xem các báo cáo đã gửi",
   "reportsManagement": "Quản lý báo cáo",
@@ -787,5 +795,199 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Dữ liệu và Bộ nhớ",
+  "manageStorageAndDownloads": "Quản lý bộ nhớ và tải xuống",
+  "storageUsage": "Sử dụng Bộ nhớ",
+  "totalCacheSize": "Tổng Kích thước Cache",
+  "imageCache": "Cache Hình ảnh",
+  "voiceMessagesCache": "Tin nhắn Thoại",
+  "videoCache": "Cache Video",
+  "otherCache": "Cache Khác",
+  "autoDownloadMedia": "Tự động Tải Phương tiện",
+  "currentNetwork": "Mạng Hiện tại",
+  "images": "Hình ảnh",
+  "videos": "Video",
+  "voiceMessagesShort": "Tin nhắn Thoại",
+  "documentsLabel": "Tài liệu",
+  "wifiOnly": "Chỉ WiFi",
+  "never": "Không bao giờ",
+  "clearAllCache": "Xóa Toàn bộ Cache",
+  "allCache": "Toàn bộ Cache",
+  "clearAllCacheConfirmation": "Thao tác này sẽ xóa tất cả hình ảnh, tin nhắn thoại, video và các tệp khác đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời.",
+  "clearCacheConfirmationFor": "Xóa {category}?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} sẽ được giải phóng",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Đang tính toán...",
+  "noDataToShow": "Không có dữ liệu để hiển thị",
+
+  "profileCompletion": "Hoàn thành hồ sơ",
+  "justGettingStarted": "Mới bắt đầu",
+  "lookingGood": "Nhìn tốt!",
+  "almostThere": "Sắp xong rồi!",
+  "addMissingFields": "Thêm {field} để hoàn thành hồ sơ",
+  "profilePicture": "Ảnh hồ sơ",
+  "nativeSpeaker": "Bản ngữ",
+  "peopleInterestedInTopic": "{count} người quan tâm",
+  "beFirstToAddTopic": "Hãy là người đầu tiên thêm chủ đề này!",
+  "recentMoments": "Khoảnh khắc gần đây",
+  "seeAll": "Xem tất cả",
+  "study": "Học tập",
+  "followerMoments": "Khoảnh khắc từ người theo dõi",
+  "whenPeopleYouFollowPost": "Khi những người bạn theo dõi đăng khoảnh khắc mới",
+  "noNotificationsYet": "Chưa có thông báo nào",
+  "whenYouGetNotifications": "Khi bạn nhận được thông báo, chúng sẽ hiển thị ở đây",
+  "failedToLoadNotifications": "Không thể tải thông báo",
+  "clearAllNotificationsConfirm": "Bạn có chắc muốn xóa tất cả thông báo? Hành động này không thể hoàn tác.",
+
+  "tapToChange": "Nhấn để thay đổi",
+  "noPictureSet": "Chưa đặt ảnh",
+  "nameAndGender": "Tên và Giới tính",
+  "languageLevel": "Trình độ Ngôn ngữ",
+  "personalInformation": "Thông tin Cá nhân",
+  "mbti": "MBTI",
+  "topicsOfInterest": "Chủ đề Quan tâm",
+  "levelBeginner": "Sơ cấp",
+  "levelElementary": "Cơ bản",
+  "levelIntermediate": "Trung cấp",
+  "levelUpperIntermediate": "Trung cấp Cao",
+  "levelAdvanced": "Nâng cao",
+  "levelProficient": "Thành thạo",
+  "selectYourLevel": "Chọn Trình độ",
+  "howWellDoYouSpeak": "Bạn nói {language} tốt đến đâu?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "ngôn ngữ",
+  "languageLevelSetTo": "Trình độ ngôn ngữ đặt là {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Cập nhật thất bại",
+  "editHometown": "Sửa Quê quán",
+  "useCurrentLocation": "Dùng Vị trí Hiện tại",
+  "detecting": "Đang phát hiện...",
+  "getCurrentLocation": "Lấy Vị trí Hiện tại",
+  "country": "Quốc gia",
+  "city": "Thành phố",
+  "coordinates": "Tọa độ",
+  "noLocationDetectedYet": "Chưa phát hiện vị trí",
+  "detected": "Đã phát hiện",
+  "savedHometown": "Đã lưu quê quán",
+  "locationServicesDisabled": "Dịch vụ vị trí bị tắt",
+  "locationPermissionPermanentlyDenied": "Quyền vị trí bị từ chối",
+  "unknown": "Không rõ",
+  "editBio": "Sửa Tiểu sử",
+  "bioUpdatedSuccessfully": "Cập nhật tiểu sử thành công",
+  "tellOthersAboutYourself": "Giới thiệu về bạn...",
+  "charactersCount": "{count}/500 ký tự",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "Chọn MBTI",
+  "myBloodType": "Nhóm máu",
+  "pleaseSelectABloodType": "Vui lòng chọn nhóm máu",
+  "nativeLanguageRequired": "Ngôn ngữ Mẹ đẻ (Bắt buộc)",
+  "languageToLearnRequired": "Ngôn ngữ Học (Bắt buộc)",
+  "nativeLanguageCannotBeSame": "Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ học",
+  "learningLanguageCannotBeSame": "Ngôn ngữ học không thể giống ngôn ngữ mẹ đẻ",
+  "pleaseSelectALanguage": "Vui lòng chọn ngôn ngữ",
+  "editInterests": "Sửa Sở thích",
+  "maxTopicsAllowed": "Tối đa {count} chủ đề",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Cập nhật chủ đề thành công!",
+  "failedToUpdateTopics": "Cập nhật chủ đề thất bại",
+  "selectedCount": "{count}/{max} đã chọn",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "profilePictures": "Ảnh Hồ sơ",
+  "addImages": "Thêm Ảnh",
+  "selectUpToImages": "Chọn tối đa 5 ảnh",
+  "takeAPhoto": "Chụp Ảnh",
+  "removeImage": "Xóa Ảnh",
+  "removeImageConfirm": "Xóa ảnh này?",
+  "removeAll": "Xóa Tất cả",
+  "removeAllSelectedImages": "Xóa Tất cả Ảnh đã Chọn",
+  "removeAllSelectedImagesConfirm": "Xóa tất cả ảnh đã chọn?",
+  "yourProfilePictureWillBeKept": "Ảnh hồ sơ hiện tại sẽ được giữ",
+  "removeAllImages": "Xóa Tất cả Ảnh",
+  "removeAllImagesConfirm": "Xóa tất cả ảnh hồ sơ?",
+  "currentImages": "Ảnh Hiện tại",
+  "newImages": "Ảnh Mới",
+  "addMoreImages": "Thêm Ảnh Khác",
+  "uploadImages": "Tải lên {count} Ảnh",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "Đã xóa ảnh",
+  "imagesUploadedSuccessfully": "Tải ảnh thành công",
+  "selectedImagesCleared": "Đã xóa ảnh đã chọn",
+  "extraImagesRemovedSuccessfully": "Đã xóa ảnh thừa",
+  "mustKeepAtLeastOneProfilePicture": "Phải giữ ít nhất 1 ảnh hồ sơ",
+  "noProfilePicturesToRemove": "Không có ảnh để xóa",
+  "authenticationTokenNotFound": "Không tìm thấy token",
+  "saveChangesQuestion": "Lưu Thay đổi?",
+  "youHaveUnuploadedImages": "{count} ảnh chưa tải. Tải ngay?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "Hủy",
+  "upload": "Tải lên",
+  "maxImagesInfo": "Tối đa {max} ảnh. Hiện tại: {current}/{max}",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "Chỉ thêm được {count} ảnh nữa. Tối đa {max}.",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "Tối đa 5 ảnh mỗi lần",
+  "canOnlyHaveMaxImages": "Tối đa {max} ảnh",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "Kích thước vượt quá 10MB",
+  "unsupportedImageFormat": "Định dạng không hỗ trợ",
+  "pleaseSelectAtLeastOneImage": "Vui lòng chọn ít nhất 1 ảnh",
+  "basicInformation": "Thông tin Cơ bản",
+  "languageToLearn": "Ngôn ngữ Học",
+  "hometown": "Quê quán",
+  "characters": "ký tự",
+  "failedToLoadLanguages": "Tải ngôn ngữ thất bại"
 }

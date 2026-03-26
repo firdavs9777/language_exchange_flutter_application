@@ -30,6 +30,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get or => 'HOẶC';
 
   @override
+  String get more => 'thêm';
+
+  @override
   String get signInWithGoogle => 'Đăng nhập với Google';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'Cài đặt chủ đề và hiển thị';
+
+  @override
+  String get clearCache => 'Xóa bộ nhớ đệm';
+
+  @override
+  String get clearCacheSubtitle => 'Giải phóng dung lượng lưu trữ';
+
+  @override
+  String get clearCacheDescription => 'Thao tác này sẽ xóa tất cả hình ảnh, video và file âm thanh đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời khi tải lại phương tiện.';
+
+  @override
+  String get clearCacheHint => 'Sử dụng tính năng này nếu hình ảnh hoặc âm thanh không tải đúng cách.';
+
+  @override
+  String get clearingCache => 'Đang xóa bộ nhớ đệm...';
+
+  @override
+  String get cacheCleared => 'Đã xóa bộ nhớ đệm thành công! Hình ảnh sẽ được tải lại.';
+
+  @override
+  String get clearCacheFailed => 'Không thể xóa bộ nhớ đệm';
 
   @override
   String get myReports => 'Báo cáo của tôi';
@@ -1899,7 +1923,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Xem trước';
@@ -3066,4 +3090,416 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'Dữ liệu và Bộ nhớ';
+
+  @override
+  String get manageStorageAndDownloads => 'Quản lý bộ nhớ và tải xuống';
+
+  @override
+  String get storageUsage => 'Sử dụng Bộ nhớ';
+
+  @override
+  String get totalCacheSize => 'Tổng Kích thước Cache';
+
+  @override
+  String get imageCache => 'Cache Hình ảnh';
+
+  @override
+  String get voiceMessagesCache => 'Tin nhắn Thoại';
+
+  @override
+  String get videoCache => 'Cache Video';
+
+  @override
+  String get otherCache => 'Cache Khác';
+
+  @override
+  String get autoDownloadMedia => 'Tự động Tải Phương tiện';
+
+  @override
+  String get currentNetwork => 'Mạng Hiện tại';
+
+  @override
+  String get images => 'Hình ảnh';
+
+  @override
+  String get videos => 'Video';
+
+  @override
+  String get voiceMessagesShort => 'Tin nhắn Thoại';
+
+  @override
+  String get documentsLabel => 'Tài liệu';
+
+  @override
+  String get wifiOnly => 'Chỉ WiFi';
+
+  @override
+  String get never => 'Không bao giờ';
+
+  @override
+  String get clearAllCache => 'Xóa Toàn bộ Cache';
+
+  @override
+  String get allCache => 'Toàn bộ Cache';
+
+  @override
+  String get clearAllCacheConfirmation => 'Thao tác này sẽ xóa tất cả hình ảnh, tin nhắn thoại, video và các tệp khác đã lưu trong bộ nhớ đệm. Ứng dụng có thể tải nội dung chậm hơn tạm thời.';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return 'Xóa $category?';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '$size sẽ được giải phóng';
+  }
+
+  @override
+  String get calculating => 'Đang tính toán...';
+
+  @override
+  String get noDataToShow => 'Không có dữ liệu để hiển thị';
+
+  @override
+  String get profileCompletion => 'Hoàn thành hồ sơ';
+
+  @override
+  String get justGettingStarted => 'Mới bắt đầu';
+
+  @override
+  String get lookingGood => 'Nhìn tốt!';
+
+  @override
+  String get almostThere => 'Sắp xong rồi!';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return 'Thêm $field để hoàn thành hồ sơ';
+  }
+
+  @override
+  String get profilePicture => 'Ảnh hồ sơ';
+
+  @override
+  String get nativeSpeaker => 'Bản ngữ';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return '$count người quan tâm';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'Hãy là người đầu tiên thêm chủ đề này!';
+
+  @override
+  String get recentMoments => 'Khoảnh khắc gần đây';
+
+  @override
+  String get seeAll => 'Xem tất cả';
+
+  @override
+  String get study => 'Học tập';
+
+  @override
+  String get followerMoments => 'Khoảnh khắc từ người theo dõi';
+
+  @override
+  String get whenPeopleYouFollowPost => 'Khi những người bạn theo dõi đăng khoảnh khắc mới';
+
+  @override
+  String get noNotificationsYet => 'Chưa có thông báo nào';
+
+  @override
+  String get whenYouGetNotifications => 'Khi bạn nhận được thông báo, chúng sẽ hiển thị ở đây';
+
+  @override
+  String get failedToLoadNotifications => 'Không thể tải thông báo';
+
+  @override
+  String get clearAllNotificationsConfirm => 'Bạn có chắc muốn xóa tất cả thông báo? Hành động này không thể hoàn tác.';
+
+  @override
+  String get tapToChange => 'Nhấn để thay đổi';
+
+  @override
+  String get noPictureSet => 'Chưa đặt ảnh';
+
+  @override
+  String get nameAndGender => 'Tên và Giới tính';
+
+  @override
+  String get languageLevel => 'Trình độ Ngôn ngữ';
+
+  @override
+  String get personalInformation => 'Thông tin Cá nhân';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => 'Chủ đề Quan tâm';
+
+  @override
+  String get levelBeginner => 'Sơ cấp';
+
+  @override
+  String get levelElementary => 'Cơ bản';
+
+  @override
+  String get levelIntermediate => 'Trung cấp';
+
+  @override
+  String get levelUpperIntermediate => 'Trung cấp Cao';
+
+  @override
+  String get levelAdvanced => 'Nâng cao';
+
+  @override
+  String get levelProficient => 'Thành thạo';
+
+  @override
+  String get selectYourLevel => 'Chọn Trình độ';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return 'Bạn nói $language tốt đến đâu?';
+  }
+
+  @override
+  String get theLanguage => 'ngôn ngữ';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return 'Trình độ ngôn ngữ đặt là $level';
+  }
+
+  @override
+  String get failedToUpdate => 'Cập nhật thất bại';
+
+  @override
+  String get editHometown => 'Sửa Quê quán';
+
+  @override
+  String get useCurrentLocation => 'Dùng Vị trí Hiện tại';
+
+  @override
+  String get detecting => 'Đang phát hiện...';
+
+  @override
+  String get getCurrentLocation => 'Lấy Vị trí Hiện tại';
+
+  @override
+  String get country => 'Quốc gia';
+
+  @override
+  String get city => 'Thành phố';
+
+  @override
+  String get coordinates => 'Tọa độ';
+
+  @override
+  String get noLocationDetectedYet => 'Chưa phát hiện vị trí';
+
+  @override
+  String get detected => 'Đã phát hiện';
+
+  @override
+  String get savedHometown => 'Đã lưu quê quán';
+
+  @override
+  String get locationServicesDisabled => 'Dịch vụ vị trí bị tắt';
+
+  @override
+  String get locationPermissionPermanentlyDenied => 'Quyền vị trí bị từ chối';
+
+  @override
+  String get unknown => 'Không rõ';
+
+  @override
+  String get editBio => 'Sửa Tiểu sử';
+
+  @override
+  String get bioUpdatedSuccessfully => 'Cập nhật tiểu sử thành công';
+
+  @override
+  String get tellOthersAboutYourself => 'Giới thiệu về bạn...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500 ký tự';
+  }
+
+  @override
+  String get selectYourMbti => 'Chọn MBTI';
+
+  @override
+  String get myBloodType => 'Nhóm máu';
+
+  @override
+  String get pleaseSelectABloodType => 'Vui lòng chọn nhóm máu';
+
+  @override
+  String get nativeLanguageRequired => 'Ngôn ngữ Mẹ đẻ (Bắt buộc)';
+
+  @override
+  String get languageToLearnRequired => 'Ngôn ngữ Học (Bắt buộc)';
+
+  @override
+  String get nativeLanguageCannotBeSame => 'Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ học';
+
+  @override
+  String get learningLanguageCannotBeSame => 'Ngôn ngữ học không thể giống ngôn ngữ mẹ đẻ';
+
+  @override
+  String get pleaseSelectALanguage => 'Vui lòng chọn ngôn ngữ';
+
+  @override
+  String get editInterests => 'Sửa Sở thích';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return 'Tối đa $count chủ đề';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'Cập nhật chủ đề thành công!';
+
+  @override
+  String get failedToUpdateTopics => 'Cập nhật chủ đề thất bại';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count/$max đã chọn';
+  }
+
+  @override
+  String get profilePictures => 'Ảnh Hồ sơ';
+
+  @override
+  String get addImages => 'Thêm Ảnh';
+
+  @override
+  String get selectUpToImages => 'Chọn tối đa 5 ảnh';
+
+  @override
+  String get takeAPhoto => 'Chụp Ảnh';
+
+  @override
+  String get removeImage => 'Xóa Ảnh';
+
+  @override
+  String get removeImageConfirm => 'Xóa ảnh này?';
+
+  @override
+  String get removeAll => 'Xóa Tất cả';
+
+  @override
+  String get removeAllSelectedImages => 'Xóa Tất cả Ảnh đã Chọn';
+
+  @override
+  String get removeAllSelectedImagesConfirm => 'Xóa tất cả ảnh đã chọn?';
+
+  @override
+  String get yourProfilePictureWillBeKept => 'Ảnh hồ sơ hiện tại sẽ được giữ';
+
+  @override
+  String get removeAllImages => 'Xóa Tất cả Ảnh';
+
+  @override
+  String get removeAllImagesConfirm => 'Xóa tất cả ảnh hồ sơ?';
+
+  @override
+  String get currentImages => 'Ảnh Hiện tại';
+
+  @override
+  String get newImages => 'Ảnh Mới';
+
+  @override
+  String get addMoreImages => 'Thêm Ảnh Khác';
+
+  @override
+  String uploadImages(int count) {
+    return 'Tải lên $count Ảnh';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => 'Đã xóa ảnh';
+
+  @override
+  String get imagesUploadedSuccessfully => 'Tải ảnh thành công';
+
+  @override
+  String get selectedImagesCleared => 'Đã xóa ảnh đã chọn';
+
+  @override
+  String get extraImagesRemovedSuccessfully => 'Đã xóa ảnh thừa';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'Phải giữ ít nhất 1 ảnh hồ sơ';
+
+  @override
+  String get noProfilePicturesToRemove => 'Không có ảnh để xóa';
+
+  @override
+  String get authenticationTokenNotFound => 'Không tìm thấy token';
+
+  @override
+  String get saveChangesQuestion => 'Lưu Thay đổi?';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '$count ảnh chưa tải. Tải ngay?';
+  }
+
+  @override
+  String get discard => 'Hủy';
+
+  @override
+  String get upload => 'Tải lên';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return 'Tối đa $max ảnh. Hiện tại: $current/$max';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'Chỉ thêm được $count ảnh nữa. Tối đa $max.';
+  }
+
+  @override
+  String get maxImagesPerUpload => 'Tối đa 5 ảnh mỗi lần';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return 'Tối đa $max ảnh';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => 'Kích thước vượt quá 10MB';
+
+  @override
+  String get unsupportedImageFormat => 'Định dạng không hỗ trợ';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'Vui lòng chọn ít nhất 1 ảnh';
+
+  @override
+  String get basicInformation => 'Thông tin Cơ bản';
+
+  @override
+  String get languageToLearn => 'Ngôn ngữ Học';
+
+  @override
+  String get hometown => 'Quê quán';
+
+  @override
+  String get characters => 'ký tự';
+
+  @override
+  String get failedToLoadLanguages => 'Tải ngôn ngữ thất bại';
 }

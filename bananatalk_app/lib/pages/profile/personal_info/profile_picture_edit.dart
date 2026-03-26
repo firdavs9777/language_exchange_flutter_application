@@ -9,12 +9,12 @@ import 'dart:convert';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ProfilePictureEdit extends ConsumerStatefulWidget {
   final Community user;
@@ -30,7 +30,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   List<String> _existingImageUrls = [];
   bool _isUploading = false;
   bool _isRemoving = false;
-  static const int maxImages = 10; // Backend supports max 10
+  static const int maxImages = 10;
 
   @override
   void initState() {
@@ -44,29 +44,22 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   }
 
   Future<void> _pickImages() async {
+    final l10n = AppLocalizations.of(context)!;
     final picker = ImagePicker();
     final pickedFiles = await picker.pickMultiImage(imageQuality: 85);
 
     if (pickedFiles != null) {
       final totalImages =
-          _existingImageUrls.length +
-          _selectedImages.length +
-          pickedFiles.length;
+          _existingImageUrls.length + _selectedImages.length + pickedFiles.length;
       if (totalImages > maxImages) {
-        final remaining =
-            maxImages - (_existingImageUrls.length + _selectedImages.length);
-        _showErrorSnackBar(
-          'You can only add $remaining more image(s). Maximum is $maxImages images total.',
-        );
+        final remaining = maxImages - (_existingImageUrls.length + _selectedImages.length);
+        _showErrorSnackBar(l10n.canOnlyAddMoreImages(remaining, maxImages));
         return;
       }
 
-      // Limit to 5 images per upload batch (backend limit)
       final imagesToAdd = pickedFiles.take(5).toList();
       if (pickedFiles.length > 5) {
-        _showErrorSnackBar(
-          'You can upload maximum 5 images at once. Only first 5 will be added.',
-        );
+        _showErrorSnackBar(l10n.maxImagesPerUpload);
       }
 
       setState(() {
@@ -76,6 +69,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   }
 
   Future<void> _takePhoto() async {
+    final l10n = AppLocalizations.of(context)!;
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: ImageSource.camera,
@@ -83,10 +77,9 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
     );
 
     if (pickedFile != null) {
-      final totalImages =
-          _existingImageUrls.length + _selectedImages.length + 1;
+      final totalImages = _existingImageUrls.length + _selectedImages.length + 1;
       if (totalImages > maxImages) {
-        _showErrorSnackBar('You can only have up to $maxImages images');
+        _showErrorSnackBar(l10n.canOnlyHaveMaxImages(maxImages));
         return;
       }
 
@@ -103,30 +96,28 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
   }
 
   Future<void> _removeExistingImage(int index) async {
-    // Prevent deletion if this is the last existing image
+    final l10n = AppLocalizations.of(context)!;
+
     if (_existingImageUrls.length == 1) {
-      _showErrorSnackBar('You must keep at least one profile picture');
+      _showErrorSnackBar(l10n.mustKeepAtLeastOneProfilePicture);
       return;
     }
 
-    // Show confirmation dialog first
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Remove Image'),
-          content: const Text('Are you sure you want to remove this image?'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+          title: Text(l10n.removeImage),
+          content: Text(l10n.removeImageConfirm),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+              child: Text(l10n.cancel, style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+              child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -136,9 +127,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
     if (confirmed != true) return;
 
     try {
-      setState(() {
-        _isRemoving = true;
-      });
+      setState(() => _isRemoving = true);
 
       showDialog(
         context: context,
@@ -155,15 +144,12 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       final token = await _getToken();
       if (token == null) {
         Navigator.pop(context);
-        _showErrorSnackBar('Authentication token not found');
-        setState(() {
-          _isRemoving = false;
-        });
+        _showErrorSnackBar(l10n.authenticationTokenNotFound);
+        setState(() => _isRemoving = false);
         return;
       }
 
       final userId = widget.user.id;
-
       final response = await http.delete(
         Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$index'),
         headers: {'Authorization': 'Bearer $token'},
@@ -173,7 +159,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-
         setState(() {
           if (data['images'] != null) {
             _existingImageUrls = List<String>.from(data['images']);
@@ -181,38 +166,31 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
             _existingImageUrls.removeAt(index);
           }
         });
-
-        // Refresh user data
         ref.refresh(userProvider);
-
-        _showSuccessSnackBar(data['message'] ?? 'Image removed successfully');
+        _showSuccessSnackBar(data['message'] ?? l10n.imageRemovedSuccessfully);
       } else {
         final errorData = json.decode(response.body);
-        _showErrorSnackBar(errorData['error'] ?? 'Failed to remove image');
+        _showErrorSnackBar(errorData['error'] ?? l10n.failedToUpdate);
       }
 
-      setState(() {
-        _isRemoving = false;
-      });
+      setState(() => _isRemoving = false);
     } catch (e) {
       Navigator.pop(context);
-      _showErrorSnackBar('Failed to remove image');
-      setState(() {
-        _isRemoving = false;
-      });
+      _showErrorSnackBar(l10n.failedToUpdate);
+      setState(() => _isRemoving = false);
     }
   }
 
   Future<void> _uploadProfilePictures() async {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_selectedImages.isEmpty) {
-      _showErrorSnackBar('Please select at least one image to upload');
+      _showErrorSnackBar(l10n.pleaseSelectAtLeastOneImage);
       return;
     }
 
     try {
-      setState(() {
-        _isUploading = true;
-      });
+      setState(() => _isUploading = true);
 
       showDialog(
         context: context,
@@ -229,34 +207,24 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       final token = await _getToken();
       if (token == null) {
         Navigator.pop(context);
-        _showErrorSnackBar('Authentication token not found');
-        setState(() {
-          _isUploading = false;
-        });
+        _showErrorSnackBar(l10n.authenticationTokenNotFound);
+        setState(() => _isUploading = false);
         return;
       }
 
       final userId = widget.user.id;
-
-      // Use the multiple photos endpoint
       final request = http.MultipartRequest(
         'POST',
         Uri.parse('${Endpoints.baseURL}auth/users/$userId/photos'),
       );
-
       request.headers['Authorization'] = 'Bearer $token';
 
-      // Validate and add all image files
       for (var imageFile in _selectedImages) {
         final fileSize = await imageFile.length();
         if (fileSize > 10 * 1024 * 1024) {
           Navigator.pop(context);
-          _showErrorSnackBar(
-            'Image size exceeds 10MB limit: ${imageFile.path.split('/').last}',
-          );
-          setState(() {
-            _isUploading = false;
-          });
+          _showErrorSnackBar(l10n.imageSizeExceedsLimit);
+          setState(() => _isUploading = false);
           return;
         }
 
@@ -278,17 +246,14 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
             break;
           default:
             Navigator.pop(context);
-            _showErrorSnackBar('Unsupported image format: $extension');
-            setState(() {
-              _isUploading = false;
-            });
+            _showErrorSnackBar('${l10n.unsupportedImageFormat}: $extension');
+            setState(() => _isUploading = false);
             return;
         }
 
-        // IMPORTANT: Use 'photos' field name (not 'photo') for multiple upload
         request.files.add(
           await http.MultipartFile.fromPath(
-            'photos', // Changed from 'photo' to 'photos'
+            'photos',
             imageFile.path,
             contentType: MediaType.parse(mimeType),
           ),
@@ -311,158 +276,69 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         });
 
         ref.refresh(userProvider);
-
-        _showSuccessSnackBar(data['message'] ?? 'Images uploaded successfully');
+        _showSuccessSnackBar(data['message'] ?? l10n.imagesUploadedSuccessfully);
 
         Future.delayed(const Duration(milliseconds: 500), () {
-          if (mounted) {
-            Navigator.pop(context);
-          }
+          if (mounted) Navigator.pop(context);
         });
       } else {
         final errorData = json.decode(response.body);
-        _showErrorSnackBar(errorData['error'] ?? 'Failed to upload images');
+        _showErrorSnackBar(errorData['error'] ?? l10n.failedToUpdate);
       }
 
-      setState(() {
-        _isUploading = false;
-      });
+      setState(() => _isUploading = false);
     } catch (e) {
       Navigator.pop(context);
-      _showErrorSnackBar('Failed to upload images');
-      setState(() {
-        _isUploading = false;
-      });
+      _showErrorSnackBar(l10n.failedToUpdate);
+      setState(() => _isUploading = false);
     }
   }
 
   Future<void> _removeAllProfilePictures() async {
-    // If only selected images (not uploaded yet), just clear them (this is OK)
+    final l10n = AppLocalizations.of(context)!;
+
     if (_existingImageUrls.isEmpty && _selectedImages.isNotEmpty) {
-      // Show confirmation dialog for selected images
-      final confirmed = await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Remove All Selected Images'),
-            content: const Text(
-              'Are you sure you want to remove all selected images?',
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  'Remove All',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
-          );
-        },
+      final confirmed = await _showRemoveConfirmDialog(
+        l10n.removeAllSelectedImages,
+        l10n.removeAllSelectedImagesConfirm,
       );
-
       if (confirmed != true) return;
 
-      setState(() {
-        _selectedImages.clear();
-      });
-      _showSuccessSnackBar('Selected images cleared');
+      setState(() => _selectedImages.clear());
+      _showSuccessSnackBar(l10n.selectedImagesCleared);
       return;
     }
 
-    // If there's only one existing image, only allow removing selected images
     if (_existingImageUrls.length == 1 && _selectedImages.isNotEmpty) {
-      // Show confirmation dialog for selected images only
-      final confirmed = await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Remove All Selected Images'),
-            content: const Text(
-              'Are you sure you want to remove all selected images? (Your existing profile picture will be kept)',
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  'Remove All',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
-          );
-        },
+      final confirmed = await _showRemoveConfirmDialog(
+        l10n.removeAllSelectedImages,
+        '${l10n.removeAllSelectedImagesConfirm} (${l10n.yourProfilePictureWillBeKept})',
       );
-
       if (confirmed != true) return;
 
-      setState(() {
-        _selectedImages.clear();
-      });
-      _showSuccessSnackBar('Selected images cleared');
+      setState(() => _selectedImages.clear());
+      _showSuccessSnackBar(l10n.selectedImagesCleared);
       return;
     }
 
-    // Prevent removing all if there's only one existing image and no selected images
     if (_existingImageUrls.length == 1 && _selectedImages.isEmpty) {
-      _showErrorSnackBar('You must keep at least one profile picture');
+      _showErrorSnackBar(l10n.mustKeepAtLeastOneProfilePicture);
       return;
     }
 
-    // Show confirmation dialog first
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Remove All Images'),
-          content: const Text(
-            'Are you sure you want to remove all profile pictures?',
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text(
-                'Remove All',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
-        );
-      },
+    final confirmed = await _showRemoveConfirmDialog(
+      l10n.removeAllImages,
+      l10n.removeAllImagesConfirm,
     );
-
     if (confirmed != true) return;
 
     try {
       if (_existingImageUrls.isEmpty && _selectedImages.isEmpty) {
-        _showErrorSnackBar('No profile pictures to remove');
+        _showErrorSnackBar(l10n.noProfilePicturesToRemove);
         return;
       }
 
-      setState(() {
-        _isRemoving = true;
-      });
+      setState(() => _isRemoving = true);
 
       showDialog(
         context: context,
@@ -479,17 +355,13 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       final token = await _getToken();
       if (token == null) {
         Navigator.pop(context);
-        _showErrorSnackBar('Authentication token not found');
-        setState(() {
-          _isRemoving = false;
-        });
+        _showErrorSnackBar(l10n.authenticationTokenNotFound);
+        setState(() => _isRemoving = false);
         return;
       }
 
       final userId = widget.user.id;
 
-      // Remove all images one by one (backend doesn't have bulk delete)
-      // Keep the first image (index 0) - remove from the end
       for (int i = _existingImageUrls.length - 1; i >= 1; i--) {
         await http.delete(
           Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$i'),
@@ -499,7 +371,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
 
       Navigator.pop(context);
 
-      // Get updated images list from backend
       final getUserResponse = await http.get(
         Uri.parse('${Endpoints.baseURL}auth/users/$userId'),
         headers: {'Authorization': 'Bearer $token'},
@@ -511,13 +382,11 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
           if (userData['images'] != null) {
             _existingImageUrls = List<String>.from(userData['images']);
           } else {
-            // Fallback: keep only the first image
             _existingImageUrls = _existingImageUrls.take(1).toList();
           }
           _selectedImages.clear();
         });
       } else {
-        // Fallback: keep only the first image
         setState(() {
           _existingImageUrls = _existingImageUrls.take(1).toList();
           _selectedImages.clear();
@@ -525,55 +394,63 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       }
 
       ref.refresh(userProvider);
-
-      _showSuccessSnackBar('Extra images removed successfully');
+      _showSuccessSnackBar(l10n.extraImagesRemovedSuccessfully);
 
       Future.delayed(const Duration(milliseconds: 500), () {
-        if (mounted) {
-          Navigator.pop(context);
-        }
+        if (mounted) Navigator.pop(context);
       });
 
-      setState(() {
-        _isRemoving = false;
-      });
+      setState(() => _isRemoving = false);
     } catch (e) {
       Navigator.pop(context);
-      _showErrorSnackBar('Failed to remove images');
-      setState(() {
-        _isRemoving = false;
-      });
+      _showErrorSnackBar(l10n.failedToUpdate);
+      setState(() => _isRemoving = false);
     }
   }
 
+  Future<bool?> _showRemoveConfirmDialog(String title, String content) {
+    final l10n = AppLocalizations.of(context)!;
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(l10n.cancel, style: TextStyle(color: context.textSecondary)),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(l10n.removeAll, style: const TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _handleDone() async {
-    // If there are selected images that haven't been uploaded, ask user
+    final l10n = AppLocalizations.of(context)!;
+
     if (_selectedImages.isNotEmpty) {
       final shouldSave = await showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Save Changes?'),
-            content: Text(
-              'You have ${_selectedImages.length} image${_selectedImages.length > 1 ? 's' : ''} selected but not uploaded. Do you want to upload them now?',
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
+            title: Text(l10n.saveChangesQuestion),
+            content: Text(l10n.youHaveUnuploadedImages(_selectedImages.length)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text(
-                  'Discard',
-                  style: TextStyle(color: Colors.grey),
-                ),
+                child: Text(l10n.discard, style: TextStyle(color: context.textSecondary)),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text(
-                  'Upload',
-                  style: TextStyle(color: Color(0xFF00BFA5)),
-                ),
+                child: Text(l10n.upload, style: const TextStyle(color: Color(0xFF00BFA5))),
               ),
             ],
           );
@@ -581,28 +458,23 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       );
 
       if (shouldSave == true) {
-        // Upload the images
         await _uploadProfilePictures();
-        // Don't navigate back here - let _uploadProfilePictures handle navigation
         return;
       } else {
-        // User chose to discard, just navigate back
-        if (mounted) {
-          Navigator.pop(context);
-        }
+        if (mounted) Navigator.pop(context);
         return;
       }
     }
 
-    // No pending changes, just navigate back
-    if (mounted) {
-      Navigator.pop(context);
-    }
+    if (mounted) Navigator.pop(context);
   }
 
   void _showImageSourceDialog() {
+    final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
+      backgroundColor: context.surfaceColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -611,33 +483,30 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 16),
-              const Text(
-                'Add Images',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              Spacing.gapLG,
+              Text(
+                l10n.addImages,
+                style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
+              Spacing.gapSM,
               ListTile(
-                leading: const Icon(
-                  Icons.photo_library,
-                  color: Color(0xFF00BFA5),
-                ),
-                title: const Text('Choose from Gallery'),
-                subtitle: const Text('Select up to 5 images'),
+                leading: Icon(Icons.photo_library, color: AppColors.primary),
+                title: Text(l10n.chooseFromGallery),
+                subtitle: Text(l10n.selectUpToImages),
                 onTap: () {
                   Navigator.pop(context);
                   _pickImages();
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.camera_alt, color: Color(0xFF00BFA5)),
-                title: const Text('Take a Photo'),
+                leading: Icon(Icons.camera_alt, color: AppColors.primary),
+                title: Text(l10n.takeAPhoto),
                 onTap: () {
                   Navigator.pop(context);
                   _takePhoto();
                 },
               ),
-              const SizedBox(height: 8),
+              Spacing.gapSM,
             ],
           ),
         );
@@ -655,7 +524,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
             Expanded(child: Text(message)),
           ],
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.success,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
@@ -672,7 +541,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
             Expanded(child: Text(message)),
           ],
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: AppColors.error,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
@@ -681,16 +550,14 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final allImages = _existingImageUrls.length + _selectedImages.length;
     final canAddMore = allImages < maxImages;
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text(
-          'Profile Pictures',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
+        title: Text(l10n.profilePictures, style: context.titleLarge),
         elevation: 0,
         backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
@@ -701,60 +568,51 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
         actions: [
           TextButton(
             onPressed: _isUploading || _isRemoving ? null : () => _handleDone(),
-            child: const Text(
-              'Done',
+            child: Text(
+              l10n.done,
               style: TextStyle(
-                color: Color(0xFF00BFA5),
+                color: AppColors.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          Spacing.hGapSM,
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: Spacing.screenPaddingLarge,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Info text
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: Spacing.paddingMD,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00BFA5).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  borderRadius: AppRadius.borderSM,
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.info_outline,
-                      color: Color(0xFF00BFA5),
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
+                    Icon(Icons.info_outline, color: AppColors.primary, size: 20),
+                    Spacing.hGapSM,
                     Expanded(
                       child: Text(
-                        'You can upload up to $maxImages images. Currently: $allImages/$maxImages\nMax 5 images per upload.',
-                        style: TextStyle(fontSize: 12, color: context.textSecondary),
+                        l10n.maxImagesInfo(maxImages, allImages),
+                        style: context.caption.copyWith(color: context.textSecondary),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
-              // Existing Images Grid
+              Spacing.gapXL,
+
               if (_existingImageUrls.isNotEmpty) ...[
                 Text(
-                  'Current Images',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: context.textPrimary,
-                  ),
+                  l10n.currentImages,
+                  style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 12),
+                Spacing.gapMD,
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -770,20 +628,16 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                       fit: StackFit.expand,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: AppRadius.borderMD,
                           child: CachedImageWidget(
                             imageUrl: _existingImageUrls[index],
                             fit: BoxFit.cover,
                             errorWidget: Container(
                               color: context.containerColor,
-                              child: Icon(
-                                Icons.broken_image,
-                                color: context.iconColor,
-                              ),
+                              child: Icon(Icons.broken_image, color: context.iconColor),
                             ),
                           ),
                         ),
-                        // Only show delete button if there's more than one image
                         if (_existingImageUrls.length > 1)
                           Positioned(
                             top: 4,
@@ -799,11 +653,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                                   color: Colors.red,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(
-                                  Icons.close,
-                                  size: 16,
-                                  color: Colors.white,
-                                ),
+                                child: const Icon(Icons.close, size: 16, color: Colors.white),
                               ),
                             ),
                           ),
@@ -812,17 +662,14 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                             bottom: 4,
                             left: 4,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF00BFA5),
+                                color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text(
-                                'Profile',
-                                style: TextStyle(
+                              child: Text(
+                                l10n.profile,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -834,19 +681,15 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                     );
                   },
                 ),
-                const SizedBox(height: 24),
+                Spacing.gapXL,
               ],
-              // New Selected Images Grid
+
               if (_selectedImages.isNotEmpty) ...[
                 Text(
-                  'New Images',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: context.textPrimary,
-                  ),
+                  l10n.newImages,
+                  style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 12),
+                Spacing.gapMD,
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -862,11 +705,8 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                       fit: StackFit.expand,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(
-                            _selectedImages[index],
-                            fit: BoxFit.cover,
-                          ),
+                          borderRadius: AppRadius.borderMD,
+                          child: Image.file(_selectedImages[index], fit: BoxFit.cover),
                         ),
                         Positioned(
                           top: 4,
@@ -879,11 +719,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                                 color: Colors.red,
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
-                                Icons.close,
-                                size: 16,
-                                color: Colors.white,
-                              ),
+                              child: const Icon(Icons.close, size: 16, color: Colors.white),
                             ),
                           ),
                         ),
@@ -891,50 +727,39 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                     );
                   },
                 ),
-                const SizedBox(height: 24),
+                Spacing.gapXL,
               ],
-              // Add Image Button
+
               if (canAddMore)
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: _isUploading || _isRemoving
-                        ? null
-                        : () => _showImageSourceDialog(),
+                    onPressed: _isUploading || _isRemoving ? null : () => _showImageSourceDialog(),
                     icon: const Icon(Icons.add_photo_alternate),
                     label: Text(
-                      'Add ${allImages > 0 ? 'More ' : ''}Images',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      allImages > 0 ? l10n.addMoreImages : l10n.addImages,
+                      style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
                     ),
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: const Color(0xFF00BFA5),
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      side: const BorderSide(color: Color(0xFF00BFA5)),
+                      foregroundColor: AppColors.primary,
+                      padding: Spacing.paddingLG,
+                      shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
+                      side: BorderSide(color: AppColors.primary),
                     ),
                   ),
                 ),
-              // Upload Button
+
               if (_selectedImages.isNotEmpty) ...[
-                const SizedBox(height: 12),
+                Spacing.gapMD,
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _isUploading || _isRemoving
-                        ? null
-                        : () => _uploadProfilePictures(),
+                    onPressed: _isUploading || _isRemoving ? null : () => _uploadProfilePictures(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00BFA5),
+                      backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      padding: Spacing.paddingLG,
+                      shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
                       elevation: 2,
                     ),
                     child: _isUploading
@@ -943,56 +768,45 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.white,
-                              ),
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
                           )
                         : Text(
-                            'Upload ${_selectedImages.length} Image${_selectedImages.length > 1 ? 's' : ''}',
-                            style: const TextStyle(
-                              fontSize: 16,
+                            l10n.uploadImages(_selectedImages.length),
+                            style: context.titleSmall.copyWith(
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                   ),
                 ),
               ],
-              // Remove All Button - only show if there's more than 1 existing image or selected images
+
               if ((_existingImageUrls.length > 1 || _selectedImages.isNotEmpty) &&
                   !(_existingImageUrls.length == 1 && _selectedImages.isEmpty)) ...[
-                const SizedBox(height: 12),
+                Spacing.gapMD,
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: _isUploading || _isRemoving
-                        ? null
-                        : () => _removeAllProfilePictures(),
+                    onPressed: _isUploading || _isRemoving ? null : () => _removeAllProfilePictures(),
                     icon: _isRemoving
                         ? const SizedBox(
                             height: 16,
                             width: 16,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.red,
-                              ),
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                             ),
                           )
                         : const Icon(Icons.delete_outline),
-                    label: const Text(
-                      'Remove All',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    label: Text(
+                      l10n.removeAll,
+                      style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
                     ),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      padding: Spacing.paddingLG,
+                      shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
                       side: const BorderSide(color: Colors.red),
                     ),
                   ),

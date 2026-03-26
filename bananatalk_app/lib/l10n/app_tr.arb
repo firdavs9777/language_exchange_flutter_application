@@ -10,6 +10,7 @@
   "password": "Şifre",
   "forgotPassword": "Şifremi Unuttum?",
   "or": "VEYA",
+  "more": "daha fazla",
   "signInWithGoogle": "Google ile giriş yap",
   "signInWithApple": "Apple ile giriş yap",
   "signInWithFacebook": "Facebook ile giriş yap",
@@ -118,6 +119,13 @@
   "changeAppLanguage": "Uygulama dilini değiştir",
   "appearance": "Görünüm",
   "themeAndDisplaySettings": "Tema ve görüntüleme ayarları",
+  "clearCache": "Önbelleği Temizle",
+  "clearCacheSubtitle": "Depolama alanı aç",
+  "clearCacheDescription": "Bu, önbelleğe alınmış tüm görüntüleri, videoları ve ses dosyalarını temizleyecektir. Uygulama, medyayı yeniden indirirken içeriği geçici olarak daha yavaş yükleyebilir.",
+  "clearCacheHint": "Görüntüler veya ses düzgün yüklenmiyorsa bunu kullanın.",
+  "clearingCache": "Önbellek temizleniyor...",
+  "cacheCleared": "Önbellek başarıyla temizlendi! Görüntüler yeniden yüklenecek.",
+  "clearCacheFailed": "Önbellek temizlenemedi",
   "myReports": "Bildirilerim",
   "viewYourSubmittedReports": "Gönderdiğiniz bildirimleri görüntüleyin",
   "reportsManagement": "Bildirim Yönetimi",
@@ -1222,5 +1230,161 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Veri ve Depolama",
+  "manageStorageAndDownloads": "Depolama ve indirmeleri yönet",
+  "storageUsage": "Depolama Kullanımı",
+  "totalCacheSize": "Toplam Önbellek Boyutu",
+  "imageCache": "Resim Önbelleği",
+  "voiceMessagesCache": "Sesli Mesajlar",
+  "videoCache": "Video Önbelleği",
+  "otherCache": "Diğer Önbellek",
+  "autoDownloadMedia": "Medya Otomatik İndir",
+  "currentNetwork": "Mevcut Ağ",
+  "images": "Resimler",
+  "videos": "Videolar",
+  "voiceMessagesShort": "Sesli Mesajlar",
+  "documentsLabel": "Belgeler",
+  "wifiOnly": "Yalnızca WiFi",
+  "never": "Asla",
+  "clearAllCache": "Tüm Önbelleği Temizle",
+  "allCache": "Tüm Önbellek",
+  "clearAllCacheConfirmation": "Bu, önbelleğe alınmış tüm resimleri, sesli mesajları, videoları ve diğer dosyaları silecektir. Uygulama geçici olarak içeriği daha yavaş yükleyebilir.",
+  "clearCacheConfirmationFor": "{category} temizlensin mi?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} boşaltılacak",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Hesaplanıyor...",
+  "noDataToShow": "Gösterilecek veri yok",
+
+  "profileCompletion": "Profil Tamamlama",
+  "justGettingStarted": "Yeni başlıyor",
+  "lookingGood": "İyi görünüyor!",
+  "almostThere": "Neredeyse bitti!",
+  "addMissingFields": "Profilinizi tamamlamak için {field} ekleyin",
+  "profilePicture": "Profil Fotoğrafı",
+  "nativeSpeaker": "Ana Dil",
+  "peopleInterestedInTopic": "{count} kişi ilgileniyor",
+  "beFirstToAddTopic": "Bu konuyu ekleyen ilk kişi olun!",
+  "recentMoments": "Son Anlar",
+  "seeAll": "Tümünü Gör",
+  "study": "Çalışma",
+  "followerMoments": "Takip Edilen Anlar",
+  "whenPeopleYouFollowPost": "Takip ettiğiniz kişiler yeni anlar paylaştığında",
+  "noNotificationsYet": "Henüz bildirim yok",
+  "whenYouGetNotifications": "Bildirim aldığınızda burada görünecekler",
+  "failedToLoadNotifications": "Bildirimler yüklenemedi",
+  "clearAllNotificationsConfirm": "Tüm bildirimleri silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+
+  "tapToChange": "Değiştirmek için dokun",
+  "noPictureSet": "Fotoğraf ayarlanmadı",
+  "nameAndGender": "İsim ve Cinsiyet",
+  "languageLevel": "Dil Seviyesi",
+  "personalInformation": "Kişisel Bilgiler",
+  "mbti": "MBTI",
+  "topicsOfInterest": "İlgi Alanları",
+  "levelBeginner": "Başlangıç",
+  "levelElementary": "Temel",
+  "levelIntermediate": "Orta",
+  "levelUpperIntermediate": "Orta Üstü",
+  "levelAdvanced": "İleri",
+  "levelProficient": "Uzman",
+  "selectYourLevel": "Seviyenizi seçin",
+  "howWellDoYouSpeak": "{language} ne kadar iyi konuşuyorsunuz?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "dil",
+  "languageLevelSetTo": "Dil seviyesi {level} olarak ayarlandı",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Güncelleme başarısız",
+  "editHometown": "Memleketi Düzenle",
+  "useCurrentLocation": "Mevcut Konumu Kullan",
+  "detecting": "Algılanıyor...",
+  "getCurrentLocation": "Mevcut Konumu Al",
+  "country": "Ülke",
+  "city": "Şehir",
+  "coordinates": "Koordinatlar",
+  "noLocationDetectedYet": "Henüz konum algılanmadı",
+  "detected": "Algılandı",
+  "savedHometown": "Memleket kaydedildi",
+  "locationServicesDisabled": "Konum servisleri devre dışı",
+  "locationPermissionPermanentlyDenied": "Konum izni kalıcı olarak reddedildi",
+  "unknown": "Bilinmiyor",
+  "editBio": "Biyografiyi Düzenle",
+  "bioUpdatedSuccessfully": "Biyografi güncellendi!",
+  "tellOthersAboutYourself": "Kendiniz hakkında bir şeyler yazın",
+  "charactersCount": "{current}/{max} karakter",
+  "@charactersCount": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "MBTI'nizi seçin",
+  "myBloodType": "Kan Grubum",
+  "pleaseSelectABloodType": "Lütfen bir kan grubu seçin",
+  "nativeLanguageRequired": "Ana dil gerekli",
+  "languageToLearnRequired": "Öğrenilecek dil gerekli",
+  "nativeLanguageCannotBeSame": "Ana dil öğrenilen dille aynı olamaz",
+  "learningLanguageCannotBeSame": "Öğrenilen dil ana dille aynı olamaz",
+  "pleaseSelectALanguage": "Lütfen bir dil seçin",
+  "editInterests": "İlgi Alanlarını Düzenle",
+  "maxTopicsAllowed": "Maksimum {count} konu izin verilir",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Konular güncellendi!",
+  "failedToUpdateTopics": "Konular güncellenemedi",
+  "selectedCount": "{count} seçildi",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "profilePictures": "Profil Fotoğrafları",
+  "addImages": "Fotoğraf Ekle",
+  "selectUpToImages": "{count} fotoğrafa kadar seçin",
+  "@selectUpToImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "takeAPhoto": "Fotoğraf Çek",
+  "removeImage": "Fotoğrafı Kaldır",
+  "removeImageConfirm": "Bu fotoğrafı kaldırmak istediğinizden emin misiniz?",
+  "uploadImages": "{count} fotoğraf yükle",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageUploadedSuccessfully": "Fotoğraf yüklendi",
+  "failedToUploadImage": "Fotoğraf yüklenemedi",
+  "failedToRemoveImage": "Fotoğraf kaldırılamadı",
+  "imageRemovedSuccessfully": "Fotoğraf kaldırıldı",
+  "processingImage": "Fotoğraf işleniyor...",
+  "noImagesSelected": "Fotoğraf seçilmedi",
+  "maxImagesReached": "Maksimum fotoğrafa ulaşıldı (6)",
+  "selectFromGallery": "Galeriden Seç",
+  "uploadingImages": "Fotoğraflar yükleniyor...",
+  "imagesUploadedSuccessfully": "Fotoğraflar yüklendi",
+  "failedToUploadImages": "Fotoğraflar yüklenemedi"
 }

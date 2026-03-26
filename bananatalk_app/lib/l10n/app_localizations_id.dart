@@ -30,6 +30,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get or => 'ATAU';
 
   @override
+  String get more => 'lagi';
+
+  @override
   String get signInWithGoogle => 'Masuk dengan Google';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'Pengaturan tema dan tampilan';
+
+  @override
+  String get clearCache => 'Hapus Cache';
+
+  @override
+  String get clearCacheSubtitle => 'Bebaskan ruang penyimpanan';
+
+  @override
+  String get clearCacheDescription => 'Ini akan menghapus semua gambar, video, dan file audio yang tersimpan dalam cache. Aplikasi mungkin memuat konten lebih lambat sementara saat mengunduh ulang media.';
+
+  @override
+  String get clearCacheHint => 'Gunakan ini jika gambar atau audio tidak dimuat dengan benar.';
+
+  @override
+  String get clearingCache => 'Menghapus cache...';
+
+  @override
+  String get cacheCleared => 'Cache berhasil dihapus! Gambar akan dimuat ulang.';
+
+  @override
+  String get clearCacheFailed => 'Gagal menghapus cache';
 
   @override
   String get myReports => 'Laporan Saya';
@@ -1899,7 +1923,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Pratinjau';
@@ -3066,4 +3090,416 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'Data dan Penyimpanan';
+
+  @override
+  String get manageStorageAndDownloads => 'Kelola penyimpanan dan unduhan';
+
+  @override
+  String get storageUsage => 'Penggunaan Penyimpanan';
+
+  @override
+  String get totalCacheSize => 'Ukuran Cache Total';
+
+  @override
+  String get imageCache => 'Cache Gambar';
+
+  @override
+  String get voiceMessagesCache => 'Pesan Suara';
+
+  @override
+  String get videoCache => 'Cache Video';
+
+  @override
+  String get otherCache => 'Cache Lainnya';
+
+  @override
+  String get autoDownloadMedia => 'Unduh Media Otomatis';
+
+  @override
+  String get currentNetwork => 'Jaringan Saat Ini';
+
+  @override
+  String get images => 'Gambar';
+
+  @override
+  String get videos => 'Video';
+
+  @override
+  String get voiceMessagesShort => 'Pesan Suara';
+
+  @override
+  String get documentsLabel => 'Dokumen';
+
+  @override
+  String get wifiOnly => 'Hanya WiFi';
+
+  @override
+  String get never => 'Tidak Pernah';
+
+  @override
+  String get clearAllCache => 'Hapus Semua Cache';
+
+  @override
+  String get allCache => 'Semua Cache';
+
+  @override
+  String get clearAllCacheConfirmation => 'Ini akan menghapus semua gambar, pesan suara, video, dan file lain yang di-cache. Aplikasi mungkin memuat konten lebih lambat untuk sementara.';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return 'Hapus $category?';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '$size akan dibebaskan';
+  }
+
+  @override
+  String get calculating => 'Menghitung...';
+
+  @override
+  String get noDataToShow => 'Tidak ada data untuk ditampilkan';
+
+  @override
+  String get profileCompletion => 'Kelengkapan Profil';
+
+  @override
+  String get justGettingStarted => 'Baru mulai';
+
+  @override
+  String get lookingGood => 'Terlihat bagus!';
+
+  @override
+  String get almostThere => 'Hampir selesai!';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return 'Tambahkan $field untuk melengkapi profil';
+  }
+
+  @override
+  String get profilePicture => 'Foto Profil';
+
+  @override
+  String get nativeSpeaker => 'Penutur Asli';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return '$count orang tertarik';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'Jadilah yang pertama menambahkan topik ini!';
+
+  @override
+  String get recentMoments => 'Momen Terbaru';
+
+  @override
+  String get seeAll => 'Lihat Semua';
+
+  @override
+  String get study => 'Belajar';
+
+  @override
+  String get followerMoments => 'Momen Pengikut';
+
+  @override
+  String get whenPeopleYouFollowPost => 'Ketika orang yang Anda ikuti memposting momen baru';
+
+  @override
+  String get noNotificationsYet => 'Belum ada notifikasi';
+
+  @override
+  String get whenYouGetNotifications => 'Saat Anda menerima notifikasi, mereka akan muncul di sini';
+
+  @override
+  String get failedToLoadNotifications => 'Gagal memuat notifikasi';
+
+  @override
+  String get clearAllNotificationsConfirm => 'Apakah Anda yakin ingin menghapus semua notifikasi? Tindakan ini tidak dapat dibatalkan.';
+
+  @override
+  String get tapToChange => 'Ketuk untuk mengubah';
+
+  @override
+  String get noPictureSet => 'Tidak ada foto';
+
+  @override
+  String get nameAndGender => 'Nama dan Gender';
+
+  @override
+  String get languageLevel => 'Tingkat Bahasa';
+
+  @override
+  String get personalInformation => 'Informasi Pribadi';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => 'Topik Minat';
+
+  @override
+  String get levelBeginner => 'Pemula';
+
+  @override
+  String get levelElementary => 'Dasar';
+
+  @override
+  String get levelIntermediate => 'Menengah';
+
+  @override
+  String get levelUpperIntermediate => 'Menengah Atas';
+
+  @override
+  String get levelAdvanced => 'Mahir';
+
+  @override
+  String get levelProficient => 'Fasih';
+
+  @override
+  String get selectYourLevel => 'Pilih Tingkat Anda';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return 'Seberapa baik Anda berbicara $language?';
+  }
+
+  @override
+  String get theLanguage => 'bahasa';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return 'Tingkat bahasa diatur ke $level';
+  }
+
+  @override
+  String get failedToUpdate => 'Gagal memperbarui';
+
+  @override
+  String get editHometown => 'Edit Kampung Halaman';
+
+  @override
+  String get useCurrentLocation => 'Gunakan Lokasi Saat Ini';
+
+  @override
+  String get detecting => 'Mendeteksi...';
+
+  @override
+  String get getCurrentLocation => 'Dapatkan Lokasi Saat Ini';
+
+  @override
+  String get country => 'Negara';
+
+  @override
+  String get city => 'Kota';
+
+  @override
+  String get coordinates => 'Koordinat';
+
+  @override
+  String get noLocationDetectedYet => 'Belum ada lokasi terdeteksi';
+
+  @override
+  String get detected => 'Terdeteksi';
+
+  @override
+  String get savedHometown => 'Kampung halaman disimpan';
+
+  @override
+  String get locationServicesDisabled => 'Layanan lokasi dinonaktifkan';
+
+  @override
+  String get locationPermissionPermanentlyDenied => 'Izin lokasi ditolak permanen';
+
+  @override
+  String get unknown => 'Tidak diketahui';
+
+  @override
+  String get editBio => 'Edit Bio';
+
+  @override
+  String get bioUpdatedSuccessfully => 'Bio berhasil diperbarui';
+
+  @override
+  String get tellOthersAboutYourself => 'Ceritakan tentang diri Anda...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500 karakter';
+  }
+
+  @override
+  String get selectYourMbti => 'Pilih MBTI Anda';
+
+  @override
+  String get myBloodType => 'Golongan Darah Saya';
+
+  @override
+  String get pleaseSelectABloodType => 'Pilih golongan darah';
+
+  @override
+  String get nativeLanguageRequired => 'Bahasa Ibu (Wajib)';
+
+  @override
+  String get languageToLearnRequired => 'Bahasa Dipelajari (Wajib)';
+
+  @override
+  String get nativeLanguageCannotBeSame => 'Bahasa ibu tidak boleh sama dengan bahasa yang dipelajari';
+
+  @override
+  String get learningLanguageCannotBeSame => 'Bahasa yang dipelajari tidak boleh sama dengan bahasa ibu';
+
+  @override
+  String get pleaseSelectALanguage => 'Pilih bahasa';
+
+  @override
+  String get editInterests => 'Edit Minat';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return 'Maksimal $count topik';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'Topik berhasil diperbarui!';
+
+  @override
+  String get failedToUpdateTopics => 'Gagal memperbarui topik';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count/$max dipilih';
+  }
+
+  @override
+  String get profilePictures => 'Foto Profil';
+
+  @override
+  String get addImages => 'Tambah Gambar';
+
+  @override
+  String get selectUpToImages => 'Pilih hingga 5 gambar';
+
+  @override
+  String get takeAPhoto => 'Ambil Foto';
+
+  @override
+  String get removeImage => 'Hapus Gambar';
+
+  @override
+  String get removeImageConfirm => 'Hapus gambar ini?';
+
+  @override
+  String get removeAll => 'Hapus Semua';
+
+  @override
+  String get removeAllSelectedImages => 'Hapus Semua yang Dipilih';
+
+  @override
+  String get removeAllSelectedImagesConfirm => 'Hapus semua gambar yang dipilih?';
+
+  @override
+  String get yourProfilePictureWillBeKept => 'Foto profil Anda akan tetap disimpan';
+
+  @override
+  String get removeAllImages => 'Hapus Semua Gambar';
+
+  @override
+  String get removeAllImagesConfirm => 'Hapus semua foto profil?';
+
+  @override
+  String get currentImages => 'Gambar Saat Ini';
+
+  @override
+  String get newImages => 'Gambar Baru';
+
+  @override
+  String get addMoreImages => 'Tambah Lebih Banyak';
+
+  @override
+  String uploadImages(int count) {
+    return 'Unggah $count Gambar';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => 'Gambar dihapus';
+
+  @override
+  String get imagesUploadedSuccessfully => 'Gambar berhasil diunggah';
+
+  @override
+  String get selectedImagesCleared => 'Gambar yang dipilih dihapus';
+
+  @override
+  String get extraImagesRemovedSuccessfully => 'Gambar tambahan dihapus';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'Harus menyimpan minimal 1 foto profil';
+
+  @override
+  String get noProfilePicturesToRemove => 'Tidak ada foto untuk dihapus';
+
+  @override
+  String get authenticationTokenNotFound => 'Token tidak ditemukan';
+
+  @override
+  String get saveChangesQuestion => 'Simpan Perubahan?';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '$count gambar belum diunggah. Unggah sekarang?';
+  }
+
+  @override
+  String get discard => 'Buang';
+
+  @override
+  String get upload => 'Unggah';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return 'Maksimal $max gambar. Saat ini: $current/$max';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'Hanya bisa tambah $count lagi. Maks $max.';
+  }
+
+  @override
+  String get maxImagesPerUpload => 'Maksimal 5 gambar per unggahan';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return 'Maksimal $max gambar';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => 'Ukuran melebihi 10MB';
+
+  @override
+  String get unsupportedImageFormat => 'Format tidak didukung';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'Pilih minimal 1 gambar';
+
+  @override
+  String get basicInformation => 'Informasi Dasar';
+
+  @override
+  String get languageToLearn => 'Bahasa Dipelajari';
+
+  @override
+  String get hometown => 'Kampung Halaman';
+
+  @override
+  String get characters => 'karakter';
+
+  @override
+  String get failedToLoadLanguages => 'Gagal memuat bahasa';
 }

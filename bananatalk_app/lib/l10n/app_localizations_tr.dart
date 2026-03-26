@@ -30,6 +30,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get or => 'VEYA';
 
   @override
+  String get more => 'daha fazla';
+
+  @override
   String get signInWithGoogle => 'Google ile giriş yap';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'Tema ve görüntüleme ayarları';
+
+  @override
+  String get clearCache => 'Önbelleği Temizle';
+
+  @override
+  String get clearCacheSubtitle => 'Depolama alanı aç';
+
+  @override
+  String get clearCacheDescription => 'Bu, önbelleğe alınmış tüm görüntüleri, videoları ve ses dosyalarını temizleyecektir. Uygulama, medyayı yeniden indirirken içeriği geçici olarak daha yavaş yükleyebilir.';
+
+  @override
+  String get clearCacheHint => 'Görüntüler veya ses düzgün yüklenmiyorsa bunu kullanın.';
+
+  @override
+  String get clearingCache => 'Önbellek temizleniyor...';
+
+  @override
+  String get cacheCleared => 'Önbellek başarıyla temizlendi! Görüntüler yeniden yüklenecek.';
+
+  @override
+  String get clearCacheFailed => 'Önbellek temizlenemedi';
 
   @override
   String get myReports => 'Bildirilerim';
@@ -3066,4 +3090,416 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'Veri ve Depolama';
+
+  @override
+  String get manageStorageAndDownloads => 'Depolama ve indirmeleri yönet';
+
+  @override
+  String get storageUsage => 'Depolama Kullanımı';
+
+  @override
+  String get totalCacheSize => 'Toplam Önbellek Boyutu';
+
+  @override
+  String get imageCache => 'Resim Önbelleği';
+
+  @override
+  String get voiceMessagesCache => 'Sesli Mesajlar';
+
+  @override
+  String get videoCache => 'Video Önbelleği';
+
+  @override
+  String get otherCache => 'Diğer Önbellek';
+
+  @override
+  String get autoDownloadMedia => 'Medya Otomatik İndir';
+
+  @override
+  String get currentNetwork => 'Mevcut Ağ';
+
+  @override
+  String get images => 'Resimler';
+
+  @override
+  String get videos => 'Videolar';
+
+  @override
+  String get voiceMessagesShort => 'Sesli Mesajlar';
+
+  @override
+  String get documentsLabel => 'Belgeler';
+
+  @override
+  String get wifiOnly => 'Yalnızca WiFi';
+
+  @override
+  String get never => 'Asla';
+
+  @override
+  String get clearAllCache => 'Tüm Önbelleği Temizle';
+
+  @override
+  String get allCache => 'Tüm Önbellek';
+
+  @override
+  String get clearAllCacheConfirmation => 'Bu, önbelleğe alınmış tüm resimleri, sesli mesajları, videoları ve diğer dosyaları silecektir. Uygulama geçici olarak içeriği daha yavaş yükleyebilir.';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return '$category temizlensin mi?';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '$size boşaltılacak';
+  }
+
+  @override
+  String get calculating => 'Hesaplanıyor...';
+
+  @override
+  String get noDataToShow => 'Gösterilecek veri yok';
+
+  @override
+  String get profileCompletion => 'Profil Tamamlama';
+
+  @override
+  String get justGettingStarted => 'Yeni başlıyor';
+
+  @override
+  String get lookingGood => 'İyi görünüyor!';
+
+  @override
+  String get almostThere => 'Neredeyse bitti!';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return 'Profilinizi tamamlamak için $field ekleyin';
+  }
+
+  @override
+  String get profilePicture => 'Profil Fotoğrafı';
+
+  @override
+  String get nativeSpeaker => 'Ana Dil';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return '$count kişi ilgileniyor';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'Bu konuyu ekleyen ilk kişi olun!';
+
+  @override
+  String get recentMoments => 'Son Anlar';
+
+  @override
+  String get seeAll => 'Tümünü Gör';
+
+  @override
+  String get study => 'Çalışma';
+
+  @override
+  String get followerMoments => 'Takip Edilen Anlar';
+
+  @override
+  String get whenPeopleYouFollowPost => 'Takip ettiğiniz kişiler yeni anlar paylaştığında';
+
+  @override
+  String get noNotificationsYet => 'Henüz bildirim yok';
+
+  @override
+  String get whenYouGetNotifications => 'Bildirim aldığınızda burada görünecekler';
+
+  @override
+  String get failedToLoadNotifications => 'Bildirimler yüklenemedi';
+
+  @override
+  String get clearAllNotificationsConfirm => 'Tüm bildirimleri silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.';
+
+  @override
+  String get tapToChange => 'Değiştirmek için dokun';
+
+  @override
+  String get noPictureSet => 'Fotoğraf ayarlanmadı';
+
+  @override
+  String get nameAndGender => 'İsim ve Cinsiyet';
+
+  @override
+  String get languageLevel => 'Dil Seviyesi';
+
+  @override
+  String get personalInformation => 'Kişisel Bilgiler';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => 'İlgi Alanları';
+
+  @override
+  String get levelBeginner => 'Başlangıç';
+
+  @override
+  String get levelElementary => 'Temel';
+
+  @override
+  String get levelIntermediate => 'Orta';
+
+  @override
+  String get levelUpperIntermediate => 'Orta Üstü';
+
+  @override
+  String get levelAdvanced => 'İleri';
+
+  @override
+  String get levelProficient => 'Uzman';
+
+  @override
+  String get selectYourLevel => 'Seviyenizi seçin';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return '$language ne kadar iyi konuşuyorsunuz?';
+  }
+
+  @override
+  String get theLanguage => 'dil';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return 'Dil seviyesi $level olarak ayarlandı';
+  }
+
+  @override
+  String get failedToUpdate => 'Güncelleme başarısız';
+
+  @override
+  String get editHometown => 'Memleketi Düzenle';
+
+  @override
+  String get useCurrentLocation => 'Mevcut Konumu Kullan';
+
+  @override
+  String get detecting => 'Algılanıyor...';
+
+  @override
+  String get getCurrentLocation => 'Mevcut Konumu Al';
+
+  @override
+  String get country => 'Ülke';
+
+  @override
+  String get city => 'Şehir';
+
+  @override
+  String get coordinates => 'Koordinatlar';
+
+  @override
+  String get noLocationDetectedYet => 'Henüz konum algılanmadı';
+
+  @override
+  String get detected => 'Algılandı';
+
+  @override
+  String get savedHometown => 'Memleket kaydedildi';
+
+  @override
+  String get locationServicesDisabled => 'Konum servisleri devre dışı';
+
+  @override
+  String get locationPermissionPermanentlyDenied => 'Konum izni kalıcı olarak reddedildi';
+
+  @override
+  String get unknown => 'Bilinmiyor';
+
+  @override
+  String get editBio => 'Biyografiyi Düzenle';
+
+  @override
+  String get bioUpdatedSuccessfully => 'Biyografi güncellendi!';
+
+  @override
+  String get tellOthersAboutYourself => 'Kendiniz hakkında bir şeyler yazın';
+
+  @override
+  String charactersCount(int count) {
+    return '$current/$max karakter';
+  }
+
+  @override
+  String get selectYourMbti => 'MBTI\'nizi seçin';
+
+  @override
+  String get myBloodType => 'Kan Grubum';
+
+  @override
+  String get pleaseSelectABloodType => 'Lütfen bir kan grubu seçin';
+
+  @override
+  String get nativeLanguageRequired => 'Ana dil gerekli';
+
+  @override
+  String get languageToLearnRequired => 'Öğrenilecek dil gerekli';
+
+  @override
+  String get nativeLanguageCannotBeSame => 'Ana dil öğrenilen dille aynı olamaz';
+
+  @override
+  String get learningLanguageCannotBeSame => 'Öğrenilen dil ana dille aynı olamaz';
+
+  @override
+  String get pleaseSelectALanguage => 'Lütfen bir dil seçin';
+
+  @override
+  String get editInterests => 'İlgi Alanlarını Düzenle';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return 'Maksimum $count konu izin verilir';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'Konular güncellendi!';
+
+  @override
+  String get failedToUpdateTopics => 'Konular güncellenemedi';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count seçildi';
+  }
+
+  @override
+  String get profilePictures => 'Profil Fotoğrafları';
+
+  @override
+  String get addImages => 'Fotoğraf Ekle';
+
+  @override
+  String get selectUpToImages => 'null fotoğrafa kadar seçin';
+
+  @override
+  String get takeAPhoto => 'Fotoğraf Çek';
+
+  @override
+  String get removeImage => 'Fotoğrafı Kaldır';
+
+  @override
+  String get removeImageConfirm => 'Bu fotoğrafı kaldırmak istediğinizden emin misiniz?';
+
+  @override
+  String get removeAll => 'Remove All';
+
+  @override
+  String get removeAllSelectedImages => 'Remove All Selected Images';
+
+  @override
+  String get removeAllSelectedImagesConfirm => 'Are you sure you want to remove all selected images?';
+
+  @override
+  String get yourProfilePictureWillBeKept => 'Your existing profile picture will be kept';
+
+  @override
+  String get removeAllImages => 'Remove All Images';
+
+  @override
+  String get removeAllImagesConfirm => 'Are you sure you want to remove all profile pictures?';
+
+  @override
+  String get currentImages => 'Current Images';
+
+  @override
+  String get newImages => 'New Images';
+
+  @override
+  String get addMoreImages => 'Add More Images';
+
+  @override
+  String uploadImages(int count) {
+    return '$count fotoğraf yükle';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => 'Fotoğraf kaldırıldı';
+
+  @override
+  String get imagesUploadedSuccessfully => 'Fotoğraflar yüklendi';
+
+  @override
+  String get selectedImagesCleared => 'Selected images cleared';
+
+  @override
+  String get extraImagesRemovedSuccessfully => 'Extra images removed successfully';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'You must keep at least one profile picture';
+
+  @override
+  String get noProfilePicturesToRemove => 'No profile pictures to remove';
+
+  @override
+  String get authenticationTokenNotFound => 'Authentication token not found';
+
+  @override
+  String get saveChangesQuestion => 'Save Changes?';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return 'You have $count image(s) selected but not uploaded. Do you want to upload them now?';
+  }
+
+  @override
+  String get discard => 'Discard';
+
+  @override
+  String get upload => 'Upload';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return 'You can upload up to $max images. Currently: $current/$max\nMax 5 images per upload.';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'You can only add $count more image(s). Maximum is $max images total.';
+  }
+
+  @override
+  String get maxImagesPerUpload => 'You can upload maximum 5 images at once. Only first 5 will be added.';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return 'You can only have up to $max images';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => 'Image size exceeds 10MB limit';
+
+  @override
+  String get unsupportedImageFormat => 'Unsupported image format';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'Please select at least one image to upload';
+
+  @override
+  String get basicInformation => 'Basic Information';
+
+  @override
+  String get languageToLearn => 'Language to Learn';
+
+  @override
+  String get hometown => 'Hometown';
+
+  @override
+  String get characters => 'characters';
+
+  @override
+  String get failedToLoadLanguages => 'Failed to load languages';
 }

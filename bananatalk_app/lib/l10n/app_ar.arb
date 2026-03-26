@@ -7,6 +7,7 @@
   "password": "كلمة المرور",
   "forgotPassword": "نسيت كلمة المرور؟",
   "or": "أو",
+  "more": "المزيد",
   "signInWithGoogle": "تسجيل الدخول باستخدام Google",
   "signInWithApple": "تسجيل الدخول باستخدام Apple",
   "signInWithFacebook": "تسجيل الدخول باستخدام Facebook",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "تغيير لغة التطبيق",
   "appearance": "المظهر",
   "themeAndDisplaySettings": "إعدادات المظهر والعرض",
+  "clearCache": "مسح ذاكرة التخزين المؤقت",
+  "clearCacheSubtitle": "تحرير مساحة التخزين",
+  "clearCacheDescription": "سيؤدي هذا إلى مسح جميع الصور ومقاطع الفيديو والملفات الصوتية المخزنة مؤقتًا. قد يتم تحميل المحتوى بشكل أبطأ مؤقتًا أثناء إعادة تنزيل الوسائط.",
+  "clearCacheHint": "استخدم هذا إذا كانت الصور أو الصوت لا يتم تحميلها بشكل صحيح.",
+  "clearingCache": "جارٍ مسح ذاكرة التخزين المؤقت...",
+  "cacheCleared": "تم مسح ذاكرة التخزين المؤقت بنجاح! سيتم إعادة تحميل الصور.",
+  "clearCacheFailed": "فشل في مسح ذاكرة التخزين المؤقت",
   "myReports": "تقاريري",
   "viewYourSubmittedReports": "عرض التقارير التي أرسلتها",
   "reportsManagement": "إدارة التقارير",
@@ -966,5 +974,205 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "البيانات والتخزين",
+  "manageStorageAndDownloads": "إدارة التخزين والتنزيلات",
+  "storageUsage": "استخدام التخزين",
+  "totalCacheSize": "إجمالي حجم ذاكرة التخزين المؤقت",
+  "imageCache": "ذاكرة الصور المؤقتة",
+  "voiceMessagesCache": "الرسائل الصوتية",
+  "videoCache": "ذاكرة الفيديو المؤقتة",
+  "otherCache": "ذاكرة أخرى",
+  "autoDownloadMedia": "تنزيل الوسائط تلقائياً",
+  "currentNetwork": "الشبكة الحالية",
+  "images": "الصور",
+  "videos": "مقاطع الفيديو",
+  "voiceMessagesShort": "الرسائل الصوتية",
+  "documentsLabel": "المستندات",
+  "wifiOnly": "WiFi فقط",
+  "never": "أبداً",
+  "clearAllCache": "مسح كل ذاكرة التخزين المؤقت",
+  "allCache": "كل ذاكرة التخزين المؤقت",
+  "clearAllCacheConfirmation": "سيؤدي هذا إلى حذف جميع الصور والرسائل الصوتية ومقاطع الفيديو والملفات الأخرى المخزنة مؤقتاً. قد يحمّل التطبيق المحتوى ببطء مؤقتاً.",
+  "clearCacheConfirmationFor": "مسح {category}؟",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "سيتم تحرير {size}",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "جاري الحساب...",
+  "noDataToShow": "لا توجد بيانات للعرض",
+  "profileCompletion": "اكتمال الملف الشخصي",
+  "justGettingStarted": "بدأت للتو",
+  "lookingGood": "يبدو جيداً!",
+  "almostThere": "اقتربت!",
+  "addMissingFields": "أضف: {fields}",
+  "profilePicture": "صورة الملف الشخصي",
+  "nativeSpeaker": "متحدث أصلي",
+  "beginner": "مبتدئ",
+  "elementary": "أساسي",
+  "intermediate": "متوسط",
+  "upperIntermediate": "فوق المتوسط",
+  "advanced": "متقدم",
+  "proficient": "متمكن",
+  "peopleInterestedInTopic": "أشخاص مهتمون بهذا الموضوع",
+  "noUsersFound": "لم يتم العثور على مستخدمين",
+  "beFirstToAddTopic": "كن أول من يضيف هذا الموضوع إلى اهتماماتك!",
+  "recentMoments": "اللحظات الأخيرة",
+  "seeAll": "عرض الكل",
+  "study": "دراسة",
+  "followerMoments": "لحظات المتابَعين",
+  "whenPeopleYouFollowPost": "عندما ينشر الأشخاص الذين تتابعهم لحظات جديدة",
+  "noNotificationsYet": "لا توجد إشعارات بعد",
+  "whenYouGetNotifications": "عندما تتلقى إشعارات، ستظهر هنا",
+  "failedToLoadNotifications": "فشل في تحميل الإشعارات",
+  "clearAllNotificationsConfirm": "هل أنت متأكد أنك تريد مسح جميع الإشعارات؟ لا يمكن التراجع عن هذا الإجراء.",
+
+  "tapToChange": "اضغط للتغيير",
+  "noPictureSet": "لم يتم تعيين صورة",
+  "nameAndGender": "الاسم والجنس",
+  "languageLevel": "مستوى اللغة",
+  "personalInformation": "المعلومات الشخصية",
+  "mbti": "MBTI",
+  "topicsOfInterest": "مواضيع الاهتمام",
+  "levelBeginner": "مبتدئ",
+  "levelElementary": "أساسي",
+  "levelIntermediate": "متوسط",
+  "levelUpperIntermediate": "فوق المتوسط",
+  "levelAdvanced": "متقدم",
+  "levelProficient": "متمكن",
+  "selectYourLevel": "اختر مستواك",
+  "howWellDoYouSpeak": "ما مدى إجادتك لـ {language}؟",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "اللغة",
+  "languageLevelSetTo": "تم تعيين مستوى اللغة إلى {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "فشل التحديث",
+  "editHometown": "تعديل مسقط الرأس",
+  "useCurrentLocation": "استخدام الموقع الحالي",
+  "detecting": "جاري الكشف...",
+  "getCurrentLocation": "الحصول على الموقع",
+  "country": "البلد",
+  "city": "المدينة",
+  "coordinates": "الإحداثيات",
+  "noLocationDetectedYet": "لم يتم اكتشاف موقع",
+  "detected": "تم الكشف",
+  "savedHometown": "تم حفظ مسقط الرأس",
+  "locationServicesDisabled": "خدمات الموقع معطلة",
+  "locationPermissionPermanentlyDenied": "تم رفض أذونات الموقع",
+  "unknown": "غير معروف",
+  "editBio": "تعديل النبذة",
+  "bioUpdatedSuccessfully": "تم تحديث النبذة",
+  "tellOthersAboutYourself": "أخبر الآخرين عن نفسك...",
+  "charactersCount": "{count}/500 حرف",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "اختر MBTI",
+  "myBloodType": "فصيلة دمي",
+  "pleaseSelectABloodType": "اختر فصيلة الدم",
+  "nativeLanguageRequired": "اللغة الأم (مطلوب)",
+  "languageToLearnRequired": "لغة التعلم (مطلوب)",
+  "nativeLanguageCannotBeSame": "اللغة الأم لا يمكن أن تكون نفس لغة التعلم",
+  "learningLanguageCannotBeSame": "لغة التعلم لا يمكن أن تكون نفس اللغة الأم",
+  "pleaseSelectALanguage": "اختر لغة",
+  "editInterests": "تعديل الاهتمامات",
+  "maxTopicsAllowed": "الحد الأقصى {count} موضوع",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "تم تحديث المواضيع!",
+  "failedToUpdateTopics": "فشل تحديث المواضيع",
+  "selectedCount": "{count}/{max} محدد",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "profilePictures": "صور الملف الشخصي",
+  "addImages": "إضافة صور",
+  "selectUpToImages": "اختر حتى 5 صور",
+  "takeAPhoto": "التقط صورة",
+  "removeImage": "إزالة الصورة",
+  "removeImageConfirm": "إزالة هذه الصورة؟",
+  "removeAll": "إزالة الكل",
+  "removeAllSelectedImages": "إزالة جميع الصور المحددة",
+  "removeAllSelectedImagesConfirm": "إزالة جميع الصور المحددة؟",
+  "yourProfilePictureWillBeKept": "سيتم الاحتفاظ بصورتك الحالية",
+  "removeAllImages": "إزالة جميع الصور",
+  "removeAllImagesConfirm": "إزالة جميع صور الملف؟",
+  "currentImages": "الصور الحالية",
+  "newImages": "صور جديدة",
+  "addMoreImages": "إضافة المزيد",
+  "uploadImages": "رفع {count} صورة",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "تمت إزالة الصورة",
+  "imagesUploadedSuccessfully": "تم رفع الصور",
+  "selectedImagesCleared": "تم مسح الصور المحددة",
+  "extraImagesRemovedSuccessfully": "تمت إزالة الصور الإضافية",
+  "mustKeepAtLeastOneProfilePicture": "يجب الاحتفاظ بصورة واحدة على الأقل",
+  "noProfilePicturesToRemove": "لا توجد صور للإزالة",
+  "authenticationTokenNotFound": "لم يتم العثور على الرمز",
+  "saveChangesQuestion": "حفظ التغييرات؟",
+  "youHaveUnuploadedImages": "{count} صورة لم يتم رفعها. رفع الآن؟",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "تجاهل",
+  "upload": "رفع",
+  "maxImagesInfo": "حد أقصى {max} صورة. الحالي: {current}/{max}",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "يمكن إضافة {count} فقط. الحد {max}.",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "حد أقصى 5 صور في المرة",
+  "canOnlyHaveMaxImages": "حد أقصى {max} صورة",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "الحجم يتجاوز 10 ميجابايت",
+  "unsupportedImageFormat": "صيغة غير مدعومة",
+  "pleaseSelectAtLeastOneImage": "اختر صورة واحدة على الأقل",
+  "basicInformation": "المعلومات الأساسية",
+  "languageToLearn": "لغة التعلم",
+  "hometown": "مسقط الرأس",
+  "characters": "حرف",
+  "failedToLoadLanguages": "فشل تحميل اللغات"
 }

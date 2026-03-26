@@ -10,6 +10,7 @@
   "password": "Passwort",
   "forgotPassword": "Passwort vergessen?",
   "or": "ODER",
+  "more": "mehr",
   "signInWithGoogle": "Mit Google anmelden",
   "signInWithApple": "Mit Apple anmelden",
   "signInWithFacebook": "Mit Facebook anmelden",
@@ -118,6 +119,13 @@
   "changeAppLanguage": "App-Sprache ändern",
   "appearance": "Erscheinungsbild",
   "themeAndDisplaySettings": "Design- und Anzeigeeinstellungen",
+  "clearCache": "Cache leeren",
+  "clearCacheSubtitle": "Speicherplatz freigeben",
+  "clearCacheDescription": "Dadurch werden alle zwischengespeicherten Bilder, Videos und Audiodateien gelöscht. Die App lädt Inhalte möglicherweise vorübergehend langsamer, während Medien erneut heruntergeladen werden.",
+  "clearCacheHint": "Verwenden Sie dies, wenn Bilder oder Audio nicht richtig geladen werden.",
+  "clearingCache": "Cache wird geleert...",
+  "cacheCleared": "Cache erfolgreich geleert! Bilder werden neu geladen.",
+  "clearCacheFailed": "Cache konnte nicht geleert werden",
   "myReports": "Meine Meldungen",
   "viewYourSubmittedReports": "Ihre eingereichten Meldungen anzeigen",
   "reportsManagement": "Meldungsverwaltung",
@@ -1227,5 +1235,212 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Daten und Speicher",
+  "manageStorageAndDownloads": "Speicher und Downloads verwalten",
+  "storageUsage": "Speichernutzung",
+  "totalCacheSize": "Gesamte Cache-Größe",
+  "imageCache": "Bilder-Cache",
+  "voiceMessagesCache": "Sprachnachrichten",
+  "videoCache": "Video-Cache",
+  "otherCache": "Anderer Cache",
+  "autoDownloadMedia": "Medien automatisch herunterladen",
+  "currentNetwork": "Aktuelles Netzwerk",
+  "images": "Bilder",
+  "videos": "Videos",
+  "voiceMessagesShort": "Sprachnachrichten",
+  "documentsLabel": "Dokumente",
+  "wifiOnly": "Nur WLAN",
+  "never": "Nie",
+  "clearAllCache": "Gesamten Cache löschen",
+  "allCache": "Gesamter Cache",
+  "clearAllCacheConfirmation": "Dadurch werden alle zwischengespeicherten Bilder, Sprachnachrichten, Videos und andere Dateien gelöscht. Die App lädt Inhalte vorübergehend möglicherweise langsamer.",
+  "clearCacheConfirmationFor": "{category} löschen?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} wird freigegeben",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Wird berechnet...",
+  "noDataToShow": "Keine Daten vorhanden",
+  "profileCompletion": "Profil-Vervollständigung",
+  "justGettingStarted": "Gerade erst angefangen",
+  "lookingGood": "Sieht gut aus!",
+  "almostThere": "Fast geschafft!",
+  "addMissingFields": "Hinzufügen: {fields}",
+  "profilePicture": "Profilbild",
+  "nativeSpeaker": "Muttersprachler",
+  "beginner": "Anfänger",
+  "elementary": "Grundkenntnisse",
+  "intermediate": "Mittelstufe",
+  "upperIntermediate": "Gehobene Mittelstufe",
+  "advanced": "Fortgeschritten",
+  "proficient": "Fließend",
+  "peopleInterestedInTopic": "Personen, die sich für dieses Thema interessieren",
+  "noUsersFound": "Keine Benutzer gefunden",
+  "beFirstToAddTopic": "Sei der Erste, der dieses Thema zu seinen Interessen hinzufügt!",
+  "recentMoments": "Neueste Momente",
+  "seeAll": "Alle anzeigen",
+  "study": "Lernen",
+  "followerMoments": "Follower-Momente",
+  "whenPeopleYouFollowPost": "Wenn Personen, denen du folgst, neue Momente posten",
+  "noNotificationsYet": "Noch keine Benachrichtigungen",
+  "whenYouGetNotifications": "Wenn du Benachrichtigungen erhältst, werden sie hier angezeigt",
+  "failedToLoadNotifications": "Fehler beim Laden der Benachrichtigungen",
+  "clearAllNotificationsConfirm": "Möchtest du wirklich alle Benachrichtigungen löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+
+  "tapToChange": "Tippen zum Ändern",
+  "noPictureSet": "Kein Bild festgelegt",
+  "nameAndGender": "Name und Geschlecht",
+  "languageLevel": "Sprachniveau",
+  "personalInformation": "Persönliche Informationen",
+  "mbti": "MBTI",
+  "topicsOfInterest": "Interessengebiete",
+  "levelBeginner": "Anfänger",
+  "levelElementary": "Grundkenntnisse",
+  "levelIntermediate": "Mittelstufe",
+  "levelUpperIntermediate": "Gehobene Mittelstufe",
+  "levelAdvanced": "Fortgeschritten",
+  "levelProficient": "Fließend",
+  "selectYourLevel": "Wähle Dein Niveau",
+  "howWellDoYouSpeak": "Wie gut sprichst du {language}?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "die Sprache",
+  "languageLevelSetTo": "Sprachniveau auf {level} gesetzt",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Aktualisierung fehlgeschlagen",
+
+  "editHometown": "Heimatstadt Bearbeiten",
+  "useCurrentLocation": "Aktuellen Standort Verwenden",
+  "detecting": "Erkenne...",
+  "getCurrentLocation": "Aktuellen Standort Abrufen",
+  "country": "Land",
+  "city": "Stadt",
+  "coordinates": "Koordinaten",
+  "noLocationDetectedYet": "Noch kein Standort erkannt.",
+  "detected": "Erkannt",
+  "savedHometown": "Heimatstadt gespeichert",
+  "locationServicesDisabled": "Standortdienste sind deaktiviert. Bitte aktiviere sie.",
+  "locationPermissionPermanentlyDenied": "Standortberechtigungen sind dauerhaft verweigert.",
+  "unknown": "Unbekannt",
+
+  "editBio": "Bio Bearbeiten",
+  "bioUpdatedSuccessfully": "Bio erfolgreich aktualisiert",
+  "tellOthersAboutYourself": "Erzähle anderen von dir...",
+  "charactersCount": "{count}/500 Zeichen",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "selectYourMbti": "Wähle Dein MBTI",
+  "myBloodType": "Meine Blutgruppe",
+  "pleaseSelectABloodType": "Bitte wähle eine Blutgruppe",
+
+  "nativeLanguageRequired": "Muttersprache (Erforderlich)",
+  "languageToLearnRequired": "Sprache zum Lernen (Erforderlich)",
+  "nativeLanguageCannotBeSame": "Die Muttersprache darf nicht dieselbe sein wie die Sprache, die du lernst",
+  "learningLanguageCannotBeSame": "Die Lernsprache darf nicht dieselbe sein wie deine Muttersprache",
+  "pleaseSelectALanguage": "Bitte wähle eine Sprache",
+
+  "editInterests": "Interessen Bearbeiten",
+  "maxTopicsAllowed": "Maximal {count} Themen erlaubt",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Themen erfolgreich aktualisiert!",
+  "failedToUpdateTopics": "Themen konnten nicht aktualisiert werden",
+  "selectedCount": "{count}/{max} ausgewählt",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+
+  "profilePictures": "Profilbilder",
+  "addImages": "Bilder Hinzufügen",
+  "selectUpToImages": "Wähle bis zu 5 Bilder",
+  "takeAPhoto": "Foto Aufnehmen",
+  "removeImage": "Bild Entfernen",
+  "removeImageConfirm": "Möchtest du dieses Bild wirklich entfernen?",
+  "removeAll": "Alle Entfernen",
+  "removeAllSelectedImages": "Alle Ausgewählten Bilder Entfernen",
+  "removeAllSelectedImagesConfirm": "Möchtest du wirklich alle ausgewählten Bilder entfernen?",
+  "yourProfilePictureWillBeKept": "Dein bestehendes Profilbild wird beibehalten",
+  "removeAllImages": "Alle Bilder Entfernen",
+  "removeAllImagesConfirm": "Möchtest du wirklich alle Profilbilder entfernen?",
+  "currentImages": "Aktuelle Bilder",
+  "newImages": "Neue Bilder",
+  "addMoreImages": "Weitere Bilder Hinzufügen",
+  "uploadImages": "{count} Bild(er) Hochladen",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "Bild erfolgreich entfernt",
+  "imagesUploadedSuccessfully": "Bilder erfolgreich hochgeladen",
+  "selectedImagesCleared": "Ausgewählte Bilder gelöscht",
+  "extraImagesRemovedSuccessfully": "Zusätzliche Bilder erfolgreich entfernt",
+  "mustKeepAtLeastOneProfilePicture": "Du musst mindestens ein Profilbild behalten",
+  "noProfilePicturesToRemove": "Keine Profilbilder zum Entfernen",
+  "authenticationTokenNotFound": "Authentifizierungs-Token nicht gefunden",
+  "saveChangesQuestion": "Änderungen Speichern?",
+  "youHaveUnuploadedImages": "Du hast {count} Bild(er) ausgewählt aber nicht hochgeladen. Möchtest du sie jetzt hochladen?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "Verwerfen",
+  "upload": "Hochladen",
+  "maxImagesInfo": "Du kannst bis zu {max} Bilder hochladen. Aktuell: {current}/{max}\nMax 5 Bilder pro Upload.",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "Du kannst nur noch {count} weitere(s) Bild(er) hinzufügen. Maximum ist {max} Bilder.",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "Du kannst maximal 5 Bilder auf einmal hochladen. Nur die ersten 5 werden hinzugefügt.",
+  "canOnlyHaveMaxImages": "Du kannst nur bis zu {max} Bilder haben",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "Bildgröße überschreitet das 10MB-Limit",
+  "unsupportedImageFormat": "Nicht unterstütztes Bildformat",
+  "pleaseSelectAtLeastOneImage": "Bitte wähle mindestens ein Bild zum Hochladen",
+
+  "basicInformation": "Grundlegende Informationen",
+  "languageToLearn": "Sprache zum Lernen",
+  "hometown": "Heimatstadt",
+  "characters": "Zeichen",
+  "failedToLoadLanguages": "Sprachen konnten nicht geladen werden"
 }

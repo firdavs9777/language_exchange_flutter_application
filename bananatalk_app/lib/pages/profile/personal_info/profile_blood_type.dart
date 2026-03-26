@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,17 +16,10 @@ class PersonBloodType extends ConsumerStatefulWidget {
 class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
   // List of blood types
   final List<String> bloodTypes = [
-    'Type A',
-    'Type B',
-    'Type AB',
-    'Type O',
-    'Type A-',
-    'Type B-',
-    'Type AB-',
-    'Type O-'
+    'Type A', 'Type B', 'Type AB', 'Type O',
+    'Type A-', 'Type B-', 'Type AB-', 'Type O-'
   ];
 
-  // Variable to store the selected blood type
   late String selectedBloodType;
 
   @override
@@ -36,6 +30,8 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
@@ -43,7 +39,7 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
         foregroundColor: context.textPrimary,
         elevation: 0,
         title: Text(
-          'My Blood Type',
+          l10n.myBloodType,
           style: context.titleLarge,
         ),
       ),
@@ -51,13 +47,12 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
         padding: Spacing.screenPadding,
         child: Column(
           children: [
-            // Displaying the blood type options in a grid layout with 4 items per row
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, // 4 items per row
-                  crossAxisSpacing: 10, // Horizontal space between items
-                  mainAxisSpacing: 10, // Vertical space between items
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
                 itemCount: bloodTypes.length,
                 itemBuilder: (context, index) {
@@ -65,8 +60,7 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedBloodType =
-                            bloodTypes[index]; // Update selected blood type
+                        selectedBloodType = bloodTypes[index];
                       });
                     },
                     child: Container(
@@ -74,12 +68,12 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? context.primaryColor // Selected color
-                            : context.containerColor, // Default color
+                            ? context.primaryColor
+                            : context.containerColor,
                         borderRadius: AppRadius.borderSM,
                         border: Border.all(
                           color: isSelected
-                              ? context.primaryColor // Border color when selected
+                              ? context.primaryColor
                               : context.dividerColor,
                           width: 1,
                         ),
@@ -89,8 +83,8 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                         style: context.labelMedium.copyWith(
                           fontWeight: FontWeight.bold,
                           color: isSelected
-                              ? context.textOnPrimary // White text when selected
-                              : context.textPrimary, // Black text when not selected
+                              ? context.textOnPrimary
+                              : context.textPrimary,
                         ),
                       ),
                     ),
@@ -98,7 +92,6 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                 },
               ),
             ),
-            // Save Button
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: ElevatedButton(
@@ -109,13 +102,12 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                         .updateUserBloodType(bloodType: selectedBloodType);
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Saved: $selectedBloodType')),
+                      SnackBar(content: Text('${l10n.saved}: $selectedBloodType')),
                     );
                     Navigator.of(context).pop(selectedBloodType);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Please select a blood type')),
+                      SnackBar(content: Text(l10n.pleaseSelectABloodType)),
                     );
                   }
                 },
@@ -129,7 +121,7 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
                   ),
                 ),
                 child: Text(
-                  'Save',
+                  l10n.save,
                   style: context.titleMedium.copyWith(
                     color: AppColors.gray900,
                   ),

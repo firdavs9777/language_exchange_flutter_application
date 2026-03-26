@@ -168,6 +168,12 @@ abstract class AppLocalizations {
   /// **'OR'**
   String get or;
 
+  /// No description provided for @more.
+  ///
+  /// In en, this message translates to:
+  /// **'more'**
+  String get more;
+
   /// No description provided for @signInWithGoogle.
   ///
   /// In en, this message translates to:
@@ -683,6 +689,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Theme and display settings'**
   String get themeAndDisplaySettings;
+
+  /// No description provided for @clearCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Cache'**
+  String get clearCache;
+
+  /// No description provided for @clearCacheSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Free up storage space'**
+  String get clearCacheSubtitle;
+
+  /// No description provided for @clearCacheDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This will clear all cached images, videos, and audio files. The app may load content slower temporarily as it re-downloads media.'**
+  String get clearCacheDescription;
+
+  /// No description provided for @clearCacheHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this if images or audio aren\'t loading properly.'**
+  String get clearCacheHint;
+
+  /// No description provided for @clearingCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing cache...'**
+  String get clearingCache;
+
+  /// No description provided for @cacheCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache cleared successfully! Images will reload fresh.'**
+  String get cacheCleared;
+
+  /// No description provided for @clearCacheFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to clear cache'**
+  String get clearCacheFailed;
 
   /// No description provided for @myReports.
   ///
@@ -3777,7 +3825,7 @@ abstract class AppLocalizations {
   /// No description provided for @chooseFromGallery.
   ///
   /// In en, this message translates to:
-  /// **'Choose from gallery'**
+  /// **'Choose from Gallery'**
   String get chooseFromGallery;
 
   /// No description provided for @preview.
@@ -4533,37 +4581,37 @@ abstract class AppLocalizations {
   /// No description provided for @beginner.
   ///
   /// In en, this message translates to:
-  /// **'Beginner — I know a few words'**
+  /// **'Beginner'**
   String get beginner;
 
   /// No description provided for @elementary.
   ///
   /// In en, this message translates to:
-  /// **'Elementary — I can make simple sentences'**
+  /// **'Elementary'**
   String get elementary;
 
   /// No description provided for @intermediate.
   ///
   /// In en, this message translates to:
-  /// **'Intermediate — I can have basic conversations'**
+  /// **'Intermediate'**
   String get intermediate;
 
   /// No description provided for @upperIntermediate.
   ///
   /// In en, this message translates to:
-  /// **'Upper Intermediate — I can discuss most topics'**
+  /// **'Upper Intermediate'**
   String get upperIntermediate;
 
   /// No description provided for @advanced.
   ///
   /// In en, this message translates to:
-  /// **'Advanced — I speak fluently with few errors'**
+  /// **'Advanced'**
   String get advanced;
 
   /// No description provided for @proficient.
   ///
   /// In en, this message translates to:
-  /// **'Proficient — Near-native level'**
+  /// **'Proficient'**
   String get proficient;
 
   /// No description provided for @showingPartnersByDistance.
@@ -6011,6 +6059,774 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load matches'**
   String get failedToLoadMatches;
+
+  /// No description provided for @dataAndStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Data & Storage'**
+  String get dataAndStorage;
+
+  /// No description provided for @manageStorageAndDownloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage storage and downloads'**
+  String get manageStorageAndDownloads;
+
+  /// No description provided for @storageUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage Usage'**
+  String get storageUsage;
+
+  /// No description provided for @totalCacheSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Cache Size'**
+  String get totalCacheSize;
+
+  /// No description provided for @imageCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Image Cache'**
+  String get imageCache;
+
+  /// No description provided for @voiceMessagesCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Messages'**
+  String get voiceMessagesCache;
+
+  /// No description provided for @videoCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Cache'**
+  String get videoCache;
+
+  /// No description provided for @otherCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Cache'**
+  String get otherCache;
+
+  /// No description provided for @autoDownloadMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Download Media'**
+  String get autoDownloadMedia;
+
+  /// No description provided for @currentNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Network'**
+  String get currentNetwork;
+
+  /// No description provided for @images.
+  ///
+  /// In en, this message translates to:
+  /// **'Images'**
+  String get images;
+
+  /// No description provided for @videos.
+  ///
+  /// In en, this message translates to:
+  /// **'Videos'**
+  String get videos;
+
+  /// No description provided for @voiceMessagesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Messages'**
+  String get voiceMessagesShort;
+
+  /// No description provided for @documentsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents'**
+  String get documentsLabel;
+
+  /// No description provided for @wifiOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'WiFi Only'**
+  String get wifiOnly;
+
+  /// No description provided for @never.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get never;
+
+  /// No description provided for @clearAllCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All Cache'**
+  String get clearAllCache;
+
+  /// No description provided for @allCache.
+  ///
+  /// In en, this message translates to:
+  /// **'All Cache'**
+  String get allCache;
+
+  /// No description provided for @clearAllCacheConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'This will clear all cached images, voice messages, videos, and other files. The app may load content slower temporarily.'**
+  String get clearAllCacheConfirmation;
+
+  /// No description provided for @clearCacheConfirmationFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear {category}?'**
+  String clearCacheConfirmationFor(String category);
+
+  /// No description provided for @storageToFree.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} will be freed'**
+  String storageToFree(String size);
+
+  /// No description provided for @calculating.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating...'**
+  String get calculating;
+
+  /// No description provided for @noDataToShow.
+  ///
+  /// In en, this message translates to:
+  /// **'No data to show'**
+  String get noDataToShow;
+
+  /// No description provided for @profileCompletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Completion'**
+  String get profileCompletion;
+
+  /// No description provided for @justGettingStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Just getting started'**
+  String get justGettingStarted;
+
+  /// No description provided for @lookingGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking good!'**
+  String get lookingGood;
+
+  /// No description provided for @almostThere.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost there!'**
+  String get almostThere;
+
+  /// No description provided for @addMissingFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Add: {fields}'**
+  String addMissingFields(String fields, Object field);
+
+  /// No description provided for @profilePicture.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Picture'**
+  String get profilePicture;
+
+  /// No description provided for @nativeSpeaker.
+  ///
+  /// In en, this message translates to:
+  /// **'Native Speaker'**
+  String get nativeSpeaker;
+
+  /// No description provided for @peopleInterestedInTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'People interested in this topic'**
+  String peopleInterestedInTopic(Object count);
+
+  /// No description provided for @beFirstToAddTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to add this topic to your interests!'**
+  String get beFirstToAddTopic;
+
+  /// No description provided for @recentMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Moments'**
+  String get recentMoments;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get seeAll;
+
+  /// No description provided for @study.
+  ///
+  /// In en, this message translates to:
+  /// **'Study'**
+  String get study;
+
+  /// No description provided for @followerMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Follower Moments'**
+  String get followerMoments;
+
+  /// No description provided for @whenPeopleYouFollowPost.
+  ///
+  /// In en, this message translates to:
+  /// **'When people you follow post new moments'**
+  String get whenPeopleYouFollowPost;
+
+  /// No description provided for @noNotificationsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet'**
+  String get noNotificationsYet;
+
+  /// No description provided for @whenYouGetNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'When you get notifications, they\'ll show up here'**
+  String get whenYouGetNotifications;
+
+  /// No description provided for @failedToLoadNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load notifications'**
+  String get failedToLoadNotifications;
+
+  /// No description provided for @clearAllNotificationsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to clear all notifications? This cannot be undone.'**
+  String get clearAllNotificationsConfirm;
+
+  /// No description provided for @tapToChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to change'**
+  String get tapToChange;
+
+  /// No description provided for @noPictureSet.
+  ///
+  /// In en, this message translates to:
+  /// **'No picture set'**
+  String get noPictureSet;
+
+  /// No description provided for @nameAndGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Name & Gender'**
+  String get nameAndGender;
+
+  /// No description provided for @languageLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Level'**
+  String get languageLevel;
+
+  /// No description provided for @personalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information'**
+  String get personalInformation;
+
+  /// No description provided for @mbti.
+  ///
+  /// In en, this message translates to:
+  /// **'MBTI'**
+  String get mbti;
+
+  /// No description provided for @topicsOfInterest.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics of Interest'**
+  String get topicsOfInterest;
+
+  /// No description provided for @levelBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get levelBeginner;
+
+  /// No description provided for @levelElementary.
+  ///
+  /// In en, this message translates to:
+  /// **'Elementary'**
+  String get levelElementary;
+
+  /// No description provided for @levelIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get levelIntermediate;
+
+  /// No description provided for @levelUpperIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper Intermediate'**
+  String get levelUpperIntermediate;
+
+  /// No description provided for @levelAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get levelAdvanced;
+
+  /// No description provided for @levelProficient.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficient'**
+  String get levelProficient;
+
+  /// No description provided for @selectYourLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Your Level'**
+  String get selectYourLevel;
+
+  /// No description provided for @howWellDoYouSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'How well do you speak {language}?'**
+  String howWellDoYouSpeak(String language);
+
+  /// No description provided for @theLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'the language'**
+  String get theLanguage;
+
+  /// No description provided for @languageLevelSetTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Language level set to {level}'**
+  String languageLevelSetTo(String level);
+
+  /// No description provided for @failedToUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update'**
+  String get failedToUpdate;
+
+  /// No description provided for @editHometown.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Hometown'**
+  String get editHometown;
+
+  /// No description provided for @useCurrentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Current Location'**
+  String get useCurrentLocation;
+
+  /// No description provided for @detecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Detecting...'**
+  String get detecting;
+
+  /// No description provided for @getCurrentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Current Location'**
+  String get getCurrentLocation;
+
+  /// No description provided for @country.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// No description provided for @city.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get city;
+
+  /// No description provided for @coordinates.
+  ///
+  /// In en, this message translates to:
+  /// **'Coordinates'**
+  String get coordinates;
+
+  /// No description provided for @noLocationDetectedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No location detected yet.'**
+  String get noLocationDetectedYet;
+
+  /// No description provided for @detected.
+  ///
+  /// In en, this message translates to:
+  /// **'Detected'**
+  String get detected;
+
+  /// No description provided for @savedHometown.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved hometown'**
+  String get savedHometown;
+
+  /// No description provided for @locationServicesDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled. Please enable them.'**
+  String get locationServicesDisabled;
+
+  /// No description provided for @locationPermissionPermanentlyDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permissions are permanently denied.'**
+  String get locationPermissionPermanentlyDenied;
+
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
+  /// No description provided for @editBio.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Bio'**
+  String get editBio;
+
+  /// No description provided for @bioUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Bio updated successfully'**
+  String get bioUpdatedSuccessfully;
+
+  /// No description provided for @tellOthersAboutYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell others about yourself...'**
+  String get tellOthersAboutYourself;
+
+  /// No description provided for @charactersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/500 characters'**
+  String charactersCount(int count);
+
+  /// No description provided for @selectYourMbti.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Your MBTI'**
+  String get selectYourMbti;
+
+  /// No description provided for @myBloodType.
+  ///
+  /// In en, this message translates to:
+  /// **'My Blood Type'**
+  String get myBloodType;
+
+  /// No description provided for @pleaseSelectABloodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a blood type'**
+  String get pleaseSelectABloodType;
+
+  /// No description provided for @nativeLanguageRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Native Language (Required)'**
+  String get nativeLanguageRequired;
+
+  /// No description provided for @languageToLearnRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Language to Learn (Required)'**
+  String get languageToLearnRequired;
+
+  /// No description provided for @nativeLanguageCannotBeSame.
+  ///
+  /// In en, this message translates to:
+  /// **'Native language cannot be the same as the language you\'re learning'**
+  String get nativeLanguageCannotBeSame;
+
+  /// No description provided for @learningLanguageCannotBeSame.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning language cannot be the same as your native language'**
+  String get learningLanguageCannotBeSame;
+
+  /// No description provided for @pleaseSelectALanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a language'**
+  String get pleaseSelectALanguage;
+
+  /// No description provided for @editInterests.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Interests'**
+  String get editInterests;
+
+  /// No description provided for @maxTopicsAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum {count} topics allowed'**
+  String maxTopicsAllowed(int count);
+
+  /// No description provided for @topicsUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics updated successfully!'**
+  String get topicsUpdatedSuccessfully;
+
+  /// No description provided for @failedToUpdateTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update topics'**
+  String get failedToUpdateTopics;
+
+  /// No description provided for @selectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{max} selected'**
+  String selectedCount(int count, int max);
+
+  /// No description provided for @profilePictures.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Pictures'**
+  String get profilePictures;
+
+  /// No description provided for @addImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Images'**
+  String get addImages;
+
+  /// No description provided for @selectUpToImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Select up to 5 images'**
+  String get selectUpToImages;
+
+  /// No description provided for @takeAPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a Photo'**
+  String get takeAPhoto;
+
+  /// No description provided for @removeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Image'**
+  String get removeImage;
+
+  /// No description provided for @removeImageConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this image?'**
+  String get removeImageConfirm;
+
+  /// No description provided for @removeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove All'**
+  String get removeAll;
+
+  /// No description provided for @removeAllSelectedImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove All Selected Images'**
+  String get removeAllSelectedImages;
+
+  /// No description provided for @removeAllSelectedImagesConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove all selected images?'**
+  String get removeAllSelectedImagesConfirm;
+
+  /// No description provided for @yourProfilePictureWillBeKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Your existing profile picture will be kept'**
+  String get yourProfilePictureWillBeKept;
+
+  /// No description provided for @removeAllImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove All Images'**
+  String get removeAllImages;
+
+  /// No description provided for @removeAllImagesConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove all profile pictures?'**
+  String get removeAllImagesConfirm;
+
+  /// No description provided for @currentImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Images'**
+  String get currentImages;
+
+  /// No description provided for @newImages.
+  ///
+  /// In en, this message translates to:
+  /// **'New Images'**
+  String get newImages;
+
+  /// No description provided for @addMoreImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Add More Images'**
+  String get addMoreImages;
+
+  /// No description provided for @uploadImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload {count} Image(s)'**
+  String uploadImages(int count);
+
+  /// No description provided for @imageRemovedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Image removed successfully'**
+  String get imageRemovedSuccessfully;
+
+  /// No description provided for @imagesUploadedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Images uploaded successfully'**
+  String get imagesUploadedSuccessfully;
+
+  /// No description provided for @selectedImagesCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected images cleared'**
+  String get selectedImagesCleared;
+
+  /// No description provided for @extraImagesRemovedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra images removed successfully'**
+  String get extraImagesRemovedSuccessfully;
+
+  /// No description provided for @mustKeepAtLeastOneProfilePicture.
+  ///
+  /// In en, this message translates to:
+  /// **'You must keep at least one profile picture'**
+  String get mustKeepAtLeastOneProfilePicture;
+
+  /// No description provided for @noProfilePicturesToRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'No profile pictures to remove'**
+  String get noProfilePicturesToRemove;
+
+  /// No description provided for @authenticationTokenNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication token not found'**
+  String get authenticationTokenNotFound;
+
+  /// No description provided for @saveChangesQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes?'**
+  String get saveChangesQuestion;
+
+  /// No description provided for @youHaveUnuploadedImages.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {count} image(s) selected but not uploaded. Do you want to upload them now?'**
+  String youHaveUnuploadedImages(int count);
+
+  /// No description provided for @discard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
+  /// No description provided for @upload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get upload;
+
+  /// No description provided for @maxImagesInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'You can upload up to {max} images. Currently: {current}/{max}\nMax 5 images per upload.'**
+  String maxImagesInfo(int max, int current);
+
+  /// No description provided for @canOnlyAddMoreImages.
+  ///
+  /// In en, this message translates to:
+  /// **'You can only add {count} more image(s). Maximum is {max} images total.'**
+  String canOnlyAddMoreImages(int count, int max);
+
+  /// No description provided for @maxImagesPerUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'You can upload maximum 5 images at once. Only first 5 will be added.'**
+  String get maxImagesPerUpload;
+
+  /// No description provided for @canOnlyHaveMaxImages.
+  ///
+  /// In en, this message translates to:
+  /// **'You can only have up to {max} images'**
+  String canOnlyHaveMaxImages(int max);
+
+  /// No description provided for @imageSizeExceedsLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Image size exceeds 10MB limit'**
+  String get imageSizeExceedsLimit;
+
+  /// No description provided for @unsupportedImageFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported image format'**
+  String get unsupportedImageFormat;
+
+  /// No description provided for @pleaseSelectAtLeastOneImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one image to upload'**
+  String get pleaseSelectAtLeastOneImage;
+
+  /// No description provided for @basicInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get basicInformation;
+
+  /// No description provided for @languageToLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Language to Learn'**
+  String get languageToLearn;
+
+  /// No description provided for @hometown.
+  ///
+  /// In en, this message translates to:
+  /// **'Hometown'**
+  String get hometown;
+
+  /// No description provided for @characters.
+  ///
+  /// In en, this message translates to:
+  /// **'characters'**
+  String get characters;
+
+  /// No description provided for @failedToLoadLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load languages'**
+  String get failedToLoadLanguages;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

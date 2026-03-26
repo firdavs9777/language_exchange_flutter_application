@@ -30,6 +30,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get or => 'أو';
 
   @override
+  String get more => 'المزيد';
+
+  @override
   String get signInWithGoogle => 'تسجيل الدخول باستخدام Google';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'إعدادات المظهر والعرض';
+
+  @override
+  String get clearCache => 'مسح ذاكرة التخزين المؤقت';
+
+  @override
+  String get clearCacheSubtitle => 'تحرير مساحة التخزين';
+
+  @override
+  String get clearCacheDescription => 'سيؤدي هذا إلى مسح جميع الصور ومقاطع الفيديو والملفات الصوتية المخزنة مؤقتًا. قد يتم تحميل المحتوى بشكل أبطأ مؤقتًا أثناء إعادة تنزيل الوسائط.';
+
+  @override
+  String get clearCacheHint => 'استخدم هذا إذا كانت الصور أو الصوت لا يتم تحميلها بشكل صحيح.';
+
+  @override
+  String get clearingCache => 'جارٍ مسح ذاكرة التخزين المؤقت...';
+
+  @override
+  String get cacheCleared => 'تم مسح ذاكرة التخزين المؤقت بنجاح! سيتم إعادة تحميل الصور.';
+
+  @override
+  String get clearCacheFailed => 'فشل في مسح ذاكرة التخزين المؤقت';
 
   @override
   String get myReports => 'تقاريري';
@@ -1899,7 +1923,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Preview';
@@ -2301,22 +2325,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectCurrentLevel => 'يرجى اختيار مستواك الحالي';
 
   @override
-  String get beginner => 'مبتدئ — أعرف بعض الكلمات';
+  String get beginner => 'مبتدئ';
 
   @override
-  String get elementary => 'أساسي — أستطيع تكوين جمل بسيطة';
+  String get elementary => 'أساسي';
 
   @override
-  String get intermediate => 'متوسط — أستطيع إجراء محادثات بسيطة';
+  String get intermediate => 'متوسط';
 
   @override
-  String get upperIntermediate => 'فوق المتوسط — أستطيع مناقشة معظم المواضيع';
+  String get upperIntermediate => 'فوق المتوسط';
 
   @override
-  String get advanced => 'متقدم — أتحدث بطلاقة';
+  String get advanced => 'متقدم';
 
   @override
-  String get proficient => 'متمكن — مستوى شبه أصلي';
+  String get proficient => 'متمكن';
 
   @override
   String get showingPartnersByDistance => 'عرض الشركاء حسب المسافة';
@@ -3066,4 +3090,416 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'البيانات والتخزين';
+
+  @override
+  String get manageStorageAndDownloads => 'إدارة التخزين والتنزيلات';
+
+  @override
+  String get storageUsage => 'استخدام التخزين';
+
+  @override
+  String get totalCacheSize => 'إجمالي حجم ذاكرة التخزين المؤقت';
+
+  @override
+  String get imageCache => 'ذاكرة الصور المؤقتة';
+
+  @override
+  String get voiceMessagesCache => 'الرسائل الصوتية';
+
+  @override
+  String get videoCache => 'ذاكرة الفيديو المؤقتة';
+
+  @override
+  String get otherCache => 'ذاكرة أخرى';
+
+  @override
+  String get autoDownloadMedia => 'تنزيل الوسائط تلقائياً';
+
+  @override
+  String get currentNetwork => 'الشبكة الحالية';
+
+  @override
+  String get images => 'الصور';
+
+  @override
+  String get videos => 'مقاطع الفيديو';
+
+  @override
+  String get voiceMessagesShort => 'الرسائل الصوتية';
+
+  @override
+  String get documentsLabel => 'المستندات';
+
+  @override
+  String get wifiOnly => 'WiFi فقط';
+
+  @override
+  String get never => 'أبداً';
+
+  @override
+  String get clearAllCache => 'مسح كل ذاكرة التخزين المؤقت';
+
+  @override
+  String get allCache => 'كل ذاكرة التخزين المؤقت';
+
+  @override
+  String get clearAllCacheConfirmation => 'سيؤدي هذا إلى حذف جميع الصور والرسائل الصوتية ومقاطع الفيديو والملفات الأخرى المخزنة مؤقتاً. قد يحمّل التطبيق المحتوى ببطء مؤقتاً.';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return 'مسح $category؟';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return 'سيتم تحرير $size';
+  }
+
+  @override
+  String get calculating => 'جاري الحساب...';
+
+  @override
+  String get noDataToShow => 'لا توجد بيانات للعرض';
+
+  @override
+  String get profileCompletion => 'اكتمال الملف الشخصي';
+
+  @override
+  String get justGettingStarted => 'بدأت للتو';
+
+  @override
+  String get lookingGood => 'يبدو جيداً!';
+
+  @override
+  String get almostThere => 'اقتربت!';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return 'أضف: $fields';
+  }
+
+  @override
+  String get profilePicture => 'صورة الملف الشخصي';
+
+  @override
+  String get nativeSpeaker => 'متحدث أصلي';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return 'أشخاص مهتمون بهذا الموضوع';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'كن أول من يضيف هذا الموضوع إلى اهتماماتك!';
+
+  @override
+  String get recentMoments => 'اللحظات الأخيرة';
+
+  @override
+  String get seeAll => 'عرض الكل';
+
+  @override
+  String get study => 'دراسة';
+
+  @override
+  String get followerMoments => 'لحظات المتابَعين';
+
+  @override
+  String get whenPeopleYouFollowPost => 'عندما ينشر الأشخاص الذين تتابعهم لحظات جديدة';
+
+  @override
+  String get noNotificationsYet => 'لا توجد إشعارات بعد';
+
+  @override
+  String get whenYouGetNotifications => 'عندما تتلقى إشعارات، ستظهر هنا';
+
+  @override
+  String get failedToLoadNotifications => 'فشل في تحميل الإشعارات';
+
+  @override
+  String get clearAllNotificationsConfirm => 'هل أنت متأكد أنك تريد مسح جميع الإشعارات؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get tapToChange => 'اضغط للتغيير';
+
+  @override
+  String get noPictureSet => 'لم يتم تعيين صورة';
+
+  @override
+  String get nameAndGender => 'الاسم والجنس';
+
+  @override
+  String get languageLevel => 'مستوى اللغة';
+
+  @override
+  String get personalInformation => 'المعلومات الشخصية';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => 'مواضيع الاهتمام';
+
+  @override
+  String get levelBeginner => 'مبتدئ';
+
+  @override
+  String get levelElementary => 'أساسي';
+
+  @override
+  String get levelIntermediate => 'متوسط';
+
+  @override
+  String get levelUpperIntermediate => 'فوق المتوسط';
+
+  @override
+  String get levelAdvanced => 'متقدم';
+
+  @override
+  String get levelProficient => 'متمكن';
+
+  @override
+  String get selectYourLevel => 'اختر مستواك';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return 'ما مدى إجادتك لـ $language؟';
+  }
+
+  @override
+  String get theLanguage => 'اللغة';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return 'تم تعيين مستوى اللغة إلى $level';
+  }
+
+  @override
+  String get failedToUpdate => 'فشل التحديث';
+
+  @override
+  String get editHometown => 'تعديل مسقط الرأس';
+
+  @override
+  String get useCurrentLocation => 'استخدام الموقع الحالي';
+
+  @override
+  String get detecting => 'جاري الكشف...';
+
+  @override
+  String get getCurrentLocation => 'الحصول على الموقع';
+
+  @override
+  String get country => 'البلد';
+
+  @override
+  String get city => 'المدينة';
+
+  @override
+  String get coordinates => 'الإحداثيات';
+
+  @override
+  String get noLocationDetectedYet => 'لم يتم اكتشاف موقع';
+
+  @override
+  String get detected => 'تم الكشف';
+
+  @override
+  String get savedHometown => 'تم حفظ مسقط الرأس';
+
+  @override
+  String get locationServicesDisabled => 'خدمات الموقع معطلة';
+
+  @override
+  String get locationPermissionPermanentlyDenied => 'تم رفض أذونات الموقع';
+
+  @override
+  String get unknown => 'غير معروف';
+
+  @override
+  String get editBio => 'تعديل النبذة';
+
+  @override
+  String get bioUpdatedSuccessfully => 'تم تحديث النبذة';
+
+  @override
+  String get tellOthersAboutYourself => 'أخبر الآخرين عن نفسك...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500 حرف';
+  }
+
+  @override
+  String get selectYourMbti => 'اختر MBTI';
+
+  @override
+  String get myBloodType => 'فصيلة دمي';
+
+  @override
+  String get pleaseSelectABloodType => 'اختر فصيلة الدم';
+
+  @override
+  String get nativeLanguageRequired => 'اللغة الأم (مطلوب)';
+
+  @override
+  String get languageToLearnRequired => 'لغة التعلم (مطلوب)';
+
+  @override
+  String get nativeLanguageCannotBeSame => 'اللغة الأم لا يمكن أن تكون نفس لغة التعلم';
+
+  @override
+  String get learningLanguageCannotBeSame => 'لغة التعلم لا يمكن أن تكون نفس اللغة الأم';
+
+  @override
+  String get pleaseSelectALanguage => 'اختر لغة';
+
+  @override
+  String get editInterests => 'تعديل الاهتمامات';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return 'الحد الأقصى $count موضوع';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'تم تحديث المواضيع!';
+
+  @override
+  String get failedToUpdateTopics => 'فشل تحديث المواضيع';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count/$max محدد';
+  }
+
+  @override
+  String get profilePictures => 'صور الملف الشخصي';
+
+  @override
+  String get addImages => 'إضافة صور';
+
+  @override
+  String get selectUpToImages => 'اختر حتى 5 صور';
+
+  @override
+  String get takeAPhoto => 'التقط صورة';
+
+  @override
+  String get removeImage => 'إزالة الصورة';
+
+  @override
+  String get removeImageConfirm => 'إزالة هذه الصورة؟';
+
+  @override
+  String get removeAll => 'إزالة الكل';
+
+  @override
+  String get removeAllSelectedImages => 'إزالة جميع الصور المحددة';
+
+  @override
+  String get removeAllSelectedImagesConfirm => 'إزالة جميع الصور المحددة؟';
+
+  @override
+  String get yourProfilePictureWillBeKept => 'سيتم الاحتفاظ بصورتك الحالية';
+
+  @override
+  String get removeAllImages => 'إزالة جميع الصور';
+
+  @override
+  String get removeAllImagesConfirm => 'إزالة جميع صور الملف؟';
+
+  @override
+  String get currentImages => 'الصور الحالية';
+
+  @override
+  String get newImages => 'صور جديدة';
+
+  @override
+  String get addMoreImages => 'إضافة المزيد';
+
+  @override
+  String uploadImages(int count) {
+    return 'رفع $count صورة';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => 'تمت إزالة الصورة';
+
+  @override
+  String get imagesUploadedSuccessfully => 'تم رفع الصور';
+
+  @override
+  String get selectedImagesCleared => 'تم مسح الصور المحددة';
+
+  @override
+  String get extraImagesRemovedSuccessfully => 'تمت إزالة الصور الإضافية';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'يجب الاحتفاظ بصورة واحدة على الأقل';
+
+  @override
+  String get noProfilePicturesToRemove => 'لا توجد صور للإزالة';
+
+  @override
+  String get authenticationTokenNotFound => 'لم يتم العثور على الرمز';
+
+  @override
+  String get saveChangesQuestion => 'حفظ التغييرات؟';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '$count صورة لم يتم رفعها. رفع الآن؟';
+  }
+
+  @override
+  String get discard => 'تجاهل';
+
+  @override
+  String get upload => 'رفع';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return 'حد أقصى $max صورة. الحالي: $current/$max';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'يمكن إضافة $count فقط. الحد $max.';
+  }
+
+  @override
+  String get maxImagesPerUpload => 'حد أقصى 5 صور في المرة';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return 'حد أقصى $max صورة';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => 'الحجم يتجاوز 10 ميجابايت';
+
+  @override
+  String get unsupportedImageFormat => 'صيغة غير مدعومة';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'اختر صورة واحدة على الأقل';
+
+  @override
+  String get basicInformation => 'المعلومات الأساسية';
+
+  @override
+  String get languageToLearn => 'لغة التعلم';
+
+  @override
+  String get hometown => 'مسقط الرأس';
+
+  @override
+  String get characters => 'حرف';
+
+  @override
+  String get failedToLoadLanguages => 'فشل تحميل اللغات';
 }

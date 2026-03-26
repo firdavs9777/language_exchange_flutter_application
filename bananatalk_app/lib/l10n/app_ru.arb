@@ -7,6 +7,7 @@
   "password": "Пароль",
   "forgotPassword": "Забыли пароль?",
   "or": "ИЛИ",
+  "more": "ещё",
   "signInWithGoogle": "Войти через Google",
   "signInWithApple": "Войти через Apple",
   "signInWithFacebook": "Войти через Facebook",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "Изменить язык приложения",
   "appearance": "Внешний вид",
   "themeAndDisplaySettings": "Настройки темы и отображения",
+  "clearCache": "Очистить кэш",
+  "clearCacheSubtitle": "Освободить место в хранилище",
+  "clearCacheDescription": "Это удалит все кэшированные изображения, видео и аудиофайлы. Приложение может временно загружать контент медленнее, пока повторно загружает медиафайлы.",
+  "clearCacheHint": "Используйте это, если изображения или аудио не загружаются правильно.",
+  "clearingCache": "Очистка кэша...",
+  "cacheCleared": "Кэш успешно очищен! Изображения будут загружены заново.",
+  "clearCacheFailed": "Не удалось очистить кэш",
   "myReports": "Мои жалобы",
   "viewYourSubmittedReports": "Просмотр отправленных жалоб",
   "reportsManagement": "Управление жалобами",
@@ -970,5 +978,205 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Данные и Хранилище",
+  "manageStorageAndDownloads": "Управление хранилищем и загрузками",
+  "storageUsage": "Использование Хранилища",
+  "totalCacheSize": "Общий Размер Кэша",
+  "imageCache": "Кэш Изображений",
+  "voiceMessagesCache": "Голосовые Сообщения",
+  "videoCache": "Кэш Видео",
+  "otherCache": "Другой Кэш",
+  "autoDownloadMedia": "Автозагрузка Медиа",
+  "currentNetwork": "Текущая Сеть",
+  "images": "Изображения",
+  "videos": "Видео",
+  "voiceMessagesShort": "Голосовые Сообщения",
+  "documentsLabel": "Документы",
+  "wifiOnly": "Только WiFi",
+  "never": "Никогда",
+  "clearAllCache": "Очистить Весь Кэш",
+  "allCache": "Весь Кэш",
+  "clearAllCacheConfirmation": "Это удалит все кэшированные изображения, голосовые сообщения, видео и другие файлы. Приложение может временно загружать контент медленнее.",
+  "clearCacheConfirmationFor": "Очистить {category}?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} будет освобождено",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Вычисление...",
+  "noDataToShow": "Нет данных для отображения",
+  "profileCompletion": "Заполненность профиля",
+  "justGettingStarted": "Только начинаем",
+  "lookingGood": "Хорошо!",
+  "almostThere": "Почти готово!",
+  "addMissingFields": "Добавить: {fields}",
+  "profilePicture": "Фото профиля",
+  "nativeSpeaker": "Носитель языка",
+  "beginner": "Начинающий",
+  "elementary": "Элементарный",
+  "intermediate": "Средний",
+  "upperIntermediate": "Выше среднего",
+  "advanced": "Продвинутый",
+  "proficient": "Свободный",
+  "peopleInterestedInTopic": "Люди, интересующиеся этой темой",
+  "noUsersFound": "Пользователи не найдены",
+  "beFirstToAddTopic": "Будьте первым, кто добавит эту тему в свои интересы!",
+  "recentMoments": "Недавние моменты",
+  "seeAll": "Смотреть все",
+  "study": "Учиться",
+  "followerMoments": "Моменты подписок",
+  "whenPeopleYouFollowPost": "Когда люди, на которых вы подписаны, публикуют новые моменты",
+  "noNotificationsYet": "Пока нет уведомлений",
+  "whenYouGetNotifications": "Когда вы получите уведомления, они появятся здесь",
+  "failedToLoadNotifications": "Не удалось загрузить уведомления",
+  "clearAllNotificationsConfirm": "Вы уверены, что хотите удалить все уведомления? Это действие нельзя отменить.",
+
+  "tapToChange": "Нажмите для изменения",
+  "noPictureSet": "Фото не установлено",
+  "nameAndGender": "Имя и Пол",
+  "languageLevel": "Уровень Языка",
+  "personalInformation": "Личная Информация",
+  "mbti": "MBTI",
+  "topicsOfInterest": "Темы Интересов",
+  "levelBeginner": "Начинающий",
+  "levelElementary": "Элементарный",
+  "levelIntermediate": "Средний",
+  "levelUpperIntermediate": "Выше Среднего",
+  "levelAdvanced": "Продвинутый",
+  "levelProficient": "Свободный",
+  "selectYourLevel": "Выберите Ваш Уровень",
+  "howWellDoYouSpeak": "Насколько хорошо вы говорите на {language}?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "язык",
+  "languageLevelSetTo": "Уровень языка установлен на {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Не удалось обновить",
+  "editHometown": "Изменить Родной Город",
+  "useCurrentLocation": "Использовать Текущее Местоположение",
+  "detecting": "Определение...",
+  "getCurrentLocation": "Получить Текущее Местоположение",
+  "country": "Страна",
+  "city": "Город",
+  "coordinates": "Координаты",
+  "noLocationDetectedYet": "Местоположение еще не определено.",
+  "detected": "Определено",
+  "savedHometown": "Родной город сохранен",
+  "locationServicesDisabled": "Службы геолокации отключены. Пожалуйста, включите их.",
+  "locationPermissionPermanentlyDenied": "Разрешения на геолокацию постоянно отклонены.",
+  "unknown": "Неизвестно",
+  "editBio": "Изменить Биографию",
+  "bioUpdatedSuccessfully": "Биография успешно обновлена",
+  "tellOthersAboutYourself": "Расскажите о себе...",
+  "charactersCount": "{count}/500 символов",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "Выберите Ваш MBTI",
+  "myBloodType": "Моя Группа Крови",
+  "pleaseSelectABloodType": "Пожалуйста, выберите группу крови",
+  "nativeLanguageRequired": "Родной Язык (Обязательно)",
+  "languageToLearnRequired": "Изучаемый Язык (Обязательно)",
+  "nativeLanguageCannotBeSame": "Родной язык не может совпадать с изучаемым",
+  "learningLanguageCannotBeSame": "Изучаемый язык не может совпадать с родным",
+  "pleaseSelectALanguage": "Пожалуйста, выберите язык",
+  "editInterests": "Изменить Интересы",
+  "maxTopicsAllowed": "Максимум {count} тем",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Темы успешно обновлены!",
+  "failedToUpdateTopics": "Не удалось обновить темы",
+  "selectedCount": "{count}/{max} выбрано",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "profilePictures": "Фото Профиля",
+  "addImages": "Добавить Изображения",
+  "selectUpToImages": "Выберите до 5 изображений",
+  "takeAPhoto": "Сделать Фото",
+  "removeImage": "Удалить Изображение",
+  "removeImageConfirm": "Удалить это изображение?",
+  "removeAll": "Удалить Все",
+  "removeAllSelectedImages": "Удалить Все Выбранные",
+  "removeAllSelectedImagesConfirm": "Удалить все выбранные изображения?",
+  "yourProfilePictureWillBeKept": "Ваше фото профиля будет сохранено",
+  "removeAllImages": "Удалить Все Изображения",
+  "removeAllImagesConfirm": "Удалить все фото профиля?",
+  "currentImages": "Текущие Изображения",
+  "newImages": "Новые Изображения",
+  "addMoreImages": "Добавить Еще",
+  "uploadImages": "Загрузить {count}",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "Изображение удалено",
+  "imagesUploadedSuccessfully": "Изображения загружены",
+  "selectedImagesCleared": "Выбранные изображения удалены",
+  "extraImagesRemovedSuccessfully": "Дополнительные изображения удалены",
+  "mustKeepAtLeastOneProfilePicture": "Нужно хотя бы одно фото профиля",
+  "noProfilePicturesToRemove": "Нет фото для удаления",
+  "authenticationTokenNotFound": "Токен не найден",
+  "saveChangesQuestion": "Сохранить Изменения?",
+  "youHaveUnuploadedImages": "{count} изображений не загружено. Загрузить?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "Отменить",
+  "upload": "Загрузить",
+  "maxImagesInfo": "Максимум {max} изображений. Текущее: {current}/{max}",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "Можно добавить еще {count}. Максимум {max}.",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "Максимум 5 изображений за раз",
+  "canOnlyHaveMaxImages": "Максимум {max} изображений",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "Размер превышает 10МБ",
+  "unsupportedImageFormat": "Неподдерживаемый формат",
+  "pleaseSelectAtLeastOneImage": "Выберите хотя бы одно изображение",
+  "basicInformation": "Основная Информация",
+  "languageToLearn": "Изучаемый Язык",
+  "hometown": "Родной Город",
+  "characters": "символов",
+  "failedToLoadLanguages": "Не удалось загрузить языки"
 }

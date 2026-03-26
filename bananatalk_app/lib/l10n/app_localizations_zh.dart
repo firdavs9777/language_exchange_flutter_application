@@ -30,6 +30,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get or => '或';
 
   @override
+  String get more => '更多';
+
+  @override
   String get signInWithGoogle => '使用 Google 登录';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => '主题和显示设置';
+
+  @override
+  String get clearCache => '清除缓存';
+
+  @override
+  String get clearCacheSubtitle => '释放存储空间';
+
+  @override
+  String get clearCacheDescription => '这将清除所有缓存的图片、视频和音频文件。在重新下载媒体内容期间，应用可能会暂时加载较慢。';
+
+  @override
+  String get clearCacheHint => '如果图片或音频无法正常加载，请使用此功能。';
+
+  @override
+  String get clearingCache => '正在清除缓存...';
+
+  @override
+  String get cacheCleared => '缓存已成功清除！图片将重新加载。';
+
+  @override
+  String get clearCacheFailed => '清除缓存失败';
 
   @override
   String get myReports => '我的举报';
@@ -1899,7 +1923,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Preview';
@@ -2301,22 +2325,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get selectCurrentLevel => '请选择你的当前水平';
 
   @override
-  String get beginner => '入门 — 我知道一些单词';
+  String get beginner => '入门';
 
   @override
-  String get elementary => '初级 — 我能造简单的句子';
+  String get elementary => '初级';
 
   @override
-  String get intermediate => '中级 — 我能进行基本对话';
+  String get intermediate => '中级';
 
   @override
-  String get upperIntermediate => '中高级 — 我能讨论大部分话题';
+  String get upperIntermediate => '中高级';
 
   @override
-  String get advanced => '高级 — 我说得很流利';
+  String get advanced => '高级';
 
   @override
-  String get proficient => '精通 — 接近母语水平';
+  String get proficient => '精通';
 
   @override
   String get showingPartnersByDistance => '按距离排序显示语伴';
@@ -3066,6 +3090,418 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => '数据与存储';
+
+  @override
+  String get manageStorageAndDownloads => '管理存储和下载';
+
+  @override
+  String get storageUsage => '存储使用情况';
+
+  @override
+  String get totalCacheSize => '总缓存大小';
+
+  @override
+  String get imageCache => '图片缓存';
+
+  @override
+  String get voiceMessagesCache => '语音消息';
+
+  @override
+  String get videoCache => '视频缓存';
+
+  @override
+  String get otherCache => '其他缓存';
+
+  @override
+  String get autoDownloadMedia => '自动下载媒体';
+
+  @override
+  String get currentNetwork => '当前网络';
+
+  @override
+  String get images => '图片';
+
+  @override
+  String get videos => '视频';
+
+  @override
+  String get voiceMessagesShort => '语音消息';
+
+  @override
+  String get documentsLabel => '文档';
+
+  @override
+  String get wifiOnly => '仅Wi-Fi';
+
+  @override
+  String get never => '从不';
+
+  @override
+  String get clearAllCache => '清除所有缓存';
+
+  @override
+  String get allCache => '所有缓存';
+
+  @override
+  String get clearAllCacheConfirmation => '这将清除所有缓存的图片、语音消息、视频和其他文件。应用可能会暂时加载内容较慢。';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return '清除$category？';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '将释放$size';
+  }
+
+  @override
+  String get calculating => '计算中...';
+
+  @override
+  String get noDataToShow => '无数据显示';
+
+  @override
+  String get profileCompletion => '资料完成度';
+
+  @override
+  String get justGettingStarted => '刚开始';
+
+  @override
+  String get lookingGood => '很不错！';
+
+  @override
+  String get almostThere => '快完成了！';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return '添加: $fields';
+  }
+
+  @override
+  String get profilePicture => '头像';
+
+  @override
+  String get nativeSpeaker => '母语者';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return '对此话题感兴趣的人';
+  }
+
+  @override
+  String get beFirstToAddTopic => '成为第一个添加此话题的人！';
+
+  @override
+  String get recentMoments => '最近动态';
+
+  @override
+  String get seeAll => '查看全部';
+
+  @override
+  String get study => '学习';
+
+  @override
+  String get followerMoments => '关注者动态';
+
+  @override
+  String get whenPeopleYouFollowPost => '当你关注的人发布新动态时';
+
+  @override
+  String get noNotificationsYet => '暂无通知';
+
+  @override
+  String get whenYouGetNotifications => '收到通知后将在此显示';
+
+  @override
+  String get failedToLoadNotifications => '加载通知失败';
+
+  @override
+  String get clearAllNotificationsConfirm => '确定要清除所有通知吗？此操作无法撤销。';
+
+  @override
+  String get tapToChange => '点击更改';
+
+  @override
+  String get noPictureSet => '未设置照片';
+
+  @override
+  String get nameAndGender => '姓名与性别';
+
+  @override
+  String get languageLevel => '语言水平';
+
+  @override
+  String get personalInformation => '个人信息';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => '兴趣话题';
+
+  @override
+  String get levelBeginner => '入门';
+
+  @override
+  String get levelElementary => '初级';
+
+  @override
+  String get levelIntermediate => '中级';
+
+  @override
+  String get levelUpperIntermediate => '中高级';
+
+  @override
+  String get levelAdvanced => '高级';
+
+  @override
+  String get levelProficient => '精通';
+
+  @override
+  String get selectYourLevel => '选择您的水平';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return '您的$language水平如何？';
+  }
+
+  @override
+  String get theLanguage => '语言';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return '语言水平已设置为$level';
+  }
+
+  @override
+  String get failedToUpdate => '更新失败';
+
+  @override
+  String get editHometown => '编辑家乡';
+
+  @override
+  String get useCurrentLocation => '使用当前位置';
+
+  @override
+  String get detecting => '检测中...';
+
+  @override
+  String get getCurrentLocation => '获取当前位置';
+
+  @override
+  String get country => '国家';
+
+  @override
+  String get city => '城市';
+
+  @override
+  String get coordinates => '坐标';
+
+  @override
+  String get noLocationDetectedYet => '尚未检测到位置。';
+
+  @override
+  String get detected => '已检测';
+
+  @override
+  String get savedHometown => '家乡已保存';
+
+  @override
+  String get locationServicesDisabled => '位置服务已禁用。请启用它们。';
+
+  @override
+  String get locationPermissionPermanentlyDenied => '位置权限已被永久拒绝。';
+
+  @override
+  String get unknown => '未知';
+
+  @override
+  String get editBio => '编辑简介';
+
+  @override
+  String get bioUpdatedSuccessfully => '简介已成功更新';
+
+  @override
+  String get tellOthersAboutYourself => '介绍一下自己...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500字符';
+  }
+
+  @override
+  String get selectYourMbti => '选择您的MBTI';
+
+  @override
+  String get myBloodType => '我的血型';
+
+  @override
+  String get pleaseSelectABloodType => '请选择血型';
+
+  @override
+  String get nativeLanguageRequired => '母语（必填）';
+
+  @override
+  String get languageToLearnRequired => '学习语言（必填）';
+
+  @override
+  String get nativeLanguageCannotBeSame => '母语不能与正在学习的语言相同';
+
+  @override
+  String get learningLanguageCannotBeSame => '学习语言不能与母语相同';
+
+  @override
+  String get pleaseSelectALanguage => '请选择语言';
+
+  @override
+  String get editInterests => '编辑兴趣';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return '最多可选择$count个话题';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => '话题已成功更新！';
+
+  @override
+  String get failedToUpdateTopics => '更新话题失败';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '已选择$count/$max';
+  }
+
+  @override
+  String get profilePictures => '头像';
+
+  @override
+  String get addImages => '添加图片';
+
+  @override
+  String get selectUpToImages => '最多选择5张图片';
+
+  @override
+  String get takeAPhoto => '拍照';
+
+  @override
+  String get removeImage => '删除图片';
+
+  @override
+  String get removeImageConfirm => '确定要删除这张图片吗？';
+
+  @override
+  String get removeAll => '全部删除';
+
+  @override
+  String get removeAllSelectedImages => '删除所有选中的图片';
+
+  @override
+  String get removeAllSelectedImagesConfirm => '确定要删除所有选中的图片吗？';
+
+  @override
+  String get yourProfilePictureWillBeKept => '您现有的头像将被保留';
+
+  @override
+  String get removeAllImages => '删除所有图片';
+
+  @override
+  String get removeAllImagesConfirm => '确定要删除所有头像吗？';
+
+  @override
+  String get currentImages => '当前图片';
+
+  @override
+  String get newImages => '新图片';
+
+  @override
+  String get addMoreImages => '添加更多图片';
+
+  @override
+  String uploadImages(int count) {
+    return '上传$count张图片';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => '图片已成功删除';
+
+  @override
+  String get imagesUploadedSuccessfully => '图片已成功上传';
+
+  @override
+  String get selectedImagesCleared => '已清除选中的图片';
+
+  @override
+  String get extraImagesRemovedSuccessfully => '多余图片已成功删除';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => '必须保留至少一张头像';
+
+  @override
+  String get noProfilePicturesToRemove => '没有可删除的头像';
+
+  @override
+  String get authenticationTokenNotFound => '未找到认证令牌';
+
+  @override
+  String get saveChangesQuestion => '保存更改？';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '您已选择$count张图片但未上传。是否现在上传？';
+  }
+
+  @override
+  String get discard => '放弃';
+
+  @override
+  String get upload => '上传';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return '最多可上传$max张图片。当前: $current/$max\n每次最多上传5张图片。';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return '只能再添加$count张图片。最多$max张。';
+  }
+
+  @override
+  String get maxImagesPerUpload => '每次最多只能上传5张图片。只有前5张会被添加。';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return '最多只能有$max张图片';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => '图片大小超过10MB限制';
+
+  @override
+  String get unsupportedImageFormat => '不支持的图片格式';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => '请至少选择一张图片上传';
+
+  @override
+  String get basicInformation => '基本信息';
+
+  @override
+  String get languageToLearn => '学习语言';
+
+  @override
+  String get hometown => '家乡';
+
+  @override
+  String get characters => '字符';
+
+  @override
+  String get failedToLoadLanguages => '加载语言失败';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -3092,6 +3528,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get or => '或';
+
+  @override
+  String get more => '更多';
 
   @override
   String get signInWithGoogle => '使用 Google 登入';
@@ -3350,6 +3789,27 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get themeAndDisplaySettings => '主題和顯示設定';
+
+  @override
+  String get clearCache => '清除快取';
+
+  @override
+  String get clearCacheSubtitle => '釋放儲存空間';
+
+  @override
+  String get clearCacheDescription => '這將清除所有快取的圖片、影片和音訊檔案。在重新下載媒體內容期間，應用程式可能會暫時載入較慢。';
+
+  @override
+  String get clearCacheHint => '如果圖片或音訊無法正常載入，請使用此功能。';
+
+  @override
+  String get clearingCache => '正在清除快取...';
+
+  @override
+  String get cacheCleared => '快取已成功清除！圖片將重新載入。';
+
+  @override
+  String get clearCacheFailed => '清除快取失敗';
 
   @override
   String get myReports => '我的檢舉';
@@ -5294,7 +5754,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get noUsersFound => '未找到用戶';
+  String get noUsersFound => '找不到用戶';
 
   @override
   String get tryDifferentCity => '試試其他城市或國家';
@@ -5356,22 +5816,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get selectCurrentLevel => '請選擇您的當前程度';
 
   @override
-  String get beginner => '入門 — 我認識一些單字';
+  String get beginner => '入門';
 
   @override
-  String get elementary => '初級 — 我能造簡單的句子';
+  String get elementary => '初級';
 
   @override
-  String get intermediate => '中級 — 我能進行基本對話';
+  String get intermediate => '中級';
 
   @override
-  String get upperIntermediate => '中高級 — 我能討論大部分話題';
+  String get upperIntermediate => '中高級';
 
   @override
-  String get advanced => '高級 — 我說得很流利';
+  String get advanced => '高級';
 
   @override
-  String get proficient => '精通 — 接近母語程度';
+  String get proficient => '精通';
 
   @override
   String get showingPartnersByDistance => '按距離排序顯示語伴';
@@ -5992,4 +6452,318 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String nPeople(int count) {
     return '$count人';
   }
+
+  @override
+  String get dataAndStorage => '數據與儲存';
+
+  @override
+  String get manageStorageAndDownloads => '管理儲存和下載';
+
+  @override
+  String get storageUsage => '儲存使用情況';
+
+  @override
+  String get totalCacheSize => '總快取大小';
+
+  @override
+  String get imageCache => '圖片快取';
+
+  @override
+  String get voiceMessagesCache => '語音訊息';
+
+  @override
+  String get videoCache => '影片快取';
+
+  @override
+  String get otherCache => '其他快取';
+
+  @override
+  String get autoDownloadMedia => '自動下載媒體';
+
+  @override
+  String get currentNetwork => '目前網路';
+
+  @override
+  String get images => '圖片';
+
+  @override
+  String get videos => '影片';
+
+  @override
+  String get voiceMessagesShort => '語音訊息';
+
+  @override
+  String get documentsLabel => '文件';
+
+  @override
+  String get wifiOnly => '僅Wi-Fi';
+
+  @override
+  String get never => '從不';
+
+  @override
+  String get clearAllCache => '清除所有快取';
+
+  @override
+  String get allCache => '所有快取';
+
+  @override
+  String get clearAllCacheConfirmation => '這將清除所有快取的圖片、語音訊息、影片和其他檔案。應用程式可能會暫時載入內容較慢。';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return '清除$category？';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '將釋放$size';
+  }
+
+  @override
+  String get calculating => '計算中...';
+
+  @override
+  String get noDataToShow => '無資料顯示';
+
+  @override
+  String get profileCompletion => '個人資料完成度';
+
+  @override
+  String get justGettingStarted => '剛開始';
+
+  @override
+  String get lookingGood => '很不錯！';
+
+  @override
+  String get almostThere => '快完成了！';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return '新增: $fields';
+  }
+
+  @override
+  String get profilePicture => '大頭貼';
+
+  @override
+  String get nativeSpeaker => '母語者';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return '對此話題感興趣的人';
+  }
+
+  @override
+  String get beFirstToAddTopic => '成為第一個新增此話題的人！';
+
+  @override
+  String get recentMoments => '最近動態';
+
+  @override
+  String get seeAll => '查看全部';
+
+  @override
+  String get study => '學習';
+
+  @override
+  String get followerMoments => '追蹤者動態';
+
+  @override
+  String get whenPeopleYouFollowPost => '當你追蹤的人發布新動態時';
+
+  @override
+  String get noNotificationsYet => '暫無通知';
+
+  @override
+  String get whenYouGetNotifications => '收到通知後將在此顯示';
+
+  @override
+  String get failedToLoadNotifications => '載入通知失敗';
+
+  @override
+  String get clearAllNotificationsConfirm => '確定要清除所有通知嗎？此操作無法復原。';
+
+  @override
+  String get tapToChange => '點擊更改';
+
+  @override
+  String get noPictureSet => '尚未設定照片';
+
+  @override
+  String get nameAndGender => '姓名與性別';
+
+  @override
+  String get languageLevel => '語言程度';
+
+  @override
+  String get personalInformation => '個人資訊';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => '感興趣的話題';
+
+  @override
+  String get levelBeginner => '入門';
+
+  @override
+  String get levelElementary => '初級';
+
+  @override
+  String get levelIntermediate => '中級';
+
+  @override
+  String get levelUpperIntermediate => '中高級';
+
+  @override
+  String get levelAdvanced => '高級';
+
+  @override
+  String get levelProficient => '精通';
+
+  @override
+  String get selectYourLevel => '選擇您的程度';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return '您的$language程度如何？';
+  }
+
+  @override
+  String get theLanguage => '語言';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return '語言程度已設為$level';
+  }
+
+  @override
+  String get failedToUpdate => '更新失敗';
+
+  @override
+  String get editHometown => '編輯家鄉';
+
+  @override
+  String get useCurrentLocation => '使用目前位置';
+
+  @override
+  String get detecting => '偵測中...';
+
+  @override
+  String get getCurrentLocation => '取得目前位置';
+
+  @override
+  String get country => '國家';
+
+  @override
+  String get city => '城市';
+
+  @override
+  String get coordinates => '座標';
+
+  @override
+  String get noLocationDetectedYet => '尚未偵測到位置';
+
+  @override
+  String get detected => '已偵測';
+
+  @override
+  String get savedHometown => '已儲存家鄉';
+
+  @override
+  String get locationServicesDisabled => '位置服務已停用';
+
+  @override
+  String get locationPermissionPermanentlyDenied => '位置權限已永久拒絕';
+
+  @override
+  String get unknown => '未知';
+
+  @override
+  String get editBio => '編輯個人簡介';
+
+  @override
+  String get bioUpdatedSuccessfully => '個人簡介已更新！';
+
+  @override
+  String get tellOthersAboutYourself => '介紹一下自己';
+
+  @override
+  String charactersCount(int count) {
+    return '$current/$max字';
+  }
+
+  @override
+  String get selectYourMbti => '選擇您的MBTI';
+
+  @override
+  String get myBloodType => '我的血型';
+
+  @override
+  String get pleaseSelectABloodType => '請選擇血型';
+
+  @override
+  String get nativeLanguageRequired => '需要母語';
+
+  @override
+  String get languageToLearnRequired => '需要學習語言';
+
+  @override
+  String get nativeLanguageCannotBeSame => '母語不能與學習語言相同';
+
+  @override
+  String get learningLanguageCannotBeSame => '學習語言不能與母語相同';
+
+  @override
+  String get pleaseSelectALanguage => '請選擇語言';
+
+  @override
+  String get editInterests => '編輯興趣';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return '最多允許$count個話題';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => '話題已更新！';
+
+  @override
+  String get failedToUpdateTopics => '話題更新失敗';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '已選$count個';
+  }
+
+  @override
+  String get profilePictures => '個人照片';
+
+  @override
+  String get addImages => '新增照片';
+
+  @override
+  String get selectUpToImages => '選擇最多null張照片';
+
+  @override
+  String get takeAPhoto => '拍照';
+
+  @override
+  String get removeImage => '移除照片';
+
+  @override
+  String get removeImageConfirm => '確定要移除此照片嗎？';
+
+  @override
+  String uploadImages(int count) {
+    return '上傳$count張照片';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => '照片已移除';
+
+  @override
+  String get imagesUploadedSuccessfully => '照片已上傳';
 }

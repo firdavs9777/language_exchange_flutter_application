@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,6 +31,7 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
 
   Future<void> _saveBio() async {
     if (_isSaving) return;
+    final l10n = AppLocalizations.of(context)!;
 
     setState(() {
       _isSaving = true;
@@ -46,7 +48,7 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
         Navigator.pop(context, _bioController.text.trim());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Bio updated successfully'),
+            content: Text(l10n.bioUpdatedSuccessfully),
             backgroundColor: AppColors.success,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 2),
@@ -60,7 +62,7 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: ${e.toString().replaceFirst('Exception: ', '')}'),
+            content: Text('${AppLocalizations.of(context)!.error}: ${e.toString().replaceFirst('Exception: ', '')}'),
             backgroundColor: AppColors.error,
             behavior: SnackBarBehavior.floating,
           ),
@@ -71,6 +73,9 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
@@ -81,7 +86,7 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Edit Bio',
+          l10n.editBio,
           style: context.titleLarge,
         ),
         actions: [
@@ -101,7 +106,7 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
             TextButton(
               onPressed: _saveBio,
               child: Text(
-                'Save',
+                l10n.save,
                 style: context.titleMedium.copyWith(
                   color: AppColors.primary,
                 ),
@@ -115,54 +120,57 @@ class _ProfileBioEditState extends ConsumerState<ProfileBioEdit> {
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Padding(
             padding: Spacing.screenPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: context.cardBackground,
-                  borderRadius: AppRadius.borderMD,
-                  boxShadow: AppShadows.sm,
-                ),
-                child: TextField(
-                  controller: _bioController,
-                  maxLines: 8,
-                  maxLength: 500,
-                  style: context.bodyLarge,
-                  decoration: InputDecoration(
-                    hintText: 'Tell others about yourself...',
-                    hintStyle: context.bodyMedium.copyWith(
-                      color: context.textHint,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.cardBackground,
+                    borderRadius: AppRadius.borderMD,
+                    border: isDark
+                        ? Border.all(color: Colors.white.withValues(alpha: 0.08))
+                        : null,
+                    boxShadow: isDark ? null : AppShadows.sm,
+                  ),
+                  child: TextField(
+                    controller: _bioController,
+                    maxLines: 8,
+                    maxLength: 500,
+                    style: context.bodyLarge,
+                    decoration: InputDecoration(
+                      hintText: l10n.tellOthersAboutYourself,
+                      hintStyle: context.bodyMedium.copyWith(
+                        color: context.textHint,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: AppRadius.borderMD,
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: context.cardBackground,
+                      contentPadding: Spacing.paddingLG,
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: context.cardBackground,
-                    contentPadding: Spacing.paddingLG,
                   ),
                 ),
-              ),
-              Spacing.gapMD,
-              ValueListenableBuilder<TextEditingValue>(
-                valueListenable: _bioController,
-                builder: (context, value, child) {
-                  return Text(
-                    '${value.text.length}/500 characters',
-                    style: context.caption.copyWith(
-                      color: value.text.length > 500
-                          ? AppColors.error
-                          : context.textSecondary,
-                    ),
-                  );
-                },
-              ),
-              Spacing.gapXXL,
-            ],
+                Spacing.gapMD,
+                ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: _bioController,
+                  builder: (context, value, child) {
+                    return Text(
+                      '${value.text.length}/500 ${l10n.characters}',
+                      style: context.caption.copyWith(
+                        color: value.text.length > 500
+                            ? AppColors.error
+                            : context.textSecondary,
+                      ),
+                    );
+                  },
+                ),
+                Spacing.gapXXL,
+              ],
+            ),
           ),
         ),
-      ),
       ),
     );
   }

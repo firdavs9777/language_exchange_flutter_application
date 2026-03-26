@@ -7,6 +7,7 @@
   "password": "पासवर्ड",
   "forgotPassword": "पासवर्ड भूल गए?",
   "or": "या",
+  "more": "और",
   "signInWithGoogle": "Google से साइन इन करें",
   "signInWithApple": "Apple से साइन इन करें",
   "signInWithFacebook": "Facebook से साइन इन करें",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "ऐप भाषा बदलें",
   "appearance": "दिखावट",
   "themeAndDisplaySettings": "थीम और डिस्प्ले सेटिंग्स",
+  "clearCache": "कैश साफ़ करें",
+  "clearCacheSubtitle": "स्टोरेज स्पेस खाली करें",
+  "clearCacheDescription": "यह सभी कैश्ड इमेज, वीडियो और ऑडियो फ़ाइलों को हटा देगा। मीडिया को फिर से डाउनलोड करते समय ऐप अस्थायी रूप से धीमी गति से कंटेंट लोड कर सकता है।",
+  "clearCacheHint": "यदि इमेज या ऑडियो ठीक से लोड नहीं हो रहा है तो इसका उपयोग करें।",
+  "clearingCache": "कैश साफ़ हो रहा है...",
+  "cacheCleared": "कैश सफलतापूर्वक साफ़ हो गया! इमेज फिर से लोड होंगी।",
+  "clearCacheFailed": "कैश साफ़ करने में विफल",
   "myReports": "मेरी रिपोर्ट्स",
   "viewYourSubmittedReports": "अपनी जमा की गई रिपोर्ट्स देखें",
   "reportsManagement": "रिपोर्ट्स प्रबंधन",
@@ -956,5 +964,199 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "डेटा और स्टोरेज",
+  "manageStorageAndDownloads": "स्टोरेज और डाउनलोड प्रबंधित करें",
+  "storageUsage": "स्टोरेज उपयोग",
+  "totalCacheSize": "कुल कैश साइज",
+  "imageCache": "इमेज कैश",
+  "voiceMessagesCache": "वॉइस मैसेज",
+  "videoCache": "वीडियो कैश",
+  "otherCache": "अन्य कैश",
+  "autoDownloadMedia": "मीडिया ऑटो-डाउनलोड",
+  "currentNetwork": "वर्तमान नेटवर्क",
+  "images": "इमेज",
+  "videos": "वीडियो",
+  "voiceMessagesShort": "वॉइस मैसेज",
+  "documentsLabel": "दस्तावेज़",
+  "wifiOnly": "केवल WiFi",
+  "never": "कभी नहीं",
+  "clearAllCache": "सभी कैश साफ़ करें",
+  "allCache": "सभी कैश",
+  "clearAllCacheConfirmation": "यह सभी कैश की गई इमेज, वॉइस मैसेज, वीडियो और अन्य फाइलें हटा देगा। ऐप अस्थायी रूप से कंटेंट धीमे लोड कर सकता है।",
+  "clearCacheConfirmationFor": "{category} साफ़ करें?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} खाली होगा",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "गणना हो रही है...",
+  "noDataToShow": "दिखाने के लिए कोई डेटा नहीं",
+
+  "profileCompletion": "प्रोफ़ाइल पूर्णता",
+  "justGettingStarted": "अभी शुरुआत हुई है",
+  "lookingGood": "अच्छा लग रहा है!",
+  "almostThere": "लगभग हो गया!",
+  "addMissingFields": "अपनी प्रोफ़ाइल पूरी करने के लिए {field} जोड़ें",
+  "profilePicture": "प्रोफ़ाइल फ़ोटो",
+  "nativeSpeaker": "मातृभाषी",
+  "peopleInterestedInTopic": "{count} लोग रुचि रखते हैं",
+  "beFirstToAddTopic": "इस विषय को जोड़ने वाले पहले बनें!",
+  "recentMoments": "हाल के पल",
+  "seeAll": "सभी देखें",
+  "study": "अध्ययन",
+  "followerMoments": "फॉलोअर्स के पल",
+  "whenPeopleYouFollowPost": "जब आप जिन लोगों को फॉलो करते हैं वे नए पल पोस्ट करते हैं",
+  "noNotificationsYet": "अभी तक कोई सूचना नहीं",
+  "whenYouGetNotifications": "जब आपको सूचनाएं मिलेंगी, वे यहां दिखाई देंगी",
+  "failedToLoadNotifications": "सूचनाएं लोड करने में विफल",
+  "clearAllNotificationsConfirm": "क्या आप सभी सूचनाएं हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
+
+  "tapToChange": "बदलने के लिए टैप करें",
+  "noPictureSet": "कोई तस्वीर नहीं",
+  "nameAndGender": "नाम और लिंग",
+  "languageLevel": "भाषा स्तर",
+  "personalInformation": "व्यक्तिगत जानकारी",
+  "mbti": "MBTI",
+  "topicsOfInterest": "रुचि के विषय",
+  "levelBeginner": "शुरुआती",
+  "levelElementary": "प्राथमिक",
+  "levelIntermediate": "मध्यवर्ती",
+  "levelUpperIntermediate": "उच्च मध्यवर्ती",
+  "levelAdvanced": "उन्नत",
+  "levelProficient": "कुशल",
+  "selectYourLevel": "अपना स्तर चुनें",
+  "howWellDoYouSpeak": "{language} कितनी अच्छी तरह बोलते हैं?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "भाषा",
+  "languageLevelSetTo": "भाषा स्तर {level} पर सेट",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "अपडेट विफल",
+  "editHometown": "गृहनगर संपादित करें",
+  "useCurrentLocation": "वर्तमान स्थान का उपयोग करें",
+  "detecting": "पता लगा रहा है...",
+  "getCurrentLocation": "वर्तमान स्थान प्राप्त करें",
+  "country": "देश",
+  "city": "शहर",
+  "coordinates": "निर्देशांक",
+  "noLocationDetectedYet": "कोई स्थान नहीं मिला",
+  "detected": "पता लगा",
+  "savedHometown": "गृहनगर सहेजा गया",
+  "locationServicesDisabled": "स्थान सेवाएं अक्षम हैं",
+  "locationPermissionPermanentlyDenied": "स्थान अनुमति अस्वीकृत",
+  "unknown": "अज्ञात",
+  "editBio": "बायो संपादित करें",
+  "bioUpdatedSuccessfully": "बायो अपडेट हुआ",
+  "tellOthersAboutYourself": "अपने बारे में बताएं...",
+  "charactersCount": "{count}/500 अक्षर",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "MBTI चुनें",
+  "myBloodType": "मेरा रक्त प्रकार",
+  "pleaseSelectABloodType": "रक्त प्रकार चुनें",
+  "nativeLanguageRequired": "मूल भाषा (आवश्यक)",
+  "languageToLearnRequired": "सीखने की भाषा (आवश्यक)",
+  "nativeLanguageCannotBeSame": "मूल भाषा सीखने वाली भाषा नहीं हो सकती",
+  "learningLanguageCannotBeSame": "सीखने की भाषा मूल भाषा नहीं हो सकती",
+  "pleaseSelectALanguage": "भाषा चुनें",
+  "editInterests": "रुचियां संपादित करें",
+  "maxTopicsAllowed": "अधिकतम {count} विषय",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "विषय अपडेट हुए!",
+  "failedToUpdateTopics": "विषय अपडेट विफल",
+  "selectedCount": "{count}/{max} चयनित",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "profilePictures": "प्रोफ़ाइल तस्वीरें",
+  "addImages": "तस्वीरें जोड़ें",
+  "selectUpToImages": "5 तक तस्वीरें चुनें",
+  "takeAPhoto": "फोटो लें",
+  "removeImage": "तस्वीर हटाएं",
+  "removeImageConfirm": "यह तस्वीर हटाएं?",
+  "removeAll": "सभी हटाएं",
+  "removeAllSelectedImages": "सभी चयनित हटाएं",
+  "removeAllSelectedImagesConfirm": "सभी चयनित तस्वीरें हटाएं?",
+  "yourProfilePictureWillBeKept": "मौजूदा तस्वीर रहेगी",
+  "removeAllImages": "सभी तस्वीरें हटाएं",
+  "removeAllImagesConfirm": "सभी प्रोफ़ाइल तस्वीरें हटाएं?",
+  "currentImages": "वर्तमान तस्वीरें",
+  "newImages": "नई तस्वीरें",
+  "addMoreImages": "और तस्वीरें जोड़ें",
+  "uploadImages": "{count} तस्वीर अपलोड करें",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "तस्वीर हटाई गई",
+  "imagesUploadedSuccessfully": "तस्वीरें अपलोड हुईं",
+  "selectedImagesCleared": "चयनित तस्वीरें साफ़",
+  "extraImagesRemovedSuccessfully": "अतिरिक्त तस्वीरें हटाई गईं",
+  "mustKeepAtLeastOneProfilePicture": "एक तस्वीर रखनी होगी",
+  "noProfilePicturesToRemove": "हटाने के लिए तस्वीर नहीं",
+  "authenticationTokenNotFound": "टोकन नहीं मिला",
+  "saveChangesQuestion": "परिवर्तन सहेजें?",
+  "youHaveUnuploadedImages": "{count} तस्वीरें अपलोड नहीं हुईं। अभी करें?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "छोड़ें",
+  "upload": "अपलोड",
+  "maxImagesInfo": "अधिकतम {max} तस्वीरें। वर्तमान: {current}/{max}",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "केवल {count} और जोड़ सकते हैं। अधिकतम {max}।",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "एक बार में अधिकतम 5 तस्वीरें",
+  "canOnlyHaveMaxImages": "अधिकतम {max} तस्वीरें",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "आकार 10MB से अधिक",
+  "unsupportedImageFormat": "असमर्थित प्रारूप",
+  "pleaseSelectAtLeastOneImage": "एक तस्वीर चुनें",
+  "basicInformation": "मूलभूत जानकारी",
+  "languageToLearn": "सीखने की भाषा",
+  "hometown": "गृहनगर",
+  "characters": "अक्षर",
+  "failedToLoadLanguages": "भाषाएं लोड विफल"
 }

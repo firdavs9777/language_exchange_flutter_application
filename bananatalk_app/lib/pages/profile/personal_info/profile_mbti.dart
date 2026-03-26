@@ -1,12 +1,12 @@
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MBTIEdit extends ConsumerStatefulWidget {
-  final String
-      currentMBTI; // Use 'final' since it's being passed in but not changed here
+  final String currentMBTI;
   const MBTIEdit({super.key, required this.currentMBTI});
 
   @override
@@ -15,36 +15,24 @@ class MBTIEdit extends ConsumerStatefulWidget {
 
 class MBTIEditState extends ConsumerState<MBTIEdit> {
   final List<String> mbtiList = [
-    'INTJ',
-    'INTP',
-    'ENTJ',
-    'ENTP',
-    'INFJ',
-    'INFP',
-    'ENFJ',
-    'ENFP',
-    'ISTJ',
-    'ISFJ',
-    'ESTJ',
-    'ESFJ',
-    'ISTP',
-    'ISFP',
-    'ESTP',
-    'ESFP',
+    'INTJ', 'INTP', 'ENTJ', 'ENTP',
+    'INFJ', 'INFP', 'ENFJ', 'ENFP',
+    'ISTJ', 'ISFJ', 'ESTJ', 'ESFJ',
+    'ISTP', 'ISFP', 'ESTP', 'ESFP',
   ];
 
-  late String selectedMBTI; // Declare state variable to track selected MBTI
+  late String selectedMBTI;
 
   @override
   void initState() {
     super.initState();
-    selectedMBTI = widget.currentMBTI.isEmpty
-        ? ''
-        : widget.currentMBTI; // Initialize with the passed-in value
+    selectedMBTI = widget.currentMBTI.isEmpty ? '' : widget.currentMBTI;
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
@@ -52,7 +40,7 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
         foregroundColor: context.textPrimary,
         elevation: 0,
         title: Text(
-          'Select Your MBTI',
+          l10n.selectYourMbti,
           style: context.titleLarge,
         ),
       ),
@@ -113,7 +101,7 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
                       .updateUserMbti(mbti: selectedMBTI);
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Saved: $selectedMBTI')),
+                    SnackBar(content: Text('${l10n.saved}: $selectedMBTI')),
                   );
                   Navigator.of(context).pop(selectedMBTI);
                 },
@@ -127,7 +115,7 @@ class MBTIEditState extends ConsumerState<MBTIEdit> {
                   ),
                 ),
                 child: Text(
-                  'Save',
+                  l10n.save,
                   style: context.titleMedium.copyWith(
                     color: AppColors.gray900,
                   ),

@@ -7,6 +7,7 @@
   "password": "Password",
   "forgotPassword": "Nakalimutan ang Password?",
   "or": "O",
+  "more": "pa",
   "signInWithGoogle": "Mag-sign in gamit ang Google",
   "signInWithApple": "Mag-sign in gamit ang Apple",
   "signInWithFacebook": "Mag-sign in gamit ang Facebook",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "Baguhin ang wika ng app",
   "appearance": "Hitsura",
   "themeAndDisplaySettings": "Mga setting ng tema at display",
+  "clearCache": "I-clear ang Cache",
+  "clearCacheSubtitle": "Magpalaya ng espasyo sa storage",
+  "clearCacheDescription": "Iki-clear nito ang lahat ng cached na mga larawan, video, at audio file. Maaaring mas mabagal mag-load ng content ang app pansamantala habang dine-download muli ang media.",
+  "clearCacheHint": "Gamitin ito kung hindi nag-loload nang maayos ang mga larawan o audio.",
+  "clearingCache": "Nag-clear ng cache...",
+  "cacheCleared": "Matagumpay na na-clear ang cache! Mare-reload ang mga larawan.",
+  "clearCacheFailed": "Hindi ma-clear ang cache",
   "myReports": "Mga Report Ko",
   "viewYourSubmittedReports": "Tingnan ang iyong mga na-submit na report",
   "reportsManagement": "Pamamahala ng mga Report",
@@ -946,5 +954,161 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Data at Storage",
+  "manageStorageAndDownloads": "Pamahalaan ang storage at downloads",
+  "storageUsage": "Paggamit ng Storage",
+  "totalCacheSize": "Kabuuang Laki ng Cache",
+  "imageCache": "Cache ng Larawan",
+  "voiceMessagesCache": "Mga Voice Message",
+  "videoCache": "Cache ng Video",
+  "otherCache": "Ibang Cache",
+  "autoDownloadMedia": "Auto-Download ng Media",
+  "currentNetwork": "Kasalukuyang Network",
+  "images": "Mga Larawan",
+  "videos": "Mga Video",
+  "voiceMessagesShort": "Voice Messages",
+  "documentsLabel": "Mga Dokumento",
+  "wifiOnly": "WiFi Lamang",
+  "never": "Hindi Kailanman",
+  "clearAllCache": "Burahin Lahat ng Cache",
+  "allCache": "Lahat ng Cache",
+  "clearAllCacheConfirmation": "Ito ay magbubura ng lahat ng mga cached na larawan, voice message, video, at iba pang mga file. Maaaring mas mabagal ang pag-load ng content ng app pansamantala.",
+  "clearCacheConfirmationFor": "Burahin ang {category}?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} ang mapapalaya",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Kinakalkula...",
+  "noDataToShow": "Walang data na ipapakita",
+
+  "profileCompletion": "Pagkumpleto ng Profile",
+  "justGettingStarted": "Nagsisimula pa lang",
+  "lookingGood": "Maganda!",
+  "almostThere": "Halos tapos na!",
+  "addMissingFields": "Idagdag ang {field} para makumpleto ang profile",
+  "profilePicture": "Profile Photo",
+  "nativeSpeaker": "Katutubong Nagsasalita",
+  "peopleInterestedInTopic": "{count} tao ang interesado",
+  "beFirstToAddTopic": "Maging una sa pagdagdag ng paksang ito!",
+  "recentMoments": "Mga Kamakailang Sandali",
+  "seeAll": "Tingnan Lahat",
+  "study": "Pag-aaral",
+  "followerMoments": "Mga Sandali ng Sinusundan",
+  "whenPeopleYouFollowPost": "Kapag ang mga taong sinusundan mo ay nag-post ng bagong sandali",
+  "noNotificationsYet": "Wala pang mga notification",
+  "whenYouGetNotifications": "Kapag makatanggap ka ng mga notification, magpapakita sila dito",
+  "failedToLoadNotifications": "Nabigong i-load ang mga notification",
+  "clearAllNotificationsConfirm": "Sigurado ka bang gusto mong burahin ang lahat ng notification? Hindi ito maaaring i-undo.",
+
+  "tapToChange": "I-tap para palitan",
+  "noPictureSet": "Walang nakatakdang larawan",
+  "nameAndGender": "Pangalan at Kasarian",
+  "languageLevel": "Level ng Wika",
+  "personalInformation": "Personal na Impormasyon",
+  "mbti": "MBTI",
+  "topicsOfInterest": "Mga Paksang Interesado",
+  "levelBeginner": "Baguhan",
+  "levelElementary": "Elementarya",
+  "levelIntermediate": "Intermediate",
+  "levelUpperIntermediate": "Upper Intermediate",
+  "levelAdvanced": "Advanced",
+  "levelProficient": "Bihasa",
+  "selectYourLevel": "Piliin ang iyong level",
+  "howWellDoYouSpeak": "Gaano kahusay ang {language} mo?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "ang wika",
+  "languageLevelSetTo": "Level ng wika nakatakda sa {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Hindi na-update",
+  "editHometown": "I-edit ang Hometown",
+  "useCurrentLocation": "Gamitin ang Kasalukuyang Lokasyon",
+  "detecting": "Nagde-detect...",
+  "getCurrentLocation": "Kunin ang Kasalukuyang Lokasyon",
+  "country": "Bansa",
+  "city": "Lungsod",
+  "coordinates": "Mga Coordinate",
+  "noLocationDetectedYet": "Wala pang na-detect na lokasyon",
+  "detected": "Na-detect",
+  "savedHometown": "Na-save ang hometown",
+  "locationServicesDisabled": "Naka-disable ang location services",
+  "locationPermissionPermanentlyDenied": "Permanenteng tinanggihan ang location permission",
+  "unknown": "Hindi alam",
+  "editBio": "I-edit ang Bio",
+  "bioUpdatedSuccessfully": "Na-update na ang bio!",
+  "tellOthersAboutYourself": "Magkuwento tungkol sa sarili mo",
+  "charactersCount": "{current}/{max} character",
+  "@charactersCount": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "Piliin ang iyong MBTI",
+  "myBloodType": "Ang Blood Type Ko",
+  "pleaseSelectABloodType": "Pumili ng blood type",
+  "nativeLanguageRequired": "Kinakailangan ang native language",
+  "languageToLearnRequired": "Kinakailangan ang wikang aaralin",
+  "nativeLanguageCannotBeSame": "Hindi maaaring pareho ang native language sa inaaral",
+  "learningLanguageCannotBeSame": "Hindi maaaring pareho ang inaaral na wika sa native language",
+  "pleaseSelectALanguage": "Pumili ng wika",
+  "editInterests": "I-edit ang mga Interes",
+  "maxTopicsAllowed": "Maximum {count} topics ang pinapayagan",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Na-update na ang mga topics!",
+  "failedToUpdateTopics": "Hindi na-update ang mga topics",
+  "selectedCount": "{count} napili",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "profilePictures": "Mga Profile Picture",
+  "addImages": "Magdagdag ng Larawan",
+  "selectUpToImages": "Pumili ng hanggang {count} larawan",
+  "@selectUpToImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "takeAPhoto": "Kumuha ng Larawan",
+  "removeImage": "Alisin ang Larawan",
+  "removeImageConfirm": "Sigurado ka bang gusto mong alisin ang larawang ito?",
+  "uploadImages": "Mag-upload ng {count} larawan",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageUploadedSuccessfully": "Na-upload na ang larawan",
+  "failedToUploadImage": "Hindi na-upload ang larawan",
+  "failedToRemoveImage": "Hindi naalis ang larawan",
+  "imageRemovedSuccessfully": "Naalis na ang larawan",
+  "processingImage": "Pinoproseso ang larawan...",
+  "noImagesSelected": "Walang napiling larawan",
+  "maxImagesReached": "Maximum na larawan na (6)",
+  "selectFromGallery": "Pumili mula sa Gallery",
+  "uploadingImages": "Nag-a-upload ng mga larawan...",
+  "imagesUploadedSuccessfully": "Na-upload na ang mga larawan",
+  "failedToUploadImages": "Hindi na-upload ang mga larawan"
 }

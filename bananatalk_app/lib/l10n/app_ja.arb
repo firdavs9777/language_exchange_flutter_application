@@ -7,6 +7,7 @@
   "password": "パスワード",
   "forgotPassword": "パスワードを忘れた？",
   "or": "または",
+  "more": "他",
   "signInWithGoogle": "Googleでサインイン",
   "signInWithApple": "Appleでサインイン",
   "signInWithFacebook": "Facebookでサインイン",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "アプリの言語を変更",
   "appearance": "外観",
   "themeAndDisplaySettings": "テーマと表示設定",
+  "clearCache": "キャッシュをクリア",
+  "clearCacheSubtitle": "ストレージ容量を解放",
+  "clearCacheDescription": "キャッシュされたすべての画像、動画、音声ファイルがクリアされます。メディアを再ダウンロードする間、一時的にコンテンツの読み込みが遅くなる場合があります。",
+  "clearCacheHint": "画像や音声が正しく読み込まれない場合に使用してください。",
+  "clearingCache": "キャッシュをクリア中...",
+  "cacheCleared": "キャッシュが正常にクリアされました！画像が新しく読み込まれます。",
+  "clearCacheFailed": "キャッシュのクリアに失敗しました",
   "myReports": "私の報告",
   "viewYourSubmittedReports": "送信した報告を表示",
   "reportsManagement": "報告管理",
@@ -951,5 +959,212 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "データとストレージ",
+  "manageStorageAndDownloads": "ストレージとダウンロードを管理",
+  "storageUsage": "ストレージ使用量",
+  "totalCacheSize": "キャッシュ合計サイズ",
+  "imageCache": "画像キャッシュ",
+  "voiceMessagesCache": "音声メッセージ",
+  "videoCache": "動画キャッシュ",
+  "otherCache": "その他のキャッシュ",
+  "autoDownloadMedia": "メディアの自動ダウンロード",
+  "currentNetwork": "現在のネットワーク",
+  "images": "画像",
+  "videos": "動画",
+  "voiceMessagesShort": "音声メッセージ",
+  "documentsLabel": "ドキュメント",
+  "wifiOnly": "Wi-Fiのみ",
+  "never": "しない",
+  "clearAllCache": "すべてのキャッシュを削除",
+  "allCache": "すべてのキャッシュ",
+  "clearAllCacheConfirmation": "すべてのキャッシュされた画像、音声メッセージ、動画、その他のファイルが削除されます。アプリは一時的にコンテンツの読み込みが遅くなる場合があります。",
+  "clearCacheConfirmationFor": "{category}を削除しますか？",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size}が解放されます",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "計算中...",
+  "noDataToShow": "表示するデータがありません",
+  "profileCompletion": "プロフィール完成度",
+  "justGettingStarted": "始めたばかり",
+  "lookingGood": "いい感じ！",
+  "almostThere": "もう少し！",
+  "addMissingFields": "追加: {fields}",
+  "profilePicture": "プロフィール写真",
+  "nativeSpeaker": "ネイティブスピーカー",
+  "beginner": "入門",
+  "elementary": "初級",
+  "intermediate": "中級",
+  "upperIntermediate": "中上級",
+  "advanced": "上級",
+  "proficient": "堪能",
+  "peopleInterestedInTopic": "このトピックに興味がある人",
+  "noUsersFound": "ユーザーが見つかりません",
+  "beFirstToAddTopic": "このトピックを興味に追加する最初の人になりましょう！",
+  "recentMoments": "最近のモーメント",
+  "seeAll": "すべて見る",
+  "study": "学習",
+  "followerMoments": "フォロワーモーメント",
+  "whenPeopleYouFollowPost": "フォロー中の人が新しいモーメントを投稿したとき",
+  "noNotificationsYet": "まだ通知がありません",
+  "whenYouGetNotifications": "通知が届くとここに表示されます",
+  "failedToLoadNotifications": "通知の読み込みに失敗しました",
+  "clearAllNotificationsConfirm": "すべての通知を削除しますか？この操作は元に戻せません。",
+
+  "tapToChange": "タップして変更",
+  "noPictureSet": "写真未設定",
+  "nameAndGender": "名前と性別",
+  "languageLevel": "言語レベル",
+  "personalInformation": "個人情報",
+  "mbti": "MBTI",
+  "topicsOfInterest": "興味のあるトピック",
+  "levelBeginner": "入門",
+  "levelElementary": "初級",
+  "levelIntermediate": "中級",
+  "levelUpperIntermediate": "中上級",
+  "levelAdvanced": "上級",
+  "levelProficient": "堪能",
+  "selectYourLevel": "レベルを選択",
+  "howWellDoYouSpeak": "{language}をどのくらい話せますか？",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "言語",
+  "languageLevelSetTo": "言語レベルが{level}に設定されました",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "更新に失敗しました",
+
+  "editHometown": "出身地を編集",
+  "useCurrentLocation": "現在地を使用",
+  "detecting": "検出中...",
+  "getCurrentLocation": "現在地を取得",
+  "country": "国",
+  "city": "都市",
+  "coordinates": "座標",
+  "noLocationDetectedYet": "まだ位置が検出されていません。",
+  "detected": "検出済み",
+  "savedHometown": "出身地が保存されました",
+  "locationServicesDisabled": "位置情報サービスが無効です。有効にしてください。",
+  "locationPermissionPermanentlyDenied": "位置情報の許可が永久に拒否されています。",
+  "unknown": "不明",
+
+  "editBio": "自己紹介を編集",
+  "bioUpdatedSuccessfully": "自己紹介が正常に更新されました",
+  "tellOthersAboutYourself": "あなた自身について教えてください...",
+  "charactersCount": "{count}/500文字",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "selectYourMbti": "MBTIを選択",
+  "myBloodType": "私の血液型",
+  "pleaseSelectABloodType": "血液型を選択してください",
+
+  "nativeLanguageRequired": "母国語（必須）",
+  "languageToLearnRequired": "学習言語（必須）",
+  "nativeLanguageCannotBeSame": "母国語は学習中の言語と同じにできません",
+  "learningLanguageCannotBeSame": "学習言語は母国語と同じにできません",
+  "pleaseSelectALanguage": "言語を選択してください",
+
+  "editInterests": "興味を編集",
+  "maxTopicsAllowed": "最大{count}個のトピックまで選択可能",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "トピックが正常に更新されました！",
+  "failedToUpdateTopics": "トピックの更新に失敗しました",
+  "selectedCount": "{count}/{max}選択済み",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+
+  "profilePictures": "プロフィール写真",
+  "addImages": "画像を追加",
+  "selectUpToImages": "最大5枚の画像を選択",
+  "takeAPhoto": "写真を撮影",
+  "removeImage": "画像を削除",
+  "removeImageConfirm": "この画像を削除しますか？",
+  "removeAll": "すべて削除",
+  "removeAllSelectedImages": "選択した画像をすべて削除",
+  "removeAllSelectedImagesConfirm": "選択したすべての画像を削除しますか？",
+  "yourProfilePictureWillBeKept": "既存のプロフィール写真は保持されます",
+  "removeAllImages": "すべての画像を削除",
+  "removeAllImagesConfirm": "すべてのプロフィール写真を削除しますか？",
+  "currentImages": "現在の画像",
+  "newImages": "新しい画像",
+  "addMoreImages": "画像をさらに追加",
+  "uploadImages": "{count}枚の画像をアップロード",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "画像が正常に削除されました",
+  "imagesUploadedSuccessfully": "画像が正常にアップロードされました",
+  "selectedImagesCleared": "選択した画像がクリアされました",
+  "extraImagesRemovedSuccessfully": "余分な画像が正常に削除されました",
+  "mustKeepAtLeastOneProfilePicture": "プロフィール写真は最低1枚必要です",
+  "noProfilePicturesToRemove": "削除するプロフィール写真がありません",
+  "authenticationTokenNotFound": "認証トークンが見つかりません",
+  "saveChangesQuestion": "変更を保存しますか？",
+  "youHaveUnuploadedImages": "{count}枚の画像が選択されていますがアップロードされていません。今すぐアップロードしますか？",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "破棄",
+  "upload": "アップロード",
+  "maxImagesInfo": "最大{max}枚の画像をアップロードできます。現在: {current}/{max}\n一度に最大5枚の画像。",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "あと{count}枚しか追加できません。最大は{max}枚です。",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "一度に最大5枚の画像しかアップロードできません。最初の5枚のみが追加されます。",
+  "canOnlyHaveMaxImages": "最大{max}枚の画像のみ持つことができます",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "画像サイズが10MBの制限を超えています",
+  "unsupportedImageFormat": "サポートされていない画像形式",
+  "pleaseSelectAtLeastOneImage": "アップロードする画像を少なくとも1枚選択してください",
+
+  "basicInformation": "基本情報",
+  "languageToLearn": "学習言語",
+  "hometown": "出身地",
+  "characters": "文字",
+  "failedToLoadLanguages": "言語の読み込みに失敗しました"
 }

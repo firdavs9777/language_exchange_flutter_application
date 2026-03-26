@@ -11,6 +11,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -124,8 +125,8 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     });
   }
 
-  String _getTopicsDisplayText() {
-    if (selectedTopics.isEmpty) return 'Not Set';
+  String _getTopicsDisplayText(AppLocalizations l10n) {
+    if (selectedTopics.isEmpty) return l10n.notSet;
 
     // Get topic names from IDs
     final topicNames = selectedTopics
@@ -140,18 +141,21 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
         .toList();
 
     if (selectedTopics.length > 3) {
-      return '${topicNames.join(', ')} +${selectedTopics.length - 3} more';
+      return '${topicNames.join(', ')} +${selectedTopics.length - 3} ${l10n.more}';
     }
     return topicNames.join(', ');
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final notSet = l10n.notSet;
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         title: Text(
-          'Edit Profile',
+          l10n.editProfile,
           style: context.titleLarge,
         ),
         elevation: 0,
@@ -173,7 +177,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Basic Information Section
-            _buildSectionHeader('Basic Information', Icons.person),
+            _buildSectionHeader(l10n.basicInformation, Icons.person),
             Consumer(
               builder: (context, ref, child) {
                 final userAsync = ref.watch(userProvider);
@@ -182,10 +186,10 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                     context: context,
                     icon: Icons.photo_camera,
                     iconColor: const Color(0xFF00BFA5),
-                    title: 'Profile Picture',
+                    title: l10n.profilePicture,
                     subtitle: user.imageUrls.isNotEmpty
-                        ? 'Tap to change'
-                        : 'No picture set',
+                        ? l10n.tapToChange
+                        : l10n.noPictureSet,
                     onTap: () async {
                       await Navigator.push(
                         context,
@@ -207,8 +211,8 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               context: context,
               icon: Icons.person,
               iconColor: AppColors.info,
-              title: 'Name & Gender',
-              subtitle: selectedName,
+              title: l10n.nameAndGender,
+              subtitle: selectedName == "Not Set" ? notSet : selectedName,
               value: selectedGender != "Not Set" ? selectedGender : null,
               onTap: () async {
                 final result = await Navigator.push(
@@ -230,11 +234,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               context: context,
               icon: Icons.description,
               iconColor: AppColors.accent,
-              title: 'Bio',
-              subtitle: selectedBio == "Not Set" 
-                  ? "Not Set" 
-                  : (selectedBio.length > 50 
-                      ? '${selectedBio.substring(0, 50)}...' 
+              title: l10n.bio,
+              subtitle: selectedBio == "Not Set"
+                  ? notSet
+                  : (selectedBio.length > 50
+                      ? '${selectedBio.substring(0, 50)}...'
                       : selectedBio),
               onTap: () async {
                 final String updatedBio = await Navigator.push(
@@ -254,13 +258,13 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
             Spacing.gapSM,
 
             // Language Section
-            _buildSectionHeader('Language Exchange', Icons.language),
+            _buildSectionHeader(l10n.languageExchange, Icons.language),
             _buildEditCard(
               context: context,
               icon: Icons.translate,
               iconColor: AppColors.info,
-              title: 'Native Language',
-              subtitle: selectedNatLanguage,
+              title: l10n.nativeLanguage,
+              subtitle: selectedNatLanguage == "Not Set" ? notSet : selectedNatLanguage,
                   onTap: () async {
                     final String updatedNatLang = await Navigator.push(
                           context,
@@ -283,8 +287,8 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               context: context,
               icon: Icons.school,
               iconColor: AppColors.warning,
-              title: 'Language to Learn',
-              subtitle: selectedLanguageToLearn,
+              title: l10n.languageToLearn,
+              subtitle: selectedLanguageToLearn == "Not Set" ? notSet : selectedLanguageToLearn,
                   onTap: () async {
                     final String updatedLangLearn = await Navigator.push(
                           context,
@@ -307,23 +311,23 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               context: context,
               icon: Icons.bar_chart_rounded,
               iconColor: const Color(0xFF7C4DFF),
-              title: 'Language Level',
-              subtitle: selectedLanguageLevel ?? 'Not Set',
+              title: l10n.languageLevel,
+              subtitle: selectedLanguageLevel ?? notSet,
               value: selectedLanguageLevel != null
-                  ? _getLanguageLevelDescription(selectedLanguageLevel!)
+                  ? _getLanguageLevelDescription(selectedLanguageLevel!, l10n)
                   : null,
               onTap: () => _showLanguageLevelPicker(),
             ),
             Spacing.gapSM,
 
             // Personal Information Section
-            _buildSectionHeader('Personal Information', Icons.info_outline),
+            _buildSectionHeader(l10n.personalInformation, Icons.info_outline),
             _buildEditCard(
               context: context,
               icon: Icons.psychology,
               iconColor: AppColors.accent,
-              title: 'MBTI',
-              subtitle: selectedMBTI,
+              title: l10n.mbti,
+              subtitle: selectedMBTI == "Not Set" ? notSet : selectedMBTI,
                   onTap: () async {
                     final String updatedMbtiType = await Navigator.push(
                           context,
@@ -344,8 +348,8 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               context: context,
               icon: Icons.bloodtype,
               iconColor: AppColors.error,
-              title: 'Blood Type',
-              subtitle: selectedBloodType,
+              title: l10n.bloodType,
+              subtitle: selectedBloodType == "Not Set" ? notSet : selectedBloodType,
                   onTap: () async {
                     final String updatedBloodType = await Navigator.push(
                           context,
@@ -366,8 +370,8 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               context: context,
               icon: Icons.location_on,
               iconColor: AppColors.success,
-              title: 'Hometown',
-              subtitle: selectedAddress,
+              title: l10n.hometown,
+              subtitle: selectedAddress == "Not Set" ? notSet : selectedAddress,
                   onTap: () async {
                     final String newAddress = await Navigator.push(
                           context,
@@ -386,15 +390,15 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
             Spacing.gapSM,
 
             // Interests Section
-            _buildSectionHeader('Interests', Icons.interests),
+            _buildSectionHeader(l10n.interests, Icons.interests),
             _buildEditCard(
               context: context,
               icon: Icons.favorite,
               iconColor: const Color(0xFFE91E63),
-              title: 'Topics of Interest',
+              title: l10n.topicsOfInterest,
               subtitle: selectedTopics.isEmpty
-                  ? 'Not Set'
-                  : _getTopicsDisplayText(),
+                  ? notSet
+                  : _getTopicsDisplayText(l10n),
               onTap: () async {
                 final List<String>? result = await Navigator.push(
                   context,
@@ -418,19 +422,20 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     );
   }
 
-  String _getLanguageLevelDescription(String level) {
+  String _getLanguageLevelDescription(String level, AppLocalizations l10n) {
     switch (level) {
-      case 'A1': return 'Beginner';
-      case 'A2': return 'Elementary';
-      case 'B1': return 'Intermediate';
-      case 'B2': return 'Upper Intermediate';
-      case 'C1': return 'Advanced';
-      case 'C2': return 'Proficient';
+      case 'A1': return l10n.levelBeginner;
+      case 'A2': return l10n.levelElementary;
+      case 'B1': return l10n.levelIntermediate;
+      case 'B2': return l10n.levelUpperIntermediate;
+      case 'C1': return l10n.levelAdvanced;
+      case 'C2': return l10n.levelProficient;
       default: return '';
     }
   }
 
   void _showLanguageLevelPicker() {
+    final l10n = AppLocalizations.of(context)!;
     final levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -465,11 +470,11 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               ),
               Spacing.gapLG,
               Text(
-                'Select Your Level',
+                l10n.selectYourLevel,
                 style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
               ),
               Text(
-                'How well do you speak ${selectedLanguageToLearn != "Not Set" ? selectedLanguageToLearn : "the language"}?',
+                l10n.howWellDoYouSpeak(selectedLanguageToLearn != "Not Set" ? selectedLanguageToLearn : l10n.theLanguage),
                 style: context.bodySmall.copyWith(color: context.textSecondary),
               ),
               Spacing.gapLG,
@@ -478,7 +483,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   controller: scrollController,
                   children: levels.map((level) {
                 final isSelected = selectedLanguageLevel == level;
-                final desc = _getLanguageLevelDescription(level);
+                final desc = _getLanguageLevelDescription(level, l10n);
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Material(
@@ -496,7 +501,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Language level set to $level'),
+                                content: Text(l10n.languageLevelSetTo(level)),
                                 behavior: SnackBarBehavior.floating,
                               ),
                             );
@@ -505,7 +510,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Failed to update: $e'),
+                                content: Text('${l10n.failedToUpdate}: $e'),
                                 backgroundColor: colorScheme.error,
                                 behavior: SnackBarBehavior.floating,
                               ),
@@ -621,12 +626,19 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     String? value,
     required VoidCallback onTap,
   }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
+    final isNotSet = subtitle == l10n.notSet || subtitle == "Not Set";
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
         color: context.surfaceColor,
         borderRadius: AppRadius.borderLG,
-        boxShadow: AppShadows.md,
+        border: isDark
+            ? Border.all(color: Colors.white.withValues(alpha: 0.08))
+            : null,
+        boxShadow: isDark ? null : AppShadows.md,
       ),
       child: Material(
         color: Colors.transparent,
@@ -640,7 +652,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                 Container(
                   padding: Spacing.paddingMD,
                   decoration: BoxDecoration(
-                    color: iconColor.withValues(alpha: 0.1),
+                    color: iconColor.withValues(alpha: isDark ? 0.2 : 0.1),
                     borderRadius: AppRadius.borderMD,
                   ),
                   child: Icon(icon, color: iconColor, size: 24),
@@ -662,7 +674,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                         ),
                       Text(
                         subtitle,
-                        style: subtitle == "Not Set"
+                        style: isNotSet
                             ? context.bodySmall.copyWith(color: context.textMuted)
                             : context.bodySmall.copyWith(fontWeight: FontWeight.w500),
                         maxLines: 2,

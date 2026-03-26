@@ -49,15 +49,13 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         List<dynamic> languagesList = data['data'] ?? [];
-        
+
         setState(() {
-          // Parse as Language objects
           _languages = languagesList
               .map<Language>((json) => Language.fromJson(json))
               .toList();
         });
 
-        // Set selected language from initial value after languages are loaded
         if (widget.initialLanguage.isNotEmpty && _languages.isNotEmpty) {
           try {
             final matchingLanguage = _languages.firstWhere(
@@ -67,13 +65,13 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
               _selectedLanguage = matchingLanguage;
             });
           } catch (e) {
-            // Language not found, use first language as fallback
             if (_languages.isNotEmpty) {
               setState(() {
                 _selectedLanguage = _languages.first;
               });
             }
             if (kDebugMode) {
+              debugPrint('Language not found: ${widget.initialLanguage}');
             }
           }
         }
@@ -81,20 +79,29 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         throw Exception('Failed to load languages');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to load languages')),
-      );
+      if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.failedToLoadLanguages),
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
     } finally {
       setState(() => _isLoading = false);
     }
   }
 
-  // Open language picker
   Future<void> _openLanguagePicker() async {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_languages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.languagesAreStillLoading),
+          content: Text(l10n.languagesAreStillLoading),
+          behavior: SnackBarBehavior.floating,
         ),
       );
       return;
@@ -111,17 +118,17 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
     );
 
     if (result != null) {
-      // Validate that native and learning languages are different
       if (widget.otherLanguage != null &&
           result.name.toLowerCase() == widget.otherLanguage!.toLowerCase()) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
               widget.type == 'native'
-                  ? 'Native language cannot be the same as the language you\'re learning'
-                  : 'Learning language cannot be the same as your native language',
+                  ? l10n.nativeLanguageCannotBeSame
+                  : l10n.learningLanguageCannotBeSame,
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
           ),
         );
         return;
@@ -135,35 +142,40 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isNative = widget.type == 'native';
 
     return Scaffold(
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
+        elevation: 0,
         title: Text(
-            isNative 
-                ? AppLocalizations.of(context)!.selectYourNativeLanguage 
-                : AppLocalizations.of(context)!.whichLanguageDoYouWantToLearn),
+          isNative
+              ? l10n.selectYourNativeLanguage
+              : l10n.whichLanguageDoYouWantToLearn,
+          style: context.titleLarge,
+        ),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: Spacing.screenPadding,
               child: Column(
                 children: [
-                  // Language selector button/tile
                   InkWell(
                     onTap: _openLanguagePicker,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: AppRadius.borderLG,
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: Spacing.paddingLG,
                       decoration: BoxDecoration(
                         color: context.containerColor,
                         border: Border.all(color: context.dividerColor),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: AppRadius.borderLG,
                       ),
                       child: Row(
                         children: [
-                          // Flag emoji or icon
                           if (_selectedLanguage != null)
                             Padding(
                               padding: const EdgeInsets.only(right: 12),
@@ -181,38 +193,32 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                                 color: context.textSecondary,
                               ),
                             ),
-
-                          // Language names
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   isNative
-                                      ? 'Native Language (Required)'
-                                      : 'Language to Learn (Required)',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                                      ? l10n.nativeLanguageRequired
+                                      : l10n.languageToLearnRequired,
+                                  style: context.caption.copyWith(
                                     color: context.textSecondary,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                Spacing.gapXS,
                                 Text(
-                                  _selectedLanguage?.name ?? AppLocalizations.of(context)!.selectALanguage,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
+                                  _selectedLanguage?.name ?? l10n.selectALanguage,
+                                  style: context.titleMedium.copyWith(
                                     color: _selectedLanguage != null
                                         ? context.textPrimary
                                         : context.textSecondary,
                                   ),
                                 ),
                                 if (_selectedLanguage != null) ...[
-                                  const SizedBox(height: 2),
+                                  Spacing.gapXS,
                                   Text(
                                     _selectedLanguage!.nativeName,
-                                    style: TextStyle(
-                                      fontSize: 14,
+                                    style: context.bodySmall.copyWith(
                                       color: context.textSecondary,
                                     ),
                                   ),
@@ -220,8 +226,6 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                               ],
                             ),
                           ),
-                          
-                          // Arrow icon
                           Icon(
                             Icons.arrow_forward_ios,
                             size: 16,
@@ -231,18 +235,19 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  Spacing.gapXL,
                   ElevatedButton(
                     onPressed: () async {
                       if (_selectedLanguage == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Please select a language')),
+                          SnackBar(
+                            content: Text(l10n.pleaseSelectALanguage),
+                            behavior: SnackBarBehavior.floating,
+                          ),
                         );
                         return;
                       }
 
-                      // Validate that native and learning languages are different
                       if (widget.otherLanguage != null &&
                           _selectedLanguage!.name.toLowerCase() ==
                               widget.otherLanguage!.toLowerCase()) {
@@ -250,10 +255,11 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                           SnackBar(
                             content: Text(
                               widget.type == 'native'
-                                  ? 'Native language cannot be the same as the language you\'re learning'
-                                  : 'Learning language cannot be the same as your native language',
+                                  ? l10n.nativeLanguageCannotBeSame
+                                  : l10n.learningLanguageCannotBeSame,
                             ),
-                            backgroundColor: Colors.red,
+                            backgroundColor: AppColors.error,
+                            behavior: SnackBarBehavior.floating,
                           ),
                         );
                         return;
@@ -261,34 +267,41 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
 
                       final languageName = _selectedLanguage!.name;
 
-                      // Update user language via provider
                       if (isNative) {
                         await ref
                             .read(authServiceProvider)
-                            .updateUserNativeLanguage(
-                                natLang: languageName);
+                            .updateUserNativeLanguage(natLang: languageName);
                       } else {
                         await ref
                             .read(authServiceProvider)
-                            .updateUserLanguageToLearn(
-                                langToLearn: languageName);
+                            .updateUserLanguageToLearn(langToLearn: languageName);
                       }
 
-                      // Show success message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Saved: $languageName')),
-                      );
-
-                      // Return to parent with result
-                      Navigator.of(context).pop(languageName);
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('${l10n.saved}: $languageName'),
+                            backgroundColor: AppColors.success,
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                        Navigator.of(context).pop(languageName);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
-                      foregroundColor: context.textPrimary,
+                      backgroundColor: AppColors.secondary,
+                      foregroundColor: AppColors.gray900,
                       minimumSize: const Size(double.infinity, 50),
-                      textStyle: const TextStyle(fontSize: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.borderMD,
+                      ),
                     ),
-                    child: const Text('Save'),
+                    child: Text(
+                      l10n.save,
+                      style: context.titleMedium.copyWith(
+                        color: AppColors.gray900,
+                      ),
+                    ),
                   ),
                 ],
               ),

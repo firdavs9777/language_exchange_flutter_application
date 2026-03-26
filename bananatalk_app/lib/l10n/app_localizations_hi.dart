@@ -30,6 +30,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get or => 'या';
 
   @override
+  String get more => 'और';
+
+  @override
   String get signInWithGoogle => 'Google से साइन इन करें';
 
   @override
@@ -292,6 +295,27 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get themeAndDisplaySettings => 'थीम और डिस्प्ले सेटिंग्स';
+
+  @override
+  String get clearCache => 'कैश साफ़ करें';
+
+  @override
+  String get clearCacheSubtitle => 'स्टोरेज स्पेस खाली करें';
+
+  @override
+  String get clearCacheDescription => 'यह सभी कैश्ड इमेज, वीडियो और ऑडियो फ़ाइलों को हटा देगा। मीडिया को फिर से डाउनलोड करते समय ऐप अस्थायी रूप से धीमी गति से कंटेंट लोड कर सकता है।';
+
+  @override
+  String get clearCacheHint => 'यदि इमेज या ऑडियो ठीक से लोड नहीं हो रहा है तो इसका उपयोग करें।';
+
+  @override
+  String get clearingCache => 'कैश साफ़ हो रहा है...';
+
+  @override
+  String get cacheCleared => 'कैश सफलतापूर्वक साफ़ हो गया! इमेज फिर से लोड होंगी।';
+
+  @override
+  String get clearCacheFailed => 'कैश साफ़ करने में विफल';
 
   @override
   String get myReports => 'मेरी रिपोर्ट्स';
@@ -1899,7 +1923,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get customImage => 'Custom Image';
 
   @override
-  String get chooseFromGallery => 'Choose from gallery';
+  String get chooseFromGallery => 'Choose from Gallery';
 
   @override
   String get preview => 'Preview';
@@ -3066,4 +3090,416 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get failedToLoadMatches => 'Failed to load matches';
+
+  @override
+  String get dataAndStorage => 'डेटा और स्टोरेज';
+
+  @override
+  String get manageStorageAndDownloads => 'स्टोरेज और डाउनलोड प्रबंधित करें';
+
+  @override
+  String get storageUsage => 'स्टोरेज उपयोग';
+
+  @override
+  String get totalCacheSize => 'कुल कैश साइज';
+
+  @override
+  String get imageCache => 'इमेज कैश';
+
+  @override
+  String get voiceMessagesCache => 'वॉइस मैसेज';
+
+  @override
+  String get videoCache => 'वीडियो कैश';
+
+  @override
+  String get otherCache => 'अन्य कैश';
+
+  @override
+  String get autoDownloadMedia => 'मीडिया ऑटो-डाउनलोड';
+
+  @override
+  String get currentNetwork => 'वर्तमान नेटवर्क';
+
+  @override
+  String get images => 'इमेज';
+
+  @override
+  String get videos => 'वीडियो';
+
+  @override
+  String get voiceMessagesShort => 'वॉइस मैसेज';
+
+  @override
+  String get documentsLabel => 'दस्तावेज़';
+
+  @override
+  String get wifiOnly => 'केवल WiFi';
+
+  @override
+  String get never => 'कभी नहीं';
+
+  @override
+  String get clearAllCache => 'सभी कैश साफ़ करें';
+
+  @override
+  String get allCache => 'सभी कैश';
+
+  @override
+  String get clearAllCacheConfirmation => 'यह सभी कैश की गई इमेज, वॉइस मैसेज, वीडियो और अन्य फाइलें हटा देगा। ऐप अस्थायी रूप से कंटेंट धीमे लोड कर सकता है।';
+
+  @override
+  String clearCacheConfirmationFor(String category) {
+    return '$category साफ़ करें?';
+  }
+
+  @override
+  String storageToFree(String size) {
+    return '$size खाली होगा';
+  }
+
+  @override
+  String get calculating => 'गणना हो रही है...';
+
+  @override
+  String get noDataToShow => 'दिखाने के लिए कोई डेटा नहीं';
+
+  @override
+  String get profileCompletion => 'प्रोफ़ाइल पूर्णता';
+
+  @override
+  String get justGettingStarted => 'अभी शुरुआत हुई है';
+
+  @override
+  String get lookingGood => 'अच्छा लग रहा है!';
+
+  @override
+  String get almostThere => 'लगभग हो गया!';
+
+  @override
+  String addMissingFields(String fields, Object field) {
+    return 'अपनी प्रोफ़ाइल पूरी करने के लिए $field जोड़ें';
+  }
+
+  @override
+  String get profilePicture => 'प्रोफ़ाइल फ़ोटो';
+
+  @override
+  String get nativeSpeaker => 'मातृभाषी';
+
+  @override
+  String peopleInterestedInTopic(Object count) {
+    return '$count लोग रुचि रखते हैं';
+  }
+
+  @override
+  String get beFirstToAddTopic => 'इस विषय को जोड़ने वाले पहले बनें!';
+
+  @override
+  String get recentMoments => 'हाल के पल';
+
+  @override
+  String get seeAll => 'सभी देखें';
+
+  @override
+  String get study => 'अध्ययन';
+
+  @override
+  String get followerMoments => 'फॉलोअर्स के पल';
+
+  @override
+  String get whenPeopleYouFollowPost => 'जब आप जिन लोगों को फॉलो करते हैं वे नए पल पोस्ट करते हैं';
+
+  @override
+  String get noNotificationsYet => 'अभी तक कोई सूचना नहीं';
+
+  @override
+  String get whenYouGetNotifications => 'जब आपको सूचनाएं मिलेंगी, वे यहां दिखाई देंगी';
+
+  @override
+  String get failedToLoadNotifications => 'सूचनाएं लोड करने में विफल';
+
+  @override
+  String get clearAllNotificationsConfirm => 'क्या आप सभी सूचनाएं हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।';
+
+  @override
+  String get tapToChange => 'बदलने के लिए टैप करें';
+
+  @override
+  String get noPictureSet => 'कोई तस्वीर नहीं';
+
+  @override
+  String get nameAndGender => 'नाम और लिंग';
+
+  @override
+  String get languageLevel => 'भाषा स्तर';
+
+  @override
+  String get personalInformation => 'व्यक्तिगत जानकारी';
+
+  @override
+  String get mbti => 'MBTI';
+
+  @override
+  String get topicsOfInterest => 'रुचि के विषय';
+
+  @override
+  String get levelBeginner => 'शुरुआती';
+
+  @override
+  String get levelElementary => 'प्राथमिक';
+
+  @override
+  String get levelIntermediate => 'मध्यवर्ती';
+
+  @override
+  String get levelUpperIntermediate => 'उच्च मध्यवर्ती';
+
+  @override
+  String get levelAdvanced => 'उन्नत';
+
+  @override
+  String get levelProficient => 'कुशल';
+
+  @override
+  String get selectYourLevel => 'अपना स्तर चुनें';
+
+  @override
+  String howWellDoYouSpeak(String language) {
+    return '$language कितनी अच्छी तरह बोलते हैं?';
+  }
+
+  @override
+  String get theLanguage => 'भाषा';
+
+  @override
+  String languageLevelSetTo(String level) {
+    return 'भाषा स्तर $level पर सेट';
+  }
+
+  @override
+  String get failedToUpdate => 'अपडेट विफल';
+
+  @override
+  String get editHometown => 'गृहनगर संपादित करें';
+
+  @override
+  String get useCurrentLocation => 'वर्तमान स्थान का उपयोग करें';
+
+  @override
+  String get detecting => 'पता लगा रहा है...';
+
+  @override
+  String get getCurrentLocation => 'वर्तमान स्थान प्राप्त करें';
+
+  @override
+  String get country => 'देश';
+
+  @override
+  String get city => 'शहर';
+
+  @override
+  String get coordinates => 'निर्देशांक';
+
+  @override
+  String get noLocationDetectedYet => 'कोई स्थान नहीं मिला';
+
+  @override
+  String get detected => 'पता लगा';
+
+  @override
+  String get savedHometown => 'गृहनगर सहेजा गया';
+
+  @override
+  String get locationServicesDisabled => 'स्थान सेवाएं अक्षम हैं';
+
+  @override
+  String get locationPermissionPermanentlyDenied => 'स्थान अनुमति अस्वीकृत';
+
+  @override
+  String get unknown => 'अज्ञात';
+
+  @override
+  String get editBio => 'बायो संपादित करें';
+
+  @override
+  String get bioUpdatedSuccessfully => 'बायो अपडेट हुआ';
+
+  @override
+  String get tellOthersAboutYourself => 'अपने बारे में बताएं...';
+
+  @override
+  String charactersCount(int count) {
+    return '$count/500 अक्षर';
+  }
+
+  @override
+  String get selectYourMbti => 'MBTI चुनें';
+
+  @override
+  String get myBloodType => 'मेरा रक्त प्रकार';
+
+  @override
+  String get pleaseSelectABloodType => 'रक्त प्रकार चुनें';
+
+  @override
+  String get nativeLanguageRequired => 'मूल भाषा (आवश्यक)';
+
+  @override
+  String get languageToLearnRequired => 'सीखने की भाषा (आवश्यक)';
+
+  @override
+  String get nativeLanguageCannotBeSame => 'मूल भाषा सीखने वाली भाषा नहीं हो सकती';
+
+  @override
+  String get learningLanguageCannotBeSame => 'सीखने की भाषा मूल भाषा नहीं हो सकती';
+
+  @override
+  String get pleaseSelectALanguage => 'भाषा चुनें';
+
+  @override
+  String get editInterests => 'रुचियां संपादित करें';
+
+  @override
+  String maxTopicsAllowed(int count) {
+    return 'अधिकतम $count विषय';
+  }
+
+  @override
+  String get topicsUpdatedSuccessfully => 'विषय अपडेट हुए!';
+
+  @override
+  String get failedToUpdateTopics => 'विषय अपडेट विफल';
+
+  @override
+  String selectedCount(int count, int max) {
+    return '$count/$max चयनित';
+  }
+
+  @override
+  String get profilePictures => 'प्रोफ़ाइल तस्वीरें';
+
+  @override
+  String get addImages => 'तस्वीरें जोड़ें';
+
+  @override
+  String get selectUpToImages => '5 तक तस्वीरें चुनें';
+
+  @override
+  String get takeAPhoto => 'फोटो लें';
+
+  @override
+  String get removeImage => 'तस्वीर हटाएं';
+
+  @override
+  String get removeImageConfirm => 'यह तस्वीर हटाएं?';
+
+  @override
+  String get removeAll => 'सभी हटाएं';
+
+  @override
+  String get removeAllSelectedImages => 'सभी चयनित हटाएं';
+
+  @override
+  String get removeAllSelectedImagesConfirm => 'सभी चयनित तस्वीरें हटाएं?';
+
+  @override
+  String get yourProfilePictureWillBeKept => 'मौजूदा तस्वीर रहेगी';
+
+  @override
+  String get removeAllImages => 'सभी तस्वीरें हटाएं';
+
+  @override
+  String get removeAllImagesConfirm => 'सभी प्रोफ़ाइल तस्वीरें हटाएं?';
+
+  @override
+  String get currentImages => 'वर्तमान तस्वीरें';
+
+  @override
+  String get newImages => 'नई तस्वीरें';
+
+  @override
+  String get addMoreImages => 'और तस्वीरें जोड़ें';
+
+  @override
+  String uploadImages(int count) {
+    return '$count तस्वीर अपलोड करें';
+  }
+
+  @override
+  String get imageRemovedSuccessfully => 'तस्वीर हटाई गई';
+
+  @override
+  String get imagesUploadedSuccessfully => 'तस्वीरें अपलोड हुईं';
+
+  @override
+  String get selectedImagesCleared => 'चयनित तस्वीरें साफ़';
+
+  @override
+  String get extraImagesRemovedSuccessfully => 'अतिरिक्त तस्वीरें हटाई गईं';
+
+  @override
+  String get mustKeepAtLeastOneProfilePicture => 'एक तस्वीर रखनी होगी';
+
+  @override
+  String get noProfilePicturesToRemove => 'हटाने के लिए तस्वीर नहीं';
+
+  @override
+  String get authenticationTokenNotFound => 'टोकन नहीं मिला';
+
+  @override
+  String get saveChangesQuestion => 'परिवर्तन सहेजें?';
+
+  @override
+  String youHaveUnuploadedImages(int count) {
+    return '$count तस्वीरें अपलोड नहीं हुईं। अभी करें?';
+  }
+
+  @override
+  String get discard => 'छोड़ें';
+
+  @override
+  String get upload => 'अपलोड';
+
+  @override
+  String maxImagesInfo(int max, int current) {
+    return 'अधिकतम $max तस्वीरें। वर्तमान: $current/$max';
+  }
+
+  @override
+  String canOnlyAddMoreImages(int count, int max) {
+    return 'केवल $count और जोड़ सकते हैं। अधिकतम $max।';
+  }
+
+  @override
+  String get maxImagesPerUpload => 'एक बार में अधिकतम 5 तस्वीरें';
+
+  @override
+  String canOnlyHaveMaxImages(int max) {
+    return 'अधिकतम $max तस्वीरें';
+  }
+
+  @override
+  String get imageSizeExceedsLimit => 'आकार 10MB से अधिक';
+
+  @override
+  String get unsupportedImageFormat => 'असमर्थित प्रारूप';
+
+  @override
+  String get pleaseSelectAtLeastOneImage => 'एक तस्वीर चुनें';
+
+  @override
+  String get basicInformation => 'मूलभूत जानकारी';
+
+  @override
+  String get languageToLearn => 'सीखने की भाषा';
+
+  @override
+  String get hometown => 'गृहनगर';
+
+  @override
+  String get characters => 'अक्षर';
+
+  @override
+  String get failedToLoadLanguages => 'भाषाएं लोड विफल';
 }

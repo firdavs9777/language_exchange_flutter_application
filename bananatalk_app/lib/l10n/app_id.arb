@@ -7,6 +7,7 @@
   "password": "Kata Sandi",
   "forgotPassword": "Lupa Kata Sandi?",
   "or": "ATAU",
+  "more": "lagi",
   "signInWithGoogle": "Masuk dengan Google",
   "signInWithApple": "Masuk dengan Apple",
   "signInWithFacebook": "Masuk dengan Facebook",
@@ -91,6 +92,13 @@
   "changeAppLanguage": "Ubah bahasa aplikasi",
   "appearance": "Tampilan",
   "themeAndDisplaySettings": "Pengaturan tema dan tampilan",
+  "clearCache": "Hapus Cache",
+  "clearCacheSubtitle": "Bebaskan ruang penyimpanan",
+  "clearCacheDescription": "Ini akan menghapus semua gambar, video, dan file audio yang tersimpan dalam cache. Aplikasi mungkin memuat konten lebih lambat sementara saat mengunduh ulang media.",
+  "clearCacheHint": "Gunakan ini jika gambar atau audio tidak dimuat dengan benar.",
+  "clearingCache": "Menghapus cache...",
+  "cacheCleared": "Cache berhasil dihapus! Gambar akan dimuat ulang.",
+  "clearCacheFailed": "Gagal menghapus cache",
   "myReports": "Laporan Saya",
   "viewYourSubmittedReports": "Lihat laporan yang Anda kirim",
   "reportsManagement": "Manajemen Laporan",
@@ -791,5 +799,199 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "dataAndStorage": "Data dan Penyimpanan",
+  "manageStorageAndDownloads": "Kelola penyimpanan dan unduhan",
+  "storageUsage": "Penggunaan Penyimpanan",
+  "totalCacheSize": "Ukuran Cache Total",
+  "imageCache": "Cache Gambar",
+  "voiceMessagesCache": "Pesan Suara",
+  "videoCache": "Cache Video",
+  "otherCache": "Cache Lainnya",
+  "autoDownloadMedia": "Unduh Media Otomatis",
+  "currentNetwork": "Jaringan Saat Ini",
+  "images": "Gambar",
+  "videos": "Video",
+  "voiceMessagesShort": "Pesan Suara",
+  "documentsLabel": "Dokumen",
+  "wifiOnly": "Hanya WiFi",
+  "never": "Tidak Pernah",
+  "clearAllCache": "Hapus Semua Cache",
+  "allCache": "Semua Cache",
+  "clearAllCacheConfirmation": "Ini akan menghapus semua gambar, pesan suara, video, dan file lain yang di-cache. Aplikasi mungkin memuat konten lebih lambat untuk sementara.",
+  "clearCacheConfirmationFor": "Hapus {category}?",
+  "@clearCacheConfirmationFor": {
+    "placeholders": {
+      "category": {"type": "String"}
+    }
+  },
+  "storageToFree": "{size} akan dibebaskan",
+  "@storageToFree": {
+    "placeholders": {
+      "size": {"type": "String"}
+    }
+  },
+  "calculating": "Menghitung...",
+  "noDataToShow": "Tidak ada data untuk ditampilkan",
+
+  "profileCompletion": "Kelengkapan Profil",
+  "justGettingStarted": "Baru mulai",
+  "lookingGood": "Terlihat bagus!",
+  "almostThere": "Hampir selesai!",
+  "addMissingFields": "Tambahkan {field} untuk melengkapi profil",
+  "profilePicture": "Foto Profil",
+  "nativeSpeaker": "Penutur Asli",
+  "peopleInterestedInTopic": "{count} orang tertarik",
+  "beFirstToAddTopic": "Jadilah yang pertama menambahkan topik ini!",
+  "recentMoments": "Momen Terbaru",
+  "seeAll": "Lihat Semua",
+  "study": "Belajar",
+  "followerMoments": "Momen Pengikut",
+  "whenPeopleYouFollowPost": "Ketika orang yang Anda ikuti memposting momen baru",
+  "noNotificationsYet": "Belum ada notifikasi",
+  "whenYouGetNotifications": "Saat Anda menerima notifikasi, mereka akan muncul di sini",
+  "failedToLoadNotifications": "Gagal memuat notifikasi",
+  "clearAllNotificationsConfirm": "Apakah Anda yakin ingin menghapus semua notifikasi? Tindakan ini tidak dapat dibatalkan.",
+
+  "tapToChange": "Ketuk untuk mengubah",
+  "noPictureSet": "Tidak ada foto",
+  "nameAndGender": "Nama dan Gender",
+  "languageLevel": "Tingkat Bahasa",
+  "personalInformation": "Informasi Pribadi",
+  "mbti": "MBTI",
+  "topicsOfInterest": "Topik Minat",
+  "levelBeginner": "Pemula",
+  "levelElementary": "Dasar",
+  "levelIntermediate": "Menengah",
+  "levelUpperIntermediate": "Menengah Atas",
+  "levelAdvanced": "Mahir",
+  "levelProficient": "Fasih",
+  "selectYourLevel": "Pilih Tingkat Anda",
+  "howWellDoYouSpeak": "Seberapa baik Anda berbicara {language}?",
+  "@howWellDoYouSpeak": {
+    "placeholders": {
+      "language": {"type": "String"}
+    }
+  },
+  "theLanguage": "bahasa",
+  "languageLevelSetTo": "Tingkat bahasa diatur ke {level}",
+  "@languageLevelSetTo": {
+    "placeholders": {
+      "level": {"type": "String"}
+    }
+  },
+  "failedToUpdate": "Gagal memperbarui",
+  "editHometown": "Edit Kampung Halaman",
+  "useCurrentLocation": "Gunakan Lokasi Saat Ini",
+  "detecting": "Mendeteksi...",
+  "getCurrentLocation": "Dapatkan Lokasi Saat Ini",
+  "country": "Negara",
+  "city": "Kota",
+  "coordinates": "Koordinat",
+  "noLocationDetectedYet": "Belum ada lokasi terdeteksi",
+  "detected": "Terdeteksi",
+  "savedHometown": "Kampung halaman disimpan",
+  "locationServicesDisabled": "Layanan lokasi dinonaktifkan",
+  "locationPermissionPermanentlyDenied": "Izin lokasi ditolak permanen",
+  "unknown": "Tidak diketahui",
+  "editBio": "Edit Bio",
+  "bioUpdatedSuccessfully": "Bio berhasil diperbarui",
+  "tellOthersAboutYourself": "Ceritakan tentang diri Anda...",
+  "charactersCount": "{count}/500 karakter",
+  "@charactersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectYourMbti": "Pilih MBTI Anda",
+  "myBloodType": "Golongan Darah Saya",
+  "pleaseSelectABloodType": "Pilih golongan darah",
+  "nativeLanguageRequired": "Bahasa Ibu (Wajib)",
+  "languageToLearnRequired": "Bahasa Dipelajari (Wajib)",
+  "nativeLanguageCannotBeSame": "Bahasa ibu tidak boleh sama dengan bahasa yang dipelajari",
+  "learningLanguageCannotBeSame": "Bahasa yang dipelajari tidak boleh sama dengan bahasa ibu",
+  "pleaseSelectALanguage": "Pilih bahasa",
+  "editInterests": "Edit Minat",
+  "maxTopicsAllowed": "Maksimal {count} topik",
+  "@maxTopicsAllowed": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicsUpdatedSuccessfully": "Topik berhasil diperbarui!",
+  "failedToUpdateTopics": "Gagal memperbarui topik",
+  "selectedCount": "{count}/{max} dipilih",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "profilePictures": "Foto Profil",
+  "addImages": "Tambah Gambar",
+  "selectUpToImages": "Pilih hingga 5 gambar",
+  "takeAPhoto": "Ambil Foto",
+  "removeImage": "Hapus Gambar",
+  "removeImageConfirm": "Hapus gambar ini?",
+  "removeAll": "Hapus Semua",
+  "removeAllSelectedImages": "Hapus Semua yang Dipilih",
+  "removeAllSelectedImagesConfirm": "Hapus semua gambar yang dipilih?",
+  "yourProfilePictureWillBeKept": "Foto profil Anda akan tetap disimpan",
+  "removeAllImages": "Hapus Semua Gambar",
+  "removeAllImagesConfirm": "Hapus semua foto profil?",
+  "currentImages": "Gambar Saat Ini",
+  "newImages": "Gambar Baru",
+  "addMoreImages": "Tambah Lebih Banyak",
+  "uploadImages": "Unggah {count} Gambar",
+  "@uploadImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "imageRemovedSuccessfully": "Gambar dihapus",
+  "imagesUploadedSuccessfully": "Gambar berhasil diunggah",
+  "selectedImagesCleared": "Gambar yang dipilih dihapus",
+  "extraImagesRemovedSuccessfully": "Gambar tambahan dihapus",
+  "mustKeepAtLeastOneProfilePicture": "Harus menyimpan minimal 1 foto profil",
+  "noProfilePicturesToRemove": "Tidak ada foto untuk dihapus",
+  "authenticationTokenNotFound": "Token tidak ditemukan",
+  "saveChangesQuestion": "Simpan Perubahan?",
+  "youHaveUnuploadedImages": "{count} gambar belum diunggah. Unggah sekarang?",
+  "@youHaveUnuploadedImages": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "discard": "Buang",
+  "upload": "Unggah",
+  "maxImagesInfo": "Maksimal {max} gambar. Saat ini: {current}/{max}",
+  "@maxImagesInfo": {
+    "placeholders": {
+      "max": {"type": "int"},
+      "current": {"type": "int"}
+    }
+  },
+  "canOnlyAddMoreImages": "Hanya bisa tambah {count} lagi. Maks {max}.",
+  "@canOnlyAddMoreImages": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "maxImagesPerUpload": "Maksimal 5 gambar per unggahan",
+  "canOnlyHaveMaxImages": "Maksimal {max} gambar",
+  "@canOnlyHaveMaxImages": {
+    "placeholders": {
+      "max": {"type": "int"}
+    }
+  },
+  "imageSizeExceedsLimit": "Ukuran melebihi 10MB",
+  "unsupportedImageFormat": "Format tidak didukung",
+  "pleaseSelectAtLeastOneImage": "Pilih minimal 1 gambar",
+  "basicInformation": "Informasi Dasar",
+  "languageToLearn": "Bahasa Dipelajari",
+  "hometown": "Kampung Halaman",
+  "characters": "karakter",
+  "failedToLoadLanguages": "Gagal memuat bahasa"
 }
