@@ -1000,18 +1000,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   /// Overview Tab - Match info, stats, conversation starters
   Widget _buildOverviewTab() {
     final l10n = AppLocalizations.of(context)!;
-    return Builder(
-      builder: (context) {
-        return CustomScrollView(
-          key: const PageStorageKey<String>('overview'),
-          slivers: [
-            SliverOverlapInjector(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.all(16),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
+    return ListView(
+      key: const PageStorageKey<String>('overview'),
+      padding: const EdgeInsets.all(16),
+      children: [
         // VIP Upsell Banner
         if (_community.isVip) ...[
           Builder(
@@ -1086,30 +1078,17 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
             ),
           ),
         ),
-                ]),
-              ),
-            ),
-          ],
-        );
-      },
+      ],
     );
   }
 
   /// About Tab - Bio, languages, interests, personal info
   Widget _buildAboutTab() {
     final l10n = AppLocalizations.of(context)!;
-    return Builder(
-      builder: (context) {
-        return CustomScrollView(
-          key: const PageStorageKey<String>('about'),
-          slivers: [
-            SliverOverlapInjector(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.all(16),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
+    return ListView(
+      key: const PageStorageKey<String>('about'),
+      padding: const EdgeInsets.all(16),
+      children: [
         // Bio
         _buildCard(
           Icons.person,
@@ -1131,34 +1110,18 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
         // Personal Info (MBTI, Blood Type)
         _buildPersonalInfoSection(),
-                ]),
-              ),
-            ),
-          ],
-        );
-      },
+      ],
     );
   }
 
   /// Moments Tab - Grid of moments
   Widget _buildMomentsTab() {
-    return Builder(
-      builder: (context) {
-        return CustomScrollView(
-          key: const PageStorageKey<String>('moments'),
-          slivers: [
-            SliverOverlapInjector(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.all(16),
-              sliver: SliverToBoxAdapter(
-                child: _buildMomentsSection(),
-              ),
-            ),
-          ],
-        );
-      },
+    return ListView(
+      key: const PageStorageKey<String>('moments'),
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildMomentsSection(),
+      ],
     );
   }
 
