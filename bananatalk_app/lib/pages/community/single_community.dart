@@ -1453,15 +1453,16 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
     Widget thumbnailContent;
 
-    if (hasVideo && moment.video?.thumbnail != null) {
+    final videoThumbnail = moment.video?.thumbnail;
+    if (hasVideo && videoThumbnail != null && videoThumbnail.isNotEmpty) {
       // Video with thumbnail
       thumbnailContent = CachedImageWidget(
-        imageUrl: moment.video!.thumbnail,
+        imageUrl: videoThumbnail,
         fit: BoxFit.cover,
         borderRadius: BorderRadius.circular(4),
         errorWidget: _buildTextPreview(moment),
       );
-    } else if (hasImages) {
+    } else if (hasImages && moment.imageUrls.isNotEmpty) {
       // Image(s)
       thumbnailContent = CachedImageWidget(
         imageUrl: moment.imageUrls.first,
