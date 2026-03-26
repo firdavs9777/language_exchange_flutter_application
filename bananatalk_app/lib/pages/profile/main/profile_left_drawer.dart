@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/settings/account_deletion.dart';
 import 'package:bananatalk_app/pages/settings/legal_screen.dart';
 import 'package:bananatalk_app/pages/settings/blocked_users_screen.dart';
 import 'package:bananatalk_app/pages/settings/language_settings_screen.dart';
+import 'package:bananatalk_app/pages/settings/data_storage_screen.dart';
 import 'package:bananatalk_app/pages/reports/my_reports_screen.dart';
 import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -30,16 +31,23 @@ class LeftDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFF00BFA5).withValues(alpha: 0.05),
-              Theme.of(context).colorScheme.surface,
-            ],
+            colors: isDark
+                ? [
+                    const Color(0xFF1A1A1A),
+                    Theme.of(context).colorScheme.surface,
+                  ]
+                : [
+                    const Color(0xFF00BFA5).withValues(alpha: 0.05),
+                    Theme.of(context).colorScheme.surface,
+                  ],
           ),
         ),
         child: SafeArea(
@@ -64,13 +72,13 @@ class LeftDrawer extends ConsumerWidget {
                         context,
                       )!.editYourProfileInformation,
                       onTap: () {
+                        Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProfileSettings(),
                           ),
                         );
-                        // Navigate to profile settings
                       },
                     ),
 
@@ -190,6 +198,30 @@ class LeftDrawer extends ConsumerWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const ProfileTheme(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    _buildMenuItem(
+                      context: context,
+                      icon: Icons.cleaning_services_outlined,
+                      title: AppLocalizations.of(context)!.clearCache,
+                      subtitle: AppLocalizations.of(context)!.clearCacheSubtitle,
+                      onTap: () => _showClearCacheDialog(context, ref),
+                    ),
+
+                    _buildMenuItem(
+                      context: context,
+                      icon: Icons.storage_outlined,
+                      title: AppLocalizations.of(context)!.dataAndStorage,
+                      subtitle: AppLocalizations.of(context)!.manageStorageAndDownloads,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DataStorageScreen(),
                           ),
                         );
                       },
@@ -318,28 +350,37 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   Widget _buildModernHeader(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            AppColors.primary,
-            AppColors.primary.withValues(alpha: 0.8),
-          ],
+          colors: isDark
+              ? [
+                  const Color(0xFF1A3A36), // Dark teal
+                  const Color(0xFF0D2420), // Darker teal
+                ]
+              : [
+                  AppColors.primary,
+                  AppColors.primary.withValues(alpha: 0.8),
+                ],
         ),
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(30),
           bottomRight: Radius.circular(30),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: 0.3),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
       ),
       child: Column(
         children: [
@@ -546,12 +587,17 @@ class LeftDrawer extends ConsumerWidget {
     Gradient? gradient,
     Color? iconColor,
   }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: context.surfaceColor,
         borderRadius: AppRadius.borderLG,
-        boxShadow: AppShadows.sm,
+        border: isDark
+            ? Border.all(color: Colors.white.withValues(alpha: 0.08))
+            : null,
+        boxShadow: isDark ? null : AppShadows.sm,
       ),
       child: Material(
         color: Colors.transparent,
@@ -638,20 +684,26 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   Widget _buildLogoutButton(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         borderRadius: AppRadius.borderLG,
         gradient: LinearGradient(
-          colors: [AppColors.error.withValues(alpha: 0.9), AppColors.error],
+          colors: isDark
+              ? [AppColors.error.withValues(alpha: 0.8), AppColors.error.withValues(alpha: 0.9)]
+              : [AppColors.error.withValues(alpha: 0.9), AppColors.error],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.error.withValues(alpha: 0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: AppColors.error.withValues(alpha: 0.3),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
+                ),
+              ],
       ),
       child: Material(
         color: Colors.transparent,
@@ -665,9 +717,9 @@ class LeftDrawer extends ConsumerWidget {
               children: [
                 const Icon(Icons.logout, color: Colors.white, size: 24),
                 Spacing.hGapMD,
-                const Text(
-                  'Logout',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.logout,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -1052,6 +1104,210 @@ class LeftDrawer extends ConsumerWidget {
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void _showClearCacheDialog(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        bool isClearing = false;
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: AppRadius.borderXL,
+              ),
+              title: Row(
+                children: [
+                  Container(
+                    padding: Spacing.paddingSM,
+                    decoration: BoxDecoration(
+                      color: Colors.orange.withValues(alpha: 0.1),
+                      borderRadius: AppRadius.borderSM,
+                    ),
+                    child: const Icon(
+                      Icons.cleaning_services_outlined,
+                      color: Colors.orange,
+                      size: 24,
+                    ),
+                  ),
+                  Spacing.hGapMD,
+                  Expanded(
+                    child: Text(
+                      l10n.clearCache,
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.clearCacheDescription,
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                  Spacing.gapMD,
+                  Container(
+                    padding: Spacing.paddingMD,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withValues(alpha: 0.1),
+                      borderRadius: AppRadius.borderSM,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.info_outline, color: Colors.blue, size: 20),
+                        Spacing.hGapSM,
+                        Expanded(
+                          child: Text(
+                            l10n.clearCacheHint,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.blue[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isClearing) ...[
+                    Spacing.gapXL,
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColors.primary,
+                            ),
+                          ),
+                        ),
+                        Spacing.hGapMD,
+                        Text(
+                          l10n.clearingCache,
+                          style: context.bodySmall,
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+              actions: isClearing
+                  ? []
+                  : [
+                      TextButton(
+                        onPressed: () => Navigator.pop(dialogContext),
+                        child: Text(
+                          l10n.cancel,
+                          style: TextStyle(
+                            color: context.textSecondary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          setState(() {
+                            isClearing = true;
+                          });
+
+                          try {
+                            // Clear image cache
+                            await AppImageCacheManager.clearCache();
+
+                            // Clear Flutter's image cache
+                            PaintingBinding.instance.imageCache.clear();
+                            PaintingBinding.instance.imageCache.clearLiveImages();
+
+                            if (dialogContext.mounted) {
+                              Navigator.pop(dialogContext);
+                            }
+
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.check_circle_outline,
+                                        color: Colors.white,
+                                      ),
+                                      Spacing.hGapMD,
+                                      Expanded(
+                                        child: Text(l10n.cacheCleared),
+                                      ),
+                                    ],
+                                  ),
+                                  backgroundColor: AppColors.success,
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: AppRadius.borderSM,
+                                  ),
+                                  duration: const Duration(seconds: 3),
+                                ),
+                              );
+                            }
+                          } catch (error) {
+                            setState(() {
+                              isClearing = false;
+                            });
+
+                            if (dialogContext.mounted) {
+                              ScaffoldMessenger.of(dialogContext).showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.error_outline,
+                                        color: Colors.white,
+                                      ),
+                                      Spacing.hGapMD,
+                                      Expanded(
+                                        child: Text(
+                                          '${l10n.clearCacheFailed}: ${error.toString()}',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  backgroundColor: AppColors.error,
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: AppRadius.borderSM,
+                                  ),
+                                  duration: const Duration(seconds: 4),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: AppRadius.borderSM,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                        ),
+                        child: Text(
+                          l10n.clearCache,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+            );
+          },
         );
       },
     );

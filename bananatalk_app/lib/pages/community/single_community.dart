@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:flutter/services.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
@@ -410,6 +411,27 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           );
         }
       }
+    }
+  }
+
+  /// Copy username to clipboard
+  void _copyUsername(String username) {
+    Clipboard.setData(ClipboardData(text: username));
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.white, size: 18),
+              SizedBox(width: 8),
+              Text('Username copied!'),
+            ],
+          ),
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -880,9 +902,30 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                     ),
                     if (_community.displayUsername != null) ...[
                       const SizedBox(height: 2),
-                      Text(
-                        _community.displayUsername!,
-                        style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 13),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            _community.displayUsername!,
+                            style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 13),
+                          ),
+                          const SizedBox(width: 6),
+                          GestureDetector(
+                            onTap: () => _copyUsername(_community.displayUsername!),
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Icon(
+                                Icons.copy_rounded,
+                                color: Colors.white,
+                                size: 14,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                     const SizedBox(height: 4),
@@ -1085,32 +1128,255 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   /// About Tab - Bio, languages, interests, personal info
   Widget _buildAboutTab() {
     final l10n = AppLocalizations.of(context)!;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return ListView(
       key: const PageStorageKey<String>('about'),
       padding: const EdgeInsets.all(16),
       children: [
-        // Bio
-        _buildCard(
-          Icons.person,
-          l10n.bio,
-          _community.bio.isNotEmpty ? _community.bio : l10n.noBioYet,
-          Colors.blue[600]!,
-        ),
+        // Bio Section
+        _buildBioSection(isDark),
 
-        // Languages
-        _buildCard(
-          Icons.language,
-          l10n.languages,
-          '${l10n.native}: ${_community.native_language}\n${l10n.learning}: ${_community.language_to_learn}',
-          Colors.green[600]!,
-        ),
+        const SizedBox(height: 12),
+
+        // Languages Section
+        _buildLanguagesSection(isDark),
+
+        const SizedBox(height: 12),
 
         // Interests
-        _buildInterestsSection(),
+        _buildInterestsSection(isDark),
 
         // Personal Info (MBTI, Blood Type)
-        _buildPersonalInfoSection(),
+        _buildPersonalInfoSection(isDark),
       ],
+    );
+  }
+
+  /// Build Bio Section with improved UI
+  Widget _buildBioSection(bool isDark) {
+    final l10n = AppLocalizations.of(context)!;
+    final hasBio = _community.bio.isNotEmpty;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          width: 0.5,
+        ),
+        boxShadow: isDark ? null : [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: isDark
+                        ? [Colors.blue[700]!, Colors.blue[900]!]
+                        : [Colors.blue[400]!, Colors.blue[600]!],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.format_quote_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                l10n.bio,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Bio content
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : Colors.grey.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : Colors.grey.withValues(alpha: 0.1),
+              ),
+            ),
+            child: Text(
+              hasBio ? _community.bio : l10n.noBioYet,
+              style: context.bodyMedium.copyWith(
+                color: hasBio ? context.textPrimary : context.textMuted,
+                fontStyle: hasBio ? FontStyle.normal : FontStyle.italic,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Build Languages Section with improved UI
+  Widget _buildLanguagesSection(bool isDark) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          width: 0.5,
+        ),
+        boxShadow: isDark ? null : [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: isDark
+                        ? [Colors.green[700]!, Colors.teal[800]!]
+                        : [Colors.green[400]!, Colors.teal[500]!],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.translate_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                l10n.languages,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Language cards
+          Row(
+            children: [
+              // Native language
+              Expanded(
+                child: _buildLanguageCard(
+                  label: l10n.native,
+                  language: _community.native_language,
+                  icon: Icons.home_rounded,
+                  color: Colors.orange,
+                  isDark: isDark,
+                ),
+              ),
+              const SizedBox(width: 12),
+              // Arrow
+              Icon(
+                Icons.arrow_forward_rounded,
+                color: context.textMuted,
+                size: 20,
+              ),
+              const SizedBox(width: 12),
+              // Learning language
+              Expanded(
+                child: _buildLanguageCard(
+                  label: l10n.learning,
+                  language: _community.language_to_learn,
+                  icon: Icons.school_rounded,
+                  color: Colors.purple,
+                  isDark: isDark,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Build individual language card
+  Widget _buildLanguageCard({
+    required String label,
+    required String language,
+    required IconData icon,
+    required Color color,
+    required bool isDark,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isDark
+            ? color.withValues(alpha: 0.15)
+            : color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: color.withValues(alpha: isDark ? 0.3 : 0.2),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: color, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: context.captionSmall.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            language,
+            style: context.labelMedium.copyWith(
+              color: context.textPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 
@@ -1127,7 +1393,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
   /// Build Interests Section - horizontal scrollable chips showing user's topics
   /// Highlights shared interests with the current user
-  Widget _buildInterestsSection() {
+  Widget _buildInterestsSection(bool isDark) {
     // Return empty widget if no topics
     if (_community.topics.isEmpty) {
       return const SizedBox.shrink();
@@ -1146,57 +1412,90 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       ...theirTopics.difference(sharedTopics),
     ].toList();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Header with shared count
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          width: 0.5,
+        ),
+        boxShadow: isDark ? null : [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header with shared count
+          Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(6),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppColors.accent.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  gradient: LinearGradient(
+                    colors: isDark
+                        ? [Colors.pink[700]!, Colors.orange[800]!]
+                        : [Colors.pink[400]!, Colors.orange[400]!],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
-                  Icons.interests_rounded,
-                  color: AppColors.accent,
-                  size: 18,
+                  Icons.favorite_rounded,
+                  color: Colors.white,
+                  size: 20,
                 ),
               ),
-              Spacing.hGapSM,
-              Text(AppLocalizations.of(context)!.interests, style: context.titleMedium),
-              if (sharedTopics.isNotEmpty) ...[
-                Spacing.hGapSM,
+              const SizedBox(width: 12),
+              Text(
+                AppLocalizations.of(context)!.interests,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.textPrimary,
+                ),
+              ),
+              const Spacer(),
+              if (sharedTopics.isNotEmpty)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    color: isDark
+                        ? AppColors.primary.withValues(alpha: 0.2)
+                        : AppColors.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text(
-                    '${sharedTopics.length} shared',
-                    style: context.captionSmall.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.handshake_rounded,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${sharedTopics.length} shared',
+                        style: context.captionSmall.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
             ],
           ),
-        ),
-        // Horizontal list of topic chips
-        SizedBox(
-          height: 36,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: sortedTopics.length,
-            separatorBuilder: (context, index) => Spacing.hGapSM,
-            itemBuilder: (context, index) {
-              final topicId = sortedTopics[index];
+          const SizedBox(height: 16),
+          // Wrap of topic chips
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: sortedTopics.map((topicId) {
               final isShared = sharedTopics.contains(topicId);
 
               // Find the topic from default topics
@@ -1213,32 +1512,41 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
               );
 
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: isShared
-                      ? AppColors.primary.withOpacity(0.1)
-                      : context.containerColor,
-                  borderRadius: BorderRadius.circular(18),
+                      ? (isDark
+                          ? AppColors.primary.withValues(alpha: 0.2)
+                          : AppColors.primary.withValues(alpha: 0.1))
+                      : (isDark
+                          ? Colors.white.withValues(alpha: 0.08)
+                          : context.containerColor),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: isShared ? AppColors.primary : context.dividerColor,
+                    color: isShared
+                        ? AppColors.primary.withValues(alpha: isDark ? 0.5 : 0.3)
+                        : (isDark
+                            ? Colors.white.withValues(alpha: 0.15)
+                            : context.dividerColor),
                     width: isShared ? 1.5 : 1,
                   ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(topic.icon, style: const TextStyle(fontSize: 14)),
-                    Spacing.hGapXS,
+                    Text(topic.icon, style: const TextStyle(fontSize: 16)),
+                    const SizedBox(width: 6),
                     Text(
                       topic.name,
                       style: context.labelMedium.copyWith(
-                        color: isShared ? AppColors.primary : null,
+                        color: isShared ? AppColors.primary : context.textPrimary,
+                        fontWeight: isShared ? FontWeight.w600 : FontWeight.w500,
                       ),
                     ),
                     if (isShared) ...[
-                      Spacing.hGapXS,
+                      const SizedBox(width: 4),
                       Icon(
-                        Icons.check,
+                        Icons.check_circle_rounded,
                         size: 14,
                         color: AppColors.primary,
                       ),
@@ -1246,11 +1554,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                   ],
                 ),
               );
-            },
+            }).toList(),
           ),
-        ),
-        Spacing.gapMD,
-      ],
+        ],
+      ),
     );
   }
 
@@ -1276,33 +1583,105 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
   /// Build moments loading state with shimmer placeholders
   Widget _buildMomentsLoading() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildMomentsHeader(0, isLoading: true),
         Spacing.gapSM,
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2,
-            childAspectRatio: 1,
+        // Show 2 placeholder post cards
+        for (int i = 0; i < 2; i++) ...[
+          Container(
+            decoration: BoxDecoration(
+              color: context.surfaceColor,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+                width: 0.5,
+              ),
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header placeholder
+                Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: context.containerColor,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            color: context.containerColor,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Container(
+                          width: 60,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            color: context.containerColor,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // Text placeholder
+                Container(
+                  width: double.infinity,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color: context.containerColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  width: 200,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color: context.containerColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                // Image placeholder
+                Container(
+                  width: double.infinity,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: context.containerColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.photo_outlined,
+                      color: context.textMuted.withValues(alpha: 0.3),
+                      size: 32,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          itemCount: 6,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                color: context.containerColor,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Center(
-                child: Icon(Icons.photo_outlined, color: context.textMuted, size: 20),
-              ),
-            );
-          },
-        ),
+          if (i < 1) const SizedBox(height: 12),
+        ],
       ],
     );
   }
@@ -1342,29 +1721,54 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
   /// Build moments empty state
   Widget _buildMomentsEmpty() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildMomentsHeader(0),
         Spacing.gapSM,
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 24),
+          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: context.containerColor,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: context.dividerColor),
+            color: context.surfaceColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+              width: 0.5,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.photo_library_outlined, size: 40, color: context.textMuted),
-              Spacing.gapSM,
-              Text(AppLocalizations.of(context)!.noMomentsYet, style: context.bodyMedium.copyWith(color: context.textSecondary)),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: isDark
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : context.containerColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.photo_library_outlined,
+                  size: 32,
+                  color: context.textMuted,
+                ),
+              ),
+              Spacing.gapMD,
+              Text(
+                AppLocalizations.of(context)!.noMomentsYet,
+                style: context.bodyMedium.copyWith(
+                  color: context.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               Spacing.gapXS,
               Text(
                 AppLocalizations.of(context)!.hasntSharedMoments(_community.name),
-                style: context.caption,
+                style: context.caption.copyWith(color: context.textMuted),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -1408,163 +1812,338 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     );
   }
 
-  /// Build moments grid with thumbnails
+  /// Build moments list in Facebook post style
   Widget _buildMomentsGrid(List<Moments> moments) {
-    // Show max 9 items in grid
-    final displayMoments = moments.take(9).toList();
-    final hasMore = moments.length > 9;
-    final remainingCount = moments.length - 9;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildMomentsHeader(moments.length),
         Spacing.gapSM,
-        GridView.builder(
+        // Facebook-style post list
+        ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2,
-            childAspectRatio: 1,
-          ),
-          itemCount: displayMoments.length,
+          itemCount: moments.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
-            final moment = displayMoments[index];
-            final isLastItem = index == 8 && hasMore;
-
-            return GestureDetector(
-              onTap: () => _navigateToMoment(moment),
-              child: _buildMomentThumbnail(moment, isLastItem: isLastItem, remainingCount: remainingCount),
-            );
+            final moment = moments[index];
+            return _buildMomentPost(moment);
           },
         ),
       ],
     );
   }
 
-  /// Build individual moment thumbnail
-  Widget _buildMomentThumbnail(Moments moment, {bool isLastItem = false, int remainingCount = 0}) {
-    // Determine what to show: video thumbnail, image, or text preview
+  /// Build individual moment as a Facebook-style post
+  Widget _buildMomentPost(Moments moment) {
     final hasVideo = moment.hasVideo;
     final hasImages = moment.hasImages;
     final hasMultipleImages = moment.imageUrls.length > 1;
+    final hasText = moment.description.isNotEmpty || moment.title.isNotEmpty;
+    final displayText = moment.description.isNotEmpty ? moment.description : moment.title;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    Widget thumbnailContent;
-
-    final videoThumbnail = moment.video?.thumbnail;
-    if (hasVideo && videoThumbnail != null && videoThumbnail.isNotEmpty) {
-      // Video with thumbnail
-      thumbnailContent = CachedImageWidget(
-        imageUrl: videoThumbnail,
-        fit: BoxFit.cover,
-        borderRadius: BorderRadius.circular(4),
-        errorWidget: _buildTextPreview(moment),
-      );
-    } else if (hasImages && moment.imageUrls.isNotEmpty) {
-      // Image(s)
-      thumbnailContent = CachedImageWidget(
-        imageUrl: moment.imageUrls.first,
-        fit: BoxFit.cover,
-        borderRadius: BorderRadius.circular(4),
-        errorWidget: _buildTextPreview(moment),
-      );
-    } else {
-      // Text-only moment
-      thumbnailContent = _buildTextPreview(moment);
-    }
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: thumbnailContent,
+    return GestureDetector(
+      onTap: () => _navigateToMoment(moment),
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.surfaceColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+            width: 0.5,
+          ),
+          boxShadow: isDark ? null : [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-        // Video indicator
-        if (hasVideo)
-          Positioned(
-            bottom: 4,
-            left: 4,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Post header with avatar, name, and time
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
                 children: [
-                  Icon(
-                    Icons.play_arrow_rounded,
-                    color: Colors.white,
-                    size: 14,
+                  // Avatar
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundColor: AppColors.accent,
+                    backgroundImage: _getProfileImageUrl() != null
+                        ? NetworkImage(_getProfileImageUrl()!)
+                        : null,
+                    child: _getProfileImageUrl() == null
+                        ? const Icon(Icons.person, size: 18, color: Colors.white)
+                        : null,
+                  ),
+                  const SizedBox(width: 10),
+                  // Name and time
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _community.name,
+                          style: context.labelMedium.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: context.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          _formatTimeAgo(moment.createdAt),
+                          style: context.captionSmall.copyWith(
+                            color: context.textMuted,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        // Multiple images indicator
-        if (hasMultipleImages && !hasVideo)
-          Positioned(
-            top: 4,
-            right: 4,
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: const Icon(
-                Icons.collections_rounded,
-                color: Colors.white,
-                size: 12,
-              ),
-            ),
-          ),
-        // "+N" overlay for last item when there are more
-        if (isLastItem)
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Center(
-              child: Text(
-                '+$remainingCount',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+
+            // Post text content
+            if (hasText)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  displayText,
+                  style: context.bodyMedium.copyWith(
+                    color: context.textPrimary,
+                  ),
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
+
+            if (hasText && (hasImages || hasVideo))
+              const SizedBox(height: 10),
+
+            // Media content (images/video)
+            if (hasImages || hasVideo)
+              _buildMomentMedia(moment, hasVideo, hasImages, hasMultipleImages),
+
+            // Divider before engagement
+            Divider(
+              height: 1,
+              thickness: 0.5,
+              color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
             ),
-          ),
-      ],
-    );
-  }
 
-  /// Build text preview for text-only moments
-  Widget _buildTextPreview(Moments moment) {
-    final text = moment.description.isNotEmpty ? moment.description : moment.title;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: context.containerColor,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      padding: const EdgeInsets.all(6),
-      child: Center(
-        child: Text(
-          text,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: context.captionSmall,
+            // Engagement stats (likes, comments)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                children: [
+                  // Like count
+                  if (moment.likeCount > 0) ...[
+                    Icon(Icons.favorite, size: 16, color: Colors.red[400]),
+                    const SizedBox(width: 4),
+                    Text(
+                      _formatCount(moment.likeCount),
+                      style: context.labelSmall.copyWith(color: context.textSecondary),
+                    ),
+                    const SizedBox(width: 16),
+                  ],
+                  // Comment count
+                  if (moment.commentCount > 0) ...[
+                    Icon(Icons.chat_bubble_outline, size: 15, color: context.textMuted),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${_formatCount(moment.commentCount)} ${moment.commentCount == 1 ? 'comment' : 'comments'}',
+                      style: context.labelSmall.copyWith(color: context.textSecondary),
+                    ),
+                  ],
+                  // If no engagement, show placeholder
+                  if (moment.likeCount == 0 && moment.commentCount == 0)
+                    Text(
+                      'Be the first to like this',
+                      style: context.captionSmall.copyWith(color: context.textMuted),
+                    ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  /// Build media section for a moment (images or video)
+  Widget _buildMomentMedia(Moments moment, bool hasVideo, bool hasImages, bool hasMultipleImages) {
+    final videoThumbnail = moment.video?.thumbnail;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final overlayColor = isDark
+        ? Colors.black.withValues(alpha: 0.7)
+        : Colors.black.withValues(alpha: 0.5);
+
+    if (hasVideo && videoThumbnail != null && videoThumbnail.isNotEmpty) {
+      // Video thumbnail with play button
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          AspectRatio(
+            aspectRatio: 16 / 9,
+            child: CachedImageWidget(
+              imageUrl: videoThumbnail,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: overlayColor,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.3),
+                width: 2,
+              ),
+            ),
+            child: const Icon(
+              Icons.play_arrow_rounded,
+              color: Colors.white,
+              size: 32,
+            ),
+          ),
+        ],
+      );
+    } else if (hasImages && moment.imageUrls.isNotEmpty) {
+      // Single image or multiple images
+      if (moment.imageUrls.length == 1) {
+        // Single image
+        return ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 300),
+          child: CachedImageWidget(
+            imageUrl: moment.imageUrls.first,
+            fit: BoxFit.cover,
+            width: double.infinity,
+          ),
+        );
+      } else if (moment.imageUrls.length == 2) {
+        // Two images side by side
+        return Row(
+          children: [
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: CachedImageWidget(
+                  imageUrl: moment.imageUrls[0],
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(width: isDark ? 1 : 2),
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: CachedImageWidget(
+                  imageUrl: moment.imageUrls[1],
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ],
+        );
+      } else {
+        // 3+ images - show first image large, rest in grid with "+N" overlay
+        return Column(
+          children: [
+            // First image full width
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: CachedImageWidget(
+                imageUrl: moment.imageUrls.first,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ),
+            SizedBox(height: isDark ? 1 : 2),
+            // Remaining images in row
+            SizedBox(
+              height: 100,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CachedImageWidget(
+                      imageUrl: moment.imageUrls[1],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(width: isDark ? 1 : 2),
+                  Expanded(
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        CachedImageWidget(
+                          imageUrl: moment.imageUrls.length > 2 ? moment.imageUrls[2] : moment.imageUrls[1],
+                          fit: BoxFit.cover,
+                        ),
+                        if (moment.imageUrls.length > 3)
+                          Container(
+                            color: overlayColor,
+                            child: Center(
+                              child: Text(
+                                '+${moment.imageUrls.length - 3}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }
+    }
+
+    return const SizedBox.shrink();
+  }
+
+  /// Format timestamp to relative time (e.g., "2h ago", "3d ago")
+  String _formatTimeAgo(DateTime? dateTime) {
+    if (dateTime == null) return '';
+
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inMinutes < 1) {
+      return 'Just now';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes}m ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours}h ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays}d ago';
+    } else if (difference.inDays < 30) {
+      return '${(difference.inDays / 7).floor()}w ago';
+    } else if (difference.inDays < 365) {
+      return '${(difference.inDays / 30).floor()}mo ago';
+    } else {
+      return '${(difference.inDays / 365).floor()}y ago';
+    }
+  }
+
+  /// Format count for display (1000 -> 1K, 1000000 -> 1M)
+  String _formatCount(int count) {
+    if (count >= 1000000) {
+      return '${(count / 1000000).toStringAsFixed(1)}M';
+    } else if (count >= 1000) {
+      return '${(count / 1000).toStringAsFixed(1)}K';
+    }
+    return count.toString();
   }
 
   /// Navigate to single moment page
@@ -1596,41 +2175,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     );
   }
 
-  Widget _buildCard(
-      IconData icon, String title, String content, Color iconColor) {
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: Spacing.cardPadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: iconColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(icon, color: iconColor, size: 18),
-                ),
-                Spacing.hGapSM,
-                Text(title, style: context.titleMedium),
-              ],
-            ),
-            Spacing.gapSM,
-            Text(content, style: context.bodyMedium.copyWith(color: context.textSecondary)),
-          ],
-        ),
-      ),
-    );
-  }
-
   /// Build Personal Info Section (MBTI, Blood Type)
-  Widget _buildPersonalInfoSection() {
+  Widget _buildPersonalInfoSection(bool isDark) {
     final hasMbti = _community.mbti.isNotEmpty;
     final hasBloodType = _community.bloodType.isNotEmpty;
 
@@ -1639,54 +2185,85 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       return const SizedBox.shrink();
     }
 
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: Spacing.cardPadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.purple[600]!.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
+    return Container(
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          width: 0.5,
+        ),
+        boxShadow: isDark ? null : [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: isDark
+                        ? [Colors.purple[700]!, Colors.indigo[800]!]
+                        : [Colors.purple[400]!, Colors.indigo[500]!],
                   ),
-                  child: Icon(Icons.psychology_rounded, color: Colors.purple[600], size: 18),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                Spacing.hGapSM,
-                Text(AppLocalizations.of(context)!.aboutMe, style: context.titleMedium),
-              ],
-            ),
-            Spacing.gapSM,
-            // Personal info chips
-            Wrap(
-              spacing: 10,
-              runSpacing: 8,
-              children: [
-                if (hasMbti)
-                  _buildPersonalInfoChip(
+                child: const Icon(
+                  Icons.psychology_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                AppLocalizations.of(context)!.aboutMe,
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Personal info chips in row
+          Row(
+            children: [
+              if (hasMbti)
+                Expanded(
+                  child: _buildPersonalInfoChip(
                     icon: '🧠',
                     label: 'MBTI',
                     value: _community.mbti.toUpperCase(),
                     color: Colors.indigo,
+                    isDark: isDark,
                   ),
-                if (hasBloodType)
-                  _buildPersonalInfoChip(
+                ),
+              if (hasMbti && hasBloodType)
+                const SizedBox(width: 12),
+              if (hasBloodType)
+                Expanded(
+                  child: _buildPersonalInfoChip(
                     icon: '🩸',
                     label: AppLocalizations.of(context)!.bloodType,
                     value: _community.bloodType.toUpperCase(),
                     color: Colors.red,
+                    isDark: isDark,
                   ),
-              ],
-            ),
-          ],
-        ),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -1697,19 +2274,24 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     required String label,
     required String value,
     required Color color,
+    required bool isDark,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color.withValues(alpha: 0.2), width: 1),
+        color: isDark
+            ? color.withValues(alpha: 0.15)
+            : color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: color.withValues(alpha: isDark ? 0.3 : 0.15),
+          width: 1,
+        ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(icon, style: const TextStyle(fontSize: 16)),
-          Spacing.hGapXS,
+          Text(icon, style: const TextStyle(fontSize: 24)),
+          const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1720,11 +2302,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              const SizedBox(height: 2),
               Text(
                 value,
-                style: context.labelMedium.copyWith(
+                style: context.titleMedium.copyWith(
                   color: color,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],

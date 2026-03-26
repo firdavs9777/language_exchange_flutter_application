@@ -1,0 +1,119 @@
+<h2>Implementation Approaches</h2>
+<p class="subtitle">How should we architect the calling system?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Extend Existing Services (Recommended)</h3>
+      <p>Build on CallManager + WebRTCService. Add VoiceRoomManager that reuses WebRTCService for mesh connections.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Leverages proven patterns</li>
+            <li>Less code to write</li>
+            <li>Consistent with codebase</li>
+            <li>Easier to maintain</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>WebRTCService needs refactoring for multi-peer</li>
+            <li>Some coupling between features</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Separate Services Per Feature</h3>
+      <p>Keep CallManager for 1-on-1. Create entirely new VoiceRoomManager with its own WebRTC handling.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Clean separation</li>
+            <li>No risk of breaking existing calls</li>
+            <li>Independent testing</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Code duplication</li>
+            <li>Two WebRTC implementations to maintain</li>
+            <li>Inconsistent patterns</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Unified Real-Time Service</h3>
+      <p>Create single RealTimeCallService that abstracts both 1-on-1 and voice rooms behind unified interface.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Single source of truth</li>
+            <li>Consistent API</li>
+            <li>Future-proof for video rooms</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Larger refactor needed</li>
+            <li>More complex abstraction</li>
+            <li>Higher risk of bugs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 32px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+  <h3 style="margin-top: 0;">Architecture Comparison</h3>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px;">
+    <div style="text-align: center;">
+      <div class="label">Approach A</div>
+      <pre style="font-size: 11px; text-align: left; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-top: 8px;">
+CallManager (existing)
+  └─► WebRTCService
+        ↑ (reused)
+VoiceRoomManager (new)
+  └─► WebRTCService
+      </pre>
+    </div>
+    <div style="text-align: center;">
+      <div class="label">Approach B</div>
+      <pre style="font-size: 11px; text-align: left; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-top: 8px;">
+CallManager
+  └─► WebRTCService
+
+VoiceRoomManager
+  └─► VoiceRoomWebRTC
+      (separate)
+      </pre>
+    </div>
+    <div style="text-align: center;">
+      <div class="label">Approach C</div>
+      <pre style="font-size: 11px; text-align: left; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-top: 8px;">
+RealTimeCallService
+  ├─► OneToOneHandler
+  └─► VoiceRoomHandler
+        ↓
+    SharedWebRTC
+      </pre>
+    </div>
+  </div>
+</div>

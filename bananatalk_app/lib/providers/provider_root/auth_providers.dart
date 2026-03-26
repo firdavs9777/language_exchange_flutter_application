@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/services/socket_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -770,6 +771,9 @@ class AuthService extends ChangeNotifier {
         }
       }
     }
+
+    // 4.5: Clear API client token cache
+    NotificationApiClient.clearTokenCache();
 
     // 5. FIFTH: Clear image cache
     try {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -8,21 +9,62 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   final NotificationApiClient _apiClient = NotificationApiClient();
   final NotificationService _notificationService = NotificationService();
 
+  // Debounce timer for fetch requests
+  Timer? _debounceTimer;
+  static const Duration _debounceDuration = Duration(milliseconds: 500);
+
+  // Track last fetch time to prevent rapid API calls
+  DateTime? _lastFetchTime;
+  static const Duration _minFetchInterval = Duration(seconds: 3);
+
+  // Flag to prevent concurrent fetches
+  bool _isFetching = false;
+
   BadgeCountNotifier() : super(BadgeCount.zero()) {
     fetchBadgeCount();
   }
 
-  /// Fetch badge count from backend
-  /// Uses sync endpoint to recalculate accurate counts
-  Future<void> fetchBadgeCount() async {
-    try {
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
 
+  /// Fetch badge count from backend with debouncing
+  /// Uses sync endpoint to recalculate accurate counts
+  Future<void> fetchBadgeCount({bool force = false}) async {
+    // Cancel any pending debounced fetch
+    _debounceTimer?.cancel();
+
+    // Check if we should skip this fetch (too soon after last fetch)
+    if (!force && _lastFetchTime != null) {
+      final timeSinceLastFetch = DateTime.now().difference(_lastFetchTime!);
+      if (timeSinceLastFetch < _minFetchInterval) {
+        // Debounce: schedule fetch after remaining time
+        _debounceTimer = Timer(
+          _minFetchInterval - timeSinceLastFetch,
+          () => _executeFetch(),
+        );
+        return;
+      }
+    }
+
+    // Debounce rapid calls
+    _debounceTimer = Timer(_debounceDuration, () => _executeFetch());
+  }
+
+  /// Actually execute the fetch
+  Future<void> _executeFetch() async {
+    // Prevent concurrent fetches
+    if (_isFetching) return;
+    _isFetching = true;
+
+    try {
       // Use sync endpoint to get accurate counts from actual data
       final badgeCount = await _apiClient.syncBadges();
 
       if (badgeCount != null) {
         state = badgeCount;
-
         // Update iOS badge
         await _notificationService.updateBadgeCount(badgeCount.total);
       } else {
@@ -33,8 +75,20 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
           await _notificationService.updateBadgeCount(fallbackCount.total);
         }
       }
+
+      _lastFetchTime = DateTime.now();
     } catch (e) {
+      // Silent fail - badge will update on next successful fetch
+    } finally {
+      _isFetching = false;
     }
+  }
+
+  /// Force immediate fetch (bypasses debounce)
+  Future<void> forceFetch() async {
+    _debounceTimer?.cancel();
+    _isFetching = false; // Reset flag to allow fetch
+    await _executeFetch();
   }
 
   /// Reset specific badge type

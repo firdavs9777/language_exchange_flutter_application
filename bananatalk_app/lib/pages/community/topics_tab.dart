@@ -102,6 +102,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
 
   Widget _buildCategoryTabs() {
     final categories = ['All', ...Topic.categories];
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final primaryColor = AppColors.primary;
 
     return Container(
       height: 48,
@@ -127,13 +129,15 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFF00BFA5).withOpacity(0.15)
-                    : Colors.grey[100],
+                    ? (isDark
+                        ? primaryColor.withValues(alpha: 0.25)
+                        : primaryColor.withValues(alpha: 0.15))
+                    : (isDark ? Colors.grey[850] : Colors.grey[100]),
                 borderRadius: AppRadius.borderLG,
                 border: Border.all(
                   color: isSelected
-                      ? const Color(0xFF00BFA5)
-                      : Colors.transparent,
+                      ? primaryColor
+                      : (isDark ? Colors.grey[700]! : Colors.transparent),
                   width: 1.5,
                 ),
               ),
@@ -146,7 +150,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                   style: context.labelMedium.copyWith(
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     color: isSelected
-                        ? const Color(0xFF00BFA5)
+                        ? primaryColor
                         : context.textSecondary,
                   ),
                 ),
@@ -197,6 +201,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
       ),
     );
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       children: [
         // Topic header with back button
@@ -213,7 +219,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                 },
                 icon: const Icon(Icons.arrow_back_rounded),
                 style: IconButton.styleFrom(
-                  backgroundColor: Colors.grey[100],
+                  backgroundColor: isDark ? Colors.grey[850] : Colors.grey[100],
                 ),
               ),
               Spacing.hGapMD,
@@ -318,6 +324,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   }
 
   Widget _buildNoUsersForTopic() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -327,7 +335,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             Icon(
               Icons.people_outline_rounded,
               size: 64,
-              color: Colors.grey[400],
+              color: isDark ? Colors.grey[600] : Colors.grey[400],
             ),
             Spacing.gapMD,
             Builder(
@@ -364,6 +372,8 @@ class _TopicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -374,13 +384,18 @@ class _TopicCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: context.surfaceColor,
             borderRadius: AppRadius.borderMD,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.04),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
+            border: isDark
+                ? Border.all(color: Colors.white.withValues(alpha: 0.1))
+                : null,
+            boxShadow: isDark
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
           ),
           child: Row(
             children: [
@@ -398,6 +413,7 @@ class _TopicCard extends StatelessWidget {
                       topic.name,
                       style: context.labelMedium.copyWith(
                         fontWeight: FontWeight.w600,
+                        color: context.textPrimary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -414,7 +430,7 @@ class _TopicCard extends StatelessWidget {
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: Colors.grey[400],
+                color: isDark ? Colors.grey[600] : Colors.grey[400],
                 size: 20,
               ),
             ],

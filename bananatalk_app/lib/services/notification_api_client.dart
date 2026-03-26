@@ -8,15 +8,43 @@ import 'package:flutter/foundation.dart';
 class NotificationApiClient {
   final String baseUrl = Endpoints.baseURL;
 
-  /// Get authorization header with token
+  // Cached SharedPreferences instance
+  static SharedPreferences? _cachedPrefs;
+  static String? _cachedToken;
+  static DateTime? _tokenCacheTime;
+  static const Duration _tokenCacheDuration = Duration(minutes: 5);
+
+  /// Get authorization header with token (cached)
   Future<Map<String, String>> _getHeaders() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token') ?? '';
-    
+    // Initialize SharedPreferences if not cached
+    _cachedPrefs ??= await SharedPreferences.getInstance();
+
+    // Refresh token cache if expired or not set
+    final now = DateTime.now();
+    if (_cachedToken == null ||
+        _tokenCacheTime == null ||
+        now.difference(_tokenCacheTime!) > _tokenCacheDuration) {
+      _cachedToken = _cachedPrefs!.getString('token') ?? '';
+      _tokenCacheTime = now;
+    }
+
     return {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $_cachedToken',
     };
+  }
+
+  /// Clear cached token (call on logout or token refresh)
+  static void clearTokenCache() {
+    _cachedToken = null;
+    _tokenCacheTime = null;
+  }
+
+  /// Refresh token from SharedPreferences (call after login)
+  static Future<void> refreshTokenCache() async {
+    _cachedPrefs ??= await SharedPreferences.getInstance();
+    _cachedToken = _cachedPrefs!.getString('token') ?? '';
+    _tokenCacheTime = DateTime.now();
   }
 
   /// POST /api/v1/notifications/register-token

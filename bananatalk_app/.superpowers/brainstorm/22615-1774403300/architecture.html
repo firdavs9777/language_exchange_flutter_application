@@ -1,0 +1,94 @@
+<h2>System Architecture</h2>
+<p class="subtitle">How the pieces fit together</p>
+
+<div class="mockup">
+  <div class="mockup-header">Service Layer Architecture</div>
+  <div class="mockup-body" style="padding: 24px; font-family: monospace; font-size: 13px; line-height: 1.8;">
+    <pre style="margin: 0; color: #e0e0e0;">
+┌─────────────────────────────────────────────────────────────────────┐
+│                           UI LAYER                                   │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│   ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐  │
+│   │ ActiveCall   │  │ IncomingCall │  │ VoiceRoomScreen          │  │
+│   │ Screen       │  │ Screen       │  │ (existing, enhanced)     │  │
+│   └──────┬───────┘  └──────┬───────┘  └────────────┬─────────────┘  │
+│          │                 │                       │                 │
+│          └────────┬────────┴───────────────────────┘                 │
+│                   ▼                                                  │
+│   ┌─────────────────────────────────────────────────────────────┐   │
+│   │                    RIVERPOD PROVIDERS                        │   │
+│   │  ┌─────────────────┐        ┌─────────────────────────────┐ │   │
+│   │  │  callProvider   │        │  voiceRoomProvider (new)    │ │   │
+│   │  │  (existing)     │        │                             │ │   │
+│   │  └────────┬────────┘        └──────────────┬──────────────┘ │   │
+│   └───────────┼─────────────────────────────────┼───────────────┘   │
+│               │                                 │                    │
+└───────────────┼─────────────────────────────────┼────────────────────┘
+                │                                 │
+┌───────────────┼─────────────────────────────────┼────────────────────┐
+│               ▼              SERVICE LAYER      ▼                    │
+│   ┌─────────────────┐                 ┌─────────────────────────┐   │
+│   │  CallManager    │                 │  VoiceRoomManager       │   │
+│   │  (existing)     │                 │  (NEW)                  │   │
+│   │                 │                 │                         │   │
+│   │  • initiateCall │                 │  • createRoom           │   │
+│   │  • acceptCall   │                 │  • joinRoom             │   │
+│   │  • rejectCall   │                 │  • leaveRoom            │   │
+│   │  • endCall      │                 │  • toggleMute           │   │
+│   │  • toggleMute   │                 │  • raiseHand            │   │
+│   │  • toggleVideo  │                 │  • sendChat             │   │
+│   └────────┬────────┘                 │  • kickParticipant      │   │
+│            │                          └────────────┬────────────┘   │
+│            │                                       │                 │
+│            └──────────────┬────────────────────────┘                 │
+│                           ▼                                          │
+│            ┌─────────────────────────────────────┐                  │
+│            │      WebRTCService (enhanced)       │                  │
+│            │                                     │                  │
+│            │  • Single peer mode (1-on-1 calls)  │                  │
+│            │  • Multi-peer mode (voice rooms)    │                  │
+│            │  • ICE candidate handling           │                  │
+│            │  • Audio/video stream management    │                  │
+│            └──────────────────┬──────────────────┘                  │
+│                               │                                      │
+│            ┌──────────────────┴──────────────────┐                  │
+│            │      ChatSocketService (existing)   │                  │
+│            │                                     │                  │
+│            │  • call:* events (1-on-1)           │                  │
+│            │  • voiceroom:* events (rooms)       │                  │
+│            └──────────────────┬──────────────────┘                  │
+└───────────────────────────────┼──────────────────────────────────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │   Backend Server      │
+                    │   (Socket.IO)         │
+                    └───────────────────────┘
+    </pre>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px;">
+  <h3>Key Points</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: rgba(0,191,165,0.1); padding: 16px; border-radius: 12px; border-left: 3px solid #00BFA5;">
+      <div class="label" style="color: #00BFA5;">Existing (Enhanced)</div>
+      <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #ccc;">
+        <li>CallManager — add mute/video emit to server</li>
+        <li>WebRTCService — add multi-peer support</li>
+        <li>ChatSocketService — add voiceroom:* events</li>
+        <li>callProvider — add connection state</li>
+      </ul>
+    </div>
+    <div style="background: rgba(233,30,99,0.1); padding: 16px; border-radius: 12px; border-left: 3px solid #E91E63;">
+      <div class="label" style="color: #E91E63;">New Components</div>
+      <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #ccc;">
+        <li>VoiceRoomManager — room lifecycle</li>
+        <li>voiceRoomProvider — room state</li>
+        <li>CallHistoryService — fetch/store history</li>
+        <li>Call-related localizations (18 langs)</li>
+      </ul>
+    </div>
+  </div>
+</div>

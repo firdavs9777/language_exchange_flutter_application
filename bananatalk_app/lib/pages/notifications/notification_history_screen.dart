@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/notification_history_provider.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -96,7 +97,7 @@ class _NotificationHistoryScreenState
         foregroundColor: context.textPrimary,
         elevation: 0,
         title: Text(
-          'Notifications',
+          AppLocalizations.of(context)!.notifications,
           style: context.titleLarge,
         ),
         actions: [
@@ -111,35 +112,35 @@ class _NotificationHistoryScreenState
                 } else if (value == 'clear_all') {
                   final confirm = await showDialog<bool>(
                     context: context,
-                    builder: (context) => AlertDialog(
+                    builder: (dialogContext) => AlertDialog(
                       shape: RoundedRectangleBorder(
                         borderRadius: AppRadius.borderLG,
                       ),
                       title: Text(
-                        'Clear All Notifications',
+                        AppLocalizations.of(context)!.clearAllNotifications,
                         style: context.titleLarge,
                       ),
                       content: Text(
-                        'Are you sure you want to clear all notifications? This cannot be undone.',
+                        AppLocalizations.of(context)!.clearAllNotificationsConfirm,
                         style: context.bodyMedium,
                       ),
                       actions: [
                         TextButton(
-                          onPressed: () => Navigator.pop(context, false),
+                          onPressed: () => Navigator.pop(dialogContext, false),
                           child: Text(
-                            'Cancel',
+                            AppLocalizations.of(context)!.cancel,
                             style: context.labelLarge.copyWith(
                               color: context.textSecondary,
                             ),
                           ),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.pop(context, true),
+                          onPressed: () => Navigator.pop(dialogContext, true),
                           style: TextButton.styleFrom(
                             foregroundColor: AppColors.error,
                           ),
                           child: Text(
-                            'Clear All',
+                            AppLocalizations.of(context)!.clearAll,
                             style: context.labelLarge.copyWith(
                               color: AppColors.error,
                             ),
@@ -155,14 +156,14 @@ class _NotificationHistoryScreenState
                   }
                 }
               },
-              itemBuilder: (context) => [
+              itemBuilder: (popupContext) => [
                 PopupMenuItem(
                   value: 'mark_all_read',
                   child: Row(
                     children: [
                       Icon(Icons.done_all, size: 20, color: context.iconColor),
                       Spacing.hGapMD,
-                      Text('Mark all as read', style: context.bodyMedium),
+                      Text(AppLocalizations.of(context)!.markAllRead, style: context.bodyMedium),
                     ],
                   ),
                 ),
@@ -173,7 +174,7 @@ class _NotificationHistoryScreenState
                       const Icon(Icons.delete_outline, size: 20, color: AppColors.error),
                       Spacing.hGapMD,
                       Text(
-                        'Clear all',
+                        AppLocalizations.of(context)!.clearAll,
                         style: context.bodyMedium.copyWith(color: AppColors.error),
                       ),
                     ],
@@ -200,7 +201,7 @@ class _NotificationHistoryScreenState
             Icon(Icons.error_outline, size: 48, color: AppColors.error),
             Spacing.gapLG,
             Text(
-              'Failed to load notifications',
+              AppLocalizations.of(context)!.failedToLoadNotifications,
               style: context.bodyMedium,
             ),
             Spacing.gapSM,
@@ -209,7 +210,7 @@ class _NotificationHistoryScreenState
                 ref.read(notificationHistoryProvider.notifier).fetchHistory();
               },
               child: Text(
-                'Retry',
+                AppLocalizations.of(context)!.retry,
                 style: context.labelLarge.copyWith(color: AppColors.primary),
               ),
             ),
@@ -230,14 +231,18 @@ class _NotificationHistoryScreenState
             ),
             Spacing.gapLG,
             Text(
-              'No notifications yet',
+              AppLocalizations.of(context)!.noNotificationsYet,
               style: context.titleLarge,
             ),
             Spacing.gapSM,
-            Text(
-              'When you get notifications, they\'ll show up here',
-              style: context.bodyMedium.copyWith(
-                color: context.textSecondary,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Text(
+                AppLocalizations.of(context)!.whenYouGetNotifications,
+                style: context.bodyMedium.copyWith(
+                  color: context.textSecondary,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ],

@@ -100,8 +100,8 @@ class NotificationSettingsScreen extends ConsumerWidget {
                   Divider(height: 1, indent: AppSpacing.lg, color: context.dividerColor),
                   _buildSettingsTile(
                     context: context,
-                    title: AppLocalizations.of(context)!.moments,
-                    subtitle: AppLocalizations.of(context)!.whenPeopleYouFollowPostMoments,
+                    title: AppLocalizations.of(context)!.followerMoments,
+                    subtitle: AppLocalizations.of(context)!.whenPeopleYouFollowPost,
                     value: settings.followerMoments && settings.enabled,
                     enabled: settings.enabled,
                     onChanged: (value) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 /// Topic chip widget for displaying interests
 class TopicChip extends StatelessWidget {
@@ -18,18 +19,25 @@ class TopicChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = const Color(0xFF00BFA5);
+    final primaryColor = AppColors.primary;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // Theme-aware colors
+    final unselectedBg = isDark ? Colors.grey[850] : Colors.grey[100];
+    final unselectedBorder = isDark ? Colors.grey[700] : Colors.grey[300];
+    final unselectedText = isDark ? Colors.grey[300] : Colors.grey[700];
+    final selectedBg = isDark
+        ? primaryColor.withValues(alpha: 0.25)
+        : primaryColor.withValues(alpha: 0.15);
 
     if (compact) {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: isSelected
-              ? primaryColor.withOpacity(0.15)
-              : Colors.grey[100],
+          color: isSelected ? selectedBg : unselectedBg,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? primaryColor : Colors.grey[300]!,
+            color: isSelected ? primaryColor : unselectedBorder!,
             width: 1,
           ),
         ),
@@ -46,13 +54,19 @@ class TopicChip extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
-                color: isSelected ? primaryColor : Colors.grey[700],
+                color: isSelected ? primaryColor : unselectedText,
               ),
             ),
           ],
         ),
       );
     }
+
+    // Full size chip colors
+    final fullUnselectedBg = isDark ? Colors.grey[900] : Colors.white;
+    final fullUnselectedText = isDark ? Colors.grey[200] : Colors.grey[800];
+    final countBg = isDark ? Colors.grey[800] : Colors.grey[200];
+    final countText = isDark ? Colors.grey[400] : Colors.grey[600];
 
     return Material(
       color: Colors.transparent,
@@ -62,18 +76,16 @@ class TopicChip extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
-            color: isSelected
-                ? primaryColor.withOpacity(0.15)
-                : Colors.white,
+            color: isSelected ? selectedBg : fullUnselectedBg,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: isSelected ? primaryColor : Colors.grey[300]!,
+              color: isSelected ? primaryColor : unselectedBorder!,
               width: 1.5,
             ),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: primaryColor.withOpacity(0.2),
+                      color: primaryColor.withValues(alpha: 0.2),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -93,7 +105,7 @@ class TopicChip extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: isSelected ? primaryColor : Colors.grey[800],
+                  color: isSelected ? primaryColor : fullUnselectedText,
                 ),
               ),
               if (topic.userCount > 0) ...[
@@ -104,7 +116,7 @@ class TopicChip extends StatelessWidget {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: countBg,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
@@ -112,7 +124,7 @@ class TopicChip extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
-                      color: Colors.grey[600],
+                      color: countText,
                     ),
                   ),
                 ),

@@ -1,4 +1,4 @@
-platform :osx, '10.14'
+platform :osx, '10.15'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -25,6 +25,61 @@ end
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_macos_podfile_setup
+
+# ============================================================
+# Create dummy implementation for plugins with broken macOS support
+# ============================================================
+broken_macos_plugins = ['flutter_sound']
+
+symlinks_dir = File.expand_path(File.join('..', 'Flutter', 'ephemeral', '.symlinks', 'plugins'), __FILE__)
+if File.directory?(symlinks_dir)
+  broken_macos_plugins.each do |plugin|
+    plugin_macos_path = File.join(symlinks_dir, plugin, 'macos')
+    if File.directory?(plugin_macos_path)
+      # Create Classes directory if it doesn't exist
+      classes_dir = File.join(plugin_macos_path, 'Classes')
+      FileUtils.mkdir_p(classes_dir)
+
+      # Create a dummy Swift file with the correct module structure
+      swift_file = File.join(classes_dir, "FlutterSoundPlugin.swift")
+      File.write(swift_file, <<-SWIFT
+import FlutterMacOS
+
+public class FlutterSoundPlugin: NSObject, FlutterPlugin {
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        // Dummy implementation - plugin not supported on macOS
+        print("flutter_sound is not supported on macOS")
+    }
+}
+      SWIFT
+      )
+      puts "Created dummy Swift implementation for: #{plugin}"
+
+      # Create podspec with correct module_name
+      podspec_path = File.join(plugin_macos_path, "#{plugin}.podspec")
+      File.write(podspec_path, <<-PODSPEC
+Pod::Spec.new do |s|
+  s.name             = '#{plugin}'
+  s.version          = '0.0.1'
+  s.summary          = 'Dummy implementation for unsupported macOS plugin'
+  s.description      = 'This plugin does not support macOS. This is a placeholder.'
+  s.homepage         = 'https://example.com'
+  s.license          = { :file => '../LICENSE' }
+  s.author           = { 'Placeholder' => 'placeholder@example.com' }
+  s.source           = { :path => '.' }
+  s.source_files     = 'Classes/**/*'
+  s.dependency 'FlutterMacOS'
+  s.platform         = :osx, '10.15'
+  s.swift_version    = '5.0'
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+end
+      PODSPEC
+      )
+      puts "Created dummy podspec for: #{plugin}"
+    end
+  end
+end
+# ============================================================
 
 target 'Runner' do
   use_frameworks!

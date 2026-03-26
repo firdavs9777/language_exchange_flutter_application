@@ -120,7 +120,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                     index: 3,
                     icon: Icons.menu_book_outlined,
                     activeIcon: Icons.menu_book_rounded,
-                    label: 'Study',
+                    label: AppLocalizations.of(context)!.study,
                   ),
                   _buildNavItem(
                     index: 4,
