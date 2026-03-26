@@ -51,6 +51,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get moments => 'Momen';
 
   @override
+  String get overview => 'Ikhtisar';
+
+  @override
   String get profile => 'Profil';
 
   @override

@@ -51,6 +51,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get moments => '모멘트';
 
   @override
+  String get overview => '개요';
+
+  @override
   String get profile => '프로필';
 
   @override

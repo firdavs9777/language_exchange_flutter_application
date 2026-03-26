@@ -51,6 +51,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get moments => 'モーメント';
 
   @override
+  String get overview => '概要';
+
+  @override
   String get profile => 'プロフィール';
 
   @override

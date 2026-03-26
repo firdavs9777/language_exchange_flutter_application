@@ -51,6 +51,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get moments => 'Khoảnh khắc';
 
   @override
+  String get overview => 'Tổng quan';
+
+  @override
   String get profile => 'Hồ sơ';
 
   @override

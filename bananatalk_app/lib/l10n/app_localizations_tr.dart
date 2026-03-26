@@ -51,6 +51,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get moments => 'Anlar';
 
   @override
+  String get overview => 'Genel Bakış';
+
+  @override
   String get profile => 'Profil';
 
   @override

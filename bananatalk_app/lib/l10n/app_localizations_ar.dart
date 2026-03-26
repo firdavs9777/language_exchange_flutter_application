@@ -51,6 +51,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get moments => 'اللحظات';
 
   @override
+  String get overview => 'نظرة عامة';
+
+  @override
   String get profile => 'الملف الشخصي';
 
   @override

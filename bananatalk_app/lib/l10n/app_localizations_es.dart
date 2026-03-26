@@ -51,6 +51,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get moments => 'Momentos';
 
   @override
+  String get overview => 'Resumen';
+
+  @override
   String get profile => 'Perfil';
 
   @override

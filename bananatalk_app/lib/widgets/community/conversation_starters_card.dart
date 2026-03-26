@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart' as chat;
 
@@ -123,14 +124,15 @@ class ConversationStartersCard extends ConsumerWidget {
       ));
     }
 
-    // 3. Location-based
-    if (profile.location.city.isNotEmpty) {
+    // 3. Location-based (only if privacy allows)
+    final locationText = PrivacyUtils.getLocationText(profile);
+    if (locationText.isNotEmpty) {
       starters.add(StarterSuggestion(
         icon: '📍',
         text:
-            "They're from ${profile.location.city} - ask about local culture!",
+            "They're from $locationText - ask about local culture!",
         actionText:
-            "Hey! What's ${profile.location.city} like? I'd love to hear about it!",
+            "Hey! What's $locationText like? I'd love to hear about it!",
         type: StarterType.location,
       ));
     }

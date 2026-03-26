@@ -51,6 +51,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get moments => 'Моменты';
 
   @override
+  String get overview => 'Обзор';
+
+  @override
   String get profile => 'Профиль';
 
   @override

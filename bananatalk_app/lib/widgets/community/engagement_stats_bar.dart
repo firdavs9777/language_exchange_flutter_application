@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 class EngagementStatsBar extends StatelessWidget {
@@ -32,18 +33,20 @@ class EngagementStatsBar extends StatelessWidget {
   List<Widget> _buildStats(BuildContext context) {
     final stats = <Widget>[];
 
-    // Online status (always show)
-    stats.add(_buildOnlineStatus(context));
+    // Online status (only show if privacy allows)
+    if (PrivacyUtils.shouldShowOnlineStatus(profile)) {
+      stats.add(_buildOnlineStatus(context));
+    }
 
     // Response rate (if available)
     if (profile.responseRate != null) {
-      stats.add(_buildDivider(context));
+      if (stats.isNotEmpty) stats.add(_buildDivider(context));
       stats.add(_buildResponseRate(context));
     }
 
     // New user badge (if applicable)
     if (profile.isNewUser) {
-      stats.add(_buildDivider(context));
+      if (stats.isNotEmpty) stats.add(_buildDivider(context));
       stats.add(_buildNewBadge(context));
     }
 

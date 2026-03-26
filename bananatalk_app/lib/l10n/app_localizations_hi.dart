@@ -51,6 +51,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get moments => 'पल';
 
   @override
+  String get overview => 'अवलोकन';
+
+  @override
   String get profile => 'प्रोफ़ाइल';
 
   @override

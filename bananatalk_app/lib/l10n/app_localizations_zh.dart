@@ -51,6 +51,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get moments => '动态';
 
   @override
+  String get overview => '概览';
+
+  @override
   String get profile => '个人资料';
 
   @override
@@ -3110,6 +3113,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get moments => '動態';
+
+  @override
+  String get overview => '概覽';
 
   @override
   String get profile => '個人檔案';

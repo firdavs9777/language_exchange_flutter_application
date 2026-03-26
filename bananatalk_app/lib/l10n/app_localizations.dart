@@ -210,6 +210,12 @@ abstract class AppLocalizations {
   /// **'Moments'**
   String get moments;
 
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
   /// No description provided for @profile.
   ///
   /// In en, this message translates to:

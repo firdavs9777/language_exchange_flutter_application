@@ -51,6 +51,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get moments => 'โมเมนต์';
 
   @override
+  String get overview => 'ภาพรวม';
+
+  @override
   String get profile => 'โปรไฟล์';
 
   @override

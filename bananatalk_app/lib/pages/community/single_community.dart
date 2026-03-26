@@ -43,11 +43,13 @@ class SingleCommunity extends ConsumerStatefulWidget {
   _SingleCommunityState createState() => _SingleCommunityState();
 }
 
-class _SingleCommunityState extends ConsumerState<SingleCommunity> {
+class _SingleCommunityState extends ConsumerState<SingleCommunity>
+    with SingleTickerProviderStateMixin {
   bool isFollower = false;
   bool isBlocked = false;
   String userId = ''; // Initialize to empty string instead of late
   Community? _updatedCommunity; // Holds refreshed data after follow/unfollow
+  late TabController _tabController;
 
   /// Get current community data (updated or original)
   Community get _community => _updatedCommunity ?? widget.community;
@@ -55,8 +57,15 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     _debugCommunityData();
     _initializeUserState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   /// Refresh profile data after follow/unfollow
@@ -598,373 +607,516 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     final calculatedAge = calculateAge(_community.birth_year);
     final age = PrivacyUtils.getAge(_community, calculatedAge);
     final locationText = PrivacyUtils.getLocationText(_community);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          age != null
-              ? '${_community.name}, $age'
-              : _community.name,
-        ),
-        elevation: 1,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        foregroundColor: Theme.of(context).colorScheme.onSurface,
-        actions: [
-          // Refresh button
-          IconButton(
-            icon: Icon(Icons.refresh_rounded, color: Theme.of(context).colorScheme.onSurfaceVariant),
-            tooltip: 'Refresh',
-            onPressed: _refreshProfile,
-          ),
-          if (userId.isNotEmpty && userId != _community.id)
-            PopupMenuButton<String>(
-              icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.onSurface),
-              onSelected: (value) async {
-                if (value == 'report') {
-                  showDialog(
-                    context: context,
-                    builder: (context) => ReportDialog(
-                      type: 'user',
-                      reportedId: _community.id,
-                      reportedUserId: _community.id,
-                    ),
-                  );
-                } else if (value == 'block') {
-                  if (userId.isNotEmpty && userId != _community.id) {
-                    await BlockUserDialog.show(
-                      context: context,
-                      currentUserId: userId,
-                      targetUserId: _community.id,
-                      targetUserName: _community.name,
-                      targetUserAvatar: _getProfileImageUrl(),
-                      ref: ref,
-                      onBlocked: () {
-                        // Update blocked status
-                        setState(() {
-                          isBlocked = true;
-                        });
-                        // Navigate back after blocking
-                        if (mounted) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                    );
-                  }
-                } else if (value == 'unblock') {
-                  // ADD UNBLOCK HANDLER
-                  await _handleUnblock();
-                }
-              },
-              itemBuilder: (context) {
-                final l10n = AppLocalizations.of(context)!;
-                return [
-                PopupMenuItem(
-                  value: 'report',
-                  child: Row(
-                    children: [
-                      const Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
-                      const SizedBox(width: 8),
-                      Text(l10n.reportUser),
-                    ],
-                  ),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            // Custom SliverAppBar with hero header
+            SliverAppBar(
+              expandedHeight: 280,
+              pinned: true,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              title: innerBoxIsScrolled
+                  ? Text(
+                      age != null ? '${_community.name}, $age' : _community.name,
+                    )
+                  : null,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.refresh_rounded,
+                      color: innerBoxIsScrolled
+                          ? Theme.of(context).colorScheme.onSurfaceVariant
+                          : Colors.white),
+                  tooltip: 'Refresh',
+                  onPressed: _refreshProfile,
                 ),
-                // CONDITIONAL MENU ITEM - Show Block or Unblock
-                if (isBlocked)
-                  PopupMenuItem(
-                    value: 'unblock',
-                    child: Row(
-                      children: [
-                        const Icon(Icons.check_circle, color: Colors.green, size: 20),
-                        const SizedBox(width: 8),
-                        Text(l10n.unblockUser,
-                            style: const TextStyle(color: Colors.green)),
-                      ],
-                    ),
-                  )
-                else
-                  PopupMenuItem(
-                    value: 'block',
-                    child: Row(
-                      children: [
-                        const Icon(Icons.block, color: Colors.red, size: 20),
-                        const SizedBox(width: 8),
-                        Text(l10n.blockUser, style: const TextStyle(color: Colors.red)),
-                      ],
-                    ),
-                  ),
-              ];
-              },
+                if (userId.isNotEmpty && userId != _community.id)
+                  _buildMoreMenu(context, innerBoxIsScrolled),
+              ],
+              flexibleSpace: FlexibleSpaceBar(
+                background: _buildCompactHeader(age, locationText),
+              ),
             ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Hero Map Header with overlapping avatar
-            _buildHeroMapHeader(),
-            // Space for overlapping avatar
-            const SizedBox(height: 70),
-            // Content below the hero section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-              // Name section
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        _community.name,
-                        style: context.displayMedium,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    if (_community.isVip) ...[
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFFFFD700).withOpacity(0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.workspace_premium,
-                              size: 14,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'VIP',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+            // Action buttons (pinned below header)
+            SliverToBoxAdapter(
+              child: _buildActionButtonsSection(),
+            ),
+            // Tab bar (pinned)
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SliverTabBarDelegate(
+                TabBar(
+                  controller: _tabController,
+                  labelColor: AppColors.primary,
+                  unselectedLabelColor: context.textSecondary,
+                  indicatorColor: AppColors.primary,
+                  indicatorWeight: 3,
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                  tabs: [
+                    Tab(text: l10n.overview),
+                    Tab(text: l10n.about),
+                    Tab(text: l10n.moments),
                   ],
                 ),
+                context.surfaceColor,
               ),
-              // Username
-              if (_community.displayUsername != null) ...[
-                const SizedBox(height: 4),
-                Center(
-                  child: Text(
-                    _community.displayUsername!,
-                    style: context.bodyMedium.copyWith(
-                      color: context.textSecondary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-              if (age != null) ...[
-                Spacing.gapSM,
-                Center(
-                  child: Text('$age years old', style: context.bodySmall),
-                ),
-              ],
-              if (locationText.isNotEmpty) ...[
-                Spacing.gapXS,
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.location_on, size: 14, color: context.textSecondary),
-                      Spacing.hGapXS,
-                      Text(locationText, style: context.bodySmall),
-                    ],
-                  ),
-                ),
-              ],
-              Spacing.gapLG,
-
-              // VIP Upsell Banner - shown when viewing VIP user profile
-              if (_community.isVip) ...[
-                Builder(
-                  builder: (context) {
-                    final userAsync = ref.watch(userProvider);
-                    final isCurrentUserVip = userAsync.valueOrNull?.isVip ?? false;
-                    return VipUpsellBanner(
-                      userName: _community.name,
-                      isCurrentUserVip: isCurrentUserVip,
-                    );
-                  },
-                ),
-                const SizedBox(height: 16),
-              ],
-
-              // Language Match Card - shows language compatibility
-              LanguageMatchCard(profile: _community),
-
-              // Engagement Stats Bar - online status, response rate
-              EngagementStatsBar(profile: _community),
-
-              Spacing.gapSM,
-
-              // Action buttons row - modern style
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                decoration: BoxDecoration(
-                  color: context.surfaceColor,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: AppShadows.sm,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    // Video call
-                    _buildActionButton(
-                      Icons.videocam_rounded,
-                      AppLocalizations.of(context)!.videoCall,
-                      Colors.blue[600]!,
-                      _makeVideoCall,
-                    ),
-                    // Voice call
-                    _buildActionButton(
-                      Icons.call_rounded,
-                      AppLocalizations.of(context)!.voiceCall,
-                      Colors.green[600]!,
-                      _makeVoiceCall,
-                    ),
-                    _buildActionButton(
-                      Icons.chat_bubble_rounded,
-                      AppLocalizations.of(context)!.message,
-                      const Color(0xFF00BFA5),
-                      _navigateToChat,
-                    ),
-                    _buildActionButton(
-                      isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
-                      isFollower ? AppLocalizations.of(context)!.following : AppLocalizations.of(context)!.follow,
-                      isFollower ? Colors.green[600]! : Colors.blue[600]!,
-                      isFollower
-                          ? () => unFollowUser(userId, _community.id)
-                          : () => followUser(userId, _community.id),
-                    ),
-                  ],
-                ),
-              ),
-
-              Spacing.gapMD,
-
-              // Stats section - modern card style
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                decoration: BoxDecoration(
-                  color: context.surfaceColor,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: AppShadows.sm,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildStatItem(
-                      '${_community.followers.length}',
-                      AppLocalizations.of(context)!.followers,
-                      Icons.people_rounded,
-                      const Color(0xFF00BFA5),
-                    ),
-                    Container(
-                      height: 50,
-                      width: 1,
-                      color: Theme.of(context).dividerColor,
-                    ),
-                    _buildStatItem(
-                      '${_community.followings.length}',
-                      AppLocalizations.of(context)!.following,
-                      Icons.person_add_rounded,
-                      Colors.blue[600]!,
-                    ),
-                  ],
-                ),
-              ),
-
-              Spacing.gapMD,
-
-              // Interests Section
-              _buildInterestsSection(),
-
-              Divider(color: context.dividerColor),
-
-              _buildCard(
-                Icons.person,
-                AppLocalizations.of(context)!.bio,
-                _community.bio.isNotEmpty
-                    ? _community.bio
-                    : AppLocalizations.of(context)!.noBioYet,
-                Colors.blue[600]!,
-              ),
-
-              _buildCard(
-                Icons.language,
-                AppLocalizations.of(context)!.languages,
-                '${AppLocalizations.of(context)!.native}: ${_community.native_language}\n${AppLocalizations.of(context)!.learning}: ${_community.language_to_learn}',
-                Colors.green[600]!,
-              ),
-
-              // Personal Info Section (MBTI, Blood Type)
-              _buildPersonalInfoSection(),
-
-              Spacing.gapMD,
-
-              // Quick chat button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: _navigateToChat,
-                  icon: const Icon(Icons.chat_bubble_outline, size: 18),
-                  label: Text(AppLocalizations.of(context)!.messageUser(_community.name)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.accent,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    elevation: 0,
-                  ),
-                ),
-              ),
-
-              Spacing.gapMD,
-
-              // Conversation Starters - smart ice-breakers
-              ConversationStartersCard(profile: _community),
-
-              Divider(color: context.dividerColor),
-              Spacing.gapSM,
-
-              // Moments Section
-              _buildMomentsSection(),
-
-              Spacing.gapLG,
-            ],
-          ),
-        ),
+            ),
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            // Overview Tab
+            _buildOverviewTab(),
+            // About Tab
+            _buildAboutTab(),
+            // Moments Tab
+            _buildMomentsTab(),
           ],
         ),
       ),
+    );
+  }
+
+  /// Build more menu (report/block)
+  Widget _buildMoreMenu(BuildContext context, bool isScrolled) {
+    final l10n = AppLocalizations.of(context)!;
+    return PopupMenuButton<String>(
+      icon: Icon(
+        Icons.more_vert,
+        color: isScrolled ? Theme.of(context).colorScheme.onSurface : Colors.white,
+      ),
+      onSelected: (value) async {
+        if (value == 'report') {
+          showDialog(
+            context: context,
+            builder: (context) => ReportDialog(
+              type: 'user',
+              reportedId: _community.id,
+              reportedUserId: _community.id,
+            ),
+          );
+        } else if (value == 'block') {
+          if (userId.isNotEmpty && userId != _community.id) {
+            await BlockUserDialog.show(
+              context: context,
+              currentUserId: userId,
+              targetUserId: _community.id,
+              targetUserName: _community.name,
+              targetUserAvatar: _getProfileImageUrl(),
+              ref: ref,
+              onBlocked: () {
+                setState(() => isBlocked = true);
+                if (mounted) Navigator.of(context).pop();
+              },
+            );
+          }
+        } else if (value == 'unblock') {
+          await _handleUnblock();
+        }
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: 'report',
+          child: Row(
+            children: [
+              const Icon(Icons.flag_outlined, color: Colors.orange, size: 20),
+              const SizedBox(width: 8),
+              Text(l10n.reportUser),
+            ],
+          ),
+        ),
+        if (isBlocked)
+          PopupMenuItem(
+            value: 'unblock',
+            child: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                const SizedBox(width: 8),
+                Text(l10n.unblockUser, style: const TextStyle(color: Colors.green)),
+              ],
+            ),
+          )
+        else
+          PopupMenuItem(
+            value: 'block',
+            child: Row(
+              children: [
+                const Icon(Icons.block, color: Colors.red, size: 20),
+                const SizedBox(width: 8),
+                Text(l10n.blockUser, style: const TextStyle(color: Colors.red)),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// Build compact header with map, avatar, name
+  Widget _buildCompactHeader(int? age, String locationText) {
+    return Stack(
+      children: [
+        // Map or gradient background
+        Positioned.fill(
+          child: _hasValidCoordinates()
+              ? _buildMapTileGrid()
+              : _buildGradientBackground(),
+        ),
+        // Gradient overlay
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 150,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withOpacity(0.7),
+                ],
+              ),
+            ),
+          ),
+        ),
+        // Profile info at bottom
+        Positioned(
+          bottom: 16,
+          left: 16,
+          right: 16,
+          child: Row(
+            children: [
+              // Avatar
+              InkWell(
+                onTap: () {
+                  final imageUrls = _getImageUrls();
+                  if (imageUrls.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImageGallery(imageUrls: imageUrls),
+                      ),
+                    );
+                  }
+                },
+                child: Hero(
+                  tag: 'profile_${_community.id}',
+                  child: VipAvatarFrame(
+                    isVip: _community.isVip,
+                    size: 80,
+                    frameWidth: 3,
+                    showGlow: true,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 3),
+                      ),
+                      child: CircleAvatar(
+                        radius: 37,
+                        backgroundColor: AppColors.accent,
+                        backgroundImage: _getProfileImageUrl() != null
+                            ? NetworkImage(_getProfileImageUrl()!)
+                            : null,
+                        child: _getProfileImageUrl() == null
+                            ? const Icon(Icons.person, size: 40, color: Colors.white)
+                            : null,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              // Name and info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            _community.name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              shadows: [
+                                Shadow(offset: Offset(0, 1), blurRadius: 3, color: Colors.black45),
+                              ],
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if (_community.isVip) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+                                SizedBox(width: 2),
+                                Text('VIP', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    if (_community.displayUsername != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        _community.displayUsername!,
+                        style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 13),
+                      ),
+                    ],
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        if (age != null) ...[
+                          Text(
+                            '$age yrs',
+                            style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 13),
+                          ),
+                          if (locationText.isNotEmpty) ...[
+                            Text(' • ', style: TextStyle(color: Colors.white.withOpacity(0.6))),
+                          ],
+                        ],
+                        if (locationText.isNotEmpty) ...[
+                          const Icon(Icons.location_on, size: 12, color: Colors.white70),
+                          const SizedBox(width: 2),
+                          Flexible(
+                            child: Text(
+                              locationText,
+                              style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 13),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Build action buttons section (below header, above tabs)
+  Widget _buildActionButtonsSection() {
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        border: Border(bottom: BorderSide(color: context.dividerColor, width: 0.5)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildCompactActionButton(
+            Icons.videocam_rounded,
+            l10n.videoCall,
+            Colors.blue[600]!,
+            _makeVideoCall,
+          ),
+          _buildCompactActionButton(
+            Icons.call_rounded,
+            l10n.voiceCall,
+            Colors.green[600]!,
+            _makeVoiceCall,
+          ),
+          _buildCompactActionButton(
+            Icons.chat_bubble_rounded,
+            l10n.message,
+            AppColors.accent,
+            _navigateToChat,
+          ),
+          _buildCompactActionButton(
+            isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
+            isFollower ? l10n.following : l10n.follow,
+            isFollower ? Colors.green[600]! : Colors.blue[600]!,
+            isFollower
+                ? () => unFollowUser(userId, _community.id)
+                : () => followUser(userId, _community.id),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Compact action button for header
+  Widget _buildCompactActionButton(
+    IconData icon,
+    String label,
+    Color color,
+    VoidCallback onTap,
+  ) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: color, size: 20),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Overview Tab - Match info, stats, conversation starters
+  Widget _buildOverviewTab() {
+    final l10n = AppLocalizations.of(context)!;
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        // VIP Upsell Banner
+        if (_community.isVip) ...[
+          Builder(
+            builder: (context) {
+              final userAsync = ref.watch(userProvider);
+              final isCurrentUserVip = userAsync.valueOrNull?.isVip ?? false;
+              return VipUpsellBanner(
+                userName: _community.name,
+                isCurrentUserVip: isCurrentUserVip,
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+        ],
+
+        // Language Match Card
+        LanguageMatchCard(profile: _community),
+
+        // Engagement Stats Bar
+        EngagementStatsBar(profile: _community),
+
+        const SizedBox(height: 16),
+
+        // Stats section
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+          decoration: BoxDecoration(
+            color: context.surfaceColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: AppShadows.sm,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildStatItem(
+                '${_community.followers.length}',
+                l10n.followers,
+                Icons.people_rounded,
+                AppColors.accent,
+              ),
+              Container(height: 50, width: 1, color: context.dividerColor),
+              _buildStatItem(
+                '${_community.followings.length}',
+                l10n.following,
+                Icons.person_add_rounded,
+                Colors.blue[600]!,
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        // Conversation Starters
+        ConversationStartersCard(profile: _community),
+
+        const SizedBox(height: 16),
+
+        // Quick chat button
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            onPressed: _navigateToChat,
+            icon: const Icon(Icons.chat_bubble_outline, size: 18),
+            label: Text(l10n.messageUser(_community.name)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.accent,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              elevation: 0,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// About Tab - Bio, languages, interests, personal info
+  Widget _buildAboutTab() {
+    final l10n = AppLocalizations.of(context)!;
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        // Bio
+        _buildCard(
+          Icons.person,
+          l10n.bio,
+          _community.bio.isNotEmpty ? _community.bio : l10n.noBioYet,
+          Colors.blue[600]!,
+        ),
+
+        // Languages
+        _buildCard(
+          Icons.language,
+          l10n.languages,
+          '${l10n.native}: ${_community.native_language}\n${l10n.learning}: ${_community.language_to_learn}',
+          Colors.green[600]!,
+        ),
+
+        // Interests
+        _buildInterestsSection(),
+
+        // Personal Info (MBTI, Blood Type)
+        _buildPersonalInfoSection(),
+      ],
+    );
+  }
+
+  /// Moments Tab - Grid of moments
+  Widget _buildMomentsTab() {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: _buildMomentsSection(),
     );
   }
 
@@ -1419,70 +1571,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     );
   }
 
-  void _showComingSoonSnackbar(String feature) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.comingSoon(feature)),
-        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  Widget _buildActionButton(
-    IconData icon,
-    String label,
-    Color color,
-    VoidCallback onTap, {
-    bool isDisabled = false,
-  }) {
-    final displayColor = isDisabled ? AppColors.gray400 : color;
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: displayColor.withValues(alpha: isDisabled ? 0.08 : 0.12),
-                    borderRadius: BorderRadius.circular(12),
-                    border: isDisabled
-                        ? null
-                        : Border.all(color: displayColor.withValues(alpha: 0.2), width: 1),
-                  ),
-                  child: Icon(icon, color: displayColor, size: 22),
-                ),
-                if (isDisabled)
-                  Positioned(
-                    right: -2,
-                    top: -2,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: AppColors.warning,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(AppLocalizations.of(context)!.soon, style: context.captionSmall.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-              ],
-            ),
-            Spacing.gapXS,
-            Text(label, style: context.labelSmall.copyWith(color: displayColor)),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildStatItem(String value, String label, IconData icon, Color color) {
     return Column(
       children: [
@@ -1662,189 +1750,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     return hasValidCoords && hasLocationInfo;
   }
 
-  /// Get static map URL (city/district level for privacy)
-  String _getStaticMapUrl() {
-    final coords = _community.location.coordinates;
-    // Round coordinates for privacy
-    final lon = _roundCoordinate(coords[0]);
-    final lat = _roundCoordinate(coords[1]);
-
-    // Zoom 10 = city/district level (privacy-friendly)
-    final zoom = 10;
-
-    // Calculate tile coordinates from lat/lon
-    final n = 1 << zoom; // 2^zoom
-    final x = ((lon + 180) / 360 * n).floor();
-    final latRad = lat * math.pi / 180;
-    final y = ((1 - math.log(math.tan(latRad) + 1 / math.cos(latRad)) / math.pi) / 2 * n).floor();
-
-    // Direct OSM tile - always works, free
-    return 'https://tile.openstreetmap.org/$zoom/$x/$y.png';
-  }
-
-  /// Build location map card like HelloTalk
-  /// Build hero map header with overlapping profile avatar
-  Widget _buildHeroMapHeader() {
-    final hasLocation = _hasValidCoordinates();
-    final location = _community.location;
-    final locationText = [
-      if (location.city.isNotEmpty) location.city,
-      if (location.country.isNotEmpty) location.country,
-    ].join(', ');
-
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        // Map or gradient background
-        GestureDetector(
-          onTap: hasLocation ? () => _openLocationInMaps() : null,
-          child: Container(
-            height: 200,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            ),
-            child: hasLocation
-                ? _buildMapTileGrid()
-                : _buildGradientBackground(),
-          ),
-        ),
-        // Gradient overlay on map
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 100,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent,
-                  Colors.black.withOpacity(0.6),
-                ],
-              ),
-            ),
-          ),
-        ),
-        // Location text on map
-        if (locationText.isNotEmpty)
-          Positioned(
-            bottom: 60,
-            left: 16,
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.location_on_rounded,
-                  color: Colors.white,
-                  size: 16,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  locationText,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(0, 1),
-                        blurRadius: 3,
-                        color: Colors.black45,
-                      ),
-                    ],
-                  ),
-                ),
-                if (hasLocation) ...[
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.open_in_new, color: Colors.white, size: 10),
-                        const SizedBox(width: 2),
-                        Text(
-                          AppLocalizations.of(context)!.map,
-                          style: const TextStyle(color: Colors.white, fontSize: 10),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-        // Profile avatar overlapping the map
-        Positioned(
-          bottom: -60,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: InkWell(
-              onTap: () {
-                final imageUrls = _getImageUrls();
-                if (imageUrls.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImageGallery(imageUrls: imageUrls),
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(AppLocalizations.of(context)!.noImagesAvailable)),
-                  );
-                }
-              },
-              child: Hero(
-                tag: 'profile_${_community.id}',
-                child: VipAvatarFrame(
-                  isVip: _community.isVip,
-                  size: 140,
-                  frameWidth: 4,
-                  showGlow: true,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 15,
-                          offset: const Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: CircleAvatar(
-                      radius: 66,
-                      backgroundColor: const Color(0xFF00BFA5),
-                      backgroundImage: _getProfileImageUrl() != null
-                          ? NetworkImage(_getProfileImageUrl()!)
-                          : null,
-                      onBackgroundImageError: _getProfileImageUrl() != null
-                          ? (exception, stackTrace) {
-                            }
-                          : null,
-                      child: _getProfileImageUrl() == null
-                          ? const Icon(Icons.person, size: 70, color: Colors.white)
-                          : null,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   /// Round coordinates for privacy (reduces precision to ~1km area)
   /// 2 decimal places = ~1.1km precision
   /// 1 decimal place = ~11km precision
@@ -1959,183 +1864,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
     );
   }
 
-  Widget _buildLocationMapCard() {
-    final location = _community.location;
-    final coords = location.coordinates;
-
-    // Build location text - prefer city/country, fallback to formatted address
-    String locationText = [
-      if (location.city.isNotEmpty) location.city,
-      if (location.country.isNotEmpty) location.country,
-    ].join(', ');
-
-    // If no city/country, try formatted address
-    if (locationText.isEmpty && location.formattedAddress.isNotEmpty) {
-      locationText = location.formattedAddress;
-    }
-
-    // Last resort: show approximate coordinates area
-    if (locationText.isEmpty && coords.length >= 2) {
-      final lat = coords[1];
-      final lon = coords[0];
-      locationText = 'Near ${lat.toStringAsFixed(1)}°, ${lon.toStringAsFixed(1)}°';
-    }
-
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Map Image
-          GestureDetector(
-            onTap: () => _openLocationInMaps(),
-            child: Stack(
-              children: [
-                // Static Map Image
-                Image.network(
-                  _getStaticMapUrl(),
-                  height: 160,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      height: 160,
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                          color: const Color(0xFF00BFA5),
-                          strokeWidth: 2,
-                        ),
-                      ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      height: 160,
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.map_outlined, size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
-                          const SizedBox(height: 8),
-                          Text(
-                            AppLocalizations.of(context)!.mapUnavailable,
-                            style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                // Gradient overlay at bottom
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.5),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                // Location pin icon
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: context.cardBackground,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.open_in_new_rounded,
-                      size: 18,
-                      color: Color(0xFF00BFA5),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Location Info
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF00BFA5).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Icon(
-                    Icons.location_on_rounded,
-                    color: Color(0xFF00BFA5),
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.location,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        locationText.isNotEmpty ? locationText : AppLocalizations.of(context)!.unknownLocation,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Tap to open indicator
-                Icon(
-                  Icons.chevron_right_rounded,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   /// Open location in external maps app (city level for privacy)
   Future<void> _openLocationInMaps() async {
     final coords = _community.location.coordinates;
@@ -2163,5 +1891,32 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity> {
         );
       }
     }
+  }
+}
+
+/// Delegate for pinned tab bar in SliverPersistentHeader
+class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar tabBar;
+  final Color backgroundColor;
+
+  _SliverTabBarDelegate(this.tabBar, this.backgroundColor);
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: backgroundColor,
+      child: tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) {
+    return tabBar != oldDelegate.tabBar || backgroundColor != oldDelegate.backgroundColor;
   }
 }

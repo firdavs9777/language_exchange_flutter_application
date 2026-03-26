@@ -51,6 +51,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get moments => 'Mga Sandali';
 
   @override
+  String get overview => 'Pangkalahatang-ideya';
+
+  @override
   String get profile => 'Profile';
 
   @override
