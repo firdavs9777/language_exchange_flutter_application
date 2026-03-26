@@ -218,6 +218,8 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
       String? city;
       String? country;
       try {
+        // Use English locale for location names (universally readable)
+        await setLocaleIdentifier('en_US');
         final placemarks = await placemarkFromCoordinates(
           position.latitude,
           position.longitude,

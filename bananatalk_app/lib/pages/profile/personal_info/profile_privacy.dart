@@ -341,10 +341,11 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
         return;
       }
 
-      // Reverse geocode to get city and country
+      // Reverse geocode to get city and country (use English locale for universal readability)
       String? city;
       String? country;
       try {
+        await setLocaleIdentifier('en_US');
         final placemarks = await placemarkFromCoordinates(
           position.latitude,
           position.longitude,
