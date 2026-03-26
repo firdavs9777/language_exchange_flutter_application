@@ -1114,7 +1114,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
   /// Moments Tab - Grid of moments
   Widget _buildMomentsTab() {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: _buildMomentsSection(),
     );
