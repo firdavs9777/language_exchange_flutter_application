@@ -64,26 +64,39 @@ class MomentsService {
       limit = 50;
     }
 
-    final response = await http.get(Uri.parse(
-        '${Endpoints.baseURL}${Endpoints.momentsURL}/user/$id?page=$page&limit=$limit'));
-    
+    final url = '${Endpoints.baseURL}${Endpoints.momentsURL}/user/$id?page=$page&limit=$limit';
+    debugPrint('📸 [Moments] Fetching user moments: GET $url');
+
+    final response = await http.get(Uri.parse(url));
+
+    debugPrint('📸 [Moments] Response status: ${response.statusCode}');
+    debugPrint('📸 [Moments] Response body: ${response.body}');
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       if (data['success'] == true) {
         final List<dynamic> momentsList = data['data'] ?? [];
         count = data['count'] ?? 0;
-        
+
+        debugPrint('📸 [Moments] Found ${momentsList.length} moments for user $id');
+
+        // Debug each moment's data
+        for (int i = 0; i < momentsList.length; i++) {
+          final m = momentsList[i];
+          debugPrint('📸 [Moments] Moment[$i]: id=${m['_id']}, images=${m['images']}, video=${m['video']}');
+        }
+
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('count', count.toString());
-        
+
         return momentsList.map((json) => Moments.fromJson(json)).toList();
       } else {
         throw Exception(data['error'] ?? 'Failed to load user moments');
       }
     } else {
       final errorData = json.decode(response.body);
-      throw Exception(errorData['error'] ?? 
-                     errorData['message'] ?? 
+      throw Exception(errorData['error'] ??
+                     errorData['message'] ??
                      'Failed to load user moments');
     }
   }
