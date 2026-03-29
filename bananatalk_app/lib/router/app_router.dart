@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/chat/chat_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/home/splash_screen.dart';
@@ -6,7 +7,12 @@ import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard_screen.dart';
+import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
+
+/// Global navigator key for overlay screens (incoming calls, etc.)
+/// This is NOT GoRouter's navigator — it sits above it in the widget tree.
+final callOverlayNavigatorKey = GlobalKey<NavigatorState>();
 
 final goRouter = GoRouter(
   initialLocation: '/splash',
@@ -49,6 +55,10 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/leaderboard',
       builder: (context, state) => const LeaderboardScreen(),
+    ),
+    GoRoute(
+      path: '/call-history',
+      builder: (context, state) => const CallHistoryScreen(),
     ),
   ],
 );

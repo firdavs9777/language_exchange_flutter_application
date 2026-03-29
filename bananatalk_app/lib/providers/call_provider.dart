@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/call_model.dart';
-import 'package:bananatalk_app/services/call_manager.dart';
+import 'package:bananatalk_app/services/call_manager.dart'
+    show CallManager, CallUiState, CallQuality;
 
 class CallNotifier extends ChangeNotifier {
   final CallManager _callManager = CallManager();
@@ -10,6 +11,9 @@ class CallNotifier extends ChangeNotifier {
   bool get isInCall => currentCall != null;
   bool get isMuted => _callManager.isMuted;
   bool get isVideoEnabled => _callManager.isVideoEnabled;
+  bool get isSpeakerOn => _callManager.isSpeakerOn;
+  CallUiState get connectionState => _callManager.connectionState;
+  CallQuality get callQuality => _callManager.callQuality;
 
   CallManager get callManager => _callManager;
 
@@ -41,8 +45,42 @@ class CallNotifier extends ChangeNotifier {
     };
   }
 
+  void setCallConnectedCallback(Function(CallModel) callback) {
+    _callManager.onCallConnected = (call) {
+      callback(call);
+      notifyListeners();
+    };
+  }
+
   void setCallErrorCallback(Function(String) callback) {
     _callManager.onCallError = callback;
+  }
+
+  void setConnectionStateCallback(Function(CallUiState) callback) {
+    _callManager.onConnectionStateChanged = (state) {
+      callback(state);
+      notifyListeners();
+    };
+  }
+
+  void setCallQualityCallback(Function(CallQuality) callback) {
+    _callManager.onCallQualityChanged = (quality) {
+      callback(quality);
+      notifyListeners();
+    };
+  }
+
+  void setCallDurationWarningCallback(Function(int remainingSeconds) callback) {
+    _callManager.onCallDurationWarning = callback;
+  }
+
+  void setCallDurationLimitCallback(Function() callback) {
+    _callManager.onCallDurationLimitReached = callback;
+  }
+
+  /// Set whether the current caller is VIP (no duration limit)
+  void setVipCall(bool isVip) {
+    _callManager.setVipCall(isVip);
   }
 
   Future<void> initiateCall(
@@ -82,6 +120,11 @@ class CallNotifier extends ChangeNotifier {
 
   void toggleVideo() {
     _callManager.toggleVideo();
+    notifyListeners();
+  }
+
+  Future<void> toggleSpeaker() async {
+    await _callManager.toggleSpeaker();
     notifyListeners();
   }
 

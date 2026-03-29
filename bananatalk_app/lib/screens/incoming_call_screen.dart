@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
+import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class IncomingCallScreen extends ConsumerWidget {
@@ -99,6 +102,7 @@ class IncomingCallScreen extends ConsumerWidget {
                       label: l10n.declineCall,
                       color: Colors.red,
                       onPressed: () {
+                        CallManager().stopRingtone();
                         ref.read(callProvider.notifier).rejectCall();
                         Navigator.pop(context);
                       },
@@ -110,6 +114,12 @@ class IncomingCallScreen extends ConsumerWidget {
                       label: l10n.acceptCall,
                       color: Colors.green,
                       onPressed: () async {
+                        CallManager().stopRingtone();
+                        // Set VIP status for duration limit
+                        final authState = ref.read(authServiceProvider);
+                        final currentUserId = authState.userId;
+                        final isVip = ref.read(isVipProvider(currentUserId));
+                        ref.read(callProvider.notifier).setVipCall(isVip);
                         await ref.read(callProvider.notifier).acceptCall();
 
                         // Navigate to active call screen

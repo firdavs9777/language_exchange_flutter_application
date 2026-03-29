@@ -14,7 +14,7 @@ class CallHistoryService {
   }) async {
     try {
       final response = await _apiClient.get(
-        '/api/v1/calls',
+        'calls',
         queryParams: {'page': page.toString(), 'limit': limit.toString()},
       );
 
@@ -35,7 +35,7 @@ class CallHistoryService {
   Future<List<CallRecord>> getCallHistoryWithUser(String recipientId) async {
     try {
       final response = await _apiClient.get(
-        '/api/v1/calls',
+        'calls',
         queryParams: {'userId': recipientId},
       );
 
@@ -55,7 +55,7 @@ class CallHistoryService {
   /// Get missed calls count
   Future<int> getMissedCallsCount() async {
     try {
-      final response = await _apiClient.get('/api/v1/calls/missed/count');
+      final response = await _apiClient.get('calls/missed/count');
 
       if (response.statusCode == 200) {
         return response.data['count'] as int? ?? 0;
@@ -66,10 +66,28 @@ class CallHistoryService {
     }
   }
 
+  /// Fetch dynamic ICE/TURN servers from backend
+  static Future<List<Map<String, dynamic>>?> getIceServers() async {
+    try {
+      final response = await ApiClient().get('calls/ice-servers');
+      if (response.statusCode == 200) {
+        final servers = response.data['iceServers'] as List?;
+        if (servers != null) {
+          return servers
+              .map((s) => Map<String, dynamic>.from(s))
+              .toList();
+        }
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// Get single call details
   Future<CallRecord?> getCallDetails(String callId) async {
     try {
-      final response = await _apiClient.get('/api/v1/calls/$callId');
+      final response = await _apiClient.get('calls/$callId');
 
       if (response.statusCode == 200) {
         return CallRecord.fromJson(

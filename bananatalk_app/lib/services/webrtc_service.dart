@@ -2,14 +2,22 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:bananatalk_app/services/call_history_service.dart';
 
 class WebRTCService {
   RTCPeerConnection? _peerConnection;
   MediaStream? _localStream;
+  MediaStream? get localStream => _localStream;
   MediaStream? _remoteStream;
 
   final RTCVideoRenderer localRenderer = RTCVideoRenderer();
   final RTCVideoRenderer remoteRenderer = RTCVideoRenderer();
+  bool _disposed = false;
+  bool get isDisposed => _disposed;
+
+  // ICE candidate queuing — candidates may arrive before remote SDP is set
+  final List<RTCIceCandidate> _pendingCandidates = [];
+  bool _remoteDescriptionSet = false;
 
   // Multi-peer support for voice rooms
   final Map<String, RTCPeerConnection> _peerConnections = {};
@@ -23,17 +31,52 @@ class WebRTCService {
   Function(String peerId)? onMultiPeerConnected;
   Function(String peerId)? onMultiPeerDisconnected;
 
-  // TURN server configuration
-  final Map<String, dynamic> _iceServers = {
+  // Cached ICE servers (fetched from backend)
+  Map<String, dynamic>? _cachedIceServers;
+  DateTime? _iceServersFetchedAt;
+  static const _iceServersCacheDuration = Duration(minutes: 5);
+
+  // Fallback TURN server configuration (used if backend is unreachable)
+  static final Map<String, dynamic> _fallbackIceServers = {
     'iceServers': [
       {'urls': 'stun:stun.l.google.com:19302'},
+      {'urls': 'stun:stun1.l.google.com:19302'},
       {
-        'urls': 'turn:64.23.181.246:3478',
-        'username': 'bananatalk',
-        'credential': 'BananaTalk2025!'
-      }
+        'urls': [
+          'turn:openrelay.metered.ca:80',
+          'turn:openrelay.metered.ca:443',
+          'turn:openrelay.metered.ca:443?transport=tcp',
+        ],
+        'username': 'openrelayproject',
+        'credential': 'openrelayproject'
+      },
     ]
   };
+
+  /// Fetch ICE servers from backend (cached for 5 minutes), fallback to hardcoded
+  Future<Map<String, dynamic>> _getIceServers() async {
+    // Return cache if still valid
+    if (_cachedIceServers != null &&
+        _iceServersFetchedAt != null &&
+        DateTime.now().difference(_iceServersFetchedAt!) < _iceServersCacheDuration) {
+      return _cachedIceServers!;
+    }
+
+    try {
+      final servers = await CallHistoryService.getIceServers();
+      if (servers != null && servers.isNotEmpty) {
+        _cachedIceServers = {'iceServers': servers};
+        _iceServersFetchedAt = DateTime.now();
+        debugPrint('📞 Fetched ${servers.length} ICE servers from backend');
+        return _cachedIceServers!;
+      }
+    } catch (e) {
+      debugPrint('📞 Failed to fetch ICE servers: $e');
+    }
+
+    debugPrint('📞 Using fallback ICE servers');
+    return _fallbackIceServers;
+  }
 
   final Map<String, dynamic> _config = {
     'mandatory': {},
@@ -48,6 +91,7 @@ class WebRTCService {
   Function(RTCIceCandidate)? onIceCandidate;
   Function(MediaStream)? onRemoteStream;
   Function()? onConnectionStateChange;
+  Function(RTCIceConnectionState)? onIceStateChanged;
 
   Future<void> initialize() async {
     await localRenderer.initialize();
@@ -97,6 +141,8 @@ class WebRTCService {
 
   Future<void> createOffer(bool isVideo) async {
     try {
+      _remoteDescriptionSet = false;
+      _pendingCandidates.clear();
 
       // Get user media
       final constraints = <String, dynamic>{
@@ -113,8 +159,9 @@ class WebRTCService {
       _localStream = await navigator.mediaDevices.getUserMedia(constraints);
       localRenderer.srcObject = _localStream;
 
-      // Create peer connection
-      _peerConnection = await createPeerConnection(_iceServers, _config);
+      // Create peer connection with dynamic ICE servers
+      final iceServers = await _getIceServers();
+      _peerConnection = await createPeerConnection(iceServers, _config);
 
       // Add local stream tracks
       _localStream!.getTracks().forEach((track) {
@@ -146,6 +193,8 @@ class WebRTCService {
     bool isVideo,
   ) async {
     try {
+      _remoteDescriptionSet = false;
+      _pendingCandidates.clear();
 
       // Get user media
       final constraints = <String, dynamic>{
@@ -162,8 +211,9 @@ class WebRTCService {
       _localStream = await navigator.mediaDevices.getUserMedia(constraints);
       localRenderer.srcObject = _localStream;
 
-      // Create peer connection
-      _peerConnection = await createPeerConnection(_iceServers, _config);
+      // Create peer connection with dynamic ICE servers
+      final iceServers = await _getIceServers();
+      _peerConnection = await createPeerConnection(iceServers, _config);
 
       // Add local stream tracks
       _localStream!.getTracks().forEach((track) {
@@ -175,6 +225,8 @@ class WebRTCService {
 
       // Set remote description (offer)
       await _peerConnection!.setRemoteDescription(offer);
+      _remoteDescriptionSet = true;
+      await _flushPendingCandidates();
 
       // Create answer
       RTCSessionDescription answer = await _peerConnection!.createAnswer({
@@ -196,18 +248,40 @@ class WebRTCService {
   Future<void> setRemoteDescription(RTCSessionDescription description) async {
     try {
       await _peerConnection?.setRemoteDescription(description);
+      _remoteDescriptionSet = true;
+      await _flushPendingCandidates();
     } catch (e) {
       rethrow;
     }
   }
 
   Future<void> addIceCandidate(RTCIceCandidate candidate) async {
-    try {
-      if (_peerConnection != null) {
-        await _peerConnection!.addCandidate(candidate);
-      }
-    } catch (e) {
+    if (_peerConnection == null) return;
+
+    if (!_remoteDescriptionSet) {
+      debugPrint('📞 ICE candidate queued (remote SDP not set yet)');
+      _pendingCandidates.add(candidate);
+      return;
     }
+
+    try {
+      await _peerConnection!.addCandidate(candidate);
+    } catch (e) {
+      debugPrint('📞 Failed to add ICE candidate: $e');
+    }
+  }
+
+  Future<void> _flushPendingCandidates() async {
+    if (_pendingCandidates.isEmpty) return;
+    debugPrint('📞 Flushing ${_pendingCandidates.length} queued ICE candidates');
+    for (final candidate in _pendingCandidates) {
+      try {
+        await _peerConnection?.addCandidate(candidate);
+      } catch (e) {
+        debugPrint('📞 Failed to add queued ICE candidate: $e');
+      }
+    }
+    _pendingCandidates.clear();
   }
 
   void _setupPeerConnectionListeners() {
@@ -218,9 +292,25 @@ class WebRTCService {
     };
 
     _peerConnection?.onTrack = (RTCTrackEvent event) {
+      debugPrint('📞 onTrack fired: streams=${event.streams.length}, track=${event.track.kind}');
       if (event.streams.isNotEmpty) {
         _remoteStream = event.streams[0];
         remoteRenderer.srcObject = _remoteStream;
+        debugPrint('📞 Remote stream set via onTrack: ${_remoteStream!.getTracks().map((t) => '${t.kind}:enabled=${t.enabled}').join(', ')}');
+
+        if (onRemoteStream != null) {
+          onRemoteStream!(_remoteStream!);
+        }
+      }
+    };
+
+    // Fallback: some WebRTC implementations fire onAddStream instead of onTrack
+    _peerConnection?.onAddStream = (MediaStream stream) {
+      debugPrint('📞 onAddStream fired: tracks=${stream.getTracks().map((t) => '${t.kind}:enabled=${t.enabled}').join(', ')}');
+      if (_remoteStream == null) {
+        _remoteStream = stream;
+        remoteRenderer.srcObject = _remoteStream;
+        debugPrint('📞 Remote stream set via onAddStream fallback');
 
         if (onRemoteStream != null) {
           onRemoteStream!(_remoteStream!);
@@ -235,6 +325,8 @@ class WebRTCService {
     };
 
     _peerConnection?.onIceConnectionState = (RTCIceConnectionState state) {
+      debugPrint('📞 ICE state: $state');
+      onIceStateChanged?.call(state);
     };
 
     _peerConnection?.onIceGatheringState = (RTCIceGatheringState state) {
@@ -290,7 +382,29 @@ class WebRTCService {
     }
   }
 
+  bool _speakerOn = false;
+  bool get isSpeakerOn => _speakerOn;
+
+  Future<void> setSpeakerphone(bool enabled) async {
+    _speakerOn = enabled;
+    await Helper.setSpeakerphoneOn(enabled);
+    debugPrint('🔊 Speaker ${enabled ? "ON" : "OFF"}');
+  }
+
+  /// Get WebRTC stats for quality monitoring
+  Future<List<StatsReport>> getStats() async {
+    if (_peerConnection == null) return [];
+    return await _peerConnection!.getStats();
+  }
+
+  RTCIceConnectionState? get iceConnectionState {
+    // Map the peer connection state to ICE state
+    if (_peerConnection == null) return null;
+    return null; // We track it via the callback
+  }
+
   Future<void> dispose() async {
+    _disposed = true;
     try {
       _localStream?.getTracks().forEach((track) => track.stop());
       _localStream?.dispose();
@@ -330,7 +444,8 @@ class WebRTCService {
       await initLocalStreamForRoom();
 
       // Create peer connection for this peer
-      final pc = await createPeerConnection(_iceServers, _config);
+      final iceServers = await _getIceServers();
+      final pc = await createPeerConnection(iceServers, _config);
       _peerConnections[peerId] = pc;
 
       // Add local stream tracks
@@ -364,7 +479,8 @@ class WebRTCService {
       await initLocalStreamForRoom();
 
       // Create peer connection for this peer
-      final pc = await createPeerConnection(_iceServers, _config);
+      final iceServers = await _getIceServers();
+      final pc = await createPeerConnection(iceServers, _config);
       _peerConnections[peerId] = pc;
 
       // Add local stream tracks
