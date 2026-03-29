@@ -15,7 +15,7 @@
   --bs-yellow: #f39c12;
   --bs-green: #18bc9c;
   --bs-teal: #20c997;
-  --bs-cyan: #3498db;
+  --bs-cyan: #00BFA5;
   --bs-black: #000;
   --bs-white: #fff;
   --bs-gray: #7b8a8b;
@@ -32,7 +32,7 @@
   --bs-primary: #3c4c5d;
   --bs-secondary: #7b8a8b;
   --bs-success: #18bc9c;
-  --bs-info: #3498db;
+  --bs-info: #00BFA5;
   --bs-warning: #f39c12;
   --bs-danger: #e74c3c;
   --bs-light: #f4f4f4;
@@ -3160,8 +3160,8 @@ fieldset:disabled .btn {
 
 .btn-info {
   --bs-btn-color: #000;
-  --bs-btn-bg: #3498db;
-  --bs-btn-border-color: #3498db;
+  --bs-btn-bg: #00BFA5;
+  --bs-btn-border-color: #00BFA5;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #52a7e0;
   --bs-btn-hover-border-color: #48a2df;
@@ -3171,8 +3171,8 @@ fieldset:disabled .btn {
   --bs-btn-active-border-color: #48a2df;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #3498db;
-  --bs-btn-disabled-border-color: #3498db;
+  --bs-btn-disabled-bg: #00BFA5;
+  --bs-btn-disabled-border-color: #00BFA5;
 }
 
 .btn-warning {
@@ -3295,19 +3295,19 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-info {
-  --bs-btn-color: #3498db;
-  --bs-btn-border-color: #3498db;
+  --bs-btn-color: #00BFA5;
+  --bs-btn-border-color: #00BFA5;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #3498db;
-  --bs-btn-hover-border-color: #3498db;
+  --bs-btn-hover-bg: #00BFA5;
+  --bs-btn-hover-border-color: #00BFA5;
   --bs-btn-focus-shadow-rgb: 52, 152, 219;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #3498db;
-  --bs-btn-active-border-color: #3498db;
+  --bs-btn-active-bg: #00BFA5;
+  --bs-btn-active-border-color: #00BFA5;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #3498db;
+  --bs-btn-disabled-color: #00BFA5;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #3498db;
+  --bs-btn-disabled-border-color: #00BFA5;
   --bs-gradient: none;
 }
 
@@ -7234,7 +7234,7 @@ fieldset:disabled .btn {
 }
 
 .link-info {
-  color: #3498db !important;
+  color: #00BFA5 !important;
 }
 .link-info:hover,
 .link-info:focus {

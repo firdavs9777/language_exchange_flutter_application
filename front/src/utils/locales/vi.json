@@ -1,0 +1,924 @@
+{
+  "greeting": "xin chào",
+  "footer": {
+    "aboutUs": "Về Chúng Tôi",
+    "aboutDescription": "BananaTalk cam kết giúp bạn thành thạo ngôn ngữ mới và kết nối với người bản ngữ từ khắp nơi trên thế giới.",
+    "quickLinks": "Liên Kết Nhanh",
+    "links": {
+      "home": "Trang Chủ",
+      "about": "Giới Thiệu",
+      "services": "Dịch Vụ",
+      "pricing": "Bảng Giá",
+      "contact": "Liên Hệ"
+    },
+    "contactInfo": "Thông Tin Liên Hệ",
+    "address": "Seoul, Hàn Quốc, Gangnam-gu",
+    "follow": "Theo Dõi",
+    "newsletter": "Bản Tin",
+    "newsletterDescription": "Đăng ký bản tin của chúng tôi để nhận cập nhật và ưu đãi.",
+    "emailPlaceholder": "Địa chỉ email của bạn",
+    "allRightsReserved": "Đã đăng ký bản quyền."
+  },
+  "community": "Cộng Đồng",
+  "chat": "Trò Chuyện",
+  "chatPage": {
+    "messages": "Tin Nhắn",
+    "searchPlaceholder": "Tìm kiếm cuộc trò chuyện...",
+    "startConversation": "Bắt Đầu Cuộc Trò Chuyện",
+    "emptyDescription": "Chọn một cuộc trò chuyện từ thanh bên hoặc bắt đầu cuộc trò chuyện mới để kết nối với các đối tác ngôn ngữ trên toàn thế giới.",
+    "newConversation": "Cuộc Trò Chuyện Mới",
+    "features": {
+      "realtime": "Nhắn tin thời gian thực",
+      "exchange": "Trao đổi ngôn ngữ",
+      "calls": "Cuộc gọi thoại & video"
+    },
+    "online": "Trực tuyến",
+    "offline": "Ngoại tuyến",
+    "lastSeen": "Lần cuối trực tuyến",
+    "typing": "đang nhập...",
+    "loadingConversation": "Đang tải cuộc trò chuyện...",
+    "errorLoading": "Lỗi khi tải cuộc trò chuyện",
+    "messagePlaceholder": "Nhập tin nhắn của bạn...",
+    "justNow": "Vừa xong",
+    "minutesAgo": "{{count}} phút trước",
+    "hoursAgo": "{{count}} giờ trước",
+    "unknownUser": "Người Dùng Không Xác Định"
+  },
+  "notifications": "Thông Báo",
+  "moments": "Khoảnh Khắc",
+  "language": "Ngôn Ngữ",
+  "english": "Tiếng Anh",
+  "korean": "Tiếng Hàn",
+  "chinese": "Tiếng Trung",
+  "followers": "Người Theo Dõi",
+  "followings": "Đang Theo Dõi",
+  "my_moments": "Khoảnh Khắc Của Tôi",
+  "logout": "Đăng Xuất",
+  "sign_in": "Đăng Nhập",
+  "image_upload": {
+    "image_drop": "Vui lòng chỉ thả các tệp hình ảnh",
+    "max_upload_warning": "Bạn chỉ có thể tải lên thêm {{count}} hình ảnh.",
+    "no_images_error": "Vui lòng tải lên ít nhất một hình ảnh",
+    "removed_from_selection": "Đã xóa hình ảnh khỏi lựa chọn",
+    "deleted_success": "Đã xóa hình ảnh thành công",
+    "replaced_success": "Đã thay thế hình ảnh thành công",
+    "current_images": "Hình Ảnh Hiện Tại",
+    "no_images_uploaded": "Chưa có hình ảnh nào được tải lên",
+    "new_images": "Hình Ảnh Mới",
+    "no_new_images": "Chưa chọn hình ảnh mới",
+    "drop_images_here": "Thả hình ảnh vào đây hoặc",
+    "select_files": "Chọn Tệp",
+    "remaining_slots": "Bạn có thể thêm {{count}} {{item}} nữa",
+    "image": "hình ảnh",
+    "images": "hình ảnh",
+    "cancel": "Hủy",
+    "save_changes": "Lưu Thay Đổi",
+    "replace_image": "Thay thế",
+    "delete_image": "Xóa hình ảnh",
+    "remove_from_selection": "Xóa khỏi lựa chọn",
+    "image_gallery": "Thư Viện Ảnh"
+  },
+  "profile": {
+    "title": "Hồ Sơ Của Tôi",
+    "edit_profile": "Chỉnh Sửa Hồ Sơ",
+    "photos": "Ảnh",
+    "messages": {
+      "image_update_success": "Đã cập nhật ảnh hồ sơ thành công",
+      "image_update_failure": "Không thể cập nhật ảnh hồ sơ",
+      "image_delete_success": "Đã xóa ảnh thành công",
+      "image_delete_failure": "Không thể xóa ảnh",
+      "profile_update_success": "Đã cập nhật hồ sơ thành công",
+      "profile_update_failure": "Không thể cập nhật hồ sơ",
+      "error_loading_profile": "Lỗi khi tải hồ sơ người dùng",
+      "no_profile_data": "Không có dữ liệu hồ sơ người dùng",
+      "unknown_error": "Đã xảy ra lỗi không xác định",
+      "no_bio": "Chưa cung cấp thông tin tiểu sử",
+      "not_specified": "Chưa xác định"
+    },
+    "stats": {
+      "followers": "Người Theo Dõi",
+      "no_followers": "Bạn chưa có người theo dõi nào.",
+      "follower_error": "Lỗi khi tải người theo dõi. Vui lòng thử lại sau.",
+      "following": "Đang Theo Dõi",
+      "no_following": "Bạn chưa theo dõi ai.",
+      "following_error": "Lỗi khi tải danh sách theo dõi. Vui lòng thử lại sau.",
+      "moments": "Khoảnh Khắc",
+      "visitors": "Khách Truy Cập"
+    },
+    "visitors": {
+      "title": "Khách Truy Cập Hồ Sơ",
+      "error": "Lỗi khi tải khách truy cập",
+      "no_visitors": "Chưa có khách truy cập",
+      "no_visitors_desc": "Khi có người truy cập hồ sơ của bạn, họ sẽ xuất hiện ở đây",
+      "total_visits": "Tổng Lượt Truy Cập",
+      "unique_visitors": "Khách Truy Cập Duy Nhất",
+      "visits_today": "Hôm Nay",
+      "visits_week": "Tuần Này",
+      "via_moments": "Qua Khoảnh Khắc",
+      "via_search": "Qua Tìm Kiếm",
+      "via_chat": "Qua Trò Chuyện",
+      "via_direct": "Trực Tiếp",
+      "via_followers": "Qua Người Theo Dõi",
+      "vipOnly": "Tính Năng VIP",
+      "vipOnlyDesc": "Xem ai đã truy cập hồ sơ của bạn bằng cách nâng cấp lên VIP. Tính năng này chỉ dành riêng cho thành viên VIP.",
+      "vipBenefits": "Quyền Lợi VIP",
+      "learnMore": "Tìm Hiểu Thêm Về VIP"
+    },
+    "sections": {
+      "personal_info": "Thông Tin Cá Nhân",
+      "bio": "Tiểu Sử",
+      "languages": "Ngôn Ngữ",
+      "personality": "Tính Cách",
+      "topics": "Chủ Đề & Sở Thích"
+    },
+    "labels": {
+      "name": "Tên",
+      "username": "Tên người dùng",
+      "email": "Email",
+      "gender": "Giới Tính",
+      "birthday": "Ngày Sinh",
+      "native_language": "Tiếng Mẹ Đẻ",
+      "learning": "Đang Học",
+      "of": "của",
+      "mbti": "Loại MBTI",
+      "blood_type": "Nhóm Máu",
+      "topics_hint": "Chọn các chủ đề bạn quan tâm (tối đa 10)",
+      "selected": "đã chọn"
+    },
+    "hints": {
+      "username_readonly": "Không thể thay đổi tên người dùng"
+    },
+    "placeholders": {
+      "bio": "Viết điều gì đó về bản thân bạn",
+      "select_gender": "Chọn Giới Tính",
+      "select_date": "Chọn Ngày",
+      "select_native_language": "Chọn Tiếng Mẹ Đẻ",
+      "select_learning_language": "Chọn Ngôn Ngữ Muốn Học"
+    },
+    "options": {
+      "male": "Nam",
+      "female": "Nữ"
+    },
+    "actions": {
+      "edit": "Chỉnh Sửa",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "edit_photo": "Chỉnh Sửa Ảnh",
+      "clear": "Xóa lựa chọn"
+    },
+    "buttons": {
+      "edit": "Chỉnh Sửa",
+      "save": "Lưu",
+      "cancel": "Hủy"
+    },
+    "topics": {
+      "music": "Âm Nhạc",
+      "movies": "Phim",
+      "travel": "Du Lịch",
+      "sports": "Thể Thao",
+      "gaming": "Trò Chơi",
+      "food": "Ẩm Thực",
+      "art": "Nghệ Thuật",
+      "photography": "Nhiếp Ảnh",
+      "reading": "Đọc Sách",
+      "fitness": "Thể Dục",
+      "technology": "Công Nghệ",
+      "fashion": "Thời Trang",
+      "cooking": "Nấu Ăn",
+      "nature": "Thiên Nhiên",
+      "pets": "Thú Cưng",
+      "anime": "Anime",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "Ngôn Ngữ",
+      "culture": "Văn Hóa"
+    }
+  },
+  "moments_section": {
+    "title": "Khoảnh Khắc",
+    "question": "Bạn đang nghĩ gì,",
+    "loading": "Đang tải",
+    "loading_moments": "Đang tải Khoảnh Khắc...",
+    "error_loading": "Lỗi khi tải khoảnh khắc",
+    "error_info": "Chúng tôi không thể tải các khoảnh khắc. Vui lòng thử lại sau.",
+    "retry_btn": "Thử Lại",
+    "no_moments": "Không có khoảnh khắc",
+    "first_to_moment": "Hãy là người đầu tiên chia sẻ những khoảnh khắc đặc biệt với cộng đồng",
+    "share_moment": "Chia Sẻ Khoảnh Khắc",
+    "moment_login_error": "Vui lòng đăng nhập để thích khoảnh khắc",
+    "moment_like_error": "Không thể cập nhật trạng thái thích",
+    "moment_like": "Thích",
+    "moment_comment": "Bình Luận",
+    "moment_share": "Chia Sẻ",
+    "no_comments": "Chưa có bình luận nào. Hãy là người đầu tiên bình luận!",
+    "invalidMomentId": "ID khoảnh khắc không hợp lệ",
+    "loadingMoment": "Đang tải chi tiết khoảnh khắc...",
+    "noDetailsFound": "Không tìm thấy chi tiết",
+    "goBack": "Quay Lại",
+    "momentDetails": "Chi Tiết Khoảnh Khắc",
+    "pleaseLoginFirst": "Vui lòng đăng nhập trước",
+    "removedLike": "Đã bỏ thích",
+    "likedMoment": "Đã thích khoảnh khắc",
+    "failedToUpdateLike": "Không thể cập nhật trạng thái thích",
+    "emptyCommentError": "Vui lòng thêm bình luận",
+    "commentAdded": "Đã thêm bình luận",
+    "failedToAddComment": "Không thể thêm bình luận",
+    "loadingComments": "Đang tải bình luận...",
+    "writeCommentPlaceholder": "Viết bình luận...",
+    "signInToComment": "Vui lòng đăng nhập để bình luận",
+    "signIn": "đăng nhập",
+    "noCommentsYet": "Chưa có bình luận nào. Hãy là người đầu tiên bình luận!",
+    "commentsCount": "{{count}} Bình Luận",
+    "comments": "Bình Luận",
+    "likeButton": "Thích",
+    "commentButton": "Bình Luận",
+    "shareButton": "Chia Sẻ",
+    "timeAgo": {
+      "justNow": "vừa xong",
+      "minutesAgo": "{{minutes}} phút trước",
+      "hoursAgo": "{{hours}} giờ trước",
+      "daysAgo": "{{days}} ngày trước"
+    }
+  },
+  "createMoment": {
+    "title": "Tạo Khoảnh Khắc",
+    "form": {
+      "titleLabel": "Tiêu Đề",
+      "titlePlaceholder": "Nhập tiêu đề",
+      "descriptionLabel": "Mô Tả",
+      "descriptionPlaceholder": "Nhập mô tả",
+      "imagesLabel": "Tải Lên Hình Ảnh",
+      "maxImagesText": "Tối đa 10 hình ảnh",
+      "addMoreText": "Thêm Nữa",
+      "submitButton": "Đăng",
+      "submittingButton": "Đang đăng...",
+      "cancelButton": "Hủy"
+    },
+    "toast": {
+      "maxImagesError": "Bạn có thể tải lên tối đa 10 hình ảnh",
+      "createSuccess": "Đã tạo khoảnh khắc thành công!",
+      "createError": "Không thể tạo khoảnh khắc."
+    }
+  },
+  "editMoment": {
+    "title": "Chỉnh Sửa Khoảnh Khắc",
+    "toast": {
+      "maxImagesError": "Bạn có thể tải lên tối đa 10 hình ảnh",
+      "updateSuccess": "Đã cập nhật khoảnh khắc thành công!",
+      "updateError": "Không thể cập nhật khoảnh khắc. Vui lòng thử lại.",
+      "notAuthorized": "Bạn không có quyền chỉnh sửa khoảnh khắc này"
+    },
+    "form": {
+      "titleLabel": "Tiêu Đề",
+      "titlePlaceholder": "Nhập tiêu đề cho khoảnh khắc của bạn",
+      "descriptionLabel": "Mô Tả",
+      "descriptionPlaceholder": "Hãy kể cho chúng tôi về khoảnh khắc của bạn...",
+      "imagesLabel": "Hình Ảnh",
+      "maxImagesText": "Bạn có thể tải lên tối đa 10 hình ảnh (Tối đa 5MB mỗi ảnh)",
+      "existingImagesLabel": "Hình Ảnh Hiện Tại",
+      "newImagesLabel": "Hình Ảnh Mới",
+      "addMoreText": "Thêm nữa",
+      "updateButton": "Cập Nhật Khoảnh Khắc",
+      "updatingButton": "Đang cập nhật...",
+      "cancelButton": "Hủy"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "Nhập email của bạn",
+      "emailLabel": "Địa Chỉ Email",
+      "emailPlaceholder": "Nhập email",
+      "sendButton": "Gửi Mã",
+      "sendingButton": "Đang gửi...",
+      "successMessage": "Đã gửi mã xác minh thành công!",
+      "errorPrefix": "Lỗi: "
+    },
+    "passwordReset": {
+      "successMessage": "Đã đặt lại mật khẩu thành công, vui lòng đăng nhập!"
+    },
+    "login": {
+      "signInWithGoogle": "Đăng Nhập bằng Google",
+      "title": "Đăng Nhập",
+      "emailLabel": "Địa Chỉ Email",
+      "emailPlaceholder": "Nhập email",
+      "passwordLabel": "Mật Khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "forgotPassword": "Quên Mật Khẩu?",
+      "signInButton": "Đăng Nhập",
+      "signingInButton": "Đang Đăng Nhập...",
+      "newUserText": "Người Dùng Mới?",
+      "registerLink": "Đăng Ký",
+      "successMessage": "Đăng nhập thành công",
+      "invalidCredentialsError": "Thông tin đăng nhập không hợp lệ"
+    },
+    "account": {
+      "title": "Tạo Tài Khoản",
+      "name": "Tên",
+      "email": "Địa Chỉ Email",
+      "password": "Mật Khẩu",
+      "passwordRequirement": "Mật khẩu phải có ít nhất 8 ký tự",
+      "confirmPassword": "Xác Nhận Mật Khẩu",
+      "continue": "Tiếp Tục",
+      "alreadyHaveAccount": "Đã có tài khoản?",
+      "login": "Đăng Nhập"
+    },
+    "profile": {
+      "title": "Thông Tin Hồ Sơ",
+      "bio": "Tiểu sử (tùy chọn)",
+      "bioPlaceholder": "Hãy kể cho chúng tôi về bạn",
+      "gender": "Giới Tính",
+      "genderOptions": {
+        "select": "Chọn Giới Tính",
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      },
+      "birthDate": "Ngày Sinh",
+      "nativeLanguage": "Tiếng Mẹ Đẻ",
+      "selectLanguage": "Chọn Ngôn Ngữ",
+      "languageToLearn": "Ngôn Ngữ Muốn Học",
+      "profileImages": "Ảnh Hồ Sơ",
+      "uploadPrompt": "Nhấp để tải lên ảnh hồ sơ",
+      "selectImages": "Chọn Ảnh",
+      "back": "Quay Lại",
+      "processing": "Đang xử lý..."
+    },
+    "verification": {
+      "title": "Xác Minh Email",
+      "sentMessage": "Chúng tôi đã gửi mã xác minh đến email của bạn:",
+      "verificationCode": "Mã Xác Minh",
+      "codePlaceholder": "Nhập mã 6 chữ số",
+      "verifyButton": "Xác Minh Email",
+      "verifying": "Đang xác minh...",
+      "resendCode": "Gửi lại mã xác minh",
+      "sending": "Đang gửi...",
+      "backToProfile": "Quay Lại Hồ Sơ",
+      "successMessage": "Đã xác minh email thành công!",
+      "completePrompt": "Hoàn tất đăng ký bằng cách nhấp vào nút bên dưới.",
+      "completeRegistration": "Hoàn Tất Đăng Ký"
+    },
+    "progressBar": {
+      "account": "Tài Khoản",
+      "profile": "Hồ Sơ",
+      "verify": "Xác Minh"
+    },
+    "toasts": {
+      "passwordMismatch": "Mật khẩu không khớp",
+      "verificationSent": "Đã gửi mã xác minh thành công!",
+      "sendCodeFailed": "Không thể gửi mã xác minh",
+      "emailVerified": "Đã xác minh email thành công!",
+      "invalidCode": "Mã xác minh không hợp lệ",
+      "verifyFirst": "Vui lòng xác minh email trước",
+      "registrationSuccess": "Đăng ký thành công!",
+      "registrationError": "Lỗi trong quá trình đăng ký"
+    }
+  },
+  "communityMain": {
+    "title": "Trao Đổi Ngôn Ngữ",
+    "subtitle": "Kết nối với người học ngôn ngữ trên toàn thế giới",
+    "badge": "Cộng Đồng Trao Đổi Ngôn Ngữ",
+    "heroTitle": "Tìm Đối Tác",
+    "heroTitleHighlight": "Ngôn Ngữ Hoàn Hảo",
+    "heroDescription": "Kết nối với người bản ngữ từ khắp nơi trên thế giới và cùng nhau luyện tập ngôn ngữ",
+    "stats": {
+      "activeLearners": "Người Học Tích Cực",
+      "activeUsers": "Người Dùng Tích Cực",
+      "languages": "Ngôn Ngữ",
+      "countries": "Quốc Gia"
+    },
+    "search": {
+      "placeholder": "Tìm theo tên, ngôn ngữ hoặc sở thích...",
+      "loading": "Đang tìm đối tác ngôn ngữ..."
+    },
+    "memberCard": {
+      "native": "Tiếng Mẹ Đẻ",
+      "learning": "Đang Học",
+      "defaultBio": "Sẵn sàng luyện tập ngôn ngữ và kết bạn mới!",
+      "onlineNow": "Đang trực tuyến",
+      "active": "Hoạt Động",
+      "recently": "Gần Đây",
+      "justNow": "Vừa xong",
+      "minutesAgo": "{{count}} phút trước",
+      "hoursAgo": "{{count}} giờ trước",
+      "daysAgo": "{{count}} ngày trước",
+      "overWeekAgo": "Hơn một tuần trước",
+      "actions": {
+        "wave": "Vẫy Tay",
+        "message": "Nhắn Tin",
+        "like": "Thích"
+      }
+    },
+    "tabs": {
+      "all": "Tất Cả",
+      "popular": "Phổ Biến",
+      "new": "Mới"
+    },
+    "filters": {
+      "language": "Ngôn Ngữ",
+      "allLanguages": "Tất Cả Ngôn Ngữ",
+      "clear": "Xóa"
+    },
+    "results": {
+      "showing": "Hiển thị {{count}} đối tác ngôn ngữ tuyệt vời{{plural}}",
+      "membersFound": "Tìm thấy {{count}} thành viên",
+      "noneFound": {
+        "title": "Không tìm thấy thành viên",
+        "message": "Hãy thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm",
+        "resetFilters": "Đặt Lại Bộ Lọc"
+      }
+    },
+    "errors": {
+      "generic": "Ôi! Đã xảy ra lỗi",
+      "loadError": "Chúng tôi không thể tải cộng đồng. Vui lòng thử lại.",
+      "tryAgain": "Thử Lại"
+    },
+    "loadMore": {
+      "loading": "Đang tải...",
+      "button": "Tải Thêm Thành Viên"
+    },
+    "cta": {
+      "title": "Bạn đã sẵn sàng bắt đầu hành trình ngôn ngữ chưa?",
+      "description": "Tạo hồ sơ và kết nối với các đối tác ngôn ngữ trên toàn thế giới",
+      "getStarted": "Bắt Đầu Miễn Phí",
+      "viewWaves": "Xem Lời Chào"
+    },
+    "buttons": {
+      "clearFilters": "Xóa tất cả bộ lọc"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "ID hồ sơ không hợp lệ",
+      "profileNotFound": "Không Tìm Thấy Hồ Sơ",
+      "profileNotFoundDesc": "Hồ sơ người dùng này không tồn tại hoặc đã bị xóa.",
+      "somethingWentWrong": "Ôi! Đã xảy ra lỗi",
+      "tryAgainLater": "Chúng tôi không thể tải hồ sơ này. Vui lòng thử lại sau."
+    },
+    "buttons": {
+      "backToCommunity": "Quay Lại Cộng Đồng",
+      "tryAgain": "Thử Lại",
+      "follow": "Theo Dõi",
+      "following": "Đang Theo Dõi",
+      "startChat": "Bắt Đầu Trò Chuyện",
+      "videoCall": "Gọi Video",
+      "startConversation": "Bắt Đầu Cuộc Trò Chuyện"
+    },
+    "loading": {
+      "loadingProfile": "Đang tải hồ sơ...",
+      "initiatingCall": "Đang bắt đầu cuộc gọi với {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "Bạn cần đăng nhập để theo dõi người dùng",
+      "followSuccess": "Đã theo dõi thành công!",
+      "followFailed": "Không thể theo dõi người dùng. Vui lòng thử lại.",
+      "loginToUnfollow": "Bạn cần đăng nhập để bỏ theo dõi người dùng",
+      "unfollowSuccess": "Đã bỏ theo dõi thành công",
+      "unfollowFailed": "Không thể bỏ theo dõi người dùng. Vui lòng thử lại.",
+      "confirmUnfollow": "Bạn có chắc muốn bỏ theo dõi người dùng này không?",
+      "loginToChat": "Bạn cần đăng nhập để bắt đầu trò chuyện",
+      "chatStarted": "Đã bắt đầu trò chuyện thành công!",
+      "chatFailed": "Không thể bắt đầu trò chuyện. Vui lòng thử lại.",
+      "errorOccurred": "Đã xảy ra lỗi. Vui lòng thử lại."
+    },
+    "profile": {
+      "memberSince": "Thành viên từ {{date}}",
+      "yearsOld": "{{age}} tuổi",
+      "noPhotos": "Chưa có ảnh",
+      "aboutUser": "Về {{name}}",
+      "noBio": "{{name}} chưa thêm tiểu sử. Hãy bắt đầu cuộc trò chuyện để tìm hiểu thêm về họ!",
+      "readyToPractice": "Bạn đã sẵn sàng luyện tập với {{name}} chưa?",
+      "practiceDescription": "Bắt đầu trò chuyện và cùng nhau cải thiện kỹ năng ngôn ngữ!",
+      "online": "Trực tuyến",
+      "offline": "Ngoại tuyến",
+      "justNow": "Vừa xong",
+      "minutesAgo": "{{count}} phút trước",
+      "hoursAgo": "{{count}} giờ trước",
+      "daysAgo": "{{count}} ngày trước",
+      "recentlyActive": "Hoạt động gần đây"
+    },
+    "stats": {
+      "followers": "Người Theo Dõi",
+      "following": "Đang Theo Dõi"
+    },
+    "language": {
+      "speaks": "Nói",
+      "learning": "Đang Học",
+      "notSpecified": "Chưa xác định"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "Không có ảnh"
+    },
+    "navigation": {
+      "backToCommunity": "Quay Lại Cộng Đồng"
+    },
+    "errors": {
+      "invalidProfileId": "ID hồ sơ không hợp lệ",
+      "somethingWentWrong": "Ôi! Đã xảy ra lỗi",
+      "couldNotLoadProfile": "Chúng tôi không thể tải hồ sơ này. Vui lòng thử lại sau.",
+      "profileNotFound": "Không Tìm Thấy Hồ Sơ",
+      "profileDoesNotExist": "Hồ sơ người dùng này không tồn tại hoặc đã bị xóa.",
+      "loadingProfile": "Đang tải hồ sơ..."
+    },
+    "buttons": {
+      "tryAgain": "Thử Lại",
+      "backToCommunity": "Quay Lại Cộng Đồng"
+    },
+    "stats": {
+      "followers": "Người Theo Dõi",
+      "following": "Đang Theo Dõi"
+    },
+    "actions": {
+      "following": "Đang Theo Dõi",
+      "follow": "Theo Dõi",
+      "startChat": "Bắt Đầu Trò Chuyện",
+      "videoCall": "Gọi Video",
+      "startConversation": "Bắt Đầu Cuộc Trò Chuyện"
+    },
+    "languages": {
+      "speaks": "Nói",
+      "learning": "Đang Học",
+      "notSpecified": "Chưa xác định"
+    },
+    "memberInfo": {
+      "yearsOld": "tuổi",
+      "memberSince": "Thành viên từ"
+    },
+    "about": {
+      "aboutTitle": "Giới Thiệu",
+      "noBioMessage": "chưa thêm tiểu sử. Hãy bắt đầu cuộc trò chuyện để tìm hiểu thêm về họ!"
+    },
+    "callToAction": {
+      "title": "Bạn đã sẵn sàng luyện tập với",
+      "subtitle": "Bắt đầu trò chuyện và cùng nhau cải thiện kỹ năng ngôn ngữ!"
+    },
+    "toasts": {
+      "needLogin": "Bạn cần đăng nhập để",
+      "followUsers": "theo dõi người dùng",
+      "unfollowUsers": "bỏ theo dõi người dùng",
+      "startChat": "bắt đầu trò chuyện",
+      "failedToFollow": "Không thể theo dõi người dùng. Vui lòng thử lại.",
+      "successfullyFollowed": "Đã theo dõi thành công!",
+      "successfullyUnfollowed": "Đã bỏ theo dõi thành công",
+      "failedToUnfollow": "Không thể bỏ theo dõi người dùng. Vui lòng thử lại.",
+      "failedToStartChat": "Không thể bắt đầu trò chuyện. Vui lòng thử lại.",
+      "initiatingCall": "Đang bắt đầu cuộc gọi với",
+      "errorOccurred": "Đã xảy ra lỗi. Vui lòng thử lại."
+    },
+    "confirmations": {
+      "unfollowConfirm": "Bạn có chắc muốn bỏ theo dõi người dùng này không?"
+    },
+    "accessibility": {
+      "viewPhoto": "Xem ảnh",
+      "userPhoto": " ảnh của"
+    },
+    "fallbacks": {
+      "defaultUser": "Người Dùng"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "Học",
+      "subtitle": "Tiếp tục phát huy nhé!",
+      "currentStreak": "Chuỗi Hiện Tại",
+      "days": "ngày",
+      "longest": "Dài Nhất",
+      "dailyGoal": "Mục Tiêu Hàng Ngày",
+      "goalComplete": "Đã hoàn thành mục tiêu hàng ngày!",
+      "quickActions": "Thao Tác Nhanh",
+      "review": "Ôn Tập",
+      "practiceWords": "Luyện từ vựng",
+      "lessons": "Bài Học",
+      "learnNew": "Học nội dung mới",
+      "quiz": "Kiểm Tra",
+      "testKnowledge": "Kiểm tra kiến thức",
+      "leaderboard": "Bảng Xếp Hạng",
+      "seeRankings": "Xem xếp hạng",
+      "yourProgress": "Tiến Trình Của Bạn",
+      "words": "Từ",
+      "lessonsLabel": "Bài Học",
+      "level": "Cấp Độ",
+      "vocabulary": "Từ Vựng",
+      "wordsLearned": "từ đã học",
+      "achievements": "Thành Tựu",
+      "unlocked": "đã mở khóa",
+      "challenges": "Thử Thách",
+      "joinChallenges": "Tham gia thử thách hàng tuần"
+    },
+    "vocabulary": {
+      "title": "Từ Vựng",
+      "searchPlaceholder": "Tìm kiếm từ...",
+      "addWord": "Thêm Từ",
+      "noWords": "Chưa có từ nào",
+      "startAdding": "Bắt đầu thêm từ vào từ vựng của bạn",
+      "word": "Từ",
+      "translation": "Bản Dịch",
+      "level": "Cấp Độ",
+      "nextReview": "Ôn Tập Tiếp Theo"
+    },
+    "review": {
+      "title": "Ôn Tập",
+      "cardsLeft": "thẻ còn lại",
+      "showAnswer": "Hiện Đáp Án",
+      "correct": "Đúng",
+      "incorrect": "Sai",
+      "sessionComplete": "Hoàn Thành Phiên Học!",
+      "greatJob": "Tuyệt vời! Bạn đã hoàn thành tất cả bài ôn tập.",
+      "backToDashboard": "Quay Lại Bảng Điều Khiển"
+    },
+    "lessons": {
+      "title": "Bài Học",
+      "continue": "Tiếp Tục",
+      "start": "Bắt Đầu",
+      "completed": "Hoàn Thành",
+      "progress": "Tiến Trình"
+    },
+    "quizzes": {
+      "title": "Bài Kiểm Tra",
+      "questions": "câu hỏi",
+      "startQuiz": "Bắt Đầu Kiểm Tra",
+      "score": "Điểm"
+    },
+    "leaderboard": {
+      "title": "Bảng Xếp Hạng",
+      "weekly": "Tuần",
+      "monthly": "Tháng",
+      "allTime": "Mọi Thời Đại",
+      "you": "Bạn",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "Thành Tựu",
+      "unlocked": "Đã Mở Khóa",
+      "locked": "Đã Khóa",
+      "progress": "Tiến Trình"
+    },
+    "challenges": {
+      "title": "Thử Thách",
+      "join": "Tham Gia",
+      "joined": "Đã Tham Gia",
+      "daysLeft": "ngày còn lại",
+      "participants": "người tham gia"
+    }
+  },
+  "settings": {
+    "title": "Cài Đặt",
+    "subtitle": "Quản lý tài khoản và tùy chọn của bạn",
+    "editProfile": "Chỉnh Sửa",
+    "logout": "Đăng Xuất",
+    "logoutSuccess": "Đã đăng xuất thành công",
+    "sections": {
+      "account": "Tài Khoản",
+      "privacy": "Quyền Riêng Tư",
+      "notifications": "Thông Báo",
+      "vip": "VIP",
+      "language": "Ngôn Ngữ",
+      "support": "Hỗ Trợ"
+    },
+    "items": {
+      "editProfile": "Chỉnh Sửa Hồ Sơ",
+      "editProfileDesc": "Cập nhật thông tin cá nhân",
+      "changePassword": "Đổi Mật Khẩu",
+      "changePasswordDesc": "Cập nhật mật khẩu của bạn",
+      "emailSettings": "Cài Đặt Email",
+      "emailSettingsDesc": "Quản lý tùy chọn email",
+      "privacySettings": "Cài Đặt Quyền Riêng Tư",
+      "privacySettingsDesc": "Kiểm soát ai có thể xem thông tin của bạn",
+      "blockedUsers": "Người Dùng Bị Chặn",
+      "blockedUsersDesc": "Quản lý tài khoản bị chặn",
+      "closeFriends": "Bạn Thân",
+      "closeFriendsDesc": "Quản lý danh sách bạn thân",
+      "pushNotifications": "Thông Báo Đẩy",
+      "pushNotificationsDesc": "Quản lý tùy chọn thông báo",
+      "chatSettings": "Cài Đặt Trò Chuyện",
+      "chatSettingsDesc": "Tùy chọn tin nhắn và trò chuyện",
+      "manageSubscription": "Quản Lý Đăng Ký",
+      "vipActive": "VIP Đang Hoạt Động",
+      "upgradeToPremium": "Nâng cấp lên premium",
+      "languageSettings": "Cài Đặt Ngôn Ngữ",
+      "languageSettingsDesc": "Thay đổi ngôn ngữ ứng dụng và học tập",
+      "helpCenter": "Trung Tâm Trợ Giúp",
+      "helpCenterDesc": "Nhận trợ giúp và hỗ trợ"
+    },
+    "privacySettings": {
+      "title": "Cài Đặt Quyền Riêng Tư",
+      "profileVisibility": "Hiển Thị Hồ Sơ",
+      "onlineStatus": "Hiện Trạng Thái Trực Tuyến",
+      "lastSeen": "Hiện Lần Cuối Trực Tuyến",
+      "readReceipts": "Xác Nhận Đã Đọc"
+    },
+    "notificationSettings": {
+      "title": "Cài Đặt Thông Báo",
+      "pushNotifications": "Thông Báo Đẩy",
+      "messages": "Tin Nhắn",
+      "likes": "Lượt Thích",
+      "followers": "Người Theo Dõi Mới",
+      "waves": "Lời Chào",
+      "emailDigest": "Tóm Tắt Email"
+    },
+    "languageSettings": {
+      "title": "Cài Đặt Ngôn Ngữ",
+      "appLanguage": "Ngôn Ngữ Ứng Dụng",
+      "nativeLanguage": "Tiếng Mẹ Đẻ",
+      "learningLanguage": "Ngôn Ngữ Đang Học"
+    },
+    "vipSettings": {
+      "title": "Trạng Thái VIP",
+      "currentPlan": "Gói Hiện Tại",
+      "free": "Miễn Phí",
+      "premium": "Premium",
+      "features": "Tính Năng",
+      "upgrade": "Nâng Cấp Lên VIP"
+    }
+  },
+  "waves": {
+    "title": "Lời Chào",
+    "received": "Đã Nhận",
+    "sent": "Đã Gửi",
+    "accept": "Chấp Nhận",
+    "decline": "Từ Chối",
+    "noWaves": "Chưa có lời chào nào",
+    "sendWave": "Gửi lời chào để bắt đầu kết nối!"
+  },
+  "topics": {
+    "title": "Chủ Đề",
+    "myTopics": "Chủ Đề Của Tôi",
+    "browseTopics": "Duyệt Chủ Đề",
+    "usersInterested": "người dùng quan tâm"
+  },
+  "nearby": {
+    "title": "Người Dùng Gần Đây",
+    "enableLocation": "Bật Vị Trí",
+    "locationRequired": "Cần quyền truy cập vị trí để tìm người dùng gần đây",
+    "noUsersNearby": "Không có người dùng gần đây",
+    "tryExpandingRadius": "Hãy thử mở rộng phạm vi tìm kiếm"
+  },
+  "home": {
+    "hero": {
+      "badge": "Trao Đổi Ngôn Ngữ Đơn Giản",
+      "titlePart1": "Học Ngôn Ngữ bằng cách",
+      "titleHighlight": "Nói Chuyện",
+      "titlePart2": "với Người Bản Ngữ",
+      "description": "Kết nối với hàng triệu người học ngôn ngữ trên toàn thế giới. Luyện nói, cải thiện sự lưu loát và kết bạn từ mọi nơi trên thế giới.",
+      "stats": {
+        "users": "Người Dùng Tích Cực",
+        "languages": "Ngôn Ngữ",
+        "countries": "Quốc Gia"
+      },
+      "getStarted": "Bắt Đầu Miễn Phí",
+      "browseCommunity": "Duyệt Cộng Đồng",
+      "lovedBy": "Được 5M+ người học yêu thích",
+      "chatPreview": {
+        "message1": "Xin chào! Bạn khỏe không? 👋",
+        "message2": "Hey! I'm practicing Vietnamese!",
+        "message3": "Tuyệt vời! Hãy cùng luyện tập 🇻🇳"
+      }
+    },
+    "sections": {
+      "features": "Tính Năng",
+      "howItWorks": "Cách Hoạt Động",
+      "pricing": "Bảng Giá"
+    },
+    "features": {
+      "title": "Mọi Thứ Bạn Cần Để Học",
+      "subtitle": "Các công cụ mạnh mẽ được thiết kế để đẩy nhanh hành trình học ngôn ngữ của bạn",
+      "chat": {
+        "title": "Trò Chuyện Thời Gian Thực",
+        "description": "Luyện hội thoại với người bản ngữ qua tin nhắn tức thời"
+      },
+      "video": {
+        "title": "Gọi Video",
+        "description": "Luyện ngôn ngữ trực tiếp với đối tác trên toàn thế giới"
+      },
+      "lessons": {
+        "title": "Bài Học Tương Tác",
+        "description": "Học với các khóa học có cấu trúc và bài tập hàng ngày"
+      },
+      "voice": {
+        "title": "Tin Nhắn Thoại",
+        "description": "Hoàn thiện phát âm với trao đổi âm thanh"
+      },
+      "community": {
+        "title": "Cộng Đồng",
+        "description": "Tham gia cùng hàng triệu người học ngôn ngữ trên toàn cầu"
+      },
+      "languages": {
+        "title": "50+ Ngôn Ngữ",
+        "description": "Từ tiếng Tây Ban Nha đến tiếng Hàn, tìm con đường học tập của bạn"
+      }
+    },
+    "howItWorks": {
+      "title": "Bắt Đầu Học Trong 3 Bước",
+      "subtitle": "Bắt đầu trong vài phút và khởi đầu hành trình ngôn ngữ ngay hôm nay"
+    },
+    "steps": {
+      "profile": {
+        "title": "Tạo Hồ Sơ",
+        "description": "Cho chúng tôi biết về tiếng mẹ đẻ và ngôn ngữ bạn muốn học"
+      },
+      "partners": {
+        "title": "Tìm Đối Tác",
+        "description": "Duyệt qua cộng đồng và tìm đối tác trao đổi ngôn ngữ hoàn hảo"
+      },
+      "learn": {
+        "title": "Bắt Đầu Học",
+        "description": "Trò chuyện, gọi điện và luyện tập với người bản ngữ mỗi ngày"
+      }
+    },
+    "pricing": {
+      "title": "Chọn Gói Của Bạn",
+      "subtitle": "Bắt đầu miễn phí và nâng cấp khi bạn sẵn sàng",
+      "mostPopular": "Phổ Biến Nhất",
+      "getStarted": "Bắt Đầu",
+      "free": {
+        "name": "Miễn Phí",
+        "period": "mãi mãi",
+        "features": {
+          "messaging": "Nhắn tin cơ bản",
+          "connections": "5 kết nối mới/ngày",
+          "community": "Truy cập cộng đồng",
+          "lessons": "Bài học cơ bản"
+        }
+      },
+      "premium": {
+        "name": "Premium",
+        "period": "/tháng",
+        "features": {
+          "messaging": "Nhắn tin không giới hạn",
+          "connections": "Kết nối không giới hạn",
+          "video": "Gọi video",
+          "lessons": "Bài học nâng cao",
+          "noAds": "Không quảng cáo",
+          "translation": "Công cụ dịch thuật"
+        }
+      },
+      "lifetime": {
+        "name": "Trọn Đời",
+        "period": "một lần",
+        "features": {
+          "everything": "Mọi thứ trong Premium",
+          "forever": "Truy cập mãi mãi",
+          "support": "Hỗ trợ ưu tiên",
+          "early": "Tính năng sớm",
+          "badges": "Huy hiệu độc quyền"
+        }
+      }
+    },
+    "download": {
+      "badge": "Tải Ứng Dụng",
+      "title": "Mang BananaTalk Đi Khắp Nơi",
+      "description": "Học mọi lúc mọi nơi với ứng dụng di động. Có sẵn trên iOS và Android với đầy đủ tính năng, thông báo đẩy và truy cập ngoại tuyến.",
+      "downloadOn": "Tải về trên",
+      "getItOn": "Tải về trên",
+      "scanQR": "Quét để tải ứng dụng",
+      "or": "hoặc",
+      "features": {
+        "offline": "Truy cập ngoại tuyến",
+        "push": "Thông báo đẩy",
+        "fast": "Nhanh và nhẹ"
+      }
+    },
+    "cta": {
+      "title": "Bạn Đã Sẵn Sàng Bắt Đầu Hành Trình Ngôn Ngữ Chưa?",
+      "description": "Tham gia cùng hàng triệu người học và bắt đầu nói ngôn ngữ mới ngay hôm nay",
+      "button": "Tạo Tài Khoản Miễn Phí"
+    }
+  },
+  "vip": {
+    "title": "Thành Viên VIP",
+    "subtitle": "Mở khóa các tính năng premium",
+    "status": {
+      "active": "VIP Đang Hoạt Động",
+      "free": "Gói Miễn Phí",
+      "activeDesc": "Đang tận hưởng tất cả tính năng premium",
+      "freeDesc": "Nâng cấp để mở khóa thêm tính năng"
+    },
+    "expiresOn": "Hết hạn vào",
+    "plans": {
+      "free": "Miễn Phí",
+      "vip": "VIP"
+    },
+    "perMonth": "tháng",
+    "saveAnnually": "Tiết kiệm 20% với gói năm",
+    "popular": "PHỔ BIẾN",
+    "upgradeNow": "Nâng Cấp Lên VIP",
+    "upgradeInApp": "Nâng Cấp qua Ứng Dụng Di Động",
+    "upgradeInAppDesc": "Đăng ký VIP chỉ có thể mua qua ứng dụng di động",
+    "manageSubscription": "Quản Lý Đăng Ký",
+    "cancelSubscription": "Hủy Đăng Ký",
+    "manageInApp": "Để quản lý đăng ký, vui lòng sử dụng ứng dụng di động BananaTalk.",
+    "features": {
+      "limitedMessages": "Tin nhắn giới hạn mỗi ngày",
+      "basicProfile": "Hồ sơ cơ bản",
+      "basicSearch": "Tìm kiếm cơ bản",
+      "unlimitedMessages": "Tin nhắn không giới hạn",
+      "seeProfileVisitors": "Xem ai đã truy cập hồ sơ của bạn",
+      "advancedFilters": "Bộ lọc tìm kiếm nâng cao",
+      "noAds": "Trải nghiệm không quảng cáo",
+      "prioritySupport": "Hỗ trợ ưu tiên",
+      "exclusiveBadge": "Huy hiệu VIP độc quyền",
+      "translationFeature": "Dịch tin nhắn"
+    }
+  }
+}

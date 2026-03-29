@@ -1,0 +1,924 @@
+{
+  "greeting": "สวัสดี",
+  "footer": {
+    "aboutUs": "เกี่ยวกับเรา",
+    "aboutDescription": "BananaTalk มุ่งมั่นช่วยให้คุณเชี่ยวชาญภาษาใหม่และเชื่อมต่อกับเจ้าของภาษาจากทั่วโลก",
+    "quickLinks": "ลิงก์ด่วน",
+    "links": {
+      "home": "หน้าหลัก",
+      "about": "เกี่ยวกับ",
+      "services": "บริการ",
+      "pricing": "ราคา",
+      "contact": "ติดต่อ"
+    },
+    "contactInfo": "ข้อมูลติดต่อ",
+    "address": "โซล, เกาหลีใต้, คังนัม-กู",
+    "follow": "ติดตาม",
+    "newsletter": "จดหมายข่าว",
+    "newsletterDescription": "สมัครรับจดหมายข่าวเพื่อรับข้อมูลอัปเดตและข้อเสนอ",
+    "emailPlaceholder": "ที่อยู่อีเมลของคุณ",
+    "allRightsReserved": "สงวนลิขสิทธิ์"
+  },
+  "community": "ชุมชน",
+  "chat": "แชท",
+  "chatPage": {
+    "messages": "ข้อความ",
+    "searchPlaceholder": "ค้นหาการสนทนา...",
+    "startConversation": "เริ่มการสนทนา",
+    "emptyDescription": "เลือกแชทจากแถบด้านข้างหรือเริ่มการสนทนาใหม่เพื่อเชื่อมต่อกับคู่ฝึกภาษาทั่วโลก",
+    "newConversation": "การสนทนาใหม่",
+    "features": {
+      "realtime": "ส่งข้อความแบบเรียลไทม์",
+      "exchange": "แลกเปลี่ยนภาษา",
+      "calls": "โทรเสียงและวิดีโอ"
+    },
+    "online": "ออนไลน์",
+    "offline": "ออฟไลน์",
+    "lastSeen": "เห็นล่าสุด",
+    "typing": "กำลังพิมพ์...",
+    "loadingConversation": "กำลังโหลดการสนทนา...",
+    "errorLoading": "เกิดข้อผิดพลาดในการโหลดการสนทนา",
+    "messagePlaceholder": "พิมพ์ข้อความของคุณ...",
+    "justNow": "เมื่อกี้",
+    "minutesAgo": "{{count}} นาทีที่แล้ว",
+    "hoursAgo": "{{count}} ชั่วโมงที่แล้ว",
+    "unknownUser": "ผู้ใช้ที่ไม่รู้จัก"
+  },
+  "notifications": "การแจ้งเตือน",
+  "moments": "โมเมนต์",
+  "language": "ภาษา",
+  "english": "อังกฤษ",
+  "korean": "เกาหลี",
+  "chinese": "จีน",
+  "followers": "ผู้ติดตาม",
+  "followings": "กำลังติดตาม",
+  "my_moments": "โมเมนต์ของฉัน",
+  "logout": "ออกจากระบบ",
+  "sign_in": "เข้าสู่ระบบ",
+  "image_upload": {
+    "image_drop": "กรุณาวางเฉพาะไฟล์รูปภาพ",
+    "max_upload_warning": "คุณสามารถอัปโหลดได้อีก {{count}} รูป",
+    "no_images_error": "กรุณาอัปโหลดอย่างน้อยหนึ่งรูป",
+    "removed_from_selection": "ลบรูปภาพออกจากการเลือกแล้ว",
+    "deleted_success": "ลบรูปภาพสำเร็จ",
+    "replaced_success": "แทนที่รูปภาพสำเร็จ",
+    "current_images": "รูปภาพปัจจุบัน",
+    "no_images_uploaded": "ยังไม่มีรูปภาพที่อัปโหลด",
+    "new_images": "รูปภาพใหม่",
+    "no_new_images": "ไม่มีรูปภาพใหม่ที่เลือก",
+    "drop_images_here": "วางรูปภาพที่นี่หรือ",
+    "select_files": "เลือกไฟล์",
+    "remaining_slots": "คุณสามารถเพิ่มได้อีก {{count}} {{item}}",
+    "image": "รูปภาพ",
+    "images": "รูปภาพ",
+    "cancel": "ยกเลิก",
+    "save_changes": "บันทึกการเปลี่ยนแปลง",
+    "replace_image": "แทนที่",
+    "delete_image": "ลบรูปภาพ",
+    "remove_from_selection": "ลบออกจากการเลือก",
+    "image_gallery": "แกลเลอรีรูปภาพ"
+  },
+  "profile": {
+    "title": "โปรไฟล์ของฉัน",
+    "edit_profile": "แก้ไขโปรไฟล์",
+    "photos": "รูปภาพ",
+    "messages": {
+      "image_update_success": "อัปเดตรูปโปรไฟล์สำเร็จ",
+      "image_update_failure": "ไม่สามารถอัปเดตรูปโปรไฟล์",
+      "image_delete_success": "ลบรูปภาพสำเร็จ",
+      "image_delete_failure": "ไม่สามารถลบรูปภาพ",
+      "profile_update_success": "อัปเดตโปรไฟล์สำเร็จ",
+      "profile_update_failure": "ไม่สามารถอัปเดตโปรไฟล์",
+      "error_loading_profile": "เกิดข้อผิดพลาดในการโหลดโปรไฟล์ผู้ใช้",
+      "no_profile_data": "ไม่มีข้อมูลโปรไฟล์ผู้ใช้",
+      "unknown_error": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
+      "no_bio": "ไม่มีข้อมูลประวัติ",
+      "not_specified": "ไม่ระบุ"
+    },
+    "stats": {
+      "followers": "ผู้ติดตาม",
+      "no_followers": "คุณยังไม่มีผู้ติดตาม",
+      "follower_error": "เกิดข้อผิดพลาดในการโหลดผู้ติดตาม กรุณาลองใหม่ภายหลัง",
+      "following": "กำลังติดตาม",
+      "no_following": "คุณยังไม่ได้ติดตามใคร",
+      "following_error": "เกิดข้อผิดพลาดในการโหลดรายการติดตาม กรุณาลองใหม่ภายหลัง",
+      "moments": "โมเมนต์",
+      "visitors": "ผู้เยี่ยมชม"
+    },
+    "visitors": {
+      "title": "ผู้เยี่ยมชมโปรไฟล์",
+      "error": "เกิดข้อผิดพลาดในการโหลดผู้เยี่ยมชม",
+      "no_visitors": "ยังไม่มีผู้เยี่ยมชม",
+      "no_visitors_desc": "เมื่อมีคนเยี่ยมชมโปรไฟล์ของคุณ พวกเขาจะปรากฏที่นี่",
+      "total_visits": "การเยี่ยมชมทั้งหมด",
+      "unique_visitors": "ผู้เยี่ยมชมที่ไม่ซ้ำ",
+      "visits_today": "วันนี้",
+      "visits_week": "สัปดาห์นี้",
+      "via_moments": "ผ่านโมเมนต์",
+      "via_search": "ผ่านการค้นหา",
+      "via_chat": "ผ่านแชท",
+      "via_direct": "โดยตรง",
+      "via_followers": "ผ่านผู้ติดตาม",
+      "vipOnly": "ฟีเจอร์ VIP",
+      "vipOnlyDesc": "ดูว่าใครเยี่ยมชมโปรไฟล์ของคุณโดยอัปเกรดเป็น VIP ฟีเจอร์นี้มีเฉพาะสำหรับสมาชิก VIP เท่านั้น",
+      "vipBenefits": "สิทธิประโยชน์ VIP",
+      "learnMore": "เรียนรู้เพิ่มเติมเกี่ยวกับ VIP"
+    },
+    "sections": {
+      "personal_info": "ข้อมูลส่วนตัว",
+      "bio": "ประวัติ",
+      "languages": "ภาษา",
+      "personality": "บุคลิกภาพ",
+      "topics": "หัวข้อและความสนใจ"
+    },
+    "labels": {
+      "name": "ชื่อ",
+      "username": "ชื่อผู้ใช้",
+      "email": "อีเมล",
+      "gender": "เพศ",
+      "birthday": "วันเกิด",
+      "native_language": "ภาษาแม่",
+      "learning": "กำลังเรียน",
+      "of": "จาก",
+      "mbti": "ประเภท MBTI",
+      "blood_type": "กรุ๊ปเลือด",
+      "topics_hint": "เลือกหัวข้อที่คุณสนใจ (สูงสุด 10)",
+      "selected": "ที่เลือก"
+    },
+    "hints": {
+      "username_readonly": "ไม่สามารถเปลี่ยนชื่อผู้ใช้ได้"
+    },
+    "placeholders": {
+      "bio": "เขียนอะไรบางอย่างเกี่ยวกับตัวคุณ",
+      "select_gender": "เลือกเพศ",
+      "select_date": "เลือกวันที่",
+      "select_native_language": "เลือกภาษาแม่",
+      "select_learning_language": "เลือกภาษาที่ต้องการเรียน"
+    },
+    "options": {
+      "male": "ชาย",
+      "female": "หญิง"
+    },
+    "actions": {
+      "edit": "แก้ไข",
+      "save": "บันทึก",
+      "cancel": "ยกเลิก",
+      "edit_photo": "แก้ไขรูปภาพ",
+      "clear": "ล้างการเลือก"
+    },
+    "buttons": {
+      "edit": "แก้ไข",
+      "save": "บันทึก",
+      "cancel": "ยกเลิก"
+    },
+    "topics": {
+      "music": "เพลง",
+      "movies": "ภาพยนตร์",
+      "travel": "การเดินทาง",
+      "sports": "กีฬา",
+      "gaming": "เกม",
+      "food": "อาหาร",
+      "art": "ศิลปะ",
+      "photography": "การถ่ายภาพ",
+      "reading": "การอ่าน",
+      "fitness": "ฟิตเนส",
+      "technology": "เทคโนโลยี",
+      "fashion": "แฟชั่น",
+      "cooking": "การทำอาหาร",
+      "nature": "ธรรมชาติ",
+      "pets": "สัตว์เลี้ยง",
+      "anime": "อนิเมะ",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "ภาษา",
+      "culture": "วัฒนธรรม"
+    }
+  },
+  "moments_section": {
+    "title": "โมเมนต์",
+    "question": "คุณกำลังคิดอะไรอยู่,",
+    "loading": "กำลังโหลด",
+    "loading_moments": "กำลังโหลดโมเมนต์...",
+    "error_loading": "เกิดข้อผิดพลาดในการโหลดโมเมนต์",
+    "error_info": "ไม่สามารถโหลดโมเมนต์ได้ กรุณาลองใหม่ภายหลัง",
+    "retry_btn": "ลองใหม่",
+    "no_moments": "ไม่มีโมเมนต์",
+    "first_to_moment": "เป็นคนแรกที่แชร์โมเมนต์พิเศษของคุณกับชุมชน",
+    "share_moment": "แชร์โมเมนต์",
+    "moment_login_error": "กรุณาเข้าสู่ระบบเพื่อกดถูกใจโมเมนต์",
+    "moment_like_error": "ไม่สามารถอัปเดตสถานะการถูกใจ",
+    "moment_like": "ถูกใจ",
+    "moment_comment": "ความคิดเห็น",
+    "moment_share": "แชร์",
+    "no_comments": "ยังไม่มีความคิดเห็น เป็นคนแรกที่แสดงความคิดเห็น!",
+    "invalidMomentId": "ID โมเมนต์ไม่ถูกต้อง",
+    "loadingMoment": "กำลังโหลดรายละเอียดโมเมนต์...",
+    "noDetailsFound": "ไม่พบรายละเอียด",
+    "goBack": "ย้อนกลับ",
+    "momentDetails": "รายละเอียดโมเมนต์",
+    "pleaseLoginFirst": "กรุณาเข้าสู่ระบบก่อน",
+    "removedLike": "ยกเลิกการถูกใจแล้ว",
+    "likedMoment": "ถูกใจโมเมนต์แล้ว",
+    "failedToUpdateLike": "ไม่สามารถอัปเดตสถานะการถูกใจ",
+    "emptyCommentError": "กรุณาเพิ่มความคิดเห็น",
+    "commentAdded": "เพิ่มความคิดเห็นแล้ว",
+    "failedToAddComment": "ไม่สามารถเพิ่มความคิดเห็น",
+    "loadingComments": "กำลังโหลดความคิดเห็น...",
+    "writeCommentPlaceholder": "เขียนความคิดเห็น...",
+    "signInToComment": "กรุณาเข้าสู่ระบบเพื่อเพิ่มความคิดเห็น",
+    "signIn": "เข้าสู่ระบบ",
+    "noCommentsYet": "ยังไม่มีความคิดเห็น เป็นคนแรกที่แสดงความคิดเห็น!",
+    "commentsCount": "{{count}} ความคิดเห็น",
+    "comments": "ความคิดเห็น",
+    "likeButton": "ถูกใจ",
+    "commentButton": "ความคิดเห็น",
+    "shareButton": "แชร์",
+    "timeAgo": {
+      "justNow": "เมื่อกี้",
+      "minutesAgo": "{{minutes}} นาทีที่แล้ว",
+      "hoursAgo": "{{hours}} ชั่วโมงที่แล้ว",
+      "daysAgo": "{{days}} วันที่แล้ว"
+    }
+  },
+  "createMoment": {
+    "title": "สร้างโมเมนต์",
+    "form": {
+      "titleLabel": "หัวข้อ",
+      "titlePlaceholder": "กรอกหัวข้อ",
+      "descriptionLabel": "คำอธิบาย",
+      "descriptionPlaceholder": "กรอกคำอธิบาย",
+      "imagesLabel": "อัปโหลดรูปภาพ",
+      "maxImagesText": "อนุญาตสูงสุด 10 รูป",
+      "addMoreText": "เพิ่มอีก",
+      "submitButton": "โพสต์",
+      "submittingButton": "กำลังโพสต์...",
+      "cancelButton": "ยกเลิก"
+    },
+    "toast": {
+      "maxImagesError": "คุณสามารถอัปโหลดได้สูงสุด 10 รูป",
+      "createSuccess": "สร้างโมเมนต์สำเร็จ!",
+      "createError": "ไม่สามารถสร้างโมเมนต์ได้"
+    }
+  },
+  "editMoment": {
+    "title": "แก้ไขโมเมนต์",
+    "toast": {
+      "maxImagesError": "คุณสามารถอัปโหลดได้สูงสุด 10 รูป",
+      "updateSuccess": "อัปเดตโมเมนต์สำเร็จ!",
+      "updateError": "ไม่สามารถอัปเดตโมเมนต์ได้ กรุณาลองใหม่",
+      "notAuthorized": "คุณไม่มีสิทธิ์แก้ไขโมเมนต์นี้"
+    },
+    "form": {
+      "titleLabel": "หัวข้อ",
+      "titlePlaceholder": "กรอกหัวข้อสำหรับโมเมนต์ของคุณ",
+      "descriptionLabel": "คำอธิบาย",
+      "descriptionPlaceholder": "เล่าเกี่ยวกับโมเมนต์ของคุณ...",
+      "imagesLabel": "รูปภาพ",
+      "maxImagesText": "คุณสามารถอัปโหลดได้สูงสุด 10 รูป (สูงสุด 5MB ต่อรูป)",
+      "existingImagesLabel": "รูปภาพปัจจุบัน",
+      "newImagesLabel": "รูปภาพใหม่",
+      "addMoreText": "เพิ่มอีก",
+      "updateButton": "อัปเดตโมเมนต์",
+      "updatingButton": "กำลังอัปเดต...",
+      "cancelButton": "ยกเลิก"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "กรอกอีเมลของคุณ",
+      "emailLabel": "ที่อยู่อีเมล",
+      "emailPlaceholder": "กรอกอีเมล",
+      "sendButton": "ส่งรหัส",
+      "sendingButton": "กำลังส่ง...",
+      "successMessage": "ส่งรหัสยืนยันสำเร็จ!",
+      "errorPrefix": "ข้อผิดพลาด: "
+    },
+    "passwordReset": {
+      "successMessage": "รีเซ็ตรหัสผ่านสำเร็จ กรุณาเข้าสู่ระบบ!"
+    },
+    "login": {
+      "signInWithGoogle": "เข้าสู่ระบบด้วย Google",
+      "title": "เข้าสู่ระบบ",
+      "emailLabel": "ที่อยู่อีเมล",
+      "emailPlaceholder": "กรอกอีเมล",
+      "passwordLabel": "รหัสผ่าน",
+      "passwordPlaceholder": "กรอกรหัสผ่าน",
+      "forgotPassword": "ลืมรหัสผ่าน?",
+      "signInButton": "เข้าสู่ระบบ",
+      "signingInButton": "กำลังเข้าสู่ระบบ...",
+      "newUserText": "ผู้ใช้ใหม่?",
+      "registerLink": "ลงทะเบียน",
+      "successMessage": "เข้าสู่ระบบสำเร็จ",
+      "invalidCredentialsError": "ข้อมูลเข้าสู่ระบบไม่ถูกต้อง"
+    },
+    "account": {
+      "title": "สร้างบัญชีของคุณ",
+      "name": "ชื่อ",
+      "email": "ที่อยู่อีเมล",
+      "password": "รหัสผ่าน",
+      "passwordRequirement": "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",
+      "confirmPassword": "ยืนยันรหัสผ่าน",
+      "continue": "ดำเนินการต่อ",
+      "alreadyHaveAccount": "มีบัญชีอยู่แล้ว?",
+      "login": "เข้าสู่ระบบ"
+    },
+    "profile": {
+      "title": "ข้อมูลโปรไฟล์",
+      "bio": "ประวัติ (ไม่จำเป็น)",
+      "bioPlaceholder": "บอกเราเกี่ยวกับตัวคุณ",
+      "gender": "เพศ",
+      "genderOptions": {
+        "select": "เลือกเพศ",
+        "male": "ชาย",
+        "female": "หญิง",
+        "other": "อื่นๆ"
+      },
+      "birthDate": "วันเกิด",
+      "nativeLanguage": "ภาษาแม่",
+      "selectLanguage": "เลือกภาษา",
+      "languageToLearn": "ภาษาที่ต้องการเรียน",
+      "profileImages": "รูปโปรไฟล์",
+      "uploadPrompt": "คลิกเพื่ออัปโหลดรูปโปรไฟล์",
+      "selectImages": "เลือกรูปภาพ",
+      "back": "ย้อนกลับ",
+      "processing": "กำลังประมวลผล..."
+    },
+    "verification": {
+      "title": "ยืนยันอีเมล",
+      "sentMessage": "เราได้ส่งรหัสยืนยันไปยังอีเมลของคุณ:",
+      "verificationCode": "รหัสยืนยัน",
+      "codePlaceholder": "กรอกรหัส 6 หลัก",
+      "verifyButton": "ยืนยันอีเมล",
+      "verifying": "กำลังยืนยัน...",
+      "resendCode": "ส่งรหัสยืนยันอีกครั้ง",
+      "sending": "กำลังส่ง...",
+      "backToProfile": "กลับไปที่โปรไฟล์",
+      "successMessage": "ยืนยันอีเมลสำเร็จ!",
+      "completePrompt": "ดำเนินการลงทะเบียนให้เสร็จสิ้นโดยคลิกปุ่มด้านล่าง",
+      "completeRegistration": "ลงทะเบียนให้เสร็จสิ้น"
+    },
+    "progressBar": {
+      "account": "บัญชี",
+      "profile": "โปรไฟล์",
+      "verify": "ยืนยัน"
+    },
+    "toasts": {
+      "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
+      "verificationSent": "ส่งรหัสยืนยันสำเร็จ!",
+      "sendCodeFailed": "ไม่สามารถส่งรหัสยืนยันได้",
+      "emailVerified": "ยืนยันอีเมลสำเร็จ!",
+      "invalidCode": "รหัสยืนยันไม่ถูกต้อง",
+      "verifyFirst": "กรุณายืนยันอีเมลของคุณก่อน",
+      "registrationSuccess": "ลงทะเบียนสำเร็จ!",
+      "registrationError": "เกิดข้อผิดพลาดระหว่างการลงทะเบียน"
+    }
+  },
+  "communityMain": {
+    "title": "แลกเปลี่ยนภาษา",
+    "subtitle": "เชื่อมต่อกับผู้เรียนภาษาทั่วโลก",
+    "badge": "ชุมชนแลกเปลี่ยนภาษา",
+    "heroTitle": "ค้นหาคู่ฝึก",
+    "heroTitleHighlight": "ภาษาที่สมบูรณ์แบบ",
+    "heroDescription": "เชื่อมต่อกับเจ้าของภาษาจากทั่วโลกและฝึกภาษาด้วยกัน",
+    "stats": {
+      "activeLearners": "ผู้เรียนที่ใช้งาน",
+      "activeUsers": "ผู้ใช้ที่ใช้งาน",
+      "languages": "ภาษา",
+      "countries": "ประเทศ"
+    },
+    "search": {
+      "placeholder": "ค้นหาตามชื่อ ภาษา หรือความสนใจ...",
+      "loading": "กำลังค้นหาคู่ฝึกภาษา..."
+    },
+    "memberCard": {
+      "native": "ภาษาแม่",
+      "learning": "กำลังเรียน",
+      "defaultBio": "พร้อมฝึกภาษาและหาเพื่อนใหม่!",
+      "onlineNow": "ออนไลน์อยู่",
+      "active": "ใช้งาน",
+      "recently": "เมื่อเร็วๆ นี้",
+      "justNow": "เมื่อกี้",
+      "minutesAgo": "{{count}} นาทีที่แล้ว",
+      "hoursAgo": "{{count}} ชั่วโมงที่แล้ว",
+      "daysAgo": "{{count}} วันที่แล้ว",
+      "overWeekAgo": "มากกว่าหนึ่งสัปดาห์ที่แล้ว",
+      "actions": {
+        "wave": "โบกมือ",
+        "message": "ข้อความ",
+        "like": "ถูกใจ"
+      }
+    },
+    "tabs": {
+      "all": "ทั้งหมด",
+      "popular": "ยอดนิยม",
+      "new": "ใหม่"
+    },
+    "filters": {
+      "language": "ภาษา",
+      "allLanguages": "ทุกภาษา",
+      "clear": "ล้าง"
+    },
+    "results": {
+      "showing": "แสดง {{count}} คู่ฝึกภาษาที่ยอดเยี่ยม{{plural}}",
+      "membersFound": "พบ {{count}} สมาชิก",
+      "noneFound": {
+        "title": "ไม่พบสมาชิก",
+        "message": "ลองปรับตัวกรองหรือคำค้นหาของคุณ",
+        "resetFilters": "รีเซ็ตตัวกรอง"
+      }
+    },
+    "errors": {
+      "generic": "อ๊ะ! มีบางอย่างผิดพลาด",
+      "loadError": "ไม่สามารถโหลดชุมชนได้ กรุณาลองใหม่",
+      "tryAgain": "ลองใหม่"
+    },
+    "loadMore": {
+      "loading": "กำลังโหลด...",
+      "button": "โหลดสมาชิกเพิ่ม"
+    },
+    "cta": {
+      "title": "พร้อมเริ่มต้นการเดินทางทางภาษาของคุณหรือยัง?",
+      "description": "สร้างโปรไฟล์ของคุณและเชื่อมต่อกับคู่ฝึกภาษาทั่วโลก",
+      "getStarted": "เริ่มต้นฟรี",
+      "viewWaves": "ดูการโบกมือ"
+    },
+    "buttons": {
+      "clearFilters": "ล้างตัวกรองทั้งหมด"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "ID โปรไฟล์ไม่ถูกต้อง",
+      "profileNotFound": "ไม่พบโปรไฟล์",
+      "profileNotFoundDesc": "โปรไฟล์ผู้ใช้นี้ไม่มีอยู่หรือถูกลบแล้ว",
+      "somethingWentWrong": "อ๊ะ! มีบางอย่างผิดพลาด",
+      "tryAgainLater": "ไม่สามารถโหลดโปรไฟล์นี้ได้ กรุณาลองใหม่ภายหลัง"
+    },
+    "buttons": {
+      "backToCommunity": "กลับไปที่ชุมชน",
+      "tryAgain": "ลองใหม่",
+      "follow": "ติดตาม",
+      "following": "กำลังติดตาม",
+      "startChat": "เริ่มแชท",
+      "videoCall": "วิดีโอคอล",
+      "startConversation": "เริ่มการสนทนา"
+    },
+    "loading": {
+      "loadingProfile": "กำลังโหลดโปรไฟล์...",
+      "initiatingCall": "กำลังเริ่มการโทรกับ {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "คุณต้องเข้าสู่ระบบเพื่อติดตามผู้ใช้",
+      "followSuccess": "ติดตามสำเร็จ!",
+      "followFailed": "ไม่สามารถติดตามผู้ใช้ได้ กรุณาลองใหม่",
+      "loginToUnfollow": "คุณต้องเข้าสู่ระบบเพื่อเลิกติดตามผู้ใช้",
+      "unfollowSuccess": "เลิกติดตามสำเร็จ",
+      "unfollowFailed": "ไม่สามารถเลิกติดตามผู้ใช้ได้ กรุณาลองใหม่",
+      "confirmUnfollow": "คุณแน่ใจหรือไม่ว่าต้องการเลิกติดตามผู้ใช้นี้?",
+      "loginToChat": "คุณต้องเข้าสู่ระบบเพื่อเริ่มแชท",
+      "chatStarted": "เริ่มแชทสำเร็จ!",
+      "chatFailed": "ไม่สามารถเริ่มแชทได้ กรุณาลองใหม่",
+      "errorOccurred": "เกิดข้อผิดพลาด กรุณาลองใหม่"
+    },
+    "profile": {
+      "memberSince": "สมาชิกตั้งแต่ {{date}}",
+      "yearsOld": "{{age}} ปี",
+      "noPhotos": "ยังไม่มีรูปภาพ",
+      "aboutUser": "เกี่ยวกับ {{name}}",
+      "noBio": "{{name}} ยังไม่ได้เพิ่มประวัติ เริ่มการสนทนาเพื่อเรียนรู้เพิ่มเติม!",
+      "readyToPractice": "พร้อมฝึกกับ {{name}} หรือยัง?",
+      "practiceDescription": "เริ่มแชทและพัฒนาทักษะภาษาของคุณด้วยกัน!",
+      "online": "ออนไลน์",
+      "offline": "ออฟไลน์",
+      "justNow": "เมื่อกี้",
+      "minutesAgo": "{{count}} นาทีที่แล้ว",
+      "hoursAgo": "{{count}} ชั่วโมงที่แล้ว",
+      "daysAgo": "{{count}} วันที่แล้ว",
+      "recentlyActive": "ใช้งานเมื่อเร็วๆ นี้"
+    },
+    "stats": {
+      "followers": "ผู้ติดตาม",
+      "following": "กำลังติดตาม"
+    },
+    "language": {
+      "speaks": "พูด",
+      "learning": "กำลังเรียน",
+      "notSpecified": "ไม่ระบุ"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "ไม่มีรูปภาพ"
+    },
+    "navigation": {
+      "backToCommunity": "กลับไปที่ชุมชน"
+    },
+    "errors": {
+      "invalidProfileId": "ID โปรไฟล์ไม่ถูกต้อง",
+      "somethingWentWrong": "อ๊ะ! มีบางอย่างผิดพลาด",
+      "couldNotLoadProfile": "ไม่สามารถโหลดโปรไฟล์นี้ได้ กรุณาลองใหม่ภายหลัง",
+      "profileNotFound": "ไม่พบโปรไฟล์",
+      "profileDoesNotExist": "โปรไฟล์ผู้ใช้นี้ไม่มีอยู่หรือถูกลบแล้ว",
+      "loadingProfile": "กำลังโหลดโปรไฟล์..."
+    },
+    "buttons": {
+      "tryAgain": "ลองใหม่",
+      "backToCommunity": "กลับไปที่ชุมชน"
+    },
+    "stats": {
+      "followers": "ผู้ติดตาม",
+      "following": "กำลังติดตาม"
+    },
+    "actions": {
+      "following": "กำลังติดตาม",
+      "follow": "ติดตาม",
+      "startChat": "เริ่มแชท",
+      "videoCall": "วิดีโอคอล",
+      "startConversation": "เริ่มการสนทนา"
+    },
+    "languages": {
+      "speaks": "พูด",
+      "learning": "กำลังเรียน",
+      "notSpecified": "ไม่ระบุ"
+    },
+    "memberInfo": {
+      "yearsOld": "ปี",
+      "memberSince": "สมาชิกตั้งแต่"
+    },
+    "about": {
+      "aboutTitle": "เกี่ยวกับ",
+      "noBioMessage": "ยังไม่ได้เพิ่มประวัติ เริ่มการสนทนาเพื่อเรียนรู้เพิ่มเติม!"
+    },
+    "callToAction": {
+      "title": "พร้อมฝึกกับ",
+      "subtitle": "เริ่มแชทและพัฒนาทักษะภาษาของคุณด้วยกัน!"
+    },
+    "toasts": {
+      "needLogin": "คุณต้องเข้าสู่ระบบเพื่อ",
+      "followUsers": "ติดตามผู้ใช้",
+      "unfollowUsers": "เลิกติดตามผู้ใช้",
+      "startChat": "เริ่มแชท",
+      "failedToFollow": "ไม่สามารถติดตามผู้ใช้ได้ กรุณาลองใหม่",
+      "successfullyFollowed": "ติดตามสำเร็จ!",
+      "successfullyUnfollowed": "เลิกติดตามสำเร็จ",
+      "failedToUnfollow": "ไม่สามารถเลิกติดตามผู้ใช้ได้ กรุณาลองใหม่",
+      "failedToStartChat": "ไม่สามารถเริ่มแชทได้ กรุณาลองใหม่",
+      "initiatingCall": "กำลังเริ่มการโทรกับ",
+      "errorOccurred": "เกิดข้อผิดพลาด กรุณาลองใหม่"
+    },
+    "confirmations": {
+      "unfollowConfirm": "คุณแน่ใจหรือไม่ว่าต้องการเลิกติดตามผู้ใช้นี้?"
+    },
+    "accessibility": {
+      "viewPhoto": "ดูรูปภาพ",
+      "userPhoto": "รูปภาพของ"
+    },
+    "fallbacks": {
+      "defaultUser": "ผู้ใช้"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "เรียนรู้",
+      "subtitle": "ทำดีต่อไปนะ!",
+      "currentStreak": "สตรีคปัจจุบัน",
+      "days": "วัน",
+      "longest": "ยาวที่สุด",
+      "dailyGoal": "เป้าหมายรายวัน",
+      "goalComplete": "ทำเป้าหมายรายวันสำเร็จ!",
+      "quickActions": "การดำเนินการด่วน",
+      "review": "ทบทวน",
+      "practiceWords": "ฝึกคำศัพท์",
+      "lessons": "บทเรียน",
+      "learnNew": "เรียนเนื้อหาใหม่",
+      "quiz": "แบบทดสอบ",
+      "testKnowledge": "ทดสอบความรู้ของคุณ",
+      "leaderboard": "กระดานผู้นำ",
+      "seeRankings": "ดูอันดับ",
+      "yourProgress": "ความก้าวหน้าของคุณ",
+      "words": "คำศัพท์",
+      "lessonsLabel": "บทเรียน",
+      "level": "ระดับ",
+      "vocabulary": "คำศัพท์",
+      "wordsLearned": "คำที่เรียนแล้ว",
+      "achievements": "ความสำเร็จ",
+      "unlocked": "ปลดล็อกแล้ว",
+      "challenges": "ความท้าทาย",
+      "joinChallenges": "เข้าร่วมความท้าทายรายสัปดาห์"
+    },
+    "vocabulary": {
+      "title": "คำศัพท์",
+      "searchPlaceholder": "ค้นหาคำศัพท์...",
+      "addWord": "เพิ่มคำศัพท์",
+      "noWords": "ยังไม่มีคำศัพท์",
+      "startAdding": "เริ่มเพิ่มคำศัพท์ในรายการของคุณ",
+      "word": "คำศัพท์",
+      "translation": "คำแปล",
+      "level": "ระดับ",
+      "nextReview": "การทบทวนถัดไป"
+    },
+    "review": {
+      "title": "ทบทวน",
+      "cardsLeft": "การ์ดที่เหลือ",
+      "showAnswer": "แสดงคำตอบ",
+      "correct": "ถูกต้อง",
+      "incorrect": "ไม่ถูกต้อง",
+      "sessionComplete": "เสร็จสิ้นเซสชัน!",
+      "greatJob": "เก่งมาก! คุณทบทวนครบทั้งหมดแล้ว",
+      "backToDashboard": "กลับไปที่แดชบอร์ด"
+    },
+    "lessons": {
+      "title": "บทเรียน",
+      "continue": "ดำเนินการต่อ",
+      "start": "เริ่ม",
+      "completed": "เสร็จสิ้น",
+      "progress": "ความก้าวหน้า"
+    },
+    "quizzes": {
+      "title": "แบบทดสอบ",
+      "questions": "คำถาม",
+      "startQuiz": "เริ่มแบบทดสอบ",
+      "score": "คะแนน"
+    },
+    "leaderboard": {
+      "title": "กระดานผู้นำ",
+      "weekly": "รายสัปดาห์",
+      "monthly": "รายเดือน",
+      "allTime": "ตลอดกาล",
+      "you": "คุณ",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "ความสำเร็จ",
+      "unlocked": "ปลดล็อกแล้ว",
+      "locked": "ล็อกอยู่",
+      "progress": "ความก้าวหน้า"
+    },
+    "challenges": {
+      "title": "ความท้าทาย",
+      "join": "เข้าร่วม",
+      "joined": "เข้าร่วมแล้ว",
+      "daysLeft": "วันที่เหลือ",
+      "participants": "ผู้เข้าร่วม"
+    }
+  },
+  "settings": {
+    "title": "การตั้งค่า",
+    "subtitle": "จัดการบัญชีและการตั้งค่าของคุณ",
+    "editProfile": "แก้ไข",
+    "logout": "ออกจากระบบ",
+    "logoutSuccess": "ออกจากระบบสำเร็จ",
+    "sections": {
+      "account": "บัญชี",
+      "privacy": "ความเป็นส่วนตัว",
+      "notifications": "การแจ้งเตือน",
+      "vip": "VIP",
+      "language": "ภาษา",
+      "support": "สนับสนุน"
+    },
+    "items": {
+      "editProfile": "แก้ไขโปรไฟล์",
+      "editProfileDesc": "อัปเดตข้อมูลส่วนตัวของคุณ",
+      "changePassword": "เปลี่ยนรหัสผ่าน",
+      "changePasswordDesc": "อัปเดตรหัสผ่านของคุณ",
+      "emailSettings": "การตั้งค่าอีเมล",
+      "emailSettingsDesc": "จัดการการตั้งค่าอีเมล",
+      "privacySettings": "การตั้งค่าความเป็นส่วนตัว",
+      "privacySettingsDesc": "ควบคุมว่าใครสามารถเห็นข้อมูลของคุณ",
+      "blockedUsers": "ผู้ใช้ที่ถูกบล็อก",
+      "blockedUsersDesc": "จัดการบัญชีที่ถูกบล็อก",
+      "closeFriends": "เพื่อนสนิท",
+      "closeFriendsDesc": "จัดการรายชื่อเพื่อนสนิทของคุณ",
+      "pushNotifications": "การแจ้งเตือนแบบพุช",
+      "pushNotificationsDesc": "จัดการการตั้งค่าการแจ้งเตือน",
+      "chatSettings": "การตั้งค่าแชท",
+      "chatSettingsDesc": "การตั้งค่าข้อความและแชท",
+      "manageSubscription": "จัดการการสมัครสมาชิก",
+      "vipActive": "VIP ใช้งานอยู่",
+      "upgradeToPremium": "อัปเกรดเป็นพรีเมียม",
+      "languageSettings": "การตั้งค่าภาษา",
+      "languageSettingsDesc": "เปลี่ยนภาษาแอปและภาษาที่เรียน",
+      "helpCenter": "ศูนย์ช่วยเหลือ",
+      "helpCenterDesc": "รับความช่วยเหลือและการสนับสนุน"
+    },
+    "privacySettings": {
+      "title": "การตั้งค่าความเป็นส่วนตัว",
+      "profileVisibility": "การมองเห็นโปรไฟล์",
+      "onlineStatus": "แสดงสถานะออนไลน์",
+      "lastSeen": "แสดงเห็นล่าสุด",
+      "readReceipts": "การอ่านข้อความแล้ว"
+    },
+    "notificationSettings": {
+      "title": "การตั้งค่าการแจ้งเตือน",
+      "pushNotifications": "การแจ้งเตือนแบบพุช",
+      "messages": "ข้อความ",
+      "likes": "ถูกใจ",
+      "followers": "ผู้ติดตามใหม่",
+      "waves": "การโบกมือ",
+      "emailDigest": "สรุปอีเมล"
+    },
+    "languageSettings": {
+      "title": "การตั้งค่าภาษา",
+      "appLanguage": "ภาษาแอป",
+      "nativeLanguage": "ภาษาแม่",
+      "learningLanguage": "ภาษาที่กำลังเรียน"
+    },
+    "vipSettings": {
+      "title": "สถานะ VIP",
+      "currentPlan": "แผนปัจจุบัน",
+      "free": "ฟรี",
+      "premium": "พรีเมียม",
+      "features": "ฟีเจอร์",
+      "upgrade": "อัปเกรดเป็น VIP"
+    }
+  },
+  "waves": {
+    "title": "การโบกมือ",
+    "received": "ได้รับ",
+    "sent": "ส่งแล้ว",
+    "accept": "ยอมรับ",
+    "decline": "ปฏิเสธ",
+    "noWaves": "ยังไม่มีการโบกมือ",
+    "sendWave": "ส่งการโบกมือเพื่อเริ่มเชื่อมต่อ!"
+  },
+  "topics": {
+    "title": "หัวข้อ",
+    "myTopics": "หัวข้อของฉัน",
+    "browseTopics": "เรียกดูหัวข้อ",
+    "usersInterested": "ผู้ใช้ที่สนใจ"
+  },
+  "nearby": {
+    "title": "ผู้ใช้ใกล้เคียง",
+    "enableLocation": "เปิดใช้ตำแหน่งที่ตั้ง",
+    "locationRequired": "ต้องเข้าถึงตำแหน่งที่ตั้งเพื่อค้นหาผู้ใช้ใกล้เคียง",
+    "noUsersNearby": "ไม่มีผู้ใช้ใกล้เคียง",
+    "tryExpandingRadius": "ลองขยายรัศมีการค้นหาของคุณ"
+  },
+  "home": {
+    "hero": {
+      "badge": "แลกเปลี่ยนภาษาง่ายๆ",
+      "titlePart1": "เรียนภาษาโดยการ",
+      "titleHighlight": "พูด",
+      "titlePart2": "กับเจ้าของภาษา",
+      "description": "เชื่อมต่อกับผู้เรียนภาษานับล้านทั่วโลก ฝึกพูด พัฒนาความคล่อง และหาเพื่อนจากทุกมุมโลก",
+      "stats": {
+        "users": "ผู้ใช้ที่ใช้งาน",
+        "languages": "ภาษา",
+        "countries": "ประเทศ"
+      },
+      "getStarted": "เริ่มต้นฟรี",
+      "browseCommunity": "เรียกดูชุมชน",
+      "lovedBy": "เป็นที่ชื่นชอบของผู้เรียนกว่า 5 ล้านคน",
+      "chatPreview": {
+        "message1": "สวัสดี! สบายดีไหม? 👋",
+        "message2": "Hey! I'm practicing Thai!",
+        "message3": "ดีมาก! มาฝึกด้วยกันนะ 🇹🇭"
+      }
+    },
+    "sections": {
+      "features": "ฟีเจอร์",
+      "howItWorks": "วิธีการทำงาน",
+      "pricing": "ราคา"
+    },
+    "features": {
+      "title": "ทุกอย่างที่คุณต้องการในการเรียน",
+      "subtitle": "เครื่องมือที่ทรงพลังออกแบบมาเพื่อเร่งการเรียนรู้ภาษาของคุณ",
+      "chat": {
+        "title": "แชทแบบเรียลไทม์",
+        "description": "ฝึกสนทนากับเจ้าของภาษาผ่านข้อความแบบทันที"
+      },
+      "video": {
+        "title": "วิดีโอคอล",
+        "description": "ฝึกภาษาแบบตัวต่อตัวกับคู่ฝึกทั่วโลก"
+      },
+      "lessons": {
+        "title": "บทเรียนแบบโต้ตอบ",
+        "description": "เรียนรู้ด้วยหลักสูตรที่มีโครงสร้างและแบบฝึกหัดรายวัน"
+      },
+      "voice": {
+        "title": "ข้อความเสียง",
+        "description": "พัฒนาการออกเสียงของคุณด้วยการแลกเปลี่ยนเสียง"
+      },
+      "community": {
+        "title": "ชุมชน",
+        "description": "เข้าร่วมกับผู้เรียนภาษานับล้านทั่วโลก"
+      },
+      "languages": {
+        "title": "กว่า 50 ภาษา",
+        "description": "จากสเปนถึงเกาหลี ค้นหาเส้นทางการเรียนของคุณ"
+      }
+    },
+    "howItWorks": {
+      "title": "เริ่มเรียนใน 3 ขั้นตอน",
+      "subtitle": "เริ่มต้นในไม่กี่นาทีและเริ่มการเดินทางทางภาษาของคุณวันนี้"
+    },
+    "steps": {
+      "profile": {
+        "title": "สร้างโปรไฟล์ของคุณ",
+        "description": "บอกเราเกี่ยวกับภาษาแม่ของคุณและสิ่งที่คุณต้องการเรียน"
+      },
+      "partners": {
+        "title": "ค้นหาคู่ฝึก",
+        "description": "เรียกดูชุมชนของเราและค้นหาคู่แลกเปลี่ยนภาษาที่สมบูรณ์แบบ"
+      },
+      "learn": {
+        "title": "เริ่มเรียน",
+        "description": "แชท โทร และฝึกกับเจ้าของภาษาทุกวัน"
+      }
+    },
+    "pricing": {
+      "title": "เลือกแผนของคุณ",
+      "subtitle": "เริ่มต้นฟรีและอัปเกรดเมื่อคุณพร้อม",
+      "mostPopular": "ยอดนิยม",
+      "getStarted": "เริ่มต้น",
+      "free": {
+        "name": "ฟรี",
+        "period": "ตลอดไป",
+        "features": {
+          "messaging": "ข้อความพื้นฐาน",
+          "connections": "5 การเชื่อมต่อใหม่/วัน",
+          "community": "เข้าถึงชุมชน",
+          "lessons": "บทเรียนพื้นฐาน"
+        }
+      },
+      "premium": {
+        "name": "พรีเมียม",
+        "period": "/เดือน",
+        "features": {
+          "messaging": "ข้อความไม่จำกัด",
+          "connections": "การเชื่อมต่อไม่จำกัด",
+          "video": "วิดีโอคอล",
+          "lessons": "บทเรียนขั้นสูง",
+          "noAds": "ไม่มีโฆษณา",
+          "translation": "เครื่องมือแปลภาษา"
+        }
+      },
+      "lifetime": {
+        "name": "ตลอดชีพ",
+        "period": "จ่ายครั้งเดียว",
+        "features": {
+          "everything": "ทุกอย่างในพรีเมียม",
+          "forever": "เข้าถึงตลอดไป",
+          "support": "การสนับสนุนลำดับความสำคัญ",
+          "early": "ฟีเจอร์ล่วงหน้า",
+          "badges": "ตราสัญลักษณ์พิเศษ"
+        }
+      }
+    },
+    "download": {
+      "badge": "ดาวน์โหลดแอป",
+      "title": "พา BananaTalk ไปทุกที่",
+      "description": "เรียนรู้ขณะเดินทางด้วยแอปมือถือของเรา พร้อมใช้งานบน iOS และ Android พร้อมฟีเจอร์ทั้งหมด การแจ้งเตือนแบบพุช และการเข้าถึงแบบออฟไลน์",
+      "downloadOn": "ดาวน์โหลดบน",
+      "getItOn": "ดาวน์โหลดได้ที่",
+      "scanQR": "สแกนเพื่อดาวน์โหลดแอป",
+      "or": "หรือ",
+      "features": {
+        "offline": "เข้าถึงแบบออฟไลน์",
+        "push": "การแจ้งเตือนแบบพุช",
+        "fast": "เร็วและเบา"
+      }
+    },
+    "cta": {
+      "title": "พร้อมเริ่มต้นการเดินทางทางภาษาของคุณหรือยัง?",
+      "description": "เข้าร่วมกับผู้เรียนนับล้านและเริ่มพูดภาษาใหม่วันนี้",
+      "button": "สร้างบัญชีฟรี"
+    }
+  },
+  "vip": {
+    "title": "สมาชิก VIP",
+    "subtitle": "ปลดล็อกฟีเจอร์พรีเมียม",
+    "status": {
+      "active": "VIP ใช้งานอยู่",
+      "free": "แผนฟรี",
+      "activeDesc": "เพลิดเพลินกับฟีเจอร์พรีเมียมทั้งหมด",
+      "freeDesc": "อัปเกรดเพื่อปลดล็อกฟีเจอร์เพิ่มเติม"
+    },
+    "expiresOn": "หมดอายุ",
+    "plans": {
+      "free": "ฟรี",
+      "vip": "VIP"
+    },
+    "perMonth": "เดือน",
+    "saveAnnually": "ประหยัด 20% ด้วยแผนรายปี",
+    "popular": "ยอดนิยม",
+    "upgradeNow": "อัปเกรดเป็น VIP",
+    "upgradeInApp": "อัปเกรดผ่านแอปมือถือ",
+    "upgradeInAppDesc": "การสมัครสมาชิก VIP สามารถซื้อได้ผ่านแอปมือถือของเราเท่านั้น",
+    "manageSubscription": "จัดการการสมัครสมาชิก",
+    "cancelSubscription": "ยกเลิกการสมัครสมาชิก",
+    "manageInApp": "หากต้องการจัดการการสมัครสมาชิก กรุณาใช้แอปมือถือ BananaTalk",
+    "features": {
+      "limitedMessages": "ข้อความจำกัดต่อวัน",
+      "basicProfile": "โปรไฟล์พื้นฐาน",
+      "basicSearch": "การค้นหาพื้นฐาน",
+      "unlimitedMessages": "ข้อความไม่จำกัด",
+      "seeProfileVisitors": "ดูว่าใครเยี่ยมชมโปรไฟล์ของคุณ",
+      "advancedFilters": "ตัวกรองการค้นหาขั้นสูง",
+      "noAds": "ไม่มีโฆษณา",
+      "prioritySupport": "การสนับสนุนลำดับความสำคัญ",
+      "exclusiveBadge": "ตราสัญลักษณ์ VIP พิเศษ",
+      "translationFeature": "การแปลข้อความ"
+    }
+  }
+}

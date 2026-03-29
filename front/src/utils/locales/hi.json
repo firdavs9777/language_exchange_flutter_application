@@ -1,0 +1,924 @@
+{
+  "greeting": "नमस्ते",
+  "footer": {
+    "aboutUs": "हमारे बारे में",
+    "aboutDescription": "BananaTalk आपको नई भाषाएँ सीखने और दुनिया भर के मूल भाषी लोगों से जुड़ने में मदद करने के लिए समर्पित है।",
+    "quickLinks": "त्वरित लिंक",
+    "links": {
+      "home": "होम",
+      "about": "परिचय",
+      "services": "सेवाएँ",
+      "pricing": "मूल्य निर्धारण",
+      "contact": "संपर्क"
+    },
+    "contactInfo": "संपर्क जानकारी",
+    "address": "सियोल, दक्षिण कोरिया, गंगनम-गु",
+    "follow": "फॉलो करें",
+    "newsletter": "न्यूज़लेटर",
+    "newsletterDescription": "अपडेट और ऑफ़र के लिए हमारे न्यूज़लेटर की सदस्यता लें।",
+    "emailPlaceholder": "आपका ईमेल पता",
+    "allRightsReserved": "सर्वाधिकार सुरक्षित।"
+  },
+  "community": "समुदाय",
+  "chat": "चैट",
+  "chatPage": {
+    "messages": "संदेश",
+    "searchPlaceholder": "बातचीत खोजें...",
+    "startConversation": "बातचीत शुरू करें",
+    "emptyDescription": "साइडबार से कोई चैट चुनें या दुनिया भर के भाषा साथियों से जुड़ने के लिए नई बातचीत शुरू करें।",
+    "newConversation": "नई बातचीत",
+    "features": {
+      "realtime": "रियल-टाइम मैसेजिंग",
+      "exchange": "भाषा विनिमय",
+      "calls": "वॉइस और वीडियो कॉल"
+    },
+    "online": "ऑनलाइन",
+    "offline": "ऑफ़लाइन",
+    "lastSeen": "अंतिम बार देखा गया",
+    "typing": "टाइप कर रहा है...",
+    "loadingConversation": "बातचीत लोड हो रही है...",
+    "errorLoading": "बातचीत लोड करने में त्रुटि",
+    "messagePlaceholder": "अपना संदेश लिखें...",
+    "justNow": "अभी",
+    "minutesAgo": "{{count}} मिनट पहले",
+    "hoursAgo": "{{count}} घंटे पहले",
+    "unknownUser": "अज्ञात उपयोगकर्ता"
+  },
+  "notifications": "सूचनाएँ",
+  "moments": "मोमेंट्स",
+  "language": "भाषा",
+  "english": "अंग्रेज़ी",
+  "korean": "कोरियाई",
+  "chinese": "चीनी",
+  "followers": "फॉलोअर्स",
+  "followings": "फॉलोइंग",
+  "my_moments": "मेरे मोमेंट्स",
+  "logout": "लॉग आउट",
+  "sign_in": "साइन इन",
+  "image_upload": {
+    "image_drop": "कृपया केवल इमेज फ़ाइलें ड्रॉप करें",
+    "max_upload_warning": "आप केवल {{count}} और इमेज अपलोड कर सकते हैं।",
+    "no_images_error": "कृपया कम से कम एक इमेज अपलोड करें",
+    "removed_from_selection": "इमेज चयन से हटाई गई",
+    "deleted_success": "इमेज सफलतापूर्वक हटाई गई",
+    "replaced_success": "इमेज सफलतापूर्वक बदली गई",
+    "current_images": "मौजूदा इमेज",
+    "no_images_uploaded": "अभी तक कोई इमेज अपलोड नहीं की गई",
+    "new_images": "नई इमेज",
+    "no_new_images": "कोई नई इमेज नहीं चुनी गई",
+    "drop_images_here": "इमेज यहाँ ड्रॉप करें या",
+    "select_files": "फ़ाइलें चुनें",
+    "remaining_slots": "आप {{count}} और {{item}} जोड़ सकते हैं",
+    "image": "इमेज",
+    "images": "इमेज",
+    "cancel": "रद्द करें",
+    "save_changes": "परिवर्तन सहेजें",
+    "replace_image": "बदलें",
+    "delete_image": "इमेज हटाएँ",
+    "remove_from_selection": "चयन से हटाएँ",
+    "image_gallery": "इमेज गैलरी"
+  },
+  "profile": {
+    "title": "मेरी प्रोफ़ाइल",
+    "edit_profile": "प्रोफ़ाइल संपादित करें",
+    "photos": "फ़ोटो",
+    "messages": {
+      "image_update_success": "प्रोफ़ाइल इमेज सफलतापूर्वक अपडेट की गई",
+      "image_update_failure": "प्रोफ़ाइल इमेज अपडेट करने में विफल",
+      "image_delete_success": "फ़ोटो सफलतापूर्वक हटाई गई",
+      "image_delete_failure": "फ़ोटो हटाने में विफल",
+      "profile_update_success": "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई",
+      "profile_update_failure": "प्रोफ़ाइल अपडेट करने में विफल",
+      "error_loading_profile": "उपयोगकर्ता प्रोफ़ाइल लोड करने में त्रुटि",
+      "no_profile_data": "कोई उपयोगकर्ता प्रोफ़ाइल डेटा उपलब्ध नहीं है",
+      "unknown_error": "एक अज्ञात त्रुटि हुई",
+      "no_bio": "कोई बायो जानकारी उपलब्ध नहीं है",
+      "not_specified": "निर्दिष्ट नहीं"
+    },
+    "stats": {
+      "followers": "फॉलोअर्स",
+      "no_followers": "आपका अभी तक कोई फॉलोअर नहीं है।",
+      "follower_error": "फॉलोअर्स लोड करने में त्रुटि। कृपया बाद में पुनः प्रयास करें।",
+      "following": "फॉलोइंग",
+      "no_following": "आप अभी तक किसी को फॉलो नहीं कर रहे हैं।",
+      "following_error": "फॉलोइंग सूची लोड करने में त्रुटि। कृपया बाद में पुनः प्रयास करें।",
+      "moments": "मोमेंट्स",
+      "visitors": "विज़िटर्स"
+    },
+    "visitors": {
+      "title": "प्रोफ़ाइल विज़िटर्स",
+      "error": "विज़िटर्स लोड करने में त्रुटि",
+      "no_visitors": "अभी तक कोई विज़िटर नहीं",
+      "no_visitors_desc": "जब लोग आपकी प्रोफ़ाइल देखेंगे, तो वे यहाँ दिखाई देंगे",
+      "total_visits": "कुल विज़िट",
+      "unique_visitors": "अद्वितीय विज़िटर्स",
+      "visits_today": "आज",
+      "visits_week": "इस सप्ताह",
+      "via_moments": "मोमेंट्स से",
+      "via_search": "खोज से",
+      "via_chat": "चैट से",
+      "via_direct": "सीधे",
+      "via_followers": "फॉलोअर्स से",
+      "vipOnly": "VIP सुविधा",
+      "vipOnlyDesc": "VIP में अपग्रेड करके देखें कि आपकी प्रोफ़ाइल किसने देखी। यह सुविधा विशेष रूप से VIP सदस्यों के लिए उपलब्ध है।",
+      "vipBenefits": "VIP लाभ",
+      "learnMore": "VIP के बारे में और जानें"
+    },
+    "sections": {
+      "personal_info": "व्यक्तिगत जानकारी",
+      "bio": "बायो",
+      "languages": "भाषाएँ",
+      "personality": "व्यक्तित्व",
+      "topics": "विषय और रुचियाँ"
+    },
+    "labels": {
+      "name": "नाम",
+      "username": "यूज़रनेम",
+      "email": "ईमेल",
+      "gender": "लिंग",
+      "birthday": "जन्मदिन",
+      "native_language": "मातृभाषा",
+      "learning": "सीख रहे हैं",
+      "of": "में से",
+      "mbti": "MBTI प्रकार",
+      "blood_type": "रक्त समूह",
+      "topics_hint": "अपनी रुचि के विषय चुनें (अधिकतम 10)",
+      "selected": "चयनित"
+    },
+    "hints": {
+      "username_readonly": "यूज़रनेम बदला नहीं जा सकता"
+    },
+    "placeholders": {
+      "bio": "अपने बारे में कुछ लिखें",
+      "select_gender": "लिंग चुनें",
+      "select_date": "तारीख़ चुनें",
+      "select_native_language": "मातृभाषा चुनें",
+      "select_learning_language": "सीखने की भाषा चुनें"
+    },
+    "options": {
+      "male": "पुरुष",
+      "female": "महिला"
+    },
+    "actions": {
+      "edit": "संपादित करें",
+      "save": "सहेजें",
+      "cancel": "रद्द करें",
+      "edit_photo": "फ़ोटो संपादित करें",
+      "clear": "चयन साफ़ करें"
+    },
+    "buttons": {
+      "edit": "संपादित करें",
+      "save": "सहेजें",
+      "cancel": "रद्द करें"
+    },
+    "topics": {
+      "music": "संगीत",
+      "movies": "फ़िल्में",
+      "travel": "यात्रा",
+      "sports": "खेल",
+      "gaming": "गेमिंग",
+      "food": "भोजन",
+      "art": "कला",
+      "photography": "फ़ोटोग्राफ़ी",
+      "reading": "पढ़ना",
+      "fitness": "फ़िटनेस",
+      "technology": "प्रौद्योगिकी",
+      "fashion": "फ़ैशन",
+      "cooking": "खाना बनाना",
+      "nature": "प्रकृति",
+      "pets": "पालतू जानवर",
+      "anime": "एनीमे",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "भाषाएँ",
+      "culture": "संस्कृति"
+    }
+  },
+  "moments_section": {
+    "title": "मोमेंट्स",
+    "question": "क्या चल रहा है,",
+    "loading": "लोड हो रहा है",
+    "loading_moments": "मोमेंट्स लोड हो रहे हैं...",
+    "error_loading": "मोमेंट्स लोड करने में त्रुटि",
+    "error_info": "हम मोमेंट्स लोड नहीं कर सके। कृपया बाद में पुनः प्रयास करें।",
+    "retry_btn": "पुनः प्रयास करें",
+    "no_moments": "कोई मोमेंट नहीं",
+    "first_to_moment": "समुदाय के साथ अपने विशेष पलों को साझा करने वाले पहले व्यक्ति बनें",
+    "share_moment": "मोमेंट साझा करें",
+    "moment_login_error": "मोमेंट्स को लाइक करने के लिए कृपया लॉगिन करें",
+    "moment_like_error": "लाइक स्थिति अपडेट करने में विफल",
+    "moment_like": "लाइक",
+    "moment_comment": "टिप्पणी",
+    "moment_share": "शेयर",
+    "no_comments": "अभी तक कोई टिप्पणी नहीं। पहली टिप्पणी करें!",
+    "invalidMomentId": "अमान्य मोमेंट आईडी",
+    "loadingMoment": "मोमेंट विवरण लोड हो रहे हैं...",
+    "noDetailsFound": "कोई विवरण नहीं मिला",
+    "goBack": "वापस जाएँ",
+    "momentDetails": "मोमेंट विवरण",
+    "pleaseLoginFirst": "कृपया पहले लॉगिन करें",
+    "removedLike": "लाइक हटाया गया",
+    "likedMoment": "मोमेंट लाइक किया",
+    "failedToUpdateLike": "लाइक स्थिति अपडेट करने में विफल",
+    "emptyCommentError": "कृपया टिप्पणी लिखें",
+    "commentAdded": "टिप्पणी जोड़ी गई",
+    "failedToAddComment": "टिप्पणी जोड़ने में विफल",
+    "loadingComments": "टिप्पणियाँ लोड हो रही हैं...",
+    "writeCommentPlaceholder": "टिप्पणी लिखें...",
+    "signInToComment": "टिप्पणी करने के लिए कृपया साइन इन करें",
+    "signIn": "साइन इन",
+    "noCommentsYet": "अभी तक कोई टिप्पणी नहीं। पहली टिप्पणी करें!",
+    "commentsCount": "{{count}} टिप्पणियाँ",
+    "comments": "टिप्पणियाँ",
+    "likeButton": "लाइक",
+    "commentButton": "टिप्पणी",
+    "shareButton": "शेयर",
+    "timeAgo": {
+      "justNow": "अभी",
+      "minutesAgo": "{{minutes}} मिनट पहले",
+      "hoursAgo": "{{hours}} घंटे पहले",
+      "daysAgo": "{{days}} दिन पहले"
+    }
+  },
+  "createMoment": {
+    "title": "मोमेंट बनाएँ",
+    "form": {
+      "titleLabel": "शीर्षक",
+      "titlePlaceholder": "शीर्षक दर्ज करें",
+      "descriptionLabel": "विवरण",
+      "descriptionPlaceholder": "विवरण दर्ज करें",
+      "imagesLabel": "इमेज अपलोड करें",
+      "maxImagesText": "अधिकतम 10 इमेज अनुमत हैं",
+      "addMoreText": "और जोड़ें",
+      "submitButton": "पोस्ट करें",
+      "submittingButton": "पोस्ट हो रहा है...",
+      "cancelButton": "रद्द करें"
+    },
+    "toast": {
+      "maxImagesError": "आप अधिकतम 10 इमेज अपलोड कर सकते हैं",
+      "createSuccess": "मोमेंट सफलतापूर्वक बनाया गया!",
+      "createError": "मोमेंट बनाने में विफल।"
+    }
+  },
+  "editMoment": {
+    "title": "मोमेंट संपादित करें",
+    "toast": {
+      "maxImagesError": "आप अधिकतम 10 इमेज अपलोड कर सकते हैं",
+      "updateSuccess": "मोमेंट सफलतापूर्वक अपडेट किया गया!",
+      "updateError": "मोमेंट अपडेट करने में विफल। कृपया पुनः प्रयास करें।",
+      "notAuthorized": "आप इस मोमेंट को संपादित करने के लिए अधिकृत नहीं हैं"
+    },
+    "form": {
+      "titleLabel": "शीर्षक",
+      "titlePlaceholder": "अपने मोमेंट के लिए शीर्षक दर्ज करें",
+      "descriptionLabel": "विवरण",
+      "descriptionPlaceholder": "अपने मोमेंट के बारे में बताएँ...",
+      "imagesLabel": "इमेज",
+      "maxImagesText": "आप अधिकतम 10 इमेज अपलोड कर सकते हैं (प्रत्येक अधिकतम 5MB)",
+      "existingImagesLabel": "मौजूदा इमेज",
+      "newImagesLabel": "नई इमेज",
+      "addMoreText": "और जोड़ें",
+      "updateButton": "मोमेंट अपडेट करें",
+      "updatingButton": "अपडेट हो रहा है...",
+      "cancelButton": "रद्द करें"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "अपना ईमेल दर्ज करें",
+      "emailLabel": "ईमेल पता",
+      "emailPlaceholder": "ईमेल दर्ज करें",
+      "sendButton": "कोड भेजें",
+      "sendingButton": "भेजा जा रहा है...",
+      "successMessage": "सत्यापन कोड सफलतापूर्वक भेजा गया!",
+      "errorPrefix": "त्रुटि: "
+    },
+    "passwordReset": {
+      "successMessage": "पासवर्ड सफलतापूर्वक रीसेट किया गया, कृपया लॉगिन करें!"
+    },
+    "login": {
+      "signInWithGoogle": "Google से साइन इन करें",
+      "title": "साइन इन",
+      "emailLabel": "ईमेल पता",
+      "emailPlaceholder": "ईमेल दर्ज करें",
+      "passwordLabel": "पासवर्ड",
+      "passwordPlaceholder": "पासवर्ड दर्ज करें",
+      "forgotPassword": "पासवर्ड भूल गए?",
+      "signInButton": "साइन इन",
+      "signingInButton": "साइन इन हो रहा है...",
+      "newUserText": "नए उपयोगकर्ता?",
+      "registerLink": "रजिस्टर करें",
+      "successMessage": "सफलतापूर्वक लॉगिन हो गया",
+      "invalidCredentialsError": "अमान्य क्रेडेंशियल"
+    },
+    "account": {
+      "title": "अपना अकाउंट बनाएँ",
+      "name": "नाम",
+      "email": "ईमेल पता",
+      "password": "पासवर्ड",
+      "passwordRequirement": "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए",
+      "confirmPassword": "पासवर्ड की पुष्टि करें",
+      "continue": "जारी रखें",
+      "alreadyHaveAccount": "पहले से अकाउंट है?",
+      "login": "लॉगिन"
+    },
+    "profile": {
+      "title": "प्रोफ़ाइल जानकारी",
+      "bio": "बायो (वैकल्पिक)",
+      "bioPlaceholder": "हमें अपने बारे में कुछ बताएँ",
+      "gender": "लिंग",
+      "genderOptions": {
+        "select": "लिंग चुनें",
+        "male": "पुरुष",
+        "female": "महिला",
+        "other": "अन्य"
+      },
+      "birthDate": "जन्म तिथि",
+      "nativeLanguage": "मातृभाषा",
+      "selectLanguage": "भाषा चुनें",
+      "languageToLearn": "सीखने की भाषा",
+      "profileImages": "प्रोफ़ाइल इमेज",
+      "uploadPrompt": "प्रोफ़ाइल इमेज अपलोड करने के लिए क्लिक करें",
+      "selectImages": "इमेज चुनें",
+      "back": "वापस",
+      "processing": "प्रोसेस हो रहा है..."
+    },
+    "verification": {
+      "title": "ईमेल सत्यापन",
+      "sentMessage": "हमने आपके ईमेल पर सत्यापन कोड भेजा है:",
+      "verificationCode": "सत्यापन कोड",
+      "codePlaceholder": "6 अंकों का कोड दर्ज करें",
+      "verifyButton": "ईमेल सत्यापित करें",
+      "verifying": "सत्यापित हो रहा है...",
+      "resendCode": "सत्यापन कोड पुनः भेजें",
+      "sending": "भेजा जा रहा है...",
+      "backToProfile": "प्रोफ़ाइल पर वापस जाएँ",
+      "successMessage": "ईमेल सफलतापूर्वक सत्यापित हो गया!",
+      "completePrompt": "नीचे दिए गए बटन पर क्लिक करके अपना पंजीकरण पूरा करें।",
+      "completeRegistration": "पंजीकरण पूरा करें"
+    },
+    "progressBar": {
+      "account": "अकाउंट",
+      "profile": "प्रोफ़ाइल",
+      "verify": "सत्यापन"
+    },
+    "toasts": {
+      "passwordMismatch": "पासवर्ड मेल नहीं खाते",
+      "verificationSent": "सत्यापन कोड सफलतापूर्वक भेजा गया!",
+      "sendCodeFailed": "सत्यापन कोड भेजने में विफल",
+      "emailVerified": "ईमेल सफलतापूर्वक सत्यापित हो गया!",
+      "invalidCode": "अमान्य सत्यापन कोड",
+      "verifyFirst": "कृपया पहले अपना ईमेल सत्यापित करें",
+      "registrationSuccess": "पंजीकरण सफल!",
+      "registrationError": "पंजीकरण के दौरान त्रुटि"
+    }
+  },
+  "communityMain": {
+    "title": "भाषा विनिमय",
+    "subtitle": "दुनिया भर के भाषा सीखने वालों से जुड़ें",
+    "badge": "भाषा विनिमय समुदाय",
+    "heroTitle": "अपना सही",
+    "heroTitleHighlight": "भाषा साथी",
+    "heroDescription": "दुनिया भर के मूल भाषी लोगों से जुड़ें और साथ मिलकर भाषाओं का अभ्यास करें",
+    "stats": {
+      "activeLearners": "सक्रिय शिक्षार्थी",
+      "activeUsers": "सक्रिय उपयोगकर्ता",
+      "languages": "भाषाएँ",
+      "countries": "देश"
+    },
+    "search": {
+      "placeholder": "नाम, भाषा या रुचियों से खोजें...",
+      "loading": "भाषा साथी खोजे जा रहे हैं..."
+    },
+    "memberCard": {
+      "native": "मातृभाषा",
+      "learning": "सीख रहे हैं",
+      "defaultBio": "भाषाओं का अभ्यास करने और नए दोस्त बनाने के लिए तैयार!",
+      "onlineNow": "अभी ऑनलाइन",
+      "active": "सक्रिय",
+      "recently": "हाल ही में",
+      "justNow": "अभी",
+      "minutesAgo": "{{count}} मिनट पहले",
+      "hoursAgo": "{{count}} घंटे पहले",
+      "daysAgo": "{{count}} दिन पहले",
+      "overWeekAgo": "एक सप्ताह से अधिक पहले",
+      "actions": {
+        "wave": "वेव",
+        "message": "संदेश",
+        "like": "लाइक"
+      }
+    },
+    "tabs": {
+      "all": "सभी",
+      "popular": "लोकप्रिय",
+      "new": "नया"
+    },
+    "filters": {
+      "language": "भाषा",
+      "allLanguages": "सभी भाषाएँ",
+      "clear": "साफ़ करें"
+    },
+    "results": {
+      "showing": "{{count}} शानदार भाषा साथी{{plural}} दिखाए जा रहे हैं",
+      "membersFound": "{{count}} सदस्य मिले",
+      "noneFound": {
+        "title": "कोई सदस्य नहीं मिला",
+        "message": "अपने फ़िल्टर या खोज शब्दों को बदलकर देखें",
+        "resetFilters": "फ़िल्टर रीसेट करें"
+      }
+    },
+    "errors": {
+      "generic": "उफ़! कुछ गलत हो गया",
+      "loadError": "हम समुदाय लोड नहीं कर सके। कृपया पुनः प्रयास करें।",
+      "tryAgain": "पुनः प्रयास करें"
+    },
+    "loadMore": {
+      "loading": "लोड हो रहा है...",
+      "button": "और सदस्य लोड करें"
+    },
+    "cta": {
+      "title": "अपनी भाषा यात्रा शुरू करने के लिए तैयार हैं?",
+      "description": "अपनी प्रोफ़ाइल बनाएँ और दुनिया भर के भाषा साथियों से जुड़ें",
+      "getStarted": "मुफ़्त में शुरू करें",
+      "viewWaves": "वेव्स देखें"
+    },
+    "buttons": {
+      "clearFilters": "सभी फ़िल्टर साफ़ करें"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "अमान्य प्रोफ़ाइल आईडी",
+      "profileNotFound": "प्रोफ़ाइल नहीं मिली",
+      "profileNotFoundDesc": "यह उपयोगकर्ता प्रोफ़ाइल मौजूद नहीं है या हटा दी गई है।",
+      "somethingWentWrong": "उफ़! कुछ गलत हो गया",
+      "tryAgainLater": "हम यह प्रोफ़ाइल लोड नहीं कर सके। कृपया बाद में पुनः प्रयास करें।"
+    },
+    "buttons": {
+      "backToCommunity": "समुदाय पर वापस जाएँ",
+      "tryAgain": "पुनः प्रयास करें",
+      "follow": "फॉलो करें",
+      "following": "फॉलो कर रहे हैं",
+      "startChat": "चैट शुरू करें",
+      "videoCall": "वीडियो कॉल",
+      "startConversation": "बातचीत शुरू करें"
+    },
+    "loading": {
+      "loadingProfile": "प्रोफ़ाइल लोड हो रही है...",
+      "initiatingCall": "{{name}} के साथ कॉल शुरू हो रही है..."
+    },
+    "notifications": {
+      "loginToFollow": "उपयोगकर्ताओं को फॉलो करने के लिए आपको लॉगिन होना चाहिए",
+      "followSuccess": "सफलतापूर्वक फॉलो किया!",
+      "followFailed": "उपयोगकर्ता को फॉलो करने में विफल। कृपया पुनः प्रयास करें।",
+      "loginToUnfollow": "अनफ़ॉलो करने के लिए आपको लॉगिन होना चाहिए",
+      "unfollowSuccess": "सफलतापूर्वक अनफ़ॉलो किया",
+      "unfollowFailed": "अनफ़ॉलो करने में विफल। कृपया पुनः प्रयास करें।",
+      "confirmUnfollow": "क्या आप वाकई इस उपयोगकर्ता को अनफ़ॉलो करना चाहते हैं?",
+      "loginToChat": "चैट शुरू करने के लिए आपको लॉगिन होना चाहिए",
+      "chatStarted": "चैट सफलतापूर्वक शुरू हुई!",
+      "chatFailed": "चैट शुरू करने में विफल। कृपया पुनः प्रयास करें।",
+      "errorOccurred": "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+    },
+    "profile": {
+      "memberSince": "{{date}} से सदस्य",
+      "yearsOld": "{{age}} वर्ष",
+      "noPhotos": "अभी तक कोई फ़ोटो नहीं",
+      "aboutUser": "{{name}} के बारे में",
+      "noBio": "{{name}} ने अभी तक बायो नहीं जोड़ा है। उनके बारे में और जानने के लिए बातचीत शुरू करें!",
+      "readyToPractice": "{{name}} के साथ अभ्यास करने के लिए तैयार हैं?",
+      "practiceDescription": "चैटिंग शुरू करें और अपने भाषा कौशल को एक साथ सुधारें!",
+      "online": "ऑनलाइन",
+      "offline": "ऑफ़लाइन",
+      "justNow": "अभी",
+      "minutesAgo": "{{count}} मिनट पहले",
+      "hoursAgo": "{{count}} घंटे पहले",
+      "daysAgo": "{{count}} दिन पहले",
+      "recentlyActive": "हाल ही में सक्रिय"
+    },
+    "stats": {
+      "followers": "फॉलोअर्स",
+      "following": "फॉलोइंग"
+    },
+    "language": {
+      "speaks": "बोलते हैं",
+      "learning": "सीख रहे हैं",
+      "notSpecified": "निर्दिष्ट नहीं"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "कोई फ़ोटो उपलब्ध नहीं"
+    },
+    "navigation": {
+      "backToCommunity": "समुदाय पर वापस जाएँ"
+    },
+    "errors": {
+      "invalidProfileId": "अमान्य प्रोफ़ाइल आईडी",
+      "somethingWentWrong": "उफ़! कुछ गलत हो गया",
+      "couldNotLoadProfile": "हम यह प्रोफ़ाइल लोड नहीं कर सके। कृपया बाद में पुनः प्रयास करें।",
+      "profileNotFound": "प्रोफ़ाइल नहीं मिली",
+      "profileDoesNotExist": "यह उपयोगकर्ता प्रोफ़ाइल मौजूद नहीं है या हटा दी गई है।",
+      "loadingProfile": "प्रोफ़ाइल लोड हो रही है..."
+    },
+    "buttons": {
+      "tryAgain": "पुनः प्रयास करें",
+      "backToCommunity": "समुदाय पर वापस जाएँ"
+    },
+    "stats": {
+      "followers": "फॉलोअर्स",
+      "following": "फॉलोइंग"
+    },
+    "actions": {
+      "following": "फॉलो कर रहे हैं",
+      "follow": "फॉलो करें",
+      "startChat": "चैट शुरू करें",
+      "videoCall": "वीडियो कॉल",
+      "startConversation": "बातचीत शुरू करें"
+    },
+    "languages": {
+      "speaks": "बोलते हैं",
+      "learning": "सीख रहे हैं",
+      "notSpecified": "निर्दिष्ट नहीं"
+    },
+    "memberInfo": {
+      "yearsOld": "वर्ष",
+      "memberSince": "इससे सदस्य"
+    },
+    "about": {
+      "aboutTitle": "के बारे में",
+      "noBioMessage": "ने अभी तक बायो नहीं जोड़ा है। उनके बारे में और जानने के लिए बातचीत शुरू करें!"
+    },
+    "callToAction": {
+      "title": "अभ्यास करने के लिए तैयार हैं",
+      "subtitle": "चैटिंग शुरू करें और अपने भाषा कौशल को एक साथ सुधारें!"
+    },
+    "toasts": {
+      "needLogin": "आपको लॉगिन होना चाहिए",
+      "followUsers": "उपयोगकर्ताओं को फॉलो करने के लिए",
+      "unfollowUsers": "अनफ़ॉलो करने के लिए",
+      "startChat": "चैट शुरू करने के लिए",
+      "failedToFollow": "उपयोगकर्ता को फॉलो करने में विफल। कृपया पुनः प्रयास करें।",
+      "successfullyFollowed": "सफलतापूर्वक फॉलो किया!",
+      "successfullyUnfollowed": "सफलतापूर्वक अनफ़ॉलो किया",
+      "failedToUnfollow": "अनफ़ॉलो करने में विफल। कृपया पुनः प्रयास करें।",
+      "failedToStartChat": "चैट शुरू करने में विफल। कृपया पुनः प्रयास करें।",
+      "initiatingCall": "कॉल शुरू हो रही है",
+      "errorOccurred": "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+    },
+    "confirmations": {
+      "unfollowConfirm": "क्या आप वाकई इस उपयोगकर्ता को अनफ़ॉलो करना चाहते हैं?"
+    },
+    "accessibility": {
+      "viewPhoto": "फ़ोटो देखें",
+      "userPhoto": "की फ़ोटो"
+    },
+    "fallbacks": {
+      "defaultUser": "उपयोगकर्ता"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "सीखें",
+      "subtitle": "बहुत अच्छा काम कर रहे हैं!",
+      "currentStreak": "वर्तमान स्ट्रीक",
+      "days": "दिन",
+      "longest": "सबसे लंबा",
+      "dailyGoal": "दैनिक लक्ष्य",
+      "goalComplete": "दैनिक लक्ष्य पूरा हुआ!",
+      "quickActions": "त्वरित क्रियाएँ",
+      "review": "समीक्षा",
+      "practiceWords": "शब्दावली का अभ्यास करें",
+      "lessons": "पाठ",
+      "learnNew": "नई सामग्री सीखें",
+      "quiz": "क्विज़",
+      "testKnowledge": "अपने ज्ञान की परीक्षा लें",
+      "leaderboard": "लीडरबोर्ड",
+      "seeRankings": "रैंकिंग देखें",
+      "yourProgress": "आपकी प्रगति",
+      "words": "शब्द",
+      "lessonsLabel": "पाठ",
+      "level": "स्तर",
+      "vocabulary": "शब्दावली",
+      "wordsLearned": "शब्द सीखे",
+      "achievements": "उपलब्धियाँ",
+      "unlocked": "अनलॉक",
+      "challenges": "चुनौतियाँ",
+      "joinChallenges": "साप्ताहिक चुनौतियों में शामिल हों"
+    },
+    "vocabulary": {
+      "title": "शब्दावली",
+      "searchPlaceholder": "शब्द खोजें...",
+      "addWord": "शब्द जोड़ें",
+      "noWords": "अभी तक कोई शब्द नहीं",
+      "startAdding": "अपनी शब्दावली में शब्द जोड़ना शुरू करें",
+      "word": "शब्द",
+      "translation": "अनुवाद",
+      "level": "स्तर",
+      "nextReview": "अगली समीक्षा"
+    },
+    "review": {
+      "title": "समीक्षा",
+      "cardsLeft": "कार्ड शेष",
+      "showAnswer": "उत्तर दिखाएँ",
+      "correct": "सही",
+      "incorrect": "गलत",
+      "sessionComplete": "सत्र पूरा हुआ!",
+      "greatJob": "बहुत बढ़िया! आपने सभी समीक्षाएँ पूरी कर ली हैं।",
+      "backToDashboard": "डैशबोर्ड पर वापस जाएँ"
+    },
+    "lessons": {
+      "title": "पाठ",
+      "continue": "जारी रखें",
+      "start": "शुरू करें",
+      "completed": "पूरा हुआ",
+      "progress": "प्रगति"
+    },
+    "quizzes": {
+      "title": "क्विज़",
+      "questions": "प्रश्न",
+      "startQuiz": "क्विज़ शुरू करें",
+      "score": "स्कोर"
+    },
+    "leaderboard": {
+      "title": "लीडरबोर्ड",
+      "weekly": "साप्ताहिक",
+      "monthly": "मासिक",
+      "allTime": "सर्वकालिक",
+      "you": "आप",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "उपलब्धियाँ",
+      "unlocked": "अनलॉक",
+      "locked": "लॉक",
+      "progress": "प्रगति"
+    },
+    "challenges": {
+      "title": "चुनौतियाँ",
+      "join": "शामिल हों",
+      "joined": "शामिल हो गए",
+      "daysLeft": "दिन शेष",
+      "participants": "प्रतिभागी"
+    }
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "subtitle": "अपना अकाउंट और प्राथमिकताएँ प्रबंधित करें",
+    "editProfile": "संपादित करें",
+    "logout": "लॉग आउट",
+    "logoutSuccess": "सफलतापूर्वक लॉग आउट हो गया",
+    "sections": {
+      "account": "अकाउंट",
+      "privacy": "गोपनीयता",
+      "notifications": "सूचनाएँ",
+      "vip": "VIP",
+      "language": "भाषा",
+      "support": "सहायता"
+    },
+    "items": {
+      "editProfile": "प्रोफ़ाइल संपादित करें",
+      "editProfileDesc": "अपनी व्यक्तिगत जानकारी अपडेट करें",
+      "changePassword": "पासवर्ड बदलें",
+      "changePasswordDesc": "अपना पासवर्ड अपडेट करें",
+      "emailSettings": "ईमेल सेटिंग्स",
+      "emailSettingsDesc": "ईमेल प्राथमिकताएँ प्रबंधित करें",
+      "privacySettings": "गोपनीयता सेटिंग्स",
+      "privacySettingsDesc": "नियंत्रित करें कि आपकी जानकारी कौन देख सकता है",
+      "blockedUsers": "ब्लॉक किए गए उपयोगकर्ता",
+      "blockedUsersDesc": "ब्लॉक किए गए अकाउंट प्रबंधित करें",
+      "closeFriends": "क़रीबी दोस्त",
+      "closeFriendsDesc": "अपनी क़रीबी दोस्तों की सूची प्रबंधित करें",
+      "pushNotifications": "पुश सूचनाएँ",
+      "pushNotificationsDesc": "सूचना प्राथमिकताएँ प्रबंधित करें",
+      "chatSettings": "चैट सेटिंग्स",
+      "chatSettingsDesc": "संदेश और चैट प्राथमिकताएँ",
+      "manageSubscription": "सदस्यता प्रबंधित करें",
+      "vipActive": "VIP सक्रिय",
+      "upgradeToPremium": "प्रीमियम में अपग्रेड करें",
+      "languageSettings": "भाषा सेटिंग्स",
+      "languageSettingsDesc": "ऐप और सीखने की भाषाएँ बदलें",
+      "helpCenter": "सहायता केंद्र",
+      "helpCenterDesc": "मदद और सहायता प्राप्त करें"
+    },
+    "privacySettings": {
+      "title": "गोपनीयता सेटिंग्स",
+      "profileVisibility": "प्रोफ़ाइल दृश्यता",
+      "onlineStatus": "ऑनलाइन स्थिति दिखाएँ",
+      "lastSeen": "अंतिम बार देखा गया दिखाएँ",
+      "readReceipts": "पढ़ने की रसीदें"
+    },
+    "notificationSettings": {
+      "title": "सूचना सेटिंग्स",
+      "pushNotifications": "पुश सूचनाएँ",
+      "messages": "संदेश",
+      "likes": "लाइक",
+      "followers": "नए फॉलोअर्स",
+      "waves": "वेव्स",
+      "emailDigest": "ईमेल डाइजेस्ट"
+    },
+    "languageSettings": {
+      "title": "भाषा सेटिंग्स",
+      "appLanguage": "ऐप भाषा",
+      "nativeLanguage": "मातृभाषा",
+      "learningLanguage": "सीखने की भाषा"
+    },
+    "vipSettings": {
+      "title": "VIP स्थिति",
+      "currentPlan": "वर्तमान प्लान",
+      "free": "मुफ़्त",
+      "premium": "प्रीमियम",
+      "features": "सुविधाएँ",
+      "upgrade": "VIP में अपग्रेड करें"
+    }
+  },
+  "waves": {
+    "title": "वेव्स",
+    "received": "प्राप्त",
+    "sent": "भेजे गए",
+    "accept": "स्वीकार करें",
+    "decline": "अस्वीकार करें",
+    "noWaves": "अभी तक कोई वेव नहीं",
+    "sendWave": "जुड़ना शुरू करने के लिए वेव भेजें!"
+  },
+  "topics": {
+    "title": "विषय",
+    "myTopics": "मेरे विषय",
+    "browseTopics": "विषय ब्राउज़ करें",
+    "usersInterested": "उपयोगकर्ता रुचि रखते हैं"
+  },
+  "nearby": {
+    "title": "आस-पास के उपयोगकर्ता",
+    "enableLocation": "स्थान सक्षम करें",
+    "locationRequired": "आस-पास के उपयोगकर्ताओं को खोजने के लिए स्थान एक्सेस आवश्यक है",
+    "noUsersNearby": "आस-पास कोई उपयोगकर्ता नहीं",
+    "tryExpandingRadius": "अपनी खोज सीमा बढ़ाकर देखें"
+  },
+  "home": {
+    "hero": {
+      "badge": "भाषा विनिमय आसान बना",
+      "titlePart1": "भाषाएँ सीखें",
+      "titleHighlight": "बोलकर",
+      "titlePart2": "मूल भाषी लोगों के साथ",
+      "description": "दुनिया भर के लाखों भाषा सीखने वालों से जुड़ें। बोलने का अभ्यास करें, प्रवाह में सुधार करें और दुनिया के हर कोने से दोस्त बनाएँ।",
+      "stats": {
+        "users": "सक्रिय उपयोगकर्ता",
+        "languages": "भाषाएँ",
+        "countries": "देश"
+      },
+      "getStarted": "मुफ़्त में शुरू करें",
+      "browseCommunity": "समुदाय ब्राउज़ करें",
+      "lovedBy": "50 लाख+ शिक्षार्थियों का प्रिय",
+      "chatPreview": {
+        "message1": "नमस्ते! कैसे हो? 👋",
+        "message2": "Hey! I'm practicing my Hindi!",
+        "message3": "बहुत अच्छा! चलो साथ में अभ्यास करते हैं 🇮🇳"
+      }
+    },
+    "sections": {
+      "features": "सुविधाएँ",
+      "howItWorks": "यह कैसे काम करता है",
+      "pricing": "मूल्य निर्धारण"
+    },
+    "features": {
+      "title": "सीखने के लिए सब कुछ जो आपको चाहिए",
+      "subtitle": "आपकी भाषा सीखने की यात्रा को तेज़ करने के लिए डिज़ाइन किए गए शक्तिशाली उपकरण",
+      "chat": {
+        "title": "रियल-टाइम चैट",
+        "description": "इंस्टेंट मैसेजिंग के माध्यम से मूल भाषी लोगों के साथ बातचीत का अभ्यास करें"
+      },
+      "video": {
+        "title": "वीडियो कॉल",
+        "description": "दुनिया भर के साथियों के साथ आमने-सामने भाषा अभ्यास"
+      },
+      "lessons": {
+        "title": "इंटरैक्टिव पाठ",
+        "description": "संरचित पाठ्यक्रमों और दैनिक अभ्यासों से सीखें"
+      },
+      "voice": {
+        "title": "वॉइस संदेश",
+        "description": "ऑडियो आदान-प्रदान से अपना उच्चारण सुधारें"
+      },
+      "community": {
+        "title": "समुदाय",
+        "description": "दुनिया भर के लाखों भाषा सीखने वालों से जुड़ें"
+      },
+      "languages": {
+        "title": "50+ भाषाएँ",
+        "description": "स्पेनिश से कोरियाई तक, अपना सीखने का रास्ता खोजें"
+      }
+    },
+    "howItWorks": {
+      "title": "3 चरणों में सीखना शुरू करें",
+      "subtitle": "कुछ ही मिनटों में शुरू करें और आज ही अपनी भाषा यात्रा शुरू करें"
+    },
+    "steps": {
+      "profile": {
+        "title": "अपनी प्रोफ़ाइल बनाएँ",
+        "description": "हमें बताएँ कि आपकी मातृभाषा क्या है और आप क्या सीखना चाहते हैं"
+      },
+      "partners": {
+        "title": "साथी खोजें",
+        "description": "हमारे समुदाय में ब्राउज़ करें और सही भाषा विनिमय साथी खोजें"
+      },
+      "learn": {
+        "title": "सीखना शुरू करें",
+        "description": "हर दिन मूल भाषी लोगों के साथ चैट करें, कॉल करें और अभ्यास करें"
+      }
+    },
+    "pricing": {
+      "title": "अपना प्लान चुनें",
+      "subtitle": "मुफ़्त में शुरू करें और तैयार होने पर अपग्रेड करें",
+      "mostPopular": "सबसे लोकप्रिय",
+      "getStarted": "शुरू करें",
+      "free": {
+        "name": "मुफ़्त",
+        "period": "हमेशा के लिए",
+        "features": {
+          "messaging": "बुनियादी मैसेजिंग",
+          "connections": "प्रतिदिन 5 नए कनेक्शन",
+          "community": "समुदाय एक्सेस",
+          "lessons": "बुनियादी पाठ"
+        }
+      },
+      "premium": {
+        "name": "प्रीमियम",
+        "period": "/माह",
+        "features": {
+          "messaging": "असीमित मैसेजिंग",
+          "connections": "असीमित कनेक्शन",
+          "video": "वीडियो कॉल",
+          "lessons": "उन्नत पाठ",
+          "noAds": "कोई विज्ञापन नहीं",
+          "translation": "अनुवाद उपकरण"
+        }
+      },
+      "lifetime": {
+        "name": "आजीवन",
+        "period": "एक बार",
+        "features": {
+          "everything": "प्रीमियम में सब कुछ",
+          "forever": "हमेशा के लिए एक्सेस",
+          "support": "प्राथमिकता सहायता",
+          "early": "जल्दी सुविधाएँ",
+          "badges": "विशेष बैज"
+        }
+      }
+    },
+    "download": {
+      "badge": "ऐप डाउनलोड करें",
+      "title": "BananaTalk को हर जगह ले जाएँ",
+      "description": "हमारे मोबाइल ऐप से चलते-फिरते सीखें। iOS और Android पर सभी सुविधाओं, पुश सूचनाओं और ऑफ़लाइन एक्सेस के साथ उपलब्ध।",
+      "downloadOn": "इस पर डाउनलोड करें",
+      "getItOn": "इस पर प्राप्त करें",
+      "scanQR": "ऐप डाउनलोड करने के लिए स्कैन करें",
+      "or": "या",
+      "features": {
+        "offline": "ऑफ़लाइन एक्सेस",
+        "push": "पुश सूचनाएँ",
+        "fast": "तेज़ और हल्का"
+      }
+    },
+    "cta": {
+      "title": "अपनी भाषा यात्रा शुरू करने के लिए तैयार हैं?",
+      "description": "लाखों शिक्षार्थियों से जुड़ें और आज ही नई भाषा बोलना शुरू करें",
+      "button": "मुफ़्त अकाउंट बनाएँ"
+    }
+  },
+  "vip": {
+    "title": "VIP सदस्यता",
+    "subtitle": "प्रीमियम सुविधाएँ अनलॉक करें",
+    "status": {
+      "active": "VIP सक्रिय",
+      "free": "मुफ़्त प्लान",
+      "activeDesc": "सभी प्रीमियम सुविधाओं का आनंद ले रहे हैं",
+      "freeDesc": "और सुविधाएँ अनलॉक करने के लिए अपग्रेड करें"
+    },
+    "expiresOn": "समाप्ति तिथि",
+    "plans": {
+      "free": "मुफ़्त",
+      "vip": "VIP"
+    },
+    "perMonth": "माह",
+    "saveAnnually": "वार्षिक प्लान पर 20% बचाएँ",
+    "popular": "लोकप्रिय",
+    "upgradeNow": "VIP में अपग्रेड करें",
+    "upgradeInApp": "मोबाइल ऐप से अपग्रेड करें",
+    "upgradeInAppDesc": "VIP सदस्यता केवल हमारे मोबाइल ऐप के माध्यम से खरीदी जा सकती है",
+    "manageSubscription": "सदस्यता प्रबंधित करें",
+    "cancelSubscription": "सदस्यता रद्द करें",
+    "manageInApp": "अपनी सदस्यता प्रबंधित करने के लिए, कृपया BananaTalk मोबाइल ऐप का उपयोग करें।",
+    "features": {
+      "limitedMessages": "प्रतिदिन सीमित संदेश",
+      "basicProfile": "बुनियादी प्रोफ़ाइल",
+      "basicSearch": "बुनियादी खोज",
+      "unlimitedMessages": "असीमित संदेश",
+      "seeProfileVisitors": "देखें कि आपकी प्रोफ़ाइल किसने देखी",
+      "advancedFilters": "उन्नत खोज फ़िल्टर",
+      "noAds": "विज्ञापन-मुक्त अनुभव",
+      "prioritySupport": "प्राथमिकता सहायता",
+      "exclusiveBadge": "विशेष VIP बैज",
+      "translationFeature": "संदेश अनुवाद"
+    }
+  }
+}

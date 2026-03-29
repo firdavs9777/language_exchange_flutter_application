@@ -1,6 +1,7 @@
 export interface UserProfileData {
   _id: string;
   name: string;
+  username: string;
   gender: string;
   email: string;
   bio: string;

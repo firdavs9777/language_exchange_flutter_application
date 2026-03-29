@@ -58,7 +58,7 @@ const EditMyMoment: React.FC = () => {
   const [uploadMomentPhotos, { isLoading: isUploading }] = useUploadMomentPhotosMutation();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const user = useSelector((state: any) => state.auth.userInfo?.user._id);
+  const user = useSelector((state: any) => state.auth.userInfo?.user?._id);
 
   // Load existing moment data
   useEffect(() => {

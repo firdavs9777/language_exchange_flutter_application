@@ -1,42 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
-  FaUser,
   FaUsers,
   FaComment,
   FaGlobe,
   FaCaretDown,
   FaRegUser,
-  FaLanguage,
   FaBars,
   FaTimes,
+  FaCog,
+  FaSignOutAlt,
+  FaHeart,
+  FaUserFriends,
+  FaBookOpen,
+  FaChevronDown,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import { Bounce, toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 
+import { BASE_URL } from "../../constants";
 import logo from "../../assets/logo.png";
+import "./MainNavbar.scss";
+
+const LANGUAGES = [
+  { code: "en", flag: "🇺🇸", name: "English" },
+  { code: "ko", flag: "🇰🇷", name: "한국어" },
+  { code: "ja", flag: "🇯🇵", name: "日本語" },
+  { code: "zh", flag: "🇨🇳", name: "中文" },
+  { code: "zh_TW", flag: "🇹🇼", name: "繁體中文" },
+  { code: "es", flag: "🇪🇸", name: "Español" },
+  { code: "fr", flag: "🇫🇷", name: "Français" },
+  { code: "de", flag: "🇩🇪", name: "Deutsch" },
+  { code: "pt", flag: "🇧🇷", name: "Português" },
+  { code: "it", flag: "🇮🇹", name: "Italiano" },
+  { code: "ru", flag: "🇷🇺", name: "Русский" },
+  { code: "ar", flag: "🇸🇦", name: "العربية" },
+  { code: "hi", flag: "🇮🇳", name: "हिन्दी" },
+  { code: "vi", flag: "🇻🇳", name: "Tiếng Việt" },
+  { code: "th", flag: "🇹🇭", name: "ไทย" },
+  { code: "tr", flag: "🇹🇷", name: "Türkçe" },
+  { code: "id", flag: "🇮🇩", name: "Bahasa" },
+  { code: "tl", flag: "🇵🇭", name: "Filipino" },
+];
 
 const MainNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const langDropdownRef = useRef<HTMLDivElement>(null);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
 
   const userInfo = useSelector((state: any) => state.auth.userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
+  const currentLang = LANGUAGES.find((l) => l.code === i18n.language) || LANGUAGES[0];
+
+  // Scroll effect
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target as Node)) {
+        setIsLanguageDropdownOpen(false);
+      }
+      if (userDropdownRef.current && !userDropdownRef.current.contains(e.target as Node)) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMobileMenuOpen]);
+
   const changeLanguage = (lng: string) => {
+    const lang = LANGUAGES.find((l) => l.code === lng);
     i18n.changeLanguage(lng);
     localStorage.setItem("preferredLanguage", lng);
     setIsLanguageDropdownOpen(false);
-    toast.info(`Language changed to ${lng === "en" ? "English" : "한국어"}`, {
-      autoClose: 3000,
-      hideProgressBar: false,
+    toast.info(`${lang?.flag} ${lang?.name}`, {
+      autoClose: 2000,
+      hideProgressBar: true,
       theme: "dark",
       transition: Bounce,
     });
@@ -48,9 +108,9 @@ const MainNavbar = () => {
       navigate("/login");
       setIsUserDropdownOpen(false);
       setIsMobileMenuOpen(false);
-      toast.success("User successfully logged out!", {
-        autoClose: 3000,
-        hideProgressBar: false,
+      toast.success(t("logout") + " ✓", {
+        autoClose: 2000,
+        hideProgressBar: true,
         theme: "dark",
         transition: Bounce,
       });
@@ -59,349 +119,277 @@ const MainNavbar = () => {
     }
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  interface NavLinkComponentProps {
-    to: string;
-    children: React.ReactNode;
-    onClick?: () => void;
-  }
-
-  const NavLinkComponent: React.FC<NavLinkComponentProps> = ({
-    to,
-    children,
-    onClick,
-  }) => (
-    <NavLink
-      to={to}
-      onClick={onClick}
-      className={({ isActive }) =>
-        `flex items-center px-4 py-2 mx-1 font-medium transition-all duration-300 rounded-lg relative group ${
-          isActive
-            ? "text-yellow-400 font-bold bg-gradient-to-r from-yellow-400/20 to-yellow-500/20 border border-yellow-400/30 shadow-lg shadow-yellow-400/20 scale-105"
-            : "text-white hover:text-yellow-400 hover:bg-gray-800/50 hover:scale-105"
-        }`
-      }
-    >
-      <span className="relative z-10 flex items-center">{children}</span>
-    </NavLink>
-  );
-
-  const CustomNavLink: React.FC<NavLinkComponentProps> = ({
-    to,
-    children,
-    onClick,
-  }) => {
-    return (
-      <NavLink to={to} onClick={onClick}>
-        {({ isActive }) => (
-          <div
-            className={`flex items-center px-4 py-2 mx-1 font-medium transition-all duration-300 rounded-lg relative group ${
-              isActive
-                ? "text-yellow-400 font-bold bg-gradient-to-r from-yellow-400/20 to-yellow-500/20 border border-yellow-400/30 shadow-lg shadow-yellow-400/20 scale-105"
-                : "text-white hover:text-yellow-400 hover:bg-gray-800/50 hover:scale-105"
-            }`}
-          >
-            {children}
-
-            <span
-              className={`absolute bottom-1 left-1/2 h-0.5 bg-gradient-to-r from-yellow-300 to-yellow-500 transition-all duration-300 ${
-                isActive
-                  ? "w-4/5 -translate-x-1/2 shadow-sm shadow-yellow-400/50"
-                  : "w-0 group-hover:w-2/3 group-hover:-translate-x-1/2"
-              }`}
-            ></span>
-
-            {/* Active state glow effect */}
-            {isActive && (
-              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-yellow-400/10 to-yellow-500/10 blur-sm"></span>
-            )}
-          </div>
-        )}
-      </NavLink>
-    );
+  const getUserImage = () => {
+    if (Array.isArray(userInfo?.user?.imageUrls) && userInfo.user.imageUrls[0]?.startsWith("http")) {
+      return userInfo.user.imageUrls[0];
+    }
+    if (Array.isArray(userInfo?.user?.images) && userInfo.user.images[0]) {
+      return userInfo.user.images[0].startsWith("http")
+        ? userInfo.user.images[0]
+        : `${BASE_URL}/uploads/${userInfo.user.images[0]}`;
+    }
+    return "/default-avatar.png";
   };
 
   return (
-    <header className="bg-gradient-to-r from-slate-700 via-gray-700 to-slate-700 shadow-2xl sticky top-0 z-50 backdrop-blur-sm">
-      <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+    <>
+      <header className={`main-navbar ${isScrolled ? "scrolled" : ""}`}>
+        <nav className="navbar-inner">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <a href="/" className="flex items-center">
-              <img
-                src={logo}
-                alt="BananaTalk"
-                className="h-16 w-auto hover:scale-105 transition-transform duration-300"
-              />
-            </a>
-          </div>
+          <NavLink to="/" className="navbar-logo" onClick={closeMobileMenu}>
+            <img src={logo} alt="BananaTalk" />
+            <div className="navbar-logo-text">
+              <span className="logo-name">BananaTalk</span>
+              <span className="logo-tagline">{t("home.hero.subtitle") ? "Language Exchange" : "Language Exchange"}</span>
+            </div>
+          </NavLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
-            <CustomNavLink to="/communities">
-              <FaUsers size={20} className="mr-2" />
-              {t("community")}
-            </CustomNavLink>
+          <div className="navbar-links">
+            <NavLink
+              to="/communities"
+              className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+            >
+              <FaUsers />
+              <span>{t("community")}</span>
+            </NavLink>
 
             {userInfo && (
               <>
-                <CustomNavLink to="/chat">
-                  <FaComment size={20} className="mr-2" />
-                  {t("chat")}
-                </CustomNavLink>
+                <NavLink
+                  to="/chat"
+                  className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                >
+                  <FaComment />
+                  <span>{t("chat")}</span>
+                </NavLink>
 
-                <CustomNavLink to="/moments">
-                  <FaGlobe size={20} className="mr-2" />
-                  {t("moments")}
-                </CustomNavLink>
+                <NavLink
+                  to="/moments"
+                  className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                >
+                  <FaGlobe />
+                  <span>{t("moments")}</span>
+                </NavLink>
+
+                <NavLink
+                  to="/learn"
+                  className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                >
+                  <FaBookOpen />
+                  <span>{t("learning.title") || "Learn"}</span>
+                </NavLink>
               </>
             )}
-            <div className="relative">
+          </div>
+
+          {/* Right side actions */}
+          <div className="navbar-actions">
+            {/* Language Dropdown */}
+            <div className="dropdown-wrapper" ref={langDropdownRef}>
               <button
-                onClick={() =>
-                  setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
-                }
-                className="flex items-center px-4 py-2 mx-1 text-white font-medium transition-all duration-300 rounded-lg hover:text-yellow-400 hover:bg-gray-600/50"
+                className="lang-btn"
+                onClick={() => {
+                  setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+                  setIsUserDropdownOpen(false);
+                }}
               >
-                <FaLanguage size={20} className="mr-2" />
-                <span className="hidden lg:inline">
-                  {i18n.language === "en" ? t("english") : t("korean")}
-                </span>
-                <FaCaretDown size={16} className="ml-1" />
+                <span className="lang-flag">{currentLang.flag}</span>
+                <span className="lang-label">{currentLang.name}</span>
+                <FaChevronDown className={`chevron ${isLanguageDropdownOpen ? "open" : ""}`} />
               </button>
 
               {isLanguageDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-600 rounded-lg shadow-xl border border-gray-500 overflow-hidden z-50">
-                  <button
-                    onClick={() => changeLanguage("en")}
-                    className={`w-full text-left px-4 py-3 flex items-center ${
-                      i18n.language === "en"
-                        ? "text-yellow-400 font-bold bg-gradient-to-r from-yellow-400/20 to-yellow-500/20 border border-yellow-400/30 shadow-lg shadow-yellow-400/20 scale-105"
-                        : " text-white hover:bg-gray-500 transition-colors duration-200"
-                    }`}
-                  >
-                    🇺🇸 <span className="ml-2">{t("english")}</span>
-                  </button>
-                  <button
-                    onClick={() => changeLanguage("ko")}
-                    className={`w-full text-left px-4 py-3  hover:bg-gray-500 transition-colors duration-200 flex items-center ${
-                      i18n.language === "ko"
-                        ? "text-yellow-400 font-bold bg-gradient-to-r from-yellow-400/20 to-yellow-500/20 border border-yellow-400/30 shadow-lg shadow-yellow-400/20 scale-105"
-                        : "text-white"
-                    }`}
-                  >
-                    🇰🇷 <span className="ml-2">{t("korean")}</span>
-                  </button>
+                <div className="dropdown-panel lang-dropdown">
+                  <div className="dropdown-header">{t("language") || "Language"}</div>
+                  <div className="lang-grid">
+                    {LANGUAGES.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`lang-option ${i18n.language === lang.code ? "active" : ""}`}
+                      >
+                        <span className="lang-option-flag">{lang.flag}</span>
+                        <span className="lang-option-name">{lang.name}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* User Menu / Login */}
+            {/* User Menu */}
             {userInfo ? (
-              <div className="relative">
+              <div className="dropdown-wrapper" ref={userDropdownRef}>
                 <button
-                  onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-                  className="flex items-center px-3 py-2 text-white font-medium transition-all duration-300 rounded-lg hover:bg-gray-600/50 max-w-[140px]"
+                  className="user-btn"
+                  onClick={() => {
+                    setIsUserDropdownOpen(!isUserDropdownOpen);
+                    setIsLanguageDropdownOpen(false);
+                  }}
                 >
-                  <img
-                    src={
-                      Array.isArray(userInfo?.user?.imageUrls) &&
-                      userInfo.user.imageUrls[0]?.startsWith("http")
-                        ? userInfo.user.imageUrls[0]
-                        : Array.isArray(userInfo?.user?.images) &&
-                          userInfo.user.images[0]
-                        ? userInfo.user.images[0].startsWith("http")
-                          ? userInfo.user.images[0]
-                          : `http://localhost:5003/uploads/${userInfo.user.images[0]}`
-                        : "/default-avatar.png"
-                    }
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full object-cover mr-2 ring-2 ring-gray-600 hover:ring-yellow-400 transition-all duration-300"
-                  />
-                  <span className="truncate text-sm">
-                    {userInfo.user?.name}
-                  </span>
-                  <FaCaretDown size={16} className="ml-1 flex-shrink-0" />
+                  <img src={getUserImage()} alt="" className="user-avatar" />
+                  <span className="user-name">{userInfo.user?.name}</span>
+                  <FaChevronDown className={`chevron ${isUserDropdownOpen ? "open" : ""}`} />
                 </button>
 
                 {isUserDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-gray-600 rounded-lg shadow-xl border border-gray-500 overflow-hidden z-50">
-                    <CustomNavLink
-                      to="/profile"
-                      onClick={() => setIsUserDropdownOpen(false)}
-                    >
-                      <FaRegUser className="inline mr-3" />
-                      {t("profile.title")}
-                    </CustomNavLink>
-                    <CustomNavLink
-                      onClick={() => setIsUserDropdownOpen(false)}
-                      to="/followersList"
-                    >
-                      <FaUsers className="inline mr-3" />
-                      {t("followers")}
-                    </CustomNavLink>
-
-                    <CustomNavLink
-                      to="/followingsList"
-                      onClick={() => setIsUserDropdownOpen(false)}
-                    >
-                      <FaUsers className="inline mr-3" />
-                      {t("followings")}
-                    </CustomNavLink>
-                    <CustomNavLink
-                      to="/my-moments"
-                      onClick={() => setIsUserDropdownOpen(false)}
-                    >
-                      <FaGlobe className="inline mr-3" />
-                      {t("my_moments")}
-                    </CustomNavLink>
-
-                    <button
-                      onClick={logoutHandler}
-                      className="w-full text-left px-4 py-3 text-white hover:bg-gray-700 transition-colors duration-200"
-                    >
-                      <FaUser className="inline mr-3" />
-                      {t("logout")}
+                  <div className="dropdown-panel user-dropdown">
+                    <div className="dropdown-user-header">
+                      <img src={getUserImage()} alt="" />
+                      <div>
+                        <div className="dropdown-user-name">{userInfo.user?.name}</div>
+                        <div className="dropdown-user-email">{userInfo.user?.email}</div>
+                      </div>
+                    </div>
+                    <div className="dropdown-divider" />
+                    <NavLink to="/profile" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                      <FaRegUser /> {t("profile.title")}
+                    </NavLink>
+                    <NavLink to="/followersList" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                      <FaHeart /> {t("followers")}
+                    </NavLink>
+                    <NavLink to="/followingsList" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                      <FaUserFriends /> {t("followings")}
+                    </NavLink>
+                    <NavLink to="/my-moments" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                      <FaGlobe /> {t("my_moments")}
+                    </NavLink>
+                    <NavLink to="/settings" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                      <FaCog /> {t("settings.title") || "Settings"}
+                    </NavLink>
+                    <div className="dropdown-divider" />
+                    <button onClick={logoutHandler} className="dropdown-item logout-item">
+                      <FaSignOutAlt /> {t("logout")}
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <CustomNavLink to="/login">
-                <FaRegUser size={18} className="mr-2" />
-                {t("sign_in")}
-              </CustomNavLink>
+              <NavLink to="/login" className="login-btn">
+                <FaRegUser />
+                <span>{t("sign_in")}</span>
+              </NavLink>
             )}
-          </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+            {/* Mobile hamburger */}
             <button
-              onClick={toggleMobileMenu}
-              className="text-white hover:text-yellow-400 transition-colors duration-300 p-2"
+              className="mobile-toggle"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Menu"
             >
-              {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+              {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
-        </div>
+        </nav>
+      </header>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-gray-800/95 backdrop-blur-sm rounded-lg mt-2 mb-4 shadow-xl border border-gray-700">
-            <div className="px-4 py-4 space-y-2">
-              <CustomNavLink to="/communities" onClick={closeMobileMenu}>
-                <FaUsers size={20} className="mr-3" />
-                {t("community")}
-              </CustomNavLink>
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-overlay" onClick={closeMobileMenu}>
+          <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+            {/* Mobile Header */}
+            <div className="mobile-menu-header">
+              <NavLink to="/" className="navbar-logo" onClick={closeMobileMenu}>
+                <img src={logo} alt="BananaTalk" />
+                <span className="logo-name">BananaTalk</span>
+              </NavLink>
+              <button className="mobile-close" onClick={closeMobileMenu}>
+                <FaTimes />
+              </button>
+            </div>
 
+            {/* Mobile User Info */}
+            {userInfo && (
+              <div className="mobile-user-card">
+                <img src={getUserImage()} alt="" />
+                <div>
+                  <div className="mobile-user-name">{userInfo.user?.name}</div>
+                  <div className="mobile-user-email">{userInfo.user?.email}</div>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Nav Links */}
+            <div className="mobile-nav-section">
+              <NavLink to="/communities" className="mobile-nav-link" onClick={closeMobileMenu}>
+                <FaUsers /> {t("community")}
+              </NavLink>
               {userInfo && (
                 <>
-                  <CustomNavLink to="/chat" onClick={closeMobileMenu}>
-                    <FaComment size={20} className="mr-3" />
-                    {t("chat")}
-                  </CustomNavLink>
-
-                  <CustomNavLink to="/moments" onClick={closeMobileMenu}>
-                    <FaGlobe size={20} className="mr-3" />
-                    {t("moments")}
-                  </CustomNavLink>
+                  <NavLink to="/chat" className="mobile-nav-link" onClick={closeMobileMenu}>
+                    <FaComment /> {t("chat")}
+                  </NavLink>
+                  <NavLink to="/moments" className="mobile-nav-link" onClick={closeMobileMenu}>
+                    <FaGlobe /> {t("moments")}
+                  </NavLink>
+                  <NavLink to="/learn" className="mobile-nav-link" onClick={closeMobileMenu}>
+                    <FaBookOpen /> {t("learning.title") || "Learn"}
+                  </NavLink>
                 </>
               )}
+            </div>
 
-              {/* Mobile Language Selection */}
-              <div className="border-t border-gray-700 pt-2 mt-2">
-                <p className="text-gray-300 text-sm px-4 py-2 font-medium">
-                  {t("language")}
-                </p>
-                <button
-                  onClick={() => changeLanguage("en")}
-                  className={`w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded transition-colors duration-200 flex items-center ${
-                    i18n.language === "en" ? "bg-gray-700 text-yellow-400" : ""
-                  }`}
-                >
-                  🇺🇸 <span className="ml-2">{t("english")}</span>
-                </button>
-                <button
-                  onClick={() => changeLanguage("ko")}
-                  className={`w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded transition-colors duration-200 flex items-center ${
-                    i18n.language === "ko" ? "bg-gray-700 text-[]" : ""
-                  }`}
-                >
-                  🇰🇷 <span className="ml-2">{t("korean")}</span>
-                </button>
+            {/* Mobile User Links */}
+            {userInfo && (
+              <div className="mobile-nav-section">
+                <div className="mobile-section-title">{t("profile.title")}</div>
+                <NavLink to="/profile" className="mobile-nav-link" onClick={closeMobileMenu}>
+                  <FaRegUser /> {t("profile.title")}
+                </NavLink>
+                <NavLink to="/followersList" className="mobile-nav-link" onClick={closeMobileMenu}>
+                  <FaHeart /> {t("followers")}
+                </NavLink>
+                <NavLink to="/followingsList" className="mobile-nav-link" onClick={closeMobileMenu}>
+                  <FaUserFriends /> {t("followings")}
+                </NavLink>
+                <NavLink to="/my-moments" className="mobile-nav-link" onClick={closeMobileMenu}>
+                  <FaGlobe /> {t("my_moments")}
+                </NavLink>
+                <NavLink to="/settings" className="mobile-nav-link" onClick={closeMobileMenu}>
+                  <FaCog /> {t("settings.title") || "Settings"}
+                </NavLink>
               </div>
+            )}
 
-              {/* Mobile User Menu */}
-              {userInfo ? (
-                <div className="border-t border-gray-700 pt-2 mt-2">
-                  <div className="flex items-center px-4 py-2 mb-2">
-                    <img
-                      src={
-                        Array.isArray(userInfo?.user?.imageUrls) &&
-                        userInfo.user.imageUrls[0]?.startsWith("http")
-                          ? userInfo.user.imageUrls[0]
-                          : Array.isArray(userInfo?.user?.images) &&
-                            userInfo.user.images[0]
-                          ? userInfo.user.images[0].startsWith("http")
-                            ? userInfo.user.images[0]
-                            : `http://localhost:5003/uploads/${userInfo.user.images[0]}`
-                          : "/default-avatar.png"
-                      }
-                      alt="Profile"
-                      className="w-10 h-10 rounded-full object-cover mr-3 ring-2 ring-gray-600"
-                    />
-                    <span className="text-white font-medium">
-                      {userInfo.user?.name}
-                    </span>
-                  </div>
-
-                  <CustomNavLink to="/profile" onClick={closeMobileMenu}>
-                    <FaRegUser className="inline mr-3" />
-                    {t("profile.title")}
-                  </CustomNavLink>
-                  <CustomNavLink to="/followersList" onClick={closeMobileMenu}>
-                    <FaUsers className="inline mr-3" />
-                    {t("followers")}
-                  </CustomNavLink>
-                  <CustomNavLink to="/followingsList" onClick={closeMobileMenu}>
-                    <FaUsers className="inline mr-3" />
-                    {t("followings")}
-                  </CustomNavLink>
-                  <CustomNavLink to="/my-moments" onClick={closeMobileMenu}>
-                    <FaGlobe className="inline mr-3" />
-                    {t("my_moments")}
-                  </CustomNavLink>
+            {/* Mobile Language Selection */}
+            <div className="mobile-nav-section">
+              <div className="mobile-section-title">{t("language") || "Language"}</div>
+              <div className="mobile-lang-grid">
+                {LANGUAGES.map((lang) => (
                   <button
-                    onClick={logoutHandler}
-                    className="w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded transition-colors duration-200 mt-2 border-t border-gray-700 pt-2"
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang.code);
+                      closeMobileMenu();
+                    }}
+                    className={`mobile-lang-btn ${i18n.language === lang.code ? "active" : ""}`}
                   >
-                    <FaUser className="inline mr-3" />
-                    {t("logout")}
+                    <span>{lang.flag}</span>
+                    <span>{lang.name}</span>
                   </button>
-                </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Footer Actions */}
+            <div className="mobile-footer-actions">
+              {userInfo ? (
+                <button onClick={logoutHandler} className="mobile-logout-btn">
+                  <FaSignOutAlt /> {t("logout")}
+                </button>
               ) : (
-                <div className="border-t border-gray-700 pt-2 mt-2">
-                  <a
-                    href="/login"
-                    onClick={closeMobileMenu}
-                    className="block px-4 py-2 text-white hover:bg-gray-700 rounded transition-colors duration-200"
-                  >
-                    <FaRegUser className="inline mr-3" />
-                    {t("sign_in")}
-                  </a>
-                </div>
+                <NavLink to="/login" className="mobile-login-btn" onClick={closeMobileMenu}>
+                  <FaRegUser /> {t("sign_in")}
+                </NavLink>
               )}
             </div>
           </div>
-        )}
-      </nav>
-    </header>
+        </div>
+      )}
+    </>
   );
 };
 

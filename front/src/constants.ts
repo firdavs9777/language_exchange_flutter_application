@@ -1,9 +1,4 @@
-// export const BASE_URL = "http://localhost:5003";
-// export const BASE_URL = "http://64.23.181.246:5003";
-// export const BASE_URL = "";
-export const BASE_URL = process.env.NODE_ENV === "development"
-  ? "https://api.banatalk.com"   // Development: direct API
-  : "";  // Production: use proxy
+export const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5003";
 export const MOMENTS_URL = "/api/v1/moments";
 export const USERS_URL = "/api/v1/users";
 export const COMMUNITY_URL = "/api/v1/auth/users";
@@ -26,3 +21,21 @@ export const STORIES_FEED = "/api/v1/stories/feed";
 export const MY_STORIES = "/api/v1/stories/my-stories";
 export const MAIN_STORIES = "/api/v1/stories";
 export const USER_STORIES = "/api/v1/stories/user/";
+
+// Community & Discovery
+export const COMMUNITY_NEARBY = "/api/v1/community/nearby";
+export const COMMUNITY_WAVES = "/api/v1/community/wave";
+export const COMMUNITY_TOPICS = "/api/v1/community/topics";
+export const LANGUAGES_URL = "/api/v1/languages";
+
+// Profile Visitors
+export const PROFILE_VISITORS = "/api/v1/auth/users";
+
+// Learning (if implementing)
+export const LEARNING_URL = "/api/v1/learning";
+
+// VIP
+export const VIP_URL = "/api/v1/vip";
+
+// Block & Report
+export const BLOCK_USER_URL = "/api/v1/users";

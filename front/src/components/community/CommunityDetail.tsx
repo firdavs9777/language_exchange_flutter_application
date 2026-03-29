@@ -191,7 +191,10 @@ const CommunityDetail: React.FC = () => {
 
   const navigate = useNavigate();
   const userId = useSelector(
-    (state: RootState) => state.auth.userInfo?.user._id
+    (state: RootState) => state.auth.userInfo?.user?._id
+  );
+  const token = useSelector(
+    (state: RootState) => state.auth.userInfo?.token
   );
   const { t } = useTranslation();
 
@@ -305,13 +308,14 @@ const CommunityDetail: React.FC = () => {
 
   const handleStartChat = async (memberId: string): Promise<void> => {
     try {
-      if (!userId) {
-        toast.error(t("communityDetail.notifications.loginToChat"), {
+      if (!userId || !token) {
+        toast.error(t("communityDetail.notifications.loginToChat") || "Please login to start a conversation", {
           autoClose: 3000,
           hideProgressBar: false,
           theme: "dark",
           transition: Bounce,
         });
+        navigate("/login");
         return;
       }
 
@@ -423,6 +427,27 @@ const CommunityDetail: React.FC = () => {
 
   const firstName = getFirstName(memberDetails.name);
 
+  // Online status
+  const isOnline = memberDetails.isOnline || false;
+  const lastActiveDate = memberDetails.lastActive || memberDetails.lastSeen;
+
+  // Format last seen time
+  const formatLastSeen = (dateString: string | undefined): string => {
+    if (!dateString) return t("communityDetail.profile.recentlyActive");
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return t("communityDetail.profile.justNow");
+    if (diffMins < 60) return t("communityDetail.profile.minutesAgo", { count: diffMins });
+    if (diffHours < 24) return t("communityDetail.profile.hoursAgo", { count: diffHours });
+    if (diffDays < 7) return t("communityDetail.profile.daysAgo", { count: diffDays });
+    return date.toLocaleDateString();
+  };
+
   return (
     <div className="min-vh-100" style={{ backgroundColor: "#f8f9fa" }}>
       <div className="bg-white border-bottom ">
@@ -523,6 +548,31 @@ const CommunityDetail: React.FC = () => {
                       {memberDetails.gender}
                     </span>
                   )}
+                </div>
+                {memberDetails.username && (
+                  <p className="text-muted mb-2">
+                    @{memberDetails.username}
+                  </p>
+                )}
+
+                {/* Online Status */}
+                <div className="d-flex align-items-center gap-3 mb-3">
+                  <div className="d-flex align-items-center gap-2">
+                    <span
+                      className="rounded-circle"
+                      style={{
+                        width: "10px",
+                        height: "10px",
+                        backgroundColor: isOnline ? "#22c55e" : "#9ca3af",
+                        display: "inline-block",
+                      }}
+                    />
+                    <span className={`fw-medium ${isOnline ? "text-success" : "text-muted"}`}>
+                      {isOnline
+                        ? t("communityDetail.profile.online")
+                        : formatLastSeen(lastActiveDate)}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="small text-muted d-flex align-items-center gap-2">

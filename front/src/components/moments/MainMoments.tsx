@@ -511,7 +511,7 @@ const MainMoments: React.FC = () => {
   });
 
   const userId = useSelector(
-    (state: RootState) => state.auth.userInfo?.user._id
+    (state: RootState) => state.auth.userInfo?.user?._id
   );
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const { t } = useTranslation();
@@ -520,9 +520,9 @@ const MainMoments: React.FC = () => {
   // Memoize user data with proper typing
   const { userName, userImage } = useMemo(
     () => ({
-      userName: userInfo?.user.name || "User",
+      userName: userInfo?.user?.name || "User",
       userImage:
-        userInfo?.user.imageUrls?.[0] ||
+        userInfo?.user?.imageUrls?.[0] ||
         "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face",
     }),
     [userInfo]

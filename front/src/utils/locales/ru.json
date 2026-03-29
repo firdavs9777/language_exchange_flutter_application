@@ -1,0 +1,924 @@
+{
+  "greeting": "привет",
+  "footer": {
+    "aboutUs": "О Нас",
+    "aboutDescription": "BananaTalk помогает вам освоить новые языки и общаться с носителями языков со всего мира.",
+    "quickLinks": "Быстрые Ссылки",
+    "links": {
+      "home": "Главная",
+      "about": "О Нас",
+      "services": "Услуги",
+      "pricing": "Цены",
+      "contact": "Контакты"
+    },
+    "contactInfo": "Контактная Информация",
+    "address": "Сеул, Южная Корея, Каннам-гу",
+    "follow": "Подписаться",
+    "newsletter": "Рассылка",
+    "newsletterDescription": "Подпишитесь на нашу рассылку для получения обновлений и предложений.",
+    "emailPlaceholder": "Ваш адрес электронной почты",
+    "allRightsReserved": "Все права защищены."
+  },
+  "community": "Сообщество",
+  "chat": "Чат",
+  "chatPage": {
+    "messages": "Сообщения",
+    "searchPlaceholder": "Поиск разговоров...",
+    "startConversation": "Начать Разговор",
+    "emptyDescription": "Выберите чат в боковой панели или начните новый разговор, чтобы связаться с языковыми партнёрами по всему миру.",
+    "newConversation": "Новый Разговор",
+    "features": {
+      "realtime": "Обмен сообщениями в реальном времени",
+      "exchange": "Языковой обмен",
+      "calls": "Голосовые и видеозвонки"
+    },
+    "online": "Онлайн",
+    "offline": "Офлайн",
+    "lastSeen": "Был(а) в сети",
+    "typing": "печатает...",
+    "loadingConversation": "Загрузка разговора...",
+    "errorLoading": "Ошибка загрузки разговора",
+    "messagePlaceholder": "Введите сообщение...",
+    "justNow": "Только что",
+    "minutesAgo": "{{count}}м назад",
+    "hoursAgo": "{{count}}ч назад",
+    "unknownUser": "Неизвестный Пользователь"
+  },
+  "notifications": "Уведомления",
+  "moments": "Моменты",
+  "language": "Язык",
+  "english": "Английский",
+  "korean": "Корейский",
+  "chinese": "Китайский",
+  "followers": "Подписчики",
+  "followings": "Подписки",
+  "my_moments": "Мои Моменты",
+  "logout": "Выйти",
+  "sign_in": "Войти",
+  "image_upload": {
+    "image_drop": "Пожалуйста, перетащите только файлы изображений",
+    "max_upload_warning": "Вы можете загрузить ещё {{count}} изображение(й).",
+    "no_images_error": "Пожалуйста, загрузите хотя бы одно изображение",
+    "removed_from_selection": "Изображение удалено из выбора",
+    "deleted_success": "Изображение успешно удалено",
+    "replaced_success": "Изображение успешно заменено",
+    "current_images": "Текущие Изображения",
+    "no_images_uploaded": "Изображения ещё не загружены",
+    "new_images": "Новые Изображения",
+    "no_new_images": "Новые изображения не выбраны",
+    "drop_images_here": "Перетащите изображения сюда или",
+    "select_files": "Выбрать Файлы",
+    "remaining_slots": "Вы можете добавить ещё {{count}} {{item}}",
+    "image": "изображение",
+    "images": "изображений",
+    "cancel": "Отмена",
+    "save_changes": "Сохранить Изменения",
+    "replace_image": "Заменить",
+    "delete_image": "Удалить изображение",
+    "remove_from_selection": "Убрать из выбора",
+    "image_gallery": "Галерея Изображений"
+  },
+  "profile": {
+    "title": "Мой Профиль",
+    "edit_profile": "Редактировать Профиль",
+    "photos": "Фотографии",
+    "messages": {
+      "image_update_success": "Изображение профиля успешно обновлено",
+      "image_update_failure": "Не удалось обновить изображение профиля",
+      "image_delete_success": "Фото успешно удалено",
+      "image_delete_failure": "Не удалось удалить фото",
+      "profile_update_success": "Профиль успешно обновлён",
+      "profile_update_failure": "Не удалось обновить профиль",
+      "error_loading_profile": "Ошибка загрузки профиля пользователя",
+      "no_profile_data": "Данные профиля пользователя недоступны",
+      "unknown_error": "Произошла неизвестная ошибка",
+      "no_bio": "Информация о себе не указана",
+      "not_specified": "Не указано"
+    },
+    "stats": {
+      "followers": "Подписчики",
+      "no_followers": "У вас пока нет подписчиков.",
+      "follower_error": "Ошибка загрузки подписчиков. Пожалуйста, попробуйте позже.",
+      "following": "Подписки",
+      "no_following": "Вы пока ни на кого не подписаны.",
+      "following_error": "Ошибка загрузки списка подписок. Пожалуйста, попробуйте позже.",
+      "moments": "Моменты",
+      "visitors": "Посетители"
+    },
+    "visitors": {
+      "title": "Посетители Профиля",
+      "error": "Ошибка загрузки посетителей",
+      "no_visitors": "Посетителей пока нет",
+      "no_visitors_desc": "Когда люди посетят ваш профиль, они появятся здесь",
+      "total_visits": "Всего Посещений",
+      "unique_visitors": "Уникальные Посетители",
+      "visits_today": "Сегодня",
+      "visits_week": "На Этой Неделе",
+      "via_moments": "Через Моменты",
+      "via_search": "Через Поиск",
+      "via_chat": "Через Чат",
+      "via_direct": "Напрямую",
+      "via_followers": "Через Подписчиков",
+      "vipOnly": "Функция VIP",
+      "vipOnlyDesc": "Узнайте, кто посещал ваш профиль, перейдя на VIP. Эта функция доступна исключительно для VIP-участников.",
+      "vipBenefits": "Преимущества VIP",
+      "learnMore": "Узнать Больше о VIP"
+    },
+    "sections": {
+      "personal_info": "Личная Информация",
+      "bio": "О Себе",
+      "languages": "Языки",
+      "personality": "Личность",
+      "topics": "Темы и Интересы"
+    },
+    "labels": {
+      "name": "Имя",
+      "username": "Имя пользователя",
+      "email": "Эл. почта",
+      "gender": "Пол",
+      "birthday": "День рождения",
+      "native_language": "Родной",
+      "learning": "Изучаю",
+      "of": "из",
+      "mbti": "Тип MBTI",
+      "blood_type": "Группа крови",
+      "topics_hint": "Выберите интересующие вас темы (макс. 10)",
+      "selected": "выбрано"
+    },
+    "hints": {
+      "username_readonly": "Имя пользователя нельзя изменить"
+    },
+    "placeholders": {
+      "bio": "Напишите что-нибудь о себе",
+      "select_gender": "Выберите Пол",
+      "select_date": "Выберите Дату",
+      "select_native_language": "Выберите Родной Язык",
+      "select_learning_language": "Выберите Язык для Изучения"
+    },
+    "options": {
+      "male": "Мужской",
+      "female": "Женский"
+    },
+    "actions": {
+      "edit": "Редактировать",
+      "save": "Сохранить",
+      "cancel": "Отмена",
+      "edit_photo": "Редактировать Фото",
+      "clear": "Очистить выбор"
+    },
+    "buttons": {
+      "edit": "Редактировать",
+      "save": "Сохранить",
+      "cancel": "Отмена"
+    },
+    "topics": {
+      "music": "Музыка",
+      "movies": "Фильмы",
+      "travel": "Путешествия",
+      "sports": "Спорт",
+      "gaming": "Игры",
+      "food": "Еда",
+      "art": "Искусство",
+      "photography": "Фотография",
+      "reading": "Чтение",
+      "fitness": "Фитнес",
+      "technology": "Технологии",
+      "fashion": "Мода",
+      "cooking": "Кулинария",
+      "nature": "Природа",
+      "pets": "Питомцы",
+      "anime": "Аниме",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "Языки",
+      "culture": "Культура"
+    }
+  },
+  "moments_section": {
+    "title": "Моменты",
+    "question": "О чём вы думаете,",
+    "loading": "Загрузка",
+    "loading_moments": "Загрузка Моментов...",
+    "error_loading": "Ошибка загрузки моментов",
+    "error_info": "Не удалось загрузить моменты. Пожалуйста, попробуйте позже.",
+    "retry_btn": "Повторить",
+    "no_moments": "Нет моментов",
+    "first_to_moment": "Будьте первым, кто поделится своими особенными моментами с сообществом",
+    "share_moment": "Поделиться Моментом",
+    "moment_login_error": "Пожалуйста, войдите, чтобы ставить лайки",
+    "moment_like_error": "Не удалось обновить статус лайка",
+    "moment_like": "Нравится",
+    "moment_comment": "Комментарий",
+    "moment_share": "Поделиться",
+    "no_comments": "Комментариев пока нет. Будьте первым!",
+    "invalidMomentId": "Недействительный ID момента",
+    "loadingMoment": "Загрузка деталей момента...",
+    "noDetailsFound": "Детали не найдены",
+    "goBack": "Назад",
+    "momentDetails": "Детали Момента",
+    "pleaseLoginFirst": "Пожалуйста, сначала войдите",
+    "removedLike": "Лайк удалён",
+    "likedMoment": "Момент понравился",
+    "failedToUpdateLike": "Не удалось обновить статус лайка",
+    "emptyCommentError": "Пожалуйста, добавьте комментарий",
+    "commentAdded": "Комментарий добавлен",
+    "failedToAddComment": "Не удалось добавить комментарий",
+    "loadingComments": "Загрузка комментариев...",
+    "writeCommentPlaceholder": "Напишите комментарий...",
+    "signInToComment": "Пожалуйста, войдите, чтобы добавить комментарий",
+    "signIn": "войти",
+    "noCommentsYet": "Комментариев пока нет. Будьте первым!",
+    "commentsCount": "{{count}} Комментариев",
+    "comments": "Комментарии",
+    "likeButton": "Нравится",
+    "commentButton": "Комментарий",
+    "shareButton": "Поделиться",
+    "timeAgo": {
+      "justNow": "только что",
+      "minutesAgo": "{{minutes}}м назад",
+      "hoursAgo": "{{hours}}ч назад",
+      "daysAgo": "{{days}}д назад"
+    }
+  },
+  "createMoment": {
+    "title": "Создать Момент",
+    "form": {
+      "titleLabel": "Заголовок",
+      "titlePlaceholder": "Введите заголовок",
+      "descriptionLabel": "Описание",
+      "descriptionPlaceholder": "Введите описание",
+      "imagesLabel": "Загрузить Изображения",
+      "maxImagesText": "Максимум 10 изображений",
+      "addMoreText": "Добавить Ещё",
+      "submitButton": "Опубликовать",
+      "submittingButton": "Публикация...",
+      "cancelButton": "Отмена"
+    },
+    "toast": {
+      "maxImagesError": "Вы можете загрузить максимум 10 изображений",
+      "createSuccess": "Момент успешно создан!",
+      "createError": "Не удалось создать момент."
+    }
+  },
+  "editMoment": {
+    "title": "Редактировать Момент",
+    "toast": {
+      "maxImagesError": "Вы можете загрузить максимум 10 изображений",
+      "updateSuccess": "Момент успешно обновлён!",
+      "updateError": "Не удалось обновить момент. Пожалуйста, попробуйте снова.",
+      "notAuthorized": "У вас нет прав для редактирования этого момента"
+    },
+    "form": {
+      "titleLabel": "Заголовок",
+      "titlePlaceholder": "Введите заголовок для вашего момента",
+      "descriptionLabel": "Описание",
+      "descriptionPlaceholder": "Расскажите о вашем моменте...",
+      "imagesLabel": "Изображения",
+      "maxImagesText": "Вы можете загрузить до 10 изображений (Макс. 5МБ каждое)",
+      "existingImagesLabel": "Текущие Изображения",
+      "newImagesLabel": "Новые Изображения",
+      "addMoreText": "Добавить ещё",
+      "updateButton": "Обновить Момент",
+      "updatingButton": "Обновление...",
+      "cancelButton": "Отмена"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "Введите вашу эл. почту",
+      "emailLabel": "Адрес Электронной Почты",
+      "emailPlaceholder": "Введите эл. почту",
+      "sendButton": "Отправить Код",
+      "sendingButton": "Отправка...",
+      "successMessage": "Код подтверждения успешно отправлен!",
+      "errorPrefix": "Ошибка: "
+    },
+    "passwordReset": {
+      "successMessage": "Пароль успешно сброшен, пожалуйста, войдите!"
+    },
+    "login": {
+      "signInWithGoogle": "Войти через Google",
+      "title": "Вход",
+      "emailLabel": "Адрес Электронной Почты",
+      "emailPlaceholder": "Введите эл. почту",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль",
+      "forgotPassword": "Забыли Пароль?",
+      "signInButton": "Войти",
+      "signingInButton": "Вход...",
+      "newUserText": "Новый Пользователь?",
+      "registerLink": "Регистрация",
+      "successMessage": "Вход выполнен успешно",
+      "invalidCredentialsError": "Неверные учётные данные"
+    },
+    "account": {
+      "title": "Создайте Свой Аккаунт",
+      "name": "Имя",
+      "email": "Адрес Электронной Почты",
+      "password": "Пароль",
+      "passwordRequirement": "Пароль должен содержать не менее 8 символов",
+      "confirmPassword": "Подтвердите Пароль",
+      "continue": "Продолжить",
+      "alreadyHaveAccount": "Уже есть аккаунт?",
+      "login": "Войти"
+    },
+    "profile": {
+      "title": "Информация Профиля",
+      "bio": "О себе (необязательно)",
+      "bioPlaceholder": "Расскажите нам о себе",
+      "gender": "Пол",
+      "genderOptions": {
+        "select": "Выберите Пол",
+        "male": "Мужской",
+        "female": "Женский",
+        "other": "Другой"
+      },
+      "birthDate": "Дата Рождения",
+      "nativeLanguage": "Родной Язык",
+      "selectLanguage": "Выберите Язык",
+      "languageToLearn": "Язык для Изучения",
+      "profileImages": "Изображения Профиля",
+      "uploadPrompt": "Нажмите, чтобы загрузить изображения профиля",
+      "selectImages": "Выбрать Изображения",
+      "back": "Назад",
+      "processing": "Обработка..."
+    },
+    "verification": {
+      "title": "Подтверждение Эл. Почты",
+      "sentMessage": "Мы отправили код подтверждения на вашу эл. почту:",
+      "verificationCode": "Код Подтверждения",
+      "codePlaceholder": "Введите 6-значный код",
+      "verifyButton": "Подтвердить Эл. Почту",
+      "verifying": "Проверка...",
+      "resendCode": "Отправить код повторно",
+      "sending": "Отправка...",
+      "backToProfile": "Вернуться к Профилю",
+      "successMessage": "Эл. почта успешно подтверждена!",
+      "completePrompt": "Завершите регистрацию, нажав кнопку ниже.",
+      "completeRegistration": "Завершить Регистрацию"
+    },
+    "progressBar": {
+      "account": "Аккаунт",
+      "profile": "Профиль",
+      "verify": "Проверка"
+    },
+    "toasts": {
+      "passwordMismatch": "Пароли не совпадают",
+      "verificationSent": "Код подтверждения успешно отправлен!",
+      "sendCodeFailed": "Не удалось отправить код подтверждения",
+      "emailVerified": "Эл. почта успешно подтверждена!",
+      "invalidCode": "Неверный код подтверждения",
+      "verifyFirst": "Пожалуйста, сначала подтвердите эл. почту",
+      "registrationSuccess": "Регистрация прошла успешно!",
+      "registrationError": "Ошибка при регистрации"
+    }
+  },
+  "communityMain": {
+    "title": "Языковой Обмен",
+    "subtitle": "Общайтесь с изучающими языки по всему миру",
+    "badge": "Сообщество Языкового Обмена",
+    "heroTitle": "Найдите Своего Идеального",
+    "heroTitleHighlight": "Языкового Партнёра",
+    "heroDescription": "Общайтесь с носителями языков со всего мира и практикуйте языки вместе",
+    "stats": {
+      "activeLearners": "Активные Ученики",
+      "activeUsers": "Активные Пользователи",
+      "languages": "Языки",
+      "countries": "Страны"
+    },
+    "search": {
+      "placeholder": "Поиск по имени, языку или интересам...",
+      "loading": "Поиск языковых партнёров..."
+    },
+    "memberCard": {
+      "native": "Родной",
+      "learning": "Изучает",
+      "defaultBio": "Готов практиковать языки и заводить новых друзей!",
+      "onlineNow": "Сейчас онлайн",
+      "active": "Активен",
+      "recently": "Недавно",
+      "justNow": "Только что",
+      "minutesAgo": "{{count}}м назад",
+      "hoursAgo": "{{count}}ч назад",
+      "daysAgo": "{{count}}д назад",
+      "overWeekAgo": "Более недели назад",
+      "actions": {
+        "wave": "Помахать",
+        "message": "Сообщение",
+        "like": "Нравится"
+      }
+    },
+    "tabs": {
+      "all": "Все",
+      "popular": "Популярные",
+      "new": "Новые"
+    },
+    "filters": {
+      "language": "Язык",
+      "allLanguages": "Все Языки",
+      "clear": "Очистить"
+    },
+    "results": {
+      "showing": "Показано {{count}} замечательных языковых партнёр{{plural}}",
+      "membersFound": "{{count}} участников найдено",
+      "noneFound": {
+        "title": "Участники не найдены",
+        "message": "Попробуйте изменить фильтры или условия поиска",
+        "resetFilters": "Сбросить Фильтры"
+      }
+    },
+    "errors": {
+      "generic": "Ой! Что-то пошло не так",
+      "loadError": "Не удалось загрузить сообщество. Пожалуйста, попробуйте снова.",
+      "tryAgain": "Попробовать Снова"
+    },
+    "loadMore": {
+      "loading": "Загрузка...",
+      "button": "Загрузить Ещё"
+    },
+    "cta": {
+      "title": "Готовы начать своё языковое путешествие?",
+      "description": "Создайте свой профиль и общайтесь с языковыми партнёрами по всему миру",
+      "getStarted": "Начать Бесплатно",
+      "viewWaves": "Посмотреть Приветствия"
+    },
+    "buttons": {
+      "clearFilters": "Очистить все фильтры"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "Недействительный ID профиля",
+      "profileNotFound": "Профиль Не Найден",
+      "profileNotFoundDesc": "Этот профиль пользователя не существует или был удалён.",
+      "somethingWentWrong": "Ой! Что-то пошло не так",
+      "tryAgainLater": "Не удалось загрузить этот профиль. Пожалуйста, попробуйте позже."
+    },
+    "buttons": {
+      "backToCommunity": "Вернуться в Сообщество",
+      "tryAgain": "Попробовать Снова",
+      "follow": "Подписаться",
+      "following": "Подписки",
+      "startChat": "Начать Чат",
+      "videoCall": "Видеозвонок",
+      "startConversation": "Начать Разговор"
+    },
+    "loading": {
+      "loadingProfile": "Загрузка профиля...",
+      "initiatingCall": "Инициализация звонка с {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "Вам нужно войти, чтобы подписаться на пользователей",
+      "followSuccess": "Успешно подписались!",
+      "followFailed": "Не удалось подписаться. Пожалуйста, попробуйте снова.",
+      "loginToUnfollow": "Вам нужно войти, чтобы отписаться от пользователей",
+      "unfollowSuccess": "Успешно отписались",
+      "unfollowFailed": "Не удалось отписаться. Пожалуйста, попробуйте снова.",
+      "confirmUnfollow": "Вы уверены, что хотите отписаться от этого пользователя?",
+      "loginToChat": "Вам нужно войти, чтобы начать чат",
+      "chatStarted": "Чат успешно начат!",
+      "chatFailed": "Не удалось начать чат. Пожалуйста, попробуйте снова.",
+      "errorOccurred": "Произошла ошибка. Пожалуйста, попробуйте снова."
+    },
+    "profile": {
+      "memberSince": "Участник с {{date}}",
+      "yearsOld": "{{age}} лет",
+      "noPhotos": "Фотографий пока нет",
+      "aboutUser": "О {{name}}",
+      "noBio": "{{name}} ещё не добавил(а) информацию о себе. Начните разговор, чтобы узнать больше!",
+      "readyToPractice": "Готовы практиковаться с {{name}}?",
+      "practiceDescription": "Начните общаться и улучшайте свои языковые навыки вместе!",
+      "online": "Онлайн",
+      "offline": "Офлайн",
+      "justNow": "Только что",
+      "minutesAgo": "{{count}}м назад",
+      "hoursAgo": "{{count}}ч назад",
+      "daysAgo": "{{count}}д назад",
+      "recentlyActive": "Недавно был(а) активен(на)"
+    },
+    "stats": {
+      "followers": "Подписчики",
+      "following": "Подписки"
+    },
+    "language": {
+      "speaks": "Говорит на",
+      "learning": "Изучает",
+      "notSpecified": "Не указано"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "Фотографии недоступны"
+    },
+    "navigation": {
+      "backToCommunity": "Вернуться в Сообщество"
+    },
+    "errors": {
+      "invalidProfileId": "Недействительный ID профиля",
+      "somethingWentWrong": "Ой! Что-то пошло не так",
+      "couldNotLoadProfile": "Не удалось загрузить этот профиль. Пожалуйста, попробуйте позже.",
+      "profileNotFound": "Профиль Не Найден",
+      "profileDoesNotExist": "Этот профиль пользователя не существует или был удалён.",
+      "loadingProfile": "Загрузка профиля..."
+    },
+    "buttons": {
+      "tryAgain": "Попробовать Снова",
+      "backToCommunity": "Вернуться в Сообщество"
+    },
+    "stats": {
+      "followers": "Подписчики",
+      "following": "Подписки"
+    },
+    "actions": {
+      "following": "Подписки",
+      "follow": "Подписаться",
+      "startChat": "Начать Чат",
+      "videoCall": "Видеозвонок",
+      "startConversation": "Начать Разговор"
+    },
+    "languages": {
+      "speaks": "Говорит на",
+      "learning": "Изучает",
+      "notSpecified": "Не указано"
+    },
+    "memberInfo": {
+      "yearsOld": "лет",
+      "memberSince": "Участник с"
+    },
+    "about": {
+      "aboutTitle": "О пользователе",
+      "noBioMessage": "ещё не добавил(а) информацию о себе. Начните разговор, чтобы узнать больше!"
+    },
+    "callToAction": {
+      "title": "Готовы практиковаться с",
+      "subtitle": "Начните общаться и улучшайте свои языковые навыки вместе!"
+    },
+    "toasts": {
+      "needLogin": "Вам нужно войти, чтобы",
+      "followUsers": "подписаться на пользователей",
+      "unfollowUsers": "отписаться от пользователей",
+      "startChat": "начать чат",
+      "failedToFollow": "Не удалось подписаться. Пожалуйста, попробуйте снова.",
+      "successfullyFollowed": "Успешно подписались!",
+      "successfullyUnfollowed": "Успешно отписались",
+      "failedToUnfollow": "Не удалось отписаться. Пожалуйста, попробуйте снова.",
+      "failedToStartChat": "Не удалось начать чат. Пожалуйста, попробуйте снова.",
+      "initiatingCall": "Инициализация звонка с",
+      "errorOccurred": "Произошла ошибка. Пожалуйста, попробуйте снова."
+    },
+    "confirmations": {
+      "unfollowConfirm": "Вы уверены, что хотите отписаться от этого пользователя?"
+    },
+    "accessibility": {
+      "viewPhoto": "Посмотреть фото",
+      "userPhoto": "фото пользователя"
+    },
+    "fallbacks": {
+      "defaultUser": "Пользователь"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "Обучение",
+      "subtitle": "Продолжайте в том же духе!",
+      "currentStreak": "Текущая Серия",
+      "days": "дней",
+      "longest": "Самая Длинная",
+      "dailyGoal": "Ежедневная Цель",
+      "goalComplete": "Ежедневная цель выполнена!",
+      "quickActions": "Быстрые Действия",
+      "review": "Повторение",
+      "practiceWords": "Практика словарного запаса",
+      "lessons": "Уроки",
+      "learnNew": "Изучить новый материал",
+      "quiz": "Тест",
+      "testKnowledge": "Проверьте свои знания",
+      "leaderboard": "Таблица Лидеров",
+      "seeRankings": "Посмотреть рейтинг",
+      "yourProgress": "Ваш Прогресс",
+      "words": "Слова",
+      "lessonsLabel": "Уроки",
+      "level": "Уровень",
+      "vocabulary": "Словарный Запас",
+      "wordsLearned": "слов изучено",
+      "achievements": "Достижения",
+      "unlocked": "разблокировано",
+      "challenges": "Вызовы",
+      "joinChallenges": "Участвуйте в еженедельных вызовах"
+    },
+    "vocabulary": {
+      "title": "Словарный Запас",
+      "searchPlaceholder": "Поиск слов...",
+      "addWord": "Добавить Слово",
+      "noWords": "Слов пока нет",
+      "startAdding": "Начните добавлять слова в свой словарный запас",
+      "word": "Слово",
+      "translation": "Перевод",
+      "level": "Уровень",
+      "nextReview": "Следующее Повторение"
+    },
+    "review": {
+      "title": "Повторение",
+      "cardsLeft": "карточек осталось",
+      "showAnswer": "Показать Ответ",
+      "correct": "Правильно",
+      "incorrect": "Неправильно",
+      "sessionComplete": "Сессия Завершена!",
+      "greatJob": "Отличная работа! Вы завершили все повторения.",
+      "backToDashboard": "Вернуться на Панель"
+    },
+    "lessons": {
+      "title": "Уроки",
+      "continue": "Продолжить",
+      "start": "Начать",
+      "completed": "Завершён",
+      "progress": "Прогресс"
+    },
+    "quizzes": {
+      "title": "Тесты",
+      "questions": "вопросов",
+      "startQuiz": "Начать Тест",
+      "score": "Результат"
+    },
+    "leaderboard": {
+      "title": "Таблица Лидеров",
+      "weekly": "За Неделю",
+      "monthly": "За Месяц",
+      "allTime": "За Всё Время",
+      "you": "Вы",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "Достижения",
+      "unlocked": "Разблокировано",
+      "locked": "Заблокировано",
+      "progress": "Прогресс"
+    },
+    "challenges": {
+      "title": "Вызовы",
+      "join": "Присоединиться",
+      "joined": "Участвую",
+      "daysLeft": "дней осталось",
+      "participants": "участников"
+    }
+  },
+  "settings": {
+    "title": "Настройки",
+    "subtitle": "Управляйте своим аккаунтом и настройками",
+    "editProfile": "Редактировать",
+    "logout": "Выйти",
+    "logoutSuccess": "Вы успешно вышли из системы",
+    "sections": {
+      "account": "Аккаунт",
+      "privacy": "Конфиденциальность",
+      "notifications": "Уведомления",
+      "vip": "VIP",
+      "language": "Язык",
+      "support": "Поддержка"
+    },
+    "items": {
+      "editProfile": "Редактировать Профиль",
+      "editProfileDesc": "Обновите свою личную информацию",
+      "changePassword": "Изменить Пароль",
+      "changePasswordDesc": "Обновите свой пароль",
+      "emailSettings": "Настройки Эл. Почты",
+      "emailSettingsDesc": "Управление настройками эл. почты",
+      "privacySettings": "Настройки Конфиденциальности",
+      "privacySettingsDesc": "Контролируйте, кто может видеть вашу информацию",
+      "blockedUsers": "Заблокированные Пользователи",
+      "blockedUsersDesc": "Управление заблокированными аккаунтами",
+      "closeFriends": "Близкие Друзья",
+      "closeFriendsDesc": "Управление списком близких друзей",
+      "pushNotifications": "Push-уведомления",
+      "pushNotificationsDesc": "Управление настройками уведомлений",
+      "chatSettings": "Настройки Чата",
+      "chatSettingsDesc": "Настройки сообщений и чата",
+      "manageSubscription": "Управление Подпиской",
+      "vipActive": "VIP Активен",
+      "upgradeToPremium": "Перейти на премиум",
+      "languageSettings": "Настройки Языка",
+      "languageSettingsDesc": "Изменить язык приложения и изучаемый язык",
+      "helpCenter": "Центр Помощи",
+      "helpCenterDesc": "Получить помощь и поддержку"
+    },
+    "privacySettings": {
+      "title": "Настройки Конфиденциальности",
+      "profileVisibility": "Видимость Профиля",
+      "onlineStatus": "Показывать Статус Онлайн",
+      "lastSeen": "Показывать Последнее Посещение",
+      "readReceipts": "Подтверждение Прочтения"
+    },
+    "notificationSettings": {
+      "title": "Настройки Уведомлений",
+      "pushNotifications": "Push-уведомления",
+      "messages": "Сообщения",
+      "likes": "Лайки",
+      "followers": "Новые Подписчики",
+      "waves": "Приветствия",
+      "emailDigest": "Дайджест Эл. Почты"
+    },
+    "languageSettings": {
+      "title": "Настройки Языка",
+      "appLanguage": "Язык Приложения",
+      "nativeLanguage": "Родной Язык",
+      "learningLanguage": "Изучаемый Язык"
+    },
+    "vipSettings": {
+      "title": "Статус VIP",
+      "currentPlan": "Текущий План",
+      "free": "Бесплатный",
+      "premium": "Премиум",
+      "features": "Функции",
+      "upgrade": "Перейти на VIP"
+    }
+  },
+  "waves": {
+    "title": "Приветствия",
+    "received": "Полученные",
+    "sent": "Отправленные",
+    "accept": "Принять",
+    "decline": "Отклонить",
+    "noWaves": "Приветствий пока нет",
+    "sendWave": "Отправьте приветствие, чтобы начать общение!"
+  },
+  "topics": {
+    "title": "Темы",
+    "myTopics": "Мои Темы",
+    "browseTopics": "Обзор Тем",
+    "usersInterested": "заинтересованных пользователей"
+  },
+  "nearby": {
+    "title": "Пользователи Поблизости",
+    "enableLocation": "Включить Геолокацию",
+    "locationRequired": "Доступ к геолокации необходим для поиска пользователей поблизости",
+    "noUsersNearby": "Нет пользователей поблизости",
+    "tryExpandingRadius": "Попробуйте расширить радиус поиска"
+  },
+  "home": {
+    "hero": {
+      "badge": "Языковой Обмен — Это Просто",
+      "titlePart1": "Учите Языки",
+      "titleHighlight": "Разговаривая",
+      "titlePart2": "с Носителями Языка",
+      "description": "Общайтесь с миллионами изучающих языки по всему миру. Практикуйте разговорную речь, улучшайте беглость и заводите друзей со всех уголков мира.",
+      "stats": {
+        "users": "Активные Пользователи",
+        "languages": "Языки",
+        "countries": "Страны"
+      },
+      "getStarted": "Начать Бесплатно",
+      "browseCommunity": "Обзор Сообщества",
+      "lovedBy": "Любим более 5М учеников",
+      "chatPreview": {
+        "message1": "Привет! Как дела? 👋",
+        "message2": "Hey! I'm practicing Russian!",
+        "message3": "Отлично! Давай практиковаться вместе 🇷🇺"
+      }
+    },
+    "sections": {
+      "features": "Функции",
+      "howItWorks": "Как Это Работает",
+      "pricing": "Цены"
+    },
+    "features": {
+      "title": "Всё, Что Нужно Для Обучения",
+      "subtitle": "Мощные инструменты, созданные для ускорения вашего языкового обучения",
+      "chat": {
+        "title": "Чат в Реальном Времени",
+        "description": "Практикуйте разговоры с носителями языка через мгновенные сообщения"
+      },
+      "video": {
+        "title": "Видеозвонки",
+        "description": "Языковая практика лицом к лицу с партнёрами по всему миру"
+      },
+      "lessons": {
+        "title": "Интерактивные Уроки",
+        "description": "Учитесь со структурированными курсами и ежедневными упражнениями"
+      },
+      "voice": {
+        "title": "Голосовые Сообщения",
+        "description": "Совершенствуйте произношение с помощью аудиообмена"
+      },
+      "community": {
+        "title": "Сообщество",
+        "description": "Присоединяйтесь к миллионам изучающих языки по всему миру"
+      },
+      "languages": {
+        "title": "Более 50 Языков",
+        "description": "От испанского до корейского — найдите свой путь обучения"
+      }
+    },
+    "howItWorks": {
+      "title": "Начните Учиться за 3 Шага",
+      "subtitle": "Начните за несколько минут и приступите к языковому путешествию уже сегодня"
+    },
+    "steps": {
+      "profile": {
+        "title": "Создайте Свой Профиль",
+        "description": "Расскажите нам о вашем родном языке и о том, что вы хотите изучать"
+      },
+      "partners": {
+        "title": "Найдите Партнёров",
+        "description": "Просматривайте наше сообщество и находите идеальных партнёров для языкового обмена"
+      },
+      "learn": {
+        "title": "Начните Учиться",
+        "description": "Общайтесь, звоните и практикуйтесь с носителями языка каждый день"
+      }
+    },
+    "pricing": {
+      "title": "Выберите Свой План",
+      "subtitle": "Начните бесплатно и перейдите на платный план, когда будете готовы",
+      "mostPopular": "Самый Популярный",
+      "getStarted": "Начать",
+      "free": {
+        "name": "Бесплатный",
+        "period": "навсегда",
+        "features": {
+          "messaging": "Базовые сообщения",
+          "connections": "5 новых контактов/день",
+          "community": "Доступ к сообществу",
+          "lessons": "Базовые уроки"
+        }
+      },
+      "premium": {
+        "name": "Премиум",
+        "period": "/месяц",
+        "features": {
+          "messaging": "Безлимитные сообщения",
+          "connections": "Безлимитные контакты",
+          "video": "Видеозвонки",
+          "lessons": "Продвинутые уроки",
+          "noAds": "Без рекламы",
+          "translation": "Инструменты перевода"
+        }
+      },
+      "lifetime": {
+        "name": "Пожизненный",
+        "period": "единоразово",
+        "features": {
+          "everything": "Всё из Премиум",
+          "forever": "Доступ навсегда",
+          "support": "Приоритетная поддержка",
+          "early": "Ранний доступ к функциям",
+          "badges": "Эксклюзивные значки"
+        }
+      }
+    },
+    "download": {
+      "badge": "Скачайте Приложение",
+      "title": "Берите BananaTalk с Собой",
+      "description": "Учитесь на ходу с нашим мобильным приложением. Доступно для iOS и Android со всеми функциями, push-уведомлениями и офлайн-доступом.",
+      "downloadOn": "Скачать в",
+      "getItOn": "Доступно в",
+      "scanQR": "Отсканируйте, чтобы скачать приложение",
+      "or": "или",
+      "features": {
+        "offline": "Офлайн-доступ",
+        "push": "Push-уведомления",
+        "fast": "Быстрое и лёгкое"
+      }
+    },
+    "cta": {
+      "title": "Готовы Начать Своё Языковое Путешествие?",
+      "description": "Присоединяйтесь к миллионам учеников и начните говорить на новом языке уже сегодня",
+      "button": "Создать Бесплатный Аккаунт"
+    }
+  },
+  "vip": {
+    "title": "Членство VIP",
+    "subtitle": "Разблокируйте премиум-функции",
+    "status": {
+      "active": "VIP Активен",
+      "free": "Бесплатный План",
+      "activeDesc": "Наслаждайтесь всеми премиум-функциями",
+      "freeDesc": "Перейдите на VIP, чтобы разблокировать больше функций"
+    },
+    "expiresOn": "Истекает",
+    "plans": {
+      "free": "Бесплатный",
+      "vip": "VIP"
+    },
+    "perMonth": "месяц",
+    "saveAnnually": "Сэкономьте 20% с годовым планом",
+    "popular": "ПОПУЛЯРНЫЙ",
+    "upgradeNow": "Перейти на VIP",
+    "upgradeInApp": "Перейти на VIP в Приложении",
+    "upgradeInAppDesc": "Подписки VIP можно приобрести только через наше мобильное приложение",
+    "manageSubscription": "Управление Подпиской",
+    "cancelSubscription": "Отменить Подписку",
+    "manageInApp": "Для управления подпиской, пожалуйста, используйте мобильное приложение BananaTalk.",
+    "features": {
+      "limitedMessages": "Ограниченное количество сообщений в день",
+      "basicProfile": "Базовый профиль",
+      "basicSearch": "Базовый поиск",
+      "unlimitedMessages": "Безлимитные сообщения",
+      "seeProfileVisitors": "Смотрите, кто посещал ваш профиль",
+      "advancedFilters": "Расширенные фильтры поиска",
+      "noAds": "Без рекламы",
+      "prioritySupport": "Приоритетная поддержка",
+      "exclusiveBadge": "Эксклюзивный значок VIP",
+      "translationFeature": "Перевод сообщений"
+    }
+  }
+}

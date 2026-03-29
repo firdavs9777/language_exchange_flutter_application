@@ -1,0 +1,220 @@
+// Compact Stories Feed for Moments Page
+.stories-feed-container {
+  margin-bottom: 1rem;
+  width: 100%;
+  min-height: 100px;
+  
+  &.compact {
+    padding: 0.75rem 0;
+    background: transparent;
+  }
+}
+
+.story-loading-spinner {
+  width: 100%;
+  height: 100%;
+  border: 3px solid rgba(0, 191, 165, 0.2);
+  border-top-color: #00BFA5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stories-feed {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00BFA5 0%, #008E76 100%);
+    border-radius: 10px;
+    
+    &:hover {
+      background: linear-gradient(135deg, #008E76 0%, #00BFA5 100%);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+}
+
+.story-circle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+  }
+  
+  .story-circle-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #4a5568;
+    text-align: center;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    @media (max-width: 768px) {
+      font-size: 0.65rem;
+      max-width: 60px;
+    }
+  }
+}
+
+.story-circle {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  padding: 2.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+  }
+  
+  &.has-stories,
+  &.has-unviewed {
+    background: linear-gradient(135deg, #00BFA5 0%, #008E76 100%);
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 191, 165, 0.3);
+    }
+  }
+  
+  &.viewed {
+    background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  &.create-story {
+    background: linear-gradient(135deg, #00BFA5 0%, #008E76 100%);
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 191, 165, 0.3);
+    }
+  }
+  
+  .story-circle-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .create-story-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #00BFA5 0%, #008E76 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.65rem;
+      border: 2px solid white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      
+      @media (max-width: 768px) {
+        width: 18px;
+        height: 18px;
+        font-size: 0.6rem;
+      }
+    }
+  }
+  
+  .story-progress-ring {
+    position: absolute;
+    top: -2.5px;
+    left: -2.5px;
+    width: calc(100% + 5px);
+    height: calc(100% + 5px);
+    pointer-events: none;
+    
+    @media (max-width: 768px) {
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+    }
+    
+    .progress-ring {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      
+      .progress-ring-circle {
+        stroke-dasharray: 301.59;
+        stroke-dashoffset: 0;
+        transition: stroke-dashoffset 0.3s ease;
+      }
+    }
+    
+    &.unviewed .progress-ring-circle {
+      stroke-dashoffset: 0;
+      animation: pulse 2s infinite;
+    }
+    
+    &.viewed .progress-ring-circle {
+      stroke-dashoffset: 301.59;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+

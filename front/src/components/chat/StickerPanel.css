@@ -1,0 +1,203 @@
+.sticker-panel {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #E5E7EB;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 50;
+  animation: stickerSlideUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+}
+
+@keyframes stickerSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sticker-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 6px;
+}
+
+.sticker-panel-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sticker-panel-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #F3F4F6;
+  border-radius: 50%;
+  color: #6B7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sticker-panel-close:hover {
+  background: #E5E7EB;
+  color: #374151;
+}
+
+/* Tabs */
+.sticker-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 0 12px;
+  border-bottom: 1px solid #F3F4F6;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sticker-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sticker-tab {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.15s ease;
+  position: relative;
+  line-height: 1;
+}
+
+.sticker-tab:hover {
+  background: #F3F4F6;
+}
+
+.sticker-tab.active {
+  background: #F0FDF4;
+}
+
+.sticker-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: #14B8A6;
+  border-radius: 2px 2px 0 0;
+}
+
+/* Grid */
+.sticker-grid-container {
+  height: 220px;
+  overflow-y: auto;
+  padding: 8px 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sticker-grid-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sticker-grid-container::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 4px;
+}
+
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+}
+
+.sticker-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 2.2rem;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.sticker-item:hover {
+  background: #F3F4F6;
+  transform: scale(1.2);
+}
+
+.sticker-item:active {
+  transform: scale(0.95);
+}
+
+/* Sticker message in chat */
+.sticker-message {
+  font-size: 5rem;
+  line-height: 1.2;
+  padding: 6px 0;
+  text-align: center;
+}
+
+.message-bubble.sticker-bubble {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 4px 8px !important;
+  border: none !important;
+}
+
+.message-bubble.sticker-bubble .message-meta {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .sticker-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .sticker-item {
+    font-size: 1.85rem;
+  }
+
+  .sticker-grid-container {
+    height: 200px;
+  }
+
+  .sticker-message {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .sticker-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .sticker-item {
+    font-size: 1.7rem;
+  }
+}

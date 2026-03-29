@@ -1,0 +1,109 @@
+.voice-recorder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  padding: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 25px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.cancel-btn {
+  background: rgba(239, 68, 68, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.3);
+    transform: scale(1.1);
+  }
+}
+
+.recording-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+
+  &.active {
+    animation: pulse-red 1s ease-in-out infinite;
+  }
+}
+
+.recording-duration {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  font-family: monospace;
+  min-width: 50px;
+}
+
+.recording-wave {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 32px;
+}
+
+.wave-bar {
+  width: 3px;
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  border-radius: 2px;
+  animation: wave-animation 0.5s ease-in-out infinite alternate;
+}
+
+.send-btn {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes wave-animation {
+  from {
+    transform: scaleY(0.5);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

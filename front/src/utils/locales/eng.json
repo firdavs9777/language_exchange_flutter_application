@@ -1,12 +1,74 @@
 {
   "greeting": "hello",
+  "footer": {
+    "aboutUs": "About Us",
+    "aboutDescription": "BananaTalk is dedicated to helping you master new languages and connect with native speakers from around the world.",
+    "quickLinks": "Quick Links",
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "pricing": "Pricing",
+      "contact": "Contact"
+    },
+    "contactInfo": "Contact Info",
+    "address": "Seoul, South Korea, Gangnam-gu",
+    "follow": "Follow",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Subscribe to our newsletter for updates and offers.",
+    "emailPlaceholder": "Your email address",
+    "allRightsReserved": "All rights reserved."
+  },
   "community": "Community",
   "chat": "Chat",
+  "chatPage": {
+    "messages": "Messages",
+    "searchPlaceholder": "Search conversations...",
+    "startConversation": "Start a Conversation",
+    "emptyDescription": "Select a chat from the sidebar or start a new conversation to connect with language partners around the world.",
+    "newConversation": "New Conversation",
+    "features": {
+      "realtime": "Real-time messaging",
+      "exchange": "Language exchange",
+      "calls": "Voice & video calls"
+    },
+    "online": "Online",
+    "offline": "Offline",
+    "lastSeen": "Last seen",
+    "typing": "is typing...",
+    "loadingConversation": "Loading conversation...",
+    "errorLoading": "Error loading conversation",
+    "messagePlaceholder": "Type your message...",
+    "justNow": "Just now",
+    "minutesAgo": "{{count}}m ago",
+    "hoursAgo": "{{count}}h ago",
+    "unknownUser": "Unknown User"
+  },
+  "newChat": {
+    "title": "New Chat",
+    "subtitle": "Start a conversation",
+    "directMessage": "Direct",
+    "groupChat": "Group",
+    "searchPlaceholder": "Search by name, @username, or user ID...",
+    "searchHint": "Search for users to start a chat",
+    "hintName": "Search by name",
+    "hintUsername": "Type @username to find by username",
+    "hintId": "Paste a user ID to find directly",
+    "searchByUsername": "Searching by username",
+    "searchById": "Searching by user ID",
+    "noResults": "No users found",
+    "tryDifferent": "Try a different name, @username, or user ID",
+    "createGroup": "Create Group",
+    "selectMoreUsers": "Select at least 2 users for group chat",
+    "createError": "Failed to create chat",
+    "recently": "Recently"
+  },
   "notifications": "Notifications",
   "moments": "Moments",
   "language": "Language",
   "english": "English",
   "korean": "Korean",
+  "chinese": "Chinese",
   "followers": "Followers",
   "followings": "Followings",
   "my_moments": "My Moments",
@@ -33,13 +95,17 @@
     "replace_image": "Replace",
     "delete_image": "Delete image",
     "remove_from_selection": "Remove from selection",
-    "image_gallery": "Image Gallery "
+    "image_gallery": "Image Gallery"
   },
   "profile": {
     "title": "My Profile",
+    "edit_profile": "Edit Profile",
+    "photos": "Photos",
     "messages": {
       "image_update_success": "Profile image updated successfully",
       "image_update_failure": "Failed to update profile image",
+      "image_delete_success": "Photo deleted successfully",
+      "image_delete_failure": "Failed to delete photo",
       "profile_update_success": "Profile updated successfully",
       "profile_update_failure": "Failed to update profile",
       "error_loading_profile": "Error loading user profile",
@@ -58,19 +124,48 @@
       "moments": "Moments",
       "visitors": "Visitors"
     },
+    "visitors": {
+      "title": "Profile Visitors",
+      "error": "Error loading visitors",
+      "no_visitors": "No visitors yet",
+      "no_visitors_desc": "When people visit your profile, they'll appear here",
+      "total_visits": "Total Visits",
+      "unique_visitors": "Unique Visitors",
+      "visits_today": "Today",
+      "visits_week": "This Week",
+      "via_moments": "Via Moments",
+      "via_search": "Via Search",
+      "via_chat": "Via Chat",
+      "via_direct": "Direct",
+      "via_followers": "Via Followers",
+      "vipOnly": "VIP Feature",
+      "vipOnlyDesc": "See who visited your profile by upgrading to VIP. This feature is available exclusively for VIP members.",
+      "vipBenefits": "VIP Benefits",
+      "learnMore": "Learn More About VIP"
+    },
     "sections": {
       "personal_info": "Personal Information",
       "bio": "Bio",
-      "languages": "Languages"
+      "languages": "Languages",
+      "personality": "Personality",
+      "topics": "Topics & Interests"
     },
     "labels": {
       "name": "Name",
+      "username": "Username",
       "email": "Email",
       "gender": "Gender",
       "birthday": "Birthday",
       "native_language": "Native",
       "learning": "Learning",
-      "of": "of"
+      "of": "of",
+      "mbti": "MBTI Type",
+      "blood_type": "Blood Type",
+      "topics_hint": "Select topics you're interested in (max 10)",
+      "selected": "selected"
+    },
+    "hints": {
+      "username_readonly": "Username cannot be changed"
     },
     "placeholders": {
       "bio": "Write something about yourself",
@@ -87,12 +182,35 @@
       "edit": "Edit",
       "save": "Save",
       "cancel": "Cancel",
-      "edit_photo": "Edit Photo"
+      "edit_photo": "Edit Photo",
+      "clear": "Clear selection"
     },
     "buttons": {
       "edit": "Edit",
       "save": "Save",
       "cancel": "Cancel"
+    },
+    "topics": {
+      "music": "Music",
+      "movies": "Movies",
+      "travel": "Travel",
+      "sports": "Sports",
+      "gaming": "Gaming",
+      "food": "Food",
+      "art": "Art",
+      "photography": "Photography",
+      "reading": "Reading",
+      "fitness": "Fitness",
+      "technology": "Technology",
+      "fashion": "Fashion",
+      "cooking": "Cooking",
+      "nature": "Nature",
+      "pets": "Pets",
+      "anime": "Anime",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "Languages",
+      "culture": "Culture"
     }
   },
   "moments_section": {
@@ -277,22 +395,36 @@
   "communityMain": {
     "title": "Language Exchange",
     "subtitle": "Connect with language learners worldwide",
+    "badge": "Language Exchange Community",
+    "heroTitle": "Find Your Perfect",
+    "heroTitleHighlight": "Language Partner",
+    "heroDescription": "Connect with native speakers from around the world and practice languages together",
     "stats": {
       "activeLearners": "Active Learners",
+      "activeUsers": "Active Users",
       "languages": "Languages",
       "countries": "Countries"
     },
     "search": {
-      "placeholder": "Search by name or language...",
-      "loading": "Loading amazing language partners..."
+      "placeholder": "Search by name, language, or interests...",
+      "loading": "Finding language partners..."
     },
     "memberCard": {
       "native": "Native",
       "learning": "Learning",
-      "defaultBio": "Passionate language learner ready to connect!",
+      "defaultBio": "Ready to practice languages and make new friends!",
+      "onlineNow": "Online now",
+      "active": "Active",
+      "recently": "Recently",
+      "justNow": "Just now",
+      "minutesAgo": "{{count}}m ago",
+      "hoursAgo": "{{count}}h ago",
+      "daysAgo": "{{count}}d ago",
+      "overWeekAgo": "Over a week ago",
       "actions": {
-        "like": "Like",
-        "message": "Message"
+        "wave": "Wave",
+        "message": "Message",
+        "like": "Like"
       }
     },
     "tabs": {
@@ -300,17 +432,34 @@
       "popular": "Popular",
       "new": "New"
     },
+    "filters": {
+      "language": "Language",
+      "allLanguages": "All Languages",
+      "clear": "Clear"
+    },
     "results": {
       "showing": "Showing {{count}} amazing language partner{{plural}}",
+      "membersFound": "{{count}} members found",
       "noneFound": {
-        "title": "No language partners found",
-        "message": "Try adjusting your search filters to discover more learners",
-        "resetFilters": "Reset All Filters"
+        "title": "No members found",
+        "message": "Try adjusting your filters or search terms",
+        "resetFilters": "Reset Filters"
       }
     },
     "errors": {
-      "generic": "Something went wrong",
+      "generic": "Oops! Something went wrong",
+      "loadError": "We couldn't load the community. Please try again.",
       "tryAgain": "Try Again"
+    },
+    "loadMore": {
+      "loading": "Loading...",
+      "button": "Load More Members"
+    },
+    "cta": {
+      "title": "Ready to start your language journey?",
+      "description": "Create your profile and connect with language partners worldwide",
+      "getStarted": "Get Started Free",
+      "viewWaves": "View Waves"
     },
     "buttons": {
       "clearFilters": "Clear all filters"
@@ -357,7 +506,14 @@
       "aboutUser": "About {{name}}",
       "noBio": "{{name}} hasn't added a bio yet. Start a conversation to learn more about them!",
       "readyToPractice": "Ready to practice with {{name}}?",
-      "practiceDescription": "Start chatting and improve your language skills together!"
+      "practiceDescription": "Start chatting and improve your language skills together!",
+      "online": "Online",
+      "offline": "Offline",
+      "justNow": "Just now",
+      "minutesAgo": "{{count}}m ago",
+      "hoursAgo": "{{count}}h ago",
+      "daysAgo": "{{count}}d ago",
+      "recentlyActive": "Recently active"
     },
     "stats": {
       "followers": "Followers",
@@ -438,6 +594,350 @@
     },
     "fallbacks": {
       "defaultUser": "User"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "Learn",
+      "subtitle": "Keep up the great work!",
+      "currentStreak": "Current Streak",
+      "days": "days",
+      "longest": "Longest",
+      "dailyGoal": "Daily Goal",
+      "goalComplete": "Daily goal complete!",
+      "quickActions": "Quick Actions",
+      "review": "Review",
+      "practiceWords": "Practice vocabulary",
+      "lessons": "Lessons",
+      "learnNew": "Learn new content",
+      "quiz": "Quiz",
+      "testKnowledge": "Test your knowledge",
+      "leaderboard": "Leaderboard",
+      "seeRankings": "See rankings",
+      "yourProgress": "Your Progress",
+      "words": "Words",
+      "lessonsLabel": "Lessons",
+      "level": "Level",
+      "vocabulary": "Vocabulary",
+      "wordsLearned": "words learned",
+      "achievements": "Achievements",
+      "unlocked": "unlocked",
+      "challenges": "Challenges",
+      "joinChallenges": "Join weekly challenges"
+    },
+    "vocabulary": {
+      "title": "Vocabulary",
+      "searchPlaceholder": "Search words...",
+      "addWord": "Add Word",
+      "noWords": "No words yet",
+      "startAdding": "Start adding words to your vocabulary",
+      "word": "Word",
+      "translation": "Translation",
+      "level": "Level",
+      "nextReview": "Next Review"
+    },
+    "review": {
+      "title": "Review",
+      "cardsLeft": "cards left",
+      "showAnswer": "Show Answer",
+      "correct": "Correct",
+      "incorrect": "Incorrect",
+      "sessionComplete": "Session Complete!",
+      "greatJob": "Great job! You've completed all reviews.",
+      "backToDashboard": "Back to Dashboard"
+    },
+    "lessons": {
+      "title": "Lessons",
+      "continue": "Continue",
+      "start": "Start",
+      "completed": "Completed",
+      "progress": "Progress"
+    },
+    "quizzes": {
+      "title": "Quizzes",
+      "questions": "questions",
+      "startQuiz": "Start Quiz",
+      "score": "Score"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "allTime": "All Time",
+      "you": "You",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "unlocked": "Unlocked",
+      "locked": "Locked",
+      "progress": "Progress"
+    },
+    "challenges": {
+      "title": "Challenges",
+      "join": "Join",
+      "joined": "Joined",
+      "daysLeft": "days left",
+      "participants": "participants"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account and preferences",
+    "editProfile": "Edit",
+    "logout": "Log Out",
+    "logoutSuccess": "Logged out successfully",
+    "sections": {
+      "account": "Account",
+      "privacy": "Privacy",
+      "notifications": "Notifications",
+      "vip": "VIP",
+      "language": "Language",
+      "support": "Support"
+    },
+    "items": {
+      "editProfile": "Edit Profile",
+      "editProfileDesc": "Update your personal information",
+      "changePassword": "Change Password",
+      "changePasswordDesc": "Update your password",
+      "emailSettings": "Email Settings",
+      "emailSettingsDesc": "Manage email preferences",
+      "privacySettings": "Privacy Settings",
+      "privacySettingsDesc": "Control who can see your info",
+      "blockedUsers": "Blocked Users",
+      "blockedUsersDesc": "Manage blocked accounts",
+      "closeFriends": "Close Friends",
+      "closeFriendsDesc": "Manage your close friends list",
+      "pushNotifications": "Push Notifications",
+      "pushNotificationsDesc": "Manage notification preferences",
+      "chatSettings": "Chat Settings",
+      "chatSettingsDesc": "Message and chat preferences",
+      "manageSubscription": "Manage Subscription",
+      "vipActive": "VIP Active",
+      "upgradeToPremium": "Upgrade to premium",
+      "languageSettings": "Language Settings",
+      "languageSettingsDesc": "Change app and learning languages",
+      "helpCenter": "Help Center",
+      "helpCenterDesc": "Get help and support"
+    },
+    "privacySettings": {
+      "title": "Privacy Settings",
+      "profileVisibility": "Profile Visibility",
+      "onlineStatus": "Show Online Status",
+      "lastSeen": "Show Last Seen",
+      "readReceipts": "Read Receipts"
+    },
+    "notificationSettings": {
+      "title": "Notification Settings",
+      "pushNotifications": "Push Notifications",
+      "messages": "Messages",
+      "likes": "Likes",
+      "followers": "New Followers",
+      "waves": "Waves",
+      "emailDigest": "Email Digest"
+    },
+    "languageSettings": {
+      "title": "Language Settings",
+      "appLanguage": "App Language",
+      "nativeLanguage": "Native Language",
+      "learningLanguage": "Learning Language"
+    },
+    "vipSettings": {
+      "title": "VIP Status",
+      "currentPlan": "Current Plan",
+      "free": "Free",
+      "premium": "Premium",
+      "features": "Features",
+      "upgrade": "Upgrade to VIP"
+    }
+  },
+  "waves": {
+    "title": "Waves",
+    "received": "Received",
+    "sent": "Sent",
+    "accept": "Accept",
+    "decline": "Decline",
+    "noWaves": "No waves yet",
+    "sendWave": "Send a wave to start connecting!"
+  },
+  "topics": {
+    "title": "Topics",
+    "myTopics": "My Topics",
+    "browseTopics": "Browse Topics",
+    "usersInterested": "users interested"
+  },
+  "nearby": {
+    "title": "Nearby Users",
+    "enableLocation": "Enable Location",
+    "locationRequired": "Location access is required to find nearby users",
+    "noUsersNearby": "No users nearby",
+    "tryExpandingRadius": "Try expanding your search radius"
+  },
+  "home": {
+    "hero": {
+      "badge": "Language Exchange Made Simple",
+      "titlePart1": "Learn Languages by",
+      "titleHighlight": "Speaking",
+      "titlePart2": "with Native Speakers",
+      "description": "Connect with millions of language learners worldwide. Practice speaking, improve fluency, and make friends from every corner of the globe.",
+      "stats": {
+        "users": "Active Users",
+        "languages": "Languages",
+        "countries": "Countries"
+      },
+      "getStarted": "Get Started Free",
+      "browseCommunity": "Browse Community",
+      "lovedBy": "Loved by 5M+ learners",
+      "chatPreview": {
+        "message1": "Hola! Como estas? 👋",
+        "message2": "Hey! I'm good, practicing my Spanish!",
+        "message3": "Muy bien! Let's practice together 🇪🇸"
+      }
+    },
+    "sections": {
+      "features": "Features",
+      "howItWorks": "How It Works",
+      "pricing": "Pricing"
+    },
+    "features": {
+      "title": "Everything You Need to Learn",
+      "subtitle": "Powerful tools designed to accelerate your language learning journey",
+      "chat": {
+        "title": "Real-time Chat",
+        "description": "Practice conversations with native speakers through instant messaging"
+      },
+      "video": {
+        "title": "Video Calls",
+        "description": "Face-to-face language practice with partners worldwide"
+      },
+      "lessons": {
+        "title": "Interactive Lessons",
+        "description": "Learn with structured courses and daily exercises"
+      },
+      "voice": {
+        "title": "Voice Messages",
+        "description": "Perfect your pronunciation with audio exchanges"
+      },
+      "community": {
+        "title": "Community",
+        "description": "Join millions of language learners globally"
+      },
+      "languages": {
+        "title": "50+ Languages",
+        "description": "From Spanish to Korean, find your learning path"
+      }
+    },
+    "howItWorks": {
+      "title": "Start Learning in 3 Steps",
+      "subtitle": "Get started in minutes and begin your language journey today"
+    },
+    "steps": {
+      "profile": {
+        "title": "Create Your Profile",
+        "description": "Tell us about your native language and what you want to learn"
+      },
+      "partners": {
+        "title": "Find Partners",
+        "description": "Browse through our community and find perfect language exchange partners"
+      },
+      "learn": {
+        "title": "Start Learning",
+        "description": "Chat, call, and practice with native speakers every day"
+      }
+    },
+    "pricing": {
+      "title": "Choose Your Plan",
+      "subtitle": "Start free and upgrade when you're ready",
+      "mostPopular": "Most Popular",
+      "getStarted": "Get Started",
+      "free": {
+        "name": "Free",
+        "period": "forever",
+        "features": {
+          "messaging": "Basic messaging",
+          "connections": "5 new connections/day",
+          "community": "Community access",
+          "lessons": "Basic lessons"
+        }
+      },
+      "premium": {
+        "name": "Premium",
+        "period": "/month",
+        "features": {
+          "messaging": "Unlimited messaging",
+          "connections": "Unlimited connections",
+          "video": "Video calls",
+          "lessons": "Advanced lessons",
+          "noAds": "No ads",
+          "translation": "Translation tools"
+        }
+      },
+      "lifetime": {
+        "name": "Lifetime",
+        "period": "one-time",
+        "features": {
+          "everything": "Everything in Premium",
+          "forever": "Forever access",
+          "support": "Priority support",
+          "early": "Early features",
+          "badges": "Exclusive badges"
+        }
+      }
+    },
+    "download": {
+      "badge": "Download the App",
+      "title": "Take BananaTalk Everywhere",
+      "description": "Learn on the go with our mobile app. Available on iOS and Android with all features, push notifications, and offline access.",
+      "downloadOn": "Download on the",
+      "getItOn": "Get it on",
+      "scanQR": "Scan to download the app",
+      "or": "or",
+      "features": {
+        "offline": "Offline access",
+        "push": "Push notifications",
+        "fast": "Fast & lightweight"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Language Journey?",
+      "description": "Join millions of learners and start speaking a new language today",
+      "button": "Create Free Account"
+    }
+  },
+  "vip": {
+    "title": "VIP Membership",
+    "subtitle": "Unlock premium features",
+    "status": {
+      "active": "VIP Active",
+      "free": "Free Plan",
+      "activeDesc": "Enjoying all premium features",
+      "freeDesc": "Upgrade to unlock more features"
+    },
+    "expiresOn": "Expires on",
+    "plans": {
+      "free": "Free",
+      "vip": "VIP"
+    },
+    "perMonth": "month",
+    "saveAnnually": "Save 20% with annual plan",
+    "popular": "POPULAR",
+    "upgradeNow": "Upgrade to VIP",
+    "upgradeInApp": "Upgrade via Mobile App",
+    "upgradeInAppDesc": "VIP subscriptions can only be purchased through our mobile app",
+    "manageSubscription": "Manage Subscription",
+    "cancelSubscription": "Cancel Subscription",
+    "manageInApp": "To manage your subscription, please use the BananaTalk mobile app.",
+    "features": {
+      "limitedMessages": "Limited messages per day",
+      "basicProfile": "Basic profile",
+      "basicSearch": "Basic search",
+      "unlimitedMessages": "Unlimited messages",
+      "seeProfileVisitors": "See who visited your profile",
+      "advancedFilters": "Advanced search filters",
+      "noAds": "Ad-free experience",
+      "prioritySupport": "Priority support",
+      "exclusiveBadge": "Exclusive VIP badge",
+      "translationFeature": "Message translation"
     }
   }
 }

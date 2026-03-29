@@ -1,0 +1,924 @@
+{
+  "greeting": "halo",
+  "footer": {
+    "aboutUs": "Tentang Kami",
+    "aboutDescription": "BananaTalk didedikasikan untuk membantu Anda menguasai bahasa baru dan terhubung dengan penutur asli dari seluruh dunia.",
+    "quickLinks": "Tautan Cepat",
+    "links": {
+      "home": "Beranda",
+      "about": "Tentang",
+      "services": "Layanan",
+      "pricing": "Harga",
+      "contact": "Kontak"
+    },
+    "contactInfo": "Info Kontak",
+    "address": "Seoul, Korea Selatan, Gangnam-gu",
+    "follow": "Ikuti",
+    "newsletter": "Buletin",
+    "newsletterDescription": "Berlangganan buletin kami untuk pembaruan dan penawaran.",
+    "emailPlaceholder": "Alamat email Anda",
+    "allRightsReserved": "Hak cipta dilindungi."
+  },
+  "community": "Komunitas",
+  "chat": "Obrolan",
+  "chatPage": {
+    "messages": "Pesan",
+    "searchPlaceholder": "Cari percakapan...",
+    "startConversation": "Mulai Percakapan",
+    "emptyDescription": "Pilih obrolan dari sidebar atau mulai percakapan baru untuk terhubung dengan mitra bahasa di seluruh dunia.",
+    "newConversation": "Percakapan Baru",
+    "features": {
+      "realtime": "Pesan real-time",
+      "exchange": "Pertukaran bahasa",
+      "calls": "Panggilan suara & video"
+    },
+    "online": "Online",
+    "offline": "Offline",
+    "lastSeen": "Terakhir dilihat",
+    "typing": "sedang mengetik...",
+    "loadingConversation": "Memuat percakapan...",
+    "errorLoading": "Gagal memuat percakapan",
+    "messagePlaceholder": "Ketik pesan Anda...",
+    "justNow": "Baru saja",
+    "minutesAgo": "{{count}} menit lalu",
+    "hoursAgo": "{{count}} jam lalu",
+    "unknownUser": "Pengguna Tidak Dikenal"
+  },
+  "notifications": "Notifikasi",
+  "moments": "Momen",
+  "language": "Bahasa",
+  "english": "Inggris",
+  "korean": "Korea",
+  "chinese": "Mandarin",
+  "followers": "Pengikut",
+  "followings": "Mengikuti",
+  "my_moments": "Momen Saya",
+  "logout": "Keluar",
+  "sign_in": "Masuk",
+  "image_upload": {
+    "image_drop": "Harap letakkan file gambar saja",
+    "max_upload_warning": "Anda hanya dapat mengunggah {{count}} gambar lagi.",
+    "no_images_error": "Harap unggah setidaknya satu gambar",
+    "removed_from_selection": "Gambar dihapus dari pilihan",
+    "deleted_success": "Gambar berhasil dihapus",
+    "replaced_success": "Gambar berhasil diganti",
+    "current_images": "Gambar Saat Ini",
+    "no_images_uploaded": "Belum ada gambar yang diunggah",
+    "new_images": "Gambar Baru",
+    "no_new_images": "Tidak ada gambar baru yang dipilih",
+    "drop_images_here": "Letakkan gambar di sini atau",
+    "select_files": "Pilih File",
+    "remaining_slots": "Anda dapat menambahkan {{count}} {{item}} lagi",
+    "image": "gambar",
+    "images": "gambar",
+    "cancel": "Batal",
+    "save_changes": "Simpan Perubahan",
+    "replace_image": "Ganti",
+    "delete_image": "Hapus gambar",
+    "remove_from_selection": "Hapus dari pilihan",
+    "image_gallery": "Galeri Gambar"
+  },
+  "profile": {
+    "title": "Profil Saya",
+    "edit_profile": "Edit Profil",
+    "photos": "Foto",
+    "messages": {
+      "image_update_success": "Foto profil berhasil diperbarui",
+      "image_update_failure": "Gagal memperbarui foto profil",
+      "image_delete_success": "Foto berhasil dihapus",
+      "image_delete_failure": "Gagal menghapus foto",
+      "profile_update_success": "Profil berhasil diperbarui",
+      "profile_update_failure": "Gagal memperbarui profil",
+      "error_loading_profile": "Gagal memuat profil pengguna",
+      "no_profile_data": "Data profil pengguna tidak tersedia",
+      "unknown_error": "Terjadi kesalahan yang tidak diketahui",
+      "no_bio": "Tidak ada informasi bio",
+      "not_specified": "Tidak ditentukan"
+    },
+    "stats": {
+      "followers": "Pengikut",
+      "no_followers": "Anda belum memiliki pengikut.",
+      "follower_error": "Gagal memuat pengikut. Silakan coba lagi nanti.",
+      "following": "Mengikuti",
+      "no_following": "Anda belum mengikuti siapa pun.",
+      "following_error": "Gagal memuat daftar mengikuti. Silakan coba lagi nanti.",
+      "moments": "Momen",
+      "visitors": "Pengunjung"
+    },
+    "visitors": {
+      "title": "Pengunjung Profil",
+      "error": "Gagal memuat pengunjung",
+      "no_visitors": "Belum ada pengunjung",
+      "no_visitors_desc": "Ketika orang mengunjungi profil Anda, mereka akan muncul di sini",
+      "total_visits": "Total Kunjungan",
+      "unique_visitors": "Pengunjung Unik",
+      "visits_today": "Hari Ini",
+      "visits_week": "Minggu Ini",
+      "via_moments": "Via Momen",
+      "via_search": "Via Pencarian",
+      "via_chat": "Via Obrolan",
+      "via_direct": "Langsung",
+      "via_followers": "Via Pengikut",
+      "vipOnly": "Fitur VIP",
+      "vipOnlyDesc": "Lihat siapa yang mengunjungi profil Anda dengan upgrade ke VIP. Fitur ini tersedia khusus untuk anggota VIP.",
+      "vipBenefits": "Manfaat VIP",
+      "learnMore": "Pelajari Lebih Lanjut Tentang VIP"
+    },
+    "sections": {
+      "personal_info": "Informasi Pribadi",
+      "bio": "Bio",
+      "languages": "Bahasa",
+      "personality": "Kepribadian",
+      "topics": "Topik & Minat"
+    },
+    "labels": {
+      "name": "Nama",
+      "username": "Nama Pengguna",
+      "email": "Email",
+      "gender": "Jenis Kelamin",
+      "birthday": "Tanggal Lahir",
+      "native_language": "Bahasa Ibu",
+      "learning": "Sedang Belajar",
+      "of": "dari",
+      "mbti": "Tipe MBTI",
+      "blood_type": "Golongan Darah",
+      "topics_hint": "Pilih topik yang Anda minati (maks 10)",
+      "selected": "dipilih"
+    },
+    "hints": {
+      "username_readonly": "Nama pengguna tidak dapat diubah"
+    },
+    "placeholders": {
+      "bio": "Tulis sesuatu tentang diri Anda",
+      "select_gender": "Pilih Jenis Kelamin",
+      "select_date": "Pilih Tanggal",
+      "select_native_language": "Pilih Bahasa Ibu",
+      "select_learning_language": "Pilih Bahasa yang Dipelajari"
+    },
+    "options": {
+      "male": "Laki-laki",
+      "female": "Perempuan"
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Simpan",
+      "cancel": "Batal",
+      "edit_photo": "Edit Foto",
+      "clear": "Hapus pilihan"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "save": "Simpan",
+      "cancel": "Batal"
+    },
+    "topics": {
+      "music": "Musik",
+      "movies": "Film",
+      "travel": "Perjalanan",
+      "sports": "Olahraga",
+      "gaming": "Gaming",
+      "food": "Makanan",
+      "art": "Seni",
+      "photography": "Fotografi",
+      "reading": "Membaca",
+      "fitness": "Kebugaran",
+      "technology": "Teknologi",
+      "fashion": "Mode",
+      "cooking": "Memasak",
+      "nature": "Alam",
+      "pets": "Hewan Peliharaan",
+      "anime": "Anime",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "Bahasa",
+      "culture": "Budaya"
+    }
+  },
+  "moments_section": {
+    "title": "Momen",
+    "question": "Apa yang ada di pikiranmu,",
+    "loading": "Memuat",
+    "loading_moments": "Memuat Momen...",
+    "error_loading": "Gagal memuat momen",
+    "error_info": "Kami tidak dapat memuat momen. Silakan coba lagi nanti.",
+    "retry_btn": "Coba Lagi",
+    "no_moments": "Tidak ada momen",
+    "first_to_moment": "Jadilah yang pertama berbagi momen spesial Anda dengan komunitas",
+    "share_moment": "Bagikan Momen",
+    "moment_login_error": "Silakan masuk untuk menyukai momen",
+    "moment_like_error": "Gagal memperbarui status suka",
+    "moment_like": "Suka",
+    "moment_comment": "Komentar",
+    "moment_share": "Bagikan",
+    "no_comments": "Belum ada komentar. Jadilah yang pertama berkomentar!",
+    "invalidMomentId": "ID momen tidak valid",
+    "loadingMoment": "Memuat detail momen...",
+    "noDetailsFound": "Detail tidak ditemukan",
+    "goBack": "Kembali",
+    "momentDetails": "Detail Momen",
+    "pleaseLoginFirst": "Silakan masuk terlebih dahulu",
+    "removedLike": "Suka dihapus",
+    "likedMoment": "Momen disukai",
+    "failedToUpdateLike": "Gagal memperbarui status suka",
+    "emptyCommentError": "Silakan tambahkan komentar",
+    "commentAdded": "Komentar ditambahkan",
+    "failedToAddComment": "Gagal menambahkan komentar",
+    "loadingComments": "Memuat komentar...",
+    "writeCommentPlaceholder": "Tulis komentar...",
+    "signInToComment": "Silakan masuk untuk menambahkan komentar",
+    "signIn": "masuk",
+    "noCommentsYet": "Belum ada komentar. Jadilah yang pertama berkomentar!",
+    "commentsCount": "{{count}} Komentar",
+    "comments": "Komentar",
+    "likeButton": "Suka",
+    "commentButton": "Komentar",
+    "shareButton": "Bagikan",
+    "timeAgo": {
+      "justNow": "baru saja",
+      "minutesAgo": "{{minutes}} menit lalu",
+      "hoursAgo": "{{hours}} jam lalu",
+      "daysAgo": "{{days}} hari lalu"
+    }
+  },
+  "createMoment": {
+    "title": "Buat Momen",
+    "form": {
+      "titleLabel": "Judul",
+      "titlePlaceholder": "Masukkan judul",
+      "descriptionLabel": "Deskripsi",
+      "descriptionPlaceholder": "Masukkan deskripsi",
+      "imagesLabel": "Unggah Gambar",
+      "maxImagesText": "Maksimal 10 gambar",
+      "addMoreText": "Tambah Lagi",
+      "submitButton": "Posting",
+      "submittingButton": "Memposting...",
+      "cancelButton": "Batal"
+    },
+    "toast": {
+      "maxImagesError": "Anda dapat mengunggah maksimal 10 gambar",
+      "createSuccess": "Momen berhasil dibuat!",
+      "createError": "Gagal membuat momen."
+    }
+  },
+  "editMoment": {
+    "title": "Edit Momen",
+    "toast": {
+      "maxImagesError": "Anda dapat mengunggah maksimal 10 gambar",
+      "updateSuccess": "Momen berhasil diperbarui!",
+      "updateError": "Gagal memperbarui momen. Silakan coba lagi.",
+      "notAuthorized": "Anda tidak berwenang mengedit momen ini"
+    },
+    "form": {
+      "titleLabel": "Judul",
+      "titlePlaceholder": "Masukkan judul untuk momen Anda",
+      "descriptionLabel": "Deskripsi",
+      "descriptionPlaceholder": "Ceritakan tentang momen Anda...",
+      "imagesLabel": "Gambar",
+      "maxImagesText": "Anda dapat mengunggah hingga 10 gambar (Maks 5MB per gambar)",
+      "existingImagesLabel": "Gambar Saat Ini",
+      "newImagesLabel": "Gambar Baru",
+      "addMoreText": "Tambah lagi",
+      "updateButton": "Perbarui Momen",
+      "updatingButton": "Memperbarui...",
+      "cancelButton": "Batal"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "Masukkan email Anda",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "Masukkan email",
+      "sendButton": "Kirim Kode",
+      "sendingButton": "Mengirim...",
+      "successMessage": "Kode verifikasi berhasil dikirim!",
+      "errorPrefix": "Error: "
+    },
+    "passwordReset": {
+      "successMessage": "Kata sandi berhasil direset, silakan masuk!"
+    },
+    "login": {
+      "signInWithGoogle": "Masuk dengan Google",
+      "title": "Masuk",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "Masukkan email",
+      "passwordLabel": "Kata Sandi",
+      "passwordPlaceholder": "Masukkan kata sandi",
+      "forgotPassword": "Lupa Kata Sandi?",
+      "signInButton": "Masuk",
+      "signingInButton": "Sedang Masuk...",
+      "newUserText": "Pengguna Baru?",
+      "registerLink": "Daftar",
+      "successMessage": "Berhasil masuk",
+      "invalidCredentialsError": "Kredensial tidak valid"
+    },
+    "account": {
+      "title": "Buat Akun Anda",
+      "name": "Nama",
+      "email": "Alamat Email",
+      "password": "Kata Sandi",
+      "passwordRequirement": "Kata sandi minimal 8 karakter",
+      "confirmPassword": "Konfirmasi Kata Sandi",
+      "continue": "Lanjutkan",
+      "alreadyHaveAccount": "Sudah punya akun?",
+      "login": "Masuk"
+    },
+    "profile": {
+      "title": "Informasi Profil",
+      "bio": "Bio (opsional)",
+      "bioPlaceholder": "Ceritakan sesuatu tentang Anda",
+      "gender": "Jenis Kelamin",
+      "genderOptions": {
+        "select": "Pilih Jenis Kelamin",
+        "male": "Laki-laki",
+        "female": "Perempuan",
+        "other": "Lainnya"
+      },
+      "birthDate": "Tanggal Lahir",
+      "nativeLanguage": "Bahasa Ibu",
+      "selectLanguage": "Pilih Bahasa",
+      "languageToLearn": "Bahasa yang Dipelajari",
+      "profileImages": "Foto Profil",
+      "uploadPrompt": "Klik untuk mengunggah foto profil",
+      "selectImages": "Pilih Gambar",
+      "back": "Kembali",
+      "processing": "Memproses..."
+    },
+    "verification": {
+      "title": "Verifikasi Email",
+      "sentMessage": "Kami telah mengirim kode verifikasi ke email Anda:",
+      "verificationCode": "Kode Verifikasi",
+      "codePlaceholder": "Masukkan kode 6 digit",
+      "verifyButton": "Verifikasi Email",
+      "verifying": "Memverifikasi...",
+      "resendCode": "Kirim ulang kode verifikasi",
+      "sending": "Mengirim...",
+      "backToProfile": "Kembali ke Profil",
+      "successMessage": "Email berhasil diverifikasi!",
+      "completePrompt": "Selesaikan pendaftaran Anda dengan mengklik tombol di bawah.",
+      "completeRegistration": "Selesaikan Pendaftaran"
+    },
+    "progressBar": {
+      "account": "Akun",
+      "profile": "Profil",
+      "verify": "Verifikasi"
+    },
+    "toasts": {
+      "passwordMismatch": "Kata sandi tidak cocok",
+      "verificationSent": "Kode verifikasi berhasil dikirim!",
+      "sendCodeFailed": "Gagal mengirim kode verifikasi",
+      "emailVerified": "Email berhasil diverifikasi!",
+      "invalidCode": "Kode verifikasi tidak valid",
+      "verifyFirst": "Silakan verifikasi email Anda terlebih dahulu",
+      "registrationSuccess": "Pendaftaran berhasil!",
+      "registrationError": "Terjadi kesalahan saat pendaftaran"
+    }
+  },
+  "communityMain": {
+    "title": "Pertukaran Bahasa",
+    "subtitle": "Terhubung dengan pelajar bahasa di seluruh dunia",
+    "badge": "Komunitas Pertukaran Bahasa",
+    "heroTitle": "Temukan",
+    "heroTitleHighlight": "Mitra Bahasa Sempurna",
+    "heroDescription": "Terhubung dengan penutur asli dari seluruh dunia dan berlatih bahasa bersama",
+    "stats": {
+      "activeLearners": "Pelajar Aktif",
+      "activeUsers": "Pengguna Aktif",
+      "languages": "Bahasa",
+      "countries": "Negara"
+    },
+    "search": {
+      "placeholder": "Cari berdasarkan nama, bahasa, atau minat...",
+      "loading": "Mencari mitra bahasa..."
+    },
+    "memberCard": {
+      "native": "Bahasa Ibu",
+      "learning": "Sedang Belajar",
+      "defaultBio": "Siap berlatih bahasa dan berteman baru!",
+      "onlineNow": "Online sekarang",
+      "active": "Aktif",
+      "recently": "Baru-baru ini",
+      "justNow": "Baru saja",
+      "minutesAgo": "{{count}} menit lalu",
+      "hoursAgo": "{{count}} jam lalu",
+      "daysAgo": "{{count}} hari lalu",
+      "overWeekAgo": "Lebih dari seminggu lalu",
+      "actions": {
+        "wave": "Sapa",
+        "message": "Pesan",
+        "like": "Suka"
+      }
+    },
+    "tabs": {
+      "all": "Semua",
+      "popular": "Populer",
+      "new": "Baru"
+    },
+    "filters": {
+      "language": "Bahasa",
+      "allLanguages": "Semua Bahasa",
+      "clear": "Hapus"
+    },
+    "results": {
+      "showing": "Menampilkan {{count}} mitra bahasa luar biasa{{plural}}",
+      "membersFound": "{{count}} anggota ditemukan",
+      "noneFound": {
+        "title": "Tidak ada anggota ditemukan",
+        "message": "Coba sesuaikan filter atau kata pencarian Anda",
+        "resetFilters": "Reset Filter"
+      }
+    },
+    "errors": {
+      "generic": "Ups! Terjadi kesalahan",
+      "loadError": "Kami tidak dapat memuat komunitas. Silakan coba lagi.",
+      "tryAgain": "Coba Lagi"
+    },
+    "loadMore": {
+      "loading": "Memuat...",
+      "button": "Muat Lebih Banyak"
+    },
+    "cta": {
+      "title": "Siap memulai perjalanan bahasa Anda?",
+      "description": "Buat profil Anda dan terhubung dengan mitra bahasa di seluruh dunia",
+      "getStarted": "Mulai Gratis",
+      "viewWaves": "Lihat Sapaan"
+    },
+    "buttons": {
+      "clearFilters": "Hapus semua filter"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "ID profil tidak valid",
+      "profileNotFound": "Profil Tidak Ditemukan",
+      "profileNotFoundDesc": "Profil pengguna ini tidak ada atau telah dihapus.",
+      "somethingWentWrong": "Ups! Terjadi kesalahan",
+      "tryAgainLater": "Kami tidak dapat memuat profil ini. Silakan coba lagi nanti."
+    },
+    "buttons": {
+      "backToCommunity": "Kembali ke Komunitas",
+      "tryAgain": "Coba Lagi",
+      "follow": "Ikuti",
+      "following": "Mengikuti",
+      "startChat": "Mulai Obrolan",
+      "videoCall": "Panggilan Video",
+      "startConversation": "Mulai Percakapan"
+    },
+    "loading": {
+      "loadingProfile": "Memuat profil...",
+      "initiatingCall": "Memulai panggilan dengan {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "Anda harus masuk untuk mengikuti pengguna",
+      "followSuccess": "Berhasil mengikuti!",
+      "followFailed": "Gagal mengikuti pengguna. Silakan coba lagi.",
+      "loginToUnfollow": "Anda harus masuk untuk berhenti mengikuti",
+      "unfollowSuccess": "Berhasil berhenti mengikuti",
+      "unfollowFailed": "Gagal berhenti mengikuti. Silakan coba lagi.",
+      "confirmUnfollow": "Apakah Anda yakin ingin berhenti mengikuti pengguna ini?",
+      "loginToChat": "Anda harus masuk untuk memulai obrolan",
+      "chatStarted": "Obrolan berhasil dimulai!",
+      "chatFailed": "Gagal memulai obrolan. Silakan coba lagi.",
+      "errorOccurred": "Terjadi kesalahan. Silakan coba lagi."
+    },
+    "profile": {
+      "memberSince": "Anggota sejak {{date}}",
+      "yearsOld": "{{age}} tahun",
+      "noPhotos": "Belum ada foto",
+      "aboutUser": "Tentang {{name}}",
+      "noBio": "{{name}} belum menambahkan bio. Mulai percakapan untuk mengenal mereka lebih baik!",
+      "readyToPractice": "Siap berlatih dengan {{name}}?",
+      "practiceDescription": "Mulai mengobrol dan tingkatkan kemampuan bahasa Anda bersama!",
+      "online": "Online",
+      "offline": "Offline",
+      "justNow": "Baru saja",
+      "minutesAgo": "{{count}} menit lalu",
+      "hoursAgo": "{{count}} jam lalu",
+      "daysAgo": "{{count}} hari lalu",
+      "recentlyActive": "Baru-baru ini aktif"
+    },
+    "stats": {
+      "followers": "Pengikut",
+      "following": "Mengikuti"
+    },
+    "language": {
+      "speaks": "Berbicara",
+      "learning": "Sedang Belajar",
+      "notSpecified": "Tidak ditentukan"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "Tidak ada foto tersedia"
+    },
+    "navigation": {
+      "backToCommunity": "Kembali ke Komunitas"
+    },
+    "errors": {
+      "invalidProfileId": "ID profil tidak valid",
+      "somethingWentWrong": "Ups! Terjadi kesalahan",
+      "couldNotLoadProfile": "Kami tidak dapat memuat profil ini. Silakan coba lagi nanti.",
+      "profileNotFound": "Profil Tidak Ditemukan",
+      "profileDoesNotExist": "Profil pengguna ini tidak ada atau telah dihapus.",
+      "loadingProfile": "Memuat profil..."
+    },
+    "buttons": {
+      "tryAgain": "Coba Lagi",
+      "backToCommunity": "Kembali ke Komunitas"
+    },
+    "stats": {
+      "followers": "Pengikut",
+      "following": "Mengikuti"
+    },
+    "actions": {
+      "following": "Mengikuti",
+      "follow": "Ikuti",
+      "startChat": "Mulai Obrolan",
+      "videoCall": "Panggilan Video",
+      "startConversation": "Mulai Percakapan"
+    },
+    "languages": {
+      "speaks": "Berbicara",
+      "learning": "Sedang Belajar",
+      "notSpecified": "Tidak ditentukan"
+    },
+    "memberInfo": {
+      "yearsOld": "tahun",
+      "memberSince": "Anggota sejak"
+    },
+    "about": {
+      "aboutTitle": "Tentang",
+      "noBioMessage": "belum menambahkan bio. Mulai percakapan untuk mengenal mereka lebih baik!"
+    },
+    "callToAction": {
+      "title": "Siap berlatih dengan",
+      "subtitle": "Mulai mengobrol dan tingkatkan kemampuan bahasa Anda bersama!"
+    },
+    "toasts": {
+      "needLogin": "Anda harus masuk untuk",
+      "followUsers": "mengikuti pengguna",
+      "unfollowUsers": "berhenti mengikuti pengguna",
+      "startChat": "memulai obrolan",
+      "failedToFollow": "Gagal mengikuti pengguna. Silakan coba lagi.",
+      "successfullyFollowed": "Berhasil mengikuti!",
+      "successfullyUnfollowed": "Berhasil berhenti mengikuti",
+      "failedToUnfollow": "Gagal berhenti mengikuti. Silakan coba lagi.",
+      "failedToStartChat": "Gagal memulai obrolan. Silakan coba lagi.",
+      "initiatingCall": "Memulai panggilan dengan",
+      "errorOccurred": "Terjadi kesalahan. Silakan coba lagi."
+    },
+    "confirmations": {
+      "unfollowConfirm": "Apakah Anda yakin ingin berhenti mengikuti pengguna ini?"
+    },
+    "accessibility": {
+      "viewPhoto": "Lihat foto",
+      "userPhoto": "foto"
+    },
+    "fallbacks": {
+      "defaultUser": "Pengguna"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "Belajar",
+      "subtitle": "Pertahankan kerja bagusmu!",
+      "currentStreak": "Streak Saat Ini",
+      "days": "hari",
+      "longest": "Terpanjang",
+      "dailyGoal": "Target Harian",
+      "goalComplete": "Target harian tercapai!",
+      "quickActions": "Aksi Cepat",
+      "review": "Ulasan",
+      "practiceWords": "Latihan kosakata",
+      "lessons": "Pelajaran",
+      "learnNew": "Pelajari konten baru",
+      "quiz": "Kuis",
+      "testKnowledge": "Uji pengetahuanmu",
+      "leaderboard": "Papan Peringkat",
+      "seeRankings": "Lihat peringkat",
+      "yourProgress": "Progresmu",
+      "words": "Kata",
+      "lessonsLabel": "Pelajaran",
+      "level": "Level",
+      "vocabulary": "Kosakata",
+      "wordsLearned": "kata dipelajari",
+      "achievements": "Pencapaian",
+      "unlocked": "terbuka",
+      "challenges": "Tantangan",
+      "joinChallenges": "Ikuti tantangan mingguan"
+    },
+    "vocabulary": {
+      "title": "Kosakata",
+      "searchPlaceholder": "Cari kata...",
+      "addWord": "Tambah Kata",
+      "noWords": "Belum ada kata",
+      "startAdding": "Mulai tambahkan kata ke kosakata Anda",
+      "word": "Kata",
+      "translation": "Terjemahan",
+      "level": "Level",
+      "nextReview": "Ulasan Berikutnya"
+    },
+    "review": {
+      "title": "Ulasan",
+      "cardsLeft": "kartu tersisa",
+      "showAnswer": "Tampilkan Jawaban",
+      "correct": "Benar",
+      "incorrect": "Salah",
+      "sessionComplete": "Sesi Selesai!",
+      "greatJob": "Kerja bagus! Anda telah menyelesaikan semua ulasan.",
+      "backToDashboard": "Kembali ke Dasbor"
+    },
+    "lessons": {
+      "title": "Pelajaran",
+      "continue": "Lanjutkan",
+      "start": "Mulai",
+      "completed": "Selesai",
+      "progress": "Progres"
+    },
+    "quizzes": {
+      "title": "Kuis",
+      "questions": "pertanyaan",
+      "startQuiz": "Mulai Kuis",
+      "score": "Skor"
+    },
+    "leaderboard": {
+      "title": "Papan Peringkat",
+      "weekly": "Mingguan",
+      "monthly": "Bulanan",
+      "allTime": "Sepanjang Waktu",
+      "you": "Anda",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "Pencapaian",
+      "unlocked": "Terbuka",
+      "locked": "Terkunci",
+      "progress": "Progres"
+    },
+    "challenges": {
+      "title": "Tantangan",
+      "join": "Ikuti",
+      "joined": "Bergabung",
+      "daysLeft": "hari tersisa",
+      "participants": "peserta"
+    }
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "subtitle": "Kelola akun dan preferensi Anda",
+    "editProfile": "Edit",
+    "logout": "Keluar",
+    "logoutSuccess": "Berhasil keluar",
+    "sections": {
+      "account": "Akun",
+      "privacy": "Privasi",
+      "notifications": "Notifikasi",
+      "vip": "VIP",
+      "language": "Bahasa",
+      "support": "Dukungan"
+    },
+    "items": {
+      "editProfile": "Edit Profil",
+      "editProfileDesc": "Perbarui informasi pribadi Anda",
+      "changePassword": "Ubah Kata Sandi",
+      "changePasswordDesc": "Perbarui kata sandi Anda",
+      "emailSettings": "Pengaturan Email",
+      "emailSettingsDesc": "Kelola preferensi email",
+      "privacySettings": "Pengaturan Privasi",
+      "privacySettingsDesc": "Kontrol siapa yang dapat melihat info Anda",
+      "blockedUsers": "Pengguna Diblokir",
+      "blockedUsersDesc": "Kelola akun yang diblokir",
+      "closeFriends": "Teman Dekat",
+      "closeFriendsDesc": "Kelola daftar teman dekat Anda",
+      "pushNotifications": "Notifikasi Push",
+      "pushNotificationsDesc": "Kelola preferensi notifikasi",
+      "chatSettings": "Pengaturan Obrolan",
+      "chatSettingsDesc": "Preferensi pesan dan obrolan",
+      "manageSubscription": "Kelola Langganan",
+      "vipActive": "VIP Aktif",
+      "upgradeToPremium": "Upgrade ke premium",
+      "languageSettings": "Pengaturan Bahasa",
+      "languageSettingsDesc": "Ubah bahasa aplikasi dan pembelajaran",
+      "helpCenter": "Pusat Bantuan",
+      "helpCenterDesc": "Dapatkan bantuan dan dukungan"
+    },
+    "privacySettings": {
+      "title": "Pengaturan Privasi",
+      "profileVisibility": "Visibilitas Profil",
+      "onlineStatus": "Tampilkan Status Online",
+      "lastSeen": "Tampilkan Terakhir Dilihat",
+      "readReceipts": "Tanda Dibaca"
+    },
+    "notificationSettings": {
+      "title": "Pengaturan Notifikasi",
+      "pushNotifications": "Notifikasi Push",
+      "messages": "Pesan",
+      "likes": "Suka",
+      "followers": "Pengikut Baru",
+      "waves": "Sapaan",
+      "emailDigest": "Ringkasan Email"
+    },
+    "languageSettings": {
+      "title": "Pengaturan Bahasa",
+      "appLanguage": "Bahasa Aplikasi",
+      "nativeLanguage": "Bahasa Ibu",
+      "learningLanguage": "Bahasa yang Dipelajari"
+    },
+    "vipSettings": {
+      "title": "Status VIP",
+      "currentPlan": "Paket Saat Ini",
+      "free": "Gratis",
+      "premium": "Premium",
+      "features": "Fitur",
+      "upgrade": "Upgrade ke VIP"
+    }
+  },
+  "waves": {
+    "title": "Sapaan",
+    "received": "Diterima",
+    "sent": "Terkirim",
+    "accept": "Terima",
+    "decline": "Tolak",
+    "noWaves": "Belum ada sapaan",
+    "sendWave": "Kirim sapaan untuk mulai terhubung!"
+  },
+  "topics": {
+    "title": "Topik",
+    "myTopics": "Topik Saya",
+    "browseTopics": "Jelajahi Topik",
+    "usersInterested": "pengguna tertarik"
+  },
+  "nearby": {
+    "title": "Pengguna Terdekat",
+    "enableLocation": "Aktifkan Lokasi",
+    "locationRequired": "Akses lokasi diperlukan untuk menemukan pengguna terdekat",
+    "noUsersNearby": "Tidak ada pengguna terdekat",
+    "tryExpandingRadius": "Coba perluas radius pencarian Anda"
+  },
+  "home": {
+    "hero": {
+      "badge": "Pertukaran Bahasa Jadi Mudah",
+      "titlePart1": "Belajar Bahasa dengan",
+      "titleHighlight": "Berbicara",
+      "titlePart2": "bersama Penutur Asli",
+      "description": "Terhubung dengan jutaan pelajar bahasa di seluruh dunia. Latih berbicara, tingkatkan kefasihan, dan berteman dari seluruh penjuru dunia.",
+      "stats": {
+        "users": "Pengguna Aktif",
+        "languages": "Bahasa",
+        "countries": "Negara"
+      },
+      "getStarted": "Mulai Gratis",
+      "browseCommunity": "Jelajahi Komunitas",
+      "lovedBy": "Dicintai 5 juta+ pelajar",
+      "chatPreview": {
+        "message1": "Halo! Apa kabar? \ud83d\udc4b",
+        "message2": "Hey! I'm practicing Indonesian!",
+        "message3": "Bagus! Ayo berlatih bersama \ud83c\uddee\ud83c\udde9"
+      }
+    },
+    "sections": {
+      "features": "Fitur",
+      "howItWorks": "Cara Kerja",
+      "pricing": "Harga"
+    },
+    "features": {
+      "title": "Semua yang Anda Butuhkan untuk Belajar",
+      "subtitle": "Alat canggih yang dirancang untuk mempercepat perjalanan belajar bahasa Anda",
+      "chat": {
+        "title": "Obrolan Real-time",
+        "description": "Latih percakapan dengan penutur asli melalui pesan instan"
+      },
+      "video": {
+        "title": "Panggilan Video",
+        "description": "Latihan bahasa tatap muka dengan mitra di seluruh dunia"
+      },
+      "lessons": {
+        "title": "Pelajaran Interaktif",
+        "description": "Belajar dengan kursus terstruktur dan latihan harian"
+      },
+      "voice": {
+        "title": "Pesan Suara",
+        "description": "Sempurnakan pengucapan Anda dengan pertukaran audio"
+      },
+      "community": {
+        "title": "Komunitas",
+        "description": "Bergabung dengan jutaan pelajar bahasa secara global"
+      },
+      "languages": {
+        "title": "50+ Bahasa",
+        "description": "Dari Spanyol hingga Korea, temukan jalur belajar Anda"
+      }
+    },
+    "howItWorks": {
+      "title": "Mulai Belajar dalam 3 Langkah",
+      "subtitle": "Mulai dalam hitungan menit dan mulai perjalanan bahasa Anda hari ini"
+    },
+    "steps": {
+      "profile": {
+        "title": "Buat Profil Anda",
+        "description": "Ceritakan tentang bahasa ibu Anda dan apa yang ingin Anda pelajari"
+      },
+      "partners": {
+        "title": "Temukan Mitra",
+        "description": "Jelajahi komunitas kami dan temukan mitra pertukaran bahasa yang sempurna"
+      },
+      "learn": {
+        "title": "Mulai Belajar",
+        "description": "Mengobrol, menelepon, dan berlatih dengan penutur asli setiap hari"
+      }
+    },
+    "pricing": {
+      "title": "Pilih Paket Anda",
+      "subtitle": "Mulai gratis dan upgrade saat Anda siap",
+      "mostPopular": "Paling Populer",
+      "getStarted": "Mulai",
+      "free": {
+        "name": "Gratis",
+        "period": "selamanya",
+        "features": {
+          "messaging": "Pesan dasar",
+          "connections": "5 koneksi baru/hari",
+          "community": "Akses komunitas",
+          "lessons": "Pelajaran dasar"
+        }
+      },
+      "premium": {
+        "name": "Premium",
+        "period": "/bulan",
+        "features": {
+          "messaging": "Pesan tanpa batas",
+          "connections": "Koneksi tanpa batas",
+          "video": "Panggilan video",
+          "lessons": "Pelajaran lanjutan",
+          "noAds": "Tanpa iklan",
+          "translation": "Alat terjemahan"
+        }
+      },
+      "lifetime": {
+        "name": "Seumur Hidup",
+        "period": "sekali bayar",
+        "features": {
+          "everything": "Semua yang ada di Premium",
+          "forever": "Akses selamanya",
+          "support": "Dukungan prioritas",
+          "early": "Fitur awal",
+          "badges": "Lencana eksklusif"
+        }
+      }
+    },
+    "download": {
+      "badge": "Unduh Aplikasi",
+      "title": "Bawa BananaTalk ke Mana Saja",
+      "description": "Belajar di mana saja dengan aplikasi mobile kami. Tersedia di iOS dan Android dengan semua fitur, notifikasi push, dan akses offline.",
+      "downloadOn": "Unduh di",
+      "getItOn": "Dapatkan di",
+      "scanQR": "Pindai untuk mengunduh aplikasi",
+      "or": "atau",
+      "features": {
+        "offline": "Akses offline",
+        "push": "Notifikasi push",
+        "fast": "Cepat & ringan"
+      }
+    },
+    "cta": {
+      "title": "Siap Memulai Perjalanan Bahasa Anda?",
+      "description": "Bergabung dengan jutaan pelajar dan mulai berbicara bahasa baru hari ini",
+      "button": "Buat Akun Gratis"
+    }
+  },
+  "vip": {
+    "title": "Keanggotaan VIP",
+    "subtitle": "Buka fitur premium",
+    "status": {
+      "active": "VIP Aktif",
+      "free": "Paket Gratis",
+      "activeDesc": "Menikmati semua fitur premium",
+      "freeDesc": "Upgrade untuk membuka lebih banyak fitur"
+    },
+    "expiresOn": "Berakhir pada",
+    "plans": {
+      "free": "Gratis",
+      "vip": "VIP"
+    },
+    "perMonth": "bulan",
+    "saveAnnually": "Hemat 20% dengan paket tahunan",
+    "popular": "POPULER",
+    "upgradeNow": "Upgrade ke VIP",
+    "upgradeInApp": "Upgrade via Aplikasi Mobile",
+    "upgradeInAppDesc": "Langganan VIP hanya dapat dibeli melalui aplikasi mobile kami",
+    "manageSubscription": "Kelola Langganan",
+    "cancelSubscription": "Batalkan Langganan",
+    "manageInApp": "Untuk mengelola langganan Anda, silakan gunakan aplikasi mobile BananaTalk.",
+    "features": {
+      "limitedMessages": "Pesan terbatas per hari",
+      "basicProfile": "Profil dasar",
+      "basicSearch": "Pencarian dasar",
+      "unlimitedMessages": "Pesan tanpa batas",
+      "seeProfileVisitors": "Lihat siapa yang mengunjungi profil Anda",
+      "advancedFilters": "Filter pencarian lanjutan",
+      "noAds": "Pengalaman tanpa iklan",
+      "prioritySupport": "Dukungan prioritas",
+      "exclusiveBadge": "Lencana VIP eksklusif",
+      "translationFeature": "Terjemahan pesan"
+    }
+  }
+}

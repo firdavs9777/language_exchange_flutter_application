@@ -1,0 +1,168 @@
+/* Tandem-style Community Page */
+
+/* Member Card Styles */
+.member-card-tandem {
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.member-card-tandem:hover {
+  transform: translateY(-8px);
+}
+
+/* Line clamp for bio */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Language badge gradient borders */
+.language-badge {
+  position: relative;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #14b8a6, #06b6d4) border-box;
+  border: 2px solid transparent;
+}
+
+/* Filter pill active state glow */
+.filter-pill-active {
+  box-shadow: 0 4px 20px rgba(20, 184, 166, 0.35);
+}
+
+/* Search bar focus state */
+.search-input-focus {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+/* Card hover effect */
+.member-card-tandem::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #14b8a6, #06b6d4, #10b981);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.member-card-tandem:hover::before {
+  opacity: 1;
+}
+
+/* Wave button animation */
+@keyframes wave-hand {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  75% { transform: rotate(-20deg); }
+}
+
+.member-card-tandem button:hover .wave-emoji {
+  animation: wave-hand 0.5s ease-in-out;
+}
+
+/* Online pulse animation */
+@keyframes online-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+
+.online-indicator-pulse {
+  animation: online-pulse 2s ease-in-out infinite;
+}
+
+/* Smooth scroll for filters */
+.filters-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filters-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dropdown animation */
+@keyframes dropdown-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu {
+  animation: dropdown-appear 0.2s ease-out;
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 640px) {
+  .member-card-tandem {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Hero gradient animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.hero-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Sticky filter bar shadow */
+.sticky-filters {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Card skeleton loading */
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}

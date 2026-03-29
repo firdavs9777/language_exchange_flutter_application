@@ -1,0 +1,595 @@
+/* ===========================================
+   BananaTalk Register Page - Modern Design
+   =========================================== */
+
+.register-page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f0fdfa 0%, #f0f9ff 50%, #faf5ff 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .register-form {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 600px;
+
+    .progress-section {
+      margin-bottom: 2.5rem;
+
+      .progress-bar-container {
+        height: 6px;
+        background: #E5E7EB;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+
+        .progress-bar-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #00BFA5 0%, #00A896 100%);
+          border-radius: 10px;
+          transition: width 0.4s ease;
+        }
+      }
+
+      .step-indicators {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .step-indicator {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          flex: 1;
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 16px;
+            left: 60%;
+            width: calc(100% - 60px);
+            height: 2px;
+            background: #E5E7EB;
+            z-index: 0;
+          }
+
+          &:last-child::after {
+            display: none;
+          }
+
+          &.active::after {
+            background: linear-gradient(90deg, #00BFA5 0%, #00A896 100%);
+          }
+
+          .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            color: #9CA3AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+          }
+
+          span {
+            font-size: 0.8125rem;
+            color: #9CA3AF;
+            font-weight: 500;
+            transition: color 0.3s ease;
+          }
+
+          &.active {
+            .step-number {
+              background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+              color: white;
+              box-shadow: 0 4px 12px rgba(0, 191, 165, 0.3);
+            }
+
+            span {
+              color: #00BFA5;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+    .register-step-form {
+      .step-title {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        letter-spacing: -0.02em;
+      }
+
+      .step-subtitle {
+        font-size: 0.9375rem;
+        color: #6B7280;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.25rem;
+
+        .form-label {
+          font-weight: 600;
+          color: #374151;
+          margin-bottom: 0.5rem;
+          font-size: 0.875rem;
+          display: block;
+
+          .required {
+            color: #EF4444;
+            margin-left: 2px;
+          }
+        }
+
+        .form-control-custom {
+          width: 100%;
+          padding: 0.875rem 1rem;
+          border: 2px solid #E5E7EB;
+          border-radius: 12px;
+          font-size: 1rem;
+          color: #111827;
+          transition: all 0.2s ease;
+          background: #F9FAFB;
+
+          &:focus {
+            border-color: #00BFA5;
+            box-shadow: 0 0 0 4px rgba(0, 191, 165, 0.1);
+            outline: none;
+            background: white;
+          }
+
+          &::placeholder {
+            color: #9CA3AF;
+          }
+        }
+
+        .form-text {
+          font-size: 0.8125rem;
+          color: #6B7280;
+          margin-top: 0.5rem;
+        }
+      }
+
+      .password-input-group {
+        display: flex;
+
+        .form-control-custom {
+          border-right: none;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        .password-toggle {
+          background: #F9FAFB;
+          border: 2px solid #E5E7EB;
+          border-left: none;
+          border-top-right-radius: 12px;
+          border-bottom-right-radius: 12px;
+          cursor: pointer;
+          color: #9CA3AF;
+          padding: 0 1rem;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+
+          &:hover {
+            color: #00BFA5;
+          }
+        }
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 191, 165, 0.3);
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        &.success-btn {
+          background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+
+          &:hover:not(:disabled) {
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+          }
+        }
+      }
+
+      .back-btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: 2px solid #E5E7EB;
+        border-radius: 12px;
+        color: #6B7280;
+        background: white;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          border-color: #00BFA5;
+          color: #00BFA5;
+        }
+      }
+
+      .form-actions {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .login-link-section {
+        text-align: center;
+        color: #6B7280;
+        font-size: 0.9375rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #E5E7EB;
+
+        .login-link {
+          color: #00BFA5;
+          text-decoration: none;
+          font-weight: 600;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      // Image Upload Styles
+      .image-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        .image-preview-item {
+          position: relative;
+          aspect-ratio: 1;
+          border-radius: 16px;
+          overflow: hidden;
+          border: 2px solid #E5E7EB;
+
+          .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .remove-image-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: #EF4444;
+              transform: scale(1.1);
+            }
+          }
+
+          &.add-more {
+            border: 2px dashed #00BFA5;
+            background: #F0FDFA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            .add-icon {
+              font-size: 1.5rem;
+              color: #00BFA5;
+            }
+
+            &:hover {
+              background: #CCFBF1;
+              border-color: #00A896;
+            }
+          }
+        }
+      }
+
+      .upload-container {
+        border: 2px dashed #E5E7EB;
+        border-radius: 16px;
+        padding: 2.5rem;
+        text-align: center;
+        background: #F9FAFB;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: #00BFA5;
+          background: #F0FDFA;
+        }
+
+        .upload-icon {
+          font-size: 3rem;
+          color: #9CA3AF;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          color: #6B7280;
+          margin-bottom: 1rem;
+          font-size: 0.9375rem;
+        }
+
+        .upload-btn {
+          display: inline-block;
+          padding: 0.75rem 1.5rem;
+          background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+          color: white;
+          border-radius: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 191, 165, 0.3);
+          }
+        }
+      }
+
+      // Verification Step Styles
+      .verification-header {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        .verification-icon {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1.5rem;
+          color: white;
+          font-size: 2rem;
+          box-shadow: 0 8px 20px rgba(0, 191, 165, 0.3);
+        }
+
+        .verification-message {
+          color: #6B7280;
+          font-size: 0.9375rem;
+          line-height: 1.6;
+
+          strong {
+            color: #111827;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .verification-code-input {
+        text-align: center;
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+        font-weight: 700;
+        padding: 1rem;
+      }
+
+      .resend-section {
+        text-align: center;
+        margin: 1.5rem 0;
+
+        .resend-link {
+          color: #00BFA5;
+          text-decoration: none;
+          font-weight: 600;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          font-size: 0.9375rem;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+      }
+
+      .success-alert {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        border: 2px solid rgba(16, 185, 129, 0.3);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+
+        .success-icon {
+          font-size: 3rem;
+          color: #10B981;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          color: #374151;
+          margin: 0;
+          line-height: 1.6;
+
+          strong {
+            color: #10B981;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 767px) {
+  .register-page {
+    padding: 1rem;
+
+    .register-form {
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+
+      .progress-section {
+        margin-bottom: 2rem;
+
+        .step-indicators {
+          .step-indicator {
+            .step-number {
+              width: 32px;
+              height: 32px;
+              font-size: 0.8125rem;
+            }
+
+            span {
+              font-size: 0.75rem;
+            }
+
+            &::after {
+              top: 14px;
+            }
+          }
+        }
+      }
+
+      .register-step-form {
+        .step-title {
+          font-size: 1.5rem;
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+
+          .form-control-custom {
+            padding: 0.75rem 0.875rem;
+          }
+        }
+
+        .submit-btn,
+        .back-btn {
+          padding: 0.875rem 1.25rem;
+        }
+
+        .image-preview-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.75rem;
+        }
+
+        .upload-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .verification-header {
+          .verification-icon {
+            width: 70px;
+            height: 70px;
+            font-size: 1.75rem;
+          }
+        }
+
+        .verification-code-input {
+          font-size: 1.25rem;
+          letter-spacing: 0.3rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page {
+    .register-form {
+      padding: 1.5rem 1.25rem;
+
+      .progress-section {
+        .step-indicators {
+          .step-indicator {
+            &::after {
+              display: none;
+            }
+
+            .step-number {
+              width: 28px;
+              height: 28px;
+              font-size: 0.75rem;
+            }
+
+            span {
+              font-size: 0.6875rem;
+            }
+          }
+        }
+      }
+
+      .register-step-form {
+        .step-title {
+          font-size: 1.375rem;
+        }
+
+        .verification-code-input {
+          font-size: 1.125rem;
+          letter-spacing: 0.25rem;
+        }
+      }
+    }
+  }
+}

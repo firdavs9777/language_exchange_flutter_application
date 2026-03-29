@@ -1,0 +1,924 @@
+{
+  "greeting": "hola",
+  "footer": {
+    "aboutUs": "Sobre Nosotros",
+    "aboutDescription": "BananaTalk se dedica a ayudarte a dominar nuevos idiomas y conectarte con hablantes nativos de todo el mundo.",
+    "quickLinks": "Enlaces Rápidos",
+    "links": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "services": "Servicios",
+      "pricing": "Precios",
+      "contact": "Contacto"
+    },
+    "contactInfo": "Información de Contacto",
+    "address": "Seúl, Corea del Sur, Gangnam-gu",
+    "follow": "Síguenos",
+    "newsletter": "Boletín",
+    "newsletterDescription": "Suscríbete a nuestro boletín para recibir novedades y ofertas.",
+    "emailPlaceholder": "Tu correo electrónico",
+    "allRightsReserved": "Todos los derechos reservados."
+  },
+  "community": "Comunidad",
+  "chat": "Chat",
+  "chatPage": {
+    "messages": "Mensajes",
+    "searchPlaceholder": "Buscar conversaciones...",
+    "startConversation": "Iniciar una Conversación",
+    "emptyDescription": "Selecciona un chat de la barra lateral o inicia una nueva conversación para conectarte con compañeros de idiomas de todo el mundo.",
+    "newConversation": "Nueva Conversación",
+    "features": {
+      "realtime": "Mensajería en tiempo real",
+      "exchange": "Intercambio de idiomas",
+      "calls": "Llamadas de voz y video"
+    },
+    "online": "En línea",
+    "offline": "Desconectado",
+    "lastSeen": "Última vez",
+    "typing": "está escribiendo...",
+    "loadingConversation": "Cargando conversación...",
+    "errorLoading": "Error al cargar la conversación",
+    "messagePlaceholder": "Escribe tu mensaje...",
+    "justNow": "Justo ahora",
+    "minutesAgo": "hace {{count}}m",
+    "hoursAgo": "hace {{count}}h",
+    "unknownUser": "Usuario Desconocido"
+  },
+  "notifications": "Notificaciones",
+  "moments": "Momentos",
+  "language": "Idioma",
+  "english": "Inglés",
+  "korean": "Coreano",
+  "chinese": "Chino",
+  "followers": "Seguidores",
+  "followings": "Siguiendo",
+  "my_moments": "Mis Momentos",
+  "logout": "Cerrar Sesión",
+  "sign_in": "Iniciar Sesión",
+  "image_upload": {
+    "image_drop": "Por favor, suelta solo archivos de imagen",
+    "max_upload_warning": "Solo puedes subir {{count}} imagen(es) más.",
+    "no_images_error": "Por favor, sube al menos una imagen",
+    "removed_from_selection": "Imagen eliminada de la selección",
+    "deleted_success": "Imagen eliminada correctamente",
+    "replaced_success": "Imagen reemplazada correctamente",
+    "current_images": "Imágenes Actuales",
+    "no_images_uploaded": "Aún no se han subido imágenes",
+    "new_images": "Nuevas Imágenes",
+    "no_new_images": "No se han seleccionado nuevas imágenes",
+    "drop_images_here": "Arrastra las imágenes aquí o",
+    "select_files": "Seleccionar Archivos",
+    "remaining_slots": "Puedes agregar {{count}} {{item}} más",
+    "image": "imagen",
+    "images": "imágenes",
+    "cancel": "Cancelar",
+    "save_changes": "Guardar Cambios",
+    "replace_image": "Reemplazar",
+    "delete_image": "Eliminar imagen",
+    "remove_from_selection": "Quitar de la selección",
+    "image_gallery": "Galería de Imágenes"
+  },
+  "profile": {
+    "title": "Mi Perfil",
+    "edit_profile": "Editar Perfil",
+    "photos": "Fotos",
+    "messages": {
+      "image_update_success": "Imagen de perfil actualizada correctamente",
+      "image_update_failure": "Error al actualizar la imagen de perfil",
+      "image_delete_success": "Foto eliminada correctamente",
+      "image_delete_failure": "Error al eliminar la foto",
+      "profile_update_success": "Perfil actualizado correctamente",
+      "profile_update_failure": "Error al actualizar el perfil",
+      "error_loading_profile": "Error al cargar el perfil de usuario",
+      "no_profile_data": "No hay datos de perfil disponibles",
+      "unknown_error": "Ocurrió un error desconocido",
+      "no_bio": "No se ha proporcionado información biográfica",
+      "not_specified": "No especificado"
+    },
+    "stats": {
+      "followers": "Seguidores",
+      "no_followers": "Aún no tienes seguidores.",
+      "follower_error": "Error al cargar los seguidores. Por favor, inténtalo más tarde.",
+      "following": "Siguiendo",
+      "no_following": "Aún no sigues a nadie.",
+      "following_error": "Error al cargar la lista de seguidos. Por favor, inténtalo más tarde.",
+      "moments": "Momentos",
+      "visitors": "Visitantes"
+    },
+    "visitors": {
+      "title": "Visitantes del Perfil",
+      "error": "Error al cargar los visitantes",
+      "no_visitors": "Aún no hay visitantes",
+      "no_visitors_desc": "Cuando las personas visiten tu perfil, aparecerán aquí",
+      "total_visits": "Visitas Totales",
+      "unique_visitors": "Visitantes Únicos",
+      "visits_today": "Hoy",
+      "visits_week": "Esta Semana",
+      "via_moments": "Desde Momentos",
+      "via_search": "Desde Búsqueda",
+      "via_chat": "Desde Chat",
+      "via_direct": "Directo",
+      "via_followers": "Desde Seguidores",
+      "vipOnly": "Función VIP",
+      "vipOnlyDesc": "Descubre quién visitó tu perfil actualizando a VIP. Esta función está disponible exclusivamente para miembros VIP.",
+      "vipBenefits": "Beneficios VIP",
+      "learnMore": "Más Información sobre VIP"
+    },
+    "sections": {
+      "personal_info": "Información Personal",
+      "bio": "Biografía",
+      "languages": "Idiomas",
+      "personality": "Personalidad",
+      "topics": "Temas e Intereses"
+    },
+    "labels": {
+      "name": "Nombre",
+      "username": "Nombre de usuario",
+      "email": "Correo electrónico",
+      "gender": "Género",
+      "birthday": "Fecha de nacimiento",
+      "native_language": "Nativo",
+      "learning": "Aprendiendo",
+      "of": "de",
+      "mbti": "Tipo MBTI",
+      "blood_type": "Tipo de Sangre",
+      "topics_hint": "Selecciona los temas que te interesan (máx. 10)",
+      "selected": "seleccionados"
+    },
+    "hints": {
+      "username_readonly": "El nombre de usuario no se puede cambiar"
+    },
+    "placeholders": {
+      "bio": "Escribe algo sobre ti",
+      "select_gender": "Seleccionar Género",
+      "select_date": "Seleccionar Fecha",
+      "select_native_language": "Seleccionar Idioma Nativo",
+      "select_learning_language": "Seleccionar Idioma a Aprender"
+    },
+    "options": {
+      "male": "Masculino",
+      "female": "Femenino"
+    },
+    "actions": {
+      "edit": "Editar",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit_photo": "Editar Foto",
+      "clear": "Limpiar selección"
+    },
+    "buttons": {
+      "edit": "Editar",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "topics": {
+      "music": "Música",
+      "movies": "Películas",
+      "travel": "Viajes",
+      "sports": "Deportes",
+      "gaming": "Videojuegos",
+      "food": "Comida",
+      "art": "Arte",
+      "photography": "Fotografía",
+      "reading": "Lectura",
+      "fitness": "Fitness",
+      "technology": "Tecnología",
+      "fashion": "Moda",
+      "cooking": "Cocina",
+      "nature": "Naturaleza",
+      "pets": "Mascotas",
+      "anime": "Anime",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "Idiomas",
+      "culture": "Cultura"
+    }
+  },
+  "moments_section": {
+    "title": "Momentos",
+    "question": "¿Qué tienes en mente,",
+    "loading": "Cargando",
+    "loading_moments": "Cargando Momentos...",
+    "error_loading": "Error al cargar los momentos",
+    "error_info": "No pudimos cargar los momentos. Por favor, inténtalo más tarde.",
+    "retry_btn": "Reintentar",
+    "no_moments": "Sin momentos",
+    "first_to_moment": "Sé el primero en compartir tus momentos especiales con la comunidad",
+    "share_moment": "Compartir un Momento",
+    "moment_login_error": "Por favor, inicia sesión para dar me gusta a los momentos",
+    "moment_like_error": "Error al actualizar el estado de me gusta",
+    "moment_like": "Me gusta",
+    "moment_comment": "Comentar",
+    "moment_share": "Compartir",
+    "no_comments": "Aún no hay comentarios. ¡Sé el primero en comentar!",
+    "invalidMomentId": "ID de momento no válido",
+    "loadingMoment": "Cargando detalles del momento...",
+    "noDetailsFound": "No se encontraron detalles",
+    "goBack": "Volver",
+    "momentDetails": "Detalles del Momento",
+    "pleaseLoginFirst": "Por favor, inicia sesión primero",
+    "removedLike": "Me gusta eliminado",
+    "likedMoment": "Momento marcado como me gusta",
+    "failedToUpdateLike": "Error al actualizar el estado de me gusta",
+    "emptyCommentError": "Por favor, añade un comentario",
+    "commentAdded": "Comentario añadido",
+    "failedToAddComment": "Error al añadir el comentario",
+    "loadingComments": "Cargando comentarios...",
+    "writeCommentPlaceholder": "Escribe un comentario...",
+    "signInToComment": "Por favor, inicia sesión para añadir un comentario",
+    "signIn": "iniciar sesión",
+    "noCommentsYet": "Aún no hay comentarios. ¡Sé el primero en comentar!",
+    "commentsCount": "{{count}} Comentarios",
+    "comments": "Comentarios",
+    "likeButton": "Me gusta",
+    "commentButton": "Comentar",
+    "shareButton": "Compartir",
+    "timeAgo": {
+      "justNow": "justo ahora",
+      "minutesAgo": "hace {{minutes}}m",
+      "hoursAgo": "hace {{hours}}h",
+      "daysAgo": "hace {{days}}d"
+    }
+  },
+  "createMoment": {
+    "title": "Crear Momento",
+    "form": {
+      "titleLabel": "Título",
+      "titlePlaceholder": "Ingresa el título",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "Ingresa la descripción",
+      "imagesLabel": "Subir Imágenes",
+      "maxImagesText": "Máximo 10 imágenes permitidas",
+      "addMoreText": "Agregar Más",
+      "submitButton": "Publicar",
+      "submittingButton": "Publicando...",
+      "cancelButton": "Cancelar"
+    },
+    "toast": {
+      "maxImagesError": "Puedes subir un máximo de 10 imágenes",
+      "createSuccess": "¡Momento creado correctamente!",
+      "createError": "Error al crear el momento."
+    }
+  },
+  "editMoment": {
+    "title": "Editar Momento",
+    "toast": {
+      "maxImagesError": "Puedes subir un máximo de 10 imágenes",
+      "updateSuccess": "¡Momento actualizado correctamente!",
+      "updateError": "Error al actualizar el momento. Por favor, inténtalo de nuevo.",
+      "notAuthorized": "No tienes autorización para editar este momento"
+    },
+    "form": {
+      "titleLabel": "Título",
+      "titlePlaceholder": "Ingresa un título para tu momento",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "Cuéntanos sobre tu momento...",
+      "imagesLabel": "Imágenes",
+      "maxImagesText": "Puedes subir hasta 10 imágenes (máx. 5MB cada una)",
+      "existingImagesLabel": "Imágenes Actuales",
+      "newImagesLabel": "Nuevas Imágenes",
+      "addMoreText": "Agregar más",
+      "updateButton": "Actualizar Momento",
+      "updatingButton": "Actualizando...",
+      "cancelButton": "Cancelar"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "Ingresa tu correo electrónico",
+      "emailLabel": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo",
+      "sendButton": "Enviar Código",
+      "sendingButton": "Enviando...",
+      "successMessage": "¡Código de verificación enviado correctamente!",
+      "errorPrefix": "Error: "
+    },
+    "passwordReset": {
+      "successMessage": "¡Contraseña restablecida correctamente, por favor inicia sesión!"
+    },
+    "login": {
+      "signInWithGoogle": "Iniciar Sesión con Google",
+      "title": "Iniciar Sesión",
+      "emailLabel": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "signInButton": "Iniciar Sesión",
+      "signingInButton": "Iniciando Sesión...",
+      "newUserText": "¿Nuevo usuario?",
+      "registerLink": "Registrarse",
+      "successMessage": "Sesión iniciada correctamente",
+      "invalidCredentialsError": "Credenciales no válidas"
+    },
+    "account": {
+      "title": "Crea tu Cuenta",
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "passwordRequirement": "La contraseña debe tener al menos 8 caracteres",
+      "confirmPassword": "Confirmar Contraseña",
+      "continue": "Continuar",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar Sesión"
+    },
+    "profile": {
+      "title": "Información del Perfil",
+      "bio": "Biografía (opcional)",
+      "bioPlaceholder": "Cuéntanos algo sobre ti",
+      "gender": "Género",
+      "genderOptions": {
+        "select": "Seleccionar Género",
+        "male": "Masculino",
+        "female": "Femenino",
+        "other": "Otro"
+      },
+      "birthDate": "Fecha de Nacimiento",
+      "nativeLanguage": "Idioma Nativo",
+      "selectLanguage": "Seleccionar Idioma",
+      "languageToLearn": "Idioma a Aprender",
+      "profileImages": "Imágenes de Perfil",
+      "uploadPrompt": "Haz clic para subir imágenes de perfil",
+      "selectImages": "Seleccionar Imágenes",
+      "back": "Atrás",
+      "processing": "Procesando..."
+    },
+    "verification": {
+      "title": "Verificación de Correo",
+      "sentMessage": "Hemos enviado un código de verificación a tu correo:",
+      "verificationCode": "Código de Verificación",
+      "codePlaceholder": "Ingresa el código de 6 dígitos",
+      "verifyButton": "Verificar Correo",
+      "verifying": "Verificando...",
+      "resendCode": "Reenviar código de verificación",
+      "sending": "Enviando...",
+      "backToProfile": "Volver al Perfil",
+      "successMessage": "¡Correo verificado correctamente!",
+      "completePrompt": "Completa tu registro haciendo clic en el botón de abajo.",
+      "completeRegistration": "Completar Registro"
+    },
+    "progressBar": {
+      "account": "Cuenta",
+      "profile": "Perfil",
+      "verify": "Verificar"
+    },
+    "toasts": {
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "verificationSent": "¡Código de verificación enviado correctamente!",
+      "sendCodeFailed": "Error al enviar el código de verificación",
+      "emailVerified": "¡Correo verificado correctamente!",
+      "invalidCode": "Código de verificación no válido",
+      "verifyFirst": "Por favor, verifica tu correo primero",
+      "registrationSuccess": "¡Registro exitoso!",
+      "registrationError": "Error durante el registro"
+    }
+  },
+  "communityMain": {
+    "title": "Intercambio de Idiomas",
+    "subtitle": "Conéctate con estudiantes de idiomas de todo el mundo",
+    "badge": "Comunidad de Intercambio de Idiomas",
+    "heroTitle": "Encuentra tu Compañero",
+    "heroTitleHighlight": "de Idiomas Perfecto",
+    "heroDescription": "Conéctate con hablantes nativos de todo el mundo y practica idiomas juntos",
+    "stats": {
+      "activeLearners": "Estudiantes Activos",
+      "activeUsers": "Usuarios Activos",
+      "languages": "Idiomas",
+      "countries": "Países"
+    },
+    "search": {
+      "placeholder": "Buscar por nombre, idioma o intereses...",
+      "loading": "Buscando compañeros de idiomas..."
+    },
+    "memberCard": {
+      "native": "Nativo",
+      "learning": "Aprendiendo",
+      "defaultBio": "¡Listo para practicar idiomas y hacer nuevos amigos!",
+      "onlineNow": "En línea ahora",
+      "active": "Activo",
+      "recently": "Recientemente",
+      "justNow": "Justo ahora",
+      "minutesAgo": "hace {{count}}m",
+      "hoursAgo": "hace {{count}}h",
+      "daysAgo": "hace {{count}}d",
+      "overWeekAgo": "Hace más de una semana",
+      "actions": {
+        "wave": "Saludar",
+        "message": "Mensaje",
+        "like": "Me gusta"
+      }
+    },
+    "tabs": {
+      "all": "Todos",
+      "popular": "Populares",
+      "new": "Nuevos"
+    },
+    "filters": {
+      "language": "Idioma",
+      "allLanguages": "Todos los Idiomas",
+      "clear": "Limpiar"
+    },
+    "results": {
+      "showing": "Mostrando {{count}} compañero{{plural}} de idiomas increíble{{plural}}",
+      "membersFound": "{{count}} miembros encontrados",
+      "noneFound": {
+        "title": "No se encontraron miembros",
+        "message": "Intenta ajustar tus filtros o términos de búsqueda",
+        "resetFilters": "Restablecer Filtros"
+      }
+    },
+    "errors": {
+      "generic": "¡Ups! Algo salió mal",
+      "loadError": "No pudimos cargar la comunidad. Por favor, inténtalo de nuevo.",
+      "tryAgain": "Intentar de Nuevo"
+    },
+    "loadMore": {
+      "loading": "Cargando...",
+      "button": "Cargar Más Miembros"
+    },
+    "cta": {
+      "title": "¿Listo para comenzar tu viaje con los idiomas?",
+      "description": "Crea tu perfil y conéctate con compañeros de idiomas de todo el mundo",
+      "getStarted": "Comienza Gratis",
+      "viewWaves": "Ver Saludos"
+    },
+    "buttons": {
+      "clearFilters": "Limpiar todos los filtros"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "ID de perfil no válido",
+      "profileNotFound": "Perfil No Encontrado",
+      "profileNotFoundDesc": "Este perfil de usuario no existe o ha sido eliminado.",
+      "somethingWentWrong": "¡Ups! Algo salió mal",
+      "tryAgainLater": "No pudimos cargar este perfil. Por favor, inténtalo más tarde."
+    },
+    "buttons": {
+      "backToCommunity": "Volver a la Comunidad",
+      "tryAgain": "Intentar de Nuevo",
+      "follow": "Seguir",
+      "following": "Siguiendo",
+      "startChat": "Iniciar Chat",
+      "videoCall": "Videollamada",
+      "startConversation": "Iniciar Conversación"
+    },
+    "loading": {
+      "loadingProfile": "Cargando perfil...",
+      "initiatingCall": "Iniciando llamada con {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "Necesitas iniciar sesión para seguir usuarios",
+      "followSuccess": "¡Seguido correctamente!",
+      "followFailed": "Error al seguir al usuario. Por favor, inténtalo de nuevo.",
+      "loginToUnfollow": "Necesitas iniciar sesión para dejar de seguir usuarios",
+      "unfollowSuccess": "Dejaste de seguir correctamente",
+      "unfollowFailed": "Error al dejar de seguir al usuario. Por favor, inténtalo de nuevo.",
+      "confirmUnfollow": "¿Estás seguro de que quieres dejar de seguir a este usuario?",
+      "loginToChat": "Necesitas iniciar sesión para iniciar un chat",
+      "chatStarted": "¡Chat iniciado correctamente!",
+      "chatFailed": "Error al iniciar el chat. Por favor, inténtalo de nuevo.",
+      "errorOccurred": "Ocurrió un error. Por favor, inténtalo de nuevo."
+    },
+    "profile": {
+      "memberSince": "Miembro desde {{date}}",
+      "yearsOld": "{{age}} años",
+      "noPhotos": "Aún no hay fotos",
+      "aboutUser": "Sobre {{name}}",
+      "noBio": "{{name}} aún no ha añadido una biografía. ¡Inicia una conversación para conocerle mejor!",
+      "readyToPractice": "¿Listo para practicar con {{name}}?",
+      "practiceDescription": "¡Empieza a chatear y mejora tus habilidades lingüísticas juntos!",
+      "online": "En línea",
+      "offline": "Desconectado",
+      "justNow": "Justo ahora",
+      "minutesAgo": "hace {{count}}m",
+      "hoursAgo": "hace {{count}}h",
+      "daysAgo": "hace {{count}}d",
+      "recentlyActive": "Activo recientemente"
+    },
+    "stats": {
+      "followers": "Seguidores",
+      "following": "Siguiendo"
+    },
+    "language": {
+      "speaks": "Habla",
+      "learning": "Aprendiendo",
+      "notSpecified": "No especificado"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "No hay fotos disponibles"
+    },
+    "navigation": {
+      "backToCommunity": "Volver a la Comunidad"
+    },
+    "errors": {
+      "invalidProfileId": "ID de perfil no válido",
+      "somethingWentWrong": "¡Ups! Algo salió mal",
+      "couldNotLoadProfile": "No pudimos cargar este perfil. Por favor, inténtalo más tarde.",
+      "profileNotFound": "Perfil No Encontrado",
+      "profileDoesNotExist": "Este perfil de usuario no existe o ha sido eliminado.",
+      "loadingProfile": "Cargando perfil..."
+    },
+    "buttons": {
+      "tryAgain": "Intentar de Nuevo",
+      "backToCommunity": "Volver a la Comunidad"
+    },
+    "stats": {
+      "followers": "Seguidores",
+      "following": "Siguiendo"
+    },
+    "actions": {
+      "following": "Siguiendo",
+      "follow": "Seguir",
+      "startChat": "Iniciar Chat",
+      "videoCall": "Videollamada",
+      "startConversation": "Iniciar Conversación"
+    },
+    "languages": {
+      "speaks": "Habla",
+      "learning": "Aprendiendo",
+      "notSpecified": "No especificado"
+    },
+    "memberInfo": {
+      "yearsOld": "años",
+      "memberSince": "Miembro desde"
+    },
+    "about": {
+      "aboutTitle": "Acerca de",
+      "noBioMessage": "aún no ha añadido una biografía. ¡Inicia una conversación para conocerle mejor!"
+    },
+    "callToAction": {
+      "title": "Listo para practicar con",
+      "subtitle": "¡Empieza a chatear y mejora tus habilidades lingüísticas juntos!"
+    },
+    "toasts": {
+      "needLogin": "Necesitas iniciar sesión para",
+      "followUsers": "seguir usuarios",
+      "unfollowUsers": "dejar de seguir usuarios",
+      "startChat": "iniciar un chat",
+      "failedToFollow": "Error al seguir al usuario. Por favor, inténtalo de nuevo.",
+      "successfullyFollowed": "¡Seguido correctamente!",
+      "successfullyUnfollowed": "Dejaste de seguir correctamente",
+      "failedToUnfollow": "Error al dejar de seguir al usuario. Por favor, inténtalo de nuevo.",
+      "failedToStartChat": "Error al iniciar el chat. Por favor, inténtalo de nuevo.",
+      "initiatingCall": "Iniciando llamada con",
+      "errorOccurred": "Ocurrió un error. Por favor, inténtalo de nuevo."
+    },
+    "confirmations": {
+      "unfollowConfirm": "¿Estás seguro de que quieres dejar de seguir a este usuario?"
+    },
+    "accessibility": {
+      "viewPhoto": "Ver foto",
+      "userPhoto": " foto de"
+    },
+    "fallbacks": {
+      "defaultUser": "Usuario"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "Aprender",
+      "subtitle": "¡Sigue con el gran trabajo!",
+      "currentStreak": "Racha Actual",
+      "days": "días",
+      "longest": "Más larga",
+      "dailyGoal": "Meta Diaria",
+      "goalComplete": "¡Meta diaria completada!",
+      "quickActions": "Acciones Rápidas",
+      "review": "Repasar",
+      "practiceWords": "Practicar vocabulario",
+      "lessons": "Lecciones",
+      "learnNew": "Aprender contenido nuevo",
+      "quiz": "Cuestionario",
+      "testKnowledge": "Pon a prueba tus conocimientos",
+      "leaderboard": "Clasificación",
+      "seeRankings": "Ver posiciones",
+      "yourProgress": "Tu Progreso",
+      "words": "Palabras",
+      "lessonsLabel": "Lecciones",
+      "level": "Nivel",
+      "vocabulary": "Vocabulario",
+      "wordsLearned": "palabras aprendidas",
+      "achievements": "Logros",
+      "unlocked": "desbloqueados",
+      "challenges": "Desafíos",
+      "joinChallenges": "Únete a los desafíos semanales"
+    },
+    "vocabulary": {
+      "title": "Vocabulario",
+      "searchPlaceholder": "Buscar palabras...",
+      "addWord": "Agregar Palabra",
+      "noWords": "Aún no hay palabras",
+      "startAdding": "Empieza a agregar palabras a tu vocabulario",
+      "word": "Palabra",
+      "translation": "Traducción",
+      "level": "Nivel",
+      "nextReview": "Próximo Repaso"
+    },
+    "review": {
+      "title": "Repaso",
+      "cardsLeft": "tarjetas restantes",
+      "showAnswer": "Mostrar Respuesta",
+      "correct": "Correcto",
+      "incorrect": "Incorrecto",
+      "sessionComplete": "¡Sesión Completada!",
+      "greatJob": "¡Buen trabajo! Has completado todos los repasos.",
+      "backToDashboard": "Volver al Panel"
+    },
+    "lessons": {
+      "title": "Lecciones",
+      "continue": "Continuar",
+      "start": "Comenzar",
+      "completed": "Completada",
+      "progress": "Progreso"
+    },
+    "quizzes": {
+      "title": "Cuestionarios",
+      "questions": "preguntas",
+      "startQuiz": "Iniciar Cuestionario",
+      "score": "Puntuación"
+    },
+    "leaderboard": {
+      "title": "Clasificación",
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "allTime": "Histórico",
+      "you": "Tú",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "Logros",
+      "unlocked": "Desbloqueado",
+      "locked": "Bloqueado",
+      "progress": "Progreso"
+    },
+    "challenges": {
+      "title": "Desafíos",
+      "join": "Unirse",
+      "joined": "Unido",
+      "daysLeft": "días restantes",
+      "participants": "participantes"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Administra tu cuenta y preferencias",
+    "editProfile": "Editar",
+    "logout": "Cerrar Sesión",
+    "logoutSuccess": "Sesión cerrada correctamente",
+    "sections": {
+      "account": "Cuenta",
+      "privacy": "Privacidad",
+      "notifications": "Notificaciones",
+      "vip": "VIP",
+      "language": "Idioma",
+      "support": "Soporte"
+    },
+    "items": {
+      "editProfile": "Editar Perfil",
+      "editProfileDesc": "Actualiza tu información personal",
+      "changePassword": "Cambiar Contraseña",
+      "changePasswordDesc": "Actualiza tu contraseña",
+      "emailSettings": "Configuración de Correo",
+      "emailSettingsDesc": "Administra las preferencias de correo",
+      "privacySettings": "Configuración de Privacidad",
+      "privacySettingsDesc": "Controla quién puede ver tu información",
+      "blockedUsers": "Usuarios Bloqueados",
+      "blockedUsersDesc": "Administra las cuentas bloqueadas",
+      "closeFriends": "Amigos Cercanos",
+      "closeFriendsDesc": "Administra tu lista de amigos cercanos",
+      "pushNotifications": "Notificaciones Push",
+      "pushNotificationsDesc": "Administra las preferencias de notificaciones",
+      "chatSettings": "Configuración de Chat",
+      "chatSettingsDesc": "Preferencias de mensajes y chat",
+      "manageSubscription": "Administrar Suscripción",
+      "vipActive": "VIP Activo",
+      "upgradeToPremium": "Actualizar a premium",
+      "languageSettings": "Configuración de Idioma",
+      "languageSettingsDesc": "Cambia el idioma de la app y los idiomas de aprendizaje",
+      "helpCenter": "Centro de Ayuda",
+      "helpCenterDesc": "Obtén ayuda y soporte"
+    },
+    "privacySettings": {
+      "title": "Configuración de Privacidad",
+      "profileVisibility": "Visibilidad del Perfil",
+      "onlineStatus": "Mostrar Estado En Línea",
+      "lastSeen": "Mostrar Última Vez",
+      "readReceipts": "Confirmaciones de Lectura"
+    },
+    "notificationSettings": {
+      "title": "Configuración de Notificaciones",
+      "pushNotifications": "Notificaciones Push",
+      "messages": "Mensajes",
+      "likes": "Me gusta",
+      "followers": "Nuevos Seguidores",
+      "waves": "Saludos",
+      "emailDigest": "Resumen por Correo"
+    },
+    "languageSettings": {
+      "title": "Configuración de Idioma",
+      "appLanguage": "Idioma de la App",
+      "nativeLanguage": "Idioma Nativo",
+      "learningLanguage": "Idioma de Aprendizaje"
+    },
+    "vipSettings": {
+      "title": "Estado VIP",
+      "currentPlan": "Plan Actual",
+      "free": "Gratuito",
+      "premium": "Premium",
+      "features": "Características",
+      "upgrade": "Actualizar a VIP"
+    }
+  },
+  "waves": {
+    "title": "Saludos",
+    "received": "Recibidos",
+    "sent": "Enviados",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "noWaves": "Aún no hay saludos",
+    "sendWave": "¡Envía un saludo para empezar a conectar!"
+  },
+  "topics": {
+    "title": "Temas",
+    "myTopics": "Mis Temas",
+    "browseTopics": "Explorar Temas",
+    "usersInterested": "usuarios interesados"
+  },
+  "nearby": {
+    "title": "Usuarios Cercanos",
+    "enableLocation": "Activar Ubicación",
+    "locationRequired": "Se requiere acceso a la ubicación para encontrar usuarios cercanos",
+    "noUsersNearby": "No hay usuarios cercanos",
+    "tryExpandingRadius": "Intenta ampliar tu radio de búsqueda"
+  },
+  "home": {
+    "hero": {
+      "badge": "Intercambio de Idiomas Simplificado",
+      "titlePart1": "Aprende Idiomas",
+      "titleHighlight": "Hablando",
+      "titlePart2": "con Hablantes Nativos",
+      "description": "Conéctate con millones de estudiantes de idiomas en todo el mundo. Practica la conversación, mejora tu fluidez y haz amigos de todos los rincones del planeta.",
+      "stats": {
+        "users": "Usuarios Activos",
+        "languages": "Idiomas",
+        "countries": "Países"
+      },
+      "getStarted": "Comienza Gratis",
+      "browseCommunity": "Explorar la Comunidad",
+      "lovedBy": "Querido por más de 5M de estudiantes",
+      "chatPreview": {
+        "message1": "¡Hola! ¿Cómo estás? 👋",
+        "message2": "¡Hola! ¡Estoy practicando mi español!",
+        "message3": "¡Muy bien! Practiquemos juntos 🇪🇸"
+      }
+    },
+    "sections": {
+      "features": "Características",
+      "howItWorks": "Cómo Funciona",
+      "pricing": "Precios"
+    },
+    "features": {
+      "title": "Todo lo que Necesitas para Aprender",
+      "subtitle": "Herramientas poderosas diseñadas para acelerar tu aprendizaje de idiomas",
+      "chat": {
+        "title": "Chat en Tiempo Real",
+        "description": "Practica conversaciones con hablantes nativos a través de mensajería instantánea"
+      },
+      "video": {
+        "title": "Videollamadas",
+        "description": "Práctica de idiomas cara a cara con compañeros de todo el mundo"
+      },
+      "lessons": {
+        "title": "Lecciones Interactivas",
+        "description": "Aprende con cursos estructurados y ejercicios diarios"
+      },
+      "voice": {
+        "title": "Mensajes de Voz",
+        "description": "Perfecciona tu pronunciación con intercambios de audio"
+      },
+      "community": {
+        "title": "Comunidad",
+        "description": "Únete a millones de estudiantes de idiomas en todo el mundo"
+      },
+      "languages": {
+        "title": "Más de 50 Idiomas",
+        "description": "Del español al coreano, encuentra tu camino de aprendizaje"
+      }
+    },
+    "howItWorks": {
+      "title": "Empieza a Aprender en 3 Pasos",
+      "subtitle": "Comienza en minutos y emprende tu viaje lingüístico hoy"
+    },
+    "steps": {
+      "profile": {
+        "title": "Crea tu Perfil",
+        "description": "Cuéntanos sobre tu idioma nativo y lo que quieres aprender"
+      },
+      "partners": {
+        "title": "Encuentra Compañeros",
+        "description": "Explora nuestra comunidad y encuentra los compañeros perfectos para el intercambio de idiomas"
+      },
+      "learn": {
+        "title": "Empieza a Aprender",
+        "description": "Chatea, llama y practica con hablantes nativos todos los días"
+      }
+    },
+    "pricing": {
+      "title": "Elige tu Plan",
+      "subtitle": "Empieza gratis y actualiza cuando estés listo",
+      "mostPopular": "Más Popular",
+      "getStarted": "Comenzar",
+      "free": {
+        "name": "Gratuito",
+        "period": "para siempre",
+        "features": {
+          "messaging": "Mensajería básica",
+          "connections": "5 nuevas conexiones/día",
+          "community": "Acceso a la comunidad",
+          "lessons": "Lecciones básicas"
+        }
+      },
+      "premium": {
+        "name": "Premium",
+        "period": "/mes",
+        "features": {
+          "messaging": "Mensajería ilimitada",
+          "connections": "Conexiones ilimitadas",
+          "video": "Videollamadas",
+          "lessons": "Lecciones avanzadas",
+          "noAds": "Sin anuncios",
+          "translation": "Herramientas de traducción"
+        }
+      },
+      "lifetime": {
+        "name": "De por Vida",
+        "period": "pago único",
+        "features": {
+          "everything": "Todo lo de Premium",
+          "forever": "Acceso para siempre",
+          "support": "Soporte prioritario",
+          "early": "Funciones anticipadas",
+          "badges": "Insignias exclusivas"
+        }
+      }
+    },
+    "download": {
+      "badge": "Descarga la App",
+      "title": "Lleva BananaTalk a Todas Partes",
+      "description": "Aprende en cualquier lugar con nuestra app móvil. Disponible en iOS y Android con todas las funciones, notificaciones push y acceso sin conexión.",
+      "downloadOn": "Descargar en",
+      "getItOn": "Disponible en",
+      "scanQR": "Escanea para descargar la app",
+      "or": "o",
+      "features": {
+        "offline": "Acceso sin conexión",
+        "push": "Notificaciones push",
+        "fast": "Rápida y ligera"
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar tu Viaje Lingüístico?",
+      "description": "Únete a millones de estudiantes y empieza a hablar un nuevo idioma hoy",
+      "button": "Crear Cuenta Gratuita"
+    }
+  },
+  "vip": {
+    "title": "Membresía VIP",
+    "subtitle": "Desbloquea funciones premium",
+    "status": {
+      "active": "VIP Activo",
+      "free": "Plan Gratuito",
+      "activeDesc": "Disfrutando de todas las funciones premium",
+      "freeDesc": "Actualiza para desbloquear más funciones"
+    },
+    "expiresOn": "Expira el",
+    "plans": {
+      "free": "Gratuito",
+      "vip": "VIP"
+    },
+    "perMonth": "mes",
+    "saveAnnually": "Ahorra un 20% con el plan anual",
+    "popular": "POPULAR",
+    "upgradeNow": "Actualizar a VIP",
+    "upgradeInApp": "Actualizar desde la App Móvil",
+    "upgradeInAppDesc": "Las suscripciones VIP solo se pueden comprar a través de nuestra app móvil",
+    "manageSubscription": "Administrar Suscripción",
+    "cancelSubscription": "Cancelar Suscripción",
+    "manageInApp": "Para administrar tu suscripción, por favor usa la app móvil de BananaTalk.",
+    "features": {
+      "limitedMessages": "Mensajes limitados por día",
+      "basicProfile": "Perfil básico",
+      "basicSearch": "Búsqueda básica",
+      "unlimitedMessages": "Mensajes ilimitados",
+      "seeProfileVisitors": "Ver quién visitó tu perfil",
+      "advancedFilters": "Filtros de búsqueda avanzados",
+      "noAds": "Experiencia sin anuncios",
+      "prioritySupport": "Soporte prioritario",
+      "exclusiveBadge": "Insignia exclusiva VIP",
+      "translationFeature": "Traducción de mensajes"
+    }
+  }
+}

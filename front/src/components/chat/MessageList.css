@@ -1,30 +1,86 @@
-/* MessageList.css */
+/* ===========================================
+   BananaTalk Message List - Light Modern Design
+   =========================================== */
+
 .message-list {
   flex: 1;
   overflow-y: auto;
-  margin-bottom: 20px;
+  padding: 0.5rem 0;
 }
 
 .message-item {
-  max-width: 60%;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 5px 0;
+  max-width: 65%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  margin: 4px 0;
   word-wrap: break-word;
+  transition: background-color 0.15s ease;
 }
 
-.sent {
+.message-item.sent {
   align-self: flex-end;
-  background-color: #007bff;
-  color: white;
+  background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+  color: #FFFFFF;
+  border-radius: 18px 18px 4px 18px;
 }
 
-.received {
+.message-item.received {
   align-self: flex-start;
-  background-color: #f1f1f1;
-  color: black;
+  background: #F0F2F5;
+  color: #050505;
+  border-radius: 18px 18px 18px 4px;
 }
 
-.sent p, .received p {
+.message-item.received:hover {
+  background: #E4E6EB;
+}
+
+.message-item p {
   margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+/* Message time */
+.message-item .time {
+  font-size: 0.6875rem;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.message-item.sent .time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.message-item.received .time {
+  color: #65676B;
+}
+
+/* Scrollbar */
+.message-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.message-list::-webkit-scrollbar-thumb {
+  background: #BCC0C4;
+  border-radius: 3px;
+}
+
+.message-list::-webkit-scrollbar-thumb:hover {
+  background: #8A8D91;
+}
+
+@media (max-width: 768px) {
+  .message-item {
+    max-width: 80%;
+    padding: 8px 12px;
+  }
+
+  .message-item p {
+    font-size: 0.875rem;
+  }
 }

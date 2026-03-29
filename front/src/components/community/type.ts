@@ -65,6 +65,9 @@ export interface UserData {
   followers: string[];
   following: string[];
   imageUrls: string[];
+  isOnline?: boolean;
+  lastActive?: string;
+  lastSeen?: string;
   __v: number;
 }
 

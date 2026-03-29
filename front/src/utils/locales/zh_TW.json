@@ -1,0 +1,910 @@
+{
+  "greeting": "你好",
+  "footer": {
+    "aboutUs": "關於我們",
+    "aboutDescription": "BananaTalk致力於幫助您掌握新語言，與世界各地的母語者建立聯繫。",
+    "quickLinks": "快速連結",
+    "links": {
+      "home": "首頁",
+      "about": "關於",
+      "services": "服務",
+      "pricing": "價格",
+      "contact": "聯繫"
+    },
+    "contactInfo": "聯繫資訊",
+    "address": "韓國首爾江南區",
+    "follow": "關注我們",
+    "newsletter": "訂閱通訊",
+    "newsletterDescription": "訂閱我們的通訊，獲取更新和優惠。",
+    "emailPlaceholder": "您的郵箱地址",
+    "allRightsReserved": "版權所有。"
+  },
+  "community": "社群",
+  "chat": "聊天",
+  "chatPage": {
+    "messages": "訊息",
+    "searchPlaceholder": "搜尋對話...",
+    "startConversation": "開始對話",
+    "emptyDescription": "從側邊欄選擇聊天或開始新對話，與世界各地的語言夥伴建立聯繫。",
+    "newConversation": "新對話",
+    "features": {
+      "realtime": "即時訊息",
+      "exchange": "語言交換",
+      "calls": "語音和視訊通話"
+    },
+    "online": "線上",
+    "offline": "離線",
+    "lastSeen": "最後上線",
+    "typing": "正在輸入...",
+    "loadingConversation": "載入對話中...",
+    "errorLoading": "載入對話出錯",
+    "messagePlaceholder": "輸入訊息...",
+    "justNow": "剛剛",
+    "minutesAgo": "{{count}}分鐘前",
+    "hoursAgo": "{{count}}小時前",
+    "unknownUser": "未知使用者"
+  },
+  "notifications": "通知",
+  "moments": "動態",
+  "language": "語言",
+  "english": "英語",
+  "korean": "韓語",
+  "chinese": "中文",
+  "followers": "粉絲",
+  "followings": "關注",
+  "my_moments": "我的動態",
+  "logout": "登出",
+  "sign_in": "登入",
+  "image_upload": {
+    "image_drop": "請只拖放圖片檔案",
+    "max_upload_warning": "您還可以上傳 {{count}} 張圖片",
+    "no_images_error": "請至少上傳一張圖片",
+    "removed_from_selection": "圖片已從選擇中移除",
+    "deleted_success": "圖片刪除成功",
+    "replaced_success": "圖片替換成功",
+    "current_images": "目前圖片",
+    "no_images_uploaded": "暫無上傳的圖片",
+    "new_images": "新圖片",
+    "no_new_images": "未選擇新圖片",
+    "drop_images_here": "將圖片拖放到此處或",
+    "select_files": "選擇檔案",
+    "remaining_slots": "您還可以新增 {{count}} 張{{item}}",
+    "image": "圖片",
+    "images": "圖片",
+    "cancel": "取消",
+    "save_changes": "儲存變更",
+    "replace_image": "替換",
+    "delete_image": "刪除圖片",
+    "remove_from_selection": "從選擇中移除",
+    "image_gallery": "圖片庫"
+  },
+  "profile": {
+    "title": "我的資料",
+    "edit_profile": "編輯資料",
+    "photos": "照片",
+    "messages": {
+      "image_update_success": "頭像更新成功",
+      "image_update_failure": "頭像更新失敗",
+      "image_delete_success": "照片刪除成功",
+      "image_delete_failure": "照片刪除失敗",
+      "profile_update_success": "資料更新成功",
+      "profile_update_failure": "資料更新失敗",
+      "error_loading_profile": "載入使用者資料時出錯",
+      "no_profile_data": "無使用者資料數據",
+      "unknown_error": "發生未知錯誤",
+      "no_bio": "暫無個人簡介",
+      "not_specified": "未指定"
+    },
+    "stats": {
+      "followers": "粉絲",
+      "no_followers": "您還沒有粉絲",
+      "follower_error": "載入粉絲時出錯，請稍後重試",
+      "following": "關注",
+      "no_following": "您還沒有關注任何人",
+      "following_error": "載入關注列表時出錯，請稍後重試",
+      "moments": "動態",
+      "visitors": "訪客"
+    },
+    "visitors": {
+      "title": "資料訪客",
+      "error": "載入訪客時出錯",
+      "no_visitors": "暫無訪客",
+      "no_visitors_desc": "當有人造訪您的資料時，他們將顯示在這裡",
+      "total_visits": "總造訪量",
+      "unique_visitors": "獨立訪客",
+      "visits_today": "今日",
+      "visits_week": "本週",
+      "via_moments": "透過動態",
+      "via_search": "透過搜尋",
+      "via_chat": "透過聊天",
+      "via_direct": "直接造訪",
+      "via_followers": "透過粉絲",
+      "vipOnly": "VIP專屬功能",
+      "vipOnlyDesc": "升級VIP即可查看誰造訪了您的資料。此功能僅對VIP會員開放。",
+      "vipBenefits": "VIP特權",
+      "learnMore": "了解更多VIP詳情"
+    },
+    "sections": {
+      "personal_info": "個人資訊",
+      "bio": "個人簡介",
+      "languages": "語言",
+      "personality": "性格",
+      "topics": "興趣愛好"
+    },
+    "labels": {
+      "name": "姓名",
+      "username": "使用者名稱",
+      "email": "郵箱",
+      "gender": "性別",
+      "birthday": "生日",
+      "native_language": "母語",
+      "learning": "正在學習",
+      "of": "的",
+      "mbti": "MBTI類型",
+      "blood_type": "血型",
+      "topics_hint": "選擇您感興趣的話題（最多10個）",
+      "selected": "已選擇"
+    },
+    "hints": {
+      "username_readonly": "使用者名稱不可更改"
+    },
+    "placeholders": {
+      "bio": "寫點關於自己的介紹",
+      "select_gender": "選擇性別",
+      "select_date": "選擇日期",
+      "select_native_language": "選擇母語",
+      "select_learning_language": "選擇要學習的語言"
+    },
+    "options": {
+      "male": "男",
+      "female": "女"
+    },
+    "actions": {
+      "edit": "編輯",
+      "save": "儲存",
+      "cancel": "取消",
+      "edit_photo": "編輯照片",
+      "clear": "清除選擇"
+    },
+    "buttons": {
+      "edit": "編輯",
+      "save": "儲存",
+      "cancel": "取消"
+    },
+    "topics": {
+      "music": "音樂",
+      "movies": "電影",
+      "travel": "旅行",
+      "sports": "運動",
+      "gaming": "遊戲",
+      "food": "美食",
+      "art": "藝術",
+      "photography": "攝影",
+      "reading": "閱讀",
+      "fitness": "健身",
+      "technology": "科技",
+      "fashion": "時尚",
+      "cooking": "烹飪",
+      "nature": "自然",
+      "pets": "寵物",
+      "anime": "動漫",
+      "kpop": "K-Pop",
+      "kdrama": "韓劇",
+      "languages": "語言",
+      "culture": "文化"
+    }
+  },
+  "moments_section": {
+    "title": "動態",
+    "question": "在想什麼，",
+    "loading": "載入中",
+    "loading_moments": "載入動態中...",
+    "error_loading": "載入動態時出錯",
+    "error_info": "無法載入動態，請稍後重試",
+    "retry_btn": "重試",
+    "no_moments": "暫無動態",
+    "first_to_moment": "成為第一個與社群分享精彩瞬間的人",
+    "share_moment": "分享動態",
+    "moment_login_error": "請登入後按讚動態",
+    "moment_like_error": "更新按讚狀態失敗",
+    "moment_like": "按讚",
+    "moment_comment": "留言",
+    "moment_share": "分享",
+    "no_comments": "暫無留言，成為第一個留言的人吧！",
+    "invalidMomentId": "無效的動態ID",
+    "loadingMoment": "載入動態詳情中...",
+    "noDetailsFound": "未找到詳情",
+    "goBack": "返回",
+    "momentDetails": "動態詳情",
+    "pleaseLoginFirst": "請先登入",
+    "removedLike": "已取消按讚",
+    "likedMoment": "已按讚動態",
+    "failedToUpdateLike": "更新按讚狀態失敗",
+    "emptyCommentError": "請輸入留言內容",
+    "commentAdded": "留言已新增",
+    "failedToAddComment": "新增留言失敗",
+    "loadingComments": "載入留言中...",
+    "writeCommentPlaceholder": "寫下您的留言...",
+    "signInToComment": "請登入後發表留言",
+    "signIn": "登入",
+    "noCommentsYet": "暫無留言，成為第一個留言的人吧！",
+    "commentsCount": "{{count}} 則留言",
+    "comments": "留言",
+    "likeButton": "按讚",
+    "commentButton": "留言",
+    "shareButton": "分享",
+    "timeAgo": {
+      "justNow": "剛剛",
+      "minutesAgo": "{{minutes}}分鐘前",
+      "hoursAgo": "{{hours}}小時前",
+      "daysAgo": "{{days}}天前"
+    }
+  },
+  "createMoment": {
+    "title": "建立動態",
+    "form": {
+      "titleLabel": "標題",
+      "titlePlaceholder": "輸入標題",
+      "descriptionLabel": "描述",
+      "descriptionPlaceholder": "輸入描述",
+      "imagesLabel": "上傳圖片",
+      "maxImagesText": "最多可上傳10張圖片",
+      "addMoreText": "新增更多",
+      "submitButton": "發佈",
+      "submittingButton": "發佈中...",
+      "cancelButton": "取消"
+    },
+    "toast": {
+      "maxImagesError": "最多只能上傳10張圖片",
+      "createSuccess": "動態建立成功！",
+      "createError": "建立動態失敗"
+    }
+  },
+  "editMoment": {
+    "title": "編輯動態",
+    "toast": {
+      "maxImagesError": "最多只能上傳10張圖片",
+      "updateSuccess": "動態更新成功！",
+      "updateError": "更新動態失敗，請重試",
+      "notAuthorized": "您無權編輯此動態"
+    },
+    "form": {
+      "titleLabel": "標題",
+      "titlePlaceholder": "為您的動態輸入標題",
+      "descriptionLabel": "描述",
+      "descriptionPlaceholder": "描述一下您的動態...",
+      "imagesLabel": "圖片",
+      "maxImagesText": "最多可上傳10張圖片（每張最大5MB）",
+      "existingImagesLabel": "現有圖片",
+      "newImagesLabel": "新圖片",
+      "addMoreText": "新增更多",
+      "updateButton": "更新動態",
+      "updatingButton": "更新中...",
+      "cancelButton": "取消"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "輸入您的郵箱",
+      "emailLabel": "郵箱地址",
+      "emailPlaceholder": "輸入郵箱",
+      "sendButton": "傳送驗證碼",
+      "sendingButton": "傳送中...",
+      "successMessage": "驗證碼傳送成功！",
+      "errorPrefix": "錯誤："
+    },
+    "passwordReset": {
+      "successMessage": "密碼重設成功，請登入！"
+    },
+    "login": {
+      "signInWithGoogle": "使用Google登入",
+      "title": "登入",
+      "emailLabel": "郵箱地址",
+      "emailPlaceholder": "輸入郵箱",
+      "passwordLabel": "密碼",
+      "passwordPlaceholder": "輸入密碼",
+      "forgotPassword": "忘記密碼？",
+      "signInButton": "登入",
+      "signingInButton": "登入中...",
+      "newUserText": "新使用者？",
+      "registerLink": "註冊",
+      "successMessage": "登入成功",
+      "invalidCredentialsError": "郵箱或密碼錯誤"
+    },
+    "account": {
+      "title": "建立帳戶",
+      "name": "姓名",
+      "email": "郵箱地址",
+      "password": "密碼",
+      "passwordRequirement": "密碼至少需要8個字元",
+      "confirmPassword": "確認密碼",
+      "continue": "繼續",
+      "alreadyHaveAccount": "已有帳戶？",
+      "login": "登入"
+    },
+    "profile": {
+      "title": "個人資訊",
+      "bio": "個人簡介（可選）",
+      "bioPlaceholder": "介紹一下自己",
+      "gender": "性別",
+      "genderOptions": {
+        "select": "選擇性別",
+        "male": "男",
+        "female": "女",
+        "other": "其他"
+      },
+      "birthDate": "出生日期",
+      "nativeLanguage": "母語",
+      "selectLanguage": "選擇語言",
+      "languageToLearn": "想學習的語言",
+      "profileImages": "頭像",
+      "uploadPrompt": "點擊上傳頭像",
+      "selectImages": "選擇圖片",
+      "back": "返回",
+      "processing": "處理中..."
+    },
+    "verification": {
+      "title": "郵箱驗證",
+      "sentMessage": "我們已向您的郵箱傳送了驗證碼：",
+      "verificationCode": "驗證碼",
+      "codePlaceholder": "輸入6位驗證碼",
+      "verifyButton": "驗證郵箱",
+      "verifying": "驗證中...",
+      "resendCode": "重新傳送驗證碼",
+      "sending": "傳送中...",
+      "backToProfile": "返回個人資訊",
+      "successMessage": "郵箱驗證成功！",
+      "completePrompt": "點擊下方按鈕完成註冊",
+      "completeRegistration": "完成註冊"
+    },
+    "progressBar": {
+      "account": "帳戶",
+      "profile": "資料",
+      "verify": "驗證"
+    },
+    "toasts": {
+      "passwordMismatch": "兩次密碼輸入不一致",
+      "verificationSent": "驗證碼傳送成功！",
+      "sendCodeFailed": "傳送驗證碼失敗",
+      "emailVerified": "郵箱驗證成功！",
+      "invalidCode": "驗證碼無效",
+      "verifyFirst": "請先驗證郵箱",
+      "registrationSuccess": "註冊成功！",
+      "registrationError": "註冊時發生錯誤"
+    }
+  },
+  "communityMain": {
+    "title": "語言交換",
+    "subtitle": "與全球語言學習者建立聯繫",
+    "badge": "語言交換社群",
+    "heroTitle": "找到您的完美",
+    "heroTitleHighlight": "語言夥伴",
+    "heroDescription": "與世界各地的母語者建立聯繫，一起練習語言",
+    "stats": {
+      "activeLearners": "活躍學習者",
+      "activeUsers": "活躍使用者",
+      "languages": "種語言",
+      "countries": "個國家"
+    },
+    "search": {
+      "placeholder": "按姓名、語言或興趣搜尋...",
+      "loading": "正在尋找語言夥伴..."
+    },
+    "memberCard": {
+      "native": "母語",
+      "learning": "正在學習",
+      "defaultBio": "準備好練習語言和結交新朋友！",
+      "onlineNow": "線上中",
+      "active": "活躍",
+      "recently": "最近",
+      "justNow": "剛剛",
+      "minutesAgo": "{{count}}分鐘前",
+      "hoursAgo": "{{count}}小時前",
+      "daysAgo": "{{count}}天前",
+      "overWeekAgo": "一週前",
+      "actions": {
+        "wave": "打招呼",
+        "message": "私訊",
+        "like": "喜歡"
+      }
+    },
+    "tabs": {
+      "all": "全部",
+      "popular": "熱門",
+      "new": "最新"
+    },
+    "filters": {
+      "language": "語言",
+      "allLanguages": "所有語言",
+      "clear": "清除"
+    },
+    "results": {
+      "showing": "為您展示 {{count}} 位優秀的語言夥伴",
+      "membersFound": "找到 {{count}} 位成員",
+      "noneFound": {
+        "title": "未找到成員",
+        "message": "嘗試調整篩選條件或搜尋詞",
+        "resetFilters": "重設篩選"
+      }
+    },
+    "errors": {
+      "generic": "哎呀！出了點問題",
+      "loadError": "無法載入社群，請重試。",
+      "tryAgain": "重試"
+    },
+    "loadMore": {
+      "loading": "載入中...",
+      "button": "載入更多成員"
+    },
+    "cta": {
+      "title": "準備好開始您的語言之旅了嗎？",
+      "description": "建立您的資料，與全球語言夥伴建立聯繫",
+      "getStarted": "免費開始",
+      "viewWaves": "查看招手"
+    },
+    "buttons": {
+      "clearFilters": "清除所有篩選"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "無效的資料ID",
+      "profileNotFound": "未找到資料",
+      "profileNotFoundDesc": "該使用者資料不存在或已被刪除",
+      "somethingWentWrong": "哎呀！出了點問題",
+      "tryAgainLater": "無法載入此資料，請稍後重試"
+    },
+    "buttons": {
+      "backToCommunity": "返回社群",
+      "tryAgain": "重試",
+      "follow": "關注",
+      "following": "已關注",
+      "startChat": "開始聊天",
+      "videoCall": "視訊通話",
+      "startConversation": "開始對話"
+    },
+    "loading": {
+      "loadingProfile": "載入資料中...",
+      "initiatingCall": "正在呼叫 {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "請登入後關注使用者",
+      "followSuccess": "關注成功！",
+      "followFailed": "關注失敗，請重試",
+      "loginToUnfollow": "請登入後取消關注",
+      "unfollowSuccess": "已取消關注",
+      "unfollowFailed": "取消關注失敗，請重試",
+      "confirmUnfollow": "確定要取消關注此使用者嗎？",
+      "loginToChat": "請登入後開始聊天",
+      "chatStarted": "聊天已開始！",
+      "chatFailed": "開始聊天失敗，請重試",
+      "errorOccurred": "發生錯誤，請重試"
+    },
+    "profile": {
+      "memberSince": "{{date}}加入",
+      "yearsOld": "{{age}}歲",
+      "noPhotos": "暫無照片",
+      "aboutUser": "關於{{name}}",
+      "noBio": "{{name}}還沒有新增個人簡介。開始對話了解更多吧！",
+      "readyToPractice": "準備好和{{name}}一起練習了嗎？",
+      "practiceDescription": "開始聊天，一起提升語言能力！",
+      "online": "線上",
+      "offline": "離線",
+      "justNow": "剛剛",
+      "minutesAgo": "{{count}}分鐘前",
+      "hoursAgo": "{{count}}小時前",
+      "daysAgo": "{{count}}天前",
+      "recentlyActive": "最近活躍"
+    },
+    "stats": {
+      "followers": "粉絲",
+      "following": "關注"
+    },
+    "language": {
+      "speaks": "會說",
+      "learning": "正在學習",
+      "notSpecified": "未指定"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "暫無照片"
+    },
+    "navigation": {
+      "backToCommunity": "返回社群"
+    },
+    "errors": {
+      "invalidProfileId": "無效的資料ID",
+      "somethingWentWrong": "哎呀！出了點問題",
+      "couldNotLoadProfile": "無法載入此資料，請稍後重試",
+      "profileNotFound": "未找到資料",
+      "profileDoesNotExist": "該使用者資料不存在或已被刪除",
+      "loadingProfile": "載入資料中..."
+    },
+    "buttons": {
+      "tryAgain": "重試",
+      "backToCommunity": "返回社群"
+    },
+    "stats": {
+      "followers": "粉絲",
+      "following": "關注"
+    },
+    "actions": {
+      "following": "已關注",
+      "follow": "關注",
+      "startChat": "開始聊天",
+      "videoCall": "視訊通話",
+      "startConversation": "開始對話"
+    },
+    "languages": {
+      "speaks": "會說",
+      "learning": "正在學習",
+      "notSpecified": "未指定"
+    },
+    "memberInfo": {
+      "yearsOld": "歲",
+      "memberSince": "加入時間"
+    },
+    "about": {
+      "aboutTitle": "關於",
+      "noBioMessage": "還沒有新增個人簡介。開始對話了解更多吧！"
+    },
+    "callToAction": {
+      "title": "準備好一起練習了嗎？",
+      "subtitle": "開始聊天，一起提升語言能力！"
+    },
+    "toasts": {
+      "needLogin": "需要登入才能",
+      "followUsers": "關注使用者",
+      "unfollowUsers": "取消關注",
+      "startChat": "開始聊天",
+      "failedToFollow": "關注失敗，請重試",
+      "successfullyFollowed": "關注成功！",
+      "successfullyUnfollowed": "已取消關注",
+      "failedToUnfollow": "取消關注失敗，請重試",
+      "failedToStartChat": "開始聊天失敗，請重試",
+      "initiatingCall": "正在呼叫...",
+      "errorOccurred": "發生錯誤，請重試"
+    },
+    "confirmations": {
+      "unfollowConfirm": "確定要取消關注此使用者嗎？"
+    },
+    "accessibility": {
+      "viewPhoto": "查看照片",
+      "userPhoto": "的照片"
+    },
+    "fallbacks": {
+      "defaultUser": "使用者"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "學習",
+      "subtitle": "繼續保持！",
+      "currentStreak": "連續學習",
+      "days": "天",
+      "longest": "最長紀錄",
+      "dailyGoal": "每日目標",
+      "goalComplete": "今日目標已完成！",
+      "quickActions": "快捷操作",
+      "review": "複習",
+      "practiceWords": "練習詞彙",
+      "lessons": "課程",
+      "learnNew": "學習新內容",
+      "quiz": "測驗",
+      "testKnowledge": "檢測知識",
+      "leaderboard": "排行榜",
+      "seeRankings": "查看排名",
+      "yourProgress": "我的進度",
+      "words": "單字",
+      "lessonsLabel": "課程",
+      "level": "等級",
+      "vocabulary": "詞彙表",
+      "wordsLearned": "已學單字",
+      "achievements": "成就",
+      "unlocked": "已解鎖",
+      "challenges": "挑戰",
+      "joinChallenges": "參加每週挑戰"
+    },
+    "vocabulary": {
+      "title": "詞彙表",
+      "searchPlaceholder": "搜尋單字...",
+      "addWord": "新增單字",
+      "noWords": "暫無單字",
+      "startAdding": "開始新增單字到詞彙表",
+      "word": "單字",
+      "translation": "翻譯",
+      "level": "等級",
+      "nextReview": "下次複習"
+    },
+    "review": {
+      "title": "複習",
+      "cardsLeft": "張卡片剩餘",
+      "showAnswer": "顯示答案",
+      "correct": "正確",
+      "incorrect": "錯誤",
+      "sessionComplete": "複習完成！",
+      "greatJob": "太棒了！您已完成所有複習。",
+      "backToDashboard": "返回儀表板"
+    },
+    "lessons": {
+      "title": "課程",
+      "continue": "繼續",
+      "start": "開始",
+      "completed": "已完成",
+      "progress": "進度"
+    },
+    "quizzes": {
+      "title": "測驗",
+      "questions": "道題",
+      "startQuiz": "開始測驗",
+      "score": "得分"
+    },
+    "leaderboard": {
+      "title": "排行榜",
+      "weekly": "本週",
+      "monthly": "本月",
+      "allTime": "總榜",
+      "you": "我",
+      "xp": "經驗值"
+    },
+    "achievements": {
+      "title": "成就",
+      "unlocked": "已解鎖",
+      "locked": "未解鎖",
+      "progress": "進度"
+    },
+    "challenges": {
+      "title": "挑戰",
+      "join": "參加",
+      "joined": "已參加",
+      "daysLeft": "天剩餘",
+      "participants": "人參與"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "管理您的帳戶和偏好設定",
+    "editProfile": "編輯",
+    "logout": "登出",
+    "logoutSuccess": "登出成功",
+    "sections": {
+      "account": "帳戶",
+      "privacy": "隱私",
+      "notifications": "通知",
+      "vip": "VIP",
+      "language": "語言",
+      "support": "支援"
+    },
+    "items": {
+      "editProfile": "編輯資料",
+      "editProfileDesc": "更新您的個人資訊",
+      "changePassword": "修改密碼",
+      "changePasswordDesc": "更新您的密碼",
+      "emailSettings": "郵箱設定",
+      "emailSettingsDesc": "管理郵箱偏好",
+      "privacySettings": "隱私設定",
+      "privacySettingsDesc": "控制誰可以看到您的資訊",
+      "blockedUsers": "已封鎖使用者",
+      "blockedUsersDesc": "管理已封鎖的帳戶",
+      "closeFriends": "親密好友",
+      "closeFriendsDesc": "管理親密好友列表",
+      "pushNotifications": "推播通知",
+      "pushNotificationsDesc": "管理通知偏好",
+      "chatSettings": "聊天設定",
+      "chatSettingsDesc": "訊息和聊天偏好",
+      "manageSubscription": "管理訂閱",
+      "vipActive": "VIP已啟用",
+      "upgradeToPremium": "升級到進階版",
+      "languageSettings": "語言設定",
+      "languageSettingsDesc": "變更應用程式和學習語言",
+      "helpCenter": "幫助中心",
+      "helpCenterDesc": "取得幫助和支援"
+    },
+    "privacySettings": {
+      "title": "隱私設定",
+      "profileVisibility": "資料可見性",
+      "onlineStatus": "顯示線上狀態",
+      "lastSeen": "顯示最後上線時間",
+      "readReceipts": "已讀回執"
+    },
+    "notificationSettings": {
+      "title": "通知設定",
+      "pushNotifications": "推播通知",
+      "messages": "訊息",
+      "likes": "按讚",
+      "followers": "新粉絲",
+      "waves": "招手",
+      "emailDigest": "郵件摘要"
+    },
+    "languageSettings": {
+      "title": "語言設定",
+      "appLanguage": "應用程式語言",
+      "nativeLanguage": "母語",
+      "learningLanguage": "學習語言"
+    },
+    "vipSettings": {
+      "title": "VIP狀態",
+      "currentPlan": "目前方案",
+      "free": "免費版",
+      "premium": "進階版",
+      "features": "功能",
+      "upgrade": "升級到VIP"
+    }
+  },
+  "waves": {
+    "title": "招手",
+    "received": "收到的",
+    "sent": "發出的",
+    "accept": "接受",
+    "decline": "拒絕",
+    "noWaves": "暫無招手",
+    "sendWave": "傳送招手開始交流吧！"
+  },
+  "topics": {
+    "title": "話題",
+    "myTopics": "我的話題",
+    "browseTopics": "瀏覽話題",
+    "usersInterested": "人感興趣"
+  },
+  "nearby": {
+    "title": "附近的使用者",
+    "enableLocation": "啟用位置",
+    "locationRequired": "需要位置權限才能查找附近的使用者",
+    "noUsersNearby": "附近沒有使用者",
+    "tryExpandingRadius": "嘗試擴大搜尋範圍"
+  },
+  "vip": {
+    "title": "VIP會員",
+    "subtitle": "解鎖進階功能",
+    "status": {
+      "active": "VIP已啟用",
+      "free": "免費方案",
+      "activeDesc": "正在享受所有進階功能",
+      "freeDesc": "升級以解鎖更多功能"
+    },
+    "expiresOn": "到期時間",
+    "plans": {
+      "free": "免費版",
+      "vip": "VIP"
+    },
+    "perMonth": "/月",
+    "saveAnnually": "年付節省20%",
+    "popular": "熱門",
+    "upgradeNow": "升級到VIP",
+    "upgradeInApp": "在APP內升級",
+    "upgradeInAppDesc": "VIP訂閱只能透過手機APP購買",
+    "manageSubscription": "管理訂閱",
+    "cancelSubscription": "取消訂閱",
+    "manageInApp": "請使用BananaTalk手機APP管理您的訂閱。",
+    "features": {
+      "limitedMessages": "每日訊息數量有限",
+      "basicProfile": "基礎資料",
+      "basicSearch": "基礎搜尋",
+      "unlimitedMessages": "無限訊息",
+      "seeProfileVisitors": "查看誰造訪了您的資料",
+      "advancedFilters": "進階搜尋篩選",
+      "noAds": "無廣告體驗",
+      "prioritySupport": "優先客服",
+      "exclusiveBadge": "VIP專屬徽章",
+      "translationFeature": "訊息翻譯"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "輕鬆語言交換",
+      "titlePart1": "與母語者",
+      "titleHighlight": "對話",
+      "titlePart2": "學習語言",
+      "description": "與全球數百萬語言學習者建立聯繫。練習口語，提高流利度，結交世界各地的朋友。",
+      "stats": {
+        "users": "活躍使用者",
+        "languages": "種語言",
+        "countries": "個國家"
+      },
+      "getStarted": "免費開始",
+      "browseCommunity": "瀏覽社群",
+      "lovedBy": "500萬+學習者的選擇",
+      "chatPreview": {
+        "message1": "你好！你好嗎？ 👋",
+        "message2": "Hey! I'm practicing Chinese!",
+        "message3": "太棒了！一起練習吧 🇹🇼"
+      }
+    },
+    "sections": {
+      "features": "功能特色",
+      "howItWorks": "使用方法",
+      "pricing": "價格方案"
+    },
+    "features": {
+      "title": "學習所需的一切",
+      "subtitle": "強大的工具，加速您的語言學習之旅",
+      "chat": {
+        "title": "即時聊天",
+        "description": "透過即時訊息與母語者練習對話"
+      },
+      "video": {
+        "title": "視訊通話",
+        "description": "與全球夥伴面對面練習語言"
+      },
+      "lessons": {
+        "title": "互動課程",
+        "description": "透過結構化課程和每日練習學習"
+      },
+      "voice": {
+        "title": "語音訊息",
+        "description": "透過音訊交流完善發音"
+      },
+      "community": {
+        "title": "社群",
+        "description": "加入全球數百萬語言學習者"
+      },
+      "languages": {
+        "title": "50+種語言",
+        "description": "從西班牙語到韓語，找到您的學習路徑"
+      }
+    },
+    "howItWorks": {
+      "title": "3步開始學習",
+      "subtitle": "幾分鐘內開始，今天就開啟您的語言之旅"
+    },
+    "steps": {
+      "profile": {
+        "title": "建立資料",
+        "description": "告訴我們您的母語和想學習的語言"
+      },
+      "partners": {
+        "title": "尋找夥伴",
+        "description": "瀏覽我們的社群，找到完美的語言交換夥伴"
+      },
+      "learn": {
+        "title": "開始學習",
+        "description": "每天與母語者聊天、通話、練習"
+      }
+    },
+    "pricing": {
+      "title": "選擇您的方案",
+      "subtitle": "免費開始，準備好了再升級",
+      "mostPopular": "最受歡迎",
+      "getStarted": "開始使用",
+      "free": {
+        "name": "免費版",
+        "period": "永久",
+        "features": {
+          "messaging": "基礎訊息",
+          "connections": "每日5個新連結",
+          "community": "社群存取",
+          "lessons": "基礎課程"
+        }
+      },
+      "premium": {
+        "name": "進階版",
+        "period": "/月",
+        "features": {
+          "messaging": "無限訊息",
+          "connections": "無限連結",
+          "video": "視訊通話",
+          "lessons": "進階課程",
+          "noAds": "無廣告",
+          "translation": "翻譯工具"
+        }
+      },
+      "lifetime": {
+        "name": "終身版",
+        "period": "一次性付款",
+        "features": {
+          "everything": "進階版所有功能",
+          "forever": "永久存取",
+          "support": "優先支援",
+          "early": "搶先體驗新功能",
+          "badges": "專屬徽章"
+        }
+      }
+    },
+    "cta": {
+      "title": "準備好開始您的語言之旅了嗎？",
+      "description": "加入數百萬學習者，今天就開始說一門新語言",
+      "button": "建立免費帳戶"
+    }
+  }
+}

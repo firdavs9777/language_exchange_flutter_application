@@ -1,12 +1,55 @@
 {
     "greeting": "안녕하세요",
+    "footer": {
+        "aboutUs": "회사 소개",
+        "aboutDescription": "BananaTalk은 새로운 언어를 마스터하고 전 세계 원어민과 연결되도록 도와드립니다.",
+        "quickLinks": "빠른 링크",
+        "links": {
+            "home": "홈",
+            "about": "소개",
+            "services": "서비스",
+            "pricing": "요금제",
+            "contact": "연락처"
+        },
+        "contactInfo": "연락처 정보",
+        "address": "서울특별시 강남구",
+        "follow": "팔로우",
+        "newsletter": "뉴스레터",
+        "newsletterDescription": "업데이트 및 혜택을 위해 뉴스레터를 구독하세요.",
+        "emailPlaceholder": "이메일 주소",
+        "allRightsReserved": "모든 권리 보유."
+    },
     "community": "커뮤니티",
     "chat": "채팅",
+    "chatPage": {
+        "messages": "메시지",
+        "searchPlaceholder": "대화 검색...",
+        "startConversation": "대화 시작하기",
+        "emptyDescription": "사이드바에서 채팅을 선택하거나 새 대화를 시작하여 전 세계 언어 파트너와 연결하세요.",
+        "newConversation": "새 대화",
+        "features": {
+            "realtime": "실시간 메시지",
+            "exchange": "언어 교환",
+            "calls": "음성 및 영상 통화"
+        },
+        "online": "온라인",
+        "offline": "오프라인",
+        "lastSeen": "마지막 접속",
+        "typing": "입력 중...",
+        "loadingConversation": "대화 불러오는 중...",
+        "errorLoading": "대화 불러오기 오류",
+        "messagePlaceholder": "메시지를 입력하세요...",
+        "justNow": "방금 전",
+        "minutesAgo": "{{count}}분 전",
+        "hoursAgo": "{{count}}시간 전",
+        "unknownUser": "알 수 없는 사용자"
+    },
     "notifications": "알림",
     "moments": "모멘트",
     "language": "언어",
     "english": "영어",
     "korean": "한국어",
+    "chinese": "중국어",
     "followers": "팔로워",
     "followings": "팔로잉",
     "my_moments": "내 모멘트",
@@ -33,13 +76,17 @@
         "replace_image": "교체",
         "delete_image": "이미지 삭제",
         "remove_from_selection": "선택에서 제거",
-        "image_gallery": "이미지 갤러리 "
+        "image_gallery": "이미지 갤러리"
       },
     "profile": {
         "title": "내 프로필",
+        "edit_profile": "프로필 수정",
+        "photos": "사진",
         "messages": {
             "image_update_success": "프로필 사진이 성공적으로 업데이트되었습니다",
             "image_update_failure": "프로필 사진 업데이트 실패",
+            "image_delete_success": "사진이 삭제되었습니다",
+            "image_delete_failure": "사진 삭제 실패",
             "profile_update_success": "프로필이 성공적으로 업데이트되었습니다",
             "profile_update_failure": "프로필 업데이트 실패",
             "error_loading_profile": "프로필을 불러오는 중 오류 발생",
@@ -58,19 +105,48 @@
             "moments": "모먼트",
             "visitors": "방문자"
         },
+        "visitors": {
+            "title": "프로필 방문자",
+            "error": "방문자를 불러오는 중 오류 발생",
+            "no_visitors": "아직 방문자가 없습니다",
+            "no_visitors_desc": "사람들이 프로필을 방문하면 여기에 표시됩니다",
+            "total_visits": "총 방문",
+            "unique_visitors": "순 방문자",
+            "visits_today": "오늘",
+            "visits_week": "이번 주",
+            "via_moments": "모멘트를 통해",
+            "via_search": "검색을 통해",
+            "via_chat": "채팅을 통해",
+            "via_direct": "직접 방문",
+            "via_followers": "팔로워를 통해",
+            "vipOnly": "VIP 전용 기능",
+            "vipOnlyDesc": "VIP로 업그레이드하여 프로필 방문자를 확인하세요. 이 기능은 VIP 회원에게만 제공됩니다.",
+            "vipBenefits": "VIP 혜택",
+            "learnMore": "VIP 자세히 알아보기"
+        },
         "sections": {
             "personal_info": "개인 정보",
             "bio": "소개",
-            "languages": "언어"
+            "languages": "언어",
+            "personality": "성격",
+            "topics": "관심사"
         },
         "labels": {
             "name": "이름",
+            "username": "사용자 이름",
             "email": "이메일",
             "gender": "성별",
             "birthday": "생일",
             "native_language": "모국어",
             "learning": "배우는 중",
-            "of": "의"
+            "of": "의",
+            "mbti": "MBTI 유형",
+            "blood_type": "혈액형",
+            "topics_hint": "관심 있는 주제를 선택하세요 (최대 10개)",
+            "selected": "선택됨"
+        },
+        "hints": {
+            "username_readonly": "사용자 이름은 변경할 수 없습니다"
         },
         "placeholders": {
             "bio": "자신에 대해 간단히 소개해주세요",
@@ -87,12 +163,35 @@
             "edit": "수정",
             "save": "저장",
             "cancel": "취소",
-            "edit_photo": "사진 편집"
+            "edit_photo": "사진 편집",
+            "clear": "선택 해제"
         },
         "buttons": {
             "edit": "수정",
             "save": "저장",
             "cancel": "취소"
+        },
+        "topics": {
+            "music": "음악",
+            "movies": "영화",
+            "travel": "여행",
+            "sports": "스포츠",
+            "gaming": "게임",
+            "food": "음식",
+            "art": "예술",
+            "photography": "사진",
+            "reading": "독서",
+            "fitness": "운동",
+            "technology": "기술",
+            "fashion": "패션",
+            "cooking": "요리",
+            "nature": "자연",
+            "pets": "반려동물",
+            "anime": "애니메이션",
+            "kpop": "K-Pop",
+            "kdrama": "K-드라마",
+            "languages": "언어",
+            "culture": "문화"
         }
     },
     "moments_section": {
@@ -276,22 +375,36 @@
     "communityMain": {
         "title": "언어 교환",
         "subtitle": "전 세계 언어 학습자들과 연결하세요",
+        "badge": "언어 교환 커뮤니티",
+        "heroTitle": "완벽한",
+        "heroTitleHighlight": "언어 파트너 찾기",
+        "heroDescription": "전 세계 원어민과 연결하여 함께 언어를 연습하세요",
         "stats": {
             "activeLearners": "활성 학습자",
+            "activeUsers": "활성 사용자",
             "languages": "언어",
             "countries": "국가"
         },
         "search": {
-            "placeholder": "이름이나 언어로 검색...",
-            "loading": "멋진 언어 파트너를 찾는 중..."
+            "placeholder": "이름, 언어 또는 관심사로 검색...",
+            "loading": "언어 파트너를 찾는 중..."
         },
         "memberCard": {
             "native": "모국어",
             "learning": "학습 중",
-            "defaultBio": "연결을 원하는 열정적인 언어 학습자입니다!",
+            "defaultBio": "언어 연습과 새 친구를 사귈 준비가 되었어요!",
+            "onlineNow": "지금 온라인",
+            "active": "활동 중",
+            "recently": "최근",
+            "justNow": "방금 전",
+            "minutesAgo": "{{count}}분 전",
+            "hoursAgo": "{{count}}시간 전",
+            "daysAgo": "{{count}}일 전",
+            "overWeekAgo": "일주일 이상 전",
             "actions": {
-                "like": "좋아요",
-                "message": "메시지"
+                "wave": "인사하기",
+                "message": "메시지",
+                "like": "좋아요"
             }
         },
         "tabs": {
@@ -299,17 +412,34 @@
             "popular": "인기",
             "new": "신규"
         },
+        "filters": {
+            "language": "언어",
+            "allLanguages": "모든 언어",
+            "clear": "지우기"
+        },
         "results": {
             "showing": "{{count}}명의 멋진 언어 파트너{{plural}}를 보여드립니다",
+            "membersFound": "{{count}}명의 회원 발견",
             "noneFound": {
-                "title": "언어 파트너를 찾을 수 없습니다",
-                "message": "더 많은 학습자를 찾으려면 검색 필터를 조정해보세요",
-                "resetFilters": "모든 필터 초기화"
+                "title": "회원을 찾을 수 없습니다",
+                "message": "필터나 검색어를 조정해 보세요",
+                "resetFilters": "필터 초기화"
             }
         },
         "errors": {
-            "generic": "문제가 발생했습니다",
+            "generic": "앗! 문제가 발생했습니다",
+            "loadError": "커뮤니티를 불러올 수 없습니다. 다시 시도해주세요.",
             "tryAgain": "다시 시도"
+        },
+        "loadMore": {
+            "loading": "불러오는 중...",
+            "button": "더 많은 회원 보기"
+        },
+        "cta": {
+            "title": "언어 여정을 시작할 준비가 되셨나요?",
+            "description": "프로필을 만들고 전 세계 언어 파트너와 연결하세요",
+            "getStarted": "무료로 시작하기",
+            "viewWaves": "손흔들기 보기"
         },
         "buttons": {
             "clearFilters": "모든 필터 지우기"
@@ -356,7 +486,14 @@
             "aboutUser": "{{name}}님 소개",
             "noBio": "{{name}}님은 아직 소개를 추가하지 않았습니다. 대화를 시작하여 더 자세히 알아보세요!",
             "readyToPractice": "{{name}}님과 연습할 준비가 되셨나요?",
-            "practiceDescription": "채팅을 시작하고 함께 언어 실력을 향상시키세요!"
+            "practiceDescription": "채팅을 시작하고 함께 언어 실력을 향상시키세요!",
+            "online": "온라인",
+            "offline": "오프라인",
+            "justNow": "방금 전",
+            "minutesAgo": "{{count}}분 전",
+            "hoursAgo": "{{count}}시간 전",
+            "daysAgo": "{{count}}일 전",
+            "recentlyActive": "최근 활동"
         },
         "stats": {
             "followers": "팔로워",
@@ -367,55 +504,55 @@
             "learning": "학습 중",
             "notSpecified": "지정되지 않음"
         }
-    }, 
-        "communityDetailSection": {
-          "profile": {
+    },
+    "communityDetailSection": {
+        "profile": {
             "noPhotos": "사진이 없습니다"
-          },
-          "navigation": {
+        },
+        "navigation": {
             "backToCommunity": "커뮤니티로 돌아가기"
-          },
-          "errors": {
+        },
+        "errors": {
             "invalidProfileId": "유효하지 않은 프로필 ID입니다",
             "somethingWentWrong": "앗! 문제가 발생했습니다",
             "couldNotLoadProfile": "이 프로필을 불러올 수 없습니다. 나중에 다시 시도해 주세요.",
             "profileNotFound": "프로필을 찾을 수 없습니다",
             "profileDoesNotExist": "이 사용자 프로필이 존재하지 않거나 삭제되었습니다.",
             "loadingProfile": "프로필을 불러오는 중..."
-          },
-          "buttons": {
+        },
+        "buttons": {
             "tryAgain": "다시 시도",
             "backToCommunity": "커뮤니티로 돌아가기"
-          },
-          "stats": {
+        },
+        "stats": {
             "followers": "팔로워",
             "following": "팔로잉"
-          },
-          "actions": {
+        },
+        "actions": {
             "following": "팔로잉 중",
             "follow": "팔로우",
             "startChat": "채팅 시작",
             "videoCall": "영상 통화",
             "startConversation": "대화 시작"
-          },
-          "languages": {
+        },
+        "languages": {
             "speaks": "구사 언어",
             "learning": "학습 언어",
             "notSpecified": "지정되지 않음"
-          },
-          "memberInfo": {
+        },
+        "memberInfo": {
             "yearsOld": "세",
             "memberSince": "가입일"
-          },
-          "about": {
+        },
+        "about": {
             "aboutTitle": "소개",
             "noBioMessage": "님은 아직 자기소개를 작성하지 않았습니다. 대화를 시작해서 더 알아보세요!"
-          },
-          "callToAction": {
+        },
+        "callToAction": {
             "title": "님과 함께 연습할 준비가 되셨나요?",
             "subtitle": "채팅을 시작하고 함께 언어 실력을 향상시켜보세요!"
-          },
-          "toasts": {
+        },
+        "toasts": {
             "needLogin": "로그인이 필요합니다:",
             "followUsers": "사용자를 팔로우하려면",
             "unfollowUsers": "사용자를 언팔로우하려면",
@@ -427,17 +564,361 @@
             "failedToStartChat": "채팅 시작에 실패했습니다. 다시 시도해 주세요.",
             "initiatingCall": "님과 통화를 시작합니다...",
             "errorOccurred": "오류가 발생했습니다. 다시 시도해 주세요."
-          },
-          "confirmations": {
+        },
+        "confirmations": {
             "unfollowConfirm": "정말로 이 사용자를 언팔로우하시겠습니까?"
-          },
-          "accessibility": {
+        },
+        "accessibility": {
             "viewPhoto": "사진 보기",
             "userPhoto": "님의 사진"
-          },
-          "fallbacks": {
+        },
+        "fallbacks": {
             "defaultUser": "사용자"
-          }
+        }
+    },
+    "learning": {
+    "dashboard": {
+      "title": "학습",
+      "subtitle": "잘하고 있어요!",
+      "currentStreak": "연속 학습",
+      "days": "일",
+      "longest": "최장 기록",
+      "dailyGoal": "오늘의 목표",
+      "goalComplete": "오늘의 목표 달성!",
+      "quickActions": "빠른 실행",
+      "review": "복습",
+      "practiceWords": "단어 연습",
+      "lessons": "레슨",
+      "learnNew": "새로운 내용 학습",
+      "quiz": "퀴즈",
+      "testKnowledge": "실력 테스트",
+      "leaderboard": "리더보드",
+      "seeRankings": "순위 보기",
+      "yourProgress": "나의 진도",
+      "words": "단어",
+      "lessonsLabel": "레슨",
+      "level": "레벨",
+      "vocabulary": "단어장",
+      "wordsLearned": "개 학습 완료",
+      "achievements": "업적",
+      "unlocked": "개 달성",
+      "challenges": "챌린지",
+      "joinChallenges": "주간 챌린지 참여"
+    },
+    "vocabulary": {
+      "title": "단어장",
+      "searchPlaceholder": "단어 검색...",
+      "addWord": "단어 추가",
+      "noWords": "단어가 없습니다",
+      "startAdding": "단어장에 단어를 추가해 보세요",
+      "word": "단어",
+      "translation": "번역",
+      "level": "레벨",
+      "nextReview": "다음 복습"
+    },
+    "review": {
+      "title": "복습",
+      "cardsLeft": "장 남음",
+      "showAnswer": "정답 보기",
+      "correct": "맞음",
+      "incorrect": "틀림",
+      "sessionComplete": "복습 완료!",
+      "greatJob": "잘하셨어요! 모든 복습을 완료했습니다.",
+      "backToDashboard": "대시보드로 돌아가기"
+    },
+    "lessons": {
+      "title": "레슨",
+      "continue": "계속하기",
+      "start": "시작",
+      "completed": "완료됨",
+      "progress": "진행률"
+    },
+    "quizzes": {
+      "title": "퀴즈",
+      "questions": "문제",
+      "startQuiz": "퀴즈 시작",
+      "score": "점수"
+    },
+    "leaderboard": {
+      "title": "리더보드",
+      "weekly": "주간",
+      "monthly": "월간",
+      "allTime": "전체",
+      "you": "나",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "업적",
+      "unlocked": "달성",
+      "locked": "미달성",
+      "progress": "진행률"
+    },
+    "challenges": {
+      "title": "챌린지",
+      "join": "참여",
+      "joined": "참여 중",
+      "daysLeft": "일 남음",
+      "participants": "명 참여"
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "subtitle": "계정 및 환경설정 관리",
+    "editProfile": "수정",
+    "logout": "로그아웃",
+    "logoutSuccess": "로그아웃되었습니다",
+    "sections": {
+      "account": "계정",
+      "privacy": "개인정보",
+      "notifications": "알림",
+      "vip": "VIP",
+      "language": "언어",
+      "support": "지원"
+    },
+    "items": {
+      "editProfile": "프로필 수정",
+      "editProfileDesc": "개인 정보 업데이트",
+      "changePassword": "비밀번호 변경",
+      "changePasswordDesc": "비밀번호 업데이트",
+      "emailSettings": "이메일 설정",
+      "emailSettingsDesc": "이메일 환경설정 관리",
+      "privacySettings": "개인정보 설정",
+      "privacySettingsDesc": "정보 공개 범위 설정",
+      "blockedUsers": "차단된 사용자",
+      "blockedUsersDesc": "차단된 계정 관리",
+      "closeFriends": "친한 친구",
+      "closeFriendsDesc": "친한 친구 목록 관리",
+      "pushNotifications": "푸시 알림",
+      "pushNotificationsDesc": "알림 환경설정 관리",
+      "chatSettings": "채팅 설정",
+      "chatSettingsDesc": "메시지 및 채팅 환경설정",
+      "manageSubscription": "구독 관리",
+      "vipActive": "VIP 활성화됨",
+      "upgradeToPremium": "프리미엄으로 업그레이드",
+      "languageSettings": "언어 설정",
+      "languageSettingsDesc": "앱 및 학습 언어 변경",
+      "helpCenter": "도움말 센터",
+      "helpCenterDesc": "도움 및 지원 받기"
+    },
+    "privacySettings": {
+      "title": "개인정보 설정",
+      "profileVisibility": "프로필 공개",
+      "onlineStatus": "온라인 상태 표시",
+      "lastSeen": "마지막 접속 표시",
+      "readReceipts": "읽음 확인"
+    },
+    "notificationSettings": {
+      "title": "알림 설정",
+      "pushNotifications": "푸시 알림",
+      "messages": "메시지",
+      "likes": "좋아요",
+      "followers": "새 팔로워",
+      "waves": "손흔들기",
+      "emailDigest": "이메일 요약"
+    },
+    "languageSettings": {
+      "title": "언어 설정",
+      "appLanguage": "앱 언어",
+      "nativeLanguage": "모국어",
+      "learningLanguage": "학습 언어"
+    },
+    "vipSettings": {
+      "title": "VIP 상태",
+      "currentPlan": "현재 플랜",
+      "free": "무료",
+      "premium": "프리미엄",
+      "features": "기능",
+      "upgrade": "VIP로 업그레이드"
+    }
+  },
+  "waves": {
+    "title": "손흔들기",
+    "received": "받은",
+    "sent": "보낸",
+    "accept": "수락",
+    "decline": "거절",
+    "noWaves": "아직 손흔들기가 없습니다",
+    "sendWave": "손흔들기를 보내서 인연을 시작하세요!"
+  },
+  "topics": {
+    "title": "관심사",
+    "myTopics": "내 관심사",
+    "browseTopics": "관심사 둘러보기",
+    "usersInterested": "명 관심"
+  },
+  "nearby": {
+    "title": "주변 사용자",
+    "enableLocation": "위치 활성화",
+    "locationRequired": "주변 사용자를 찾으려면 위치 권한이 필요합니다",
+    "noUsersNearby": "주변에 사용자가 없습니다",
+    "tryExpandingRadius": "검색 반경을 넓혀보세요"
+  },
+  "home": {
+    "hero": {
+      "badge": "언어 교환을 쉽게",
+      "titlePart1": "언어를 배우세요",
+      "titleHighlight": "대화하며",
+      "titlePart2": "원어민과 함께",
+      "description": "전 세계 수백만 명의 언어 학습자와 연결하세요. 말하기 연습, 유창성 향상, 세계 곳곳에서 친구를 사귀세요.",
+      "stats": {
+        "users": "활성 사용자",
+        "languages": "언어",
+        "countries": "국가"
+      },
+      "getStarted": "무료로 시작하기",
+      "browseCommunity": "커뮤니티 둘러보기",
+      "lovedBy": "500만+ 학습자가 선택",
+      "chatPreview": {
+        "message1": "안녕하세요! 잘 지내세요? 👋",
+        "message2": "네! 한국어 연습 중이에요!",
+        "message3": "좋아요! 같이 연습해요 🇰🇷"
+      }
+    },
+    "sections": {
+      "features": "기능",
+      "howItWorks": "이용 방법",
+      "pricing": "요금제"
+    },
+    "features": {
+      "title": "학습에 필요한 모든 것",
+      "subtitle": "언어 학습 여정을 가속화하는 강력한 도구",
+      "chat": {
+        "title": "실시간 채팅",
+        "description": "원어민과 즉시 메시지로 대화 연습"
+      },
+      "video": {
+        "title": "영상 통화",
+        "description": "전 세계 파트너와 얼굴을 보며 언어 연습"
+      },
+      "lessons": {
+        "title": "인터랙티브 레슨",
+        "description": "체계적인 강좌와 일일 연습으로 학습"
+      },
+      "voice": {
+        "title": "음성 메시지",
+        "description": "오디오 교환으로 발음 완성"
+      },
+      "community": {
+        "title": "커뮤니티",
+        "description": "전 세계 수백만 언어 학습자와 함께"
+      },
+      "languages": {
+        "title": "50개 이상 언어",
+        "description": "스페인어부터 한국어까지, 학습 경로를 찾으세요"
+      }
+    },
+    "howItWorks": {
+      "title": "3단계로 학습 시작",
+      "subtitle": "몇 분 안에 시작하고 오늘 언어 여정을 시작하세요"
+    },
+    "steps": {
+      "profile": {
+        "title": "프로필 만들기",
+        "description": "모국어와 배우고 싶은 언어를 알려주세요"
+      },
+      "partners": {
+        "title": "파트너 찾기",
+        "description": "커뮤니티를 둘러보고 완벽한 언어 교환 파트너를 찾으세요"
+      },
+      "learn": {
+        "title": "학습 시작",
+        "description": "매일 원어민과 채팅, 통화, 연습하세요"
+      }
+    },
+    "pricing": {
+      "title": "요금제 선택",
+      "subtitle": "무료로 시작하고 준비되면 업그레이드하세요",
+      "mostPopular": "가장 인기",
+      "getStarted": "시작하기",
+      "free": {
+        "name": "무료",
+        "period": "영원히",
+        "features": {
+          "messaging": "기본 메시지",
+          "connections": "하루 5명 새 연결",
+          "community": "커뮤니티 접근",
+          "lessons": "기본 레슨"
+        }
+      },
+      "premium": {
+        "name": "프리미엄",
+        "period": "/월",
+        "features": {
+          "messaging": "무제한 메시지",
+          "connections": "무제한 연결",
+          "video": "영상 통화",
+          "lessons": "고급 레슨",
+          "noAds": "광고 없음",
+          "translation": "번역 도구"
+        }
+      },
+      "lifetime": {
+        "name": "평생",
+        "period": "1회 결제",
+        "features": {
+          "everything": "프리미엄의 모든 것",
+          "forever": "영원한 접근",
+          "support": "우선 지원",
+          "early": "조기 기능",
+          "badges": "독점 배지"
         }
       }
-    
+    },
+    "download": {
+      "badge": "앱 다운로드",
+      "title": "어디서든 바나나톡과 함께",
+      "description": "모바일 앱으로 이동 중에도 학습하세요. iOS와 Android에서 모든 기능, 푸시 알림, 오프라인 접근이 가능합니다.",
+      "downloadOn": "다운로드",
+      "getItOn": "다운로드",
+      "scanQR": "QR 코드를 스캔하여 앱 다운로드",
+      "or": "또는",
+      "features": {
+        "offline": "오프라인 접근",
+        "push": "푸시 알림",
+        "fast": "빠르고 가벼운"
+      }
+    },
+    "cta": {
+      "title": "언어 여정을 시작할 준비가 되셨나요?",
+      "description": "수백만 학습자와 함께 오늘 새로운 언어를 말하기 시작하세요",
+      "button": "무료 계정 만들기"
+    }
+  },
+  "vip": {
+    "title": "VIP 멤버십",
+    "subtitle": "프리미엄 기능 잠금 해제",
+    "status": {
+      "active": "VIP 활성화",
+      "free": "무료 플랜",
+      "activeDesc": "모든 프리미엄 기능을 즐기고 있습니다",
+      "freeDesc": "업그레이드하여 더 많은 기능 잠금 해제"
+    },
+    "expiresOn": "만료일",
+    "plans": {
+      "free": "무료",
+      "vip": "VIP"
+    },
+    "perMonth": "월",
+    "saveAnnually": "연간 플랜으로 20% 절약",
+    "popular": "인기",
+    "upgradeNow": "VIP로 업그레이드",
+    "upgradeInApp": "모바일 앱에서 업그레이드",
+    "upgradeInAppDesc": "VIP 구독은 모바일 앱에서만 구매할 수 있습니다",
+    "manageSubscription": "구독 관리",
+    "cancelSubscription": "구독 취소",
+    "manageInApp": "구독을 관리하려면 BananaTalk 모바일 앱을 사용해 주세요.",
+    "features": {
+      "limitedMessages": "하루 제한된 메시지",
+      "basicProfile": "기본 프로필",
+      "basicSearch": "기본 검색",
+      "unlimitedMessages": "무제한 메시지",
+      "seeProfileVisitors": "프로필 방문자 확인",
+      "advancedFilters": "고급 검색 필터",
+      "noAds": "광고 없는 경험",
+      "prioritySupport": "우선 지원",
+      "exclusiveBadge": "VIP 전용 배지",
+      "translationFeature": "메시지 번역"
+    }
+  }
+}
+

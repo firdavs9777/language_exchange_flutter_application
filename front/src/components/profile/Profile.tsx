@@ -6,6 +6,8 @@ import {
   useUploadUserPhotoMutation,
   useUpdateUserInfoMutation,
   useDeleteUserPhotoMutation,
+  useGetProfileVisitorsQuery,
+  useGetVipStatusQuery,
 } from "../../store/slices/usersSlice";
 import {
   Button,
@@ -22,8 +24,10 @@ import {
 import backgroundImage from "../../assets/profile_background.png";
 import {
   FaCameraRetro,
+  FaCrown,
   FaEdit,
   FaEye,
+  FaLock,
   FaSave,
   FaTimes,
   FaUserCheck,
@@ -64,6 +68,17 @@ const ProfileScreen: React.FC = () => {
   const { data: followers } = useGetFollowersQuery({ userId });
   const { data: followings } = useGetFollowingsQuery({ userId });
   const { data: moments } = useGetMyMomentsQuery({ userId });
+  // VIP Status
+  const { data: vipData } = useGetVipStatusQuery(userId || "", {
+    skip: !userId,
+  });
+  const userMode = useSelector((state: any) => state.auth.userInfo?.user?.userMode);
+  const isVip = userMode === "vip" || (vipData as any)?.data?.isActive;
+
+  const { data: visitors } = useGetProfileVisitorsQuery(
+    { userId: userId || "", page: 1, limit: 1 },
+    { skip: !userId || !isVip }
+  );
   const [uploadUserPhoto] = useUploadUserPhotoMutation();
   const [updateUserProfile] = useUpdateUserInfoMutation();
   const [deleteUserPhoto] = useDeleteUserPhotoMutation();
@@ -141,7 +156,7 @@ const ProfileScreen: React.FC = () => {
   const handleUploadImages = useCallback(async (newFiles: File[]) => {
     try {
       const formData = new FormData();
-      newFiles.forEach((file) => formData.append("file", file));
+      newFiles.forEach((file) => formData.append("photo", file));
 
       if (newFiles.length > 0 && userId) {
        const userInfo =  await uploadUserPhoto({
@@ -167,7 +182,12 @@ const ProfileScreen: React.FC = () => {
 
   const handleProfileUpdate = useCallback(async () => {
     try {
-      const userInfo = await updateUserProfile(formData).unwrap();
+      // Ensure gender is lowercase for backend validation
+      const dataToSave = {
+        ...formData,
+        gender: formData.gender?.toLowerCase() || "",
+      };
+      const userInfo = await updateUserProfile(dataToSave).unwrap();
 
       const ActionPayload: Response | any = userInfo;
       dispatch(setCredentials({ ...ActionPayload }));
@@ -339,7 +359,7 @@ const ProfileScreen: React.FC = () => {
         </div>
         <h4 className="mt-2 mb-0 fw-bold">{formData.name}</h4>
         <p className="text-muted small">
-          @{formData.name.toLowerCase().replace(/\s+/g, "")}
+          @{formData.username || formData.name?.toLowerCase().replace(/\s+/g, "")}
         </p>
       </div>
 
@@ -394,11 +414,13 @@ const ProfileScreen: React.FC = () => {
           </Col>
 
           <Col xs={6} sm={3}>
-            <StatsCard
-              icon={<FaEye className="text-info" size={24} />}
-              value={320} // Replace with actual data if available
-              label={t("profile.stats.visitors")}
-            />
+            <Link to="/visitors" className="text-decoration-none">
+              <StatsCard
+                icon={isVip ? <FaEye className="text-info" size={24} /> : <FaLock className="text-warning" size={24} />}
+                value={isVip ? ((visitors as any)?.count || 0) : "VIP"}
+                label={t("profile.stats.visitors")}
+              />
+            </Link>
           </Col>
         </Row>
       </Container>
@@ -482,13 +504,13 @@ const ProfileScreen: React.FC = () => {
 // Sub-components for better organization
 const StatsCard: React.FC<{
   icon: React.ReactNode;
-  value: number;
+  value: number | string;
   label: string;
 }> = ({ icon, value, label }) => (
   <Card className="h-100 border-0 shadow-sm hover-shadow transition-all">
     <Card.Body className="d-flex flex-column align-items-center">
       <div className="rounded-circle bg-light p-3 mb-2">{icon}</div>
-      <h5 className="fw-bold mb-0">{value}</h5>
+      <h5 className={`fw-bold mb-0 ${value === "VIP" ? "text-warning" : ""}`}>{value}</h5>
       <p className="text-muted mb-0">{label}</p>
     </Card.Body>
   </Card>
@@ -577,8 +599,8 @@ const PersonalInfoForm: React.FC<{
         onChange={onInputChange}
       >
         <option value="">{t("profile.placeholders.select_gender")}</option>
-        <option value="Male">{t("profile.options.male")}</option>
-        <option value="Female">{t("profile.options.female")}</option>
+        <option value="male">{t("profile.options.male")}</option>
+        <option value="female">{t("profile.options.female")}</option>
       </Form.Select>
     </Form.Group>
     <Form.Group className="mb-3">
@@ -610,7 +632,7 @@ const PersonalInfoView: React.FC<{
         label={t("profile.labels.gender")}
         value={formData.gender ? (
           <Badge
-            bg={formData.gender === "Male" ? "primary" : "danger"}
+            bg={formData.gender.toLowerCase() === "male" ? "primary" : "danger"}
             className="fw-normal"
           >
             {formData.gender}

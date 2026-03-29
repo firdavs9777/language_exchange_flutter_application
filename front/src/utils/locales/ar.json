@@ -1,0 +1,924 @@
+{
+  "greeting": "مرحباً",
+  "footer": {
+    "aboutUs": "من نحن",
+    "aboutDescription": "BananaTalk مكرّس لمساعدتك على إتقان لغات جديدة والتواصل مع متحدثين أصليين من جميع أنحاء العالم.",
+    "quickLinks": "روابط سريعة",
+    "links": {
+      "home": "الرئيسية",
+      "about": "حول",
+      "services": "الخدمات",
+      "pricing": "الأسعار",
+      "contact": "اتصل بنا"
+    },
+    "contactInfo": "معلومات الاتصال",
+    "address": "سيول، كوريا الجنوبية، غانغنام-غو",
+    "follow": "تابعنا",
+    "newsletter": "النشرة الإخبارية",
+    "newsletterDescription": "اشترك في نشرتنا الإخبارية للحصول على التحديثات والعروض.",
+    "emailPlaceholder": "عنوان بريدك الإلكتروني",
+    "allRightsReserved": "جميع الحقوق محفوظة."
+  },
+  "community": "المجتمع",
+  "chat": "الدردشة",
+  "chatPage": {
+    "messages": "الرسائل",
+    "searchPlaceholder": "ابحث في المحادثات...",
+    "startConversation": "ابدأ محادثة",
+    "emptyDescription": "اختر دردشة من الشريط الجانبي أو ابدأ محادثة جديدة للتواصل مع شركاء اللغة حول العالم.",
+    "newConversation": "محادثة جديدة",
+    "features": {
+      "realtime": "مراسلة فورية",
+      "exchange": "تبادل لغوي",
+      "calls": "مكالمات صوتية ومرئية"
+    },
+    "online": "متصل",
+    "offline": "غير متصل",
+    "lastSeen": "آخر ظهور",
+    "typing": "يكتب...",
+    "loadingConversation": "جارٍ تحميل المحادثة...",
+    "errorLoading": "خطأ في تحميل المحادثة",
+    "messagePlaceholder": "اكتب رسالتك...",
+    "justNow": "الآن",
+    "minutesAgo": "منذ {{count}} د",
+    "hoursAgo": "منذ {{count}} س",
+    "unknownUser": "مستخدم غير معروف"
+  },
+  "notifications": "الإشعارات",
+  "moments": "اللحظات",
+  "language": "اللغة",
+  "english": "الإنجليزية",
+  "korean": "الكورية",
+  "chinese": "الصينية",
+  "followers": "المتابعون",
+  "followings": "المتابَعون",
+  "my_moments": "لحظاتي",
+  "logout": "تسجيل الخروج",
+  "sign_in": "تسجيل الدخول",
+  "image_upload": {
+    "image_drop": "يرجى إسقاط ملفات الصور فقط",
+    "max_upload_warning": "يمكنك رفع {{count}} صورة إضافية فقط.",
+    "no_images_error": "يرجى رفع صورة واحدة على الأقل",
+    "removed_from_selection": "تمت إزالة الصورة من التحديد",
+    "deleted_success": "تم حذف الصورة بنجاح",
+    "replaced_success": "تم استبدال الصورة بنجاح",
+    "current_images": "الصور الحالية",
+    "no_images_uploaded": "لم يتم رفع أي صور بعد",
+    "new_images": "صور جديدة",
+    "no_new_images": "لم يتم اختيار صور جديدة",
+    "drop_images_here": "أسقط الصور هنا أو",
+    "select_files": "اختر الملفات",
+    "remaining_slots": "يمكنك إضافة {{count}} {{item}} أخرى",
+    "image": "صورة",
+    "images": "صور",
+    "cancel": "إلغاء",
+    "save_changes": "حفظ التغييرات",
+    "replace_image": "استبدال",
+    "delete_image": "حذف الصورة",
+    "remove_from_selection": "إزالة من التحديد",
+    "image_gallery": "معرض الصور"
+  },
+  "profile": {
+    "title": "ملفي الشخصي",
+    "edit_profile": "تعديل الملف الشخصي",
+    "photos": "الصور",
+    "messages": {
+      "image_update_success": "تم تحديث صورة الملف الشخصي بنجاح",
+      "image_update_failure": "فشل في تحديث صورة الملف الشخصي",
+      "image_delete_success": "تم حذف الصورة بنجاح",
+      "image_delete_failure": "فشل في حذف الصورة",
+      "profile_update_success": "تم تحديث الملف الشخصي بنجاح",
+      "profile_update_failure": "فشل في تحديث الملف الشخصي",
+      "error_loading_profile": "خطأ في تحميل الملف الشخصي",
+      "no_profile_data": "لا تتوفر بيانات الملف الشخصي",
+      "unknown_error": "حدث خطأ غير معروف",
+      "no_bio": "لم يتم تقديم معلومات السيرة الذاتية",
+      "not_specified": "غير محدد"
+    },
+    "stats": {
+      "followers": "المتابعون",
+      "no_followers": "ليس لديك أي متابعين بعد.",
+      "follower_error": "خطأ في تحميل المتابعين. يرجى المحاولة لاحقاً.",
+      "following": "المتابَعون",
+      "no_following": "أنت لا تتابع أي شخص بعد.",
+      "following_error": "خطأ في تحميل قائمة المتابَعين. يرجى المحاولة لاحقاً.",
+      "moments": "اللحظات",
+      "visitors": "الزوار"
+    },
+    "visitors": {
+      "title": "زوار الملف الشخصي",
+      "error": "خطأ في تحميل الزوار",
+      "no_visitors": "لا يوجد زوار بعد",
+      "no_visitors_desc": "عندما يزور أشخاص ملفك الشخصي، سيظهرون هنا",
+      "total_visits": "إجمالي الزيارات",
+      "unique_visitors": "الزوار الفريدون",
+      "visits_today": "اليوم",
+      "visits_week": "هذا الأسبوع",
+      "via_moments": "عبر اللحظات",
+      "via_search": "عبر البحث",
+      "via_chat": "عبر الدردشة",
+      "via_direct": "مباشر",
+      "via_followers": "عبر المتابعين",
+      "vipOnly": "ميزة VIP",
+      "vipOnlyDesc": "اعرف من زار ملفك الشخصي بالترقية إلى VIP. هذه الميزة متاحة حصرياً لأعضاء VIP.",
+      "vipBenefits": "مزايا VIP",
+      "learnMore": "اعرف المزيد عن VIP"
+    },
+    "sections": {
+      "personal_info": "المعلومات الشخصية",
+      "bio": "السيرة الذاتية",
+      "languages": "اللغات",
+      "personality": "الشخصية",
+      "topics": "المواضيع والاهتمامات"
+    },
+    "labels": {
+      "name": "الاسم",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "gender": "الجنس",
+      "birthday": "تاريخ الميلاد",
+      "native_language": "اللغة الأم",
+      "learning": "أتعلم",
+      "of": "من",
+      "mbti": "نوع MBTI",
+      "blood_type": "فصيلة الدم",
+      "topics_hint": "اختر المواضيع التي تهمك (بحد أقصى 10)",
+      "selected": "محدد"
+    },
+    "hints": {
+      "username_readonly": "لا يمكن تغيير اسم المستخدم"
+    },
+    "placeholders": {
+      "bio": "اكتب شيئاً عن نفسك",
+      "select_gender": "اختر الجنس",
+      "select_date": "اختر التاريخ",
+      "select_native_language": "اختر اللغة الأم",
+      "select_learning_language": "اختر اللغة التي تريد تعلمها"
+    },
+    "options": {
+      "male": "ذكر",
+      "female": "أنثى"
+    },
+    "actions": {
+      "edit": "تعديل",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "edit_photo": "تعديل الصورة",
+      "clear": "مسح التحديد"
+    },
+    "buttons": {
+      "edit": "تعديل",
+      "save": "حفظ",
+      "cancel": "إلغاء"
+    },
+    "topics": {
+      "music": "موسيقى",
+      "movies": "أفلام",
+      "travel": "سفر",
+      "sports": "رياضة",
+      "gaming": "ألعاب",
+      "food": "طعام",
+      "art": "فن",
+      "photography": "تصوير",
+      "reading": "قراءة",
+      "fitness": "لياقة بدنية",
+      "technology": "تكنولوجيا",
+      "fashion": "أزياء",
+      "cooking": "طبخ",
+      "nature": "طبيعة",
+      "pets": "حيوانات أليفة",
+      "anime": "أنمي",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "لغات",
+      "culture": "ثقافة"
+    }
+  },
+  "moments_section": {
+    "title": "اللحظات",
+    "question": "ما الذي يدور في ذهنك،",
+    "loading": "جارٍ التحميل",
+    "loading_moments": "جارٍ تحميل اللحظات...",
+    "error_loading": "خطأ في تحميل اللحظات",
+    "error_info": "لم نتمكن من تحميل اللحظات. يرجى المحاولة لاحقاً.",
+    "retry_btn": "إعادة المحاولة",
+    "no_moments": "لا توجد لحظات",
+    "first_to_moment": "كن أول من يشارك لحظاته المميزة مع المجتمع",
+    "share_moment": "شارك لحظة",
+    "moment_login_error": "يرجى تسجيل الدخول للإعجاب باللحظات",
+    "moment_like_error": "فشل في تحديث حالة الإعجاب",
+    "moment_like": "إعجاب",
+    "moment_comment": "تعليق",
+    "moment_share": "مشاركة",
+    "no_comments": "لا توجد تعليقات بعد. كن أول من يعلّق!",
+    "invalidMomentId": "معرّف لحظة غير صالح",
+    "loadingMoment": "جارٍ تحميل تفاصيل اللحظة...",
+    "noDetailsFound": "لم يتم العثور على تفاصيل",
+    "goBack": "العودة",
+    "momentDetails": "تفاصيل اللحظة",
+    "pleaseLoginFirst": "يرجى تسجيل الدخول أولاً",
+    "removedLike": "تمت إزالة الإعجاب",
+    "likedMoment": "تم الإعجاب باللحظة",
+    "failedToUpdateLike": "فشل في تحديث حالة الإعجاب",
+    "emptyCommentError": "يرجى إضافة تعليق",
+    "commentAdded": "تمت إضافة التعليق",
+    "failedToAddComment": "فشل في إضافة التعليق",
+    "loadingComments": "جارٍ تحميل التعليقات...",
+    "writeCommentPlaceholder": "اكتب تعليقاً...",
+    "signInToComment": "يرجى تسجيل الدخول لإضافة تعليق",
+    "signIn": "تسجيل الدخول",
+    "noCommentsYet": "لا توجد تعليقات بعد. كن أول من يعلّق!",
+    "commentsCount": "{{count}} تعليقات",
+    "comments": "التعليقات",
+    "likeButton": "إعجاب",
+    "commentButton": "تعليق",
+    "shareButton": "مشاركة",
+    "timeAgo": {
+      "justNow": "الآن",
+      "minutesAgo": "منذ {{minutes}} د",
+      "hoursAgo": "منذ {{hours}} س",
+      "daysAgo": "منذ {{days}} ي"
+    }
+  },
+  "createMoment": {
+    "title": "إنشاء لحظة",
+    "form": {
+      "titleLabel": "العنوان",
+      "titlePlaceholder": "أدخل العنوان",
+      "descriptionLabel": "الوصف",
+      "descriptionPlaceholder": "أدخل الوصف",
+      "imagesLabel": "رفع الصور",
+      "maxImagesText": "يُسمح بـ 10 صور كحد أقصى",
+      "addMoreText": "أضف المزيد",
+      "submitButton": "نشر",
+      "submittingButton": "جارٍ النشر...",
+      "cancelButton": "إلغاء"
+    },
+    "toast": {
+      "maxImagesError": "يمكنك رفع 10 صور كحد أقصى",
+      "createSuccess": "تم إنشاء اللحظة بنجاح!",
+      "createError": "فشل في إنشاء اللحظة."
+    }
+  },
+  "editMoment": {
+    "title": "تعديل اللحظة",
+    "toast": {
+      "maxImagesError": "يمكنك رفع 10 صور كحد أقصى",
+      "updateSuccess": "تم تحديث اللحظة بنجاح!",
+      "updateError": "فشل في تحديث اللحظة. يرجى المحاولة مرة أخرى.",
+      "notAuthorized": "غير مصرح لك بتعديل هذه اللحظة"
+    },
+    "form": {
+      "titleLabel": "العنوان",
+      "titlePlaceholder": "أدخل عنواناً للحظتك",
+      "descriptionLabel": "الوصف",
+      "descriptionPlaceholder": "أخبرنا عن لحظتك...",
+      "imagesLabel": "الصور",
+      "maxImagesText": "يمكنك رفع حتى 10 صور (بحد أقصى 5 ميغابايت لكل صورة)",
+      "existingImagesLabel": "الصور الحالية",
+      "newImagesLabel": "صور جديدة",
+      "addMoreText": "أضف المزيد",
+      "updateButton": "تحديث اللحظة",
+      "updatingButton": "جارٍ التحديث...",
+      "cancelButton": "إلغاء"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "أدخل بريدك الإلكتروني",
+      "emailLabel": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "أدخل البريد الإلكتروني",
+      "sendButton": "إرسال الرمز",
+      "sendingButton": "جارٍ الإرسال...",
+      "successMessage": "تم إرسال رمز التحقق بنجاح!",
+      "errorPrefix": "خطأ: "
+    },
+    "passwordReset": {
+      "successMessage": "تمت إعادة تعيين كلمة المرور بنجاح، يرجى تسجيل الدخول!"
+    },
+    "login": {
+      "signInWithGoogle": "تسجيل الدخول بحساب Google",
+      "title": "تسجيل الدخول",
+      "emailLabel": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "أدخل البريد الإلكتروني",
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "signInButton": "تسجيل الدخول",
+      "signingInButton": "جارٍ تسجيل الدخول...",
+      "newUserText": "مستخدم جديد؟",
+      "registerLink": "التسجيل",
+      "successMessage": "تم تسجيل الدخول بنجاح",
+      "invalidCredentialsError": "بيانات الاعتماد غير صحيحة"
+    },
+    "account": {
+      "title": "أنشئ حسابك",
+      "name": "الاسم",
+      "email": "عنوان البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordRequirement": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "continue": "متابعة",
+      "alreadyHaveAccount": "لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول"
+    },
+    "profile": {
+      "title": "معلومات الملف الشخصي",
+      "bio": "السيرة الذاتية (اختياري)",
+      "bioPlaceholder": "أخبرنا شيئاً عن نفسك",
+      "gender": "الجنس",
+      "genderOptions": {
+        "select": "اختر الجنس",
+        "male": "ذكر",
+        "female": "أنثى",
+        "other": "آخر"
+      },
+      "birthDate": "تاريخ الميلاد",
+      "nativeLanguage": "اللغة الأم",
+      "selectLanguage": "اختر اللغة",
+      "languageToLearn": "اللغة التي تريد تعلمها",
+      "profileImages": "صور الملف الشخصي",
+      "uploadPrompt": "انقر لرفع صور الملف الشخصي",
+      "selectImages": "اختر الصور",
+      "back": "رجوع",
+      "processing": "جارٍ المعالجة..."
+    },
+    "verification": {
+      "title": "التحقق من البريد الإلكتروني",
+      "sentMessage": "لقد أرسلنا رمز التحقق إلى بريدك الإلكتروني:",
+      "verificationCode": "رمز التحقق",
+      "codePlaceholder": "أدخل الرمز المكون من 6 أرقام",
+      "verifyButton": "تحقق من البريد الإلكتروني",
+      "verifying": "جارٍ التحقق...",
+      "resendCode": "إعادة إرسال رمز التحقق",
+      "sending": "جارٍ الإرسال...",
+      "backToProfile": "العودة إلى الملف الشخصي",
+      "successMessage": "تم التحقق من البريد الإلكتروني بنجاح!",
+      "completePrompt": "أكمل تسجيلك بالنقر على الزر أدناه.",
+      "completeRegistration": "إكمال التسجيل"
+    },
+    "progressBar": {
+      "account": "الحساب",
+      "profile": "الملف الشخصي",
+      "verify": "التحقق"
+    },
+    "toasts": {
+      "passwordMismatch": "كلمتا المرور غير متطابقتين",
+      "verificationSent": "تم إرسال رمز التحقق بنجاح!",
+      "sendCodeFailed": "فشل في إرسال رمز التحقق",
+      "emailVerified": "تم التحقق من البريد الإلكتروني بنجاح!",
+      "invalidCode": "رمز التحقق غير صحيح",
+      "verifyFirst": "يرجى التحقق من بريدك الإلكتروني أولاً",
+      "registrationSuccess": "تم التسجيل بنجاح!",
+      "registrationError": "خطأ أثناء التسجيل"
+    }
+  },
+  "communityMain": {
+    "title": "تبادل لغوي",
+    "subtitle": "تواصل مع متعلمي اللغات حول العالم",
+    "badge": "مجتمع التبادل اللغوي",
+    "heroTitle": "اعثر على شريكك",
+    "heroTitleHighlight": "اللغوي المثالي",
+    "heroDescription": "تواصل مع متحدثين أصليين من جميع أنحاء العالم وتدرّب على اللغات معاً",
+    "stats": {
+      "activeLearners": "متعلمون نشطون",
+      "activeUsers": "مستخدمون نشطون",
+      "languages": "لغات",
+      "countries": "دول"
+    },
+    "search": {
+      "placeholder": "ابحث بالاسم أو اللغة أو الاهتمامات...",
+      "loading": "جارٍ البحث عن شركاء لغويين..."
+    },
+    "memberCard": {
+      "native": "اللغة الأم",
+      "learning": "يتعلم",
+      "defaultBio": "مستعد لممارسة اللغات وتكوين صداقات جديدة!",
+      "onlineNow": "متصل الآن",
+      "active": "نشط",
+      "recently": "مؤخراً",
+      "justNow": "الآن",
+      "minutesAgo": "منذ {{count}} د",
+      "hoursAgo": "منذ {{count}} س",
+      "daysAgo": "منذ {{count}} ي",
+      "overWeekAgo": "منذ أكثر من أسبوع",
+      "actions": {
+        "wave": "تلويح",
+        "message": "رسالة",
+        "like": "إعجاب"
+      }
+    },
+    "tabs": {
+      "all": "الكل",
+      "popular": "الأكثر شعبية",
+      "new": "جديد"
+    },
+    "filters": {
+      "language": "اللغة",
+      "allLanguages": "جميع اللغات",
+      "clear": "مسح"
+    },
+    "results": {
+      "showing": "عرض {{count}} شريك لغوي مميز{{plural}}",
+      "membersFound": "تم العثور على {{count}} عضو",
+      "noneFound": {
+        "title": "لم يتم العثور على أعضاء",
+        "message": "حاول تعديل الفلاتر أو مصطلحات البحث",
+        "resetFilters": "إعادة تعيين الفلاتر"
+      }
+    },
+    "errors": {
+      "generic": "عذراً! حدث خطأ ما",
+      "loadError": "لم نتمكن من تحميل المجتمع. يرجى المحاولة مرة أخرى.",
+      "tryAgain": "حاول مرة أخرى"
+    },
+    "loadMore": {
+      "loading": "جارٍ التحميل...",
+      "button": "تحميل المزيد من الأعضاء"
+    },
+    "cta": {
+      "title": "هل أنت مستعد لبدء رحلتك اللغوية؟",
+      "description": "أنشئ ملفك الشخصي وتواصل مع شركاء لغويين حول العالم",
+      "getStarted": "ابدأ مجاناً",
+      "viewWaves": "عرض التلويحات"
+    },
+    "buttons": {
+      "clearFilters": "مسح جميع الفلاتر"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "معرّف الملف الشخصي غير صالح",
+      "profileNotFound": "الملف الشخصي غير موجود",
+      "profileNotFoundDesc": "هذا الملف الشخصي غير موجود أو تمت إزالته.",
+      "somethingWentWrong": "عذراً! حدث خطأ ما",
+      "tryAgainLater": "لم نتمكن من تحميل هذا الملف الشخصي. يرجى المحاولة لاحقاً."
+    },
+    "buttons": {
+      "backToCommunity": "العودة إلى المجتمع",
+      "tryAgain": "حاول مرة أخرى",
+      "follow": "متابعة",
+      "following": "متابَع",
+      "startChat": "بدء الدردشة",
+      "videoCall": "مكالمة فيديو",
+      "startConversation": "بدء محادثة"
+    },
+    "loading": {
+      "loadingProfile": "جارٍ تحميل الملف الشخصي...",
+      "initiatingCall": "جارٍ بدء المكالمة مع {{name}}..."
+    },
+    "notifications": {
+      "loginToFollow": "يجب تسجيل الدخول لمتابعة المستخدمين",
+      "followSuccess": "تمت المتابعة بنجاح!",
+      "followFailed": "فشل في متابعة المستخدم. يرجى المحاولة مرة أخرى.",
+      "loginToUnfollow": "يجب تسجيل الدخول لإلغاء متابعة المستخدمين",
+      "unfollowSuccess": "تم إلغاء المتابعة بنجاح",
+      "unfollowFailed": "فشل في إلغاء متابعة المستخدم. يرجى المحاولة مرة أخرى.",
+      "confirmUnfollow": "هل أنت متأكد أنك تريد إلغاء متابعة هذا المستخدم؟",
+      "loginToChat": "يجب تسجيل الدخول لبدء الدردشة",
+      "chatStarted": "تم بدء الدردشة بنجاح!",
+      "chatFailed": "فشل في بدء الدردشة. يرجى المحاولة مرة أخرى.",
+      "errorOccurred": "حدث خطأ. يرجى المحاولة مرة أخرى."
+    },
+    "profile": {
+      "memberSince": "عضو منذ {{date}}",
+      "yearsOld": "{{age}} سنة",
+      "noPhotos": "لا توجد صور بعد",
+      "aboutUser": "عن {{name}}",
+      "noBio": "لم يضف {{name}} سيرة ذاتية بعد. ابدأ محادثة لمعرفة المزيد عنه!",
+      "readyToPractice": "مستعد للتدرب مع {{name}}؟",
+      "practiceDescription": "ابدأ الدردشة وحسّن مهاراتك اللغوية معاً!",
+      "online": "متصل",
+      "offline": "غير متصل",
+      "justNow": "الآن",
+      "minutesAgo": "منذ {{count}} د",
+      "hoursAgo": "منذ {{count}} س",
+      "daysAgo": "منذ {{count}} ي",
+      "recentlyActive": "نشط مؤخراً"
+    },
+    "stats": {
+      "followers": "المتابعون",
+      "following": "المتابَعون"
+    },
+    "language": {
+      "speaks": "يتحدث",
+      "learning": "يتعلم",
+      "notSpecified": "غير محدد"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "لا تتوفر صور"
+    },
+    "navigation": {
+      "backToCommunity": "العودة إلى المجتمع"
+    },
+    "errors": {
+      "invalidProfileId": "معرّف الملف الشخصي غير صالح",
+      "somethingWentWrong": "عذراً! حدث خطأ ما",
+      "couldNotLoadProfile": "لم نتمكن من تحميل هذا الملف الشخصي. يرجى المحاولة لاحقاً.",
+      "profileNotFound": "الملف الشخصي غير موجود",
+      "profileDoesNotExist": "هذا الملف الشخصي غير موجود أو تمت إزالته.",
+      "loadingProfile": "جارٍ تحميل الملف الشخصي..."
+    },
+    "buttons": {
+      "tryAgain": "حاول مرة أخرى",
+      "backToCommunity": "العودة إلى المجتمع"
+    },
+    "stats": {
+      "followers": "المتابعون",
+      "following": "المتابَعون"
+    },
+    "actions": {
+      "following": "متابَع",
+      "follow": "متابعة",
+      "startChat": "بدء الدردشة",
+      "videoCall": "مكالمة فيديو",
+      "startConversation": "بدء محادثة"
+    },
+    "languages": {
+      "speaks": "يتحدث",
+      "learning": "يتعلم",
+      "notSpecified": "غير محدد"
+    },
+    "memberInfo": {
+      "yearsOld": "سنة",
+      "memberSince": "عضو منذ"
+    },
+    "about": {
+      "aboutTitle": "حول",
+      "noBioMessage": "لم يضف سيرة ذاتية بعد. ابدأ محادثة لمعرفة المزيد عنه!"
+    },
+    "callToAction": {
+      "title": "مستعد للتدرب مع",
+      "subtitle": "ابدأ الدردشة وحسّن مهاراتك اللغوية معاً!"
+    },
+    "toasts": {
+      "needLogin": "يجب تسجيل الدخول لـ",
+      "followUsers": "متابعة المستخدمين",
+      "unfollowUsers": "إلغاء متابعة المستخدمين",
+      "startChat": "بدء الدردشة",
+      "failedToFollow": "فشل في متابعة المستخدم. يرجى المحاولة مرة أخرى.",
+      "successfullyFollowed": "تمت المتابعة بنجاح!",
+      "successfullyUnfollowed": "تم إلغاء المتابعة بنجاح",
+      "failedToUnfollow": "فشل في إلغاء متابعة المستخدم. يرجى المحاولة مرة أخرى.",
+      "failedToStartChat": "فشل في بدء الدردشة. يرجى المحاولة مرة أخرى.",
+      "initiatingCall": "جارٍ بدء المكالمة مع",
+      "errorOccurred": "حدث خطأ. يرجى المحاولة مرة أخرى."
+    },
+    "confirmations": {
+      "unfollowConfirm": "هل أنت متأكد أنك تريد إلغاء متابعة هذا المستخدم؟"
+    },
+    "accessibility": {
+      "viewPhoto": "عرض الصورة",
+      "userPhoto": "صورة"
+    },
+    "fallbacks": {
+      "defaultUser": "مستخدم"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "تعلّم",
+      "subtitle": "استمر في العمل الرائع!",
+      "currentStreak": "السلسلة الحالية",
+      "days": "أيام",
+      "longest": "الأطول",
+      "dailyGoal": "الهدف اليومي",
+      "goalComplete": "تم تحقيق الهدف اليومي!",
+      "quickActions": "إجراءات سريعة",
+      "review": "مراجعة",
+      "practiceWords": "تدرّب على المفردات",
+      "lessons": "الدروس",
+      "learnNew": "تعلّم محتوى جديد",
+      "quiz": "اختبار",
+      "testKnowledge": "اختبر معلوماتك",
+      "leaderboard": "لوحة المتصدرين",
+      "seeRankings": "شاهد التصنيفات",
+      "yourProgress": "تقدمك",
+      "words": "كلمات",
+      "lessonsLabel": "دروس",
+      "level": "المستوى",
+      "vocabulary": "المفردات",
+      "wordsLearned": "كلمات تم تعلمها",
+      "achievements": "الإنجازات",
+      "unlocked": "مفتوحة",
+      "challenges": "التحديات",
+      "joinChallenges": "انضم إلى التحديات الأسبوعية"
+    },
+    "vocabulary": {
+      "title": "المفردات",
+      "searchPlaceholder": "ابحث عن كلمات...",
+      "addWord": "أضف كلمة",
+      "noWords": "لا توجد كلمات بعد",
+      "startAdding": "ابدأ بإضافة كلمات إلى مفرداتك",
+      "word": "كلمة",
+      "translation": "ترجمة",
+      "level": "المستوى",
+      "nextReview": "المراجعة التالية"
+    },
+    "review": {
+      "title": "مراجعة",
+      "cardsLeft": "بطاقات متبقية",
+      "showAnswer": "إظهار الإجابة",
+      "correct": "صحيح",
+      "incorrect": "خطأ",
+      "sessionComplete": "اكتملت الجلسة!",
+      "greatJob": "عمل رائع! لقد أكملت جميع المراجعات.",
+      "backToDashboard": "العودة إلى لوحة التحكم"
+    },
+    "lessons": {
+      "title": "الدروس",
+      "continue": "متابعة",
+      "start": "ابدأ",
+      "completed": "مكتمل",
+      "progress": "التقدم"
+    },
+    "quizzes": {
+      "title": "الاختبارات",
+      "questions": "أسئلة",
+      "startQuiz": "ابدأ الاختبار",
+      "score": "النتيجة"
+    },
+    "leaderboard": {
+      "title": "لوحة المتصدرين",
+      "weekly": "أسبوعي",
+      "monthly": "شهري",
+      "allTime": "كل الأوقات",
+      "you": "أنت",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "الإنجازات",
+      "unlocked": "مفتوحة",
+      "locked": "مقفلة",
+      "progress": "التقدم"
+    },
+    "challenges": {
+      "title": "التحديات",
+      "join": "انضم",
+      "joined": "منضم",
+      "daysLeft": "أيام متبقية",
+      "participants": "مشاركون"
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "إدارة حسابك وتفضيلاتك",
+    "editProfile": "تعديل",
+    "logout": "تسجيل الخروج",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح",
+    "sections": {
+      "account": "الحساب",
+      "privacy": "الخصوصية",
+      "notifications": "الإشعارات",
+      "vip": "VIP",
+      "language": "اللغة",
+      "support": "الدعم"
+    },
+    "items": {
+      "editProfile": "تعديل الملف الشخصي",
+      "editProfileDesc": "تحديث معلوماتك الشخصية",
+      "changePassword": "تغيير كلمة المرور",
+      "changePasswordDesc": "تحديث كلمة المرور",
+      "emailSettings": "إعدادات البريد الإلكتروني",
+      "emailSettingsDesc": "إدارة تفضيلات البريد الإلكتروني",
+      "privacySettings": "إعدادات الخصوصية",
+      "privacySettingsDesc": "التحكم في من يمكنه رؤية معلوماتك",
+      "blockedUsers": "المستخدمون المحظورون",
+      "blockedUsersDesc": "إدارة الحسابات المحظورة",
+      "closeFriends": "الأصدقاء المقربون",
+      "closeFriendsDesc": "إدارة قائمة أصدقائك المقربين",
+      "pushNotifications": "الإشعارات الفورية",
+      "pushNotificationsDesc": "إدارة تفضيلات الإشعارات",
+      "chatSettings": "إعدادات الدردشة",
+      "chatSettingsDesc": "تفضيلات الرسائل والدردشة",
+      "manageSubscription": "إدارة الاشتراك",
+      "vipActive": "VIP نشط",
+      "upgradeToPremium": "الترقية إلى المميز",
+      "languageSettings": "إعدادات اللغة",
+      "languageSettingsDesc": "تغيير لغة التطبيق ولغات التعلم",
+      "helpCenter": "مركز المساعدة",
+      "helpCenterDesc": "الحصول على المساعدة والدعم"
+    },
+    "privacySettings": {
+      "title": "إعدادات الخصوصية",
+      "profileVisibility": "ظهور الملف الشخصي",
+      "onlineStatus": "إظهار حالة الاتصال",
+      "lastSeen": "إظهار آخر ظهور",
+      "readReceipts": "إيصالات القراءة"
+    },
+    "notificationSettings": {
+      "title": "إعدادات الإشعارات",
+      "pushNotifications": "الإشعارات الفورية",
+      "messages": "الرسائل",
+      "likes": "الإعجابات",
+      "followers": "المتابعون الجدد",
+      "waves": "التلويحات",
+      "emailDigest": "ملخص البريد الإلكتروني"
+    },
+    "languageSettings": {
+      "title": "إعدادات اللغة",
+      "appLanguage": "لغة التطبيق",
+      "nativeLanguage": "اللغة الأم",
+      "learningLanguage": "لغة التعلم"
+    },
+    "vipSettings": {
+      "title": "حالة VIP",
+      "currentPlan": "الخطة الحالية",
+      "free": "مجاني",
+      "premium": "مميز",
+      "features": "الميزات",
+      "upgrade": "الترقية إلى VIP"
+    }
+  },
+  "waves": {
+    "title": "التلويحات",
+    "received": "المستلمة",
+    "sent": "المرسلة",
+    "accept": "قبول",
+    "decline": "رفض",
+    "noWaves": "لا توجد تلويحات بعد",
+    "sendWave": "أرسل تلويحة لبدء التواصل!"
+  },
+  "topics": {
+    "title": "المواضيع",
+    "myTopics": "مواضيعي",
+    "browseTopics": "تصفح المواضيع",
+    "usersInterested": "مستخدمون مهتمون"
+  },
+  "nearby": {
+    "title": "المستخدمون القريبون",
+    "enableLocation": "تفعيل الموقع",
+    "locationRequired": "مطلوب الوصول إلى الموقع للعثور على المستخدمين القريبين",
+    "noUsersNearby": "لا يوجد مستخدمون قريبون",
+    "tryExpandingRadius": "حاول توسيع نطاق البحث"
+  },
+  "home": {
+    "hero": {
+      "badge": "تبادل لغوي بكل بساطة",
+      "titlePart1": "تعلّم اللغات من خلال",
+      "titleHighlight": "التحدث",
+      "titlePart2": "مع متحدثين أصليين",
+      "description": "تواصل مع ملايين متعلمي اللغات حول العالم. تدرّب على المحادثة، وحسّن طلاقتك، وكوّن صداقات من كل أنحاء العالم.",
+      "stats": {
+        "users": "مستخدمون نشطون",
+        "languages": "لغات",
+        "countries": "دول"
+      },
+      "getStarted": "ابدأ مجاناً",
+      "browseCommunity": "تصفح المجتمع",
+      "lovedBy": "محبوب من أكثر من 5 ملايين متعلم",
+      "chatPreview": {
+        "message1": "مرحباً! كيف حالك؟ 👋",
+        "message2": "Hey! I'm practicing my Arabic!",
+        "message3": "ممتاز! هيا نتدرب معاً 🇸🇦"
+      }
+    },
+    "sections": {
+      "features": "الميزات",
+      "howItWorks": "كيف يعمل",
+      "pricing": "الأسعار"
+    },
+    "features": {
+      "title": "كل ما تحتاجه للتعلم",
+      "subtitle": "أدوات قوية مصممة لتسريع رحلتك في تعلم اللغات",
+      "chat": {
+        "title": "دردشة فورية",
+        "description": "تدرّب على المحادثة مع متحدثين أصليين عبر الرسائل الفورية"
+      },
+      "video": {
+        "title": "مكالمات فيديو",
+        "description": "ممارسة لغوية وجهاً لوجه مع شركاء حول العالم"
+      },
+      "lessons": {
+        "title": "دروس تفاعلية",
+        "description": "تعلّم من خلال دورات منظمة وتمارين يومية"
+      },
+      "voice": {
+        "title": "رسائل صوتية",
+        "description": "حسّن نطقك من خلال تبادل الرسائل الصوتية"
+      },
+      "community": {
+        "title": "مجتمع",
+        "description": "انضم إلى ملايين متعلمي اللغات حول العالم"
+      },
+      "languages": {
+        "title": "أكثر من 50 لغة",
+        "description": "من الإسبانية إلى الكورية، اعثر على مسارك التعليمي"
+      }
+    },
+    "howItWorks": {
+      "title": "ابدأ التعلم في 3 خطوات",
+      "subtitle": "ابدأ في دقائق وانطلق في رحلتك اللغوية اليوم"
+    },
+    "steps": {
+      "profile": {
+        "title": "أنشئ ملفك الشخصي",
+        "description": "أخبرنا عن لغتك الأم وما تريد تعلمه"
+      },
+      "partners": {
+        "title": "اعثر على شركاء",
+        "description": "تصفح مجتمعنا واعثر على شركاء التبادل اللغوي المثاليين"
+      },
+      "learn": {
+        "title": "ابدأ التعلم",
+        "description": "تحدث واتصل وتدرّب مع متحدثين أصليين كل يوم"
+      }
+    },
+    "pricing": {
+      "title": "اختر خطتك",
+      "subtitle": "ابدأ مجاناً وقم بالترقية عندما تكون مستعداً",
+      "mostPopular": "الأكثر شعبية",
+      "getStarted": "ابدأ الآن",
+      "free": {
+        "name": "مجاني",
+        "period": "للأبد",
+        "features": {
+          "messaging": "مراسلة أساسية",
+          "connections": "5 اتصالات جديدة/يوم",
+          "community": "الوصول إلى المجتمع",
+          "lessons": "دروس أساسية"
+        }
+      },
+      "premium": {
+        "name": "مميز",
+        "period": "/شهر",
+        "features": {
+          "messaging": "مراسلة غير محدودة",
+          "connections": "اتصالات غير محدودة",
+          "video": "مكالمات فيديو",
+          "lessons": "دروس متقدمة",
+          "noAds": "بدون إعلانات",
+          "translation": "أدوات الترجمة"
+        }
+      },
+      "lifetime": {
+        "name": "مدى الحياة",
+        "period": "دفعة واحدة",
+        "features": {
+          "everything": "كل شيء في المميز",
+          "forever": "وصول دائم",
+          "support": "دعم ذو أولوية",
+          "early": "ميزات مبكرة",
+          "badges": "شارات حصرية"
+        }
+      }
+    },
+    "download": {
+      "badge": "حمّل التطبيق",
+      "title": "خذ BananaTalk معك أينما ذهبت",
+      "description": "تعلّم أثناء التنقل مع تطبيقنا للهاتف. متوفر على iOS و Android مع جميع الميزات والإشعارات الفورية والوصول بدون إنترنت.",
+      "downloadOn": "حمّل من",
+      "getItOn": "احصل عليه من",
+      "scanQR": "امسح لتحميل التطبيق",
+      "or": "أو",
+      "features": {
+        "offline": "وصول بدون إنترنت",
+        "push": "إشعارات فورية",
+        "fast": "سريع وخفيف"
+      }
+    },
+    "cta": {
+      "title": "هل أنت مستعد لبدء رحلتك اللغوية؟",
+      "description": "انضم إلى ملايين المتعلمين وابدأ التحدث بلغة جديدة اليوم",
+      "button": "أنشئ حساباً مجانياً"
+    }
+  },
+  "vip": {
+    "title": "عضوية VIP",
+    "subtitle": "افتح الميزات المميزة",
+    "status": {
+      "active": "VIP نشط",
+      "free": "خطة مجانية",
+      "activeDesc": "تتمتع بجميع الميزات المميزة",
+      "freeDesc": "قم بالترقية لفتح المزيد من الميزات"
+    },
+    "expiresOn": "ينتهي في",
+    "plans": {
+      "free": "مجاني",
+      "vip": "VIP"
+    },
+    "perMonth": "شهر",
+    "saveAnnually": "وفّر 20% مع الخطة السنوية",
+    "popular": "الأكثر شعبية",
+    "upgradeNow": "الترقية إلى VIP",
+    "upgradeInApp": "الترقية عبر تطبيق الهاتف",
+    "upgradeInAppDesc": "يمكن شراء اشتراكات VIP فقط من خلال تطبيقنا للهاتف",
+    "manageSubscription": "إدارة الاشتراك",
+    "cancelSubscription": "إلغاء الاشتراك",
+    "manageInApp": "لإدارة اشتراكك، يرجى استخدام تطبيق BananaTalk للهاتف.",
+    "features": {
+      "limitedMessages": "رسائل محدودة يومياً",
+      "basicProfile": "ملف شخصي أساسي",
+      "basicSearch": "بحث أساسي",
+      "unlimitedMessages": "رسائل غير محدودة",
+      "seeProfileVisitors": "اعرف من زار ملفك الشخصي",
+      "advancedFilters": "فلاتر بحث متقدمة",
+      "noAds": "تجربة بدون إعلانات",
+      "prioritySupport": "دعم ذو أولوية",
+      "exclusiveBadge": "شارة VIP حصرية",
+      "translationFeature": "ترجمة الرسائل"
+    }
+  }
+}

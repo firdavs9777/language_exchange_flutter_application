@@ -1,5 +1,4 @@
 import {
-  //   USER_PROFILE_URL,
   LOGOUT_URL,
   REGISTER_URL,
   LOGIN_URL,
@@ -10,6 +9,7 @@ import {
   CONFIRM_EMAIL_CODE,
   RESET_USER_PASSWORD,
   REGISTER_EMAIL_CODE,
+  BLOCK_USER_URL,
 } from "../../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -75,7 +75,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         imageFiles,
       }: {
         userId: string;
-        imageFiles: File[];
+        imageFiles: FormData;
       }) => ({
         url: `${COMMUNITY_URL}/${userId}/photo`,
         method: "PUT",
@@ -156,8 +156,117 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ["User"],
     }),
+
+    // Profile Visitors
+    recordProfileVisit: builder.mutation({
+      query: (userId: string) => ({
+        url: `${COMMUNITY_URL}/${userId}/profile-visit`,
+        method: "POST",
+      }),
+    }),
+    getProfileVisitors: builder.query({
+      query: ({ userId, page = 1, limit = 20 }: { userId: string; page?: number; limit?: number }) => ({
+        url: `${COMMUNITY_URL}/${userId}/visitors?page=${page}&limit=${limit}`,
+      }),
+      providesTags: ["User"],
+    }),
+    getMyVisitorStats: builder.query({
+      query: () => ({
+        url: `${COMMUNITY_URL}/me/visitor-stats`,
+      }),
+      providesTags: ["User"],
+    }),
+    clearVisitors: builder.mutation({
+      query: () => ({
+        url: `${COMMUNITY_URL}/me/visitors`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    getVisitedProfiles: builder.query({
+      query: ({ page = 1, limit = 20 } = {}) => ({
+        url: `${COMMUNITY_URL}/me/visited-profiles?page=${page}&limit=${limit}`,
+      }),
+    }),
+
+    // User Limits
+    getUserLimits: builder.query({
+      query: (userId: string) => ({
+        url: `${COMMUNITY_URL}/${userId}/limits`,
+      }),
+    }),
+
+    // VIP Status
+    getVipStatus: builder.query({
+      query: (userId: string) => ({
+        url: `${COMMUNITY_URL}/${userId}/vip/status`,
+      }),
+      providesTags: ["User"],
+    }),
+
+    // Block User
+    blockUser: builder.mutation({
+      query: (userId: string) => ({
+        url: `${BLOCK_USER_URL}/${userId}/block`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    unblockUser: builder.mutation({
+      query: (userId: string) => ({
+        url: `${BLOCK_USER_URL}/${userId}/block`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    getBlockedUsers: builder.query({
+      query: () => ({
+        url: `${BLOCK_USER_URL}/blocked`,
+      }),
+      providesTags: ["User"],
+    }),
+
+    // Report User
+    reportUser: builder.mutation({
+      query: ({ userId, reason, description }: { userId: string; reason: string; description?: string }) => ({
+        url: `${BLOCK_USER_URL}/${userId}/report`,
+        method: "POST",
+        body: { reason, description },
+      }),
+    }),
+
+    // Get user by ID (for community)
+    getUserById: builder.query({
+      query: (userId: string) => ({
+        url: `${COMMUNITY_URL}/${userId}`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+
+    // Search users
+    searchUsers: builder.query({
+      query: ({ query, page = 1, limit = 20 }: { query: string; page?: number; limit?: number }) => ({
+        url: `${COMMUNITY_URL}?search=${query}&page=${page}&limit=${limit}`,
+      }),
+    }),
+
+    // Get user by username (exact match)
+    getUserByUsername: builder.query({
+      query: (username: string) => ({
+        url: `/api/v1/users/username/${username.replace('@', '')}`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+
+    // Search users by username (partial match)
+    searchUsersByUsername: builder.query({
+      query: ({ query, limit = 20 }: { query: string; limit?: number }) => ({
+        url: `/api/v1/users/search/username?q=${query.replace('@', '')}&limit=${limit}`,
+      }),
+    }),
   }),
 });
+
 export const {
   useLoginUserMutation,
   useSendCodeEmailMutation,
@@ -174,4 +283,21 @@ export const {
   useUploadUserPhotoMutation,
   useUpdateUserInfoMutation,
   useDeleteUserPhotoMutation,
+  // New hooks
+  useRecordProfileVisitMutation,
+  useGetProfileVisitorsQuery,
+  useGetMyVisitorStatsQuery,
+  useClearVisitorsMutation,
+  useGetVisitedProfilesQuery,
+  useGetUserLimitsQuery,
+  useGetVipStatusQuery,
+  useBlockUserMutation,
+  useUnblockUserMutation,
+  useGetBlockedUsersQuery,
+  useReportUserMutation,
+  useGetUserByIdQuery,
+  useSearchUsersQuery,
+  // Username endpoints
+  useGetUserByUsernameQuery,
+  useSearchUsersByUsernameQuery,
 } = usersApiSlice;

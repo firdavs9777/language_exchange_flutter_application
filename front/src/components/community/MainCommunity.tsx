@@ -1,43 +1,211 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
-import { 
-  Search, Globe, Sparkles, X, Loader2
+import { useState, useMemo, useCallback, useEffect } from "react";
+import {
+  Search, Sparkles, X, Loader2, Filter,
+  Users, Clock, TrendingUp, Globe2, MessageCircle, Heart, ChevronDown
 } from "lucide-react";
 import { useGetCommunityMembersQuery } from "../../store/slices/communitySlice";
-
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { COMMON_LANGUAGES, LANGUAGE_FLAGS, LanguageFlagProps, TABS } from "./type";
-import {  useDebounce } from "./utils";
-import { MemberCard } from "./MemberCard";
+import { COMMON_LANGUAGES, LANGUAGE_FLAGS, LanguageFlagProps, TabType } from "./type";
+import { useDebounce } from "./utils";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import "./MainCommunity.css";
 
 export const LanguageFlag: React.FC<LanguageFlagProps> = ({ code }) => (
-  <span className="text-2xl">{LANGUAGE_FLAGS[code] || code}</span>
+  <span className="text-lg">{LANGUAGE_FLAGS[code] || code}</span>
 );
 
-// ============= MAIN COMPONENT =============
+// Language code helper
+const getLanguageCode = (language: string): string => {
+  const codes: Record<string, string> = {
+    English: "en", Spanish: "es", French: "fr", German: "de", Italian: "it",
+    Portuguese: "pt", Russian: "ru", Japanese: "ja", Korean: "ko", Chinese: "zh",
+  };
+  return codes[language] || language.substring(0, 2).toLowerCase();
+};
+
+// Tandem-style Member Card
+interface MemberCardProps {
+  member: any;
+  onWave: (id: string) => void;
+  onMessage: (id: string) => void;
+}
+
+const TandemMemberCard: React.FC<MemberCardProps> = ({ member, onWave, onMessage }) => {
+  const { t } = useTranslation();
+  const [isLiked, setIsLiked] = useState(false);
+  const navigate = useNavigate();
+
+  const nativeCode = getLanguageCode(member.native_language || "");
+  const learningCode = getLanguageCode(member.language_to_learn || "");
+
+  // Use actual online status from member data
+  const isOnline = member.isOnline || false;
+
+  // Calculate last active time
+  const getLastActiveText = () => {
+    if (!member.lastActive && !member.lastSeen) return t("communityMain.memberCard.recently");
+    const lastActiveDate = new Date(member.lastActive || member.lastSeen);
+    const now = new Date();
+    const diffMs = now.getTime() - lastActiveDate.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return t("communityMain.memberCard.justNow");
+    if (diffMins < 60) return t("communityMain.memberCard.minutesAgo", { count: diffMins });
+    if (diffHours < 24) return t("communityMain.memberCard.hoursAgo", { count: diffHours });
+    if (diffDays < 7) return t("communityMain.memberCard.daysAgo", { count: diffDays });
+    return t("communityMain.memberCard.overWeekAgo");
+  };
+
+  const lastActive = getLastActiveText();
+
+  return (
+    <div className="member-card-tandem bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
+      {/* Card Header with gradient */}
+      <div className="h-16 bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400 relative">
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2">
+          <Link to={`/community/${member._id}`}>
+            <div className="relative">
+              <img
+                src={member.imageUrls?.[0] || "/default-avatar.png"}
+                alt={member.name}
+                className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg group-hover:scale-105 transition-transform duration-300"
+              />
+              {/* Online indicator */}
+              <div className={`absolute bottom-1 right-1 w-5 h-5 rounded-full border-2 border-white ${isOnline ? 'bg-green-500' : 'bg-gray-300'}`}>
+                {isOnline && <div className="w-full h-full rounded-full bg-green-500 animate-ping opacity-75"></div>}
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Like button */}
+        <button
+          onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
+          className="absolute top-3 right-3 p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all"
+        >
+          <Heart className={`w-4 h-4 ${isLiked ? 'fill-red-500 text-red-500' : 'text-white'}`} />
+        </button>
+      </div>
+
+      {/* Card Body */}
+      <div className="pt-12 pb-4 px-4">
+        {/* Name and Status */}
+        <div className="text-center mb-3">
+          <Link to={`/community/${member._id}`}>
+            <h3 className="text-lg font-bold text-gray-800 hover:text-teal-600 transition-colors">
+              {member.name}
+            </h3>
+          </Link>
+          {member.username && (
+            <p className="text-xs text-gray-500 mt-0.5">
+              @{member.username}
+            </p>
+          )}
+          <p className="text-xs text-gray-400 flex items-center justify-center gap-1 mt-1">
+            {isOnline ? (
+              <span className="text-green-500 font-medium">{t("communityMain.memberCard.onlineNow")}</span>
+            ) : (
+              <>
+                <Clock className="w-3 h-3" />
+                <span>{t("communityMain.memberCard.active")} {lastActive}</span>
+              </>
+            )}
+          </p>
+        </div>
+
+        {/* Language Exchange Display */}
+        <div className="flex items-center justify-center gap-2 mb-4 px-2">
+          <div className="flex items-center gap-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-1.5 rounded-full">
+            <span className="text-base">{LANGUAGE_FLAGS[nativeCode] || "🌐"}</span>
+            <span className="text-xs font-medium text-gray-600">{member.native_language || t("communityMain.memberCard.native")}</span>
+          </div>
+          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100">
+            <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+          </div>
+          <div className="flex items-center gap-1.5 bg-gradient-to-r from-orange-50 to-rose-50 px-3 py-1.5 rounded-full">
+            <span className="text-base">{LANGUAGE_FLAGS[learningCode] || "🌐"}</span>
+            <span className="text-xs font-medium text-gray-600">{member.language_to_learn || t("communityMain.memberCard.learning")}</span>
+          </div>
+        </div>
+
+        {/* Bio */}
+        <p className="text-sm text-gray-500 text-center mb-4 line-clamp-2 min-h-[40px] px-2">
+          {member.bio || t("communityMain.memberCard.defaultBio")}
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => onWave(member._id)}
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-xl font-medium text-sm hover:shadow-lg hover:shadow-teal-500/25 transition-all hover:-translate-y-0.5"
+          >
+            <span className="text-base">👋</span>
+            {t("communityMain.memberCard.actions.wave")}
+          </button>
+          <button
+            onClick={() => onMessage(member._id)}
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium text-sm hover:bg-gray-200 transition-all"
+          >
+            <MessageCircle className="w-4 h-4" />
+            {t("communityMain.memberCard.actions.message")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Filter Pill Component
+const FilterPill: React.FC<{
+  label: string;
+  active: boolean;
+  onClick: () => void;
+  icon?: React.ReactNode;
+}> = ({ label, active, onClick, icon }) => (
+  <button
+    onClick={onClick}
+    className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all duration-200 ${
+      active
+        ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/25'
+        : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+    }`}
+  >
+    {icon}
+    {label}
+  </button>
+);
+
+// Main Component
 const ModernCommunity: React.FC = () => {
-  // State
   const [filter, setFilter] = useState("");
   const [languageFilter, setLanguageFilter] = useState("");
   const [activeTab, setActiveTab] = useState<TabType>("all");
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [page] = useState(1);
-  
-  const debouncedFilter = useDebounce(filter, 300);
-  const { t, i18n } = useTranslation();
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [page, setPage] = useState(1);
+  const [allMembers, setAllMembers] = useState<any[]>([]);
 
-  // Selectors
+  const debouncedFilter = useDebounce(filter, 300);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
   const currentUser = useSelector((state: RootState) => ({
-    _id: state.auth.userInfo?.user._id,
-    native_language: state.auth.userInfo?.user.native_language,
-    language_to_learn: state.auth.userInfo?.user.language_to_learn
+    _id: state.auth.userInfo?.user?._id,
+    native_language: state.auth.userInfo?.user?.native_language,
+    language_to_learn: state.auth.userInfo?.user?.language_to_learn
   }));
 
-  // API Query
   const {
     data: communityData,
     isLoading,
+    isFetching,
     error: errorInfo,
     refetch,
   } = useGetCommunityMembersQuery({
@@ -48,81 +216,95 @@ const ModernCommunity: React.FC = () => {
     sort: activeTab === "popular" ? "popular" : activeTab === "new" ? "newest" : "",
   });
 
-  const members = communityData?.data || [];
-
-  // Effects
+  // Reset and accumulate members when data changes
   useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+    if (communityData?.data) {
+      if (page === 1) {
+        setAllMembers(communityData.data);
+      } else {
+        setAllMembers(prev => {
+          const existingIds = new Set(prev.map((m: any) => m._id));
+          const newMembers = communityData.data.filter((m: any) => !existingIds.has(m._id));
+          return [...prev, ...newMembers];
+        });
+      }
+    }
+  }, [communityData, page]);
 
-  // Memoized filtered members
+  // Reset page when filters change
+  useEffect(() => {
+    setPage(1);
+    setAllMembers([]);
+  }, [debouncedFilter, languageFilter, activeTab]);
+
+  const members = allMembers;
+  const hasMore = communityData?.data?.length === 20;
+
   const filteredMembers = useMemo(() => {
-    if (!currentUser._id) return [];
-    
-    let filteredList = members.filter(member => {
-      // Exclude current user
-      return member._id !== currentUser._id;
+    let filteredList = members.filter((member: any) => {
+      if (currentUser._id) {
+        return member._id !== currentUser._id;
+      }
+      return true;
     });
-    
-    // Apply text filter
+
     if (debouncedFilter?.trim()) {
       const searchTerm = debouncedFilter.toLowerCase();
-      filteredList = filteredList.filter(member =>
+      filteredList = filteredList.filter((member: any) =>
         [member.name, member.native_language, member.language_to_learn, member.bio]
           .some(field => field?.toLowerCase().includes(searchTerm))
       );
     }
-    
-    // Apply language filter
+
     if (languageFilter) {
-      filteredList = filteredList.filter(member =>
-        member.native_language === languageFilter || 
+      filteredList = filteredList.filter((member: any) =>
+        member.native_language === languageFilter ||
         member.language_to_learn === languageFilter
       );
     }
-    
-    // Apply tab sorting
+
     switch (activeTab) {
       case "popular":
-        return filteredList.sort(() => Math.random() - 0.5).slice(0, 6);
+        return filteredList.sort(() => Math.random() - 0.5).slice(0, 12);
       case "new":
-        return filteredList.slice(-4);
+        return filteredList.slice(-8);
       default:
         return filteredList;
     }
   }, [members, currentUser, debouncedFilter, languageFilter, activeTab]);
-  // Event handlers
-  const handleMemberClick = useCallback((memberId: string) => {
-    console.log(`Navigate to member: ${memberId}`);
+
+  const handleWave = useCallback((memberId: string) => {
+    console.log(`Waved at: ${memberId}`);
+    // Add wave mutation here
   }, []);
 
-  const handleFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(e.target.value);
-  }, []);
+  const handleMessage = useCallback((memberId: string) => {
+    navigate(`/chat/${memberId}`);
+  }, [navigate]);
 
-  const handleLanguageFilterChange = useCallback((language: string) => {
-    setLanguageFilter(prev => prev === language ? "" : language);
-  }, []);
+  const handleLoadMore = useCallback(() => {
+    if (!isFetching && hasMore) {
+      setPage(prev => prev + 1);
+    }
+  }, [isFetching, hasMore]);
 
-  const handleTabChange = useCallback((tab: TabType) => {
-    setActiveTab(tab);
-  }, []);
+  // Redirect to login if not authenticated
+  if (!userInfo) {
+    return <Navigate to="/login?redirect=/community" replace />;
+  }
 
-  const clearFilters = useCallback(() => {
-    setFilter("");
-    setLanguageFilter("");
-  }, []);
-
-  // Error handling
   if (errorInfo) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
-        <div className="text-center text-white">
-          <h2 className="text-2xl font-bold mb-4">{t("communityMain.errors.generic")}</h2>
-          <p className="mb-4">{String(errorInfo)}</p>
-          <button 
-            onClick={refetch}
-            className="bg-gradient-to-r from-pink-500 to-purple-500 px-6 py-3 rounded-full font-medium hover:scale-105 transition-transform"
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center bg-white rounded-2xl p-8 shadow-lg max-w-md">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <X className="w-8 h-8 text-red-500" />
+          </div>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">{t("communityMain.errors.generic")}</h2>
+          <p className="text-gray-500 mb-6">{t("communityMain.errors.loadError")}</p>
+          <button
+            onClick={() => refetch()}
+            className="px-6 py-3 bg-teal-500 text-white rounded-xl font-medium hover:bg-teal-600 transition-colors"
           >
             {t("communityMain.errors.tryAgain")}
           </button>
@@ -131,182 +313,232 @@ const ModernCommunity: React.FC = () => {
     );
   }
 
-  const count = filteredMembers.length;
-  const plural = count !== 1 ? (i18n.language === 'ko' ? '들' : 's') : '';
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden p-0 m-0">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-green-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-      </div>
-      {Array.from({ length: 15 }, (_, i) => (
-        <div
-          key={i}
-          className="absolute opacity-20 animate-bounce"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${3 + Math.random() * 2}s`
-          }}
-        >
-          <Sparkles className="text-white w-4 h-4" />
-        </div>
-      ))}
+    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-white to-gray-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-teal-500 via-emerald-500 to-cyan-500 text-white">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
+              <Globe2 className="w-4 h-4" />
+              <span className="text-sm font-medium">{t("communityMain.badge")}</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              {t("communityMain.heroTitle")}
+              <br />
+              <span className="bg-gradient-to-r from-yellow-200 to-orange-200 bg-clip-text text-transparent">
+                {t("communityMain.heroTitleHighlight")}
+              </span>
+            </h1>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              {t("communityMain.heroDescription")}
+            </p>
+          </div>
 
-      <div className={`relative z-10 container mx-auto px-4 py-6 sm:py-8 transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-        {/* Header */}
-        <header className="text-center mb-8 sm:mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent mb-4">
-            {t("communityMain.title")}
-          </h1>
-          <p className="text-lg sm:text-xl text-white text-opacity-80 mb-6 sm:mb-8">
-            {t("communityMain.subtitle")}
-          </p>
-          
           {/* Stats */}
-          <div className="flex justify-center space-x-4 sm:space-x-8 mb-6 sm:mb-8">
+          <div className="flex justify-center gap-8 sm:gap-16 mb-8">
             {[
-              { value: `${members.length}+`, label: t("communityMain.stats.activeLearners") },
+              { value: `${members.length}+`, label: t("communityMain.stats.activeUsers") },
               { value: "50+", label: t("communityMain.stats.languages") },
               { value: "180+", label: t("communityMain.stats.countries") }
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-xs sm:text-sm text-white text-opacity-70">{stat.label}</div>
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <div className="text-2xl sm:text-3xl font-bold">{stat.value}</div>
+                <div className="text-sm text-white/70">{stat.label}</div>
               </div>
             ))}
           </div>
-        </header>
 
-        {/* Search and Filters */}
-        <div className="max-w-4xl mx-auto mb-8 sm:mb-12 space-y-4 sm:space-y-6">
           {/* Search Bar */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl opacity-75 blur"></div>
-            <div className="relative bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-1">
-              <div className="flex items-center bg-white bg-opacity-5 rounded-xl px-4 sm:px-6 py-3 sm:py-4">
-                <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white text-opacity-60 mr-3 sm:mr-4" />
-                <input
-                  type="text"
-                  placeholder={t("communityMain.search.placeholder")}
-                  value={filter}
-                  onChange={handleFilterChange}
-                  className="flex-1 bg-transparent text-white placeholder-white placeholder-opacity-60 outline-none text-base sm:text-lg"
-                />
-                {filter && (
-                  <button
-                    onClick={() => setFilter("")}
-                    className="ml-4 p-2 hover:bg-white hover:bg-opacity-10 rounded-full transition-colors"
-                    aria-label="Clear search"
-                  >
-                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Language Filter Pills */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-            {COMMON_LANGUAGES.map((language) => (
-              <button
-                key={language}
-                onClick={() => handleLanguageFilterChange(language)}
-                className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 text-sm sm:text-base ${
-                  languageFilter === language
-                    ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                    : 'bg-white bg-opacity-10 backdrop-blur-sm text-white text-opacity-90 hover:bg-opacity-20'
-                }`}
-              >
-                {language}
-              </button>
-            ))}
-          </div>
-
-          {/* Tabs */}
-          <div className="flex justify-center">
-            <div className="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-1">
-              {TABS.map(({ id, label, icon: Icon }) => (
+          <div className="max-w-2xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder={t("communityMain.search.placeholder")}
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="w-full pl-12 pr-12 py-4 bg-white rounded-2xl text-gray-800 placeholder-gray-400 shadow-xl focus:outline-none focus:ring-4 focus:ring-white/30"
+              />
+              {filter && (
                 <button
-                  key={id}
-                  onClick={() => handleTabChange(id)}
-                  className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
-                    activeTab === id
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                      : 'text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10'
-                  }`}
+                  onClick={() => setFilter("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full"
                 >
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="hidden sm:inline">{label}</span>
-                  <span className="sm:hidden">{label.substring(0, 3)}</span>
+                  <X className="w-5 h-5 text-gray-400" />
                 </button>
-              ))}
+              )}
             </div>
           </div>
         </div>
-        {isLoading && (
-          <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-white" />
-            <span className="ml-2 text-white">{t("communityMain.search.loading")}</span>
-          </div>
-        )}
+      </div>
 
-        {/* Results count */}
-        {!isLoading && filteredMembers.length > 0 && (
-          <div className="text-center mb-6 sm:mb-8">
-            <div className="inline-flex items-center space-x-2 bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3">
-              <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-white text-opacity-70" />
-              <span className="text-white text-opacity-90 text-sm sm:text-base">
-                {t('communityMain.results.showing', { count, plural })}
-              </span>
+      {/* Filters Section */}
+      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Tab Filters */}
+            <div className="flex gap-2">
+              <FilterPill
+                label={t("communityMain.tabs.all")}
+                active={activeTab === "all"}
+                onClick={() => setActiveTab("all")}
+                icon={<Users className="w-4 h-4" />}
+              />
+              <FilterPill
+                label={t("communityMain.tabs.popular")}
+                active={activeTab === "popular"}
+                onClick={() => setActiveTab("popular")}
+                icon={<TrendingUp className="w-4 h-4" />}
+              />
+              <FilterPill
+                label={t("communityMain.tabs.new")}
+                active={activeTab === "new"}
+                onClick={() => setActiveTab("new")}
+                icon={<Sparkles className="w-4 h-4" />}
+              />
             </div>
-          </div>
-        )}
 
-        {/* Members Grid */}
-        {!isLoading && filteredMembers.length === 0 ? (
-          <div className="text-center py-12 sm:py-20">
-            <div className="text-5xl sm:text-6xl mb-4">🌍</div>
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-              {t("communityMain.results.noneFound.title")}
-            </h3>
-            <p className="text-white text-opacity-70 mb-6 sm:mb-8 px-4">
-              {t("communityMain.results.noneFound.message")}
-            </p>
-            {(filter || languageFilter) && (
+            <div className="h-6 w-px bg-gray-200 hidden sm:block"></div>
+
+            {/* Language Dropdown */}
+            <div className="relative">
               <button
-                onClick={clearFilters}
-                className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium hover:scale-105 transition-transform shadow-lg text-sm sm:text-base"
+                onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all ${
+                  languageFilter
+                    ? 'bg-teal-500 text-white'
+                    : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                }`}
               >
-                {t("communityMain.results.noneFound.resetFilters")}
+                <Filter className="w-4 h-4" />
+                {languageFilter || t("communityMain.filters.language")}
+                <ChevronDown className={`w-4 h-4 transition-transform ${showLanguageDropdown ? 'rotate-180' : ''}`} />
+              </button>
+
+              {showLanguageDropdown && (
+                <div className="absolute top-full left-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 py-2 min-w-[200px] z-50">
+                  <button
+                    onClick={() => { setLanguageFilter(""); setShowLanguageDropdown(false); }}
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 text-gray-500"
+                  >
+                    {t("communityMain.filters.allLanguages")}
+                  </button>
+                  {COMMON_LANGUAGES.map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => { setLanguageFilter(lang); setShowLanguageDropdown(false); }}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2 ${
+                        languageFilter === lang ? 'bg-teal-50 text-teal-600' : 'text-gray-700'
+                      }`}
+                    >
+                      <span>{LANGUAGE_FLAGS[getLanguageCode(lang)] || "🌐"}</span>
+                      {lang}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Clear Filters */}
+            {(languageFilter || filter) && (
+              <button
+                onClick={() => { setFilter(""); setLanguageFilter(""); }}
+                className="flex items-center gap-1 px-3 py-2 text-sm text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-4 h-4" />
+                {t("communityMain.filters.clear")}
               </button>
             )}
+
+            {/* Results count */}
+            <div className="ml-auto text-sm text-gray-500">
+              {t("communityMain.results.membersFound", { count: filteredMembers.length })}
+            </div>
           </div>
-        ) : !isLoading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {filteredMembers.map((member:any ) => (
-              <MemberCard 
-                key={member._id} 
-                member={member} 
-                onMemberClick={handleMemberClick}
+        </div>
+      </div>
+
+      {/* Members Grid */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader2 className="w-10 h-10 text-teal-500 animate-spin mb-4" />
+            <p className="text-gray-500">{t("communityMain.search.loading")}</p>
+          </div>
+        ) : filteredMembers.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="w-10 h-10 text-gray-300" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">{t("communityMain.results.noneFound.title")}</h3>
+            <p className="text-gray-500 mb-6">{t("communityMain.results.noneFound.message")}</p>
+            <button
+              onClick={() => { setFilter(""); setLanguageFilter(""); setActiveTab("all"); }}
+              className="px-6 py-3 bg-teal-500 text-white rounded-xl font-medium hover:bg-teal-600 transition-colors"
+            >
+              {t("communityMain.results.noneFound.resetFilters")}
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredMembers.map((member: any) => (
+              <TandemMemberCard
+                key={member._id}
+                member={member}
+                onWave={handleWave}
+                onMessage={handleMessage}
               />
             ))}
           </div>
         )}
-        {!isLoading && (filter || languageFilter) && filteredMembers.length > 0 && (
-          <div className="text-center mt-8 sm:mt-12">
+
+        {/* Load More */}
+        {!isLoading && filteredMembers.length > 0 && hasMore && (
+          <div className="text-center mt-12">
             <button
-              onClick={clearFilters}
-              className="bg-white bg-opacity-10 backdrop-blur-sm text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium hover:bg-opacity-20 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+              onClick={handleLoadMore}
+              disabled={isFetching}
+              className="px-8 py-3 bg-white border-2 border-teal-500 text-teal-600 rounded-xl font-medium hover:bg-teal-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
             >
-              {t("communityMain.buttons.clearFilters")}
+              {isFetching ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  {t("communityMain.loadMore.loading")}
+                </>
+              ) : (
+                t("communityMain.loadMore.button")
+              )}
             </button>
           </div>
         )}
+      </div>
+
+      {/* Bottom CTA */}
+      <div className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white py-12">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+            {t("communityMain.cta.title")}
+          </h2>
+          <p className="text-white/80 mb-6">
+            {t("communityMain.cta.description")}
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/register"
+              className="px-8 py-3 bg-white text-teal-600 rounded-xl font-semibold hover:shadow-lg transition-all"
+            >
+              {t("communityMain.cta.getStarted")}
+            </Link>
+            <Link
+              to="/waves"
+              className="px-8 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 transition-all"
+            >
+              {t("communityMain.cta.viewWaves")}
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

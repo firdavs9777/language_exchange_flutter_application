@@ -1,166 +1,170 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Container, Card } from "react-bootstrap";
 import UsersList from "./UsersList";
 import ChatContent from "./ChatContent";
 import { useNavigate, useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useGetUserByIdQuery } from "../../store/slices/usersSlice";
+import { useTranslation } from "react-i18next";
+import { MessageCircle, Search, X, Plus, Sparkles } from "lucide-react";
+import { SocketProvider } from "./hooks/useSocket";
+import "./MainChat.css";
+
 const MainChat: React.FC = () => {
+  const { t } = useTranslation();
   const { userId } = useParams<{ userId?: string }>();
   const [userName, setUserName] = useState<string>("");
   const [profilePicture, setProfilePicture] = useState<string>("");
+  const [initialOnlineStatus, setInitialOnlineStatus] = useState<boolean>(false);
+  const [initialLastActive, setInitialLastActive] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isLoadingUserInfo, setIsLoadingUserInfo] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  // Handle direct navigation to chat URL
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      if (userId && !userName) {
-        setIsLoadingUserInfo(true);
-        try {
-          // Replace this with your actual API call to fetch user info
-          const response = await fetch(`/api/users/${userId}`);
-          if (response.ok) {
-            const userInfo = await response.json();
-            setUserName(userInfo.name || "");
-            setProfilePicture(userInfo.imageUrls?.[0] || "");
-          }
-        } catch (error) {
-          console.error("Error fetching user info:", error);
-        } finally {
-          setIsLoadingUserInfo(false);
-        }
-      }
-    };
+  // Use RTK Query to fetch user info when navigating directly to chat URL
+  const { data: userByIdData } = useGetUserByIdQuery(userId!, {
+    skip: !userId || !!userName,
+  });
 
-    fetchUserInfo();
-  }, [userId, userName]);
+  // Update userName, profilePicture, and online status when user data is fetched
+  useEffect(() => {
+    if (userByIdData?.data && userId && !userName) {
+      setUserName(userByIdData.data.name || "");
+      setProfilePicture(userByIdData.data.imageUrls?.[0] || "");
+      setInitialOnlineStatus(userByIdData.data.isOnline || false);
+      setInitialLastActive(userByIdData.data.lastActive || userByIdData.data.lastSeen || "");
+    }
+  }, [userByIdData, userId, userName]);
 
   // Reset user info when userId changes or becomes undefined
   useEffect(() => {
     if (!userId) {
       setUserName("");
       setProfilePicture("");
+      setInitialOnlineStatus(false);
+      setInitialLastActive("");
     }
   }, [userId]);
 
   const handleSelectUser = (
     selectedUserId: string,
     selectedUserName: string,
-    selectedProfilePicture: string
+    selectedProfilePicture: string,
+    selectedIsOnline?: boolean,
+    selectedLastActive?: string
   ) => {
-    // Only navigate if we're selecting a different user
     if (selectedUserId !== userId) {
       navigate(`/chat/${selectedUserId}`);
     }
-
-    // Always update the user info (in case it wasn't loaded from direct navigation)
     setUserName(selectedUserName);
     setProfilePicture(selectedProfilePicture);
+    setInitialOnlineStatus(selectedIsOnline || false);
+    setInitialLastActive(selectedLastActive || "");
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleStartNewChat = () => {
-    // You can implement logic to show a user search modal or navigate to user selection
-    console.log("Start new chat clicked");
-  };
-
   return (
-    <Container fluid className="p-0">
-      <Row className="g-0 vh-100">
-        {/* Left sidebar - Users list */}
-        <Col md={3} lg={5} xl={3} className="border-end shadow-sm bg-white">
-          <div className="d-flex flex-column h-100">
-            <div className="p-3 border-bottom bg-light">
-              <h5 className="mb-0 fw-bold text-primary">
-                <i className="bi bi-chat-dots-fill me-2"></i>
-                Messages
-              </h5>
-            </div>
-
-
-            <div className="px-3 py-2 mx-1 border-bottom">
-              <div className="input-group input-group-sm">
-                <span className="input-group-text bg-light border-end-0">
-                  <i className="bi bi-search"></i>
-                </span>
-                <input
-                  type="text"
-                  className="form-control form-control-sm bg-light border-start-0"
-                  placeholder="Search messages..."
-                  value={searchQuery}
-                  onChange={handleSearch}
-                  aria-label="Search messages"
-                />
-                {searchQuery && (
-                  <button
-                    className="btn btn-sm btn-outline-secondary border-start-0"
-                    onClick={() => setSearchQuery("")}
-                    aria-label="Clear search"
-                  >
-                    <i className="bi bi-x"></i>
-                  </button>
-                )}
-              </div>
-            </div>
-            
-            <div className="flex-grow-1 overflow-auto" style={{ maxHeight: "calc(100vh - 130px)" }}>
-              <UsersList 
-                onSelectUser={handleSelectUser} 
-                activeUserId={userId} 
-                searchQuery={searchQuery}
-              />
-            </div>
+    <SocketProvider>
+    <div className={`chat-layout${userId ? " chat-selected" : ""}`}>
+      {/* Sidebar */}
+      <div className="chat-sidebar">
+        {/* Sidebar Header */}
+        <div className="sidebar-header">
+          <div className="sidebar-title">
+            <MessageCircle className="title-icon" />
+            <h2>{t("chatPage.messages")}</h2>
           </div>
-        </Col>
-        
-        <Col md={9} lg={7} xl={9} className="bg-light">
-          {userId ? (
-            <ChatContent
-              selectedUser={userId}
-              userName={userName}
-              profilePicture={profilePicture}
-              isLoadingUserInfo={isLoadingUserInfo}
+          <button className="new-chat-btn" onClick={() => navigate("/chat/new")}>
+            <Plus size={20} />
+          </button>
+        </div>
+
+        {/* Search Bar */}
+        <div className="search-container">
+          <div className="search-input-wrapper">
+            <Search className="search-icon" size={18} />
+            <input
+              type="text"
+              className="search-input"
+              placeholder={t("chatPage.searchPlaceholder")}
+              value={searchQuery}
+              onChange={handleSearch}
             />
-          ) : (
-            <div className="d-flex align-items-center justify-content-center h-100 flex-column text-center p-4">
-              <div className="mb-4">
-                <div
-                  className="bg-white rounded-circle p-4 shadow-sm d-inline-flex align-items-center justify-content-center"
-                  style={{ width: "120px", height: "120px" }}
-                >
-                  <i
-                    className="bi bi-chat-text text-primary"
-                    style={{ fontSize: "3rem" }}
-                  ></i>
+            {searchQuery && (
+              <button
+                className="clear-search-btn"
+                onClick={() => setSearchQuery("")}
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Users List */}
+        <div className="users-list-container">
+          <UsersList
+            onSelectUser={handleSelectUser}
+            activeUserId={userId}
+            searchQuery={searchQuery}
+          />
+        </div>
+      </div>
+
+      {/* Chat Area */}
+      <div className="chat-area">
+        {userId ? (
+          <ChatContent
+            selectedUser={userId}
+            userName={userName}
+            profilePicture={profilePicture}
+            initialIsOnline={initialOnlineStatus}
+            initialLastSeen={initialLastActive}
+          />
+        ) : (
+          <div className="empty-chat-state">
+            <div className="empty-chat-content">
+              <div className="empty-icon-wrapper">
+                <div className="empty-icon-bg">
+                  <Sparkles className="empty-icon" size={48} />
+                </div>
+                <div className="empty-icon-ring" />
+                <div className="empty-icon-ring delay" />
+              </div>
+
+              <h3 className="empty-title">{t("chatPage.startConversation")}</h3>
+              <p className="empty-description">
+                {t("chatPage.emptyDescription")}
+              </p>
+
+              <button
+                className="start-chat-btn"
+                onClick={() => navigate("/chat/new")}
+              >
+                <Plus size={20} />
+                <span>{t("chatPage.newConversation")}</span>
+              </button>
+
+              <div className="empty-features">
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <span>{t("chatPage.features.realtime")}</span>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <span>{t("chatPage.features.exchange")}</span>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <span>{t("chatPage.features.calls")}</span>
                 </div>
               </div>
-              <Card
-                className="border-0 shadow-sm"
-                style={{ maxWidth: "400px" }}
-              >
-                <Card.Body>
-                  <h4 className="mb-3">Welcome to Chat</h4>
-                  <p className="text-muted mb-4">
-                    Select a conversation from the list to start chatting or
-                    search for a user to begin a new conversation.
-                  </p>
-                  <div className="d-grid">
-                    <button className="btn btn-primary rounded-pill">
-                      <i className="bi bi-plus-circle me-2"></i>
-                      Start New Chat
-                    </button>
-                  </div>
-                </Card.Body>
-              </Card>
             </div>
-          )}
-        </Col>
-      </Row>
-    </Container>
+          </div>
+        )}
+      </div>
+    </div>
+    </SocketProvider>
   );
 };
 

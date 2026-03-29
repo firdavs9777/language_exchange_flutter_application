@@ -1,0 +1,924 @@
+{
+  "greeting": "こんにちは",
+  "footer": {
+    "aboutUs": "私たちについて",
+    "aboutDescription": "BananaTalkは、新しい言語の習得と世界中のネイティブスピーカーとのつながりをサポートします。",
+    "quickLinks": "クイックリンク",
+    "links": {
+      "home": "ホーム",
+      "about": "概要",
+      "services": "サービス",
+      "pricing": "料金",
+      "contact": "お問い合わせ"
+    },
+    "contactInfo": "連絡先",
+    "address": "韓国ソウル市江南区",
+    "follow": "フォロー",
+    "newsletter": "ニュースレター",
+    "newsletterDescription": "最新情報やお得な情報をお届けするニュースレターにご登録ください。",
+    "emailPlaceholder": "メールアドレス",
+    "allRightsReserved": "All rights reserved."
+  },
+  "community": "コミュニティ",
+  "chat": "チャット",
+  "chatPage": {
+    "messages": "メッセージ",
+    "searchPlaceholder": "会話を検索...",
+    "startConversation": "会話を始める",
+    "emptyDescription": "サイドバーからチャットを選択するか、新しい会話を始めて世界中の言語パートナーとつながりましょう。",
+    "newConversation": "新しい会話",
+    "features": {
+      "realtime": "リアルタイムメッセージ",
+      "exchange": "言語交換",
+      "calls": "音声・ビデオ通話"
+    },
+    "online": "オンライン",
+    "offline": "オフライン",
+    "lastSeen": "最終ログイン",
+    "typing": "入力中...",
+    "loadingConversation": "会話を読み込み中...",
+    "errorLoading": "会話の読み込みエラー",
+    "messagePlaceholder": "メッセージを入力...",
+    "justNow": "たった今",
+    "minutesAgo": "{{count}}分前",
+    "hoursAgo": "{{count}}時間前",
+    "unknownUser": "不明なユーザー"
+  },
+  "notifications": "通知",
+  "moments": "モーメント",
+  "language": "言語",
+  "english": "英語",
+  "korean": "韓国語",
+  "chinese": "中国語",
+  "followers": "フォロワー",
+  "followings": "フォロー中",
+  "my_moments": "マイモーメント",
+  "logout": "ログアウト",
+  "sign_in": "ログイン",
+  "image_upload": {
+    "image_drop": "画像ファイルのみドロップしてください",
+    "max_upload_warning": "あと{{count}}枚の画像をアップロードできます。",
+    "no_images_error": "画像を少なくとも1枚アップロードしてください",
+    "removed_from_selection": "選択から画像を削除しました",
+    "deleted_success": "画像を削除しました",
+    "replaced_success": "画像を差し替えました",
+    "current_images": "現在の画像",
+    "no_images_uploaded": "まだ画像がアップロードされていません",
+    "new_images": "新しい画像",
+    "no_new_images": "新しい画像が選択されていません",
+    "drop_images_here": "ここに画像をドロップするか",
+    "select_files": "ファイルを選択",
+    "remaining_slots": "あと{{count}}{{item}}追加できます",
+    "image": "枚の画像を",
+    "images": "枚の画像を",
+    "cancel": "キャンセル",
+    "save_changes": "変更を保存",
+    "replace_image": "差し替え",
+    "delete_image": "画像を削除",
+    "remove_from_selection": "選択から削除",
+    "image_gallery": "画像ギャラリー"
+  },
+  "profile": {
+    "title": "マイプロフィール",
+    "edit_profile": "プロフィール編集",
+    "photos": "写真",
+    "messages": {
+      "image_update_success": "プロフィール画像を更新しました",
+      "image_update_failure": "プロフィール画像の更新に失敗しました",
+      "image_delete_success": "写真を削除しました",
+      "image_delete_failure": "写真の削除に失敗しました",
+      "profile_update_success": "プロフィールを更新しました",
+      "profile_update_failure": "プロフィールの更新に失敗しました",
+      "error_loading_profile": "ユーザープロフィールの読み込みエラー",
+      "no_profile_data": "ユーザープロフィールデータがありません",
+      "unknown_error": "不明なエラーが発生しました",
+      "no_bio": "自己紹介が入力されていません",
+      "not_specified": "未設定"
+    },
+    "stats": {
+      "followers": "フォロワー",
+      "no_followers": "まだフォロワーがいません。",
+      "follower_error": "フォロワーの読み込みエラーです。後でもう一度お試しください。",
+      "following": "フォロー中",
+      "no_following": "まだ誰もフォローしていません。",
+      "following_error": "フォローリストの読み込みエラーです。後でもう一度お試しください。",
+      "moments": "モーメント",
+      "visitors": "訪問者"
+    },
+    "visitors": {
+      "title": "プロフィール訪問者",
+      "error": "訪問者の読み込みエラー",
+      "no_visitors": "まだ訪問者がいません",
+      "no_visitors_desc": "あなたのプロフィールを訪れた人がここに表示されます",
+      "total_visits": "総訪問数",
+      "unique_visitors": "ユニーク訪問者数",
+      "visits_today": "今日",
+      "visits_week": "今週",
+      "via_moments": "モーメント経由",
+      "via_search": "検索経由",
+      "via_chat": "チャット経由",
+      "via_direct": "直接",
+      "via_followers": "フォロワー経由",
+      "vipOnly": "VIP限定機能",
+      "vipOnlyDesc": "VIPにアップグレードすると、あなたのプロフィールを訪問した人を確認できます。この機能はVIP会員限定です。",
+      "vipBenefits": "VIP特典",
+      "learnMore": "VIPについて詳しく見る"
+    },
+    "sections": {
+      "personal_info": "個人情報",
+      "bio": "自己紹介",
+      "languages": "言語",
+      "personality": "性格",
+      "topics": "トピック・興味"
+    },
+    "labels": {
+      "name": "名前",
+      "username": "ユーザー名",
+      "email": "メールアドレス",
+      "gender": "性別",
+      "birthday": "生年月日",
+      "native_language": "母国語",
+      "learning": "学習中",
+      "of": "/",
+      "mbti": "MBTIタイプ",
+      "blood_type": "血液型",
+      "topics_hint": "興味のあるトピックを選んでください（最大10個）",
+      "selected": "選択済み"
+    },
+    "hints": {
+      "username_readonly": "ユーザー名は変更できません"
+    },
+    "placeholders": {
+      "bio": "自己紹介を書いてください",
+      "select_gender": "性別を選択",
+      "select_date": "日付を選択",
+      "select_native_language": "母国語を選択",
+      "select_learning_language": "学習する言語を選択"
+    },
+    "options": {
+      "male": "男性",
+      "female": "女性"
+    },
+    "actions": {
+      "edit": "編集",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "edit_photo": "写真を編集",
+      "clear": "選択をクリア"
+    },
+    "buttons": {
+      "edit": "編集",
+      "save": "保存",
+      "cancel": "キャンセル"
+    },
+    "topics": {
+      "music": "音楽",
+      "movies": "映画",
+      "travel": "旅行",
+      "sports": "スポーツ",
+      "gaming": "ゲーム",
+      "food": "グルメ",
+      "art": "アート",
+      "photography": "写真",
+      "reading": "読書",
+      "fitness": "フィットネス",
+      "technology": "テクノロジー",
+      "fashion": "ファッション",
+      "cooking": "料理",
+      "nature": "自然",
+      "pets": "ペット",
+      "anime": "アニメ",
+      "kpop": "K-Pop",
+      "kdrama": "K-Drama",
+      "languages": "言語",
+      "culture": "文化"
+    }
+  },
+  "moments_section": {
+    "title": "モーメント",
+    "question": "今何を考えていますか、",
+    "loading": "読み込み中",
+    "loading_moments": "モーメントを読み込み中...",
+    "error_loading": "モーメントの読み込みエラー",
+    "error_info": "モーメントを読み込めませんでした。後でもう一度お試しください。",
+    "retry_btn": "再試行",
+    "no_moments": "モーメントがありません",
+    "first_to_moment": "コミュニティで最初に特別な瞬間をシェアしましょう",
+    "share_moment": "モーメントをシェア",
+    "moment_login_error": "モーメントにいいねするにはログインしてください",
+    "moment_like_error": "いいねの更新に失敗しました",
+    "moment_like": "いいね",
+    "moment_comment": "コメント",
+    "moment_share": "シェア",
+    "no_comments": "まだコメントがありません。最初にコメントしましょう！",
+    "invalidMomentId": "無効なモーメントID",
+    "loadingMoment": "モーメントの詳細を読み込み中...",
+    "noDetailsFound": "詳細が見つかりません",
+    "goBack": "戻る",
+    "momentDetails": "モーメント詳細",
+    "pleaseLoginFirst": "先にログインしてください",
+    "removedLike": "いいねを取り消しました",
+    "likedMoment": "いいねしました",
+    "failedToUpdateLike": "いいねの更新に失敗しました",
+    "emptyCommentError": "コメントを入力してください",
+    "commentAdded": "コメントを追加しました",
+    "failedToAddComment": "コメントの追加に失敗しました",
+    "loadingComments": "コメントを読み込み中...",
+    "writeCommentPlaceholder": "コメントを書く...",
+    "signInToComment": "コメントするにはログインしてください",
+    "signIn": "ログイン",
+    "noCommentsYet": "まだコメントがありません。最初にコメントしましょう！",
+    "commentsCount": "{{count}}件のコメント",
+    "comments": "コメント",
+    "likeButton": "いいね",
+    "commentButton": "コメント",
+    "shareButton": "シェア",
+    "timeAgo": {
+      "justNow": "たった今",
+      "minutesAgo": "{{minutes}}分前",
+      "hoursAgo": "{{hours}}時間前",
+      "daysAgo": "{{days}}日前"
+    }
+  },
+  "createMoment": {
+    "title": "モーメントを作成",
+    "form": {
+      "titleLabel": "タイトル",
+      "titlePlaceholder": "タイトルを入力",
+      "descriptionLabel": "説明",
+      "descriptionPlaceholder": "説明を入力",
+      "imagesLabel": "画像をアップロード",
+      "maxImagesText": "最大10枚まで",
+      "addMoreText": "追加",
+      "submitButton": "投稿",
+      "submittingButton": "投稿中...",
+      "cancelButton": "キャンセル"
+    },
+    "toast": {
+      "maxImagesError": "画像は最大10枚までアップロードできます",
+      "createSuccess": "モーメントを作成しました！",
+      "createError": "モーメントの作成に失敗しました。"
+    }
+  },
+  "editMoment": {
+    "title": "モーメントを編集",
+    "toast": {
+      "maxImagesError": "画像は最大10枚までアップロードできます",
+      "updateSuccess": "モーメントを更新しました！",
+      "updateError": "モーメントの更新に失敗しました。もう一度お試しください。",
+      "notAuthorized": "このモーメントを編集する権限がありません"
+    },
+    "form": {
+      "titleLabel": "タイトル",
+      "titlePlaceholder": "モーメントのタイトルを入力",
+      "descriptionLabel": "説明",
+      "descriptionPlaceholder": "モーメントについて教えてください...",
+      "imagesLabel": "画像",
+      "maxImagesText": "最大10枚まで（各5MBまで）",
+      "existingImagesLabel": "現在の画像",
+      "newImagesLabel": "新しい画像",
+      "addMoreText": "追加",
+      "updateButton": "モーメントを更新",
+      "updatingButton": "更新中...",
+      "cancelButton": "キャンセル"
+    }
+  },
+  "authentication": {
+    "enterEmail": {
+      "title": "メールアドレスを入力",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "sendButton": "コードを送信",
+      "sendingButton": "送信中...",
+      "successMessage": "認証コードを送信しました！",
+      "errorPrefix": "エラー: "
+    },
+    "passwordReset": {
+      "successMessage": "パスワードをリセットしました。ログインしてください！"
+    },
+    "login": {
+      "signInWithGoogle": "Googleでログイン",
+      "title": "ログイン",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordLabel": "パスワード",
+      "passwordPlaceholder": "パスワードを入力",
+      "forgotPassword": "パスワードを忘れた場合",
+      "signInButton": "ログイン",
+      "signingInButton": "ログイン中...",
+      "newUserText": "アカウントをお持ちでない方",
+      "registerLink": "新規登録",
+      "successMessage": "ログインしました",
+      "invalidCredentialsError": "認証情報が正しくありません"
+    },
+    "account": {
+      "title": "アカウントを作成",
+      "name": "名前",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "passwordRequirement": "パスワードは8文字以上にしてください",
+      "confirmPassword": "パスワード確認",
+      "continue": "続ける",
+      "alreadyHaveAccount": "すでにアカウントをお持ちの方",
+      "login": "ログイン"
+    },
+    "profile": {
+      "title": "プロフィール情報",
+      "bio": "自己紹介（任意）",
+      "bioPlaceholder": "あなたについて教えてください",
+      "gender": "性別",
+      "genderOptions": {
+        "select": "性別を選択",
+        "male": "男性",
+        "female": "女性",
+        "other": "その他"
+      },
+      "birthDate": "生年月日",
+      "nativeLanguage": "母国語",
+      "selectLanguage": "言語を選択",
+      "languageToLearn": "学習する言語",
+      "profileImages": "プロフィール画像",
+      "uploadPrompt": "クリックしてプロフィール画像をアップロード",
+      "selectImages": "画像を選択",
+      "back": "戻る",
+      "processing": "処理中..."
+    },
+    "verification": {
+      "title": "メール認証",
+      "sentMessage": "認証コードをメールに送信しました：",
+      "verificationCode": "認証コード",
+      "codePlaceholder": "6桁のコードを入力",
+      "verifyButton": "メールを認証",
+      "verifying": "認証中...",
+      "resendCode": "認証コードを再送信",
+      "sending": "送信中...",
+      "backToProfile": "プロフィールに戻る",
+      "successMessage": "メールを認証しました！",
+      "completePrompt": "下のボタンをクリックして登録を完了してください。",
+      "completeRegistration": "登録を完了"
+    },
+    "progressBar": {
+      "account": "アカウント",
+      "profile": "プロフィール",
+      "verify": "認証"
+    },
+    "toasts": {
+      "passwordMismatch": "パスワードが一致しません",
+      "verificationSent": "認証コードを送信しました！",
+      "sendCodeFailed": "認証コードの送信に失敗しました",
+      "emailVerified": "メールを認証しました！",
+      "invalidCode": "無効な認証コードです",
+      "verifyFirst": "先にメールを認証してください",
+      "registrationSuccess": "登録が完了しました！",
+      "registrationError": "登録中にエラーが発生しました"
+    }
+  },
+  "communityMain": {
+    "title": "言語交換",
+    "subtitle": "世界中の言語学習者とつながろう",
+    "badge": "言語交換コミュニティ",
+    "heroTitle": "理想の",
+    "heroTitleHighlight": "言語パートナー",
+    "heroDescription": "世界中のネイティブスピーカーとつながり、一緒に言語を練習しましょう",
+    "stats": {
+      "activeLearners": "アクティブ学習者",
+      "activeUsers": "アクティブユーザー",
+      "languages": "言語",
+      "countries": "国"
+    },
+    "search": {
+      "placeholder": "名前、言語、興味で検索...",
+      "loading": "言語パートナーを検索中..."
+    },
+    "memberCard": {
+      "native": "母国語",
+      "learning": "学習中",
+      "defaultBio": "言語を練習して新しい友達を作りたいです！",
+      "onlineNow": "オンライン中",
+      "active": "アクティブ",
+      "recently": "最近",
+      "justNow": "たった今",
+      "minutesAgo": "{{count}}分前",
+      "hoursAgo": "{{count}}時間前",
+      "daysAgo": "{{count}}日前",
+      "overWeekAgo": "1週間以上前",
+      "actions": {
+        "wave": "ウェーブ",
+        "message": "メッセージ",
+        "like": "いいね"
+      }
+    },
+    "tabs": {
+      "all": "すべて",
+      "popular": "人気",
+      "new": "新着"
+    },
+    "filters": {
+      "language": "言語",
+      "allLanguages": "すべての言語",
+      "clear": "クリア"
+    },
+    "results": {
+      "showing": "{{count}}人の素敵な言語パートナー{{plural}}を表示中",
+      "membersFound": "{{count}}人のメンバーが見つかりました",
+      "noneFound": {
+        "title": "メンバーが見つかりません",
+        "message": "フィルターや検索条件を変更してみてください",
+        "resetFilters": "フィルターをリセット"
+      }
+    },
+    "errors": {
+      "generic": "エラーが発生しました",
+      "loadError": "コミュニティを読み込めませんでした。もう一度お試しください。",
+      "tryAgain": "再試行"
+    },
+    "loadMore": {
+      "loading": "読み込み中...",
+      "button": "もっと見る"
+    },
+    "cta": {
+      "title": "言語の旅を始めませんか？",
+      "description": "プロフィールを作成して、世界中の言語パートナーとつながりましょう",
+      "getStarted": "無料で始める",
+      "viewWaves": "ウェーブを見る"
+    },
+    "buttons": {
+      "clearFilters": "すべてのフィルターをクリア"
+    }
+  },
+  "communityDetail": {
+    "errors": {
+      "invalidProfileId": "無効なプロフィールID",
+      "profileNotFound": "プロフィールが見つかりません",
+      "profileNotFoundDesc": "このユーザープロフィールは存在しないか、削除されました。",
+      "somethingWentWrong": "エラーが発生しました",
+      "tryAgainLater": "このプロフィールを読み込めませんでした。後でもう一度お試しください。"
+    },
+    "buttons": {
+      "backToCommunity": "コミュニティに戻る",
+      "tryAgain": "再試行",
+      "follow": "フォロー",
+      "following": "フォロー中",
+      "startChat": "チャットを始める",
+      "videoCall": "ビデオ通話",
+      "startConversation": "会話を始める"
+    },
+    "loading": {
+      "loadingProfile": "プロフィールを読み込み中...",
+      "initiatingCall": "{{name}}に通話を開始中..."
+    },
+    "notifications": {
+      "loginToFollow": "フォローするにはログインが必要です",
+      "followSuccess": "フォローしました！",
+      "followFailed": "フォローに失敗しました。もう一度お試しください。",
+      "loginToUnfollow": "フォロー解除するにはログインが必要です",
+      "unfollowSuccess": "フォローを解除しました",
+      "unfollowFailed": "フォロー解除に失敗しました。もう一度お試しください。",
+      "confirmUnfollow": "このユーザーのフォローを解除しますか？",
+      "loginToChat": "チャットを始めるにはログインが必要です",
+      "chatStarted": "チャットを開始しました！",
+      "chatFailed": "チャットの開始に失敗しました。もう一度お試しください。",
+      "errorOccurred": "エラーが発生しました。もう一度お試しください。"
+    },
+    "profile": {
+      "memberSince": "{{date}}から参加",
+      "yearsOld": "{{age}}歳",
+      "noPhotos": "まだ写真がありません",
+      "aboutUser": "{{name}}について",
+      "noBio": "{{name}}さんはまだ自己紹介を追加していません。会話を始めて、もっと知りましょう！",
+      "readyToPractice": "{{name}}さんと練習する準備はできましたか？",
+      "practiceDescription": "チャットを始めて、一緒に言語スキルを向上させましょう！",
+      "online": "オンライン",
+      "offline": "オフライン",
+      "justNow": "たった今",
+      "minutesAgo": "{{count}}分前",
+      "hoursAgo": "{{count}}時間前",
+      "daysAgo": "{{count}}日前",
+      "recentlyActive": "最近アクティブ"
+    },
+    "stats": {
+      "followers": "フォロワー",
+      "following": "フォロー中"
+    },
+    "language": {
+      "speaks": "話せる言語",
+      "learning": "学習中",
+      "notSpecified": "未設定"
+    }
+  },
+  "communityDetailSection": {
+    "profile": {
+      "noPhotos": "写真がありません"
+    },
+    "navigation": {
+      "backToCommunity": "コミュニティに戻る"
+    },
+    "errors": {
+      "invalidProfileId": "無効なプロフィールID",
+      "somethingWentWrong": "エラーが発生しました",
+      "couldNotLoadProfile": "このプロフィールを読み込めませんでした。後でもう一度お試しください。",
+      "profileNotFound": "プロフィールが見つかりません",
+      "profileDoesNotExist": "このユーザープロフィールは存在しないか、削除されました。",
+      "loadingProfile": "プロフィールを読み込み中..."
+    },
+    "buttons": {
+      "tryAgain": "再試行",
+      "backToCommunity": "コミュニティに戻る"
+    },
+    "stats": {
+      "followers": "フォロワー",
+      "following": "フォロー中"
+    },
+    "actions": {
+      "following": "フォロー中",
+      "follow": "フォロー",
+      "startChat": "チャットを始める",
+      "videoCall": "ビデオ通話",
+      "startConversation": "会話を始める"
+    },
+    "languages": {
+      "speaks": "話せる言語",
+      "learning": "学習中",
+      "notSpecified": "未設定"
+    },
+    "memberInfo": {
+      "yearsOld": "歳",
+      "memberSince": "参加日"
+    },
+    "about": {
+      "aboutTitle": "について",
+      "noBioMessage": "さんはまだ自己紹介を追加していません。会話を始めて、もっと知りましょう！"
+    },
+    "callToAction": {
+      "title": "練習する準備はできましたか？",
+      "subtitle": "チャットを始めて、一緒に言語スキルを向上させましょう！"
+    },
+    "toasts": {
+      "needLogin": "ログインが必要です：",
+      "followUsers": "ユーザーをフォロー",
+      "unfollowUsers": "ユーザーのフォロー解除",
+      "startChat": "チャットを開始",
+      "failedToFollow": "フォローに失敗しました。もう一度お試しください。",
+      "successfullyFollowed": "フォローしました！",
+      "successfullyUnfollowed": "フォローを解除しました",
+      "failedToUnfollow": "フォロー解除に失敗しました。もう一度お試しください。",
+      "failedToStartChat": "チャットの開始に失敗しました。もう一度お試しください。",
+      "initiatingCall": "通話を開始中：",
+      "errorOccurred": "エラーが発生しました。もう一度お試しください。"
+    },
+    "confirmations": {
+      "unfollowConfirm": "このユーザーのフォローを解除しますか？"
+    },
+    "accessibility": {
+      "viewPhoto": "写真を見る",
+      "userPhoto": "の写真"
+    },
+    "fallbacks": {
+      "defaultUser": "ユーザー"
+    }
+  },
+  "learning": {
+    "dashboard": {
+      "title": "学習",
+      "subtitle": "その調子で頑張りましょう！",
+      "currentStreak": "連続学習",
+      "days": "日",
+      "longest": "最長記録",
+      "dailyGoal": "デイリー目標",
+      "goalComplete": "デイリー目標達成！",
+      "quickActions": "クイックアクション",
+      "review": "復習",
+      "practiceWords": "単語を練習",
+      "lessons": "レッスン",
+      "learnNew": "新しい内容を学ぶ",
+      "quiz": "クイズ",
+      "testKnowledge": "知識をテスト",
+      "leaderboard": "ランキング",
+      "seeRankings": "ランキングを見る",
+      "yourProgress": "あなたの進捗",
+      "words": "単語",
+      "lessonsLabel": "レッスン",
+      "level": "レベル",
+      "vocabulary": "語彙",
+      "wordsLearned": "語を習得",
+      "achievements": "実績",
+      "unlocked": "解放済み",
+      "challenges": "チャレンジ",
+      "joinChallenges": "週間チャレンジに参加"
+    },
+    "vocabulary": {
+      "title": "語彙",
+      "searchPlaceholder": "単語を検索...",
+      "addWord": "単語を追加",
+      "noWords": "まだ単語がありません",
+      "startAdding": "語彙に単語を追加しましょう",
+      "word": "単語",
+      "translation": "翻訳",
+      "level": "レベル",
+      "nextReview": "次の復習"
+    },
+    "review": {
+      "title": "復習",
+      "cardsLeft": "枚残り",
+      "showAnswer": "答えを見る",
+      "correct": "正解",
+      "incorrect": "不正解",
+      "sessionComplete": "セッション完了！",
+      "greatJob": "お疲れ様でした！すべての復習が完了しました。",
+      "backToDashboard": "ダッシュボードに戻る"
+    },
+    "lessons": {
+      "title": "レッスン",
+      "continue": "続ける",
+      "start": "開始",
+      "completed": "完了",
+      "progress": "進捗"
+    },
+    "quizzes": {
+      "title": "クイズ",
+      "questions": "問",
+      "startQuiz": "クイズを開始",
+      "score": "スコア"
+    },
+    "leaderboard": {
+      "title": "ランキング",
+      "weekly": "週間",
+      "monthly": "月間",
+      "allTime": "全期間",
+      "you": "あなた",
+      "xp": "XP"
+    },
+    "achievements": {
+      "title": "実績",
+      "unlocked": "解放済み",
+      "locked": "未解放",
+      "progress": "進捗"
+    },
+    "challenges": {
+      "title": "チャレンジ",
+      "join": "参加",
+      "joined": "参加中",
+      "daysLeft": "日残り",
+      "participants": "参加者"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "アカウントと設定を管理",
+    "editProfile": "編集",
+    "logout": "ログアウト",
+    "logoutSuccess": "ログアウトしました",
+    "sections": {
+      "account": "アカウント",
+      "privacy": "プライバシー",
+      "notifications": "通知",
+      "vip": "VIP",
+      "language": "言語",
+      "support": "サポート"
+    },
+    "items": {
+      "editProfile": "プロフィール編集",
+      "editProfileDesc": "個人情報を更新",
+      "changePassword": "パスワード変更",
+      "changePasswordDesc": "パスワードを更新",
+      "emailSettings": "メール設定",
+      "emailSettingsDesc": "メールの設定を管理",
+      "privacySettings": "プライバシー設定",
+      "privacySettingsDesc": "情報の公開範囲を設定",
+      "blockedUsers": "ブロック中のユーザー",
+      "blockedUsersDesc": "ブロックしたアカウントを管理",
+      "closeFriends": "親しい友達",
+      "closeFriendsDesc": "親しい友達リストを管理",
+      "pushNotifications": "プッシュ通知",
+      "pushNotificationsDesc": "通知設定を管理",
+      "chatSettings": "チャット設定",
+      "chatSettingsDesc": "メッセージとチャットの設定",
+      "manageSubscription": "サブスクリプション管理",
+      "vipActive": "VIP有効",
+      "upgradeToPremium": "プレミアムにアップグレード",
+      "languageSettings": "言語設定",
+      "languageSettingsDesc": "アプリと学習言語を変更",
+      "helpCenter": "ヘルプセンター",
+      "helpCenterDesc": "ヘルプとサポートを受ける"
+    },
+    "privacySettings": {
+      "title": "プライバシー設定",
+      "profileVisibility": "プロフィールの公開設定",
+      "onlineStatus": "オンラインステータスを表示",
+      "lastSeen": "最終ログインを表示",
+      "readReceipts": "既読通知"
+    },
+    "notificationSettings": {
+      "title": "通知設定",
+      "pushNotifications": "プッシュ通知",
+      "messages": "メッセージ",
+      "likes": "いいね",
+      "followers": "新しいフォロワー",
+      "waves": "ウェーブ",
+      "emailDigest": "メールダイジェスト"
+    },
+    "languageSettings": {
+      "title": "言語設定",
+      "appLanguage": "アプリの言語",
+      "nativeLanguage": "母国語",
+      "learningLanguage": "学習中の言語"
+    },
+    "vipSettings": {
+      "title": "VIPステータス",
+      "currentPlan": "現在のプラン",
+      "free": "無料",
+      "premium": "プレミアム",
+      "features": "機能",
+      "upgrade": "VIPにアップグレード"
+    }
+  },
+  "waves": {
+    "title": "ウェーブ",
+    "received": "受信",
+    "sent": "送信",
+    "accept": "承認",
+    "decline": "拒否",
+    "noWaves": "まだウェーブがありません",
+    "sendWave": "ウェーブを送ってつながりましょう！"
+  },
+  "topics": {
+    "title": "トピック",
+    "myTopics": "マイトピック",
+    "browseTopics": "トピックを探す",
+    "usersInterested": "人が興味あり"
+  },
+  "nearby": {
+    "title": "近くのユーザー",
+    "enableLocation": "位置情報を有効にする",
+    "locationRequired": "近くのユーザーを見つけるには位置情報へのアクセスが必要です",
+    "noUsersNearby": "近くにユーザーがいません",
+    "tryExpandingRadius": "検索範囲を広げてみてください"
+  },
+  "home": {
+    "hero": {
+      "badge": "シンプルな言語交換",
+      "titlePart1": "ネイティブスピーカーと",
+      "titleHighlight": "話して",
+      "titlePart2": "言語を学ぼう",
+      "description": "世界中の数百万人の言語学習者とつながりましょう。スピーキングを練習し、流暢さを向上させ、世界中に友達を作りましょう。",
+      "stats": {
+        "users": "アクティブユーザー",
+        "languages": "言語",
+        "countries": "国"
+      },
+      "getStarted": "無料で始める",
+      "browseCommunity": "コミュニティを見る",
+      "lovedBy": "500万人以上の学習者に愛されています",
+      "chatPreview": {
+        "message1": "こんにちは！元気ですか？ 👋",
+        "message2": "Hey! I'm practicing Japanese!",
+        "message3": "すごい！一緒に練習しましょう 🇯🇵"
+      }
+    },
+    "sections": {
+      "features": "機能",
+      "howItWorks": "使い方",
+      "pricing": "料金"
+    },
+    "features": {
+      "title": "学習に必要なすべてが揃っています",
+      "subtitle": "言語学習を加速させるパワフルなツール",
+      "chat": {
+        "title": "リアルタイムチャット",
+        "description": "インスタントメッセージでネイティブスピーカーと会話を練習"
+      },
+      "video": {
+        "title": "ビデオ通話",
+        "description": "世界中のパートナーと対面で言語練習"
+      },
+      "lessons": {
+        "title": "インタラクティブレッスン",
+        "description": "体系的なコースとデイリーエクササイズで学習"
+      },
+      "voice": {
+        "title": "ボイスメッセージ",
+        "description": "音声交換で発音を磨きましょう"
+      },
+      "community": {
+        "title": "コミュニティ",
+        "description": "世界中の数百万人の言語学習者に参加"
+      },
+      "languages": {
+        "title": "50以上の言語",
+        "description": "スペイン語から韓国語まで、あなたの学習パスを見つけましょう"
+      }
+    },
+    "howItWorks": {
+      "title": "3ステップで学習開始",
+      "subtitle": "数分で始めて、今日から言語の旅をスタートしましょう"
+    },
+    "steps": {
+      "profile": {
+        "title": "プロフィールを作成",
+        "description": "母国語と学びたい言語を教えてください"
+      },
+      "partners": {
+        "title": "パートナーを見つける",
+        "description": "コミュニティを閲覧して、理想の言語交換パートナーを見つけましょう"
+      },
+      "learn": {
+        "title": "学習を開始",
+        "description": "ネイティブスピーカーと毎日チャット、通話、練習しましょう"
+      }
+    },
+    "pricing": {
+      "title": "プランを選択",
+      "subtitle": "無料で始めて、準備ができたらアップグレード",
+      "mostPopular": "一番人気",
+      "getStarted": "始める",
+      "free": {
+        "name": "無料",
+        "period": "永久",
+        "features": {
+          "messaging": "基本メッセージ",
+          "connections": "1日5件の新しいつながり",
+          "community": "コミュニティアクセス",
+          "lessons": "基本レッスン"
+        }
+      },
+      "premium": {
+        "name": "プレミアム",
+        "period": "/月",
+        "features": {
+          "messaging": "無制限メッセージ",
+          "connections": "無制限のつながり",
+          "video": "ビデオ通話",
+          "lessons": "上級レッスン",
+          "noAds": "広告なし",
+          "translation": "翻訳ツール"
+        }
+      },
+      "lifetime": {
+        "name": "ライフタイム",
+        "period": "一括払い",
+        "features": {
+          "everything": "プレミアムのすべての機能",
+          "forever": "永久アクセス",
+          "support": "優先サポート",
+          "early": "先行機能",
+          "badges": "限定バッジ"
+        }
+      }
+    },
+    "download": {
+      "badge": "アプリをダウンロード",
+      "title": "BananaTalkをどこでも",
+      "description": "モバイルアプリで外出先でも学習。iOS・Android対応、全機能、プッシュ通知、オフラインアクセス付き。",
+      "downloadOn": "からダウンロード",
+      "getItOn": "で手に入れよう",
+      "scanQR": "スキャンしてアプリをダウンロード",
+      "or": "または",
+      "features": {
+        "offline": "オフラインアクセス",
+        "push": "プッシュ通知",
+        "fast": "高速・軽量"
+      }
+    },
+    "cta": {
+      "title": "言語の旅を始めませんか？",
+      "description": "数百万人の学習者に参加して、今日から新しい言語を話し始めましょう",
+      "button": "無料アカウントを作成"
+    }
+  },
+  "vip": {
+    "title": "VIP会員",
+    "subtitle": "プレミアム機能を解放",
+    "status": {
+      "active": "VIP有効",
+      "free": "無料プラン",
+      "activeDesc": "すべてのプレミアム機能をお楽しみいただけます",
+      "freeDesc": "アップグレードしてさらに多くの機能を解放しましょう"
+    },
+    "expiresOn": "有効期限",
+    "plans": {
+      "free": "無料",
+      "vip": "VIP"
+    },
+    "perMonth": "月",
+    "saveAnnually": "年間プランで20%お得",
+    "popular": "人気",
+    "upgradeNow": "VIPにアップグレード",
+    "upgradeInApp": "モバイルアプリからアップグレード",
+    "upgradeInAppDesc": "VIPサブスクリプションはモバイルアプリからのみ購入できます",
+    "manageSubscription": "サブスクリプション管理",
+    "cancelSubscription": "サブスクリプションを解約",
+    "manageInApp": "サブスクリプションを管理するには、BananaTalkモバイルアプリをご利用ください。",
+    "features": {
+      "limitedMessages": "1日のメッセージ数に制限あり",
+      "basicProfile": "基本プロフィール",
+      "basicSearch": "基本検索",
+      "unlimitedMessages": "無制限メッセージ",
+      "seeProfileVisitors": "プロフィール訪問者を確認",
+      "advancedFilters": "高度な検索フィルター",
+      "noAds": "広告なし",
+      "prioritySupport": "優先サポート",
+      "exclusiveBadge": "限定VIPバッジ",
+      "translationFeature": "メッセージ翻訳"
+    }
+  }
+}

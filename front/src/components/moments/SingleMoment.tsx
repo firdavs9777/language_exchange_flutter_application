@@ -61,7 +61,7 @@ const SingleMoment: React.FC<MomentProps> = ({
   refetch,
 }) => {
   const userId = useSelector(
-    (state: RootState) => state.auth.userInfo?.user._id
+    (state: RootState) => state.auth.userInfo?.user?._id
   );
 
   // Mock mutation hooks - replace with your actual hooks
@@ -177,7 +177,21 @@ const SingleMoment: React.FC<MomentProps> = ({
   const defaultProfileImage =
     "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face";
 
-  const shouldTruncateDescription = description.length > 200;
+  // Handle user profile navigation without triggering parent Link
+  const handleUserClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (user?._id) {
+      navigate(`/community/${user._id}`);
+    }
+  };
+
+  // Return null if user data is missing
+  if (!user) {
+    return null;
+  }
+
+  const shouldTruncateDescription = description?.length > 200;
   const displayDescription =
     shouldTruncateDescription && !showFullDescription
       ? description.substring(0, 200)
@@ -195,14 +209,14 @@ const SingleMoment: React.FC<MomentProps> = ({
         {/* Header */}
         <header className="p-2 xs:p-3 sm:p-4 md:p-5">
           <div className="flex items-center justify-between gap-2">
-            <Link
-              to={`/community/${user._id}`}
-              className="flex items-center flex-1 min-w-0 group/user no-underline"
+            <div
+              onClick={handleUserClick}
+              className="flex items-center flex-1 min-w-0 group/user no-underline cursor-pointer"
             >
               <div className="relative flex-shrink-0">
                 <img
                   src={user?.imageUrls?.[0] || defaultProfileImage}
-                  alt={user.name}
+                  alt={user?.name || "User"}
                   className="w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-transparent group-hover/user:border-blue-100 transition-all duration-200"
                 />
               </div>
@@ -210,7 +224,7 @@ const SingleMoment: React.FC<MomentProps> = ({
               <div className="ml-2 xs:ml-3 flex-1 min-w-0">
                 <div className="flex items-center gap-1 xs:gap-2">
                   <h3 className="font-semibold text-gray-900 text-xs xs:text-sm sm:text-base md:text-lg truncate group-hover/user:text-blue-600 transition-colors no-underline">
-                    {user.name}
+                    {user?.name}
                   </h3>
                 </div>
                 <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500 mt-0.5">
@@ -229,7 +243,7 @@ const SingleMoment: React.FC<MomentProps> = ({
                   </svg>
                 </div>
               </div>
-            </Link>
+            </div>
 
             <button
               className="flex-shrink-0 p-1 xs:p-2 -mr-1 xs:-mr-2 rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -271,24 +285,22 @@ const SingleMoment: React.FC<MomentProps> = ({
         {/* Images */}
         {imageUrls && imageUrls.length > 0 && (
           <div className="mt-2 xs:mt-3">
-            <Link to={`/moment/${_id}`} className="block no-underline">
-              <div className="relative overflow-hidden bg-gray-100">
-                <img
-                  src={imageUrls[0]}
-                  alt={title || "Post image"}
-                  className="w-full h-auto max-h-64 xs:max-h-80 sm:max-h-96 md:max-h-[450px] lg:max-h-[500px] xl:max-h-[600px] object-cover transition-transform duration-300 group-hover:scale-[1.01]"
-                  loading="lazy"
-                />
+            <div className="relative overflow-hidden bg-gray-100">
+              <img
+                src={imageUrls[0]}
+                alt={title || "Post image"}
+                className="w-full h-auto max-h-64 xs:max-h-80 sm:max-h-96 md:max-h-[450px] lg:max-h-[500px] xl:max-h-[600px] object-cover transition-transform duration-300 group-hover:scale-[1.01]"
+                loading="lazy"
+              />
 
-                {imageUrls.length > 1 && (
-                  <div className="absolute top-2 xs:top-3 right-2 xs:right-3">
-                    <div className="bg-black/70 text-white px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-full text-xs font-medium backdrop-blur-sm">
-                      +{imageUrls.length - 1}
-                    </div>
+              {imageUrls.length > 1 && (
+                <div className="absolute top-2 xs:top-3 right-2 xs:right-3">
+                  <div className="bg-black/70 text-white px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+                    +{imageUrls.length - 1}
                   </div>
-                )}
-              </div>
-            </Link>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -311,13 +323,10 @@ const SingleMoment: React.FC<MomentProps> = ({
 
               <div className="flex items-center gap-2 xs:gap-3">
                 {commentCountNumber > 0 && (
-                  <Link
-                    to={`/moment/${_id}`}
-                    className="hover:text-blue-600 transition-colors font-medium no-underline"
-                  >
+                  <span className="hover:text-blue-600 transition-colors font-medium">
                     {commentCountNumber.toLocaleString()} comment
                     {commentCountNumber !== 1 ? "s" : ""}
-                  </Link>
+                  </span>
                 )}
               </div>
             </div>
@@ -352,9 +361,8 @@ const SingleMoment: React.FC<MomentProps> = ({
           </button>
 
           {/* Comment Button */}
-          <Link
-            to={`/moment/${_id}`}
-            className="flex items-center justify-center py-2 xs:py-2.5 sm:py-3 text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:bg-gray-50 no-underline"
+          <div
+            className="flex items-center justify-center py-2 xs:py-2.5 sm:py-3 text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:bg-gray-50 cursor-pointer"
             aria-label="Comment"
           >
             <div className="flex items-center gap-1 xs:gap-2">
@@ -363,7 +371,7 @@ const SingleMoment: React.FC<MomentProps> = ({
                 Comment
               </span>
             </div>
-          </Link>
+          </div>
 
           {/* Share Button */}
           <button

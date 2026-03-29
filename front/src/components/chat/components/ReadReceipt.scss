@@ -1,0 +1,52 @@
+.read-receipt {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+
+  .check-icon {
+    transition: color 0.2s ease;
+
+    &.sent {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &.delivered {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    &.read {
+      color: #10b981;
+    }
+  }
+
+  .error-icon {
+    color: #ef4444;
+  }
+
+  .sending-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+  }
+
+  .sending-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: pulse-sending 1s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-sending {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

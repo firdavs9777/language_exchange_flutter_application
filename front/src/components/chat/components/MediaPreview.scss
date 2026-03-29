@@ -1,0 +1,239 @@
+/* ===========================================
+   BananaTalk Media Preview - Light Modern Design
+   =========================================== */
+
+.media-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: fade-in 0.2s ease;
+}
+
+.media-preview {
+  background: #FFFFFF;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: scale-up 0.2s ease;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #E4E6EB;
+}
+
+.preview-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #050505;
+}
+
+.close-btn {
+  background: #F0F2F5;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #65676B;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #E4E6EB;
+    color: #050505;
+  }
+}
+
+.preview-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+  background: #F0F2F5;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.preview-video {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 12px;
+}
+
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  width: 100%;
+  border: 1px solid #E4E6EB;
+
+  .file-icon {
+    font-size: 3rem;
+  }
+
+  .file-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+
+    .file-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #050505;
+      word-break: break-all;
+    }
+
+    .file-size {
+      font-size: 0.8125rem;
+      color: #65676B;
+    }
+  }
+}
+
+.caption-input {
+  padding: 0 20px 16px;
+  background: #FFFFFF;
+
+  input {
+    width: 100%;
+    background: #F0F2F5;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 16px;
+    color: #050505;
+    font-size: 0.9375rem;
+    outline: none;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: #65676B;
+    }
+
+    &:focus {
+      background: #E4E6EB;
+    }
+  }
+}
+
+.preview-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid #E4E6EB;
+  background: #FFFFFF;
+
+  button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 20px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cancel-btn {
+    background: #F0F2F5;
+    border: none;
+    color: #65676B;
+
+    &:hover {
+      background: #E4E6EB;
+      color: #050505;
+    }
+  }
+
+  .send-btn {
+    background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+    border: none;
+    color: #FFFFFF;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 191, 165, 0.3);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Mobile responsive
+@media (max-width: 480px) {
+  .media-preview-overlay {
+    padding: 16px;
+  }
+
+  .media-preview {
+    border-radius: 16px;
+  }
+
+  .preview-header {
+    padding: 12px 16px;
+  }
+
+  .preview-content {
+    padding: 16px;
+  }
+
+  .preview-image,
+  .preview-video {
+    max-height: 300px;
+  }
+
+  .preview-footer {
+    padding: 12px 16px;
+
+    button {
+      padding: 10px 16px;
+    }
+  }
+}
