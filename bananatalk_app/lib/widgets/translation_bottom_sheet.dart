@@ -4,8 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
-import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 
 /// HelloTalk-style translation bottom sheet with word breakdown, TTS, and vocabulary saving.
 class TranslationBottomSheet extends StatefulWidget {
@@ -308,15 +307,12 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        final userId = prefs.getString('userId') ?? '';
-                        if (!context.mounted) return;
+                      onPressed: () {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => VipStatusScreen(userId: userId),
+                            builder: (_) => const VipPlansScreen(),
                           ),
                         );
                       },

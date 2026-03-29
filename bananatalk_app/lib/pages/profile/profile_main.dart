@@ -18,6 +18,7 @@ import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:flutter/material.dart';
@@ -840,13 +841,26 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       icon: Icons.visibility_outlined,
                       color: Colors.orange,
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ProfileVisitorsScreen(userId: user.id),
-                          ),
-                        );
+                        if (user.isVip) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ProfileVisitorsScreen(userId: user.id),
+                            ),
+                          );
+                        } else {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: true,
+                            builder: (_) => const VipUpgradeSheet(
+                              featureName: 'Profile Visitors',
+                              description:
+                                  'See who visited your profile! Upgrade to VIP to unlock visitor tracking with detailed stats.',
+                            ),
+                          );
+                        }
                       },
                     );
                   },
