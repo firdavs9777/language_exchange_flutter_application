@@ -1,5 +1,5 @@
 {
-  "name": "understanding-ts",
+  "name": "bananatalk-web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,7 +42,7 @@
     "webpack": "^4.41.0"
   },
   "scripts": {
-"deploy": "NODE_OPTIONS='--max-old-space-size=512' NODE_NO_WARNINGS=1 GENERATE_SOURCEMAP=false npm run build && sudo nginx -s reload && echo '✅ Deployed!'",
+   "deploy": "NODE_OPTIONS='--max-old-space-size=1024' GENERATE_SOURCEMAP=false INLINE_RUNTIME_CHUNK=false IMAGE_INLINE_SIZE_LIMIT=0 npm run build && sudo nginx -s reload && echo '✅ Deployed!'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
