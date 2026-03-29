@@ -796,6 +796,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Tổ chức bởi {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "TRỰC TIẾP",
+  "joinLabel": "Tham gia",
+  "fullLabel": "Đã đầy",
+  "justStarted": "Vừa bắt đầu",
+  "allLanguages": "Tất cả ngôn ngữ",
+  "allTopics": "Tất cả chủ đề",
 
   "dataAndStorage": "Dữ liệu và Bộ nhớ",
   "manageStorageAndDownloads": "Quản lý bộ nhớ và tải xuống",

@@ -965,6 +965,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Hospedado por {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "AO VIVO",
+  "joinLabel": "Entrar",
+  "fullLabel": "Cheio",
+  "justStarted": "Acabou de começar",
+  "allLanguages": "Todos os idiomas",
+  "allTopics": "Todos os tópicos",
 
   "dataAndStorage": "Dados e Armazenamento",
   "manageStorageAndDownloads": "Gerenciar armazenamento e downloads",

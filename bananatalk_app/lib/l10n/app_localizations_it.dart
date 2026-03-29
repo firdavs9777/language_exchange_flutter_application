@@ -2963,6 +2963,29 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'Ospitato da $name';
+  }
+
+  @override
+  String get liveLabel => 'IN DIRETTA';
+
+  @override
+  String get joinLabel => 'Unisciti';
+
+  @override
+  String get fullLabel => 'Pieno';
+
+  @override
+  String get justStarted => 'Appena iniziato';
+
+  @override
+  String get allLanguages => 'Tutte le lingue';
+
+  @override
+  String get allTopics => 'Tutti gli argomenti';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

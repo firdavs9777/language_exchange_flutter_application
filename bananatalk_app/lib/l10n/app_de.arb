@@ -1236,6 +1236,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Gehostet von {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "LIVE",
+  "joinLabel": "Beitreten",
+  "fullLabel": "Voll",
+  "justStarted": "Gerade gestartet",
+  "allLanguages": "Alle Sprachen",
+  "allTopics": "Alle Themen",
 
   "dataAndStorage": "Daten und Speicher",
   "manageStorageAndDownloads": "Speicher und Downloads verwalten",

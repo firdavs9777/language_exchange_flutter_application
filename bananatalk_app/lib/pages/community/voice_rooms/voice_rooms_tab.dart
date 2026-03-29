@@ -21,15 +21,56 @@ class VoiceRoomsTab extends ConsumerStatefulWidget {
 class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   late Future<List<VoiceRoom>> _roomsFuture;
 
+  // Filter state
+  String? _selectedLanguage;
+  String? _selectedTopic;
+
+  static const List<String> _languages = [
+    'English',
+    'Korean',
+    'Japanese',
+    'Chinese',
+    'Spanish',
+    'French',
+    'German',
+    'Italian',
+    'Portuguese',
+    'Russian',
+    'Arabic',
+    'Hindi',
+    'Uzbek',
+  ];
+
   @override
   void initState() {
     super.initState();
-    _roomsFuture = ref.read(voiceRoomProvider).fetchRooms();
+    _roomsFuture = _fetchWithFilters();
+  }
+
+  Future<List<VoiceRoom>> _fetchWithFilters() {
+    return ref.read(voiceRoomProvider).fetchRooms(
+          language: _selectedLanguage,
+          topic: _selectedTopic,
+        );
   }
 
   Future<void> _refreshRooms() async {
     setState(() {
-      _roomsFuture = ref.read(voiceRoomProvider).fetchRooms();
+      _roomsFuture = _fetchWithFilters();
+    });
+  }
+
+  void _setLanguageFilter(String? language) {
+    setState(() {
+      _selectedLanguage = language;
+      _roomsFuture = _fetchWithFilters();
+    });
+  }
+
+  void _setTopicFilter(String? topic) {
+    setState(() {
+      _selectedTopic = topic;
+      _roomsFuture = _fetchWithFilters();
     });
   }
 
@@ -49,7 +90,8 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               language: language,
               maxParticipants: maxParticipants,
             );
-            final room = await ref.read(voiceRoomProvider).createRoom(request);
+            final room =
+                await ref.read(voiceRoomProvider).createRoom(request);
             _refreshRooms();
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -62,7 +104,6 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                   ),
                 ),
               );
-              // Navigate to the newly created room
               _joinRoom(room);
             }
           } catch (e) {
@@ -84,13 +125,14 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     );
   }
 
-  void _joinRoom(VoiceRoom room) {
-    Navigator.push(
+  void _joinRoom(VoiceRoom room) async {
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => VoiceRoomScreen(room: room),
       ),
     );
+    if (mounted) _refreshRooms();
   }
 
   @override
@@ -102,17 +144,27 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
         future: _roomsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF00BFA5),
-              ),
+            return Column(
+              children: [
+                _buildFilters(l10n),
+                const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xFF00BFA5),
+                    ),
+                  ),
+                ),
+              ],
             );
           }
           if (snapshot.hasError) {
             return _buildErrorState(l10n, snapshot.error.toString());
           }
           final rooms = snapshot.data ?? [];
-          return rooms.isEmpty ? _buildEmptyState() : _buildRoomsList(rooms);
+          if (rooms.isEmpty && _selectedLanguage == null && _selectedTopic == null) {
+            return _buildEmptyState();
+          }
+          return _buildRoomsList(rooms, l10n);
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -127,6 +179,69 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildFilters(AppLocalizations l10n) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Language filter
+        SizedBox(
+          height: 44,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              _FilterChip(
+                label: l10n.allLanguages,
+                icon: Icons.language_rounded,
+                isSelected: _selectedLanguage == null,
+                onTap: () => _setLanguageFilter(null),
+              ),
+              const SizedBox(width: 8),
+              ..._languages.map((lang) => Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: _FilterChip(
+                      label: lang,
+                      isSelected: _selectedLanguage == lang,
+                      onTap: () => _setLanguageFilter(
+                          _selectedLanguage == lang ? null : lang),
+                    ),
+                  )),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // Topic filter
+        SizedBox(
+          height: 44,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              _FilterChip(
+                label: l10n.allTopics,
+                icon: Icons.tag_rounded,
+                isSelected: _selectedTopic == null,
+                onTap: () => _setTopicFilter(null),
+              ),
+              const SizedBox(width: 8),
+              ...Topic.defaultTopics.take(12).map((topic) => Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: _FilterChip(
+                      label: topic.name,
+                      emoji: topic.icon,
+                      isSelected: _selectedTopic == topic.id,
+                      onTap: () => _setTopicFilter(
+                          _selectedTopic == topic.id ? null : topic.id),
+                    ),
+                  )),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 
@@ -164,7 +279,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     );
   }
 
-  Widget _buildRoomsList(List<VoiceRoom> rooms) {
+  Widget _buildRoomsList(List<VoiceRoom> rooms, AppLocalizations l10n) {
     return RefreshIndicator(
       onRefresh: _refreshRooms,
       child: CustomScrollView(
@@ -173,26 +288,51 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           SliverToBoxAdapter(
             child: _buildHeader(rooms.length),
           ),
-          // Rooms list
-          SliverPadding(
-            padding: const EdgeInsets.all(16),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final room = rooms[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: VoiceRoomCard(
-                      room: room,
-                      onTap: () => _joinRoom(room),
-                      onJoin: () => _joinRoom(room),
+          // Filters
+          SliverToBoxAdapter(
+            child: _buildFilters(l10n),
+          ),
+          // Rooms list or filtered empty state
+          if (rooms.isEmpty)
+            SliverFillRemaining(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.search_off_rounded,
+                      size: 48,
+                      color: Colors.grey[400],
                     ),
-                  );
-                },
-                childCount: rooms.length,
+                    Spacing.gapMD,
+                    Text(
+                      l10n.noActiveRooms,
+                      style: context.titleMedium,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          else
+            SliverPadding(
+              padding: const EdgeInsets.all(16),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final room = rooms[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: VoiceRoomCard(
+                        room: room,
+                        onTap: () => _joinRoom(room),
+                        onJoin: () => _joinRoom(room),
+                      ),
+                    );
+                  },
+                  childCount: rooms.length,
+                ),
               ),
             ),
-          ),
           // Bottom padding for FAB
           const SliverToBoxAdapter(
             child: SizedBox(height: 80),
@@ -210,13 +350,13 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color(0xFFE91E63).withOpacity(0.1),
-            const Color(0xFF9C27B0).withOpacity(0.05),
+            const Color(0xFFE91E63).withValues(alpha: 0.1),
+            const Color(0xFF9C27B0).withValues(alpha: 0.05),
           ],
         ),
         borderRadius: AppRadius.borderMD,
         border: Border.all(
-          color: const Color(0xFFE91E63).withOpacity(0.2),
+          color: const Color(0xFFE91E63).withValues(alpha: 0.2),
         ),
       ),
       child: Row(
@@ -259,7 +399,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               vertical: 4,
             ),
             decoration: BoxDecoration(
-              color: const Color(0xFFE91E63).withOpacity(0.15),
+              color: const Color(0xFFE91E63).withValues(alpha: 0.15),
               borderRadius: AppRadius.borderMD,
             ),
             child: Row(
@@ -345,6 +485,72 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 shape: RoundedRectangleBorder(
                   borderRadius: AppRadius.borderMD,
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FilterChip extends StatelessWidget {
+  final String label;
+  final IconData? icon;
+  final String? emoji;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FilterChip({
+    required this.label,
+    this.icon,
+    this.emoji,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? const Color(0xFF00BFA5).withValues(alpha: 0.15)
+              : Colors.grey[100],
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected
+                ? const Color(0xFF00BFA5)
+                : Colors.grey[300]!,
+            width: 1.5,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (emoji != null) ...[
+              Text(emoji!, style: const TextStyle(fontSize: 14)),
+              const SizedBox(width: 6),
+            ] else if (icon != null) ...[
+              Icon(
+                icon,
+                size: 15,
+                color: isSelected
+                    ? const Color(0xFF00BFA5)
+                    : Colors.grey[600],
+              ),
+              const SizedBox(width: 6),
+            ],
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                color: isSelected
+                    ? const Color(0xFF00BFA5)
+                    : Colors.grey[700],
               ),
             ),
           ],

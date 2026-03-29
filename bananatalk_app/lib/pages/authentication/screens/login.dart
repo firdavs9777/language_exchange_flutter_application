@@ -201,11 +201,14 @@ class _LoginState extends ConsumerState<Login> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                width: 200,
-                child: Image.asset(
-                  'assets/images/logo_no_background.png',
-                  height: 120,
-                  width: 180,
+                child: Text(
+                  'BananaTalk',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                    color: Theme.of(context).primaryColor,
+                    letterSpacing: -0.5,
+                  ),
                 ),
               ),
               Center(

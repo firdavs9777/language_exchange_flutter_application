@@ -5814,6 +5814,48 @@ abstract class AppLocalizations {
   /// **'{count} people'**
   String nPeople(int count);
 
+  /// No description provided for @hostedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosted by {name}'**
+  String hostedBy(String name);
+
+  /// No description provided for @liveLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'LIVE'**
+  String get liveLabel;
+
+  /// No description provided for @joinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Join'**
+  String get joinLabel;
+
+  /// No description provided for @fullLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get fullLabel;
+
+  /// No description provided for @justStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Just started'**
+  String get justStarted;
+
+  /// No description provided for @allLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'All Languages'**
+  String get allLanguages;
+
+  /// No description provided for @allTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'All Topics'**
+  String get allTopics;
+
   /// No description provided for @leaderboard.
   ///
   /// In en, this message translates to:

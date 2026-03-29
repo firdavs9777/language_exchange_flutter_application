@@ -2963,6 +2963,29 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return '$name 主持';
+  }
+
+  @override
+  String get liveLabel => '直播中';
+
+  @override
+  String get joinLabel => '加入';
+
+  @override
+  String get fullLabel => '已满';
+
+  @override
+  String get justStarted => '刚刚开始';
+
+  @override
+  String get allLanguages => '所有语言';
+
+  @override
+  String get allTopics => '所有话题';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -6454,6 +6477,29 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
+  String hostedBy(String name) {
+    return '$name 主持';
+  }
+
+  @override
+  String get liveLabel => '直播中';
+
+  @override
+  String get joinLabel => '加入';
+
+  @override
+  String get fullLabel => '已滿';
+
+  @override
+  String get justStarted => '剛剛開始';
+
+  @override
+  String get allLanguages => '所有語言';
+
+  @override
+  String get allTopics => '所有話題';
+
+  @override
   String get dataAndStorage => '數據與儲存';
 
   @override
@@ -6692,7 +6738,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String charactersCount(int count) {
-    return '$current/$max字';
+    return '$count/500字';
   }
 
   @override

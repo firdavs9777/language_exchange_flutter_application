@@ -984,6 +984,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "{name} 主持",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "直播中",
+  "joinLabel": "加入",
+  "fullLabel": "已滿",
+  "justStarted": "剛剛開始",
+  "allLanguages": "所有語言",
+  "allTopics": "所有話題",
 
   "dataAndStorage": "數據與儲存",
   "manageStorageAndDownloads": "管理儲存和下載",
@@ -1088,13 +1096,7 @@
   "editBio": "編輯個人簡介",
   "bioUpdatedSuccessfully": "個人簡介已更新！",
   "tellOthersAboutYourself": "介紹一下自己",
-  "charactersCount": "{current}/{max}字",
-  "@charactersCount": {
-    "placeholders": {
-      "current": {"type": "int"},
-      "max": {"type": "int"}
-    }
-  },
+  "charactersCount": "{count}/500字",
   "selectYourMbti": "選擇您的MBTI",
   "myBloodType": "我的血型",
   "pleaseSelectABloodType": "請選擇血型",

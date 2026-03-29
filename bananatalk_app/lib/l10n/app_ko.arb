@@ -975,6 +975,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "{name}님이 호스팅",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "라이브",
+  "joinLabel": "참여",
+  "fullLabel": "가득 참",
+  "justStarted": "방금 시작됨",
+  "allLanguages": "모든 언어",
+  "allTopics": "모든 주제",
 
   "dataAndStorage": "데이터 및 저장공간",
   "manageStorageAndDownloads": "저장공간 및 다운로드 관리",

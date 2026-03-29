@@ -2963,6 +2963,29 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'Ведущий: $name';
+  }
+
+  @override
+  String get liveLabel => 'ПРЯМОЙ ЭФИР';
+
+  @override
+  String get joinLabel => 'Войти';
+
+  @override
+  String get fullLabel => 'Заполнено';
+
+  @override
+  String get justStarted => 'Только что началось';
+
+  @override
+  String get allLanguages => 'Все языки';
+
+  @override
+  String get allTopics => 'Все темы';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

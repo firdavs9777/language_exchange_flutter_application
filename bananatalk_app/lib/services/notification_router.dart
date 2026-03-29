@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/screens/incoming_call_screen.dart';
+import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 
 class NotificationRouter {
@@ -31,6 +34,17 @@ class NotificationRouter {
           final userId = data['userId']?.toString();
           if (userId != null) targetPath = '/profile/$userId';
           break;
+
+        case 'incoming_call':
+          debugPrint('📞 Incoming call notification tapped');
+          _handleIncomingCallNotification(data);
+          return;
+
+        case 'missed_call':
+          // Navigate to chat with the caller
+          final callerId = data['callerId']?.toString();
+          if (callerId != null) targetPath = '/chat/$callerId';
+          break;
       }
 
       // Navigate to home first, then push the target screen after
@@ -47,6 +61,66 @@ class NotificationRouter {
         goRouter.go('/home');
       } catch (navError) {
       }
+    }
+  }
+
+  /// Handle incoming call notification tap.
+  /// If CallManager already has an active incoming call (socket reconnected),
+  /// show the IncomingCallScreen. Otherwise, build a CallModel from the
+  /// notification payload and display it.
+  static void _handleIncomingCallNotification(Map<String, dynamic> data) {
+    final callManager = CallManager();
+
+    // If CallManager already has an active call from the socket, use that
+    if (callManager.currentCall != null &&
+        callManager.currentCall!.status == CallStatus.ringing) {
+      _showIncomingCallScreen(callManager.currentCall!);
+      return;
+    }
+
+    // Build CallModel from notification payload for terminated-app case
+    final callId = data['callId']?.toString() ?? '';
+    final callerId = data['callerId']?.toString() ?? '';
+    final callerName = data['callerName']?.toString() ?? 'Unknown';
+    final callerProfilePicture = data['callerProfilePicture']?.toString() ?? data['callerAvatar']?.toString();
+    final callTypeStr = data['callType']?.toString() ?? 'audio';
+
+    if (callId.isEmpty) {
+      // No valid call data — just go home
+      goRouter.go('/home');
+      return;
+    }
+
+    final call = CallModel(
+      callId: callId,
+      userId: callerId,
+      userName: callerName,
+      userProfilePicture: callerProfilePicture,
+      callType: callTypeStr == 'video' ? CallType.video : CallType.audio,
+      direction: CallDirection.incoming,
+      status: CallStatus.ringing,
+      startTime: DateTime.now(),
+    );
+
+    // Store in CallManager so accept/reject socket events work
+    callManager.currentCall = call;
+    callManager.startRingtone();
+
+    _showIncomingCallScreen(call);
+  }
+
+  static void _showIncomingCallScreen(CallModel call) {
+    final navState = callOverlayNavigatorKey.currentState;
+    if (navState != null) {
+      navState.push(
+        MaterialPageRoute(
+          builder: (_) => IncomingCallScreen(call: call),
+          fullscreenDialog: true,
+        ),
+      );
+    } else {
+      debugPrint('❌ Cannot show incoming call screen — no overlay navigator');
+      goRouter.go('/home');
     }
   }
 }

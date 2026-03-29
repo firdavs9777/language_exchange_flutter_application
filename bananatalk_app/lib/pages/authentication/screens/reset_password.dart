@@ -141,11 +141,14 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
             children: <Widget>[
               Container(
                 margin: const EdgeInsets.only(top: 10, bottom: 20),
-                width: 200,
-                child: Image.asset(
-                  'assets/images/logo_no_background.png',
-                  height: 120,
-                  width: 180,
+                child: Text(
+                  'BananaTalk',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                    color: Theme.of(context).primaryColor,
+                    letterSpacing: -0.5,
+                  ),
                 ),
               ),
               Icon(

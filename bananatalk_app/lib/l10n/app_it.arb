@@ -1236,6 +1236,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Ospitato da {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "IN DIRETTA",
+  "joinLabel": "Unisciti",
+  "fullLabel": "Pieno",
+  "justStarted": "Appena iniziato",
+  "allLanguages": "Tutte le lingue",
+  "allTopics": "Tutti gli argomenti",
 
   "dataAndStorage": "Dati e Archiviazione",
   "manageStorageAndDownloads": "Gestisci archiviazione e download",

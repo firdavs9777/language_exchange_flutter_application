@@ -886,12 +886,15 @@ class _AIToolsTab extends ConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        const Text(
-                          'AI Conversation Partner',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: const Text(
+                            'AI Conversation Partner',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         if (!isVip) ...[

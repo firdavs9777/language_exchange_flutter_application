@@ -20,7 +20,7 @@ class CreateRoomSheet extends StatefulWidget {
 
 class _CreateRoomSheetState extends State<CreateRoomSheet> {
   final _titleController = TextEditingController();
-  String _selectedTopic = 'Language Tips';
+  String _selectedTopicId = 'language_exchange';
   String _selectedLanguage = 'English';
   int _maxParticipants = 8;
 
@@ -64,7 +64,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
 
     widget.onCreateRoom(
       _titleController.text.trim(),
-      _selectedTopic,
+      _selectedTopicId,
       _selectedLanguage,
       _maxParticipants,
     );
@@ -287,18 +287,18 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
       spacing: 8,
       runSpacing: 8,
       children: Topic.defaultTopics.take(12).map((topic) {
-        final isSelected = _selectedTopic == topic.name;
+        final isSelected = _selectedTopicId == topic.id;
         return GestureDetector(
           onTap: () {
             setState(() {
-              _selectedTopic = topic.name;
+              _selectedTopicId = topic.id;
             });
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: isSelected
-                  ? const Color(0xFF00BFA5).withOpacity(0.15)
+                  ? const Color(0xFF00BFA5).withValues(alpha:0.15)
                   : Colors.grey[100],
               borderRadius: AppRadius.borderLG,
               border: Border.all(

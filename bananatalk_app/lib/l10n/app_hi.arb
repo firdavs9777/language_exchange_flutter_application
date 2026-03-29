@@ -965,6 +965,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "{name} द्वारा होस्ट किया गया",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "लाइव",
+  "joinLabel": "शामिल हों",
+  "fullLabel": "भरा हुआ",
+  "justStarted": "अभी शुरू हुआ",
+  "allLanguages": "सभी भाषाएँ",
+  "allTopics": "सभी विषय",
 
   "dataAndStorage": "डेटा और स्टोरेज",
   "manageStorageAndDownloads": "स्टोरेज और डाउनलोड प्रबंधित करें",

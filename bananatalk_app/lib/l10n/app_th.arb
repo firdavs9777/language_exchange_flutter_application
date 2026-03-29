@@ -796,6 +796,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "โฮสต์โดย {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "สด",
+  "joinLabel": "เข้าร่วม",
+  "fullLabel": "เต็ม",
+  "justStarted": "เพิ่งเริ่ม",
+  "allLanguages": "ทุกภาษา",
+  "allTopics": "ทุกหัวข้อ",
 
   "dataAndStorage": "ข้อมูลและพื้นที่จัดเก็บ",
   "manageStorageAndDownloads": "จัดการพื้นที่จัดเก็บและการดาวน์โหลด",

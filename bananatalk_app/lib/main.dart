@@ -5,6 +5,8 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/screens/incoming_call_screen.dart';
+import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -162,13 +164,35 @@ class MyApp extends ConsumerWidget {
     // Using ref.watch ensures it stays active and re-initializes if needed
     ref.watch(globalChatListenerProvider);
 
-    // Initialize call manager with socket service (only once)
+    // Initialize call manager with socket service and global incoming call handler
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
         final chatSocketService = ChatSocketService();
         final callNotifier = ref.read(callProvider.notifier);
         callNotifier.callManager.initialize(chatSocketService);
+
+        // Notify UI when call connects (for timer, status updates)
+        callNotifier.setCallConnectedCallback((call) {
+          debugPrint('📞 Call connected - UI notified');
+        });
+
+        // Register global incoming call handler using overlay navigator
+        callNotifier.setIncomingCallCallback((call) {
+          final navState = callOverlayNavigatorKey.currentState;
+          if (navState != null) {
+            debugPrint('📞 Incoming call from ${call.userName} - showing screen');
+            navState.push(
+              MaterialPageRoute(
+                builder: (_) => IncomingCallScreen(call: call),
+                fullscreenDialog: true,
+              ),
+            );
+          } else {
+            debugPrint('❌ Cannot show incoming call - no navigator');
+          }
+        });
       } catch (e) {
+        debugPrint('❌ Call manager init error: $e');
       }
     });
 
@@ -177,14 +201,23 @@ class MyApp extends ConsumerWidget {
       locale: locale,
       supportedLocales: const [
         Locale('en', 'US'),
-        Locale('zh', 'CN'),
         Locale('ko', 'KR'),
-        Locale('ru', 'RU'),
+        Locale('zh', 'CN'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
         Locale('es', 'ES'),
+        Locale('fr', 'FR'),
+        Locale('de', 'DE'),
+        Locale('it', 'IT'),
+        Locale('pt', 'BR'),
+        Locale('ru', 'RU'),
         Locale('ar', 'SA'),
         Locale('hi', 'IN'),
-        Locale('pt', 'BR'),
         Locale('ja', 'JP'),
+        Locale('id', 'ID'),
+        Locale('th', 'TH'),
+        Locale('tl', 'PH'),
+        Locale('tr', 'TR'),
+        Locale('vi', 'VN'),
       ],
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -205,7 +238,13 @@ class MyApp extends ConsumerWidget {
               MediaQuery.of(context).textScaler.scale(1.0).clamp(0.8, 1.3),
             ),
           ),
-          child: child!,
+          // Overlay navigator for full-screen overlays (incoming calls, etc.)
+          // Sits above GoRouter so pop() doesn't affect GoRouter's route stack
+          child: Navigator(
+            key: callOverlayNavigatorKey,
+            onPopPage: (route, result) => route.didPop(result),
+            pages: [MaterialPage(child: child ?? const SizedBox())],
+          ),
         );
       },
     );

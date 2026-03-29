@@ -130,9 +130,15 @@ class _EmailInputState extends ConsumerState<EmailInput> {
           children: [
             Container(
               margin: const EdgeInsets.only(bottom: 40),
-              child: Image.asset(
-                'assets/images/logo_no_background.png',
-                height: 120,
+              alignment: Alignment.center,
+              child: Text(
+                'BananaTalk',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                  color: Theme.of(context).primaryColor,
+                  letterSpacing: -0.5,
+                ),
               ),
             ),
             BananaText(

@@ -2963,6 +2963,29 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'โฮสต์โดย $name';
+  }
+
+  @override
+  String get liveLabel => 'สด';
+
+  @override
+  String get joinLabel => 'เข้าร่วม';
+
+  @override
+  String get fullLabel => 'เต็ม';
+
+  @override
+  String get justStarted => 'เพิ่งเริ่ม';
+
+  @override
+  String get allLanguages => 'ทุกภาษา';
+
+  @override
+  String get allTopics => 'ทุกหัวข้อ';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

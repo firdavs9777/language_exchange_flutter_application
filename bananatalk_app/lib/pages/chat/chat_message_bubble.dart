@@ -343,9 +343,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                               ),
                           ],
                         ),
-                        // Correction display (Tandem-style)
-                        if (widget.message.corrections.isNotEmpty)
-                          _buildCorrectionDisplay(context),
+                        // Corrections are now shown as separate messages in the chat list
                       ],
                     ),
                   ),

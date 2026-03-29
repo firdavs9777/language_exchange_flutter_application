@@ -145,6 +145,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             goRouter.push('/profile/$userId');
           }
           break;
+        case 'incoming_call':
+          // Socket listener handles showing the call screen
+          break;
+        case 'missed_call':
+          final callerId = data['callerId']?.toString();
+          if (callerId != null) {
+            goRouter.push('/chat/$callerId');
+          }
+          break;
         default:
       }
     } catch (e) {
@@ -167,10 +176,24 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'assets/images/logo_no_background.png',
-              width: 350,
-              height: 321,
+            Text(
+              'BananaTalk',
+              style: TextStyle(
+                fontSize: 42,
+                fontWeight: FontWeight.w800,
+                color: Theme.of(context).primaryColor,
+                letterSpacing: -0.5,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'MEET · CHAT · CONNECT',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                letterSpacing: 2.0,
+              ),
             ),
             Spacing.gapXL,
           ],

@@ -111,8 +111,15 @@ final messageCountProvider =
 });
 
 /// Helper provider to check if calling is enabled for a specific user
-final canCallProvider = Provider.family<Future<bool>, String>((ref, otherUserId) async {
-  final notifier = ref.read(messageCountProvider.notifier);
-  return await notifier.canCall(otherUserId);
+/// Watches message count state so it rebuilds when count changes
+final canCallProvider = Provider.family<bool, String>((ref, otherUserId) {
+  final counts = ref.watch(messageCountProvider);
+  // Check all keys that might match this user pair
+  for (final entry in counts.entries) {
+    if (entry.key.contains(otherUserId) && entry.value >= 3) {
+      return true;
+    }
+  }
+  return false;
 });
 

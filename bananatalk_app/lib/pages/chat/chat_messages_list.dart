@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/call/call_history_bubble.dart';
+import 'package:bananatalk_app/widgets/correction_message_bubble.dart';
 import 'package:bananatalk_app/models/call_record_model.dart';
 import 'chat_message_bubble.dart';
 import 'chat_typing_indicator.dart';
@@ -186,6 +187,17 @@ class ChatMessagesList extends StatelessWidget {
               }
               final message = messages[messageIndex];
               final isMe = message.sender.id == currentUserId;
+
+              // Check if this is a correction message (shown as standalone bubble)
+              if (message.type == 'correction') {
+                return CorrectionMessageBubble(
+                  key: ValueKey(message.id),
+                  message: message,
+                  isMe: isMe,
+                  otherUserName: otherUserName,
+                  otherUserPicture: otherUserPicture,
+                );
+              }
 
               // Check if this is a call record message
               if (message.type == 'call' && message.media?.callData != null) {

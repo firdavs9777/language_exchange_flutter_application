@@ -2963,6 +2963,29 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'Tổ chức bởi $name';
+  }
+
+  @override
+  String get liveLabel => 'TRỰC TIẾP';
+
+  @override
+  String get joinLabel => 'Tham gia';
+
+  @override
+  String get fullLabel => 'Đã đầy';
+
+  @override
+  String get justStarted => 'Vừa bắt đầu';
+
+  @override
+  String get allLanguages => 'Tất cả ngôn ngữ';
+
+  @override
+  String get allTopics => 'Tất cả chủ đề';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

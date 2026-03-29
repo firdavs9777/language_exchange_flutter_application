@@ -255,6 +255,15 @@ class VoiceRoomManager {
     // Initialize local stream
     await _webrtcService.initLocalStreamForRoom();
 
+    // Start muted — disable the audio track right away
+    final audioTracks = _webrtcService.localStream?.getAudioTracks();
+    if (audioTracks != null && audioTracks.isNotEmpty) {
+      audioTracks[0].enabled = false;
+      debugPrint('🎤 Voice room: started muted, audio track disabled');
+    } else {
+      debugPrint('🎤 Voice room: WARNING - no audio tracks found');
+    }
+
     _currentRoom = room;
     _participants = List.from(room.participants);
     _chatMessages = [];
@@ -286,6 +295,8 @@ class VoiceRoomManager {
   void toggleMute() {
     _webrtcService.toggleMicrophone();
     _isMuted = !_webrtcService.isMicrophoneEnabled;
+
+    debugPrint('🎤 Voice room mute toggled: isMuted=$_isMuted, micEnabled=${_webrtcService.isMicrophoneEnabled}');
 
     _socket?.emit('voiceroom:mute', {
       'roomId': _currentRoom?.id,

@@ -126,10 +126,14 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                 children: [
                   // Logo
                   Center(
-                    child: Image.asset(
-                      'assets/images/logo_no_background.png',
-                      height: 100,
-                      width: 100,
+                    child: Text(
+                      'BananaTalk',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).primaryColor,
+                        letterSpacing: -0.5,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24),

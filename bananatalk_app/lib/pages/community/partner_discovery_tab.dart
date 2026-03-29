@@ -205,13 +205,23 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
 
     // Quick filter chips override full filter screen values
+    // When a quick chip is active, ONLY apply that filter (clear the other)
+    // so results are focused on just the selected criterion
     if (_quickNativeLanguage != null) {
       // Quick chip: "Speaks X" → pass as learningLanguage to API (inverted semantics)
       apiLearningParam = _quickNativeLanguage;
+      // Clear the other param so we only filter by this criterion
+      if (_quickLearningLanguage == null) {
+        apiNativeParam = null;
+      }
     }
     if (_quickLearningLanguage != null) {
       // Quick chip: "Learning X" → pass as nativeLanguage to API (inverted semantics)
       apiNativeParam = _quickLearningLanguage;
+      // Clear the other param so we only filter by this criterion
+      if (_quickNativeLanguage == null) {
+        apiLearningParam = null;
+      }
     }
 
     final params = PartnerFilterParams(

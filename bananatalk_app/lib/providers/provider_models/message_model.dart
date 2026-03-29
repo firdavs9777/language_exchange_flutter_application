@@ -279,10 +279,20 @@ class Message {
     }
 
     final media = json['media'] as Map<String, dynamic>;
+    final messageType = json['messageType']?.toString() ?? json['type']?.toString() ?? '';
     final mediaType = media['type']?.toString() ?? '';
 
     // For location type, URL is not required
     if (mediaType == 'location') {
+      return MessageMedia.fromJson(media);
+    }
+
+    // For call type, URL is not required — callData is the payload
+    if (mediaType == 'call' || messageType == 'call') {
+      // Ensure type is set for call media
+      if (media['type'] == null) {
+        media['type'] = 'call';
+      }
       return MessageMedia.fromJson(media);
     }
 

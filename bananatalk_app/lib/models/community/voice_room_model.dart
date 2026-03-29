@@ -27,16 +27,37 @@ class VoiceRoom {
   });
 
   factory VoiceRoom.fromJson(Map<String, dynamic> json) {
+    // Parse host — backend sends populated object {_id, name, images}
+    String hostId = '';
+    String hostName = '';
+    String hostAvatar = '';
+    final host = json['host'];
+    if (host is Map<String, dynamic>) {
+      hostId = host['_id']?.toString() ?? host['id']?.toString() ?? '';
+      hostName = host['name']?.toString() ?? '';
+      final images = host['images'];
+      if (images is List && images.isNotEmpty) {
+        hostAvatar = images[0]?.toString() ?? '';
+      }
+    } else if (host is String) {
+      hostId = host;
+    }
+    // Fallback to flat fields if present
+    if (hostId.isEmpty) hostId = json['hostId']?.toString() ?? '';
+    if (hostName.isEmpty) hostName = json['hostName']?.toString() ?? '';
+    if (hostAvatar.isEmpty) hostAvatar = json['hostAvatar']?.toString() ?? '';
+
     return VoiceRoom(
       id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
       title: json['title']?.toString() ?? '',
-      hostId: json['hostId']?.toString() ?? '',
-      hostName: json['hostName']?.toString() ?? '',
-      hostAvatar: json['hostAvatar']?.toString() ?? '',
+      hostId: hostId,
+      hostName: hostName,
+      hostAvatar: hostAvatar,
       topic: json['topic']?.toString() ?? '',
       language: json['language']?.toString() ?? '',
       participants: (json['participants'] as List<dynamic>?)
-              ?.map((e) => RoomParticipant.fromJson(e))
+              ?.map((e) => RoomParticipant.fromJson(
+                  e is Map<String, dynamic> ? e : <String, dynamic>{}))
               .toList() ??
           [],
       maxParticipants: json['maxParticipants'] ?? 8,
@@ -102,13 +123,43 @@ class RoomParticipant {
   });
 
   factory RoomParticipant.fromJson(Map<String, dynamic> json) {
+    // Backend sends two formats:
+    // 1. GET list: {_id, name, images, role, isSpeaking} (flattened from user)
+    // 2. Raw/create: {user: ObjectId or {_id, name, images}, joinedAt, isMuted, ...}
+    String id = json['_id']?.toString() ?? json['id']?.toString() ?? '';
+    String name = json['name']?.toString() ?? '';
+    String avatar = '';
+    final role = json['role']?.toString() ?? '';
+
+    // Extract avatar from images array
+    final images = json['images'];
+    if (images is List && images.isNotEmpty) {
+      avatar = images[0]?.toString() ?? '';
+    }
+    avatar = avatar.isEmpty ? (json['avatar']?.toString() ?? '') : avatar;
+
+    // Handle nested user object format
+    final user = json['user'];
+    if (user is Map<String, dynamic>) {
+      if (id.isEmpty) id = user['_id']?.toString() ?? user['id']?.toString() ?? '';
+      if (name.isEmpty) name = user['name']?.toString() ?? '';
+      if (avatar.isEmpty) {
+        final userImages = user['images'];
+        if (userImages is List && userImages.isNotEmpty) {
+          avatar = userImages[0]?.toString() ?? '';
+        }
+      }
+    } else if (user is String && id.isEmpty) {
+      id = user;
+    }
+
     return RoomParticipant(
-      id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
-      name: json['name']?.toString() ?? '',
-      avatar: json['avatar']?.toString() ?? '',
+      id: id,
+      name: name,
+      avatar: avatar,
       isSpeaking: json['isSpeaking'] ?? false,
-      isMuted: json['isMuted'] ?? false,
-      isHost: json['isHost'] ?? false,
+      isMuted: json['isMuted'] ?? true,
+      isHost: json['isHost'] == true || role == 'host',
       joinedAt: json['joinedAt'] != null
           ? DateTime.tryParse(json['joinedAt'].toString()) ?? DateTime.now()
           : DateTime.now(),

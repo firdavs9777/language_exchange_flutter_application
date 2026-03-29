@@ -980,6 +980,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Organizado por {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "EN VIVO",
+  "joinLabel": "Unirse",
+  "fullLabel": "Lleno",
+  "justStarted": "Recién iniciado",
+  "allLanguages": "Todos los idiomas",
+  "allTopics": "Todos los temas",
 
   "dataAndStorage": "Datos y Almacenamiento",
   "manageStorageAndDownloads": "Gestionar almacenamiento y descargas",

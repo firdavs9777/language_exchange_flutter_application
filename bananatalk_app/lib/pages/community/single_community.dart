@@ -14,6 +14,7 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
+import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
@@ -502,12 +503,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         CallType.video,
       );
 
-      // Navigate to active call screen
+      // Navigate to active call screen via overlay navigator
       if (mounted) {
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
-          Navigator.push(
-            context,
+          callOverlayNavigatorKey.currentState?.push(
             MaterialPageRoute(
               builder: (_) => ActiveCallScreen(call: currentCall),
               fullscreenDialog: true,
@@ -561,18 +561,17 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         CallType.audio,
       );
 
-      // Navigate to active call screen
+      // Navigate to active call screen via overlay navigator
       if (mounted) {
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
-          Navigator.push(
-            context,
+          callOverlayNavigatorKey.currentState?.push(
             MaterialPageRoute(
               builder: (_) => ActiveCallScreen(call: currentCall),
               fullscreenDialog: true,
-      ),
-    );
-  }
+            ),
+          );
+        }
       }
 
     } catch (e) {

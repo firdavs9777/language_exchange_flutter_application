@@ -1396,6 +1396,20 @@
       }
     }
   },
+  "hostedBy": "Hosted by {name}",
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "liveLabel": "LIVE",
+  "joinLabel": "Join",
+  "fullLabel": "Full",
+  "justStarted": "Just started",
+  "allLanguages": "All Languages",
+  "allTopics": "All Topics",
 
   "leaderboard": "Leaderboard",
   "competeWithLearners": "Compete with other learners!",

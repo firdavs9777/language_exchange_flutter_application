@@ -975,6 +975,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "يستضيفه {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "مباشر",
+  "joinLabel": "انضمام",
+  "fullLabel": "ممتلئ",
+  "justStarted": "بدأ للتو",
+  "allLanguages": "جميع اللغات",
+  "allTopics": "جميع المواضيع",
 
   "dataAndStorage": "البيانات والتخزين",
   "manageStorageAndDownloads": "إدارة التخزين والتنزيلات",

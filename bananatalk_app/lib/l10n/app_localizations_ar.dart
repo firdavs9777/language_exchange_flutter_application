@@ -2963,6 +2963,29 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'يستضيفه $name';
+  }
+
+  @override
+  String get liveLabel => 'مباشر';
+
+  @override
+  String get joinLabel => 'انضمام';
+
+  @override
+  String get fullLabel => 'ممتلئ';
+
+  @override
+  String get justStarted => 'بدأ للتو';
+
+  @override
+  String get allLanguages => 'جميع اللغات';
+
+  @override
+  String get allTopics => 'جميع المواضيع';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

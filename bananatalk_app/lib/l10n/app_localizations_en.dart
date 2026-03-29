@@ -2969,6 +2969,29 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'Hosted by $name';
+  }
+
+  @override
+  String get liveLabel => 'LIVE';
+
+  @override
+  String get joinLabel => 'Join';
+
+  @override
+  String get fullLabel => 'Full';
+
+  @override
+  String get justStarted => 'Just started';
+
+  @override
+  String get allLanguages => 'All Languages';
+
+  @override
+  String get allTopics => 'All Topics';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

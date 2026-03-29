@@ -2963,6 +2963,29 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return '$name님이 호스팅';
+  }
+
+  @override
+  String get liveLabel => '라이브';
+
+  @override
+  String get joinLabel => '참여';
+
+  @override
+  String get fullLabel => '가득 참';
+
+  @override
+  String get justStarted => '방금 시작됨';
+
+  @override
+  String get allLanguages => '모든 언어';
+
+  @override
+  String get allTopics => '모든 주제';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

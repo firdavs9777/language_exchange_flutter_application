@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Voice room card for room listings
 class VoiceRoomCard extends StatelessWidget {
@@ -16,6 +17,7 @@ class VoiceRoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -28,7 +30,7 @@ class VoiceRoomCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 15,
                 offset: const Offset(0, 4),
               ),
@@ -40,7 +42,7 @@ class VoiceRoomCard extends StatelessWidget {
               // Header with live indicator
               Row(
                 children: [
-                  if (room.isLive) _buildLiveIndicator(),
+                  if (room.isLive) _buildLiveIndicator(l10n),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -60,30 +62,30 @@ class VoiceRoomCard extends StatelessWidget {
               // Topic and language
               Row(
                 children: [
-                  _buildTag(room.topic, Icons.tag_rounded),
+                  Flexible(child: _buildTag(room.topic, Icons.tag_rounded)),
                   const SizedBox(width: 8),
-                  _buildTag(room.language, Icons.language_rounded),
+                  Flexible(child: _buildTag(room.language, Icons.language_rounded)),
                 ],
               ),
               const SizedBox(height: 16),
               // Host and participants
               Row(
                 children: [
-                  // Host avatar
                   _buildHostAvatar(),
                   const SizedBox(width: 12),
-                  // Host name and duration
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Hosted by ${room.hostName}',
+                          l10n.hostedBy(room.hostName.isNotEmpty ? room.hostName : '?'),
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                             color: Colors.black87,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -96,7 +98,6 @@ class VoiceRoomCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Participant avatars
                   _buildParticipantAvatars(),
                 ],
               ),
@@ -119,7 +120,7 @@ class VoiceRoomCard extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  _buildJoinButton(),
+                  _buildJoinButton(l10n),
                 ],
               ),
             ],
@@ -129,21 +130,21 @@ class VoiceRoomCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLiveIndicator() {
+  Widget _buildLiveIndicator(AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: const Color(0xFFE91E63).withOpacity(0.1),
+        color: const Color(0xFFE91E63).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _PulsingDot(),
+          const _PulsingDot(),
           const SizedBox(width: 4),
-          const Text(
-            'LIVE',
-            style: TextStyle(
+          Text(
+            l10n.liveLabel,
+            style: const TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w800,
               color: Color(0xFFE91E63),
@@ -167,12 +168,16 @@ class VoiceRoomCard extends StatelessWidget {
         children: [
           Icon(icon, size: 14, color: Colors.grey[600]),
           const SizedBox(width: 4),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[700],
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[700],
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -197,7 +202,7 @@ class VoiceRoomCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00BFA5).withOpacity(0.3),
+            color: const Color(0xFF00BFA5).withValues(alpha: 0.3),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -232,6 +237,8 @@ class VoiceRoomCard extends StatelessWidget {
   }
 
   Widget _buildParticipantAvatars() {
+    if (room.participants.isEmpty) return const SizedBox.shrink();
+
     final displayCount = room.participants.length > 3 ? 3 : room.participants.length;
     final remaining = room.participants.length - displayCount;
 
@@ -288,7 +295,7 @@ class VoiceRoomCard extends StatelessWidget {
     );
   }
 
-  Widget _buildJoinButton() {
+  Widget _buildJoinButton(AppLocalizations l10n) {
     final isFull = room.isFull;
 
     return Material(
@@ -312,7 +319,7 @@ class VoiceRoomCard extends StatelessWidget {
                 ? null
                 : [
                     BoxShadow(
-                      color: const Color(0xFF00BFA5).withOpacity(0.3),
+                      color: const Color(0xFF00BFA5).withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -328,7 +335,7 @@ class VoiceRoomCard extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               Text(
-                isFull ? 'Full' : 'Join',
+                isFull ? l10n.fullLabel : l10n.joinLabel,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
@@ -345,6 +352,8 @@ class VoiceRoomCard extends StatelessWidget {
 
 /// Pulsing dot animation for live indicator
 class _PulsingDot extends StatefulWidget {
+  const _PulsingDot();
+
   @override
   State<_PulsingDot> createState() => _PulsingDotState();
 }
@@ -380,10 +389,10 @@ class _PulsingDotState extends State<_PulsingDot>
           height: 8,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: const Color(0xFFE91E63).withOpacity(_animation.value),
+            color: Color.fromRGBO(233, 30, 99, _animation.value),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFFE91E63).withOpacity(_animation.value * 0.5),
+                color: Color.fromRGBO(233, 30, 99, _animation.value * 0.5),
                 blurRadius: 4,
                 spreadRadius: 1,
               ),

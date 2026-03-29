@@ -800,6 +800,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Dihosting oleh {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "SIARAN LANGSUNG",
+  "joinLabel": "Gabung",
+  "fullLabel": "Penuh",
+  "justStarted": "Baru dimulai",
+  "allLanguages": "Semua bahasa",
+  "allTopics": "Semua topik",
 
   "dataAndStorage": "Data dan Penyimpanan",
   "manageStorageAndDownloads": "Kelola penyimpanan dan unduhan",

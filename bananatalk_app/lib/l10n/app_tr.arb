@@ -1231,6 +1231,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "{name} tarafından düzenleniyor",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "CANLI",
+  "joinLabel": "Katıl",
+  "fullLabel": "Dolu",
+  "justStarted": "Yeni başladı",
+  "allLanguages": "Tüm diller",
+  "allTopics": "Tüm konular",
 
   "dataAndStorage": "Veri ve Depolama",
   "manageStorageAndDownloads": "Depolama ve indirmeleri yönet",
@@ -1329,13 +1337,7 @@
   "editBio": "Biyografiyi Düzenle",
   "bioUpdatedSuccessfully": "Biyografi güncellendi!",
   "tellOthersAboutYourself": "Kendiniz hakkında bir şeyler yazın",
-  "charactersCount": "{current}/{max} karakter",
-  "@charactersCount": {
-    "placeholders": {
-      "current": {"type": "int"},
-      "max": {"type": "int"}
-    }
-  },
+  "charactersCount": "{count}/500 karakter",
   "selectYourMbti": "MBTI'nizi seçin",
   "myBloodType": "Kan Grubum",
   "pleaseSelectABloodType": "Lütfen bir kan grubu seçin",

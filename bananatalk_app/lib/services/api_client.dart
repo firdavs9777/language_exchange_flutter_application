@@ -8,6 +8,8 @@ import 'package:bananatalk_app/service/endpoints.dart';
 
 /// Centralized API client with authentication, rate limiting, and error handling
 class ApiClient {
+  /// Enable/disable debug logging for all API calls
+  static bool enableDebugLogs = kDebugMode;
   static final ApiClient _instance = ApiClient._internal();
   factory ApiClient() => _instance;
   ApiClient._internal();
@@ -38,6 +40,23 @@ class ApiClient {
 
   /// Get the base URL
   String get baseUrl => Endpoints.baseURL;
+
+  /// Log API request/response for debugging
+  void _logRequest(String method, String url, {dynamic body}) {
+    if (!enableDebugLogs) return;
+    final bodyStr = body != null ? ' body=${body.toString().length > 200 ? '${body.toString().substring(0, 200)}...' : body}' : '';
+    debugPrint('[API] >> $method $url$bodyStr');
+  }
+
+  void _logResponse(String method, String url, int statusCode, int durationMs, {dynamic body, String? error}) {
+    if (!enableDebugLogs) return;
+    if (error != null) {
+      debugPrint('[API] << $method $url [$statusCode] ${durationMs}ms ERROR: $error');
+    } else {
+      final dataStr = body != null ? ' ${body.toString().length > 300 ? '${body.toString().substring(0, 300)}...' : body}' : '';
+      debugPrint('[API] << $method $url [$statusCode] ${durationMs}ms$dataStr');
+    }
+  }
 
   /// Get auth token with caching
   Future<String?> _getToken() async {
@@ -367,9 +386,13 @@ class ApiClient {
       );
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-
+      _logRequest('GET', uri.toString());
+      final stopwatch = Stopwatch()..start();
       final response = await http.get(uri, headers: headers);
+      stopwatch.stop();
       final result = _handleResponse(response, endpoint);
+      _logResponse('GET', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
+          body: result.success ? result.data : null, error: result.error);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -406,13 +429,17 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-
+      _logRequest('POST', uri.toString(), body: body);
+      final stopwatch = Stopwatch()..start();
       final response = await http.post(
         uri,
         headers: headers,
         body: body != null ? jsonEncode(body) : null,
       );
+      stopwatch.stop();
       final result = _handleResponse(response, endpoint);
+      _logResponse('POST', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
+          body: result.success ? result.data : null, error: result.error);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -453,13 +480,17 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-
+      _logRequest('PUT', uri.toString(), body: body);
+      final stopwatch = Stopwatch()..start();
       final response = await http.put(
         uri,
         headers: headers,
         body: body != null ? jsonEncode(body) : null,
       );
+      stopwatch.stop();
       final result = _handleResponse(response, endpoint);
+      _logResponse('PUT', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
+          body: result.success ? result.data : null, error: result.error);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -500,7 +531,8 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders(includeAuth: requiresAuth);
 
-
+      _logRequest('DELETE', uri.toString(), body: body);
+      final stopwatch = Stopwatch()..start();
       final request = http.Request('DELETE', uri)
         ..headers.addAll(headers);
 
@@ -510,7 +542,10 @@ class ApiClient {
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
+      stopwatch.stop();
       final result = _handleResponse(response, endpoint);
+      _logResponse('DELETE', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
+          body: result.success ? result.data : null, error: result.error);
 
       // Auto-refresh token on 401 and retry
       if (result.isUnauthorized && requiresAuth) {
@@ -556,7 +591,8 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final token = requiresAuth ? await _getToken() : null;
 
-
+      _logRequest('POST(multipart)', uri.toString(), body: 'fields=${fields.keys.toList()} files=${files.map((f) => f.filename).toList()}');
+      final stopwatch = Stopwatch()..start();
       final request = http.MultipartRequest('POST', uri);
 
       if (token != null && token.isNotEmpty) {
@@ -568,7 +604,11 @@ class ApiClient {
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
-      return _handleResponse(response, endpoint);
+      stopwatch.stop();
+      final result = _handleResponse(response, endpoint);
+      _logResponse('POST(multipart)', endpoint, response.statusCode, stopwatch.elapsedMilliseconds,
+          body: result.success ? result.data : null, error: result.error);
+      return result;
     } catch (e) {
       return ApiResponse(
         success: false,

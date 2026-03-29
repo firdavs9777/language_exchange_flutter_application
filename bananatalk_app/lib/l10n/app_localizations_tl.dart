@@ -2963,6 +2963,29 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'Ini-host ni $name';
+  }
+
+  @override
+  String get liveLabel => 'LIVE';
+
+  @override
+  String get joinLabel => 'Sumali';
+
+  @override
+  String get fullLabel => 'Puno';
+
+  @override
+  String get justStarted => 'Kakasimula lang';
+
+  @override
+  String get allLanguages => 'Lahat ng wika';
+
+  @override
+  String get allTopics => 'Lahat ng paksa';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -3330,7 +3353,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String charactersCount(int count) {
-    return '$current/$max character';
+    return '$count/500 character';
   }
 
   @override

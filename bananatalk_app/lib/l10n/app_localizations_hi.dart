@@ -2963,6 +2963,29 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return '$name द्वारा होस्ट किया गया';
+  }
+
+  @override
+  String get liveLabel => 'लाइव';
+
+  @override
+  String get joinLabel => 'शामिल हों';
+
+  @override
+  String get fullLabel => 'भरा हुआ';
+
+  @override
+  String get justStarted => 'अभी शुरू हुआ';
+
+  @override
+  String get allLanguages => 'सभी भाषाएँ';
+
+  @override
+  String get allTopics => 'सभी विषय';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

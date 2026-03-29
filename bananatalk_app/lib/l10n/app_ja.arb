@@ -960,6 +960,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "{name}がホスト",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "ライブ",
+  "joinLabel": "参加",
+  "fullLabel": "満員",
+  "justStarted": "開始したばかり",
+  "allLanguages": "すべての言語",
+  "allTopics": "すべてのトピック",
 
   "dataAndStorage": "データとストレージ",
   "manageStorageAndDownloads": "ストレージとダウンロードを管理",

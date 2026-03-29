@@ -26,11 +26,26 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                'assets/images/logo_no_background.png',
-                height: 300,
-                width: 300,
+              Text(
+                'BananaTalk',
+                style: TextStyle(
+                  fontSize: 42,
+                  fontWeight: FontWeight.w800,
+                  color: Theme.of(context).primaryColor,
+                  letterSpacing: -0.5,
+                ),
               ),
+              const SizedBox(height: 8),
+              Text(
+                'MEET · CHAT · CONNECT',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                  letterSpacing: 2.0,
+                ),
+              ),
+              const SizedBox(height: 24),
               BananaText(
                 'Connect, learn, and grow with our Language Exchange app',
                 textAlign: TextAlign.center,

@@ -2963,6 +2963,29 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return '$nameがホスト';
+  }
+
+  @override
+  String get liveLabel => 'ライブ';
+
+  @override
+  String get joinLabel => '参加';
+
+  @override
+  String get fullLabel => '満員';
+
+  @override
+  String get justStarted => '開始したばかり';
+
+  @override
+  String get allLanguages => 'すべての言語';
+
+  @override
+  String get allTopics => 'すべてのトピック';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

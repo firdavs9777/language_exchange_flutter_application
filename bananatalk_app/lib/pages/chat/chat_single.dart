@@ -18,7 +18,6 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
-import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
@@ -482,17 +481,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (!mounted) return;
 
       final callNotifier = ref.read(callProvider.notifier);
-      callNotifier.setIncomingCallCallback((call) {
-        if (mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => IncomingCallScreen(call: call),
-              fullscreenDialog: true,
-            ),
-          );
-        }
-      });
+      // Incoming call callback is set globally in main.dart
       callNotifier.setCallErrorCallback((error) {
         if (mounted) _handleCallError(context, error);
       });

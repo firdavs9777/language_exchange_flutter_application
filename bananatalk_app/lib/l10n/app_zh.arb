@@ -974,6 +974,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "{name} 主持",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "直播中",
+  "joinLabel": "加入",
+  "fullLabel": "已满",
+  "justStarted": "刚刚开始",
+  "allLanguages": "所有语言",
+  "allTopics": "所有话题",
 
   "dataAndStorage": "数据与存储",
   "manageStorageAndDownloads": "管理存储和下载",

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -11,9 +12,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
-/// Top-level function for handling background messages
+/// Top-level function for handling background messages.
+/// Shows native CallKit/full-screen call UI for incoming calls.
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  final type = message.data['type']?.toString().toLowerCase();
+
+  if (type == 'incoming_call') {
+    final callerName = message.data['callerName'] ?? 'Unknown';
+    final callerAvatar = message.data['callerProfilePicture'] ?? message.data['callerAvatar'];
+    final callType = message.data['callType'] ?? 'audio';
+    final callId = message.data['callId'] ?? '';
+
+    // Use flutter_callkit_incoming for native call UI on both platforms.
+    // On iOS this triggers CallKit (works on lock screen).
+    // On Android this shows a full-screen activity (no permission issues).
+    final callKitService = CallKitService();
+    await callKitService.showIncomingCall(
+      callId: callId,
+      callerName: callerName,
+      callerAvatar: callerAvatar,
+      isVideo: callType == 'video',
+    );
+  }
 }
 
 class NotificationService {
@@ -132,8 +153,13 @@ class NotificationService {
       onDidReceiveNotificationResponse: _handleNotificationTap,
     );
 
-    // Create Android notification channel
+    // Create Android notification channels
     if (Platform.isAndroid) {
+      final androidPlugin = _localNotifications
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+
       const channel = AndroidNotificationChannel(
         'high_importance_channel',
         'High Importance Notifications',
@@ -142,12 +168,18 @@ class NotificationService {
         enableVibration: true,
         playSound: true,
       );
+      await androidPlugin?.createNotificationChannel(channel);
 
-      await _localNotifications
-          .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >()
-          ?.createNotificationChannel(channel);
+      // Dedicated channel for incoming calls with full-screen intent
+      const callChannel = AndroidNotificationChannel(
+        'incoming_calls_channel',
+        'Incoming Calls',
+        description: 'Incoming voice and video call alerts',
+        importance: Importance.max,
+        enableVibration: true,
+        playSound: true,
+      );
+      await androidPlugin?.createNotificationChannel(callChannel);
     }
 
   }
@@ -229,10 +261,17 @@ class NotificationService {
       _processedMessageIds.remove(_processedMessageIds.first);
     }
 
+    final notificationType = message.data['type']?.toString().toLowerCase();
+
     // Don't show local notification for chat messages when app is in foreground
     // The socket already handles real-time message delivery
-    final notificationType = message.data['type']?.toString().toLowerCase();
     if (notificationType == 'chat_message') {
+      return;
+    }
+
+    // Incoming calls in foreground are handled by the socket → IncomingCallScreen.
+    // Don't show a duplicate notification banner.
+    if (notificationType == 'incoming_call') {
       return;
     }
 
@@ -482,6 +521,11 @@ class NotificationService {
   Future<void> clearBadge() async {
     // Badge will be managed by the backend via notification payloads
     // iOS clears badge when notifications are read
+  }
+
+  /// Cancel the ongoing incoming-call notification (Android full-screen intent)
+  Future<void> cancelCallNotification() async {
+    await _localNotifications.cancel(9999);
   }
 
   /// Check notification permission status

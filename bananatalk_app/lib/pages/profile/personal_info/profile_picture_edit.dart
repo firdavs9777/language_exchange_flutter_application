@@ -582,7 +582,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: Spacing.screenPaddingLarge,
+          padding: Spacing.screenPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

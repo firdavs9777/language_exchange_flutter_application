@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
+import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -87,8 +88,8 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           ElevatedButton(
             onPressed: () {
               ref.read(voiceRoomProvider).leaveRoom();
-              Navigator.pop(dialogContext); // Close dialog
-              Navigator.pop(context); // Leave room
+              Navigator.pop(dialogContext);
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
@@ -103,6 +104,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A2E),
       appBar: AppBar(
@@ -117,9 +119,9 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           children: [
             Text(
               widget.room.topic,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
-                color: Colors.white.withOpacity(0.6),
+                color: Color(0x99FFFFFF),
               ),
             ),
             Text(
@@ -140,7 +142,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: const Color(0xFFE91E63).withOpacity(0.2),
+              color: const Color(0xFFE91E63).withValues(alpha: 0.2),
               borderRadius: AppRadius.borderMD,
             ),
             child: Row(
@@ -163,14 +165,9 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       ),
       body: Column(
         children: [
-          // Room info
-          _buildRoomInfo(),
-          // Participants
-          Expanded(
-            child: _buildParticipants(),
-          ),
-          // Controls
-          _buildControls(),
+          _buildRoomInfo(l10n),
+          Expanded(child: _buildParticipants(l10n)),
+          _buildControls(l10n),
         ],
       ),
     );
@@ -195,12 +192,12 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     );
   }
 
-  Widget _buildRoomInfo() {
+  Widget _buildRoomInfo(AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
+        color: const Color(0x0DFFFFFF),
         borderRadius: AppRadius.borderMD,
       ),
       child: Row(
@@ -208,7 +205,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFF00BFA5).withOpacity(0.2),
+              color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
               borderRadius: AppRadius.borderSM,
             ),
             child: Row(
@@ -235,24 +232,24 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
+              color: const Color(0x1AFFFFFF),
               borderRadius: AppRadius.borderSM,
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.people_rounded,
                   size: 16,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Color(0xB3FFFFFF),
                 ),
                 Spacing.hGapSM,
                 Text(
                   widget.room.participantCountText,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white.withOpacity(0.7),
+                    color: Color(0xB3FFFFFF),
                   ),
                 ),
               ],
@@ -263,36 +260,23 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     );
   }
 
-  Widget _buildParticipants() {
+  Widget _buildParticipants(AppLocalizations l10n) {
     final voiceRoom = ref.watch(voiceRoomProvider);
     final providerParticipants = voiceRoom.participants;
 
-    // Use provider participants if available, otherwise fall back to room data
-    final allParticipants = providerParticipants.isNotEmpty
-        ? [
-            // Add host as first participant
-            RoomParticipant(
-              id: widget.room.hostId,
-              name: widget.room.hostName,
-              avatar: widget.room.hostAvatar,
-              isHost: true,
-              isSpeaking: true,
-              joinedAt: widget.room.createdAt,
-            ),
-            ...providerParticipants.where((p) => p.id != widget.room.hostId),
-          ]
-        : [
-            // Add host as first participant
-            RoomParticipant(
-              id: widget.room.hostId,
-              name: widget.room.hostName,
-              avatar: widget.room.hostAvatar,
-              isHost: true,
-              isSpeaking: true,
-              joinedAt: widget.room.createdAt,
-            ),
-            ...widget.room.participants,
-          ];
+    final rawParticipants = providerParticipants.isNotEmpty
+        ? providerParticipants
+        : widget.room.participants;
+
+    // Sort so host appears first
+    final allParticipants = List<RoomParticipant>.from(rawParticipants);
+    allParticipants.sort((a, b) {
+      final aIsHost = a.isHost || a.id == widget.room.hostId;
+      final bIsHost = b.isHost || b.id == widget.room.hostId;
+      if (aIsHost && !bIsHost) return -1;
+      if (!aIsHost && bIsHost) return 1;
+      return 0;
+    });
 
     return GridView.builder(
       padding: const EdgeInsets.all(16),
@@ -305,32 +289,41 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       itemCount: allParticipants.length,
       itemBuilder: (context, index) {
         final participant = allParticipants[index];
+        final isHost = participant.isHost || participant.id == widget.room.hostId;
         return _ParticipantTile(
           participant: participant,
-          isHost: index == 0,
-          hostLabel: AppLocalizations.of(context)!.roomHost,
+          isHost: isHost,
+          hostLabel: l10n.roomHost,
+          onTap: () {
+            if (participant.id.isNotEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProfileWrapper(userId: participant.id),
+                ),
+              );
+            }
+          },
         );
       },
     );
   }
 
-  Widget _buildControls() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildControls(AppLocalizations l10n) {
     final voiceRoom = ref.watch(voiceRoomProvider);
     final isMuted = voiceRoom.isMuted;
     final isHandRaised = voiceRoom.isHandRaised;
 
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: const BoxDecoration(
+        color: Color(0x0DFFFFFF),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // Raise hand
             _ControlButton(
               icon: isHandRaised
                   ? Icons.front_hand_rounded
@@ -338,27 +331,25 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
               label: isHandRaised ? l10n.lowerHand : l10n.raiseHand,
               color: isHandRaised ? const Color(0xFFFFB74D) : Colors.white,
               backgroundColor: isHandRaised
-                  ? const Color(0xFFFFB74D).withOpacity(0.2)
-                  : Colors.white.withOpacity(0.1),
+                  ? const Color(0xFFFFB74D).withValues(alpha: 0.2)
+                  : const Color(0x1AFFFFFF),
               onTap: _toggleHandRaise,
             ),
-            // Mute/Unmute
             _ControlButton(
               icon: isMuted ? Icons.mic_off_rounded : Icons.mic_rounded,
               label: isMuted ? l10n.unmute : l10n.mute,
               color: isMuted ? Colors.red : const Color(0xFF00BFA5),
               backgroundColor: isMuted
-                  ? Colors.red.withOpacity(0.2)
-                  : const Color(0xFF00BFA5).withOpacity(0.2),
+                  ? Colors.red.withValues(alpha: 0.2)
+                  : const Color(0xFF00BFA5).withValues(alpha: 0.2),
               onTap: _toggleMute,
               isLarge: true,
             ),
-            // Leave
             _ControlButton(
               icon: Icons.call_end_rounded,
               label: l10n.leave,
               color: Colors.red,
-              backgroundColor: Colors.red.withOpacity(0.2),
+              backgroundColor: Colors.red.withValues(alpha: 0.2),
               onTap: _leaveRoom,
             ),
           ],
@@ -372,116 +363,121 @@ class _ParticipantTile extends StatelessWidget {
   final RoomParticipant participant;
   final bool isHost;
   final String hostLabel;
+  final VoidCallback? onTap;
 
   const _ParticipantTile({
     required this.participant,
     required this.hostLabel,
     this.isHost = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Avatar with speaking indicator
-        Stack(
-          children: [
-            Container(
-              width: 72,
-              height: 72,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Avatar with speaking indicator
+          Stack(
+            children: [
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  border: participant.isSpeaking
+                      ? Border.all(
+                          color: const Color(0xFF00BFA5),
+                          width: 3,
+                        )
+                      : null,
+                  boxShadow: participant.isSpeaking
+                      ? [
+                          BoxShadow(
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.4),
+                            blurRadius: 12,
+                            spreadRadius: 2,
+                          ),
+                        ]
+                      : null,
                 ),
-                border: participant.isSpeaking
-                    ? Border.all(
-                        color: const Color(0xFF00BFA5),
-                        width: 3,
-                      )
-                    : null,
-                boxShadow: participant.isSpeaking
-                    ? [
-                        BoxShadow(
-                          color: const Color(0xFF00BFA5).withOpacity(0.4),
-                          blurRadius: 12,
-                          spreadRadius: 2,
-                        ),
-                      ]
-                    : null,
-              ),
-              child: ClipOval(
-                child: participant.avatar.isNotEmpty
-                    ? Image.network(
-                        participant.avatar,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _buildAvatarFallback(),
-                      )
-                    : _buildAvatarFallback(),
-              ),
-            ),
-            // Host badge
-            if (isHost)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFFB74D),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.star_rounded,
-                    size: 12,
-                    color: Colors.white,
-                  ),
+                child: ClipOval(
+                  child: participant.avatar.isNotEmpty
+                      ? Image.network(
+                          participant.avatar,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => _buildAvatarFallback(),
+                        )
+                      : _buildAvatarFallback(),
                 ),
               ),
-            // Muted indicator
-            if (participant.isMuted)
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.mic_off_rounded,
-                    size: 12,
-                    color: Colors.white,
+              // Host badge
+              if (isHost)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFFB74D),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.star_rounded,
+                      size: 12,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-          ],
-        ),
-        Spacing.gapSM,
-        // Name
-        Text(
-          participant.name,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+              // Muted indicator
+              if (participant.isMuted)
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.mic_off_rounded,
+                      size: 12,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+            ],
           ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        if (isHost)
+          Spacing.gapSM,
+          // Name
           Text(
-            hostLabel,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.white.withOpacity(0.5),
+            participant.name.isNotEmpty ? participant.name : '?',
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-      ],
+          if (isHost)
+            Text(
+              hostLabel,
+              style: const TextStyle(
+                fontSize: 11,
+                color: Color(0x80FFFFFF),
+              ),
+            ),
+        ],
+      ),
     );
   }
 
@@ -546,9 +542,9 @@ class _ControlButton extends StatelessWidget {
         Spacing.gapSM,
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
-            color: Colors.white.withOpacity(0.7),
+            color: Color(0xB3FFFFFF),
           ),
         ),
       ],

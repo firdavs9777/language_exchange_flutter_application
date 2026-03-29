@@ -277,6 +277,8 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     _stateManager!.onCorrectionReceived = (messageId, correctionData) {
       try {
         final correction = MessageCorrection.fromJson(correctionData);
+
+        // Also store correction on original message (for data consistency)
         final updatedMessages = state.messages.map((msg) {
           if (msg.id == messageId) {
             return msg.copyWith(
@@ -285,7 +287,33 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
           }
           return msg;
         }).toList();
-        state = state.copyWith(messages: updatedMessages);
+
+        // Find the original message to get its position
+        final originalIndex = updatedMessages.indexWhere((m) => m.id == messageId);
+        if (originalIndex == -1) return;
+        final originalMessage = updatedMessages[originalIndex];
+
+        // Create a synthetic correction message that appears as a new message
+        // in the chat flow from the corrector
+        final correctionMessage = Message(
+          id: 'correction_${correction.id}',
+          sender: correction.corrector,
+          receiver: originalMessage.sender, // correction is directed at the original sender
+          message: correction.correctedText,
+          createdAt: correction.createdAt.isNotEmpty
+              ? correction.createdAt
+              : DateTime.now().toIso8601String(),
+          version: 0,
+          read: true,
+          type: 'correction',
+          corrections: [correction], // attach the correction data for rendering
+        );
+
+        // Insert the correction message right after the original message
+        final newMessages = List<Message>.from(updatedMessages);
+        newMessages.insert(originalIndex + 1, correctionMessage);
+
+        state = state.copyWith(messages: newMessages);
       } catch (e) {
         debugPrint('Error parsing correction: $e');
       }

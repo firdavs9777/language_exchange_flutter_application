@@ -979,6 +979,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Ведущий: {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "ПРЯМОЙ ЭФИР",
+  "joinLabel": "Войти",
+  "fullLabel": "Заполнено",
+  "justStarted": "Только что началось",
+  "allLanguages": "Все языки",
+  "allTopics": "Все темы",
 
   "dataAndStorage": "Данные и Хранилище",
   "manageStorageAndDownloads": "Управление хранилищем и загрузками",

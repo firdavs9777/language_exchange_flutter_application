@@ -2963,6 +2963,29 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return '$name tarafından düzenleniyor';
+  }
+
+  @override
+  String get liveLabel => 'CANLI';
+
+  @override
+  String get joinLabel => 'Katıl';
+
+  @override
+  String get fullLabel => 'Dolu';
+
+  @override
+  String get justStarted => 'Yeni başladı';
+
+  @override
+  String get allLanguages => 'Tüm diller';
+
+  @override
+  String get allTopics => 'Tüm konular';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -3330,7 +3353,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String charactersCount(int count) {
-    return '$current/$max karakter';
+    return '$count/500 karakter';
   }
 
   @override

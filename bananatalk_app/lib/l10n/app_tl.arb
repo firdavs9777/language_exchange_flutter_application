@@ -955,6 +955,14 @@
       "count": {"type": "int"}
     }
   },
+  "hostedBy": "Ini-host ni {name}",
+  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "liveLabel": "LIVE",
+  "joinLabel": "Sumali",
+  "fullLabel": "Puno",
+  "justStarted": "Kakasimula lang",
+  "allLanguages": "Lahat ng wika",
+  "allTopics": "Lahat ng paksa",
 
   "dataAndStorage": "Data at Storage",
   "manageStorageAndDownloads": "Pamahalaan ang storage at downloads",
@@ -1053,13 +1061,7 @@
   "editBio": "I-edit ang Bio",
   "bioUpdatedSuccessfully": "Na-update na ang bio!",
   "tellOthersAboutYourself": "Magkuwento tungkol sa sarili mo",
-  "charactersCount": "{current}/{max} character",
-  "@charactersCount": {
-    "placeholders": {
-      "current": {"type": "int"},
-      "max": {"type": "int"}
-    }
-  },
+  "charactersCount": "{count}/500 character",
   "selectYourMbti": "Piliin ang iyong MBTI",
   "myBloodType": "Ang Blood Type Ko",
   "pleaseSelectABloodType": "Pumili ng blood type",

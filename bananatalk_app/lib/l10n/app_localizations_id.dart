@@ -2963,6 +2963,29 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String hostedBy(String name) {
+    return 'Dihosting oleh $name';
+  }
+
+  @override
+  String get liveLabel => 'SIARAN LANGSUNG';
+
+  @override
+  String get joinLabel => 'Gabung';
+
+  @override
+  String get fullLabel => 'Penuh';
+
+  @override
+  String get justStarted => 'Baru dimulai';
+
+  @override
+  String get allLanguages => 'Semua bahasa';
+
+  @override
+  String get allTopics => 'Semua topik';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

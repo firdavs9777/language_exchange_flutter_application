@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/services/voice_room_manager.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 
 /// State for voice room
@@ -125,12 +126,12 @@ class VoiceRoomNotifier extends ChangeNotifier {
 
     try {
       final response = await _apiClient.post(
-        '/api/v1/voicerooms',
+        'voicerooms',
         body: request.toJson(),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.data['data'] ?? response.data;
+      if (response.success) {
+        final data = response.data is Map<String, dynamic> ? response.data : response.data['data'];
         final room = VoiceRoom.fromJson(Map<String, dynamic>.from(data));
 
         _state = _state.copyWith(isLoading: false);
@@ -138,7 +139,7 @@ class VoiceRoomNotifier extends ChangeNotifier {
 
         return room;
       } else {
-        throw Exception(response.data['message'] ?? 'Failed to create room');
+        throw Exception(response.error ?? 'Failed to create room');
       }
     } catch (e) {
       _state = _state.copyWith(
@@ -150,12 +151,19 @@ class VoiceRoomNotifier extends ChangeNotifier {
     }
   }
 
+  /// Ensure VoiceRoomManager is initialized with the socket
+  Future<void> _ensureInitialized() async {
+    final chatSocketService = ChatSocketService();
+    await _manager.initialize(chatSocketService);
+  }
+
   /// Join an existing voice room
   Future<void> joinRoom(VoiceRoom room) async {
     _state = _state.copyWith(isLoading: true, error: null);
     notifyListeners();
 
     try {
+      await _ensureInitialized();
       await _manager.joinRoom(room);
       _updateState();
       _state = _state.copyWith(isLoading: false);
@@ -206,17 +214,33 @@ class VoiceRoomNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Fetch available voice rooms
-  Future<List<VoiceRoom>> fetchRooms() async {
+  /// Fetch available voice rooms with optional filters
+  Future<List<VoiceRoom>> fetchRooms({String? language, String? topic}) async {
     try {
-      final response = await _apiClient.get('/api/v1/voicerooms');
+      final queryParams = <String, String>{};
+      if (language != null && language.isNotEmpty) queryParams['language'] = language;
+      if (topic != null && topic.isNotEmpty) queryParams['topic'] = topic;
+      final query = queryParams.isNotEmpty
+          ? '?${queryParams.entries.map((e) => '${e.key}=${Uri.encodeComponent(e.value)}').join('&')}'
+          : '';
+      final response = await _apiClient.get('voicerooms$query');
 
-      if (response.statusCode == 200) {
-        final data = response.data['data'] as List? ?? [];
+      if (response.success) {
+        // response.data may be full body (with pagination) or just the data array
+        List data;
+        if (response.data is List) {
+          data = response.data as List;
+        } else if (response.data is Map && response.data['data'] is List) {
+          data = response.data['data'] as List;
+        } else {
+          data = [];
+        }
         return data.map((r) => VoiceRoom.fromJson(Map<String, dynamic>.from(r))).toList();
       }
+      debugPrint('[VoiceRoom] fetchRooms failed: ${response.error}');
       return [];
     } catch (e) {
+      debugPrint('[VoiceRoom] fetchRooms error: $e');
       return [];
     }
   }
