@@ -12,6 +12,12 @@ class LinkifiedText extends StatefulWidget {
   final TextOverflow? overflow;
   final TextAlign? textAlign;
 
+  // Public so callers (e.g. link preview) can reuse the same pattern
+  static final urlRegex = RegExp(
+    r'(https?://[^\s]+|www\.[^\s]+)',
+    caseSensitive: false,
+  );
+
   const LinkifiedText({
     super.key,
     required this.text,
@@ -27,10 +33,6 @@ class LinkifiedText extends StatefulWidget {
 }
 
 class _LinkifiedTextState extends State<LinkifiedText> {
-  static final _urlRegex = RegExp(
-    r'(https?://[^\s]+|www\.[^\s]+)',
-    caseSensitive: false,
-  );
 
   final List<TapGestureRecognizer> _recognizers = [];
 
@@ -76,7 +78,7 @@ class _LinkifiedTextState extends State<LinkifiedText> {
         );
 
     int lastEnd = 0;
-    for (final match in _urlRegex.allMatches(text)) {
+    for (final match in LinkifiedText.urlRegex.allMatches(text)) {
       // Add plain text before the URL
       if (match.start > lastEnd) {
         spans.add(TextSpan(
@@ -113,7 +115,7 @@ class _LinkifiedTextState extends State<LinkifiedText> {
   @override
   Widget build(BuildContext context) {
     // If no URLs found, render as plain text for performance
-    if (!_urlRegex.hasMatch(widget.text)) {
+    if (!LinkifiedText.urlRegex.hasMatch(widget.text)) {
       return Text(
         widget.text,
         style: widget.style,

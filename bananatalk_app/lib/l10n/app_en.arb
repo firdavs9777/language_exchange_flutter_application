@@ -1740,6 +1740,159 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "studyHub": "Study Hub",
+  "dailyLearningJourney": "Your daily learning journey",
+  "learnTab": "Learn",
+  "aiTools": "AI Tools",
+  "streak": "Streak",
+  "lessons": "Lessons",
+  "words": "Words",
+  "quickActions": "Quick Actions",
+  "review": "Review",
+  "wordsDue": "{count} words due",
+  "@wordsDue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addWords": "Add Words",
+  "buildVocabulary": "Build vocabulary",
+  "practiceWithAI": "Practice with AI",
+  "aiPracticeDescription": "Chat, quiz, grammar & pronunciation",
+  "dailyChallenges": "Daily Challenges",
+  "allChallengesCompleted": "All challenges completed!",
+  "continueLearning": "Continue Learning",
+  "structuredLearningPath": "Structured learning path",
+  "vocabulary": "Vocabulary",
+  "yourWordCollection": "Your word collection",
+  "achievements": "Achievements",
+  "badgesAndMilestones": "Badges and milestones",
+  "failedToLoadLearningData": "Failed to load learning data",
+  "startYourJourney": "Start your journey!",
+  "startJourneyDescription": "Complete lessons, build vocabulary, and\ntrack your progress",
+  "levelN": "Level {level}",
+  "@levelN": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "xpEarned": "{xp} XP earned",
+  "@xpEarned": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "nextLevel": "Next: Level {level}",
+  "@nextLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "xpToGo": "{xp} XP to go",
+  "@xpToGo": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "aiConversationPartner": "AI Conversation Partner",
+  "practiceWithAITutor": "Practice speaking with your AI tutor",
+  "startConversation": "Start Conversation",
+  "aiFeatures": "AI Features",
+  "aiLessons": "AI Lessons",
+  "learnWithAI": "Learn with AI",
+  "grammar": "Grammar",
+  "checkWriting": "Check writing",
+  "pronunciation": "Pronunciation",
+  "improveSpeaking": "Improve speaking",
+  "translation": "Translation",
+  "smartTranslate": "Smart translate",
+  "aiQuizzes": "AI Quizzes",
+  "testKnowledge": "Test knowledge",
+  "lessonBuilder": "Lesson Builder",
+  "customLessons": "Custom lessons",
+  "yourAIProgress": "Your AI Progress",
+  "quizzes": "Quizzes",
+  "avgScore": "Avg Score",
+  "focusAreas": "Focus Areas",
+  "accuracyPercent": "{accuracy}% accuracy",
+  "@accuracyPercent": {
+    "placeholders": {
+      "accuracy": {
+        "type": "String"
+      }
+    }
+  },
+  "practice": "Practice",
+  "browse": "Browse",
+  "noRecommendedLessons": "No recommended lessons available",
+  "noLessonsFound": "No lessons found",
+  "createCustomLessonDescription": "Create your own custom lesson with AI",
+  "createLessonWithAI": "Create Lesson with AI",
+  "allLevels": "All Levels",
+  "levelA1": "A1 Beginner",
+  "levelA2": "A2 Elementary",
+  "levelB1": "B1 Intermediate",
+  "levelB2": "B2 Upper-Int",
+  "levelC1": "C1 Advanced",
+  "levelC2": "C2 Proficient",
+  "failedToLoadLessons": "Failed to load lessons",
+  "pin": "Pin",
+  "unpin": "Unpin",
+  "editMessage": "Edit Message",
+  "enterMessage": "Enter message...",
+  "deleteMessageTitle": "Delete Message",
+  "actionCannotBeUndone": "This action cannot be undone.",
+  "onlyRemovesFromDevice": "Only removes from your device",
+  "availableWithinOneHour": "Only available within 1 hour",
+  "available": "Available",
+  "forwardMessage": "Forward Message",
+  "selectUsersToForward": "Select users to forward to:",
+  "forwardCount": "Forward ({count})",
+  "@forwardCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pinnedMessage": "Pinned Message",
+  "photoMedia": "Photo",
+  "videoMedia": "Video",
+  "voiceMessageMedia": "Voice message",
+  "documentMedia": "Document",
+  "locationMedia": "Location",
+  "stickerMedia": "Sticker",
+  "smileys": "Smileys",
+  "emotions": "Emotions",
+  "handGestures": "Hand Gestures",
+  "hearts": "Hearts",
+  "tapToSayHi": "Tap to say hi!",
+  "sendWaveToStart": "Send a wave to start chatting",
+  "videoMustBeUnder1GB": "Video must be under 1GB.",
+  "documentMustBeUnder50MB": "Document must be under 50MB.",
+  "editWithin15Minutes": "Messages can only be edited within 15 minutes",
+  "messageForwardedTo": "Message forwarded to {count} user(s)",
+  "@messageForwardedTo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "failedToLoadUsers": "Failed to load users",
+  "voice": "Voice",
+  "you": "You"
 }
 

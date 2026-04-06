@@ -335,7 +335,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             ),
           // Bottom padding for FAB
           const SliverToBoxAdapter(
-            child: SizedBox(height: 80),
+            child: SizedBox(height: 100),
           ),
         ],
       ),

@@ -164,7 +164,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
 
   Widget _buildTopicsGrid() {
     return GridView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 2.5,

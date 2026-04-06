@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 
 /// Telegram-style bottom sheet for message actions
 class MessageActionsBottomSheet extends StatelessWidget {
@@ -124,7 +126,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isMe ? 'You' : message.sender.name,
+                            isMe ? AppLocalizations.of(context)!.you : message.sender.name,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: isMe ? theme.primaryColor : Colors.green,
@@ -193,7 +195,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
             _buildActionItem(
               context,
               icon: Icons.reply_rounded,
-              label: 'Reply',
+              label: AppLocalizations.of(context)!.reply,
               onTap: () {
                 Navigator.pop(context);
                 onReply?.call();
@@ -204,14 +206,14 @@ class MessageActionsBottomSheet extends StatelessWidget {
               _buildActionItem(
                 context,
                 icon: Icons.copy_rounded,
-                label: 'Copy',
+                label: AppLocalizations.of(context)!.copy,
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: message.message!));
                   Navigator.pop(context);
                   onCopy?.call();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Message copied'),
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)!.messageCopied),
                       duration: Duration(seconds: 1),
                     ),
                   );
@@ -222,7 +224,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
               _buildActionItem(
                 context,
                 icon: Icons.translate_rounded,
-                label: 'Translate',
+                label: AppLocalizations.of(context)!.translate,
                 onTap: () {
                   Navigator.pop(context);
                   onTranslate?.call();
@@ -232,7 +234,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
             _buildActionItem(
               context,
               icon: Icons.forward_rounded,
-              label: 'Forward',
+              label: AppLocalizations.of(context)!.forward,
               onTap: () {
                 Navigator.pop(context);
                 onForward?.call();
@@ -242,7 +244,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
             _buildActionItem(
               context,
               icon: message.isPinned ? Icons.push_pin_outlined : Icons.push_pin_rounded,
-              label: message.isPinned ? 'Unpin' : 'Pin',
+              label: message.isPinned ? AppLocalizations.of(context)!.unpin : AppLocalizations.of(context)!.pin,
               onTap: () {
                 Navigator.pop(context);
                 onPin?.call();
@@ -253,7 +255,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
               _buildActionItem(
                 context,
                 icon: Icons.edit_rounded,
-                label: 'Edit',
+                label: AppLocalizations.of(context)!.edit,
                 subtitle: editTimeRemaining,
                 onTap: () {
                   Navigator.pop(context);
@@ -265,7 +267,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
               _buildActionItem(
                 context,
                 icon: Icons.delete_rounded,
-                label: 'Delete',
+                label: AppLocalizations.of(context)!.delete,
                 isDestructive: true,
                 onTap: () {
                   Navigator.pop(context);
@@ -294,7 +296,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        HapticFeedback.lightImpact();
+        HapticUtils.lightImpact();
         onTap();
       },
       child: Padding(
@@ -347,7 +349,7 @@ Future<void> showMessageActionsBottomSheet(
   VoidCallback? onTranslate,
   Function(String emoji)? onReaction,
 }) {
-  HapticFeedback.mediumImpact();
+  HapticUtils.onLongPress();
 
   return showModalBottomSheet(
     context: context,

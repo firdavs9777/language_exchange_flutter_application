@@ -316,6 +316,20 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         ),
         style: context.bodyMedium,
         onChanged: (value) {
+          // Auto-strip leading @ when pasting a username
+          if (value.startsWith('@') && value.length > 1 && !value.contains(' ')) {
+            final stripped = value.substring(1);
+            _searchController.text = stripped;
+            _searchController.selection = TextSelection.fromPosition(
+              TextPosition(offset: stripped.length),
+            );
+            setState(() {
+              _searchQuery = stripped;
+            });
+            // Auto-search the username
+            _findUserByUsername(stripped);
+            return;
+          }
           setState(() {
             _searchQuery = value;
           });
@@ -332,12 +346,17 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   /// Find user by username and navigate to their profile
   Future<void> _findUserByUsername(String username) async {
     final colorScheme = Theme.of(context).colorScheme;
+    final messenger = ScaffoldMessenger.of(context);
 
-    // Show loading
+    // Use rootNavigator for dialog so it doesn't conflict with page navigation
+    final rootNavigator = Navigator.of(context, rootNavigator: true);
+
+    // Show loading dialog on root navigator
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(
+      useRootNavigator: true,
+      builder: (ctx) => Center(
         child: Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -364,7 +383,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       final user = await userService.getUserByUsername(username);
 
       if (!mounted) return;
-      Navigator.of(context).pop(); // Close loading
+
+      // Close loading dialog on root navigator
+      rootNavigator.pop();
 
       if (user != null) {
         // Clear search
@@ -375,14 +396,13 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         });
 
         // Navigate to user profile
-        Navigator.push(
-          context,
+        Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => SingleCommunity(community: user),
           ),
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
+        messenger.showSnackBar(
           SnackBar(
             content: Text('User @$username not found'),
             backgroundColor: colorScheme.error,
@@ -392,9 +412,13 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       }
     } catch (e) {
       if (!mounted) return;
-      Navigator.of(context).pop();
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      // Close loading dialog safely on root navigator
+      try {
+        rootNavigator.pop();
+      } catch (_) {}
+
+      messenger.showSnackBar(
         SnackBar(
           content: Text('Error: $e'),
           backgroundColor: colorScheme.error,

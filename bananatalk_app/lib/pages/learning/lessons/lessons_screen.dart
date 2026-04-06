@@ -7,6 +7,8 @@ import 'package:bananatalk_app/pages/learning/lessons/lesson_player_screen.dart'
 import 'package:bananatalk_app/pages/ai/lesson_builder/lesson_builder_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Lessons browse screen
 class LessonsScreen extends ConsumerStatefulWidget {
@@ -39,6 +41,16 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    // Set language pair from user profile after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final user = ref.read(userProvider).valueOrNull;
+      if (user != null) {
+        ref.read(lessonFilterProvider.notifier).state = LessonFilter(
+          language: user.language_to_learn,
+          sourceLanguage: user.native_language,
+        );
+      }
+    });
   }
 
   @override
@@ -59,7 +71,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
         elevation: 0,
         backgroundColor: context.surfaceColor,
         title: Text(
-          'Lessons',
+          AppLocalizations.of(context)!.lessons,
           style: context.titleLarge,
         ),
         leading: IconButton(
@@ -71,15 +83,46 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
           labelColor: AppColors.primary,
           unselectedLabelColor: context.textSecondary,
           indicatorColor: AppColors.primary,
-          tabs: const [
-            Tab(text: 'Browse'),
-            Tab(text: 'Recommended'),
+          tabs: [
+            Tab(text: AppLocalizations.of(context)!.recommended),
+            Tab(text: AppLocalizations.of(context)!.browse),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
         children: [
+          // Recommended Tab
+          recommendedAsync.when(
+            data: (lessons) {
+              if (lessons.isEmpty) {
+                return _buildEmptyState(
+                    message: AppLocalizations.of(context)!.noRecommendedLessons);
+              }
+              return RefreshIndicator(
+                onRefresh: () async {
+                  ref.invalidate(recommendedLessonsProvider);
+                },
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: lessons.length,
+                  itemBuilder: (context, index) {
+                    final lesson = lessons[index];
+                    return LessonCard(
+                      lesson: lesson,
+                      onTap: () => _openLesson(lesson.id),
+                    );
+                  },
+                ),
+              );
+            },
+            loading: () => const Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            ),
+            error: (error, stack) => _buildErrorState(
+              onRetry: () => ref.invalidate(recommendedLessonsProvider),
+            ),
+          ),
           // Browse Tab
           Column(
             children: [
@@ -99,7 +142,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: FilterChip(
-                              label: Text(_formatCategory(category)),
+                              label: Text(_formatCategory(category, context)),
                               selected: isSelected,
                               onSelected: (selected) {
                                 setState(() {
@@ -137,7 +180,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: ChoiceChip(
-                              label: Text(_formatLevel(level)),
+                              label: Text(_formatLevel(level, context)),
                               selected: isSelected,
                               onSelected: (selected) {
                                 setState(() {
@@ -197,37 +240,6 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
               ),
             ],
           ),
-          // Recommended Tab
-          recommendedAsync.when(
-            data: (lessons) {
-              if (lessons.isEmpty) {
-                return _buildEmptyState(
-                    message: 'No recommended lessons available');
-              }
-              return RefreshIndicator(
-                onRefresh: () async {
-                  ref.invalidate(recommendedLessonsProvider);
-                },
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: lessons.length,
-                  itemBuilder: (context, index) {
-                    final lesson = lessons[index];
-                    return LessonCard(
-                      lesson: lesson,
-                      onTap: () => _openLesson(lesson.id),
-                    );
-                  },
-                ),
-              );
-            },
-            loading: () => const Center(
-              child: CircularProgressIndicator(color: AppColors.primary),
-            ),
-            error: (error, stack) => _buildErrorState(
-              onRetry: () => ref.invalidate(recommendedLessonsProvider),
-            ),
-          ),
         ],
       ),
     );
@@ -245,26 +257,27 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
     });
   }
 
-  String _formatCategory(String category) {
-    if (category == 'all') return 'All';
+  String _formatCategory(String category, BuildContext context) {
+    if (category == 'all') return AppLocalizations.of(context)!.all;
     return category[0].toUpperCase() + category.substring(1);
   }
 
-  String _formatLevel(String level) {
-    if (level == 'all') return 'All Levels';
+  String _formatLevel(String level, BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    if (level == 'all') return l10n.allLevels;
     switch (level) {
       case 'A1':
-        return 'A1 Beginner';
+        return l10n.levelA1;
       case 'A2':
-        return 'A2 Elementary';
+        return l10n.levelA2;
       case 'B1':
-        return 'B1 Intermediate';
+        return l10n.levelB1;
       case 'B2':
-        return 'B2 Upper-Int';
+        return l10n.levelB2;
       case 'C1':
-        return 'C1 Advanced';
+        return l10n.levelC1;
       case 'C2':
-        return 'C2 Proficient';
+        return l10n.levelC2;
       default:
         return level;
     }
@@ -312,12 +325,12 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
               ),
               Spacing.gapXL,
               Text(
-                message ?? 'No lessons found',
+                message ?? AppLocalizations.of(context)!.noLessonsFound,
                 style: context.titleLarge,
               ),
               Spacing.gapSM,
               Text(
-                'Create your own custom lesson with AI',
+                AppLocalizations.of(context)!.createCustomLessonDescription,
                 textAlign: TextAlign.center,
                 style: context.bodySmall,
               ),
@@ -325,7 +338,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
               ElevatedButton.icon(
                 onPressed: _openLessonBuilder,
                 icon: const Icon(Icons.auto_awesome),
-                label: const Text('Create Lesson with AI'),
+                label: Text(AppLocalizations.of(context)!.createLessonWithAI),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.accent,
                   foregroundColor: Colors.white,
@@ -345,11 +358,16 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
                     _selectedCategory = null;
                     _selectedLevel = null;
                   });
+                  // Keep language pair, only clear category/level
+                  final current = ref.read(lessonFilterProvider);
                   ref.read(lessonFilterProvider.notifier).state =
-                      const LessonFilter();
+                      LessonFilter(
+                        language: current.language,
+                        sourceLanguage: current.sourceLanguage,
+                      );
                 },
                 child: Text(
-                  'Clear filters',
+                  AppLocalizations.of(context)!.clearFilters,
                   style: TextStyle(color: context.textSecondary),
                 ),
               ),
@@ -382,13 +400,13 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
             Icon(Icons.error_outline, size: 48, color: context.textMuted),
             Spacing.gapLG,
             Text(
-              'Failed to load lessons',
+              AppLocalizations.of(context)!.failedToLoadLessons,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
             Spacing.gapLG,
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Retry'),
+              child: Text(AppLocalizations.of(context)!.retry),
             ),
           ],
         ),

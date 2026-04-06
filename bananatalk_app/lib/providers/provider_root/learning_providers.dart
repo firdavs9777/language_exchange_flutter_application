@@ -8,6 +8,7 @@ import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/models/learning/achievement_model.dart';
 import 'package:bananatalk_app/models/learning/challenge_model.dart';
 import 'package:bananatalk_app/models/learning/leaderboard_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 
 // ==================== PROGRESS PROVIDERS ====================
 
@@ -265,12 +266,14 @@ final vocabularyReviewProvider =
 /// Lesson filter
 class LessonFilter {
   final String? language;
+  final String? sourceLanguage;
   final String? level;
   final String? category;
   final int? unit;
 
   const LessonFilter({
     this.language,
+    this.sourceLanguage,
     this.level,
     this.category,
     this.unit,
@@ -278,12 +281,14 @@ class LessonFilter {
 
   LessonFilter copyWith({
     String? language,
+    String? sourceLanguage,
     String? level,
     String? category,
     int? unit,
   }) {
     return LessonFilter(
       language: language ?? this.language,
+      sourceLanguage: sourceLanguage ?? this.sourceLanguage,
       level: level ?? this.level,
       category: category ?? this.category,
       unit: unit ?? this.unit,
@@ -295,13 +300,14 @@ class LessonFilter {
     if (identical(this, other)) return true;
     return other is LessonFilter &&
         other.language == language &&
+        other.sourceLanguage == sourceLanguage &&
         other.level == level &&
         other.category == category &&
         other.unit == unit;
   }
 
   @override
-  int get hashCode => Object.hash(language, level, category, unit);
+  int get hashCode => Object.hash(language, sourceLanguage, level, category, unit);
 }
 
 /// Lesson filter state provider
@@ -315,6 +321,7 @@ final lessonsProvider =
   try {
     final result = await LearningService.getLessons(
       language: filter.language,
+      sourceLanguage: filter.sourceLanguage,
       level: filter.level,
       category: filter.category,
       unit: filter.unit,
@@ -336,7 +343,12 @@ final lessonsProvider =
 /// Recommended lessons provider
 final recommendedLessonsProvider = FutureProvider<List<Lesson>>((ref) async {
   try {
-    final result = await LearningService.getRecommendedLessons();
+    // Get user's language pair for personalized recommendations
+    final user = ref.watch(userProvider).valueOrNull;
+    final result = await LearningService.getRecommendedLessons(
+      language: user?.language_to_learn,
+      sourceLanguage: user?.native_language,
+    );
     if (result['success'] == true && result['data'] != null) {
       final data = result['data'];
       if (data is List) {

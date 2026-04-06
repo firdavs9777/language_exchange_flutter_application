@@ -346,7 +346,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         return ListView.builder(
           controller: _scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 80),
+          padding: const EdgeInsets.only(bottom: 100),
           itemCount: moments.length,
           itemBuilder: (context, index) {
             return MomentCard(moments: moments[index], onRefresh: _refresh);

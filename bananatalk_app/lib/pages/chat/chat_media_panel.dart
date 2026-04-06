@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'media_option_button.dart';
@@ -45,7 +46,7 @@ class ChatMediaPanel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Share',
+                    AppLocalizations.of(context)!.share,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -58,25 +59,25 @@ class ChatMediaPanel extends StatelessWidget {
                     children: [
                       MediaOptionButton(
                         icon: Icons.camera_alt,
-                        label: 'Camera',
+                        label: AppLocalizations.of(context)!.camera,
                         color: Colors.pink,
                         onTap: () => onMediaOption('camera'),
                       ),
                       MediaOptionButton(
                         icon: Icons.photo_library,
-                        label: 'Gallery',
+                        label: AppLocalizations.of(context)!.gallery,
                         color: Colors.purple,
                         onTap: () => onMediaOption('gallery'),
                       ),
                       MediaOptionButton(
                         icon: Icons.location_on,
-                        label: 'Location',
+                        label: AppLocalizations.of(context)!.location,
                         color: Colors.green,
                         onTap: () => onMediaOption('location'),
                       ),
                       MediaOptionButton(
                         icon: Icons.mic,
-                        label: 'Voice',
+                        label: AppLocalizations.of(context)!.voice,
                         color: Colors.red,
                         onTap: () => onMediaOption('audio'),
                       ),
@@ -88,13 +89,13 @@ class ChatMediaPanel extends StatelessWidget {
                     children: [
                       MediaOptionButton(
                         icon: Icons.insert_drive_file,
-                        label: 'Document',
+                        label: AppLocalizations.of(context)!.document,
                         color: Colors.orange,
                         onTap: () => onMediaOption('document'),
                       ),
                       MediaOptionButton(
                         icon: Icons.videocam,
-                        label: 'Video',
+                        label: AppLocalizations.of(context)!.video,
                         color: Colors.blue,
                         onTap: () => onMediaOption('video'),
                       ),

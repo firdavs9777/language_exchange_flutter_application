@@ -1964,7 +1964,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'Video phải dưới 1GB.';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'Bạn';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Tải ngôn ngữ thất bại';
+
+  @override
+  String get studyHub => 'Trung tâm học tập';
+
+  @override
+  String get dailyLearningJourney => 'Hành trình học tập hàng ngày của bạn';
+
+  @override
+  String get learnTab => 'Học';
+
+  @override
+  String get aiTools => 'Công cụ AI';
+
+  @override
+  String get streak => 'Chuỗi học';
+
+  @override
+  String get lessons => 'Bài học';
+
+  @override
+  String get words => 'Từ vựng';
+
+  @override
+  String get quickActions => 'Thao tác nhanh';
+
+  @override
+  String get review => 'Ôn tập';
+
+  @override
+  String wordsDue(int count) {
+    return '$count từ cần ôn tập';
+  }
+
+  @override
+  String get addWords => 'Thêm từ';
+
+  @override
+  String get buildVocabulary => 'Xây dựng vốn từ';
+
+  @override
+  String get practiceWithAI => 'Luyện tập với AI';
+
+  @override
+  String get aiPracticeDescription => 'Chat, bài kiểm tra, ngữ pháp và phát âm';
+
+  @override
+  String get dailyChallenges => 'Thử thách hàng ngày';
+
+  @override
+  String get allChallengesCompleted => 'Tất cả thử thách đã hoàn thành!';
+
+  @override
+  String get continueLearning => 'Tiếp tục học';
+
+  @override
+  String get structuredLearningPath => 'Lộ trình học có cấu trúc';
+
+  @override
+  String get vocabulary => 'Từ vựng';
+
+  @override
+  String get yourWordCollection => 'Bộ sưu tập từ của bạn';
+
+  @override
+  String get achievements => 'Thành tích';
+
+  @override
+  String get badgesAndMilestones => 'Huy hiệu và cột mốc';
+
+  @override
+  String get failedToLoadLearningData => 'Tải dữ liệu học tập thất bại';
+
+  @override
+  String get startYourJourney => 'Bắt đầu hành trình của bạn!';
+
+  @override
+  String get startJourneyDescription => 'Hoàn thành bài học, xây dựng vốn từ\nvà theo dõi tiến trình của bạn';
+
+  @override
+  String levelN(int level) {
+    return 'Cấp độ $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return 'Đã kiếm $xp XP';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Tiếp theo: Cấp độ $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return 'Còn $xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'Đối tác hội thoại AI';
+
+  @override
+  String get practiceWithAITutor => 'Luyện nói với gia sư AI của bạn';
+
+  @override
+  String get startConversation => 'Bắt đầu hội thoại';
+
+  @override
+  String get aiFeatures => 'Tính năng AI';
+
+  @override
+  String get aiLessons => 'Bài học AI';
+
+  @override
+  String get learnWithAI => 'Học với AI';
+
+  @override
+  String get grammar => 'Ngữ pháp';
+
+  @override
+  String get checkWriting => 'Kiểm tra viết';
+
+  @override
+  String get pronunciation => 'Phát âm';
+
+  @override
+  String get improveSpeaking => 'Cải thiện nói';
+
+  @override
+  String get translation => 'Dịch thuật';
+
+  @override
+  String get smartTranslate => 'Dịch thông minh';
+
+  @override
+  String get aiQuizzes => 'Bài kiểm tra AI';
+
+  @override
+  String get testKnowledge => 'Kiểm tra kiến thức';
+
+  @override
+  String get lessonBuilder => 'Trình tạo bài học';
+
+  @override
+  String get customLessons => 'Bài học tùy chỉnh';
+
+  @override
+  String get yourAIProgress => 'Tiến trình AI của bạn';
+
+  @override
+  String get quizzes => 'Bài kiểm tra';
+
+  @override
+  String get avgScore => 'Điểm trung bình';
+
+  @override
+  String get focusAreas => 'Khu vực trọng tâm';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return 'Độ chính xác $accuracy%';
+  }
+
+  @override
+  String get practice => 'Luyện tập';
+
+  @override
+  String get browse => 'Duyệt';
+
+  @override
+  String get noRecommendedLessons => 'Không có bài học được đề xuất';
+
+  @override
+  String get noLessonsFound => 'Không tìm thấy bài học';
+
+  @override
+  String get createCustomLessonDescription => 'Tạo bài học tùy chỉnh của riêng bạn với AI';
+
+  @override
+  String get createLessonWithAI => 'Tạo bài học với AI';
+
+  @override
+  String get allLevels => 'Tất cả cấp độ';
+
+  @override
+  String get levelA1 => 'A1 Người mới bắt đầu';
+
+  @override
+  String get levelA2 => 'A2 Cơ bản';
+
+  @override
+  String get levelB1 => 'B1 Trung cấp';
+
+  @override
+  String get levelB2 => 'B2 Trung-Cao';
+
+  @override
+  String get levelC1 => 'C1 Nâng cao';
+
+  @override
+  String get levelC2 => 'C2 Thành thạo';
+
+  @override
+  String get failedToLoadLessons => 'Tải bài học thất bại';
+
+  @override
+  String get pin => 'Ghim';
+
+  @override
+  String get unpin => 'Bỏ ghim';
+
+  @override
+  String get editMessage => 'Chỉnh sửa tin nhắn';
+
+  @override
+  String get enterMessage => 'Nhập tin nhắn...';
+
+  @override
+  String get deleteMessageTitle => 'Xóa tin nhắn';
+
+  @override
+  String get actionCannotBeUndone => 'Hành động này không thể hoàn tác.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Chỉ xóa khỏi thiết bị của bạn';
+
+  @override
+  String get availableWithinOneHour => 'Chỉ khả dụng trong 1 giờ';
+
+  @override
+  String get available => 'Khả dụng';
+
+  @override
+  String get forwardMessage => 'Chuyển tiếp tin nhắn';
+
+  @override
+  String get selectUsersToForward => 'Chọn người dùng để chuyển tiếp:';
+
+  @override
+  String forwardCount(int count) {
+    return 'Chuyển tiếp ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Tin nhắn đã ghim';
+
+  @override
+  String get photoMedia => 'Ảnh';
+
+  @override
+  String get videoMedia => 'Video';
+
+  @override
+  String get voiceMessageMedia => 'Tin nhắn thoại';
+
+  @override
+  String get documentMedia => 'Tài liệu';
+
+  @override
+  String get locationMedia => 'Vị trí';
+
+  @override
+  String get stickerMedia => 'Nhãn dán';
+
+  @override
+  String get smileys => 'Mặt cười';
+
+  @override
+  String get emotions => 'Cảm xúc';
+
+  @override
+  String get handGestures => 'Cử chỉ tay';
+
+  @override
+  String get hearts => 'Trái tim';
+
+  @override
+  String get tapToSayHi => 'Nhấn để chào!';
+
+  @override
+  String get sendWaveToStart => 'Gửi lời chào để bắt đầu trò chuyện';
+
+  @override
+  String get documentMustBeUnder50MB => 'Tài liệu phải dưới 50MB.';
+
+  @override
+  String get editWithin15Minutes => 'Tin nhắn chỉ có thể chỉnh sửa trong 15 phút';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Tin nhắn đã chuyển tiếp đến $count người dùng';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Không thể tải người dùng';
+
+  @override
+  String get voice => 'Giọng nói';
 }

@@ -106,7 +106,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     _buildMomentsGrid(context, user),
                     const SizedBox(height: 24),
                     _buildLogoutButton(context),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 100),
                   ],
                 ),
               ),

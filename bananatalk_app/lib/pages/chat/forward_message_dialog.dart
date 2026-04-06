@@ -59,7 +59,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
       });
     } catch (e) {
       setState(() {
-        _error = 'Failed to load users: ${e.toString()}';
+        _error = 'load_failed';
         _isLoading = false;
       });
     }
@@ -73,7 +73,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
       ),
       backgroundColor: context.surfaceColor,
       title: Text(
-        'Forward Message',
+        AppLocalizations.of(context)!.forwardMessage,
         style: context.titleLarge,
       ),
       content: SizedBox(
@@ -81,7 +81,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
         child: _isLoading
             ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
             : _error.isNotEmpty
-                ? Text(_error, style: context.bodyMedium.copyWith(color: AppColors.error))
+                ? Text(AppLocalizations.of(context)!.failedToLoadUsers, style: context.bodyMedium.copyWith(color: AppColors.error))
                 : _users.isEmpty
                     ? Text(
                         AppLocalizations.of(context)!.noUsersAvailableToForwardTo,
@@ -91,7 +91,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Select users to forward to:',
+                            AppLocalizations.of(context)!.selectUsersToForward,
                             style: context.bodySmall,
                           ),
                           Spacing.gapLG,
@@ -147,7 +147,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context, null),
           child: Text(
-            'Cancel',
+            AppLocalizations.of(context)!.cancel,
             style: context.labelLarge.copyWith(
               color: context.textSecondary,
             ),
@@ -165,7 +165,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
             ),
           ),
           child: Text(
-            'Forward (${_selectedUserIds.length})',
+            AppLocalizations.of(context)!.forwardCount(_selectedUserIds.length),
             style: context.labelLarge.copyWith(
               color: AppColors.white,
               fontWeight: FontWeight.w600,

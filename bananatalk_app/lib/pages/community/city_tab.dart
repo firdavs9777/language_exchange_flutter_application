@@ -588,6 +588,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                     )
                   : ListView.separated(
                       controller: _scrollController,
+                      padding: const EdgeInsets.only(bottom: 100),
                       itemCount: _users.length + (_hasMore ? 1 : 0),
                       separatorBuilder: (_, __) => Divider(
                         height: 1,

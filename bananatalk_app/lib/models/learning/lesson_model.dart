@@ -18,6 +18,7 @@ class Lesson {
   final String slug;
   final String description;
   final String language;
+  final String? sourceLanguage; // Learner's native language for explanations
   final String level; // A1, A2, B1, B2, C1, C2
   final String category;
   final String topic;
@@ -39,6 +40,7 @@ class Lesson {
     required this.slug,
     required this.description,
     required this.language,
+    this.sourceLanguage,
     required this.level,
     required this.category,
     required this.topic,
@@ -62,6 +64,7 @@ class Lesson {
       slug: json['slug']?.toString() ?? '',
       description: json['description']?.toString() ?? '',
       language: json['language']?.toString() ?? 'en',
+      sourceLanguage: json['sourceLanguage']?.toString(),
       level: json['level']?.toString() ?? 'A1',
       category: json['category']?.toString() ?? 'general',
       topic: json['topic']?.toString() ?? '',
@@ -98,6 +101,7 @@ class Lesson {
       'slug': slug,
       'description': description,
       'language': language,
+      if (sourceLanguage != null) 'sourceLanguage': sourceLanguage,
       'level': level,
       'category': category,
       'topic': topic,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -118,7 +119,7 @@ class ChatMessagesList extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            'Tap to say hi!',
+                            AppLocalizations.of(context)!.tapToSayHi,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -127,7 +128,7 @@ class ChatMessagesList extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Send a wave to start chatting',
+                            AppLocalizations.of(context)!.sendWaveToStart,
                             style: TextStyle(
                               fontSize: 13,
                               color: context.textSecondary,
@@ -215,6 +216,41 @@ class ChatMessagesList extends StatelessWidget {
                 );
               }
 
+              // Compute message grouping
+              final prevIndex = messageIndex - 1;
+              final nextIndex = messageIndex + 1;
+
+              bool isFirstInGroup = true;
+              bool isLastInGroup = true;
+
+              if (prevIndex >= 0 && prevIndex < messages.length) {
+                final prevMsg = messages[prevIndex];
+                final sameAuthor = prevMsg.sender.id == message.sender.id;
+                bool withinTimeWindow = false;
+                try {
+                  final currTime = DateTime.parse(message.createdAt);
+                  final prevTime = DateTime.parse(prevMsg.createdAt);
+                  withinTimeWindow = currTime.difference(prevTime).inMinutes.abs() < 3;
+                } catch (_) {}
+                if (sameAuthor && withinTimeWindow && prevMsg.type != 'correction' && prevMsg.type != 'call') {
+                  isFirstInGroup = false;
+                }
+              }
+
+              if (nextIndex < messages.length) {
+                final nextMsg = messages[nextIndex];
+                final sameAuthor = nextMsg.sender.id == message.sender.id;
+                bool withinTimeWindow = false;
+                try {
+                  final currTime = DateTime.parse(message.createdAt);
+                  final nextTime = DateTime.parse(nextMsg.createdAt);
+                  withinTimeWindow = nextTime.difference(currTime).inMinutes.abs() < 3;
+                } catch (_) {}
+                if (sameAuthor && withinTimeWindow && nextMsg.type != 'correction' && nextMsg.type != 'call') {
+                  isLastInGroup = false;
+                }
+              }
+
               return ChatMessageBubble(
                 key: ValueKey(message.id), // Key for scrolling to message
                 message: message,
@@ -233,6 +269,8 @@ class ChatMessagesList extends StatelessWidget {
                 onForward: onForward,
                 onRetry: onRetryMessage,
                 onDeleteFailed: onDeleteFailedMessage,
+                isFirstInGroup: isFirstInGroup,
+                isLastInGroup: isLastInGroup,
               );
             },
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 
 class MessageReactionWidget extends StatelessWidget {
   final List<MessageReaction> reactions;
@@ -42,7 +43,10 @@ class MessageReactionWidget extends StatelessWidget {
             users.any((r) => r.user.id == currentUserId);
 
         return GestureDetector(
-          onTap: onReactionTap != null ? () => onReactionTap!(emoji) : null,
+          onTap: onReactionTap != null ? () {
+            HapticUtils.onLike();
+            onReactionTap!(emoji);
+          } : null,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
@@ -128,7 +132,10 @@ class ReactionPicker extends StatelessWidget {
         children: defaultEmojis.map((emoji) {
           final isSelected = currentReactions?.contains(emoji) ?? false;
           return GestureDetector(
-            onTap: () => onEmojiSelected(emoji),
+            onTap: () {
+              HapticUtils.onLike();
+              onEmojiSelected(emoji);
+            },
             child: Container(
               padding: const EdgeInsets.all(8),
               child: Text(

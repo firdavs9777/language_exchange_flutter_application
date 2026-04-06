@@ -3531,4 +3531,302 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Failed to load languages';
+
+  @override
+  String get studyHub => 'Study Hub';
+
+  @override
+  String get dailyLearningJourney => 'Your daily learning journey';
+
+  @override
+  String get learnTab => 'Learn';
+
+  @override
+  String get aiTools => 'AI Tools';
+
+  @override
+  String get streak => 'Streak';
+
+  @override
+  String get lessons => 'Lessons';
+
+  @override
+  String get words => 'Words';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get review => 'Review';
+
+  @override
+  String wordsDue(int count) {
+    return '$count words due';
+  }
+
+  @override
+  String get addWords => 'Add Words';
+
+  @override
+  String get buildVocabulary => 'Build vocabulary';
+
+  @override
+  String get practiceWithAI => 'Practice with AI';
+
+  @override
+  String get aiPracticeDescription => 'Chat, quiz, grammar & pronunciation';
+
+  @override
+  String get dailyChallenges => 'Daily Challenges';
+
+  @override
+  String get allChallengesCompleted => 'All challenges completed!';
+
+  @override
+  String get continueLearning => 'Continue Learning';
+
+  @override
+  String get structuredLearningPath => 'Structured learning path';
+
+  @override
+  String get vocabulary => 'Vocabulary';
+
+  @override
+  String get yourWordCollection => 'Your word collection';
+
+  @override
+  String get achievements => 'Achievements';
+
+  @override
+  String get badgesAndMilestones => 'Badges and milestones';
+
+  @override
+  String get failedToLoadLearningData => 'Failed to load learning data';
+
+  @override
+  String get startYourJourney => 'Start your journey!';
+
+  @override
+  String get startJourneyDescription => 'Complete lessons, build vocabulary, and\ntrack your progress';
+
+  @override
+  String levelN(int level) {
+    return 'Level $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP earned';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Next: Level $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP to go';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI Conversation Partner';
+
+  @override
+  String get practiceWithAITutor => 'Practice speaking with your AI tutor';
+
+  @override
+  String get startConversation => 'Start Conversation';
+
+  @override
+  String get aiFeatures => 'AI Features';
+
+  @override
+  String get aiLessons => 'AI Lessons';
+
+  @override
+  String get learnWithAI => 'Learn with AI';
+
+  @override
+  String get grammar => 'Grammar';
+
+  @override
+  String get checkWriting => 'Check writing';
+
+  @override
+  String get pronunciation => 'Pronunciation';
+
+  @override
+  String get improveSpeaking => 'Improve speaking';
+
+  @override
+  String get translation => 'Translation';
+
+  @override
+  String get smartTranslate => 'Smart translate';
+
+  @override
+  String get aiQuizzes => 'AI Quizzes';
+
+  @override
+  String get testKnowledge => 'Test knowledge';
+
+  @override
+  String get lessonBuilder => 'Lesson Builder';
+
+  @override
+  String get customLessons => 'Custom lessons';
+
+  @override
+  String get yourAIProgress => 'Your AI Progress';
+
+  @override
+  String get quizzes => 'Quizzes';
+
+  @override
+  String get avgScore => 'Avg Score';
+
+  @override
+  String get focusAreas => 'Focus Areas';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '$accuracy% accuracy';
+  }
+
+  @override
+  String get practice => 'Practice';
+
+  @override
+  String get browse => 'Browse';
+
+  @override
+  String get noRecommendedLessons => 'No recommended lessons available';
+
+  @override
+  String get noLessonsFound => 'No lessons found';
+
+  @override
+  String get createCustomLessonDescription => 'Create your own custom lesson with AI';
+
+  @override
+  String get createLessonWithAI => 'Create Lesson with AI';
+
+  @override
+  String get allLevels => 'All Levels';
+
+  @override
+  String get levelA1 => 'A1 Beginner';
+
+  @override
+  String get levelA2 => 'A2 Elementary';
+
+  @override
+  String get levelB1 => 'B1 Intermediate';
+
+  @override
+  String get levelB2 => 'B2 Upper-Int';
+
+  @override
+  String get levelC1 => 'C1 Advanced';
+
+  @override
+  String get levelC2 => 'C2 Proficient';
+
+  @override
+  String get failedToLoadLessons => 'Failed to load lessons';
+
+  @override
+  String get pin => 'Pin';
+
+  @override
+  String get unpin => 'Unpin';
+
+  @override
+  String get editMessage => 'Edit Message';
+
+  @override
+  String get enterMessage => 'Enter message...';
+
+  @override
+  String get deleteMessageTitle => 'Delete Message';
+
+  @override
+  String get actionCannotBeUndone => 'This action cannot be undone.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Only removes from your device';
+
+  @override
+  String get availableWithinOneHour => 'Only available within 1 hour';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get forwardMessage => 'Forward Message';
+
+  @override
+  String get selectUsersToForward => 'Select users to forward to:';
+
+  @override
+  String forwardCount(int count) {
+    return 'Forward ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Pinned Message';
+
+  @override
+  String get photoMedia => 'Photo';
+
+  @override
+  String get videoMedia => 'Video';
+
+  @override
+  String get voiceMessageMedia => 'Voice message';
+
+  @override
+  String get documentMedia => 'Document';
+
+  @override
+  String get locationMedia => 'Location';
+
+  @override
+  String get stickerMedia => 'Sticker';
+
+  @override
+  String get smileys => 'Smileys';
+
+  @override
+  String get emotions => 'Emotions';
+
+  @override
+  String get handGestures => 'Hand Gestures';
+
+  @override
+  String get hearts => 'Hearts';
+
+  @override
+  String get tapToSayHi => 'Tap to say hi!';
+
+  @override
+  String get sendWaveToStart => 'Send a wave to start chatting';
+
+  @override
+  String get documentMustBeUnder50MB => 'Document must be under 50MB.';
+
+  @override
+  String get editWithin15Minutes => 'Messages can only be edited within 15 minutes';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Message forwarded to $count user(s)';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Failed to load users';
+
+  @override
+  String get voice => 'Voice';
 }

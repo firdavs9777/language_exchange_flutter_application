@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'sticker_button.dart';
@@ -121,6 +122,17 @@ class ChatStickerPanel extends StatelessWidget {
     required this.onSendSticker,
   }) : super(key: key);
 
+  static String _localizedCategory(BuildContext context, String key) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (key) {
+      case 'Smileys': return l10n.smileys;
+      case 'Emotions': return l10n.emotions;
+      case 'Hand Gestures': return l10n.handGestures;
+      case 'Hearts': return l10n.hearts;
+      default: return key;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -146,8 +158,11 @@ class ChatStickerPanel extends StatelessWidget {
           ),
           clipBehavior: Clip.hardEdge,
           child: Opacity(
-            opacity: animationController.value,
-            child: DefaultTabController(
+            opacity: animationController.value.clamp(0.0, 1.0),
+            child: OverflowBox(
+              alignment: Alignment.topCenter,
+              maxHeight: 280,
+              child: DefaultTabController(
               length: _stickerCategories.length,
               child: Column(
                 children: [
@@ -170,7 +185,7 @@ class ChatStickerPanel extends StatelessWidget {
                         fontSize: 14,
                       ),
                       tabs: _stickerCategories.keys.map((category) {
-                        return Tab(text: category);
+                        return Tab(text: _localizedCategory(context, category));
                       }).toList(),
                     ),
                   ),
@@ -203,6 +218,7 @@ class ChatStickerPanel extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
             ),
           ),
         );

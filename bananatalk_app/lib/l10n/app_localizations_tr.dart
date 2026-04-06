@@ -1964,7 +1964,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video 1GB\'dan küçük olmalıdır.';
+  String get videoMustBeUnder1GB => 'Video 1GB\'den küçük olmalıdır.';
 
   @override
   String get failedToRecordVideo => 'Video kaydedilemedi';
@@ -3071,7 +3071,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'Sen';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Failed to load languages';
+
+  @override
+  String get studyHub => 'Çalışma Merkezi';
+
+  @override
+  String get dailyLearningJourney => 'Günlük öğrenme yolculuğunuz';
+
+  @override
+  String get learnTab => 'Öğren';
+
+  @override
+  String get aiTools => 'AI Araçları';
+
+  @override
+  String get streak => 'Seri';
+
+  @override
+  String get lessons => 'Dersler';
+
+  @override
+  String get words => 'Kelimeler';
+
+  @override
+  String get quickActions => 'Hızlı İşlemler';
+
+  @override
+  String get review => 'Tekrar';
+
+  @override
+  String wordsDue(int count) {
+    return '$count kelime bekliyor';
+  }
+
+  @override
+  String get addWords => 'Kelime Ekle';
+
+  @override
+  String get buildVocabulary => 'Kelime hazinesi oluştur';
+
+  @override
+  String get practiceWithAI => 'AI ile Pratik Yap';
+
+  @override
+  String get aiPracticeDescription => 'Sohbet, sınav, dilbilgisi ve telaffuz';
+
+  @override
+  String get dailyChallenges => 'Günlük Görevler';
+
+  @override
+  String get allChallengesCompleted => 'Tüm görevler tamamlandı!';
+
+  @override
+  String get continueLearning => 'Öğrenmeye Devam Et';
+
+  @override
+  String get structuredLearningPath => 'Yapılandırılmış öğrenme yolu';
+
+  @override
+  String get vocabulary => 'Kelime Hazinesi';
+
+  @override
+  String get yourWordCollection => 'Kelime koleksiyonunuz';
+
+  @override
+  String get achievements => 'Başarılar';
+
+  @override
+  String get badgesAndMilestones => 'Rozetler ve dönüm noktaları';
+
+  @override
+  String get failedToLoadLearningData => 'Öğrenme verileri yüklenemedi';
+
+  @override
+  String get startYourJourney => 'Yolculuğunuza başlayın!';
+
+  @override
+  String get startJourneyDescription => 'Dersleri tamamlayın, kelime hazinesi oluşturun\nve ilerlemenizi takip edin';
+
+  @override
+  String levelN(int level) {
+    return 'Seviye $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP kazanıldı';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Sonraki: Seviye $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP kaldı';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI Konuşma Ortağı';
+
+  @override
+  String get practiceWithAITutor => 'AI öğretmeninizle konuşma pratiği yapın';
+
+  @override
+  String get startConversation => 'Konuşmayı Başlat';
+
+  @override
+  String get aiFeatures => 'AI Özellikleri';
+
+  @override
+  String get aiLessons => 'AI Dersleri';
+
+  @override
+  String get learnWithAI => 'AI ile Öğren';
+
+  @override
+  String get grammar => 'Dilbilgisi';
+
+  @override
+  String get checkWriting => 'Yazıyı kontrol et';
+
+  @override
+  String get pronunciation => 'Telaffuz';
+
+  @override
+  String get improveSpeaking => 'Konuşmayı geliştir';
+
+  @override
+  String get translation => 'Çeviri';
+
+  @override
+  String get smartTranslate => 'Akıllı çeviri';
+
+  @override
+  String get aiQuizzes => 'AI Sınavları';
+
+  @override
+  String get testKnowledge => 'Bilgiyi sına';
+
+  @override
+  String get lessonBuilder => 'Ders Oluşturucu';
+
+  @override
+  String get customLessons => 'Özel dersler';
+
+  @override
+  String get yourAIProgress => 'AI İlerlemeniz';
+
+  @override
+  String get quizzes => 'Sınavlar';
+
+  @override
+  String get avgScore => 'Ortalama Puan';
+
+  @override
+  String get focusAreas => 'Odak Alanları';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '%$accuracy doğruluk';
+  }
+
+  @override
+  String get practice => 'Pratik Yap';
+
+  @override
+  String get browse => 'Gözat';
+
+  @override
+  String get noRecommendedLessons => 'Önerilen ders yok';
+
+  @override
+  String get noLessonsFound => 'Ders bulunamadı';
+
+  @override
+  String get createCustomLessonDescription => 'AI ile kendi özel dersinizi oluşturun';
+
+  @override
+  String get createLessonWithAI => 'AI ile Ders Oluştur';
+
+  @override
+  String get allLevels => 'Tüm Seviyeler';
+
+  @override
+  String get levelA1 => 'A1 Başlangıç';
+
+  @override
+  String get levelA2 => 'A2 Temel';
+
+  @override
+  String get levelB1 => 'B1 Orta';
+
+  @override
+  String get levelB2 => 'B2 Orta-Üst';
+
+  @override
+  String get levelC1 => 'C1 İleri';
+
+  @override
+  String get levelC2 => 'C2 Ustalık';
+
+  @override
+  String get failedToLoadLessons => 'Dersler yüklenemedi';
+
+  @override
+  String get pin => 'Sabitle';
+
+  @override
+  String get unpin => 'Sabitlemeyi Kaldır';
+
+  @override
+  String get editMessage => 'Mesajı Düzenle';
+
+  @override
+  String get enterMessage => 'Mesaj yazın...';
+
+  @override
+  String get deleteMessageTitle => 'Mesajı Sil';
+
+  @override
+  String get actionCannotBeUndone => 'Bu işlem geri alınamaz.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Yalnızca cihazınızdan kaldırır';
+
+  @override
+  String get availableWithinOneHour => 'Yalnızca 1 saat içinde kullanılabilir';
+
+  @override
+  String get available => 'Kullanılabilir';
+
+  @override
+  String get forwardMessage => 'Mesajı İlet';
+
+  @override
+  String get selectUsersToForward => 'İletilecek kullanıcıları seçin:';
+
+  @override
+  String forwardCount(int count) {
+    return 'İlet ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Sabitlenmiş Mesaj';
+
+  @override
+  String get photoMedia => 'Fotoğraf';
+
+  @override
+  String get videoMedia => 'Video';
+
+  @override
+  String get voiceMessageMedia => 'Sesli mesaj';
+
+  @override
+  String get documentMedia => 'Belge';
+
+  @override
+  String get locationMedia => 'Konum';
+
+  @override
+  String get stickerMedia => 'Çıkartma';
+
+  @override
+  String get smileys => 'Gülen Yüzler';
+
+  @override
+  String get emotions => 'Duygular';
+
+  @override
+  String get handGestures => 'El Hareketleri';
+
+  @override
+  String get hearts => 'Kalpler';
+
+  @override
+  String get tapToSayHi => 'Merhaba demek için dokunun!';
+
+  @override
+  String get sendWaveToStart => 'Sohbete başlamak için el sallayın';
+
+  @override
+  String get documentMustBeUnder50MB => 'Belge 50MB\'den küçük olmalıdır.';
+
+  @override
+  String get editWithin15Minutes => 'Mesajlar yalnızca 15 dakika içinde düzenlenebilir';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Mesaj $count kullanıcıya iletildi';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Kullanıcılar yüklenemedi';
+
+  @override
+  String get voice => 'Ses';
 }

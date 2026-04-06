@@ -1964,7 +1964,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Dapat mas mababa sa 1GB ang video.';
+  String get videoMustBeUnder1GB => 'Ang video ay dapat mas mababa sa 1GB.';
 
   @override
   String get failedToRecordVideo => 'Nabigo ang pag-record ng video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'Ikaw';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Failed to load languages';
+
+  @override
+  String get studyHub => 'Sentro ng Pag-aaral';
+
+  @override
+  String get dailyLearningJourney => 'Ang iyong pang-araw-araw na paglalakbay sa pag-aaral';
+
+  @override
+  String get learnTab => 'Matuto';
+
+  @override
+  String get aiTools => 'Mga Kagamitan ng AI';
+
+  @override
+  String get streak => 'Sunud-sunod';
+
+  @override
+  String get lessons => 'Mga Aralin';
+
+  @override
+  String get words => 'Mga Salita';
+
+  @override
+  String get quickActions => 'Mabilis na Aksyon';
+
+  @override
+  String get review => 'Suriin';
+
+  @override
+  String wordsDue(int count) {
+    return '$count salitang dapat suriin';
+  }
+
+  @override
+  String get addWords => 'Magdagdag ng Salita';
+
+  @override
+  String get buildVocabulary => 'Bumuo ng bokabularyo';
+
+  @override
+  String get practiceWithAI => 'Mag-practice sa AI';
+
+  @override
+  String get aiPracticeDescription => 'Chat, pagsubok, gramatika at pagbigkas';
+
+  @override
+  String get dailyChallenges => 'Pang-araw-araw na Hamon';
+
+  @override
+  String get allChallengesCompleted => 'Lahat ng hamon nakumpleto na!';
+
+  @override
+  String get continueLearning => 'Ipagpatuloy ang Pag-aaral';
+
+  @override
+  String get structuredLearningPath => 'Nakabalangkas na landas ng pag-aaral';
+
+  @override
+  String get vocabulary => 'Bokabularyo';
+
+  @override
+  String get yourWordCollection => 'Ang iyong koleksyon ng salita';
+
+  @override
+  String get achievements => 'Mga Tagumpay';
+
+  @override
+  String get badgesAndMilestones => 'Mga badge at milestone';
+
+  @override
+  String get failedToLoadLearningData => 'Hindi ma-load ang data ng pag-aaral';
+
+  @override
+  String get startYourJourney => 'Simulan ang iyong paglalakbay!';
+
+  @override
+  String get startJourneyDescription => 'Kumpletuhin ang mga aralin, bumuo ng bokabularyo\nat subaybayan ang iyong pag-unlad';
+
+  @override
+  String levelN(int level) {
+    return 'Antas $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP nakuha';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Susunod: Antas $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP pa kailangan';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI na Katuwang sa Pag-uusap';
+
+  @override
+  String get practiceWithAITutor => 'Mag-practice ng pagsasalita sa iyong AI na guro';
+
+  @override
+  String get startConversation => 'Simulan ang Pag-uusap';
+
+  @override
+  String get aiFeatures => 'Mga Feature ng AI';
+
+  @override
+  String get aiLessons => 'Mga Aralin ng AI';
+
+  @override
+  String get learnWithAI => 'Matuto sa AI';
+
+  @override
+  String get grammar => 'Gramatika';
+
+  @override
+  String get checkWriting => 'Suriin ang pagsulat';
+
+  @override
+  String get pronunciation => 'Pagbigkas';
+
+  @override
+  String get improveSpeaking => 'Palakasin ang pagsasalita';
+
+  @override
+  String get translation => 'Pagsasalin';
+
+  @override
+  String get smartTranslate => 'Matalinong pagsasalin';
+
+  @override
+  String get aiQuizzes => 'Mga Quiz ng AI';
+
+  @override
+  String get testKnowledge => 'Subukan ang kaalaman';
+
+  @override
+  String get lessonBuilder => 'Tagalikha ng Aralin';
+
+  @override
+  String get customLessons => 'Mga pasadyang aralin';
+
+  @override
+  String get yourAIProgress => 'Iyong Pag-unlad sa AI';
+
+  @override
+  String get quizzes => 'Mga Quiz';
+
+  @override
+  String get avgScore => 'Avg na Marka';
+
+  @override
+  String get focusAreas => 'Mga Lugar na Pokus';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '$accuracy% katumpakan';
+  }
+
+  @override
+  String get practice => 'Mag-practice';
+
+  @override
+  String get browse => 'I-browse';
+
+  @override
+  String get noRecommendedLessons => 'Walang inirerekomendang aralin';
+
+  @override
+  String get noLessonsFound => 'Walang nahanap na aralin';
+
+  @override
+  String get createCustomLessonDescription => 'Lumikha ng sariling pasadyang aralin gamit ang AI';
+
+  @override
+  String get createLessonWithAI => 'Lumikha ng Aralin gamit ang AI';
+
+  @override
+  String get allLevels => 'Lahat ng Antas';
+
+  @override
+  String get levelA1 => 'A1 Nagsisimula';
+
+  @override
+  String get levelA2 => 'A2 Pangunahin';
+
+  @override
+  String get levelB1 => 'B1 Katamtaman';
+
+  @override
+  String get levelB2 => 'B2 Katamtaman-Mataas';
+
+  @override
+  String get levelC1 => 'C1 Abante';
+
+  @override
+  String get levelC2 => 'C2 Dalubhasa';
+
+  @override
+  String get failedToLoadLessons => 'Hindi ma-load ang mga aralin';
+
+  @override
+  String get pin => 'I-pin';
+
+  @override
+  String get unpin => 'I-unpin';
+
+  @override
+  String get editMessage => 'I-edit ang Mensahe';
+
+  @override
+  String get enterMessage => 'Mag-type ng mensahe...';
+
+  @override
+  String get deleteMessageTitle => 'Burahin ang Mensahe';
+
+  @override
+  String get actionCannotBeUndone => 'Hindi na mababawi ang aksyong ito.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Tanggal lang sa iyong device';
+
+  @override
+  String get availableWithinOneHour => 'Available lang sa loob ng 1 oras';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get forwardMessage => 'I-forward ang Mensahe';
+
+  @override
+  String get selectUsersToForward => 'Pumili ng mga user na i-forward:';
+
+  @override
+  String forwardCount(int count) {
+    return 'I-forward ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Naka-pin na Mensahe';
+
+  @override
+  String get photoMedia => 'Larawan';
+
+  @override
+  String get videoMedia => 'Video';
+
+  @override
+  String get voiceMessageMedia => 'Voice message';
+
+  @override
+  String get documentMedia => 'Dokumento';
+
+  @override
+  String get locationMedia => 'Lokasyon';
+
+  @override
+  String get stickerMedia => 'Sticker';
+
+  @override
+  String get smileys => 'Mga Smiley';
+
+  @override
+  String get emotions => 'Mga Emosyon';
+
+  @override
+  String get handGestures => 'Mga Galaw ng Kamay';
+
+  @override
+  String get hearts => 'Mga Puso';
+
+  @override
+  String get tapToSayHi => 'I-tap para mag-hi!';
+
+  @override
+  String get sendWaveToStart => 'Mag-wave para magsimulang mag-chat';
+
+  @override
+  String get documentMustBeUnder50MB => 'Ang dokumento ay dapat mas mababa sa 50MB.';
+
+  @override
+  String get editWithin15Minutes => 'Ang mga mensahe ay maaari lang i-edit sa loob ng 15 minuto';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Mensahe na-forward sa $count user(s)';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Hindi na-load ang mga user';
+
+  @override
+  String get voice => 'Boses';
 }

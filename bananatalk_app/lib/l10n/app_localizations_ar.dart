@@ -1964,7 +1964,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'يجب أن يكون الفيديو أقل من 1 غيغابايت.';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'أنت';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'فشل تحميل اللغات';
+
+  @override
+  String get studyHub => 'مركز الدراسة';
+
+  @override
+  String get dailyLearningJourney => 'رحلتك التعليمية اليومية';
+
+  @override
+  String get learnTab => 'تعلّم';
+
+  @override
+  String get aiTools => 'أدوات الذكاء الاصطناعي';
+
+  @override
+  String get streak => 'سلسلة التعلم';
+
+  @override
+  String get lessons => 'الدروس';
+
+  @override
+  String get words => 'الكلمات';
+
+  @override
+  String get quickActions => 'إجراءات سريعة';
+
+  @override
+  String get review => 'مراجعة';
+
+  @override
+  String wordsDue(int count) {
+    return '$count كلمة للمراجعة';
+  }
+
+  @override
+  String get addWords => 'إضافة كلمات';
+
+  @override
+  String get buildVocabulary => 'بناء المفردات';
+
+  @override
+  String get practiceWithAI => 'التدرب مع الذكاء الاصطناعي';
+
+  @override
+  String get aiPracticeDescription => 'محادثة، اختبارات، قواعد ونطق';
+
+  @override
+  String get dailyChallenges => 'التحديات اليومية';
+
+  @override
+  String get allChallengesCompleted => 'تم إكمال جميع التحديات!';
+
+  @override
+  String get continueLearning => 'متابعة التعلم';
+
+  @override
+  String get structuredLearningPath => 'مسار تعلم منظم';
+
+  @override
+  String get vocabulary => 'المفردات';
+
+  @override
+  String get yourWordCollection => 'مجموعة كلماتك';
+
+  @override
+  String get achievements => 'الإنجازات';
+
+  @override
+  String get badgesAndMilestones => 'الشارات والإنجازات';
+
+  @override
+  String get failedToLoadLearningData => 'فشل تحميل بيانات التعلم';
+
+  @override
+  String get startYourJourney => 'ابدأ رحلتك!';
+
+  @override
+  String get startJourneyDescription => 'أكمل الدروس وابنِ مفرداتك\nوتتبع تقدمك';
+
+  @override
+  String levelN(int level) {
+    return 'المستوى $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return 'تم كسب $xp XP';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'التالي: المستوى $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return 'يتبقى $xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'شريك محادثة بالذكاء الاصطناعي';
+
+  @override
+  String get practiceWithAITutor => 'تدرب على التحدث مع مدرسك الذكي';
+
+  @override
+  String get startConversation => 'بدء المحادثة';
+
+  @override
+  String get aiFeatures => 'ميزات الذكاء الاصطناعي';
+
+  @override
+  String get aiLessons => 'دروس بالذكاء الاصطناعي';
+
+  @override
+  String get learnWithAI => 'تعلم مع الذكاء الاصطناعي';
+
+  @override
+  String get grammar => 'القواعد';
+
+  @override
+  String get checkWriting => 'فحص الكتابة';
+
+  @override
+  String get pronunciation => 'النطق';
+
+  @override
+  String get improveSpeaking => 'تحسين التحدث';
+
+  @override
+  String get translation => 'الترجمة';
+
+  @override
+  String get smartTranslate => 'ترجمة ذكية';
+
+  @override
+  String get aiQuizzes => 'اختبارات الذكاء الاصطناعي';
+
+  @override
+  String get testKnowledge => 'اختبار المعرفة';
+
+  @override
+  String get lessonBuilder => 'منشئ الدروس';
+
+  @override
+  String get customLessons => 'دروس مخصصة';
+
+  @override
+  String get yourAIProgress => 'تقدمك مع الذكاء الاصطناعي';
+
+  @override
+  String get quizzes => 'اختبارات';
+
+  @override
+  String get avgScore => 'متوسط الدرجة';
+
+  @override
+  String get focusAreas => 'مجالات التركيز';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return 'دقة $accuracy%';
+  }
+
+  @override
+  String get practice => 'تدرب';
+
+  @override
+  String get browse => 'تصفح';
+
+  @override
+  String get noRecommendedLessons => 'لا توجد دروس موصى بها';
+
+  @override
+  String get noLessonsFound => 'لم يتم العثور على دروس';
+
+  @override
+  String get createCustomLessonDescription => 'أنشئ درسك المخصص باستخدام الذكاء الاصطناعي';
+
+  @override
+  String get createLessonWithAI => 'إنشاء درس بالذكاء الاصطناعي';
+
+  @override
+  String get allLevels => 'جميع المستويات';
+
+  @override
+  String get levelA1 => 'A1 مبتدئ';
+
+  @override
+  String get levelA2 => 'A2 أساسي';
+
+  @override
+  String get levelB1 => 'B1 متوسط';
+
+  @override
+  String get levelB2 => 'B2 فوق المتوسط';
+
+  @override
+  String get levelC1 => 'C1 متقدم';
+
+  @override
+  String get levelC2 => 'C2 محترف';
+
+  @override
+  String get failedToLoadLessons => 'فشل تحميل الدروس';
+
+  @override
+  String get pin => 'تثبيت';
+
+  @override
+  String get unpin => 'إلغاء التثبيت';
+
+  @override
+  String get editMessage => 'تعديل الرسالة';
+
+  @override
+  String get enterMessage => 'أدخل رسالة...';
+
+  @override
+  String get deleteMessageTitle => 'حذف الرسالة';
+
+  @override
+  String get actionCannotBeUndone => 'لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get onlyRemovesFromDevice => 'يزيل فقط من جهازك';
+
+  @override
+  String get availableWithinOneHour => 'متاح خلال ساعة واحدة فقط';
+
+  @override
+  String get available => 'متاح';
+
+  @override
+  String get forwardMessage => 'إعادة توجيه الرسالة';
+
+  @override
+  String get selectUsersToForward => 'حدد المستخدمين لإعادة التوجيه:';
+
+  @override
+  String forwardCount(int count) {
+    return 'إعادة توجيه ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'رسالة مثبتة';
+
+  @override
+  String get photoMedia => 'صورة';
+
+  @override
+  String get videoMedia => 'فيديو';
+
+  @override
+  String get voiceMessageMedia => 'رسالة صوتية';
+
+  @override
+  String get documentMedia => 'مستند';
+
+  @override
+  String get locationMedia => 'الموقع';
+
+  @override
+  String get stickerMedia => 'ملصق';
+
+  @override
+  String get smileys => 'وجوه مبتسمة';
+
+  @override
+  String get emotions => 'مشاعر';
+
+  @override
+  String get handGestures => 'إيماءات اليد';
+
+  @override
+  String get hearts => 'قلوب';
+
+  @override
+  String get tapToSayHi => 'انقر لإلقاء التحية!';
+
+  @override
+  String get sendWaveToStart => 'أرسل تحية لبدء المحادثة';
+
+  @override
+  String get documentMustBeUnder50MB => 'يجب أن يكون المستند أقل من 50 ميغابايت.';
+
+  @override
+  String get editWithin15Minutes => 'يمكن تعديل الرسائل خلال 15 دقيقة فقط';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'تم إعادة توجيه الرسالة إلى $count مستخدم(ين)';
+  }
+
+  @override
+  String get failedToLoadUsers => 'فشل تحميل المستخدمين';
+
+  @override
+  String get voice => 'صوت';
 }

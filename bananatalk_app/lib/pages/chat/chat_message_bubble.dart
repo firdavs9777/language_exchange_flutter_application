@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
 import 'package:bananatalk_app/widgets/linkified_text.dart';
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
 import 'package:bananatalk_app/widgets/correction_bottom_sheet.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
@@ -38,6 +39,8 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final Function(Message)? onForward;
   final Function(Message)? onRetry; // Retry sending failed message
   final Function(Message)? onDeleteFailed; // Delete failed message from UI
+  final bool isFirstInGroup;
+  final bool isLastInGroup;
 
   const ChatMessageBubble({
     Key? key,
@@ -58,6 +61,8 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.onForward,
     this.onRetry,
     this.onDeleteFailed,
+    this.isFirstInGroup = true,
+    this.isLastInGroup = true,
   }) : super(key: key);
 
   @override
@@ -77,14 +82,84 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   late Animation<double> _swipeAnimation;
 
   // Theme-aware chat colors - Light and modern design
-  Color _myMessageColor(BuildContext context) => AppColors.chatBubbleMine;
-  Color _otherMessageColor(BuildContext context) => context.isDarkMode ? AppColors.gray800 : AppColors.chatBubbleOther;
+  Color _myMessageColor(BuildContext context) => context.isDarkMode ? AppColors.chatBubbleMineDark : AppColors.chatBubbleMine;
+  Color _otherMessageColor(BuildContext context) => context.isDarkMode ? AppColors.chatBubbleOtherDark : AppColors.chatBubbleOther;
   Color _myTextColor(BuildContext context) => AppColors.chatTextMine;
   Color _otherTextColor(BuildContext context) => context.isDarkMode ? AppColors.white : AppColors.chatTextOther;
   Color _timestampColor(BuildContext context) => context.textSecondary;
   Color _replyBorderColor(BuildContext context) => AppColors.primary;
   Color _sendingColor(BuildContext context) => context.textSecondary;
   Color _failedColor(BuildContext context) => AppColors.error;
+
+  BorderRadius _bubbleRadius() {
+    const double big = 18.0;
+    const double small = 4.0;
+
+    if (widget.isMe) {
+      // Own messages - tail on bottom-right
+      if (widget.isFirstInGroup && widget.isLastInGroup) {
+        return AppRadius.chatBubbleMine; // solo message
+      } else if (widget.isFirstInGroup) {
+        return const BorderRadius.only(
+          topLeft: Radius.circular(big),
+          topRight: Radius.circular(big),
+          bottomLeft: Radius.circular(big),
+          bottomRight: Radius.circular(big),
+        );
+      } else if (widget.isLastInGroup) {
+        return const BorderRadius.only(
+          topLeft: Radius.circular(big),
+          topRight: Radius.circular(small),
+          bottomLeft: Radius.circular(big),
+          bottomRight: Radius.circular(small),
+        );
+      } else {
+        return const BorderRadius.only(
+          topLeft: Radius.circular(big),
+          topRight: Radius.circular(small),
+          bottomLeft: Radius.circular(big),
+          bottomRight: Radius.circular(small),
+        );
+      }
+    } else {
+      // Other user messages - tail on bottom-left
+      if (widget.isFirstInGroup && widget.isLastInGroup) {
+        return AppRadius.chatBubbleOther; // solo message
+      } else if (widget.isFirstInGroup) {
+        return const BorderRadius.only(
+          topLeft: Radius.circular(big),
+          topRight: Radius.circular(big),
+          bottomLeft: Radius.circular(big),
+          bottomRight: Radius.circular(big),
+        );
+      } else if (widget.isLastInGroup) {
+        return const BorderRadius.only(
+          topLeft: Radius.circular(small),
+          topRight: Radius.circular(big),
+          bottomLeft: Radius.circular(small),
+          bottomRight: Radius.circular(big),
+        );
+      } else {
+        return const BorderRadius.only(
+          topLeft: Radius.circular(small),
+          topRight: Radius.circular(big),
+          bottomLeft: Radius.circular(small),
+          bottomRight: Radius.circular(big),
+        );
+      }
+    }
+  }
+
+  String? _extractFirstUrl(String? text) {
+    if (text == null || text.isEmpty) return null;
+    final match = LinkifiedText.urlRegex.firstMatch(text);
+    if (match == null) return null;
+    var url = match.group(0)!;
+    if (url.toLowerCase().startsWith('www.')) {
+      url = 'https://$url';
+    }
+    return url;
+  }
 
   @override
   void initState() {
@@ -224,7 +299,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             offset: Offset(_swipeOffset, 0),
             child: Container(
               margin: EdgeInsets.symmetric(
-                vertical: 3,
+                vertical: (!widget.isFirstInGroup || !widget.isLastInGroup) ? 1 : 3,
                 horizontal: widget.isSelectionMode ? 4 : 16,
               ),
               decoration: widget.isSelectionMode
@@ -262,16 +337,19 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
                 // Avatar for other user (left side)
                 if (!widget.isMe && !widget.isSelectionMode) ...[
-                  UserAvatar(
-                    profilePicture: widget.otherUserPicture,
-                    userName: widget.otherUserName,
-                    radius: 18,
-                  ),
+                  if (widget.isLastInGroup)
+                    UserAvatar(
+                      profilePicture: widget.otherUserPicture,
+                      userName: widget.otherUserName,
+                      radius: 18,
+                    )
+                  else
+                    const SizedBox(width: 36),
                   Spacing.hGapSM,
                 ],
 
                 // Timestamp and sending status (left of my messages)
-                if (widget.isMe && !widget.isSelectionMode)
+                if (widget.isMe && !widget.isSelectionMode && widget.isLastInGroup)
                   Padding(
                     padding: const EdgeInsets.only(right: 4, bottom: 2),
                     child: Column(
@@ -350,7 +428,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 ),
 
                 // Timestamp (right of other user's messages)
-                if (!widget.isMe && !widget.isSelectionMode)
+                if (!widget.isMe && !widget.isSelectionMode && widget.isLastInGroup)
                   Padding(
                     padding: const EdgeInsets.only(left: 4, bottom: 2),
                     child: Text(
@@ -740,7 +818,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
-              borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+              borderRadius: _bubbleRadius(),
               boxShadow: AppShadows.sm,
             ),
             child: Column(
@@ -771,6 +849,33 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                         color: (widget.isMe ? _myTextColor(context) : _otherTextColor(context))
                             .withValues(alpha: 0.6),
                         fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                // Link preview
+                if (_extractFirstUrl(widget.message.message) != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: AnyLinkPreview(
+                        link: _extractFirstUrl(widget.message.message)!,
+                        displayDirection: UIDirection.uiDirectionHorizontal,
+                        bodyMaxLines: 2,
+                        titleStyle: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: widget.isMe ? _myTextColor(context) : _otherTextColor(context),
+                        ),
+                        bodyStyle: TextStyle(
+                          fontSize: 12,
+                          color: (widget.isMe ? _myTextColor(context) : _otherTextColor(context)).withValues(alpha: 0.7),
+                        ),
+                        errorWidget: const SizedBox.shrink(),
+                        cache: const Duration(days: 7),
+                        backgroundColor: Colors.transparent,
+                        borderRadius: 0,
+                        removeElevation: true,
                       ),
                     ),
                   ),
@@ -1177,7 +1282,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
-                borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+                borderRadius: _bubbleRadius(),
                 boxShadow: AppShadows.sm,
               ),
               child: LinkifiedText(
@@ -1220,7 +1325,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: widget.isMe ? _myMessageColor(context) : _otherMessageColor(context),
-                borderRadius: widget.isMe ? AppRadius.chatBubbleMine : AppRadius.chatBubbleOther,
+                borderRadius: _bubbleRadius(),
               ),
               child: LinkifiedText(
                 text: widget.message.message!,

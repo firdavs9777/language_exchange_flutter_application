@@ -67,6 +67,8 @@ class AppColors {
   static const Color chatBubbleOther = Color(0xFFF8F8F8);  // Very light gray
   static const Color chatTextMine = Color(0xFFFFFFFF);
   static const Color chatTextOther = Color(0xFF1A1A1A);  // Darker for contrast
+  static const Color chatBubbleMineDark = Color(0xFF3BA89E);  // Muted teal for dark mode
+  static const Color chatBubbleOtherDark = Color(0xFF2A2A3E);  // Deep blue-gray for dark mode
 
   // Online Status
   static const Color online = Color(0xFF4CAF50);

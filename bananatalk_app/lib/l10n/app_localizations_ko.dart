@@ -1964,7 +1964,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => '동영상은 1GB 미만이어야 합니다.';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => '나';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => '언어 목록을 불러오지 못했습니다';
+
+  @override
+  String get studyHub => '학습 허브';
+
+  @override
+  String get dailyLearningJourney => '오늘의 학습 여정';
+
+  @override
+  String get learnTab => '학습';
+
+  @override
+  String get aiTools => 'AI 도구';
+
+  @override
+  String get streak => '연속 학습';
+
+  @override
+  String get lessons => '레슨';
+
+  @override
+  String get words => '단어';
+
+  @override
+  String get quickActions => '빠른 실행';
+
+  @override
+  String get review => '복습';
+
+  @override
+  String wordsDue(int count) {
+    return '$count개 단어 예정';
+  }
+
+  @override
+  String get addWords => '단어 추가';
+
+  @override
+  String get buildVocabulary => '어휘 쌓기';
+
+  @override
+  String get practiceWithAI => 'AI로 연습';
+
+  @override
+  String get aiPracticeDescription => '채팅, 퀴즈, 문법 및 발음';
+
+  @override
+  String get dailyChallenges => '일일 도전';
+
+  @override
+  String get allChallengesCompleted => '모든 도전 완료!';
+
+  @override
+  String get continueLearning => '계속 학습';
+
+  @override
+  String get structuredLearningPath => '구조화된 학습 경로';
+
+  @override
+  String get vocabulary => '어휘';
+
+  @override
+  String get yourWordCollection => '나의 단어 컬렉션';
+
+  @override
+  String get achievements => '업적';
+
+  @override
+  String get badgesAndMilestones => '배지 및 마일스톤';
+
+  @override
+  String get failedToLoadLearningData => '학습 데이터를 불러오지 못했습니다';
+
+  @override
+  String get startYourJourney => '여정을 시작하세요!';
+
+  @override
+  String get startJourneyDescription => '레슨을 완료하고, 어휘를 쌓고,\n진도를 추적하세요';
+
+  @override
+  String levelN(int level) {
+    return '$level레벨';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP 획득';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return '다음: $level레벨';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP 남음';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI 대화 파트너';
+
+  @override
+  String get practiceWithAITutor => 'AI 튜터와 말하기 연습';
+
+  @override
+  String get startConversation => '대화 시작';
+
+  @override
+  String get aiFeatures => 'AI 기능';
+
+  @override
+  String get aiLessons => 'AI 레슨';
+
+  @override
+  String get learnWithAI => 'AI로 학습';
+
+  @override
+  String get grammar => '문법';
+
+  @override
+  String get checkWriting => '글 교정';
+
+  @override
+  String get pronunciation => '발음';
+
+  @override
+  String get improveSpeaking => '말하기 향상';
+
+  @override
+  String get translation => '번역';
+
+  @override
+  String get smartTranslate => '스마트 번역';
+
+  @override
+  String get aiQuizzes => 'AI 퀴즈';
+
+  @override
+  String get testKnowledge => '지식 테스트';
+
+  @override
+  String get lessonBuilder => '레슨 빌더';
+
+  @override
+  String get customLessons => '맞춤 레슨';
+
+  @override
+  String get yourAIProgress => '나의 AI 진도';
+
+  @override
+  String get quizzes => '퀴즈';
+
+  @override
+  String get avgScore => '평균 점수';
+
+  @override
+  String get focusAreas => '집중 영역';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '$accuracy% 정확도';
+  }
+
+  @override
+  String get practice => '연습';
+
+  @override
+  String get browse => '탐색';
+
+  @override
+  String get noRecommendedLessons => '추천 레슨이 없습니다';
+
+  @override
+  String get noLessonsFound => '레슨을 찾을 수 없습니다';
+
+  @override
+  String get createCustomLessonDescription => 'AI로 나만의 맞춤 레슨 만들기';
+
+  @override
+  String get createLessonWithAI => 'AI로 레슨 만들기';
+
+  @override
+  String get allLevels => '모든 수준';
+
+  @override
+  String get levelA1 => 'A1 입문';
+
+  @override
+  String get levelA2 => 'A2 초급';
+
+  @override
+  String get levelB1 => 'B1 중급';
+
+  @override
+  String get levelB2 => 'B2 중상급';
+
+  @override
+  String get levelC1 => 'C1 고급';
+
+  @override
+  String get levelC2 => 'C2 숙련';
+
+  @override
+  String get failedToLoadLessons => '레슨을 불러오지 못했습니다';
+
+  @override
+  String get pin => '고정';
+
+  @override
+  String get unpin => '고정 해제';
+
+  @override
+  String get editMessage => '메시지 수정';
+
+  @override
+  String get enterMessage => '메시지 입력...';
+
+  @override
+  String get deleteMessageTitle => '메시지 삭제';
+
+  @override
+  String get actionCannotBeUndone => '이 작업은 취소할 수 없습니다.';
+
+  @override
+  String get onlyRemovesFromDevice => '기기에서만 삭제됩니다';
+
+  @override
+  String get availableWithinOneHour => '1시간 이내만 가능';
+
+  @override
+  String get available => '사용 가능';
+
+  @override
+  String get forwardMessage => '메시지 전달';
+
+  @override
+  String get selectUsersToForward => '전달할 사용자를 선택하세요:';
+
+  @override
+  String forwardCount(int count) {
+    return '전달 ($count)';
+  }
+
+  @override
+  String get pinnedMessage => '고정된 메시지';
+
+  @override
+  String get photoMedia => '사진';
+
+  @override
+  String get videoMedia => '동영상';
+
+  @override
+  String get voiceMessageMedia => '음성 메시지';
+
+  @override
+  String get documentMedia => '문서';
+
+  @override
+  String get locationMedia => '위치';
+
+  @override
+  String get stickerMedia => '스티커';
+
+  @override
+  String get smileys => '웃는 얼굴';
+
+  @override
+  String get emotions => '감정';
+
+  @override
+  String get handGestures => '손 제스처';
+
+  @override
+  String get hearts => '하트';
+
+  @override
+  String get tapToSayHi => '탭하여 인사하세요!';
+
+  @override
+  String get sendWaveToStart => '인사를 보내 대화를 시작하세요';
+
+  @override
+  String get documentMustBeUnder50MB => '문서는 50MB 미만이어야 합니다.';
+
+  @override
+  String get editWithin15Minutes => '메시지는 15분 이내에만 수정할 수 있습니다';
+
+  @override
+  String messageForwardedTo(int count) {
+    return '$count명의 사용자에게 메시지가 전달되었습니다';
+  }
+
+  @override
+  String get failedToLoadUsers => '사용자를 불러오지 못했습니다';
+
+  @override
+  String get voice => '음성';
 }

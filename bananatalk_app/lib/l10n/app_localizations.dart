@@ -6869,6 +6869,570 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load languages'**
   String get failedToLoadLanguages;
+
+  /// No description provided for @studyHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Study Hub'**
+  String get studyHub;
+
+  /// No description provided for @dailyLearningJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily learning journey'**
+  String get dailyLearningJourney;
+
+  /// No description provided for @learnTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get learnTab;
+
+  /// No description provided for @aiTools.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Tools'**
+  String get aiTools;
+
+  /// No description provided for @streak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streak;
+
+  /// No description provided for @lessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get lessons;
+
+  /// No description provided for @words.
+  ///
+  /// In en, this message translates to:
+  /// **'Words'**
+  String get words;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @review.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get review;
+
+  /// No description provided for @wordsDue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words due'**
+  String wordsDue(int count);
+
+  /// No description provided for @addWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Words'**
+  String get addWords;
+
+  /// No description provided for @buildVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Build vocabulary'**
+  String get buildVocabulary;
+
+  /// No description provided for @practiceWithAI.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice with AI'**
+  String get practiceWithAI;
+
+  /// No description provided for @aiPracticeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat, quiz, grammar & pronunciation'**
+  String get aiPracticeDescription;
+
+  /// No description provided for @dailyChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Challenges'**
+  String get dailyChallenges;
+
+  /// No description provided for @allChallengesCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'All challenges completed!'**
+  String get allChallengesCompleted;
+
+  /// No description provided for @continueLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Learning'**
+  String get continueLearning;
+
+  /// No description provided for @structuredLearningPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Structured learning path'**
+  String get structuredLearningPath;
+
+  /// No description provided for @vocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get vocabulary;
+
+  /// No description provided for @yourWordCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your word collection'**
+  String get yourWordCollection;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @badgesAndMilestones.
+  ///
+  /// In en, this message translates to:
+  /// **'Badges and milestones'**
+  String get badgesAndMilestones;
+
+  /// No description provided for @failedToLoadLearningData.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load learning data'**
+  String get failedToLoadLearningData;
+
+  /// No description provided for @startYourJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your journey!'**
+  String get startYourJourney;
+
+  /// No description provided for @startJourneyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete lessons, build vocabulary, and\ntrack your progress'**
+  String get startJourneyDescription;
+
+  /// No description provided for @levelN.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level}'**
+  String levelN(int level);
+
+  /// No description provided for @xpEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP earned'**
+  String xpEarned(int xp);
+
+  /// No description provided for @nextLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: Level {level}'**
+  String nextLevel(int level);
+
+  /// No description provided for @xpToGo.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP to go'**
+  String xpToGo(int xp);
+
+  /// No description provided for @aiConversationPartner.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Conversation Partner'**
+  String get aiConversationPartner;
+
+  /// No description provided for @practiceWithAITutor.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice speaking with your AI tutor'**
+  String get practiceWithAITutor;
+
+  /// No description provided for @startConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Conversation'**
+  String get startConversation;
+
+  /// No description provided for @aiFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Features'**
+  String get aiFeatures;
+
+  /// No description provided for @aiLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Lessons'**
+  String get aiLessons;
+
+  /// No description provided for @learnWithAI.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn with AI'**
+  String get learnWithAI;
+
+  /// No description provided for @grammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get grammar;
+
+  /// No description provided for @checkWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Check writing'**
+  String get checkWriting;
+
+  /// No description provided for @pronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation'**
+  String get pronunciation;
+
+  /// No description provided for @improveSpeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Improve speaking'**
+  String get improveSpeaking;
+
+  /// No description provided for @translation.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get translation;
+
+  /// No description provided for @smartTranslate.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart translate'**
+  String get smartTranslate;
+
+  /// No description provided for @aiQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Quizzes'**
+  String get aiQuizzes;
+
+  /// No description provided for @testKnowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'Test knowledge'**
+  String get testKnowledge;
+
+  /// No description provided for @lessonBuilder.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Builder'**
+  String get lessonBuilder;
+
+  /// No description provided for @customLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom lessons'**
+  String get customLessons;
+
+  /// No description provided for @yourAIProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Your AI Progress'**
+  String get yourAIProgress;
+
+  /// No description provided for @quizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Quizzes'**
+  String get quizzes;
+
+  /// No description provided for @avgScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg Score'**
+  String get avgScore;
+
+  /// No description provided for @focusAreas.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus Areas'**
+  String get focusAreas;
+
+  /// No description provided for @accuracyPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{accuracy}% accuracy'**
+  String accuracyPercent(String accuracy);
+
+  /// No description provided for @practice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get practice;
+
+  /// No description provided for @browse.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get browse;
+
+  /// No description provided for @noRecommendedLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'No recommended lessons available'**
+  String get noRecommendedLessons;
+
+  /// No description provided for @noLessonsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No lessons found'**
+  String get noLessonsFound;
+
+  /// No description provided for @createCustomLessonDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your own custom lesson with AI'**
+  String get createCustomLessonDescription;
+
+  /// No description provided for @createLessonWithAI.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Lesson with AI'**
+  String get createLessonWithAI;
+
+  /// No description provided for @allLevels.
+  ///
+  /// In en, this message translates to:
+  /// **'All Levels'**
+  String get allLevels;
+
+  /// No description provided for @levelA1.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 Beginner'**
+  String get levelA1;
+
+  /// No description provided for @levelA2.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 Elementary'**
+  String get levelA2;
+
+  /// No description provided for @levelB1.
+  ///
+  /// In en, this message translates to:
+  /// **'B1 Intermediate'**
+  String get levelB1;
+
+  /// No description provided for @levelB2.
+  ///
+  /// In en, this message translates to:
+  /// **'B2 Upper-Int'**
+  String get levelB2;
+
+  /// No description provided for @levelC1.
+  ///
+  /// In en, this message translates to:
+  /// **'C1 Advanced'**
+  String get levelC1;
+
+  /// No description provided for @levelC2.
+  ///
+  /// In en, this message translates to:
+  /// **'C2 Proficient'**
+  String get levelC2;
+
+  /// No description provided for @failedToLoadLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load lessons'**
+  String get failedToLoadLessons;
+
+  /// No description provided for @pin.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin'**
+  String get pin;
+
+  /// No description provided for @unpin.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpin'**
+  String get unpin;
+
+  /// No description provided for @editMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Message'**
+  String get editMessage;
+
+  /// No description provided for @enterMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter message...'**
+  String get enterMessage;
+
+  /// No description provided for @deleteMessageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Message'**
+  String get deleteMessageTitle;
+
+  /// No description provided for @actionCannotBeUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get actionCannotBeUndone;
+
+  /// No description provided for @onlyRemovesFromDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Only removes from your device'**
+  String get onlyRemovesFromDevice;
+
+  /// No description provided for @availableWithinOneHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Only available within 1 hour'**
+  String get availableWithinOneHour;
+
+  /// No description provided for @available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get available;
+
+  /// No description provided for @forwardMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Forward Message'**
+  String get forwardMessage;
+
+  /// No description provided for @selectUsersToForward.
+  ///
+  /// In en, this message translates to:
+  /// **'Select users to forward to:'**
+  String get selectUsersToForward;
+
+  /// No description provided for @forwardCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Forward ({count})'**
+  String forwardCount(int count);
+
+  /// No description provided for @pinnedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinned Message'**
+  String get pinnedMessage;
+
+  /// No description provided for @photoMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get photoMedia;
+
+  /// No description provided for @videoMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get videoMedia;
+
+  /// No description provided for @voiceMessageMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice message'**
+  String get voiceMessageMedia;
+
+  /// No description provided for @documentMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Document'**
+  String get documentMedia;
+
+  /// No description provided for @locationMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationMedia;
+
+  /// No description provided for @stickerMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Sticker'**
+  String get stickerMedia;
+
+  /// No description provided for @smileys.
+  ///
+  /// In en, this message translates to:
+  /// **'Smileys'**
+  String get smileys;
+
+  /// No description provided for @emotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotions'**
+  String get emotions;
+
+  /// No description provided for @handGestures.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand Gestures'**
+  String get handGestures;
+
+  /// No description provided for @hearts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hearts'**
+  String get hearts;
+
+  /// No description provided for @tapToSayHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to say hi!'**
+  String get tapToSayHi;
+
+  /// No description provided for @sendWaveToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a wave to start chatting'**
+  String get sendWaveToStart;
+
+  /// No description provided for @documentMustBeUnder50MB.
+  ///
+  /// In en, this message translates to:
+  /// **'Document must be under 50MB.'**
+  String get documentMustBeUnder50MB;
+
+  /// No description provided for @editWithin15Minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages can only be edited within 15 minutes'**
+  String get editWithin15Minutes;
+
+  /// No description provided for @messageForwardedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Message forwarded to {count} user(s)'**
+  String messageForwardedTo(int count);
+
+  /// No description provided for @failedToLoadUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load users'**
+  String get failedToLoadUsers;
+
+  /// No description provided for @voice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get voice;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

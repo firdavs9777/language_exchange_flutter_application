@@ -1,7 +1,8 @@
 // lib/pages/chat/delete_message_dialog.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Dialog for delete options: Delete for Me vs Delete for Everyone
@@ -31,7 +32,7 @@ class DeleteMessageDialog extends StatelessWidget {
   }
 
   /// Get remaining time for delete for everyone
-  String? get deleteForEveryoneTimeRemaining {
+  String? deleteForEveryoneTimeRemaining(BuildContext context) {
     if (!canDeleteForEveryone) return null;
 
     try {
@@ -40,7 +41,7 @@ class DeleteMessageDialog extends StatelessWidget {
       final remainingMinutes = 60 - diff.inMinutes;
 
       if (remainingMinutes > 30) {
-        return 'Available';
+        return AppLocalizations.of(context)!.available;
       } else {
         return '${remainingMinutes}m left';
       }
@@ -80,7 +81,7 @@ class DeleteMessageDialog extends StatelessWidget {
 
             // Title
             Text(
-              'Delete Message',
+              AppLocalizations.of(context)!.deleteMessageTitle,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -91,7 +92,7 @@ class DeleteMessageDialog extends StatelessWidget {
 
             // Subtitle
             Text(
-              'This action cannot be undone.',
+              AppLocalizations.of(context)!.actionCannotBeUndone,
               style: TextStyle(
                 fontSize: 14,
                 color: context.textSecondary,
@@ -104,10 +105,10 @@ class DeleteMessageDialog extends StatelessWidget {
             _buildOption(
               context,
               icon: Icons.person_outline_rounded,
-              title: 'Delete for Me',
-              subtitle: 'Only removes from your device',
+              title: AppLocalizations.of(context)!.deleteForMe,
+              subtitle: AppLocalizations.of(context)!.onlyRemovesFromDevice,
               onTap: () {
-                HapticFeedback.lightImpact();
+                HapticUtils.onDelete();
                 Navigator.pop(context);
                 onDelete(false);
               },
@@ -119,14 +120,14 @@ class DeleteMessageDialog extends StatelessWidget {
             _buildOption(
               context,
               icon: Icons.people_outline_rounded,
-              title: 'Delete for Everyone',
+              title: AppLocalizations.of(context)!.deleteForEveryone,
               subtitle: canDeleteForEveryone
                   ? 'Removes for you and $otherUserName'
-                  : 'Only available within 1 hour',
-              trailing: deleteForEveryoneTimeRemaining,
+                  : AppLocalizations.of(context)!.availableWithinOneHour,
+              trailing: deleteForEveryoneTimeRemaining(context),
               enabled: canDeleteForEveryone,
               onTap: () {
-                HapticFeedback.lightImpact();
+                HapticUtils.onDelete();
                 Navigator.pop(context);
                 onDelete(true);
               },
@@ -146,7 +147,7 @@ class DeleteMessageDialog extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Cancel',
+                  AppLocalizations.of(context)!.cancel,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

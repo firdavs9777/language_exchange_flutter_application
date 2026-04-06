@@ -1964,7 +1964,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'वीडियो 1GB से कम होना चाहिए।';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'आप';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'भाषाएं लोड विफल';
+
+  @override
+  String get studyHub => 'अध्ययन केंद्र';
+
+  @override
+  String get dailyLearningJourney => 'आपकी दैनिक सीखने की यात्रा';
+
+  @override
+  String get learnTab => 'सीखें';
+
+  @override
+  String get aiTools => 'AI उपकरण';
+
+  @override
+  String get streak => 'स्ट्रीक';
+
+  @override
+  String get lessons => 'पाठ';
+
+  @override
+  String get words => 'शब्द';
+
+  @override
+  String get quickActions => 'त्वरित क्रियाएं';
+
+  @override
+  String get review => 'समीक्षा';
+
+  @override
+  String wordsDue(int count) {
+    return '$count शब्द बाकी';
+  }
+
+  @override
+  String get addWords => 'शब्द जोड़ें';
+
+  @override
+  String get buildVocabulary => 'शब्द भंडार बनाएं';
+
+  @override
+  String get practiceWithAI => 'AI से अभ्यास करें';
+
+  @override
+  String get aiPracticeDescription => 'चैट, क्विज़, व्याकरण और उच्चारण';
+
+  @override
+  String get dailyChallenges => 'दैनिक चुनौतियां';
+
+  @override
+  String get allChallengesCompleted => 'सभी चुनौतियां पूरी!';
+
+  @override
+  String get continueLearning => 'सीखना जारी रखें';
+
+  @override
+  String get structuredLearningPath => 'संरचित सीखने का मार्ग';
+
+  @override
+  String get vocabulary => 'शब्दावली';
+
+  @override
+  String get yourWordCollection => 'आपका शब्द संग्रह';
+
+  @override
+  String get achievements => 'उपलब्धियां';
+
+  @override
+  String get badgesAndMilestones => 'बैज और मील के पत्थर';
+
+  @override
+  String get failedToLoadLearningData => 'सीखने का डेटा लोड करने में विफल';
+
+  @override
+  String get startYourJourney => 'अपनी यात्रा शुरू करें!';
+
+  @override
+  String get startJourneyDescription => 'पाठ पूरे करें, शब्द भंडार बनाएं\nऔर अपनी प्रगति ट्रैक करें';
+
+  @override
+  String levelN(int level) {
+    return 'स्तर $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP अर्जित';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'अगला: स्तर $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP शेष';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI वार्तालाप साथी';
+
+  @override
+  String get practiceWithAITutor => 'अपने AI शिक्षक के साथ बोलने का अभ्यास करें';
+
+  @override
+  String get startConversation => 'बातचीत शुरू करें';
+
+  @override
+  String get aiFeatures => 'AI सुविधाएं';
+
+  @override
+  String get aiLessons => 'AI पाठ';
+
+  @override
+  String get learnWithAI => 'AI से सीखें';
+
+  @override
+  String get grammar => 'व्याकरण';
+
+  @override
+  String get checkWriting => 'लेखन जांचें';
+
+  @override
+  String get pronunciation => 'उच्चारण';
+
+  @override
+  String get improveSpeaking => 'बोलने में सुधार';
+
+  @override
+  String get translation => 'अनुवाद';
+
+  @override
+  String get smartTranslate => 'स्मार्ट अनुवाद';
+
+  @override
+  String get aiQuizzes => 'AI क्विज़';
+
+  @override
+  String get testKnowledge => 'ज्ञान परीक्षण';
+
+  @override
+  String get lessonBuilder => 'पाठ निर्माता';
+
+  @override
+  String get customLessons => 'कस्टम पाठ';
+
+  @override
+  String get yourAIProgress => 'AI के साथ आपकी प्रगति';
+
+  @override
+  String get quizzes => 'क्विज़';
+
+  @override
+  String get avgScore => 'औसत अंक';
+
+  @override
+  String get focusAreas => 'ध्यान देने के क्षेत्र';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '$accuracy% सटीकता';
+  }
+
+  @override
+  String get practice => 'अभ्यास';
+
+  @override
+  String get browse => 'ब्राउज़';
+
+  @override
+  String get noRecommendedLessons => 'कोई अनुशंसित पाठ उपलब्ध नहीं';
+
+  @override
+  String get noLessonsFound => 'कोई पाठ नहीं मिला';
+
+  @override
+  String get createCustomLessonDescription => 'AI से अपना कस्टम पाठ बनाएं';
+
+  @override
+  String get createLessonWithAI => 'AI से पाठ बनाएं';
+
+  @override
+  String get allLevels => 'सभी स्तर';
+
+  @override
+  String get levelA1 => 'A1 शुरुआती';
+
+  @override
+  String get levelA2 => 'A2 प्राथमिक';
+
+  @override
+  String get levelB1 => 'B1 मध्यवर्ती';
+
+  @override
+  String get levelB2 => 'B2 उच्च-मध्यवर्ती';
+
+  @override
+  String get levelC1 => 'C1 उन्नत';
+
+  @override
+  String get levelC2 => 'C2 कुशल';
+
+  @override
+  String get failedToLoadLessons => 'पाठ लोड करने में विफल';
+
+  @override
+  String get pin => 'पिन करें';
+
+  @override
+  String get unpin => 'अनपिन करें';
+
+  @override
+  String get editMessage => 'संदेश संपादित करें';
+
+  @override
+  String get enterMessage => 'संदेश दर्ज करें...';
+
+  @override
+  String get deleteMessageTitle => 'संदेश हटाएं';
+
+  @override
+  String get actionCannotBeUndone => 'यह क्रिया पूर्ववत नहीं की जा सकती।';
+
+  @override
+  String get onlyRemovesFromDevice => 'केवल आपके डिवाइस से हटाता है';
+
+  @override
+  String get availableWithinOneHour => 'केवल 1 घंटे के भीतर उपलब्ध';
+
+  @override
+  String get available => 'उपलब्ध';
+
+  @override
+  String get forwardMessage => 'संदेश अग्रेषित करें';
+
+  @override
+  String get selectUsersToForward => 'अग्रेषित करने के लिए उपयोगकर्ता चुनें:';
+
+  @override
+  String forwardCount(int count) {
+    return 'अग्रेषित ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'पिन किया गया संदेश';
+
+  @override
+  String get photoMedia => 'फ़ोटो';
+
+  @override
+  String get videoMedia => 'वीडियो';
+
+  @override
+  String get voiceMessageMedia => 'वॉयस संदेश';
+
+  @override
+  String get documentMedia => 'दस्तावेज़';
+
+  @override
+  String get locationMedia => 'स्थान';
+
+  @override
+  String get stickerMedia => 'स्टिकर';
+
+  @override
+  String get smileys => 'स्माइली';
+
+  @override
+  String get emotions => 'भावनाएं';
+
+  @override
+  String get handGestures => 'हाथ के इशारे';
+
+  @override
+  String get hearts => 'दिल';
+
+  @override
+  String get tapToSayHi => 'हाय कहने के लिए टैप करें!';
+
+  @override
+  String get sendWaveToStart => 'चैट शुरू करने के लिए हैलो भेजें';
+
+  @override
+  String get documentMustBeUnder50MB => 'दस्तावेज़ 50MB से कम होना चाहिए।';
+
+  @override
+  String get editWithin15Minutes => 'संदेश केवल 15 मिनट के भीतर संपादित किए जा सकते हैं';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'संदेश $count उपयोगकर्ता(ओं) को अग्रेषित किया गया';
+  }
+
+  @override
+  String get failedToLoadUsers => 'उपयोगकर्ता लोड करने में विफल';
+
+  @override
+  String get voice => 'आवाज़';
 }

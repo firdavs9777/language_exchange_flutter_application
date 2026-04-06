@@ -1448,6 +1448,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   /// Search for a user by username and start a chat
   Future<void> _searchAndStartChat(String username) async {
     final colors = Theme.of(context).colorScheme;
+    bool dialogOpen = true;
 
     // Show loading indicator
     showDialog(
@@ -1480,27 +1481,23 @@ class _ChatMainState extends ConsumerState<ChatMain>
       final user = await userService.getUserByUsername(username);
 
       if (!mounted) return;
-      Navigator.of(context).pop(); // Close loading dialog
+      // Close loading dialog using root navigator (showDialog uses root by default)
+      Navigator.of(context, rootNavigator: true).pop();
+      dialogOpen = false;
 
       if (user != null) {
-        // Found user - navigate to chat
+        // Found user - navigate to chat via GoRouter
         _searchController.clear();
         setState(() {
           _searchQuery = '';
         });
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ChatScreen(
-              userId: user.id,
-              userName: user.name,
-              profilePicture: user.profileImageUrl,
-              isVip: user.isVip,
-            ),
-          ),
-        ).then((_) {
-          _silentRefresh();
+        // Defer navigation to next frame so dialog dismiss completes first
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          context.push('/chat/${user.id}').then((_) {
+            _silentRefresh();
+          });
         });
       } else {
         // User not found
@@ -1517,18 +1514,23 @@ class _ChatMainState extends ConsumerState<ChatMain>
       }
     } catch (e) {
       if (!mounted) return;
-      Navigator.of(context).pop(); // Close loading dialog
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error searching for user: $e'),
-          backgroundColor: colors.error,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+      // Use post-frame callback to avoid popping while navigator is locked
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        if (dialogOpen) {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error searching for user: $e'),
+            backgroundColor: colors.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-        ),
-      );
+        );
+      });
     }
   }
 
@@ -1763,7 +1765,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       child: SlidableAutoCloseBehavior(
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 4),
+          padding: const EdgeInsets.only(top: 4, bottom: 100),
           itemCount: displayPartners.length,
           separatorBuilder: (_, __) => Divider(
             height: 1,
@@ -2434,7 +2436,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       // Floating refresh button
                       Positioned(
                         right: 16,
-                        bottom: 16,
+                        bottom: 100,
                         child: _buildRefreshButton(colors),
                       ),
                     ],

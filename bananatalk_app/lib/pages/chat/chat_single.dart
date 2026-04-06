@@ -45,6 +45,7 @@ import 'package:bananatalk_app/pages/chat/chat_user_info_card.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/services/block_service.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -82,6 +83,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   bool _showPinnedBar = true; // Show pinned messages bar by default
   bool _showScrollButton = false; // Show scroll to bottom button
   String? _highlightedMessageId; // For highlighting scrolled-to message
+  bool _isBlockedChat = false; // True if either user has blocked the other
+  bool _isSharingLocation = false;
 
   // Upload progress tracking
   int _uploadBytesSent = 0;
@@ -275,7 +278,28 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       // Mark chat as visible so auto-read only happens when screen is shown
       chatNotifier.setChatVisible(true);
 
+      // Check if either user has blocked the other
+      _checkBlockStatus(userId);
+
       await _loadMessages();
+    }
+  }
+
+  Future<void> _checkBlockStatus(String currentUserId) async {
+    try {
+      final result = await BlockService.checkBlockStatus(
+        userId: currentUserId,
+        targetUserId: widget.userId,
+      );
+      if (!mounted) return;
+      if (result['success'] == true) {
+        final blocked = result['isBlocked'] == true || result['isBlockedBy'] == true;
+        if (blocked != _isBlockedChat) {
+          setState(() => _isBlockedChat = blocked);
+        }
+      }
+    } catch (e) {
+      debugPrint('Block status check failed: $e');
     }
   }
 
@@ -503,9 +527,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _stickerPanelController.reverse();
       }
       _showMediaPanel = !_showMediaPanel;
-      _showMediaPanel
-          ? _mediaPanelController.forward()
-          : _mediaPanelController.reverse();
+      if (_showMediaPanel) {
+        FocusScope.of(context).unfocus();
+        _mediaPanelController.forward();
+      } else {
+        _mediaPanelController.reverse();
+      }
     });
   }
 
@@ -516,9 +543,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _mediaPanelController.reverse();
       }
       _showStickerPanel = !_showStickerPanel;
-      _showStickerPanel
-          ? _stickerPanelController.forward()
-          : _stickerPanelController.reverse();
+      if (_showStickerPanel) {
+        FocusScope.of(context).unfocus();
+        _stickerPanelController.forward();
+      } else {
+        _stickerPanelController.reverse();
+      }
     });
   }
 
@@ -724,6 +754,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       displayMessage = l10n.dailyMessageLimitExceeded;
     } else if (errorMessage.toLowerCase().contains('blocked')) {
       displayMessage = l10n.cannotSendMessageUserMayBeBlocked;
+      // Disable input so user can't keep trying
+      setState(() => _isBlockedChat = true);
     } else if (errorMessage.toLowerCase().contains('not found')) {
       displayMessage = l10n.userNotFound;
     } else if (errorMessage.toLowerCase().contains('unauthorized') ||
@@ -893,8 +925,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Video must be under 1GB.'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.videoMustBeUnder1GB),
                 backgroundColor: Colors.red,
               ),
             );
@@ -933,8 +965,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Video must be under 1GB.'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.videoMustBeUnder1GB),
                 backgroundColor: Colors.red,
               ),
             );
@@ -974,8 +1006,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (fileSize > 50 * 1024 * 1024) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Document must be under 50MB.'),
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.documentMustBeUnder50MB),
                 backgroundColor: Colors.red,
               ),
             );
@@ -1203,9 +1235,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Future<void> _shareLocation() async {
+    if (_isSharingLocation) return;
+    _isSharingLocation = true;
+
+    BuildContext? dialogContext;
     try {
       final permission = await Permission.location.request();
       if (!permission.isGranted) {
+        _isSharingLocation = false;
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -1220,16 +1257,23 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
 
       if (mounted) {
+        // Don't await — we dismiss it ourselves after getting the position
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) =>
-              const Center(child: CircularProgressIndicator()),
+          useRootNavigator: true,
+          builder: (ctx) {
+            dialogContext = ctx;
+            return const Center(child: CircularProgressIndicator());
+          },
         );
+        // Let the dialog route push before continuing
+        await Future.delayed(const Duration(milliseconds: 50));
       }
 
       final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        desiredAccuracy: LocationAccuracy.medium,
+        timeLimit: const Duration(seconds: 15),
       );
 
       String? address;
@@ -1246,9 +1290,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           placeName = place.name;
         }
       } catch (e) {
+        // Geocoding failure is non-fatal
       }
 
-      if (mounted) Navigator.of(context).pop();
+      // Dismiss loading dialog safely using its own context
+      if (dialogContext != null && Navigator.of(dialogContext!).canPop()) {
+        Navigator.of(dialogContext!).pop();
+      }
+      dialogContext = null;
+
+      if (!mounted) return;
 
       final result = await MediaService.sendMessageWithLocation(
         receiverId: widget.userId,
@@ -1258,12 +1309,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         placeName: placeName,
       );
 
-
-      // Check mounted after async operation
       if (!mounted) return;
 
       if (result['success'] == true) {
-        // Don't reload - socket already adds the sent message
         WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
         if (_currentUserId != null) {
           ref.refresh(userLimitsProvider(_currentUserId!));
@@ -1277,8 +1325,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         );
       }
     } catch (e) {
+      // Dismiss loading dialog if still open
+      if (dialogContext != null && Navigator.of(dialogContext!).canPop()) {
+        Navigator.of(dialogContext!).pop();
+      }
       if (mounted) {
-        Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to get location: ${e.toString()}'),
@@ -1286,6 +1337,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           ),
         );
       }
+    } finally {
+      _isSharingLocation = false;
     }
   }
 
@@ -1431,8 +1484,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final diff = DateTime.now().difference(createdAt);
       if (diff.inMinutes >= 15) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Messages can only be edited within 15 minutes'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.editWithin15Minutes),
             backgroundColor: Colors.orange,
           ),
         );
@@ -1639,7 +1692,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (forwardResult['success'] == true && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Message forwarded to ${result.length} user${result.length > 1 ? 's' : ''}'),
+            content: Text(AppLocalizations.of(context)!.messageForwardedTo(result.length)),
             duration: const Duration(seconds: 2),
           ),
         );
@@ -1832,9 +1885,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         decoration: _getWallpaperDecoration(),
         child: GestureDetector(
           onTap: _hidePanels,
+          child: ClipRect(
           child: Column(
             children: [
-              ConnectionStatusIndicator(),
+              const ConnectionStatusIndicator(),
               // Pinned messages bar
               if (chatState.pinnedMessages.isNotEmpty)
                 PinnedMessagesBar(
@@ -1907,30 +1961,56 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   ],
                 ),
               ),
-              ChatInputSection(
-                messageController: _messageController,
-                isSending: _isSending,
-                showMediaPanel: _showMediaPanel,
-                showStickerPanel: _showStickerPanel,
-                mediaPanelController: _mediaPanelController,
-                stickerPanelController: _stickerPanelController,
-                onSendMessage: _sendMessage,
-                onSelectSticker: _selectSticker,
-                onToggleMediaPanel: _toggleMediaPanel,
-                onToggleStickerPanel: _toggleStickerPanel,
-                onTyping: _onTyping,
-                onStopTyping: _stopTyping,
-                onHidePanels: _hidePanels,
-                onMediaOption: _handleMediaOption,
-                replyingToMessage: _replyingToMessage,
-                otherUserName: widget.userName,
-                onCancelReply: () => setState(() => _replyingToMessage = null),
-                onAudioPressed: _showVoiceRecorder,
-                uploadBytesSent: _uploadBytesSent,
-                uploadTotalBytes: _uploadTotalBytes,
-                uploadFileName: _uploadFileName,
-              ),
+              if (_isBlockedChat)
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: context.containerColor,
+                    border: Border(
+                      top: BorderSide(color: context.dividerColor, width: 0.5),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.block, size: 18, color: context.textSecondary),
+                      const SizedBox(width: 8),
+                      Text(
+                        AppLocalizations.of(context)!.cannotSendMessageUserMayBeBlocked,
+                        style: TextStyle(
+                          color: context.textSecondary,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                ChatInputSection(
+                  messageController: _messageController,
+                  isSending: _isSending,
+                  showMediaPanel: _showMediaPanel,
+                  showStickerPanel: _showStickerPanel,
+                  mediaPanelController: _mediaPanelController,
+                  stickerPanelController: _stickerPanelController,
+                  onSendMessage: _sendMessage,
+                  onSelectSticker: _selectSticker,
+                  onToggleMediaPanel: _toggleMediaPanel,
+                  onToggleStickerPanel: _toggleStickerPanel,
+                  onTyping: _onTyping,
+                  onStopTyping: _stopTyping,
+                  onHidePanels: _hidePanels,
+                  onMediaOption: _handleMediaOption,
+                  replyingToMessage: _replyingToMessage,
+                  otherUserName: widget.userName,
+                  onCancelReply: () => setState(() => _replyingToMessage = null),
+                  onAudioPressed: _showVoiceRecorder,
+                  uploadBytesSent: _uploadBytesSent,
+                  uploadTotalBytes: _uploadTotalBytes,
+                  uploadFileName: _uploadFileName,
+                ),
             ],
+          ),
           ),
         ),
       ),
@@ -2848,7 +2928,7 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
       backgroundColor: isDark ? AppColors.cardDark : AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: Text(
-        'Edit Message',
+        AppLocalizations.of(context)!.editMessage,
         style: TextStyle(
           color: isDark ? AppColors.white : AppColors.gray900,
           fontWeight: FontWeight.bold,
@@ -2862,7 +2942,7 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
         maxLength: 2000,
         style: TextStyle(color: isDark ? AppColors.white : AppColors.gray900),
         decoration: InputDecoration(
-          hintText: 'Enter message...',
+          hintText: AppLocalizations.of(context)!.enterMessage,
           hintStyle: TextStyle(color: isDark ? AppColors.gray500 : AppColors.gray600),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -2884,7 +2964,7 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Cancel',
+            AppLocalizations.of(context)!.cancel,
             style: TextStyle(color: isDark ? AppColors.gray400 : AppColors.gray600),
           ),
         ),
@@ -2899,7 +2979,7 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
             backgroundColor: theme.primaryColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
-          child: const Text('Save', style: TextStyle(color: AppColors.white)),
+          child: Text(AppLocalizations.of(context)!.save, style: const TextStyle(color: AppColors.white)),
         ),
       ],
     );

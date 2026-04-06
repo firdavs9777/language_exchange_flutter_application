@@ -1964,7 +1964,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => '動画は1GB以下にしてください。';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'あなた';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => '言語の読み込みに失敗しました';
+
+  @override
+  String get studyHub => '学習ハブ';
+
+  @override
+  String get dailyLearningJourney => '今日の学習の旅';
+
+  @override
+  String get learnTab => '学習';
+
+  @override
+  String get aiTools => 'AIツール';
+
+  @override
+  String get streak => '連続学習';
+
+  @override
+  String get lessons => 'レッスン';
+
+  @override
+  String get words => '単語';
+
+  @override
+  String get quickActions => 'クイックアクション';
+
+  @override
+  String get review => '復習';
+
+  @override
+  String wordsDue(int count) {
+    return '$count個の単語が予定';
+  }
+
+  @override
+  String get addWords => '単語を追加';
+
+  @override
+  String get buildVocabulary => '語彙を増やす';
+
+  @override
+  String get practiceWithAI => 'AIで練習';
+
+  @override
+  String get aiPracticeDescription => 'チャット、クイズ、文法・発音';
+
+  @override
+  String get dailyChallenges => 'デイリーチャレンジ';
+
+  @override
+  String get allChallengesCompleted => 'すべてのチャレンジ完了！';
+
+  @override
+  String get continueLearning => '学習を続ける';
+
+  @override
+  String get structuredLearningPath => '体系的な学習パス';
+
+  @override
+  String get vocabulary => '語彙';
+
+  @override
+  String get yourWordCollection => 'あなたの単語コレクション';
+
+  @override
+  String get achievements => '実績';
+
+  @override
+  String get badgesAndMilestones => 'バッジとマイルストーン';
+
+  @override
+  String get failedToLoadLearningData => '学習データの読み込みに失敗しました';
+
+  @override
+  String get startYourJourney => '旅を始めよう！';
+
+  @override
+  String get startJourneyDescription => 'レッスンを完了し、語彙を増やし、\n進捗を追跡しましょう';
+
+  @override
+  String levelN(int level) {
+    return 'レベル$level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP獲得';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return '次：レベル$level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '残り$xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI会話パートナー';
+
+  @override
+  String get practiceWithAITutor => 'AIチューターと会話を練習';
+
+  @override
+  String get startConversation => '会話を開始';
+
+  @override
+  String get aiFeatures => 'AI機能';
+
+  @override
+  String get aiLessons => 'AIレッスン';
+
+  @override
+  String get learnWithAI => 'AIで学ぶ';
+
+  @override
+  String get grammar => '文法';
+
+  @override
+  String get checkWriting => '文章を確認';
+
+  @override
+  String get pronunciation => '発音';
+
+  @override
+  String get improveSpeaking => '話す力を向上';
+
+  @override
+  String get translation => '翻訳';
+
+  @override
+  String get smartTranslate => 'スマート翻訳';
+
+  @override
+  String get aiQuizzes => 'AIクイズ';
+
+  @override
+  String get testKnowledge => '知識をテスト';
+
+  @override
+  String get lessonBuilder => 'レッスンビルダー';
+
+  @override
+  String get customLessons => 'カスタムレッスン';
+
+  @override
+  String get yourAIProgress => 'AIの進捗';
+
+  @override
+  String get quizzes => 'クイズ';
+
+  @override
+  String get avgScore => '平均スコア';
+
+  @override
+  String get focusAreas => '重点領域';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '正確度$accuracy%';
+  }
+
+  @override
+  String get practice => '練習';
+
+  @override
+  String get browse => 'ブラウズ';
+
+  @override
+  String get noRecommendedLessons => 'おすすめのレッスンはありません';
+
+  @override
+  String get noLessonsFound => 'レッスンが見つかりません';
+
+  @override
+  String get createCustomLessonDescription => 'AIを使って独自のカスタムレッスンを作成';
+
+  @override
+  String get createLessonWithAI => 'AIでレッスンを作成';
+
+  @override
+  String get allLevels => '全レベル';
+
+  @override
+  String get levelA1 => 'A1 入門';
+
+  @override
+  String get levelA2 => 'A2 初級';
+
+  @override
+  String get levelB1 => 'B1 中級';
+
+  @override
+  String get levelB2 => 'B2 中上級';
+
+  @override
+  String get levelC1 => 'C1 上級';
+
+  @override
+  String get levelC2 => 'C2 習熟';
+
+  @override
+  String get failedToLoadLessons => 'レッスンの読み込みに失敗しました';
+
+  @override
+  String get pin => 'ピン留め';
+
+  @override
+  String get unpin => 'ピン留め解除';
+
+  @override
+  String get editMessage => 'メッセージを編集';
+
+  @override
+  String get enterMessage => 'メッセージを入力...';
+
+  @override
+  String get deleteMessageTitle => 'メッセージを削除';
+
+  @override
+  String get actionCannotBeUndone => 'この操作は取り消せません。';
+
+  @override
+  String get onlyRemovesFromDevice => 'お使いのデバイスからのみ削除されます';
+
+  @override
+  String get availableWithinOneHour => '1時間以内のみ可能';
+
+  @override
+  String get available => '利用可能';
+
+  @override
+  String get forwardMessage => 'メッセージを転送';
+
+  @override
+  String get selectUsersToForward => '転送先のユーザーを選択:';
+
+  @override
+  String forwardCount(int count) {
+    return '転送 ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'ピン留めメッセージ';
+
+  @override
+  String get photoMedia => '写真';
+
+  @override
+  String get videoMedia => '動画';
+
+  @override
+  String get voiceMessageMedia => '音声メッセージ';
+
+  @override
+  String get documentMedia => 'ドキュメント';
+
+  @override
+  String get locationMedia => '位置情報';
+
+  @override
+  String get stickerMedia => 'スタンプ';
+
+  @override
+  String get smileys => 'スマイリー';
+
+  @override
+  String get emotions => '感情';
+
+  @override
+  String get handGestures => 'ハンドジェスチャー';
+
+  @override
+  String get hearts => 'ハート';
+
+  @override
+  String get tapToSayHi => 'タップして挨拶しよう！';
+
+  @override
+  String get sendWaveToStart => '手を振って会話を始めましょう';
+
+  @override
+  String get documentMustBeUnder50MB => 'ドキュメントは50MB以下にしてください。';
+
+  @override
+  String get editWithin15Minutes => 'メッセージは15分以内のみ編集できます';
+
+  @override
+  String messageForwardedTo(int count) {
+    return '$count人のユーザーに転送しました';
+  }
+
+  @override
+  String get failedToLoadUsers => 'ユーザーの読み込みに失敗しました';
+
+  @override
+  String get voice => '音声';
 }

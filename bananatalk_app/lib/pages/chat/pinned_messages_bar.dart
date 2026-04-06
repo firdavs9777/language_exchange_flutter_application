@@ -1,6 +1,7 @@
 // lib/pages/chat/pinned_messages_bar.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -69,7 +70,7 @@ class PinnedMessagesBar extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Pinned Message',
+                            AppLocalizations.of(context)!.pinnedMessage,
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -101,7 +102,7 @@ class PinnedMessagesBar extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        _getMessagePreview(message),
+                        _getMessagePreview(context, message),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -136,27 +137,28 @@ class PinnedMessagesBar extends StatelessWidget {
     );
   }
 
-  String _getMessagePreview(Message message) {
+  String _getMessagePreview(BuildContext context, Message message) {
     if (message.message != null && message.message!.isNotEmpty) {
       return message.message!;
     }
 
+    final l10n = AppLocalizations.of(context)!;
     switch (message.type) {
       case 'image':
-        return '📷 Photo';
+        return '📷 ${l10n.photoMedia}';
       case 'video':
-        return '🎥 Video';
+        return '🎥 ${l10n.videoMedia}';
       case 'voice':
       case 'audio':
-        return '🎵 Voice message';
+        return '🎵 ${l10n.voiceMessageMedia}';
       case 'document':
-        return '📄 Document';
+        return '📄 ${l10n.documentMedia}';
       case 'location':
-        return '📍 Location';
+        return '📍 ${l10n.locationMedia}';
       case 'sticker':
-        return '🏷️ Sticker';
+        return '🏷️ ${l10n.stickerMedia}';
       default:
-        return 'Message';
+        return l10n.messages;
     }
   }
 }

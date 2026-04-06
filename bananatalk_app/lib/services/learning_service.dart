@@ -698,6 +698,7 @@ class LearningService {
   /// Get lessons - tries regular lessons first, then AI-generated
   static Future<Map<String, dynamic>> getLessons({
     String? language,
+    String? sourceLanguage,
     String? level,
     String? category,
     int? unit,
@@ -706,6 +707,7 @@ class LearningService {
       final token = await _getToken();
       final queryParams = <String, String>{
         if (language != null) 'language': language,
+        if (sourceLanguage != null) 'sourceLanguage': sourceLanguage,
         if (level != null) 'level': level,
         if (category != null) 'category': category,
         if (unit != null) 'unit': unit.toString(),
@@ -762,6 +764,7 @@ class LearningService {
   /// Get AI-generated lessons
   static Future<Map<String, dynamic>> getAIGeneratedLessons({
     String? language,
+    String? sourceLanguage,
     String? level,
     String? category,
     int page = 1,
@@ -771,6 +774,7 @@ class LearningService {
       final token = await _getToken();
       final queryParams = <String, String>{
         if (language != null) 'language': language,
+        if (sourceLanguage != null) 'sourceLanguage': sourceLanguage,
         if (level != null) 'level': level,
         if (category != null) 'category': category,
         'page': page.toString(),
@@ -816,12 +820,14 @@ class LearningService {
   /// Get recommended lessons
   static Future<Map<String, dynamic>> getRecommendedLessons({
     String? language,
+    String? sourceLanguage,
     int limit = 5,
   }) async {
     try {
       final token = await _getToken();
       final queryParams = <String, String>{
         if (language != null) 'language': language,
+        if (sourceLanguage != null) 'sourceLanguage': sourceLanguage,
         'limit': limit.toString(),
       };
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.lessonsRecommendedURL}')

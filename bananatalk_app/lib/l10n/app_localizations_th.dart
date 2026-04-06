@@ -1964,7 +1964,7 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'วิดีโอต้องมีขนาดไม่เกิน 1GB';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'คุณ';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'โหลดภาษาไม่สำเร็จ';
+
+  @override
+  String get studyHub => 'ศูนย์การเรียนรู้';
+
+  @override
+  String get dailyLearningJourney => 'เส้นทางการเรียนรู้ประจำวันของคุณ';
+
+  @override
+  String get learnTab => 'เรียน';
+
+  @override
+  String get aiTools => 'เครื่องมือ AI';
+
+  @override
+  String get streak => 'ความต่อเนื่อง';
+
+  @override
+  String get lessons => 'บทเรียน';
+
+  @override
+  String get words => 'คำศัพท์';
+
+  @override
+  String get quickActions => 'การดำเนินการด่วน';
+
+  @override
+  String get review => 'ทบทวน';
+
+  @override
+  String wordsDue(int count) {
+    return '$count คำที่ต้องทบทวน';
+  }
+
+  @override
+  String get addWords => 'เพิ่มคำศัพท์';
+
+  @override
+  String get buildVocabulary => 'สร้างคลังคำศัพท์';
+
+  @override
+  String get practiceWithAI => 'ฝึกกับ AI';
+
+  @override
+  String get aiPracticeDescription => 'แชท ควิซ ไวยากรณ์ และการออกเสียง';
+
+  @override
+  String get dailyChallenges => 'ความท้าทายประจำวัน';
+
+  @override
+  String get allChallengesCompleted => 'ทำความท้าทายครบทุกข้อแล้ว!';
+
+  @override
+  String get continueLearning => 'เรียนต่อ';
+
+  @override
+  String get structuredLearningPath => 'เส้นทางการเรียนรู้ที่มีโครงสร้าง';
+
+  @override
+  String get vocabulary => 'คำศัพท์';
+
+  @override
+  String get yourWordCollection => 'คอลเลกชันคำศัพท์ของคุณ';
+
+  @override
+  String get achievements => 'ความสำเร็จ';
+
+  @override
+  String get badgesAndMilestones => 'เหรียญและเหตุการณ์สำคัญ';
+
+  @override
+  String get failedToLoadLearningData => 'โหลดข้อมูลการเรียนรู้ไม่สำเร็จ';
+
+  @override
+  String get startYourJourney => 'เริ่มต้นการเดินทางของคุณ!';
+
+  @override
+  String get startJourneyDescription => 'ทำบทเรียนให้เสร็จ สร้างคลังคำศัพท์\nและติดตามความก้าวหน้าของคุณ';
+
+  @override
+  String levelN(int level) {
+    return 'ระดับ $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return 'ได้รับ $xp XP';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'ถัดไป: ระดับ $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return 'เหลืออีก $xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'เพื่อนคู่สนทนา AI';
+
+  @override
+  String get practiceWithAITutor => 'ฝึกพูดกับครูสอน AI ของคุณ';
+
+  @override
+  String get startConversation => 'เริ่มการสนทนา';
+
+  @override
+  String get aiFeatures => 'ฟีเจอร์ AI';
+
+  @override
+  String get aiLessons => 'บทเรียน AI';
+
+  @override
+  String get learnWithAI => 'เรียนกับ AI';
+
+  @override
+  String get grammar => 'ไวยากรณ์';
+
+  @override
+  String get checkWriting => 'ตรวจการเขียน';
+
+  @override
+  String get pronunciation => 'การออกเสียง';
+
+  @override
+  String get improveSpeaking => 'พัฒนาการพูด';
+
+  @override
+  String get translation => 'การแปล';
+
+  @override
+  String get smartTranslate => 'แปลอัจฉริยะ';
+
+  @override
+  String get aiQuizzes => 'ควิซ AI';
+
+  @override
+  String get testKnowledge => 'ทดสอบความรู้';
+
+  @override
+  String get lessonBuilder => 'สร้างบทเรียน';
+
+  @override
+  String get customLessons => 'บทเรียนที่กำหนดเอง';
+
+  @override
+  String get yourAIProgress => 'ความก้าวหน้า AI ของคุณ';
+
+  @override
+  String get quizzes => 'ควิซ';
+
+  @override
+  String get avgScore => 'คะแนนเฉลี่ย';
+
+  @override
+  String get focusAreas => 'พื้นที่ที่ต้องเน้น';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return 'ความแม่นยำ $accuracy%';
+  }
+
+  @override
+  String get practice => 'ฝึกฝน';
+
+  @override
+  String get browse => 'เรียกดู';
+
+  @override
+  String get noRecommendedLessons => 'ไม่มีบทเรียนที่แนะนำ';
+
+  @override
+  String get noLessonsFound => 'ไม่พบบทเรียน';
+
+  @override
+  String get createCustomLessonDescription => 'สร้างบทเรียนที่กำหนดเองด้วย AI';
+
+  @override
+  String get createLessonWithAI => 'สร้างบทเรียนด้วย AI';
+
+  @override
+  String get allLevels => 'ทุกระดับ';
+
+  @override
+  String get levelA1 => 'A1 ผู้เริ่มต้น';
+
+  @override
+  String get levelA2 => 'A2 ขั้นต้น';
+
+  @override
+  String get levelB1 => 'B1 ระดับกลาง';
+
+  @override
+  String get levelB2 => 'B2 กลาง-สูง';
+
+  @override
+  String get levelC1 => 'C1 ขั้นสูง';
+
+  @override
+  String get levelC2 => 'C2 เชี่ยวชาญ';
+
+  @override
+  String get failedToLoadLessons => 'โหลดบทเรียนไม่สำเร็จ';
+
+  @override
+  String get pin => 'ปักหมุด';
+
+  @override
+  String get unpin => 'เลิกปักหมุด';
+
+  @override
+  String get editMessage => 'แก้ไขข้อความ';
+
+  @override
+  String get enterMessage => 'พิมพ์ข้อความ...';
+
+  @override
+  String get deleteMessageTitle => 'ลบข้อความ';
+
+  @override
+  String get actionCannotBeUndone => 'การดำเนินการนี้ไม่สามารถยกเลิกได้';
+
+  @override
+  String get onlyRemovesFromDevice => 'ลบจากอุปกรณ์ของคุณเท่านั้น';
+
+  @override
+  String get availableWithinOneHour => 'ใช้ได้ภายใน 1 ชั่วโมงเท่านั้น';
+
+  @override
+  String get available => 'พร้อมใช้งาน';
+
+  @override
+  String get forwardMessage => 'ส่งต่อข้อความ';
+
+  @override
+  String get selectUsersToForward => 'เลือกผู้ใช้ที่จะส่งต่อ:';
+
+  @override
+  String forwardCount(int count) {
+    return 'ส่งต่อ ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'ข้อความที่ปักหมุด';
+
+  @override
+  String get photoMedia => 'รูปภาพ';
+
+  @override
+  String get videoMedia => 'วิดีโอ';
+
+  @override
+  String get voiceMessageMedia => 'ข้อความเสียง';
+
+  @override
+  String get documentMedia => 'เอกสาร';
+
+  @override
+  String get locationMedia => 'ตำแหน่ง';
+
+  @override
+  String get stickerMedia => 'สติกเกอร์';
+
+  @override
+  String get smileys => 'สไมลี่';
+
+  @override
+  String get emotions => 'อารมณ์';
+
+  @override
+  String get handGestures => 'ท่ามือ';
+
+  @override
+  String get hearts => 'หัวใจ';
+
+  @override
+  String get tapToSayHi => 'แตะเพื่อทักทาย!';
+
+  @override
+  String get sendWaveToStart => 'ส่งการทักทายเพื่อเริ่มแชท';
+
+  @override
+  String get documentMustBeUnder50MB => 'เอกสารต้องมีขนาดไม่เกิน 50MB';
+
+  @override
+  String get editWithin15Minutes => 'แก้ไขข้อความได้ภายใน 15 นาทีเท่านั้น';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'ส่งต่อข้อความไปยัง $count ผู้ใช้';
+  }
+
+  @override
+  String get failedToLoadUsers => 'โหลดผู้ใช้ไม่สำเร็จ';
+
+  @override
+  String get voice => 'เสียง';
 }

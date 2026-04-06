@@ -138,7 +138,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     // Refresh data when filters or search query change
     if (oldWidget.filters != widget.filters ||
         oldWidget.searchQuery != widget.searchQuery) {
-      _refreshData();
+      // Reset tracked values so build() will pick up the change
+      _lastFilters = null;
+      _lastSearchQuery = '';
     }
   }
 
@@ -375,8 +377,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         if (_lastFilters != filterParams || searchChanged) {
           _lastFilters = filterParams;
           _lastSearchQuery = widget.searchQuery;
-          // Schedule the load for after the build
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          // Schedule the load after the current frame to avoid provider conflicts
+          Future(() {
+            if (!mounted) return;
             ref.read(partnerFilterProvider.notifier).loadWithFilters(filterParams);
           });
         }
@@ -447,7 +450,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             partnerState.users.isNotEmpty &&
             partnerState.hasMore &&
             !partnerState.isLoadingMore) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          Future(() {
+            if (!mounted) return;
             ref.read(partnerFilterProvider.notifier).loadMore();
           });
         }
@@ -776,7 +780,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     final hasNextCard = communities.length > 1;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 100),
       child: Stack(
         children: [
           // Show next card behind (if exists)

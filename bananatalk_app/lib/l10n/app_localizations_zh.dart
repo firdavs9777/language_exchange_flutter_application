@@ -1964,7 +1964,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => '视频必须小于1GB。';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => '你';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,6 +3525,304 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => '加载语言失败';
+
+  @override
+  String get studyHub => '学习中心';
+
+  @override
+  String get dailyLearningJourney => '您的每日学习之旅';
+
+  @override
+  String get learnTab => '学习';
+
+  @override
+  String get aiTools => 'AI工具';
+
+  @override
+  String get streak => '连续学习';
+
+  @override
+  String get lessons => '课程';
+
+  @override
+  String get words => '单词';
+
+  @override
+  String get quickActions => '快速操作';
+
+  @override
+  String get review => '复习';
+
+  @override
+  String wordsDue(int count) {
+    return '$count个单词待复习';
+  }
+
+  @override
+  String get addWords => '添加单词';
+
+  @override
+  String get buildVocabulary => '积累词汇';
+
+  @override
+  String get practiceWithAI => 'AI练习';
+
+  @override
+  String get aiPracticeDescription => '聊天、测验、语法和发音';
+
+  @override
+  String get dailyChallenges => '每日挑战';
+
+  @override
+  String get allChallengesCompleted => '所有挑战已完成！';
+
+  @override
+  String get continueLearning => '继续学习';
+
+  @override
+  String get structuredLearningPath => '系统学习路径';
+
+  @override
+  String get vocabulary => '词汇';
+
+  @override
+  String get yourWordCollection => '我的单词集';
+
+  @override
+  String get achievements => '成就';
+
+  @override
+  String get badgesAndMilestones => '徽章和里程碑';
+
+  @override
+  String get failedToLoadLearningData => '加载学习数据失败';
+
+  @override
+  String get startYourJourney => '开始你的旅程！';
+
+  @override
+  String get startJourneyDescription => '完成课程，积累词汇，\n追踪你的进度';
+
+  @override
+  String levelN(int level) {
+    return '第$level级';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '已获得$xp XP';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return '下一级：第$level级';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '还需$xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI对话伙伴';
+
+  @override
+  String get practiceWithAITutor => '与AI导师练习口语';
+
+  @override
+  String get startConversation => '开始对话';
+
+  @override
+  String get aiFeatures => 'AI功能';
+
+  @override
+  String get aiLessons => 'AI课程';
+
+  @override
+  String get learnWithAI => 'AI学习';
+
+  @override
+  String get grammar => '语法';
+
+  @override
+  String get checkWriting => '检查写作';
+
+  @override
+  String get pronunciation => '发音';
+
+  @override
+  String get improveSpeaking => '提高口语';
+
+  @override
+  String get translation => '翻译';
+
+  @override
+  String get smartTranslate => '智能翻译';
+
+  @override
+  String get aiQuizzes => 'AI测验';
+
+  @override
+  String get testKnowledge => '测试知识';
+
+  @override
+  String get lessonBuilder => '课程构建器';
+
+  @override
+  String get customLessons => '自定义课程';
+
+  @override
+  String get yourAIProgress => '我的AI进度';
+
+  @override
+  String get quizzes => '测验';
+
+  @override
+  String get avgScore => '平均分';
+
+  @override
+  String get focusAreas => '重点领域';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '准确率$accuracy%';
+  }
+
+  @override
+  String get practice => '练习';
+
+  @override
+  String get browse => '浏览';
+
+  @override
+  String get noRecommendedLessons => '暂无推荐课程';
+
+  @override
+  String get noLessonsFound => '未找到课程';
+
+  @override
+  String get createCustomLessonDescription => '用AI创建你的专属课程';
+
+  @override
+  String get createLessonWithAI => '用AI创建课程';
+
+  @override
+  String get allLevels => '所有级别';
+
+  @override
+  String get levelA1 => 'A1 入门';
+
+  @override
+  String get levelA2 => 'A2 初级';
+
+  @override
+  String get levelB1 => 'B1 中级';
+
+  @override
+  String get levelB2 => 'B2 中高级';
+
+  @override
+  String get levelC1 => 'C1 高级';
+
+  @override
+  String get levelC2 => 'C2 精通';
+
+  @override
+  String get failedToLoadLessons => '加载课程失败';
+
+  @override
+  String get pin => '置顶';
+
+  @override
+  String get unpin => '取消置顶';
+
+  @override
+  String get editMessage => '编辑消息';
+
+  @override
+  String get enterMessage => '输入消息...';
+
+  @override
+  String get deleteMessageTitle => '删除消息';
+
+  @override
+  String get actionCannotBeUndone => '此操作无法撤销。';
+
+  @override
+  String get onlyRemovesFromDevice => '仅从您的设备中删除';
+
+  @override
+  String get availableWithinOneHour => '仅1小时内可用';
+
+  @override
+  String get available => '可用';
+
+  @override
+  String get forwardMessage => '转发消息';
+
+  @override
+  String get selectUsersToForward => '选择要转发的用户：';
+
+  @override
+  String forwardCount(int count) {
+    return '转发 ($count)';
+  }
+
+  @override
+  String get pinnedMessage => '置顶消息';
+
+  @override
+  String get photoMedia => '照片';
+
+  @override
+  String get videoMedia => '视频';
+
+  @override
+  String get voiceMessageMedia => '语音消息';
+
+  @override
+  String get documentMedia => '文档';
+
+  @override
+  String get locationMedia => '位置';
+
+  @override
+  String get stickerMedia => '贴纸';
+
+  @override
+  String get smileys => '笑脸';
+
+  @override
+  String get emotions => '表情';
+
+  @override
+  String get handGestures => '手势';
+
+  @override
+  String get hearts => '爱心';
+
+  @override
+  String get tapToSayHi => '点击打个招呼！';
+
+  @override
+  String get sendWaveToStart => '发送问候开始聊天';
+
+  @override
+  String get documentMustBeUnder50MB => '文档必须小于50MB。';
+
+  @override
+  String get editWithin15Minutes => '消息只能在15分钟内编辑';
+
+  @override
+  String messageForwardedTo(int count) {
+    return '消息已转发给$count位用户';
+  }
+
+  @override
+  String get failedToLoadUsers => '加载用户失败';
+
+  @override
+  String get voice => '语音';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -5478,7 +5776,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get videoMustBeUnder1GB => '影片必須小於 1GB。';
+  String get videoMustBeUnder1GB => '影片必須小於1GB。';
 
   @override
   String get failedToRecordVideo => '錄製影片失敗';
@@ -6500,6 +6798,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get allTopics => '所有話題';
 
   @override
+  String get you => '你';
+
+  @override
   String get dataAndStorage => '數據與儲存';
 
   @override
@@ -6812,4 +7113,302 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get imagesUploadedSuccessfully => '照片已上傳';
+
+  @override
+  String get studyHub => '學習中心';
+
+  @override
+  String get dailyLearningJourney => '您的每日學習之旅';
+
+  @override
+  String get learnTab => '學習';
+
+  @override
+  String get aiTools => 'AI工具';
+
+  @override
+  String get streak => '連續學習';
+
+  @override
+  String get lessons => '課程';
+
+  @override
+  String get words => '單詞';
+
+  @override
+  String get quickActions => '快速操作';
+
+  @override
+  String get review => '複習';
+
+  @override
+  String wordsDue(int count) {
+    return '$count個單詞待複習';
+  }
+
+  @override
+  String get addWords => '新增單詞';
+
+  @override
+  String get buildVocabulary => '積累詞彙';
+
+  @override
+  String get practiceWithAI => 'AI練習';
+
+  @override
+  String get aiPracticeDescription => '聊天、測驗、文法和發音';
+
+  @override
+  String get dailyChallenges => '每日挑戰';
+
+  @override
+  String get allChallengesCompleted => '所有挑戰已完成！';
+
+  @override
+  String get continueLearning => '繼續學習';
+
+  @override
+  String get structuredLearningPath => '系統學習路徑';
+
+  @override
+  String get vocabulary => '詞彙';
+
+  @override
+  String get yourWordCollection => '我的單詞集';
+
+  @override
+  String get achievements => '成就';
+
+  @override
+  String get badgesAndMilestones => '徽章和里程碑';
+
+  @override
+  String get failedToLoadLearningData => '載入學習資料失敗';
+
+  @override
+  String get startYourJourney => '開始你的旅程！';
+
+  @override
+  String get startJourneyDescription => '完成課程，積累詞彙，\n追蹤你的進度';
+
+  @override
+  String levelN(int level) {
+    return '第$level級';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '已獲得$xp XP';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return '下一級：第$level級';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '還需$xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'AI對話夥伴';
+
+  @override
+  String get practiceWithAITutor => '與AI導師練習口語';
+
+  @override
+  String get startConversation => '開始對話';
+
+  @override
+  String get aiFeatures => 'AI功能';
+
+  @override
+  String get aiLessons => 'AI課程';
+
+  @override
+  String get learnWithAI => 'AI學習';
+
+  @override
+  String get grammar => '文法';
+
+  @override
+  String get checkWriting => '檢查寫作';
+
+  @override
+  String get pronunciation => '發音';
+
+  @override
+  String get improveSpeaking => '提升口語';
+
+  @override
+  String get translation => '翻譯';
+
+  @override
+  String get smartTranslate => '智能翻譯';
+
+  @override
+  String get aiQuizzes => 'AI測驗';
+
+  @override
+  String get testKnowledge => '測試知識';
+
+  @override
+  String get lessonBuilder => '課程建構器';
+
+  @override
+  String get customLessons => '自訂課程';
+
+  @override
+  String get yourAIProgress => '我的AI進度';
+
+  @override
+  String get quizzes => '測驗';
+
+  @override
+  String get avgScore => '平均分';
+
+  @override
+  String get focusAreas => '重點領域';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '準確率$accuracy%';
+  }
+
+  @override
+  String get practice => '練習';
+
+  @override
+  String get browse => '瀏覽';
+
+  @override
+  String get noRecommendedLessons => '暫無推薦課程';
+
+  @override
+  String get noLessonsFound => '未找到課程';
+
+  @override
+  String get createCustomLessonDescription => '用AI建立你的專屬課程';
+
+  @override
+  String get createLessonWithAI => '用AI建立課程';
+
+  @override
+  String get allLevels => '所有級別';
+
+  @override
+  String get levelA1 => 'A1 入門';
+
+  @override
+  String get levelA2 => 'A2 初級';
+
+  @override
+  String get levelB1 => 'B1 中級';
+
+  @override
+  String get levelB2 => 'B2 中高級';
+
+  @override
+  String get levelC1 => 'C1 高級';
+
+  @override
+  String get levelC2 => 'C2 精通';
+
+  @override
+  String get failedToLoadLessons => '載入課程失敗';
+
+  @override
+  String get pin => '置頂';
+
+  @override
+  String get unpin => '取消置頂';
+
+  @override
+  String get editMessage => '編輯訊息';
+
+  @override
+  String get enterMessage => '輸入訊息...';
+
+  @override
+  String get deleteMessageTitle => '刪除訊息';
+
+  @override
+  String get actionCannotBeUndone => '此操作無法撤銷。';
+
+  @override
+  String get onlyRemovesFromDevice => '僅從您的裝置中刪除';
+
+  @override
+  String get availableWithinOneHour => '僅1小時內可用';
+
+  @override
+  String get available => '可用';
+
+  @override
+  String get forwardMessage => '轉發訊息';
+
+  @override
+  String get selectUsersToForward => '選擇要轉發的使用者：';
+
+  @override
+  String forwardCount(int count) {
+    return '轉發 ($count)';
+  }
+
+  @override
+  String get pinnedMessage => '置頂訊息';
+
+  @override
+  String get photoMedia => '照片';
+
+  @override
+  String get videoMedia => '影片';
+
+  @override
+  String get voiceMessageMedia => '語音訊息';
+
+  @override
+  String get documentMedia => '文件';
+
+  @override
+  String get locationMedia => '位置';
+
+  @override
+  String get stickerMedia => '貼圖';
+
+  @override
+  String get smileys => '笑臉';
+
+  @override
+  String get emotions => '表情';
+
+  @override
+  String get handGestures => '手勢';
+
+  @override
+  String get hearts => '愛心';
+
+  @override
+  String get tapToSayHi => '點擊打個招呼！';
+
+  @override
+  String get sendWaveToStart => '發送問候開始聊天';
+
+  @override
+  String get documentMustBeUnder50MB => '文件必須小於50MB。';
+
+  @override
+  String get editWithin15Minutes => '訊息只能在15分鐘內編輯';
+
+  @override
+  String messageForwardedTo(int count) {
+    return '訊息已轉發給$count位使用者';
+  }
+
+  @override
+  String get failedToLoadUsers => '載入使用者失敗';
+
+  @override
+  String get voice => '語音';
 }

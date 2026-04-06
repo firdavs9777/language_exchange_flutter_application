@@ -1964,7 +1964,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'Video harus kurang dari 1GB.';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'Kamu';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Gagal memuat bahasa';
+
+  @override
+  String get studyHub => 'Pusat Belajar';
+
+  @override
+  String get dailyLearningJourney => 'Perjalanan belajar harian Anda';
+
+  @override
+  String get learnTab => 'Belajar';
+
+  @override
+  String get aiTools => 'Alat AI';
+
+  @override
+  String get streak => 'Rangkaian';
+
+  @override
+  String get lessons => 'Pelajaran';
+
+  @override
+  String get words => 'Kata';
+
+  @override
+  String get quickActions => 'Tindakan Cepat';
+
+  @override
+  String get review => 'Ulasan';
+
+  @override
+  String wordsDue(int count) {
+    return '$count kata akan ditinjau';
+  }
+
+  @override
+  String get addWords => 'Tambah Kata';
+
+  @override
+  String get buildVocabulary => 'Bangun kosakata';
+
+  @override
+  String get practiceWithAI => 'Latihan dengan AI';
+
+  @override
+  String get aiPracticeDescription => 'Obrolan, kuis, tata bahasa & pengucapan';
+
+  @override
+  String get dailyChallenges => 'Tantangan Harian';
+
+  @override
+  String get allChallengesCompleted => 'Semua tantangan selesai!';
+
+  @override
+  String get continueLearning => 'Lanjutkan Belajar';
+
+  @override
+  String get structuredLearningPath => 'Jalur belajar terstruktur';
+
+  @override
+  String get vocabulary => 'Kosakata';
+
+  @override
+  String get yourWordCollection => 'Koleksi kata Anda';
+
+  @override
+  String get achievements => 'Pencapaian';
+
+  @override
+  String get badgesAndMilestones => 'Lencana dan tonggak pencapaian';
+
+  @override
+  String get failedToLoadLearningData => 'Gagal memuat data pembelajaran';
+
+  @override
+  String get startYourJourney => 'Mulai perjalananmu!';
+
+  @override
+  String get startJourneyDescription => 'Selesaikan pelajaran, bangun kosakata\ndan lacak kemajuan Anda';
+
+  @override
+  String levelN(int level) {
+    return 'Level $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP diperoleh';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Berikutnya: Level $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP lagi';
+  }
+
+  @override
+  String get aiConversationPartner => 'Mitra Percakapan AI';
+
+  @override
+  String get practiceWithAITutor => 'Latih berbicara dengan tutor AI Anda';
+
+  @override
+  String get startConversation => 'Mulai Percakapan';
+
+  @override
+  String get aiFeatures => 'Fitur AI';
+
+  @override
+  String get aiLessons => 'Pelajaran AI';
+
+  @override
+  String get learnWithAI => 'Belajar dengan AI';
+
+  @override
+  String get grammar => 'Tata Bahasa';
+
+  @override
+  String get checkWriting => 'Periksa tulisan';
+
+  @override
+  String get pronunciation => 'Pengucapan';
+
+  @override
+  String get improveSpeaking => 'Tingkatkan berbicara';
+
+  @override
+  String get translation => 'Terjemahan';
+
+  @override
+  String get smartTranslate => 'Terjemahan cerdas';
+
+  @override
+  String get aiQuizzes => 'Kuis AI';
+
+  @override
+  String get testKnowledge => 'Uji pengetahuan';
+
+  @override
+  String get lessonBuilder => 'Pembuat Pelajaran';
+
+  @override
+  String get customLessons => 'Pelajaran kustom';
+
+  @override
+  String get yourAIProgress => 'Kemajuan AI Anda';
+
+  @override
+  String get quizzes => 'Kuis';
+
+  @override
+  String get avgScore => 'Nilai Rata-rata';
+
+  @override
+  String get focusAreas => 'Area Fokus';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return 'Akurasi $accuracy%';
+  }
+
+  @override
+  String get practice => 'Latihan';
+
+  @override
+  String get browse => 'Jelajahi';
+
+  @override
+  String get noRecommendedLessons => 'Tidak ada pelajaran yang direkomendasikan';
+
+  @override
+  String get noLessonsFound => 'Pelajaran tidak ditemukan';
+
+  @override
+  String get createCustomLessonDescription => 'Buat pelajaran kustom Anda sendiri dengan AI';
+
+  @override
+  String get createLessonWithAI => 'Buat Pelajaran dengan AI';
+
+  @override
+  String get allLevels => 'Semua Level';
+
+  @override
+  String get levelA1 => 'A1 Pemula';
+
+  @override
+  String get levelA2 => 'A2 Dasar';
+
+  @override
+  String get levelB1 => 'B1 Menengah';
+
+  @override
+  String get levelB2 => 'B2 Menengah Atas';
+
+  @override
+  String get levelC1 => 'C1 Mahir';
+
+  @override
+  String get levelC2 => 'C2 Fasih';
+
+  @override
+  String get failedToLoadLessons => 'Gagal memuat pelajaran';
+
+  @override
+  String get pin => 'Sematkan';
+
+  @override
+  String get unpin => 'Lepas Sematan';
+
+  @override
+  String get editMessage => 'Edit Pesan';
+
+  @override
+  String get enterMessage => 'Ketik pesan...';
+
+  @override
+  String get deleteMessageTitle => 'Hapus Pesan';
+
+  @override
+  String get actionCannotBeUndone => 'Tindakan ini tidak dapat dibatalkan.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Hanya menghapus dari perangkat Anda';
+
+  @override
+  String get availableWithinOneHour => 'Hanya tersedia dalam 1 jam';
+
+  @override
+  String get available => 'Tersedia';
+
+  @override
+  String get forwardMessage => 'Teruskan Pesan';
+
+  @override
+  String get selectUsersToForward => 'Pilih pengguna untuk diteruskan:';
+
+  @override
+  String forwardCount(int count) {
+    return 'Teruskan ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Pesan Disematkan';
+
+  @override
+  String get photoMedia => 'Foto';
+
+  @override
+  String get videoMedia => 'Video';
+
+  @override
+  String get voiceMessageMedia => 'Pesan suara';
+
+  @override
+  String get documentMedia => 'Dokumen';
+
+  @override
+  String get locationMedia => 'Lokasi';
+
+  @override
+  String get stickerMedia => 'Stiker';
+
+  @override
+  String get smileys => 'Smiley';
+
+  @override
+  String get emotions => 'Emosi';
+
+  @override
+  String get handGestures => 'Gerakan Tangan';
+
+  @override
+  String get hearts => 'Hati';
+
+  @override
+  String get tapToSayHi => 'Ketuk untuk menyapa!';
+
+  @override
+  String get sendWaveToStart => 'Kirim lambaian untuk mulai mengobrol';
+
+  @override
+  String get documentMustBeUnder50MB => 'Dokumen harus kurang dari 50MB.';
+
+  @override
+  String get editWithin15Minutes => 'Pesan hanya dapat diedit dalam 15 menit';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Pesan diteruskan ke $count pengguna';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Gagal memuat pengguna';
+
+  @override
+  String get voice => 'Suara';
 }

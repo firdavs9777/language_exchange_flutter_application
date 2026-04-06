@@ -1964,7 +1964,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video muss unter 1GB sein.';
+  String get videoMustBeUnder1GB => 'Das Video muss kleiner als 1 GB sein.';
 
   @override
   String get failedToRecordVideo => 'Video konnte nicht aufgenommen werden';
@@ -3071,7 +3071,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'Du';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Sprachen konnten nicht geladen werden';
+
+  @override
+  String get studyHub => 'Lernzentrum';
+
+  @override
+  String get dailyLearningJourney => 'Deine tägliche Lernreise';
+
+  @override
+  String get learnTab => 'Lernen';
+
+  @override
+  String get aiTools => 'KI-Werkzeuge';
+
+  @override
+  String get streak => 'Serie';
+
+  @override
+  String get lessons => 'Lektionen';
+
+  @override
+  String get words => 'Wörter';
+
+  @override
+  String get quickActions => 'Schnellaktionen';
+
+  @override
+  String get review => 'Wiederholen';
+
+  @override
+  String wordsDue(int count) {
+    return '$count Wörter fällig';
+  }
+
+  @override
+  String get addWords => 'Wörter hinzufügen';
+
+  @override
+  String get buildVocabulary => 'Vokabular aufbauen';
+
+  @override
+  String get practiceWithAI => 'Mit KI üben';
+
+  @override
+  String get aiPracticeDescription => 'Chat, Quiz, Grammatik und Aussprache';
+
+  @override
+  String get dailyChallenges => 'Tägliche Herausforderungen';
+
+  @override
+  String get allChallengesCompleted => 'Alle Herausforderungen abgeschlossen!';
+
+  @override
+  String get continueLearning => 'Weiter lernen';
+
+  @override
+  String get structuredLearningPath => 'Strukturierter Lernpfad';
+
+  @override
+  String get vocabulary => 'Vokabular';
+
+  @override
+  String get yourWordCollection => 'Deine Wortsammlung';
+
+  @override
+  String get achievements => 'Erfolge';
+
+  @override
+  String get badgesAndMilestones => 'Abzeichen und Meilensteine';
+
+  @override
+  String get failedToLoadLearningData => 'Lerndaten konnten nicht geladen werden';
+
+  @override
+  String get startYourJourney => 'Starte deine Reise!';
+
+  @override
+  String get startJourneyDescription => 'Schließe Lektionen ab, baue Vokabular auf\nund verfolge deinen Fortschritt';
+
+  @override
+  String levelN(int level) {
+    return 'Level $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP verdient';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Nächstes: Level $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return '$xp XP noch nötig';
+  }
+
+  @override
+  String get aiConversationPartner => 'KI-Gesprächspartner';
+
+  @override
+  String get practiceWithAITutor => 'Übe das Sprechen mit deinem KI-Tutor';
+
+  @override
+  String get startConversation => 'Gespräch starten';
+
+  @override
+  String get aiFeatures => 'KI-Funktionen';
+
+  @override
+  String get aiLessons => 'KI-Lektionen';
+
+  @override
+  String get learnWithAI => 'Mit KI lernen';
+
+  @override
+  String get grammar => 'Grammatik';
+
+  @override
+  String get checkWriting => 'Schreiben prüfen';
+
+  @override
+  String get pronunciation => 'Aussprache';
+
+  @override
+  String get improveSpeaking => 'Sprechen verbessern';
+
+  @override
+  String get translation => 'Übersetzung';
+
+  @override
+  String get smartTranslate => 'Intelligente Übersetzung';
+
+  @override
+  String get aiQuizzes => 'KI-Quiz';
+
+  @override
+  String get testKnowledge => 'Wissen testen';
+
+  @override
+  String get lessonBuilder => 'Lektions-Builder';
+
+  @override
+  String get customLessons => 'Eigene Lektionen';
+
+  @override
+  String get yourAIProgress => 'Dein KI-Fortschritt';
+
+  @override
+  String get quizzes => 'Quiz';
+
+  @override
+  String get avgScore => 'Durchschnittspunktzahl';
+
+  @override
+  String get focusAreas => 'Schwerpunktbereiche';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return '$accuracy% Genauigkeit';
+  }
+
+  @override
+  String get practice => 'Üben';
+
+  @override
+  String get browse => 'Durchsuchen';
+
+  @override
+  String get noRecommendedLessons => 'Keine empfohlenen Lektionen verfügbar';
+
+  @override
+  String get noLessonsFound => 'Keine Lektionen gefunden';
+
+  @override
+  String get createCustomLessonDescription => 'Erstelle deine eigene Lektion mit KI';
+
+  @override
+  String get createLessonWithAI => 'Lektion mit KI erstellen';
+
+  @override
+  String get allLevels => 'Alle Niveaus';
+
+  @override
+  String get levelA1 => 'A1 Anfänger';
+
+  @override
+  String get levelA2 => 'A2 Grundkenntnisse';
+
+  @override
+  String get levelB1 => 'B1 Mittelstufe';
+
+  @override
+  String get levelB2 => 'B2 Gute Mittelstufe';
+
+  @override
+  String get levelC1 => 'C1 Fortgeschritten';
+
+  @override
+  String get levelC2 => 'C2 Beherrschung';
+
+  @override
+  String get failedToLoadLessons => 'Lektionen konnten nicht geladen werden';
+
+  @override
+  String get pin => 'Anheften';
+
+  @override
+  String get unpin => 'Lösen';
+
+  @override
+  String get editMessage => 'Nachricht bearbeiten';
+
+  @override
+  String get enterMessage => 'Nachricht eingeben...';
+
+  @override
+  String get deleteMessageTitle => 'Nachricht löschen';
+
+  @override
+  String get actionCannotBeUndone => 'Diese Aktion kann nicht rückgängig gemacht werden.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Wird nur von Ihrem Gerät entfernt';
+
+  @override
+  String get availableWithinOneHour => 'Nur innerhalb von 1 Stunde verfügbar';
+
+  @override
+  String get available => 'Verfügbar';
+
+  @override
+  String get forwardMessage => 'Nachricht weiterleiten';
+
+  @override
+  String get selectUsersToForward => 'Benutzer zum Weiterleiten auswählen:';
+
+  @override
+  String forwardCount(int count) {
+    return 'Weiterleiten ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Angeheftete Nachricht';
+
+  @override
+  String get photoMedia => 'Foto';
+
+  @override
+  String get videoMedia => 'Video';
+
+  @override
+  String get voiceMessageMedia => 'Sprachnachricht';
+
+  @override
+  String get documentMedia => 'Dokument';
+
+  @override
+  String get locationMedia => 'Standort';
+
+  @override
+  String get stickerMedia => 'Sticker';
+
+  @override
+  String get smileys => 'Smileys';
+
+  @override
+  String get emotions => 'Emotionen';
+
+  @override
+  String get handGestures => 'Handgesten';
+
+  @override
+  String get hearts => 'Herzen';
+
+  @override
+  String get tapToSayHi => 'Tippen Sie, um Hallo zu sagen!';
+
+  @override
+  String get sendWaveToStart => 'Senden Sie ein Winken, um zu chatten';
+
+  @override
+  String get documentMustBeUnder50MB => 'Das Dokument muss kleiner als 50 MB sein.';
+
+  @override
+  String get editWithin15Minutes => 'Nachrichten können nur innerhalb von 15 Minuten bearbeitet werden';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Nachricht an $count Benutzer weitergeleitet';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Benutzer konnten nicht geladen werden';
+
+  @override
+  String get voice => 'Stimme';
 }

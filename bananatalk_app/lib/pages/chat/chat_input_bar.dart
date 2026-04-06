@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/haptic_utils.dart';
 
 class ChatInputBar extends StatefulWidget {
   final TextEditingController messageController;
@@ -49,19 +50,29 @@ class ChatInputBar extends StatefulWidget {
   State<ChatInputBar> createState() => _ChatInputBarState();
 }
 
-class _ChatInputBarState extends State<ChatInputBar> {
+class _ChatInputBarState extends State<ChatInputBar>
+    with TickerProviderStateMixin {
   bool _hasText = false;
+  late AnimationController _sendButtonController;
 
   @override
   void initState() {
     super.initState();
     _hasText = widget.messageController.text.trim().isNotEmpty;
     widget.messageController.addListener(_onTextChanged);
+
+    _sendButtonController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    if (_hasText) _sendButtonController.forward();
   }
 
   @override
   void dispose() {
     widget.messageController.removeListener(_onTextChanged);
+    _sendButtonController.dispose();
     super.dispose();
   }
 
@@ -69,173 +80,60 @@ class _ChatInputBarState extends State<ChatInputBar> {
     final hasText = widget.messageController.text.trim().isNotEmpty;
     if (hasText != _hasText) {
       setState(() => _hasText = hasText);
+      if (hasText) {
+        _sendButtonController.forward();
+      } else {
+        _sendButtonController.reverse();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final hasContentToSend = _hasText;
+    final isDark = context.isDarkMode;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
-        color: context.surfaceColor,
-        border: Border(
-          top: BorderSide(
-            color: context.dividerColor,
-            width: 0.5,
+        color: isDark
+            ? const Color(0xFF1A1A2E).withValues(alpha: 0.95)
+            : Colors.white.withValues(alpha: 0.97),
+        boxShadow: [
+          BoxShadow(
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.3)
+                : Colors.black.withValues(alpha: 0.06),
+            blurRadius: 16,
+            offset: const Offset(0, -4),
           ),
-        ),
-        boxShadow: context.isDarkMode ? AppShadows.md : AppShadows.sm,
+        ],
       ),
       child: SafeArea(
+        top: false,
+        bottom: !widget.showMediaPanel && !widget.showStickerPanel,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             // Reply preview
             if (widget.replyingToMessage != null) ...[
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                padding: Spacing.paddingMD,
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: context.isDarkMode ? 0.15 : 0.1),
-                  borderRadius: AppRadius.borderMD,
-                  border: Border(
-                    left: BorderSide(
-                      color: AppColors.primary,
-                      width: 3,
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.reply_rounded,
-                      size: 18,
-                      color: AppColors.primary,
-                    ),
-                    Spacing.hGapSM,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Replying to ${widget.otherUserName ?? "user"}',
-                            style: context.labelSmall.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          Spacing.gapXXS,
-                          Text(
-                            widget.replyingToMessage!.message ??
-                                (widget.replyingToMessage!.media != null
-                                    ? '📷 Media'
-                                    : 'Message'),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: context.bodySmall,
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: widget.onCancelReply,
-                      child: Container(
-                        padding: Spacing.paddingXS,
-                        decoration: BoxDecoration(
-                          color: context.containerHighColor,
-                          borderRadius: AppRadius.borderSM,
-                        ),
-                        child: Icon(
-                          Icons.close_rounded,
-                          size: 16,
-                          color: context.textSecondary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _buildReplyPreview(context, isDark),
+              const SizedBox(height: 8),
             ],
             // Input row
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Media attachment button
-                _ActionButton(
-                  icon: Icons.add_rounded,
-                  isActive: widget.showMediaPanel,
-                  onPressed: widget.onToggleMediaPanel,
-                  rotateWhenActive: true,
-                ),
-
-                Spacing.hGapSM,
-
-                // Text input field
-                Expanded(
-                  child: Container(
-                    constraints: const BoxConstraints(maxHeight: 120),
-                    decoration: BoxDecoration(
-                      color: context.containerColor,
-                      borderRadius: AppRadius.borderXXL,
-                      border: Border.all(
-                        color: context.dividerColor,
-                        width: 1,
-                      ),
-                    ),
-                    child: TextField(
-                      controller: widget.messageController,
-                      decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)!.typeAMessage,
-                        hintStyle: context.bodyMedium.copyWith(
-                          color: context.textHint,
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 12,
-                        ),
-                      ),
-                      maxLines: null,
-                      textCapitalization: TextCapitalization.sentences,
-                      style: context.bodyMedium,
-                      onSubmitted: (_) => widget.onSendMessage(),
-                      onChanged: (text) {
-                        if (text.trim().isNotEmpty) {
-                          widget.onTyping();
-                        } else {
-                          widget.onStopTyping();
-                        }
-                      },
-                      onTap: widget.onHidePanels,
-                    ),
-                  ),
-                ),
-
-                Spacing.hGapSM,
-
-                // Emoji/Sticker button
-                _ActionButton(
-                  icon: widget.showStickerPanel
-                      ? Icons.keyboard_rounded
-                      : Icons.emoji_emotions_outlined,
-                  isActive: widget.showStickerPanel,
-                  onPressed: widget.onToggleStickerPanel,
-                ),
-
-                Spacing.hGapSM,
-
-                // Send or Audio button (Telegram style)
-                _SendAudioButton(
-                  isSending: widget.isSending,
-                  hasContent: hasContentToSend,
-                  onSendPressed: () => widget.onSendMessage(),
-                  onAudioPressed: widget.onAudioPressed,
-                  uploadBytesSent: widget.uploadBytesSent,
-                  uploadTotalBytes: widget.uploadTotalBytes,
-                ),
+                // Attachment button
+                _buildAttachButton(isDark),
+                const SizedBox(width: 6),
+                // Text field
+                Expanded(child: _buildTextField(context, isDark)),
+                const SizedBox(width: 6),
+                // Emoji button
+                _buildEmojiButton(isDark),
+                const SizedBox(width: 6),
+                // Send / Mic button
+                _buildSendButton(context, isDark),
               ],
             ),
           ],
@@ -243,158 +141,282 @@ class _ChatInputBarState extends State<ChatInputBar> {
       ),
     );
   }
-}
 
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final bool isActive;
-  final VoidCallback onPressed;
-  final bool rotateWhenActive;
+  Widget _buildReplyPreview(BuildContext context, bool isDark) {
+    final replyMessage = widget.replyingToMessage!;
+    final replyText = replyMessage.message ??
+        (replyMessage.media != null ? '📷 Media' : 'Message');
 
-  const _ActionButton({
-    required this.icon,
-    required this.isActive,
-    required this.onPressed,
-    this.rotateWhenActive = false,
-  });
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.fromLTRB(12, 10, 8, 10),
+      decoration: BoxDecoration(
+        color: isDark
+            ? AppColors.primary.withValues(alpha: 0.1)
+            : AppColors.primary.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(14),
+        border: Border(
+          left: BorderSide(
+            color: AppColors.primary,
+            width: 3,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.reply_rounded,
+            size: 16,
+            color: AppColors.primary,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Replying to ${widget.otherUserName ?? "user"}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  replyText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: context.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: widget.onCancelReply,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.08)
+                    : Colors.black.withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.close_rounded,
+                size: 14,
+                color: context.textSecondary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildAttachButton(bool isDark) {
+    final isActive = widget.showMediaPanel;
+
     return GestureDetector(
-      onTap: onPressed,
+      onTap: widget.onToggleMediaPanel,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: Spacing.paddingSM,
+        width: 40,
+        height: 40,
         decoration: BoxDecoration(
           color: isActive
               ? AppColors.primary.withValues(alpha: 0.12)
-              : context.containerColor,
-          borderRadius: AppRadius.borderMD,
+              : isDark
+                  ? Colors.white.withValues(alpha: 0.06)
+                  : Colors.black.withValues(alpha: 0.04),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: AnimatedRotation(
-          turns: rotateWhenActive && isActive ? 0.125 : 0,
-          duration: const Duration(milliseconds: 200),
+          turns: isActive ? 0.125 : 0,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOutCubic,
           child: Icon(
-            icon,
+            Icons.add_rounded,
             color: isActive ? AppColors.primary : context.textSecondary,
-            size: 24,
+            size: 22,
           ),
         ),
       ),
     );
   }
-}
 
-class _SendAudioButton extends StatelessWidget {
-  final bool isSending;
-  final bool hasContent;
-  final VoidCallback onSendPressed;
-  final VoidCallback? onAudioPressed;
-  // Upload progress
-  final int uploadBytesSent;
-  final int uploadTotalBytes;
-
-  const _SendAudioButton({
-    required this.isSending,
-    required this.hasContent,
-    required this.onSendPressed,
-    this.onAudioPressed,
-    this.uploadBytesSent = 0,
-    this.uploadTotalBytes = 0,
-  });
-
-  String _formatFileSize(int bytes) {
-    if (bytes < 1024) return '$bytes B';
-    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KB';
-    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  Widget _buildTextField(BuildContext context, bool isDark) {
+    return Container(
+      constraints: const BoxConstraints(maxHeight: 120),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.white.withValues(alpha: 0.06)
+            : Colors.black.withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(22),
+      ),
+      child: TextField(
+        controller: widget.messageController,
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context)!.typeAMessage,
+          hintStyle: TextStyle(
+            color: context.textHint,
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+          ),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 11,
+          ),
+          isDense: true,
+        ),
+        maxLines: null,
+        textCapitalization: TextCapitalization.sentences,
+        style: TextStyle(
+          fontSize: 15,
+          color: context.textPrimary,
+          height: 1.35,
+        ),
+        onSubmitted: (_) => widget.onSendMessage(),
+        onChanged: (text) {
+          if (text.trim().isNotEmpty) {
+            widget.onTyping();
+          } else {
+            widget.onStopTyping();
+          }
+        },
+        onTap: widget.onHidePanels,
+      ),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Allow sending text while media is uploading
-    final isUploadingMedia = uploadTotalBytes > 0;
-    final canSend = !isSending || isUploadingMedia;
+  Widget _buildEmojiButton(bool isDark) {
+    final isActive = widget.showStickerPanel;
 
     return GestureDetector(
-      onTap: !canSend
-          ? null
-          : hasContent
-              ? onSendPressed
-              : onAudioPressed,
+      onTap: widget.onToggleStickerPanel,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: Spacing.paddingMD,
+        width: 40,
+        height: 40,
         decoration: BoxDecoration(
-          gradient: hasContent
-              ? LinearGradient(
-                  // Show active colors when uploading media (user can still send text)
-                  colors: (isSending && !isUploadingMedia)
-                      ? [AppColors.gray400, AppColors.gray500]
-                      : [AppColors.primary, AppColors.primaryDark],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
-          color: hasContent ? null : context.containerColor,
-          shape: BoxShape.circle,
-          boxShadow: hasContent && canSend ? AppShadows.colored : AppShadows.none,
+          color: isActive
+              ? const Color(0xFFF59E0B).withValues(alpha: 0.12)
+              : isDark
+                  ? Colors.white.withValues(alpha: 0.06)
+                  : Colors.black.withValues(alpha: 0.04),
+          borderRadius: BorderRadius.circular(12),
         ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 200),
-          transitionBuilder: (child, animation) {
-            return ScaleTransition(
-              scale: animation,
-              child: child,
-            );
-          },
-          child: _buildButtonIcon(context),
+        child: Icon(
+          isActive ? Icons.keyboard_rounded : Icons.emoji_emotions_outlined,
+          color: isActive ? const Color(0xFFF59E0B) : context.textSecondary,
+          size: 22,
         ),
       ),
     );
   }
 
-  Widget _buildButtonIcon(BuildContext context) {
-    final isUploadingMedia = uploadTotalBytes > 0;
+  Widget _buildSendButton(BuildContext context, bool isDark) {
+    final isUploadingMedia = widget.uploadTotalBytes > 0;
+    final canSend = !widget.isSending || isUploadingMedia;
 
-    // Case 1: Sending text message (not media upload) - show spinner
-    if (isSending && !isUploadingMedia) {
+    return GestureDetector(
+      onTap: !canSend
+          ? null
+          : _hasText
+              ? () {
+                  HapticUtils.onMessageSend();
+                  widget.onSendMessage();
+                }
+              : widget.onAudioPressed,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOutCubic,
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+          gradient: _hasText && canSend
+              ? const LinearGradient(
+                  colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+          color: _hasText
+              ? null
+              : isDark
+                  ? Colors.white.withValues(alpha: 0.06)
+                  : Colors.black.withValues(alpha: 0.04),
+          shape: BoxShape.circle,
+          boxShadow: _hasText && canSend
+              ? [
+                  BoxShadow(
+                    color: const Color(0xFF667EEA).withValues(alpha: 0.35),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
+        ),
+        child: Center(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            transitionBuilder: (child, animation) => ScaleTransition(
+              scale: animation,
+              child: child,
+            ),
+            child: _buildSendIcon(context, isDark, isUploadingMedia, canSend),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSendIcon(
+      BuildContext context, bool isDark, bool isUploadingMedia, bool canSend) {
+    // Sending text (not media upload) — spinner
+    if (widget.isSending && !isUploadingMedia) {
       return const SizedBox(
         key: ValueKey('loading'),
-        width: 22,
-        height: 22,
+        width: 20,
+        height: 20,
         child: CircularProgressIndicator(
-          strokeWidth: 2.5,
-          valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         ),
       );
     }
 
-    // Case 2: Has text content - show send icon (even during media upload)
-    if (hasContent) {
+    // Has text — send arrow
+    if (_hasText) {
       return const Icon(
-        Icons.send_rounded,
+        Icons.arrow_upward_rounded,
         key: ValueKey('send'),
-        color: AppColors.white,
+        color: Colors.white,
         size: 22,
       );
     }
 
-    // Case 3: Uploading media with no text - show upload progress in mic area
+    // Uploading media with no text — progress ring
     if (isUploadingMedia) {
       return SizedBox(
         key: const ValueKey('uploading'),
-        width: 22,
-        height: 22,
+        width: 20,
+        height: 20,
         child: CircularProgressIndicator(
-          strokeWidth: 2.5,
-          value: uploadBytesSent / uploadTotalBytes,
+          strokeWidth: 2,
+          value: widget.uploadBytesSent / widget.uploadTotalBytes,
           valueColor: AlwaysStoppedAnimation<Color>(context.textSecondary),
           backgroundColor: context.textMuted.withValues(alpha: 0.3),
         ),
       );
     }
 
-    // Case 4: Default - show mic icon
+    // Default — mic
     return Icon(
       Icons.mic_rounded,
       key: const ValueKey('mic'),

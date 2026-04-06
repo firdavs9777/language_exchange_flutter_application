@@ -1964,7 +1964,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get videoMustBeUnder1GB => 'Video must be under 1GB.';
+  String get videoMustBeUnder1GB => 'Видео должно быть меньше 1 ГБ.';
 
   @override
   String get failedToRecordVideo => 'Failed to record video';
@@ -3071,7 +3071,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get failedToLoadLeaderboard => 'Failed to load leaderboard';
 
   @override
-  String get you => 'You';
+  String get you => 'Вы';
 
   @override
   String get findPartners => 'Find Partners';
@@ -3525,4 +3525,302 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get failedToLoadLanguages => 'Не удалось загрузить языки';
+
+  @override
+  String get studyHub => 'Учебный центр';
+
+  @override
+  String get dailyLearningJourney => 'Ваш ежедневный путь обучения';
+
+  @override
+  String get learnTab => 'Учиться';
+
+  @override
+  String get aiTools => 'Инструменты ИИ';
+
+  @override
+  String get streak => 'Серия';
+
+  @override
+  String get lessons => 'Уроки';
+
+  @override
+  String get words => 'Слова';
+
+  @override
+  String get quickActions => 'Быстрые действия';
+
+  @override
+  String get review => 'Повторение';
+
+  @override
+  String wordsDue(int count) {
+    return '$count слов к повторению';
+  }
+
+  @override
+  String get addWords => 'Добавить слова';
+
+  @override
+  String get buildVocabulary => 'Пополнить словарь';
+
+  @override
+  String get practiceWithAI => 'Практика с ИИ';
+
+  @override
+  String get aiPracticeDescription => 'Чат, тесты, грамматика и произношение';
+
+  @override
+  String get dailyChallenges => 'Ежедневные задания';
+
+  @override
+  String get allChallengesCompleted => 'Все задания выполнены!';
+
+  @override
+  String get continueLearning => 'Продолжить обучение';
+
+  @override
+  String get structuredLearningPath => 'Структурированный учебный путь';
+
+  @override
+  String get vocabulary => 'Словарный запас';
+
+  @override
+  String get yourWordCollection => 'Ваша коллекция слов';
+
+  @override
+  String get achievements => 'Достижения';
+
+  @override
+  String get badgesAndMilestones => 'Значки и вехи';
+
+  @override
+  String get failedToLoadLearningData => 'Не удалось загрузить данные об обучении';
+
+  @override
+  String get startYourJourney => 'Начните свой путь!';
+
+  @override
+  String get startJourneyDescription => 'Проходите уроки, пополняйте словарь\nи отслеживайте прогресс';
+
+  @override
+  String levelN(int level) {
+    return 'Уровень $level';
+  }
+
+  @override
+  String xpEarned(int xp) {
+    return '$xp XP заработано';
+  }
+
+  @override
+  String nextLevel(int level) {
+    return 'Следующий: Уровень $level';
+  }
+
+  @override
+  String xpToGo(int xp) {
+    return 'Осталось $xp XP';
+  }
+
+  @override
+  String get aiConversationPartner => 'Партнёр по разговору ИИ';
+
+  @override
+  String get practiceWithAITutor => 'Практикуйте разговор с репетитором ИИ';
+
+  @override
+  String get startConversation => 'Начать разговор';
+
+  @override
+  String get aiFeatures => 'Функции ИИ';
+
+  @override
+  String get aiLessons => 'Уроки с ИИ';
+
+  @override
+  String get learnWithAI => 'Учиться с ИИ';
+
+  @override
+  String get grammar => 'Грамматика';
+
+  @override
+  String get checkWriting => 'Проверить письмо';
+
+  @override
+  String get pronunciation => 'Произношение';
+
+  @override
+  String get improveSpeaking => 'Улучшить речь';
+
+  @override
+  String get translation => 'Перевод';
+
+  @override
+  String get smartTranslate => 'Умный перевод';
+
+  @override
+  String get aiQuizzes => 'Тесты ИИ';
+
+  @override
+  String get testKnowledge => 'Проверить знания';
+
+  @override
+  String get lessonBuilder => 'Конструктор уроков';
+
+  @override
+  String get customLessons => 'Пользовательские уроки';
+
+  @override
+  String get yourAIProgress => 'Ваш прогресс с ИИ';
+
+  @override
+  String get quizzes => 'Тесты';
+
+  @override
+  String get avgScore => 'Средний балл';
+
+  @override
+  String get focusAreas => 'Области для работы';
+
+  @override
+  String accuracyPercent(String accuracy) {
+    return 'Точность $accuracy%';
+  }
+
+  @override
+  String get practice => 'Практика';
+
+  @override
+  String get browse => 'Просмотр';
+
+  @override
+  String get noRecommendedLessons => 'Нет рекомендованных уроков';
+
+  @override
+  String get noLessonsFound => 'Уроки не найдены';
+
+  @override
+  String get createCustomLessonDescription => 'Создайте свой урок с помощью ИИ';
+
+  @override
+  String get createLessonWithAI => 'Создать урок с ИИ';
+
+  @override
+  String get allLevels => 'Все уровни';
+
+  @override
+  String get levelA1 => 'A1 Начинающий';
+
+  @override
+  String get levelA2 => 'A2 Элементарный';
+
+  @override
+  String get levelB1 => 'B1 Средний';
+
+  @override
+  String get levelB2 => 'B2 Выше среднего';
+
+  @override
+  String get levelC1 => 'C1 Продвинутый';
+
+  @override
+  String get levelC2 => 'C2 Профессиональный';
+
+  @override
+  String get failedToLoadLessons => 'Не удалось загрузить уроки';
+
+  @override
+  String get pin => 'Закрепить';
+
+  @override
+  String get unpin => 'Открепить';
+
+  @override
+  String get editMessage => 'Редактировать сообщение';
+
+  @override
+  String get enterMessage => 'Введите сообщение...';
+
+  @override
+  String get deleteMessageTitle => 'Удалить сообщение';
+
+  @override
+  String get actionCannotBeUndone => 'Это действие нельзя отменить.';
+
+  @override
+  String get onlyRemovesFromDevice => 'Удаляет только с вашего устройства';
+
+  @override
+  String get availableWithinOneHour => 'Доступно только в течение 1 часа';
+
+  @override
+  String get available => 'Доступно';
+
+  @override
+  String get forwardMessage => 'Переслать сообщение';
+
+  @override
+  String get selectUsersToForward => 'Выберите пользователей для пересылки:';
+
+  @override
+  String forwardCount(int count) {
+    return 'Переслать ($count)';
+  }
+
+  @override
+  String get pinnedMessage => 'Закреплённое сообщение';
+
+  @override
+  String get photoMedia => 'Фото';
+
+  @override
+  String get videoMedia => 'Видео';
+
+  @override
+  String get voiceMessageMedia => 'Голосовое сообщение';
+
+  @override
+  String get documentMedia => 'Документ';
+
+  @override
+  String get locationMedia => 'Местоположение';
+
+  @override
+  String get stickerMedia => 'Стикер';
+
+  @override
+  String get smileys => 'Смайлики';
+
+  @override
+  String get emotions => 'Эмоции';
+
+  @override
+  String get handGestures => 'Жесты рук';
+
+  @override
+  String get hearts => 'Сердечки';
+
+  @override
+  String get tapToSayHi => 'Нажмите, чтобы поздороваться!';
+
+  @override
+  String get sendWaveToStart => 'Отправьте приветствие, чтобы начать общение';
+
+  @override
+  String get documentMustBeUnder50MB => 'Документ должен быть меньше 50 МБ.';
+
+  @override
+  String get editWithin15Minutes => 'Сообщения можно редактировать только в течение 15 минут';
+
+  @override
+  String messageForwardedTo(int count) {
+    return 'Сообщение переслано $count пользователю(ям)';
+  }
+
+  @override
+  String get failedToLoadUsers => 'Не удалось загрузить пользователей';
+
+  @override
+  String get voice => 'Голос';
 }
