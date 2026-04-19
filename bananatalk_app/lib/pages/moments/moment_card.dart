@@ -705,7 +705,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               ),
             ),
 
-            // Content
+            // Content — skip for gradient text posts (text is in the gradient card)
+            if (!((widget.moments.mediaType == 'text' || widget.moments.backgroundColor.isNotEmpty) && widget.moments.images.isEmpty && !widget.moments.hasVideo))
             Padding(
               padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
               child: Column(
@@ -753,7 +754,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             ),
 
             // Media area: text-only gradient, video, or images
-            if (widget.moments.mediaType == 'text' &&
+            if ((widget.moments.mediaType == 'text' || widget.moments.backgroundColor.isNotEmpty) &&
                 widget.moments.images.isEmpty &&
                 !widget.moments.hasVideo)
               _buildDoubleTapLikeArea(

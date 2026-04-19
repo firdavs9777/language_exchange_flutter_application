@@ -351,8 +351,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           return _buildEmptyState();
         }
 
-        // Insert native ads every 6th item for non-VIP users
-        final adInterval = 6;
+        // Insert native ads every 4th item (after each 3 moments)
+        final adInterval = 4;
         final totalAds = moments.length ~/ (adInterval - 1);
         final totalItems = moments.length + totalAds;
 
