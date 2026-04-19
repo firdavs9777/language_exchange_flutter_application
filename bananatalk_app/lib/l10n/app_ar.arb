@@ -630,7 +630,7 @@
   "removeFromSaved": "إزالة من المحفوظات",
   "momentSaved": "تم الحفظ",
   "failedToSave": "فشل في الحفظ",
-  "checkOutMoment": "شاهد هذه اللحظة: {title}",
+  "checkOutMoment": "شاهد هذه اللحظة على BananaTalk!",
   "failedToLoadMoments": "فشل في تحميل اللحظات",
   "noMomentsMatchFilters": "لا توجد لحظات تطابق الفلاتر",
   "beFirstToShareMoment": "كن أول من يشارك لحظة!",
@@ -1341,5 +1341,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "النص مطلوب",
+  "captionTooLong": "يجب ألا يتجاوز النص {maxLength} حرفاً",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "تم الوصول للحد الأقصى من الصور",
+  "maximumImagesReachedDescription": "يمكنك رفع حتى {maxImages} صور لكل لحظة.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "الحد الأقصى {maxImages} صور. تم إضافة {added} صور فقط.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "الوصول إلى الموقع مقيد",
+  "locationPermissionNeeded": "إذن الموقع مطلوب",
+  "addToYourMoment": "أضف إلى لحظتك",
+  "categoryLabel": "الفئة",
+  "languageLabel": "اللغة",
+  "scheduleOptional": "جدولة (اختياري)",
+  "scheduleForLater": "جدولة لوقت لاحق",
+  "addMore": "إضافة المزيد",
+  "howAreYouFeeling": "كيف تشعر؟",
+  "pleaseWaitOptimizingVideo": "يرجى الانتظار بينما نحسن الفيديو",
+  "unsupportedVideoFormat": "صيغة غير مدعومة. استخدم: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "اختر خلفية",
+  "likedByXPeople": "أعجب {count} شخص",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} تعليقات",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "تعليق واحد",
+  "addAComment": "أضف تعليقاً...",
+  "viewXReplies": "عرض {count} ردود",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "شوهد من {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "منذ {count} ساعة",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "منذ {count} دقيقة",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "رد على قصتك",
+  "mentionedYouInComment": "{name} ذكرك في تعليق",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} رد على تعليقك",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} تفاعل مع تعليقك",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "البحث عن مستخدمين...",
+  "addReaction": "أضف تفاعل",
+  "attachImage": "إرفاق صورة",
+  "pickGif": "اختر GIF",
+  "textStory": "نص",
+  "typeYourStory": "اكتب قصتك...",
+  "selectBackground": "اختر الخلفية",
+  "highlightsTitle": "المميزات",
+  "newHighlight": "مميز جديد",
+  "highlightTitle": "عنوان المميز",
+  "addToHighlight": "إضافة للمميزات",
+  "createNewHighlight": "إنشاء جديد",
+  "editHighlight": "تعديل المميز",
+  "deleteHighlight": "حذف المميز",
+  "selectStories": "اختر القصص",
+  "selectCover": "اختر الغلاف",
+  "addText": "إضافة نص",
+  "addSticker": "إضافة ملصق",
+  "fontStyleLabel": "نمط الخط",
+  "textColorLabel": "لون النص",
+  "dragToDelete": "اسحب هنا للحذف"
 }

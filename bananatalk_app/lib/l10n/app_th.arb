@@ -451,7 +451,7 @@
   "momentSaved": "บันทึกแล้ว",
   "momentUnsaved": "ลบออกจากที่บันทึกแล้ว",
   "failedToSave": "บันทึกล้มเหลว",
-  "checkOutMoment": "ดูโมเมนต์นี้: {title}",
+  "checkOutMoment": "ดูโมเมนต์นี้บน BananaTalk!",
   "failedToLoadMoments": "โหลดโมเมนต์ล้มเหลว",
   "noMomentsMatchFilters": "ไม่มีโมเมนต์ตรงกับตัวกรอง",
   "beFirstToShareMoment": "เป็นคนแรกที่แชร์โมเมนต์!",
@@ -1156,5 +1156,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "จำเป็นต้องมีคำบรรยาย",
+  "captionTooLong": "คำบรรยายต้องมี {maxLength} ตัวอักษรหรือน้อยกว่า",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "ถึงจำนวนรูปภาพสูงสุดแล้ว",
+  "maximumImagesReachedDescription": "คุณสามารถอัปโหลดได้สูงสุด {maxImages} รูปต่อโมเมนต์",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "สูงสุด {maxImages} รูป เพิ่มได้เพียง {added} รูปเท่านั้น",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "การเข้าถึงตำแหน่งถูกจำกัด",
+  "locationPermissionNeeded": "ต้องการสิทธิ์การเข้าถึงตำแหน่ง",
+  "addToYourMoment": "เพิ่มในโมเมนต์ของคุณ",
+  "categoryLabel": "หมวดหมู่",
+  "languageLabel": "ภาษา",
+  "scheduleOptional": "กำหนดเวลา (ไม่บังคับ)",
+  "scheduleForLater": "กำหนดเวลาสำหรับภายหลัง",
+  "addMore": "เพิ่มเติม",
+  "howAreYouFeeling": "คุณรู้สึกอย่างไร?",
+  "pleaseWaitOptimizingVideo": "กรุณารอสักครู่ขณะเราปรับปรุงวิดีโอของคุณ",
+  "unsupportedVideoFormat": "รูปแบบไม่รองรับ ใช้: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "เลือกพื้นหลัง",
+  "likedByXPeople": "ถูกใจโดย {count} คน",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} ความคิดเห็น",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 ความคิดเห็น",
+  "addAComment": "เพิ่มความคิดเห็น...",
+  "viewXReplies": "ดู {count} การตอบกลับ",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "เห็นโดย {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count} ชม.ที่แล้ว",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count} นาทีที่แล้ว",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "ตอบกลับสตอรี่ของคุณ",
+  "mentionedYouInComment": "{name} กล่าวถึงคุณในความคิดเห็น",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} ตอบกลับความคิดเห็นของคุณ",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} รีแอคชันความคิดเห็นของคุณ",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "ค้นหาผู้ใช้...",
+  "addReaction": "เพิ่มรีแอคชัน",
+  "attachImage": "แนบรูปภาพ",
+  "pickGif": "เลือก GIF",
+  "textStory": "ข้อความ",
+  "typeYourStory": "เขียนสตอรี่ของคุณ...",
+  "selectBackground": "เลือกพื้นหลัง",
+  "highlightsTitle": "ไฮไลท์",
+  "newHighlight": "ไฮไลท์ใหม่",
+  "highlightTitle": "ชื่อไฮไลท์",
+  "addToHighlight": "เพิ่มไปยังไฮไลท์",
+  "createNewHighlight": "สร้างใหม่",
+  "editHighlight": "แก้ไขไฮไลท์",
+  "deleteHighlight": "ลบไฮไลท์",
+  "selectStories": "เลือกสตอรี่",
+  "selectCover": "เลือกปก",
+  "addText": "เพิ่มข้อความ",
+  "addSticker": "เพิ่มสติกเกอร์",
+  "fontStyleLabel": "รูปแบบตัวอักษร",
+  "textColorLabel": "สีข้อความ",
+  "dragToDelete": "ลากมาที่นี่เพื่อลบ"
 }

@@ -1559,10 +1559,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get storyArchive => 'Story Archive';
 
   @override
-  String get newHighlight => 'New Highlight';
+  String get newHighlight => 'Sorotan Baru';
 
   @override
-  String get addToHighlight => 'Add to Highlight';
+  String get addToHighlight => 'Tambahkan ke Sorotan';
 
   @override
   String get repost => 'Repost';
@@ -1583,10 +1583,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get createHighlight => 'Buat Highlight';
 
   @override
-  String get deleteHighlight => 'Delete Highlight?';
+  String get deleteHighlight => 'Hapus Sorotan';
 
   @override
-  String get editHighlight => 'Edit Highlight';
+  String get editHighlight => 'Edit Sorotan';
 
   @override
   String get addMoreToStory => 'Add more to story';
@@ -1630,7 +1630,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get noFollowingYet => 'Not following anyone yet';
 
   @override
-  String get searchUsers => 'Search users...';
+  String get searchUsers => 'Cari pengguna...';
 
   @override
   String get noResultsFound => 'No results found';
@@ -1710,7 +1710,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get record => 'Rekam';
 
   @override
-  String get addSticker => 'Add Sticker';
+  String get addSticker => 'Tambah Stiker';
 
   @override
   String get poll => 'Polling';
@@ -2031,9 +2031,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get failedToSave => 'Gagal menyimpan';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Lihat momen ini: $title';
-  }
+  String get checkOutMoment => 'Lihat momen ini di BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'Gagal memuat momen';
@@ -3902,4 +3900,162 @@ class AppLocalizationsId extends AppLocalizations {
   String maxAge(int age) {
     return 'Maks: $age';
   }
+
+  @override
+  String get captionRequired => 'Keterangan wajib diisi';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'Keterangan harus $maxLength karakter atau kurang';
+  }
+
+  @override
+  String get maximumImagesReached => 'Batas Maksimum Gambar Tercapai';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Anda hanya dapat mengunggah hingga $maxImages gambar per momen.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Maksimum $maxImages gambar. Hanya $added gambar yang ditambahkan.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Akses Lokasi Dibatasi';
+
+  @override
+  String get locationPermissionNeeded => 'Izin Lokasi Diperlukan';
+
+  @override
+  String get addToYourMoment => 'Tambahkan ke momen Anda';
+
+  @override
+  String get categoryLabel => 'Kategori';
+
+  @override
+  String get languageLabel => 'Bahasa';
+
+  @override
+  String get scheduleOptional => 'Jadwalkan (opsional)';
+
+  @override
+  String get scheduleForLater => 'Jadwalkan untuk nanti';
+
+  @override
+  String get addMore => 'Tambah Lagi';
+
+  @override
+  String get howAreYouFeeling => 'Bagaimana perasaan Anda?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Mohon tunggu sementara kami mengoptimalkan video Anda';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Format tidak didukung. Gunakan: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Pilih latar belakang';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'Disukai oleh $count orang';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count komentar';
+  }
+
+  @override
+  String get oneComment => '1 komentar';
+
+  @override
+  String get addAComment => 'Tambahkan komentar...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'Lihat $count balasan';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Dilihat oleh $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '${count}j lalu';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '${count}m lalu';
+  }
+
+  @override
+  String get repliedToYourStory => 'Membalas ceritamu';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name menyebutmu di komentar';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name membalas komentarmu';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name bereaksi pada komentarmu';
+  }
+
+  @override
+  String get addReaction => 'Tambah reaksi';
+
+  @override
+  String get attachImage => 'Lampirkan gambar';
+
+  @override
+  String get pickGif => 'Pilih GIF';
+
+  @override
+  String get textStory => 'Teks';
+
+  @override
+  String get typeYourStory => 'Tulis ceritamu...';
+
+  @override
+  String get selectBackground => 'Pilih latar belakang';
+
+  @override
+  String get highlightsTitle => 'Sorotan';
+
+  @override
+  String get highlightTitle => 'Judul Sorotan';
+
+  @override
+  String get createNewHighlight => 'Buat Baru';
+
+  @override
+  String get selectStories => 'Pilih Cerita';
+
+  @override
+  String get selectCover => 'Pilih Sampul';
+
+  @override
+  String get addText => 'Tambah Teks';
+
+  @override
+  String get fontStyleLabel => 'Gaya Font';
+
+  @override
+  String get textColorLabel => 'Warna Teks';
+
+  @override
+  String get dragToDelete => 'Seret ke sini untuk menghapus';
 }

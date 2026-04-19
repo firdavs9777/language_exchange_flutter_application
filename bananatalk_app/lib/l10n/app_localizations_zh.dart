@@ -1583,7 +1583,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get createHighlight => '创建精选';
 
   @override
-  String get deleteHighlight => '删除精选？';
+  String get deleteHighlight => '删除精选';
 
   @override
   String get editHighlight => '编辑精选';
@@ -2031,9 +2031,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToSave => '保存失败';
 
   @override
-  String checkOutMoment(String title) {
-    return '看看这条动态: $title';
-  }
+  String get checkOutMoment => '在BananaTalk上看看这条动态!';
 
   @override
   String get failedToLoadMoments => '加载动态失败';
@@ -3902,6 +3900,164 @@ class AppLocalizationsZh extends AppLocalizations {
   String maxAge(int age) {
     return '最大: $age';
   }
+
+  @override
+  String get captionRequired => '描述为必填项';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return '描述不能超过$maxLength个字符';
+  }
+
+  @override
+  String get maximumImagesReached => '已达到最大图片数量';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return '每个动态最多可以上传$maxImages张图片。';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return '最多$maxImages张图片。仅添加了$added张。';
+  }
+
+  @override
+  String get locationAccessRestricted => '位置访问受限';
+
+  @override
+  String get locationPermissionNeeded => '需要位置权限';
+
+  @override
+  String get addToYourMoment => '添加到你的动态';
+
+  @override
+  String get categoryLabel => '分类';
+
+  @override
+  String get languageLabel => '语言';
+
+  @override
+  String get scheduleOptional => '定时发布（可选）';
+
+  @override
+  String get scheduleForLater => '稍后发布';
+
+  @override
+  String get addMore => '添加更多';
+
+  @override
+  String get howAreYouFeeling => '你现在感觉如何？';
+
+  @override
+  String get pleaseWaitOptimizingVideo => '请稍候，正在优化您的视频';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return '不支持的格式。请使用：$formats';
+  }
+
+  @override
+  String get chooseBackground => '选择背景';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count人点赞';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count条评论';
+  }
+
+  @override
+  String get oneComment => '1条评论';
+
+  @override
+  String get addAComment => '添加评论...';
+
+  @override
+  String viewXReplies(int count) {
+    return '查看$count条回复';
+  }
+
+  @override
+  String seenByX(int count) {
+    return '$count人已看';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count小时前';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count分钟前';
+  }
+
+  @override
+  String get repliedToYourStory => '回复了你的故事';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name在评论中提到了你';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name回复了你的评论';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name对你的评论做出了反应';
+  }
+
+  @override
+  String get addReaction => '添加反应';
+
+  @override
+  String get attachImage => '附加图片';
+
+  @override
+  String get pickGif => '选择GIF';
+
+  @override
+  String get textStory => '文字';
+
+  @override
+  String get typeYourStory => '写下你的故事...';
+
+  @override
+  String get selectBackground => '选择背景';
+
+  @override
+  String get highlightsTitle => '精选';
+
+  @override
+  String get highlightTitle => '精选标题';
+
+  @override
+  String get createNewHighlight => '新建';
+
+  @override
+  String get selectStories => '选择故事';
+
+  @override
+  String get selectCover => '选择封面';
+
+  @override
+  String get addText => '添加文字';
+
+  @override
+  String get fontStyleLabel => '字体样式';
+
+  @override
+  String get textColorLabel => '文字颜色';
+
+  @override
+  String get dragToDelete => '拖到此处删除';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -5453,7 +5609,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get newHighlight => '新精選';
 
   @override
-  String get addToHighlight => '新增至精選';
+  String get addToHighlight => '加入精選';
 
   @override
   String get repost => '轉發';
@@ -5474,7 +5630,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get createHighlight => '建立精選';
 
   @override
-  String get deleteHighlight => '刪除精選？';
+  String get deleteHighlight => '刪除精選';
 
   @override
   String get editHighlight => '編輯精選';
@@ -5521,7 +5677,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get noFollowingYet => '尚未追蹤任何人';
 
   @override
-  String get searchUsers => '搜尋用戶...';
+  String get searchUsers => '搜尋使用者...';
 
   @override
   String get noResultsFound => '找不到結果';
@@ -5922,9 +6078,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get failedToSave => '儲存失敗';
 
   @override
-  String checkOutMoment(String title) {
-    return '看看這則動態: $title';
-  }
+  String get checkOutMoment => '在BananaTalk上看看這則動態!';
 
   @override
   String get failedToLoadMoments => '載入動態失敗';
@@ -7569,4 +7723,162 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String maxAge(int age) {
     return '最大: $age';
   }
+
+  @override
+  String get captionRequired => '描述為必填項';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return '描述不能超過$maxLength個字元';
+  }
+
+  @override
+  String get maximumImagesReached => '已達到最大圖片數量';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return '每則動態最多可以上傳$maxImages張圖片。';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return '最多$maxImages張圖片。僅新增了$added張。';
+  }
+
+  @override
+  String get locationAccessRestricted => '位置存取受限';
+
+  @override
+  String get locationPermissionNeeded => '需要位置權限';
+
+  @override
+  String get addToYourMoment => '新增到你的動態';
+
+  @override
+  String get categoryLabel => '分類';
+
+  @override
+  String get languageLabel => '語言';
+
+  @override
+  String get scheduleOptional => '排程（選填）';
+
+  @override
+  String get scheduleForLater => '稍後發佈';
+
+  @override
+  String get addMore => '新增更多';
+
+  @override
+  String get howAreYouFeeling => '你現在感覺如何？';
+
+  @override
+  String get pleaseWaitOptimizingVideo => '請稍候，正在最佳化您的影片';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return '不支援的格式。請使用：$formats';
+  }
+
+  @override
+  String get chooseBackground => '選擇背景';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count人按讚';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count則留言';
+  }
+
+  @override
+  String get oneComment => '1則留言';
+
+  @override
+  String get addAComment => '新增留言...';
+
+  @override
+  String viewXReplies(int count) {
+    return '查看$count則回覆';
+  }
+
+  @override
+  String seenByX(int count) {
+    return '$count人已看';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count小時前';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count分鐘前';
+  }
+
+  @override
+  String get repliedToYourStory => '回覆了你的限時動態';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name在留言中提到了你';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name回覆了你的留言';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name對你的留言做出了反應';
+  }
+
+  @override
+  String get addReaction => '新增反應';
+
+  @override
+  String get attachImage => '附加圖片';
+
+  @override
+  String get pickGif => '選擇GIF';
+
+  @override
+  String get textStory => '文字';
+
+  @override
+  String get typeYourStory => '寫下你的限動...';
+
+  @override
+  String get selectBackground => '選擇背景';
+
+  @override
+  String get highlightsTitle => '精選';
+
+  @override
+  String get highlightTitle => '精選標題';
+
+  @override
+  String get createNewHighlight => '新建';
+
+  @override
+  String get selectStories => '選擇限動';
+
+  @override
+  String get selectCover => '選擇封面';
+
+  @override
+  String get addText => '新增文字';
+
+  @override
+  String get fontStyleLabel => '字型樣式';
+
+  @override
+  String get textColorLabel => '文字顏色';
+
+  @override
+  String get dragToDelete => '拖曳至此刪除';
 }

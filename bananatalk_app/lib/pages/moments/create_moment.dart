@@ -32,7 +32,6 @@ class CreateMoment extends ConsumerStatefulWidget {
 }
 
 class _CreateMomentState extends ConsumerState<CreateMoment> {
-  final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final tagsController = TextEditingController();
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier(false);
@@ -59,9 +58,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   String? _selectedMood;
   List<String> _tags = [];
   DateTime? _scheduledDate;
+  String _selectedBackgroundColor = '';
 
   static const int maxImages = 10;
-  static const int maxTitleLength = 100;
   static const int maxDescriptionLength = 2000;
 
   final List<String> _privacyOptions = ['Public', 'Friends', 'Private'];
@@ -126,14 +125,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   final Map<String, String> _moods = {
     '😊': 'happy',
     '🤩': 'excited',
+    '🙏': 'grateful',
+    '💪': 'motivated',
+    '😌': 'relaxed',
+    '🤔': 'curious',
     '😢': 'sad',
     '😍': 'love',
     '😂': 'funny',
-    '🤔': 'thoughtful',
+    '💭': 'thoughtful',
     '😎': 'cool',
     '😴': 'tired',
-    '💪': 'motivated',
-    '🙏': 'grateful',
   };
 
   @override
@@ -142,13 +143,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   @override
   void initState() {
     super.initState();
-    titleController.addListener(_updateButtonState);
     descriptionController.addListener(_updateButtonState);
 
     // Pre-fill form if editing
     if (widget.momentToEdit != null) {
       final moment = widget.momentToEdit!;
-      titleController.text = moment.title;
       descriptionController.text = moment.description;
       _tags = List<String>.from(moment.tags ?? []);
 
@@ -162,6 +161,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           .key;
 
       _selectedMood = moment.mood;
+      _selectedBackgroundColor = moment.backgroundColor;
 
       // Note: Images can't be easily pre-loaded as File objects since they're URLs
       // User can add new images but can't edit existing ones in this implementation
@@ -170,9 +170,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   @override
   void dispose() {
-    titleController.removeListener(_updateButtonState);
     descriptionController.removeListener(_updateButtonState);
-    titleController.dispose();
     descriptionController.dispose();
     tagsController.dispose();
     isButtonEnabled.dispose();
@@ -180,8 +178,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   void _updateButtonState() {
-    isButtonEnabled.value = titleController.text.isNotEmpty &&
-        descriptionController.text.isNotEmpty;
+    isButtonEnabled.value = descriptionController.text.isNotEmpty;
   }
 
   void _addTag() {
@@ -954,20 +951,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   // Validate input before creating moment
   String? _validateInputs() {
-    final title = titleController.text.trim();
     final description = descriptionController.text.trim();
-
-    if (title.isEmpty) {
-      return 'Title is required';
-    }
-    if (title.length > maxTitleLength) {
-      return 'Title must be ${maxTitleLength} characters or less';
-    }
     if (description.isEmpty) {
-      return 'Description is required';
+      return 'Caption is required';
     }
     if (description.length > maxDescriptionLength) {
-      return 'Description must be ${maxDescriptionLength} characters or less';
+      return 'Caption must be $maxDescriptionLength characters or less';
     }
     if (_tags.length > 5) {
       return 'Maximum 5 tags allowed';
@@ -1132,11 +1121,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // UPDATE existing moment
         await ref.read(momentsServiceProvider).updateMoment(
               id: widget.momentToEdit!.id,
-              title: titleController.text.trim(),
               description: descriptionController.text.trim(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
               tags: _tags.isNotEmpty ? _tags : null,
+              backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
             );
 
         // Upload new images if any were added
@@ -1168,7 +1157,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         // Create moment with all fields (no userId - backend uses authenticated user)
         final moment = await ref.read(momentsServiceProvider).createMoments(
-              title: titleController.text.trim(),
               description: descriptionController.text.trim(),
               privacy: _selectedPrivacy.toLowerCase(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
@@ -1177,6 +1165,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               tags: _tags.isNotEmpty ? _tags : null,
               scheduledFor: _scheduledDate?.toIso8601String(),
               location: locationData,
+              backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
             );
 
         // Upload images if any
@@ -1258,7 +1247,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     try {
       // Queue the upload for background processing
       await ref.read(uploadManagerProvider.notifier).queueMomentUpload(
-        title: titleController.text.trim(),
         description: descriptionController.text.trim(),
         privacy: _selectedPrivacy.toLowerCase(),
         category: _categoryToBackend[_selectedCategory] ?? 'general',
@@ -1268,6 +1256,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         location: locationData,
         imagePaths: _selectedImages.map((f) => f.path).toList(),
         videoPath: _selectedVideo?.path,
+        backgroundColor: _selectedBackgroundColor.isNotEmpty ? _selectedBackgroundColor : null,
       );
 
       // Navigate back immediately - upload continues in background
@@ -1399,44 +1388,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     });
                   }
                 },
-              ),
-            ),
-            Spacing.gapMD,
-
-            // Title Field with Counter
-            Container(
-              decoration: BoxDecoration(
-                color: context.cardBackground,
-                borderRadius: AppRadius.borderMD,
-                boxShadow: AppShadows.sm,
-              ),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: titleController,
-                    maxLength: maxTitleLength,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.addATitle,
-                      hintStyle: TextStyle(color: context.textHint),
-                      border: OutlineInputBorder(
-                        borderRadius: AppRadius.borderMD,
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: Spacing.paddingLG,
-                      counterText: '',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16, bottom: 8),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '${titleController.text.length}/$maxTitleLength',
-                        style: context.caption.copyWith(color: context.textMuted),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
             Spacing.gapMD,
@@ -2151,10 +2102,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   label: Text('#$tag'),
                   deleteIcon: const Icon(Icons.close, size: 16),
                   onDeleted: () {
+                    if (!mounted) return;
                     setState(() {
                       _tags.remove(tag);
                     });
+                    if (!mounted) return;
                     Navigator.pop(context);
+                    if (!mounted) return;
                     showDialog(
                       context: context,
                       builder: (context) => _buildTagDialog(),
@@ -2172,8 +2126,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         ),
         ElevatedButton(
           onPressed: () {
+            if (!mounted) return;
             _addTag();
             Navigator.pop(context);
+            if (!mounted) return;
             showDialog(
               context: context,
               builder: (context) => _buildTagDialog(),

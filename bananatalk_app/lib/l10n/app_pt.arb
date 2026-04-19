@@ -616,7 +616,7 @@
   "removeFromSaved": "Remover dos salvos",
   "momentSaved": "Salvo",
   "failedToSave": "Falha ao salvar",
-  "checkOutMoment": "Confira este momento: {title}",
+  "checkOutMoment": "Confira este momento no BananaTalk!",
   "failedToLoadMoments": "Falha ao carregar momentos",
   "noMomentsMatchFilters": "Nenhum momento corresponde aos seus filtros",
   "beFirstToShareMoment": "Seja o primeiro a compartilhar um momento!",
@@ -1338,5 +1338,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "A legenda é obrigatória",
+  "captionTooLong": "A legenda deve ter {maxLength} caracteres ou menos",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Máximo de imagens atingido",
+  "maximumImagesReachedDescription": "Você pode enviar até {maxImages} imagens por momento.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Máximo de {maxImages} imagens. Apenas {added} imagens adicionadas.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Acesso à localização restrito",
+  "locationPermissionNeeded": "Permissão de localização necessária",
+  "addToYourMoment": "Adicionar ao seu momento",
+  "categoryLabel": "Categoria",
+  "languageLabel": "Idioma",
+  "scheduleOptional": "Agendar (opcional)",
+  "scheduleForLater": "Agendar para depois",
+  "addMore": "Adicionar mais",
+  "howAreYouFeeling": "Como você está se sentindo?",
+  "pleaseWaitOptimizingVideo": "Por favor aguarde enquanto otimizamos seu vídeo",
+  "unsupportedVideoFormat": "Formato não suportado. Use: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Escolher fundo",
+  "likedByXPeople": "Curtido por {count} pessoas",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} comentários",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 comentário",
+  "addAComment": "Adicionar um comentário...",
+  "viewXReplies": "Ver {count} respostas",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Visto por {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "há {count}h",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "há {count}m",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Respondeu à sua história",
+  "mentionedYouInComment": "{name} mencionou você em um comentário",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} respondeu ao seu comentário",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} reagiu ao seu comentário",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Pesquisar usuários...",
+  "addReaction": "Adicionar reação",
+  "attachImage": "Anexar imagem",
+  "pickGif": "Escolher GIF",
+  "textStory": "Texto",
+  "typeYourStory": "Escreva sua história...",
+  "selectBackground": "Selecionar fundo",
+  "highlightsTitle": "Destaques",
+  "newHighlight": "Novo destaque",
+  "highlightTitle": "Título do destaque",
+  "addToHighlight": "Adicionar ao destaque",
+  "createNewHighlight": "Criar novo",
+  "editHighlight": "Editar destaque",
+  "deleteHighlight": "Excluir destaque",
+  "selectStories": "Selecionar histórias",
+  "selectCover": "Selecionar capa",
+  "addText": "Adicionar texto",
+  "addSticker": "Adicionar sticker",
+  "fontStyleLabel": "Estilo da fonte",
+  "textColorLabel": "Cor do texto",
+  "dragToDelete": "Arraste aqui para excluir"
 }

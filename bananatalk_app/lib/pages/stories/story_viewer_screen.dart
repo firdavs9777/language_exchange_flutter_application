@@ -9,6 +9,8 @@ import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
+import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
@@ -236,7 +238,12 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       );
     } else {
       // All stories viewed, close viewer
-      Navigator.pop(context);
+      // Defer pop to avoid calling during animation callback
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
+      });
     }
   }
 
@@ -409,7 +416,9 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: GestureDetector(
+      body: Stack(
+        children: [
+          GestureDetector(
         onTapDown: (details) => _pauseStory(),
         onTapUp: (details) {
           _resumeStory();
@@ -465,6 +474,42 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             child: _buildCubePageView(),
           ),
         ),
+      ),
+          // Seen-by bar for own stories — outside GestureDetector so taps work
+          if (widget.isOwnStory && _currentStory != null)
+            Positioned(
+              bottom: MediaQuery.of(context).padding.bottom + 16,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                                    _showViewersList(_currentStory!);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.visibility_outlined, color: Colors.white, size: 18),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Seen by ${_currentStory!.viewCount}',
+                          style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 18),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -660,7 +705,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                     _pauseStory();
                     showModalBottomSheet(
                       context: context,
-                      backgroundColor: Colors.grey[900],
+                      backgroundColor: Theme.of(context).colorScheme.surface,
                       builder: (context) => SafeArea(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -675,24 +720,32 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                               ),
                             ),
                             ListTile(
-                              leading: const Icon(Icons.visibility, color: Colors.white70),
-                              title: Text(AppLocalizations.of(context)!.views('${story.viewCount}'), style: const TextStyle(color: Colors.white)),
+                              leading: Icon(Icons.visibility, color: Theme.of(context).iconTheme.color),
+                              title: Text(AppLocalizations.of(context)!.views('${story.viewCount}'), style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
                               onTap: () => Navigator.pop(context),
                             ),
                             ListTile(
-                              leading: const Icon(Icons.share, color: Colors.white70),
-                              title: Text(AppLocalizations.of(context)!.share, style: const TextStyle(color: Colors.white)),
+                              leading: Icon(Icons.share, color: Theme.of(context).iconTheme.color),
+                              title: Text(AppLocalizations.of(context)!.share, style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
                               onTap: () {
                                 Navigator.pop(context);
                                 _shareStory();
                               },
                             ),
                             ListTile(
-                              leading: const Icon(Icons.add_circle_outline, color: Colors.white70),
-                              title: const Text('Add more to story', style: TextStyle(color: Colors.white)),
+                              leading: Icon(Icons.add_circle_outline, color: Theme.of(context).iconTheme.color),
+                              title: Text('Add more to story', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
                               onTap: () {
                                 Navigator.pop(context);
                                 _addMoreToStory();
+                              },
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.bookmark_add_outlined, color: Theme.of(context).iconTheme.color),
+                              title: Text('Save to Highlight', style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color)),
+                              onTap: () {
+                                Navigator.pop(context);
+                                _saveToHighlight(story);
                               },
                             ),
                             const Divider(color: Colors.grey, height: 1),
@@ -766,8 +819,330 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                 ? _buildReplyField()
                 : _buildReactionBar(),
           ),
+
+        // Seen by bar is now rendered at top-level Stack (outside GestureDetector)
       ],
     );
+  }
+
+  Widget _buildSeenByBar(Story story) {
+    final viewCount = story.viewCount;
+    return GestureDetector(
+      onTap: () => _showViewersList(story),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.black45,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.visibility_outlined, color: Colors.white, size: 18),
+            const SizedBox(width: 8),
+            Text(
+              'Seen by $viewCount',
+              style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(width: 4),
+            const Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 18),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _saveToHighlight(Story story) async {
+    _pauseStory();
+
+    // Check if story is already in a highlight
+    if (story.highlightId != null && story.highlightId!.isNotEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Already saved to a highlight'),
+            backgroundColor: Color(0xFF00BFA5),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+      if (mounted) _resumeStory();
+      return;
+    }
+
+    // Fetch existing highlights to show options
+    final highlightsResponse = await StoriesService.getMyHighlights();
+    final existingHighlights = highlightsResponse.success ? highlightsResponse.data : <StoryHighlight>[];
+
+    if (!mounted) return;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                width: 40, height: 4,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).dividerColor,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text('Save to Highlight', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              ),
+              // Existing highlights
+              if (existingHighlights.isNotEmpty) ...[
+                ...existingHighlights.map((h) {
+                  // Check if story already in this highlight
+                  final alreadyIn = h.stories.any((s) => s.id == story.id);
+                  return ListTile(
+                    leading: CircleAvatar(
+                      radius: 24,
+                      backgroundImage: h.coverImage != null && h.coverImage!.isNotEmpty
+                          ? NetworkImage(h.coverImage!)
+                          : null,
+                      child: h.coverImage == null || h.coverImage!.isEmpty
+                          ? const Icon(Icons.auto_stories, size: 20)
+                          : null,
+                    ),
+                    title: Text(h.title),
+                    subtitle: Text('${h.storyCount} stories'),
+                    trailing: alreadyIn
+                        ? const Icon(Icons.check_circle, color: Color(0xFF00BFA5))
+                        : null,
+                    onTap: alreadyIn ? null : () async {
+                      Navigator.pop(ctx);
+                      try {
+                        await StoriesService.addToHighlight(highlightId: h.id, storyId: story.id);
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Added to "${h.title}"'),
+                              backgroundColor: const Color(0xFF00BFA5),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Failed: ${e.toString().replaceFirst("Exception: ", "")}'),
+                              backgroundColor: Colors.red,
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        }
+                      }
+                    },
+                  );
+                }),
+                const Divider(height: 1),
+              ],
+              // Create new highlight
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Color(0xFF00BFA5),
+                  child: Icon(Icons.add, color: Colors.white),
+                ),
+                title: const Text('Create New Highlight'),
+                onTap: () async {
+                  Navigator.pop(ctx);
+                  _createNewHighlight(story);
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        );
+      },
+    ).then((_) {
+      if (mounted) _resumeStory();
+    });
+  }
+
+  void _createNewHighlight(Story story) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (ctx) {
+        final controller = TextEditingController();
+        return AlertDialog(
+          title: const Text('New Highlight'),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: 'Highlight name...',
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF00BFA5),
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                final title = controller.text.trim();
+                if (title.isNotEmpty) Navigator.pop(ctx, title);
+              },
+              child: const Text('Create'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result != null && result.isNotEmpty) {
+      try {
+        await StoriesService.createHighlight(title: result, storyId: story.id);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Created highlight "$result"'),
+              backgroundColor: const Color(0xFF00BFA5),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed: ${e.toString().replaceFirst("Exception: ", "")}'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  void _showViewersList(Story story) {
+    _pauseStory();
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.5,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    const Icon(Icons.visibility_outlined, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Seen by ${story.viewCount}',
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(height: 1),
+              Expanded(
+                child: FutureBuilder<Map<String, dynamic>>(
+                  future: StoriesService.getStoryViewers(storyId: story.id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+                    if (snapshot.data == null || snapshot.data!['success'] != true) {
+                      debugPrint('👁️ Viewers response: ${snapshot.data}');
+                      return const Center(child: Text('Failed to load viewers'));
+                    }
+                    // Service returns 'views' key with List<StoryView>
+                    final viewsList = snapshot.data!['views'] as List? ?? [];
+                    if (viewsList.isEmpty) {
+                      return const Center(child: Text('No views yet'));
+                    }
+                    return ListView.builder(
+                      itemCount: viewsList.length,
+                      itemBuilder: (context, index) {
+                        final view = viewsList[index];
+                        // view is a StoryView object
+                        String userName = 'User';
+                        String? userImage;
+                        String userId = '';
+                        DateTime viewedAt = DateTime.now();
+                        Community? userCommunity;
+                        if (view is StoryView) {
+                          userName = view.user?.name ?? 'User';
+                          userImage = view.user?.imageUrls.isNotEmpty == true
+                              ? view.user!.imageUrls.first
+                              : (view.user?.images.isNotEmpty == true ? view.user!.images.first : null);
+                          userId = view.userId;
+                          viewedAt = view.viewedAt;
+                          userCommunity = view.user;
+                        }
+                        return ListTile(
+                          onTap: () {
+                            Navigator.pop(context);
+                            if (userCommunity != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SingleCommunity(community: userCommunity!),
+                                ),
+                              );
+                            }
+                          },
+                          leading: CircleAvatar(
+                            radius: 20,
+                            backgroundImage: userImage != null && userImage.isNotEmpty
+                                ? NetworkImage(userImage)
+                                : null,
+                            child: userImage == null || userImage.isEmpty
+                                ? Text(userName.isNotEmpty ? userName[0].toUpperCase() : '?')
+                                : null,
+                          ),
+                          title: Text(userName),
+                          trailing: Text(
+                            _formatTime(viewedAt),
+                            style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 12),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((_) {
+      if (mounted) _resumeStory();
+    });
   }
 
   Widget _buildReactionBar() {
@@ -816,8 +1191,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
   }
 
   List<Widget> _buildQuickReactions() {
-    const emojis = ['❤️', '😂', '😮', '🔥', '👏', '😢'];
-    return emojis.take(4).map((emoji) => _buildQuickReaction(emoji)).toList();
+    const reactions = ['❤️', '🔥', '😂', '😢', '😮', '👏'];
+    return reactions.map((emoji) => _buildQuickReaction(emoji)).toList();
   }
 
   Widget _buildQuickReaction(String emoji) {

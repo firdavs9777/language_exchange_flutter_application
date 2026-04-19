@@ -1562,7 +1562,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get newHighlight => 'Yeni Öne Çıkan';
 
   @override
-  String get addToHighlight => 'Öne Çıkanlara Ekle';
+  String get addToHighlight => 'Öne çıkanlara ekle';
 
   @override
   String get repost => 'Yeniden Paylaş';
@@ -1583,10 +1583,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get createHighlight => 'Öne Çıkan Oluştur';
 
   @override
-  String get deleteHighlight => 'Öne çıkan silinsin mi?';
+  String get deleteHighlight => 'Sil';
 
   @override
-  String get editHighlight => 'Öne Çıkanı Düzenle';
+  String get editHighlight => 'Düzenle';
 
   @override
   String get addMoreToStory => 'Hikayeye daha fazla ekle';
@@ -1630,7 +1630,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noFollowingYet => 'Henüz kimseyi takip etmiyor';
 
   @override
-  String get searchUsers => 'Kullanıcıları ara...';
+  String get searchUsers => 'Kullanıcı ara...';
 
   @override
   String get noResultsFound => 'Sonuç bulunamadı';
@@ -1710,7 +1710,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get record => 'Kaydet';
 
   @override
-  String get addSticker => 'Çıkartma Ekle';
+  String get addSticker => 'Çıkartma ekle';
 
   @override
   String get poll => 'Anket';
@@ -2031,9 +2031,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToSave => 'Kaydetme başarısız';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Bu anıya göz at: $title';
-  }
+  String get checkOutMoment => 'BananaTalk\'ta bu anıya göz at!';
 
   @override
   String get failedToLoadMoments => 'Anılar yüklenemedi';
@@ -3902,4 +3900,162 @@ class AppLocalizationsTr extends AppLocalizations {
   String maxAge(int age) {
     return 'Maks: $age';
   }
+
+  @override
+  String get captionRequired => 'Açıklama gereklidir';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'Açıklama $maxLength karakter veya daha az olmalıdır';
+  }
+
+  @override
+  String get maximumImagesReached => 'Maksimum Görsel Sayısına Ulaşıldı';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Her an için en fazla $maxImages görsel yükleyebilirsiniz.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Maksimum $maxImages görsel. Sadece $added görsel eklendi.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Konum Erişimi Kısıtlandı';
+
+  @override
+  String get locationPermissionNeeded => 'Konum İzni Gerekli';
+
+  @override
+  String get addToYourMoment => 'Anına ekle';
+
+  @override
+  String get categoryLabel => 'Kategori';
+
+  @override
+  String get languageLabel => 'Dil';
+
+  @override
+  String get scheduleOptional => 'Zamanla (isteğe bağlı)';
+
+  @override
+  String get scheduleForLater => 'Daha sonra için zamanla';
+
+  @override
+  String get addMore => 'Daha Fazla Ekle';
+
+  @override
+  String get howAreYouFeeling => 'Nasıl hissediyorsun?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Videonuzu optimize ederken lütfen bekleyin';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Desteklenmeyen format. Kullanın: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Arka plan seç';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count kişi beğendi';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count yorum';
+  }
+
+  @override
+  String get oneComment => '1 yorum';
+
+  @override
+  String get addAComment => 'Yorum ekle...';
+
+  @override
+  String viewXReplies(int count) {
+    return '$count yanıtı gör';
+  }
+
+  @override
+  String seenByX(int count) {
+    return '$count kişi gördü';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '${count}s önce';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '${count}dk önce';
+  }
+
+  @override
+  String get repliedToYourStory => 'Hikayene yanıt verdi';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name seni bir yorumda etiketledi';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name yorumuna yanıt verdi';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name yorumuna tepki verdi';
+  }
+
+  @override
+  String get addReaction => 'Tepki ekle';
+
+  @override
+  String get attachImage => 'Resim ekle';
+
+  @override
+  String get pickGif => 'GIF seç';
+
+  @override
+  String get textStory => 'Metin';
+
+  @override
+  String get typeYourStory => 'Hikayeni yaz...';
+
+  @override
+  String get selectBackground => 'Arka plan seç';
+
+  @override
+  String get highlightsTitle => 'Öne Çıkanlar';
+
+  @override
+  String get highlightTitle => 'Başlık';
+
+  @override
+  String get createNewHighlight => 'Yeni oluştur';
+
+  @override
+  String get selectStories => 'Hikayeleri seç';
+
+  @override
+  String get selectCover => 'Kapak seç';
+
+  @override
+  String get addText => 'Metin ekle';
+
+  @override
+  String get fontStyleLabel => 'Yazı tipi';
+
+  @override
+  String get textColorLabel => 'Metin rengi';
+
+  @override
+  String get dragToDelete => 'Silmek için buraya sürükle';
 }

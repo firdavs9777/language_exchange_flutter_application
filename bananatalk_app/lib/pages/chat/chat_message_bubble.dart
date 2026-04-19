@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/media_message_widget.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/providers/provider_models/story_model.dart';
+import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
 import 'package:bananatalk_app/widgets/message_reaction_widget.dart';
 import 'package:bananatalk_app/widgets/video_player_screen.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
@@ -802,12 +806,20 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     if (_isSticker(widget.message.message ?? '')) {
       // Stickers/emojis without bubble - larger size
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        child: Text(
-          widget.message.message!,
-          style: const TextStyle(fontSize: 64), // Larger emoji
-        ),
+      // But still show story reference if present
+      return Column(
+        crossAxisAlignment: widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (widget.message.storyReference != null) _buildStoryReferencePreview(),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Text(
+              widget.message.message!,
+              style: const TextStyle(fontSize: 64),
+            ),
+          ),
+        ],
       );
     }
 
@@ -858,6 +870,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         crossAxisAlignment:
             widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
+          // Story reference preview
+          if (widget.message.storyReference != null) _buildStoryReferencePreview(),
+
+          // Story reference preview
+          if (widget.message.storyReference != null) _buildStoryReferencePreview(),
           // Reply preview if this message is a reply
           if (widget.message.replyTo != null) _buildReplyPreview(),
 
@@ -1037,6 +1054,98 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         ],
       ),
     );
+  }
+
+  Widget _buildStoryReferencePreview() {
+    final ref = widget.message.storyReference!;
+    return GestureDetector(
+      onTap: () => _openStoryFromReference(ref),
+      child: Container(
+      margin: const EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (ref.thumbnail != null && ref.thumbnail!.isNotEmpty)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: SizedBox(
+                width: 44,
+                height: 44,
+                child: CachedImageWidget(
+                  imageUrl: ref.thumbnail!,
+                  fit: BoxFit.cover,
+                  errorWidget: Container(
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    child: const Icon(Icons.auto_stories, size: 20),
+                  ),
+                ),
+              ),
+            ),
+          if (ref.thumbnail == null || ref.thumbnail!.isEmpty)
+            Container(
+              width: 44, height: 44,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(Icons.auto_stories, size: 20),
+            ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              'Replied to your story',
+              style: TextStyle(
+                fontSize: 11,
+                color: widget.isMe ? Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.7) : Theme.of(context).textTheme.bodySmall?.color,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+        ],
+      ),
+      ),
+    );
+  }
+
+  Future<void> _openStoryFromReference(StoryReference ref) async {
+    if (ref.storyId.isEmpty) return;
+    try {
+      final response = await StoriesService.getStory(storyId: ref.storyId);
+      if (response.success && response.data != null) {
+        final story = response.data!;
+        if (context.mounted) {
+          final userStories = UserStories(
+            user: story.user,
+            stories: [story],
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => StoryViewerScreen(
+                userStories: [userStories],
+                initialUserIndex: 0,
+              ),
+            ),
+          );
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Story is no longer available'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('Failed to open story: $e');
+    }
   }
 
   Widget _buildReplyPreview() {
@@ -1219,6 +1328,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Story reference preview
+          if (widget.message.storyReference != null) _buildStoryReferencePreview(),
           // Reply preview if this message is a reply
           if (widget.message.replyTo != null) _buildReplyPreview(),
 
@@ -1355,6 +1466,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Story reference preview
+          if (widget.message.storyReference != null) _buildStoryReferencePreview(),
           // Reply preview if this message is a reply
           if (widget.message.replyTo != null) _buildReplyPreview(),
 

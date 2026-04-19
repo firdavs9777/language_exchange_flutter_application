@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart' show CommentReaction, CommentMention;
 
 class Comments {
   const Comments({
@@ -15,6 +16,10 @@ class Comments {
     this.replyCount = 0,
     this.isEdited = false,
     this.parentComment,
+    this.imageUrl,
+    this.reactions = const [],
+    this.reactionCount = 0,
+    this.mentions = const [],
   });
 
   final String id;
@@ -28,6 +33,10 @@ class Comments {
   final int replyCount;
   final bool isEdited;
   final String? parentComment;
+  final String? imageUrl;
+  final List<CommentReaction> reactions;
+  final int reactionCount;
+  final List<CommentMention> mentions;
 
   factory Comments.fromJson(Map<String, dynamic> json) {
     // Handle null, incomplete, or string ID user data gracefully
@@ -145,6 +154,20 @@ class Comments {
         replyCount: json['replyCount'] is int ? json['replyCount'] : 0,
         isEdited: json['isEdited'] == true,
         parentComment: json['parentComment']?.toString(),
+        imageUrl: json['imageUrl']?.toString(),
+        reactions: json['reactions'] != null && json['reactions'] is List
+            ? (json['reactions'] as List)
+                .where((r) => r != null && r is Map<String, dynamic>)
+                .map((r) => CommentReaction.fromJson(r))
+                .toList()
+            : [],
+        reactionCount: json['reactionCount'] is int ? json['reactionCount'] : 0,
+        mentions: json['mentions'] != null && json['mentions'] is List
+            ? (json['mentions'] as List)
+                .where((m) => m != null && m is Map<String, dynamic>)
+                .map((m) => CommentMention.fromJson(m))
+                .toList()
+            : [],
     );
   }
 }

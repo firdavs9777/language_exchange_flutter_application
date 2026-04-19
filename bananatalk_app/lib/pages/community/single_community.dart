@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_highlights.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -1144,6 +1145,15 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
         const SizedBox(height: 12),
 
+        // Story Highlights
+        ProfileHighlights(
+          userId: widget.community.id,
+          isOwnProfile: false,
+          user: widget.community,
+        ),
+
+        const SizedBox(height: 12),
+
         // Languages Section
         _buildLanguagesSection(isDark),
 
@@ -1844,8 +1854,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     final hasVideo = moment.hasVideo;
     final hasImages = moment.hasImages;
     final hasMultipleImages = moment.imageUrls.length > 1;
-    final hasText = moment.description.isNotEmpty || moment.title.isNotEmpty;
-    final displayText = moment.description.isNotEmpty ? moment.description : moment.title;
+    final hasText = moment.description.isNotEmpty;
+    final displayText = moment.description;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return GestureDetector(

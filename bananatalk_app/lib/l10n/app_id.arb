@@ -451,7 +451,7 @@
   "momentSaved": "Tersimpan",
   "momentUnsaved": "Dihapus dari tersimpan",
   "failedToSave": "Gagal menyimpan",
-  "checkOutMoment": "Lihat momen ini: {title}",
+  "checkOutMoment": "Lihat momen ini di BananaTalk!",
   "failedToLoadMoments": "Gagal memuat momen",
   "noMomentsMatchFilters": "Tidak ada momen yang cocok dengan filter Anda",
   "beFirstToShareMoment": "Jadilah yang pertama berbagi momen!",
@@ -1160,5 +1160,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "Keterangan wajib diisi",
+  "captionTooLong": "Keterangan harus {maxLength} karakter atau kurang",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Batas Maksimum Gambar Tercapai",
+  "maximumImagesReachedDescription": "Anda hanya dapat mengunggah hingga {maxImages} gambar per momen.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Maksimum {maxImages} gambar. Hanya {added} gambar yang ditambahkan.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Akses Lokasi Dibatasi",
+  "locationPermissionNeeded": "Izin Lokasi Diperlukan",
+  "addToYourMoment": "Tambahkan ke momen Anda",
+  "categoryLabel": "Kategori",
+  "languageLabel": "Bahasa",
+  "scheduleOptional": "Jadwalkan (opsional)",
+  "scheduleForLater": "Jadwalkan untuk nanti",
+  "addMore": "Tambah Lagi",
+  "howAreYouFeeling": "Bagaimana perasaan Anda?",
+  "pleaseWaitOptimizingVideo": "Mohon tunggu sementara kami mengoptimalkan video Anda",
+  "unsupportedVideoFormat": "Format tidak didukung. Gunakan: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Pilih latar belakang",
+  "likedByXPeople": "Disukai oleh {count} orang",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} komentar",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 komentar",
+  "addAComment": "Tambahkan komentar...",
+  "viewXReplies": "Lihat {count} balasan",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Dilihat oleh {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}j lalu",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}m lalu",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Membalas ceritamu",
+  "mentionedYouInComment": "{name} menyebutmu di komentar",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} membalas komentarmu",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} bereaksi pada komentarmu",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Cari pengguna...",
+  "addReaction": "Tambah reaksi",
+  "attachImage": "Lampirkan gambar",
+  "pickGif": "Pilih GIF",
+  "textStory": "Teks",
+  "typeYourStory": "Tulis ceritamu...",
+  "selectBackground": "Pilih latar belakang",
+  "highlightsTitle": "Sorotan",
+  "newHighlight": "Sorotan Baru",
+  "highlightTitle": "Judul Sorotan",
+  "addToHighlight": "Tambahkan ke Sorotan",
+  "createNewHighlight": "Buat Baru",
+  "editHighlight": "Edit Sorotan",
+  "deleteHighlight": "Hapus Sorotan",
+  "selectStories": "Pilih Cerita",
+  "selectCover": "Pilih Sampul",
+  "addText": "Tambah Teks",
+  "addSticker": "Tambah Stiker",
+  "fontStyleLabel": "Gaya Font",
+  "textColorLabel": "Warna Teks",
+  "dragToDelete": "Seret ke sini untuk menghapus"
 }

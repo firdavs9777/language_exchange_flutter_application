@@ -611,7 +611,7 @@
   "removeFromSaved": "Alisin sa Naka-save",
   "momentSaved": "Na-save",
   "failedToSave": "Hindi na-save",
-  "checkOutMoment": "Tingnan ang moment na ito: {title}",
+  "checkOutMoment": "Tingnan ang moment na ito sa BananaTalk!",
   "failedToLoadMoments": "Hindi na-load ang mga moment",
   "noMomentsMatchFilters": "Walang moment na tumutugma sa iyong mga filter",
   "beFirstToShareMoment": "Maging una sa pagbahagi ng moment!",
@@ -1271,5 +1271,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "Kinakailangan ang caption",
+  "captionTooLong": "Ang caption ay dapat {maxLength} character o mas kaunti",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Naabot na ang Maximum na Larawan",
+  "maximumImagesReachedDescription": "Maaari kang mag-upload ng hanggang {maxImages} larawan bawat moment.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Maximum {maxImages} larawan. {added} larawan lang ang naidagdag.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Limitado ang Access sa Lokasyon",
+  "locationPermissionNeeded": "Kailangan ng Pahintulot sa Lokasyon",
+  "addToYourMoment": "Idagdag sa iyong moment",
+  "categoryLabel": "Kategorya",
+  "languageLabel": "Wika",
+  "scheduleOptional": "Iskedyul (opsyonal)",
+  "scheduleForLater": "Iskedyul para mamaya",
+  "addMore": "Magdagdag Pa",
+  "howAreYouFeeling": "Kumusta ang pakiramdam mo?",
+  "pleaseWaitOptimizingVideo": "Maghintay habang ino-optimize namin ang iyong video",
+  "unsupportedVideoFormat": "Hindi suportadong format. Gamitin: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Pumili ng background",
+  "likedByXPeople": "Nagustuhan ng {count} tao",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} komento",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 komento",
+  "addAComment": "Magdagdag ng komento...",
+  "viewXReplies": "Tingnan ang {count} tugon",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Nakita ng {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count} oras ang nakalipas",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count} minuto ang nakalipas",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Sumagot sa iyong story",
+  "mentionedYouInComment": "Binanggit ka ni {name} sa isang komento",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "Sumagot si {name} sa iyong komento",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "Nag-react si {name} sa iyong komento",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Maghanap ng mga user...",
+  "addReaction": "Magdagdag ng reaksyon",
+  "attachImage": "Maglakip ng larawan",
+  "pickGif": "Pumili ng GIF",
+  "textStory": "Teksto",
+  "typeYourStory": "Isulat ang iyong story...",
+  "selectBackground": "Pumili ng background",
+  "highlightsTitle": "Mga Highlight",
+  "newHighlight": "Bagong Highlight",
+  "highlightTitle": "Pamagat ng Highlight",
+  "addToHighlight": "Idagdag sa Highlight",
+  "createNewHighlight": "Gumawa ng Bago",
+  "editHighlight": "I-edit ang Highlight",
+  "deleteHighlight": "Burahin ang Highlight",
+  "selectStories": "Pumili ng Mga Story",
+  "selectCover": "Pumili ng Cover",
+  "addText": "Magdagdag ng Teksto",
+  "addSticker": "Magdagdag ng Sticker",
+  "fontStyleLabel": "Istilo ng Font",
+  "textColorLabel": "Kulay ng Teksto",
+  "dragToDelete": "I-drag dito para burahin"
 }

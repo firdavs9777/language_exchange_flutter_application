@@ -57,7 +57,6 @@ class MomentVideo {
 class Moments {
   const Moments({
     required this.id,
-    required this.title,
     required this.user,
     required this.description,
     required this.images,
@@ -87,10 +86,13 @@ class Moments {
     // Video fields
     this.video,
     this.mediaType = 'image',
+    this.backgroundColor = '',
+    // Reactions
+    this.reactions = const [],
+    this.reactionCount = 0,
   });
 
   final String id;
-  final String title;
   final Community user;
   final String description;
   final List<String> images;
@@ -125,6 +127,11 @@ class Moments {
   // Video fields
   final MomentVideo? video;
   final String mediaType; // 'image', 'video', 'text'
+  final String backgroundColor;
+
+  // Reactions
+  final List<CommentReaction> reactions;
+  final int reactionCount;
 
   /// Check if this moment has a video
   bool get hasVideo => video != null && video!.url.isNotEmpty;
@@ -152,7 +159,6 @@ class Moments {
 
     return Moments(
       id: json['_id']?.toString() ?? '',
-      title: json['title']?.toString() ?? '',
       user: json['user'] != null
           ? Community.fromJson(json['user'])
           : Community(
@@ -231,6 +237,14 @@ class Moments {
           ? MomentVideo.fromJson(json['video'])
           : null,
       mediaType: safeString(json['mediaType'], 'image'),
+      backgroundColor: safeString(json['backgroundColor'], ''),
+      reactions: json['reactions'] != null && json['reactions'] is List
+          ? (json['reactions'] as List)
+              .where((r) => r != null && r is Map<String, dynamic>)
+              .map((r) => CommentReaction.fromJson(r))
+              .toList()
+          : [],
+      reactionCount: json['reactionCount'] is int ? json['reactionCount'] : 0,
     );
   }
 
@@ -238,7 +252,6 @@ class Moments {
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
-      'title': title,
       'description': description,
       'images': images,
       'imageUrls': imageUrls,
@@ -260,13 +273,14 @@ class Moments {
       if (deletedAt != null) 'deletedAt': deletedAt!.toIso8601String(),
       if (video != null) 'video': video!.toJson(),
       'mediaType': mediaType,
+      'backgroundColor': backgroundColor,
+      'reactionCount': reactionCount,
     };
   }
 
   /// Create a copy with updated fields
   Moments copyWith({
     String? id,
-    String? title,
     Community? user,
     String? description,
     List<String>? images,
@@ -291,10 +305,12 @@ class Moments {
     List<MessageTranslation>? translations,
     MomentVideo? video,
     String? mediaType,
+    String? backgroundColor,
+    List<CommentReaction>? reactions,
+    int? reactionCount,
   }) {
     return Moments(
       id: id ?? this.id,
-      title: title ?? this.title,
       user: user ?? this.user,
       description: description ?? this.description,
       images: images ?? this.images,
@@ -319,8 +335,91 @@ class Moments {
       translations: translations ?? this.translations,
       video: video ?? this.video,
       mediaType: mediaType ?? this.mediaType,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      reactions: reactions ?? this.reactions,
+      reactionCount: reactionCount ?? this.reactionCount,
     );
   }
+}
+
+/// Gradient presets for text-only moments
+class MomentGradients {
+  static const Map<String, List<int>> presets = {
+    'gradient_sunset': [0xFFFF512F, 0xFFDD2476],
+    'gradient_ocean': [0xFF2193B0, 0xFF6DD5ED],
+    'gradient_forest': [0xFF11998E, 0xFF38EF7D],
+    'gradient_purple': [0xFF8E2DE2, 0xFF4A00E0],
+    'gradient_fire': [0xFFFF416C, 0xFFFF4B2B],
+    'gradient_midnight': [0xFF0F2027, 0xFF2C5364],
+    'gradient_candy': [0xFFD585FF, 0xFF00FFEE],
+    'gradient_sky': [0xFF56CCF2, 0xFF2F80ED],
+    'gradient_neon': [0xFF00F260, 0xFF0575E6],
+    'gradient_coral': [0xFFFF6B6B, 0xFFEE5A24],
+    'gradient_gold': [0xFFF7971E, 0xFFFFD200],
+    'gradient_nightclub': [0xFF8E2DE2, 0xFFFF6FD8],
+    'gradient_arctic': [0xFFE0EAFC, 0xFFCFDEF3],
+  };
+
+  static const String defaultGradient = 'gradient_purple';
+
+  static List<int> getColors(String key) {
+    return presets[key] ?? presets[defaultGradient]!;
+  }
+}
+
+/// Reaction on a comment
+class CommentReaction {
+  final String id;
+  final String userId;
+  final String emoji;
+  final DateTime createdAt;
+
+  const CommentReaction({
+    required this.id,
+    required this.userId,
+    required this.emoji,
+    required this.createdAt,
+  });
+
+  factory CommentReaction.fromJson(Map<String, dynamic> json) {
+    return CommentReaction(
+      id: json['_id']?.toString() ?? '',
+      userId: json['user']?.toString() ?? '',
+      emoji: json['emoji']?.toString() ?? '',
+      createdAt: DateTime.tryParse(json['createdAt']?.toString() ?? '') ?? DateTime.now(),
+    );
+  }
+}
+
+/// Mention in a comment
+class CommentMention {
+  final String userId;
+  final String username;
+  final int offset;
+  final int length;
+
+  const CommentMention({
+    required this.userId,
+    required this.username,
+    required this.offset,
+    required this.length,
+  });
+
+  factory CommentMention.fromJson(Map<String, dynamic> json) {
+    return CommentMention(
+      userId: json['user']?.toString() ?? '',
+      username: json['username']?.toString() ?? '',
+      offset: json['offset'] is int ? json['offset'] : 0,
+      length: json['length'] is int ? json['length'] : 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'user': userId,
+    'username': username,
+    'offset': offset,
+    'length': length,
+  };
 }
 
 class Comment {
@@ -331,6 +430,10 @@ class Comment {
     required this.momentId,
     required this.createdAt,
     this.translations = const [],
+    this.reactions = const [],
+    this.reactionCount = 0,
+    this.mentions = const [],
+    this.imageUrl,
   });
 
   final String id;
@@ -339,6 +442,10 @@ class Comment {
   final String momentId;
   final DateTime createdAt;
   final List<MessageTranslation> translations;
+  final List<CommentReaction> reactions;
+  final int reactionCount;
+  final List<CommentMention> mentions;
+  final String? imageUrl;
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
@@ -379,6 +486,20 @@ class Comment {
               .map((t) => MessageTranslation.fromJson(t))
               .toList()
           : [],
+      reactions: json['reactions'] != null && json['reactions'] is List
+          ? (json['reactions'] as List)
+              .where((r) => r != null && r is Map<String, dynamic>)
+              .map((r) => CommentReaction.fromJson(r))
+              .toList()
+          : [],
+      reactionCount: json['reactionCount'] is int ? json['reactionCount'] : 0,
+      mentions: json['mentions'] != null && json['mentions'] is List
+          ? (json['mentions'] as List)
+              .where((m) => m != null && m is Map<String, dynamic>)
+              .map((m) => CommentMention.fromJson(m))
+              .toList()
+          : [],
+      imageUrl: json['imageUrl']?.toString(),
     );
   }
 
@@ -490,6 +611,14 @@ class MomentCategory {
   static const String music = 'music';
   static const String books = 'books';
   static const String hobbies = 'hobbies';
+  static const String dailyLife = 'daily-life';
+  static const String technology = 'technology';
+  static const String entertainment = 'entertainment';
+  static const String sports = 'sports';
+  static const String movies = 'movies';
+  static const String study = 'study';
+  static const String work = 'work';
+  static const String question = 'question';
 
   static List<Map<String, String>> get all => [
         {'value': general, 'label': 'General', 'icon': '🌐'},
@@ -500,6 +629,14 @@ class MomentCategory {
         {'value': music, 'label': 'Music', 'icon': '🎵'},
         {'value': books, 'label': 'Books', 'icon': '📖'},
         {'value': hobbies, 'label': 'Hobbies', 'icon': '🎨'},
+        {'value': dailyLife, 'label': 'Daily Life', 'icon': '☀️'},
+        {'value': technology, 'label': 'Technology', 'icon': '💻'},
+        {'value': entertainment, 'label': 'Entertainment', 'icon': '🎬'},
+        {'value': sports, 'label': 'Sports', 'icon': '⚽'},
+        {'value': movies, 'label': 'Movies', 'icon': '🎥'},
+        {'value': study, 'label': 'Study', 'icon': '📝'},
+        {'value': work, 'label': 'Work', 'icon': '💼'},
+        {'value': question, 'label': 'Question', 'icon': '❓'},
       ];
 }
 
@@ -511,6 +648,12 @@ class MomentMood {
   static const String motivated = 'motivated';
   static const String relaxed = 'relaxed';
   static const String curious = 'curious';
+  static const String sad = 'sad';
+  static const String love = 'love';
+  static const String funny = 'funny';
+  static const String thoughtful = 'thoughtful';
+  static const String cool = 'cool';
+  static const String tired = 'tired';
 
   static List<Map<String, String>> get all => [
         {'value': happy, 'label': 'Happy', 'emoji': '😊'},
@@ -519,6 +662,12 @@ class MomentMood {
         {'value': motivated, 'label': 'Motivated', 'emoji': '💪'},
         {'value': relaxed, 'label': 'Relaxed', 'emoji': '😌'},
         {'value': curious, 'label': 'Curious', 'emoji': '🤔'},
+        {'value': sad, 'label': 'Sad', 'emoji': '😢'},
+        {'value': love, 'label': 'Love', 'emoji': '😍'},
+        {'value': funny, 'label': 'Funny', 'emoji': '😂'},
+        {'value': thoughtful, 'label': 'Thoughtful', 'emoji': '💭'},
+        {'value': cool, 'label': 'Cool', 'emoji': '😎'},
+        {'value': tired, 'label': 'Tired', 'emoji': '😴'},
       ];
 }
 

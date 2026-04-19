@@ -89,7 +89,6 @@ class MomentsService {
   }
 
   Future<Moments> createMoments({
-    required String title,
     required String description,
     String privacy = 'public',
     String category = 'general',
@@ -98,6 +97,7 @@ class MomentsService {
     List<String>? tags,
     String? scheduledFor,
     Map<String, dynamic>? location,
+    String? backgroundColor,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}');
 
@@ -110,7 +110,6 @@ class MomentsService {
 
     // Build the request body - DO NOT include 'user' field (backend uses authenticated user from token)
     final Map<String, dynamic> body = {
-      'title': title.trim(),
       'description': description.trim(),
       'privacy': privacy,
       'category': category,
@@ -130,6 +129,9 @@ class MomentsService {
     }
     if (location != null && location.isNotEmpty) {
       body['location'] = location;
+    }
+    if (backgroundColor != null && backgroundColor.isNotEmpty) {
+      body['backgroundColor'] = backgroundColor;
     }
 
     final response = await http.post(
@@ -180,12 +182,12 @@ class MomentsService {
 
   Future<Moments> updateMoment({
     required String id,
-    required String title,
     required String description,
     String? category,
     String? mood,
     List<String>? tags,
     List<String>? images,
+    String? backgroundColor,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id');
 
@@ -198,7 +200,6 @@ class MomentsService {
 
     // Build the request body
     final Map<String, dynamic> body = {
-      'title': title.trim(),
       'description': description.trim(),
     };
 
@@ -216,6 +217,9 @@ class MomentsService {
     if (images != null) {
       // Send updated images array (filenames only)
       body['images'] = images;
+    }
+    if (backgroundColor != null) {
+      body['backgroundColor'] = backgroundColor;
     }
 
     final response = await http.put(

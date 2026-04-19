@@ -20,30 +20,52 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
   final VoidCallback? onCreateStory;
   final double height;
   final double avatarSize;
+  final ValueNotifier<int>? refreshNotifier;
 
   const StoriesFeedWidget({
     Key? key,
     this.onCreateStory,
-    this.height = 100,
+    this.height = 130,
     this.avatarSize = 64,
+    this.refreshNotifier,
   }) : super(key: key);
 
   @override
   ConsumerState<StoriesFeedWidget> createState() => _StoriesFeedWidgetState();
 }
 
-class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
+class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with WidgetsBindingObserver {
   List<UserStories> _stories = [];
   bool _isLoading = true;
   bool _isRefreshing = false;
   String? _error;
   UserStories? _myStories;
   bool _hasLoadedOnce = false;
-
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    widget.refreshNotifier?.addListener(_onRefreshNotified);
     _loadStories();
+  }
+
+  @override
+  void dispose() {
+    widget.refreshNotifier?.removeListener(_onRefreshNotified);
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  void _onRefreshNotified() {
+    _loadStories(showLoading: false);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Refresh when app comes back to foreground
+    if (state == AppLifecycleState.resumed) {
+      _loadStories(showLoading: false);
+    }
   }
 
   Future<void> _loadStories({bool showLoading = true}) async {
@@ -90,6 +112,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             if (currentUserId != null && userStories.user.id == currentUserId) return false;
             return true;
           }).toList();
+
 
           setState(() {
             _stories = filteredStories;
@@ -147,7 +170,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
           );
         },
       ),
-    );
+    ).then((_) => _loadStories(showLoading: false));
   }
 
   void _openMyStories() {
@@ -171,7 +194,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
             );
           },
         ),
-      );
+      ).then((_) => _loadStories(showLoading: false));
     }
   }
 
@@ -400,6 +423,12 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
+              if (hasActiveStories)
+                _buildStoryDots(
+                  context,
+                  _myStories!.activeStories.length,
+                  _myStories!.activeStories.length - _myStories!.unviewedCount,
+                ),
             ],
           ),
         ),
@@ -459,17 +488,44 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
               ),
               Spacing.gapXS,
               Text(
-                userStories.user.name ?? 'User',
-                style: context.captionSmall.copyWith(
-                  color: context.textSecondary,
-                  fontWeight: hasUnseen ? FontWeight.w600 : FontWeight.normal,
-                ),
+                () {
+                  final userName = userStories.user.name.isNotEmpty ? userStories.user.name : 'User';
+                  return userName.length > 8 ? '${userName.substring(0, 8)}...' : userName;
+                }(),
+                style: context.captionSmall.copyWith(color: context.textMuted),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
+              ),
+              _buildStoryDots(
+                context,
+                userStories.activeStories.length,
+                userStories.activeStories.length - userStories.unviewedCount,
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildStoryDots(BuildContext context, int totalStories, int viewedStories) {
+    final dotCount = totalStories.clamp(0, 5);
+    return Padding(
+      padding: const EdgeInsets.only(top: 2),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(dotCount, (i) {
+          final isViewed = i < viewedStories;
+          return Container(
+            width: 4,
+            height: 4,
+            margin: const EdgeInsets.symmetric(horizontal: 1),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isViewed ? Theme.of(context).colorScheme.outline : AppColors.primary,
+            ),
+          );
+        }),
       ),
     );
   }

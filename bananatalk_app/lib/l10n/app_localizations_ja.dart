@@ -1583,7 +1583,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get createHighlight => 'ハイライトを作成';
 
   @override
-  String get deleteHighlight => 'ハイライトを削除しますか？';
+  String get deleteHighlight => 'ハイライトを削除';
 
   @override
   String get editHighlight => 'ハイライトを編集';
@@ -2031,9 +2031,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToSave => '保存に失敗しました';
 
   @override
-  String checkOutMoment(String title) {
-    return 'このモーメントをチェック: $title';
-  }
+  String get checkOutMoment => 'BananaTalkでこのモーメントをチェック!';
 
   @override
   String get failedToLoadMoments => 'モーメントの読み込みに失敗しました';
@@ -3902,4 +3900,162 @@ class AppLocalizationsJa extends AppLocalizations {
   String maxAge(int age) {
     return '最大: $age';
   }
+
+  @override
+  String get captionRequired => 'キャプションは必須です';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'キャプションは$maxLength文字以内にしてください';
+  }
+
+  @override
+  String get maximumImagesReached => '画像の上限に達しました';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return '1つのモーメントにつき最大$maxImages枚の画像をアップロードできます。';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return '最大$maxImages枚の画像が許可されています。$added枚のみ追加されました。';
+  }
+
+  @override
+  String get locationAccessRestricted => '位置情報へのアクセスが制限されています';
+
+  @override
+  String get locationPermissionNeeded => '位置情報の許可が必要です';
+
+  @override
+  String get addToYourMoment => 'モーメントに追加';
+
+  @override
+  String get categoryLabel => 'カテゴリ';
+
+  @override
+  String get languageLabel => '言語';
+
+  @override
+  String get scheduleOptional => 'スケジュール（任意）';
+
+  @override
+  String get scheduleForLater => '後でスケジュール';
+
+  @override
+  String get addMore => 'さらに追加';
+
+  @override
+  String get howAreYouFeeling => '今の気分は？';
+
+  @override
+  String get pleaseWaitOptimizingVideo => '動画を最適化しています。お待ちください';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'サポートされていない形式です。使用可能: $formats';
+  }
+
+  @override
+  String get chooseBackground => '背景を選択';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count人がいいねしました';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count件のコメント';
+  }
+
+  @override
+  String get oneComment => '1件のコメント';
+
+  @override
+  String get addAComment => 'コメントを追加...';
+
+  @override
+  String viewXReplies(int count) {
+    return '$count件の返信を表示';
+  }
+
+  @override
+  String seenByX(int count) {
+    return '$count人が閲覧';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count時間前';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count分前';
+  }
+
+  @override
+  String get repliedToYourStory => 'ストーリーに返信しました';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$nameがコメントであなたをメンションしました';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$nameがコメントに返信しました';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$nameがコメントにリアクションしました';
+  }
+
+  @override
+  String get addReaction => 'リアクションを追加';
+
+  @override
+  String get attachImage => '画像を添付';
+
+  @override
+  String get pickGif => 'GIFを選択';
+
+  @override
+  String get textStory => 'テキスト';
+
+  @override
+  String get typeYourStory => 'ストーリーを入力...';
+
+  @override
+  String get selectBackground => '背景を選択';
+
+  @override
+  String get highlightsTitle => 'ハイライト';
+
+  @override
+  String get highlightTitle => 'ハイライトタイトル';
+
+  @override
+  String get createNewHighlight => '新規作成';
+
+  @override
+  String get selectStories => 'ストーリーを選択';
+
+  @override
+  String get selectCover => 'カバーを選択';
+
+  @override
+  String get addText => 'テキストを追加';
+
+  @override
+  String get fontStyleLabel => 'フォントスタイル';
+
+  @override
+  String get textColorLabel => 'テキスト色';
+
+  @override
+  String get dragToDelete => 'ここにドラッグして削除';
 }

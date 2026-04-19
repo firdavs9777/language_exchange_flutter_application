@@ -887,7 +887,7 @@
   "removeFromSaved": "Retirer des enregistrés",
   "momentSaved": "Enregistré",
   "failedToSave": "Échec de l'enregistrement",
-  "checkOutMoment": "Découvrez ce moment : {title}",
+  "checkOutMoment": "Découvrez ce moment sur BananaTalk !",
   "failedToLoadMoments": "Échec du chargement des moments",
   "noMomentsMatchFilters": "Aucun moment ne correspond à vos filtres",
   "beFirstToShareMoment": "Soyez le premier à partager un moment !",
@@ -1609,5 +1609,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "La légende est obligatoire",
+  "captionTooLong": "La légende doit contenir {maxLength} caractères ou moins",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Nombre maximum d'images atteint",
+  "maximumImagesReachedDescription": "Vous pouvez télécharger jusqu'à {maxImages} images par moment.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Maximum {maxImages} images autorisées. Seulement {added} images ajoutées.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Accès à la localisation restreint",
+  "locationPermissionNeeded": "Autorisation de localisation nécessaire",
+  "addToYourMoment": "Ajouter à votre moment",
+  "categoryLabel": "Catégorie",
+  "languageLabel": "Langue",
+  "scheduleOptional": "Planifier (optionnel)",
+  "scheduleForLater": "Planifier pour plus tard",
+  "addMore": "Ajouter plus",
+  "howAreYouFeeling": "Comment vous sentez-vous ?",
+  "pleaseWaitOptimizingVideo": "Veuillez patienter pendant l'optimisation de votre vidéo",
+  "unsupportedVideoFormat": "Format non pris en charge. Utilisez : {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Choisir un arrière-plan",
+  "likedByXPeople": "Aimé par {count} personnes",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} commentaires",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 commentaire",
+  "addAComment": "Ajouter un commentaire...",
+  "viewXReplies": "Voir {count} réponses",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Vu par {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "il y a {count}h",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "il y a {count}m",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "A répondu à votre story",
+  "mentionedYouInComment": "{name} vous a mentionné dans un commentaire",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} a répondu à votre commentaire",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} a réagi à votre commentaire",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Rechercher des utilisateurs...",
+  "addReaction": "Ajouter une réaction",
+  "attachImage": "Joindre une image",
+  "pickGif": "Choisir un GIF",
+  "textStory": "Texte",
+  "typeYourStory": "Écrivez votre story...",
+  "selectBackground": "Choisir le fond",
+  "highlightsTitle": "À la une",
+  "newHighlight": "Nouveau à la une",
+  "highlightTitle": "Titre",
+  "addToHighlight": "Ajouter à la une",
+  "createNewHighlight": "Créer nouveau",
+  "editHighlight": "Modifier",
+  "deleteHighlight": "Supprimer",
+  "selectStories": "Sélectionner les stories",
+  "selectCover": "Choisir la couverture",
+  "addText": "Ajouter du texte",
+  "addSticker": "Ajouter un sticker",
+  "fontStyleLabel": "Style de police",
+  "textColorLabel": "Couleur du texte",
+  "dragToDelete": "Faites glisser ici pour supprimer"
 }

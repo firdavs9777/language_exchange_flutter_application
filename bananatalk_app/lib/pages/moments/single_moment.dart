@@ -3,10 +3,12 @@ import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/translated_moment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -34,6 +36,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   int commentCount = 0;
   bool isSaved = false;
   bool _likePending = false;
+  bool _showTranslation = false;
   TextEditingController commentController = TextEditingController();
   bool showCommentField = false;
   final FocusNode commentFocusNode = FocusNode();
@@ -243,7 +246,10 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
   void _shareMoment() {
     final l10n = AppLocalizations.of(context)!;
-    final momentText = l10n.checkOutMoment(widget.moment.title);
+    final snippet = widget.moment.description.length > 100
+        ? '${widget.moment.description.substring(0, 100)}...'
+        : widget.moment.description;
+    final momentText = l10n.checkOutMoment;
     final momentUrl = 'https://banatalk.com/moment/${widget.moment.id}';
     Share.share('$momentText\n\n$momentUrl');
   }
@@ -556,15 +562,48 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: Text(
-                      widget.moment.description.isEmpty
-                          ? widget.moment.title
-                          : widget.moment.description,
-                      style: context.bodyMedium,
+                  if (widget.moment.mediaType == 'text' &&
+                      widget.moment.imageUrls.isEmpty &&
+                      widget.moment.video == null)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      child: Container(
+                        width: double.infinity,
+                        constraints: const BoxConstraints(minHeight: 200),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: MomentGradients.getColors(
+                              widget.moment.backgroundColor.isNotEmpty
+                                  ? widget.moment.backgroundColor
+                                  : MomentGradients.defaultGradient,
+                            ).map((c) => Color(c)).toList(),
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(24),
+                        child: Center(
+                          child: Text(
+                            widget.moment.description,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      child: Text(
+                        widget.moment.description,
+                        style: context.bodyMedium,
+                      ),
                     ),
-                  ),
                   if (widget.moment.imageUrls.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
@@ -593,12 +632,16 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         IconButton(
                           icon: Icon(
                             Icons.translate,
-                            color: context.iconColor,
+                            color: _showTranslation
+                                ? const Color(0xFF00BFA5)
+                                : context.iconColor,
                             size: 20,
                           ),
                           padding: const EdgeInsets.all(8),
                           constraints: const BoxConstraints(),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() => _showTranslation = !_showTranslation);
+                          },
                         ),
                         IconButton(
                           icon: Icon(
@@ -624,6 +667,23 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ],
                     ),
                   ),
+                  // Ad banner
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: SmallBannerAdWidget(),
+                  ),
+                  if (_showTranslation)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                      child: TranslatedMomentWidget(
+                        momentId: widget.moment.id,
+                        originalText: widget.moment.description,
+                        originalLanguage: widget.moment.language,
+                        existingTranslations: widget.moment.translations.isNotEmpty
+                            ? widget.moment.translations
+                            : null,
+                      ),
+                    ),
                   if (likeCount > 0)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -242,6 +243,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             child: _buildRadiusSelector()
                 .animate()
                 .fadeIn(duration: 300.ms, delay: 80.ms),
+          ),
+          // Ad banner
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: SmallBannerAdWidget(),
+            ),
           ),
           // Grid of users
           SliverPadding(

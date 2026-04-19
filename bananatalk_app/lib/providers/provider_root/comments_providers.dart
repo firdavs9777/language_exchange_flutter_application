@@ -21,7 +21,7 @@ class CommentsService {
     }
   }
 
-  Future<Comments> createComment({required String title, required String id, String? parentCommentId}) async {
+  Future<Comments> createComment({required String title, required String id, String? parentCommentId, String? imageUrl}) async {
     final url = Uri.parse(
         '${Endpoints.baseURL}${Endpoints.momentsURL}/$id/${Endpoints.commentUrl}');
 
@@ -35,6 +35,9 @@ class CommentsService {
     final body = <String, dynamic>{'text': title};
     if (parentCommentId != null) {
       body['parentComment'] = parentCommentId;
+    }
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      body['imageUrl'] = imageUrl;
     }
 
     final response = await http.post(

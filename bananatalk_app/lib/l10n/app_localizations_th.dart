@@ -1559,10 +1559,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get storyArchive => 'Story Archive';
 
   @override
-  String get newHighlight => 'New Highlight';
+  String get newHighlight => 'ไฮไลท์ใหม่';
 
   @override
-  String get addToHighlight => 'Add to Highlight';
+  String get addToHighlight => 'เพิ่มไปยังไฮไลท์';
 
   @override
   String get repost => 'Repost';
@@ -1583,10 +1583,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get createHighlight => 'สร้างไฮไลท์';
 
   @override
-  String get deleteHighlight => 'Delete Highlight?';
+  String get deleteHighlight => 'ลบไฮไลท์';
 
   @override
-  String get editHighlight => 'Edit Highlight';
+  String get editHighlight => 'แก้ไขไฮไลท์';
 
   @override
   String get addMoreToStory => 'Add more to story';
@@ -1630,7 +1630,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get noFollowingYet => 'Not following anyone yet';
 
   @override
-  String get searchUsers => 'Search users...';
+  String get searchUsers => 'ค้นหาผู้ใช้...';
 
   @override
   String get noResultsFound => 'No results found';
@@ -1710,7 +1710,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get record => 'บันทึก';
 
   @override
-  String get addSticker => 'Add Sticker';
+  String get addSticker => 'เพิ่มสติกเกอร์';
 
   @override
   String get poll => 'โพล';
@@ -2031,9 +2031,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get failedToSave => 'บันทึกล้มเหลว';
 
   @override
-  String checkOutMoment(String title) {
-    return 'ดูโมเมนต์นี้: $title';
-  }
+  String get checkOutMoment => 'ดูโมเมนต์นี้บน BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'โหลดโมเมนต์ล้มเหลว';
@@ -3902,4 +3900,162 @@ class AppLocalizationsTh extends AppLocalizations {
   String maxAge(int age) {
     return 'สูงสุด: $age';
   }
+
+  @override
+  String get captionRequired => 'จำเป็นต้องมีคำบรรยาย';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'คำบรรยายต้องมี $maxLength ตัวอักษรหรือน้อยกว่า';
+  }
+
+  @override
+  String get maximumImagesReached => 'ถึงจำนวนรูปภาพสูงสุดแล้ว';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'คุณสามารถอัปโหลดได้สูงสุด $maxImages รูปต่อโมเมนต์';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'สูงสุด $maxImages รูป เพิ่มได้เพียง $added รูปเท่านั้น';
+  }
+
+  @override
+  String get locationAccessRestricted => 'การเข้าถึงตำแหน่งถูกจำกัด';
+
+  @override
+  String get locationPermissionNeeded => 'ต้องการสิทธิ์การเข้าถึงตำแหน่ง';
+
+  @override
+  String get addToYourMoment => 'เพิ่มในโมเมนต์ของคุณ';
+
+  @override
+  String get categoryLabel => 'หมวดหมู่';
+
+  @override
+  String get languageLabel => 'ภาษา';
+
+  @override
+  String get scheduleOptional => 'กำหนดเวลา (ไม่บังคับ)';
+
+  @override
+  String get scheduleForLater => 'กำหนดเวลาสำหรับภายหลัง';
+
+  @override
+  String get addMore => 'เพิ่มเติม';
+
+  @override
+  String get howAreYouFeeling => 'คุณรู้สึกอย่างไร?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'กรุณารอสักครู่ขณะเราปรับปรุงวิดีโอของคุณ';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'รูปแบบไม่รองรับ ใช้: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'เลือกพื้นหลัง';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'ถูกใจโดย $count คน';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count ความคิดเห็น';
+  }
+
+  @override
+  String get oneComment => '1 ความคิดเห็น';
+
+  @override
+  String get addAComment => 'เพิ่มความคิดเห็น...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'ดู $count การตอบกลับ';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'เห็นโดย $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count ชม.ที่แล้ว';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count นาทีที่แล้ว';
+  }
+
+  @override
+  String get repliedToYourStory => 'ตอบกลับสตอรี่ของคุณ';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name กล่าวถึงคุณในความคิดเห็น';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name ตอบกลับความคิดเห็นของคุณ';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name รีแอคชันความคิดเห็นของคุณ';
+  }
+
+  @override
+  String get addReaction => 'เพิ่มรีแอคชัน';
+
+  @override
+  String get attachImage => 'แนบรูปภาพ';
+
+  @override
+  String get pickGif => 'เลือก GIF';
+
+  @override
+  String get textStory => 'ข้อความ';
+
+  @override
+  String get typeYourStory => 'เขียนสตอรี่ของคุณ...';
+
+  @override
+  String get selectBackground => 'เลือกพื้นหลัง';
+
+  @override
+  String get highlightsTitle => 'ไฮไลท์';
+
+  @override
+  String get highlightTitle => 'ชื่อไฮไลท์';
+
+  @override
+  String get createNewHighlight => 'สร้างใหม่';
+
+  @override
+  String get selectStories => 'เลือกสตอรี่';
+
+  @override
+  String get selectCover => 'เลือกปก';
+
+  @override
+  String get addText => 'เพิ่มข้อความ';
+
+  @override
+  String get fontStyleLabel => 'รูปแบบตัวอักษร';
+
+  @override
+  String get textColorLabel => 'สีข้อความ';
+
+  @override
+  String get dragToDelete => 'ลากมาที่นี่เพื่อลบ';
 }

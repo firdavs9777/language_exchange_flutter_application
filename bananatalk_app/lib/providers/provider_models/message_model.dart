@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
 /// Message sending status for optimistic updates
@@ -37,6 +38,7 @@ class Message {
     this.selfDestruct,
     this.isForwarded = false,
     this.forwardedFrom,
+    this.storyReference,
     this.sendingStatus = MessageSendingStatus.none,
     this.localId,
   });
@@ -68,6 +70,7 @@ class Message {
   final SelfDestructSettings? selfDestruct;
   final bool isForwarded;
   final ForwardedMessage? forwardedFrom;
+  final StoryReference? storyReference;
   final MessageSendingStatus sendingStatus;
   final String? localId; // For tracking optimistic messages before server response
 
@@ -107,6 +110,7 @@ class Message {
       selfDestruct: selfDestruct,
       isForwarded: isForwarded,
       forwardedFrom: forwardedFrom,
+      storyReference: storyReference,
       sendingStatus: status,
       localId: localId,
     );
@@ -196,8 +200,14 @@ class Message {
           ? SelfDestructSettings.fromJson(json['selfDestruct']) 
           : null,
       isForwarded: json['isForwarded'] ?? false,
-      forwardedFrom: json['forwardedFrom'] != null && json['forwardedFrom'] is Map<String, dynamic> 
-          ? ForwardedMessage.fromJson(json['forwardedFrom']) 
+      forwardedFrom: json['forwardedFrom'] != null && json['forwardedFrom'] is Map<String, dynamic>
+          ? ForwardedMessage.fromJson(json['forwardedFrom'])
+          : null,
+      storyReference: (json['storyReference'] != null
+          && json['storyReference'] is Map<String, dynamic>
+          && json['storyReference']['storyId'] != null
+          && json['storyReference']['storyId'].toString().isNotEmpty)
+          ? StoryReference.fromJson(json['storyReference'])
           : null,
     );
   }
@@ -394,6 +404,7 @@ class Message {
       selfDestruct: selfDestruct ?? this.selfDestruct,
       isForwarded: isForwarded ?? this.isForwarded,
       forwardedFrom: forwardedFrom ?? this.forwardedFrom,
+      storyReference: this.storyReference,
     );
   }
 }
@@ -716,6 +727,21 @@ class SelfDestructSettings {
       'destructTimer': destructTimer,
       'destructAt': destructAt,
     };
+  }
+}
+
+/// Story reference for story replies/reactions in chat
+class StoryReference {
+  final String storyId;
+  final String? thumbnail;
+
+  const StoryReference({required this.storyId, this.thumbnail});
+
+  factory StoryReference.fromJson(Map<String, dynamic> json) {
+    return StoryReference(
+      storyId: json['storyId']?.toString() ?? '',
+      thumbnail: json['thumbnail']?.toString(),
+    );
   }
 }
 

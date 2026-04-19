@@ -451,7 +451,7 @@
   "momentSaved": "Đã lưu",
   "momentUnsaved": "Đã xóa khỏi đã lưu",
   "failedToSave": "Lưu thất bại",
-  "checkOutMoment": "Xem khoảnh khắc này: {title}",
+  "checkOutMoment": "Xem khoảnh khắc này trên BananaTalk!",
   "failedToLoadMoments": "Không thể tải khoảnh khắc",
   "noMomentsMatchFilters": "Không có khoảnh khắc nào phù hợp với bộ lọc",
   "beFirstToShareMoment": "Hãy là người đầu tiên chia sẻ khoảnh khắc!",
@@ -1156,5 +1156,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "Chú thích là bắt buộc",
+  "captionTooLong": "Chú thích phải có {maxLength} ký tự trở xuống",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Đã đạt giới hạn hình ảnh",
+  "maximumImagesReachedDescription": "Bạn chỉ có thể tải lên tối đa {maxImages} hình ảnh mỗi khoảnh khắc.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Tối đa {maxImages} hình ảnh. Chỉ thêm được {added} hình.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Quyền truy cập vị trí bị hạn chế",
+  "locationPermissionNeeded": "Cần quyền truy cập vị trí",
+  "addToYourMoment": "Thêm vào khoảnh khắc của bạn",
+  "categoryLabel": "Danh mục",
+  "languageLabel": "Ngôn ngữ",
+  "scheduleOptional": "Lên lịch (tùy chọn)",
+  "scheduleForLater": "Lên lịch cho sau",
+  "addMore": "Thêm nữa",
+  "howAreYouFeeling": "Bạn đang cảm thấy thế nào?",
+  "pleaseWaitOptimizingVideo": "Vui lòng đợi trong khi chúng tôi tối ưu hóa video của bạn",
+  "unsupportedVideoFormat": "Định dạng không được hỗ trợ. Sử dụng: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Chọn hình nền",
+  "likedByXPeople": "{count} người đã thích",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} bình luận",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 bình luận",
+  "addAComment": "Thêm bình luận...",
+  "viewXReplies": "Xem {count} phản hồi",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Đã xem bởi {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count} giờ trước",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count} phút trước",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Đã trả lời tin của bạn",
+  "mentionedYouInComment": "{name} đã nhắc đến bạn trong bình luận",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} đã trả lời bình luận của bạn",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} đã phản ứng bình luận của bạn",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Tìm kiếm người dùng...",
+  "addReaction": "Thêm phản ứng",
+  "attachImage": "Đính kèm ảnh",
+  "pickGif": "Chọn GIF",
+  "textStory": "Văn bản",
+  "typeYourStory": "Viết tin của bạn...",
+  "selectBackground": "Chọn nền",
+  "highlightsTitle": "Nổi bật",
+  "newHighlight": "Nổi bật mới",
+  "highlightTitle": "Tiêu đề",
+  "addToHighlight": "Thêm vào nổi bật",
+  "createNewHighlight": "Tạo mới",
+  "editHighlight": "Chỉnh sửa",
+  "deleteHighlight": "Xóa",
+  "selectStories": "Chọn tin",
+  "selectCover": "Chọn ảnh bìa",
+  "addText": "Thêm văn bản",
+  "addSticker": "Thêm nhãn dán",
+  "fontStyleLabel": "Kiểu chữ",
+  "textColorLabel": "Màu chữ",
+  "dragToDelete": "Kéo vào đây để xóa"
 }

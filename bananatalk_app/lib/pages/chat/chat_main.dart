@@ -101,12 +101,12 @@ class ChatPartner {
 
 /// Get a display-friendly preview of a message for the chat list
 String getMessagePreview(Message message) {
-  // Check for text message first
-  if (message.message != null && message.message!.isNotEmpty) {
-    return message.message!;
+  // Check for story reference first
+  if (message.storyReference != null) {
+    return '📖 Replied to story';
   }
 
-  // Check message type
+  // Check message type before raw text
   final type = message.type.toLowerCase();
   switch (type) {
     case 'sticker':
@@ -115,6 +115,17 @@ String getMessagePreview(Message message) {
       return '📊 Poll';
     case 'gif':
       return '🎬 GIF';
+  }
+
+  // Check for GIF URLs in message text
+  final text = message.message ?? '';
+  if (text.startsWith('http') && (text.contains('giphy.com') || text.contains('.gif'))) {
+    return '🎬 GIF';
+  }
+
+  // Check for text message
+  if (text.isNotEmpty) {
+    return text;
   }
 
   // Check media type
@@ -142,7 +153,9 @@ String getMessagePreview(Message message) {
 }
 
 class ChatMain extends ConsumerStatefulWidget {
-  const ChatMain({super.key});
+  final ValueNotifier<int>? tabRefreshNotifier;
+
+  const ChatMain({super.key, this.tabRefreshNotifier});
 
   @override
   ConsumerState<ChatMain> createState() => _ChatMainState();
@@ -169,6 +182,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   List<ChatPartner> _chatPartners = [];
   String? _currentUserId;
   String? _activeUserId;
+  DateTime _lastFetchTime = DateTime.now();
   final _chatSocketService = ChatSocketService();
   Map<String, Map<String, dynamic>> _userStatuses = {};
   Map<String, bool> _typingUsers = {};
@@ -202,6 +216,15 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     // Add observer for app lifecycle
     WidgetsBinding.instance.addObserver(this);
+
+    // Listen for tab switches to silently refresh
+    widget.tabRefreshNotifier?.addListener(_onTabRefresh);
+  }
+
+  void _onTabRefresh() {
+    if (mounted && !_isLoading) {
+      _fetchMessages(silent: true);
+    }
   }
 
   @override
@@ -218,6 +241,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _checkUserChange();
+      // Refresh chat list on resume to pick up new conversations
+      _fetchMessages();
 
       // Reconnect socket if disconnected
       // Use forceReset to clear any failed reconnect attempts from background
@@ -580,12 +605,20 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ? DateTime.parse(messageData['createdAt'].toString())
           : DateTime.now();
 
+      // Check for story reference or GIF URLs
+      final hasStoryRef = messageData['storyReference'] != null &&
+          messageData['storyReference']['storyId'] != null;
+      final isGifUrl = rawMessageText.startsWith('http') &&
+          (rawMessageText.contains('giphy.com') || rawMessageText.contains('.gif'));
+
       // Get message preview based on type/media
       final messageType = messageData['type']?.toString() ?? '';
       String messageText;
-      if (messageType == 'gif') {
+      if (hasStoryRef) {
+        messageText = '📖 Replied to story';
+      } else if (messageType == 'gif' || isGifUrl) {
         messageText = '🎬 GIF';
-      } else if (rawMessageText.isNotEmpty) {
+      } else if (rawMessageText.isNotEmpty && !isGifUrl) {
         messageText = rawMessageText;
       } else {
         messageText = rawMessageText;
@@ -697,12 +730,20 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ? DateTime.parse(messageData['createdAt'].toString())
           : DateTime.now();
 
+      // Check for story reference or GIF URLs
+      final hasStoryRef = messageData['storyReference'] != null &&
+          messageData['storyReference']['storyId'] != null;
+      final isGifUrl = rawMessageText.startsWith('http') &&
+          (rawMessageText.contains('giphy.com') || rawMessageText.contains('.gif'));
+
       // Get message preview based on type/media
       final messageType = messageData['type']?.toString() ?? '';
       String messageText;
-      if (messageType == 'gif') {
+      if (hasStoryRef) {
+        messageText = '📖 Replied to story';
+      } else if (messageType == 'gif' || isGifUrl) {
         messageText = '🎬 GIF';
-      } else if (rawMessageText.isNotEmpty) {
+      } else if (rawMessageText.isNotEmpty && !isGifUrl) {
         messageText = rawMessageText;
       } else {
         messageText = rawMessageText;
@@ -936,13 +977,17 @@ class _ChatMainState extends ConsumerState<ChatMain>
     } catch (e) {}
   }
 
-  Future<void> _fetchMessages() async {
+  Future<void> _fetchMessages({bool silent = false}) async {
     if (!mounted) return;
 
-    setState(() {
-      _isLoading = true;
-      _error = '';
-    });
+    _lastFetchTime = DateTime.now();
+
+    if (!silent) {
+      setState(() {
+        _isLoading = true;
+        _error = '';
+      });
+    }
 
     try {
       final messageService = ref.read(messageServiceProvider);

@@ -114,15 +114,13 @@ class MomentFilterUtility {
     return moments.where((moment) {
       final userMatches =
           moment.user.name.toLowerCase().contains(lowerQuery);
-      final titleMatches =
-          moment.title.toLowerCase().contains(lowerQuery);
       final descriptionMatches =
           moment.description.toLowerCase().contains(lowerQuery);
       final tagMatches = moment.tags
           .whereType<String>()
           .any((tag) => tag.toLowerCase().contains(lowerQuery));
 
-      return userMatches || titleMatches || descriptionMatches || tagMatches;
+      return userMatches || descriptionMatches || tagMatches;
     }).toList();
   }
 

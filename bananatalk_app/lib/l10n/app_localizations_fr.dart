@@ -1559,10 +1559,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get storyArchive => 'Archive de stories';
 
   @override
-  String get newHighlight => 'Nouveau highlight';
+  String get newHighlight => 'Nouveau à la une';
 
   @override
-  String get addToHighlight => 'Ajouter au highlight';
+  String get addToHighlight => 'Ajouter à la une';
 
   @override
   String get repost => 'Republier';
@@ -1583,10 +1583,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get createHighlight => 'Créer un highlight';
 
   @override
-  String get deleteHighlight => 'Supprimer le highlight ?';
+  String get deleteHighlight => 'Supprimer';
 
   @override
-  String get editHighlight => 'Modifier le highlight';
+  String get editHighlight => 'Modifier';
 
   @override
   String get addMoreToStory => 'Ajouter plus à la story';
@@ -1710,7 +1710,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get record => 'Enregistrer';
 
   @override
-  String get addSticker => 'Ajouter un autocollant';
+  String get addSticker => 'Ajouter un sticker';
 
   @override
   String get poll => 'Sondage';
@@ -2031,9 +2031,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get failedToSave => 'Échec de l\'enregistrement';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Découvrez ce moment : $title';
-  }
+  String get checkOutMoment => 'Découvrez ce moment sur BananaTalk !';
 
   @override
   String get failedToLoadMoments => 'Échec du chargement des moments';
@@ -3902,4 +3900,162 @@ class AppLocalizationsFr extends AppLocalizations {
   String maxAge(int age) {
     return 'Max : $age';
   }
+
+  @override
+  String get captionRequired => 'La légende est obligatoire';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'La légende doit contenir $maxLength caractères ou moins';
+  }
+
+  @override
+  String get maximumImagesReached => 'Nombre maximum d\'images atteint';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Vous pouvez télécharger jusqu\'à $maxImages images par moment.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Maximum $maxImages images autorisées. Seulement $added images ajoutées.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Accès à la localisation restreint';
+
+  @override
+  String get locationPermissionNeeded => 'Autorisation de localisation nécessaire';
+
+  @override
+  String get addToYourMoment => 'Ajouter à votre moment';
+
+  @override
+  String get categoryLabel => 'Catégorie';
+
+  @override
+  String get languageLabel => 'Langue';
+
+  @override
+  String get scheduleOptional => 'Planifier (optionnel)';
+
+  @override
+  String get scheduleForLater => 'Planifier pour plus tard';
+
+  @override
+  String get addMore => 'Ajouter plus';
+
+  @override
+  String get howAreYouFeeling => 'Comment vous sentez-vous ?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Veuillez patienter pendant l\'optimisation de votre vidéo';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Format non pris en charge. Utilisez : $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Choisir un arrière-plan';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'Aimé par $count personnes';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count commentaires';
+  }
+
+  @override
+  String get oneComment => '1 commentaire';
+
+  @override
+  String get addAComment => 'Ajouter un commentaire...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'Voir $count réponses';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Vu par $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return 'il y a ${count}h';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return 'il y a ${count}m';
+  }
+
+  @override
+  String get repliedToYourStory => 'A répondu à votre story';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name vous a mentionné dans un commentaire';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name a répondu à votre commentaire';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name a réagi à votre commentaire';
+  }
+
+  @override
+  String get addReaction => 'Ajouter une réaction';
+
+  @override
+  String get attachImage => 'Joindre une image';
+
+  @override
+  String get pickGif => 'Choisir un GIF';
+
+  @override
+  String get textStory => 'Texte';
+
+  @override
+  String get typeYourStory => 'Écrivez votre story...';
+
+  @override
+  String get selectBackground => 'Choisir le fond';
+
+  @override
+  String get highlightsTitle => 'À la une';
+
+  @override
+  String get highlightTitle => 'Titre';
+
+  @override
+  String get createNewHighlight => 'Créer nouveau';
+
+  @override
+  String get selectStories => 'Sélectionner les stories';
+
+  @override
+  String get selectCover => 'Choisir la couverture';
+
+  @override
+  String get addText => 'Ajouter du texte';
+
+  @override
+  String get fontStyleLabel => 'Style de police';
+
+  @override
+  String get textColorLabel => 'Couleur du texte';
+
+  @override
+  String get dragToDelete => 'Faites glisser ici pour supprimer';
 }

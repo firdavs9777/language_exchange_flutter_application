@@ -1583,7 +1583,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get createHighlight => 'Gumawa ng Highlight';
 
   @override
-  String get deleteHighlight => 'Burahin ang Highlight?';
+  String get deleteHighlight => 'Burahin ang Highlight';
 
   @override
   String get editHighlight => 'I-edit ang Highlight';
@@ -2031,9 +2031,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToSave => 'Hindi na-save';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Tingnan ang moment na ito: $title';
-  }
+  String get checkOutMoment => 'Tingnan ang moment na ito sa BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'Hindi na-load ang mga moment';
@@ -3902,4 +3900,162 @@ class AppLocalizationsTl extends AppLocalizations {
   String maxAge(int age) {
     return 'Max: $age';
   }
+
+  @override
+  String get captionRequired => 'Kinakailangan ang caption';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'Ang caption ay dapat $maxLength character o mas kaunti';
+  }
+
+  @override
+  String get maximumImagesReached => 'Naabot na ang Maximum na Larawan';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Maaari kang mag-upload ng hanggang $maxImages larawan bawat moment.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Maximum $maxImages larawan. $added larawan lang ang naidagdag.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Limitado ang Access sa Lokasyon';
+
+  @override
+  String get locationPermissionNeeded => 'Kailangan ng Pahintulot sa Lokasyon';
+
+  @override
+  String get addToYourMoment => 'Idagdag sa iyong moment';
+
+  @override
+  String get categoryLabel => 'Kategorya';
+
+  @override
+  String get languageLabel => 'Wika';
+
+  @override
+  String get scheduleOptional => 'Iskedyul (opsyonal)';
+
+  @override
+  String get scheduleForLater => 'Iskedyul para mamaya';
+
+  @override
+  String get addMore => 'Magdagdag Pa';
+
+  @override
+  String get howAreYouFeeling => 'Kumusta ang pakiramdam mo?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Maghintay habang ino-optimize namin ang iyong video';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Hindi suportadong format. Gamitin: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Pumili ng background';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'Nagustuhan ng $count tao';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count komento';
+  }
+
+  @override
+  String get oneComment => '1 komento';
+
+  @override
+  String get addAComment => 'Magdagdag ng komento...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'Tingnan ang $count tugon';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Nakita ng $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count oras ang nakalipas';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count minuto ang nakalipas';
+  }
+
+  @override
+  String get repliedToYourStory => 'Sumagot sa iyong story';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return 'Binanggit ka ni $name sa isang komento';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return 'Sumagot si $name sa iyong komento';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return 'Nag-react si $name sa iyong komento';
+  }
+
+  @override
+  String get addReaction => 'Magdagdag ng reaksyon';
+
+  @override
+  String get attachImage => 'Maglakip ng larawan';
+
+  @override
+  String get pickGif => 'Pumili ng GIF';
+
+  @override
+  String get textStory => 'Teksto';
+
+  @override
+  String get typeYourStory => 'Isulat ang iyong story...';
+
+  @override
+  String get selectBackground => 'Pumili ng background';
+
+  @override
+  String get highlightsTitle => 'Mga Highlight';
+
+  @override
+  String get highlightTitle => 'Pamagat ng Highlight';
+
+  @override
+  String get createNewHighlight => 'Gumawa ng Bago';
+
+  @override
+  String get selectStories => 'Pumili ng Mga Story';
+
+  @override
+  String get selectCover => 'Pumili ng Cover';
+
+  @override
+  String get addText => 'Magdagdag ng Teksto';
+
+  @override
+  String get fontStyleLabel => 'Istilo ng Font';
+
+  @override
+  String get textColorLabel => 'Kulay ng Teksto';
+
+  @override
+  String get dragToDelete => 'I-drag dito para burahin';
 }

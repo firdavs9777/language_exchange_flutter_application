@@ -1583,10 +1583,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get createHighlight => '하이라이트 만들기';
 
   @override
-  String get deleteHighlight => '하이라이트를 삭제하시겠습니까?';
+  String get deleteHighlight => '하이라이트 삭제';
 
   @override
-  String get editHighlight => '하이라이트 수정';
+  String get editHighlight => '하이라이트 편집';
 
   @override
   String get addMoreToStory => '스토리에 더 추가하기';
@@ -2031,9 +2031,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToSave => '저장 실패';
 
   @override
-  String checkOutMoment(String title) {
-    return '이 모멘트를 확인해보세요: $title';
-  }
+  String get checkOutMoment => 'BananaTalk에서 이 모멘트를 확인해보세요!';
 
   @override
   String get failedToLoadMoments => '모멘트를 불러오지 못했습니다';
@@ -3902,4 +3900,162 @@ class AppLocalizationsKo extends AppLocalizations {
   String maxAge(int age) {
     return '최대: $age';
   }
+
+  @override
+  String get captionRequired => '캡션은 필수입니다';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return '캡션은 $maxLength자 이하여야 합니다';
+  }
+
+  @override
+  String get maximumImagesReached => '최대 이미지 수에 도달했습니다';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return '모멘트당 최대 $maxImages개의 이미지를 업로드할 수 있습니다.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return '최대 $maxImages개 이미지 허용. $added개만 추가되었습니다.';
+  }
+
+  @override
+  String get locationAccessRestricted => '위치 접근 제한됨';
+
+  @override
+  String get locationPermissionNeeded => '위치 권한이 필요합니다';
+
+  @override
+  String get addToYourMoment => '모멘트에 추가';
+
+  @override
+  String get categoryLabel => '카테고리';
+
+  @override
+  String get languageLabel => '언어';
+
+  @override
+  String get scheduleOptional => '예약 (선택사항)';
+
+  @override
+  String get scheduleForLater => '나중으로 예약';
+
+  @override
+  String get addMore => '더 추가';
+
+  @override
+  String get howAreYouFeeling => '기분이 어떠세요?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => '동영상을 최적화하는 중입니다. 잠시 기다려 주세요';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return '지원되지 않는 형식입니다. 사용 가능: $formats';
+  }
+
+  @override
+  String get chooseBackground => '배경 선택';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count명이 좋아합니다';
+  }
+
+  @override
+  String xComments(int count) {
+    return '댓글 $count개';
+  }
+
+  @override
+  String get oneComment => '댓글 1개';
+
+  @override
+  String get addAComment => '댓글 달기...';
+
+  @override
+  String viewXReplies(int count) {
+    return '답글 $count개 보기';
+  }
+
+  @override
+  String seenByX(int count) {
+    return '$count명이 봄';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count시간 전';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count분 전';
+  }
+
+  @override
+  String get repliedToYourStory => '스토리에 답장함';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name님이 댓글에서 회원님을 언급했습니다';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name님이 댓글에 답글을 달았습니다';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name님이 댓글에 반응했습니다';
+  }
+
+  @override
+  String get addReaction => '반응 추가';
+
+  @override
+  String get attachImage => '이미지 첨부';
+
+  @override
+  String get pickGif => 'GIF 선택';
+
+  @override
+  String get textStory => '텍스트';
+
+  @override
+  String get typeYourStory => '스토리를 입력하세요...';
+
+  @override
+  String get selectBackground => '배경 선택';
+
+  @override
+  String get highlightsTitle => '하이라이트';
+
+  @override
+  String get highlightTitle => '하이라이트 제목';
+
+  @override
+  String get createNewHighlight => '새로 만들기';
+
+  @override
+  String get selectStories => '스토리 선택';
+
+  @override
+  String get selectCover => '커버 선택';
+
+  @override
+  String get addText => '텍스트 추가';
+
+  @override
+  String get fontStyleLabel => '글꼴 스타일';
+
+  @override
+  String get textColorLabel => '텍스트 색상';
+
+  @override
+  String get dragToDelete => '여기로 끌어서 삭제';
 }

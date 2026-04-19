@@ -647,7 +647,7 @@
   "removeFromSaved": "取消儲存",
   "momentSaved": "已儲存",
   "failedToSave": "儲存失敗",
-  "checkOutMoment": "看看這則動態: {title}",
+  "checkOutMoment": "在BananaTalk上看看這則動態!",
   "failedToLoadMoments": "載入動態失敗",
   "noMomentsMatchFilters": "沒有符合篩選條件的動態",
   "beFirstToShareMoment": "成為第一個分享動態的人！",
@@ -1306,5 +1306,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "描述為必填項",
+  "captionTooLong": "描述不能超過{maxLength}個字元",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "已達到最大圖片數量",
+  "maximumImagesReachedDescription": "每則動態最多可以上傳{maxImages}張圖片。",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "最多{maxImages}張圖片。僅新增了{added}張。",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "位置存取受限",
+  "locationPermissionNeeded": "需要位置權限",
+  "addToYourMoment": "新增到你的動態",
+  "categoryLabel": "分類",
+  "languageLabel": "語言",
+  "scheduleOptional": "排程（選填）",
+  "scheduleForLater": "稍後發佈",
+  "addMore": "新增更多",
+  "howAreYouFeeling": "你現在感覺如何？",
+  "pleaseWaitOptimizingVideo": "請稍候，正在最佳化您的影片",
+  "unsupportedVideoFormat": "不支援的格式。請使用：{formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "選擇背景",
+  "likedByXPeople": "{count}人按讚",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count}則留言",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1則留言",
+  "addAComment": "新增留言...",
+  "viewXReplies": "查看{count}則回覆",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "{count}人已看",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}小時前",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}分鐘前",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "回覆了你的限時動態",
+  "mentionedYouInComment": "{name}在留言中提到了你",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name}回覆了你的留言",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name}對你的留言做出了反應",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "搜尋使用者...",
+  "addReaction": "新增反應",
+  "attachImage": "附加圖片",
+  "pickGif": "選擇GIF",
+  "textStory": "文字",
+  "typeYourStory": "寫下你的限動...",
+  "selectBackground": "選擇背景",
+  "highlightsTitle": "精選",
+  "newHighlight": "新精選",
+  "highlightTitle": "精選標題",
+  "addToHighlight": "加入精選",
+  "createNewHighlight": "新建",
+  "editHighlight": "編輯精選",
+  "deleteHighlight": "刪除精選",
+  "selectStories": "選擇限動",
+  "selectCover": "選擇封面",
+  "addText": "新增文字",
+  "addSticker": "新增貼圖",
+  "fontStyleLabel": "字型樣式",
+  "textColorLabel": "文字顏色",
+  "dragToDelete": "拖曳至此刪除"
 }

@@ -1559,7 +1559,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get storyArchive => 'स्टोरी आर्काइव';
 
   @override
-  String get newHighlight => 'नई हाइलाइट';
+  String get newHighlight => 'नया हाइलाइट';
 
   @override
   String get addToHighlight => 'हाइलाइट में जोड़ें';
@@ -1583,7 +1583,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get createHighlight => 'हाइलाइट बनाएं';
 
   @override
-  String get deleteHighlight => 'हाइलाइट हटाएं?';
+  String get deleteHighlight => 'हाइलाइट हटाएं';
 
   @override
   String get editHighlight => 'हाइलाइट संपादित करें';
@@ -2031,9 +2031,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get failedToSave => 'सहेजने में विफल';
 
   @override
-  String checkOutMoment(String title) {
-    return 'यह पल देखें: $title';
-  }
+  String get checkOutMoment => 'BananaTalk पर यह पल देखें!';
 
   @override
   String get failedToLoadMoments => 'पल लोड करने में विफल';
@@ -3902,4 +3900,162 @@ class AppLocalizationsHi extends AppLocalizations {
   String maxAge(int age) {
     return 'अधिकतम: $age';
   }
+
+  @override
+  String get captionRequired => 'कैप्शन आवश्यक है';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'कैप्शन $maxLength अक्षर या उससे कम होना चाहिए';
+  }
+
+  @override
+  String get maximumImagesReached => 'अधिकतम छवि सीमा पूरी';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'आप प्रति मोमेंट अधिकतम $maxImages छवियां अपलोड कर सकते हैं।';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'अधिकतम $maxImages छवियां। केवल $added छवियां जोड़ी गईं।';
+  }
+
+  @override
+  String get locationAccessRestricted => 'स्थान पहुंच प्रतिबंधित';
+
+  @override
+  String get locationPermissionNeeded => 'स्थान अनुमति आवश्यक';
+
+  @override
+  String get addToYourMoment => 'अपने मोमेंट में जोड़ें';
+
+  @override
+  String get categoryLabel => 'श्रेणी';
+
+  @override
+  String get languageLabel => 'भाषा';
+
+  @override
+  String get scheduleOptional => 'शेड्यूल (वैकल्पिक)';
+
+  @override
+  String get scheduleForLater => 'बाद के लिए शेड्यूल करें';
+
+  @override
+  String get addMore => 'और जोड़ें';
+
+  @override
+  String get howAreYouFeeling => 'आप कैसा महसूस कर रहे हैं?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'कृपया प्रतीक्षा करें, वीडियो ऑप्टिमाइज़ हो रहा है';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'असमर्थित प्रारूप। उपयोग करें: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'पृष्ठभूमि चुनें';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count लोगों ने पसंद किया';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count टिप्पणियाँ';
+  }
+
+  @override
+  String get oneComment => '1 टिप्पणी';
+
+  @override
+  String get addAComment => 'टिप्पणी जोड़ें...';
+
+  @override
+  String viewXReplies(int count) {
+    return '$count उत्तर देखें';
+  }
+
+  @override
+  String seenByX(int count) {
+    return '$count ने देखा';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count घंटे पहले';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count मिनट पहले';
+  }
+
+  @override
+  String get repliedToYourStory => 'आपकी स्टोरी का जवाब दिया';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name ने आपको एक टिप्पणी में उल्लेख किया';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name ने आपकी टिप्पणी का जवाब दिया';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name ने आपकी टिप्पणी पर प्रतिक्रिया दी';
+  }
+
+  @override
+  String get addReaction => 'प्रतिक्रिया जोड़ें';
+
+  @override
+  String get attachImage => 'छवि संलग्न करें';
+
+  @override
+  String get pickGif => 'GIF चुनें';
+
+  @override
+  String get textStory => 'टेक्स्ट';
+
+  @override
+  String get typeYourStory => 'अपनी कहानी लिखें...';
+
+  @override
+  String get selectBackground => 'पृष्ठभूमि चुनें';
+
+  @override
+  String get highlightsTitle => 'हाइलाइट्स';
+
+  @override
+  String get highlightTitle => 'हाइलाइट शीर्षक';
+
+  @override
+  String get createNewHighlight => 'नया बनाएं';
+
+  @override
+  String get selectStories => 'कहानियां चुनें';
+
+  @override
+  String get selectCover => 'कवर चुनें';
+
+  @override
+  String get addText => 'टेक्स्ट जोड़ें';
+
+  @override
+  String get fontStyleLabel => 'फ़ॉन्ट शैली';
+
+  @override
+  String get textColorLabel => 'टेक्स्ट रंग';
+
+  @override
+  String get dragToDelete => 'हटाने के लिए यहां खींचें';
 }

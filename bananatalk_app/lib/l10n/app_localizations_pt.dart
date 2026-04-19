@@ -1583,7 +1583,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get createHighlight => 'Criar destaque';
 
   @override
-  String get deleteHighlight => 'Excluir destaque?';
+  String get deleteHighlight => 'Excluir destaque';
 
   @override
   String get editHighlight => 'Editar destaque';
@@ -2031,9 +2031,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get failedToSave => 'Falha ao salvar';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Confira este momento: $title';
-  }
+  String get checkOutMoment => 'Confira este momento no BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'Falha ao carregar momentos';
@@ -3902,4 +3900,162 @@ class AppLocalizationsPt extends AppLocalizations {
   String maxAge(int age) {
     return 'Máx: $age';
   }
+
+  @override
+  String get captionRequired => 'A legenda é obrigatória';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'A legenda deve ter $maxLength caracteres ou menos';
+  }
+
+  @override
+  String get maximumImagesReached => 'Máximo de imagens atingido';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Você pode enviar até $maxImages imagens por momento.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Máximo de $maxImages imagens. Apenas $added imagens adicionadas.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Acesso à localização restrito';
+
+  @override
+  String get locationPermissionNeeded => 'Permissão de localização necessária';
+
+  @override
+  String get addToYourMoment => 'Adicionar ao seu momento';
+
+  @override
+  String get categoryLabel => 'Categoria';
+
+  @override
+  String get languageLabel => 'Idioma';
+
+  @override
+  String get scheduleOptional => 'Agendar (opcional)';
+
+  @override
+  String get scheduleForLater => 'Agendar para depois';
+
+  @override
+  String get addMore => 'Adicionar mais';
+
+  @override
+  String get howAreYouFeeling => 'Como você está se sentindo?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Por favor aguarde enquanto otimizamos seu vídeo';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Formato não suportado. Use: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Escolher fundo';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'Curtido por $count pessoas';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count comentários';
+  }
+
+  @override
+  String get oneComment => '1 comentário';
+
+  @override
+  String get addAComment => 'Adicionar um comentário...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'Ver $count respostas';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Visto por $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return 'há ${count}h';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return 'há ${count}m';
+  }
+
+  @override
+  String get repliedToYourStory => 'Respondeu à sua história';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name mencionou você em um comentário';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name respondeu ao seu comentário';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name reagiu ao seu comentário';
+  }
+
+  @override
+  String get addReaction => 'Adicionar reação';
+
+  @override
+  String get attachImage => 'Anexar imagem';
+
+  @override
+  String get pickGif => 'Escolher GIF';
+
+  @override
+  String get textStory => 'Texto';
+
+  @override
+  String get typeYourStory => 'Escreva sua história...';
+
+  @override
+  String get selectBackground => 'Selecionar fundo';
+
+  @override
+  String get highlightsTitle => 'Destaques';
+
+  @override
+  String get highlightTitle => 'Título do destaque';
+
+  @override
+  String get createNewHighlight => 'Criar novo';
+
+  @override
+  String get selectStories => 'Selecionar histórias';
+
+  @override
+  String get selectCover => 'Selecionar capa';
+
+  @override
+  String get addText => 'Adicionar texto';
+
+  @override
+  String get fontStyleLabel => 'Estilo da fonte';
+
+  @override
+  String get textColorLabel => 'Cor do texto';
+
+  @override
+  String get dragToDelete => 'Arraste aqui para excluir';
 }

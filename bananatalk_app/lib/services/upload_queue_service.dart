@@ -72,7 +72,6 @@ class UploadQueueService {
 
   /// Queue moment upload (text + optional images + optional video)
   Future<String> queueMomentUpload({
-    required String title,
     required String description,
     String privacy = 'public',
     String category = 'general',
@@ -82,13 +81,13 @@ class UploadQueueService {
     Map<String, dynamic>? location,
     List<String>? imagePaths,
     String? videoPath,
+    String? backgroundColor,
   }) async {
     final hasVideo = videoPath != null && videoPath.isNotEmpty;
     final task = UploadTask(
       type: hasVideo ? UploadType.momentVideo : UploadType.moment,
       localFilePath: videoPath ?? (imagePaths?.isNotEmpty == true ? imagePaths!.first : ''),
       metadata: {
-        'title': title,
         'description': description,
         'privacy': privacy,
         'category': category,
@@ -98,6 +97,7 @@ class UploadQueueService {
         'location': location,
         'imagePaths': imagePaths,
         'videoPath': videoPath,
+        'backgroundColor': backgroundColor,
       },
     );
 
@@ -256,7 +256,6 @@ class UploadQueueService {
     _notifyProgress(task.id, 0.1, UploadStatus.uploading, message: 'Creating moment...');
 
     final moment = await _momentsService.createMoments(
-      title: metadata['title'] ?? '',
       description: metadata['description'] ?? '',
       privacy: metadata['privacy'] ?? 'public',
       category: metadata['category'] ?? 'general',
@@ -264,6 +263,7 @@ class UploadQueueService {
       mood: metadata['mood'],
       tags: metadata['tags'] != null ? List<String>.from(metadata['tags']) : null,
       location: metadata['location'],
+      backgroundColor: metadata['backgroundColor'],
     );
 
     // Update progress
@@ -289,7 +289,6 @@ class UploadQueueService {
     _notifyProgress(task.id, 0.1, UploadStatus.uploading, message: 'Creating moment...');
 
     final moment = await _momentsService.createMoments(
-      title: metadata['title'] ?? '',
       description: metadata['description'] ?? '',
       privacy: metadata['privacy'] ?? 'public',
       category: metadata['category'] ?? 'general',
@@ -297,6 +296,7 @@ class UploadQueueService {
       mood: metadata['mood'],
       tags: metadata['tags'] != null ? List<String>.from(metadata['tags']) : null,
       location: metadata['location'],
+      backgroundColor: metadata['backgroundColor'],
     );
 
     // Update progress

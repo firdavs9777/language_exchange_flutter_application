@@ -678,6 +678,51 @@ class MomentsService {
     }
   }
 
+  /// React to a comment with an emoji
+  static Future<Map<String, dynamic>> reactToComment({
+    required String momentId,
+    required String commentId,
+    required String emoji,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await http.post(
+      Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/comments/$commentId/react'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'emoji': emoji}),
+    );
+    final data = jsonDecode(response.body);
+    if (response.statusCode == 200 && data['success'] == true) {
+      return data;
+    }
+    throw Exception(data['error'] ?? 'Failed to react');
+  }
+
+  /// React to a moment with an emoji
+  static Future<Map<String, dynamic>> reactToMoment({
+    required String momentId,
+    required String emoji,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await http.post(
+      Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$momentId/react'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'emoji': emoji}),
+    );
+    final data = jsonDecode(response.body);
+    if (response.statusCode == 200 && data['success'] == true) {
+      return data;
+    }
+    throw Exception(data['error'] ?? 'Failed to react');
+  }
+
   /// Get replies for a comment
   static Future<Map<String, dynamic>> getReplies({
     required String momentId,

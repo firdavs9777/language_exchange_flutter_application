@@ -630,7 +630,7 @@
   "removeFromSaved": "取消保存",
   "momentSaved": "已保存",
   "failedToSave": "保存失败",
-  "checkOutMoment": "看看这条动态: {title}",
+  "checkOutMoment": "在BananaTalk上看看这条动态!",
   "failedToLoadMoments": "加载动态失败",
   "noMomentsMatchFilters": "没有匹配筛选条件的动态",
   "beFirstToShareMoment": "成为第一个分享动态的人！",
@@ -1347,5 +1347,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "描述为必填项",
+  "captionTooLong": "描述不能超过{maxLength}个字符",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "已达到最大图片数量",
+  "maximumImagesReachedDescription": "每个动态最多可以上传{maxImages}张图片。",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "最多{maxImages}张图片。仅添加了{added}张。",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "位置访问受限",
+  "locationPermissionNeeded": "需要位置权限",
+  "addToYourMoment": "添加到你的动态",
+  "categoryLabel": "分类",
+  "languageLabel": "语言",
+  "scheduleOptional": "定时发布（可选）",
+  "scheduleForLater": "稍后发布",
+  "addMore": "添加更多",
+  "howAreYouFeeling": "你现在感觉如何？",
+  "pleaseWaitOptimizingVideo": "请稍候，正在优化您的视频",
+  "unsupportedVideoFormat": "不支持的格式。请使用：{formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "选择背景",
+  "likedByXPeople": "{count}人点赞",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count}条评论",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1条评论",
+  "addAComment": "添加评论...",
+  "viewXReplies": "查看{count}条回复",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "{count}人已看",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}小时前",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}分钟前",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "回复了你的故事",
+  "mentionedYouInComment": "{name}在评论中提到了你",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name}回复了你的评论",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name}对你的评论做出了反应",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "搜索用户...",
+  "addReaction": "添加反应",
+  "attachImage": "附加图片",
+  "pickGif": "选择GIF",
+  "textStory": "文字",
+  "typeYourStory": "写下你的故事...",
+  "selectBackground": "选择背景",
+  "highlightsTitle": "精选",
+  "newHighlight": "新精选",
+  "highlightTitle": "精选标题",
+  "addToHighlight": "添加到精选",
+  "createNewHighlight": "新建",
+  "editHighlight": "编辑精选",
+  "deleteHighlight": "删除精选",
+  "selectStories": "选择故事",
+  "selectCover": "选择封面",
+  "addText": "添加文字",
+  "addSticker": "添加贴纸",
+  "fontStyleLabel": "字体样式",
+  "textColorLabel": "文字颜色",
+  "dragToDelete": "拖到此处删除"
 }

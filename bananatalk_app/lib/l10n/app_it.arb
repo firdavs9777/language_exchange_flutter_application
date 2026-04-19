@@ -887,7 +887,7 @@
   "removeFromSaved": "Rimuovi dai salvati",
   "momentSaved": "Salvato",
   "failedToSave": "Salvataggio fallito",
-  "checkOutMoment": "Dai un'occhiata a questo momento: {title}",
+  "checkOutMoment": "Dai un'occhiata a questo momento su BananaTalk!",
   "failedToLoadMoments": "Impossibile caricare i momenti",
   "noMomentsMatchFilters": "Nessun momento corrisponde ai tuoi filtri",
   "beFirstToShareMoment": "Sii il primo a condividere un momento!",
@@ -1609,5 +1609,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "La didascalia è obbligatoria",
+  "captionTooLong": "La didascalia deve essere di {maxLength} caratteri o meno",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Numero massimo di immagini raggiunto",
+  "maximumImagesReachedDescription": "Puoi caricare fino a {maxImages} immagini per momento.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Massimo {maxImages} immagini consentite. Solo {added} immagini aggiunte.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Accesso alla posizione limitato",
+  "locationPermissionNeeded": "Autorizzazione posizione necessaria",
+  "addToYourMoment": "Aggiungi al tuo momento",
+  "categoryLabel": "Categoria",
+  "languageLabel": "Lingua",
+  "scheduleOptional": "Programma (opzionale)",
+  "scheduleForLater": "Programma per dopo",
+  "addMore": "Aggiungi altro",
+  "howAreYouFeeling": "Come ti senti?",
+  "pleaseWaitOptimizingVideo": "Attendere mentre ottimizziamo il tuo video",
+  "unsupportedVideoFormat": "Formato non supportato. Usa: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Scegli uno sfondo",
+  "likedByXPeople": "Piaciuto a {count} persone",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} commenti",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 commento",
+  "addAComment": "Aggiungi un commento...",
+  "viewXReplies": "Visualizza {count} risposte",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Visto da {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}h fa",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}m fa",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Ha risposto alla tua storia",
+  "mentionedYouInComment": "{name} ti ha menzionato in un commento",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} ha risposto al tuo commento",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} ha reagito al tuo commento",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Cerca utenti...",
+  "addReaction": "Aggiungi reazione",
+  "attachImage": "Allega immagine",
+  "pickGif": "Scegli una GIF",
+  "textStory": "Testo",
+  "typeYourStory": "Scrivi la tua storia...",
+  "selectBackground": "Seleziona sfondo",
+  "highlightsTitle": "In evidenza",
+  "newHighlight": "Nuova evidenza",
+  "highlightTitle": "Titolo",
+  "addToHighlight": "Aggiungi in evidenza",
+  "createNewHighlight": "Crea nuovo",
+  "editHighlight": "Modifica",
+  "deleteHighlight": "Elimina",
+  "selectStories": "Seleziona storie",
+  "selectCover": "Seleziona copertina",
+  "addText": "Aggiungi testo",
+  "addSticker": "Aggiungi sticker",
+  "fontStyleLabel": "Stile font",
+  "textColorLabel": "Colore testo",
+  "dragToDelete": "Trascina qui per eliminare"
 }

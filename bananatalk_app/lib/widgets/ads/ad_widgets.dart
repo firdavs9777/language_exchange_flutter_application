@@ -105,7 +105,10 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
     if (!showAds || _bannerAd != null) return;
 
     final adService = AdService();
-    if (!adService.isInitialized) return;
+    if (!adService.isInitialized) {
+      debugPrint('🎯 SmallBannerAd: AdService not initialized');
+      return;
+    }
 
     _bannerAd = BannerAd(
       adUnitId: adService.bannerAdUnitId,
@@ -116,6 +119,7 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
           if (mounted) setState(() => _isLoaded = true);
         },
         onAdFailedToLoad: (ad, error) {
+          debugPrint('🎯 SmallBannerAd failed to load: ${error.message}');
           ad.dispose();
           _bannerAd = null;
         },

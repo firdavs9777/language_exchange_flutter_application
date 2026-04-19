@@ -616,7 +616,7 @@
   "removeFromSaved": "सहेजे गए से हटाएं",
   "momentSaved": "सहेजा गया",
   "failedToSave": "सहेजने में विफल",
-  "checkOutMoment": "यह पल देखें: {title}",
+  "checkOutMoment": "BananaTalk पर यह पल देखें!",
   "failedToLoadMoments": "पल लोड करने में विफल",
   "noMomentsMatchFilters": "आपके फ़िल्टर से कोई पल मेल नहीं खाता",
   "beFirstToShareMoment": "पहला पल साझा करने वाले बनें!",
@@ -1325,5 +1325,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "कैप्शन आवश्यक है",
+  "captionTooLong": "कैप्शन {maxLength} अक्षर या उससे कम होना चाहिए",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "अधिकतम छवि सीमा पूरी",
+  "maximumImagesReachedDescription": "आप प्रति मोमेंट अधिकतम {maxImages} छवियां अपलोड कर सकते हैं।",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "अधिकतम {maxImages} छवियां। केवल {added} छवियां जोड़ी गईं।",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "स्थान पहुंच प्रतिबंधित",
+  "locationPermissionNeeded": "स्थान अनुमति आवश्यक",
+  "addToYourMoment": "अपने मोमेंट में जोड़ें",
+  "categoryLabel": "श्रेणी",
+  "languageLabel": "भाषा",
+  "scheduleOptional": "शेड्यूल (वैकल्पिक)",
+  "scheduleForLater": "बाद के लिए शेड्यूल करें",
+  "addMore": "और जोड़ें",
+  "howAreYouFeeling": "आप कैसा महसूस कर रहे हैं?",
+  "pleaseWaitOptimizingVideo": "कृपया प्रतीक्षा करें, वीडियो ऑप्टिमाइज़ हो रहा है",
+  "unsupportedVideoFormat": "असमर्थित प्रारूप। उपयोग करें: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "पृष्ठभूमि चुनें",
+  "likedByXPeople": "{count} लोगों ने पसंद किया",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} टिप्पणियाँ",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 टिप्पणी",
+  "addAComment": "टिप्पणी जोड़ें...",
+  "viewXReplies": "{count} उत्तर देखें",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "{count} ने देखा",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count} घंटे पहले",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count} मिनट पहले",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "आपकी स्टोरी का जवाब दिया",
+  "mentionedYouInComment": "{name} ने आपको एक टिप्पणी में उल्लेख किया",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} ने आपकी टिप्पणी का जवाब दिया",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} ने आपकी टिप्पणी पर प्रतिक्रिया दी",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "उपयोगकर्ता खोजें...",
+  "addReaction": "प्रतिक्रिया जोड़ें",
+  "attachImage": "छवि संलग्न करें",
+  "pickGif": "GIF चुनें",
+  "textStory": "टेक्स्ट",
+  "typeYourStory": "अपनी कहानी लिखें...",
+  "selectBackground": "पृष्ठभूमि चुनें",
+  "highlightsTitle": "हाइलाइट्स",
+  "newHighlight": "नया हाइलाइट",
+  "highlightTitle": "हाइलाइट शीर्षक",
+  "addToHighlight": "हाइलाइट में जोड़ें",
+  "createNewHighlight": "नया बनाएं",
+  "editHighlight": "हाइलाइट संपादित करें",
+  "deleteHighlight": "हाइलाइट हटाएं",
+  "selectStories": "कहानियां चुनें",
+  "selectCover": "कवर चुनें",
+  "addText": "टेक्स्ट जोड़ें",
+  "addSticker": "स्टिकर जोड़ें",
+  "fontStyleLabel": "फ़ॉन्ट शैली",
+  "textColorLabel": "टेक्स्ट रंग",
+  "dragToDelete": "हटाने के लिए यहां खींचें"
 }

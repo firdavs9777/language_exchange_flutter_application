@@ -630,7 +630,7 @@
   "removeFromSaved": "Удалить из сохранённых",
   "momentSaved": "Сохранено",
   "failedToSave": "Не удалось сохранить",
-  "checkOutMoment": "Посмотрите этот момент: {title}",
+  "checkOutMoment": "Посмотрите этот момент на BananaTalk!",
   "failedToLoadMoments": "Не удалось загрузить моменты",
   "noMomentsMatchFilters": "Нет моментов, соответствующих фильтрам",
   "beFirstToShareMoment": "Будьте первым, кто поделится моментом!",
@@ -1345,5 +1345,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "Подпись обязательна",
+  "captionTooLong": "Подпись должна содержать не более {maxLength} символов",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Достигнут максимум изображений",
+  "maximumImagesReachedDescription": "Вы можете загрузить до {maxImages} изображений на один момент.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Максимум {maxImages} изображений. Добавлено только {added}.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Доступ к местоположению ограничен",
+  "locationPermissionNeeded": "Требуется разрешение на определение местоположения",
+  "addToYourMoment": "Добавить к вашему моменту",
+  "categoryLabel": "Категория",
+  "languageLabel": "Язык",
+  "scheduleOptional": "Запланировать (необязательно)",
+  "scheduleForLater": "Запланировать на потом",
+  "addMore": "Добавить ещё",
+  "howAreYouFeeling": "Как вы себя чувствуете?",
+  "pleaseWaitOptimizingVideo": "Пожалуйста, подождите, пока мы оптимизируем ваше видео",
+  "unsupportedVideoFormat": "Неподдерживаемый формат. Используйте: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Выбрать фон",
+  "likedByXPeople": "Понравилось {count} людям",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} комментариев",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 комментарий",
+  "addAComment": "Добавить комментарий...",
+  "viewXReplies": "Показать {count} ответов",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Просмотрели {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}ч назад",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}м назад",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Ответил на вашу историю",
+  "mentionedYouInComment": "{name} упомянул вас в комментарии",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} ответил на ваш комментарий",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} отреагировал на ваш комментарий",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Поиск пользователей...",
+  "addReaction": "Добавить реакцию",
+  "attachImage": "Прикрепить изображение",
+  "pickGif": "Выбрать GIF",
+  "textStory": "Текст",
+  "typeYourStory": "Напишите историю...",
+  "selectBackground": "Выбрать фон",
+  "highlightsTitle": "Актуальное",
+  "newHighlight": "Новое актуальное",
+  "highlightTitle": "Название",
+  "addToHighlight": "Добавить в актуальное",
+  "createNewHighlight": "Создать новое",
+  "editHighlight": "Редактировать",
+  "deleteHighlight": "Удалить",
+  "selectStories": "Выбрать истории",
+  "selectCover": "Выбрать обложку",
+  "addText": "Добавить текст",
+  "addSticker": "Добавить стикер",
+  "fontStyleLabel": "Стиль шрифта",
+  "textColorLabel": "Цвет текста",
+  "dragToDelete": "Перетащите сюда для удаления"
 }

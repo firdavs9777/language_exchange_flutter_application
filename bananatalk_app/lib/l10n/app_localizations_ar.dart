@@ -1559,10 +1559,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get storyArchive => 'أرشيف القصص';
 
   @override
-  String get newHighlight => 'إبراز جديد';
+  String get newHighlight => 'مميز جديد';
 
   @override
-  String get addToHighlight => 'إضافة إلى الإبراز';
+  String get addToHighlight => 'إضافة للمميزات';
 
   @override
   String get repost => 'إعادة النشر';
@@ -1583,10 +1583,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createHighlight => 'إنشاء إبراز';
 
   @override
-  String get deleteHighlight => 'حذف الإبراز؟';
+  String get deleteHighlight => 'حذف المميز';
 
   @override
-  String get editHighlight => 'تعديل الإبراز';
+  String get editHighlight => 'تعديل المميز';
 
   @override
   String get addMoreToStory => 'إضافة المزيد إلى القصة';
@@ -2031,9 +2031,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get failedToSave => 'فشل في الحفظ';
 
   @override
-  String checkOutMoment(String title) {
-    return 'شاهد هذه اللحظة: $title';
-  }
+  String get checkOutMoment => 'شاهد هذه اللحظة على BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'فشل في تحميل اللحظات';
@@ -3902,4 +3900,162 @@ class AppLocalizationsAr extends AppLocalizations {
   String maxAge(int age) {
     return 'الحد الأقصى: $age';
   }
+
+  @override
+  String get captionRequired => 'النص مطلوب';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'يجب ألا يتجاوز النص $maxLength حرفاً';
+  }
+
+  @override
+  String get maximumImagesReached => 'تم الوصول للحد الأقصى من الصور';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'يمكنك رفع حتى $maxImages صور لكل لحظة.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'الحد الأقصى $maxImages صور. تم إضافة $added صور فقط.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'الوصول إلى الموقع مقيد';
+
+  @override
+  String get locationPermissionNeeded => 'إذن الموقع مطلوب';
+
+  @override
+  String get addToYourMoment => 'أضف إلى لحظتك';
+
+  @override
+  String get categoryLabel => 'الفئة';
+
+  @override
+  String get languageLabel => 'اللغة';
+
+  @override
+  String get scheduleOptional => 'جدولة (اختياري)';
+
+  @override
+  String get scheduleForLater => 'جدولة لوقت لاحق';
+
+  @override
+  String get addMore => 'إضافة المزيد';
+
+  @override
+  String get howAreYouFeeling => 'كيف تشعر؟';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'يرجى الانتظار بينما نحسن الفيديو';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'صيغة غير مدعومة. استخدم: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'اختر خلفية';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'أعجب $count شخص';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count تعليقات';
+  }
+
+  @override
+  String get oneComment => 'تعليق واحد';
+
+  @override
+  String get addAComment => 'أضف تعليقاً...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'عرض $count ردود';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'شوهد من $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return 'منذ $count ساعة';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return 'منذ $count دقيقة';
+  }
+
+  @override
+  String get repliedToYourStory => 'رد على قصتك';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name ذكرك في تعليق';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name رد على تعليقك';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name تفاعل مع تعليقك';
+  }
+
+  @override
+  String get addReaction => 'أضف تفاعل';
+
+  @override
+  String get attachImage => 'إرفاق صورة';
+
+  @override
+  String get pickGif => 'اختر GIF';
+
+  @override
+  String get textStory => 'نص';
+
+  @override
+  String get typeYourStory => 'اكتب قصتك...';
+
+  @override
+  String get selectBackground => 'اختر الخلفية';
+
+  @override
+  String get highlightsTitle => 'المميزات';
+
+  @override
+  String get highlightTitle => 'عنوان المميز';
+
+  @override
+  String get createNewHighlight => 'إنشاء جديد';
+
+  @override
+  String get selectStories => 'اختر القصص';
+
+  @override
+  String get selectCover => 'اختر الغلاف';
+
+  @override
+  String get addText => 'إضافة نص';
+
+  @override
+  String get fontStyleLabel => 'نمط الخط';
+
+  @override
+  String get textColorLabel => 'لون النص';
+
+  @override
+  String get dragToDelete => 'اسحب هنا للحذف';
 }

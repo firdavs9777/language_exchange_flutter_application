@@ -887,7 +887,7 @@
   "removeFromSaved": "Kaydedilenlerden Kaldır",
   "momentSaved": "Kaydedildi",
   "failedToSave": "Kaydetme başarısız",
-  "checkOutMoment": "Bu anıya göz at: {title}",
+  "checkOutMoment": "BananaTalk'ta bu anıya göz at!",
   "failedToLoadMoments": "Anılar yüklenemedi",
   "noMomentsMatchFilters": "Filtrelerinizle eşleşen anı yok",
   "beFirstToShareMoment": "Bir anı paylaşan ilk kişi olun!",
@@ -1547,5 +1547,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "Açıklama gereklidir",
+  "captionTooLong": "Açıklama {maxLength} karakter veya daha az olmalıdır",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Maksimum Görsel Sayısına Ulaşıldı",
+  "maximumImagesReachedDescription": "Her an için en fazla {maxImages} görsel yükleyebilirsiniz.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Maksimum {maxImages} görsel. Sadece {added} görsel eklendi.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Konum Erişimi Kısıtlandı",
+  "locationPermissionNeeded": "Konum İzni Gerekli",
+  "addToYourMoment": "Anına ekle",
+  "categoryLabel": "Kategori",
+  "languageLabel": "Dil",
+  "scheduleOptional": "Zamanla (isteğe bağlı)",
+  "scheduleForLater": "Daha sonra için zamanla",
+  "addMore": "Daha Fazla Ekle",
+  "howAreYouFeeling": "Nasıl hissediyorsun?",
+  "pleaseWaitOptimizingVideo": "Videonuzu optimize ederken lütfen bekleyin",
+  "unsupportedVideoFormat": "Desteklenmeyen format. Kullanın: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Arka plan seç",
+  "likedByXPeople": "{count} kişi beğendi",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} yorum",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 yorum",
+  "addAComment": "Yorum ekle...",
+  "viewXReplies": "{count} yanıtı gör",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "{count} kişi gördü",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}s önce",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}dk önce",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Hikayene yanıt verdi",
+  "mentionedYouInComment": "{name} seni bir yorumda etiketledi",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} yorumuna yanıt verdi",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} yorumuna tepki verdi",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Kullanıcı ara...",
+  "addReaction": "Tepki ekle",
+  "attachImage": "Resim ekle",
+  "pickGif": "GIF seç",
+  "textStory": "Metin",
+  "typeYourStory": "Hikayeni yaz...",
+  "selectBackground": "Arka plan seç",
+  "highlightsTitle": "Öne Çıkanlar",
+  "newHighlight": "Yeni Öne Çıkan",
+  "highlightTitle": "Başlık",
+  "addToHighlight": "Öne çıkanlara ekle",
+  "createNewHighlight": "Yeni oluştur",
+  "editHighlight": "Düzenle",
+  "deleteHighlight": "Sil",
+  "selectStories": "Hikayeleri seç",
+  "selectCover": "Kapak seç",
+  "addText": "Metin ekle",
+  "addSticker": "Çıkartma ekle",
+  "fontStyleLabel": "Yazı tipi",
+  "textColorLabel": "Metin rengi",
+  "dragToDelete": "Silmek için buraya sürükle"
 }

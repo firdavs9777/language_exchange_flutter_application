@@ -51,6 +51,57 @@ class StoryVideoMetadata {
   bool get isValid => duration != null && duration! > 0;
 }
 
+/// Overlay element (text or sticker) on a story
+class StoryOverlay {
+  final String type; // 'text' or 'sticker'
+  final String content;
+  final double x;
+  final double y;
+  final double scale;
+  final double rotation;
+  final String color;
+  final String fontStyle;
+  final String bgMode; // 'none', 'semi', 'solid'
+
+  const StoryOverlay({
+    required this.type,
+    required this.content,
+    this.x = 0.5,
+    this.y = 0.5,
+    this.scale = 1.0,
+    this.rotation = 0,
+    this.color = '#FFFFFF',
+    this.fontStyle = 'sans-serif',
+    this.bgMode = 'none',
+  });
+
+  factory StoryOverlay.fromJson(Map<String, dynamic> json) {
+    return StoryOverlay(
+      type: json['type']?.toString() ?? 'text',
+      content: json['content']?.toString() ?? '',
+      x: (json['x'] as num?)?.toDouble() ?? 0.5,
+      y: (json['y'] as num?)?.toDouble() ?? 0.5,
+      scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
+      rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+      color: json['color']?.toString() ?? '#FFFFFF',
+      fontStyle: json['fontStyle']?.toString() ?? 'sans-serif',
+      bgMode: json['bgMode']?.toString() ?? 'none',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'type': type,
+    'content': content,
+    'x': x,
+    'y': y,
+    'scale': scale,
+    'rotation': rotation,
+    'color': color,
+    'fontStyle': fontStyle,
+    'bgMode': bgMode,
+  };
+}
+
 /// Story model representing a single story with all features
 class Story {
   final String id;
@@ -106,7 +157,11 @@ class Story {
   
   // Highlight reference
   final String? highlightId;
-  
+
+  // Overlays
+  final List<StoryOverlay> overlays;
+  final bool isHighlighted;
+
   // Archive
   final bool isArchived;
   final DateTime? archivedAt;
@@ -149,6 +204,8 @@ class Story {
     this.music,
     this.hashtags = const [],
     this.highlightId,
+    this.overlays = const [],
+    this.isHighlighted = false,
     this.isArchived = false,
     this.archivedAt,
     this.shareCount = 0,
@@ -165,7 +222,11 @@ class Story {
       user: json['user'] != null
           ? Community.fromJson(json['user'])
           : _defaultUser(),
-      mediaUrl: json['mediaUrl']?.toString() ?? json['media']?.toString() ?? '',
+      mediaUrl: json['mediaUrl']?.toString()
+          ?? json['media']?.toString()
+          ?? (json['mediaUrls'] != null && json['mediaUrls'] is List && (json['mediaUrls'] as List).isNotEmpty
+              ? json['mediaUrls'][0].toString()
+              : ''),
       mediaUrls: json['mediaUrls'] != null
           ? (json['mediaUrls'] as List).map((e) => e.toString()).toList()
           : [],
@@ -200,6 +261,13 @@ class Story {
           ? (json['hashtags'] as List).map((h) => h.toString()).toList()
           : [],
       highlightId: json['highlight']?.toString(),
+      isHighlighted: json['isHighlighted'] == true,
+      overlays: json['overlays'] != null && json['overlays'] is List
+          ? (json['overlays'] as List)
+              .where((o) => o != null && o is Map<String, dynamic>)
+              .map((o) => StoryOverlay.fromJson(o))
+              .toList()
+          : [],
       isArchived: json['isArchived'] == true,
       archivedAt: json['archivedAt'] != null
           ? DateTime.tryParse(json['archivedAt'].toString())
@@ -250,6 +318,8 @@ class Story {
       'music': music?.toJson(),
       'hashtags': hashtags,
       'highlight': highlightId,
+      'isHighlighted': isHighlighted,
+      'overlays': overlays.map((o) => o.toJson()).toList(),
       'isArchived': isArchived,
       'archivedAt': archivedAt?.toIso8601String(),
       'shareCount': shareCount,
@@ -309,6 +379,8 @@ class Story {
     StoryMusic? music,
     List<String>? hashtags,
     String? highlightId,
+    List<StoryOverlay>? overlays,
+    bool? isHighlighted,
     bool? isArchived,
     DateTime? archivedAt,
     int? shareCount,
@@ -344,6 +416,8 @@ class Story {
       music: music ?? this.music,
       hashtags: hashtags ?? this.hashtags,
       highlightId: highlightId ?? this.highlightId,
+      overlays: overlays ?? this.overlays,
+      isHighlighted: isHighlighted ?? this.isHighlighted,
       isArchived: isArchived ?? this.isArchived,
       archivedAt: archivedAt ?? this.archivedAt,
       shareCount: shareCount ?? this.shareCount,
@@ -821,7 +895,16 @@ class StoryHighlight {
       title: json['title']?.toString() ?? '',
       coverImage: json['coverImage']?.toString(),
       stories: json['stories'] != null
-          ? (json['stories'] as List).map((s) => Story.fromJson(s)).toList()
+          ? (json['stories'] as List).map((s) {
+              // Backend returns { story: {...}, addedAt: ... } or populated story object
+              if (s is Map<String, dynamic>) {
+                if (s.containsKey('story') && s['story'] is Map<String, dynamic>) {
+                  return Story.fromJson(s['story']);
+                }
+                return Story.fromJson(s);
+              }
+              return null;
+            }).whereType<Story>().toList()
           : [],
       storyCount: json['storyCount'] ?? json['stories']?.length ?? 0,
       createdAt: json['createdAt'] != null

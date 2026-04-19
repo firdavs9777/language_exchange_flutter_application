@@ -98,9 +98,9 @@ class MomentsMain extends ConsumerStatefulWidget {
 class _MomentsMainState extends ConsumerState<MomentsMain> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
-
   bool _showSearch = false;
   List<Moments> _searchResults = [];
+  final ValueNotifier<int> _storiesRefreshNotifier = ValueNotifier(0);
 
   @override
   void dispose() {
@@ -139,6 +139,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     setState(() {
       _searchResults = [];
     });
+    // Refresh both moments and stories
+    _storiesRefreshNotifier.value++;
     await ref.refresh(momentsFeedProvider.future);
   }
 
@@ -195,7 +197,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       ),
       body: Column(
         children: [
-          // Stories at the top
+          // Stories + Highlights combined section
           if (!_showSearch)
             Container(
               decoration: BoxDecoration(
@@ -204,7 +206,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                   bottom: BorderSide(color: context.dividerColor, width: 0.5),
                 ),
               ),
-              child: const StoriesFeedWidget(height: 100, avatarSize: 64),
+              child: StoriesFeedWidget(height: 130, avatarSize: 64, refreshNotifier: _storiesRefreshNotifier),
             ),
           if (!_showSearch)
             MomentFilterBar(

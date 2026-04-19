@@ -3189,7 +3189,7 @@ abstract class AppLocalizations {
   /// No description provided for @deleteHighlight.
   ///
   /// In en, this message translates to:
-  /// **'Delete Highlight?'**
+  /// **'Delete Highlight'**
   String get deleteHighlight;
 
   /// No description provided for @editHighlight.
@@ -4029,8 +4029,8 @@ abstract class AppLocalizations {
   /// No description provided for @checkOutMoment.
   ///
   /// In en, this message translates to:
-  /// **'Check out this moment: {title}'**
-  String checkOutMoment(String title);
+  /// **'Check out this moment on BananaTalk!'**
+  String get checkOutMoment;
 
   /// No description provided for @failedToLoadMoments.
   ///
@@ -7583,6 +7583,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Max: {age}'**
   String maxAge(int age);
+
+  /// No description provided for @captionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Caption is required'**
+  String get captionRequired;
+
+  /// No description provided for @captionTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Caption must be {maxLength} characters or less'**
+  String captionTooLong(int maxLength);
+
+  /// No description provided for @maximumImagesReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum Images Reached'**
+  String get maximumImagesReached;
+
+  /// No description provided for @maximumImagesReachedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You can only upload up to {maxImages} images per moment.'**
+  String maximumImagesReachedDescription(int maxImages);
+
+  /// No description provided for @maximumImagesAddedPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum {maxImages} images allowed. Only {added} images added.'**
+  String maximumImagesAddedPartial(int maxImages, int added);
+
+  /// No description provided for @locationAccessRestricted.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Access Restricted'**
+  String get locationAccessRestricted;
+
+  /// No description provided for @locationPermissionNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Location Permission Needed'**
+  String get locationPermissionNeeded;
+
+  /// No description provided for @addToYourMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to your moment'**
+  String get addToYourMoment;
+
+  /// No description provided for @categoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get categoryLabel;
+
+  /// No description provided for @languageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageLabel;
+
+  /// No description provided for @scheduleOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule (optional)'**
+  String get scheduleOptional;
+
+  /// No description provided for @scheduleForLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule for later'**
+  String get scheduleForLater;
+
+  /// No description provided for @addMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Add More'**
+  String get addMore;
+
+  /// No description provided for @howAreYouFeeling.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you feeling?'**
+  String get howAreYouFeeling;
+
+  /// No description provided for @pleaseWaitOptimizingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we optimize your video'**
+  String get pleaseWaitOptimizingVideo;
+
+  /// No description provided for @unsupportedVideoFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported format. Use: {formats}'**
+  String unsupportedVideoFormat(String formats);
+
+  /// No description provided for @chooseBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a background'**
+  String get chooseBackground;
+
+  /// No description provided for @likedByXPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'Liked by {count} people'**
+  String likedByXPeople(int count);
+
+  /// No description provided for @xComments.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} comments'**
+  String xComments(int count);
+
+  /// No description provided for @oneComment.
+  ///
+  /// In en, this message translates to:
+  /// **'1 comment'**
+  String get oneComment;
+
+  /// No description provided for @addAComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a comment...'**
+  String get addAComment;
+
+  /// No description provided for @viewXReplies.
+  ///
+  /// In en, this message translates to:
+  /// **'View {count} replies'**
+  String viewXReplies(int count);
+
+  /// No description provided for @seenByX.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen by {count}'**
+  String seenByX(int count);
+
+  /// No description provided for @xHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}h ago'**
+  String xHoursAgo(int count);
+
+  /// No description provided for @xMinutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}m ago'**
+  String xMinutesAgo(int count);
+
+  /// No description provided for @repliedToYourStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Replied to your story'**
+  String get repliedToYourStory;
+
+  /// No description provided for @mentionedYouInComment.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} mentioned you in a comment'**
+  String mentionedYouInComment(String name);
+
+  /// No description provided for @repliedToYourComment.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} replied to your comment'**
+  String repliedToYourComment(String name);
+
+  /// No description provided for @reactedToYourComment.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} reacted to your comment'**
+  String reactedToYourComment(String name);
+
+  /// No description provided for @addReaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Add reaction'**
+  String get addReaction;
+
+  /// No description provided for @attachImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach image'**
+  String get attachImage;
+
+  /// No description provided for @pickGif.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a GIF'**
+  String get pickGif;
+
+  /// No description provided for @textStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get textStory;
+
+  /// No description provided for @typeYourStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your story...'**
+  String get typeYourStory;
+
+  /// No description provided for @selectBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Select background'**
+  String get selectBackground;
+
+  /// No description provided for @highlightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlights'**
+  String get highlightsTitle;
+
+  /// No description provided for @highlightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlight Title'**
+  String get highlightTitle;
+
+  /// No description provided for @createNewHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New'**
+  String get createNewHighlight;
+
+  /// No description provided for @selectStories.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Stories'**
+  String get selectStories;
+
+  /// No description provided for @selectCover.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Cover'**
+  String get selectCover;
+
+  /// No description provided for @addText.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Text'**
+  String get addText;
+
+  /// No description provided for @fontStyleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Style'**
+  String get fontStyleLabel;
+
+  /// No description provided for @textColorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Color'**
+  String get textColorLabel;
+
+  /// No description provided for @dragToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag here to delete'**
+  String get dragToDelete;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

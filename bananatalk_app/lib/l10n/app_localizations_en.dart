@@ -1583,7 +1583,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createHighlight => 'Create Highlight';
 
   @override
-  String get deleteHighlight => 'Delete Highlight?';
+  String get deleteHighlight => 'Delete Highlight';
 
   @override
   String get editHighlight => 'Edit Highlight';
@@ -2037,9 +2037,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedToSave => 'Failed to save';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Check out this moment: $title';
-  }
+  String get checkOutMoment => 'Check out this moment on BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'Failed to load moments';
@@ -3908,4 +3906,162 @@ class AppLocalizationsEn extends AppLocalizations {
   String maxAge(int age) {
     return 'Max: $age';
   }
+
+  @override
+  String get captionRequired => 'Caption is required';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'Caption must be $maxLength characters or less';
+  }
+
+  @override
+  String get maximumImagesReached => 'Maximum Images Reached';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'You can only upload up to $maxImages images per moment.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Maximum $maxImages images allowed. Only $added images added.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Location Access Restricted';
+
+  @override
+  String get locationPermissionNeeded => 'Location Permission Needed';
+
+  @override
+  String get addToYourMoment => 'Add to your moment';
+
+  @override
+  String get categoryLabel => 'Category';
+
+  @override
+  String get languageLabel => 'Language';
+
+  @override
+  String get scheduleOptional => 'Schedule (optional)';
+
+  @override
+  String get scheduleForLater => 'Schedule for later';
+
+  @override
+  String get addMore => 'Add More';
+
+  @override
+  String get howAreYouFeeling => 'How are you feeling?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Please wait while we optimize your video';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Unsupported format. Use: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Choose a background';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'Liked by $count people';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count comments';
+  }
+
+  @override
+  String get oneComment => '1 comment';
+
+  @override
+  String get addAComment => 'Add a comment...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'View $count replies';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Seen by $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '${count}h ago';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '${count}m ago';
+  }
+
+  @override
+  String get repliedToYourStory => 'Replied to your story';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name mentioned you in a comment';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name replied to your comment';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name reacted to your comment';
+  }
+
+  @override
+  String get addReaction => 'Add reaction';
+
+  @override
+  String get attachImage => 'Attach image';
+
+  @override
+  String get pickGif => 'Pick a GIF';
+
+  @override
+  String get textStory => 'Text';
+
+  @override
+  String get typeYourStory => 'Type your story...';
+
+  @override
+  String get selectBackground => 'Select background';
+
+  @override
+  String get highlightsTitle => 'Highlights';
+
+  @override
+  String get highlightTitle => 'Highlight Title';
+
+  @override
+  String get createNewHighlight => 'Create New';
+
+  @override
+  String get selectStories => 'Select Stories';
+
+  @override
+  String get selectCover => 'Select Cover';
+
+  @override
+  String get addText => 'Add Text';
+
+  @override
+  String get fontStyleLabel => 'Font Style';
+
+  @override
+  String get textColorLabel => 'Text Color';
+
+  @override
+  String get dragToDelete => 'Drag here to delete';
 }

@@ -131,9 +131,11 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
   }
 
   void _shareMoment(BuildContext context) {
-    final momentText = 'Check out this moment: ${moment.title}';
+    final shareText = moment.description.length > 100
+        ? '${moment.description.substring(0, 100)}...'
+        : moment.description;
     final momentUrl = 'https://banatalk.com/moment/${moment.id}';
-    Share.share('$momentText\n\n$momentUrl');
+    Share.share('$shareText\n\n$momentUrl');
   }
 
   void _deleteMoment(BuildContext context) async {
@@ -422,27 +424,15 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
 
           Divider(height: 1, color: context.dividerColor),
 
-          // Title and Description
+          // Description
           Padding(
             padding: Spacing.paddingLG,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  moment.title,
-                  style: context.displaySmall.copyWith(
-                    height: 1.3,
-                  ),
-                ),
-                Spacing.gapMD,
-                Text(
-                  moment.description,
-                  style: context.bodyLarge.copyWith(
-                    color: context.textSecondary,
-                    height: 1.6,
-                  ),
-                ),
-              ],
+            child: Text(
+              moment.description,
+              style: context.bodyLarge.copyWith(
+                color: context.textSecondary,
+                height: 1.6,
+              ),
             ),
           ),
 

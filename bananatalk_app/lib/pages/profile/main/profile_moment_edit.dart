@@ -16,7 +16,6 @@ class EditMomentScreen extends ConsumerStatefulWidget {
 }
 
 class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
-  late TextEditingController titleController;
   late TextEditingController descriptionController;
   final List<File> _selectedImages = [];
   bool _isSaving = false;
@@ -29,7 +28,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.moment.title);
     descriptionController =
         TextEditingController(text: widget.moment.description);
     imageUrls = List<String>.from(widget.moment.imageUrls);
@@ -44,7 +42,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
 
   @override
   void dispose() {
-    titleController.dispose();
     descriptionController.dispose();
     super.dispose();
   }
@@ -113,16 +110,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
 
   Future<void> _saveChanges() async {
     // Validate inputs
-    if (titleController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please enter a title'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
-
     if (descriptionController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -144,7 +131,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
       // Update moment with text content and updated images list
       final updatedMoment = await ref.read(momentsServiceProvider).updateMoment(
         id: widget.moment.id,
-        title: titleController.text.trim(),
         description: descriptionController.text.trim(),
         category: widget.moment.category,
         mood: widget.moment.mood,
@@ -254,33 +240,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title Field
-              Container(
-                decoration: BoxDecoration(
-                  color: context.cardBackground,
-                  borderRadius: AppRadius.borderMD,
-                  boxShadow: AppShadows.sm,
-                ),
-                child: TextField(
-                  controller: titleController,
-                  style: context.titleLarge,
-                  decoration: InputDecoration(
-                    labelText: 'Title',
-                    labelStyle: context.bodyMedium.copyWith(
-                      color: context.textSecondary,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: context.cardBackground,
-                    contentPadding: Spacing.paddingLG,
-                  ),
-                ),
-              ),
-              Spacing.gapLG,
-
               // Description Field
               Container(
                 decoration: BoxDecoration(

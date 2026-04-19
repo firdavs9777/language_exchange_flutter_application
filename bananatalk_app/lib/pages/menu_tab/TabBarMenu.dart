@@ -34,7 +34,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     _selectedPageIndex = widget.initialIndex;
     _pages = [
       const CommunityMain(),
-      ChatMain(),
+      ChatMain(tabRefreshNotifier: _tabRefreshNotifier),
       const LearningMain(),
       MomentsMain(),
       const ProfileMain(),
@@ -44,6 +44,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     });
   }
+
+  // Notifiers for each tab to trigger silent refresh
+  final ValueNotifier<int> _tabRefreshNotifier = ValueNotifier(0);
 
   void _selectPage(int index) {
     HapticFeedback.selectionClick();
@@ -55,6 +58,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     setState(() {
       _selectedPageIndex = index;
     });
+
+    // Notify the selected tab to refresh
+    _tabRefreshNotifier.value++;
   }
 
   @override

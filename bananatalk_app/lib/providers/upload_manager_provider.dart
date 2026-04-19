@@ -95,7 +95,6 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
 
   /// Queue a moment upload
   Future<String> queueMomentUpload({
-    required String title,
     required String description,
     String privacy = 'public',
     String category = 'general',
@@ -105,9 +104,9 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
     Map<String, dynamic>? location,
     List<String>? imagePaths,
     String? videoPath,
+    String? backgroundColor,
   }) async {
     return _uploadService.queueMomentUpload(
-      title: title,
       description: description,
       privacy: privacy,
       category: category,
@@ -117,6 +116,7 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
       location: location,
       imagePaths: imagePaths,
       videoPath: videoPath,
+      backgroundColor: backgroundColor,
     );
   }
 

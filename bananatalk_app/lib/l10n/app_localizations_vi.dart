@@ -1559,10 +1559,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get storyArchive => 'Story Archive';
 
   @override
-  String get newHighlight => 'New Highlight';
+  String get newHighlight => 'Nổi bật mới';
 
   @override
-  String get addToHighlight => 'Add to Highlight';
+  String get addToHighlight => 'Thêm vào nổi bật';
 
   @override
   String get repost => 'Repost';
@@ -1583,10 +1583,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get createHighlight => 'Tạo Highlight';
 
   @override
-  String get deleteHighlight => 'Delete Highlight?';
+  String get deleteHighlight => 'Xóa';
 
   @override
-  String get editHighlight => 'Edit Highlight';
+  String get editHighlight => 'Chỉnh sửa';
 
   @override
   String get addMoreToStory => 'Add more to story';
@@ -1630,7 +1630,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noFollowingYet => 'Not following anyone yet';
 
   @override
-  String get searchUsers => 'Search users...';
+  String get searchUsers => 'Tìm kiếm người dùng...';
 
   @override
   String get noResultsFound => 'No results found';
@@ -1710,7 +1710,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get record => 'Ghi';
 
   @override
-  String get addSticker => 'Add Sticker';
+  String get addSticker => 'Thêm nhãn dán';
 
   @override
   String get poll => 'Bình chọn';
@@ -2031,9 +2031,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToSave => 'Lưu thất bại';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Xem khoảnh khắc này: $title';
-  }
+  String get checkOutMoment => 'Xem khoảnh khắc này trên BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'Không thể tải khoảnh khắc';
@@ -3902,4 +3900,162 @@ class AppLocalizationsVi extends AppLocalizations {
   String maxAge(int age) {
     return 'Tối đa: $age';
   }
+
+  @override
+  String get captionRequired => 'Chú thích là bắt buộc';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'Chú thích phải có $maxLength ký tự trở xuống';
+  }
+
+  @override
+  String get maximumImagesReached => 'Đã đạt giới hạn hình ảnh';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Bạn chỉ có thể tải lên tối đa $maxImages hình ảnh mỗi khoảnh khắc.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Tối đa $maxImages hình ảnh. Chỉ thêm được $added hình.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Quyền truy cập vị trí bị hạn chế';
+
+  @override
+  String get locationPermissionNeeded => 'Cần quyền truy cập vị trí';
+
+  @override
+  String get addToYourMoment => 'Thêm vào khoảnh khắc của bạn';
+
+  @override
+  String get categoryLabel => 'Danh mục';
+
+  @override
+  String get languageLabel => 'Ngôn ngữ';
+
+  @override
+  String get scheduleOptional => 'Lên lịch (tùy chọn)';
+
+  @override
+  String get scheduleForLater => 'Lên lịch cho sau';
+
+  @override
+  String get addMore => 'Thêm nữa';
+
+  @override
+  String get howAreYouFeeling => 'Bạn đang cảm thấy thế nào?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Vui lòng đợi trong khi chúng tôi tối ưu hóa video của bạn';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Định dạng không được hỗ trợ. Sử dụng: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Chọn hình nền';
+
+  @override
+  String likedByXPeople(int count) {
+    return '$count người đã thích';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count bình luận';
+  }
+
+  @override
+  String get oneComment => '1 bình luận';
+
+  @override
+  String get addAComment => 'Thêm bình luận...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'Xem $count phản hồi';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Đã xem bởi $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$count giờ trước';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$count phút trước';
+  }
+
+  @override
+  String get repliedToYourStory => 'Đã trả lời tin của bạn';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name đã nhắc đến bạn trong bình luận';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name đã trả lời bình luận của bạn';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name đã phản ứng bình luận của bạn';
+  }
+
+  @override
+  String get addReaction => 'Thêm phản ứng';
+
+  @override
+  String get attachImage => 'Đính kèm ảnh';
+
+  @override
+  String get pickGif => 'Chọn GIF';
+
+  @override
+  String get textStory => 'Văn bản';
+
+  @override
+  String get typeYourStory => 'Viết tin của bạn...';
+
+  @override
+  String get selectBackground => 'Chọn nền';
+
+  @override
+  String get highlightsTitle => 'Nổi bật';
+
+  @override
+  String get highlightTitle => 'Tiêu đề';
+
+  @override
+  String get createNewHighlight => 'Tạo mới';
+
+  @override
+  String get selectStories => 'Chọn tin';
+
+  @override
+  String get selectCover => 'Chọn ảnh bìa';
+
+  @override
+  String get addText => 'Thêm văn bản';
+
+  @override
+  String get fontStyleLabel => 'Kiểu chữ';
+
+  @override
+  String get textColorLabel => 'Màu chữ';
+
+  @override
+  String get dragToDelete => 'Kéo vào đây để xóa';
 }

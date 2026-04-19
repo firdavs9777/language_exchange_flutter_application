@@ -616,7 +616,7 @@
   "removeFromSaved": "保存から削除",
   "momentSaved": "保存しました",
   "failedToSave": "保存に失敗しました",
-  "checkOutMoment": "このモーメントをチェック: {title}",
+  "checkOutMoment": "BananaTalkでこのモーメントをチェック!",
   "failedToLoadMoments": "モーメントの読み込みに失敗しました",
   "noMomentsMatchFilters": "フィルターに一致するモーメントがありません",
   "beFirstToShareMoment": "最初のモーメントを共有しましょう！",
@@ -1333,5 +1333,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "キャプションは必須です",
+  "captionTooLong": "キャプションは{maxLength}文字以内にしてください",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "画像の上限に達しました",
+  "maximumImagesReachedDescription": "1つのモーメントにつき最大{maxImages}枚の画像をアップロードできます。",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "最大{maxImages}枚の画像が許可されています。{added}枚のみ追加されました。",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "位置情報へのアクセスが制限されています",
+  "locationPermissionNeeded": "位置情報の許可が必要です",
+  "addToYourMoment": "モーメントに追加",
+  "categoryLabel": "カテゴリ",
+  "languageLabel": "言語",
+  "scheduleOptional": "スケジュール（任意）",
+  "scheduleForLater": "後でスケジュール",
+  "addMore": "さらに追加",
+  "howAreYouFeeling": "今の気分は？",
+  "pleaseWaitOptimizingVideo": "動画を最適化しています。お待ちください",
+  "unsupportedVideoFormat": "サポートされていない形式です。使用可能: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "背景を選択",
+  "likedByXPeople": "{count}人がいいねしました",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count}件のコメント",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1件のコメント",
+  "addAComment": "コメントを追加...",
+  "viewXReplies": "{count}件の返信を表示",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "{count}人が閲覧",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}時間前",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}分前",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "ストーリーに返信しました",
+  "mentionedYouInComment": "{name}がコメントであなたをメンションしました",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name}がコメントに返信しました",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name}がコメントにリアクションしました",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "ユーザーを検索...",
+  "addReaction": "リアクションを追加",
+  "attachImage": "画像を添付",
+  "pickGif": "GIFを選択",
+  "textStory": "テキスト",
+  "typeYourStory": "ストーリーを入力...",
+  "selectBackground": "背景を選択",
+  "highlightsTitle": "ハイライト",
+  "newHighlight": "新しいハイライト",
+  "highlightTitle": "ハイライトタイトル",
+  "addToHighlight": "ハイライトに追加",
+  "createNewHighlight": "新規作成",
+  "editHighlight": "ハイライトを編集",
+  "deleteHighlight": "ハイライトを削除",
+  "selectStories": "ストーリーを選択",
+  "selectCover": "カバーを選択",
+  "addText": "テキストを追加",
+  "addSticker": "スタンプを追加",
+  "fontStyleLabel": "フォントスタイル",
+  "textColorLabel": "テキスト色",
+  "dragToDelete": "ここにドラッグして削除"
 }

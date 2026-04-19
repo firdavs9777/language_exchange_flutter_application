@@ -631,7 +631,7 @@
   "removeFromSaved": "Quitar de guardados",
   "momentSaved": "Guardado",
   "failedToSave": "Error al guardar",
-  "checkOutMoment": "Mira este momento: {title}",
+  "checkOutMoment": "¡Mira este momento en BananaTalk!",
   "failedToLoadMoments": "Error al cargar momentos",
   "noMomentsMatchFilters": "No hay momentos que coincidan con tus filtros",
   "beFirstToShareMoment": "¡Sé el primero en compartir un momento!",
@@ -1353,5 +1353,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "La descripción es obligatoria",
+  "captionTooLong": "La descripción debe tener {maxLength} caracteres o menos",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Máximo de imágenes alcanzado",
+  "maximumImagesReachedDescription": "Puedes subir hasta {maxImages} imágenes por momento.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Máximo {maxImages} imágenes. Solo se agregaron {added} imágenes.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Acceso a ubicación restringido",
+  "locationPermissionNeeded": "Se necesita permiso de ubicación",
+  "addToYourMoment": "Agregar a tu momento",
+  "categoryLabel": "Categoría",
+  "languageLabel": "Idioma",
+  "scheduleOptional": "Programar (opcional)",
+  "scheduleForLater": "Programar para después",
+  "addMore": "Agregar más",
+  "howAreYouFeeling": "¿Cómo te sientes?",
+  "pleaseWaitOptimizingVideo": "Por favor espera mientras optimizamos tu video",
+  "unsupportedVideoFormat": "Formato no soportado. Usa: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Elegir fondo",
+  "likedByXPeople": "Le gustó a {count} personas",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "{count} comentarios",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "1 comentario",
+  "addAComment": "Añade un comentario...",
+  "viewXReplies": "Ver {count} respuestas",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "Visto por {count}",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "hace {count}h",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "hace {count}m",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "Respondió a tu historia",
+  "mentionedYouInComment": "{name} te mencionó en un comentario",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name} respondió a tu comentario",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name} reaccionó a tu comentario",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "Buscar usuarios...",
+  "addReaction": "Añadir reacción",
+  "attachImage": "Adjuntar imagen",
+  "pickGif": "Elegir GIF",
+  "textStory": "Texto",
+  "typeYourStory": "Escribe tu historia...",
+  "selectBackground": "Seleccionar fondo",
+  "highlightsTitle": "Destacados",
+  "newHighlight": "Nuevo destacado",
+  "highlightTitle": "Título del destacado",
+  "addToHighlight": "Añadir a destacados",
+  "createNewHighlight": "Crear nuevo",
+  "editHighlight": "Editar destacado",
+  "deleteHighlight": "Eliminar destacado",
+  "selectStories": "Seleccionar historias",
+  "selectCover": "Seleccionar portada",
+  "addText": "Añadir texto",
+  "addSticker": "Añadir sticker",
+  "fontStyleLabel": "Estilo de fuente",
+  "textColorLabel": "Color de texto",
+  "dragToDelete": "Arrastra aquí para eliminar"
 }

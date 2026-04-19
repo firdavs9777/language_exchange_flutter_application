@@ -36,6 +36,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   bool isSaved = false;
   bool isExpanded = false;
   bool _likePending = false;
+  bool _showHeartAnimation = false;
+  bool _showTranslation = false;
+  String _cachedUserId = '';
+  final GlobalKey _likeButtonKey = GlobalKey();
 
   // Language code to flag emoji mapping
   final Map<String, String> _languageFlags = {
@@ -113,6 +117,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     if (mounted && currentUserId != null) {
       setState(() {
         isLiked = widget.moments.likedUsers?.contains(currentUserId) ?? false;
+        _cachedUserId = currentUserId;
       });
       debugPrint('❤️ _initLikeStatus: momentId=${widget.moments.id}, userId=$currentUserId, isLiked=$isLiked, likeCount=$likeCount, likedUsers=${widget.moments.likedUsers}');
     }
@@ -235,9 +240,95 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     }
   }
 
+  void _showReactionPicker(BuildContext context) {
+    final renderBox = _likeButtonKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) return;
+    final buttonPos = renderBox.localToGlobal(Offset.zero);
+    final buttonSize = renderBox.size;
+    final overlay = Overlay.of(context);
+
+    late OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (ctx) => Stack(
+        children: [
+          // Dismiss on tap outside
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: () => entry.remove(),
+              behavior: HitTestBehavior.opaque,
+              child: const SizedBox.expand(),
+            ),
+          ),
+          // Reaction bar positioned above the like button
+          Positioned(
+            left: buttonPos.dx - 20,
+            top: buttonPos.dy - 52,
+            child: Material(
+              elevation: 12,
+              shadowColor: Colors.black26,
+              borderRadius: BorderRadius.circular(28),
+              color: Theme.of(this.context).colorScheme.surface,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: ['❤️', '🔥', '😂', '😢', '😮', '👏'].map((emoji) {
+                    return GestureDetector(
+                      onTap: () {
+                        entry.remove();
+                        _reactToMoment(emoji);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Text(emoji, style: const TextStyle(fontSize: 28)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    overlay.insert(entry);
+  }
+
+  Future<void> _reactToMoment(String emoji) async {
+    try {
+      await api.MomentsService.reactToMoment(
+        momentId: widget.moments.id,
+        emoji: emoji,
+      );
+      ref.invalidate(momentsFeedProvider);
+    } catch (e) {
+      debugPrint('React to moment error: $e');
+    }
+  }
+
+  Map<String, int> _groupMomentReactions() {
+    final map = <String, int>{};
+    for (final r in widget.moments.reactions) {
+      map[r.emoji] = (map[r.emoji] ?? 0) + 1;
+    }
+    return Map.fromEntries(
+      map.entries.toList()..sort((a, b) => b.value.compareTo(a.value)),
+    );
+  }
+
+  String _getCurrentUserId() {
+    // SharedPreferences is async; userId is loaded during initState via _initLikeStatus/_loadSavedStatus.
+    // We read it synchronously from a cached field populated in initState.
+    return _cachedUserId;
+  }
+
   void _shareMoment(BuildContext context, String id) {
     final l10n = AppLocalizations.of(context)!;
-    final momentText = l10n.checkOutMoment(widget.moments.title);
+    final descriptionSnippet = widget.moments.description.length > 100
+        ? '${widget.moments.description.substring(0, 100)}...'
+        : widget.moments.description;
+    final momentText = l10n.checkOutMoment;
     final momentUrl = 'https://banatalk.com/moment/$id';
     Share.share('$momentText\n\n$momentUrl');
   }
@@ -421,9 +512,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
   @override
   Widget build(BuildContext context) {
-    final fullText = widget.moments.description.isEmpty
-        ? widget.moments.title
-        : widget.moments.description;
+    final fullText = widget.moments.description;
     final shouldShowMore = fullText.length > 150;
     final displayText = !isExpanded && shouldShowMore
         ? '${fullText.substring(0, 150)}...'
@@ -486,7 +575,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       imageUrl: widget.moments.user.imageUrls.isNotEmpty
                           ? widget.moments.user.imageUrls[0]
                           : null,
-                      radius: 22,
+                      radius: 24,
                       backgroundColor: context.containerColor,
                       errorWidget: Icon(
                         Icons.person,
@@ -622,20 +711,26 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TranslatedMomentWidget(
-                    momentId: widget.moments.id,
-                    originalText: displayText,
-                    originalLanguage: widget.moments.language,
-                    existingTranslations: widget.moments.translations.isNotEmpty
-                        ? widget.moments.translations
-                        : null,
-                    onTranslationAdded: () {
-                      // Refresh the moment to get updated translations
-                      if (widget.onRefresh != null) {
-                        widget.onRefresh!();
-                      }
-                    },
-                  ),
+                  if (_showTranslation)
+                    TranslatedMomentWidget(
+                      momentId: widget.moments.id,
+                      originalText: displayText,
+                      originalLanguage: widget.moments.language,
+                      existingTranslations: widget.moments.translations.isNotEmpty
+                          ? widget.moments.translations
+                          : null,
+                      onTranslationAdded: () {
+                        // Refresh the moment to get updated translations
+                        if (widget.onRefresh != null) {
+                          widget.onRefresh!();
+                        }
+                      },
+                    )
+                  else
+                    Text(
+                      displayText,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   if (shouldShowMore)
                     GestureDetector(
                       onTap: () {
@@ -657,27 +752,36 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               ),
             ),
 
+            // Media area: text-only gradient, video, or images
+            if (widget.moments.mediaType == 'text' &&
+                widget.moments.images.isEmpty &&
+                !widget.moments.hasVideo)
+              _buildDoubleTapLikeArea(
+                _buildGradientTextCard(widget.moments),
+              )
             // Video (if available)
-            if (widget.moments.hasVideo && widget.moments.video != null)
+            else if (widget.moments.hasVideo && widget.moments.video != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        AppPageRoute(
-                          builder: (context) => FullScreenVideoPlayer(
-                            video: widget.moments.video!,
+                  child: _buildDoubleTapLikeArea(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          AppPageRoute(
+                            builder: (context) => FullScreenVideoPlayer(
+                              video: widget.moments.video!,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: MomentVideoPlayer(
-                      video: widget.moments.video!,
-                      height: 280,
-                      borderRadius: BorderRadius.circular(8),
+                        );
+                      },
+                      child: MomentVideoPlayer(
+                        video: widget.moments.video!,
+                        height: 280,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                 ),
@@ -686,19 +790,42 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             else if (widget.moments.imageUrls.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: _buildImageGrid(),
+                child: _buildDoubleTapLikeArea(_buildImageGrid()),
               ),
 
             // Actions
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 4, 8, 12),
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
               child: Row(
                 children: [
-                  _buildActionButton(
-                    icon: isLiked ? Icons.favorite : Icons.favorite_border,
-                    count: likeCount,
-                    color: isLiked ? AppColors.error : context.iconColor,
+                  GestureDetector(
+                    key: _likeButtonKey,
                     onTap: toggleLike,
+                    onLongPress: () => _showReactionPicker(context),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      child: Row(
+                        children: [
+                          Icon(
+                            isLiked ? Icons.favorite : Icons.favorite_border,
+                            size: 22,
+                            color: isLiked ? AppColors.error : context.iconColor,
+                          ),
+                          if (likeCount > 0) ...[
+                            const SizedBox(width: 4),
+                            Text(
+                              likeCount > 999
+                                  ? '${(likeCount / 1000).toStringAsFixed(1)}k'
+                                  : '$likeCount',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: isLiked ? AppColors.error : context.textMuted,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 4),
                   _buildActionButton(
@@ -721,13 +848,13 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   IconButton(
                     icon: Icon(
                       Icons.translate,
-                      color: context.iconColor,
-                      size: 20,
+                      color: _showTranslation ? AppColors.primary : context.iconColor,
+                      size: 22,
                     ),
                     padding: const EdgeInsets.all(8),
                     constraints: const BoxConstraints(),
                     onPressed: () {
-                      // Translation functionality
+                      setState(() => _showTranslation = !_showTranslation);
                     },
                   ),
                   // Gift icon
@@ -735,7 +862,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     icon: Icon(
                       Icons.card_giftcard_outlined,
                       color: context.iconColor,
-                      size: 20,
+                      size: 22,
                     ),
                     padding: const EdgeInsets.all(8),
                     constraints: const BoxConstraints(),
@@ -748,20 +875,178 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     icon: Icon(
                       Icons.share_outlined,
                       color: context.iconColor,
-                      size: 20,
+                      size: 22,
                     ),
                     padding: const EdgeInsets.all(8),
                     constraints: const BoxConstraints(),
                     onPressed: () => _shareMoment(context, widget.moments.id),
                   ),
+                  // Save/bookmark button
+                  IconButton(
+                    icon: Icon(
+                      isSaved ? Icons.bookmark : Icons.bookmark_border,
+                      size: 22,
+                      color: isSaved ? AppColors.primary : context.iconColor,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    constraints: const BoxConstraints(),
+                    onPressed: _toggleSave,
+                  ),
                 ],
               ),
             ),
 
-            // Divider
-            Container(height: 1, color: context.dividerColor),
+            // Engagement counts
+            if (likeCount > 0 || widget.moments.commentCount > 0)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (likeCount > 0)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Text(
+                          '$likeCount ${likeCount == 1 ? "like" : "likes"}',
+                          style: context.bodySmall.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    if (widget.moments.commentCount > 0)
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => SingleMoment(moment: widget.moments),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          widget.moments.commentCount == 1
+                              ? '1 comment'
+                              : '${widget.moments.commentCount} comments',
+                          style: context.bodySmall.copyWith(color: context.textMuted),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+
+            // Moment reaction chips
+            if (widget.moments.reactions.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+                child: Wrap(
+                  spacing: 4,
+                  runSpacing: 4,
+                  children: _groupMomentReactions().entries.map((entry) {
+                    final currentUserId = _getCurrentUserId();
+                    final isMyReaction = widget.moments.reactions.any(
+                      (r) => r.emoji == entry.key && r.userId == currentUserId,
+                    );
+                    return GestureDetector(
+                      onTap: () => _reactToMoment(entry.key),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: isMyReaction
+                              ? AppColors.primary.withValues(alpha: 0.15)
+                              : Theme.of(context).colorScheme.surfaceContainerLow,
+                          borderRadius: BorderRadius.circular(16),
+                          border: isMyReaction
+                              ? Border.all(color: AppColors.primary, width: 1)
+                              : null,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(entry.key, style: const TextStyle(fontSize: 16)),
+                            const SizedBox(width: 4),
+                            Text('${entry.value}', style: TextStyle(fontSize: 12, color: context.textMuted)),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+            const SizedBox(height: 8),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildGradientTextCard(Moments moment) {
+    final colors = MomentGradients.getColors(
+      moment.backgroundColor.isNotEmpty
+          ? moment.backgroundColor
+          : MomentGradients.defaultGradient,
+    );
+    return Container(
+      width: double.infinity,
+      constraints: const BoxConstraints(minHeight: 200),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: colors.map((c) => Color(c)).toList(),
+        ),
+      ),
+      padding: const EdgeInsets.all(24),
+      child: Center(
+        child: Text(
+          moment.description,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            height: 1.4,
+          ),
+          textAlign: TextAlign.center,
+          maxLines: 10,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDoubleTapLikeArea(Widget child) {
+    return GestureDetector(
+      onDoubleTap: () {
+        toggleLike();
+        setState(() => _showHeartAnimation = true);
+        Future.delayed(const Duration(milliseconds: 800), () {
+          if (mounted) setState(() => _showHeartAnimation = false);
+        });
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          child,
+          if (_showHeartAnimation)
+            TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0.0, end: 1.0),
+              duration: const Duration(milliseconds: 800),
+              builder: (context, value, child) {
+                return Opacity(
+                  opacity: value < 0.5 ? value * 2 : (1 - value) * 2,
+                  child: Transform.scale(
+                    scale: 0.5 + value * 0.5,
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 80,
+                      shadows: [
+                        Shadow(blurRadius: 20, color: Colors.black38),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+        ],
       ),
     );
   }
@@ -779,7 +1064,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: color),
+            Icon(icon, size: 22, color: color),
             if (count > 0) ...[
               const SizedBox(width: 4),
               Text(

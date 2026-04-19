@@ -1,11 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart' show CommentMention;
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
-import 'package:bananatalk_app/widgets/translated_comment_widget.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class CommentsMain extends ConsumerStatefulWidget {
@@ -56,7 +58,10 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
                 comment: comment,
                 momentId: widget.id,
                 currentUserId: currentUserId,
-                onRefresh: () => ref.invalidate(commentsProvider(widget.id)),
+                onRefresh: () {
+                  ref.invalidate(commentsProvider(widget.id));
+                  ref.invalidate(momentsFeedProvider);
+                },
                 onReply: widget.onReply,
               ),
             ),
@@ -340,6 +345,63 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
     widget.onRefresh();
   }
 
+  Map<String, int> get _groupedReactions {
+    final map = <String, int>{};
+    for (final r in widget.comment.reactions) {
+      map[r.emoji] = (map[r.emoji] ?? 0) + 1;
+    }
+    final sorted = Map.fromEntries(
+      map.entries.toList()..sort((a, b) => b.value.compareTo(a.value)),
+    );
+    return sorted;
+  }
+
+  Future<void> _reactToComment(String emoji) async {
+    try {
+      await api.MomentsService.reactToComment(
+        momentId: widget.momentId,
+        commentId: widget.comment.id,
+        emoji: emoji,
+      );
+      widget.onRefresh();
+    } catch (e) {
+      debugPrint('React error: $e');
+    }
+  }
+
+  Widget _buildCommentText() {
+    if (widget.comment.mentions.isEmpty) {
+      return Text(widget.comment.text, style: context.bodyMedium);
+    }
+
+    final spans = <TextSpan>[];
+    int lastEnd = 0;
+    final sortedMentions = List<CommentMention>.from(widget.comment.mentions)
+      ..sort((a, b) => a.offset.compareTo(b.offset));
+
+    for (final mention in sortedMentions) {
+      if (mention.offset > lastEnd && mention.offset <= widget.comment.text.length) {
+        spans.add(TextSpan(text: widget.comment.text.substring(lastEnd, mention.offset)));
+      }
+      final end = (mention.offset + mention.length).clamp(0, widget.comment.text.length).toInt();
+      if (mention.offset < widget.comment.text.length) {
+        spans.add(TextSpan(
+          text: widget.comment.text.substring(mention.offset, end),
+          style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
+        ));
+      }
+      lastEnd = end;
+    }
+
+    if (lastEnd < widget.comment.text.length) {
+      spans.add(TextSpan(text: widget.comment.text.substring(lastEnd)));
+    }
+
+    return RichText(
+      text: TextSpan(style: context.bodyMedium, children: spans),
+    );
+  }
+
   String _getRelativeTime(BuildContext context, DateTime dateTime) {
     final l10n = AppLocalizations.of(context)!;
     final diff = DateTime.now().difference(dateTime);
@@ -391,12 +453,8 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest.withOpacity(0.5),
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(16),
-                          bottomLeft: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
-                        ),
+                        color: Theme.of(context).colorScheme.surfaceContainerLow,
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -429,18 +487,64 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
                             ],
                           ),
                           const SizedBox(height: 4),
+                          // Inline image
+                          if (widget.comment.imageUrl != null && widget.comment.imageUrl!.isNotEmpty) ...[
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.comment.imageUrl!,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => const SizedBox(
+                                  height: 100,
+                                  child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                                ),
+                                errorWidget: (context, url, error) => const SizedBox.shrink(),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                          ],
                           // Comment text
-                          TranslatedCommentWidget(
-                            commentId: comment.id,
-                            originalText: comment.text.toString(),
-                            originalLanguage: comment.user.native_language,
-                            existingTranslations: comment.translations.isNotEmpty
-                                ? comment.translations
-                                : null,
-                          ),
+                          _buildCommentText(),
                         ],
                       ),
                     ),
+                    // Reaction chips
+                    if (widget.comment.reactions.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4, left: 4),
+                        child: Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          children: _groupedReactions.entries.map((entry) {
+                            final isMyReaction = widget.comment.reactions.any(
+                              (r) => r.emoji == entry.key && r.userId == widget.currentUserId,
+                            );
+                            return GestureDetector(
+                              onTap: () => _reactToComment(entry.key),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: isMyReaction
+                                      ? AppColors.primary.withValues(alpha: 0.15)
+                                      : Theme.of(context).colorScheme.surfaceContainerLow,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: isMyReaction
+                                      ? Border.all(color: AppColors.primary, width: 1)
+                                      : null,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(entry.key, style: const TextStyle(fontSize: 14)),
+                                    const SizedBox(width: 2),
+                                    Text('${entry.value}', style: TextStyle(fontSize: 11, color: context.textMuted)),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     const SizedBox(height: 4),
                     // Action row: Like, Reply, More
                     Padding(
@@ -555,7 +659,7 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
               ),
             ],
           ),
-          Divider(thickness: 0.5, color: context.dividerColor, height: 16),
+          const SizedBox(height: 12),
         ],
       ),
     );
@@ -969,7 +1073,7 @@ class _ReplyItemState extends State<_ReplyItem> {
           children: [
             // Thread line
             Container(
-              width: 2,
+              width: 1,
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 color: colorScheme.outlineVariant,
@@ -996,12 +1100,8 @@ class _ReplyItemState extends State<_ReplyItem> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: colorScheme.surfaceContainerHighest.withOpacity(0.3),
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
-                      ),
+                      color: Theme.of(context).colorScheme.surfaceContainerLow,
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

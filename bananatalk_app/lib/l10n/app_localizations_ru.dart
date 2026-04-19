@@ -1559,7 +1559,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get storyArchive => 'Архив историй';
 
   @override
-  String get newHighlight => 'Новый актуальный';
+  String get newHighlight => 'Новое актуальное';
 
   @override
   String get addToHighlight => 'Добавить в актуальное';
@@ -1583,7 +1583,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get createHighlight => 'Создать актуальное';
 
   @override
-  String get deleteHighlight => 'Удалить актуальное?';
+  String get deleteHighlight => 'Удалить';
 
   @override
   String get editHighlight => 'Редактировать';
@@ -2031,9 +2031,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get failedToSave => 'Не удалось сохранить';
 
   @override
-  String checkOutMoment(String title) {
-    return 'Посмотрите этот момент: $title';
-  }
+  String get checkOutMoment => 'Посмотрите этот момент на BananaTalk!';
 
   @override
   String get failedToLoadMoments => 'Не удалось загрузить моменты';
@@ -3902,4 +3900,162 @@ class AppLocalizationsRu extends AppLocalizations {
   String maxAge(int age) {
     return 'Макс: $age';
   }
+
+  @override
+  String get captionRequired => 'Подпись обязательна';
+
+  @override
+  String captionTooLong(int maxLength) {
+    return 'Подпись должна содержать не более $maxLength символов';
+  }
+
+  @override
+  String get maximumImagesReached => 'Достигнут максимум изображений';
+
+  @override
+  String maximumImagesReachedDescription(int maxImages) {
+    return 'Вы можете загрузить до $maxImages изображений на один момент.';
+  }
+
+  @override
+  String maximumImagesAddedPartial(int maxImages, int added) {
+    return 'Максимум $maxImages изображений. Добавлено только $added.';
+  }
+
+  @override
+  String get locationAccessRestricted => 'Доступ к местоположению ограничен';
+
+  @override
+  String get locationPermissionNeeded => 'Требуется разрешение на определение местоположения';
+
+  @override
+  String get addToYourMoment => 'Добавить к вашему моменту';
+
+  @override
+  String get categoryLabel => 'Категория';
+
+  @override
+  String get languageLabel => 'Язык';
+
+  @override
+  String get scheduleOptional => 'Запланировать (необязательно)';
+
+  @override
+  String get scheduleForLater => 'Запланировать на потом';
+
+  @override
+  String get addMore => 'Добавить ещё';
+
+  @override
+  String get howAreYouFeeling => 'Как вы себя чувствуете?';
+
+  @override
+  String get pleaseWaitOptimizingVideo => 'Пожалуйста, подождите, пока мы оптимизируем ваше видео';
+
+  @override
+  String unsupportedVideoFormat(String formats) {
+    return 'Неподдерживаемый формат. Используйте: $formats';
+  }
+
+  @override
+  String get chooseBackground => 'Выбрать фон';
+
+  @override
+  String likedByXPeople(int count) {
+    return 'Понравилось $count людям';
+  }
+
+  @override
+  String xComments(int count) {
+    return '$count комментариев';
+  }
+
+  @override
+  String get oneComment => '1 комментарий';
+
+  @override
+  String get addAComment => 'Добавить комментарий...';
+
+  @override
+  String viewXReplies(int count) {
+    return 'Показать $count ответов';
+  }
+
+  @override
+  String seenByX(int count) {
+    return 'Просмотрели $count';
+  }
+
+  @override
+  String xHoursAgo(int count) {
+    return '$countч назад';
+  }
+
+  @override
+  String xMinutesAgo(int count) {
+    return '$countм назад';
+  }
+
+  @override
+  String get repliedToYourStory => 'Ответил на вашу историю';
+
+  @override
+  String mentionedYouInComment(String name) {
+    return '$name упомянул вас в комментарии';
+  }
+
+  @override
+  String repliedToYourComment(String name) {
+    return '$name ответил на ваш комментарий';
+  }
+
+  @override
+  String reactedToYourComment(String name) {
+    return '$name отреагировал на ваш комментарий';
+  }
+
+  @override
+  String get addReaction => 'Добавить реакцию';
+
+  @override
+  String get attachImage => 'Прикрепить изображение';
+
+  @override
+  String get pickGif => 'Выбрать GIF';
+
+  @override
+  String get textStory => 'Текст';
+
+  @override
+  String get typeYourStory => 'Напишите историю...';
+
+  @override
+  String get selectBackground => 'Выбрать фон';
+
+  @override
+  String get highlightsTitle => 'Актуальное';
+
+  @override
+  String get highlightTitle => 'Название';
+
+  @override
+  String get createNewHighlight => 'Создать новое';
+
+  @override
+  String get selectStories => 'Выбрать истории';
+
+  @override
+  String get selectCover => 'Выбрать обложку';
+
+  @override
+  String get addText => 'Добавить текст';
+
+  @override
+  String get fontStyleLabel => 'Стиль шрифта';
+
+  @override
+  String get textColorLabel => 'Цвет текста';
+
+  @override
+  String get dragToDelete => 'Перетащите сюда для удаления';
 }

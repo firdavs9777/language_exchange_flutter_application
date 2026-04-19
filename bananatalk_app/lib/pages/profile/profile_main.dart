@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/profile/main/profile_followers.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_followings.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_left_drawer.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_moments.dart';
+import 'package:bananatalk_app/pages/profile/main/profile_highlights.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_visitors_screen.dart';
 import 'package:bananatalk_app/pages/profile/personal_info/profile_picture_edit.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -123,6 +124,13 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     _buildVipStatusCard(context, user)
                         .animate()
                         .fadeIn(duration: 350.ms, delay: 250.ms),
+                    const SizedBox(height: 16),
+                    ProfileHighlights(
+                      userId: user.id,
+                      isOwnProfile: true,
+                      user: user,
+                    ).animate()
+                        .fadeIn(duration: 350.ms, delay: 275.ms),
                     const SizedBox(height: 16),
                     _buildLanguageCard(user)
                         .animate()

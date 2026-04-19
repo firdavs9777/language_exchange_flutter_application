@@ -631,7 +631,7 @@
   "removeFromSaved": "저장 취소",
   "momentSaved": "저장됨",
   "failedToSave": "저장 실패",
-  "checkOutMoment": "이 모멘트를 확인해보세요: {title}",
+  "checkOutMoment": "BananaTalk에서 이 모멘트를 확인해보세요!",
   "failedToLoadMoments": "모멘트를 불러오지 못했습니다",
   "noMomentsMatchFilters": "필터에 맞는 모멘트가 없습니다",
   "beFirstToShareMoment": "첫 번째 모멘트를 공유해보세요!",
@@ -1355,5 +1355,96 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "캡션은 필수입니다",
+  "captionTooLong": "캡션은 {maxLength}자 이하여야 합니다",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "최대 이미지 수에 도달했습니다",
+  "maximumImagesReachedDescription": "모멘트당 최대 {maxImages}개의 이미지를 업로드할 수 있습니다.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "최대 {maxImages}개 이미지 허용. {added}개만 추가되었습니다.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "위치 접근 제한됨",
+  "locationPermissionNeeded": "위치 권한이 필요합니다",
+  "addToYourMoment": "모멘트에 추가",
+  "categoryLabel": "카테고리",
+  "languageLabel": "언어",
+  "scheduleOptional": "예약 (선택사항)",
+  "scheduleForLater": "나중으로 예약",
+  "addMore": "더 추가",
+  "howAreYouFeeling": "기분이 어떠세요?",
+  "pleaseWaitOptimizingVideo": "동영상을 최적화하는 중입니다. 잠시 기다려 주세요",
+  "unsupportedVideoFormat": "지원되지 않는 형식입니다. 사용 가능: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "배경 선택",
+  "likedByXPeople": "{count}명이 좋아합니다",
+  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "xComments": "댓글 {count}개",
+  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "oneComment": "댓글 1개",
+  "addAComment": "댓글 달기...",
+  "viewXReplies": "답글 {count}개 보기",
+  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "seenByX": "{count}명이 봄",
+  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "xHoursAgo": "{count}시간 전",
+  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "xMinutesAgo": "{count}분 전",
+  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "repliedToYourStory": "스토리에 답장함",
+  "mentionedYouInComment": "{name}님이 댓글에서 회원님을 언급했습니다",
+  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "repliedToYourComment": "{name}님이 댓글에 답글을 달았습니다",
+  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "reactedToYourComment": "{name}님이 댓글에 반응했습니다",
+  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "searchUsers": "사용자 검색...",
+  "addReaction": "반응 추가",
+  "attachImage": "이미지 첨부",
+  "pickGif": "GIF 선택",
+  "textStory": "텍스트",
+  "typeYourStory": "스토리를 입력하세요...",
+  "selectBackground": "배경 선택",
+  "highlightsTitle": "하이라이트",
+  "newHighlight": "새 하이라이트",
+  "highlightTitle": "하이라이트 제목",
+  "addToHighlight": "하이라이트에 추가",
+  "createNewHighlight": "새로 만들기",
+  "editHighlight": "하이라이트 편집",
+  "deleteHighlight": "하이라이트 삭제",
+  "selectStories": "스토리 선택",
+  "selectCover": "커버 선택",
+  "addText": "텍스트 추가",
+  "addSticker": "스티커 추가",
+  "fontStyleLabel": "글꼴 스타일",
+  "textColorLabel": "텍스트 색상",
+  "dragToDelete": "여기로 끌어서 삭제"
 }

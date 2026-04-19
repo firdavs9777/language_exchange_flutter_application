@@ -941,14 +941,7 @@
   "momentSaved": "Saved",
   "momentUnsaved": "Removed from saved",
   "failedToSave": "Failed to save",
-  "checkOutMoment": "Check out this moment: {title}",
-  "@checkOutMoment": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "checkOutMoment": "Check out this moment on BananaTalk!",
   "failedToLoadMoments": "Failed to load moments",
   "noMomentsMatchFilters": "No moments match your filters",
   "beFirstToShareMoment": "Be the first to share a moment!",
@@ -1941,6 +1934,154 @@
         "type": "int"
       }
     }
-  }
+  },
+
+  "captionRequired": "Caption is required",
+  "captionTooLong": "Caption must be {maxLength} characters or less",
+  "@captionTooLong": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesReached": "Maximum Images Reached",
+  "maximumImagesReachedDescription": "You can only upload up to {maxImages} images per moment.",
+  "@maximumImagesReachedDescription": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumImagesAddedPartial": "Maximum {maxImages} images allowed. Only {added} images added.",
+  "@maximumImagesAddedPartial": {
+    "placeholders": {
+      "maxImages": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      }
+    }
+  },
+  "locationAccessRestricted": "Location Access Restricted",
+  "locationPermissionNeeded": "Location Permission Needed",
+  "addToYourMoment": "Add to your moment",
+  "categoryLabel": "Category",
+  "languageLabel": "Language",
+  "scheduleOptional": "Schedule (optional)",
+  "scheduleForLater": "Schedule for later",
+  "addMore": "Add More",
+  "howAreYouFeeling": "How are you feeling?",
+  "pleaseWaitOptimizingVideo": "Please wait while we optimize your video",
+  "unsupportedVideoFormat": "Unsupported format. Use: {formats}",
+  "@unsupportedVideoFormat": {
+    "placeholders": {
+      "formats": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseBackground": "Choose a background",
+
+  "likedByXPeople": "Liked by {count} people",
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "xComments": "{count} comments",
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "oneComment": "1 comment",
+  "addAComment": "Add a comment...",
+  "viewXReplies": "View {count} replies",
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "seenByX": "Seen by {count}",
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "xHoursAgo": "{count}h ago",
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "xMinutesAgo": "{count}m ago",
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repliedToYourStory": "Replied to your story",
+
+  "mentionedYouInComment": "{name} mentioned you in a comment",
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "repliedToYourComment": "{name} replied to your comment",
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "reactedToYourComment": "{name} reacted to your comment",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "searchUsers": "Search users...",
+  "addReaction": "Add reaction",
+  "attachImage": "Attach image",
+  "pickGif": "Pick a GIF",
+
+  "textStory": "Text",
+  "typeYourStory": "Type your story...",
+  "selectBackground": "Select background",
+  "highlightsTitle": "Highlights",
+  "newHighlight": "New Highlight",
+  "highlightTitle": "Highlight Title",
+  "addToHighlight": "Add to Highlight",
+  "createNewHighlight": "Create New",
+  "editHighlight": "Edit Highlight",
+  "deleteHighlight": "Delete Highlight",
+  "selectStories": "Select Stories",
+  "selectCover": "Select Cover",
+  "addText": "Add Text",
+  "addSticker": "Add Sticker",
+  "fontStyleLabel": "Font Style",
+  "textColorLabel": "Text Color",
+  "dragToDelete": "Drag here to delete"
 }
 
