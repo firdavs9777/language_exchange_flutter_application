@@ -179,6 +179,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   void _updateButtonState() {
     isButtonEnabled.value = descriptionController.text.isNotEmpty;
+    // Trigger rebuild to update character counter
+    if (mounted) setState(() {});
   }
 
   void _addTag() {
@@ -1223,7 +1225,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(errorMessage),
-              backgroundColor: Colors.red,
+              backgroundColor: AppColors.error,
               behavior: SnackBarBehavior.floating,
               duration: const Duration(seconds: 4),
             ),
@@ -1392,43 +1394,153 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             ),
             Spacing.gapMD,
 
-            // Description Field with Counter
-            Container(
-              decoration: BoxDecoration(
-                color: context.cardBackground,
-                borderRadius: AppRadius.borderMD,
-                boxShadow: AppShadows.sm,
-              ),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: descriptionController,
-                    maxLines: 8,
-                    maxLength: maxDescriptionLength,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.whatsOnYourMind,
-                      hintStyle: TextStyle(color: context.textHint),
-                      border: OutlineInputBorder(
-                        borderRadius: AppRadius.borderMD,
-                        borderSide: BorderSide.none,
+            // Description Field with Counter + gradient preview
+            () {
+              final hasGradient = _selectedBackgroundColor.isNotEmpty && _selectedImages.isEmpty && _selectedVideo == null;
+              final gradientColors = hasGradient
+                  ? MomentGradients.getColors(_selectedBackgroundColor).map((c) => Color(c)).toList()
+                  : null;
+
+              return Container(
+                decoration: BoxDecoration(
+                  color: hasGradient ? null : context.cardBackground,
+                  gradient: hasGradient
+                      ? LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: gradientColors!,
+                        )
+                      : null,
+                  borderRadius: AppRadius.borderMD,
+                ),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: descriptionController,
+                      maxLines: 8,
+                      maxLength: maxDescriptionLength,
+                      style: TextStyle(
+                        color: hasGradient ? Colors.white : null,
+                        fontWeight: hasGradient ? FontWeight.w600 : null,
+                        fontSize: hasGradient ? 18 : null,
+                        height: hasGradient ? 1.5 : null,
+                        shadows: hasGradient
+                            ? [const Shadow(blurRadius: 4, color: Colors.black26)]
+                            : null,
                       ),
-                      contentPadding: Spacing.paddingLG,
-                      counterText: '',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16, bottom: 8),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '${descriptionController.text.length}/$maxDescriptionLength',
-                        style: context.caption.copyWith(color: context.textMuted),
+                      textAlign: hasGradient ? TextAlign.center : TextAlign.start,
+                      decoration: InputDecoration(
+                        hintText: hasGradient
+                            ? AppLocalizations.of(context)!.whatsOnYourMind
+                            : AppLocalizations.of(context)!.whatsOnYourMind,
+                        hintStyle: TextStyle(
+                          color: hasGradient ? Colors.white54 : context.textHint,
+                        ),
+                        filled: hasGradient,
+                        fillColor: hasGradient ? Colors.black.withValues(alpha: 0.15) : null,
+                        border: OutlineInputBorder(
+                          borderRadius: AppRadius.borderMD,
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: AppRadius.borderMD,
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: AppRadius.borderMD,
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: Spacing.paddingLG,
+                        counterText: '',
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16, bottom: 8),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '${descriptionController.text.length}/$maxDescriptionLength',
+                          style: context.caption.copyWith(
+                            color: descriptionController.text.length > maxDescriptionLength
+                                ? AppColors.error
+                                : descriptionController.text.length > maxDescriptionLength * 0.9
+                                    ? Colors.orange
+                                    : hasGradient ? Colors.white70 : context.textMuted,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }(),
+            // Background color picker (text-only posts)
+            if (_selectedImages.isEmpty && _selectedVideo == null) ...[
+              Spacing.gapMD,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.chooseBackground,
+                      style: context.labelMedium.copyWith(color: context.textSecondary),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      height: 44,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          // "None" option
+                          GestureDetector(
+                            onTap: () => setState(() => _selectedBackgroundColor = ''),
+                            child: Container(
+                              width: 36,
+                              height: 36,
+                              margin: const EdgeInsets.only(right: 8),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                border: Border.all(
+                                  color: _selectedBackgroundColor.isEmpty
+                                      ? AppColors.primary
+                                      : Colors.transparent,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Icon(Icons.block, size: 18, color: context.textMuted),
+                            ),
+                          ),
+                          ...MomentGradients.presets.entries.map((entry) {
+                            final colors = entry.value;
+                            final isSelected = _selectedBackgroundColor == entry.key;
+                            return GestureDetector(
+                              onTap: () => setState(() => _selectedBackgroundColor = entry.key),
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                margin: const EdgeInsets.only(right: 8),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                    colors: colors.map((c) => Color(c)).toList(),
+                                  ),
+                                  border: Border.all(
+                                    color: isSelected ? AppColors.primary : Colors.transparent,
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
             Spacing.gapXL,
 
             // Add to your moment section
@@ -2077,70 +2189,90 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   Widget _buildTagDialog() {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      title: Text(AppLocalizations.of(context)!.addTags),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: tagsController,
-            decoration: InputDecoration(
-              hintText: AppLocalizations.of(context)!.enterTag,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+    return StatefulBuilder(
+      builder: (dialogContext, setDialogState) {
+        final theme = Theme.of(context);
+        return AlertDialog(
+          backgroundColor: theme.colorScheme.surface,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: Text(
+            AppLocalizations.of(context)!.addTags,
+            style: TextStyle(color: theme.colorScheme.onSurface),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: tagsController,
+                style: TextStyle(color: theme.colorScheme.onSurface),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.enterTag,
+                  hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: theme.colorScheme.outline),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(color: AppColors.primary, width: 2),
+                  ),
+                ),
+                onSubmitted: (_) {
+                  _addTag();
+                  setDialogState(() {});
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 12),
+              if (_tags.isNotEmpty)
+                Wrap(
+                  spacing: 8,
+                  children: _tags.map((tag) {
+                    return Chip(
+                      label: Text(
+                        '#$tag',
+                        style: TextStyle(color: AppColors.primary),
+                      ),
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                      deleteIcon: Icon(Icons.close, size: 16, color: theme.colorScheme.onSurface),
+                      side: BorderSide(color: AppColors.primary.withValues(alpha: 0.3)),
+                      onDeleted: () {
+                        setState(() {
+                          _tags.remove(tag);
+                        });
+                        setDialogState(() {});
+                      },
+                    );
+                  }).toList(),
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(
+                AppLocalizations.of(context)!.done,
+                style: TextStyle(color: theme.colorScheme.onSurface),
               ),
             ),
-            onSubmitted: (_) => _addTag(),
-          ),
-          const SizedBox(height: 12),
-          if (_tags.isNotEmpty)
-            Wrap(
-              spacing: 8,
-              children: _tags.map((tag) {
-                return Chip(
-                  label: Text('#$tag'),
-                  deleteIcon: const Icon(Icons.close, size: 16),
-                  onDeleted: () {
-                    if (!mounted) return;
-                    setState(() {
-                      _tags.remove(tag);
-                    });
-                    if (!mounted) return;
-                    Navigator.pop(context);
-                    if (!mounted) return;
-                    showDialog(
-                      context: context,
-                      builder: (context) => _buildTagDialog(),
-                    );
-                  },
-                );
-              }).toList(),
+            ElevatedButton(
+              onPressed: () {
+                _addTag();
+                setDialogState(() {});
+                setState(() {});
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+              ),
+              child: Text(AppLocalizations.of(context)!.add),
             ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(AppLocalizations.of(context)!.done),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (!mounted) return;
-            _addTag();
-            Navigator.pop(context);
-            if (!mounted) return;
-            showDialog(
-              context: context,
-              builder: (context) => _buildTagDialog(),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF00BFA5),
-          ),
-          child: Text(AppLocalizations.of(context)!.add),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
