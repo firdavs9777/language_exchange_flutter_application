@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
+import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
@@ -121,11 +123,29 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
   }
 
   @override
+  Timer? _pollTimer;
+
+  @override
   void initState() {
     super.initState();
     likeCount = widget.moment.likeCount;
     commentCount = widget.moment.commentCount;
     _initLikeAndSaveStatus();
+
+    // Silent polling for new comments every 15 seconds
+    _pollTimer = Timer.periodic(const Duration(seconds: 15), (_) {
+      if (mounted) {
+        ref.invalidate(commentsProvider(widget.moment.id));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pollTimer?.cancel();
+    commentFocusNode.dispose();
+    commentController.dispose();
+    super.dispose();
   }
 
   Future<void> _initLikeAndSaveStatus() async {
@@ -562,14 +582,14 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ),
                     ),
                   ),
-                  if (widget.moment.mediaType == 'text' &&
+                  if ((widget.moment.mediaType == 'text' || widget.moment.backgroundColor.isNotEmpty) &&
                       widget.moment.imageUrls.isEmpty &&
-                      widget.moment.video == null)
+                      !widget.moment.hasVideo)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                       child: Container(
                         width: double.infinity,
-                        constraints: const BoxConstraints(minHeight: 200),
+                        constraints: const BoxConstraints(minHeight: 250),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
@@ -580,6 +600,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                   : MomentGradients.defaultGradient,
                             ).map((c) => Color(c)).toList(),
                           ),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         padding: const EdgeInsets.all(24),
                         child: Center(
@@ -587,16 +608,17 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             widget.moment.description,
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 22,
                               fontWeight: FontWeight.w600,
-                              height: 1.4,
+                              height: 1.5,
+                              shadows: [Shadow(blurRadius: 4, color: Colors.black26)],
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
                     )
-                  else
+                  else if (widget.moment.backgroundColor.isEmpty)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                       child: Text(
@@ -609,6 +631,49 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: _buildImageGrid(),
                     ),
+
+                  // Mood, Tags, Location, Category info
+                  if (widget.moment.mood.isNotEmpty ||
+                      widget.moment.tags.isNotEmpty ||
+                      widget.moment.category != 'general')
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                      child: Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: [
+                          // Mood
+                          if (widget.moment.mood.isNotEmpty)
+                            _buildInfoChip(
+                              icon: Icons.mood,
+                              label: widget.moment.mood[0].toUpperCase() + widget.moment.mood.substring(1),
+                            ),
+                          // Category
+                          if (widget.moment.category.isNotEmpty && widget.moment.category != 'general')
+                            _buildInfoChip(
+                              icon: Icons.category_outlined,
+                              label: widget.moment.category.replaceAll('-', ' ').split(' ').map((w) => w.isNotEmpty ? w[0].toUpperCase() + w.substring(1) : '').join(' '),
+                            ),
+                          // Tags
+                          ...widget.moment.tags.map((tag) => Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              '#$tag',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          )),
+                        ],
+                      ),
+                    ),
+
                   Padding(
                     padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
                     child: Row(
@@ -618,14 +683,14 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                               ? Icons.favorite
                               : Icons.favorite_border,
                           count: likeCount,
-                          color: isLiked ? Colors.red[400]! : Colors.grey[600]!,
+                          color: isLiked ? AppColors.error : context.iconColor,
                           onTap: incrementLike,
                         ),
                         const SizedBox(width: 4),
                         _buildActionButton(
                           icon: Icons.chat_bubble_outline,
                           count: commentCount,
-                          color: Colors.grey[600]!,
+                          color: context.iconColor,
                           onTap: focusCommentField,
                         ),
                         const SizedBox(width: 4),
@@ -739,6 +804,27 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                 _replyToUserName = null;
               });
             },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip({required IconData icon, required String label}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: context.textSecondary),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(fontSize: 12, color: context.textSecondary),
           ),
         ],
       ),
