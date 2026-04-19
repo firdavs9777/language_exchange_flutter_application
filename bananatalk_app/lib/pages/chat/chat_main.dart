@@ -117,10 +117,14 @@ String getMessagePreview(Message message) {
       return '🎬 GIF';
   }
 
-  // Check for GIF URLs in message text
+  // Check for GIF/media URLs in message text
   final text = message.message ?? '';
-  if (text.startsWith('http') && (text.contains('giphy.com') || text.contains('.gif'))) {
+  if (text.startsWith('http') && (text.contains('giphy.com') || text.contains('.gif') || text.contains('tenor.com') || text.contains('gph.is') || text.contains('media.giphy'))) {
     return '🎬 GIF';
+  }
+  // Also catch any URL-only messages (no readable text)
+  if (text.startsWith('http') && !text.contains(' ')) {
+    return '📎 Media';
   }
 
   // Check for text message
@@ -609,7 +613,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
       final hasStoryRef = messageData['storyReference'] != null &&
           messageData['storyReference']['storyId'] != null;
       final isGifUrl = rawMessageText.startsWith('http') &&
-          (rawMessageText.contains('giphy.com') || rawMessageText.contains('.gif'));
+          (rawMessageText.contains('giphy.com') || rawMessageText.contains('.gif') || rawMessageText.contains('tenor.com') || rawMessageText.contains('gph.is') || rawMessageText.contains('media.giphy'));
+      final isUrlOnly = rawMessageText.startsWith('http') && !rawMessageText.contains(' ');
 
       // Get message preview based on type/media
       final messageType = messageData['type']?.toString() ?? '';
@@ -618,7 +623,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
         messageText = '📖 Replied to story';
       } else if (messageType == 'gif' || isGifUrl) {
         messageText = '🎬 GIF';
-      } else if (rawMessageText.isNotEmpty && !isGifUrl) {
+      } else if (isUrlOnly) {
+        messageText = '📎 Media';
+      } else if (rawMessageText.isNotEmpty) {
         messageText = rawMessageText;
       } else {
         messageText = rawMessageText;
@@ -734,7 +741,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
       final hasStoryRef = messageData['storyReference'] != null &&
           messageData['storyReference']['storyId'] != null;
       final isGifUrl = rawMessageText.startsWith('http') &&
-          (rawMessageText.contains('giphy.com') || rawMessageText.contains('.gif'));
+          (rawMessageText.contains('giphy.com') || rawMessageText.contains('.gif') || rawMessageText.contains('tenor.com') || rawMessageText.contains('gph.is') || rawMessageText.contains('media.giphy'));
+      final isUrlOnly = rawMessageText.startsWith('http') && !rawMessageText.contains(' ');
 
       // Get message preview based on type/media
       final messageType = messageData['type']?.toString() ?? '';
@@ -743,7 +751,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
         messageText = '📖 Replied to story';
       } else if (messageType == 'gif' || isGifUrl) {
         messageText = '🎬 GIF';
-      } else if (rawMessageText.isNotEmpty && !isGifUrl) {
+      } else if (isUrlOnly) {
+        messageText = '📎 Media';
+      } else if (rawMessageText.isNotEmpty) {
         messageText = rawMessageText;
       } else {
         messageText = rawMessageText;

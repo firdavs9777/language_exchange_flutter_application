@@ -928,7 +928,17 @@ class LastMessageData {
 
   /// Get display text for the message preview
   String get displayText {
-    if (message != null && message!.isNotEmpty) return message!;
+    if (message != null && message!.isNotEmpty) {
+      final text = message!;
+      // Detect GIF/media URLs — show friendly label instead of raw URL
+      if (text.startsWith('http') && !text.contains(' ')) {
+        if (text.contains('giphy.com') || text.contains('.gif') || text.contains('tenor.com') || text.contains('gph.is') || text.contains('media.giphy')) {
+          return '🎬 GIF';
+        }
+        return '📎 Media';
+      }
+      return text;
+    }
     if (mediaType != null) {
       switch (mediaType!.toLowerCase()) {
         case 'voice': return '🎤 Voice message';
