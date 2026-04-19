@@ -2195,7 +2195,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get vip => 'VIP';
 
   @override
-  String get newUsersOnly => 'Mga bagong user lamang';
+  String get newUsersOnly => 'Bagong Gumagamit Lamang';
 
   @override
   String get showNewUsers => 'Ipakita ang mga bagong user';
@@ -2274,7 +2274,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'Maghanap ng bansa';
+  String get searchCountry => 'Maghanap ng bansa...';
 
   @override
   String get wave => 'Kumaway';
@@ -2395,6 +2395,15 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'Opsyonal - hanggang 6 na larawan';
+
+  @override
+  String get requiredUpTo6Photos => 'Kinakailangan — hanggang 6 na larawan';
+
+  @override
+  String get profilePhotoRequired => 'Mangyaring magdagdag ng kahit isang profile photo';
+
+  @override
+  String get locationOptional => 'Opsyonal ang lokasyon — maaari mong idagdag ito sa ibang pagkakataon';
 
   @override
   String get maximum6Photos => 'Maximum na 6 na larawan';
@@ -3255,7 +3264,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get nameAndGender => 'Pangalan at Kasarian';
 
   @override
-  String get languageLevel => 'Level ng Wika';
+  String get languageLevel => 'Antas ng Wika';
 
   @override
   String get personalInformation => 'Personal na Impormasyon';
@@ -3310,7 +3319,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get useCurrentLocation => 'Gamitin ang Kasalukuyang Lokasyon';
 
   @override
-  String get detecting => 'Nagde-detect...';
+  String get detecting => 'Tinutukoy...';
 
   @override
   String get getCurrentLocation => 'Kunin ang Kasalukuyang Lokasyon';
@@ -3823,4 +3832,74 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get voice => 'Boses';
+
+  @override
+  String get searchGifs => 'Maghanap ng GIF...';
+
+  @override
+  String get trendingGifs => 'Trending';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'Walang nahanap na GIF';
+
+  @override
+  String get failedToLoadGifs => 'Hindi na-load ang mga GIF';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'I-filter';
+
+  @override
+  String get reset => 'I-reset';
+
+  @override
+  String get findYourPerfect => 'Hanapin ang iyong perpektong';
+
+  @override
+  String get languagePartner => 'Kasosyo sa Wika';
+
+  @override
+  String get learningLanguageLabel => 'Wikang Pinag-aaralan';
+
+  @override
+  String get ageRange => 'Saklaw ng Edad';
+
+  @override
+  String get genderPreference => 'Kagustuhan sa Kasarian';
+
+  @override
+  String get any => 'Kahit anong';
+
+  @override
+  String get showNewUsersSubtitle => 'Ipakita ang mga gumagamit na sumali sa nakaraang 6 na araw';
+
+  @override
+  String get autoDetectLocation => 'Awtomatikong matukoy ang aking lokasyon';
+
+  @override
+  String get selectCountry => 'Pumili ng Bansa';
+
+  @override
+  String get anyCountry => 'Kahit anong Bansa';
+
+  @override
+  String get loadingLanguages => 'Nilo-load ang mga wika...';
+
+  @override
+  String minAge(int age) {
+    return 'Min: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Max: $age';
+  }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
-import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
@@ -13,6 +13,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Genders Tab — browse users filtered by gender with a polished UI
 class GendersTab extends ConsumerStatefulWidget {
@@ -159,7 +160,15 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildGenderSelector(),
+        _buildGenderSelector()
+            .animate()
+            .fadeIn(duration: 300.ms)
+            .slideY(
+              begin: -0.05,
+              end: 0,
+              duration: 300.ms,
+              curve: Curves.easeOutCubic,
+            ),
         // Preview avatars row
         if (_users.isNotEmpty) _buildPreviewRow(),
         Expanded(
@@ -168,8 +177,8 @@ class _GendersTabState extends ConsumerState<GendersTab> {
             child: _isLoading && _users.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : _users.isEmpty
-                    ? _buildEmptyState()
-                    : _buildUserGrid(),
+                ? _buildEmptyState()
+                : _buildUserGrid(),
           ),
         ),
       ],
@@ -303,10 +312,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     height: 36,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: context.surfaceColor,
-                        width: 2,
-                      ),
+                      border: Border.all(color: context.surfaceColor, width: 2),
                     ),
                     child: ClipOval(
                       child: user.profileImageUrl != null
@@ -322,7 +328,9 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                                   : const Color(0xFFEC407A),
                               child: Center(
                                 child: Text(
-                                  user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
+                                  user.name.isNotEmpty
+                                      ? user.name[0].toUpperCase()
+                                      : '?',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
@@ -340,7 +348,9 @@ class _GendersTabState extends ConsumerState<GendersTab> {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              _selectedGender == 'male' ? AppLocalizations.of(context)!.browseMen : AppLocalizations.of(context)!.browseWomen,
+              _selectedGender == 'male'
+                  ? AppLocalizations.of(context)!.browseMen
+                  : AppLocalizations.of(context)!.browseWomen,
               style: context.bodySmall.copyWith(
                 color: context.textSecondary,
                 fontWeight: FontWeight.w500,
@@ -368,13 +378,25 @@ class _GendersTabState extends ConsumerState<GendersTab> {
           return const Center(child: CircularProgressIndicator());
         }
         return _GenderUserCard(
-          user: _users[index],
-          genderColor: _selectedGender == 'male'
-              ? const Color(0xFF42A5F5)
-              : const Color(0xFFEC407A),
-          onTap: () => _viewProfile(_users[index]),
-          onWave: () => _onWave(_users[index]),
-        );
+              user: _users[index],
+              genderColor: _selectedGender == 'male'
+                  ? const Color(0xFF42A5F5)
+                  : const Color(0xFFEC407A),
+              onTap: () => _viewProfile(_users[index]),
+              onWave: () => _onWave(_users[index]),
+            )
+            .animate()
+            .fadeIn(
+              duration: 350.ms,
+              delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+            )
+            .scale(
+              begin: const Offset(0.92, 0.92),
+              end: const Offset(1.0, 1.0),
+              duration: 350.ms,
+              delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+              curve: Curves.easeOutBack,
+            );
       },
     );
   }
@@ -385,47 +407,59 @@ class _GendersTabState extends ConsumerState<GendersTab> {
         : const Color(0xFFEC407A);
 
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              _selectedGender == 'male' ? Icons.male_rounded : Icons.female_rounded,
-              size: 40,
-              color: color,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  _selectedGender == 'male'
+                      ? Icons.male_rounded
+                      : Icons.female_rounded,
+                  size: 40,
+                  color: color,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                _selectedGender == 'male'
+                    ? AppLocalizations.of(context)!.noMaleUsersFound
+                    : AppLocalizations.of(context)!.noFemaleUsersFound,
+                style: context.titleMedium,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                AppLocalizations.of(context)!.tryAdjustingFilters,
+                style: context.bodySmall.copyWith(color: context.textSecondary),
+              ),
+              const SizedBox(height: 20),
+              TextButton.icon(
+                onPressed: _refresh,
+                icon: const Icon(Icons.refresh_rounded),
+                label: const Text('Refresh'),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          Text(
-            _selectedGender == 'male' ? AppLocalizations.of(context)!.noMaleUsersFound : AppLocalizations.of(context)!.noFemaleUsersFound,
-            style: context.titleMedium,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            AppLocalizations.of(context)!.tryAdjustingFilters,
-            style: context.bodySmall.copyWith(color: context.textSecondary),
-          ),
-          const SizedBox(height: 20),
-          TextButton.icon(
-            onPressed: _refresh,
-            icon: const Icon(Icons.refresh_rounded),
-            label: const Text('Refresh'),
-          ),
-        ],
-      ),
-    );
+        )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .scale(
+          begin: const Offset(0.95, 0.95),
+          end: const Offset(1.0, 1.0),
+          duration: 400.ms,
+          curve: Curves.easeOutCubic,
+        );
   }
 
   void _viewProfile(Community user) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => SingleCommunity(community: user)),
+      AppPageRoute(builder: (_) => SingleCommunity(community: user)),
     );
   }
 
@@ -435,7 +469,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
     // Navigate to chat immediately
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: user.id,
           userName: user.name,
@@ -464,7 +498,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   void _onMessage(Community user) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: user.id,
           userName: user.name,
@@ -546,7 +580,10 @@ class _GenderUserCard extends StatelessWidget {
                 top: 10,
                 right: 10,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.success,
                     borderRadius: BorderRadius.circular(10),
@@ -567,7 +604,10 @@ class _GenderUserCard extends StatelessWidget {
                 top: 10,
                 left: 10,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
@@ -577,9 +617,20 @@ class _GenderUserCard extends StatelessWidget {
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.workspace_premium, size: 10, color: Colors.white),
+                      Icon(
+                        Icons.workspace_premium,
+                        size: 10,
+                        color: Colors.white,
+                      ),
                       SizedBox(width: 2),
-                      Text('VIP', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+                      Text(
+                        'VIP',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -609,7 +660,9 @@ class _GenderUserCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        if (PrivacyUtils.shouldShowAge(user) && user.age != null && user.age! > 0)
+                        if (PrivacyUtils.shouldShowAge(user) &&
+                            user.age != null &&
+                            user.age! > 0)
                           Text(
                             ', ${user.age}',
                             style: TextStyle(
@@ -622,7 +675,8 @@ class _GenderUserCard extends StatelessWidget {
                     Builder(
                       builder: (context) {
                         final locationText = PrivacyUtils.getLocationText(user);
-                        if (locationText.isEmpty) return const SizedBox.shrink();
+                        if (locationText.isEmpty)
+                          return const SizedBox.shrink();
                         return Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: Row(
@@ -690,10 +744,7 @@ class _GenderUserCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            genderColor.withValues(alpha: 0.8),
-            genderColor,
-          ],
+          colors: [genderColor.withValues(alpha: 0.8), genderColor],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

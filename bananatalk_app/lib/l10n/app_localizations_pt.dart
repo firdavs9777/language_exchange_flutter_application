@@ -2274,7 +2274,7 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'Buscar país';
+  String get searchCountry => 'Pesquisar país...';
 
   @override
   String get wave => 'Acenar';
@@ -2395,6 +2395,15 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'Opcional - até 6 fotos';
+
+  @override
+  String get requiredUpTo6Photos => 'Obrigatório — até 6 fotos';
+
+  @override
+  String get profilePhotoRequired => 'Adicione pelo menos uma foto de perfil';
+
+  @override
+  String get locationOptional => 'A localização é opcional — você pode adicioná-la depois';
 
   @override
   String get maximum6Photos => 'Máximo de 6 fotos';
@@ -3255,7 +3264,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get nameAndGender => 'Nome e Gênero';
 
   @override
-  String get languageLevel => 'Nível do Idioma';
+  String get languageLevel => 'Nível de idioma';
 
   @override
   String get personalInformation => 'Informações Pessoais';
@@ -3823,4 +3832,74 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get voice => 'Voz';
+
+  @override
+  String get searchGifs => 'Pesquisar GIFs...';
+
+  @override
+  String get trendingGifs => 'Em alta';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'Nenhum GIF encontrado';
+
+  @override
+  String get failedToLoadGifs => 'Falha ao carregar GIFs';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'Filtrar';
+
+  @override
+  String get reset => 'Redefinir';
+
+  @override
+  String get findYourPerfect => 'Encontre seu perfeito';
+
+  @override
+  String get languagePartner => 'Parceiro de idioma';
+
+  @override
+  String get learningLanguageLabel => 'Língua de aprendizado';
+
+  @override
+  String get ageRange => 'Faixa etária';
+
+  @override
+  String get genderPreference => 'Preferência de gênero';
+
+  @override
+  String get any => 'Qualquer';
+
+  @override
+  String get showNewUsersSubtitle => 'Mostrar usuários que entraram nos últimos 6 dias';
+
+  @override
+  String get autoDetectLocation => 'Detectar minha localização automaticamente';
+
+  @override
+  String get selectCountry => 'Selecionar país';
+
+  @override
+  String get anyCountry => 'Qualquer país';
+
+  @override
+  String get loadingLanguages => 'Carregando idiomas...';
+
+  @override
+  String minAge(int age) {
+    return 'Mín: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Máx: $age';
+  }
 }

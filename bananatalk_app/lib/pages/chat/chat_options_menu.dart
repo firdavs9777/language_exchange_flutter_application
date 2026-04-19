@@ -15,6 +15,7 @@ import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatOptionsMenu extends ConsumerStatefulWidget {
   final String userName;
@@ -246,7 +247,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => ChatSearchScreen(
                 conversationId: widget.conversationId,
                 senderId: currentUserId,
@@ -289,7 +290,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (widget.conversationId != null && context.mounted) {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => WallpaperPickerScreen(
                 conversationId: widget.conversationId!,
                 userName: widget.userName,
@@ -303,7 +304,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           if (context.mounted) {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              AppPageRoute(
                 builder: (context) => WallpaperPickerScreen(
                   conversationId: tempConversationId,
                   userName: widget.userName,
@@ -495,7 +496,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => ChatMediaScreen(
                 conversationId: widget.conversationId,
                 senderId: currentUserId,

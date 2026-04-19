@@ -757,6 +757,9 @@
   "addPhotoLocationForMatches": "Добавьте фото и местоположение для лучших совпадений",
   "addProfilePhoto": "Добавить фото профиля",
   "optionalUpTo6Photos": "Необязательно — до 6 фото",
+  "requiredUpTo6Photos": "Обязательно — до 6 фото",
+  "profilePhotoRequired": "Добавьте хотя бы одно фото профиля",
+  "locationOptional": "Местоположение необязательно — можно добавить позже",
   "maximum6Photos": "Максимум 6 фото",
   "tapToDetectLocation": "Нажмите для определения местоположения",
   "optionalHelpsNearbyPartners": "Необязательно — помогает найти партнёров поблизости",
@@ -1297,5 +1300,50 @@
   },
   "failedToLoadUsers": "Не удалось загрузить пользователей",
   "voice": "Голос",
-  "you": "Вы"
+  "you": "Вы",
+  "searchGifs": "Поиск GIF...",
+  "trendingGifs": "В тренде",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "GIF не найдены",
+  "failedToLoadGifs": "Не удалось загрузить GIF",
+  "gifSent": "GIF",
+  "filterCommunities": "Фильтр",
+  "reset": "Сбросить",
+  "findYourPerfect": "Найдите своего идеального",
+  "languagePartner": "языкового партнёра",
+  "learningLanguageLabel": "Изучаемый язык",
+  "languageLevel": "Уровень языка",
+  "country": "Страна",
+  "ageRange": "Возрастной диапазон",
+  "genderPreference": "Предпочтение по полу",
+  "any": "Любой",
+  "male": "Мужской",
+  "female": "Женский",
+  "other": "Другой",
+  "newUsersOnly": "Только новые пользователи",
+  "showNewUsersSubtitle": "Показывать пользователей, присоединившихся за последние 6 дней",
+  "applyFilters": "Применить фильтры",
+  "autoDetectLocation": "Автоматически определить моё местоположение",
+  "detecting": "Определяется...",
+  "selectCountry": "Выбрать страну",
+  "anyCountry": "Любая страна",
+  "searchCountry": "Поиск страны...",
+  "loadingLanguages": "Загрузка языков...",
+  "minAge": "Мин: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Макс: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

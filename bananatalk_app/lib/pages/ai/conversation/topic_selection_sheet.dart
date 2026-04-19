@@ -9,6 +9,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Bottom sheet for selecting conversation topic
 class TopicSelectionSheet extends ConsumerStatefulWidget {
@@ -99,7 +100,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: isTarget ? _targetLanguage : _nativeLanguage,

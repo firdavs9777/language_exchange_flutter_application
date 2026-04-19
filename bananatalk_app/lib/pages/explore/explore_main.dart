@@ -7,6 +7,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Instagram-style Explore/Search screen with video feed
 class ExploreMain extends ConsumerStatefulWidget {
@@ -229,7 +230,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
         if (moment.hasVideo) {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => VideoPlayerScreen(moment: moment),
             ),
           );
@@ -327,7 +328,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
         if (hasVideo) {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => VideoPlayerScreen(moment: moment),
             ),
           );

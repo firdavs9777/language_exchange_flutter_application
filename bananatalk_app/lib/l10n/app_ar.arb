@@ -753,6 +753,9 @@
   "addPhotoLocationForMatches": "أضف صورة وموقعاً للحصول على مزيد من التطابقات",
   "addProfilePhoto": "إضافة صورة شخصية",
   "optionalUpTo6Photos": "اختياري — حتى 6 صور",
+  "requiredUpTo6Photos": "مطلوب — حتى 6 صور",
+  "profilePhotoRequired": "يرجى إضافة صورة شخصية واحدة على الأقل",
+  "locationOptional": "الموقع اختياري — يمكنك إضافته لاحقاً",
   "maximum6Photos": "الحد الأقصى 6 صور",
   "tapToDetectLocation": "انقر لاكتشاف الموقع",
   "optionalHelpsNearbyPartners": "اختياري — يساعد في العثور على شركاء قريبين",
@@ -1293,5 +1296,50 @@
   },
   "failedToLoadUsers": "فشل تحميل المستخدمين",
   "voice": "صوت",
-  "you": "أنت"
+  "you": "أنت",
+  "searchGifs": "ابحث عن صور GIF...",
+  "trendingGifs": "رائج",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "لم يتم العثور على صور GIF",
+  "failedToLoadGifs": "فشل تحميل صور GIF",
+  "gifSent": "GIF",
+  "filterCommunities": "تصفية",
+  "reset": "إعادة تعيين",
+  "findYourPerfect": "ابحث عن",
+  "languagePartner": "شريك اللغة المثالي",
+  "learningLanguageLabel": "اللغة المتعلَّمة",
+  "languageLevel": "مستوى اللغة",
+  "country": "البلد",
+  "ageRange": "الفئة العمرية",
+  "genderPreference": "تفضيل الجنس",
+  "any": "أي",
+  "male": "ذكر",
+  "female": "أنثى",
+  "other": "آخر",
+  "newUsersOnly": "المستخدمون الجدد فقط",
+  "showNewUsersSubtitle": "إظهار المستخدمين الذين انضموا في آخر 6 أيام",
+  "applyFilters": "تطبيق الفلاتر",
+  "autoDetectLocation": "تحديد موقعي تلقائياً",
+  "detecting": "جارٍ التحديد...",
+  "selectCountry": "اختر البلد",
+  "anyCountry": "أي بلد",
+  "searchCountry": "ابحث عن بلد...",
+  "loadingLanguages": "جارٍ تحميل اللغات...",
+  "minAge": "الحد الأدنى: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "الحد الأقصى: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

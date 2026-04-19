@@ -743,6 +743,9 @@
   "addPhotoLocationForMatches": "बेहतर मैच के लिए फ़ोटो और स्थान जोड़ें",
   "addProfilePhoto": "प्रोफ़ाइल फ़ोटो जोड़ें",
   "optionalUpTo6Photos": "वैकल्पिक - 6 फ़ोटो तक",
+  "requiredUpTo6Photos": "आवश्यक — अधिकतम 6 फ़ोटो",
+  "profilePhotoRequired": "कृपया कम से कम एक प्रोफ़ाइल फ़ोटो जोड़ें",
+  "locationOptional": "स्थान वैकल्पिक है — आप बाद में जोड़ सकते हैं",
   "maximum6Photos": "अधिकतम 6 फ़ोटो",
   "tapToDetectLocation": "स्थान पता करने के लिए टैप करें",
   "optionalHelpsNearbyPartners": "वैकल्पिक - पास के साझेदार खोजने में मदद करता है",
@@ -1277,5 +1280,50 @@
   },
   "failedToLoadUsers": "उपयोगकर्ता लोड करने में विफल",
   "voice": "आवाज़",
-  "you": "आप"
+  "you": "आप",
+  "searchGifs": "GIFs खोजें...",
+  "trendingGifs": "ट्रेंडिंग",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "कोई GIF नहीं मिला",
+  "failedToLoadGifs": "GIFs लोड करने में विफल",
+  "gifSent": "GIF",
+  "filterCommunities": "फ़िल्टर",
+  "reset": "रीसेट",
+  "findYourPerfect": "अपना आदर्श",
+  "languagePartner": "भाषा साथी खोजें",
+  "learningLanguageLabel": "सीखने की भाषा",
+  "languageLevel": "भाषा स्तर",
+  "country": "देश",
+  "ageRange": "आयु सीमा",
+  "genderPreference": "लिंग प्राथमिकता",
+  "any": "कोई भी",
+  "male": "पुरुष",
+  "female": "महिला",
+  "other": "अन्य",
+  "newUsersOnly": "केवल नए उपयोगकर्ता",
+  "showNewUsersSubtitle": "पिछले 6 दिनों में शामिल हुए उपयोगकर्ता दिखाएं",
+  "applyFilters": "फ़िल्टर लागू करें",
+  "autoDetectLocation": "मेरा स्थान स्वचालित रूप से पहचानें",
+  "detecting": "पहचाना जा रहा है...",
+  "selectCountry": "देश चुनें",
+  "anyCountry": "कोई भी देश",
+  "searchCountry": "देश खोजें...",
+  "loadingLanguages": "भाषाएं लोड हो रही हैं...",
+  "minAge": "न्यूनतम: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "अधिकतम: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

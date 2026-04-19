@@ -69,10 +69,21 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            // Page content
-            IndexedStack(
-              index: _selectedPageIndex,
-              children: _pages,
+            // Page content — Stack with AnimatedOpacity preserves state for all
+            // pages while crossfading smoothly on tab switch.
+            Stack(
+              children: List.generate(_pages.length, (index) {
+                final isSelected = index == _selectedPageIndex;
+                return AnimatedOpacity(
+                  opacity: isSelected ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeOut,
+                  child: IgnorePointer(
+                    ignoring: !isSelected,
+                    child: _pages[index],
+                  ),
+                );
+              }),
             ),
             // Floating tab bar overlay
             Positioned(

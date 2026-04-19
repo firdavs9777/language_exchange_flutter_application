@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Lessons browse screen
 class LessonsScreen extends ConsumerStatefulWidget {
@@ -248,7 +249,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
   void _openLesson(String lessonId) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => LessonPlayerScreen(lessonId: lessonId),
       ),
     ).then((_) {
@@ -381,7 +382,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
   void _openLessonBuilder() {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => const LessonBuilderScreen(),
       ),
     ).then((_) {

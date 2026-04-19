@@ -578,6 +578,9 @@
   "addPhotoLocationForMatches": "Thêm ảnh và vị trí để ghép đôi tốt hơn",
   "addProfilePhoto": "Thêm ảnh hồ sơ",
   "optionalUpTo6Photos": "Tùy chọn - tối đa 6 ảnh",
+  "requiredUpTo6Photos": "Bắt buộc — tối đa 6 ảnh",
+  "profilePhotoRequired": "Vui lòng thêm ít nhất một ảnh đại diện",
+  "locationOptional": "Vị trí là tùy chọn — bạn có thể thêm sau",
   "maximum6Photos": "Tối đa 6 ảnh",
   "tapToDetectLocation": "Nhấn để phát hiện vị trí",
   "optionalHelpsNearbyPartners": "Tùy chọn - giúp tìm đối tác gần bạn",
@@ -1108,5 +1111,50 @@
   },
   "failedToLoadUsers": "Không thể tải người dùng",
   "voice": "Giọng nói",
-  "you": "Bạn"
+  "you": "Bạn",
+  "searchGifs": "Tìm kiếm GIF...",
+  "trendingGifs": "Thịnh hành",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "Không tìm thấy GIF",
+  "failedToLoadGifs": "Không thể tải GIF",
+  "gifSent": "GIF",
+  "filterCommunities": "Lọc",
+  "reset": "Đặt lại",
+  "findYourPerfect": "Tìm người bạn",
+  "languagePartner": "học ngôn ngữ hoàn hảo",
+  "learningLanguageLabel": "Ngôn ngữ đang học",
+  "languageLevel": "Trình độ ngôn ngữ",
+  "country": "Quốc gia",
+  "ageRange": "Khoảng tuổi",
+  "genderPreference": "Sở thích giới tính",
+  "any": "Bất kỳ",
+  "male": "Nam",
+  "female": "Nữ",
+  "other": "Khác",
+  "newUsersOnly": "Chỉ người dùng mới",
+  "showNewUsersSubtitle": "Hiển thị người dùng đã tham gia trong 6 ngày qua",
+  "applyFilters": "Áp dụng bộ lọc",
+  "autoDetectLocation": "Tự động phát hiện vị trí của tôi",
+  "detecting": "Đang phát hiện...",
+  "selectCountry": "Chọn quốc gia",
+  "anyCountry": "Bất kỳ quốc gia nào",
+  "searchCountry": "Tìm kiếm quốc gia...",
+  "loadingLanguages": "Đang tải ngôn ngữ...",
+  "minAge": "Tối thiểu: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Tối đa: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

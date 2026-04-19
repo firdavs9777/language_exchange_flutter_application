@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Waves Tab - Shows waves received from other users
 class WavesTab extends ConsumerStatefulWidget {
@@ -64,7 +65,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       if (fullProfile != null && mounted) {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (_) => SingleCommunity(community: fullProfile),
           ),
         );

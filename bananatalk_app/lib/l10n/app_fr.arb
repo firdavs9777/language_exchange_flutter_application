@@ -1014,6 +1014,9 @@
   "addPhotoLocationForMatches": "Ajoutez une photo et votre position pour de meilleures correspondances",
   "addProfilePhoto": "Ajouter une photo de profil",
   "optionalUpTo6Photos": "Facultatif — jusqu'à 6 photos",
+  "requiredUpTo6Photos": "Obligatoire — jusqu'à 6 photos",
+  "profilePhotoRequired": "Veuillez ajouter au moins une photo de profil",
+  "locationOptional": "La localisation est facultative — vous pouvez l'ajouter plus tard",
   "maximum6Photos": "6 photos maximum",
   "tapToDetectLocation": "Appuyez pour détecter la position",
   "optionalHelpsNearbyPartners": "Facultatif — aide à trouver des partenaires à proximité",
@@ -1561,5 +1564,50 @@
   },
   "failedToLoadUsers": "Échec du chargement des utilisateurs",
   "voice": "Voix",
-  "you": "Vous"
+  "you": "Vous",
+  "searchGifs": "Rechercher des GIFs...",
+  "trendingGifs": "Tendances",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "Aucun GIF trouvé",
+  "failedToLoadGifs": "Impossible de charger les GIFs",
+  "gifSent": "GIF",
+  "filterCommunities": "Filtrer",
+  "reset": "Réinitialiser",
+  "findYourPerfect": "Trouvez votre parfait",
+  "languagePartner": "Partenaire linguistique",
+  "learningLanguageLabel": "Langue d'apprentissage",
+  "languageLevel": "Niveau de langue",
+  "country": "Pays",
+  "ageRange": "Tranche d'âge",
+  "genderPreference": "Préférence de genre",
+  "any": "N'importe lequel",
+  "male": "Homme",
+  "female": "Femme",
+  "other": "Autre",
+  "newUsersOnly": "Nouveaux utilisateurs uniquement",
+  "showNewUsersSubtitle": "Afficher les utilisateurs qui ont rejoint dans les 6 derniers jours",
+  "applyFilters": "Appliquer les filtres",
+  "autoDetectLocation": "Détecter automatiquement ma position",
+  "detecting": "Détection en cours...",
+  "selectCountry": "Sélectionner un pays",
+  "anyCountry": "N'importe quel pays",
+  "searchCountry": "Rechercher un pays...",
+  "loadingLanguages": "Chargement des langues...",
+  "minAge": "Min : {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Max : {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

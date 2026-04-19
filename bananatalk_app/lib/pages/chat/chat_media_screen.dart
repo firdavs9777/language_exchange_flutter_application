@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -344,7 +345,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
   void _openMedia(MessageMedia media) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => _FullScreenMedia(media: media),
       ),
     );

@@ -11,6 +11,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// AI Quiz Hub Screen
 class AIQuizScreen extends ConsumerStatefulWidget {
@@ -70,7 +71,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
   void _openLanguagePicker() async {
     final selectedLanguage = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: _selectedLanguage,
@@ -144,7 +145,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
     if (success && mounted) {
       Navigator.push(
         context,
-        MaterialPageRoute(
+        AppPageRoute(
           builder: (_) => const QuizPlayerScreen(),
         ),
       );
@@ -685,7 +686,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
       final state = ref.read(aiQuizProvider);
       Navigator.push(
         context,
-        MaterialPageRoute(
+        AppPageRoute(
           builder: (_) => const QuizPlayerScreen(),
         ),
       );

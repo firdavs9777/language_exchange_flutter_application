@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class CommentsMain extends ConsumerStatefulWidget {
   const CommentsMain({Key? key, required this.id, this.onReply}) : super(key: key);
@@ -637,7 +638,7 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
     if (!mounted) return;
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => SingleCommunity(community: community),
       ),
     );
@@ -950,7 +951,7 @@ class _ReplyItemState extends State<_ReplyItem> {
     if (!mounted) return;
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => SingleCommunity(community: community),
       ),
     );

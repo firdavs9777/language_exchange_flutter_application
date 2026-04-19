@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
@@ -36,6 +37,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/community/language_match_card.dart';
 import 'package:bananatalk_app/widgets/community/engagement_stats_bar.dart';
 import 'package:bananatalk_app/widgets/community/conversation_starters_card.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class SingleCommunity extends ConsumerStatefulWidget {
   final Community community;
@@ -508,7 +510,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
           callOverlayNavigatorKey.currentState?.push(
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => ActiveCallScreen(call: currentCall),
               fullscreenDialog: true,
             ),
@@ -566,7 +568,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
           callOverlayNavigatorKey.currentState?.push(
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => ActiveCallScreen(call: currentCall),
               fullscreenDialog: true,
             ),
@@ -822,7 +824,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                   if (imageUrls.isNotEmpty) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      AppPageRoute(
                         builder: (context) => ImageGallery(imageUrls: imageUrls),
                       ),
                     );
@@ -1064,6 +1066,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         // Language Match Card
         LanguageMatchCard(profile: _community),
 
+        const SizedBox(height: 12),
+        const SmallBannerAdWidget(),
+
         // Engagement Stats Bar
         EngagementStatsBar(profile: _community),
 
@@ -1120,6 +1125,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
             ),
           ),
         ),
+
       ],
     );
   }
@@ -2149,7 +2155,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   void _navigateToMoment(Moments moment) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => SingleMoment(moment: moment),
       ),
     );

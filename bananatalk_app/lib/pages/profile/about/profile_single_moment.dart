@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileSingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -205,7 +206,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
   void _editMoment() async {
     final updatedMoment = await Navigator.push<Moments>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => EditMomentScreen(moment: moment),
       ),
     ).then((result) {
@@ -285,7 +286,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                 if (mounted) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    AppPageRoute(
                       builder: (context) =>
                           SingleCommunity(community: community),
                     ),
@@ -584,7 +585,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => ImageGallery(
                 imageUrls: moment.imageUrls,
                 initialIndex: 0,
@@ -649,7 +650,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              AppPageRoute(
                 builder: (context) => ImageGallery(
                   imageUrls: moment.imageUrls,
                   initialIndex: index,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:intl/intl.dart';
 
@@ -298,6 +299,26 @@ class LimitExceededDialog extends StatelessWidget {
             ),
           ),
         ),
+        if (AdService().isRewardedAdReady)
+          OutlinedButton.icon(
+            onPressed: () {
+              AdService().showRewarded(
+                onRewarded: () {
+                  Navigator.pop(context, 'rewarded');
+                },
+              );
+            },
+            icon: const Icon(Icons.play_circle_outline, size: 18),
+            label: const Text('Watch Ad'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: const Color(0xFF667EEA),
+              side: const BorderSide(color: Color(0xFF667EEA)),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);

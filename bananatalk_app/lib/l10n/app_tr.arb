@@ -1014,6 +1014,9 @@
   "addPhotoLocationForMatches": "Daha iyi eşleşmeler için fotoğraf ve konum ekleyin",
   "addProfilePhoto": "Profil fotoğrafı ekle",
   "optionalUpTo6Photos": "İsteğe bağlı - 6 fotoğrafa kadar",
+  "requiredUpTo6Photos": "Zorunlu — en fazla 6 fotoğraf",
+  "profilePhotoRequired": "Lütfen en az bir profil fotoğrafı ekleyin",
+  "locationOptional": "Konum isteğe bağlıdır — daha sonra ekleyebilirsiniz",
   "maximum6Photos": "Maksimum 6 fotoğraf",
   "tapToDetectLocation": "Konumu algılamak için dokunun",
   "optionalHelpsNearbyPartners": "İsteğe bağlı - yakındaki partnerleri bulmaya yardımcı olur",
@@ -1499,5 +1502,50 @@
   },
   "failedToLoadUsers": "Kullanıcılar yüklenemedi",
   "voice": "Ses",
-  "you": "Sen"
+  "you": "Sen",
+  "searchGifs": "GIF ara...",
+  "trendingGifs": "Trend",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "GIF bulunamadı",
+  "failedToLoadGifs": "GIF'ler yüklenemedi",
+  "gifSent": "GIF",
+  "filterCommunities": "Filtrele",
+  "reset": "Sıfırla",
+  "findYourPerfect": "Mükemmel",
+  "languagePartner": "Dil Ortağını Bul",
+  "learningLanguageLabel": "Öğrenilen Dil",
+  "languageLevel": "Dil Seviyesi",
+  "country": "Ülke",
+  "ageRange": "Yaş Aralığı",
+  "genderPreference": "Cinsiyet Tercihi",
+  "any": "Herhangi",
+  "male": "Erkek",
+  "female": "Kadın",
+  "other": "Diğer",
+  "newUsersOnly": "Yalnızca Yeni Kullanıcılar",
+  "showNewUsersSubtitle": "Son 6 günde katılan kullanıcıları göster",
+  "applyFilters": "Filtreleri Uygula",
+  "autoDetectLocation": "Konumumu otomatik algıla",
+  "detecting": "Algılanıyor...",
+  "selectCountry": "Ülke Seç",
+  "anyCountry": "Herhangi Bir Ülke",
+  "searchCountry": "Ülke ara...",
+  "loadingLanguages": "Diller yükleniyor...",
+  "minAge": "Min: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Maks: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -2397,6 +2397,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get optionalUpTo6Photos => '선택 사항 — 최대 6장';
 
   @override
+  String get requiredUpTo6Photos => '필수 — 최대 6장';
+
+  @override
+  String get profilePhotoRequired => '프로필 사진을 최소 1장 추가해 주세요';
+
+  @override
+  String get locationOptional => '위치는 선택사항입니다 — 나중에 추가할 수 있어요';
+
+  @override
   String get maximum6Photos => '최대 6장';
 
   @override
@@ -3823,4 +3832,74 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get voice => '음성';
+
+  @override
+  String get searchGifs => 'GIF 검색...';
+
+  @override
+  String get trendingGifs => '인기';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'GIF를 찾을 수 없습니다';
+
+  @override
+  String get failedToLoadGifs => 'GIF를 불러오지 못했습니다';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => '필터';
+
+  @override
+  String get reset => '초기화';
+
+  @override
+  String get findYourPerfect => '이상적인';
+
+  @override
+  String get languagePartner => '언어 파트너 찾기';
+
+  @override
+  String get learningLanguageLabel => '학습 언어';
+
+  @override
+  String get ageRange => '나이 범위';
+
+  @override
+  String get genderPreference => '성별 선호';
+
+  @override
+  String get any => '모두';
+
+  @override
+  String get showNewUsersSubtitle => '지난 6일 이내에 가입한 사용자 표시';
+
+  @override
+  String get autoDetectLocation => '내 위치 자동 감지';
+
+  @override
+  String get selectCountry => '국가 선택';
+
+  @override
+  String get anyCountry => '모든 국가';
+
+  @override
+  String get loadingLanguages => '언어 로딩 중...';
+
+  @override
+  String minAge(int age) {
+    return '최소: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return '최대: $age';
+  }
 }

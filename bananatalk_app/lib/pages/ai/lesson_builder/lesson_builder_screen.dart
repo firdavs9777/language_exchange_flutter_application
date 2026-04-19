@@ -8,6 +8,7 @@ import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lesson_player_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// AI Lesson Builder Screen
 /// Generate custom lessons using AI
@@ -152,7 +153,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
     if (mounted) {
       Navigator.push(
         context,
-        MaterialPageRoute(
+        AppPageRoute(
           builder: (_) => LessonPlayerScreen(
             lessonId: lessonId,
             initialLesson: fullLesson,

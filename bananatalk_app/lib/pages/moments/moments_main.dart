@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_bar.dart';
@@ -19,6 +21,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 const String _momentFilterKey = 'moment_filter';
 
@@ -184,7 +187,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             icon: Icon(Icons.add_circle_outline, color: textPrimary),
             onPressed: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const CreateMoment()))
+                  .push(AppPageRoute(builder: (_) => const CreateMoment()))
                   .then((_) => _refresh());
             },
           ),
@@ -218,7 +221,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           ),
         ],
       ),
-      floatingActionButton: FutureBuilder<String?>(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 72),
+        child: FutureBuilder<String?>(
         future: SharedPreferences.getInstance().then(
           (prefs) => prefs.getString('userId'),
         ),
@@ -228,7 +233,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
               onPressed: () {
                 Navigator.of(context)
                     .push(
-                      MaterialPageRoute(builder: (_) => const CreateMoment()),
+                      AppPageRoute(builder: (_) => const CreateMoment()),
                     )
                     .then((_) => _refresh());
               },
@@ -273,7 +278,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                             }
                             Navigator.of(context)
                                 .push(
-                                  MaterialPageRoute(
+                                  AppPageRoute(
                                     builder: (_) => const CreateMoment(),
                                   ),
                                 )
@@ -303,7 +308,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                   onPressed: () {
                     Navigator.of(context)
                         .push(
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (_) => const CreateMoment(),
                           ),
                         )
@@ -323,7 +328,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
               onPressed: () {
                 Navigator.of(context)
                     .push(
-                      MaterialPageRoute(builder: (_) => const CreateMoment()),
+                      AppPageRoute(builder: (_) => const CreateMoment()),
                     )
                     .then((_) => _refresh());
               },
@@ -332,6 +337,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             ),
           );
         },
+      ),
       ),
     );
   }
@@ -343,13 +349,42 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
           return _buildEmptyState();
         }
 
+        // Insert native ads every 6th item for non-VIP users
+        final adInterval = 6;
+        final totalAds = moments.length ~/ (adInterval - 1);
+        final totalItems = moments.length + totalAds;
+
         return ListView.builder(
           controller: _scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.only(bottom: 100),
-          itemCount: moments.length,
+          itemCount: totalItems,
           itemBuilder: (context, index) {
-            return MomentCard(moments: moments[index], onRefresh: _refresh);
+            // Every 6th position is an ad
+            if (index > 0 && index % adInterval == 0) {
+              return const NativeAdWidget();
+            }
+
+            // Calculate real moment index by subtracting ad count
+            final adsBefore = index ~/ adInterval;
+            final momentIndex = index - adsBefore;
+            if (momentIndex >= moments.length) {
+              return const SizedBox.shrink();
+            }
+
+            return MomentCard(moments: moments[momentIndex], onRefresh: _refresh)
+                .animate()
+                .fadeIn(
+                  duration: 300.ms,
+                  delay: Duration(milliseconds: (index * 60).clamp(0, 600)),
+                )
+                .slideY(
+                  begin: 0.03,
+                  end: 0,
+                  duration: 300.ms,
+                  delay: Duration(milliseconds: (index * 60).clamp(0, 600)),
+                  curve: Curves.easeOutCubic,
+                );
           },
         );
       },

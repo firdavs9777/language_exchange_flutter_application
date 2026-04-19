@@ -2403,6 +2403,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get optionalUpTo6Photos => 'Optional — up to 6 photos';
 
   @override
+  String get requiredUpTo6Photos => 'Required — up to 6 photos';
+
+  @override
+  String get profilePhotoRequired => 'Please add at least one profile photo';
+
+  @override
+  String get locationOptional => 'Location is optional — you can add it later';
+
+  @override
   String get maximum6Photos => 'Maximum 6 photos';
 
   @override
@@ -3829,4 +3838,74 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get voice => 'Voice';
+
+  @override
+  String get searchGifs => 'Search GIFs...';
+
+  @override
+  String get trendingGifs => 'Trending';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'No GIFs found';
+
+  @override
+  String get failedToLoadGifs => 'Failed to load GIFs';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'Filter';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get findYourPerfect => 'Find Your Perfect';
+
+  @override
+  String get languagePartner => 'Language Partner';
+
+  @override
+  String get learningLanguageLabel => 'Learning Language';
+
+  @override
+  String get ageRange => 'Age Range';
+
+  @override
+  String get genderPreference => 'Gender Preference';
+
+  @override
+  String get any => 'Any';
+
+  @override
+  String get showNewUsersSubtitle => 'Show users who joined in the last 6 days';
+
+  @override
+  String get autoDetectLocation => 'Auto-detect my location';
+
+  @override
+  String get selectCountry => 'Select Country';
+
+  @override
+  String get anyCountry => 'Any Country';
+
+  @override
+  String get loadingLanguages => 'Loading languages...';
+
+  @override
+  String minAge(int age) {
+    return 'Min: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Max: $age';
+  }
 }

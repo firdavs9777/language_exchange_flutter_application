@@ -754,6 +754,9 @@
   "addPhotoLocationForMatches": "사진과 위치를 추가하여 더 많은 매칭을 받으세요",
   "addProfilePhoto": "프로필 사진 추가",
   "optionalUpTo6Photos": "선택 사항 — 최대 6장",
+  "requiredUpTo6Photos": "필수 — 최대 6장",
+  "profilePhotoRequired": "프로필 사진을 최소 1장 추가해 주세요",
+  "locationOptional": "위치는 선택사항입니다 — 나중에 추가할 수 있어요",
   "maximum6Photos": "최대 6장",
   "tapToDetectLocation": "탭하여 위치 감지",
   "optionalHelpsNearbyPartners": "선택 사항 — 근처 파트너 찾기에 도움됩니다",
@@ -1307,5 +1310,50 @@
   },
   "failedToLoadUsers": "사용자를 불러오지 못했습니다",
   "voice": "음성",
-  "you": "나"
+  "you": "나",
+  "searchGifs": "GIF 검색...",
+  "trendingGifs": "인기",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "GIF를 찾을 수 없습니다",
+  "failedToLoadGifs": "GIF를 불러오지 못했습니다",
+  "gifSent": "GIF",
+  "filterCommunities": "필터",
+  "reset": "초기화",
+  "findYourPerfect": "이상적인",
+  "languagePartner": "언어 파트너 찾기",
+  "learningLanguageLabel": "학습 언어",
+  "languageLevel": "언어 수준",
+  "country": "국가",
+  "ageRange": "나이 범위",
+  "genderPreference": "성별 선호",
+  "any": "모두",
+  "male": "남성",
+  "female": "여성",
+  "other": "기타",
+  "newUsersOnly": "신규 사용자만",
+  "showNewUsersSubtitle": "지난 6일 이내에 가입한 사용자 표시",
+  "applyFilters": "필터 적용",
+  "autoDetectLocation": "내 위치 자동 감지",
+  "detecting": "감지 중...",
+  "selectCountry": "국가 선택",
+  "anyCountry": "모든 국가",
+  "searchCountry": "국가 검색...",
+  "loadingLanguages": "언어 로딩 중...",
+  "minAge": "최소: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "최대: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -10,6 +10,7 @@ import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Pronunciation Practice Screen
 class PronunciationScreen extends ConsumerStatefulWidget {
@@ -98,7 +99,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: _selectedLanguage,

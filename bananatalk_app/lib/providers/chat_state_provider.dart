@@ -430,15 +430,15 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
       state = state.copyWith(messages: messages);
     }
 
-    return await sendMessage(message.message!, localId: localId);
+    return await sendMessage(message.message!, localId: localId, messageType: message.type != 'text' ? message.type : null);
   }
 
-  Future<Map<String, dynamic>> sendMessage(String message, {String? localId}) async {
+  Future<Map<String, dynamic>> sendMessage(String message, {String? localId, String? messageType}) async {
     if (!_isInitialized || _stateManager == null) {
       if (localId != null) updateOptimisticMessage(localId, failed: true);
       return {'status': 'error', 'error': 'Chat not initialized'};
     }
-    final result = await _stateManager!.sendMessage(message);
+    final result = await _stateManager!.sendMessage(message, messageType: messageType);
 
     // If message was sent successfully, update optimistic message or add new
     if (result['status'] == 'success') {

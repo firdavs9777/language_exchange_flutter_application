@@ -1,7 +1,9 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -16,6 +18,7 @@ import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// View mode for partner discovery
 enum PartnerViewMode { list, swipe }
@@ -284,7 +287,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     // Navigate to chat
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: community.id,
           userName: community.name,
@@ -318,7 +321,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       if (mounted) {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (_) => ChatScreen(
               userId: community.id,
               userName: community.name,
@@ -338,7 +341,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     // Navigate directly to chat screen
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: community.id,
           userName: community.name,
@@ -352,7 +355,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   void _viewProfile(Community community) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => SingleCommunity(community: community),
       ),
     );
@@ -742,14 +745,26 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       child: ListView.separated(
         controller: _scrollController,
         padding: const EdgeInsets.only(bottom: 100),
-        itemCount: communities.length + (isLoadingMore || hasMore ? 1 : 0),
-        separatorBuilder: (context, index) => Divider(
-          height: 1,
-          color: context.dividerColor,
-        ),
+        itemCount: communities.length + 1 + (isLoadingMore || hasMore ? 1 : 0),
+        separatorBuilder: (context, index) => index == 0
+            ? const SizedBox.shrink()
+            : Divider(
+                height: 1,
+                color: context.dividerColor,
+              ),
         itemBuilder: (context, index) {
+          // Banner ad at position 0
+          if (index == 0) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: BannerAdWidget(),
+            );
+          }
+
+          final realIndex = index - 1;
+
           // Loading indicator at the end
-          if (index == communities.length) {
+          if (realIndex == communities.length) {
             return const Padding(
               padding: EdgeInsets.all(16),
               child: Center(
@@ -758,14 +773,26 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             );
           }
 
-          final community = communities[index];
+          final community = communities[realIndex];
           return PartnerListItem(
             user: community,
             currentUser: currentUser is Community ? currentUser : null,
             onTap: () => _viewProfile(community),
             onWave: () => _onWaveFromButton(community),
             onMessage: () => _onMessage(community),
-          );
+          )
+              .animate()
+              .fadeIn(
+                duration: 300.ms,
+                delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+              )
+              .slideX(
+                begin: 0.04,
+                end: 0,
+                duration: 300.ms,
+                delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+                curve: Curves.easeOutCubic,
+              );
         },
       ),
     );

@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/language_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
@@ -44,6 +45,9 @@ Future<void> main() async {
 
     // Register background message handler
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+    // Initialize Google Mobile Ads SDK
+    await AdService().initialize();
 
   } catch (e) {
   }

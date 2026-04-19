@@ -5,6 +5,7 @@ import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/pages/learning/quizzes/quiz_player_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Quizzes screen
 class QuizzesScreen extends ConsumerWidget {
@@ -124,7 +125,7 @@ class QuizzesScreen extends ConsumerWidget {
   void _openQuiz(BuildContext context, WidgetRef ref, String quizId) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => QuizPlayerScreen(quizId: quizId),
       ),
     ).then((_) {

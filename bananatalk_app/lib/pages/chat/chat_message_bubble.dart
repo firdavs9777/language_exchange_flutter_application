@@ -16,10 +16,13 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
 import 'package:bananatalk_app/widgets/linkified_text.dart';
 import 'package:any_link_preview/any_link_preview.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
 import 'package:bananatalk_app/widgets/correction_bottom_sheet.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
+import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'user_avatar.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatMessageBubble extends ConsumerStatefulWidget {
   final Message message;
@@ -338,10 +341,13 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 // Avatar for other user (left side)
                 if (!widget.isMe && !widget.isSelectionMode) ...[
                   if (widget.isLastInGroup)
-                    UserAvatar(
-                      profilePicture: widget.otherUserPicture,
-                      userName: widget.otherUserName,
-                      radius: 18,
+                    GestureDetector(
+                      onTap: () => _navigateToProfile(context),
+                      child: UserAvatar(
+                        profilePicture: widget.otherUserPicture,
+                        userName: widget.otherUserName,
+                        radius: 18,
+                      ),
                     )
                   else
                     const SizedBox(width: 36),
@@ -805,6 +811,47 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       );
     }
 
+    // GIF messages - show the GIF image without bubble background
+    if (widget.message.type == 'gif' && widget.message.message != null && widget.message.message!.startsWith('http')) {
+      return GestureDetector(
+        onLongPress: () => _showContextMenu(context),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 250, maxHeight: 250),
+            child: CachedNetworkImage(
+              imageUrl: widget.message.message!,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => Container(
+                width: 200,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: context.containerColor,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                width: 200,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: context.containerColor,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Center(child: Icon(Icons.broken_image_rounded, size: 32)),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return GestureDetector(
       onLongPress: () => _showContextMenu(context),
       child: Column(
@@ -1147,7 +1194,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         if (mediaType == 'image' && mediaUrl.isNotEmpty) {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => ImageGallery(
                 imageUrls: [mediaUrl],
                 initialIndex: 0,
@@ -1157,7 +1204,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         } else if (mediaType == 'video' && mediaUrl.isNotEmpty) {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => VideoPlayerScreen(
                 videoUrl: mediaUrl,
                 thumbnail: widget.message.media?.thumbnail,
@@ -1192,7 +1239,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       if (mediaType == 'image' && mediaUrl != null) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => ImageGallery(
                               imageUrls: [mediaUrl],
                               initialIndex: 0,
@@ -1357,6 +1404,15 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _navigateToProfile(BuildContext context) {
+    Navigator.push(
+      context,
+      AppPageRoute(
+        builder: (_) => SingleCommunity(community: widget.message.sender),
       ),
     );
   }

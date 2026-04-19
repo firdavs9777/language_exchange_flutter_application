@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -10,6 +11,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Topics Tab - Topic-based discovery
 class TopicsTab extends ConsumerStatefulWidget {
@@ -46,7 +48,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   void _viewProfile(Community community) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => SingleCommunity(community: community),
       ),
     );
@@ -70,7 +72,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
     // Navigate to chat
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: user.id,
           userName: user.name,
@@ -183,7 +185,19 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             // Load users from server
             _loadTopicUsers(topic.id);
           },
-        );
+        )
+            .animate()
+            .fadeIn(
+              duration: 300.ms,
+              delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+            )
+            .scale(
+              begin: const Offset(0.93, 0.93),
+              end: const Offset(1.0, 1.0),
+              duration: 300.ms,
+              delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+              curve: Curves.easeOutCubic,
+            );
       },
     );
   }
@@ -311,7 +325,19 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                           onTap: () => _viewProfile(user),
                           onWave: () => _onWave(user),
                         ),
-                      );
+                      )
+                          .animate()
+                          .fadeIn(
+                            duration: 300.ms,
+                            delay: Duration(milliseconds: (index * 45).clamp(0, 450)),
+                          )
+                          .slideX(
+                            begin: 0.04,
+                            end: 0,
+                            duration: 300.ms,
+                            delay: Duration(milliseconds: (index * 45).clamp(0, 450)),
+                            curve: Curves.easeOutCubic,
+                          );
                     },
                   ),
                 ),

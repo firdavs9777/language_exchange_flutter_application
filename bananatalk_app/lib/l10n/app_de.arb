@@ -1014,6 +1014,9 @@
   "addPhotoLocationForMatches": "Füge ein Foto und deinen Standort hinzu für bessere Treffer",
   "addProfilePhoto": "Profilfoto hinzufügen",
   "optionalUpTo6Photos": "Optional — bis zu 6 Fotos",
+  "requiredUpTo6Photos": "Erforderlich — bis zu 6 Fotos",
+  "profilePhotoRequired": "Bitte füge mindestens ein Profilfoto hinzu",
+  "locationOptional": "Standort ist optional — du kannst ihn später hinzufügen",
   "maximum6Photos": "Maximal 6 Fotos",
   "tapToDetectLocation": "Tippen, um Standort zu erkennen",
   "optionalHelpsNearbyPartners": "Optional — hilft, Partner in der Nähe zu finden",
@@ -1561,5 +1564,50 @@
   },
   "failedToLoadUsers": "Benutzer konnten nicht geladen werden",
   "voice": "Stimme",
-  "you": "Du"
+  "you": "Du",
+  "searchGifs": "GIFs suchen...",
+  "trendingGifs": "Trending",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "Keine GIFs gefunden",
+  "failedToLoadGifs": "GIFs konnten nicht geladen werden",
+  "gifSent": "GIF",
+  "filterCommunities": "Filtern",
+  "reset": "Zurücksetzen",
+  "findYourPerfect": "Finde deinen perfekten",
+  "languagePartner": "Sprachpartner",
+  "learningLanguageLabel": "Lernsprache",
+  "languageLevel": "Sprachniveau",
+  "country": "Land",
+  "ageRange": "Altersbereich",
+  "genderPreference": "Geschlechtspräferenz",
+  "any": "Beliebig",
+  "male": "Männlich",
+  "female": "Weiblich",
+  "other": "Andere",
+  "newUsersOnly": "Nur neue Benutzer",
+  "showNewUsersSubtitle": "Benutzer anzeigen, die in den letzten 6 Tagen beigetreten sind",
+  "applyFilters": "Filter anwenden",
+  "autoDetectLocation": "Meinen Standort automatisch erkennen",
+  "detecting": "Wird erkannt...",
+  "selectCountry": "Land auswählen",
+  "anyCountry": "Beliebiges Land",
+  "searchCountry": "Land suchen...",
+  "loadingLanguages": "Sprachen werden geladen...",
+  "minAge": "Min: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Max: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

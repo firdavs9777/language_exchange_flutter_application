@@ -82,8 +82,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   List<Language> _languages = [];
   bool _isLoadingLanguages = true;
 
-  // Optional fields
+  // Fields
   List<File> _selectedImages = [];
+  bool _showPhotoError = false;
   bool _isFetchingLocation = false;
   String? _country;
   String? _city;
@@ -237,6 +238,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           _selectedImages.addAll(
             pickedFiles.map((f) => File(f.path)),
           );
+          _showPhotoError = false;
         });
       }
     } catch (e) {
@@ -306,6 +308,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   Future<void> _submit() async {
     if (_isSubmitting) return;
+
+    if (_selectedImages.isEmpty) {
+      setState(() => _showPhotoError = true);
+      _showError(AppLocalizations.of(context)!.profilePhotoRequired);
+      return;
+    }
 
     if (!_termsAccepted) {
       _showError(AppLocalizations.of(context)!.pleaseAcceptTerms);
@@ -1257,10 +1265,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
           const SizedBox(height: 12),
 
-          // Skip note
+          // Note
           Center(
             child: Text(
-              AppLocalizations.of(context)!.photoLocationOptional,
+              AppLocalizations.of(context)!.locationOptional,
               style: TextStyle(fontSize: 12, color: context.textMuted),
               textAlign: TextAlign.center,
             ),
@@ -1279,9 +1287,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         child: Container(
           height: 140,
           decoration: BoxDecoration(
-            color: context.cardBackground,
+            color: _showPhotoError
+                ? AppColors.error.withValues(alpha: 0.05)
+                : context.cardBackground,
             borderRadius: AppRadius.borderLG,
-            border: Border.all(color: context.dividerColor, width: 1.5),
+            border: Border.all(
+              color: _showPhotoError ? AppColors.error : context.dividerColor,
+              width: _showPhotoError ? 2 : 1.5,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1307,7 +1320,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
               ),
               const SizedBox(height: 2),
               Text(
-                AppLocalizations.of(context)!.optionalUpTo6Photos,
+                AppLocalizations.of(context)!.requiredUpTo6Photos,
                 style: TextStyle(fontSize: 13, color: context.textMuted),
               ),
             ],

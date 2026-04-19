@@ -2195,7 +2195,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get vip => 'VIP';
 
   @override
-  String get newUsersOnly => 'Yalnızca yeni kullanıcılar';
+  String get newUsersOnly => 'Yalnızca Yeni Kullanıcılar';
 
   @override
   String get showNewUsers => 'Yeni kullanıcıları göster';
@@ -2274,7 +2274,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'Ülke ara';
+  String get searchCountry => 'Ülke ara...';
 
   @override
   String get wave => 'El salla';
@@ -2395,6 +2395,15 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'İsteğe bağlı - 6 fotoğrafa kadar';
+
+  @override
+  String get requiredUpTo6Photos => 'Zorunlu — en fazla 6 fotoğraf';
+
+  @override
+  String get profilePhotoRequired => 'Lütfen en az bir profil fotoğrafı ekleyin';
+
+  @override
+  String get locationOptional => 'Konum isteğe bağlıdır — daha sonra ekleyebilirsiniz';
 
   @override
   String get maximum6Photos => 'Maksimum 6 fotoğraf';
@@ -3823,4 +3832,74 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get voice => 'Ses';
+
+  @override
+  String get searchGifs => 'GIF ara...';
+
+  @override
+  String get trendingGifs => 'Trend';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'GIF bulunamadı';
+
+  @override
+  String get failedToLoadGifs => 'GIF\'ler yüklenemedi';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'Filtrele';
+
+  @override
+  String get reset => 'Sıfırla';
+
+  @override
+  String get findYourPerfect => 'Mükemmel';
+
+  @override
+  String get languagePartner => 'Dil Ortağını Bul';
+
+  @override
+  String get learningLanguageLabel => 'Öğrenilen Dil';
+
+  @override
+  String get ageRange => 'Yaş Aralığı';
+
+  @override
+  String get genderPreference => 'Cinsiyet Tercihi';
+
+  @override
+  String get any => 'Herhangi';
+
+  @override
+  String get showNewUsersSubtitle => 'Son 6 günde katılan kullanıcıları göster';
+
+  @override
+  String get autoDetectLocation => 'Konumumu otomatik algıla';
+
+  @override
+  String get selectCountry => 'Ülke Seç';
+
+  @override
+  String get anyCountry => 'Herhangi Bir Ülke';
+
+  @override
+  String get loadingLanguages => 'Diller yükleniyor...';
+
+  @override
+  String minAge(int age) {
+    return 'Min: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Maks: $age';
+  }
 }

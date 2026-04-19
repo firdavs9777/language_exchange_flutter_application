@@ -4722,6 +4722,24 @@ abstract class AppLocalizations {
   /// **'Optional — up to 6 photos'**
   String get optionalUpTo6Photos;
 
+  /// No description provided for @requiredUpTo6Photos.
+  ///
+  /// In en, this message translates to:
+  /// **'Required — up to 6 photos'**
+  String get requiredUpTo6Photos;
+
+  /// No description provided for @profilePhotoRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add at least one profile photo'**
+  String get profilePhotoRequired;
+
+  /// No description provided for @locationOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is optional — you can add it later'**
+  String get locationOptional;
+
   /// No description provided for @maximum6Photos.
   ///
   /// In en, this message translates to:
@@ -7433,6 +7451,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Voice'**
   String get voice;
+
+  /// No description provided for @searchGifs.
+  ///
+  /// In en, this message translates to:
+  /// **'Search GIFs...'**
+  String get searchGifs;
+
+  /// No description provided for @trendingGifs.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending'**
+  String get trendingGifs;
+
+  /// No description provided for @poweredByGiphy.
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by GIPHY'**
+  String get poweredByGiphy;
+
+  /// No description provided for @gif.
+  ///
+  /// In en, this message translates to:
+  /// **'GIF'**
+  String get gif;
+
+  /// No description provided for @noGifsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No GIFs found'**
+  String get noGifsFound;
+
+  /// No description provided for @failedToLoadGifs.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load GIFs'**
+  String get failedToLoadGifs;
+
+  /// No description provided for @gifSent.
+  ///
+  /// In en, this message translates to:
+  /// **'GIF'**
+  String get gifSent;
+
+  /// No description provided for @filterCommunities.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filterCommunities;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @findYourPerfect.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Your Perfect'**
+  String get findYourPerfect;
+
+  /// No description provided for @languagePartner.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Partner'**
+  String get languagePartner;
+
+  /// No description provided for @learningLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Language'**
+  String get learningLanguageLabel;
+
+  /// No description provided for @ageRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Age Range'**
+  String get ageRange;
+
+  /// No description provided for @genderPreference.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender Preference'**
+  String get genderPreference;
+
+  /// No description provided for @any.
+  ///
+  /// In en, this message translates to:
+  /// **'Any'**
+  String get any;
+
+  /// No description provided for @showNewUsersSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show users who joined in the last 6 days'**
+  String get showNewUsersSubtitle;
+
+  /// No description provided for @autoDetectLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-detect my location'**
+  String get autoDetectLocation;
+
+  /// No description provided for @selectCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Country'**
+  String get selectCountry;
+
+  /// No description provided for @anyCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Any Country'**
+  String get anyCountry;
+
+  /// No description provided for @loadingLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading languages...'**
+  String get loadingLanguages;
+
+  /// No description provided for @minAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Min: {age}'**
+  String minAge(int age);
+
+  /// No description provided for @maxAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Max: {age}'**
+  String maxAge(int age);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

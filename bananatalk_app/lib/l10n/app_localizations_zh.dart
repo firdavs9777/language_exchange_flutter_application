@@ -2171,10 +2171,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get updateLocationReminder => '在 个人资料 > 编辑 中更新位置以获得准确的附近结果。';
 
   @override
-  String get male => '男';
+  String get male => '男性';
 
   @override
-  String get female => '女';
+  String get female => '女性';
 
   @override
   String get other => '其他';
@@ -2395,6 +2395,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => '可选 — 最多6张照片';
+
+  @override
+  String get requiredUpTo6Photos => '必填 — 最多6张';
+
+  @override
+  String get profilePhotoRequired => '请至少添加一张个人头像';
+
+  @override
+  String get locationOptional => '位置信息为选填 — 可以稍后添加';
 
   @override
   String get maximum6Photos => '最多6张照片';
@@ -3823,6 +3832,76 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get voice => '语音';
+
+  @override
+  String get searchGifs => '搜索GIF...';
+
+  @override
+  String get trendingGifs => '热门';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => '未找到GIF';
+
+  @override
+  String get failedToLoadGifs => '加载GIF失败';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => '筛选';
+
+  @override
+  String get reset => '重置';
+
+  @override
+  String get findYourPerfect => '找到你的完美';
+
+  @override
+  String get languagePartner => '语言伙伴';
+
+  @override
+  String get learningLanguageLabel => '学习语言';
+
+  @override
+  String get ageRange => '年龄范围';
+
+  @override
+  String get genderPreference => '性别偏好';
+
+  @override
+  String get any => '任意';
+
+  @override
+  String get showNewUsersSubtitle => '显示过去6天内加入的用户';
+
+  @override
+  String get autoDetectLocation => '自动检测我的位置';
+
+  @override
+  String get selectCountry => '选择国家';
+
+  @override
+  String get anyCountry => '任意国家';
+
+  @override
+  String get loadingLanguages => '正在加载语言...';
+
+  @override
+  String minAge(int age) {
+    return '最小: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return '最大: $age';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -5983,10 +6062,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get updateLocationReminder => '在個人資料 > 編輯中更新位置以獲得準確的附近結果。';
 
   @override
-  String get male => '男';
+  String get male => '男性';
 
   @override
-  String get female => '女';
+  String get female => '女性';
 
   @override
   String get other => '其他';
@@ -6007,7 +6086,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get vip => 'VIP';
 
   @override
-  String get newUsersOnly => '僅新用戶';
+  String get newUsersOnly => '僅限新用戶';
 
   @override
   String get showNewUsers => '顯示最近6天加入的用戶';
@@ -6086,7 +6165,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get searchCountry => '搜索國家...';
+  String get searchCountry => '搜尋國家...';
 
   @override
   String get wave => '打招呼';
@@ -6207,6 +6286,15 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get optionalUpTo6Photos => '選填 — 最多6張照片';
+
+  @override
+  String get requiredUpTo6Photos => '必填 — 最多6張';
+
+  @override
+  String get profilePhotoRequired => '請至少新增一張個人頭像';
+
+  @override
+  String get locationOptional => '位置資訊為選填 — 可以稍後新增';
 
   @override
   String get maximum6Photos => '最多6張照片';
@@ -7411,4 +7499,74 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get voice => '語音';
+
+  @override
+  String get searchGifs => '搜尋GIF...';
+
+  @override
+  String get trendingGifs => '熱門';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => '找不到GIF';
+
+  @override
+  String get failedToLoadGifs => '載入GIF失敗';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => '篩選';
+
+  @override
+  String get reset => '重置';
+
+  @override
+  String get findYourPerfect => '找到你的完美';
+
+  @override
+  String get languagePartner => '語言夥伴';
+
+  @override
+  String get learningLanguageLabel => '學習語言';
+
+  @override
+  String get ageRange => '年齡範圍';
+
+  @override
+  String get genderPreference => '性別偏好';
+
+  @override
+  String get any => '任意';
+
+  @override
+  String get showNewUsersSubtitle => '顯示過去6天內加入的用戶';
+
+  @override
+  String get autoDetectLocation => '自動偵測我的位置';
+
+  @override
+  String get selectCountry => '選擇國家';
+
+  @override
+  String get anyCountry => '任意國家';
+
+  @override
+  String get loadingLanguages => '正在載入語言...';
+
+  @override
+  String minAge(int age) {
+    return '最小: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return '最大: $age';
+  }
 }

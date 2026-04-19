@@ -13,7 +13,8 @@ class SmartMatchingScreen extends ConsumerStatefulWidget {
   const SmartMatchingScreen({super.key});
 
   @override
-  ConsumerState<SmartMatchingScreen> createState() => _SmartMatchingScreenState();
+  ConsumerState<SmartMatchingScreen> createState() =>
+      _SmartMatchingScreenState();
 }
 
 class _SmartMatchingScreenState extends ConsumerState<SmartMatchingScreen>
@@ -74,7 +75,9 @@ class _SmartMatchingScreenState extends ConsumerState<SmartMatchingScreen>
                         Spacing.gapSM,
                         Text(
                           l10n.findPartners,
-                          style: context.displayMedium.copyWith(color: Colors.white),
+                          style: context.displayMedium.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                         Spacing.gapXS,
                         Text(
@@ -226,10 +229,7 @@ class _ByLanguageTab extends ConsumerWidget {
               prefixIcon: const Icon(Icons.language),
             ),
             items: languages.map((lang) {
-              return DropdownMenuItem(
-                value: lang,
-                child: Text(lang),
-              );
+              return DropdownMenuItem(value: lang, child: Text(lang));
             }).toList(),
             onChanged: (value) {
               ref.read(matchingLanguageFilterProvider.notifier).state = value;
@@ -384,10 +384,7 @@ Widget _buildErrorState(
           style: context.bodyMedium.copyWith(color: context.textSecondary),
         ),
         Spacing.gapLG,
-        ElevatedButton(
-          onPressed: onRetry,
-          child: Text(l10n.retry),
-        ),
+        ElevatedButton(onPressed: onRetry, child: Text(l10n.retry)),
       ],
     ),
   );

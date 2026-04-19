@@ -758,6 +758,9 @@
   "addPhotoLocationForMatches": "Agrega una foto y ubicación para mejores coincidencias",
   "addProfilePhoto": "Agregar foto de perfil",
   "optionalUpTo6Photos": "Opcional — hasta 6 fotos",
+  "requiredUpTo6Photos": "Obligatorio — hasta 6 fotos",
+  "profilePhotoRequired": "Agrega al menos una foto de perfil",
+  "locationOptional": "La ubicación es opcional — puedes agregarla después",
   "maximum6Photos": "Máximo 6 fotos",
   "tapToDetectLocation": "Toca para detectar ubicación",
   "optionalHelpsNearbyPartners": "Opcional — ayuda a encontrar compañeros cercanos",
@@ -1305,5 +1308,50 @@
   },
   "failedToLoadUsers": "Error al cargar usuarios",
   "voice": "Voz",
-  "you": "Tú"
+  "you": "Tú",
+  "searchGifs": "Buscar GIFs...",
+  "trendingGifs": "Tendencias",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "No se encontraron GIFs",
+  "failedToLoadGifs": "Error al cargar los GIFs",
+  "gifSent": "GIF",
+  "filterCommunities": "Filtrar",
+  "reset": "Restablecer",
+  "findYourPerfect": "Encuentra tu perfecto",
+  "languagePartner": "Compañero de idioma",
+  "learningLanguageLabel": "Idioma de aprendizaje",
+  "languageLevel": "Nivel de idioma",
+  "country": "País",
+  "ageRange": "Rango de edad",
+  "genderPreference": "Preferencia de género",
+  "any": "Cualquiera",
+  "male": "Masculino",
+  "female": "Femenino",
+  "other": "Otro",
+  "newUsersOnly": "Solo nuevos usuarios",
+  "showNewUsersSubtitle": "Mostrar usuarios que se unieron en los últimos 6 días",
+  "applyFilters": "Aplicar filtros",
+  "autoDetectLocation": "Detectar mi ubicación automáticamente",
+  "detecting": "Detectando...",
+  "selectCountry": "Seleccionar país",
+  "anyCountry": "Cualquier país",
+  "searchCountry": "Buscar país...",
+  "loadingLanguages": "Cargando idiomas...",
+  "minAge": "Mín: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Máx: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

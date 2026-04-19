@@ -20,6 +20,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
   final Moments? momentToEdit; // If provided, we're editing an existing moment
@@ -358,7 +359,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // First, open the video editor for trimming and filters
     final editorResult = await Navigator.push<VideoEditorResult>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => VideoEditorScreen(
           videoFile: videoFile,
           maxDurationSeconds: 600, // 10 minutes max

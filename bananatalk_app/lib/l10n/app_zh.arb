@@ -753,6 +753,9 @@
   "addPhotoLocationForMatches": "添加照片和位置以获得更多匹配",
   "addProfilePhoto": "添加头像",
   "optionalUpTo6Photos": "可选 — 最多6张照片",
+  "requiredUpTo6Photos": "必填 — 最多6张",
+  "profilePhotoRequired": "请至少添加一张个人头像",
+  "locationOptional": "位置信息为选填 — 可以稍后添加",
   "maximum6Photos": "最多6张照片",
   "tapToDetectLocation": "点击检测位置",
   "optionalHelpsNearbyPartners": "可选 — 帮助找到附近的语伴",
@@ -1299,5 +1302,50 @@
   },
   "failedToLoadUsers": "加载用户失败",
   "voice": "语音",
-  "you": "你"
+  "you": "你",
+  "searchGifs": "搜索GIF...",
+  "trendingGifs": "热门",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "未找到GIF",
+  "failedToLoadGifs": "加载GIF失败",
+  "gifSent": "GIF",
+  "filterCommunities": "筛选",
+  "reset": "重置",
+  "findYourPerfect": "找到你的完美",
+  "languagePartner": "语言伙伴",
+  "learningLanguageLabel": "学习语言",
+  "languageLevel": "语言水平",
+  "country": "国家",
+  "ageRange": "年龄范围",
+  "genderPreference": "性别偏好",
+  "any": "任意",
+  "male": "男性",
+  "female": "女性",
+  "other": "其他",
+  "newUsersOnly": "仅新用户",
+  "showNewUsersSubtitle": "显示过去6天内加入的用户",
+  "applyFilters": "应用筛选",
+  "autoDetectLocation": "自动检测我的位置",
+  "detecting": "检测中...",
+  "selectCountry": "选择国家",
+  "anyCountry": "任意国家",
+  "searchCountry": "搜索国家...",
+  "loadingLanguages": "正在加载语言...",
+  "minAge": "最小: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "最大: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

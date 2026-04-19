@@ -138,6 +138,11 @@ class PinnedMessagesBar extends StatelessWidget {
   }
 
   String _getMessagePreview(BuildContext context, Message message) {
+    // GIF messages store URL in message text — show label instead
+    if (message.type == 'gif') {
+      return '🎞️ ${AppLocalizations.of(context)!.gifSent}';
+    }
+
     if (message.message != null && message.message!.isNotEmpty) {
       return message.message!;
     }

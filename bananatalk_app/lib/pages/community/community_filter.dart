@@ -11,8 +11,10 @@ import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class CommunityFilter extends ConsumerStatefulWidget {
   final Function(Map<String, dynamic> filters) onApplyFilters;
@@ -338,6 +340,21 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     }
   }
 
+  bool get _isVip {
+    final user = ref.read(userProvider).valueOrNull;
+    return user?.isVip ?? false;
+  }
+
+  void _showVipPrompt() {
+    final user = ref.read(userProvider).valueOrNull;
+    Navigator.push(
+      context,
+      AppPageRoute(
+        builder: (_) => VipPlansScreen(userId: user?.id),
+      ),
+    );
+  }
+
   void resetFilters() {
     setState(() {
       _minAge = 18.0;
@@ -514,7 +531,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: _selectedLanguage,
@@ -543,7 +560,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: _selectedLearningLanguage,
@@ -560,112 +577,138 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Filter Communities',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-            color: Theme.of(context).colorScheme.onSurface,
+    final l10n = AppLocalizations.of(context)!;
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.88,
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      child: Column(
+        children: [
+          // Handle bar
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 10, bottom: 4),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: context.dividerColor,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: resetFilters,
-            child: const Text(
-              'Reset',
-              style: TextStyle(
-                color: Color(0xFF00BFA5),
-                fontWeight: FontWeight.w600,
+          // Header row with X, title, Reset
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.close_rounded, color: context.textPrimary),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                Expanded(
+                  child: Text(
+                    l10n.filterCommunities,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: context.textPrimary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                TextButton(
+                  onPressed: resetFilters,
+                  child: Text(
+                    l10n.reset,
+                    style: TextStyle(
+                      color: context.primaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Header Banner
+          _buildHeaderBanner(),
+          // Scrollable Content
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLanguageSection(),
+                  const SizedBox(height: 24),
+                  _buildLearningLanguageSection(),
+                  const SizedBox(height: 24),
+                  _buildLanguageLevelSection(),
+                  const SizedBox(height: 24),
+                  _buildCountrySection(),
+                  const SizedBox(height: 24),
+                  _buildAgeSection(),
+                  const SizedBox(height: 24),
+                  _buildGenderSection(),
+                  const SizedBox(height: 24),
+                  _buildNewUsersToggle(),
+                  const SizedBox(height: 24),
+                  _buildPrioritizeNearbyToggle(),
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ),
+          // Fixed Bottom Button
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 12, 20, 12 + bottomPadding),
+            decoration: BoxDecoration(
+              color: context.surfaceColor,
+              boxShadow: AppShadows.sm,
+            ),
+            child: SafeArea(
+              top: false,
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _applyFilters,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: context.primaryColor,
+                    foregroundColor: context.textOnPrimary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    l10n.applyFilters,
+                    style: context.titleMedium.copyWith(color: context.textOnPrimary),
+                  ),
+                ),
               ),
             ),
           ),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header Banner
-            _buildHeaderBanner(),
-            // Scrollable Content
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildLanguageSection(),
-                    const SizedBox(height: 24),
-                    _buildLearningLanguageSection(),
-                    const SizedBox(height: 24),
-                    _buildLanguageLevelSection(),
-                    const SizedBox(height: 24),
-                    _buildCountrySection(),
-                    const SizedBox(height: 24),
-                    _buildAgeSection(),
-                    const SizedBox(height: 24),
-                    _buildGenderSection(),
-                    const SizedBox(height: 24),
-                    _buildNewUsersToggle(),
-                    const SizedBox(height: 24),
-                    _buildPrioritizeNearbyToggle(),
-                    const SizedBox(height: 32),
-                  ],
-                ),
-              ),
-            ),
-            // Fixed Bottom Button
-            Container(
-              padding: const EdgeInsets.all(Spacing.xl),
-              decoration: BoxDecoration(
-                color: context.surfaceColor,
-                boxShadow: AppShadows.sm,
-              ),
-              child: SafeArea(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: _applyFilters,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.primaryColor,
-                      foregroundColor: context.textOnPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderMD,
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Apply Filters',
-                      style: context.titleMedium.copyWith(color: context.textOnPrimary),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
   Widget _buildHeaderBanner() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+        gradient: LinearGradient(
+          colors: [
+            context.primaryColor,
+            context.primaryColor.withValues(alpha: 0.8),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -674,36 +717,36 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       child: Row(
         children: [
           Container(
-            width: 50,
-            height: 50,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(
-              Icons.tune,
+              Icons.tune_rounded,
               color: Colors.white,
-              size: 24,
+              size: 22,
             ),
           ),
-          const SizedBox(width: 16),
-          const Expanded(
+          const SizedBox(width: 14),
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Find Your Perfect',
-                  style: TextStyle(
+                  l10n.findYourPerfect,
+                  style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
-                  'Language Partner',
-                  style: TextStyle(
+                  l10n.languagePartner,
+                  style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -717,7 +760,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Widget _buildLanguageSection() {
     return _buildSection(
-      title: 'Native Language',
+      title: AppLocalizations.of(context)!.nativeLanguage,
       icon: Icons.translate,
       child: _isLoadingLanguages
           ? _buildLoadingCard()
@@ -729,7 +772,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Widget _buildLearningLanguageSection() {
     return _buildSection(
-      title: 'Learning Language',
+      title: AppLocalizations.of(context)!.learningLanguageLabel,
       icon: Icons.school,
       child: _isLoadingLanguages
           ? _buildLoadingCard()
@@ -804,7 +847,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Widget _buildLanguageLevelSection() {
     return _buildSection(
-      title: 'Language Level',
+      title: AppLocalizations.of(context)!.languageLevel,
       icon: Icons.signal_cellular_alt,
       child: Wrap(
         spacing: 8,
@@ -812,7 +855,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         children: [
           // "Any" chip
           ChoiceChip(
-            label: const Text('Any'),
+            label: Text(AppLocalizations.of(context)!.any),
             selected: _selectedLanguageLevel == null,
             onSelected: (selected) {
               if (selected) {
@@ -861,8 +904,8 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   Widget _buildCountrySection() {
-    return _buildSection(
-      title: 'Country',
+    return _buildVipGatedSection(
+      title: AppLocalizations.of(context)!.country,
       icon: Icons.public,
       child: _buildCountrySelector(),
     );
@@ -870,15 +913,15 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Widget _buildAgeSection() {
     return _buildSection(
-      title: 'Age Range',
+      title: AppLocalizations.of(context)!.ageRange,
       icon: Icons.cake,
       child: _buildAgeSelector(),
     );
   }
 
   Widget _buildGenderSection() {
-    return _buildSection(
-      title: 'Gender Preference',
+    return _buildVipGatedSection(
+      title: AppLocalizations.of(context)!.genderPreference,
       icon: Icons.person,
       child: _buildGenderSelector(),
     );
@@ -886,8 +929,8 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Widget _buildNewUsersToggle() {
     return _buildToggleSection(
-      title: 'New Users Only',
-      subtitle: 'Show users who joined in the last 6 days',
+      title: AppLocalizations.of(context)!.newUsersOnly,
+      subtitle: AppLocalizations.of(context)!.showNewUsersSubtitle,
       icon: Icons.fiber_new_rounded,
       value: _newUsersOnly,
       activeColor: const Color(0xFF00C853),
@@ -904,7 +947,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       },
     ) ?? false;
 
-    return Column(
+    final toggleWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildToggleSection(
@@ -940,6 +983,51 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
             ),
           ),
         ],
+      ],
+    );
+
+    if (_isVip) return toggleWidget;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFFFD700), Color(0xFFFFA000)],
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+                  SizedBox(width: 3),
+                  Text(
+                    'VIP',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: _showVipPrompt,
+          child: Opacity(
+            opacity: 0.5,
+            child: IgnorePointer(child: toggleWidget),
+          ),
+        ),
       ],
     );
   }
@@ -1003,16 +1091,102 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       children: [
         Row(
           children: [
-            Icon(icon, size: 20, color: context.primaryColor),
-            Spacing.hGapSM,
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: context.primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, size: 16, color: context.primaryColor),
+            ),
+            const SizedBox(width: 10),
             Text(
               title,
-              style: context.titleMedium,
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.w600),
             ),
           ],
         ),
-        Spacing.gapMD,
+        const SizedBox(height: 12),
         child,
+      ],
+    );
+  }
+
+  /// VIP-gated section: shows content but intercepts taps for non-VIP users
+  Widget _buildVipGatedSection({
+    required String title,
+    required IconData icon,
+    required Widget child,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: context.primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, size: 16, color: context.primaryColor),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              title,
+              style: context.titleMedium.copyWith(fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 8),
+            if (!_isVip)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFFFD700), Color(0xFFFFA000)],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+                    SizedBox(width: 3),
+                    Text(
+                      'VIP',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        if (_isVip)
+          child
+        else
+          GestureDetector(
+            onTap: _showVipPrompt,
+            child: Stack(
+              children: [
+                Opacity(
+                  opacity: 0.5,
+                  child: IgnorePointer(child: child),
+                ),
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: AppRadius.borderMD,
+                      color: Colors.transparent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
       ],
     );
   }
@@ -1119,7 +1293,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                   ),
                 Spacing.hGapSM,
                 Text(
-                  _isDetectingLocation ? 'Detecting...' : 'Auto-detect my location',
+                  _isDetectingLocation ? AppLocalizations.of(context)!.detecting : AppLocalizations.of(context)!.autoDetectLocation,
                   style: context.labelLarge.copyWith(color: context.textOnPrimary),
                 ),
               ],
@@ -1152,7 +1326,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                 // Country name
                 Expanded(
                   child: Text(
-                    _selectedCountry ?? 'Any Country',
+                    _selectedCountry ?? AppLocalizations.of(context)!.anyCountry,
                     style: context.titleMedium.copyWith(
                       color: _selectedCountry != null
                           ? context.textPrimary
@@ -1199,8 +1373,9 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   }
 
   Widget _buildAgeSelector() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
-      padding: const EdgeInsets.all(Spacing.xl),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       decoration: BoxDecoration(
         color: context.surfaceColor,
         borderRadius: AppRadius.borderMD,
@@ -1211,11 +1386,41 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildAgeButton('Min: ${_minAge.toInt()}', AppColors.success),
-              _buildAgeButton('Max: ${_maxAge.toInt()}', AppColors.info),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                decoration: BoxDecoration(
+                  color: context.primaryColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  l10n.minAge(_minAge.toInt()),
+                  style: context.labelLarge.copyWith(
+                    color: context.primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                width: 24,
+                height: 1,
+                color: context.dividerColor,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                decoration: BoxDecoration(
+                  color: context.primaryColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  l10n.maxAge(_maxAge.toInt()),
+                  style: context.labelLarge.copyWith(
+                    color: context.primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
             ],
           ),
-          Spacing.gapXL,
           RangeSlider(
             values: RangeValues(_minAge, _maxAge),
             min: 18,
@@ -1235,35 +1440,20 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     );
   }
 
-  Widget _buildAgeButton(String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: 10),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: AppRadius.borderSM,
-        border: Border.all(color: color.withOpacity(0.3)),
-      ),
-      child: Text(
-        label,
-        style: context.labelLarge.copyWith(color: color),
-      ),
-    );
-  }
-
   Widget _buildGenderSelector() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
-      padding: const EdgeInsets.all(Spacing.xs),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: context.surfaceColor,
-        borderRadius: AppRadius.borderMD,
-        border: Border.all(color: context.dividerColor),
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
         children: [
-          _buildGenderButton('Any', null, Icons.people),
-          _buildGenderButton('Male', 'Male', Icons.man),
-          _buildGenderButton('Female', 'Female', Icons.woman),
-          _buildGenderButton('Other', 'Other', Icons.person_outline),
+          _buildGenderButton(l10n.any, null, Icons.people),
+          _buildGenderButton(l10n.male, 'Male', Icons.man),
+          _buildGenderButton(l10n.female, 'Female', Icons.woman),
+          _buildGenderButton(l10n.other, 'Other', Icons.person_outline),
         ],
       ),
     );
@@ -1278,26 +1468,35 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
             _selectedGender = value;
           });
         },
-        child: Container(
-          margin: const EdgeInsets.all(Spacing.xs),
-          padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          margin: const EdgeInsets.all(3),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            color: isSelected ? context.primaryColor : context.containerColor,
-            borderRadius: AppRadius.borderSM,
+            color: isSelected ? context.primaryColor : Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: isSelected
+                ? [BoxShadow(
+                    color: context.primaryColor.withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  )]
+                : null,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 icon,
-                color: isSelected ? context.textOnPrimary : context.textSecondary,
+                color: isSelected ? Colors.white : context.textSecondary,
                 size: 20,
               ),
-              Spacing.gapXS,
+              const SizedBox(height: 4),
               Text(
                 label,
-                style: context.labelSmall.copyWith(
-                  color: isSelected ? context.textOnPrimary : context.textSecondary,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: isSelected ? Colors.white : context.textSecondary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -1328,7 +1527,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           ),
           Spacing.hGapLG,
           Text(
-            'Loading languages...',
+            AppLocalizations.of(context)!.loadingLanguages,
             style: context.bodySmall,
           ),
         ],
@@ -1445,14 +1644,14 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
             child: Row(
               children: [
                 Text(
-                  'Select Country',
+                  AppLocalizations.of(context)!.selectCountry,
                   style: context.titleLarge,
                 ),
                 const Spacer(),
                 TextButton(
                   onPressed: () => widget.onSelect(null),
                   child: Text(
-                    'Any Country',
+                    AppLocalizations.of(context)!.anyCountry,
                     style: context.labelLarge.copyWith(color: context.primaryColor),
                   ),
                 ),
@@ -1467,7 +1666,7 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
               controller: _searchController,
               onChanged: _filterCountries,
               decoration: InputDecoration(
-                hintText: 'Search country...',
+                hintText: AppLocalizations.of(context)!.searchCountry,
                 hintStyle: context.bodyMedium.copyWith(color: context.textMuted),
                 prefixIcon: Icon(Icons.search, color: context.textMuted),
                 filled: true,

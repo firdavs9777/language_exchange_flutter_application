@@ -11,6 +11,7 @@ import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Modern Instagram/TikTok-like stories feed with animated rings and smooth transitions
 class ModernStoriesFeed extends ConsumerStatefulWidget {
@@ -173,7 +174,7 @@ class _ModernStoriesFeedState extends ConsumerState<ModernStoriesFeed>
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(
+        AppPageRoute(
           builder: (context) => CreateStoryScreen(
             onStoryCreated: _loadStories,
           ),

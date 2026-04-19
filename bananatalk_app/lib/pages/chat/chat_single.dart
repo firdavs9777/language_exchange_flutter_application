@@ -46,6 +46,9 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/pages/chat/gif_picker_panel.dart';
+import 'package:bananatalk_app/services/giphy_service.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -711,7 +714,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         ).notifier,
       );
 
-      final result = await chatNotifier.sendMessage(text, localId: localId);
+      final result = await chatNotifier.sendMessage(text, localId: localId, messageType: messageType);
 
       // Check mounted after async operation
       if (!mounted) return;
@@ -818,6 +821,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         case 'audio':
           await _showVoiceRecorder();
           break;
+        case 'gif':
+          await _pickGif();
+          break;
         case 'location':
           await _shareLocation();
           break;
@@ -846,6 +852,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           ),
         );
       }
+    }
+  }
+
+  Future<void> _pickGif() async {
+    if (!mounted) return;
+    final gif = await GifPickerPanel.show(context);
+    if (gif != null && mounted) {
+      // Send GIF URL as a text message with 'gif' type
+      // The originalUrl is the full-size GIF
+      _sendMessage(messageText: gif.originalUrl, messageType: 'gif');
     }
   }
 
@@ -1045,7 +1061,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // Open video editor for trimming and filters
     final editorResult = await Navigator.push<VideoEditorResult>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => VideoEditorScreen(
           videoFile: videoFile,
           maxDurationSeconds: 600, // 10 minutes max for chat videos
@@ -1995,6 +2011,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   stickerPanelController: _stickerPanelController,
                   onSendMessage: _sendMessage,
                   onSelectSticker: _selectSticker,
+                  onSendGif: (gifUrl) {
+                    _hidePanels();
+                    _sendMessage(messageText: gifUrl, messageType: 'gif');
+                  },
                   onToggleMediaPanel: _toggleMediaPanel,
                   onToggleStickerPanel: _toggleStickerPanel,
                   onTyping: _onTyping,
@@ -2243,7 +2263,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (user != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(
+        AppPageRoute(
           builder: (_) => SingleCommunity(community: user),
         ),
       );

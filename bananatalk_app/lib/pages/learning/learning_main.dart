@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/widgets/learning/streak_widget.dart';
 import 'package:bananatalk_app/widgets/learning/daily_goal_widget.dart';
@@ -22,6 +23,7 @@ import 'package:bananatalk_app/pages/ai/lesson_builder/lesson_builder_screen.dar
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Unified Study Hub - Combines Learning and AI Features
 class LearningMain extends ConsumerStatefulWidget {
@@ -181,7 +183,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
           icon: Icons.leaderboard_rounded,
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const LeaderboardScreen()),
+            AppPageRoute(builder: (_) => const LeaderboardScreen()),
           ),
         ),
         const SizedBox(width: 8),
@@ -189,7 +191,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
           icon: Icons.emoji_events_rounded,
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const AchievementsScreen()),
+            AppPageRoute(builder: (_) => const AchievementsScreen()),
           ),
         ),
       ],
@@ -252,7 +254,11 @@ class _LearnTab extends ConsumerWidget {
               children: [
                 // Progress Hero Card
                 _buildProgressHero(context, progress, isDark),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
+
+                // Ad Banner
+                const BannerAdWidget(),
+                const SizedBox(height: 16),
 
                 // Quick Stats
                 _buildQuickStats(context, progress, isDark),
@@ -278,7 +284,7 @@ class _LearnTab extends ConsumerWidget {
                   AppLocalizations.of(context)!.dailyChallenges,
                   onSeeAll: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const ChallengesScreen()),
+                    AppPageRoute(builder: (_) => const ChallengesScreen()),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -297,7 +303,7 @@ class _LearnTab extends ConsumerWidget {
                                   challenge: c,
                                   onTap: () => Navigator.push(
                                     context,
-                                    MaterialPageRoute(
+                                    AppPageRoute(
                                       builder: (_) => const ChallengesScreen(),
                                     ),
                                   ),
@@ -384,7 +390,7 @@ class _LearnTab extends ConsumerWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const LessonsScreen()),
+                  AppPageRoute(builder: (_) => const LessonsScreen()),
                 );
               },
               child: Text(
@@ -601,7 +607,7 @@ class _LearnTab extends ConsumerWidget {
             isDark: isDark,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const VocabularyReviewScreen()),
+              AppPageRoute(builder: (_) => const VocabularyReviewScreen()),
             ),
           ),
         ),
@@ -616,7 +622,7 @@ class _LearnTab extends ConsumerWidget {
             isDark: isDark,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const VocabularyScreen()),
+              AppPageRoute(builder: (_) => const VocabularyScreen()),
             ),
           ),
         ),
@@ -739,7 +745,7 @@ class _LearnTab extends ConsumerWidget {
           isDark: isDark,
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const LessonsScreen()),
+            AppPageRoute(builder: (_) => const LessonsScreen()),
           ),
         ),
         const SizedBox(height: 10),
@@ -751,7 +757,7 @@ class _LearnTab extends ConsumerWidget {
           isDark: isDark,
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const VocabularyScreen()),
+            AppPageRoute(builder: (_) => const VocabularyScreen()),
           ),
         ),
         const SizedBox(height: 10),
@@ -763,7 +769,7 @@ class _LearnTab extends ConsumerWidget {
           isDark: isDark,
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const AchievementsScreen()),
+            AppPageRoute(builder: (_) => const AchievementsScreen()),
           ),
         ),
       ],
@@ -1185,7 +1191,7 @@ class _AIToolsTab extends ConsumerWidget {
             child: ElevatedButton(
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const AIConversationScreen()),
+                AppPageRoute(builder: (_) => const AIConversationScreen()),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -1216,18 +1222,18 @@ class _AIToolsTab extends ConsumerWidget {
   Widget _buildFeaturesGrid(BuildContext context, bool isVip, bool isDark) {
     final l10n = AppLocalizations.of(context)!;
     final features = [
-      _AIFeature(Icons.menu_book_rounded, l10n.aiLessons, l10n.learnWithAI, const Color(0xFF8B5CF6), false,
-          () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LessonsScreen()))),
+      _AIFeature(Icons.menu_book_rounded, l10n.aiLessons, l10n.learnWithAI, const Color(0xFF8B5CF6), true,
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonsScreen()))),
       _AIFeature(Icons.spellcheck_rounded, l10n.grammar, l10n.checkWriting, const Color(0xFF10B981), false,
-          () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrammarFeedbackScreen()))),
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const GrammarFeedbackScreen()))),
       _AIFeature(Icons.mic_rounded, l10n.pronunciation, l10n.improveSpeaking, const Color(0xFFF59E0B), true,
-          () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PronunciationScreen()))),
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const PronunciationScreen()))),
       _AIFeature(Icons.translate_rounded, l10n.translation, l10n.smartTranslate, const Color(0xFF3B82F6), false,
-          () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TranslationScreen()))),
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const TranslationScreen()))),
       _AIFeature(Icons.quiz_rounded, l10n.aiQuizzes, l10n.testKnowledge, const Color(0xFFEF4444), true,
-          () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AIQuizScreen()))),
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const AIQuizScreen()))),
       _AIFeature(Icons.auto_awesome_rounded, l10n.lessonBuilder, l10n.customLessons, const Color(0xFFEC4899), true,
-          () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LessonBuilderScreen()))),
+          () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonBuilderScreen()))),
     ];
 
     return GridView.count(
@@ -1236,7 +1242,7 @@ class _AIToolsTab extends ConsumerWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
-      childAspectRatio: 1.15,
+      childAspectRatio: 1.05,
       children: features.map((f) {
         final card = GestureDetector(
           onTap: f.onTap,
@@ -1374,7 +1380,7 @@ class _AIToolsTab extends ConsumerWidget {
               FilledButton.tonal(
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const AIQuizScreen()),
+                  AppPageRoute(builder: (_) => const AIQuizScreen()),
                 ),
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),

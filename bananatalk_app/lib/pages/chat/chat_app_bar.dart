@@ -19,6 +19,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:app_settings/app_settings.dart';
 import 'user_avatar.dart';
 import 'chat_options_menu.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String userName;
@@ -448,7 +449,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
           callOverlayNavigatorKey.currentState?.push(
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => ActiveCallScreen(call: currentCall),
               fullscreenDialog: true,
             ),

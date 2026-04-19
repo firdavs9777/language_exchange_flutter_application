@@ -17,14 +17,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class SingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
 
-  const SingleMoment({
-    super.key,
-    required this.moment,
-  });
+  const SingleMoment({super.key, required this.moment});
 
   @override
   ConsumerState<SingleMoment> createState() => _SingleMomentState();
@@ -79,7 +77,10 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     if (langLower.contains('russian') || langLower == 'ru') return 'RU';
     if (langLower.contains('arabic') || langLower == 'ar') return 'AR';
     if (langLower.contains('hindi') || langLower == 'hi') return 'HI';
-    return language.toUpperCase().substring(0, language.length > 2 ? 2 : language.length);
+    return language.toUpperCase().substring(
+      0,
+      language.length > 2 ? 2 : language.length,
+    );
   }
 
   String _getFlagEmoji(String language) {
@@ -150,7 +151,11 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(isSaved ? AppLocalizations.of(context)!.momentSaved : AppLocalizations.of(context)!.momentUnsaved),
+            content: Text(
+              isSaved
+                  ? AppLocalizations.of(context)!.momentSaved
+                  : AppLocalizations.of(context)!.momentUnsaved,
+            ),
             duration: const Duration(seconds: 1),
             behavior: SnackBarBehavior.floating,
             backgroundColor: const Color(0xFF00BFA5),
@@ -273,7 +278,11 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   isSaved ? Icons.bookmark : Icons.bookmark_outline,
                   color: const Color(0xFF00BFA5),
                 ),
-                title: Text(isSaved ? AppLocalizations.of(context)!.removeFromSaved : AppLocalizations.of(context)!.saveMoment),
+                title: Text(
+                  isSaved
+                      ? AppLocalizations.of(context)!.removeFromSaved
+                      : AppLocalizations.of(context)!.saveMoment,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   _toggleSave();
@@ -312,10 +321,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                     Navigator.pop(context);
                     final result = await Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => CreateMoment(
-                          momentToEdit: widget.moment,
-                        ),
+                      AppPageRoute(
+                        builder: (context) =>
+                            CreateMoment(momentToEdit: widget.moment),
                       ),
                     );
                     // Pop back to list if edit was successful
@@ -326,17 +334,24 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.delete, color: Colors.red),
-                  title:
-                      Text(AppLocalizations.of(context)!.delete, style: const TextStyle(color: Colors.red)),
+                  title: Text(
+                    AppLocalizations.of(context)!.delete,
+                    style: const TextStyle(color: Colors.red),
+                  ),
                   onTap: () async {
                     Navigator.pop(context);
                     final confirmed = await showDialog<bool>(
                       context: context,
                       builder: (context) => AlertDialog(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         title: Text(AppLocalizations.of(context)!.deleteMoment),
-                        content: Text(AppLocalizations.of(context)!.thisActionCannotBeUndone),
+                        content: Text(
+                          AppLocalizations.of(
+                            context,
+                          )!.thisActionCannotBeUndone,
+                        ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
@@ -345,7 +360,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           TextButton(
                             onPressed: () => Navigator.pop(context, true),
                             style: TextButton.styleFrom(
-                                foregroundColor: Colors.red),
+                              foregroundColor: Colors.red,
+                            ),
                             child: Text(AppLocalizations.of(context)!.delete),
                           ),
                         ],
@@ -359,12 +375,16 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             .deleteUserMoment(id: widget.moment.id);
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(AppLocalizations.of(context)!.momentDeleted)),
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context)!.momentDeleted,
+                            ),
+                          ),
                         );
                       } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Error: $e')),
-                        );
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text('Error: $e')));
                       }
                     }
                   },
@@ -417,7 +437,11 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       if (community == null) {
                         if (mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)),
+                            SnackBar(
+                              content: Text(
+                                AppLocalizations.of(context)!.userNotFound,
+                              ),
+                            ),
                           );
                         }
                         return;
@@ -425,7 +449,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        AppPageRoute(
                           builder: (context) =>
                               SingleCommunity(community: community),
                         ),
@@ -475,7 +499,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                       ),
                                       child: Text(
                                         _getLanguageCode(
-                                            widget.moment.user.native_language),
+                                          widget.moment.user.native_language,
+                                        ),
                                         style: context.captionSmall.copyWith(
                                           fontWeight: FontWeight.w700,
                                           color: context.textPrimary,
@@ -490,8 +515,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                     ),
                                     const SizedBox(width: 6),
                                     Text(
-                                      _getLanguageCode(widget
-                                          .moment.user.language_to_learn),
+                                      _getLanguageCode(
+                                        widget.moment.user.language_to_learn,
+                                      ),
                                       style: context.captionSmall.copyWith(
                                         fontWeight: FontWeight.w700,
                                         color: context.textSecondary,
@@ -501,8 +527,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                                     Row(
                                       children: List.generate(5, (index) {
                                         return Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 2),
+                                          margin: const EdgeInsets.only(
+                                            left: 2,
+                                          ),
                                           width: 3,
                                           height: 3,
                                           decoration: BoxDecoration(
@@ -521,7 +548,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                           ),
                           Text(
                             _getRelativeTime(context, widget.moment.createdAt),
-                            style: context.captionSmall.copyWith(color: context.textMuted),
+                            style: context.captionSmall.copyWith(
+                              color: context.textMuted,
+                            ),
                           ),
                         ],
                       ),
@@ -602,18 +631,20 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         children: [
                           Text(
                             '$likeCount ${AppLocalizations.of(context)!.giftsLikes}',
-                            style: context.labelMedium.copyWith(color: context.textSecondary),
+                            style: context.labelMedium.copyWith(
+                              color: context.textSecondary,
+                            ),
                           ),
                           Spacing.hGapSM,
-                          Icon(Icons.arrow_forward_ios,
-                              size: 12, color: context.textMuted),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 12,
+                            color: context.textMuted,
+                          ),
                         ],
                       ),
                     ),
-                  Container(
-                    height: 8,
-                    color: context.containerColor,
-                  ),
+                  Container(height: 8, color: context.containerColor),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
@@ -695,7 +726,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => ImageGallery(
                 imageUrls: widget.moment.imageUrls,
                 initialIndex: 0,
@@ -783,14 +814,18 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     );
   }
 
-  Widget _buildImageItem(String url, int index,
-      {bool isLastItem = false, int remainingCount = 0}) {
+  Widget _buildImageItem(
+    String url,
+    int index, {
+    bool isLastItem = false,
+    int remainingCount = 0,
+  }) {
     return GestureDetector(
       onTap: () {
         HapticFeedback.selectionClick();
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (context) => ImageGallery(
               imageUrls: widget.moment.imageUrls,
               initialIndex: index,

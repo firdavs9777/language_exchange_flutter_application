@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class MomentCard extends ConsumerStatefulWidget {
   final Moments moments;
@@ -329,7 +330,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     Navigator.pop(context);
                     final result = await Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      AppPageRoute(
                         builder: (context) => CreateMoment(
                           momentToEdit: widget.moments,
                         ),
@@ -438,7 +439,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (context) => SingleMoment(moment: singleMoment),
           ),
         );
@@ -475,7 +476,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        AppPageRoute(
                           builder: (context) =>
                               SingleCommunity(community: community),
                         ),
@@ -666,7 +667,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        AppPageRoute(
                           builder: (context) => FullScreenVideoPlayer(
                             video: widget.moments.video!,
                           ),
@@ -707,7 +708,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        AppPageRoute(
                           builder: (context) => SingleMoment(
                             moment: widget.moments,
                           ),
@@ -806,7 +807,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (context) => ImageGallery(
                 imageUrls: widget.moments.imageUrls,
                 initialIndex: 0,
@@ -906,7 +907,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (context) => ImageGallery(
               imageUrls: widget.moments.imageUrls,
               initialIndex: index,

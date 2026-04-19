@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/community/partner_discovery_tab.dart';
@@ -15,6 +16,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
@@ -101,32 +103,18 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   }
 
   void _openFilters() {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            CommunityFilter(
-          onApplyFilters: (filters) {
-            setState(() {
-              _filters = filters;
-            });
-            // Save filters to SharedPreferences for persistence
-            _saveFilters(filters);
-          },
-          initialFilters: _filters,
-        ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
-              end: Offset.zero,
-            ).animate(
-              CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-            ),
-            child: child,
-          );
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => CommunityFilter(
+        onApplyFilters: (filters) {
+          setState(() {
+            _filters = filters;
+          });
+          _saveFilters(filters);
         },
-        transitionDuration: const Duration(milliseconds: 300),
+        initialFilters: _filters,
       ),
     );
   }
@@ -142,12 +130,23 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         children: [
           // Search bar (shown when searching)
           AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOutCubic,
             height: _isSearching ? 60 : 0,
-            child: _isSearching ? _buildSearchBar(colorScheme) : null,
+            clipBehavior: Clip.antiAlias,
+            decoration: const BoxDecoration(),
+            child: AnimatedOpacity(
+              opacity: _isSearching ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              child: _isSearching ? _buildSearchBar(colorScheme) : null,
+            ),
           ),
           // Tab bar
-          _buildTabBar(colorScheme),
+          _buildTabBar(colorScheme)
+              .animate()
+              .fadeIn(duration: 250.ms, delay: 100.ms)
+              .slideY(begin: -0.03, end: 0, duration: 250.ms, delay: 100.ms, curve: Curves.easeOutCubic),
           // Tab content
           Expanded(
             child: TabBarView(
@@ -397,7 +396,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
         // Navigate to user profile
         Navigator.of(context).push(
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (_) => SingleCommunity(community: user),
           ),
         );

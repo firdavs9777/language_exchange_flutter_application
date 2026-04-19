@@ -172,6 +172,7 @@ class CallManager with WidgetsBindingObserver {
         } else {
           // App is in background/terminated — show native CallKit UI
           // (works on lock screen, shows full-screen activity on Android)
+          // CallKit is automatically skipped on iOS in China (MIIT regulation)
           _callKitService.showIncomingCall(
             callId: call.callId,
             callerName: call.userName,

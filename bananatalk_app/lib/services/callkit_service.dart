@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_callkit_incoming/entities/entities.dart';
@@ -12,6 +14,23 @@ class CallKitService {
   static final CallKitService _instance = CallKitService._internal();
   factory CallKitService() => _instance;
   CallKitService._internal();
+
+  /// Returns true if CallKit should be used on this device.
+  /// CallKit is disabled on iOS in China per MIIT regulations.
+  /// On Android, flutter_callkit_incoming uses a full-screen activity (not CallKit),
+  /// so it's always allowed.
+  static bool get isCallKitAllowed {
+    if (!Platform.isIOS) return true;
+    // Check device region/locale for China
+    final locale = Platform.localeName; // e.g. "zh_CN", "en_CN", "zh-Hans_CN"
+    if (locale.endsWith('_CN')) return false;
+    // Also check via PlatformDispatcher for cases where localeName format differs
+    try {
+      final uiLocale = ui.PlatformDispatcher.instance.locale;
+      if (uiLocale.countryCode == 'CN') return false;
+    } catch (_) {}
+    return true;
+  }
 
   /// Callbacks for call actions from the native UI
   Function(String callId)? onAccepted;
@@ -118,6 +137,11 @@ class CallKitService {
       ),
     );
 
+    if (!isCallKitAllowed) {
+      debugPrint('📱 CallKit disabled (China/iOS) — skipping native call UI');
+      return uuid;
+    }
+
     await FlutterCallkitIncoming.showCallkitIncoming(params);
     debugPrint('📱 CallKit incoming call shown: $uuid ($callerName)');
     return uuid;
@@ -143,13 +167,18 @@ class CallKitService {
       extra: {'callId': callId},
     );
 
+    if (!isCallKitAllowed) {
+      debugPrint('📱 CallKit disabled (China/iOS) — skipping outgoing call UI');
+      return;
+    }
+
     await FlutterCallkitIncoming.startCall(params);
   }
 
   /// End the current call in the native UI.
   Future<void> endCall([String? callId]) async {
     final uuid = callId ?? _activeCallUuid;
-    if (uuid != null) {
+    if (uuid != null && isCallKitAllowed) {
       await FlutterCallkitIncoming.endCall(uuid);
       debugPrint('📱 CallKit call ended: $uuid');
     }
@@ -158,7 +187,9 @@ class CallKitService {
 
   /// End all active calls (cleanup).
   Future<void> endAllCalls() async {
-    await FlutterCallkitIncoming.endAllCalls();
+    if (isCallKitAllowed) {
+      await FlutterCallkitIncoming.endAllCalls();
+    }
     _activeCallUuid = null;
   }
 

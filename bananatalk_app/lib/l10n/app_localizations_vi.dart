@@ -2274,7 +2274,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'Tìm quốc gia';
+  String get searchCountry => 'Tìm kiếm quốc gia...';
 
   @override
   String get wave => 'Vẫy tay';
@@ -2395,6 +2395,15 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'Tùy chọn - tối đa 6 ảnh';
+
+  @override
+  String get requiredUpTo6Photos => 'Bắt buộc — tối đa 6 ảnh';
+
+  @override
+  String get profilePhotoRequired => 'Vui lòng thêm ít nhất một ảnh đại diện';
+
+  @override
+  String get locationOptional => 'Vị trí là tùy chọn — bạn có thể thêm sau';
 
   @override
   String get maximum6Photos => 'Tối đa 6 ảnh';
@@ -3255,7 +3264,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get nameAndGender => 'Tên và Giới tính';
 
   @override
-  String get languageLevel => 'Trình độ Ngôn ngữ';
+  String get languageLevel => 'Trình độ ngôn ngữ';
 
   @override
   String get personalInformation => 'Thông tin Cá nhân';
@@ -3823,4 +3832,74 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get voice => 'Giọng nói';
+
+  @override
+  String get searchGifs => 'Tìm kiếm GIF...';
+
+  @override
+  String get trendingGifs => 'Thịnh hành';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'Không tìm thấy GIF';
+
+  @override
+  String get failedToLoadGifs => 'Không thể tải GIF';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'Lọc';
+
+  @override
+  String get reset => 'Đặt lại';
+
+  @override
+  String get findYourPerfect => 'Tìm người bạn';
+
+  @override
+  String get languagePartner => 'học ngôn ngữ hoàn hảo';
+
+  @override
+  String get learningLanguageLabel => 'Ngôn ngữ đang học';
+
+  @override
+  String get ageRange => 'Khoảng tuổi';
+
+  @override
+  String get genderPreference => 'Sở thích giới tính';
+
+  @override
+  String get any => 'Bất kỳ';
+
+  @override
+  String get showNewUsersSubtitle => 'Hiển thị người dùng đã tham gia trong 6 ngày qua';
+
+  @override
+  String get autoDetectLocation => 'Tự động phát hiện vị trí của tôi';
+
+  @override
+  String get selectCountry => 'Chọn quốc gia';
+
+  @override
+  String get anyCountry => 'Bất kỳ quốc gia nào';
+
+  @override
+  String get loadingLanguages => 'Đang tải ngôn ngữ...';
+
+  @override
+  String minAge(int age) {
+    return 'Tối thiểu: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Tối đa: $age';
+  }
 }

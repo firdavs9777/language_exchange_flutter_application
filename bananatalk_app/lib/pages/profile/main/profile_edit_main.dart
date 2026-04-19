@@ -14,6 +14,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileEdit extends ConsumerStatefulWidget {
   final String userName;
@@ -193,7 +194,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                     onTap: () async {
                       await Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        AppPageRoute(
                           builder: (context) => ProfilePictureEdit(user: user),
                         ),
                       );
@@ -217,7 +218,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               onTap: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  AppPageRoute(
                     builder: (context) => ProfileInfoSet(
                       userName: selectedName,
                       gender: selectedGender,
@@ -243,7 +244,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               onTap: () async {
                 final String updatedBio = await Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      AppPageRoute(
                         builder: (context) => ProfileBioEdit(
                           currentBio: selectedBio == "Not Set" ? '' : selectedBio,
                         ),
@@ -268,7 +269,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   onTap: () async {
                     final String updatedNatLang = await Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => ProfileLanguageEdit(
                               initialLanguage: selectedNatLanguage,
                               type: 'native',
@@ -292,7 +293,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   onTap: () async {
                     final String updatedLangLearn = await Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => ProfileLanguageEdit(
                               initialLanguage: selectedLanguageToLearn,
                               type: 'learn',
@@ -331,7 +332,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   onTap: () async {
                     final String updatedMbtiType = await Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => MBTIEdit(
                               currentMBTI: selectedMBTI,
                             ),
@@ -353,7 +354,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   onTap: () async {
                     final String updatedBloodType = await Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => PersonBloodType(
                           currentSelectedBloodType: selectedBloodType,
                         ),
@@ -375,7 +376,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
                   onTap: () async {
                     final String newAddress = await Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => ProfileHometownEdit(
                               currentAddress: selectedAddress,
                             ),
@@ -402,7 +403,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
               onTap: () async {
                 final List<String>? result = await Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  AppPageRoute(
                     builder: (context) => ProfileTopicsEdit(
                       initialTopics: selectedTopics,
                       isStandalone: true,

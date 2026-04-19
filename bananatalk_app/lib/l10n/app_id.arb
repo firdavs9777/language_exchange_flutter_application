@@ -578,6 +578,9 @@
   "addPhotoLocationForMatches": "Tambahkan foto dan lokasi untuk pencocokan yang lebih baik",
   "addProfilePhoto": "Tambah foto profil",
   "optionalUpTo6Photos": "Opsional - hingga 6 foto",
+  "requiredUpTo6Photos": "Wajib — maksimal 6 foto",
+  "profilePhotoRequired": "Silakan tambahkan minimal satu foto profil",
+  "locationOptional": "Lokasi bersifat opsional — Anda dapat menambahkannya nanti",
   "maximum6Photos": "Maksimal 6 foto",
   "tapToDetectLocation": "Ketuk untuk mendeteksi lokasi",
   "optionalHelpsNearbyPartners": "Opsional - membantu menemukan partner terdekat",
@@ -1112,5 +1115,50 @@
   },
   "failedToLoadUsers": "Gagal memuat pengguna",
   "voice": "Suara",
-  "you": "Kamu"
+  "you": "Kamu",
+  "searchGifs": "Cari GIF...",
+  "trendingGifs": "Trending",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "Tidak ada GIF yang ditemukan",
+  "failedToLoadGifs": "Gagal memuat GIF",
+  "gifSent": "GIF",
+  "filterCommunities": "Filter",
+  "reset": "Atur Ulang",
+  "findYourPerfect": "Temukan Pasangan",
+  "languagePartner": "Bahasa Sempurnamu",
+  "learningLanguageLabel": "Bahasa yang Dipelajari",
+  "languageLevel": "Tingkat Bahasa",
+  "country": "Negara",
+  "ageRange": "Rentang Usia",
+  "genderPreference": "Preferensi Gender",
+  "any": "Semua",
+  "male": "Laki-laki",
+  "female": "Perempuan",
+  "other": "Lainnya",
+  "newUsersOnly": "Pengguna Baru Saja",
+  "showNewUsersSubtitle": "Tampilkan pengguna yang bergabung dalam 6 hari terakhir",
+  "applyFilters": "Terapkan Filter",
+  "autoDetectLocation": "Deteksi lokasi saya otomatis",
+  "detecting": "Mendeteksi...",
+  "selectCountry": "Pilih Negara",
+  "anyCountry": "Negara Mana Saja",
+  "searchCountry": "Cari negara...",
+  "loadingLanguages": "Memuat bahasa...",
+  "minAge": "Min: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Maks: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

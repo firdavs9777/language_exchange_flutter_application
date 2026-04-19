@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_edit_main.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_followers.dart';
@@ -22,12 +23,14 @@ import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'dart:ui';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileMain extends ConsumerStatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
@@ -89,26 +92,60 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    _buildProfileHeader(user),
+                    _buildProfileHeader(user)
+                        .animate()
+                        .fadeIn(duration: 400.ms)
+                        .scale(
+                          begin: const Offset(0.97, 0.97),
+                          end: const Offset(1.0, 1.0),
+                          duration: 400.ms,
+                          curve: Curves.easeOutCubic,
+                        ),
                     const SizedBox(height: 16),
-                    _buildProfileCompletionCard(user),
+                    _buildProfileCompletionCard(user)
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 80.ms),
                     const SizedBox(height: 20),
-                    _buildQuickActions(context, user),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: SmallBannerAdWidget(),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildQuickActions(context, user)
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 150.ms),
                     const SizedBox(height: 20),
-                    _buildStatsCards(context, user),
+                    _buildStatsCards(context, user)
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 200.ms)
+                        .slideY(begin: 0.02, end: 0, duration: 350.ms, delay: 200.ms, curve: Curves.easeOutCubic),
                     const SizedBox(height: 20),
-                    _buildVipStatusCard(context, user),
+                    _buildVipStatusCard(context, user)
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 250.ms),
                     const SizedBox(height: 16),
-                    _buildLanguageCard(user),
+                    _buildLanguageCard(user)
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 300.ms),
                     const SizedBox(height: 16),
-                    _buildAboutCard(user),
+                    _buildAboutCard(user)
+                        .animate()
+                        .fadeIn(duration: 350.ms, delay: 350.ms),
                     const SizedBox(height: 16),
                     _buildMomentsGrid(context, user),
                     const SizedBox(height: 24),
                     _buildLogoutButton(context),
                     const SizedBox(height: 100),
                   ],
-                ),
+                )
+                    .animate()
+                    .fadeIn(duration: 400.ms)
+                    .scale(
+                      begin: const Offset(0.98, 0.98),
+                      end: const Offset(1.0, 1.0),
+                      duration: 400.ms,
+                      curve: Curves.easeOutCubic,
+                    ),
               ),
             ],
           ),
@@ -194,7 +231,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(
+                AppPageRoute(
                   builder: (context) => ProfilePictureEdit(user: user),
                 ),
               );
@@ -576,7 +613,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
               onTap: () async {
                 await Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  AppPageRoute(
                     builder: (context) => ProfileEdit(
                       nativeLanguage: user.native_language,
                       languageToLearn: user.language_to_learn,
@@ -624,7 +661,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           //                   onTap: () {
           //                     Navigator.push(
           //                       context,
-          //                       MaterialPageRoute(
+          //                       AppPageRoute(
           //                         builder: (context) =>
           //                             VipPlansScreen(userId: userId),
           //                       ),
@@ -645,7 +682,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           //                 onTap: () {
           //                   Navigator.push(
           //                     context,
-          //                     MaterialPageRoute(
+          //                     AppPageRoute(
           //                       builder: (context) =>
           //                           VipPlansScreen(userId: userId),
           //                     ),
@@ -716,7 +753,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      AppPageRoute(
                         builder: (context) => ProfileFollowers(
                           id: user.id,
                           followerIds: user.followers,
@@ -736,7 +773,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      AppPageRoute(
                         builder: (context) => ProfileFollowings(
                           id: user.id,
                           followingIds: user.followings,
@@ -767,7 +804,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            AppPageRoute(
                               builder: (context) => ProfileMoments(id: user.id),
                             ),
                           ).then(
@@ -844,7 +881,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                         if (user.isVip) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            AppPageRoute(
                               builder: (context) =>
                                   ProfileVisitorsScreen(userId: user.id),
                             ),
@@ -905,7 +942,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                AppPageRoute(
                   builder: (_) => isVip
                       ? VipStatusScreen(userId: user.id)
                       : VipPlansScreen(userId: user.id),
@@ -1547,7 +1584,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            AppPageRoute(
                               builder: (context) => ProfileMoments(id: user.id),
                             ),
                           ).then(

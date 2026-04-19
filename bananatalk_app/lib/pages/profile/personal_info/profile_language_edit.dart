@@ -10,6 +10,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileLanguageEdit extends ConsumerStatefulWidget {
   final String initialLanguage;
@@ -109,7 +110,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: _selectedLanguage,

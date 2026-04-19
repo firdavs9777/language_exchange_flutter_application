@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
+import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Voice Room Screen - Active voice chat room
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -86,10 +88,11 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
             child: Text(l10n.stay),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               ref.read(voiceRoomProvider).leaveRoom();
               Navigator.pop(dialogContext);
-              Navigator.pop(context);
+              await ref.read(adServiceProvider).showInterstitial();
+              if (context.mounted) Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
@@ -298,7 +301,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
             if (participant.id.isNotEmpty) {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                AppPageRoute(
                   builder: (_) => ProfileWrapper(userId: participant.id),
                 ),
               );

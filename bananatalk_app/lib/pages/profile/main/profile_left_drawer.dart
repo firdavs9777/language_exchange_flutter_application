@@ -23,6 +23,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -75,7 +76,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => ProfileSettings(),
                           ),
                         );
@@ -101,7 +102,7 @@ class LeftDrawer extends ConsumerWidget {
                     //     if (userId != null && context.mounted) {
                     //       Navigator.push(
                     //         context,
-                    //         MaterialPageRoute(
+                    //         AppPageRoute(
                     //           builder: (context) =>
                     //               VipPlansScreen(userId: userId),
                     //         ),
@@ -124,7 +125,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => const BlockedUsersScreen(),
                           ),
                         );
@@ -142,7 +143,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) =>
                                 const NotificationSettingsScreen(),
                           ),
@@ -161,7 +162,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => const BlockedUsersScreen(),
                           ),
                         );
@@ -177,7 +178,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) =>
                                 const LanguageSettingsScreen(),
                           ),
@@ -196,7 +197,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => const ProfileTheme(),
                           ),
                         );
@@ -220,7 +221,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => const DataStorageScreen(),
                           ),
                         );
@@ -241,7 +242,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => const MyReportsScreen(),
                           ),
                         );
@@ -267,7 +268,7 @@ class LeftDrawer extends ConsumerWidget {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            AppPageRoute(
                               builder: (context) => const AdminReportsScreen(),
                             ),
                           );
@@ -288,7 +289,7 @@ class LeftDrawer extends ConsumerWidget {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (context) => const LegalScreen(),
                           ),
                         );
@@ -405,7 +406,7 @@ class LeftDrawer extends ConsumerWidget {
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(
+                AppPageRoute(
                   builder: (context) => ProfilePictureEdit(user: user),
                 ),
               );
@@ -673,7 +674,7 @@ class LeftDrawer extends ConsumerWidget {
 
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => DeleteAccountScreen(
           isOAuthUser: isOAuthUser,
           isGoogleUser: isGoogleUser,

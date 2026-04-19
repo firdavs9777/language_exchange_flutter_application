@@ -7,6 +7,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileVisitorsScreen extends StatefulWidget {
   final String userId;
@@ -81,7 +82,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
   void _navigateToProfile(String userId, String userName) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => ProfileWrapper(userId: userId),
       ),
     );

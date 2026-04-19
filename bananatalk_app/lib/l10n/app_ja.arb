@@ -739,6 +739,9 @@
   "addPhotoLocationForMatches": "写真と位置を追加してマッチングを増やしましょう",
   "addProfilePhoto": "プロフィール写真を追加",
   "optionalUpTo6Photos": "任意 — 最大6枚",
+  "requiredUpTo6Photos": "必須 — 最大6枚",
+  "profilePhotoRequired": "プロフィール写真を1枚以上追加してください",
+  "locationOptional": "位置情報は任意です — 後で追加できます",
   "maximum6Photos": "最大6枚まで",
   "tapToDetectLocation": "タップして位置を検出",
   "optionalHelpsNearbyPartners": "任意 — 近くのパートナーを見つけるのに役立ちます",
@@ -1285,5 +1288,50 @@
   },
   "failedToLoadUsers": "ユーザーの読み込みに失敗しました",
   "voice": "音声",
-  "you": "あなた"
+  "you": "あなた",
+  "searchGifs": "GIFを検索...",
+  "trendingGifs": "トレンド",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "GIFが見つかりませんでした",
+  "failedToLoadGifs": "GIFの読み込みに失敗しました",
+  "gifSent": "GIF",
+  "filterCommunities": "フィルター",
+  "reset": "リセット",
+  "findYourPerfect": "理想の",
+  "languagePartner": "言語パートナーを見つけよう",
+  "learningLanguageLabel": "学習言語",
+  "languageLevel": "言語レベル",
+  "country": "国",
+  "ageRange": "年齢範囲",
+  "genderPreference": "性別の好み",
+  "any": "すべて",
+  "male": "男性",
+  "female": "女性",
+  "other": "その他",
+  "newUsersOnly": "新規ユーザーのみ",
+  "showNewUsersSubtitle": "過去6日間に参加したユーザーを表示",
+  "applyFilters": "フィルターを適用",
+  "autoDetectLocation": "現在地を自動検出",
+  "detecting": "検出中...",
+  "selectCountry": "国を選択",
+  "anyCountry": "すべての国",
+  "searchCountry": "国を検索...",
+  "loadingLanguages": "言語を読み込み中...",
+  "minAge": "最小: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "最大: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

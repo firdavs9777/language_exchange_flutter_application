@@ -1956,7 +1956,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get moods => 'Moods';
 
   @override
-  String get applyFilters => 'تطبيق التصفية';
+  String get applyFilters => 'تطبيق الفلاتر';
 
   @override
   String applyNFilters(int count) {
@@ -2274,7 +2274,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'البحث عن دولة...';
+  String get searchCountry => 'ابحث عن بلد...';
 
   @override
   String get wave => 'تحية';
@@ -2395,6 +2395,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'اختياري — حتى 6 صور';
+
+  @override
+  String get requiredUpTo6Photos => 'مطلوب — حتى 6 صور';
+
+  @override
+  String get profilePhotoRequired => 'يرجى إضافة صورة شخصية واحدة على الأقل';
+
+  @override
+  String get locationOptional => 'الموقع اختياري — يمكنك إضافته لاحقاً';
 
   @override
   String get maximum6Photos => 'الحد الأقصى 6 صور';
@@ -3310,7 +3319,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get useCurrentLocation => 'استخدام الموقع الحالي';
 
   @override
-  String get detecting => 'جاري الكشف...';
+  String get detecting => 'جارٍ التحديد...';
 
   @override
   String get getCurrentLocation => 'الحصول على الموقع';
@@ -3823,4 +3832,74 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get voice => 'صوت';
+
+  @override
+  String get searchGifs => 'ابحث عن صور GIF...';
+
+  @override
+  String get trendingGifs => 'رائج';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'لم يتم العثور على صور GIF';
+
+  @override
+  String get failedToLoadGifs => 'فشل تحميل صور GIF';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'تصفية';
+
+  @override
+  String get reset => 'إعادة تعيين';
+
+  @override
+  String get findYourPerfect => 'ابحث عن';
+
+  @override
+  String get languagePartner => 'شريك اللغة المثالي';
+
+  @override
+  String get learningLanguageLabel => 'اللغة المتعلَّمة';
+
+  @override
+  String get ageRange => 'الفئة العمرية';
+
+  @override
+  String get genderPreference => 'تفضيل الجنس';
+
+  @override
+  String get any => 'أي';
+
+  @override
+  String get showNewUsersSubtitle => 'إظهار المستخدمين الذين انضموا في آخر 6 أيام';
+
+  @override
+  String get autoDetectLocation => 'تحديد موقعي تلقائياً';
+
+  @override
+  String get selectCountry => 'اختر البلد';
+
+  @override
+  String get anyCountry => 'أي بلد';
+
+  @override
+  String get loadingLanguages => 'جارٍ تحميل اللغات...';
+
+  @override
+  String minAge(int age) {
+    return 'الحد الأدنى: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'الحد الأقصى: $age';
+  }
 }

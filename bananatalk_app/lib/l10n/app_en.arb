@@ -1128,6 +1128,9 @@
   "addPhotoLocationForMatches": "Add a photo and location to get more matches",
   "addProfilePhoto": "Add Profile Photo",
   "optionalUpTo6Photos": "Optional — up to 6 photos",
+  "requiredUpTo6Photos": "Required — up to 6 photos",
+  "profilePhotoRequired": "Please add at least one profile photo",
+  "locationOptional": "Location is optional — you can add it later",
   "maximum6Photos": "Maximum 6 photos",
   "tapToDetectLocation": "Tap to detect location",
   "optionalHelpsNearbyPartners": "Optional — helps find nearby partners",
@@ -1893,6 +1896,51 @@
   },
   "failedToLoadUsers": "Failed to load users",
   "voice": "Voice",
-  "you": "You"
+  "you": "You",
+  "searchGifs": "Search GIFs...",
+  "trendingGifs": "Trending",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "No GIFs found",
+  "failedToLoadGifs": "Failed to load GIFs",
+  "gifSent": "GIF",
+  "filterCommunities": "Filter",
+  "reset": "Reset",
+  "findYourPerfect": "Find Your Perfect",
+  "languagePartner": "Language Partner",
+  "learningLanguageLabel": "Learning Language",
+  "languageLevel": "Language Level",
+  "country": "Country",
+  "ageRange": "Age Range",
+  "genderPreference": "Gender Preference",
+  "any": "Any",
+  "male": "Male",
+  "female": "Female",
+  "other": "Other",
+  "newUsersOnly": "New Users Only",
+  "showNewUsersSubtitle": "Show users who joined in the last 6 days",
+  "applyFilters": "Apply Filters",
+  "autoDetectLocation": "Auto-detect my location",
+  "detecting": "Detecting...",
+  "selectCountry": "Select Country",
+  "anyCountry": "Any Country",
+  "searchCountry": "Search country...",
+  "loadingLanguages": "Loading languages...",
+  "minAge": "Min: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Max: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }
 

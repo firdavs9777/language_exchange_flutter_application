@@ -11,6 +11,7 @@ import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ProfileFollowers extends ConsumerStatefulWidget {
   const ProfileFollowers({
@@ -196,7 +197,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
       if (mounted) {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (context) => SingleCommunity(community: community),
           ),
         );

@@ -11,6 +11,7 @@ import 'package:bananatalk_app/widgets/language_selection/language_picker_screen
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Grammar Feedback Analysis Screen
 class GrammarFeedbackScreen extends ConsumerStatefulWidget {
@@ -91,7 +92,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: _selectedLanguage,

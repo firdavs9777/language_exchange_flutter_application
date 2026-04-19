@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/ai/conversation/topic_selection_sheet.dart'
 import 'package:bananatalk_app/pages/ai/conversation/conversation_history_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// AI Conversation Chat Screen
 class AIConversationScreen extends ConsumerStatefulWidget {
@@ -256,7 +257,7 @@ class _AIConversationScreenState extends ConsumerState<AIConversationScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                AppPageRoute(
                   builder: (_) => const ConversationHistoryScreen(),
                 ),
               );

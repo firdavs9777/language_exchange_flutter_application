@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,6 +16,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Nearby Tab - Grid view of nearby users with real distance calculation
 class NearbyTab extends ConsumerStatefulWidget {
@@ -173,7 +175,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     // Navigate to chat immediately
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: user.id,
           userName: user.name,
@@ -230,11 +232,16 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         slivers: [
           // Location header with radius selector
           SliverToBoxAdapter(
-            child: _buildLocationHeader(),
+            child: _buildLocationHeader()
+                .animate()
+                .fadeIn(duration: 300.ms)
+                .slideY(begin: -0.1, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
           ),
           // Radius selector
           SliverToBoxAdapter(
-            child: _buildRadiusSelector(),
+            child: _buildRadiusSelector()
+                .animate()
+                .fadeIn(duration: 300.ms, delay: 80.ms),
           ),
           // Grid of users
           SliverPadding(
@@ -253,7 +260,19 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                     user: user,
                     onTap: () => _viewNearbyUserProfile(user),
                     onWave: () => _onWave(user),
-                  );
+                  )
+                      .animate()
+                      .fadeIn(
+                        duration: 350.ms,
+                        delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+                      )
+                      .scale(
+                        begin: const Offset(0.92, 0.92),
+                        end: const Offset(1.0, 1.0),
+                        duration: 350.ms,
+                        delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+                        curve: Curves.easeOutBack,
+                      );
                 },
                 childCount: _nearbyUsers.length,
               ),
@@ -342,7 +361,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       if (fullProfile != null && mounted) {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          AppPageRoute(
             builder: (_) => SingleCommunity(community: fullProfile),
           ),
         );
@@ -532,7 +551,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           ],
         ),
       ),
-    );
+    ).animate().fadeIn(duration: 400.ms).scale(
+          begin: const Offset(0.95, 0.95),
+          end: const Offset(1.0, 1.0),
+          duration: 400.ms,
+          curve: Curves.easeOutCubic,
+        );
   }
 
   Widget _buildError(dynamic error) {

@@ -99,7 +99,12 @@ class ChatMediaPanel extends StatelessWidget {
                         color: Colors.blue,
                         onTap: () => onMediaOption('video'),
                       ),
-                      const SizedBox(width: 60), // spacer
+                      MediaOptionButton(
+                        icon: Icons.gif_box_rounded,
+                        label: AppLocalizations.of(context)!.gif,
+                        color: Colors.cyan,
+                        onTap: () => onMediaOption('gif'),
+                      ),
                       const SizedBox(width: 60), // spacer
                     ],
                   ),

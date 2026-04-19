@@ -2195,7 +2195,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get vip => 'VIP';
 
   @override
-  String get newUsersOnly => 'Hanya pengguna baru';
+  String get newUsersOnly => 'Pengguna Baru Saja';
 
   @override
   String get showNewUsers => 'Tampilkan pengguna baru';
@@ -2274,7 +2274,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'Cari negara';
+  String get searchCountry => 'Cari negara...';
 
   @override
   String get wave => 'Lambaikan tangan';
@@ -2395,6 +2395,15 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'Opsional - hingga 6 foto';
+
+  @override
+  String get requiredUpTo6Photos => 'Wajib — maksimal 6 foto';
+
+  @override
+  String get profilePhotoRequired => 'Silakan tambahkan minimal satu foto profil';
+
+  @override
+  String get locationOptional => 'Lokasi bersifat opsional — Anda dapat menambahkannya nanti';
 
   @override
   String get maximum6Photos => 'Maksimal 6 foto';
@@ -3823,4 +3832,74 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get voice => 'Suara';
+
+  @override
+  String get searchGifs => 'Cari GIF...';
+
+  @override
+  String get trendingGifs => 'Trending';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'Tidak ada GIF yang ditemukan';
+
+  @override
+  String get failedToLoadGifs => 'Gagal memuat GIF';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'Filter';
+
+  @override
+  String get reset => 'Atur Ulang';
+
+  @override
+  String get findYourPerfect => 'Temukan Pasangan';
+
+  @override
+  String get languagePartner => 'Bahasa Sempurnamu';
+
+  @override
+  String get learningLanguageLabel => 'Bahasa yang Dipelajari';
+
+  @override
+  String get ageRange => 'Rentang Usia';
+
+  @override
+  String get genderPreference => 'Preferensi Gender';
+
+  @override
+  String get any => 'Semua';
+
+  @override
+  String get showNewUsersSubtitle => 'Tampilkan pengguna yang bergabung dalam 6 hari terakhir';
+
+  @override
+  String get autoDetectLocation => 'Deteksi lokasi saya otomatis';
+
+  @override
+  String get selectCountry => 'Pilih Negara';
+
+  @override
+  String get anyCountry => 'Negara Mana Saja';
+
+  @override
+  String get loadingLanguages => 'Memuat bahasa...';
+
+  @override
+  String minAge(int age) {
+    return 'Min: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Maks: $age';
+  }
 }

@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Horizontal story feed widget (like Instagram stories row)
 class StoriesFeedWidget extends ConsumerStatefulWidget {
@@ -180,7 +181,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(
+        AppPageRoute(
           builder: (context) => CreateStoryScreen(
             onStoryCreated: _refreshStoriesSilently,
           ),

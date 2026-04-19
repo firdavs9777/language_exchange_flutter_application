@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/pages/notifications/notification_history_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
@@ -23,6 +24,8 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
@@ -110,6 +113,8 @@ String getMessagePreview(Message message) {
       return '😀 Sticker';
     case 'poll':
       return '📊 Poll';
+    case 'gif':
+      return '🎬 GIF';
   }
 
   // Check media type
@@ -576,9 +581,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
           : DateTime.now();
 
       // Get message preview based on type/media
-      String messageText = rawMessageText;
-      if (messageText.isEmpty) {
-        final messageType = messageData['type']?.toString() ?? '';
+      final messageType = messageData['type']?.toString() ?? '';
+      String messageText;
+      if (messageType == 'gif') {
+        messageText = '🎬 GIF';
+      } else if (rawMessageText.isNotEmpty) {
+        messageText = rawMessageText;
+      } else {
+        messageText = rawMessageText;
         final mediaType = messageData['media']?['type']?.toString() ?? '';
 
         if (messageType == 'sticker') {
@@ -688,9 +698,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
           : DateTime.now();
 
       // Get message preview based on type/media
-      String messageText = rawMessageText;
-      if (messageText.isEmpty) {
-        final messageType = messageData['type']?.toString() ?? '';
+      final messageType = messageData['type']?.toString() ?? '';
+      String messageText;
+      if (messageType == 'gif') {
+        messageText = '🎬 GIF';
+      } else if (rawMessageText.isNotEmpty) {
+        messageText = rawMessageText;
+      } else {
+        messageText = rawMessageText;
         final mediaType = messageData['media']?['type']?.toString() ?? '';
 
         if (messageType == 'sticker') {
@@ -1776,8 +1791,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
           itemBuilder: (context, index) {
             final partner = displayPartners[index];
             final isActive = _activeUserId == partner.id;
+            final delay = Duration(milliseconds: (index * 50).clamp(0, 500));
 
-            return Slidable(
+            final item = Slidable(
               key: ValueKey(partner.id),
               endActionPane: ActionPane(
                 motion: const BehindMotion(),
@@ -2078,6 +2094,17 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 ),
               ),
             );
+
+            return item
+                .animate()
+                .fadeIn(duration: 300.ms, delay: delay)
+                .slideX(
+                  begin: 0.05,
+                  end: 0,
+                  duration: 300.ms,
+                  delay: delay,
+                  curve: Curves.easeOutCubic,
+                );
           },
         ),
       ),
@@ -2360,7 +2387,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    AppPageRoute(
                       builder: (context) => const NotificationHistoryScreen(),
                     ),
                   );
@@ -2374,6 +2401,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
       body: Column(
         children: [
           ConnectionStatusIndicator(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+            child: SmallBannerAdWidget(),
+          ),
           Expanded(
             child: _isLoading
                 // ---------- Loading with Shimmer ----------

@@ -2274,7 +2274,7 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'ค้นหาประเทศ';
+  String get searchCountry => 'ค้นหาประเทศ...';
 
   @override
   String get wave => 'โบกมือ';
@@ -2395,6 +2395,15 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'ไม่บังคับ - สูงสุด 6 รูป';
+
+  @override
+  String get requiredUpTo6Photos => 'จำเป็น — สูงสุด 6 รูป';
+
+  @override
+  String get profilePhotoRequired => 'กรุณาเพิ่มรูปโปรไฟล์อย่างน้อย 1 รูป';
+
+  @override
+  String get locationOptional => 'ตำแหน่งที่ตั้งเป็นตัวเลือก — สามารถเพิ่มภายหลังได้';
 
   @override
   String get maximum6Photos => 'สูงสุด 6 รูป';
@@ -3310,7 +3319,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get useCurrentLocation => 'ใช้ตำแหน่งปัจจุบัน';
 
   @override
-  String get detecting => 'กำลังตรวจหา...';
+  String get detecting => 'กำลังตรวจจับ...';
 
   @override
   String get getCurrentLocation => 'รับตำแหน่งปัจจุบัน';
@@ -3823,4 +3832,74 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get voice => 'เสียง';
+
+  @override
+  String get searchGifs => 'ค้นหา GIF...';
+
+  @override
+  String get trendingGifs => 'กำลังมาแรง';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'ไม่พบ GIF';
+
+  @override
+  String get failedToLoadGifs => 'โหลด GIF ไม่สำเร็จ';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'กรอง';
+
+  @override
+  String get reset => 'รีเซ็ต';
+
+  @override
+  String get findYourPerfect => 'ค้นหา';
+
+  @override
+  String get languagePartner => 'คู่ฝึกภาษาที่สมบูรณ์แบบ';
+
+  @override
+  String get learningLanguageLabel => 'ภาษาที่กำลังเรียน';
+
+  @override
+  String get ageRange => 'ช่วงอายุ';
+
+  @override
+  String get genderPreference => 'ความต้องการเพศ';
+
+  @override
+  String get any => 'ทั้งหมด';
+
+  @override
+  String get showNewUsersSubtitle => 'แสดงผู้ใช้ที่เข้าร่วมใน 6 วันที่ผ่านมา';
+
+  @override
+  String get autoDetectLocation => 'ตรวจจับตำแหน่งของฉันอัตโนมัติ';
+
+  @override
+  String get selectCountry => 'เลือกประเทศ';
+
+  @override
+  String get anyCountry => 'ทุกประเทศ';
+
+  @override
+  String get loadingLanguages => 'กำลังโหลดภาษา...';
+
+  @override
+  String minAge(int age) {
+    return 'ต่ำสุด: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'สูงสุด: $age';
+  }
 }

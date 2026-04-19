@@ -2195,7 +2195,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get vip => 'VIP';
 
   @override
-  String get newUsersOnly => 'Solo usuarios nuevos';
+  String get newUsersOnly => 'Solo nuevos usuarios';
 
   @override
   String get showNewUsers => 'Mostrar usuarios nuevos';
@@ -2274,7 +2274,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'Buscar país';
+  String get searchCountry => 'Buscar país...';
 
   @override
   String get wave => 'Saludar';
@@ -2395,6 +2395,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'Opcional — hasta 6 fotos';
+
+  @override
+  String get requiredUpTo6Photos => 'Obligatorio — hasta 6 fotos';
+
+  @override
+  String get profilePhotoRequired => 'Agrega al menos una foto de perfil';
+
+  @override
+  String get locationOptional => 'La ubicación es opcional — puedes agregarla después';
 
   @override
   String get maximum6Photos => 'Máximo 6 fotos';
@@ -3255,7 +3264,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get nameAndGender => 'Nombre y Género';
 
   @override
-  String get languageLevel => 'Nivel de Idioma';
+  String get languageLevel => 'Nivel de idioma';
 
   @override
   String get personalInformation => 'Información Personal';
@@ -3823,4 +3832,74 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get voice => 'Voz';
+
+  @override
+  String get searchGifs => 'Buscar GIFs...';
+
+  @override
+  String get trendingGifs => 'Tendencias';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'No se encontraron GIFs';
+
+  @override
+  String get failedToLoadGifs => 'Error al cargar los GIFs';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'Filtrar';
+
+  @override
+  String get reset => 'Restablecer';
+
+  @override
+  String get findYourPerfect => 'Encuentra tu perfecto';
+
+  @override
+  String get languagePartner => 'Compañero de idioma';
+
+  @override
+  String get learningLanguageLabel => 'Idioma de aprendizaje';
+
+  @override
+  String get ageRange => 'Rango de edad';
+
+  @override
+  String get genderPreference => 'Preferencia de género';
+
+  @override
+  String get any => 'Cualquiera';
+
+  @override
+  String get showNewUsersSubtitle => 'Mostrar usuarios que se unieron en los últimos 6 días';
+
+  @override
+  String get autoDetectLocation => 'Detectar mi ubicación automáticamente';
+
+  @override
+  String get selectCountry => 'Seleccionar país';
+
+  @override
+  String get anyCountry => 'Cualquier país';
+
+  @override
+  String get loadingLanguages => 'Cargando idiomas...';
+
+  @override
+  String minAge(int age) {
+    return 'Mín: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'Máx: $age';
+  }
 }

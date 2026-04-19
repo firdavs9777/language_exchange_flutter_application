@@ -18,14 +18,37 @@ class SplashScreen extends ConsumerStatefulWidget {
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen>
+    with SingleTickerProviderStateMixin {
   // Store initial notification to handle after auth completes
   RemoteMessage? _pendingNotification;
+  late AnimationController _animController;
+  late Animation<double> _fadeAnim;
+  late Animation<double> _scaleAnim;
+  late Animation<Offset> _slideAnim;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _fadeAnim = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeOut,
+    );
+    _scaleAnim = Tween<double>(begin: 0.85, end: 1.0).animate(
+      CurvedAnimation(parent: _animController, curve: Curves.easeOutBack),
+    );
+    _slideAnim = Tween<Offset>(
+      begin: const Offset(0, 0.08),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _animController, curve: Curves.easeOutCubic));
+
+    _animController.forward();
     _initializeApp();
   }
 
@@ -162,7 +185,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _animController.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
     super.dispose();
@@ -173,30 +196,39 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     return Scaffold(
       backgroundColor: context.surfaceColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'BananaTalk',
-              style: TextStyle(
-                fontSize: 42,
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).primaryColor,
-                letterSpacing: -0.5,
+        child: FadeTransition(
+          opacity: _fadeAnim,
+          child: SlideTransition(
+            position: _slideAnim,
+            child: ScaleTransition(
+              scale: _scaleAnim,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'BananaTalk',
+                    style: TextStyle(
+                      fontSize: 42,
+                      fontWeight: FontWeight.w800,
+                      color: Theme.of(context).primaryColor,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'MEET · CHAT · CONNECT',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                  Spacing.gapXL,
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'MEET · CHAT · CONNECT',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
-                letterSpacing: 2.0,
-              ),
-            ),
-            Spacing.gapXL,
-          ],
+          ),
         ),
       ),
     );

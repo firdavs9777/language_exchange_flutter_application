@@ -14,6 +14,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:async';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class StoryViewerScreen extends StatefulWidget {
   final List<UserStories> userStories;
@@ -383,7 +384,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     await Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => CreateStoryScreen(
           onStoryCreated: () {
             widget.onStoriesUpdated?.call();

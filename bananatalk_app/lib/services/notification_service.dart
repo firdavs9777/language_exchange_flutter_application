@@ -25,15 +25,18 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     final callId = message.data['callId'] ?? '';
 
     // Use flutter_callkit_incoming for native call UI on both platforms.
-    // On iOS this triggers CallKit (works on lock screen).
+    // On iOS this triggers CallKit (works on lock screen) — except in China
+    // where MIIT regulations prohibit CallKit.
     // On Android this shows a full-screen activity (no permission issues).
-    final callKitService = CallKitService();
-    await callKitService.showIncomingCall(
-      callId: callId,
-      callerName: callerName,
-      callerAvatar: callerAvatar,
-      isVideo: callType == 'video',
-    );
+    if (CallKitService.isCallKitAllowed) {
+      final callKitService = CallKitService();
+      await callKitService.showIncomingCall(
+        callId: callId,
+        callerName: callerName,
+        callerAvatar: callerAvatar,
+        isVideo: callType == 'video',
+      );
+    }
   }
 }
 

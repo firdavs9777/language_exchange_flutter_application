@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
@@ -15,6 +16,7 @@ import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Country pin on the map
 class _CountryPin {
@@ -370,7 +372,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                       if (userId.isNotEmpty) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          AppPageRoute(
                             builder: (_) => VipStatusScreen(userId: userId),
                           ),
                         );
@@ -607,7 +609,19 @@ class _CityTabState extends ConsumerState<CityTab> {
                           onTap: () => _viewProfile(user),
                           onWave: () => _onWave(user),
                           onMessage: () => _onMessage(user),
-                        );
+                        )
+                            .animate()
+                            .fadeIn(
+                              duration: 300.ms,
+                              delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+                            )
+                            .slideX(
+                              begin: 0.04,
+                              end: 0,
+                              duration: 300.ms,
+                              delay: Duration(milliseconds: (index * 40).clamp(0, 400)),
+                              curve: Curves.easeOutCubic,
+                            );
                       },
                     ),
         ),
@@ -618,7 +632,7 @@ class _CityTabState extends ConsumerState<CityTab> {
   void _viewProfile(Community user) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => SingleCommunity(community: user)),
+      AppPageRoute(builder: (_) => SingleCommunity(community: user)),
     );
   }
 
@@ -626,7 +640,7 @@ class _CityTabState extends ConsumerState<CityTab> {
     // Navigate to chat immediately
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: user.id,
           userName: user.name,
@@ -654,7 +668,7 @@ class _CityTabState extends ConsumerState<CityTab> {
   void _onMessage(Community user) {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => ChatScreen(
           userId: user.id,
           userName: user.name,

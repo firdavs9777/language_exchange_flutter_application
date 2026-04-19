@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/pages/learning/lessons/exercises/multiple_choice_widget.dart';
@@ -496,9 +497,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 Spacing.hGapLG,
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await ref.read(adServiceProvider).showInterstitial();
                       ref.read(lessonPlayerProvider.notifier).reset();
-                      Navigator.pop(context);
+                      if (context.mounted) Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,

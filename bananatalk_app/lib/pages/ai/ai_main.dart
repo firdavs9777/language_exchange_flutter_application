@@ -12,6 +12,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Main AI Features Hub Screen
 class AIMain extends ConsumerWidget {
@@ -180,7 +181,7 @@ class AIMain extends ConsumerWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  AppPageRoute(
                     builder: (_) => const AIConversationScreen(),
                   ),
                 );
@@ -230,7 +231,7 @@ class AIMain extends ConsumerWidget {
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => const LessonsScreen(),
             ),
           );
@@ -245,7 +246,7 @@ class AIMain extends ConsumerWidget {
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => const GrammarFeedbackScreen(),
             ),
           );
@@ -260,7 +261,7 @@ class AIMain extends ConsumerWidget {
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => const PronunciationScreen(),
             ),
           );
@@ -275,7 +276,7 @@ class AIMain extends ConsumerWidget {
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => const TranslationScreen(),
             ),
           );
@@ -290,7 +291,7 @@ class AIMain extends ConsumerWidget {
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => const AIQuizScreen(),
             ),
           );
@@ -305,7 +306,7 @@ class AIMain extends ConsumerWidget {
         'onTap': () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            AppPageRoute(
               builder: (_) => const LessonBuilderScreen(),
             ),
           );
@@ -527,7 +528,7 @@ class AIMain extends ConsumerWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    AppPageRoute(
                       builder: (_) => const AIQuizScreen(),
                     ),
                   );

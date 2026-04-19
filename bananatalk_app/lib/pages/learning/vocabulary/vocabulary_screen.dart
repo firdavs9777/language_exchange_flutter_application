@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_add_screen.d
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Vocabulary list screen
 class VocabularyScreen extends ConsumerStatefulWidget {
@@ -51,7 +52,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                AppPageRoute(
                   builder: (_) => const VocabularyReviewScreen(),
                 ),
               );
@@ -218,7 +219,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const VocabularyAddScreen()),
+            AppPageRoute(builder: (_) => const VocabularyAddScreen()),
           ).then((_) {
             ref.invalidate(vocabularyListProvider(filter));
             ref.invalidate(vocabularyStatsProvider(null));

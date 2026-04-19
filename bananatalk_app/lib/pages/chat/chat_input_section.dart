@@ -9,6 +9,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'chat_input_bar.dart';
 import 'chat_media_panel.dart';
 import 'chat_sticker_panel.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatInputSection extends ConsumerWidget {
   final TextEditingController messageController;
@@ -19,6 +20,7 @@ class ChatInputSection extends ConsumerWidget {
   final AnimationController stickerPanelController;
   final Function({String? messageText, String? messageType}) onSendMessage;
   final Function(String) onSelectSticker;
+  final Function(String gifUrl)? onSendGif;
   final VoidCallback onToggleMediaPanel;
   final VoidCallback onToggleStickerPanel;
   final VoidCallback onTyping;
@@ -44,6 +46,7 @@ class ChatInputSection extends ConsumerWidget {
     required this.stickerPanelController,
     required this.onSendMessage,
     required this.onSelectSticker,
+    this.onSendGif,
     required this.onToggleMediaPanel,
     required this.onToggleStickerPanel,
     required this.onTyping,
@@ -106,6 +109,7 @@ class ChatInputSection extends ConsumerWidget {
           ChatStickerPanel(
             animationController: stickerPanelController,
             onSendSticker: onSelectSticker,
+            onSendGif: onSendGif,
           ),
       ],
     );
@@ -187,7 +191,7 @@ class _MessageLimitIndicator extends ConsumerWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    AppPageRoute(
                       builder: (_) => VipPlansScreen(userId: userId),
                     ),
                   );

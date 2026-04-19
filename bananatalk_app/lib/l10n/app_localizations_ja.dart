@@ -2397,6 +2397,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get optionalUpTo6Photos => '任意 — 最大6枚';
 
   @override
+  String get requiredUpTo6Photos => '必須 — 最大6枚';
+
+  @override
+  String get profilePhotoRequired => 'プロフィール写真を1枚以上追加してください';
+
+  @override
+  String get locationOptional => '位置情報は任意です — 後で追加できます';
+
+  @override
   String get maximum6Photos => '最大6枚まで';
 
   @override
@@ -3823,4 +3832,74 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get voice => '音声';
+
+  @override
+  String get searchGifs => 'GIFを検索...';
+
+  @override
+  String get trendingGifs => 'トレンド';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'GIFが見つかりませんでした';
+
+  @override
+  String get failedToLoadGifs => 'GIFの読み込みに失敗しました';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'フィルター';
+
+  @override
+  String get reset => 'リセット';
+
+  @override
+  String get findYourPerfect => '理想の';
+
+  @override
+  String get languagePartner => '言語パートナーを見つけよう';
+
+  @override
+  String get learningLanguageLabel => '学習言語';
+
+  @override
+  String get ageRange => '年齢範囲';
+
+  @override
+  String get genderPreference => '性別の好み';
+
+  @override
+  String get any => 'すべて';
+
+  @override
+  String get showNewUsersSubtitle => '過去6日間に参加したユーザーを表示';
+
+  @override
+  String get autoDetectLocation => '現在地を自動検出';
+
+  @override
+  String get selectCountry => '国を選択';
+
+  @override
+  String get anyCountry => 'すべての国';
+
+  @override
+  String get loadingLanguages => '言語を読み込み中...';
+
+  @override
+  String minAge(int age) {
+    return '最小: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return '最大: $age';
+  }
 }

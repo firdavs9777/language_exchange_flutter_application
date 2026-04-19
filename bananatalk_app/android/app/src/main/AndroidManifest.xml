@@ -107,6 +107,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
+        <!-- Google AdMob App ID (test ID — replace for production) -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1050509512947605~8208431183"/>
+
         <!-- Facebook SDK Configuration -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

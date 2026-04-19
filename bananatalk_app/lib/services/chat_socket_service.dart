@@ -594,6 +594,7 @@ class ChatSocketService {
   Future<Map<String, dynamic>> sendMessage({
     required String receiverId,
     required String message,
+    String? messageType,
   }) async {
     if (!isConnected) {
       return {'status': 'error', 'error': 'Not connected to server'};
@@ -614,7 +615,11 @@ class ChatSocketService {
 
       _socket?.emitWithAck(
         'sendMessage',
-        {'receiver': receiverId, 'message': message},
+        {
+          'receiver': receiverId,
+          'message': message,
+          if (messageType != null) 'messageType': messageType,
+        },
         ack: (response) {
           // Cancel timeout timer on ack
           timeoutTimer?.cancel();

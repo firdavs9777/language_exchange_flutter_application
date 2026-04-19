@@ -738,6 +738,9 @@
   "addPhotoLocationForMatches": "Magdagdag ng larawan at lokasyon para sa mas magandang match",
   "addProfilePhoto": "Magdagdag ng profile photo",
   "optionalUpTo6Photos": "Opsyonal - hanggang 6 na larawan",
+  "requiredUpTo6Photos": "Kinakailangan — hanggang 6 na larawan",
+  "profilePhotoRequired": "Mangyaring magdagdag ng kahit isang profile photo",
+  "locationOptional": "Opsyonal ang lokasyon — maaari mong idagdag ito sa ibang pagkakataon",
   "maximum6Photos": "Maximum na 6 na larawan",
   "tapToDetectLocation": "I-tap para i-detect ang lokasyon",
   "optionalHelpsNearbyPartners": "Opsyonal - tumutulong mahanap ang mga partner sa malapit",
@@ -1223,5 +1226,50 @@
   },
   "failedToLoadUsers": "Hindi na-load ang mga user",
   "voice": "Boses",
-  "you": "Ikaw"
+  "you": "Ikaw",
+  "searchGifs": "Maghanap ng GIF...",
+  "trendingGifs": "Trending",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "Walang nahanap na GIF",
+  "failedToLoadGifs": "Hindi na-load ang mga GIF",
+  "gifSent": "GIF",
+  "filterCommunities": "I-filter",
+  "reset": "I-reset",
+  "findYourPerfect": "Hanapin ang iyong perpektong",
+  "languagePartner": "Kasosyo sa Wika",
+  "learningLanguageLabel": "Wikang Pinag-aaralan",
+  "languageLevel": "Antas ng Wika",
+  "country": "Bansa",
+  "ageRange": "Saklaw ng Edad",
+  "genderPreference": "Kagustuhan sa Kasarian",
+  "any": "Kahit anong",
+  "male": "Lalaki",
+  "female": "Babae",
+  "other": "Iba pa",
+  "newUsersOnly": "Bagong Gumagamit Lamang",
+  "showNewUsersSubtitle": "Ipakita ang mga gumagamit na sumali sa nakaraang 6 na araw",
+  "applyFilters": "Ilapat ang mga Filter",
+  "autoDetectLocation": "Awtomatikong matukoy ang aking lokasyon",
+  "detecting": "Tinutukoy...",
+  "selectCountry": "Pumili ng Bansa",
+  "anyCountry": "Kahit anong Bansa",
+  "searchCountry": "Maghanap ng bansa...",
+  "loadingLanguages": "Nilo-load ang mga wika...",
+  "minAge": "Min: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "Max: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

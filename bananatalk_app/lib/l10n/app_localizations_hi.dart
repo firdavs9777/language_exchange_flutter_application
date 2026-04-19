@@ -2274,7 +2274,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get searchCountry => 'देश खोजें';
+  String get searchCountry => 'देश खोजें...';
 
   @override
   String get wave => 'अभिवादन करें';
@@ -2395,6 +2395,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get optionalUpTo6Photos => 'वैकल्पिक - 6 फ़ोटो तक';
+
+  @override
+  String get requiredUpTo6Photos => 'आवश्यक — अधिकतम 6 फ़ोटो';
+
+  @override
+  String get profilePhotoRequired => 'कृपया कम से कम एक प्रोफ़ाइल फ़ोटो जोड़ें';
+
+  @override
+  String get locationOptional => 'स्थान वैकल्पिक है — आप बाद में जोड़ सकते हैं';
 
   @override
   String get maximum6Photos => 'अधिकतम 6 फ़ोटो';
@@ -3310,7 +3319,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get useCurrentLocation => 'वर्तमान स्थान का उपयोग करें';
 
   @override
-  String get detecting => 'पता लगा रहा है...';
+  String get detecting => 'पहचाना जा रहा है...';
 
   @override
   String get getCurrentLocation => 'वर्तमान स्थान प्राप्त करें';
@@ -3823,4 +3832,74 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get voice => 'आवाज़';
+
+  @override
+  String get searchGifs => 'GIFs खोजें...';
+
+  @override
+  String get trendingGifs => 'ट्रेंडिंग';
+
+  @override
+  String get poweredByGiphy => 'Powered by GIPHY';
+
+  @override
+  String get gif => 'GIF';
+
+  @override
+  String get noGifsFound => 'कोई GIF नहीं मिला';
+
+  @override
+  String get failedToLoadGifs => 'GIFs लोड करने में विफल';
+
+  @override
+  String get gifSent => 'GIF';
+
+  @override
+  String get filterCommunities => 'फ़िल्टर';
+
+  @override
+  String get reset => 'रीसेट';
+
+  @override
+  String get findYourPerfect => 'अपना आदर्श';
+
+  @override
+  String get languagePartner => 'भाषा साथी खोजें';
+
+  @override
+  String get learningLanguageLabel => 'सीखने की भाषा';
+
+  @override
+  String get ageRange => 'आयु सीमा';
+
+  @override
+  String get genderPreference => 'लिंग प्राथमिकता';
+
+  @override
+  String get any => 'कोई भी';
+
+  @override
+  String get showNewUsersSubtitle => 'पिछले 6 दिनों में शामिल हुए उपयोगकर्ता दिखाएं';
+
+  @override
+  String get autoDetectLocation => 'मेरा स्थान स्वचालित रूप से पहचानें';
+
+  @override
+  String get selectCountry => 'देश चुनें';
+
+  @override
+  String get anyCountry => 'कोई भी देश';
+
+  @override
+  String get loadingLanguages => 'भाषाएं लोड हो रही हैं...';
+
+  @override
+  String minAge(int age) {
+    return 'न्यूनतम: $age';
+  }
+
+  @override
+  String maxAge(int age) {
+    return 'अधिकतम: $age';
+  }
 }

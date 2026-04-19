@@ -253,7 +253,7 @@ class ChatSocketStateManager {
     _socketService.sendTypingIndicator(chatPartnerId, isTyping);
   }
 
-  Future<Map<String, dynamic>> sendMessage(String message) async {
+  Future<Map<String, dynamic>> sendMessage(String message, {String? messageType}) async {
     // If socket is disconnected, try to reconnect before sending
     if (!_socketService.isConnected) {
       await _socketService.connect(forceReset: true);
@@ -268,6 +268,7 @@ class ChatSocketStateManager {
     return _socketService.sendMessage(
       receiverId: chatPartnerId,
       message: message,
+      messageType: messageType,
     );
   }
 

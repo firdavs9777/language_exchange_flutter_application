@@ -763,6 +763,9 @@
   "addPhotoLocationForMatches": "添加照片和位置以獲得更多配對",
   "addProfilePhoto": "添加大頭照",
   "optionalUpTo6Photos": "選填 — 最多6張照片",
+  "requiredUpTo6Photos": "必填 — 最多6張",
+  "profilePhotoRequired": "請至少新增一張個人頭像",
+  "locationOptional": "位置資訊為選填 — 可以稍後新增",
   "maximum6Photos": "最多6張照片",
   "tapToDetectLocation": "點擊偵測位置",
   "optionalHelpsNearbyPartners": "選填 — 幫助找到附近的語伴",
@@ -1258,5 +1261,50 @@
   },
   "failedToLoadUsers": "載入使用者失敗",
   "voice": "語音",
-  "you": "你"
+  "you": "你",
+  "searchGifs": "搜尋GIF...",
+  "trendingGifs": "熱門",
+  "poweredByGiphy": "Powered by GIPHY",
+  "gif": "GIF",
+  "noGifsFound": "找不到GIF",
+  "failedToLoadGifs": "載入GIF失敗",
+  "gifSent": "GIF",
+  "filterCommunities": "篩選",
+  "reset": "重置",
+  "findYourPerfect": "找到你的完美",
+  "languagePartner": "語言夥伴",
+  "learningLanguageLabel": "學習語言",
+  "languageLevel": "語言程度",
+  "country": "國家",
+  "ageRange": "年齡範圍",
+  "genderPreference": "性別偏好",
+  "any": "任意",
+  "male": "男性",
+  "female": "女性",
+  "other": "其他",
+  "newUsersOnly": "僅限新用戶",
+  "showNewUsersSubtitle": "顯示過去6天內加入的用戶",
+  "applyFilters": "套用篩選",
+  "autoDetectLocation": "自動偵測我的位置",
+  "detecting": "偵測中...",
+  "selectCountry": "選擇國家",
+  "anyCountry": "任意國家",
+  "searchCountry": "搜尋國家...",
+  "loadingLanguages": "正在載入語言...",
+  "minAge": "最小: {age}",
+  "@minAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maxAge": "最大: {age}",
+  "@maxAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  }
 }

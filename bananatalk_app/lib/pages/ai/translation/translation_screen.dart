@@ -10,6 +10,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Enhanced Translation Screen
 class TranslationScreen extends ConsumerStatefulWidget {
@@ -158,7 +159,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
 
     final result = await Navigator.push<Language>(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (context) => LanguagePickerScreen(
           languages: _languages,
           selectedLanguage: isSource ? _sourceLanguage : _targetLanguage,

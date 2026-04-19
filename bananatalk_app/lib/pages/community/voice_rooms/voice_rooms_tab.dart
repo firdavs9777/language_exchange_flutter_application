@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
@@ -9,6 +10,7 @@ import 'package:bananatalk_app/providers/voice_room_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -128,7 +130,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   void _joinRoom(VoiceRoom room) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(
+      AppPageRoute(
         builder: (_) => VoiceRoomScreen(room: room),
       ),
     );
@@ -167,15 +169,18 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           return _buildRoomsList(rooms, l10n);
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _createRoom,
-        backgroundColor: const Color(0xFF00BFA5),
-        icon: const Icon(Icons.add_rounded, color: Colors.white),
-        label: Text(
-          l10n.createRoom,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 72),
+        child: FloatingActionButton.extended(
+          onPressed: _createRoom,
+          backgroundColor: const Color(0xFF00BFA5),
+          icon: const Icon(Icons.add_rounded, color: Colors.white),
+          label: Text(
+            l10n.createRoom,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),
@@ -286,11 +291,16 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
         slivers: [
           // Header
           SliverToBoxAdapter(
-            child: _buildHeader(rooms.length),
+            child: _buildHeader(rooms.length)
+                .animate()
+                .fadeIn(duration: 300.ms)
+                .slideY(begin: -0.05, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
           ),
           // Filters
           SliverToBoxAdapter(
-            child: _buildFilters(l10n),
+            child: _buildFilters(l10n)
+                .animate()
+                .fadeIn(duration: 300.ms, delay: 80.ms),
           ),
           // Rooms list or filtered empty state
           if (rooms.isEmpty)
@@ -327,7 +337,19 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                         onTap: () => _joinRoom(room),
                         onJoin: () => _joinRoom(room),
                       ),
-                    );
+                    )
+                        .animate()
+                        .fadeIn(
+                          duration: 350.ms,
+                          delay: Duration(milliseconds: (index * 60).clamp(0, 500)),
+                        )
+                        .slideY(
+                          begin: 0.05,
+                          end: 0,
+                          duration: 350.ms,
+                          delay: Duration(milliseconds: (index * 60).clamp(0, 500)),
+                          curve: Curves.easeOutCubic,
+                        );
                   },
                   childCount: rooms.length,
                 ),
