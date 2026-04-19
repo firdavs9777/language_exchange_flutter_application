@@ -106,10 +106,14 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
   // Submit
   // -------------------------------------------------------------------------
 
+  bool _isSubmitting = false;
+
   Future<void> submitComment() async {
+    if (_isSubmitting) return;
     String commentText = commentController.text.trim();
     final bool hasMedia = _selectedImage != null || _selectedGifUrl != null;
     if (commentText.isEmpty && !hasMedia) return;
+    _isSubmitting = true;
 
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -141,25 +145,32 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       // Create the comment (or reply), passing GIF URL if set
       // Backend requires text - use space if only media is sent
       final textToSend = commentText.isNotEmpty ? commentText : ' ';
-      await ref.read(commentsServiceProvider).createComment(
-        title: textToSend,
-        id: widget.id,
-        parentCommentId: widget.parentCommentId,
-        imageUrl: _selectedGifUrl,
-      );
 
-      // Clear reply state after successful submission
-      widget.onCancelReply?.call();
-
-      // Clear the text field and media after successful submission
+      // Clear input immediately (optimistic UI - feels instant)
       commentController.clear();
+      final savedImage = _selectedImage;
+      final savedGifUrl = _selectedGifUrl;
       setState(() {
         _selectedImage = null;
         _selectedGifUrl = null;
         _mentions = [];
       });
 
-      // Refresh comments list to show the new comment
+      // Clear reply state
+      widget.onCancelReply?.call();
+
+      // Call the callback to update comment count in parent immediately
+      widget.onCommentAdded();
+
+      // Send to API in background
+      await ref.read(commentsServiceProvider).createComment(
+        title: textToSend,
+        id: widget.id,
+        parentCommentId: widget.parentCommentId,
+        imageUrl: savedGifUrl,
+      );
+
+      // Refresh comments list to show the confirmed comment
       ref.invalidate(commentsProvider(widget.id));
 
       // Refresh the moment to update comment count
@@ -175,8 +186,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       } catch (e) {
       }
 
-      // Call the callback to update comment count in parent
-      widget.onCommentAdded();
 
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
@@ -210,6 +219,8 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           ),
         );
       }
+    } finally {
+      _isSubmitting = false;
     }
   }
 
