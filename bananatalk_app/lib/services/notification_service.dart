@@ -308,6 +308,10 @@ class NotificationService {
 
   /// Whether the device's current local time falls inside [qh]'s window.
   /// Handles overnight windows (e.g. 22:00 → 08:00).
+  ///
+  /// Phase C1: uses device wall-clock; backend gate uses [qh.timezone] for the
+  /// authoritative decision. Acceptable here because this is defense-in-depth
+  /// banner suppression. C2 will switch to package:timezone for full parity.
   bool _isLocalTimeInWindow(nm.QuietHours qh) {
     final now = TimeOfDay.fromDateTime(DateTime.now());
     final start = _parseQuietHoursTOD(qh.start);
