@@ -142,7 +142,33 @@ class NotificationService {
       requestBadgePermission: false,
       requestSoundPermission: false,
       // Enable foreground notification presentation
-      notificationCategories: [],
+      notificationCategories: [
+        DarwinNotificationCategory(
+          'CHAT_MESSAGE',
+          actions: [
+            DarwinNotificationAction.text(
+              'reply',
+              'Reply',
+              buttonTitle: 'Send',
+              placeholder: 'Type a reply…',
+              options: {DarwinNotificationActionOption.foreground},
+            ),
+            DarwinNotificationAction.plain('view', 'View'),
+          ],
+        ),
+        DarwinNotificationCategory(
+          'MOMENT_SOCIAL',
+          actions: [
+            DarwinNotificationAction.plain('view', 'View'),
+          ],
+        ),
+        DarwinNotificationCategory(
+          'PROFILE_SOCIAL',
+          actions: [
+            DarwinNotificationAction.plain('profile', 'View Profile'),
+          ],
+        ),
+      ],
       onDidReceiveLocalNotification: (id, title, body, payload) {
       },
     );
