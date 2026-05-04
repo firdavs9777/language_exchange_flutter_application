@@ -377,6 +377,34 @@ class NotificationApiClient {
     }
   }
 
+  /// POST /api/v1/messages
+  ///
+  /// Used by NotificationRouter to send an inline-reply when the user taps
+  /// the "Reply" action on a chat-message notification (iOS text input or
+  /// Android quick-reply). Returns true on 2xx, false otherwise.
+  Future<bool> sendQuickReply({
+    required String receiverId,
+    required String message,
+  }) async {
+    try {
+      final url = Uri.parse('${baseUrl}messages');
+      final headers = await _getHeaders();
+
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode({
+          'receiver': receiverId,
+          'message': message,
+        }),
+      );
+
+      return response.statusCode == 200 || response.statusCode == 201;
+    } catch (e) {
+      return false;
+    }
+  }
+
   /// POST /api/v1/notifications/test (for debugging)
   Future<Map<String, dynamic>> sendTestNotification({
     String? userId,

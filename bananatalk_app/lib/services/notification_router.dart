@@ -2,16 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
+import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 
 class NotificationRouter {
   /// Handle notification tap and navigate to appropriate screen
   /// Uses goRouter directly to avoid context mounting issues
-  static void handleNotification(
+  static Future<void> handleNotification(
     BuildContext? context,
     Map<String, dynamic> data,
-  ) {
+  ) async {
     final type = data['type']?.toString() ?? '';
+
+    // ---- Action-button branching (iOS categories / Android actions) ----
+    // `_actionId` and `_input` are injected by NotificationService when a
+    // local-notification action is fired. They are not present on plain taps
+    // or on FCM message-opened events, in which case actionId is null and we
+    // fall through to default type-based routing.
+    final actionId = data['_actionId'] as String?;
+    if (actionId == 'reply') {
+      // Inline reply from notification text input — send via API and skip
+      // navigation so the user stays in their previous app/context. iOS
+      // brings the app to foreground (foreground option); Android stays in
+      // background.
+      final replyText = (data['_input'] as String?)?.trim();
+      final senderId = data['senderId']?.toString();
+      if (replyText != null && replyText.isNotEmpty && senderId != null) {
+        try {
+          await NotificationApiClient().sendQuickReply(
+            receiverId: senderId,
+            message: replyText,
+          );
+        } catch (e) {
+          debugPrint('❌ Failed to send quick reply: $e');
+        }
+      }
+      return;
+    }
+    if (actionId == 'profile') {
+      final userId = (data['actorId'] ?? data['senderId'] ?? data['userId'])
+          ?.toString();
+      if (userId != null && userId.isNotEmpty) {
+        goRouter.go('/profile/$userId');
+      } else {
+        goRouter.go('/home');
+      }
+      return;
+    }
+    // 'view' falls through to default type-based routing below — same as a
+    // plain tap. Any other unknown actionId likewise falls through.
 
     try {
       String? targetPath;

@@ -364,16 +364,20 @@ class NotificationService {
 
   /// Handle notification tap from local notification
   void _handleNotificationTap(NotificationResponse response) {
-
-    if (response.payload != null) {
-      try {
-        // Parse the JSON string payload back to Map
-        final data = jsonDecode(response.payload!) as Map<String, dynamic>;
-        // Use goRouter directly - no context needed
-        NotificationRouter.handleNotification(null, data);
-      } catch (e) {
-      }
-    }
+    try {
+      final data = response.payload != null
+          ? Map<String, dynamic>.from(
+              jsonDecode(response.payload!) as Map,
+            )
+          : <String, dynamic>{};
+      // Forward iOS/Android action button id + inline-reply text into the
+      // payload so NotificationRouter can branch on action vs default tap.
+      // Underscore-prefixed keys are reserved for client-side use and must
+      // not collide with server-supplied data fields.
+      data['_actionId'] = response.actionId;
+      data['_input'] = response.input;
+      NotificationRouter.handleNotification(null, data);
+    } catch (_) {}
   }
 
   /// Show local notification for foreground messages
