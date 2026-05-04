@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:bananatalk_app/models/notification_models.dart' as nm;
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
@@ -278,8 +279,50 @@ class NotificationService {
       return;
     }
 
+    // Quiet-hours guard for foreground locals.
+    // Backend already wrote history; we just suppress the on-device banner.
+    final qh = await _readCachedQuietHours();
+    final urgent =
+        notificationType == 'incoming_call' || notificationType == 'missed_call';
+    if (qh != null && qh.enabled && !urgent && _isLocalTimeInWindow(qh)) {
+      return;
+    }
+
     // Show local notification for other notification types
     await _showLocalNotification(message);
+  }
+
+  /// Read the most recent quiet-hours snapshot persisted by the
+  /// notification settings provider. Returns null if no snapshot exists or it
+  /// can't be parsed.
+  Future<nm.QuietHours?> _readCachedQuietHours() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString('qh_snapshot');
+      if (raw == null) return null;
+      return nm.QuietHours.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Whether the device's current local time falls inside [qh]'s window.
+  /// Handles overnight windows (e.g. 22:00 → 08:00).
+  bool _isLocalTimeInWindow(nm.QuietHours qh) {
+    final now = TimeOfDay.fromDateTime(DateTime.now());
+    final start = _parseQuietHoursTOD(qh.start);
+    final end = _parseQuietHoursTOD(qh.end);
+    final n = now.hour * 60 + now.minute;
+    final s = start.hour * 60 + start.minute;
+    final e = end.hour * 60 + end.minute;
+    if (s == e) return false;
+    if (s < e) return n >= s && n < e;
+    return n >= s || n < e;
+  }
+
+  TimeOfDay _parseQuietHoursTOD(String s) {
+    final p = s.split(':');
+    return TimeOfDay(hour: int.parse(p[0]), minute: int.parse(p[1]));
   }
 
   /// Handle notification tap when app was in background
