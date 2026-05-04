@@ -2082,6 +2082,42 @@
   "addSticker": "Add Sticker",
   "fontStyleLabel": "Font Style",
   "textColorLabel": "Text Color",
-  "dragToDelete": "Drag here to delete"
+  "dragToDelete": "Drag here to delete",
+  "noBlockedUsers": "No blocked users",
+  "usersYouBlockWillAppearHere": "Users you block will appear here",
+  "unblockConfirm": "Are you sure you want to unblock {name}?",
+  "@unblockConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "reasonLabel": "Reason: {reason}",
+  "@reasonLabel": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "blockedAgo": "Blocked {time}",
+  "@blockedAgo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "errorLoadingBlockedUsers": "Error loading blocked users: {error}",
+  "@errorLoadingBlockedUsers": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "logoutConfirmMessage": "Are you sure you want to logout from BanaTalk?",
+  "loggingOut": "Logging out..."
 }
 

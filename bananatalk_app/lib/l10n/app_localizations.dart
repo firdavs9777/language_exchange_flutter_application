@@ -7847,6 +7847,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Drag here to delete'**
   String get dragToDelete;
+
+  /// No description provided for @noBlockedUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'No blocked users'**
+  String get noBlockedUsers;
+
+  /// No description provided for @usersYouBlockWillAppearHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Users you block will appear here'**
+  String get usersYouBlockWillAppearHere;
+
+  /// No description provided for @unblockConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to unblock {name}?'**
+  String unblockConfirm(String name);
+
+  /// No description provided for @reasonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String reasonLabel(String reason);
+
+  /// No description provided for @blockedAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked {time}'**
+  String blockedAgo(String time);
+
+  /// No description provided for @errorLoadingBlockedUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading blocked users: {error}'**
+  String errorLoadingBlockedUsers(String error);
+
+  /// No description provided for @logoutConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout from BanaTalk?'**
+  String get logoutConfirmMessage;
+
+  /// No description provided for @loggingOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging out...'**
+  String get loggingOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

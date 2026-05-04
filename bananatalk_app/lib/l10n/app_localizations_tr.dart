@@ -4058,4 +4058,36 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get dragToDelete => 'Silmek için buraya sürükle';
+
+  @override
+  String get noBlockedUsers => 'No blocked users';
+
+  @override
+  String get usersYouBlockWillAppearHere => 'Users you block will appear here';
+
+  @override
+  String unblockConfirm(String name) {
+    return 'Are you sure you want to unblock $name?';
+  }
+
+  @override
+  String reasonLabel(String reason) {
+    return 'Reason: $reason';
+  }
+
+  @override
+  String blockedAgo(String time) {
+    return 'Blocked $time';
+  }
+
+  @override
+  String errorLoadingBlockedUsers(String error) {
+    return 'Error loading blocked users: $error';
+  }
+
+  @override
+  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+
+  @override
+  String get loggingOut => 'Logging out...';
 }
