@@ -343,12 +343,54 @@ class _NotificationHistoryScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      notification.title,
-                      style: context.titleSmall.copyWith(
-                        fontWeight:
-                            notification.read ? FontWeight.w500 : FontWeight.w600,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            notification.title,
+                            style: context.titleSmall.copyWith(
+                              fontWeight: notification.read
+                                  ? FontWeight.w500
+                                  : FontWeight.w600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if (notification.bundleSize > 1) ...[
+                          const SizedBox(width: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '+${notification.bundleSize}',
+                              style: context.captionSmall.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                        if (notification.suppressedReason != null) ...[
+                          const SizedBox(width: 6),
+                          Tooltip(
+                            message: notification.suppressedReason ==
+                                    'quiet_hours'
+                                ? AppLocalizations.of(context)!
+                                    .silencedByQuietHours
+                                : AppLocalizations.of(context)!.silencedByCap,
+                            child: Icon(
+                              Icons.notifications_paused,
+                              size: 14,
+                              color: context.textMuted,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                     Spacing.gapXS,
                     Text(

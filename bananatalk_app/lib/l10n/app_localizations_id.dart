@@ -4111,4 +4111,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
+
+  @override
+  String get silencedByQuietHours => 'Silenced by Quiet Hours';
+
+  @override
+  String get silencedByCap => 'Silenced by daily limit';
 }

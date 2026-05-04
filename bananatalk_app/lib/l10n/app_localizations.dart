@@ -7937,6 +7937,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calls and messages from VIP partners can still come through'**
   String get quietHoursAllowUrgentSubtitle;
+
+  /// No description provided for @silencedByQuietHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Silenced by Quiet Hours'**
+  String get silencedByQuietHours;
+
+  /// No description provided for @silencedByCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Silenced by daily limit'**
+  String get silencedByCap;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -2125,6 +2125,8 @@
   "quietHoursStart": "Start time",
   "quietHoursEnd": "End time",
   "quietHoursAllowUrgent": "Allow urgent notifications",
-  "quietHoursAllowUrgentSubtitle": "Calls and messages from VIP partners can still come through"
+  "quietHoursAllowUrgentSubtitle": "Calls and messages from VIP partners can still come through",
+  "silencedByQuietHours": "Silenced by Quiet Hours",
+  "silencedByCap": "Silenced by daily limit"
 }
 
