@@ -1,5 +1,53 @@
 import 'dart:convert';
 
+/// Quiet hours configuration — pauses non-urgent notifications during a window.
+class QuietHours {
+  final bool enabled;
+  final String start; // 'HH:mm'
+  final String end;
+  final String timezone; // IANA
+  final bool allowUrgent;
+
+  const QuietHours({
+    this.enabled = false,
+    this.start = '22:00',
+    this.end = '08:00',
+    this.timezone = 'Asia/Seoul',
+    this.allowUrgent = true,
+  });
+
+  QuietHours copyWith({
+    bool? enabled,
+    String? start,
+    String? end,
+    String? timezone,
+    bool? allowUrgent,
+  }) =>
+      QuietHours(
+        enabled: enabled ?? this.enabled,
+        start: start ?? this.start,
+        end: end ?? this.end,
+        timezone: timezone ?? this.timezone,
+        allowUrgent: allowUrgent ?? this.allowUrgent,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'enabled': enabled,
+        'start': start,
+        'end': end,
+        'timezone': timezone,
+        'allowUrgent': allowUrgent,
+      };
+
+  factory QuietHours.fromJson(Map<String, dynamic> j) => QuietHours(
+        enabled: j['enabled'] ?? false,
+        start: j['start'] ?? '22:00',
+        end: j['end'] ?? '08:00',
+        timezone: j['timezone'] ?? 'Asia/Seoul',
+        allowUrgent: j['allowUrgent'] ?? true,
+      );
+}
+
 /// Notification item from history
 class NotificationItem {
   final String id;
@@ -82,6 +130,7 @@ class NotificationSettings {
   final bool vibration;
   final bool showPreview;
   final List<String> mutedConversations;
+  final QuietHours quietHours;
 
   NotificationSettings({
     required this.enabled,
@@ -95,6 +144,7 @@ class NotificationSettings {
     required this.vibration,
     required this.showPreview,
     required this.mutedConversations,
+    this.quietHours = const QuietHours(),
   });
 
   factory NotificationSettings.defaultSettings() {
@@ -110,6 +160,7 @@ class NotificationSettings {
       vibration: true,
       showPreview: true,
       mutedConversations: [],
+      quietHours: const QuietHours(),
     );
   }
 
@@ -131,6 +182,9 @@ class NotificationSettings {
           : (json['mutedConversations'] != null
               ? List<String>.from(json['mutedConversations'])
               : []),
+      quietHours: json['quietHours'] != null
+          ? QuietHours.fromJson(Map<String, dynamic>.from(json['quietHours']))
+          : const QuietHours(),
     );
   }
 
@@ -147,6 +201,7 @@ class NotificationSettings {
       'vibration': vibration,
       'showPreview': showPreview,
       'mutedChats': mutedConversations, // Backend expects 'mutedChats'
+      'quietHours': quietHours.toJson(),
     };
   }
 
@@ -162,6 +217,7 @@ class NotificationSettings {
     bool? vibration,
     bool? showPreview,
     List<String>? mutedConversations,
+    QuietHours? quietHours,
   }) {
     return NotificationSettings(
       enabled: enabled ?? this.enabled,
@@ -175,6 +231,7 @@ class NotificationSettings {
       vibration: vibration ?? this.vibration,
       showPreview: showPreview ?? this.showPreview,
       mutedConversations: mutedConversations ?? this.mutedConversations,
+      quietHours: quietHours ?? this.quietHours,
     );
   }
 }

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationSettingsNotifier
     extends StateNotifier<AsyncValue<NotificationSettings>> {
@@ -20,9 +23,13 @@ class NotificationSettingsNotifier
 
       if (settings != null) {
         state = AsyncValue.data(settings);
+        // Cache a quietHours snapshot for the foreground handler.
+        await _cacheQuietHoursSnapshot(settings.quietHours);
       } else {
         // Use default settings if fetch fails
-        state = AsyncValue.data(NotificationSettings.defaultSettings());
+        final fallback = NotificationSettings.defaultSettings();
+        state = AsyncValue.data(fallback);
+        await _cacheQuietHoursSnapshot(fallback.quietHours);
       }
     } catch (e, stack) {
       state = AsyncValue.error(e, stack);
@@ -34,10 +41,13 @@ class NotificationSettingsNotifier
   /// Update notification settings
   Future<void> updateSettings(NotificationSettings settings) async {
     try {
-      
+
       // Optimistically update UI
       state = AsyncValue.data(settings);
-      
+      // Keep the cached quietHours snapshot in sync so the foreground handler
+      // sees the latest window without going through Riverpod.
+      await _cacheQuietHoursSnapshot(settings.quietHours);
+
       final result = await _apiClient.updateSettings(settings);
 
       if (result['success'] == true) {
@@ -48,6 +58,25 @@ class NotificationSettingsNotifier
     } catch (e) {
       // Revert on error
       await fetchSettings();
+    }
+  }
+
+  /// Update only the quiet hours window. Persists through the standard
+  /// updateSettings path so the API client and snapshot stay consistent.
+  Future<void> updateQuietHours(QuietHours qh) async {
+    final current = state.value;
+    if (current == null) return;
+    await updateSettings(current.copyWith(quietHours: qh));
+  }
+
+  /// Persist a snapshot of the quiet-hours window for the foreground handler
+  /// to read synchronously without depending on Riverpod.
+  Future<void> _cacheQuietHoursSnapshot(QuietHours qh) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('qh_snapshot', jsonEncode(qh.toJson()));
+    } catch (_) {
+      // Best-effort cache; failures are non-fatal.
     }
   }
 
