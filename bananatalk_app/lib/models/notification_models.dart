@@ -57,6 +57,8 @@ class NotificationItem {
   final Map<String, dynamic> data;
   final bool read;
   final DateTime createdAt;
+  final int bundleSize;
+  final String? suppressedReason;
 
   NotificationItem({
     required this.id,
@@ -66,6 +68,8 @@ class NotificationItem {
     required this.data,
     required this.read,
     required this.createdAt,
+    this.bundleSize = 1,
+    this.suppressedReason,
   });
 
   factory NotificationItem.fromJson(Map<String, dynamic> json) {
@@ -81,6 +85,8 @@ class NotificationItem {
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'])
           : DateTime.now(),
+      bundleSize: (json['bundleSize'] as int?) ?? 1,
+      suppressedReason: json['suppressedReason'] as String?,
     );
   }
 
@@ -93,6 +99,8 @@ class NotificationItem {
       'data': data,
       'read': read,
       'createdAt': createdAt.toIso8601String(),
+      'bundleSize': bundleSize,
+      'suppressedReason': suppressedReason,
     };
   }
 
@@ -104,6 +112,8 @@ class NotificationItem {
     Map<String, dynamic>? data,
     bool? read,
     DateTime? createdAt,
+    int? bundleSize,
+    String? suppressedReason,
   }) {
     return NotificationItem(
       id: id ?? this.id,
@@ -113,6 +123,8 @@ class NotificationItem {
       data: data ?? this.data,
       read: read ?? this.read,
       createdAt: createdAt ?? this.createdAt,
+      bundleSize: bundleSize ?? this.bundleSize,
+      suppressedReason: suppressedReason ?? this.suppressedReason,
     );
   }
 }
