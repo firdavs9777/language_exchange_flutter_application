@@ -2118,6 +2118,13 @@
     }
   },
   "logoutConfirmMessage": "Are you sure you want to logout from BanaTalk?",
-  "loggingOut": "Logging out..."
+  "loggingOut": "Logging out...",
+  "quietHours": "Quiet Hours",
+  "quietHoursEnable": "Enable Quiet Hours",
+  "quietHoursSubtitle": "Pause non-urgent notifications during a time window",
+  "quietHoursStart": "Start time",
+  "quietHoursEnd": "End time",
+  "quietHoursAllowUrgent": "Allow urgent notifications",
+  "quietHoursAllowUrgentSubtitle": "Calls and messages from VIP partners can still come through"
 }
 

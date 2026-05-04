@@ -155,6 +155,121 @@ class NotificationSettingsScreen extends ConsumerWidget {
 
             SizedBox(height: AppSpacing.lg),
 
+            // Quiet Hours
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
+              child: Text(
+                AppLocalizations.of(context)!.quietHours,
+                style: context.labelSmall.copyWith(
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+              decoration: BoxDecoration(
+                color: context.surfaceColor,
+                borderRadius: AppRadius.borderMD,
+                boxShadow: context.isDarkMode ? AppShadows.none : AppShadows.sm,
+              ),
+              child: Column(
+                children: [
+                  SwitchListTile(
+                    contentPadding: AppSpacing.paddingLG,
+                    title: Text(
+                      AppLocalizations.of(context)!.quietHoursEnable,
+                      style: context.titleMedium,
+                    ),
+                    subtitle: Text(
+                      AppLocalizations.of(context)!.quietHoursSubtitle,
+                      style: context.bodySmall,
+                    ),
+                    value: settings.quietHours.enabled,
+                    activeColor: AppColors.primary,
+                    onChanged: (v) => ref
+                        .read(notificationSettingsProvider.notifier)
+                        .updateQuietHours(
+                          settings.quietHours.copyWith(enabled: v),
+                        ),
+                  ),
+                  if (settings.quietHours.enabled) ...[
+                    Divider(height: 1, indent: AppSpacing.lg, color: context.dividerColor),
+                    ListTile(
+                      contentPadding: AppSpacing.paddingLG,
+                      title: Text(
+                        AppLocalizations.of(context)!.quietHoursStart,
+                        style: context.titleSmall,
+                      ),
+                      trailing: Text(
+                        settings.quietHours.start,
+                        style: context.bodyMedium,
+                      ),
+                      onTap: () async {
+                        final t = await showTimePicker(
+                          context: context,
+                          initialTime: _parseHHmm(settings.quietHours.start),
+                        );
+                        if (t != null) {
+                          ref
+                              .read(notificationSettingsProvider.notifier)
+                              .updateQuietHours(
+                                settings.quietHours.copyWith(start: _formatHHmm(t)),
+                              );
+                        }
+                      },
+                    ),
+                    Divider(height: 1, indent: AppSpacing.lg, color: context.dividerColor),
+                    ListTile(
+                      contentPadding: AppSpacing.paddingLG,
+                      title: Text(
+                        AppLocalizations.of(context)!.quietHoursEnd,
+                        style: context.titleSmall,
+                      ),
+                      trailing: Text(
+                        settings.quietHours.end,
+                        style: context.bodyMedium,
+                      ),
+                      onTap: () async {
+                        final t = await showTimePicker(
+                          context: context,
+                          initialTime: _parseHHmm(settings.quietHours.end),
+                        );
+                        if (t != null) {
+                          ref
+                              .read(notificationSettingsProvider.notifier)
+                              .updateQuietHours(
+                                settings.quietHours.copyWith(end: _formatHHmm(t)),
+                              );
+                        }
+                      },
+                    ),
+                    Divider(height: 1, indent: AppSpacing.lg, color: context.dividerColor),
+                    SwitchListTile(
+                      contentPadding: AppSpacing.paddingLG,
+                      title: Text(
+                        AppLocalizations.of(context)!.quietHoursAllowUrgent,
+                        style: context.titleSmall,
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context)!.quietHoursAllowUrgentSubtitle,
+                        style: context.bodySmall,
+                      ),
+                      value: settings.quietHours.allowUrgent,
+                      activeColor: AppColors.primary,
+                      onChanged: (v) => ref
+                          .read(notificationSettingsProvider.notifier)
+                          .updateQuietHours(
+                            settings.quietHours.copyWith(allowUrgent: v),
+                          ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+
+            SizedBox(height: AppSpacing.lg),
+
             // Notification Preferences
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
@@ -360,3 +475,13 @@ class NotificationSettingsScreen extends ConsumerWidget {
     );
   }
 }
+
+/// Parse 'HH:mm' string into a TimeOfDay.
+TimeOfDay _parseHHmm(String s) {
+  final parts = s.split(':');
+  return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+}
+
+/// Format a TimeOfDay as zero-padded 'HH:mm'.
+String _formatHHmm(TimeOfDay t) =>
+    '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';

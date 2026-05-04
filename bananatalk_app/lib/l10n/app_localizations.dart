@@ -7895,6 +7895,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logging out...'**
   String get loggingOut;
+
+  /// No description provided for @quietHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet Hours'**
+  String get quietHours;
+
+  /// No description provided for @quietHoursEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Quiet Hours'**
+  String get quietHoursEnable;
+
+  /// No description provided for @quietHoursSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause non-urgent notifications during a time window'**
+  String get quietHoursSubtitle;
+
+  /// No description provided for @quietHoursStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start time'**
+  String get quietHoursStart;
+
+  /// No description provided for @quietHoursEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'End time'**
+  String get quietHoursEnd;
+
+  /// No description provided for @quietHoursAllowUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow urgent notifications'**
+  String get quietHoursAllowUrgent;
+
+  /// No description provided for @quietHoursAllowUrgentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls and messages from VIP partners can still come through'**
+  String get quietHoursAllowUrgentSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

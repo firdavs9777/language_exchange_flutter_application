@@ -4090,4 +4090,25 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get loggingOut => 'Logging out...';
+
+  @override
+  String get quietHours => 'Quiet Hours';
+
+  @override
+  String get quietHoursEnable => 'Enable Quiet Hours';
+
+  @override
+  String get quietHoursSubtitle => 'Pause non-urgent notifications during a time window';
+
+  @override
+  String get quietHoursStart => 'Start time';
+
+  @override
+  String get quietHoursEnd => 'End time';
+
+  @override
+  String get quietHoursAllowUrgent => 'Allow urgent notifications';
+
+  @override
+  String get quietHoursAllowUrgentSubtitle => 'Calls and messages from VIP partners can still come through';
 }
