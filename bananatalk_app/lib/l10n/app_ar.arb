@@ -1633,5 +1633,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "اسم المستخدم (اختياري)",
+  "usernameAvailable": "متاح",
+  "usernameTaken": "مستخدم بالفعل",
+  "usernameNotAvailable": "غير متاح",
+  "usernameInvalidFormat": "من 3 إلى 20 حرفًا: أحرف أو أرقام أو شرطة سفلية",
+  "usernameHint": "@اسم_المستخدم",
+  "enableBiometricTitle": "تسجيل الدخول بـ Face ID في المرة القادمة؟",
+  "enableBiometricBody": "سجّل الدخول بالبصمة دون كتابة كلمة المرور.",
+  "enableBiometricCta": "تفعيل",
+  "biometricSignInPrompt": "قم بالمصادقة لتسجيل الدخول إلى Bananatalk",
+  "continueAs": "المتابعة باسم {name}",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "أضف صورة شخصية",
+  "addProfilePhotoSkip": "تخطّي الآن"
 }

@@ -1632,5 +1632,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "用户名 (可选)",
+  "usernameAvailable": "可用",
+  "usernameTaken": "已被使用",
+  "usernameNotAvailable": "不可用",
+  "usernameInvalidFormat": "3-20个字符,字母、数字或下划线",
+  "usernameHint": "@用户名",
+  "enableBiometricTitle": "下次使用 Face ID 登录?",
+  "enableBiometricBody": "使用生物识别登录,无需输入密码。",
+  "enableBiometricCta": "启用",
+  "biometricSignInPrompt": "请验证身份以登录 Bananatalk",
+  "continueAs": "以 {name} 继续",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "添加头像",
+  "addProfilePhotoSkip": "暂时跳过"
 }

@@ -1831,5 +1831,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "Kullanıcı adı (isteğe bağlı)",
+  "usernameAvailable": "Kullanılabilir",
+  "usernameTaken": "Zaten kullanılıyor",
+  "usernameNotAvailable": "Kullanılamaz",
+  "usernameInvalidFormat": "3-20 karakter: harf, rakam veya alt çizgi",
+  "usernameHint": "@kullaniciadi",
+  "enableBiometricTitle": "Bir dahaki sefere Face ID ile giriş yapılsın mı?",
+  "enableBiometricBody": "Şifre yazmadan biyometrik ile giriş yapın.",
+  "enableBiometricCta": "Etkinleştir",
+  "biometricSignInPrompt": "Bananatalk'a giriş için kimliğinizi doğrulayın",
+  "continueAs": "{name} olarak devam et",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "Profil fotoğrafı ekle",
+  "addProfilePhotoSkip": "Şimdilik atla"
 }

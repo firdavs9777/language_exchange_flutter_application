@@ -4434,4 +4434,45 @@ class AppLocalizationsKo extends AppLocalizations {
   String stepProgress(int current, int total) {
     return '단계 $current / $total';
   }
+
+  @override
+  String get usernameOptional => '사용자 이름 (선택사항)';
+
+  @override
+  String get usernameAvailable => '사용 가능';
+
+  @override
+  String get usernameTaken => '이미 사용 중';
+
+  @override
+  String get usernameNotAvailable => '사용할 수 없음';
+
+  @override
+  String get usernameInvalidFormat => '3~20자, 영문/숫자/밑줄';
+
+  @override
+  String get usernameHint => '@사용자이름';
+
+  @override
+  String get enableBiometricTitle => '다음에 Face ID로 로그인할까요?';
+
+  @override
+  String get enableBiometricBody => '생체 인증으로 비밀번호 입력 없이 로그인할 수 있습니다.';
+
+  @override
+  String get enableBiometricCta => '사용 설정';
+
+  @override
+  String get biometricSignInPrompt => 'Bananatalk에 로그인하려면 인증하세요';
+
+  @override
+  String continueAs(String name) {
+    return '$name(으)로 계속';
+  }
+
+  @override
+  String get addProfilePhotoTitle => '프로필 사진 추가';
+
+  @override
+  String get addProfilePhotoSkip => '건너뛰기';
 }

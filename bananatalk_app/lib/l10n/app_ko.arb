@@ -1640,5 +1640,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "사용자 이름 (선택사항)",
+  "usernameAvailable": "사용 가능",
+  "usernameTaken": "이미 사용 중",
+  "usernameNotAvailable": "사용할 수 없음",
+  "usernameInvalidFormat": "3~20자, 영문/숫자/밑줄",
+  "usernameHint": "@사용자이름",
+  "enableBiometricTitle": "다음에 Face ID로 로그인할까요?",
+  "enableBiometricBody": "생체 인증으로 비밀번호 입력 없이 로그인할 수 있습니다.",
+  "enableBiometricCta": "사용 설정",
+  "biometricSignInPrompt": "Bananatalk에 로그인하려면 인증하세요",
+  "continueAs": "{name}(으)로 계속",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "프로필 사진 추가",
+  "addProfilePhotoSkip": "건너뛰기"
 }

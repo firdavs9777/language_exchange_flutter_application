@@ -4434,4 +4434,45 @@ class AppLocalizationsTl extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'Hakbang $current ng $total';
   }
+
+  @override
+  String get usernameOptional => 'Username (opsyonal)';
+
+  @override
+  String get usernameAvailable => 'Available';
+
+  @override
+  String get usernameTaken => 'Ginagamit na';
+
+  @override
+  String get usernameNotAvailable => 'Hindi available';
+
+  @override
+  String get usernameInvalidFormat => '3-20 karakter: titik, numero, o underscore';
+
+  @override
+  String get usernameHint => '@username';
+
+  @override
+  String get enableBiometricTitle => 'Gamitin ang Face ID sa susunod na pag-log in?';
+
+  @override
+  String get enableBiometricBody => 'Mag-sign in gamit ang biometrics nang hindi nagta-type ng password.';
+
+  @override
+  String get enableBiometricCta => 'I-enable';
+
+  @override
+  String get biometricSignInPrompt => 'Mag-authenticate upang mag-log in sa Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return 'Magpatuloy bilang $name';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'Magdagdag ng profile photo';
+
+  @override
+  String get addProfilePhotoSkip => 'Laktawan muna';
 }

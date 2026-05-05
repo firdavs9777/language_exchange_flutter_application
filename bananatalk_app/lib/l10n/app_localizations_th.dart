@@ -4434,4 +4434,45 @@ class AppLocalizationsTh extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'ขั้นตอน $current จาก $total';
   }
+
+  @override
+  String get usernameOptional => 'ชื่อผู้ใช้ (ไม่บังคับ)';
+
+  @override
+  String get usernameAvailable => 'ใช้ได้';
+
+  @override
+  String get usernameTaken => 'ถูกใช้ไปแล้ว';
+
+  @override
+  String get usernameNotAvailable => 'ใช้ไม่ได้';
+
+  @override
+  String get usernameInvalidFormat => '3-20 ตัวอักษร: ตัวอักษร ตัวเลข หรือขีดล่าง';
+
+  @override
+  String get usernameHint => '@ชื่อผู้ใช้';
+
+  @override
+  String get enableBiometricTitle => 'เข้าสู่ระบบด้วย Face ID ครั้งต่อไปหรือไม่?';
+
+  @override
+  String get enableBiometricBody => 'เข้าสู่ระบบด้วยข้อมูลชีวภาพโดยไม่ต้องพิมพ์รหัสผ่าน';
+
+  @override
+  String get enableBiometricCta => 'เปิดใช้งาน';
+
+  @override
+  String get biometricSignInPrompt => 'ยืนยันตัวตนเพื่อเข้าสู่ระบบ Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return 'ดำเนินการต่อในชื่อ $name';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'เพิ่มรูปโปรไฟล์';
+
+  @override
+  String get addProfilePhotoSkip => 'ข้ามไปก่อน';
 }

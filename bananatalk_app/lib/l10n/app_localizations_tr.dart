@@ -4434,4 +4434,45 @@ class AppLocalizationsTr extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'Adım $current / $total';
   }
+
+  @override
+  String get usernameOptional => 'Kullanıcı adı (isteğe bağlı)';
+
+  @override
+  String get usernameAvailable => 'Kullanılabilir';
+
+  @override
+  String get usernameTaken => 'Zaten kullanılıyor';
+
+  @override
+  String get usernameNotAvailable => 'Kullanılamaz';
+
+  @override
+  String get usernameInvalidFormat => '3-20 karakter: harf, rakam veya alt çizgi';
+
+  @override
+  String get usernameHint => '@kullaniciadi';
+
+  @override
+  String get enableBiometricTitle => 'Bir dahaki sefere Face ID ile giriş yapılsın mı?';
+
+  @override
+  String get enableBiometricBody => 'Şifre yazmadan biyometrik ile giriş yapın.';
+
+  @override
+  String get enableBiometricCta => 'Etkinleştir';
+
+  @override
+  String get biometricSignInPrompt => 'Bananatalk\'a giriş için kimliğinizi doğrulayın';
+
+  @override
+  String continueAs(String name) {
+    return '$name olarak devam et';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'Profil fotoğrafı ekle';
+
+  @override
+  String get addProfilePhotoSkip => 'Şimdilik atla';
 }

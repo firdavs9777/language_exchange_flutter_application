@@ -1618,5 +1618,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "ユーザー名 (任意)",
+  "usernameAvailable": "利用可能",
+  "usernameTaken": "既に使用されています",
+  "usernameNotAvailable": "使用できません",
+  "usernameInvalidFormat": "3〜20文字、英数字とアンダースコアのみ",
+  "usernameHint": "@ユーザー名",
+  "enableBiometricTitle": "次回からFace IDでログインしますか?",
+  "enableBiometricBody": "生体認証でパスワード入力をスキップできます。",
+  "enableBiometricCta": "有効にする",
+  "biometricSignInPrompt": "Bananatalkにログインするため認証してください",
+  "continueAs": "{name}としてログイン",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "プロフィール写真を追加",
+  "addProfilePhotoSkip": "後で"
 }

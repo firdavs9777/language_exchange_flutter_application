@@ -1461,5 +1461,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "ชื่อผู้ใช้ (ไม่บังคับ)",
+  "usernameAvailable": "ใช้ได้",
+  "usernameTaken": "ถูกใช้ไปแล้ว",
+  "usernameNotAvailable": "ใช้ไม่ได้",
+  "usernameInvalidFormat": "3-20 ตัวอักษร: ตัวอักษร ตัวเลข หรือขีดล่าง",
+  "usernameHint": "@ชื่อผู้ใช้",
+  "enableBiometricTitle": "เข้าสู่ระบบด้วย Face ID ครั้งต่อไปหรือไม่?",
+  "enableBiometricBody": "เข้าสู่ระบบด้วยข้อมูลชีวภาพโดยไม่ต้องพิมพ์รหัสผ่าน",
+  "enableBiometricCta": "เปิดใช้งาน",
+  "biometricSignInPrompt": "ยืนยันตัวตนเพื่อเข้าสู่ระบบ Bananatalk",
+  "continueAs": "ดำเนินการต่อในชื่อ {name}",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "เพิ่มรูปโปรไฟล์",
+  "addProfilePhotoSkip": "ข้ามไปก่อน"
 }

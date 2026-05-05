@@ -4434,4 +4434,45 @@ class AppLocalizationsVi extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'Bước $current / $total';
   }
+
+  @override
+  String get usernameOptional => 'Tên người dùng (tùy chọn)';
+
+  @override
+  String get usernameAvailable => 'Có sẵn';
+
+  @override
+  String get usernameTaken => 'Đã được sử dụng';
+
+  @override
+  String get usernameNotAvailable => 'Không khả dụng';
+
+  @override
+  String get usernameInvalidFormat => '3-20 ký tự: chữ, số hoặc gạch dưới';
+
+  @override
+  String get usernameHint => '@tennguoidung';
+
+  @override
+  String get enableBiometricTitle => 'Dùng Face ID để đăng nhập lần sau?';
+
+  @override
+  String get enableBiometricBody => 'Đăng nhập bằng sinh trắc học mà không cần nhập mật khẩu.';
+
+  @override
+  String get enableBiometricCta => 'Bật';
+
+  @override
+  String get biometricSignInPrompt => 'Xác thực để đăng nhập vào Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return 'Tiếp tục với tên $name';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'Thêm ảnh đại diện';
+
+  @override
+  String get addProfilePhotoSkip => 'Bỏ qua ngay';
 }

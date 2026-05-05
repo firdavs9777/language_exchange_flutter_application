@@ -1634,5 +1634,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "Nombre de usuario (opcional)",
+  "usernameAvailable": "Disponible",
+  "usernameTaken": "Ya está en uso",
+  "usernameNotAvailable": "No disponible",
+  "usernameInvalidFormat": "3 a 20 caracteres, letras, números o guion bajo",
+  "usernameHint": "@nombredeusuario",
+  "enableBiometricTitle": "¿Usar Face ID para iniciar sesión la próxima vez?",
+  "enableBiometricBody": "Inicia sesión con datos biométricos sin escribir tu contraseña.",
+  "enableBiometricCta": "Activar",
+  "biometricSignInPrompt": "Autentícate para iniciar sesión en Bananatalk",
+  "continueAs": "Continuar como {name}",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "Añade una foto de perfil",
+  "addProfilePhotoSkip": "Omitir por ahora"
 }

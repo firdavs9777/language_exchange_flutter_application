@@ -4434,4 +4434,45 @@ class AppLocalizationsJa extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'ステップ $current / $total';
   }
+
+  @override
+  String get usernameOptional => 'ユーザー名 (任意)';
+
+  @override
+  String get usernameAvailable => '利用可能';
+
+  @override
+  String get usernameTaken => '既に使用されています';
+
+  @override
+  String get usernameNotAvailable => '使用できません';
+
+  @override
+  String get usernameInvalidFormat => '3〜20文字、英数字とアンダースコアのみ';
+
+  @override
+  String get usernameHint => '@ユーザー名';
+
+  @override
+  String get enableBiometricTitle => '次回からFace IDでログインしますか?';
+
+  @override
+  String get enableBiometricBody => '生体認証でパスワード入力をスキップできます。';
+
+  @override
+  String get enableBiometricCta => '有効にする';
+
+  @override
+  String get biometricSignInPrompt => 'Bananatalkにログインするため認証してください';
+
+  @override
+  String continueAs(String name) {
+    return '$nameとしてログイン';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'プロフィール写真を追加';
+
+  @override
+  String get addProfilePhotoSkip => '後で';
 }

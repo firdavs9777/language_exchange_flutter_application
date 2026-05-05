@@ -4434,4 +4434,45 @@ class AppLocalizationsRu extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'Шаг $current из $total';
   }
+
+  @override
+  String get usernameOptional => 'Имя пользователя (необязательно)';
+
+  @override
+  String get usernameAvailable => 'Доступно';
+
+  @override
+  String get usernameTaken => 'Уже занято';
+
+  @override
+  String get usernameNotAvailable => 'Недоступно';
+
+  @override
+  String get usernameInvalidFormat => '3–20 символов: буквы, цифры или подчёркивание';
+
+  @override
+  String get usernameHint => '@имяпользователя';
+
+  @override
+  String get enableBiometricTitle => 'Войти через Face ID в следующий раз?';
+
+  @override
+  String get enableBiometricBody => 'Входите с помощью биометрии без ввода пароля.';
+
+  @override
+  String get enableBiometricCta => 'Включить';
+
+  @override
+  String get biometricSignInPrompt => 'Подтвердите личность для входа в Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return 'Продолжить как $name';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'Добавить фото профиля';
+
+  @override
+  String get addProfilePhotoSkip => 'Пропустить';
 }

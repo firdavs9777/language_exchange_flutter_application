@@ -4434,4 +4434,45 @@ class AppLocalizationsEs extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'Paso $current de $total';
   }
+
+  @override
+  String get usernameOptional => 'Nombre de usuario (opcional)';
+
+  @override
+  String get usernameAvailable => 'Disponible';
+
+  @override
+  String get usernameTaken => 'Ya está en uso';
+
+  @override
+  String get usernameNotAvailable => 'No disponible';
+
+  @override
+  String get usernameInvalidFormat => '3 a 20 caracteres, letras, números o guion bajo';
+
+  @override
+  String get usernameHint => '@nombredeusuario';
+
+  @override
+  String get enableBiometricTitle => '¿Usar Face ID para iniciar sesión la próxima vez?';
+
+  @override
+  String get enableBiometricBody => 'Inicia sesión con datos biométricos sin escribir tu contraseña.';
+
+  @override
+  String get enableBiometricCta => 'Activar';
+
+  @override
+  String get biometricSignInPrompt => 'Autentícate para iniciar sesión en Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return 'Continuar como $name';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'Añade una foto de perfil';
+
+  @override
+  String get addProfilePhotoSkip => 'Omitir por ahora';
 }

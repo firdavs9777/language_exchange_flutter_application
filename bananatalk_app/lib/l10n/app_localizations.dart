@@ -8567,6 +8567,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Step {current} of {total}'**
   String stepProgress(int current, int total);
+
+  /// No description provided for @usernameOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Username (optional)'**
+  String get usernameOptional;
+
+  /// No description provided for @usernameAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get usernameAvailable;
+
+  /// No description provided for @usernameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'Already taken'**
+  String get usernameTaken;
+
+  /// No description provided for @usernameNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get usernameNotAvailable;
+
+  /// No description provided for @usernameInvalidFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'3–20 characters, letters, numbers, or underscore'**
+  String get usernameInvalidFormat;
+
+  /// No description provided for @usernameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'@username'**
+  String get usernameHint;
+
+  /// No description provided for @enableBiometricTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Face ID to log in next time?'**
+  String get enableBiometricTitle;
+
+  /// No description provided for @enableBiometricBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip typing your password by signing in with biometrics.'**
+  String get enableBiometricBody;
+
+  /// No description provided for @enableBiometricCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get enableBiometricCta;
+
+  /// No description provided for @biometricSignInPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticate to log in to Bananatalk'**
+  String get biometricSignInPrompt;
+
+  /// No description provided for @continueAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as {name}'**
+  String continueAs(String name);
+
+  /// No description provided for @addProfilePhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a profile photo'**
+  String get addProfilePhotoTitle;
+
+  /// No description provided for @addProfilePhotoSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get addProfilePhotoSkip;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

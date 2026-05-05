@@ -1555,5 +1555,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "Username (opsyonal)",
+  "usernameAvailable": "Available",
+  "usernameTaken": "Ginagamit na",
+  "usernameNotAvailable": "Hindi available",
+  "usernameInvalidFormat": "3-20 karakter: titik, numero, o underscore",
+  "usernameHint": "@username",
+  "enableBiometricTitle": "Gamitin ang Face ID sa susunod na pag-log in?",
+  "enableBiometricBody": "Mag-sign in gamit ang biometrics nang hindi nagta-type ng password.",
+  "enableBiometricCta": "I-enable",
+  "biometricSignInPrompt": "Mag-authenticate upang mag-log in sa Bananatalk",
+  "continueAs": "Magpatuloy bilang {name}",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "Magdagdag ng profile photo",
+  "addProfilePhotoSkip": "Laktawan muna"
 }

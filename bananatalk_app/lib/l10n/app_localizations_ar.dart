@@ -4434,4 +4434,45 @@ class AppLocalizationsAr extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'الخطوة $current من $total';
   }
+
+  @override
+  String get usernameOptional => 'اسم المستخدم (اختياري)';
+
+  @override
+  String get usernameAvailable => 'متاح';
+
+  @override
+  String get usernameTaken => 'مستخدم بالفعل';
+
+  @override
+  String get usernameNotAvailable => 'غير متاح';
+
+  @override
+  String get usernameInvalidFormat => 'من 3 إلى 20 حرفًا: أحرف أو أرقام أو شرطة سفلية';
+
+  @override
+  String get usernameHint => '@اسم_المستخدم';
+
+  @override
+  String get enableBiometricTitle => 'تسجيل الدخول بـ Face ID في المرة القادمة؟';
+
+  @override
+  String get enableBiometricBody => 'سجّل الدخول بالبصمة دون كتابة كلمة المرور.';
+
+  @override
+  String get enableBiometricCta => 'تفعيل';
+
+  @override
+  String get biometricSignInPrompt => 'قم بالمصادقة لتسجيل الدخول إلى Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return 'المتابعة باسم $name';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'أضف صورة شخصية';
+
+  @override
+  String get addProfilePhotoSkip => 'تخطّي الآن';
 }

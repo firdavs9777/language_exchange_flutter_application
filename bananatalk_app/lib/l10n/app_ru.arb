@@ -1633,5 +1633,25 @@
         "type": "int"
       }
     }
-  }
+  },
+  "usernameOptional": "Имя пользователя (необязательно)",
+  "usernameAvailable": "Доступно",
+  "usernameTaken": "Уже занято",
+  "usernameNotAvailable": "Недоступно",
+  "usernameInvalidFormat": "3–20 символов: буквы, цифры или подчёркивание",
+  "usernameHint": "@имяпользователя",
+  "enableBiometricTitle": "Войти через Face ID в следующий раз?",
+  "enableBiometricBody": "Входите с помощью биометрии без ввода пароля.",
+  "enableBiometricCta": "Включить",
+  "biometricSignInPrompt": "Подтвердите личность для входа в Bananatalk",
+  "continueAs": "Продолжить как {name}",
+  "@continueAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addProfilePhotoTitle": "Добавить фото профиля",
+  "addProfilePhotoSkip": "Пропустить"
 }

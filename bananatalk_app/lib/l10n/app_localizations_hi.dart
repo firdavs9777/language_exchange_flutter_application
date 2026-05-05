@@ -4434,4 +4434,45 @@ class AppLocalizationsHi extends AppLocalizations {
   String stepProgress(int current, int total) {
     return 'चरण $current / $total';
   }
+
+  @override
+  String get usernameOptional => 'उपयोगकर्ता नाम (वैकल्पिक)';
+
+  @override
+  String get usernameAvailable => 'उपलब्ध';
+
+  @override
+  String get usernameTaken => 'पहले से इस्तेमाल में';
+
+  @override
+  String get usernameNotAvailable => 'उपलब्ध नहीं';
+
+  @override
+  String get usernameInvalidFormat => '3-20 अक्षर: अक्षर, संख्या या अंडरस्कोर';
+
+  @override
+  String get usernameHint => '@उपयोगकर्ता';
+
+  @override
+  String get enableBiometricTitle => 'अगली बार Face ID से लॉगिन करें?';
+
+  @override
+  String get enableBiometricBody => 'पासवर्ड टाइप किए बिना बायोमेट्रिक से साइन इन करें।';
+
+  @override
+  String get enableBiometricCta => 'चालू करें';
+
+  @override
+  String get biometricSignInPrompt => 'Bananatalk में लॉगिन करने के लिए प्रमाणित करें';
+
+  @override
+  String continueAs(String name) {
+    return '$name के रूप में जारी रखें';
+  }
+
+  @override
+  String get addProfilePhotoTitle => 'प्रोफ़ाइल फ़ोटो जोड़ें';
+
+  @override
+  String get addProfilePhotoSkip => 'अभी छोड़ें';
 }

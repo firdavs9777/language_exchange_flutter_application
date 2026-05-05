@@ -4434,6 +4434,47 @@ class AppLocalizationsZh extends AppLocalizations {
   String stepProgress(int current, int total) {
     return '第 $current / $total 步';
   }
+
+  @override
+  String get usernameOptional => '用户名 (可选)';
+
+  @override
+  String get usernameAvailable => '可用';
+
+  @override
+  String get usernameTaken => '已被使用';
+
+  @override
+  String get usernameNotAvailable => '不可用';
+
+  @override
+  String get usernameInvalidFormat => '3-20个字符,字母、数字或下划线';
+
+  @override
+  String get usernameHint => '@用户名';
+
+  @override
+  String get enableBiometricTitle => '下次使用 Face ID 登录?';
+
+  @override
+  String get enableBiometricBody => '使用生物识别登录,无需输入密码。';
+
+  @override
+  String get enableBiometricCta => '启用';
+
+  @override
+  String get biometricSignInPrompt => '请验证身份以登录 Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return '以 $name 继续';
+  }
+
+  @override
+  String get addProfilePhotoTitle => '添加头像';
+
+  @override
+  String get addProfilePhotoSkip => '暂时跳过';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -8577,4 +8618,45 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String stepProgress(int current, int total) {
     return '第 $current / $total 步';
   }
+
+  @override
+  String get usernameOptional => '使用者名稱 (選填)';
+
+  @override
+  String get usernameAvailable => '可用';
+
+  @override
+  String get usernameTaken => '已被使用';
+
+  @override
+  String get usernameNotAvailable => '無法使用';
+
+  @override
+  String get usernameInvalidFormat => '3-20個字元,字母、數字或底線';
+
+  @override
+  String get usernameHint => '@使用者名稱';
+
+  @override
+  String get enableBiometricTitle => '下次使用 Face ID 登入?';
+
+  @override
+  String get enableBiometricBody => '使用生物辨識登入,無需輸入密碼。';
+
+  @override
+  String get enableBiometricCta => '啟用';
+
+  @override
+  String get biometricSignInPrompt => '請驗證身分以登入 Bananatalk';
+
+  @override
+  String continueAs(String name) {
+    return '以 $name 繼續';
+  }
+
+  @override
+  String get addProfilePhotoTitle => '新增大頭貼';
+
+  @override
+  String get addProfilePhotoSkip => '暫時跳過';
 }
