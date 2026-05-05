@@ -1,6 +1,8 @@
 import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -49,11 +51,9 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
 
   void _startResendTimer() {
     _resendTimer = 60;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendTimer > 0) {
-        setState(() {
-          _resendTimer--;
-        });
+        setState(() => _resendTimer--);
       } else {
         timer.cancel();
       }
@@ -61,261 +61,215 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
   }
 
   Future<void> _verifyCode() async {
-    String code = _controllers.map((c) => c.text).join();
+    final String code = _controllers.map((c) => c.text).join();
+    final l10n = AppLocalizations.of(context)!;
 
     if (code.length != 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterAll6Digits,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.pleaseEnterAll6Digits,
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
-    // Use your authServiceProvider
     final result = await ref.read(authServiceProvider).verifyEmailCode(
           email: widget.email,
           code: code,
         );
 
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
+
+    if (!mounted) return;
 
     if (result['success']) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.emailVerifiedSuccessfully,
-            BanaStyles: BananaTextStyles.success,
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.success,
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.emailVerifiedSuccessfully,
+        type: AuthSnackBarType.success,
       );
 
-      // Navigate to registration form
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (ctx) => Register(userEmail: widget.email),
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            result['message'] ?? 'Verification failed',
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 3),
-          backgroundColor: AppColors.error,
-        ),
+      showAuthSnackBar(
+        context,
+        message: result['message'] ?? 'Verification failed',
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   Future<void> _resendCode() async {
     if (_resendTimer > 0) return;
+    final l10n = AppLocalizations.of(context)!;
 
-    setState(() {
-      _isResending = true;
-    });
+    setState(() => _isResending = true);
 
-    // Use your authServiceProvider
     final result =
         await ref.read(authServiceProvider).sendVerificationCode(widget.email);
 
-    setState(() {
-      _isResending = false;
-    });
+    setState(() => _isResending = false);
+
+    if (!mounted) return;
 
     if (result['success']) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.verificationCodeResent,
-            BanaStyles: BananaTextStyles.success,
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.success,
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.verificationCodeResent,
+        type: AuthSnackBarType.success,
       );
       _startResendTimer();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            result['message'] ?? 'Failed to resend code',
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 3),
-          backgroundColor: AppColors.error,
-        ),
+      showAuthSnackBar(
+        context,
+        message: result['message'] ?? 'Failed to resend code',
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: BananaText(
-          AppLocalizations.of(context)!.verifyEmail,
-          BanaStyles: BananaTextStyles.appBarTitle,
-        ),
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Icon(
-              Icons.email_outlined,
-              size: 80,
+    final l10n = AppLocalizations.of(context)!;
+    return AuthScreenScaffold(
+      title: l10n.verifyEmail,
+      showBackButton: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 32),
+          Icon(
+            Icons.email_outlined,
+            size: 80,
+            color: AppColors.primary,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.verifyYourEmail,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.weSentCodeTo,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: context.textSecondary),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.email,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: AppColors.primary,
             ),
-            Spacing.gapXXL,
-            BananaText(
-              AppLocalizations.of(context)!.verifyYourEmail,
-              BanaStyles: BananaTextStyles.heading,
-              textAlign: TextAlign.center,
-            ),
-            Spacing.gapLG,
-            Text(
-              AppLocalizations.of(context)!.weSentCodeTo,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: context.textSecondary),
-            ),
-            Spacing.gapSM,
-            Text(
-              widget.email,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary,
-              ),
-            ),
-            const SizedBox(height: 40),
-            // 6-digit code input
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(6, (index) {
-                return Container(
-                  width: 45,
-                  height: 55,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  child: TextField(
-                    controller: _controllers[index],
-                    focusNode: _focusNodes[index],
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    maxLength: 1,
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: context.textPrimary,
-                    ),
-                    decoration: InputDecoration(
-                      counterText: '',
-                      filled: true,
-                      fillColor: context.containerColor,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: AppRadius.borderMD,
-                        borderSide: BorderSide(color: context.dividerColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: AppRadius.borderMD,
-                        borderSide: BorderSide(color: context.dividerColor),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: AppRadius.borderMD,
-                        borderSide:
-                            BorderSide(color: AppColors.primary, width: 2),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      if (value.isNotEmpty && index < 5) {
-                        _focusNodes[index + 1].requestFocus();
-                      } else if (value.isEmpty && index > 0) {
-                        _focusNodes[index - 1].requestFocus();
-                      }
-                      // Auto-submit when all 6 digits are entered
-                      if (index == 5 && value.isNotEmpty) {
-                        _verifyCode();
-                      }
-                    },
+          ),
+          const SizedBox(height: 40),
+          // 6-digit code input
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(6, (index) {
+              return Container(
+                width: 45,
+                height: 55,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                child: TextField(
+                  controller: _controllers[index],
+                  focusNode: _focusNodes[index],
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  maxLength: 1,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: context.textPrimary,
                   ),
-                );
-              }),
-            ),
-            const SizedBox(height: 40),
-            SizedBox(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _verifyCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderMD,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    filled: true,
+                    fillColor: context.containerColor,
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: AppRadius.borderMD,
+                      borderSide: BorderSide(color: context.dividerColor),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: AppRadius.borderMD,
+                      borderSide: BorderSide(color: context.dividerColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: AppRadius.borderMD,
+                      borderSide:
+                          const BorderSide(color: AppColors.primary, width: 2),
+                    ),
                   ),
+                  onChanged: (value) {
+                    if (value.isNotEmpty && index < 5) {
+                      _focusNodes[index + 1].requestFocus();
+                    } else if (value.isEmpty && index > 0) {
+                      _focusNodes[index - 1].requestFocus();
+                    }
+                    // Auto-submit when all 6 digits are entered
+                    if (index == 5 && value.isNotEmpty) {
+                      _verifyCode();
+                    }
+                  },
                 ),
-                child: _isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
+              );
+            }),
+          ),
+          const SizedBox(height: 40),
+          AuthGradientButton(
+            label: l10n.verify,
+            onPressed: _isLoading ? null : _verifyCode,
+            isLoading: _isLoading,
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                l10n.didntReceiveCode,
+                style: TextStyle(color: context.textSecondary),
+              ),
+              TextButton(
+                onPressed:
+                    _isResending || _resendTimer > 0 ? null : _resendCode,
+                child: _isResending
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : Text(
-                        AppLocalizations.of(context)!.verify,
+                        _resendTimer > 0
+                            ? l10n.resendWithTimer(_resendTimer.toString())
+                            : l10n.resend,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                          color: _resendTimer > 0
+                              ? context.textMuted
+                              : AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
               ),
-            ),
-            Spacing.gapXXL,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.didntReceiveCode,
-                  style: TextStyle(color: context.textSecondary),
-                ),
-                TextButton(
-                  onPressed:
-                      _isResending || _resendTimer > 0 ? null : _resendCode,
-                  child: _isResending
-                      ? SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(
-                          _resendTimer > 0
-                              ? AppLocalizations.of(context)!.resendWithTimer(_resendTimer.toString())
-                              : AppLocalizations.of(context)!.resend,
-                          style: TextStyle(
-                            color: _resendTimer > 0
-                                ? context.textMuted
-                                : AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 32),
+        ],
       ),
     );
   }

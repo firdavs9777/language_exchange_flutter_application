@@ -1,7 +1,10 @@
 import 'package:bananatalk_app/pages/authentication/screens/email_verification.dart';
 import 'package:bananatalk_app/pages/authentication/screens/login.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,71 +30,53 @@ class _EmailInputState extends ConsumerState<EmailInput> {
 
   Future<void> _sendVerificationCode() async {
     final email = _emailController.text.trim();
+    final l10n = AppLocalizations.of(context)!;
 
     if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterEmailAddress,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.pleaseEnterEmailAddress,
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
-    final emailPattern = r'^[^@]+@[^@]+\.[^@]+';
-    final emailRegex = RegExp(emailPattern);
-
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
     if (!emailRegex.hasMatch(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterValidEmail,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.pleaseEnterValidEmail,
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
-    // Use your authServiceProvider
     final result =
         await ref.read(authServiceProvider).sendVerificationCode(email);
 
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
+
+    if (!mounted) return;
 
     if (result['success'] == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.verificationCodeSent,
-            BanaStyles: BananaTextStyles.success,
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.success,
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.verificationCodeSent,
+        type: AuthSnackBarType.success,
       );
 
-      // Navigate to verification screen
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => EmailVerification(email: email),
         ),
       );
     } else {
-      // Handle error - check if it's a registration validation error (wrong endpoint)
-      String errorMessage = result['message'] ?? 'Failed to send verification code';
+      // Handle error — check if it's a registration validation error (wrong endpoint)
+      String errorMessage =
+          result['message'] ?? 'Failed to send verification code';
 
-      // If the error contains registration validation messages, it means wrong endpoint
       if (errorMessage.contains('language to learn') ||
           errorMessage.contains('native language') ||
           errorMessage.contains('birth day') ||
@@ -99,127 +84,91 @@ class _EmailInputState extends ConsumerState<EmailInput> {
         errorMessage = 'Server configuration error. Please contact support.';
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            errorMessage,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 4),
-          backgroundColor: AppColors.error,
-        ),
+      showAuthSnackBar(
+        context,
+        message: errorMessage,
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: BananaText(
-          AppLocalizations.of(context)!.signUp,
-          BanaStyles: BananaTextStyles.appBarTitle,
-        ),
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 40),
-              alignment: Alignment.center,
-              child: Text(
-                'Bananatalk',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                  color: Theme.of(context).primaryColor,
-                  letterSpacing: -0.5,
-                ),
+    final l10n = AppLocalizations.of(context)!;
+    return AuthScreenScaffold(
+      title: l10n.signUp,
+      showBackButton: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 24),
+          Text(
+            'Bananatalk',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w800,
+              color: AppColors.primary,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(height: 40),
+          Text(
+            l10n.createAccount,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.enterEmailToGetStarted,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: context.textSecondary),
+          ),
+          const SizedBox(height: 40),
+          AuthTextField(
+            controller: _emailController,
+            label: l10n.emailAddress,
+            prefixIcon: Icons.email_outlined,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.done,
+          ),
+          const SizedBox(height: 32),
+          AuthGradientButton(
+            label: l10n.continueText,
+            onPressed: _isLoading ? null : _sendVerificationCode,
+            isLoading: _isLoading,
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                l10n.alreadyHaveAnAccount,
+                style: TextStyle(color: context.textSecondary),
               ),
-            ),
-            BananaText(
-              AppLocalizations.of(context)!.createAccount,
-              BanaStyles: BananaTextStyles.heading,
-              textAlign: TextAlign.center,
-            ),
-            Spacing.gapMD,
-            Text(
-              AppLocalizations.of(context)!.enterEmailToGetStarted,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: context.textSecondary),
-            ),
-            const SizedBox(height: 40),
-            TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: context.containerColor,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: context.dividerColor),
-                  borderRadius: AppRadius.borderMD,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.primary, width: 2),
-                  borderRadius: AppRadius.borderMD,
-                ),
-                hintText: AppLocalizations.of(context)!.emailAddress,
-                prefixIcon: Icon(Icons.email),
-              ),
-            ),
-            Spacing.gapXXL,
-            SizedBox(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _sendVerificationCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderMD,
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) => Login()),
+                  );
+                },
+                child: Text(
+                  l10n.login,
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: _isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text(
-                        AppLocalizations.of(context)!.continueText,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
               ),
-            ),
-            Spacing.gapXXL,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.alreadyHaveAnAccount,
-                  style: TextStyle(color: context.textSecondary),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (ctx) => Login()),
-                    );
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.login,
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 32),
+        ],
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:bananatalk_app/pages/authentication/screens/forgot_password_verification.dart';
-import 'package:bananatalk_app/pages/authentication/screens/login.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -28,179 +30,126 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
 
   Future<void> _sendResetCode() async {
     final email = _emailController.text.trim();
+    final l10n = AppLocalizations.of(context)!;
 
     if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterEmailAddress,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.pleaseEnterEmailAddress,
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
-    final emailPattern = r'^[^@]+@[^@]+\.[^@]+';
-    final emailRegex = RegExp(emailPattern);
-
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
     if (!emailRegex.hasMatch(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterValidEmail,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.pleaseEnterValidEmail,
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
     final result = await ref.read(authServiceProvider).sendPasswordResetCode(
           email: email,
         );
 
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
+
+    if (!mounted) return;
 
     if (result['success']) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.resetCodeSent,
-            BanaStyles: BananaTextStyles.success,
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: AppColors.success,
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.resetCodeSent,
+        type: AuthSnackBarType.success,
       );
 
-      // Navigate to verification screen
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => ForgotPasswordVerification(email: email),
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            result['message'] ?? 'Failed to send reset code',
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 3),
-          backgroundColor: AppColors.error,
-        ),
+      showAuthSnackBar(
+        context,
+        message: result['message'] ?? 'Failed to send reset code',
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: BananaText(
-          AppLocalizations.of(context)!.forgotPasswordTitle,
-          BanaStyles: BananaTextStyles.appBarTitle,
-        ),
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Icon(
-              Icons.lock_reset,
-              size: 80,
-              color: AppColors.error,
+    final l10n = AppLocalizations.of(context)!;
+    return AuthScreenScaffold(
+      title: l10n.forgotPasswordTitle,
+      showBackButton: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 32),
+          Icon(
+            Icons.lock_reset,
+            size: 80,
+            color: AppColors.error,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.resetPasswordTitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
             ),
-            Spacing.gapXXL,
-            BananaText(
-              AppLocalizations.of(context)!.resetPasswordTitle,
-              BanaStyles: BananaTextStyles.heading,
-              textAlign: TextAlign.center,
-            ),
-            Spacing.gapMD,
-            Text(
-              AppLocalizations.of(context)!.enterEmailForResetCode,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: context.textSecondary),
-            ),
-            const SizedBox(height: 40),
-            TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: context.containerColor,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: context.dividerColor),
-                  borderRadius: AppRadius.borderMD,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.error, width: 2),
-                  borderRadius: AppRadius.borderMD,
-                ),
-                hintText: AppLocalizations.of(context)!.emailAddress,
-                prefixIcon: Icon(Icons.email),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.enterEmailForResetCode,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: context.textSecondary),
+          ),
+          const SizedBox(height: 40),
+          AuthTextField(
+            controller: _emailController,
+            label: l10n.emailAddress,
+            prefixIcon: Icons.email_outlined,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.done,
+          ),
+          const SizedBox(height: 32),
+          AuthGradientButton(
+            label: l10n.sendResetCode,
+            onPressed: _isLoading ? null : _sendResetCode,
+            isLoading: _isLoading,
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                l10n.rememberYourPassword,
+                style: TextStyle(color: context.textSecondary),
               ),
-            ),
-            Spacing.gapXXL,
-            SizedBox(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _sendResetCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.error,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderMD,
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(
+                  l10n.login,
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: _isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text(
-                        AppLocalizations.of(context)!.sendResetCode,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
               ),
-            ),
-            Spacing.gapXXL,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.rememberYourPassword,
-                  style: TextStyle(color: context.textSecondary),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.login,
-                    style: TextStyle(
-                      color: AppColors.error,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 32),
+        ],
       ),
     );
   }

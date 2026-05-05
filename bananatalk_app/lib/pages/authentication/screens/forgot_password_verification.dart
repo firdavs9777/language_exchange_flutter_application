@@ -1,7 +1,11 @@
 import 'package:bananatalk_app/pages/authentication/screens/reset_password.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
@@ -49,11 +53,9 @@ class _ForgotPasswordVerificationState
 
   void _startResendTimer() {
     _resendTimer = 60;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendTimer > 0) {
-        setState(() {
-          _resendTimer--;
-        });
+        setState(() => _resendTimer--);
       } else {
         timer.cancel();
       }
@@ -61,47 +63,36 @@ class _ForgotPasswordVerificationState
   }
 
   Future<void> _verifyCode() async {
-    String code = _controllers.map((c) => c.text).join();
+    final String code = _controllers.map((c) => c.text).join();
+    final l10n = AppLocalizations.of(context)!;
 
     if (code.length != 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterAll6Digits,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.pleaseEnterAll6Digits,
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
     final result = await ref.read(authServiceProvider).verifyPasswordResetCode(
           email: widget.email,
           code: code,
         );
 
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
+
+    if (!mounted) return;
 
     if (result['success']) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.codeVerifiedCreatePassword,
-            BanaStyles: BananaTextStyles.success,
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.codeVerifiedCreatePassword,
+        type: AuthSnackBarType.success,
       );
 
-      // Navigate to reset password screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (ctx) => ResetPassword(
@@ -111,203 +102,177 @@ class _ForgotPasswordVerificationState
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            result['message'] ?? 'Verification failed',
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
-        ),
+      showAuthSnackBar(
+        context,
+        message: result['message'] ?? 'Verification failed',
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   Future<void> _resendCode() async {
     if (_resendTimer > 0) return;
+    final l10n = AppLocalizations.of(context)!;
 
-    setState(() {
-      _isResending = true;
-    });
+    setState(() => _isResending = true);
 
     final result = await ref.read(authServiceProvider).sendPasswordResetCode(
           email: widget.email,
         );
 
-    setState(() {
-      _isResending = false;
-    });
+    setState(() => _isResending = false);
+
+    if (!mounted) return;
 
     if (result['success']) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.resetCodeResent,
-            BanaStyles: BananaTextStyles.success,
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
+      showAuthSnackBar(
+        context,
+        message: l10n.resetCodeResent,
+        type: AuthSnackBarType.success,
       );
       _startResendTimer();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            result['message'] ?? 'Failed to resend code',
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
-        ),
+      showAuthSnackBar(
+        context,
+        message: result['message'] ?? 'Failed to resend code',
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: BananaText(
-          AppLocalizations.of(context)!.verifyCode,
-          BanaStyles: BananaTextStyles.appBarTitle,
-        ),
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Icon(
-              Icons.password,
-              size: 80,
-              color: Colors.redAccent,
+    final l10n = AppLocalizations.of(context)!;
+    return AuthScreenScaffold(
+      title: l10n.verifyCode,
+      showBackButton: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 32),
+          Icon(
+            Icons.password,
+            size: 80,
+            color: AppColors.error,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            l10n.enterResetCode,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+              color: context.textPrimary,
             ),
-            SizedBox(height: 24),
-            BananaText(
-              AppLocalizations.of(context)!.enterResetCode,
-              BanaStyles: BananaTextStyles.heading,
-              textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.weSentCodeTo,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: context.textSecondary),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.email,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.error,
             ),
-            SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.weSentCodeTo,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-            ),
-            SizedBox(height: 8),
-            Text(
-              widget.email,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.redAccent,
-              ),
-            ),
-            SizedBox(height: 40),
-            // 6-digit code input
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(6, (index) {
-                return SizedBox(
-                  width: 50,
-                  height: 60,
-                  child: TextField(
-                    controller: _controllers[index],
-                    focusNode: _focusNodes[index],
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    maxLength: 1,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                      counterText: '',
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                            BorderSide(color: Colors.redAccent, width: 2),
-                      ),
+          ),
+          const SizedBox(height: 40),
+          // 6-digit code input
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(6, (index) {
+              return SizedBox(
+                width: 50,
+                height: 60,
+                child: TextField(
+                  controller: _controllers[index],
+                  focusNode: _focusNodes[index],
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  maxLength: 1,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: context.textPrimary,
+                  ),
+                  decoration: InputDecoration(
+                    counterText: '',
+                    filled: true,
+                    fillColor: context.containerColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: context.dividerColor),
                     ),
-                    onChanged: (value) {
-                      if (value.isNotEmpty && index < 5) {
-                        _focusNodes[index + 1].requestFocus();
-                      } else if (value.isEmpty && index > 0) {
-                        _focusNodes[index - 1].requestFocus();
-                      }
-                      // Auto-submit when all 6 digits are entered
-                      if (index == 5 && value.isNotEmpty) {
-                        _verifyCode();
-                      }
-                    },
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: context.dividerColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide:
+                          const BorderSide(color: AppColors.primary, width: 2),
+                    ),
                   ),
-                );
-              }),
-            ),
-            SizedBox(height: 40),
-            SizedBox(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _verifyCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                  onChanged: (value) {
+                    if (value.isNotEmpty && index < 5) {
+                      _focusNodes[index + 1].requestFocus();
+                    } else if (value.isEmpty && index > 0) {
+                      _focusNodes[index - 1].requestFocus();
+                    }
+                    // Auto-submit when all 6 digits are entered
+                    if (index == 5 && value.isNotEmpty) {
+                      _verifyCode();
+                    }
+                  },
                 ),
-                child: _isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
+              );
+            }),
+          ),
+          const SizedBox(height: 40),
+          AuthGradientButton(
+            label: l10n.verify,
+            onPressed: _isLoading ? null : _verifyCode,
+            isLoading: _isLoading,
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                l10n.didntReceiveCode,
+                style: TextStyle(color: context.textSecondary),
+              ),
+              TextButton(
+                onPressed:
+                    _isResending || _resendTimer > 0 ? null : _resendCode,
+                child: _isResending
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : Text(
-                        AppLocalizations.of(context)!.verify,
+                        _resendTimer > 0
+                            ? l10n.resendWithTimer(_resendTimer.toString())
+                            : l10n.resend,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                          color: _resendTimer > 0
+                              ? context.textMuted
+                              : AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
               ),
-            ),
-            SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.didntReceiveCode,
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-                TextButton(
-                  onPressed:
-                      _isResending || _resendTimer > 0 ? null : _resendCode,
-                  child: _isResending
-                      ? SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(
-                          _resendTimer > 0
-                              ? AppLocalizations.of(context)!.resendWithTimer(_resendTimer.toString())
-                              : AppLocalizations.of(context)!.resend,
-                          style: TextStyle(
-                            color: _resendTimer > 0
-                                ? Colors.grey
-                                : Colors.redAccent,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 32),
+        ],
       ),
     );
   }

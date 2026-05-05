@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
@@ -504,20 +506,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
   void _showError(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_outline, color: Colors.white, size: 18),
-            const SizedBox(width: 8),
-            Expanded(child: Text(message)),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
-      ),
-    );
+    showAuthSnackBar(context, message: message, type: AuthSnackBarType.error);
   }
 
   // ─── Build ───────────────────────────────────────────────────────
@@ -822,59 +811,43 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           const SizedBox(height: 32),
 
           // Next button
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: () {
-                bool valid = true;
-                final l10n = AppLocalizations.of(context)!;
-                if (widget.gender.isEmpty && _selectedGender == null) {
-                  setState(() => _genderError = l10n.pleaseSelectGender);
-                  valid = false;
-                }
-                if (widget.birthDate.isEmpty &&
-                    _birthDateController.text.isEmpty) {
-                  setState(
-                      () => _birthDateError = l10n.pleaseSelectBirthDate);
-                  valid = false;
-                }
-                // Age check
-                if (_birthDateController.text.isNotEmpty) {
-                  try {
-                    final parts = _birthDateController.text.split('.');
-                    final bd = DateTime(
-                      int.parse(parts[0]),
-                      int.parse(parts[1]),
-                      int.parse(parts[2]),
-                    );
-                    final age =
-                        DateTime.now().difference(bd).inDays ~/ 365;
-                    if (age < 18) {
-                      setState(() => _birthDateError =
-                          l10n.mustBe18);
-                      valid = false;
-                    }
-                  } catch (e) {
-                    setState(() => _birthDateError = l10n.invalidDate);
+          AuthGradientButton(
+            label: AppLocalizations.of(context)!.continueButton,
+            onPressed: () {
+              bool valid = true;
+              final l10n = AppLocalizations.of(context)!;
+              if (widget.gender.isEmpty && _selectedGender == null) {
+                setState(() => _genderError = l10n.pleaseSelectGender);
+                valid = false;
+              }
+              if (widget.birthDate.isEmpty &&
+                  _birthDateController.text.isEmpty) {
+                setState(
+                    () => _birthDateError = l10n.pleaseSelectBirthDate);
+                valid = false;
+              }
+              // Age check
+              if (_birthDateController.text.isNotEmpty) {
+                try {
+                  final parts = _birthDateController.text.split('.');
+                  final bd = DateTime(
+                    int.parse(parts[0]),
+                    int.parse(parts[1]),
+                    int.parse(parts[2]),
+                  );
+                  final age =
+                      DateTime.now().difference(bd).inDays ~/ 365;
+                  if (age < 18) {
+                    setState(() => _birthDateError = l10n.mustBe18);
                     valid = false;
                   }
+                } catch (e) {
+                  setState(() => _birthDateError = l10n.invalidDate);
+                  valid = false;
                 }
-                if (valid) _goToNext();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderLG),
-                elevation: 0,
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.continueButton,
-                style:
-                    const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              ),
-            ),
+              }
+              if (valid) _goToNext();
+            },
           ),
 
           const SizedBox(height: 40),
@@ -997,22 +970,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           const SizedBox(height: 32),
 
           // Next button
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: onNext,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
-                elevation: 0,
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.continueButton,
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              ),
-            ),
+          AuthGradientButton(
+            label: AppLocalizations.of(context)!.continueButton,
+            onPressed: onNext,
           ),
 
           const SizedBox(height: 40),
@@ -1236,31 +1196,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           const SizedBox(height: 24),
 
           // Submit button
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: _isSubmitting ? null : _submit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
-                elevation: 0,
-              ),
-              child: _isSubmitting
-                  ? const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.5,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  : Text(
-                      AppLocalizations.of(context)!.startLearning,
-                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                    ),
-            ),
+          AuthGradientButton(
+            label: AppLocalizations.of(context)!.startLearning,
+            onPressed: _isSubmitting ? null : _submit,
+            isLoading: _isSubmitting,
           ),
 
           const SizedBox(height: 12),
