@@ -1,3 +1,6 @@
+import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -52,7 +55,11 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
     final l10n = AppLocalizations.of(context)!;
 
     if (_selectedBloodType.isEmpty) {
-      _showErrorSnackBar(l10n.pleaseSelectABloodType);
+      showProfileSnackBar(
+        context,
+        message: l10n.pleaseSelectABloodType,
+        type: ProfileSnackBarType.error,
+      );
       return;
     }
 
@@ -65,67 +72,22 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
           .updateUserBloodType(bloodType: _selectedBloodType);
 
       if (!mounted) return;
-      _showSuccessSnackBar(l10n.bloodTypeSavedSuccessfully);
+      showProfileSnackBar(
+        context,
+        message: l10n.bloodTypeSavedSuccessfully,
+        type: ProfileSnackBarType.success,
+      );
       Navigator.of(context).pop(_selectedBloodType);
     } catch (e) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      _showErrorSnackBar(
-        '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+      showProfileSnackBar(
+        context,
+        message:
+            '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+        type: ProfileSnackBarType.error,
       );
     }
-  }
-
-  void _showSuccessSnackBar(String message) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    HapticFeedback.mediumImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
   }
 
   @override
@@ -134,100 +96,50 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
     final hasChanges = _selectedBloodType != widget.currentSelectedBloodType;
     final canSave = hasChanges && !_isSaving;
 
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      appBar: AppBar(
-        backgroundColor: context.surfaceColor,
-        foregroundColor: context.textPrimary,
-        elevation: 0,
-        scrolledUnderElevation: 0.5,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          l10n.myBloodType,
-          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: TextButton(
-              onPressed: canSave ? _save : null,
-              style: TextButton.styleFrom(
-                backgroundColor: canSave
-                    ? AppColors.primary
-                    : AppColors.primary.withValues(alpha: 0.3),
-                disabledBackgroundColor: AppColors.primary.withValues(
-                  alpha: 0.2,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: _isSaving
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  : Text(
-                      l10n.save,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-            ),
+    return EditScreenScaffold(
+      title: l10n.myBloodType,
+      canSave: canSave,
+      isSaving: _isSaving,
+      onSave: _save,
+      showBottomSaveButton: false,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Selected blood type preview
+          _buildSelectedPreview(l10n),
+          const SizedBox(height: 24),
+
+          // Positive (Rh+) section
+          _buildGroupHeader(
+            l10n.rhPositive,
+            l10n.rhPositiveDesc,
+            Icons.add_circle_rounded,
+            _bloodRed,
+          ),
+          const SizedBox(height: 12),
+          _buildBloodTypeGrid(_positiveTypes, isNegative: false),
+
+          const SizedBox(height: 28),
+
+          // Negative (Rh-) section
+          _buildGroupHeader(
+            l10n.rhNegative,
+            l10n.rhNegativeDesc,
+            Icons.remove_circle_rounded,
+            const Color(0xFF7C4DFF),
+          ),
+          const SizedBox(height: 12),
+          _buildBloodTypeGrid(_negativeTypes, isNegative: true),
+
+          const SizedBox(height: 28),
+
+          // Save button
+          GradientSaveButton(
+            canSave: canSave,
+            isSaving: _isSaving,
+            onPressed: _save,
           ),
         ],
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Selected blood type preview
-            _buildSelectedPreview(l10n),
-            const SizedBox(height: 24),
-
-            // Positive (Rh+) section
-            _buildGroupHeader(
-              l10n.rhPositive,
-              l10n.rhPositiveDesc,
-              Icons.add_circle_rounded,
-              _bloodRed,
-            ),
-            const SizedBox(height: 12),
-            _buildBloodTypeGrid(_positiveTypes, isNegative: false),
-
-            const SizedBox(height: 28),
-
-            // Negative (Rh-) section
-            _buildGroupHeader(
-              l10n.rhNegative,
-              l10n.rhNegativeDesc,
-              Icons.remove_circle_rounded,
-              const Color(0xFF7C4DFF),
-            ),
-            const SizedBox(height: 12),
-            _buildBloodTypeGrid(_negativeTypes, isNegative: true),
-
-            const SizedBox(height: 28),
-
-            // Save button
-            _buildSaveButton(l10n, canSave),
-          ],
-        ),
       ),
     );
   }
@@ -511,79 +423,6 @@ class _PersonBloodTypeState extends ConsumerState<PersonBloodType> {
           ),
         );
       },
-    );
-  }
-
-  // ========== SAVE BUTTON ==========
-  Widget _buildSaveButton(AppLocalizations l10n, bool canSave) {
-    return SizedBox(
-      width: double.infinity,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: canSave ? _save : null,
-          borderRadius: BorderRadius.circular(16),
-          child: Ink(
-            decoration: BoxDecoration(
-              gradient: canSave
-                  ? const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
-                    )
-                  : null,
-              color: canSave
-                  ? null
-                  : context.dividerColor.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: canSave
-                  ? [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.35),
-                        blurRadius: 14,
-                        offset: const Offset(0, 6),
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: _isSaving
-                  ? const Center(
-                      child: SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.5,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.check_rounded,
-                          color: canSave ? Colors.white : context.textMuted,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          l10n.saveChanges,
-                          style: context.titleSmall.copyWith(
-                            color: canSave ? Colors.white : context.textMuted,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

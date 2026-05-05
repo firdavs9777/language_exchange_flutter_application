@@ -1,3 +1,7 @@
+import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
+import 'package:bananatalk_app/pages/profile/widgets/section_label.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -98,7 +102,11 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
 
     final name = _controllerName.text.trim();
     if (name.isEmpty) {
-      _showErrorSnackBar(l10n.pleaseEnterYourName);
+      showProfileSnackBar(
+        context,
+        message: l10n.pleaseEnterYourName,
+        type: ProfileSnackBarType.error,
+      );
       return;
     }
 
@@ -112,7 +120,11 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
 
       if (!mounted) return;
 
-      _showSuccessSnackBar(l10n.profileUpdatedSuccessfully);
+      showProfileSnackBar(
+        context,
+        message: l10n.profileUpdatedSuccessfully,
+        type: ProfileSnackBarType.success,
+      );
 
       Navigator.pop(context, {
         'userName': name,
@@ -121,62 +133,13 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      _showErrorSnackBar(
-        '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+      showProfileSnackBar(
+        context,
+        message:
+            '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+        type: ProfileSnackBarType.error,
       );
     }
-  }
-
-  void _showSuccessSnackBar(String message) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    HapticFeedback.mediumImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
   }
 
   @override
@@ -184,132 +147,65 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
     final l10n = AppLocalizations.of(context)!;
     final canSave = _hasChanges && !_isSaving;
 
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      appBar: AppBar(
-        backgroundColor: context.surfaceColor,
-        foregroundColor: context.textPrimary,
-        elevation: 0,
-        scrolledUnderElevation: 0.5,
-        title: Text(
-          l10n.nameAndGender,
-          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: TextButton(
-              onPressed: canSave ? _save : null,
-              style: TextButton.styleFrom(
-                backgroundColor: canSave
-                    ? AppColors.primary
-                    : AppColors.primary.withValues(alpha: 0.3),
-                disabledBackgroundColor: AppColors.primary.withValues(
-                  alpha: 0.2,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: _isSaving
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  : Text(
-                      l10n.save,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-            ),
-          ),
-        ],
-      ),
+    return EditScreenScaffold(
+      title: l10n.nameAndGender,
+      canSave: canSave,
+      isSaving: _isSaving,
+      onSave: _save,
+      showBottomSaveButton: false,
+      bodyPadding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         behavior: HitTestBehavior.opaque,
-        child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Name section
-              _buildSectionLabel(l10n.nameLabel, Icons.badge_rounded),
-              const SizedBox(height: 10),
-              _buildNameField(l10n),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Name section
+            SectionLabel(icon: Icons.badge_rounded, text: l10n.nameLabel),
+            const SizedBox(height: 10),
+            _buildNameField(l10n),
 
-              const SizedBox(height: 28),
+            const SizedBox(height: 28),
 
-              // Gender section
-              _buildSectionLabel(l10n.genderRequired, Icons.wc_rounded),
-              const SizedBox(height: 10),
-              _buildGenderSelector(l10n),
+            // Gender section
+            SectionLabel(icon: Icons.wc_rounded, text: l10n.genderRequired),
+            const SizedBox(height: 10),
+            _buildGenderSelector(l10n),
 
-              const SizedBox(height: 32),
+            const SizedBox(height: 32),
 
-              // Primary save button
-              _buildSaveButton(l10n),
+            // Primary save button
+            GradientSaveButton(
+              canSave: canSave,
+              isSaving: _isSaving,
+              onPressed: _save,
+            ),
 
-              if (_hasChanges) ...[
-                const SizedBox(height: 12),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.info_outline_rounded,
-                        size: 14,
+            if (_hasChanges) ...[
+              const SizedBox(height: 12),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.info_outline_rounded,
+                      size: 14,
+                      color: context.textMuted,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      l10n.unsavedChanges,
+                      style: context.captionSmall.copyWith(
                         color: context.textMuted,
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        l10n.unsavedChanges,
-                        style: context.captionSmall.copyWith(
-                          color: context.textMuted,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ],
-          ),
+          ],
         ),
       ),
-    );
-  }
-
-  // ========== SECTION LABEL ==========
-  Widget _buildSectionLabel(String label, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, size: 16, color: AppColors.primary),
-        const SizedBox(width: 6),
-        Text(
-          label,
-          style: context.titleSmall.copyWith(
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.1,
-          ),
-        ),
-      ],
     );
   }
 
@@ -476,80 +372,6 @@ class _ProfileInfoSetState extends ConsumerState<ProfileInfoSet> {
           ),
         );
       }).toList(),
-    );
-  }
-
-  // ========== SAVE BUTTON ==========
-  Widget _buildSaveButton(AppLocalizations l10n) {
-    final canSave = _hasChanges && !_isSaving;
-    return SizedBox(
-      width: double.infinity,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: canSave ? _save : null,
-          borderRadius: BorderRadius.circular(16),
-          child: Ink(
-            decoration: BoxDecoration(
-              gradient: canSave
-                  ? const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
-                    )
-                  : null,
-              color: canSave
-                  ? null
-                  : context.dividerColor.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: canSave
-                  ? [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.35),
-                        blurRadius: 14,
-                        offset: const Offset(0, 6),
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: _isSaving
-                  ? const Center(
-                      child: SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.5,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.check_rounded,
-                          color: canSave ? Colors.white : context.textMuted,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          l10n.saveChanges,
-                          style: context.titleSmall.copyWith(
-                            color: canSave ? Colors.white : context.textMuted,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
