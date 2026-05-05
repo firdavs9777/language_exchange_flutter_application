@@ -280,7 +280,7 @@ class _ExploreMainState extends ConsumerState<ExploreMain>
                   ),
                   Spacing.gapXXS,
                   Text(
-                    moment.title.isNotEmpty ? moment.title : moment.description,
+                    moment.description,
                     style: context.bodySmall.copyWith(color: context.textSecondary),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
