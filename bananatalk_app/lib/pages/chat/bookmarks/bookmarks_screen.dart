@@ -297,7 +297,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
+                      backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                       backgroundImage: message.sender.images?.isNotEmpty == true
                           ? NetworkImage(message.sender.images!.first)
                           : null,

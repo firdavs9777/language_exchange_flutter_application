@@ -31,7 +31,7 @@ class ChatListSearchBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(25.0),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.onSurface.withOpacity(0.05),
+            color: colorScheme.onSurface.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),

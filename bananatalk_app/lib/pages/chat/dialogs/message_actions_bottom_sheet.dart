@@ -172,7 +172,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: hasReacted
-                            ? theme.primaryColor.withOpacity(0.2)
+                            ? theme.primaryColor.withValues(alpha: 0.2)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                       ),

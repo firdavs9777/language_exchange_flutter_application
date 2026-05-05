@@ -132,7 +132,7 @@ class _AvatarShimmerState extends State<_AvatarShimmer>
               end: Alignment.bottomRight,
               colors: [
                 context.containerColor,
-                context.containerColor.withOpacity(0.5),
+                context.containerColor.withValues(alpha: 0.5),
                 context.containerColor,
               ],
               stops: [

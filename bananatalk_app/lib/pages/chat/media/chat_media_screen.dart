@@ -243,7 +243,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(Icons.link, color: Colors.blue),
@@ -290,7 +290,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(

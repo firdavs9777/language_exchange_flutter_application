@@ -1321,7 +1321,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   Widget _buildRefreshButton(ColorScheme colors) {
     return Material(
       elevation: 6,
-      shadowColor: const Color(0xFF00BFA5).withOpacity(0.4),
+      shadowColor: const Color(0xFF00BFA5).withValues(alpha: 0.4),
       shape: const CircleBorder(),
       child: InkWell(
         onTap: _isRefreshing ? null : _onRefreshButtonTap,
@@ -1397,7 +1397,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             height: 1,
             thickness: 0.3,
             indent: 88,
-            color: colors.outlineVariant.withOpacity(0.3),
+            color: colors.outlineVariant.withValues(alpha: 0.3),
           ),
           itemBuilder: (context, index) {
             final partner = displayPartners[index];

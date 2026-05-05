@@ -92,7 +92,7 @@ class ChatListTile extends StatelessWidget {
                 width: 6,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4ADE80).withOpacity(value),
+                  color: const Color(0xFF4ADE80).withValues(alpha: value),
                   shape: BoxShape.circle,
                 ),
               );
@@ -219,7 +219,7 @@ class ChatListTile extends StatelessWidget {
                         boxShadow: _isOnline
                             ? [
                                 BoxShadow(
-                                  color: const Color(0xFF4ADE80).withOpacity(0.5),
+                                  color: const Color(0xFF4ADE80).withValues(alpha: 0.5),
                                   blurRadius: 8,
                                   spreadRadius: 2,
                                 ),
@@ -312,7 +312,7 @@ class ChatListTile extends StatelessWidget {
                             child: Icon(
                               Icons.notifications_off,
                               size: 14,
-                              color: colors.onSurface.withOpacity(0.4),
+                              color: colors.onSurface.withValues(alpha: 0.4),
                             ),
                           ),
                         if (partner.lastMessageTime != null)
@@ -321,7 +321,7 @@ class ChatListTile extends StatelessWidget {
                             style: TextStyle(
                               color: partner.unreadCount > 0
                                   ? const Color(0xFFEF4444)
-                                  : colors.onSurface.withOpacity(0.4),
+                                  : colors.onSurface.withValues(alpha: 0.4),
                               fontSize: 12,
                               fontWeight: partner.unreadCount > 0
                                   ? FontWeight.w600
@@ -361,7 +361,7 @@ class ChatListTile extends StatelessWidget {
                                           color: partner.unreadCount > 0
                                               ? colors.onSurface
                                               : colors.onSurface
-                                                  .withOpacity(0.5),
+                                                  .withValues(alpha: 0.5),
                                           fontWeight: partner.unreadCount > 0
                                               ? FontWeight.w500
                                               : FontWeight.normal,
