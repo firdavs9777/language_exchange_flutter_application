@@ -2257,6 +2257,21 @@
   "updateAvailableBody": "A new version of Bananatalk is available with improvements and bug fixes.",
   "updateNow": "Update Now",
   "updateLater": "Later",
-  "updateOpenStoreFailed": "Couldn't open the store. Please update from the App Store or Play Store."
+  "updateOpenStoreFailed": "Couldn't open the store. Please update from the App Store or Play Store.",
+
+  "rememberMe": "Remember me",
+  "passwordWeak": "Weak",
+  "passwordFair": "Fair",
+  "passwordStrong": "Strong",
+  "passwordVeryStrong": "Very strong",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "stepProgress": "Step {current} of {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  }
 }
 

@@ -4414,4 +4414,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Couldn\'t open the store. Please update from the App Store or Play Store.';
+
+  @override
+  String get rememberMe => 'Remember me';
+
+  @override
+  String get passwordWeak => 'Weak';
+
+  @override
+  String get passwordFair => 'Fair';
+
+  @override
+  String get passwordStrong => 'Strong';
+
+  @override
+  String get passwordVeryStrong => 'Very strong';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Step $current of $total';
+  }
 }

@@ -8519,6 +8519,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t open the store. Please update from the App Store or Play Store.'**
   String get updateOpenStoreFailed;
+
+  /// No description provided for @rememberMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember me'**
+  String get rememberMe;
+
+  /// No description provided for @passwordWeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak'**
+  String get passwordWeak;
+
+  /// No description provided for @passwordFair.
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get passwordFair;
+
+  /// No description provided for @passwordStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get passwordStrong;
+
+  /// No description provided for @passwordVeryStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Very strong'**
+  String get passwordVeryStrong;
+
+  /// No description provided for @showPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
+
+  /// No description provided for @stepProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepProgress(int current, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
