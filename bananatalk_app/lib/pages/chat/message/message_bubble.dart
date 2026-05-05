@@ -45,7 +45,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final bool isLastInGroup;
 
   const ChatMessageBubble({
-    Key? key,
+    super.key,
     required this.message,
     required this.isMe,
     required this.otherUserName,
@@ -65,7 +65,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.onDeleteFailed,
     this.isFirstInGroup = true,
     this.isLastInGroup = true,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<ChatMessageBubble> createState() => _ChatMessageBubbleState();
