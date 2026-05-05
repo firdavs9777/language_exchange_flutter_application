@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/models/language_model.dart';
@@ -15,7 +16,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 class ProfileLanguageEdit extends ConsumerStatefulWidget {
   final String initialLanguage;
   final String type; // 'native' or 'learn'
-  final String? otherLanguage; // The other language to validate against
+  final String? otherLanguage;
 
   const ProfileLanguageEdit({
     super.key,
@@ -25,21 +26,34 @@ class ProfileLanguageEdit extends ConsumerStatefulWidget {
   });
 
   @override
-  _ProfileLanguageEditState createState() => _ProfileLanguageEditState();
+  ConsumerState<ProfileLanguageEdit> createState() =>
+      _ProfileLanguageEditState();
 }
 
 class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
   Language? _selectedLanguage;
   List<Language> _languages = [];
   bool _isLoading = false;
+  bool _isSaving = false;
+
+  bool get _isNative => widget.type == 'native';
+
+  Color get _accentColor =>
+      _isNative ? AppColors.primary : const Color(0xFFFF9800);
+
+  IconData get _accentIcon =>
+      _isNative ? Icons.home_rounded : Icons.school_rounded;
+
+  String _accentLabel(AppLocalizations l10n) =>
+      _isNative ? l10n.native : l10n.learning;
 
   @override
   void initState() {
     super.initState();
-    fetchLanguages();
+    _fetchLanguages();
   }
 
-  Future<void> fetchLanguages() async {
+  Future<void> _fetchLanguages() async {
     setState(() => _isLoading = true);
 
     try {
@@ -49,28 +63,22 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        List<dynamic> languagesList = data['data'] ?? [];
+        final List<dynamic> languagesList = data['data'] ?? [];
 
-        setState(() {
-          _languages = languagesList
-              .map<Language>((json) => Language.fromJson(json))
-              .toList();
-        });
+        final languages = languagesList
+            .map<Language>((json) => Language.fromJson(json))
+            .toList();
 
-        if (widget.initialLanguage.isNotEmpty && _languages.isNotEmpty) {
+        if (!mounted) return;
+        setState(() => _languages = languages);
+
+        if (widget.initialLanguage.isNotEmpty && languages.isNotEmpty) {
           try {
-            final matchingLanguage = _languages.firstWhere(
+            final match = languages.firstWhere(
               (lang) => lang.name == widget.initialLanguage,
             );
-            setState(() {
-              _selectedLanguage = matchingLanguage;
-            });
-          } catch (e) {
-            if (_languages.isNotEmpty) {
-              setState(() {
-                _selectedLanguage = _languages.first;
-              });
-            }
+            if (mounted) setState(() => _selectedLanguage = match);
+          } catch (_) {
             if (kDebugMode) {
               debugPrint('Language not found: ${widget.initialLanguage}');
             }
@@ -80,31 +88,20 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         throw Exception('Failed to load languages');
       }
     } catch (e) {
-      if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.failedToLoadLanguages),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
+      _showErrorSnackBar(l10n.failedToLoadLanguages);
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
   Future<void> _openLanguagePicker() async {
     final l10n = AppLocalizations.of(context)!;
+    HapticFeedback.lightImpact();
 
     if (_languages.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.languagesAreStillLoading),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
+      _showInfoSnackBar(l10n.languagesAreStillLoading);
       return;
     }
 
@@ -118,33 +115,156 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
       ),
     );
 
+    if (!mounted) return;
+
     if (result != null) {
       if (widget.otherLanguage != null &&
           result.name.toLowerCase() == widget.otherLanguage!.toLowerCase()) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              widget.type == 'native'
-                  ? l10n.nativeLanguageCannotBeSame
-                  : l10n.learningLanguageCannotBeSame,
-            ),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-          ),
+        _showErrorSnackBar(
+          _isNative
+              ? l10n.nativeLanguageCannotBeSame
+              : l10n.learningLanguageCannotBeSame,
         );
         return;
       }
 
-      setState(() {
-        _selectedLanguage = result;
-      });
+      HapticFeedback.selectionClick();
+      setState(() => _selectedLanguage = result);
     }
+  }
+
+  Future<void> _save() async {
+    if (_isSaving) return;
+    final l10n = AppLocalizations.of(context)!;
+
+    if (_selectedLanguage == null) {
+      _showErrorSnackBar(l10n.pleaseSelectALanguage);
+      return;
+    }
+
+    if (widget.otherLanguage != null &&
+        _selectedLanguage!.name.toLowerCase() ==
+            widget.otherLanguage!.toLowerCase()) {
+      _showErrorSnackBar(
+        _isNative
+            ? l10n.nativeLanguageCannotBeSame
+            : l10n.learningLanguageCannotBeSame,
+      );
+      return;
+    }
+
+    HapticFeedback.lightImpact();
+    setState(() => _isSaving = true);
+
+    try {
+      final languageName = _selectedLanguage!.name;
+
+      if (_isNative) {
+        await ref
+            .read(authServiceProvider)
+            .updateUserNativeLanguage(natLang: languageName);
+      } else {
+        await ref
+            .read(authServiceProvider)
+            .updateUserLanguageToLearn(langToLearn: languageName);
+      }
+
+      if (!mounted) return;
+      _showSuccessSnackBar(l10n.languageUpdatedSuccessfully);
+      Navigator.of(context).pop(languageName);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isSaving = false);
+      _showErrorSnackBar(
+        '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+      );
+    }
+  }
+
+  void _showSuccessSnackBar(String message) {
+    HapticFeedback.lightImpact();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _showErrorSnackBar(String message) {
+    HapticFeedback.mediumImpact();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.error_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.error,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  void _showInfoSnackBar(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.info_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.info,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isNative = widget.type == 'native';
+    final hasChanges =
+        _selectedLanguage != null &&
+        _selectedLanguage!.name != widget.initialLanguage;
+    final canSave = hasChanges && !_isSaving;
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
@@ -152,161 +272,510 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         elevation: 0,
+        scrolledUnderElevation: 0.5,
         title: Text(
-          isNative
+          _isNative
               ? l10n.selectYourNativeLanguage
               : l10n.whichLanguageDoYouWantToLearn,
-          style: context.titleLarge,
+          style: context.titleLarge.copyWith(
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: TextButton(
+              onPressed: canSave ? _save : null,
+              style: TextButton.styleFrom(
+                backgroundColor: canSave
+                    ? _accentColor
+                    : _accentColor.withValues(alpha: 0.3),
+                disabledBackgroundColor: _accentColor.withValues(alpha: 0.2),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: _isSaving
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      l10n.save,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+            ),
+          ),
+        ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: Spacing.screenPadding,
+          ? _buildLoadingState()
+          : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: _openLanguagePicker,
-                    borderRadius: AppRadius.borderLG,
-                    child: Container(
-                      padding: Spacing.paddingLG,
-                      decoration: BoxDecoration(
-                        color: context.containerColor,
-                        border: Border.all(color: context.dividerColor),
-                        borderRadius: AppRadius.borderLG,
-                      ),
-                      child: Row(
-                        children: [
-                          if (_selectedLanguage != null)
-                            Padding(
-                              padding: const EdgeInsets.only(right: 12),
-                              child: Text(
-                                _selectedLanguage!.flag,
-                                style: const TextStyle(fontSize: 32),
-                              ),
-                            )
-                          else
-                            Padding(
-                              padding: const EdgeInsets.only(right: 12),
-                              child: Icon(
-                                Icons.language,
-                                size: 32,
-                                color: context.textSecondary,
-                              ),
-                            ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  isNative
-                                      ? l10n.nativeLanguageRequired
-                                      : l10n.languageToLearnRequired,
-                                  style: context.caption.copyWith(
-                                    color: context.textSecondary,
-                                  ),
-                                ),
-                                Spacing.gapXS,
-                                Text(
-                                  _selectedLanguage?.name ?? l10n.selectALanguage,
-                                  style: context.titleMedium.copyWith(
-                                    color: _selectedLanguage != null
-                                        ? context.textPrimary
-                                        : context.textSecondary,
-                                  ),
-                                ),
-                                if (_selectedLanguage != null) ...[
-                                  Spacing.gapXS,
-                                  Text(
-                                    _selectedLanguage!.nativeName,
-                                    style: context.bodySmall.copyWith(
-                                      color: context.textSecondary,
-                                    ),
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16,
-                            color: context.iconColor,
-                          ),
-                        ],
+                  // Type indicator
+                  _buildTypeIndicator(l10n),
+                  const SizedBox(height: 16),
+
+                  // Hero language card
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    switchInCurve: Curves.easeOutCubic,
+                    transitionBuilder: (child, animation) => FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(0, 0.05),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
                       ),
                     ),
+                    child: _selectedLanguage != null
+                        ? _buildSelectedLanguageCard(l10n)
+                        : _buildEmptyLanguageCard(l10n),
                   ),
-                  Spacing.gapXL,
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_selectedLanguage == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(l10n.pleaseSelectALanguage),
-                            behavior: SnackBarBehavior.floating,
-                          ),
-                        );
-                        return;
-                      }
 
-                      if (widget.otherLanguage != null &&
-                          _selectedLanguage!.name.toLowerCase() ==
-                              widget.otherLanguage!.toLowerCase()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              widget.type == 'native'
-                                  ? l10n.nativeLanguageCannotBeSame
-                                  : l10n.learningLanguageCannotBeSame,
-                            ),
-                            backgroundColor: AppColors.error,
-                            behavior: SnackBarBehavior.floating,
-                          ),
-                        );
-                        return;
-                      }
+                  const SizedBox(height: 16),
 
-                      final languageName = _selectedLanguage!.name;
+                  // Browse languages button
+                  _buildBrowseButton(l10n),
 
-                      if (isNative) {
-                        await ref
-                            .read(authServiceProvider)
-                            .updateUserNativeLanguage(natLang: languageName);
-                      } else {
-                        await ref
-                            .read(authServiceProvider)
-                            .updateUserLanguageToLearn(langToLearn: languageName);
-                      }
+                  if (widget.otherLanguage != null) ...[
+                    const SizedBox(height: 24),
+                    _buildOtherLanguageHint(l10n),
+                  ],
 
-                      if (mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('${l10n.saved}: $languageName'),
-                            backgroundColor: AppColors.success,
-                            behavior: SnackBarBehavior.floating,
-                          ),
-                        );
-                        Navigator.of(context).pop(languageName);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.secondary,
-                      foregroundColor: AppColors.gray900,
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderMD,
-                      ),
-                    ),
-                    child: Text(
-                      l10n.save,
-                      style: context.titleMedium.copyWith(
-                        color: AppColors.gray900,
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 28),
+
+                  // Save button
+                  _buildSaveButton(l10n, canSave),
                 ],
               ),
             ),
+    );
+  }
+
+  // ========== LOADING STATE ==========
+  Widget _buildLoadingState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 36,
+            height: 36,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              valueColor: AlwaysStoppedAnimation<Color>(_accentColor),
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            AppLocalizations.of(context)!.loadingLanguages,
+            style: context.bodySmall.copyWith(color: context.textSecondary),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ========== TYPE INDICATOR ==========
+  Widget _buildTypeIndicator(AppLocalizations l10n) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: _accentColor.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(_accentIcon, color: _accentColor, size: 18),
+        ),
+        const SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              _accentLabel(l10n),
+              style: context.captionSmall.copyWith(
+                color: _accentColor,
+                fontWeight: FontWeight.w800,
+                fontSize: 11,
+                letterSpacing: 0.5,
+              ),
+            ),
+            Text(
+              _isNative
+                  ? l10n.nativeLanguageRequired
+                  : l10n.languageToLearnRequired,
+              style: context.titleSmall.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // ========== SELECTED LANGUAGE CARD ==========
+  Widget _buildSelectedLanguageCard(AppLocalizations l10n) {
+    return Container(
+      key: ValueKey('selected_${_selectedLanguage!.name}'),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            _accentColor.withValues(alpha: 0.15),
+            _accentColor.withValues(alpha: 0.04),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: _accentColor.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        children: [
+          // Flag in circular badge
+          Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              color: context.surfaceColor,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: _accentColor.withValues(alpha: 0.25),
+                  blurRadius: 14,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              _selectedLanguage!.flag,
+              style: const TextStyle(fontSize: 40),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _accentColor,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.check_rounded,
+                        color: Colors.white,
+                        size: 12,
+                      ),
+                      const SizedBox(width: 3),
+                      const Text(
+                        'SELECTED',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 9,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  _selectedLanguage!.name,
+                  style: context.titleLarge.copyWith(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 22,
+                    letterSpacing: -0.3,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  _selectedLanguage!.nativeName,
+                  style: context.bodyMedium.copyWith(
+                    color: context.textSecondary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ========== EMPTY LANGUAGE CARD ==========
+  Widget _buildEmptyLanguageCard(AppLocalizations l10n) {
+    return Container(
+      key: const ValueKey('empty_card'),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: context.dividerColor.withValues(alpha: 0.5),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              color: context.containerColor,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.language_rounded,
+              color: context.textMuted,
+              size: 32,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l10n.selectALanguage,
+            style: context.titleSmall.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.tapBelowToBrowseLanguages(_languages.length),
+            style: context.captionSmall.copyWith(color: context.textSecondary),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ========== BROWSE BUTTON ==========
+  Widget _buildBrowseButton(AppLocalizations l10n) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final disabled = _isSaving || _languages.isEmpty;
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: disabled ? null : _openLanguagePicker,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            decoration: BoxDecoration(
+              color: _accentColor.withValues(alpha: isDark ? 0.18 : 0.08),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: _accentColor.withValues(alpha: 0.3),
+                width: 1.5,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _accentColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.search_rounded,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  _selectedLanguage != null
+                      ? l10n.changeLanguage
+                      : l10n.browseLanguages,
+                  style: context.titleSmall.copyWith(
+                    color: _accentColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ========== OTHER LANGUAGE HINT ==========
+  Widget _buildOtherLanguageHint(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2196F3).withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: const Color(0xFF2196F3).withValues(alpha: 0.15),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2196F3),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(
+              Icons.info_rounded,
+              color: Colors.white,
+              size: 14,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                style: context.captionSmall.copyWith(
+                  color: const Color(0xFF1976D2),
+                  height: 1.4,
+                  fontWeight: FontWeight.w500,
+                ),
+                children: [
+                  TextSpan(
+                    text: _isNative
+                        ? l10n.yourLearningLanguageIsPrefix
+                        : l10n.yourNativeLanguageIsPrefix,
+                  ),
+                  TextSpan(
+                    text: widget.otherLanguage,
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
+                  const TextSpan(text: '. Choose a different language here.'),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ========== SAVE BUTTON ==========
+  Widget _buildSaveButton(AppLocalizations l10n, bool canSave) {
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: canSave ? _save : null,
+          borderRadius: BorderRadius.circular(16),
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: canSave
+                  ? LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        _accentColor,
+                        _accentColor.withValues(alpha: 0.8),
+                      ],
+                    )
+                  : null,
+              color: canSave
+                  ? null
+                  : context.dividerColor.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: canSave
+                  ? [
+                      BoxShadow(
+                        color: _accentColor.withValues(alpha: 0.35),
+                        blurRadius: 14,
+                        offset: const Offset(0, 6),
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: _isSaving
+                  ? const Center(
+                      child: SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.check_rounded,
+                          color: canSave ? Colors.white : context.textMuted,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          l10n.saveChanges,
+                          style: context.titleSmall.copyWith(
+                            color: canSave ? Colors.white : context.textMuted,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

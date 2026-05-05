@@ -2165,6 +2165,20 @@
   "onlyCityCountryShown": "Only your city and country are shown to others. Exact coordinates remain private.",
   "updateLocationCta": "Update Location",
   "enterYourName": "Enter your name",
-  "unsavedChanges": "You have unsaved changes"
+  "unsavedChanges": "You have unsaved changes",
+
+  "loadingLanguages": "Loading languages...",
+  "tapBelowToBrowseLanguages": "Tap below to browse from {count} languages",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Change Language",
+  "browseLanguages": "Browse Languages",
+  "yourLearningLanguageIsPrefix": "Your learning language is ",
+  "yourNativeLanguageIsPrefix": "Your native language is "
 }
 

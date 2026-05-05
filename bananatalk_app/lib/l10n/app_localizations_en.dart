@@ -4212,4 +4212,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'You have unsaved changes';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'Tap below to browse from $count languages';
+  }
+
+  @override
+  String get changeLanguage => 'Change Language';
+
+  @override
+  String get browseLanguages => 'Browse Languages';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Your learning language is ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Your native language is ';
 }

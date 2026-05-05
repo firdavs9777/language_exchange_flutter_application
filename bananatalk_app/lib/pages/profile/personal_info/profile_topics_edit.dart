@@ -67,8 +67,9 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
               content: Text(l10n.maxTopicsAllowed(widget.maxTopics)),
               backgroundColor: Colors.orange,
               behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(14),
               ),
             ),
           );
@@ -83,6 +84,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
     if (_isSaving) return;
     final l10n = AppLocalizations.of(context)!;
 
+    HapticFeedback.lightImpact();
     setState(() => _isSaving = true);
 
     try {
@@ -91,35 +93,43 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
 
       ref.invalidate(userProvider);
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.check_circle, color: Colors.white),
-                const SizedBox(width: 12),
-                Text(l10n.topicsUpdatedSuccessfully),
-              ],
-            ),
-            backgroundColor: AppColors.success,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.check_circle_rounded, color: Colors.white),
+              const SizedBox(width: 12),
+              Expanded(child: Text(l10n.topicsUpdatedSuccessfully)),
+            ],
           ),
-        );
-        Navigator.pop(context, _selectedTopics.toList());
-      }
+          backgroundColor: AppColors.success,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      );
+      Navigator.pop(context, _selectedTopics.toList());
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.failedToUpdateTopics}: $e'),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${l10n.failedToUpdateTopics}: '
+            '${e.toString().replaceFirst('Exception: ', '')}',
           ),
-        );
-      }
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      );
     } finally {
       if (mounted) {
         setState(() => _isSaving = false);
@@ -132,32 +142,61 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
     final l10n = AppLocalizations.of(context)!;
 
     if (widget.isStandalone) {
+      final canSave = !_isSaving;
       return Scaffold(
         backgroundColor: context.scaffoldBackground,
         appBar: AppBar(
           title: Text(
             widget.title ?? l10n.editInterests,
-            style: context.titleLarge,
+            style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
           ),
           backgroundColor: context.surfaceColor,
           foregroundColor: context.textPrimary,
           elevation: 0,
+          scrolledUnderElevation: 0.5,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            onPressed: () => Navigator.pop(context),
+          ),
           actions: [
-            TextButton(
-              onPressed: _isSaving ? null : _saveTopics,
-              child: _isSaving
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : Text(
-                      l10n.save,
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: TextButton(
+                onPressed: canSave ? _saveTopics : null,
+                style: TextButton.styleFrom(
+                  backgroundColor: canSave
+                      ? AppColors.primary
+                      : AppColors.primary.withValues(alpha: 0.3),
+                  disabledBackgroundColor: AppColors.primary.withValues(
+                    alpha: 0.2,
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: _isSaving
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        l10n.save,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
+              ),
             ),
           ],
         ),
@@ -195,7 +234,8 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
               ],
               Spacing.gapMD,
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -295,67 +335,72 @@ class _TopicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.primary.withValues(alpha: 0.15)
-              : context.containerColor,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? AppColors.primary : Colors.transparent,
-            width: 2,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                children: [
-                  Text(
-                    topic.icon,
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      topic.name,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                        color: isSelected
-                            ? AppColors.primary
-                            : context.textPrimary,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? AppColors.primary.withValues(alpha: 0.15)
+                : context.containerColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isSelected ? AppColors.primary : Colors.transparent,
+              width: 2,
             ),
-            if (isSelected)
-              Positioned(
-                top: 6,
-                right: 6,
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  ),
+          ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  children: [
+                    Text(
+                      topic.icon,
+                      style: const TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        topic.name,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.w500,
+                          color: isSelected
+                              ? AppColors.primary
+                              : context.textPrimary,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-          ],
+              if (isSelected)
+                Positioned(
+                  top: 6,
+                  right: 6,
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const BoxDecoration(
+                      color: AppColors.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check,
+                      size: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

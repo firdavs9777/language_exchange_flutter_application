@@ -8123,6 +8123,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have unsaved changes'**
   String get unsavedChanges;
+
+  /// No description provided for @tapBelowToBrowseLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap below to browse from {count} languages'**
+  String tapBelowToBrowseLanguages(int count);
+
+  /// No description provided for @changeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Language'**
+  String get changeLanguage;
+
+  /// No description provided for @browseLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse Languages'**
+  String get browseLanguages;
+
+  /// No description provided for @yourLearningLanguageIsPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Your learning language is '**
+  String get yourLearningLanguageIsPrefix;
+
+  /// No description provided for @yourNativeLanguageIsPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Your native language is '**
+  String get yourNativeLanguageIsPrefix;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

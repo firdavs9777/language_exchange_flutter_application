@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
@@ -6,6 +7,7 @@ import 'package:bananatalk_app/pages/profile/main/profile_moment_edit.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -36,27 +38,8 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
   late int likeCount;
   late int commentCount;
   bool showCommentField = false;
+  bool _isDeleting = false;
   final FocusNode commentFocusNode = FocusNode();
-
-  // Language code to flag emoji mapping
-  final Map<String, String> _languageFlags = {
-    'en': '🇺🇸',
-    'es': '🇪🇸',
-    'fr': '🇫🇷',
-    'de': '🇩🇪',
-    'it': '🇮🇹',
-    'pt': '🇵🇹',
-    'ru': '🇷🇺',
-    'ja': '🇯🇵',
-    'ko': '🇰🇷',
-    'zh': '🇨🇳',
-    'ar': '🇸🇦',
-    'hi': '🇮🇳',
-    'korean': '🇰🇷',
-    'english': '🇺🇸',
-    'spanish': '🇪🇸',
-    'da': '🇩🇰',
-  };
 
   // Mood to emoji mapping
   final Map<String, String> _moodEmojis = {
@@ -96,22 +79,24 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         result = await ref.read(momentsServiceProvider).likeMoment(moment.id);
       }
 
-      if (mounted) {
-        setState(() {
-          isLiked = result['isLiked'] ?? !isLiked;
-          likeCount = result['likeCount'] ?? likeCount;
-        });
-      }
+      if (!mounted) return;
+      setState(() {
+        isLiked = result['isLiked'] ?? !isLiked;
+        likeCount = result['likeCount'] ?? likeCount;
+      });
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString().replaceFirst('Exception: ', '')),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString().replaceFirst('Exception: ', '')),
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
           ),
-        );
-      }
+        ),
+      );
     }
   }
 
@@ -138,34 +123,36 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
     Share.share('$shareText\n\n$momentUrl');
   }
 
-  void _deleteMoment(BuildContext context) async {
+  Future<void> _deleteMoment(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+
     final confirmed = await showDialog<bool>(
-        context: context,
+      context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: AppRadius.borderLG,
         ),
         title: Text(
-          'Delete Moment?',
+          l10n.deleteMoment,
           style: context.titleLarge.copyWith(fontWeight: FontWeight.bold),
         ),
         content: Text(
-          'This action cannot be undone.',
+          l10n.thisActionCannotBeUndone,
           style: context.bodyMedium,
         ),
-            actions: [
-              TextButton(
+        actions: [
+          TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: Text(
-              'Cancel',
+              l10n.cancel,
               style: context.labelLarge.copyWith(color: context.textSecondary),
             ),
           ),
-              TextButton(
+          TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: AppColors.error),
             child: Text(
-              'Delete',
+              l10n.delete,
               style: context.labelLarge.copyWith(color: AppColors.error),
             ),
           ),
@@ -173,34 +160,57 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
       ),
     );
 
-    if (confirmed == true && mounted) {
-      try {
-        final response = await ref
-            .read(momentsServiceProvider)
-            .deleteUserMoment(id: moment.id);
-        if (response['success'] == true) {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Moment deleted successfully'),
-                backgroundColor: AppColors.success,
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-            // Call the callback to refresh the list
-            widget.onDeleted?.call();
-          }
-        }
-      } catch (e) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: ${e.toString().replaceFirst('Exception: ', '')}'),
-              backgroundColor: AppColors.error,
-              behavior: SnackBarBehavior.floating,
+    if (confirmed != true) return;
+    if (!mounted) return;
+
+    setState(() => _isDeleting = true);
+
+    try {
+      final response = await ref
+          .read(momentsServiceProvider)
+          .deleteUserMoment(id: moment.id);
+
+      if (!mounted) return;
+
+      if (response['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle_rounded, color: Colors.white),
+                const SizedBox(width: 12),
+                Expanded(child: Text(l10n.momentDeleted)),
+              ],
             ),
-          );
-        }
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        );
+        widget.onDeleted?.call();
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${AppLocalizations.of(context)!.failedToDeleteMoment}: '
+            '${e.toString().replaceFirst('Exception: ', '')}',
+          ),
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isDeleting = false);
       }
     }
   }
@@ -212,48 +222,57 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         builder: (context) => EditMomentScreen(moment: moment),
       ),
     ).then((result) {
-      // Refresh immediately when returning from edit screen
       if (mounted) {
         widget.onUpdated?.call();
       }
       return result;
     });
 
-    if (updatedMoment != null && mounted) {
+    if (!mounted) return;
+
+    if (updatedMoment != null) {
       setState(() {
         moment = updatedMoment;
       });
 
-      // Call the callback again to ensure refresh happens
       widget.onUpdated?.call();
 
-      // Also refresh after a small delay to ensure backend data is synced
       Future.delayed(const Duration(milliseconds: 300), () {
         if (mounted) {
           widget.onUpdated?.call();
         }
       });
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Moment updated successfully'),
-            backgroundColor: AppColors.success,
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.check_circle_rounded, color: Colors.white),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(AppLocalizations.of(context)!.momentUpdatedSuccessfully),
+              ),
+            ],
           ),
-        );
-      }
-    } else if (mounted) {
-      // Even if no update, refresh to ensure we have latest data
+          backgroundColor: AppColors.success,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      );
+    } else {
       widget.onUpdated?.call();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final languageFlag =
-        _languageFlags[moment.language.toLowerCase()] ?? '🌍';
+        LanguageFlags.flags[moment.language.toLowerCase()] ?? '🌍';
     final moodEmoji = moment.mood.isNotEmpty
         ? _moodEmojis[moment.mood.toLowerCase()] ?? ''
         : '';
@@ -265,269 +284,318 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         borderRadius: AppRadius.borderLG,
         boxShadow: AppShadows.sm,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          // User Header
-          GestureDetector(
-            onTap: () async {
-              try {
-                final community = await ref
-                    .read(communityServiceProvider)
-                    .getSingleCommunity(id: moment.user.id);
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // User Header
+              GestureDetector(
+                onTap: () async {
+                  try {
+                    final community = await ref
+                        .read(communityServiceProvider)
+                        .getSingleCommunity(id: moment.user.id);
 
-                if (community == null) {
-                  if (mounted) {
+                    if (!mounted) return;
+
+                    if (community == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(l10n.userNotFound),
+                          behavior: SnackBarBehavior.floating,
+                          margin: const EdgeInsets.all(16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+
+                    Navigator.push(
+                      context,
+                      AppPageRoute(
+                        builder: (context) =>
+                            SingleCommunity(community: community),
+                      ),
+                    );
+                  } catch (e) {
+                    if (!mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('User not found')),
+                      SnackBar(
+                        content: Text(
+                          '${l10n.error}: ${e.toString().replaceFirst('Exception: ', '')}',
+                        ),
+                        backgroundColor: AppColors.error,
+                        behavior: SnackBarBehavior.floating,
+                        margin: const EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
                     );
                   }
-                  return;
-                }
-
-                if (mounted) {
-                  Navigator.push(
-                    context,
-                    AppPageRoute(
-                      builder: (context) =>
-                          SingleCommunity(community: community),
-                    ),
-                  );
-                }
-              } catch (e) {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: ${e.toString()}')),
-                  );
-                }
-              }
-            },
-            child: Padding(
-              padding: Spacing.paddingLG,
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColors.primary,
-                        width: 2,
-                      ),
-                    ),
-                    child: CircleAvatar(
-                      radius: 24,
-                      backgroundColor: AppColors.primary,
-                      backgroundImage: moment.user.imageUrls.isNotEmpty
-                          ? NetworkImage(
-                              ImageUtils.normalizeImageUrl(moment.user.imageUrls[0]))
-                          : null,
-                      child: moment.user.imageUrls.isEmpty
-                          ? const Icon(
-                              Icons.person,
-                              size: 24,
-                              color: AppColors.white,
-                            )
-                          : null,
-                      onBackgroundImageError: (exception, stackTrace) {
-                        // Image failed to load, will use icon fallback
-                      },
-                    ),
-                  ),
-                  Spacing.hGapMD,
-                  Expanded(
-        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              moment.user.name,
-                              style: context.titleMedium,
-                            ),
-                            Spacing.hGapSM,
-                            Text(
-                              languageFlag,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        Spacing.gapXS,
-                        Row(
-          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primary.withOpacity(0.1),
-                                borderRadius: AppRadius.borderXS,
-                              ),
-                              child: Text(
-                                moment.category,
-                                style: context.captionSmall.copyWith(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            if (moodEmoji.isNotEmpty) ...[
-                              Spacing.hGapSM,
-                              Text(moodEmoji, style: const TextStyle(fontSize: 16)),
-                            ],
-                            Spacing.hGapSM,
-                            Text(
-                              moment.createdAt.toLocal().toString().split(' ')[0],
-                              style: context.caption,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  PopupMenuButton<String>(
-                    icon: Icon(Icons.more_vert, color: context.textMuted),
-                onSelected: (value) {
-                  if (value == 'delete') {
-                    _deleteMoment(context);
-                  } else if (value == 'edit') {
-                    _editMoment();
-                  }
                 },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                        value: 'edit',
-                        child: Row(
+                child: Padding(
+                  padding: Spacing.paddingLG,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.primary,
+                            width: 2,
+                          ),
+                        ),
+                        child: CircleAvatar(
+                          radius: 24,
+                          backgroundColor: AppColors.primary,
+                          backgroundImage: moment.user.imageUrls.isNotEmpty
+                              ? NetworkImage(
+                                  ImageUtils.normalizeImageUrl(
+                                      moment.user.imageUrls[0]))
+                              : null,
+                          child: moment.user.imageUrls.isEmpty
+                              ? const Icon(
+                                  Icons.person,
+                                  size: 24,
+                                  color: AppColors.white,
+                                )
+                              : null,
+                          onBackgroundImageError: (exception, stackTrace) {
+                            // Image failed to load, will use icon fallback
+                          },
+                        ),
+                      ),
+                      Spacing.hGapMD,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.edit, size: 20, color: AppColors.primary),
-                            Spacing.hGapMD,
-                            Text('Edit', style: context.bodyMedium),
-                          ],
-                    ),
-                  ),
-                  PopupMenuItem<String>(
-                        value: 'delete',
-                        child: Row(
-                          children: [
-                            const Icon(Icons.delete, size: 20, color: AppColors.error),
-                            Spacing.hGapMD,
-                            Text('Delete', style: context.bodyMedium.copyWith(color: AppColors.error)),
+                            Row(
+                              children: [
+                                Text(
+                                  moment.user.name,
+                                  style: context.titleMedium,
+                                ),
+                                Spacing.hGapSM,
+                                Text(
+                                  languageFlag,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            Spacing.gapXS,
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary.withValues(alpha: 0.1),
+                                    borderRadius: AppRadius.borderXS,
+                                  ),
+                                  child: Text(
+                                    moment.category,
+                                    style: context.captionSmall.copyWith(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                if (moodEmoji.isNotEmpty) ...[
+                                  Spacing.hGapSM,
+                                  Text(moodEmoji,
+                                      style: const TextStyle(fontSize: 16)),
+                                ],
+                                Spacing.hGapSM,
+                                Text(
+                                  moment.createdAt
+                                      .toLocal()
+                                      .toString()
+                                      .split(' ')[0],
+                                  style: context.caption,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
+                      ),
+                      PopupMenuButton<String>(
+                        icon: Icon(Icons.more_vert, color: context.textMuted),
+                        onSelected: (value) {
+                          if (value == 'delete') {
+                            _deleteMoment(context);
+                          } else if (value == 'edit') {
+                            _editMoment();
+                          }
+                        },
+                        itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<String>>[
+                          PopupMenuItem<String>(
+                            value: 'edit',
+                            child: Row(
+                              children: [
+                                const Icon(Icons.edit,
+                                    size: 20, color: AppColors.primary),
+                                Spacing.hGapMD,
+                                Text(l10n.edit, style: context.bodyMedium),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'delete',
+                            child: Row(
+                              children: [
+                                const Icon(Icons.delete,
+                                    size: 20, color: AppColors.error),
+                                Spacing.hGapMD,
+                                Text(
+                                  l10n.delete,
+                                  style: context.bodyMedium
+                                      .copyWith(color: AppColors.error),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
 
-          Divider(height: 1, color: context.dividerColor),
+              Divider(height: 1, color: context.dividerColor),
 
-          // Description
-          Padding(
-            padding: Spacing.paddingLG,
-            child: Text(
-              moment.description,
-              style: context.bodyLarge.copyWith(
-                color: context.textSecondary,
-                height: 1.6,
+              // Description
+              Padding(
+                padding: Spacing.paddingLG,
+                child: Text(
+                  moment.description,
+                  style: context.bodyLarge.copyWith(
+                    color: context.textSecondary,
+                    height: 1.6,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          // Tags
-          if (moment.tags.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: moment.tags.map((tag) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: context.containerColor,
-                      borderRadius: AppRadius.borderMD,
-                    ),
-              child: Text(
-                      '#$tag',
-                      style: context.labelMedium.copyWith(
-                        color: context.textSecondary,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
+              // Tags
+              if (moment.tags.isNotEmpty)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: moment.tags.map((tag) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: context.containerColor,
+                          borderRadius: AppRadius.borderMD,
+                        ),
+                        child: Text(
+                          '#$tag',
+                          style: context.labelMedium.copyWith(
+                            color: context.textSecondary,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
 
-          // Images
-          if (moment.images.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: _buildImageGrid(),
-            ),
+              // Images
+              if (moment.images.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: _buildImageGrid(),
+                ),
 
-          // Action Buttons
-          Padding(
-            padding: Spacing.paddingLG,
+              // Action Buttons
+              Padding(
+                padding: Spacing.paddingLG,
                 child: Row(
-              children: [
-                _buildActionButton(
-                  icon: isLiked ? Icons.favorite : Icons.favorite_outline,
-                  count: likeCount,
-                  color: isLiked ? AppColors.error : context.textSecondary,
-                  onTap: incrementLike,
-                ),
-                Spacing.hGapMD,
-                _buildActionButton(
-                  icon: Icons.chat_bubble_outline,
-                  count: commentCount,
-                  color: context.textSecondary,
-                  onTap: focusCommentField,
-                ),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.share_outlined),
-                  color: context.textSecondary,
-                  onPressed: () => _shareMoment(context),
-                ),
-              ],
-            ),
-          ),
-
-          // Comments Section
-          if (showCommentField)
-            Container(
-              padding: Spacing.paddingLG,
-              decoration: BoxDecoration(
-                color: context.containerColor,
-                border: Border(
-                  top: BorderSide(color: context.dividerColor),
+                  children: [
+                    _buildActionButton(
+                      icon:
+                          isLiked ? Icons.favorite : Icons.favorite_outline,
+                      count: likeCount,
+                      color: isLiked ? AppColors.error : context.textSecondary,
+                      onTap: incrementLike,
+                    ),
+                    Spacing.hGapMD,
+                    _buildActionButton(
+                      icon: Icons.chat_bubble_outline,
+                      count: commentCount,
+                      color: context.textSecondary,
+                      onTap: focusCommentField,
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.share_outlined),
+                      color: context.textSecondary,
+                      onPressed: () => _shareMoment(context),
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Comments',
-                    style: context.titleMedium,
+
+              // Comments Section
+              if (showCommentField)
+                Container(
+                  padding: Spacing.paddingLG,
+                  decoration: BoxDecoration(
+                    color: context.containerColor,
+                    border: Border(
+                      top: BorderSide(color: context.dividerColor),
+                    ),
                   ),
-                  Spacing.gapMD,
-                  CommentsMain(id: moment.id),
-                  Spacing.gapMD,
-                  CreateComment(
-                    focusNode: commentFocusNode,
-                    id: moment.id,
-                    onCommentAdded: () {
-                      updateCommentCount();
-                      setState(() {
-                        showCommentField = false;
-                      });
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.comments,
+                        style: context.titleMedium,
+                      ),
+                      Spacing.gapMD,
+                      CommentsMain(id: moment.id),
+                      Spacing.gapMD,
+                      CreateComment(
+                        focusNode: commentFocusNode,
+                        id: moment.id,
+                        onCommentAdded: () {
+                          updateCommentCount();
+                          setState(() {
+                            showCommentField = false;
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
+            ],
+          ),
+
+          // Delete loading overlay
+          if (_isDeleting)
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.cardBackground.withValues(alpha: 0.7),
+                  borderRadius: AppRadius.borderLG,
+                ),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  ),
+                ),
               ),
             ),
         ],
@@ -685,7 +753,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
               ),
               if (index == 8 && imageCount > 9)
                 Container(
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                   child: Center(
                     child: Text(
                       '+${imageCount - 9}',
