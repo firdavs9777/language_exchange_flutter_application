@@ -1,11 +1,41 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
+
+/// Runs [path] through ImageCropper with a square aspect ratio (profile
+/// photos are circular crops on square). Returns the cropped file, or null
+/// if the user cancelled the cropper.
+Future<File?> _cropToSquare(String path) async {
+  final cropped = await ImageCropper().cropImage(
+    sourcePath: path,
+    compressQuality: 85,
+    aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+    uiSettings: [
+      AndroidUiSettings(
+        toolbarTitle: 'Crop photo',
+        toolbarColor: AppColors.primary,
+        toolbarWidgetColor: Colors.white,
+        initAspectRatio: CropAspectRatioPreset.square,
+        lockAspectRatio: true,
+        hideBottomControls: true,
+      ),
+      IOSUiSettings(
+        title: 'Crop photo',
+        aspectRatioLockEnabled: true,
+        resetAspectRatioEnabled: false,
+        aspectRatioPickerButtonHidden: true,
+      ),
+    ],
+  );
+  if (cropped == null) return null;
+  return File(cropped.path);
+}
 
 /// Shows a camera/gallery bottom sheet and returns the files chosen by the
 /// user, or null if the user dismissed without picking.
@@ -105,6 +135,15 @@ class _PhotoPickerSheet extends StatelessWidget {
       });
     }
 
+    // Single-pick from gallery → run through cropper. Batch-picks skip
+    // cropping to keep multi-upload fast.
+    if (imagesToAdd.length == 1) {
+      final cropped = await _cropToSquare(imagesToAdd.first.path);
+      if (cropped == null) return; // user cancelled cropper
+      onFilesReady([cropped]);
+      return;
+    }
+
     onFilesReady(imagesToAdd.map((f) => File(f.path)).toList());
   }
 
@@ -122,7 +161,10 @@ class _PhotoPickerSheet extends StatelessWidget {
       return;
     }
 
-    onFilesReady([File(pickedFile.path)]);
+    // Camera shots always run through the cropper (single image).
+    final cropped = await _cropToSquare(pickedFile.path);
+    if (cropped == null) return; // user cancelled cropper
+    onFilesReady([cropped]);
   }
 
   @override
