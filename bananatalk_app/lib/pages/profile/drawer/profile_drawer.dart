@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/profile/settings.dart';
@@ -27,6 +25,11 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
+
+import 'about_dialog.dart';
+import 'drawer_section.dart';
+import 'logout_dialog.dart';
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -52,272 +55,276 @@ class LeftDrawer extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
                 children: [
                   // Account
-                  _buildSectionTitle(l10n.profileSettings),
-                  _buildSectionContainer([
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.person_rounded,
-                      iconColor: AppColors.primary,
-                      title: l10n.profileSettings,
-                      subtitle: l10n.editYourProfileInformation,
-                      isFirst: true,
-                      isLast: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(builder: (context) => ProfileSettings()),
-                        );
-                      },
-                    ),
-                  ]),
-
-                  const SizedBox(height: 20),
-
-                  // Preferences
-                  _buildSectionTitle(l10n.drawerPreferences),
-                  _buildSectionContainer([
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.notifications_rounded,
-                      iconColor: const Color(0xFF2196F3),
-                      title: l10n.notifications,
-                      subtitle: l10n.manageNotificationSettings,
-                      isFirst: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) =>
-                                const NotificationSettingsScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.lock_rounded,
-                      iconColor: const Color(0xFF7C4DFF),
-                      title: l10n.privacySecurity,
-                      subtitle: l10n.controlYourPrivacy,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => const ProfilePrivacy(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.block_rounded,
-                      iconColor: AppColors.error,
-                      title: l10n.blockedUsers,
-                      subtitle: l10n.manageBlockedUsers,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => const BlockedUsersScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.language_rounded,
-                      iconColor: const Color(0xFF00BCD4),
-                      title: l10n.language,
-                      subtitle: l10n.changeAppLanguage,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) =>
-                                const LanguageSettingsScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.dark_mode_rounded,
-                      iconColor: const Color(0xFF673AB7),
-                      title: l10n.appearance,
-                      subtitle: l10n.themeAndDisplaySettings,
-                      isLast: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => const ProfileTheme(),
-                          ),
-                        );
-                      },
-                    ),
-                  ]),
-
-                  const SizedBox(height: 20),
-
-                  // Storage
-                  _buildSectionTitle(l10n.drawerStorage),
-                  _buildSectionContainer([
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.storage_rounded,
-                      iconColor: const Color(0xFF607D8B),
-                      title: l10n.dataAndStorage,
-                      subtitle: l10n.manageStorageAndDownloads,
-                      isFirst: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => const DataStorageScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.cleaning_services_rounded,
-                      iconColor: const Color(0xFFFF9800),
-                      title: l10n.clearCache,
-                      subtitle: l10n.clearCacheSubtitle,
-                      isLast: true,
-                      onTap: () => _showClearCacheDialog(context, ref),
-                    ),
-                  ]),
-
-                  const SizedBox(height: 20),
-
-                  // Reports
-                  _buildSectionTitle(l10n.drawerReports),
-                  _buildSectionContainer([
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.flag_rounded,
-                      iconColor: const Color(0xFFF44336),
-                      title: l10n.myReports,
-                      subtitle: l10n.viewYourSubmittedReports,
-                      isFirst: true,
-                      isLast: !_isAdmin(user),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => const MyReportsScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    if (_isAdmin(user)) ...[
-                      _buildDivider(),
-                      _buildMenuItem(
-                        context: context,
-                        icon: Icons.admin_panel_settings_rounded,
-                        iconColor: const Color(0xFF9C27B0),
-                        title: l10n.reportsManagement,
-                        subtitle: l10n.manageAllReportsAdmin,
-                        showAdminBadge: true,
+                  DrawerSectionTitle(title: l10n.profileSettings),
+                  DrawerSectionContainer(
+                    children: [
+                      DrawerMenuItem(
+                        icon: Icons.person_rounded,
+                        iconColor: AppColors.primary,
+                        title: l10n.profileSettings,
+                        subtitle: l10n.editYourProfileInformation,
+                        isFirst: true,
                         isLast: true,
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
                             AppPageRoute(
-                              builder: (context) => const AdminReportsScreen(),
+                              builder: (context) => ProfileSettings(),
                             ),
                           );
                         },
                       ),
                     ],
-                  ]),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Preferences
+                  DrawerSectionTitle(title: l10n.drawerPreferences),
+                  DrawerSectionContainer(
+                    children: [
+                      DrawerMenuItem(
+                        icon: Icons.notifications_rounded,
+                        iconColor: const Color(0xFF2196F3),
+                        title: l10n.notifications,
+                        subtitle: l10n.manageNotificationSettings,
+                        isFirst: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) =>
+                                  const NotificationSettingsScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.lock_rounded,
+                        iconColor: const Color(0xFF7C4DFF),
+                        title: l10n.privacySecurity,
+                        subtitle: l10n.controlYourPrivacy,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const ProfilePrivacy(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.block_rounded,
+                        iconColor: AppColors.error,
+                        title: l10n.blockedUsers,
+                        subtitle: l10n.manageBlockedUsers,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const BlockedUsersScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.language_rounded,
+                        iconColor: const Color(0xFF00BCD4),
+                        title: l10n.language,
+                        subtitle: l10n.changeAppLanguage,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) =>
+                                  const LanguageSettingsScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.dark_mode_rounded,
+                        iconColor: const Color(0xFF673AB7),
+                        title: l10n.appearance,
+                        subtitle: l10n.themeAndDisplaySettings,
+                        isLast: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const ProfileTheme(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Storage
+                  DrawerSectionTitle(title: l10n.drawerStorage),
+                  DrawerSectionContainer(
+                    children: [
+                      DrawerMenuItem(
+                        icon: Icons.storage_rounded,
+                        iconColor: const Color(0xFF607D8B),
+                        title: l10n.dataAndStorage,
+                        subtitle: l10n.manageStorageAndDownloads,
+                        isFirst: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const DataStorageScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.cleaning_services_rounded,
+                        iconColor: const Color(0xFFFF9800),
+                        title: l10n.clearCache,
+                        subtitle: l10n.clearCacheSubtitle,
+                        isLast: true,
+                        onTap: () => _showClearCacheDialog(context, ref),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Reports
+                  DrawerSectionTitle(title: l10n.drawerReports),
+                  DrawerSectionContainer(
+                    children: [
+                      DrawerMenuItem(
+                        icon: Icons.flag_rounded,
+                        iconColor: const Color(0xFFF44336),
+                        title: l10n.myReports,
+                        subtitle: l10n.viewYourSubmittedReports,
+                        isFirst: true,
+                        isLast: !_isAdmin(user),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const MyReportsScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      if (_isAdmin(user)) ...[
+                        const DrawerDivider(),
+                        DrawerMenuItem(
+                          icon: Icons.admin_panel_settings_rounded,
+                          iconColor: const Color(0xFF9C27B0),
+                          title: l10n.reportsManagement,
+                          subtitle: l10n.manageAllReportsAdmin,
+                          showAdminBadge: true,
+                          isLast: true,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              AppPageRoute(
+                                builder: (context) =>
+                                    const AdminReportsScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ],
+                  ),
 
                   const SizedBox(height: 20),
 
                   // Support
-                  _buildSectionTitle(l10n.drawerSupport),
-                  _buildSectionContainer([
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.help_rounded,
-                      iconColor: const Color(0xFF4CAF50),
-                      title: l10n.helpCenter,
-                      subtitle: l10n.getHelpAndSupport,
-                      isFirst: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        _showHelpCenterDialog(context);
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.gavel_rounded,
-                      iconColor: const Color(0xFF795548),
-                      title: l10n.legalPrivacy,
-                      subtitle: l10n.termsPrivacySubscriptionInfo,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          AppPageRoute(
-                            builder: (context) => const LegalScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildDivider(),
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.info_rounded,
-                      iconColor: AppColors.info,
-                      title: l10n.aboutBananatalk,
-                      subtitle: appVersion.isEmpty
-                          ? l10n.aboutBananatalk
-                          : 'Version $appVersion',
-                      isLast: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        _showAboutDialog(context, appVersion);
-                      },
-                    ),
-                  ]),
+                  DrawerSectionTitle(title: l10n.drawerSupport),
+                  DrawerSectionContainer(
+                    children: [
+                      DrawerMenuItem(
+                        icon: Icons.help_rounded,
+                        iconColor: const Color(0xFF4CAF50),
+                        title: l10n.helpCenter,
+                        subtitle: l10n.getHelpAndSupport,
+                        isFirst: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          _showHelpCenterDialog(context);
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.gavel_rounded,
+                        iconColor: const Color(0xFF795548),
+                        title: l10n.legalPrivacy,
+                        subtitle: l10n.termsPrivacySubscriptionInfo,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) => const LegalScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.info_rounded,
+                        iconColor: AppColors.info,
+                        title: l10n.aboutBananatalk,
+                        subtitle: appVersion.isEmpty
+                            ? l10n.aboutBananatalk
+                            : 'Version $appVersion',
+                        isLast: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          showProfileAboutDialog(context, appVersion);
+                        },
+                      ),
+                    ],
+                  ),
 
                   const SizedBox(height: 20),
 
                   // Danger zone
-                  _buildSectionTitle(l10n.drawerAccount, danger: true),
-                  _buildSectionContainer([
-                    _buildMenuItem(
-                      context: context,
-                      icon: Icons.delete_forever_rounded,
-                      iconColor: AppColors.error,
-                      title: l10n.deleteAccount,
-                      subtitle: l10n.permanentlyDeleteYourAccount,
-                      isFirst: true,
-                      isLast: true,
-                      isDestructive: true,
-                      onTap: () {
-                        Navigator.pop(context);
-                        _navigateToDeleteAccount(context, ref);
-                      },
-                    ),
-                  ]),
+                  DrawerSectionTitle(
+                    title: l10n.drawerAccount,
+                    danger: true,
+                  ),
+                  DrawerSectionContainer(
+                    children: [
+                      DrawerMenuItem(
+                        icon: Icons.delete_forever_rounded,
+                        iconColor: AppColors.error,
+                        title: l10n.deleteAccount,
+                        subtitle: l10n.permanentlyDeleteYourAccount,
+                        isFirst: true,
+                        isLast: true,
+                        isDestructive: true,
+                        onTap: () {
+                          Navigator.pop(context);
+                          _navigateToDeleteAccount(context, ref);
+                        },
+                      ),
+                    ],
+                  ),
 
                   const SizedBox(height: 20),
 
@@ -542,176 +549,6 @@ class LeftDrawer extends ConsumerWidget {
     );
   }
 
-  // ========== SECTION HEADER ==========
-  Widget _buildSectionTitle(String title, {bool danger = false}) {
-    return Builder(
-      builder: (context) => Padding(
-        padding: const EdgeInsets.fromLTRB(8, 0, 8, 10),
-        child: Text(
-          title.toUpperCase(),
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.2,
-            color: danger
-                ? AppColors.error.withValues(alpha: 0.7)
-                : context.textMuted,
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ========== SECTION CONTAINER ==========
-  Widget _buildSectionContainer(List<Widget> children) {
-    return Builder(
-      builder: (context) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
-        return Container(
-          decoration: BoxDecoration(
-            color: context.surfaceColor,
-            borderRadius: BorderRadius.circular(18),
-            border: isDark
-                ? Border.all(color: Colors.white.withValues(alpha: 0.06))
-                : null,
-            boxShadow: isDark
-                ? null
-                : [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-          ),
-          child: Column(children: children),
-        );
-      },
-    );
-  }
-
-  Widget _buildDivider() {
-    return Builder(
-      builder: (context) => Padding(
-        padding: const EdgeInsets.only(left: 64),
-        child: Divider(
-          height: 1,
-          thickness: 1,
-          color: context.dividerColor.withValues(alpha: 0.4),
-        ),
-      ),
-    );
-  }
-
-  // ========== MENU ITEM ==========
-  Widget _buildMenuItem({
-    required BuildContext context,
-    required IconData icon,
-    required Color iconColor,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-    bool isFirst = false,
-    bool isLast = false,
-    bool isDestructive = false,
-    bool showAdminBadge = false,
-  }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final radius = BorderRadius.only(
-      topLeft: Radius.circular(isFirst ? 18 : 0),
-      topRight: Radius.circular(isFirst ? 18 : 0),
-      bottomLeft: Radius.circular(isLast ? 18 : 0),
-      bottomRight: Radius.circular(isLast ? 18 : 0),
-    );
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: radius,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          child: Row(
-            children: [
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: iconColor.withValues(alpha: isDark ? 0.2 : 0.12),
-                  borderRadius: BorderRadius.circular(11),
-                ),
-                child: Icon(icon, color: iconColor, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            title,
-                            style: context.titleSmall.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: isDestructive
-                                  ? AppColors.error
-                                  : context.textPrimary,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        if (showAdminBadge) ...[
-                          const SizedBox(width: 6),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF9C27B0),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: const Text(
-                              'ADMIN',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      style: context.captionSmall.copyWith(
-                        color: context.textMuted,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 4),
-              Icon(
-                Icons.chevron_right_rounded,
-                color: context.textMuted,
-                size: 20,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   // ========== LOGOUT BUTTON ==========
   Widget _buildLogoutButton(BuildContext context, WidgetRef ref) {
     return SizedBox(
@@ -719,7 +556,7 @@ class LeftDrawer extends ConsumerWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => _showLogoutConfirmation(context, ref),
+          onTap: () => _handleLogout(context, ref),
           borderRadius: BorderRadius.circular(16),
           child: Ink(
             decoration: BoxDecoration(
@@ -769,127 +606,15 @@ class LeftDrawer extends ConsumerWidget {
     );
   }
 
-  // ========== UNIFIED CONFIRM DIALOG ==========
-  Future<bool?> _showConfirmDialog({
-    required BuildContext context,
-    required IconData icon,
-    required Color iconColor,
-    required String title,
-    required String content,
-    required String confirmLabel,
-    required String cancelLabel,
-    bool isDestructive = false,
-  }) {
-    return showDialog<bool>(
-      context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.5),
-      builder: (BuildContext ctx) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          backgroundColor: ctx.surfaceColor,
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: iconColor.withValues(alpha: 0.12),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(icon, color: iconColor, size: 28),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  title,
-                  style: ctx.titleMedium.copyWith(fontWeight: FontWeight.w700),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  content,
-                  style: ctx.bodySmall.copyWith(
-                    color: ctx.textSecondary,
-                    height: 1.4,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.pop(ctx, false),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: ctx.containerColor,
-                        ),
-                        child: Text(
-                          cancelLabel,
-                          style: TextStyle(
-                            color: ctx.textPrimary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.pop(ctx, true),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: isDestructive
-                              ? AppColors.error
-                              : iconColor,
-                        ),
-                        child: Text(
-                          confirmLabel,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  // ========== LOGOUT CONFIRMATION ==========
-  void _showLogoutConfirmation(BuildContext context, WidgetRef ref) async {
-    final l10n = AppLocalizations.of(context)!;
-    final confirmed = await _showConfirmDialog(
-      context: context,
-      icon: Icons.logout_rounded,
-      iconColor: AppColors.error,
-      title: l10n.logout,
-      content: l10n.logoutConfirmBody,
-      confirmLabel: l10n.logout,
-      cancelLabel: l10n.cancel,
-      isDestructive: true,
-    );
-
+  // ========== LOGOUT HANDLER ==========
+  void _handleLogout(BuildContext context, WidgetRef ref) async {
+    final confirmed = await showLogoutConfirmDialog(context);
     if (confirmed != true || !context.mounted) return;
 
+    final l10n = AppLocalizations.of(context)!;
+
     // Show loading overlay
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       barrierColor: Colors.black.withValues(alpha: 0.5),
@@ -942,38 +667,19 @@ class LeftDrawer extends ConsumerWidget {
         Navigator.of(context, rootNavigator: true).pop(); // close loading
         Navigator.pop(context); // close drawer
         context.go('/login');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.check_circle_rounded, color: Colors.white),
-                const SizedBox(width: 12),
-                Expanded(child: Text(l10n.loggedOutSuccessfully)),
-              ],
-            ),
-            backgroundColor: AppColors.success,
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.all(16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-            duration: const Duration(seconds: 2),
-          ),
+        showProfileSnackBar(
+          context,
+          message: l10n.loggedOutSuccessfully,
+          type: ProfileSnackBarType.success,
         );
       }
     } catch (error) {
       if (context.mounted) {
         Navigator.of(context, rootNavigator: true).pop(); // close loading
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.logoutFailedPrefix}: $error'),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.all(16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-          ),
+        showProfileSnackBar(
+          context,
+          message: '${l10n.logoutFailedPrefix}: $error',
+          type: ProfileSnackBarType.error,
         );
       }
     }
@@ -982,7 +688,7 @@ class LeftDrawer extends ConsumerWidget {
   // ========== CLEAR CACHE ==========
   void _showClearCacheDialog(BuildContext context, WidgetRef ref) async {
     final l10n = AppLocalizations.of(context)!;
-    final confirmed = await _showConfirmDialog(
+    final confirmed = await showDrawerConfirmDialog(
       context: context,
       icon: Icons.cleaning_services_rounded,
       iconColor: const Color(0xFFFF9800),
@@ -994,7 +700,7 @@ class LeftDrawer extends ConsumerWidget {
 
     if (confirmed != true || !context.mounted) return;
 
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierDismissible: false,
       barrierColor: Colors.black.withValues(alpha: 0.5),
@@ -1042,150 +748,28 @@ class LeftDrawer extends ConsumerWidget {
 
       if (context.mounted) {
         Navigator.of(context, rootNavigator: true).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.check_circle_rounded, color: Colors.white),
-                const SizedBox(width: 12),
-                Expanded(child: Text(l10n.cacheCleared)),
-              ],
-            ),
-            backgroundColor: AppColors.success,
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.all(16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-          ),
+        showProfileSnackBar(
+          context,
+          message: l10n.cacheCleared,
+          type: ProfileSnackBarType.success,
         );
       }
     } catch (error) {
       if (context.mounted) {
         Navigator.of(context, rootNavigator: true).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.clearCacheFailed}: $error'),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.all(16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-          ),
+        showProfileSnackBar(
+          context,
+          message: '${l10n.clearCacheFailed}: $error',
+          type: ProfileSnackBarType.error,
         );
       }
     }
   }
 
-  // ========== ABOUT DIALOG ==========
-  void _showAboutDialog(BuildContext context, String appVersion) {
-    final l10n = AppLocalizations.of(context)!;
-    showDialog(
-      context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.5),
-      builder: (BuildContext ctx) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          backgroundColor: ctx.surfaceColor,
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
-                    ),
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.3),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.chat_bubble_rounded,
-                    color: Colors.white,
-                    size: 32,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Bananatalk',
-                  style: ctx.titleLarge.copyWith(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 22,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  appVersion.isEmpty ? '' : 'Version $appVersion',
-                  style: ctx.captionSmall.copyWith(
-                    color: ctx.textMuted,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: ctx.containerColor,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Text(
-                    l10n.aboutBananatalkTagline,
-                    style: ctx.bodySmall.copyWith(height: 1.5),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  l10n.aboutCopyright,
-                  style: ctx.captionSmall.copyWith(color: ctx.textMuted),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(ctx),
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      backgroundColor: AppColors.primary,
-                    ),
-                    child: Text(
-                      l10n.aboutDialogClose,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   // ========== HELP CENTER DIALOG ==========
   void _showHelpCenterDialog(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    showDialog(
+    showDialog<void>(
       context: context,
       barrierColor: Colors.black.withValues(alpha: 0.5),
       builder: (BuildContext ctx) {
@@ -1330,7 +914,11 @@ class LeftDrawer extends ConsumerWidget {
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right_rounded, color: ctx.textMuted, size: 18),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: ctx.textMuted,
+                size: 18,
+              ),
             ],
           ),
         ),
