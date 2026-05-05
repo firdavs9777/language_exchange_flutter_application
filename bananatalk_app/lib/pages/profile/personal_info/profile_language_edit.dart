@@ -111,7 +111,7 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
       showProfileSnackBar(
         context,
         message: l10n.languagesAreStillLoading,
-        type: ProfileSnackBarType.warning,
+        type: ProfileSnackBarType.info,
       );
       return;
     }

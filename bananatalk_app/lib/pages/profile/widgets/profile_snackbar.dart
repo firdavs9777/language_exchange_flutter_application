@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
-enum ProfileSnackBarType { success, error, warning }
+enum ProfileSnackBarType { success, error, warning, info }
 
 /// Show a styled snackbar matching the profile-edit convention:
 /// floating, 14-radius, 16-margin, leading icon + message.
@@ -20,6 +20,7 @@ void showProfileSnackBar(
       HapticFeedback.mediumImpact();
       break;
     case ProfileSnackBarType.warning:
+    case ProfileSnackBarType.info:
       break;
   }
 
@@ -37,6 +38,11 @@ void showProfileSnackBar(
     ProfileSnackBarType.warning => (
       Icons.warning_rounded,
       const Color(0xFFFF9800),
+      const Duration(seconds: 2),
+    ),
+    ProfileSnackBarType.info => (
+      Icons.info_rounded,
+      const Color(0xFF2196F3),
       const Duration(seconds: 2),
     ),
   };
