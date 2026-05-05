@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'dart:io';
+
 import 'package:bananatalk_app/pages/authentication/register/register_two/finish_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/native_language_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/personal_info_step.dart';
+import 'package:bananatalk_app/pages/authentication/register/register_two/profile_photo_step.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_step_progress.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:go_router/go_router.dart';
@@ -63,6 +66,10 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   final PageController _pageController = PageController();
   int _currentStep = 0;
 
+  // Optional profile photo picked during the wizard. Uploaded after the
+  // final register call succeeds. Empty if user skipped.
+  File? _pickedPhoto;
+
   // Whether we need the personal-info step (OAuth users missing gender/DOB)
   late final bool _needsPersonalInfo;
   late final int _totalSteps;
@@ -107,6 +114,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         widget.nativeLanguage.isNotEmpty && widget.learningLanguage.isNotEmpty;
 
     _totalSteps = (_needsPersonalInfo ? 1 : 0) +
+        1 + // photo step (always shown — user can skip with Later button)
         (_hasExistingLanguages ? 0 : 2) +
         1; // finish step always shown
 
@@ -457,9 +465,14 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           final userId = userData?.id ?? '';
 
           if (mounted) {
-            if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+            // Combine wizard-picked photo with any other _selectedImages.
+            final imagesToUpload = <File>[
+              if (_pickedPhoto != null) _pickedPhoto!,
+              ..._selectedImages,
+            ];
+            if (userId.isNotEmpty && imagesToUpload.isNotEmpty) {
               try {
-                await authService.uploadUserPhoto(userId, _selectedImages);
+                await authService.uploadUserPhoto(userId, imagesToUpload);
               } catch (e) {
                 // Non-blocking
               }
@@ -591,6 +604,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         onBirthDateSelected: _onBirthDateSelected,
                         onNext: _onPersonalInfoNext,
                       ),
+                    ProfilePhotoStep(
+                      pickedPhoto: _pickedPhoto,
+                      onPhotoChanged: (p) => setState(() => _pickedPhoto = p),
+                      onContinue: _goToNext,
+                      onSkip: _goToNext,
+                    ),
                     if (!_hasExistingLanguages)
                       NativeLanguageStep(
                         selectedLanguage: _nativeLanguage,
