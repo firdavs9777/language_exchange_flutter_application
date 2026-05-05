@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
+import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -70,7 +72,11 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
           _selectedTopics.add(topicId);
         } else {
           HapticFeedback.heavyImpact();
-          _showWarningSnackBar(l10n.maxTopicsAllowed(widget.maxTopics));
+          showProfileSnackBar(
+            context,
+            message: l10n.maxTopicsAllowed(widget.maxTopics),
+            type: ProfileSnackBarType.warning,
+          );
           return;
         }
       }
@@ -93,93 +99,23 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       ref.invalidate(userProvider);
 
       if (!mounted) return;
-      _showSuccessSnackBar(l10n.topicsUpdatedSuccessfully);
+      showProfileSnackBar(
+        context,
+        message: l10n.topicsUpdatedSuccessfully,
+        type: ProfileSnackBarType.success,
+      );
       Navigator.pop(context, _selectedTopics.toList());
     } catch (e) {
       if (!mounted) return;
-      _showErrorSnackBar(
-        '${l10n.failedToUpdateTopics}: ${e.toString().replaceFirst('Exception: ', '')}',
+      showProfileSnackBar(
+        context,
+        message:
+            '${l10n.failedToUpdateTopics}: ${e.toString().replaceFirst('Exception: ', '')}',
+        type: ProfileSnackBarType.error,
       );
     } finally {
       if (mounted) setState(() => _isSaving = false);
     }
-  }
-
-  void _showSuccessSnackBar(String message) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    HapticFeedback.mediumImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
-
-  void _showWarningSnackBar(String message) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.warning_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: const Color(0xFFFF9800),
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
   }
 
   @override
@@ -188,65 +124,18 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
 
     if (widget.isStandalone) {
       final canSave = _hasChanges && !_isSaving;
-      return Scaffold(
-        backgroundColor: context.scaffoldBackground,
-        appBar: AppBar(
-          title: Text(
-            widget.title ?? l10n.editInterests,
-            style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
-          ),
-          backgroundColor: context.surfaceColor,
-          foregroundColor: context.textPrimary,
-          elevation: 0,
-          scrolledUnderElevation: 0.5,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Navigator.pop(context),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: TextButton(
-                onPressed: canSave ? _saveTopics : null,
-                style: TextButton.styleFrom(
-                  backgroundColor: canSave
-                      ? AppColors.primary
-                      : AppColors.primary.withValues(alpha: 0.3),
-                  disabledBackgroundColor: AppColors.primary.withValues(
-                    alpha: 0.2,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: _isSaving
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
-                        ),
-                      )
-                    : Text(
-                        l10n.save,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-              ),
-            ),
-          ],
-        ),
-        body: _buildContent(l10n),
+      // EditScreenScaffold is used for the AppBar pill-save button and title.
+      // The body is the full-height _buildContent widget which uses Expanded
+      // internally for the topic grid, so showBottomSaveButton is false and
+      // the body fills the available space directly without scroll wrapping.
+      // We override the scaffold's body slot with a custom layout that lets
+      // _buildContent expand correctly.
+      return _StandaloneTopicsScaffold(
+        title: widget.title ?? l10n.editInterests,
+        canSave: canSave,
+        isSaving: _isSaving,
+        onSave: _saveTopics,
+        child: _buildContent(l10n),
       );
     }
 
@@ -553,6 +442,93 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ========== STANDALONE SCAFFOLD ==========
+// Thin wrapper that reuses EditScreenScaffold's AppBar (pill Save button)
+// but renders the body as a full-height flex container instead of
+// SingleChildScrollView, because _buildContent uses Expanded internally.
+class _StandaloneTopicsScaffold extends StatelessWidget {
+  final String title;
+  final bool canSave;
+  final bool isSaving;
+  final VoidCallback? onSave;
+  final Widget child;
+
+  const _StandaloneTopicsScaffold({
+    required this.title,
+    required this.canSave,
+    required this.isSaving,
+    required this.onSave,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // We borrow EditScreenScaffold's AppBar style inline rather than wrapping
+    // the whole screen, because EditScreenScaffold forces a SingleChildScrollView
+    // which conflicts with the Expanded grid inside _buildContent.
+    final canTap = canSave && !isSaving && onSave != null;
+
+    return Scaffold(
+      backgroundColor: context.scaffoldBackground,
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0.5,
+        backgroundColor: context.surfaceColor,
+        foregroundColor: context.textPrimary,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          title,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: TextButton(
+              onPressed: canTap ? onSave : null,
+              style: TextButton.styleFrom(
+                backgroundColor: canTap
+                    ? AppColors.primary
+                    : AppColors.primary.withValues(alpha: 0.3),
+                disabledBackgroundColor: AppColors.primary.withValues(
+                  alpha: 0.2,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: isSaving
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      AppLocalizations.of(context)!.save,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+            ),
+          ),
+        ],
+      ),
+      body: child,
     );
   }
 }

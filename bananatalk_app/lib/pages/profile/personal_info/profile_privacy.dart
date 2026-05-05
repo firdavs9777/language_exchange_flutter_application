@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -150,7 +153,11 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
       if (!mounted) return;
 
       if (position == null) {
-        _showWarningSnackBar(l10n.locationServiceDisabled);
+        showProfileSnackBar(
+          context,
+          message: l10n.locationServiceDisabled,
+          type: ProfileSnackBarType.warning,
+        );
         return;
       }
 
@@ -187,12 +194,19 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
         _currentCity = city;
         _currentCountry = country;
       });
-      _showSuccessSnackBar(l10n.locationUpdated);
+      showProfileSnackBar(
+        context,
+        message: l10n.locationUpdated,
+        type: ProfileSnackBarType.success,
+      );
     } catch (e) {
       if (!mounted) return;
-      _showErrorSnackBar(
-        '${AppLocalizations.of(context)!.locationCouldNotBeUpdated}: '
-        '${e.toString().replaceFirst('Exception: ', '')}',
+      showProfileSnackBar(
+        context,
+        message:
+            '${AppLocalizations.of(context)!.locationCouldNotBeUpdated}: '
+            '${e.toString().replaceFirst('Exception: ', '')}',
+        type: ProfileSnackBarType.error,
       );
     } finally {
       if (mounted) setState(() => _isUpdatingLocation = false);
@@ -218,94 +232,24 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
       ref.invalidate(userProvider);
 
       if (!mounted) return;
-      _showSuccessSnackBar(l10n.privacySettingsSaved);
+      showProfileSnackBar(
+        context,
+        message: l10n.privacySettingsSaved,
+        type: ProfileSnackBarType.success,
+      );
       Navigator.pop(context);
     } catch (e) {
       if (!mounted) return;
-      _showErrorSnackBar(
-        '${AppLocalizations.of(context)!.failedToSave}: '
-        '${e.toString().replaceFirst('Exception: ', '')}',
+      showProfileSnackBar(
+        context,
+        message:
+            '${AppLocalizations.of(context)!.failedToSave}: '
+            '${e.toString().replaceFirst('Exception: ', '')}',
+        type: ProfileSnackBarType.error,
       );
     } finally {
       if (mounted) setState(() => _isSaving = false);
     }
-  }
-
-  void _showSuccessSnackBar(String message) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    HapticFeedback.mediumImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
-
-  void _showWarningSnackBar(String message) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.warning_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.warning,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
   }
 
   @override
@@ -313,224 +257,174 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
     final l10n = AppLocalizations.of(context)!;
     final canSave = _hasChanges && !_isSaving;
 
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      appBar: AppBar(
-        elevation: 0,
-        scrolledUnderElevation: 0.5,
-        backgroundColor: context.surfaceColor,
-        foregroundColor: context.textPrimary,
-        title: Text(
-          l10n.privacyTitle,
-          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: TextButton(
-              onPressed: canSave ? _savePrivacySettings : null,
-              style: TextButton.styleFrom(
-                backgroundColor: canSave
-                    ? AppColors.primary
-                    : AppColors.primary.withValues(alpha: 0.3),
-                disabledBackgroundColor: AppColors.primary.withValues(
-                  alpha: 0.2,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: _isSaving
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  : const Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-            ),
-          ),
-        ],
-      ),
+    return EditScreenScaffold(
+      title: l10n.privacyTitle,
+      canSave: canSave,
+      isSaving: _isSaving,
+      onSave: _savePrivacySettings,
+      showBottomSaveButton: false,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Privacy info banner
-                  _buildPrivacyBanner(l10n),
-                  const SizedBox(height: 20),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Privacy info banner
+                _buildPrivacyBanner(l10n),
+                const SizedBox(height: 20),
 
-                  // Location section
-                  _buildSectionTitle(
-                    l10n.locationSection,
-                    Icons.location_on_rounded,
-                    AppColors.primary,
+                // Location section
+                _buildSectionTitle(
+                  l10n.locationSection,
+                  Icons.location_on_rounded,
+                  AppColors.primary,
+                ),
+                const SizedBox(height: 10),
+                _buildLocationCard(l10n),
+
+                const SizedBox(height: 24),
+
+                // Profile Visibility
+                _buildSectionTitle(
+                  l10n.profileVisibility,
+                  Icons.visibility_rounded,
+                  const Color(0xFF2196F3),
+                ),
+                const SizedBox(height: 10),
+                _buildSectionContainer([
+                  _buildToggleTile(
+                    icon: Icons.public_rounded,
+                    iconColor: const Color(0xFF2196F3),
+                    title: l10n.showCountryRegion,
+                    subtitle: l10n.showCountryRegionDesc,
+                    value: _showCountryRegion,
+                    onChanged: (v) => _onToggle(() => _showCountryRegion = v),
+                    isFirst: true,
                   ),
-                  const SizedBox(height: 10),
-                  _buildLocationCard(l10n),
-
-                  const SizedBox(height: 24),
-
-                  // Profile Visibility
-                  _buildSectionTitle(
-                    l10n.profileVisibility,
-                    Icons.visibility_rounded,
-                    const Color(0xFF2196F3),
+                  _buildDivider(),
+                  _buildToggleTile(
+                    icon: Icons.location_city_rounded,
+                    iconColor: const Color(0xFF2196F3),
+                    title: l10n.showCity,
+                    subtitle: l10n.showCityDesc,
+                    value: _showCity,
+                    onChanged: (v) => _onToggle(() => _showCity = v),
                   ),
-                  const SizedBox(height: 10),
-                  _buildSectionContainer([
-                    _buildToggleTile(
-                      icon: Icons.public_rounded,
-                      iconColor: const Color(0xFF2196F3),
-                      title: l10n.showCountryRegion,
-                      subtitle: l10n.showCountryRegionDesc,
-                      value: _showCountryRegion,
-                      onChanged: (v) => _onToggle(() => _showCountryRegion = v),
-                      isFirst: true,
-                    ),
-                    _buildDivider(),
-                    _buildToggleTile(
-                      icon: Icons.location_city_rounded,
-                      iconColor: const Color(0xFF2196F3),
-                      title: l10n.showCity,
-                      subtitle: l10n.showCityDesc,
-                      value: _showCity,
-                      onChanged: (v) => _onToggle(() => _showCity = v),
-                    ),
-                    _buildDivider(),
-                    _buildToggleTile(
-                      icon: Icons.cake_rounded,
-                      iconColor: const Color(0xFFE91E63),
-                      title: l10n.showAge,
-                      subtitle: l10n.showAgeDesc,
-                      value: _showAge,
-                      onChanged: (v) => _onToggle(() => _showAge = v),
-                    ),
-                    _buildDivider(),
-                    _buildToggleTile(
-                      icon: Icons.auto_awesome_rounded,
-                      iconColor: const Color(0xFF7C4DFF),
-                      title: l10n.showZodiacSign,
-                      subtitle: l10n.showZodiacSignDesc,
-                      value: _showZodiac,
-                      onChanged: (v) => _onToggle(() => _showZodiac = v),
-                      isLast: true,
-                    ),
-                  ]),
-
-                  const SizedBox(height: 24),
-
-                  // Online Status
-                  _buildSectionTitle(
-                    l10n.onlineStatusSection,
-                    Icons.circle_rounded,
-                    const Color(0xFF4CAF50),
+                  _buildDivider(),
+                  _buildToggleTile(
+                    icon: Icons.cake_rounded,
+                    iconColor: const Color(0xFFE91E63),
+                    title: l10n.showAge,
+                    subtitle: l10n.showAgeDesc,
+                    value: _showAge,
+                    onChanged: (v) => _onToggle(() => _showAge = v),
                   ),
-                  const SizedBox(height: 10),
-                  _buildSectionContainer([
-                    _buildToggleTile(
-                      icon: Icons.fiber_manual_record_rounded,
-                      iconColor: const Color(0xFF4CAF50),
-                      title: l10n.showOnlineStatus,
-                      subtitle: l10n.showOnlineStatusDesc,
-                      value: _showOnlineStatus,
-                      onChanged: (v) => _onToggle(() => _showOnlineStatus = v),
-                      isFirst: true,
-                      isLast: true,
-                    ),
-                  ]),
-
-                  const SizedBox(height: 24),
-
-                  // Other Settings
-                  _buildSectionTitle(
-                    l10n.otherSettings,
-                    Icons.tune_rounded,
-                    const Color(0xFFFF9800),
+                  _buildDivider(),
+                  _buildToggleTile(
+                    icon: Icons.auto_awesome_rounded,
+                    iconColor: const Color(0xFF7C4DFF),
+                    title: l10n.showZodiacSign,
+                    subtitle: l10n.showZodiacSignDesc,
+                    value: _showZodiac,
+                    onChanged: (v) => _onToggle(() => _showZodiac = v),
+                    isLast: true,
                   ),
-                  const SizedBox(height: 10),
-                  _buildSectionContainer([
-                    _buildToggleTile(
-                      icon: Icons.card_giftcard_rounded,
-                      iconColor: const Color(0xFFFF9800),
-                      title: l10n.showGiftingLevel,
-                      subtitle: l10n.showGiftingLevelDesc,
-                      value: _showGiftingLevel,
-                      onChanged: (v) => _onToggle(() => _showGiftingLevel = v),
-                      isFirst: true,
-                    ),
-                    _buildDivider(),
-                    _buildToggleTile(
-                      icon: Icons.celebration_rounded,
-                      iconColor: const Color(0xFFE91E63),
-                      title: l10n.birthdayNotifications,
-                      subtitle: l10n.birthdayNotificationsDesc,
-                      value: _birthdayNotification,
-                      onChanged: (v) =>
-                          _onToggle(() => _birthdayNotification = v),
-                    ),
-                    _buildDivider(),
-                    _buildToggleTile(
-                      icon: Icons.campaign_rounded,
-                      iconColor: const Color(0xFF7C4DFF),
-                      title: l10n.personalizedAds,
-                      subtitle: l10n.personalizedAdsDesc,
-                      value: _personalizedAds,
-                      onChanged: (v) => _onToggle(() => _personalizedAds = v),
-                      isLast: true,
-                    ),
-                  ]),
+                ]),
 
-                  const SizedBox(height: 28),
+                const SizedBox(height: 24),
 
-                  // Bottom save button
-                  _buildGradientSaveButton(l10n, canSave),
+                // Online Status
+                _buildSectionTitle(
+                  l10n.onlineStatusSection,
+                  Icons.circle_rounded,
+                  const Color(0xFF4CAF50),
+                ),
+                const SizedBox(height: 10),
+                _buildSectionContainer([
+                  _buildToggleTile(
+                    icon: Icons.fiber_manual_record_rounded,
+                    iconColor: const Color(0xFF4CAF50),
+                    title: l10n.showOnlineStatus,
+                    subtitle: l10n.showOnlineStatusDesc,
+                    value: _showOnlineStatus,
+                    onChanged: (v) => _onToggle(() => _showOnlineStatus = v),
+                    isFirst: true,
+                    isLast: true,
+                  ),
+                ]),
 
-                  if (_hasChanges) ...[
-                    const SizedBox(height: 12),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.info_outline_rounded,
-                            size: 14,
+                const SizedBox(height: 24),
+
+                // Other Settings
+                _buildSectionTitle(
+                  l10n.otherSettings,
+                  Icons.tune_rounded,
+                  const Color(0xFFFF9800),
+                ),
+                const SizedBox(height: 10),
+                _buildSectionContainer([
+                  _buildToggleTile(
+                    icon: Icons.card_giftcard_rounded,
+                    iconColor: const Color(0xFFFF9800),
+                    title: l10n.showGiftingLevel,
+                    subtitle: l10n.showGiftingLevelDesc,
+                    value: _showGiftingLevel,
+                    onChanged: (v) => _onToggle(() => _showGiftingLevel = v),
+                    isFirst: true,
+                  ),
+                  _buildDivider(),
+                  _buildToggleTile(
+                    icon: Icons.celebration_rounded,
+                    iconColor: const Color(0xFFE91E63),
+                    title: l10n.birthdayNotifications,
+                    subtitle: l10n.birthdayNotificationsDesc,
+                    value: _birthdayNotification,
+                    onChanged: (v) =>
+                        _onToggle(() => _birthdayNotification = v),
+                  ),
+                  _buildDivider(),
+                  _buildToggleTile(
+                    icon: Icons.campaign_rounded,
+                    iconColor: const Color(0xFF7C4DFF),
+                    title: l10n.personalizedAds,
+                    subtitle: l10n.personalizedAdsDesc,
+                    value: _personalizedAds,
+                    onChanged: (v) => _onToggle(() => _personalizedAds = v),
+                    isLast: true,
+                  ),
+                ]),
+
+                const SizedBox(height: 28),
+
+                // Bottom save button
+                GradientSaveButton(
+                  canSave: canSave,
+                  isSaving: _isSaving,
+                  onPressed: _savePrivacySettings,
+                ),
+
+                if (_hasChanges) ...[
+                  const SizedBox(height: 12),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.info_outline_rounded,
+                          size: 14,
+                          color: context.textMuted,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          'You have unsaved changes',
+                          style: context.captionSmall.copyWith(
                             color: context.textMuted,
                           ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'You have unsaved changes',
-                            style: context.captionSmall.copyWith(
-                              color: context.textMuted,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ],
-              ),
+              ],
             ),
     );
   }
@@ -873,79 +767,6 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                   ),
                 ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ========== GRADIENT SAVE BUTTON ==========
-  Widget _buildGradientSaveButton(AppLocalizations l10n, bool canSave) {
-    return SizedBox(
-      width: double.infinity,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: canSave ? _savePrivacySettings : null,
-          borderRadius: BorderRadius.circular(16),
-          child: Ink(
-            decoration: BoxDecoration(
-              gradient: canSave
-                  ? const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
-                    )
-                  : null,
-              color: canSave
-                  ? null
-                  : context.dividerColor.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: canSave
-                  ? [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.35),
-                        blurRadius: 14,
-                        offset: const Offset(0, 6),
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: _isSaving
-                  ? const Center(
-                      child: SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.5,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.check_rounded,
-                          color: canSave ? Colors.white : context.textMuted,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          l10n.saveChanges,
-                          style: context.titleSmall.copyWith(
-                            color: canSave ? Colors.white : context.textMuted,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-            ),
           ),
         ),
       ),

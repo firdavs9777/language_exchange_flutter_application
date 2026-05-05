@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +93,11 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
     } catch (e) {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
-      _showErrorSnackBar(l10n.failedToLoadLanguages);
+      showProfileSnackBar(
+        context,
+        message: l10n.failedToLoadLanguages,
+        type: ProfileSnackBarType.error,
+      );
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -101,7 +108,11 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
     HapticFeedback.lightImpact();
 
     if (_languages.isEmpty) {
-      _showInfoSnackBar(l10n.languagesAreStillLoading);
+      showProfileSnackBar(
+        context,
+        message: l10n.languagesAreStillLoading,
+        type: ProfileSnackBarType.warning,
+      );
       return;
     }
 
@@ -120,10 +131,12 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
     if (result != null) {
       if (widget.otherLanguage != null &&
           result.name.toLowerCase() == widget.otherLanguage!.toLowerCase()) {
-        _showErrorSnackBar(
-          _isNative
+        showProfileSnackBar(
+          context,
+          message: _isNative
               ? l10n.nativeLanguageCannotBeSame
               : l10n.learningLanguageCannotBeSame,
+          type: ProfileSnackBarType.error,
         );
         return;
       }
@@ -138,17 +151,23 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
     final l10n = AppLocalizations.of(context)!;
 
     if (_selectedLanguage == null) {
-      _showErrorSnackBar(l10n.pleaseSelectALanguage);
+      showProfileSnackBar(
+        context,
+        message: l10n.pleaseSelectALanguage,
+        type: ProfileSnackBarType.error,
+      );
       return;
     }
 
     if (widget.otherLanguage != null &&
         _selectedLanguage!.name.toLowerCase() ==
             widget.otherLanguage!.toLowerCase()) {
-      _showErrorSnackBar(
-        _isNative
+      showProfileSnackBar(
+        context,
+        message: _isNative
             ? l10n.nativeLanguageCannotBeSame
             : l10n.learningLanguageCannotBeSame,
+        type: ProfileSnackBarType.error,
       );
       return;
     }
@@ -170,92 +189,22 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
       }
 
       if (!mounted) return;
-      _showSuccessSnackBar(l10n.languageUpdatedSuccessfully);
+      showProfileSnackBar(
+        context,
+        message: l10n.languageUpdatedSuccessfully,
+        type: ProfileSnackBarType.success,
+      );
       Navigator.of(context).pop(languageName);
     } catch (e) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      _showErrorSnackBar(
-        '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+      showProfileSnackBar(
+        context,
+        message:
+            '${l10n.failedToUpdate}: ${e.toString().replaceFirst('Exception: ', '')}',
+        type: ProfileSnackBarType.error,
       );
     }
-  }
-
-  void _showSuccessSnackBar(String message) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    HapticFeedback.mediumImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
-
-  void _showInfoSnackBar(String message) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.info_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.info,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
   }
 
   @override
@@ -266,114 +215,62 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
         _selectedLanguage!.name != widget.initialLanguage;
     final canSave = hasChanges && !_isSaving;
 
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      appBar: AppBar(
-        backgroundColor: context.surfaceColor,
-        foregroundColor: context.textPrimary,
-        elevation: 0,
-        scrolledUnderElevation: 0.5,
-        title: Text(
-          _isNative
-              ? l10n.selectYourNativeLanguage
-              : l10n.whichLanguageDoYouWantToLearn,
-          style: context.titleLarge.copyWith(
-            fontWeight: FontWeight.w700,
-            fontSize: 18,
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: TextButton(
-              onPressed: canSave ? _save : null,
-              style: TextButton.styleFrom(
-                backgroundColor: canSave
-                    ? _accentColor
-                    : _accentColor.withValues(alpha: 0.3),
-                disabledBackgroundColor: _accentColor.withValues(alpha: 0.2),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: _isSaving
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  : Text(
-                      l10n.save,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-            ),
-          ),
-        ],
-      ),
+    return EditScreenScaffold(
+      title: _isNative
+          ? l10n.selectYourNativeLanguage
+          : l10n.whichLanguageDoYouWantToLearn,
+      canSave: canSave,
+      isSaving: _isSaving,
+      onSave: _save,
+      showBottomSaveButton: false,
+      bodyPadding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
       body: _isLoading
           ? _buildLoadingState()
-          : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Type indicator
-                  _buildTypeIndicator(l10n),
-                  const SizedBox(height: 16),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Type indicator
+                _buildTypeIndicator(l10n),
+                const SizedBox(height: 16),
 
-                  // Hero language card
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    switchInCurve: Curves.easeOutCubic,
-                    transitionBuilder: (child, animation) => FadeTransition(
-                      opacity: animation,
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0, 0.05),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      ),
+                // Hero language card
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  switchInCurve: Curves.easeOutCubic,
+                  transitionBuilder: (child, animation) => FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 0.05),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
                     ),
-                    child: _selectedLanguage != null
-                        ? _buildSelectedLanguageCard(l10n)
-                        : _buildEmptyLanguageCard(l10n),
                   ),
+                  child: _selectedLanguage != null
+                      ? _buildSelectedLanguageCard(l10n)
+                      : _buildEmptyLanguageCard(l10n),
+                ),
 
-                  const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-                  // Browse languages button
-                  _buildBrowseButton(l10n),
+                // Browse languages button
+                _buildBrowseButton(l10n),
 
-                  if (widget.otherLanguage != null) ...[
-                    const SizedBox(height: 24),
-                    _buildOtherLanguageHint(l10n),
-                  ],
-
-                  const SizedBox(height: 28),
-
-                  // Save button
-                  _buildSaveButton(l10n, canSave),
+                if (widget.otherLanguage != null) ...[
+                  const SizedBox(height: 24),
+                  _buildOtherLanguageHint(l10n),
                 ],
-              ),
+
+                const SizedBox(height: 28),
+
+                // Save button
+                GradientSaveButton(
+                  canSave: canSave,
+                  isSaving: _isSaving,
+                  onPressed: _save,
+                ),
+              ],
             ),
     );
   }
@@ -499,16 +396,16 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                     color: _accentColor,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.check_rounded,
                         color: Colors.white,
                         size: 12,
                       ),
-                      const SizedBox(width: 3),
-                      const Text(
+                      SizedBox(width: 3),
+                      Text(
                         'SELECTED',
                         style: TextStyle(
                           color: Colors.white,
@@ -699,82 +596,6 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  // ========== SAVE BUTTON ==========
-  Widget _buildSaveButton(AppLocalizations l10n, bool canSave) {
-    return SizedBox(
-      width: double.infinity,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: canSave ? _save : null,
-          borderRadius: BorderRadius.circular(16),
-          child: Ink(
-            decoration: BoxDecoration(
-              gradient: canSave
-                  ? LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        _accentColor,
-                        _accentColor.withValues(alpha: 0.8),
-                      ],
-                    )
-                  : null,
-              color: canSave
-                  ? null
-                  : context.dividerColor.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: canSave
-                  ? [
-                      BoxShadow(
-                        color: _accentColor.withValues(alpha: 0.35),
-                        blurRadius: 14,
-                        offset: const Offset(0, 6),
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: _isSaving
-                  ? const Center(
-                      child: SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.5,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.check_rounded,
-                          color: canSave ? Colors.white : context.textMuted,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          l10n.saveChanges,
-                          style: context.titleSmall.copyWith(
-                            color: canSave ? Colors.white : context.textMuted,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-            ),
-          ),
-        ),
       ),
     );
   }
