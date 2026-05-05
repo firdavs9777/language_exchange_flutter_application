@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';

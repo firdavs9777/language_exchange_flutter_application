@@ -1,27 +1,25 @@
-import 'package:bananatalk_app/pages/authentication/screens/reset_password.dart';
+import 'package:bananatalk_app/pages/authentication/register/register_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 
-class ForgotPasswordVerification extends ConsumerStatefulWidget {
+class EmailVerification extends ConsumerStatefulWidget {
   final String email;
 
-  const ForgotPasswordVerification({super.key, required this.email});
+  const EmailVerification({super.key, required this.email});
 
   @override
-  ConsumerState<ForgotPasswordVerification> createState() =>
-      _ForgotPasswordVerificationState();
+  ConsumerState<EmailVerification> createState() => _EmailVerificationState();
 }
 
-class _ForgotPasswordVerificationState
-    extends ConsumerState<ForgotPasswordVerification> {
+class _EmailVerificationState extends ConsumerState<EmailVerification> {
   final List<TextEditingController> _controllers = List.generate(
     6,
     (index) => TextEditingController(),
@@ -77,7 +75,7 @@ class _ForgotPasswordVerificationState
 
     setState(() => _isLoading = true);
 
-    final result = await ref.read(authServiceProvider).verifyPasswordResetCode(
+    final result = await ref.read(authServiceProvider).verifyEmailCode(
           email: widget.email,
           code: code,
         );
@@ -89,16 +87,13 @@ class _ForgotPasswordVerificationState
     if (result['success']) {
       showAuthSnackBar(
         context,
-        message: l10n.codeVerifiedCreatePassword,
+        message: l10n.emailVerifiedSuccessfully,
         type: AuthSnackBarType.success,
       );
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (ctx) => ResetPassword(
-            email: widget.email,
-            code: code,
-          ),
+          builder: (ctx) => Register(userEmail: widget.email),
         ),
       );
     } else {
@@ -116,9 +111,8 @@ class _ForgotPasswordVerificationState
 
     setState(() => _isResending = true);
 
-    final result = await ref.read(authServiceProvider).sendPasswordResetCode(
-          email: widget.email,
-        );
+    final result =
+        await ref.read(authServiceProvider).sendVerificationCode(widget.email);
 
     setState(() => _isResending = false);
 
@@ -127,7 +121,7 @@ class _ForgotPasswordVerificationState
     if (result['success']) {
       showAuthSnackBar(
         context,
-        message: l10n.resetCodeResent,
+        message: l10n.verificationCodeResent,
         type: AuthSnackBarType.success,
       );
       _startResendTimer();
@@ -144,7 +138,7 @@ class _ForgotPasswordVerificationState
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return AuthScreenScaffold(
-      title: l10n.verifyCode,
+      title: l10n.verifyEmail,
       showBackButton: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -152,13 +146,13 @@ class _ForgotPasswordVerificationState
         children: [
           const SizedBox(height: 32),
           Icon(
-            Icons.password,
+            Icons.email_outlined,
             size: 80,
-            color: AppColors.error,
+            color: AppColors.primary,
           ),
           const SizedBox(height: 24),
           Text(
-            l10n.enterResetCode,
+            l10n.verifyYourEmail,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -179,17 +173,18 @@ class _ForgotPasswordVerificationState
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.error,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(height: 40),
           // 6-digit code input
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(6, (index) {
-              return SizedBox(
-                width: 50,
-                height: 60,
+              return Container(
+                width: 45,
+                height: 55,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
                 child: TextField(
                   controller: _controllers[index],
                   focusNode: _focusNodes[index],
@@ -197,7 +192,7 @@ class _ForgotPasswordVerificationState
                   keyboardType: TextInputType.number,
                   maxLength: 1,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: context.textPrimary,
                   ),
@@ -205,16 +200,18 @@ class _ForgotPasswordVerificationState
                     counterText: '',
                     filled: true,
                     fillColor: context.containerColor,
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 12),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       borderSide: BorderSide(color: context.dividerColor),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       borderSide: BorderSide(color: context.dividerColor),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: AppRadius.borderMD,
                       borderSide:
                           const BorderSide(color: AppColors.primary, width: 2),
                     ),

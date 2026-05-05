@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/pages/authentication/register/register_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';

@@ -1,6 +1,6 @@
-import 'package:bananatalk_app/pages/authentication/screens/apple_login.dart';
-import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
-import 'package:bananatalk_app/pages/authentication/screens/login.dart';
+import 'package:bananatalk_app/pages/authentication/login/apple_login_screen.dart';
+import 'package:bananatalk_app/pages/authentication/login/google_login_screen.dart';
+import 'package:bananatalk_app/pages/authentication/login/login_screen.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';

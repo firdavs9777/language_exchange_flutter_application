@@ -1,5 +1,4 @@
-import 'package:bananatalk_app/pages/authentication/screens/email_verification.dart';
-import 'package:bananatalk_app/pages/authentication/screens/login.dart';
+import 'package:bananatalk_app/pages/authentication/password_reset/forgot_password_verification_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
@@ -11,14 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
-class EmailInput extends ConsumerStatefulWidget {
-  const EmailInput({super.key});
+class ForgotPasswordEmail extends ConsumerStatefulWidget {
+  const ForgotPasswordEmail({super.key});
 
   @override
-  ConsumerState<EmailInput> createState() => _EmailInputState();
+  ConsumerState<ForgotPasswordEmail> createState() =>
+      _ForgotPasswordEmailState();
 }
 
-class _EmailInputState extends ConsumerState<EmailInput> {
+class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
   final TextEditingController _emailController = TextEditingController();
   bool _isLoading = false;
 
@@ -28,7 +28,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
     super.dispose();
   }
 
-  Future<void> _sendVerificationCode() async {
+  Future<void> _sendResetCode() async {
     final email = _emailController.text.trim();
     final l10n = AppLocalizations.of(context)!;
 
@@ -53,40 +53,30 @@ class _EmailInputState extends ConsumerState<EmailInput> {
 
     setState(() => _isLoading = true);
 
-    final result =
-        await ref.read(authServiceProvider).sendVerificationCode(email);
+    final result = await ref.read(authServiceProvider).sendPasswordResetCode(
+          email: email,
+        );
 
     setState(() => _isLoading = false);
 
     if (!mounted) return;
 
-    if (result['success'] == true) {
+    if (result['success']) {
       showAuthSnackBar(
         context,
-        message: l10n.verificationCodeSent,
+        message: l10n.resetCodeSent,
         type: AuthSnackBarType.success,
       );
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (ctx) => EmailVerification(email: email),
+          builder: (ctx) => ForgotPasswordVerification(email: email),
         ),
       );
     } else {
-      // Handle error — check if it's a registration validation error (wrong endpoint)
-      String errorMessage =
-          result['message'] ?? 'Failed to send verification code';
-
-      if (errorMessage.contains('language to learn') ||
-          errorMessage.contains('native language') ||
-          errorMessage.contains('birth day') ||
-          errorMessage.contains('password')) {
-        errorMessage = 'Server configuration error. Please contact support.';
-      }
-
       showAuthSnackBar(
         context,
-        message: errorMessage,
+        message: result['message'] ?? 'Failed to send reset code',
         type: AuthSnackBarType.error,
       );
     }
@@ -96,26 +86,21 @@ class _EmailInputState extends ConsumerState<EmailInput> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return AuthScreenScaffold(
-      title: l10n.signUp,
+      title: l10n.forgotPasswordTitle,
       showBackButton: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 32),
+          Icon(
+            Icons.lock_reset,
+            size: 80,
+            color: AppColors.error,
+          ),
           const SizedBox(height: 24),
           Text(
-            'Bananatalk',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primary,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(height: 40),
-          Text(
-            l10n.createAccount,
+            l10n.resetPasswordTitle,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -125,7 +110,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.enterEmailToGetStarted,
+            l10n.enterEmailForResetCode,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 16, color: context.textSecondary),
           ),
@@ -139,8 +124,8 @@ class _EmailInputState extends ConsumerState<EmailInput> {
           ),
           const SizedBox(height: 32),
           AuthGradientButton(
-            label: l10n.continueText,
-            onPressed: _isLoading ? null : _sendVerificationCode,
+            label: l10n.sendResetCode,
+            onPressed: _isLoading ? null : _sendResetCode,
             isLoading: _isLoading,
           ),
           const SizedBox(height: 24),
@@ -148,15 +133,11 @@ class _EmailInputState extends ConsumerState<EmailInput> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                l10n.alreadyHaveAnAccount,
+                l10n.rememberYourPassword,
                 style: TextStyle(color: context.textSecondary),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx) => Login()),
-                  );
-                },
+                onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   l10n.login,
                   style: TextStyle(

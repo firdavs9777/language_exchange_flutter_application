@@ -1,5 +1,5 @@
-import 'package:bananatalk_app/pages/authentication/screens/login.dart';
-import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
+import 'package:bananatalk_app/pages/authentication/login/login_screen.dart';
+import 'package:bananatalk_app/pages/authentication/register/register_two_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';

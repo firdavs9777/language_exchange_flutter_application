@@ -1,4 +1,5 @@
-import 'package:bananatalk_app/router/app_router.dart';
+import 'package:bananatalk_app/router/app_router.dart'
+    show goRouter, callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/language_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
@@ -7,12 +8,11 @@ import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart'
-    show callOverlayNavigatorKey;
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,41 +23,34 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Set system UI style
+  // Set transparent system UI; per-screen AnnotatedRegion overrides will
+  // handle icon brightness based on theme.
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
 
-  // Load environment variables
+  // Load environment variables (fail fast if .env is missing).
+  await dotenv.load(fileName: '.env');
+
+  // Initialize Firebase + Ads
   try {
-    await dotenv.load(fileName: '.env');
-  } catch (e) {
-    rethrow; // Fail fast if .env is missing
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    await AdService().initialize();
+  } catch (e, stack) {
+    debugPrint('❌ Firebase/Ads initialization failed: $e');
+    if (kDebugMode) debugPrintStack(stackTrace: stack);
   }
 
-  try {
-    // Initialize Firebase
-    await Firebase.initializeApp();
-
-    // Register background message handler
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-    // Initialize Google Mobile Ads SDK
-    await AdService().initialize();
-  } catch (e) {}
-
-  // Initialize socket and notification services if user is logged in
+  // Initialize socket + notifications if user is logged in.
   try {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final userId = prefs.getString('userId');
 
-    // Setup API client token refresh callback to reconnect socket
     final apiClient = ApiClient();
     final chatSocketService = ChatSocketService();
     apiClient.onTokenRefreshed = () {
@@ -70,12 +63,14 @@ Future<void> main() async {
         userId.isNotEmpty) {
       await chatSocketService.connect();
 
-      // Initialize notification service for logged-in users
       final notificationService = NotificationService();
       await notificationService.initialize();
       await notificationService.registerToken(userId);
-    } else {}
-  } catch (e) {}
+    }
+  } catch (e, stack) {
+    debugPrint('❌ Socket/notification setup failed: $e');
+    if (kDebugMode) debugPrintStack(stackTrace: stack);
+  }
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -156,52 +151,65 @@ class LanguageNotifier extends StateNotifier<Locale> {
   }
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  bool _callManagerInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize call manager once after first frame.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeCallManager();
+    });
+  }
+
+  void _initializeCallManager() {
+    if (_callManagerInitialized) return;
+    try {
+      final chatSocketService = ChatSocketService();
+      final callNotifier = ref.read(callProvider.notifier);
+      callNotifier.callManager.initialize(chatSocketService);
+
+      callNotifier.setCallConnectedCallback((call) {
+        debugPrint('📞 Call connected - UI notified');
+      });
+
+      callNotifier.setIncomingCallCallback((call) {
+        final navState = callOverlayNavigatorKey.currentState;
+        if (navState != null) {
+          debugPrint('📞 Incoming call from ${call.userName} - showing screen');
+          navState.push(
+            MaterialPageRoute(
+              builder: (_) => IncomingCallScreen(call: call),
+              fullscreenDialog: true,
+            ),
+          );
+        } else {
+          debugPrint('❌ Cannot show incoming call - no navigator');
+        }
+      });
+
+      _callManagerInitialized = true;
+    } catch (e, stack) {
+      debugPrint('❌ Call manager init error: $e');
+      if (kDebugMode) debugPrintStack(stackTrace: stack);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
     final locale = ref.watch(languageProvider);
 
-    // Initialize global chat listener to keep badge count updated
-    // This ensures badge updates even when ChatMain isn't visible
-    // Using ref.watch ensures it stays active and re-initializes if needed
+    // Keep global chat listener active so badge counts update everywhere.
     ref.watch(globalChatListenerProvider);
-
-    // Initialize call manager with socket service and global incoming call handler
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      try {
-        final chatSocketService = ChatSocketService();
-        final callNotifier = ref.read(callProvider.notifier);
-        callNotifier.callManager.initialize(chatSocketService);
-
-        // Notify UI when call connects (for timer, status updates)
-        callNotifier.setCallConnectedCallback((call) {
-          debugPrint('📞 Call connected - UI notified');
-        });
-
-        // Register global incoming call handler using overlay navigator
-        callNotifier.setIncomingCallCallback((call) {
-          final navState = callOverlayNavigatorKey.currentState;
-          if (navState != null) {
-            debugPrint(
-              '📞 Incoming call from ${call.userName} - showing screen',
-            );
-            navState.push(
-              MaterialPageRoute(
-                builder: (_) => IncomingCallScreen(call: call),
-                fullscreenDialog: true,
-              ),
-            );
-          } else {
-            debugPrint('❌ Cannot show incoming call - no navigator');
-          }
-        });
-      } catch (e) {
-        debugPrint('❌ Call manager init error: $e');
-      }
-    });
 
     return MaterialApp.router(
       routerConfig: goRouter,
@@ -230,7 +238,7 @@ class MyApp extends ConsumerWidget {
         Locale('tr', 'TR'),
         Locale('vi', 'VN'),
       ],
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -242,19 +250,34 @@ class MyApp extends ConsumerWidget {
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
-        // Apply global text scaling limits for accessibility
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.linear(
-              MediaQuery.of(context).textScaler.scale(1.0).clamp(0.8, 1.3),
-            ),
+        // Apply theme-aware system UI overlay style globally + clamp text scale.
+        final brightness = Theme.of(context).brightness;
+        final isDark = brightness == Brightness.dark;
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: isDark
+                ? Brightness.light
+                : Brightness.dark,
+            statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+            systemNavigationBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: isDark
+                ? Brightness.light
+                : Brightness.dark,
           ),
-          // Overlay navigator for full-screen overlays (incoming calls, etc.)
-          // Sits above GoRouter so pop() doesn't affect GoRouter's route stack
-          child: Navigator(
-            key: callOverlayNavigatorKey,
-            onPopPage: (route, result) => route.didPop(result),
-            pages: [MaterialPage(child: child ?? const SizedBox())],
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: TextScaler.linear(
+                MediaQuery.of(context).textScaler.scale(1.0).clamp(0.8, 1.3),
+              ),
+            ),
+            // Overlay navigator for full-screen overlays (incoming calls, etc.)
+            // Sits above GoRouter so pop() doesn't affect GoRouter's route stack.
+            child: Navigator(
+              key: callOverlayNavigatorKey,
+              onPopPage: (route, result) => route.didPop(result),
+              pages: [MaterialPage(child: child ?? const SizedBox())],
+            ),
           ),
         );
       },

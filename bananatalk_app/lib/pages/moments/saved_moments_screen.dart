@@ -132,9 +132,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
 
   Widget _buildBody() {
     if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_error != null) {
@@ -168,17 +166,12 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             const SizedBox(height: 16),
             Text(
               AppLocalizations.of(context)!.noSavedMoments,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 18, color: Colors.grey[600]),
             ),
             const SizedBox(height: 8),
             Text(
               AppLocalizations.of(context)!.tapBookmarkToSave,
-              style: TextStyle(
-                color: Colors.grey[400],
-              ),
+              style: TextStyle(color: Colors.grey[400]),
             ),
           ],
         ),
@@ -214,18 +207,25 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
                 children: [
                   const Icon(Icons.bookmark_remove, color: Colors.white),
                   const SizedBox(height: 4),
-                  Text(AppLocalizations.of(context)!.unsave, style: const TextStyle(color: Colors.white)),
+                  Text(
+                    AppLocalizations.of(context)!.unsave,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ),
             confirmDismiss: (direction) async {
-              final result = await MomentsService.unsaveMoment(momentId: moment.id);
+              final result = await MomentsService.unsaveMoment(
+                momentId: moment.id,
+              );
               return result['success'] == true;
             },
             onDismissed: (direction) {
               _removeMoment(moment.id);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(AppLocalizations.of(context)!.momentUnsaved)),
+                SnackBar(
+                  content: Text(AppLocalizations.of(context)!.momentUnsaved),
+                ),
               );
             },
             child: MomentCard(
@@ -299,7 +299,8 @@ class MomentCard extends StatelessWidget {
                     ),
                   ),
                   // Category badge
-                  if (moment.category.isNotEmpty && moment.category != 'general')
+                  if (moment.category.isNotEmpty &&
+                      moment.category != 'general')
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8,
@@ -321,15 +322,6 @@ class MomentCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Content
-              if (moment.title.isNotEmpty)
-                Text(
-                  moment.title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
               if (moment.description.isNotEmpty) ...[
                 const SizedBox(height: 8),
                 Text(
@@ -398,7 +390,11 @@ class MomentCard extends StatelessWidget {
                     style: TextStyle(color: Colors.grey[600], fontSize: 12),
                   ),
                   const SizedBox(width: 16),
-                  Icon(Icons.bookmark, size: 16, color: Theme.of(context).primaryColor),
+                  Icon(
+                    Icons.bookmark,
+                    size: 16,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     '${moment.saveCount}',
@@ -446,4 +442,3 @@ class MomentCard extends StatelessWidget {
     return moodData['emoji'] ?? '';
   }
 }
-

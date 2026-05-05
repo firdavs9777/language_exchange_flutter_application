@@ -1,25 +1,27 @@
-import 'package:bananatalk_app/pages/authentication/screens/register.dart';
+import 'package:bananatalk_app/pages/authentication/password_reset/reset_password_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 
-class EmailVerification extends ConsumerStatefulWidget {
+class ForgotPasswordVerification extends ConsumerStatefulWidget {
   final String email;
 
-  const EmailVerification({super.key, required this.email});
+  const ForgotPasswordVerification({super.key, required this.email});
 
   @override
-  ConsumerState<EmailVerification> createState() => _EmailVerificationState();
+  ConsumerState<ForgotPasswordVerification> createState() =>
+      _ForgotPasswordVerificationState();
 }
 
-class _EmailVerificationState extends ConsumerState<EmailVerification> {
+class _ForgotPasswordVerificationState
+    extends ConsumerState<ForgotPasswordVerification> {
   final List<TextEditingController> _controllers = List.generate(
     6,
     (index) => TextEditingController(),
@@ -75,7 +77,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
 
     setState(() => _isLoading = true);
 
-    final result = await ref.read(authServiceProvider).verifyEmailCode(
+    final result = await ref.read(authServiceProvider).verifyPasswordResetCode(
           email: widget.email,
           code: code,
         );
@@ -87,13 +89,16 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
     if (result['success']) {
       showAuthSnackBar(
         context,
-        message: l10n.emailVerifiedSuccessfully,
+        message: l10n.codeVerifiedCreatePassword,
         type: AuthSnackBarType.success,
       );
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (ctx) => Register(userEmail: widget.email),
+          builder: (ctx) => ResetPassword(
+            email: widget.email,
+            code: code,
+          ),
         ),
       );
     } else {
@@ -111,8 +116,9 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
 
     setState(() => _isResending = true);
 
-    final result =
-        await ref.read(authServiceProvider).sendVerificationCode(widget.email);
+    final result = await ref.read(authServiceProvider).sendPasswordResetCode(
+          email: widget.email,
+        );
 
     setState(() => _isResending = false);
 
@@ -121,7 +127,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
     if (result['success']) {
       showAuthSnackBar(
         context,
-        message: l10n.verificationCodeResent,
+        message: l10n.resetCodeResent,
         type: AuthSnackBarType.success,
       );
       _startResendTimer();
@@ -138,7 +144,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return AuthScreenScaffold(
-      title: l10n.verifyEmail,
+      title: l10n.verifyCode,
       showBackButton: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -146,13 +152,13 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
         children: [
           const SizedBox(height: 32),
           Icon(
-            Icons.email_outlined,
+            Icons.password,
             size: 80,
-            color: AppColors.primary,
+            color: AppColors.error,
           ),
           const SizedBox(height: 24),
           Text(
-            l10n.verifyYourEmail,
+            l10n.enterResetCode,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -173,18 +179,17 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppColors.primary,
+              color: AppColors.error,
             ),
           ),
           const SizedBox(height: 40),
           // 6-digit code input
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(6, (index) {
-              return Container(
-                width: 45,
-                height: 55,
-                margin: const EdgeInsets.symmetric(horizontal: 4),
+              return SizedBox(
+                width: 50,
+                height: 60,
                 child: TextField(
                   controller: _controllers[index],
                   focusNode: _focusNodes[index],
@@ -192,7 +197,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                   keyboardType: TextInputType.number,
                   maxLength: 1,
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: context.textPrimary,
                   ),
@@ -200,18 +205,16 @@ class _EmailVerificationState extends ConsumerState<EmailVerification> {
                     counterText: '',
                     filled: true,
                     fillColor: context.containerColor,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 12),
                     border: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: context.dividerColor),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: context.dividerColor),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: AppRadius.borderMD,
+                      borderRadius: BorderRadius.circular(12),
                       borderSide:
                           const BorderSide(color: AppColors.primary, width: 2),
                     ),
