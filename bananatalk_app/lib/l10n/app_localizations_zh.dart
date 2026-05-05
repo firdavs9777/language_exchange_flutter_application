@@ -4408,6 +4408,32 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => '无法打开商店，请从App Store或Play Store进行更新。';
+
+  @override
+  String get rememberMe => '记住我';
+
+  @override
+  String get passwordWeak => '弱';
+
+  @override
+  String get passwordFair => '一般';
+
+  @override
+  String get passwordStrong => '强';
+
+  @override
+  String get passwordVeryStrong => '非常强';
+
+  @override
+  String get showPassword => '显示密码';
+
+  @override
+  String get hidePassword => '隐藏密码';
+
+  @override
+  String stepProgress(int current, int total) {
+    return '第 $current / $total 步';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -8525,4 +8551,30 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get updateOpenStoreFailed => '無法開啟商店，請從App Store或Play Store進行更新。';
+
+  @override
+  String get rememberMe => '記住我';
+
+  @override
+  String get passwordWeak => '弱';
+
+  @override
+  String get passwordFair => '一般';
+
+  @override
+  String get passwordStrong => '強';
+
+  @override
+  String get passwordVeryStrong => '非常強';
+
+  @override
+  String get showPassword => '顯示密碼';
+
+  @override
+  String get hidePassword => '隱藏密碼';
+
+  @override
+  String stepProgress(int current, int total) {
+    return '第 $current / $total 步';
+  }
 }

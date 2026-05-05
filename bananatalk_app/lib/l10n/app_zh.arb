@@ -175,7 +175,7 @@
   "failedToSendMessage": "发送消息失败",
   "dailyMessageLimitExceeded": "已达到每日消息限制。升级到VIP可享受无限消息。",
   "cannotSendMessageUserMayBeBlocked": "无法发送消息。用户可能已被屏蔽。",
-  "sessionExpired": "会话已过期。请重新登录。",
+  "sessionExpired": "会话已过期，请重新登录。",
   "sendThisSticker": "发送此贴纸？",
   "chooseHowYouWantToDeleteThisMessage": "选择您要如何删除此消息：",
   "deleteForEveryone": "为所有人删除",
@@ -521,12 +521,12 @@
   "addFriends": "添加朋友",
   "highlights": "精选",
   "createHighlight": "创建精选",
-  "deleteHighlight": "删除精选？",
+  "deleteHighlight": "删除精选",
   "editHighlight": "编辑精选",
   "addMoreToStory": "添加更多到故事",
   "noViewersYet": "暂无观看者",
   "noReactionsYet": "暂无反应",
-  "leaveRoom": "离开房间？",
+  "leaveRoom": "离开房间",
   "areYouSureLeaveRoom": "确定要离开这个语音房间吗？",
   "stay": "留下",
   "leave": "离开",
@@ -679,8 +679,8 @@
   "findingPartners": "正在寻找语伴...",
   "setLocationReminder": "在个人资料中设置位置，优先查看附近用户。",
   "updateLocationReminder": "在 个人资料 > 编辑 中更新位置以获得准确的附近结果。",
-  "male": "男",
-  "female": "女",
+  "male": "男性",
+  "female": "女性",
   "other": "其他",
   "browseMen": "浏览男性",
   "browseWomen": "浏览女性",
@@ -729,12 +729,12 @@
   "connectWithNativeSpeakers": "我们会为你连接母语者",
   "selectLearningLanguage": "请选择你正在学习的语言",
   "selectCurrentLevel": "请选择你的当前水平",
-  "beginner": "入门 — 我知道一些单词",
-  "elementary": "初级 — 我能造简单的句子",
-  "intermediate": "中级 — 我能进行基本对话",
-  "upperIntermediate": "中高级 — 我能讨论大部分话题",
-  "advanced": "高级 — 我说得很流利",
-  "proficient": "精通 — 接近母语水平",
+  "beginner": "入门",
+  "elementary": "初级",
+  "intermediate": "中级",
+  "upperIntermediate": "中高级",
+  "advanced": "高级",
+  "proficient": "精通",
   "showingPartnersByDistance": "按距离排序显示语伴",
   "enableLocationForResults": "启用定位以获取基于距离的结果",
   "enable": "启用",
@@ -775,7 +775,6 @@
   "pleaseEnterBothEmailAndPassword": "请输入邮箱和密码",
   "pleaseEnterValidEmail": "请输入有效的邮箱地址",
   "loginSuccessful": "登录成功！",
-  "sessionExpired": "会话已过期，请重新登录。",
   "stepOneOfTwo": "第1步，共2步",
   "createYourAccount": "创建账号",
   "basicInfoToGetStarted": "开始前的基本信息",
@@ -788,12 +787,9 @@
   "pleaseEnterYourName": "请输入你的姓名",
   "pleaseEnterAPassword": "请输入密码",
   "passwordsDoNotMatch": "密码不匹配",
-  "male": "男",
-  "female": "女",
   "otherGender": "其他",
   "continueWithGoogleAccount": "使用Google账号继续\n享受无缝体验",
   "signingYouIn": "正在登录...",
-  "tryAgain": "重试",
   "backToSignInMethods": "返回登录方式",
   "securedByGoogle": "由Google保障安全",
   "dataProtectedEncryption": "你的数据受到行业标准加密保护",
@@ -880,7 +876,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "接听",
@@ -906,20 +904,18 @@
   "callAt": "{time}的通话",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "语音通话",
-  "tryAgain": "重试",
   "voiceRoom": "语音房间",
   "noVoiceRooms": "没有活跃的语音房间",
   "createVoiceRoom": "创建语音房间",
   "joinRoom": "加入房间",
-  "leaveRoom": "离开房间",
   "leaveRoomConfirm": "离开房间？",
   "leaveRoomMessage": "确定要离开这个房间吗？",
-  "stay": "留下",
-  "leave": "离开",
   "roomTitle": "房间标题",
   "roomTitleHint": "输入房间标题",
   "roomTopic": "话题",
@@ -928,17 +924,20 @@
   "roomParticipants": "{count}位参与者",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "最多{count}位参与者",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "选择话题",
-  "selectLanguage": "选择语言",
   "raiseHand": "举手",
   "lowerHand": "放下手",
   "handRaisedNotification": "已举手！房主将看到您的请求。",
@@ -958,7 +957,9 @@
   "liveRoomsCount": "{count}个直播",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "没有活跃房间",
@@ -974,18 +975,25 @@
   "nPeople": "{count}人",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "{name} 主持",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "直播中",
   "joinLabel": "加入",
   "fullLabel": "已满",
   "justStarted": "刚刚开始",
   "allLanguages": "所有语言",
   "allTopics": "所有话题",
-
   "dataAndStorage": "数据与存储",
   "manageStorageAndDownloads": "管理存储和下载",
   "storageUsage": "存储使用情况",
@@ -1008,13 +1016,17 @@
   "clearCacheConfirmationFor": "清除{category}？",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "将释放{size}",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "计算中...",
@@ -1026,14 +1038,7 @@
   "addMissingFields": "添加: {fields}",
   "profilePicture": "头像",
   "nativeSpeaker": "母语者",
-  "beginner": "入门",
-  "elementary": "初级",
-  "intermediate": "中级",
-  "upperIntermediate": "中高级",
-  "advanced": "高级",
-  "proficient": "精通",
   "peopleInterestedInTopic": "对此话题感兴趣的人",
-  "noUsersFound": "未找到用户",
   "beFirstToAddTopic": "成为第一个添加此话题的人！",
   "recentMoments": "最近动态",
   "seeAll": "查看全部",
@@ -1044,7 +1049,6 @@
   "whenYouGetNotifications": "收到通知后将在此显示",
   "failedToLoadNotifications": "加载通知失败",
   "clearAllNotificationsConfirm": "确定要清除所有通知吗？此操作无法撤销。",
-
   "tapToChange": "点击更改",
   "noPictureSet": "未设置照片",
   "nameAndGender": "姓名与性别",
@@ -1062,20 +1066,23 @@
   "howWellDoYouSpeak": "您的{language}水平如何？",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "语言",
   "languageLevelSetTo": "语言水平已设置为{level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "更新失败",
   "profileUpdatedSuccessfully": "个人资料已成功更新",
   "genderRequired": "性别（必填）",
-
   "editHometown": "编辑家乡",
   "useCurrentLocation": "使用当前位置",
   "detecting": "检测中...",
@@ -1089,34 +1096,34 @@
   "locationServicesDisabled": "位置服务已禁用。请启用它们。",
   "locationPermissionPermanentlyDenied": "位置权限已被永久拒绝。",
   "unknown": "未知",
-
   "editBio": "编辑简介",
   "bioUpdatedSuccessfully": "简介已成功更新",
   "tellOthersAboutYourself": "介绍一下自己...",
   "charactersCount": "{count}/500字符",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "selectYourMbti": "选择您的MBTI",
   "myBloodType": "我的血型",
   "pleaseSelectABloodType": "请选择血型",
   "bloodTypeSavedSuccessfully": "血型保存成功",
   "hometownSavedSuccessfully": "家乡保存成功",
-
   "nativeLanguageRequired": "母语（必填）",
   "languageToLearnRequired": "学习语言（必填）",
   "nativeLanguageCannotBeSame": "母语不能与正在学习的语言相同",
   "learningLanguageCannotBeSame": "学习语言不能与母语相同",
   "pleaseSelectALanguage": "请选择语言",
-
   "editInterests": "编辑兴趣",
   "maxTopicsAllowed": "最多可选择{count}个话题",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "话题已成功更新！",
@@ -1124,11 +1131,14 @@
   "selectedCount": "已选择{count}/{max}",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "profilePictures": "头像",
   "addImages": "添加图片",
   "selectUpToImages": "最多选择5张图片",
@@ -1147,7 +1157,9 @@
   "uploadImages": "上传{count}张图片",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "图片已成功删除",
@@ -1161,7 +1173,9 @@
   "youHaveUnuploadedImages": "您已选择{count}张图片但未上传。是否现在上传？",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "放弃",
@@ -1169,34 +1183,42 @@
   "maxImagesInfo": "最多可上传{max}张图片。当前: {current}/{max}\n每次最多上传5张图片。",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "只能再添加{count}张图片。最多{max}张。",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "每次最多只能上传5张图片。只有前5张会被添加。",
   "canOnlyHaveMaxImages": "最多只能有{max}张图片",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "图片大小超过10MB限制",
   "unsupportedImageFormat": "不支持的图片格式",
   "pleaseSelectAtLeastOneImage": "请至少选择一张图片上传",
-
   "basicInformation": "基本信息",
   "languageToLearn": "学习语言",
   "hometown": "家乡",
   "characters": "字符",
   "failedToLoadLanguages": "加载语言失败",
-
   "studyHub": "学习中心",
   "dailyLearningJourney": "您的每日学习之旅",
   "learnTab": "学习",
@@ -1319,22 +1341,13 @@
   "findYourPerfect": "找到你的完美",
   "languagePartner": "语言伙伴",
   "learningLanguageLabel": "学习语言",
-  "languageLevel": "语言水平",
-  "country": "国家",
   "ageRange": "年龄范围",
   "genderPreference": "性别偏好",
   "any": "任意",
-  "male": "男性",
-  "female": "女性",
-  "other": "其他",
-  "newUsersOnly": "仅新用户",
   "showNewUsersSubtitle": "显示过去6天内加入的用户",
-  "applyFilters": "应用筛选",
   "autoDetectLocation": "自动检测我的位置",
-  "detecting": "检测中...",
   "selectCountry": "选择国家",
   "anyCountry": "任意国家",
-  "searchCountry": "搜索国家...",
   "loadingLanguages": "正在加载语言...",
   "minAge": "最小: {age}",
   "@minAge": {
@@ -1352,7 +1365,6 @@
       }
     }
   },
-
   "captionRequired": "描述为必填项",
   "captionTooLong": "描述不能超过{maxLength}个字符",
   "@captionTooLong": {
@@ -1402,27 +1414,80 @@
   },
   "chooseBackground": "选择背景",
   "likedByXPeople": "{count}人点赞",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count}条评论",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1条评论",
   "addAComment": "添加评论...",
   "viewXReplies": "查看{count}条回复",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "{count}人已看",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count}小时前",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count}分钟前",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "回复了你的故事",
   "mentionedYouInComment": "{name}在评论中提到了你",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name}回复了你的评论",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name}对你的评论做出了反应",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "搜索用户...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "添加反应",
   "attachImage": "附加图片",
   "pickGif": "选择GIF",
@@ -1430,28 +1495,20 @@
   "typeYourStory": "写下你的故事...",
   "selectBackground": "选择背景",
   "highlightsTitle": "精选",
-  "newHighlight": "新精选",
   "highlightTitle": "精选标题",
-  "addToHighlight": "添加到精选",
   "createNewHighlight": "新建",
-  "editHighlight": "编辑精选",
-  "deleteHighlight": "删除精选",
   "selectStories": "选择故事",
   "selectCover": "选择封面",
   "addText": "添加文字",
-  "addSticker": "添加贴纸",
   "fontStyleLabel": "字体样式",
   "textColorLabel": "文字颜色",
-  "dragToDelete": "拖到此处删除"
-,
+  "dragToDelete": "拖到此处删除",
   "momentUpdatedSuccessfully": "动态更新成功",
   "failedToDeleteMoment": "删除动态失败",
   "failedToUpdateMoment": "更新动态失败",
-
   "mbtiUpdatedSuccessfully": "MBTI已成功更新",
   "pleaseSelectMbti": "请选择一个MBTI类型",
   "languageUpdatedSuccessfully": "语言已成功更新",
-
   "bioHintCard": "精彩的个人简介有助于他人更好地了解你。分享你的兴趣爱好、语言或你正在寻找的内容。",
   "bioCounterStartWriting": "开始写作...",
   "bioCounterABitMore": "再多写一点会更好",
@@ -1478,8 +1535,6 @@
   "updateLocationCta": "更新位置",
   "enterYourName": "输入你的名字",
   "unsavedChanges": "你有未保存的更改",
-
-  "loadingLanguages": "正在加载语言...",
   "tapBelowToBrowseLanguages": "点击下方浏览 {count} 种语言",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1492,9 +1547,7 @@
   "browseLanguages": "浏览语言",
   "yourLearningLanguageIsPrefix": "你正在学习的语言是",
   "yourNativeLanguageIsPrefix": "你的母语是",
-
   "profileCompleteProgress": "已完成",
-
   "drawerPreferences": "偏好设置",
   "drawerStorage": "存储",
   "drawerReports": "举报",
@@ -1511,7 +1564,6 @@
   "aboutBananatalkTagline": "与全球语言学习者连接，通过真实对话提升你的技能。",
   "aboutCopyright": "© 2024 Bananatalk. 版权所有。",
   "logoutFailedPrefix": "退出失败",
-
   "profileVisitorsTitle": "访客",
   "visitorStatistics": "访客统计",
   "visitorsTotalVisits": "总访问次数",
@@ -1526,24 +1578,19 @@
   "visitedDirect": "直接访问",
   "visitorTrackingUnavailable": "访客追踪功能不可用。请更新后端。",
   "visitorTrackingNotAvailableYet": "访客追踪功能暂不可用",
-
   "noFollowersYetSubtitle": "开始与他人建立联系吧！",
   "partnerButton": "搭档",
-
   "notFollowingAnyoneYetSubtitle": "关注他人以查看他们的动态！",
   "unfollowButton": "取消关注",
-
   "profileThemeTitle": "主题",
   "themeAutoSwitch": "自动切换（跟随系统）",
   "themeSystemHint": "开启后，应用将跟随系统主题设置",
   "themeLightMode": "浅色模式",
   "themeDarkMode": "深色模式",
-
   "myMoments": "我的动态",
   "momentListView": "列表视图",
   "momentGridView": "网格视图",
   "shareLanguageLearningJourney": "分享你的语言学习之旅！",
-
   "deleteHighlightTitle": "删除精选",
   "deleteHighlightConfirm": "删除「{title}」？内部的故事不会被删除。",
   "@deleteHighlightConfirm": {
@@ -1555,7 +1602,6 @@
   },
   "highlightDeletedSuccess": "精选已删除",
   "highlightNewBadge": "新",
-
   "editMoment": "编辑动态",
   "momentDescriptionLabel": "描述",
   "momentImagesLabel": "图片",
@@ -1568,5 +1614,23 @@
   "updateAvailableBody": "Bananatalk新版本已发布，包含改进和错误修复。",
   "updateNow": "立即更新",
   "updateLater": "稍后",
-  "updateOpenStoreFailed": "无法打开商店，请从App Store或Play Store进行更新。"
+  "updateOpenStoreFailed": "无法打开商店，请从App Store或Play Store进行更新。",
+  "rememberMe": "记住我",
+  "passwordWeak": "弱",
+  "passwordFair": "一般",
+  "passwordStrong": "强",
+  "passwordVeryStrong": "非常强",
+  "showPassword": "显示密码",
+  "hidePassword": "隐藏密码",
+  "stepProgress": "第 {current} / {total} 步",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

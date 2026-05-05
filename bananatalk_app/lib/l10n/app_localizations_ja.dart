@@ -4408,4 +4408,30 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。';
+
+  @override
+  String get rememberMe => 'ログイン情報を保存';
+
+  @override
+  String get passwordWeak => '弱い';
+
+  @override
+  String get passwordFair => '普通';
+
+  @override
+  String get passwordStrong => '強い';
+
+  @override
+  String get passwordVeryStrong => '非常に強い';
+
+  @override
+  String get showPassword => 'パスワードを表示';
+
+  @override
+  String get hidePassword => 'パスワードを非表示';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'ステップ $current / $total';
+  }
 }

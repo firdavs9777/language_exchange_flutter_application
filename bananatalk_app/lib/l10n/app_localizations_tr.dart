@@ -4408,4 +4408,30 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Mağaza açılamadı. Lütfen App Store veya Play Store\'dan güncelleyin.';
+
+  @override
+  String get rememberMe => 'Beni hatırla';
+
+  @override
+  String get passwordWeak => 'Zayıf';
+
+  @override
+  String get passwordFair => 'Orta';
+
+  @override
+  String get passwordStrong => 'Güçlü';
+
+  @override
+  String get passwordVeryStrong => 'Çok güçlü';
+
+  @override
+  String get showPassword => 'Şifreyi göster';
+
+  @override
+  String get hidePassword => 'Şifreyi gizle';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Adım $current / $total';
+  }
 }

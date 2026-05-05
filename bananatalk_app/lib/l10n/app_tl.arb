@@ -471,12 +471,12 @@
   "addFriends": "Magdagdag ng mga Kaibigan",
   "highlights": "Mga Highlight",
   "createHighlight": "Gumawa ng Highlight",
-  "deleteHighlight": "Burahin ang Highlight?",
+  "deleteHighlight": "Burahin ang Highlight",
   "editHighlight": "I-edit ang Highlight",
   "addMoreToStory": "Magdagdag pa sa story",
   "noViewersYet": "Wala pang mga tumitingin",
   "noReactionsYet": "Wala pang mga reaksyon",
-  "leaveRoom": "Umalis sa Room?",
+  "leaveRoom": "Umalis sa Room",
   "areYouSureLeaveRoom": "Sigurado ka bang gusto mong umalis sa voice room na ito?",
   "stay": "Manatili",
   "leave": "Umalis",
@@ -590,7 +590,7 @@
   "moods": "Mga Mood",
   "applyFilters": "Ilapat ang mga Filter",
   "applyNFilters": "Ilapat ang {count} Filter",
-  "videoMustBeUnder1GB": "Dapat mas mababa sa 1GB ang video.",
+  "videoMustBeUnder1GB": "Ang video ay dapat mas mababa sa 1GB.",
   "failedToRecordVideo": "Nabigo ang pag-record ng video",
   "errorSendingVideo": "Error sa pagpapadala ng video",
   "errorSendingVoiceMessage": "Error sa pagpapadala ng voice message",
@@ -649,7 +649,6 @@
   "learningLanguage": "Nag-aaral ng {language}",
   "noPartnersFound": "Walang nahanap na partner",
   "noUsersFoundForLanguages": "Walang nahanap na user na nagsasalita ng {learning} bilang katutubong wika o gustong matuto ng {native}.",
-  "tryAdjustingFilters": "Subukang i-adjust ang iyong mga filter",
   "removeAllFilters": "Alisin lahat ng filter",
   "browseAllUsers": "Tingnan lahat ng user",
   "allCaughtUp": "Nakita mo na lahat!",
@@ -659,8 +658,6 @@
   "startOver": "Magsimula muli",
   "changeFilters": "Baguhin ang mga filter",
   "findingPartners": "Naghahanap ng mga partner...",
-  "somethingWentWrong": "May nangyaring mali",
-  "retry": "Subukan Muli",
   "setLocationReminder": "I-set ang iyong lokasyon para mahanap ang mga partner na malapit",
   "updateLocationReminder": "I-update ang iyong lokasyon para sa mas magandang resulta",
   "male": "Lalaki",
@@ -671,7 +668,7 @@
   "noMaleUsersFound": "Walang nahanap na lalaking user",
   "noFemaleUsersFound": "Walang nahanap na babaeng user",
   "vip": "VIP",
-  "newUsersOnly": "Mga bagong user lamang",
+  "newUsersOnly": "Bagong Gumagamit Lamang",
   "showNewUsers": "Ipakita ang mga bagong user",
   "prioritizeNearby": "Unahin ang mga malapit",
   "showNearbyFirst": "Ipakita muna ang mga malapit",
@@ -692,12 +689,11 @@
   "seeUserCountsPerCountry": "Tingnan ang bilang ng mga user bawat bansa",
   "upgradeToVip": "Mag-upgrade sa VIP",
   "searchByCity": "Maghanap ayon sa lungsod",
-  "loading": "Naglo-load...",
   "usersWorldwide": "{count} user sa buong mundo",
   "noUsersFound": "Walang nahanap na user",
   "tryDifferentCity": "Subukan ang ibang lungsod",
   "usersCount": "{count} user",
-  "searchCountry": "Maghanap ng bansa",
+  "searchCountry": "Maghanap ng bansa...",
   "wave": "Kumaway",
   "newUser": "Bagong user",
   "warningPermanent": "Babala: Permanente ang aksyong ito!",
@@ -861,7 +857,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "Sagutin",
@@ -887,20 +885,18 @@
   "callAt": "Tawag noong {time}",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "Audio Call",
-  "tryAgain": "Subukan Muli",
   "voiceRoom": "Voice Room",
   "noVoiceRooms": "Walang aktibong voice rooms",
   "createVoiceRoom": "Gumawa ng Voice Room",
   "joinRoom": "Sumali sa Room",
-  "leaveRoom": "Umalis sa Room",
   "leaveRoomConfirm": "Umalis sa Room?",
   "leaveRoomMessage": "Sigurado ka bang gusto mong umalis sa room na ito?",
-  "stay": "Manatili",
-  "leave": "Umalis",
   "roomTitle": "Pamagat ng Room",
   "roomTitleHint": "Ilagay ang pamagat ng room",
   "roomTopic": "Paksa",
@@ -909,17 +905,20 @@
   "roomParticipants": "{count} kalahok",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "Max {count} kalahok",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "Pumili ng Paksa",
-  "selectLanguage": "Pumili ng Wika",
   "raiseHand": "Itaas ang Kamay",
   "lowerHand": "Ibaba ang Kamay",
   "handRaisedNotification": "Nakataas ang kamay! Makikita ng host ang iyong request.",
@@ -939,7 +938,9 @@
   "liveRoomsCount": "{count} Live",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "Walang aktibong rooms",
@@ -955,18 +956,25 @@
   "nPeople": "{count} tao",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "Ini-host ni {name}",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "LIVE",
   "joinLabel": "Sumali",
   "fullLabel": "Puno",
   "justStarted": "Kakasimula lang",
   "allLanguages": "Lahat ng wika",
   "allTopics": "Lahat ng paksa",
-
   "dataAndStorage": "Data at Storage",
   "manageStorageAndDownloads": "Pamahalaan ang storage at downloads",
   "storageUsage": "Paggamit ng Storage",
@@ -989,18 +997,21 @@
   "clearCacheConfirmationFor": "Burahin ang {category}?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} ang mapapalaya",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "Kinakalkula...",
   "noDataToShow": "Walang data na ipapakita",
-
   "profileCompletion": "Pagkumpleto ng Profile",
   "justGettingStarted": "Nagsisimula pa lang",
   "lookingGood": "Maganda!",
@@ -1019,11 +1030,10 @@
   "whenYouGetNotifications": "Kapag makatanggap ka ng mga notification, magpapakita sila dito",
   "failedToLoadNotifications": "Nabigong i-load ang mga notification",
   "clearAllNotificationsConfirm": "Sigurado ka bang gusto mong burahin ang lahat ng notification? Hindi ito maaaring i-undo.",
-
   "tapToChange": "I-tap para palitan",
   "noPictureSet": "Walang nakatakdang larawan",
   "nameAndGender": "Pangalan at Kasarian",
-  "languageLevel": "Level ng Wika",
+  "languageLevel": "Antas ng Wika",
   "personalInformation": "Personal na Impormasyon",
   "mbti": "MBTI",
   "topicsOfInterest": "Mga Paksang Interesado",
@@ -1037,14 +1047,18 @@
   "howWellDoYouSpeak": "Gaano kahusay ang {language} mo?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "ang wika",
   "languageLevelSetTo": "Level ng wika nakatakda sa {level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "Hindi na-update",
@@ -1052,7 +1066,7 @@
   "genderRequired": "Kasarian (Kinakailangan)",
   "editHometown": "I-edit ang Hometown",
   "useCurrentLocation": "Gamitin ang Kasalukuyang Lokasyon",
-  "detecting": "Nagde-detect...",
+  "detecting": "Tinutukoy...",
   "getCurrentLocation": "Kunin ang Kasalukuyang Lokasyon",
   "country": "Bansa",
   "city": "Lungsod",
@@ -1082,7 +1096,9 @@
   "maxTopicsAllowed": "Maximum {count} topics ang pinapayagan",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "Na-update na ang mga topics!",
@@ -1090,7 +1106,9 @@
   "selectedCount": "{count} napili",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "Mga Profile Picture",
@@ -1098,7 +1116,9 @@
   "selectUpToImages": "Pumili ng hanggang {count} larawan",
   "@selectUpToImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "takeAPhoto": "Kumuha ng Larawan",
@@ -1107,7 +1127,9 @@
   "uploadImages": "Mag-upload ng {count} larawan",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageUploadedSuccessfully": "Na-upload na ang larawan",
@@ -1121,7 +1143,6 @@
   "uploadingImages": "Nag-a-upload ng mga larawan...",
   "imagesUploadedSuccessfully": "Na-upload na ang mga larawan",
   "failedToUploadImages": "Hindi na-upload ang mga larawan",
-
   "studyHub": "Sentro ng Pag-aaral",
   "dailyLearningJourney": "Ang iyong pang-araw-araw na paglalakbay sa pag-aaral",
   "learnTab": "Matuto",
@@ -1218,7 +1239,6 @@
   "hearts": "Mga Puso",
   "tapToSayHi": "I-tap para mag-hi!",
   "sendWaveToStart": "Mag-wave para magsimulang mag-chat",
-  "videoMustBeUnder1GB": "Ang video ay dapat mas mababa sa 1GB.",
   "documentMustBeUnder50MB": "Ang dokumento ay dapat mas mababa sa 50MB.",
   "editWithin15Minutes": "Ang mga mensahe ay maaari lang i-edit sa loob ng 15 minuto",
   "messageForwardedTo": "Mensahe na-forward sa {count} user(s)",
@@ -1244,23 +1264,14 @@
   "findYourPerfect": "Hanapin ang iyong perpektong",
   "languagePartner": "Kasosyo sa Wika",
   "learningLanguageLabel": "Wikang Pinag-aaralan",
-  "languageLevel": "Antas ng Wika",
-  "country": "Bansa",
   "ageRange": "Saklaw ng Edad",
   "genderPreference": "Kagustuhan sa Kasarian",
   "any": "Kahit anong",
-  "male": "Lalaki",
-  "female": "Babae",
-  "other": "Iba pa",
-  "newUsersOnly": "Bagong Gumagamit Lamang",
   "showNewUsersSubtitle": "Ipakita ang mga gumagamit na sumali sa nakaraang 6 na araw",
-  "applyFilters": "Ilapat ang mga Filter",
   "autoDetectLocation": "Awtomatikong matukoy ang aking lokasyon",
-  "detecting": "Tinutukoy...",
   "selectCountry": "Pumili ng Bansa",
   "anyCountry": "Kahit anong Bansa",
-  "searchCountry": "Maghanap ng bansa...",
-  "loadingLanguages": "Nilo-load ang mga wika...",
+  "loadingLanguages": "Naglo-load ng mga wika...",
   "minAge": "Min: {age}",
   "@minAge": {
     "placeholders": {
@@ -1277,7 +1288,6 @@
       }
     }
   },
-
   "captionRequired": "Kinakailangan ang caption",
   "captionTooLong": "Ang caption ay dapat {maxLength} character o mas kaunti",
   "@captionTooLong": {
@@ -1327,27 +1337,80 @@
   },
   "chooseBackground": "Pumili ng background",
   "likedByXPeople": "Nagustuhan ng {count} tao",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} komento",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 komento",
   "addAComment": "Magdagdag ng komento...",
   "viewXReplies": "Tingnan ang {count} tugon",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "Nakita ng {count}",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count} oras ang nakalipas",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count} minuto ang nakalipas",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "Sumagot sa iyong story",
   "mentionedYouInComment": "Binanggit ka ni {name} sa isang komento",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "Sumagot si {name} sa iyong komento",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "Nag-react si {name} sa iyong komento",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "Maghanap ng mga user...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "Magdagdag ng reaksyon",
   "attachImage": "Maglakip ng larawan",
   "pickGif": "Pumili ng GIF",
@@ -1355,28 +1418,20 @@
   "typeYourStory": "Isulat ang iyong story...",
   "selectBackground": "Pumili ng background",
   "highlightsTitle": "Mga Highlight",
-  "newHighlight": "Bagong Highlight",
   "highlightTitle": "Pamagat ng Highlight",
-  "addToHighlight": "Idagdag sa Highlight",
   "createNewHighlight": "Gumawa ng Bago",
-  "editHighlight": "I-edit ang Highlight",
-  "deleteHighlight": "Burahin ang Highlight",
   "selectStories": "Pumili ng Mga Story",
   "selectCover": "Pumili ng Cover",
   "addText": "Magdagdag ng Teksto",
-  "addSticker": "Magdagdag ng Sticker",
   "fontStyleLabel": "Istilo ng Font",
   "textColorLabel": "Kulay ng Teksto",
-  "dragToDelete": "I-drag dito para burahin"
-,
+  "dragToDelete": "I-drag dito para burahin",
   "momentUpdatedSuccessfully": "Matagumpay na na-update ang moment",
   "failedToDeleteMoment": "Nabigo ang pag-delete ng moment",
   "failedToUpdateMoment": "Nabigo ang pag-update ng moment",
-
   "mbtiUpdatedSuccessfully": "Matagumpay na na-update ang MBTI",
   "pleaseSelectMbti": "Mangyaring pumili ng uri ng MBTI",
   "languageUpdatedSuccessfully": "Matagumpay na na-update ang wika",
-
   "bioHintCard": "Ang isang magandang bio ay tumutulong sa iba na makakonekta sa iyo. Ibahagi ang iyong mga interes, wika, o kung ano ang hinahanap mo.",
   "bioCounterStartWriting": "Magsimulang sumulat...",
   "bioCounterABitMore": "Magdagdag pa ng kaunti",
@@ -1403,8 +1458,6 @@
   "updateLocationCta": "I-update ang Lokasyon",
   "enterYourName": "Ilagay ang iyong pangalan",
   "unsavedChanges": "Mayroon kang mga hindi pa nai-save na pagbabago",
-
-  "loadingLanguages": "Naglo-load ng mga wika...",
   "tapBelowToBrowseLanguages": "I-tap sa ibaba upang mag-browse mula sa {count} wika",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1417,9 +1470,7 @@
   "browseLanguages": "I-browse ang mga Wika",
   "yourLearningLanguageIsPrefix": "Ang iyong wikang pinag-aaralan ay ",
   "yourNativeLanguageIsPrefix": "Ang iyong katutubong wika ay ",
-
   "profileCompleteProgress": "kumpleto",
-
   "drawerPreferences": "Mga Kagustuhan",
   "drawerStorage": "Storage",
   "drawerReports": "Mga Ulat",
@@ -1436,7 +1487,6 @@
   "aboutBananatalkTagline": "Kumonekta sa mga nagaaral ng wika sa buong mundo at paunlarin ang iyong mga kasanayan sa pamamagitan ng tunay na pag-uusap.",
   "aboutCopyright": "© 2024 Bananatalk. Lahat ng karapatan ay nakalaan.",
   "logoutFailedPrefix": "Nabigo ang pag-logout",
-
   "profileVisitorsTitle": "Mga Bisita ng Profile",
   "visitorStatistics": "Estadistika ng Bisita",
   "visitorsTotalVisits": "Kabuuang Pagbisita",
@@ -1451,24 +1501,19 @@
   "visitedDirect": "Direktang pagbisita",
   "visitorTrackingUnavailable": "Hindi available ang feature ng pagsubaybay sa bisita. Pakiupdate ang backend.",
   "visitorTrackingNotAvailableYet": "Hindi pa available ang pagsubaybay sa bisita",
-
   "noFollowersYetSubtitle": "Simulan ang pakikipag-ugnayan sa iba!",
   "partnerButton": "Kasosyo",
-
   "notFollowingAnyoneYetSubtitle": "Sundan ang mga tao upang makita ang kanilang mga update!",
   "unfollowButton": "I-unfollow",
-
   "profileThemeTitle": "Tema ng Profile",
   "themeAutoSwitch": "Awtomatikong Paglipat (Tema ng Sistema)",
   "themeSystemHint": "Kapag pinagana, susundin ng app ang mga setting ng tema ng iyong sistema",
   "themeLightMode": "Light Mode",
   "themeDarkMode": "Dark Mode",
-
   "myMoments": "Aking Mga Moment",
   "momentListView": "List View",
   "momentGridView": "Grid View",
   "shareLanguageLearningJourney": "Ibahagi ang iyong paglalakbay sa pag-aaral ng wika!",
-
   "deleteHighlightTitle": "Tanggalin ang Highlight",
   "deleteHighlightConfirm": "Tanggalin ang \"{title}\"? Hindi matatanggal ang mga kuwento sa loob nito.",
   "@deleteHighlightConfirm": {
@@ -1480,7 +1525,6 @@
   },
   "highlightDeletedSuccess": "Natanggal ang highlight",
   "highlightNewBadge": "Bago",
-
   "editMoment": "I-edit ang Moment",
   "momentDescriptionLabel": "Paglalarawan",
   "momentImagesLabel": "Mga Larawan",
@@ -1493,5 +1537,23 @@
   "updateAvailableBody": "Available ang bagong bersyon ng Bananatalk na may mga pagpapabuti at pag-aayos ng bug.",
   "updateNow": "I-update Ngayon",
   "updateLater": "Mamaya",
-  "updateOpenStoreFailed": "Hindi mabuksan ang store. Mangyaring mag-update mula sa App Store o Play Store."
+  "updateOpenStoreFailed": "Hindi mabuksan ang store. Mangyaring mag-update mula sa App Store o Play Store.",
+  "rememberMe": "Tandaan ako",
+  "passwordWeak": "Mahina",
+  "passwordFair": "Katamtaman",
+  "passwordStrong": "Malakas",
+  "passwordVeryStrong": "Napakalakas",
+  "showPassword": "Ipakita ang password",
+  "hidePassword": "Itago ang password",
+  "stepProgress": "Hakbang {current} ng {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

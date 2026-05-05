@@ -4408,4 +4408,30 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'ไม่สามารถเปิดร้านค้าได้ กรุณาอัปเดตจาก App Store หรือ Play Store';
+
+  @override
+  String get rememberMe => 'จดจำฉัน';
+
+  @override
+  String get passwordWeak => 'อ่อนแอ';
+
+  @override
+  String get passwordFair => 'พอใช้';
+
+  @override
+  String get passwordStrong => 'แข็งแรง';
+
+  @override
+  String get passwordVeryStrong => 'แข็งแรงมาก';
+
+  @override
+  String get showPassword => 'แสดงรหัสผ่าน';
+
+  @override
+  String get hidePassword => 'ซ่อนรหัสผ่าน';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'ขั้นตอน $current จาก $total';
+  }
 }

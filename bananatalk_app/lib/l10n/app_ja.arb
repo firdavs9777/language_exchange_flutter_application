@@ -507,12 +507,12 @@
   "addFriends": "友達を追加",
   "highlights": "ハイライト",
   "createHighlight": "ハイライトを作成",
-  "deleteHighlight": "ハイライトを削除しますか？",
+  "deleteHighlight": "ハイライトを削除",
   "editHighlight": "ハイライトを編集",
   "addMoreToStory": "ストーリーに追加",
   "noViewersYet": "まだ閲覧者がいません",
   "noReactionsYet": "まだリアクションがありません",
-  "leaveRoom": "退出しますか？",
+  "leaveRoom": "ルームを退出",
   "areYouSureLeaveRoom": "このボイスルームを退出しますか？",
   "stay": "残る",
   "leave": "退出",
@@ -715,12 +715,12 @@
   "connectWithNativeSpeakers": "ネイティブスピーカーとつなげます",
   "selectLearningLanguage": "学習中の言語を選択してください",
   "selectCurrentLevel": "現在のレベルを選択してください",
-  "beginner": "初級 — いくつかの単語を知っている",
-  "elementary": "初中級 — 簡単な文が作れる",
-  "intermediate": "中級 — 基本的な会話ができる",
-  "upperIntermediate": "中上級 — ほとんどの話題を議論できる",
-  "advanced": "上級 — 流暢に話せる",
-  "proficient": "熟達 — ネイティブレベル",
+  "beginner": "入門",
+  "elementary": "初級",
+  "intermediate": "中級",
+  "upperIntermediate": "中上級",
+  "advanced": "上級",
+  "proficient": "堪能",
   "showingPartnersByDistance": "距離順でパートナーを表示中",
   "enableLocationForResults": "距離ベースの結果を得るには位置情報を有効にしてください",
   "enable": "有効にする",
@@ -761,7 +761,6 @@
   "pleaseEnterBothEmailAndPassword": "メールアドレスとパスワードを入力してください",
   "pleaseEnterValidEmail": "有効なメールアドレスを入力してください",
   "loginSuccessful": "ログイン成功！",
-  "sessionExpired": "セッションが期限切れです。再度ログインしてください。",
   "stepOneOfTwo": "ステップ1/2",
   "createYourAccount": "アカウント作成",
   "basicInfoToGetStarted": "始めるための基本情報",
@@ -774,12 +773,9 @@
   "pleaseEnterYourName": "名前を入力してください",
   "pleaseEnterAPassword": "パスワードを入力してください",
   "passwordsDoNotMatch": "パスワードが一致しません",
-  "male": "男性",
-  "female": "女性",
   "otherGender": "その他",
   "continueWithGoogleAccount": "Googleアカウントで続けて\nスムーズな体験をお楽しみください",
   "signingYouIn": "サインイン中...",
-  "tryAgain": "もう一度試す",
   "backToSignInMethods": "サインイン方法に戻る",
   "securedByGoogle": "Googleのセキュリティ",
   "dataProtectedEncryption": "業界標準の暗号化でデータが保護されています",
@@ -866,7 +862,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "応答",
@@ -892,20 +890,18 @@
   "callAt": "{time}に通話",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "音声通話",
-  "tryAgain": "再試行",
   "voiceRoom": "ボイスルーム",
   "noVoiceRooms": "アクティブなボイスルームはありません",
   "createVoiceRoom": "ボイスルームを作成",
   "joinRoom": "ルームに参加",
-  "leaveRoom": "ルームを退出",
   "leaveRoomConfirm": "ルームを退出しますか？",
   "leaveRoomMessage": "本当にこのルームを退出しますか？",
-  "stay": "残る",
-  "leave": "退出",
   "roomTitle": "ルームタイトル",
   "roomTitleHint": "ルームタイトルを入力",
   "roomTopic": "トピック",
@@ -914,17 +910,20 @@
   "roomParticipants": "{count}人の参加者",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "最大{count}人",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "トピックを選択",
-  "selectLanguage": "言語を選択",
   "raiseHand": "手を挙げる",
   "lowerHand": "手を下げる",
   "handRaisedNotification": "手を挙げました！ホストにリクエストが表示されます。",
@@ -944,7 +943,9 @@
   "liveRoomsCount": "{count}ライブ",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "アクティブなルームはありません",
@@ -960,18 +961,25 @@
   "nPeople": "{count}人",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "{name}がホスト",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "ライブ",
   "joinLabel": "参加",
   "fullLabel": "満員",
   "justStarted": "開始したばかり",
   "allLanguages": "すべての言語",
   "allTopics": "すべてのトピック",
-
   "dataAndStorage": "データとストレージ",
   "manageStorageAndDownloads": "ストレージとダウンロードを管理",
   "storageUsage": "ストレージ使用量",
@@ -994,13 +1002,17 @@
   "clearCacheConfirmationFor": "{category}を削除しますか？",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size}が解放されます",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "計算中...",
@@ -1012,14 +1024,7 @@
   "addMissingFields": "追加: {fields}",
   "profilePicture": "プロフィール写真",
   "nativeSpeaker": "ネイティブスピーカー",
-  "beginner": "入門",
-  "elementary": "初級",
-  "intermediate": "中級",
-  "upperIntermediate": "中上級",
-  "advanced": "上級",
-  "proficient": "堪能",
   "peopleInterestedInTopic": "このトピックに興味がある人",
-  "noUsersFound": "ユーザーが見つかりません",
   "beFirstToAddTopic": "このトピックを興味に追加する最初の人になりましょう！",
   "recentMoments": "最近のモーメント",
   "seeAll": "すべて見る",
@@ -1030,7 +1035,6 @@
   "whenYouGetNotifications": "通知が届くとここに表示されます",
   "failedToLoadNotifications": "通知の読み込みに失敗しました",
   "clearAllNotificationsConfirm": "すべての通知を削除しますか？この操作は元に戻せません。",
-
   "tapToChange": "タップして変更",
   "noPictureSet": "写真未設定",
   "nameAndGender": "名前と性別",
@@ -1048,20 +1052,23 @@
   "howWellDoYouSpeak": "{language}をどのくらい話せますか？",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "言語",
   "languageLevelSetTo": "言語レベルが{level}に設定されました",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "更新に失敗しました",
   "profileUpdatedSuccessfully": "プロフィールを正常に更新しました",
   "genderRequired": "性別（必須）",
-
   "editHometown": "出身地を編集",
   "useCurrentLocation": "現在地を使用",
   "detecting": "検出中...",
@@ -1075,34 +1082,34 @@
   "locationServicesDisabled": "位置情報サービスが無効です。有効にしてください。",
   "locationPermissionPermanentlyDenied": "位置情報の許可が永久に拒否されています。",
   "unknown": "不明",
-
   "editBio": "自己紹介を編集",
   "bioUpdatedSuccessfully": "自己紹介が正常に更新されました",
   "tellOthersAboutYourself": "あなた自身について教えてください...",
   "charactersCount": "{count}/500文字",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "selectYourMbti": "MBTIを選択",
   "myBloodType": "私の血液型",
   "pleaseSelectABloodType": "血液型を選択してください",
   "bloodTypeSavedSuccessfully": "血液型を正常に保存しました",
   "hometownSavedSuccessfully": "出身地を正常に保存しました",
-
   "nativeLanguageRequired": "母国語（必須）",
   "languageToLearnRequired": "学習言語（必須）",
   "nativeLanguageCannotBeSame": "母国語は学習中の言語と同じにできません",
   "learningLanguageCannotBeSame": "学習言語は母国語と同じにできません",
   "pleaseSelectALanguage": "言語を選択してください",
-
   "editInterests": "興味を編集",
   "maxTopicsAllowed": "最大{count}個のトピックまで選択可能",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "トピックが正常に更新されました！",
@@ -1110,11 +1117,14 @@
   "selectedCount": "{count}/{max}選択済み",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "profilePictures": "プロフィール写真",
   "addImages": "画像を追加",
   "selectUpToImages": "最大5枚の画像を選択",
@@ -1133,7 +1143,9 @@
   "uploadImages": "{count}枚の画像をアップロード",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "画像が正常に削除されました",
@@ -1147,7 +1159,9 @@
   "youHaveUnuploadedImages": "{count}枚の画像が選択されていますがアップロードされていません。今すぐアップロードしますか？",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "破棄",
@@ -1155,34 +1169,42 @@
   "maxImagesInfo": "最大{max}枚の画像をアップロードできます。現在: {current}/{max}\n一度に最大5枚の画像。",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "あと{count}枚しか追加できません。最大は{max}枚です。",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "一度に最大5枚の画像しかアップロードできません。最初の5枚のみが追加されます。",
   "canOnlyHaveMaxImages": "最大{max}枚の画像のみ持つことができます",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "画像サイズが10MBの制限を超えています",
   "unsupportedImageFormat": "サポートされていない画像形式",
   "pleaseSelectAtLeastOneImage": "アップロードする画像を少なくとも1枚選択してください",
-
   "basicInformation": "基本情報",
   "languageToLearn": "学習言語",
   "hometown": "出身地",
   "characters": "文字",
   "failedToLoadLanguages": "言語の読み込みに失敗しました",
-
   "studyHub": "学習ハブ",
   "dailyLearningJourney": "今日の学習の旅",
   "learnTab": "学習",
@@ -1305,22 +1327,13 @@
   "findYourPerfect": "理想の",
   "languagePartner": "言語パートナーを見つけよう",
   "learningLanguageLabel": "学習言語",
-  "languageLevel": "言語レベル",
-  "country": "国",
   "ageRange": "年齢範囲",
   "genderPreference": "性別の好み",
   "any": "すべて",
-  "male": "男性",
-  "female": "女性",
-  "other": "その他",
-  "newUsersOnly": "新規ユーザーのみ",
   "showNewUsersSubtitle": "過去6日間に参加したユーザーを表示",
-  "applyFilters": "フィルターを適用",
   "autoDetectLocation": "現在地を自動検出",
-  "detecting": "検出中...",
   "selectCountry": "国を選択",
   "anyCountry": "すべての国",
-  "searchCountry": "国を検索...",
   "loadingLanguages": "言語を読み込み中...",
   "minAge": "最小: {age}",
   "@minAge": {
@@ -1338,7 +1351,6 @@
       }
     }
   },
-
   "captionRequired": "キャプションは必須です",
   "captionTooLong": "キャプションは{maxLength}文字以内にしてください",
   "@captionTooLong": {
@@ -1388,27 +1400,80 @@
   },
   "chooseBackground": "背景を選択",
   "likedByXPeople": "{count}人がいいねしました",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count}件のコメント",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1件のコメント",
   "addAComment": "コメントを追加...",
   "viewXReplies": "{count}件の返信を表示",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "{count}人が閲覧",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count}時間前",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count}分前",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "ストーリーに返信しました",
   "mentionedYouInComment": "{name}がコメントであなたをメンションしました",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name}がコメントに返信しました",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name}がコメントにリアクションしました",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "ユーザーを検索...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "リアクションを追加",
   "attachImage": "画像を添付",
   "pickGif": "GIFを選択",
@@ -1416,28 +1481,20 @@
   "typeYourStory": "ストーリーを入力...",
   "selectBackground": "背景を選択",
   "highlightsTitle": "ハイライト",
-  "newHighlight": "新しいハイライト",
   "highlightTitle": "ハイライトタイトル",
-  "addToHighlight": "ハイライトに追加",
   "createNewHighlight": "新規作成",
-  "editHighlight": "ハイライトを編集",
-  "deleteHighlight": "ハイライトを削除",
   "selectStories": "ストーリーを選択",
   "selectCover": "カバーを選択",
   "addText": "テキストを追加",
-  "addSticker": "スタンプを追加",
   "fontStyleLabel": "フォントスタイル",
   "textColorLabel": "テキスト色",
-  "dragToDelete": "ここにドラッグして削除"
-,
+  "dragToDelete": "ここにドラッグして削除",
   "momentUpdatedSuccessfully": "モーメントが正常に更新されました",
   "failedToDeleteMoment": "モーメントの削除に失敗しました",
   "failedToUpdateMoment": "モーメントの更新に失敗しました",
-
   "mbtiUpdatedSuccessfully": "MBTIが正常に更新されました",
   "pleaseSelectMbti": "MBTIタイプを選択してください",
   "languageUpdatedSuccessfully": "言語が正常に更新されました",
-
   "bioHintCard": "充実した自己紹介は他のユーザーとの出会いを助けます。興味、使用言語、求めているものなどを共有しましょう。",
   "bioCounterStartWriting": "書き始めましょう...",
   "bioCounterABitMore": "もう少し書くとよいでしょう",
@@ -1464,8 +1521,6 @@
   "updateLocationCta": "位置情報を更新",
   "enterYourName": "名前を入力してください",
   "unsavedChanges": "未保存の変更があります",
-
-  "loadingLanguages": "言語を読み込み中...",
   "tapBelowToBrowseLanguages": "下をタップして{count}言語から選択",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1478,9 +1533,7 @@
   "browseLanguages": "言語を探す",
   "yourLearningLanguageIsPrefix": "学習中の言語：",
   "yourNativeLanguageIsPrefix": "母国語：",
-
   "profileCompleteProgress": "完了",
-
   "drawerPreferences": "設定",
   "drawerStorage": "ストレージ",
   "drawerReports": "レポート",
@@ -1497,7 +1550,6 @@
   "aboutBananatalkTagline": "世界中の語学学習者とつながり、実際の会話を通してスキルを向上させましょう。",
   "aboutCopyright": "© 2024 Bananatalk. 無断転載禁止。",
   "logoutFailedPrefix": "ログアウト失敗",
-
   "profileVisitorsTitle": "プロフィール訪問者",
   "visitorStatistics": "訪問者統計",
   "visitorsTotalVisits": "総訪問数",
@@ -1512,24 +1564,19 @@
   "visitedDirect": "直接訪問",
   "visitorTrackingUnavailable": "訪問者追跡機能は利用できません。バックエンドを更新してください。",
   "visitorTrackingNotAvailableYet": "訪問者追跡はまだ利用できません",
-
   "noFollowersYetSubtitle": "他のユーザーとつながり始めましょう！",
   "partnerButton": "パートナー",
-
   "notFollowingAnyoneYetSubtitle": "フォローして更新情報を確認しましょう！",
   "unfollowButton": "フォロー解除",
-
   "profileThemeTitle": "プロフィールテーマ",
   "themeAutoSwitch": "自動切替（システムテーマ）",
   "themeSystemHint": "有効にすると、アプリはシステムのテーマ設定に従います",
   "themeLightMode": "ライトモード",
   "themeDarkMode": "ダークモード",
-
   "myMoments": "マイモーメント",
   "momentListView": "リスト表示",
   "momentGridView": "グリッド表示",
   "shareLanguageLearningJourney": "語学学習の旅をシェアしよう！",
-
   "deleteHighlightTitle": "ハイライトを削除",
   "deleteHighlightConfirm": "「{title}」を削除しますか？中のストーリーは削除されません。",
   "@deleteHighlightConfirm": {
@@ -1541,7 +1588,6 @@
   },
   "highlightDeletedSuccess": "ハイライトを削除しました",
   "highlightNewBadge": "新着",
-
   "editMoment": "モーメントを編集",
   "momentDescriptionLabel": "説明",
   "momentImagesLabel": "画像",
@@ -1554,5 +1600,23 @@
   "updateAvailableBody": "改善とバグ修正を含むBananatalkの新しいバージョンが利用可能です。",
   "updateNow": "今すぐアップデート",
   "updateLater": "後で",
-  "updateOpenStoreFailed": "ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。"
+  "updateOpenStoreFailed": "ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。",
+  "rememberMe": "ログイン情報を保存",
+  "passwordWeak": "弱い",
+  "passwordFair": "普通",
+  "passwordStrong": "強い",
+  "passwordVeryStrong": "非常に強い",
+  "showPassword": "パスワードを表示",
+  "hidePassword": "パスワードを非表示",
+  "stepProgress": "ステップ {current} / {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

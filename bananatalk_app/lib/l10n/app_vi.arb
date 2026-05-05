@@ -489,7 +489,6 @@
   "learningLanguage": "Đang học {language}",
   "noPartnersFound": "Không tìm thấy đối tác",
   "noUsersFoundForLanguages": "Không tìm thấy người dùng nói {learning} bản ngữ hoặc muốn học {native}.",
-  "tryAdjustingFilters": "Thử điều chỉnh bộ lọc",
   "removeAllFilters": "Xóa tất cả bộ lọc",
   "browseAllUsers": "Xem tất cả người dùng",
   "allCaughtUp": "Đã xem hết!",
@@ -499,8 +498,6 @@
   "startOver": "Bắt đầu lại",
   "changeFilters": "Thay đổi bộ lọc",
   "findingPartners": "Đang tìm đối tác...",
-  "somethingWentWrong": "Đã xảy ra lỗi",
-  "retry": "Thử lại",
   "setLocationReminder": "Đặt vị trí để tìm đối tác gần bạn",
   "updateLocationReminder": "Cập nhật vị trí để có kết quả tốt hơn",
   "male": "Nam",
@@ -532,12 +529,11 @@
   "seeUserCountsPerCountry": "Xem số người dùng theo quốc gia",
   "upgradeToVip": "Nâng cấp lên VIP",
   "searchByCity": "Tìm theo thành phố",
-  "loading": "Đang tải...",
   "usersWorldwide": "{count} người dùng trên toàn thế giới",
   "noUsersFound": "Không tìm thấy người dùng",
   "tryDifferentCity": "Thử thành phố khác",
   "usersCount": "{count} người dùng",
-  "searchCountry": "Tìm quốc gia",
+  "searchCountry": "Tìm kiếm quốc gia...",
   "wave": "Vẫy tay",
   "newUser": "Người dùng mới",
   "warningPermanent": "Cảnh báo: Hành động này là vĩnh viễn!",
@@ -702,7 +698,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "Chấp nhận",
@@ -728,11 +726,12 @@
   "callAt": "Cuộc gọi lúc {time}",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "Cuộc gọi thoại",
-  "tryAgain": "Thử lại",
   "voiceRoom": "Phòng thoại",
   "noVoiceRooms": "Không có phòng thoại đang hoạt động",
   "createVoiceRoom": "Tạo phòng thoại",
@@ -740,8 +739,6 @@
   "leaveRoom": "Rời phòng",
   "leaveRoomConfirm": "Rời phòng?",
   "leaveRoomMessage": "Bạn có chắc muốn rời khỏi phòng này không?",
-  "stay": "Ở lại",
-  "leave": "Rời đi",
   "roomTitle": "Tiêu đề phòng",
   "roomTitleHint": "Nhập tiêu đề phòng",
   "roomTopic": "Chủ đề",
@@ -750,17 +747,20 @@
   "roomParticipants": "{count} người tham gia",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "Tối đa {count} người",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "Chọn chủ đề",
-  "selectLanguage": "Chọn ngôn ngữ",
   "raiseHand": "Giơ tay",
   "lowerHand": "Hạ tay",
   "handRaisedNotification": "Đã giơ tay! Chủ phòng sẽ thấy yêu cầu của bạn.",
@@ -780,7 +780,9 @@
   "liveRoomsCount": "{count} đang phát",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "Không có phòng đang hoạt động",
@@ -796,18 +798,25 @@
   "nPeople": "{count} người",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "Tổ chức bởi {name}",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "TRỰC TIẾP",
   "joinLabel": "Tham gia",
   "fullLabel": "Đã đầy",
   "justStarted": "Vừa bắt đầu",
   "allLanguages": "Tất cả ngôn ngữ",
   "allTopics": "Tất cả chủ đề",
-
   "dataAndStorage": "Dữ liệu và Bộ nhớ",
   "manageStorageAndDownloads": "Quản lý bộ nhớ và tải xuống",
   "storageUsage": "Sử dụng Bộ nhớ",
@@ -830,18 +839,21 @@
   "clearCacheConfirmationFor": "Xóa {category}?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} sẽ được giải phóng",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "Đang tính toán...",
   "noDataToShow": "Không có dữ liệu để hiển thị",
-
   "profileCompletion": "Hoàn thành hồ sơ",
   "justGettingStarted": "Mới bắt đầu",
   "lookingGood": "Nhìn tốt!",
@@ -860,11 +872,10 @@
   "whenYouGetNotifications": "Khi bạn nhận được thông báo, chúng sẽ hiển thị ở đây",
   "failedToLoadNotifications": "Không thể tải thông báo",
   "clearAllNotificationsConfirm": "Bạn có chắc muốn xóa tất cả thông báo? Hành động này không thể hoàn tác.",
-
   "tapToChange": "Nhấn để thay đổi",
   "noPictureSet": "Chưa đặt ảnh",
   "nameAndGender": "Tên và Giới tính",
-  "languageLevel": "Trình độ Ngôn ngữ",
+  "languageLevel": "Trình độ ngôn ngữ",
   "personalInformation": "Thông tin Cá nhân",
   "mbti": "MBTI",
   "topicsOfInterest": "Chủ đề Quan tâm",
@@ -878,14 +889,18 @@
   "howWellDoYouSpeak": "Bạn nói {language} tốt đến đâu?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "ngôn ngữ",
   "languageLevelSetTo": "Trình độ ngôn ngữ đặt là {level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "Cập nhật thất bại",
@@ -910,7 +925,9 @@
   "charactersCount": "{count}/500 ký tự",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectYourMbti": "Chọn MBTI",
@@ -927,7 +944,9 @@
   "maxTopicsAllowed": "Tối đa {count} chủ đề",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "Cập nhật chủ đề thành công!",
@@ -935,8 +954,12 @@
   "selectedCount": "{count}/{max} đã chọn",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "Ảnh Hồ sơ",
@@ -957,7 +980,9 @@
   "uploadImages": "Tải lên {count} Ảnh",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "Đã xóa ảnh",
@@ -971,7 +996,9 @@
   "youHaveUnuploadedImages": "{count} ảnh chưa tải. Tải ngay?",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "Hủy",
@@ -979,22 +1006,32 @@
   "maxImagesInfo": "Tối đa {max} ảnh. Hiện tại: {current}/{max}",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "Chỉ thêm được {count} ảnh nữa. Tối đa {max}.",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "Tối đa 5 ảnh mỗi lần",
   "canOnlyHaveMaxImages": "Tối đa {max} ảnh",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "Kích thước vượt quá 10MB",
@@ -1005,7 +1042,6 @@
   "hometown": "Quê quán",
   "characters": "ký tự",
   "failedToLoadLanguages": "Tải ngôn ngữ thất bại",
-
   "studyHub": "Trung tâm học tập",
   "dailyLearningJourney": "Hành trình học tập hàng ngày của bạn",
   "learnTab": "Học",
@@ -1128,22 +1164,13 @@
   "findYourPerfect": "Tìm người bạn",
   "languagePartner": "học ngôn ngữ hoàn hảo",
   "learningLanguageLabel": "Ngôn ngữ đang học",
-  "languageLevel": "Trình độ ngôn ngữ",
-  "country": "Quốc gia",
   "ageRange": "Khoảng tuổi",
   "genderPreference": "Sở thích giới tính",
   "any": "Bất kỳ",
-  "male": "Nam",
-  "female": "Nữ",
-  "other": "Khác",
-  "newUsersOnly": "Chỉ người dùng mới",
   "showNewUsersSubtitle": "Hiển thị người dùng đã tham gia trong 6 ngày qua",
-  "applyFilters": "Áp dụng bộ lọc",
   "autoDetectLocation": "Tự động phát hiện vị trí của tôi",
-  "detecting": "Đang phát hiện...",
   "selectCountry": "Chọn quốc gia",
   "anyCountry": "Bất kỳ quốc gia nào",
-  "searchCountry": "Tìm kiếm quốc gia...",
   "loadingLanguages": "Đang tải ngôn ngữ...",
   "minAge": "Tối thiểu: {age}",
   "@minAge": {
@@ -1161,7 +1188,6 @@
       }
     }
   },
-
   "captionRequired": "Chú thích là bắt buộc",
   "captionTooLong": "Chú thích phải có {maxLength} ký tự trở xuống",
   "@captionTooLong": {
@@ -1211,26 +1237,80 @@
   },
   "chooseBackground": "Chọn hình nền",
   "likedByXPeople": "{count} người đã thích",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} bình luận",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 bình luận",
   "addAComment": "Thêm bình luận...",
   "viewXReplies": "Xem {count} phản hồi",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "Đã xem bởi {count}",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count} giờ trước",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count} phút trước",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "Đã trả lời tin của bạn",
   "mentionedYouInComment": "{name} đã nhắc đến bạn trong bình luận",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} đã trả lời bình luận của bạn",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} đã phản ứng bình luận của bạn",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "searchUsers": "Tìm kiếm người dùng...",
   "addReaction": "Thêm phản ứng",
   "attachImage": "Đính kèm ảnh",
@@ -1251,16 +1331,13 @@
   "addSticker": "Thêm nhãn dán",
   "fontStyleLabel": "Kiểu chữ",
   "textColorLabel": "Màu chữ",
-  "dragToDelete": "Kéo vào đây để xóa"
-,
+  "dragToDelete": "Kéo vào đây để xóa",
   "momentUpdatedSuccessfully": "Khoảnh khắc đã được cập nhật thành công",
   "failedToDeleteMoment": "Xóa khoảnh khắc thất bại",
   "failedToUpdateMoment": "Cập nhật khoảnh khắc thất bại",
-
   "mbtiUpdatedSuccessfully": "Cập nhật MBTI thành công",
   "pleaseSelectMbti": "Vui lòng chọn loại MBTI",
   "languageUpdatedSuccessfully": "Cập nhật ngôn ngữ thành công",
-
   "bioHintCard": "Một tiểu sử hay giúp người khác kết nối với bạn hơn. Hãy chia sẻ sở thích, ngôn ngữ hoặc điều bạn đang tìm kiếm.",
   "bioCounterStartWriting": "Bắt đầu viết...",
   "bioCounterABitMore": "Thêm một chút nữa sẽ tốt hơn",
@@ -1287,8 +1364,6 @@
   "updateLocationCta": "Cập nhật vị trí",
   "enterYourName": "Nhập tên của bạn",
   "unsavedChanges": "Bạn có những thay đổi chưa được lưu",
-
-  "loadingLanguages": "Đang tải ngôn ngữ...",
   "tapBelowToBrowseLanguages": "Nhấn bên dưới để duyệt {count} ngôn ngữ",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1301,9 +1376,7 @@
   "browseLanguages": "Xem các ngôn ngữ",
   "yourLearningLanguageIsPrefix": "Ngôn ngữ bạn đang học là ",
   "yourNativeLanguageIsPrefix": "Ngôn ngữ mẹ đẻ của bạn là ",
-
   "profileCompleteProgress": "hoàn thành",
-
   "drawerPreferences": "Tùy chọn",
   "drawerStorage": "Bộ nhớ",
   "drawerReports": "Báo cáo",
@@ -1320,7 +1393,6 @@
   "aboutBananatalkTagline": "Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.",
   "aboutCopyright": "© 2024 Bananatalk. Tất cả các quyền được bảo lưu.",
   "logoutFailedPrefix": "Đăng xuất thất bại",
-
   "profileVisitorsTitle": "Người xem hồ sơ",
   "visitorStatistics": "Thống kê lượt xem",
   "visitorsTotalVisits": "Tổng lượt xem",
@@ -1335,24 +1407,19 @@
   "visitedDirect": "Truy cập trực tiếp",
   "visitorTrackingUnavailable": "Tính năng theo dõi người xem không khả dụng. Vui lòng cập nhật backend.",
   "visitorTrackingNotAvailableYet": "Theo dõi người xem chưa khả dụng",
-
   "noFollowersYetSubtitle": "Hãy bắt đầu kết nối với người khác!",
   "partnerButton": "Đối tác",
-
   "notFollowingAnyoneYetSubtitle": "Bắt đầu theo dõi mọi người để xem cập nhật của họ!",
   "unfollowButton": "Bỏ theo dõi",
-
   "profileThemeTitle": "Giao diện hồ sơ",
   "themeAutoSwitch": "Tự động chuyển (Giao diện hệ thống)",
   "themeSystemHint": "Khi bật, ứng dụng sẽ theo cài đặt giao diện hệ thống của bạn",
   "themeLightMode": "Chế độ sáng",
   "themeDarkMode": "Chế độ tối",
-
   "myMoments": "Khoảnh khắc của tôi",
   "momentListView": "Xem danh sách",
   "momentGridView": "Xem lưới",
   "shareLanguageLearningJourney": "Chia sẻ hành trình học ngôn ngữ của bạn!",
-
   "deleteHighlightTitle": "Xóa nổi bật",
   "deleteHighlightConfirm": "Xóa \"{title}\"? Các câu chuyện bên trong sẽ không bị xóa.",
   "@deleteHighlightConfirm": {
@@ -1364,7 +1431,6 @@
   },
   "highlightDeletedSuccess": "Đã xóa nổi bật",
   "highlightNewBadge": "Mới",
-
   "editMoment": "Chỉnh sửa khoảnh khắc",
   "momentDescriptionLabel": "Mô tả",
   "momentImagesLabel": "Hình ảnh",
@@ -1377,5 +1443,23 @@
   "updateAvailableBody": "Có phiên bản Bananatalk mới với các cải tiến và sửa lỗi.",
   "updateNow": "Cập nhật ngay",
   "updateLater": "Để sau",
-  "updateOpenStoreFailed": "Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store."
+  "updateOpenStoreFailed": "Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store.",
+  "rememberMe": "Ghi nhớ tôi",
+  "passwordWeak": "Yếu",
+  "passwordFair": "Khá",
+  "passwordStrong": "Mạnh",
+  "passwordVeryStrong": "Rất mạnh",
+  "showPassword": "Hiện mật khẩu",
+  "hidePassword": "Ẩn mật khẩu",
+  "stepProgress": "Bước {current} / {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

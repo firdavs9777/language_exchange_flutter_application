@@ -500,7 +500,7 @@
   "wallpaperSaved": "वॉलपेपर स्थानीय रूप से सहेजा गया",
   "typeDeleteToConfirm": "पुष्टि के लिए DELETE टाइप करें",
   "storyArchive": "स्टोरी आर्काइव",
-  "newHighlight": "नई हाइलाइट",
+  "newHighlight": "नया हाइलाइट",
   "addToHighlight": "हाइलाइट में जोड़ें",
   "repost": "रीपोस्ट",
   "repostFeatureSoon": "रीपोस्ट सुविधा जल्द आ रही है",
@@ -508,14 +508,14 @@
   "addFriends": "दोस्त जोड़ें",
   "highlights": "हाइलाइट्स",
   "createHighlight": "हाइलाइट बनाएं",
-  "deleteHighlight": "हाइलाइट हटाएं?",
+  "deleteHighlight": "हाइलाइट हटाएं",
   "editHighlight": "हाइलाइट संपादित करें",
   "addMoreToStory": "स्टोरी में और जोड़ें",
   "noViewersYet": "अभी तक कोई दर्शक नहीं",
   "noReactionsYet": "अभी तक कोई प्रतिक्रिया नहीं",
-  "leaveRoom": "कमरा छोड़ें?",
+  "leaveRoom": "रूम छोड़ें",
   "areYouSureLeaveRoom": "क्या आप वाकई इस वॉयस रूम को छोड़ना चाहते हैं?",
-  "stay": "रुकें",
+  "stay": "रहें",
   "leave": "छोड़ें",
   "enableGPS": "GPS सक्षम करें",
   "wavedToUser": "आपने {name} को हाथ हिलाया!",
@@ -654,7 +654,6 @@
   "learningLanguage": "{language} सीख रहा है",
   "noPartnersFound": "कोई साझेदार नहीं मिला",
   "noUsersFoundForLanguages": "कोई उपयोगकर्ता नहीं मिला जो {learning} मातृभाषा के रूप में बोलता हो या {native} सीखना चाहता हो।",
-  "tryAdjustingFilters": "अपने फ़िल्टर समायोजित करें",
   "removeAllFilters": "सभी फ़िल्टर हटाएं",
   "browseAllUsers": "सभी उपयोगकर्ता देखें",
   "allCaughtUp": "सब देख लिया!",
@@ -664,8 +663,6 @@
   "startOver": "फिर से शुरू करें",
   "changeFilters": "फ़िल्टर बदलें",
   "findingPartners": "साझेदार खोजे जा रहे हैं...",
-  "somethingWentWrong": "कुछ गलत हो गया",
-  "retry": "पुनः प्रयास",
   "setLocationReminder": "पास के साझेदार खोजने के लिए अपना स्थान सेट करें",
   "updateLocationReminder": "बेहतर परिणामों के लिए अपना स्थान अपडेट करें",
   "male": "पुरुष",
@@ -697,12 +694,11 @@
   "seeUserCountsPerCountry": "प्रति देश उपयोगकर्ता संख्या देखें",
   "upgradeToVip": "VIP में अपग्रेड करें",
   "searchByCity": "शहर से खोजें",
-  "loading": "लोड हो रहा है...",
   "usersWorldwide": "दुनिया भर में {count} उपयोगकर्ता",
   "noUsersFound": "कोई उपयोगकर्ता नहीं मिला",
   "tryDifferentCity": "कोई अलग शहर आज़माएं",
   "usersCount": "{count} उपयोगकर्ता",
-  "searchCountry": "देश खोजें",
+  "searchCountry": "देश खोजें...",
   "wave": "अभिवादन करें",
   "newUser": "नया उपयोगकर्ता",
   "warningPermanent": "चेतावनी: यह क्रिया स्थायी है!",
@@ -765,7 +761,6 @@
   "pleaseEnterBothEmailAndPassword": "कृपया ईमेल और पासवर्ड दोनों दर्ज करें",
   "pleaseEnterValidEmail": "कृपया एक वैध ईमेल दर्ज करें",
   "loginSuccessful": "लॉगिन सफल!",
-  "sessionExpired": "सत्र समाप्त। कृपया फिर से लॉगिन करें।",
   "stepOneOfTwo": "चरण 1 / 2",
   "createYourAccount": "अपना खाता बनाएं",
   "basicInfoToGetStarted": "शुरू करने के लिए बुनियादी जानकारी",
@@ -778,12 +773,9 @@
   "pleaseEnterYourName": "कृपया अपना नाम दर्ज करें",
   "pleaseEnterAPassword": "कृपया पासवर्ड दर्ज करें",
   "passwordsDoNotMatch": "पासवर्ड मेल नहीं खाते",
-  "male": "पुरुष",
-  "female": "महिला",
   "otherGender": "अन्य",
   "continueWithGoogleAccount": "अपने Google खाते से जारी रखें\nसुगम अनुभव के लिए",
   "signingYouIn": "साइन इन हो रहा है...",
-  "tryAgain": "पुनः प्रयास करें",
   "backToSignInMethods": "साइन इन विधियों पर वापस",
   "securedByGoogle": "Google द्वारा सुरक्षित",
   "dataProtectedEncryption": "आपका डेटा मानक एन्क्रिप्शन से सुरक्षित है",
@@ -871,7 +863,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "स्वीकार करें",
@@ -897,20 +891,18 @@
   "callAt": "{time} पर कॉल",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "ऑडियो कॉल",
-  "tryAgain": "पुनः प्रयास करें",
   "voiceRoom": "वॉयस रूम",
   "noVoiceRooms": "कोई सक्रिय वॉयस रूम नहीं",
   "createVoiceRoom": "वॉयस रूम बनाएं",
   "joinRoom": "रूम में शामिल हों",
-  "leaveRoom": "रूम छोड़ें",
   "leaveRoomConfirm": "रूम छोड़ें?",
   "leaveRoomMessage": "क्या आप वाकई इस रूम को छोड़ना चाहते हैं?",
-  "stay": "रहें",
-  "leave": "छोड़ें",
   "roomTitle": "रूम का शीर्षक",
   "roomTitleHint": "रूम का शीर्षक दर्ज करें",
   "roomTopic": "विषय",
@@ -919,17 +911,20 @@
   "roomParticipants": "{count} प्रतिभागी",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "अधिकतम {count} प्रतिभागी",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "विषय चुनें",
-  "selectLanguage": "भाषा चुनें",
   "raiseHand": "हाथ उठाएं",
   "lowerHand": "हाथ नीचे करें",
   "handRaisedNotification": "हाथ उठाया! होस्ट आपका अनुरोध देखेगा।",
@@ -949,7 +944,9 @@
   "liveRoomsCount": "{count} लाइव",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "कोई सक्रिय रूम नहीं",
@@ -965,18 +962,25 @@
   "nPeople": "{count} लोग",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "{name} द्वारा होस्ट किया गया",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "लाइव",
   "joinLabel": "शामिल हों",
   "fullLabel": "भरा हुआ",
   "justStarted": "अभी शुरू हुआ",
   "allLanguages": "सभी भाषाएँ",
   "allTopics": "सभी विषय",
-
   "dataAndStorage": "डेटा और स्टोरेज",
   "manageStorageAndDownloads": "स्टोरेज और डाउनलोड प्रबंधित करें",
   "storageUsage": "स्टोरेज उपयोग",
@@ -999,18 +1003,21 @@
   "clearCacheConfirmationFor": "{category} साफ़ करें?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} खाली होगा",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "गणना हो रही है...",
   "noDataToShow": "दिखाने के लिए कोई डेटा नहीं",
-
   "profileCompletion": "प्रोफ़ाइल पूर्णता",
   "justGettingStarted": "अभी शुरुआत हुई है",
   "lookingGood": "अच्छा लग रहा है!",
@@ -1029,7 +1036,6 @@
   "whenYouGetNotifications": "जब आपको सूचनाएं मिलेंगी, वे यहां दिखाई देंगी",
   "failedToLoadNotifications": "सूचनाएं लोड करने में विफल",
   "clearAllNotificationsConfirm": "क्या आप सभी सूचनाएं हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
-
   "tapToChange": "बदलने के लिए टैप करें",
   "noPictureSet": "कोई तस्वीर नहीं",
   "nameAndGender": "नाम और लिंग",
@@ -1047,14 +1053,18 @@
   "howWellDoYouSpeak": "{language} कितनी अच्छी तरह बोलते हैं?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "भाषा",
   "languageLevelSetTo": "भाषा स्तर {level} पर सेट",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "अपडेट विफल",
@@ -1062,7 +1072,7 @@
   "genderRequired": "लिंग (आवश्यक)",
   "editHometown": "गृहनगर संपादित करें",
   "useCurrentLocation": "वर्तमान स्थान का उपयोग करें",
-  "detecting": "पता लगा रहा है...",
+  "detecting": "पहचाना जा रहा है...",
   "getCurrentLocation": "वर्तमान स्थान प्राप्त करें",
   "country": "देश",
   "city": "शहर",
@@ -1079,7 +1089,9 @@
   "charactersCount": "{count}/500 अक्षर",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectYourMbti": "MBTI चुनें",
@@ -1096,7 +1108,9 @@
   "maxTopicsAllowed": "अधिकतम {count} विषय",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "विषय अपडेट हुए!",
@@ -1104,8 +1118,12 @@
   "selectedCount": "{count}/{max} चयनित",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "प्रोफ़ाइल तस्वीरें",
@@ -1126,7 +1144,9 @@
   "uploadImages": "{count} तस्वीर अपलोड करें",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "तस्वीर हटाई गई",
@@ -1140,7 +1160,9 @@
   "youHaveUnuploadedImages": "{count} तस्वीरें अपलोड नहीं हुईं। अभी करें?",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "छोड़ें",
@@ -1148,22 +1170,32 @@
   "maxImagesInfo": "अधिकतम {max} तस्वीरें। वर्तमान: {current}/{max}",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "केवल {count} और जोड़ सकते हैं। अधिकतम {max}।",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "एक बार में अधिकतम 5 तस्वीरें",
   "canOnlyHaveMaxImages": "अधिकतम {max} तस्वीरें",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "आकार 10MB से अधिक",
@@ -1174,7 +1206,6 @@
   "hometown": "गृहनगर",
   "characters": "अक्षर",
   "failedToLoadLanguages": "भाषाएं लोड विफल",
-
   "studyHub": "अध्ययन केंद्र",
   "dailyLearningJourney": "आपकी दैनिक सीखने की यात्रा",
   "learnTab": "सीखें",
@@ -1297,23 +1328,14 @@
   "findYourPerfect": "अपना आदर्श",
   "languagePartner": "भाषा साथी खोजें",
   "learningLanguageLabel": "सीखने की भाषा",
-  "languageLevel": "भाषा स्तर",
-  "country": "देश",
   "ageRange": "आयु सीमा",
   "genderPreference": "लिंग प्राथमिकता",
   "any": "कोई भी",
-  "male": "पुरुष",
-  "female": "महिला",
-  "other": "अन्य",
-  "newUsersOnly": "केवल नए उपयोगकर्ता",
   "showNewUsersSubtitle": "पिछले 6 दिनों में शामिल हुए उपयोगकर्ता दिखाएं",
-  "applyFilters": "फ़िल्टर लागू करें",
   "autoDetectLocation": "मेरा स्थान स्वचालित रूप से पहचानें",
-  "detecting": "पहचाना जा रहा है...",
   "selectCountry": "देश चुनें",
   "anyCountry": "कोई भी देश",
-  "searchCountry": "देश खोजें...",
-  "loadingLanguages": "भाषाएं लोड हो रही हैं...",
+  "loadingLanguages": "भाषाएँ लोड हो रही हैं...",
   "minAge": "न्यूनतम: {age}",
   "@minAge": {
     "placeholders": {
@@ -1330,7 +1352,6 @@
       }
     }
   },
-
   "captionRequired": "कैप्शन आवश्यक है",
   "captionTooLong": "कैप्शन {maxLength} अक्षर या उससे कम होना चाहिए",
   "@captionTooLong": {
@@ -1380,27 +1401,80 @@
   },
   "chooseBackground": "पृष्ठभूमि चुनें",
   "likedByXPeople": "{count} लोगों ने पसंद किया",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} टिप्पणियाँ",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 टिप्पणी",
   "addAComment": "टिप्पणी जोड़ें...",
   "viewXReplies": "{count} उत्तर देखें",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "{count} ने देखा",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count} घंटे पहले",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count} मिनट पहले",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "आपकी स्टोरी का जवाब दिया",
   "mentionedYouInComment": "{name} ने आपको एक टिप्पणी में उल्लेख किया",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} ने आपकी टिप्पणी का जवाब दिया",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} ने आपकी टिप्पणी पर प्रतिक्रिया दी",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "उपयोगकर्ता खोजें...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "प्रतिक्रिया जोड़ें",
   "attachImage": "छवि संलग्न करें",
   "pickGif": "GIF चुनें",
@@ -1408,28 +1482,20 @@
   "typeYourStory": "अपनी कहानी लिखें...",
   "selectBackground": "पृष्ठभूमि चुनें",
   "highlightsTitle": "हाइलाइट्स",
-  "newHighlight": "नया हाइलाइट",
   "highlightTitle": "हाइलाइट शीर्षक",
-  "addToHighlight": "हाइलाइट में जोड़ें",
   "createNewHighlight": "नया बनाएं",
-  "editHighlight": "हाइलाइट संपादित करें",
-  "deleteHighlight": "हाइलाइट हटाएं",
   "selectStories": "कहानियां चुनें",
   "selectCover": "कवर चुनें",
   "addText": "टेक्स्ट जोड़ें",
-  "addSticker": "स्टिकर जोड़ें",
   "fontStyleLabel": "फ़ॉन्ट शैली",
   "textColorLabel": "टेक्स्ट रंग",
-  "dragToDelete": "हटाने के लिए यहां खींचें"
-,
+  "dragToDelete": "हटाने के लिए यहां खींचें",
   "momentUpdatedSuccessfully": "मोमेंट सफलतापूर्वक अपडेट किया गया",
   "failedToDeleteMoment": "मोमेंट हटाने में विफल",
   "failedToUpdateMoment": "मोमेंट अपडेट करने में विफल",
-
   "mbtiUpdatedSuccessfully": "MBTI सफलतापूर्वक अपडेट हो गया",
   "pleaseSelectMbti": "कृपया एक MBTI प्रकार चुनें",
   "languageUpdatedSuccessfully": "भाषा सफलतापूर्वक अपडेट हो गई",
-
   "bioHintCard": "एक अच्छी बायो दूसरों को आपसे जुड़ने में मदद करती है। अपनी रुचियाँ, भाषाएँ या आप क्या ढूंढ रहे हैं, साझा करें।",
   "bioCounterStartWriting": "लिखना शुरू करें...",
   "bioCounterABitMore": "थोड़ा और लिखें",
@@ -1456,8 +1522,6 @@
   "updateLocationCta": "स्थान अपडेट करें",
   "enterYourName": "अपना नाम दर्ज करें",
   "unsavedChanges": "आपके पास सहेजे नहीं गए परिवर्तन हैं",
-
-  "loadingLanguages": "भाषाएँ लोड हो रही हैं...",
   "tapBelowToBrowseLanguages": "{count} भाषाओं में से ब्राउज़ करने के लिए नीचे टैप करें",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1470,9 +1534,7 @@
   "browseLanguages": "भाषाएँ ब्राउज़ करें",
   "yourLearningLanguageIsPrefix": "आपकी सीखने की भाषा है ",
   "yourNativeLanguageIsPrefix": "आपकी मातृभाषा है ",
-
   "profileCompleteProgress": "पूर्ण",
-
   "drawerPreferences": "प्राथमिकताएँ",
   "drawerStorage": "संग्रहण",
   "drawerReports": "रिपोर्ट",
@@ -1489,7 +1551,6 @@
   "aboutBananatalkTagline": "दुनिया भर के भाषा सीखने वालों से जुड़ें और वास्तविक बातचीत के माध्यम से अपने कौशल में सुधार करें।",
   "aboutCopyright": "© 2024 Bananatalk. सर्वाधिकार सुरक्षित।",
   "logoutFailedPrefix": "लॉगआउट विफल",
-
   "profileVisitorsTitle": "प्रोफाइल विजिटर",
   "visitorStatistics": "विजिटर आँकड़े",
   "visitorsTotalVisits": "कुल विज़िट",
@@ -1504,24 +1565,19 @@
   "visitedDirect": "सीधी विज़िट",
   "visitorTrackingUnavailable": "विजिटर ट्रैकिंग सुविधा उपलब्ध नहीं है। कृपया बैकएंड अपडेट करें।",
   "visitorTrackingNotAvailableYet": "विजिटर ट्रैकिंग अभी उपलब्ध नहीं है",
-
   "noFollowersYetSubtitle": "दूसरों से जुड़ना शुरू करें!",
   "partnerButton": "साथी",
-
   "notFollowingAnyoneYetSubtitle": "लोगों को फॉलो करें और उनके अपडेट देखें!",
   "unfollowButton": "अनफॉलो",
-
   "profileThemeTitle": "प्रोफाइल थीम",
   "themeAutoSwitch": "ऑटो स्विच (सिस्टम थीम)",
   "themeSystemHint": "सक्षम होने पर, ऐप आपकी सिस्टम थीम सेटिंग्स का अनुसरण करेगा",
   "themeLightMode": "लाइट मोड",
   "themeDarkMode": "डार्क मोड",
-
   "myMoments": "मेरे मोमेंट्स",
   "momentListView": "सूची दृश्य",
   "momentGridView": "ग्रिड दृश्य",
   "shareLanguageLearningJourney": "अपनी भाषा सीखने की यात्रा साझा करें!",
-
   "deleteHighlightTitle": "हाइलाइट हटाएँ",
   "deleteHighlightConfirm": "\"{title}\" हटाएँ? इसके अंदर की स्टोरीज़ नहीं हटाई जाएंगी।",
   "@deleteHighlightConfirm": {
@@ -1533,7 +1589,6 @@
   },
   "highlightDeletedSuccess": "हाइलाइट हटाई गई",
   "highlightNewBadge": "नया",
-
   "editMoment": "मोमेंट संपादित करें",
   "momentDescriptionLabel": "विवरण",
   "momentImagesLabel": "छवियाँ",
@@ -1546,5 +1601,23 @@
   "updateAvailableBody": "Bananatalk का एक नया संस्करण सुधारों और बग फिक्स के साथ उपलब्ध है।",
   "updateNow": "अभी अपडेट करें",
   "updateLater": "बाद में",
-  "updateOpenStoreFailed": "स्टोर नहीं खुल सका। कृपया App Store या Play Store से अपडेट करें।"
+  "updateOpenStoreFailed": "स्टोर नहीं खुल सका। कृपया App Store या Play Store से अपडेट करें।",
+  "rememberMe": "मुझे याद रखें",
+  "passwordWeak": "कमज़ोर",
+  "passwordFair": "ठीक",
+  "passwordStrong": "मज़बूत",
+  "passwordVeryStrong": "बहुत मज़बूत",
+  "showPassword": "पासवर्ड दिखाएं",
+  "hidePassword": "पासवर्ड छिपाएं",
+  "stepProgress": "चरण {current} / {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

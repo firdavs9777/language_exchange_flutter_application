@@ -176,7 +176,7 @@
   "failedToSendMessage": "傳送訊息失敗",
   "dailyMessageLimitExceeded": "已超過每日訊息限制。升級為 VIP 以獲得無限訊息。",
   "cannotSendMessageUserMayBeBlocked": "無法傳送訊息。用戶可能已被封鎖。",
-  "sessionExpired": "工作階段已過期。請重新登入。",
+  "sessionExpired": "工作階段已過期，請重新登入。",
   "sendThisSticker": "傳送此貼圖？",
   "chooseHowYouWantToDeleteThisMessage": "選擇您要如何刪除此訊息：",
   "deleteForEveryone": "為所有人刪除",
@@ -500,19 +500,19 @@
   "wallpaperSaved": "桌布已儲存至本機",
   "storyArchive": "限時動態存檔",
   "newHighlight": "新精選",
-  "addToHighlight": "新增至精選",
+  "addToHighlight": "加入精選",
   "repost": "轉發",
   "repostFeatureSoon": "轉發功能即將推出",
   "closeFriends": "摯友",
   "addFriends": "新增好友",
   "highlights": "精選",
   "createHighlight": "建立精選",
-  "deleteHighlight": "刪除精選？",
+  "deleteHighlight": "刪除精選",
   "editHighlight": "編輯精選",
   "addMoreToStory": "新增更多至限時動態",
   "noViewersYet": "尚無觀看者",
   "noReactionsYet": "尚無反應",
-  "leaveRoom": "離開房間？",
+  "leaveRoom": "離開房間",
   "areYouSureLeaveRoom": "您確定要離開此語音房間嗎？",
   "stay": "留下",
   "leave": "離開",
@@ -522,7 +522,7 @@
   "failedToLoadProfile": "載入個人檔案失敗",
   "noFollowersYet": "尚無粉絲",
   "noFollowingYet": "尚未追蹤任何人",
-  "searchUsers": "搜尋用戶...",
+  "searchUsers": "搜尋使用者...",
   "noResultsFound": "找不到結果",
   "loadingFailed": "載入失敗",
   "copyLink": "複製連結",
@@ -637,7 +637,7 @@
   "messageSent": "訊息已傳送",
   "messageDeleted": "訊息已刪除",
   "messageEdited": "訊息已編輯",
-  "videoMustBeUnder1GB": "影片必須小於 1GB。",
+  "videoMustBeUnder1GB": "影片必須小於1GB。",
   "edited": "(已編輯)",
   "now": "剛剛",
   "weeksAgo": "{count}週前",
@@ -689,15 +689,15 @@
   "findingPartners": "尋找語伴中...",
   "setLocationReminder": "在個人資料中設定您的位置，優先顯示附近用戶。",
   "updateLocationReminder": "在個人資料 > 編輯中更新位置以獲得準確的附近結果。",
-  "male": "男",
-  "female": "女",
+  "male": "男性",
+  "female": "女性",
   "other": "其他",
   "browseMen": "瀏覽男性",
   "browseWomen": "瀏覽女性",
   "noMaleUsersFound": "未找到男性用戶",
   "noFemaleUsersFound": "未找到女性用戶",
   "vip": "VIP",
-  "newUsersOnly": "僅新用戶",
+  "newUsersOnly": "僅限新用戶",
   "showNewUsers": "顯示最近6天加入的用戶",
   "prioritizeNearby": "優先附近",
   "showNearbyFirst": "在結果中優先顯示附近用戶",
@@ -719,10 +719,10 @@
   "upgradeToVip": "升級VIP",
   "searchByCity": "搜索城市...",
   "usersWorldwide": "全球{count}人",
-  "noUsersFound": "未找到用戶",
+  "noUsersFound": "找不到用戶",
   "tryDifferentCity": "試試其他城市或國家",
   "usersCount": "{count}人",
-  "searchCountry": "搜索國家...",
+  "searchCountry": "搜尋國家...",
   "wave": "打招呼",
   "newUser": "NEW",
   "warningPermanent": "警告：此操作不可撤銷！",
@@ -739,12 +739,12 @@
   "connectWithNativeSpeakers": "我們會為您連結母語者",
   "selectLearningLanguage": "請選擇您正在學習的語言",
   "selectCurrentLevel": "請選擇您的當前程度",
-  "beginner": "入門 — 我認識一些單字",
-  "elementary": "初級 — 我能造簡單的句子",
-  "intermediate": "中級 — 我能進行基本對話",
-  "upperIntermediate": "中高級 — 我能討論大部分話題",
-  "advanced": "高級 — 我說得很流利",
-  "proficient": "精通 — 接近母語程度",
+  "beginner": "入門",
+  "elementary": "初級",
+  "intermediate": "中級",
+  "upperIntermediate": "中高級",
+  "advanced": "高級",
+  "proficient": "精通",
   "showingPartnersByDistance": "按距離排序顯示語伴",
   "enableLocationForResults": "啟用定位以獲取基於距離的結果",
   "enable": "啟用",
@@ -785,7 +785,6 @@
   "pleaseEnterBothEmailAndPassword": "請輸入電子郵件和密碼",
   "pleaseEnterValidEmail": "請輸入有效的電子郵件",
   "loginSuccessful": "登入成功！",
-  "sessionExpired": "工作階段已過期，請重新登入。",
   "stepOneOfTwo": "第1步，共2步",
   "createYourAccount": "建立帳號",
   "basicInfoToGetStarted": "開始前的基本資訊",
@@ -798,12 +797,9 @@
   "pleaseEnterYourName": "請輸入您的姓名",
   "pleaseEnterAPassword": "請輸入密碼",
   "passwordsDoNotMatch": "密碼不相符",
-  "male": "男",
-  "female": "女",
   "otherGender": "其他",
   "continueWithGoogleAccount": "使用Google帳號繼續\n享受無縫體驗",
   "signingYouIn": "正在登入...",
-  "tryAgain": "重試",
   "backToSignInMethods": "返回登入方式",
   "securedByGoogle": "由Google保障安全",
   "dataProtectedEncryption": "您的資料受到業界標準加密保護",
@@ -890,7 +886,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "接聽",
@@ -916,20 +914,18 @@
   "callAt": "{time}的通話",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "語音通話",
-  "tryAgain": "重試",
   "voiceRoom": "語音房間",
   "noVoiceRooms": "沒有活躍的語音房間",
   "createVoiceRoom": "建立語音房間",
   "joinRoom": "加入房間",
-  "leaveRoom": "離開房間",
   "leaveRoomConfirm": "離開房間？",
   "leaveRoomMessage": "確定要離開這個房間嗎？",
-  "stay": "留下",
-  "leave": "離開",
   "roomTitle": "房間標題",
   "roomTitleHint": "輸入房間標題",
   "roomTopic": "話題",
@@ -938,17 +934,20 @@
   "roomParticipants": "{count}位參與者",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "最多{count}位參與者",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "選擇話題",
-  "selectLanguage": "選擇語言",
   "raiseHand": "舉手",
   "lowerHand": "放下手",
   "handRaisedNotification": "已舉手！房主將看到您的請求。",
@@ -968,7 +967,9 @@
   "liveRoomsCount": "{count}個直播",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "沒有活躍房間",
@@ -984,18 +985,25 @@
   "nPeople": "{count}人",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "{name} 主持",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "直播中",
   "joinLabel": "加入",
   "fullLabel": "已滿",
   "justStarted": "剛剛開始",
   "allLanguages": "所有語言",
   "allTopics": "所有話題",
-
   "dataAndStorage": "數據與儲存",
   "manageStorageAndDownloads": "管理儲存和下載",
   "storageUsage": "儲存使用情況",
@@ -1018,13 +1026,17 @@
   "clearCacheConfirmationFor": "清除{category}？",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "將釋放{size}",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "計算中...",
@@ -1036,14 +1048,7 @@
   "addMissingFields": "新增: {fields}",
   "profilePicture": "大頭貼",
   "nativeSpeaker": "母語者",
-  "beginner": "入門",
-  "elementary": "初級",
-  "intermediate": "中級",
-  "upperIntermediate": "中高級",
-  "advanced": "高級",
-  "proficient": "精通",
   "peopleInterestedInTopic": "對此話題感興趣的人",
-  "noUsersFound": "找不到用戶",
   "beFirstToAddTopic": "成為第一個新增此話題的人！",
   "recentMoments": "最近動態",
   "seeAll": "查看全部",
@@ -1054,7 +1059,6 @@
   "whenYouGetNotifications": "收到通知後將在此顯示",
   "failedToLoadNotifications": "載入通知失敗",
   "clearAllNotificationsConfirm": "確定要清除所有通知嗎？此操作無法復原。",
-
   "tapToChange": "點擊更改",
   "noPictureSet": "尚未設定照片",
   "nameAndGender": "姓名與性別",
@@ -1072,14 +1076,18 @@
   "howWellDoYouSpeak": "您的{language}程度如何？",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "語言",
   "languageLevelSetTo": "語言程度已設為{level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "更新失敗",
@@ -1117,7 +1125,9 @@
   "maxTopicsAllowed": "最多允許{count}個話題",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "話題已更新！",
@@ -1125,7 +1135,9 @@
   "selectedCount": "已選{count}個",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "個人照片",
@@ -1133,7 +1145,9 @@
   "selectUpToImages": "選擇最多{count}張照片",
   "@selectUpToImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "takeAPhoto": "拍照",
@@ -1142,7 +1156,9 @@
   "uploadImages": "上傳{count}張照片",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageUploadedSuccessfully": "照片已上傳",
@@ -1156,7 +1172,6 @@
   "uploadingImages": "上傳照片中...",
   "imagesUploadedSuccessfully": "照片已上傳",
   "failedToUploadImages": "照片上傳失敗",
-
   "studyHub": "學習中心",
   "dailyLearningJourney": "您的每日學習之旅",
   "learnTab": "學習",
@@ -1253,7 +1268,6 @@
   "hearts": "愛心",
   "tapToSayHi": "點擊打個招呼！",
   "sendWaveToStart": "發送問候開始聊天",
-  "videoMustBeUnder1GB": "影片必須小於1GB。",
   "documentMustBeUnder50MB": "文件必須小於50MB。",
   "editWithin15Minutes": "訊息只能在15分鐘內編輯",
   "messageForwardedTo": "訊息已轉發給{count}位使用者",
@@ -1279,22 +1293,13 @@
   "findYourPerfect": "找到你的完美",
   "languagePartner": "語言夥伴",
   "learningLanguageLabel": "學習語言",
-  "languageLevel": "語言程度",
-  "country": "國家",
   "ageRange": "年齡範圍",
   "genderPreference": "性別偏好",
   "any": "任意",
-  "male": "男性",
-  "female": "女性",
-  "other": "其他",
-  "newUsersOnly": "僅限新用戶",
   "showNewUsersSubtitle": "顯示過去6天內加入的用戶",
-  "applyFilters": "套用篩選",
   "autoDetectLocation": "自動偵測我的位置",
-  "detecting": "偵測中...",
   "selectCountry": "選擇國家",
   "anyCountry": "任意國家",
-  "searchCountry": "搜尋國家...",
   "loadingLanguages": "正在載入語言...",
   "minAge": "最小: {age}",
   "@minAge": {
@@ -1312,7 +1317,6 @@
       }
     }
   },
-
   "captionRequired": "描述為必填項",
   "captionTooLong": "描述不能超過{maxLength}個字元",
   "@captionTooLong": {
@@ -1362,27 +1366,80 @@
   },
   "chooseBackground": "選擇背景",
   "likedByXPeople": "{count}人按讚",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count}則留言",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1則留言",
   "addAComment": "新增留言...",
   "viewXReplies": "查看{count}則回覆",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "{count}人已看",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count}小時前",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count}分鐘前",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "回覆了你的限時動態",
   "mentionedYouInComment": "{name}在留言中提到了你",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name}回覆了你的留言",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name}對你的留言做出了反應",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "搜尋使用者...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "新增反應",
   "attachImage": "附加圖片",
   "pickGif": "選擇GIF",
@@ -1390,28 +1447,20 @@
   "typeYourStory": "寫下你的限動...",
   "selectBackground": "選擇背景",
   "highlightsTitle": "精選",
-  "newHighlight": "新精選",
   "highlightTitle": "精選標題",
-  "addToHighlight": "加入精選",
   "createNewHighlight": "新建",
-  "editHighlight": "編輯精選",
-  "deleteHighlight": "刪除精選",
   "selectStories": "選擇限動",
   "selectCover": "選擇封面",
   "addText": "新增文字",
-  "addSticker": "新增貼圖",
   "fontStyleLabel": "字型樣式",
   "textColorLabel": "文字顏色",
-  "dragToDelete": "拖曳至此刪除"
-,
+  "dragToDelete": "拖曳至此刪除",
   "momentUpdatedSuccessfully": "動態更新成功",
   "failedToDeleteMoment": "刪除動態失敗",
   "failedToUpdateMoment": "更新動態失敗",
-
   "mbtiUpdatedSuccessfully": "MBTI已成功更新",
   "pleaseSelectMbti": "請選擇一個MBTI類型",
   "languageUpdatedSuccessfully": "語言已成功更新",
-
   "bioHintCard": "精彩的個人簡介有助於他人更好地認識你。分享你的興趣愛好、語言或你正在尋找的內容。",
   "bioCounterStartWriting": "開始寫作...",
   "bioCounterABitMore": "再多寫一點會更好",
@@ -1438,8 +1487,6 @@
   "updateLocationCta": "更新位置",
   "enterYourName": "輸入你的名字",
   "unsavedChanges": "你有未儲存的變更",
-
-  "loadingLanguages": "正在載入語言...",
   "tapBelowToBrowseLanguages": "點擊下方瀏覽 {count} 種語言",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1452,9 +1499,7 @@
   "browseLanguages": "瀏覽語言",
   "yourLearningLanguageIsPrefix": "你正在學習的語言是",
   "yourNativeLanguageIsPrefix": "你的母語是",
-
   "profileCompleteProgress": "已完成",
-
   "drawerPreferences": "偏好設定",
   "drawerStorage": "儲存空間",
   "drawerReports": "檢舉",
@@ -1471,7 +1516,6 @@
   "aboutBananatalkTagline": "與全球語言學習者連結，透過真實對話提升你的技能。",
   "aboutCopyright": "© 2024 Bananatalk. 版權所有。",
   "logoutFailedPrefix": "登出失敗",
-
   "profileVisitorsTitle": "訪客",
   "visitorStatistics": "訪客統計",
   "visitorsTotalVisits": "總訪問次數",
@@ -1486,24 +1530,19 @@
   "visitedDirect": "直接造訪",
   "visitorTrackingUnavailable": "訪客追蹤功能不可用。請更新後端。",
   "visitorTrackingNotAvailableYet": "訪客追蹤功能暫不可用",
-
   "noFollowersYetSubtitle": "開始與他人建立聯繫吧！",
   "partnerButton": "夥伴",
-
   "notFollowingAnyoneYetSubtitle": "追蹤他人以查看他們的動態！",
   "unfollowButton": "取消追蹤",
-
   "profileThemeTitle": "主題",
   "themeAutoSwitch": "自動切換（跟隨系統）",
   "themeSystemHint": "開啟後，應用程式將跟隨系統主題設定",
   "themeLightMode": "淺色模式",
   "themeDarkMode": "深色模式",
-
   "myMoments": "我的動態",
   "momentListView": "列表檢視",
   "momentGridView": "格狀檢視",
   "shareLanguageLearningJourney": "分享你的語言學習之旅！",
-
   "deleteHighlightTitle": "刪除精選",
   "deleteHighlightConfirm": "刪除「{title}」？內部的故事不會被刪除。",
   "@deleteHighlightConfirm": {
@@ -1515,7 +1554,6 @@
   },
   "highlightDeletedSuccess": "精選已刪除",
   "highlightNewBadge": "新",
-
   "editMoment": "編輯動態",
   "momentDescriptionLabel": "描述",
   "momentImagesLabel": "圖片",
@@ -1528,5 +1566,23 @@
   "updateAvailableBody": "Bananatalk新版本已發布，包含改進和錯誤修復。",
   "updateNow": "立即更新",
   "updateLater": "稍後",
-  "updateOpenStoreFailed": "無法開啟商店，請從App Store或Play Store進行更新。"
+  "updateOpenStoreFailed": "無法開啟商店，請從App Store或Play Store進行更新。",
+  "rememberMe": "記住我",
+  "passwordWeak": "弱",
+  "passwordFair": "一般",
+  "passwordStrong": "強",
+  "passwordVeryStrong": "非常強",
+  "showPassword": "顯示密碼",
+  "hidePassword": "隱藏密碼",
+  "stepProgress": "第 {current} / {total} 步",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

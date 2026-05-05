@@ -4408,4 +4408,30 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Impossible d\'ouvrir la boutique. Veuillez mettre à jour depuis l\'App Store ou le Play Store.';
+
+  @override
+  String get rememberMe => 'Se souvenir de moi';
+
+  @override
+  String get passwordWeak => 'Faible';
+
+  @override
+  String get passwordFair => 'Moyen';
+
+  @override
+  String get passwordStrong => 'Fort';
+
+  @override
+  String get passwordVeryStrong => 'Très fort';
+
+  @override
+  String get showPassword => 'Afficher le mot de passe';
+
+  @override
+  String get hidePassword => 'Masquer le mot de passe';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Étape $current sur $total';
+  }
 }

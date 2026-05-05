@@ -23,7 +23,7 @@
   "settings": "Ayarlar",
   "logout": "Çıkış Yap",
   "language": "Dil",
-  "selectLanguage": "Dil Seçin",
+  "selectLanguage": "Dil Seç",
   "autoTranslate": "Otomatik Çeviri",
   "autoTranslateMessages": "Mesajları Otomatik Çevir",
   "autoTranslateMoments": "Anları Otomatik Çevir",
@@ -653,19 +653,19 @@
   "wallpaperSaved": "Duvar kağıdı yerel olarak kaydedildi",
   "storyArchive": "Hikaye Arşivi",
   "newHighlight": "Yeni Öne Çıkan",
-  "addToHighlight": "Öne Çıkanlara Ekle",
+  "addToHighlight": "Öne çıkanlara ekle",
   "repost": "Yeniden Paylaş",
   "repostFeatureSoon": "Yeniden paylaşma özelliği yakında",
   "closeFriends": "Yakın Arkadaşlar",
   "addFriends": "Arkadaş Ekle",
   "highlights": "Öne Çıkanlar",
   "createHighlight": "Öne Çıkan Oluştur",
-  "deleteHighlight": "Öne çıkan silinsin mi?",
-  "editHighlight": "Öne Çıkanı Düzenle",
+  "deleteHighlight": "Sil",
+  "editHighlight": "Düzenle",
   "addMoreToStory": "Hikayeye daha fazla ekle",
   "noViewersYet": "Henüz izleyici yok",
   "noReactionsYet": "Henüz tepki yok",
-  "leaveRoom": "Odadan Ayrıl?",
+  "leaveRoom": "Odadan Ayrıl",
   "areYouSureLeaveRoom": "Bu sesli odadan ayrılmak istediğinizden emin misiniz?",
   "stay": "Kal",
   "leave": "Ayrıl",
@@ -682,7 +682,7 @@
   "failedToLoadProfile": "Profil yüklenemedi",
   "noFollowersYet": "Henüz takipçi yok",
   "noFollowingYet": "Henüz kimseyi takip etmiyor",
-  "searchUsers": "Kullanıcıları ara...",
+  "searchUsers": "Kullanıcı ara...",
   "noResultsFound": "Sonuç bulunamadı",
   "loadingFailed": "Yükleme başarısız",
   "copyLink": "Bağlantıyı Kopyala",
@@ -718,7 +718,7 @@
   "shareMomentsThatDisappear": "24 saat içinde kaybolan anlar paylaşın",
   "photo": "Fotoğraf",
   "record": "Kaydet",
-  "addSticker": "Çıkartma Ekle",
+  "addSticker": "Çıkartma ekle",
   "poll": "Anket",
   "question": "Soru",
   "mention": "Bahset",
@@ -877,7 +877,7 @@
   "messageSent": "Mesaj gönderildi",
   "messageDeleted": "Mesaj silindi",
   "messageEdited": "Mesaj düzenlendi",
-  "videoMustBeUnder1GB": "Video 1GB'dan küçük olmalıdır.",
+  "videoMustBeUnder1GB": "Video 1GB'den küçük olmalıdır.",
   "edited": "(düzenlendi)",
   "now": "şimdi",
   "weeksAgo": "{count}h önce",
@@ -925,7 +925,6 @@
   "learningLanguage": "{language} öğreniyor",
   "noPartnersFound": "Partner bulunamadı",
   "noUsersFoundForLanguages": "Ana dili {learning} olan veya {native} öğrenmek isteyen kullanıcı bulunamadı.",
-  "tryAdjustingFilters": "Filtrelerinizi ayarlamayı deneyin",
   "removeAllFilters": "Tüm filtreleri kaldır",
   "browseAllUsers": "Tüm kullanıcılara göz at",
   "allCaughtUp": "Hepsini gördünüz!",
@@ -935,8 +934,6 @@
   "startOver": "Baştan başla",
   "changeFilters": "Filtreleri değiştir",
   "findingPartners": "Partner aranıyor...",
-  "somethingWentWrong": "Bir şeyler ters gitti",
-  "retry": "Tekrar Dene",
   "setLocationReminder": "Yakındaki partnerleri bulmak için konumunuzu ayarlayın",
   "updateLocationReminder": "Daha iyi sonuçlar için konumunuzu güncelleyin",
   "male": "Erkek",
@@ -947,7 +944,7 @@
   "noMaleUsersFound": "Erkek kullanıcı bulunamadı",
   "noFemaleUsersFound": "Kadın kullanıcı bulunamadı",
   "vip": "VIP",
-  "newUsersOnly": "Yalnızca yeni kullanıcılar",
+  "newUsersOnly": "Yalnızca Yeni Kullanıcılar",
   "showNewUsers": "Yeni kullanıcıları göster",
   "prioritizeNearby": "Yakındakilere öncelik ver",
   "showNearbyFirst": "Önce yakındakileri göster",
@@ -968,12 +965,11 @@
   "seeUserCountsPerCountry": "Ülke başına kullanıcı sayısını gör",
   "upgradeToVip": "VIP'e yükselt",
   "searchByCity": "Şehre göre ara",
-  "loading": "Yükleniyor...",
   "usersWorldwide": "Dünya genelinde {count} kullanıcı",
   "noUsersFound": "Kullanıcı bulunamadı",
   "tryDifferentCity": "Farklı bir şehir deneyin",
   "usersCount": "{count} kullanıcı",
-  "searchCountry": "Ülke ara",
+  "searchCountry": "Ülke ara...",
   "wave": "El salla",
   "newUser": "Yeni kullanıcı",
   "warningPermanent": "Uyarı: Bu işlem kalıcıdır!",
@@ -1137,7 +1133,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "Kabul Et",
@@ -1163,20 +1161,18 @@
   "callAt": "{time} saatinde arama",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "Sesli Arama",
-  "tryAgain": "Tekrar Dene",
   "voiceRoom": "Ses Odası",
   "noVoiceRooms": "Aktif ses odası yok",
   "createVoiceRoom": "Ses Odası Oluştur",
   "joinRoom": "Odaya Katıl",
-  "leaveRoom": "Odadan Ayrıl",
   "leaveRoomConfirm": "Odadan Ayrıl?",
   "leaveRoomMessage": "Bu odadan ayrılmak istediğinizden emin misiniz?",
-  "stay": "Kal",
-  "leave": "Ayrıl",
   "roomTitle": "Oda Başlığı",
   "roomTitleHint": "Oda başlığı girin",
   "roomTopic": "Konu",
@@ -1185,17 +1181,20 @@
   "roomParticipants": "{count} katılımcı",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "Maks. {count} katılımcı",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "Konu Seç",
-  "selectLanguage": "Dil Seç",
   "raiseHand": "El Kaldır",
   "lowerHand": "El İndir",
   "handRaisedNotification": "El kaldırıldı! Ev sahibi isteğinizi görecek.",
@@ -1215,7 +1214,9 @@
   "liveRoomsCount": "{count} Canlı",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "Aktif oda yok",
@@ -1231,18 +1232,25 @@
   "nPeople": "{count} kişi",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "{name} tarafından düzenleniyor",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "CANLI",
   "joinLabel": "Katıl",
   "fullLabel": "Dolu",
   "justStarted": "Yeni başladı",
   "allLanguages": "Tüm diller",
   "allTopics": "Tüm konular",
-
   "dataAndStorage": "Veri ve Depolama",
   "manageStorageAndDownloads": "Depolama ve indirmeleri yönet",
   "storageUsage": "Depolama Kullanımı",
@@ -1265,18 +1273,21 @@
   "clearCacheConfirmationFor": "{category} temizlensin mi?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} boşaltılacak",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "Hesaplanıyor...",
   "noDataToShow": "Gösterilecek veri yok",
-
   "profileCompletion": "Profil Tamamlama",
   "justGettingStarted": "Yeni başlıyor",
   "lookingGood": "İyi görünüyor!",
@@ -1295,7 +1306,6 @@
   "whenYouGetNotifications": "Bildirim aldığınızda burada görünecekler",
   "failedToLoadNotifications": "Bildirimler yüklenemedi",
   "clearAllNotificationsConfirm": "Tüm bildirimleri silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
-
   "tapToChange": "Değiştirmek için dokun",
   "noPictureSet": "Fotoğraf ayarlanmadı",
   "nameAndGender": "İsim ve Cinsiyet",
@@ -1313,14 +1323,18 @@
   "howWellDoYouSpeak": "{language} ne kadar iyi konuşuyorsunuz?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "dil",
   "languageLevelSetTo": "Dil seviyesi {level} olarak ayarlandı",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "Güncelleme başarısız",
@@ -1358,7 +1372,9 @@
   "maxTopicsAllowed": "Maksimum {count} konu izin verilir",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "Konular güncellendi!",
@@ -1366,7 +1382,9 @@
   "selectedCount": "{count} seçildi",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "Profil Fotoğrafları",
@@ -1374,7 +1392,9 @@
   "selectUpToImages": "{count} fotoğrafa kadar seçin",
   "@selectUpToImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "takeAPhoto": "Fotoğraf Çek",
@@ -1383,7 +1403,9 @@
   "uploadImages": "{count} fotoğraf yükle",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageUploadedSuccessfully": "Fotoğraf yüklendi",
@@ -1397,7 +1419,6 @@
   "uploadingImages": "Fotoğraflar yükleniyor...",
   "imagesUploadedSuccessfully": "Fotoğraflar yüklendi",
   "failedToUploadImages": "Fotoğraflar yüklenemedi",
-
   "studyHub": "Çalışma Merkezi",
   "dailyLearningJourney": "Günlük öğrenme yolculuğunuz",
   "learnTab": "Öğren",
@@ -1494,7 +1515,6 @@
   "hearts": "Kalpler",
   "tapToSayHi": "Merhaba demek için dokunun!",
   "sendWaveToStart": "Sohbete başlamak için el sallayın",
-  "videoMustBeUnder1GB": "Video 1GB'den küçük olmalıdır.",
   "documentMustBeUnder50MB": "Belge 50MB'den küçük olmalıdır.",
   "editWithin15Minutes": "Mesajlar yalnızca 15 dakika içinde düzenlenebilir",
   "messageForwardedTo": "Mesaj {count} kullanıcıya iletildi",
@@ -1520,22 +1540,13 @@
   "findYourPerfect": "Mükemmel",
   "languagePartner": "Dil Ortağını Bul",
   "learningLanguageLabel": "Öğrenilen Dil",
-  "languageLevel": "Dil Seviyesi",
-  "country": "Ülke",
   "ageRange": "Yaş Aralığı",
   "genderPreference": "Cinsiyet Tercihi",
   "any": "Herhangi",
-  "male": "Erkek",
-  "female": "Kadın",
-  "other": "Diğer",
-  "newUsersOnly": "Yalnızca Yeni Kullanıcılar",
   "showNewUsersSubtitle": "Son 6 günde katılan kullanıcıları göster",
-  "applyFilters": "Filtreleri Uygula",
   "autoDetectLocation": "Konumumu otomatik algıla",
-  "detecting": "Algılanıyor...",
   "selectCountry": "Ülke Seç",
   "anyCountry": "Herhangi Bir Ülke",
-  "searchCountry": "Ülke ara...",
   "loadingLanguages": "Diller yükleniyor...",
   "minAge": "Min: {age}",
   "@minAge": {
@@ -1553,7 +1564,6 @@
       }
     }
   },
-
   "captionRequired": "Açıklama gereklidir",
   "captionTooLong": "Açıklama {maxLength} karakter veya daha az olmalıdır",
   "@captionTooLong": {
@@ -1603,27 +1613,80 @@
   },
   "chooseBackground": "Arka plan seç",
   "likedByXPeople": "{count} kişi beğendi",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} yorum",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 yorum",
   "addAComment": "Yorum ekle...",
   "viewXReplies": "{count} yanıtı gör",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "{count} kişi gördü",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count}s önce",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count}dk önce",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "Hikayene yanıt verdi",
   "mentionedYouInComment": "{name} seni bir yorumda etiketledi",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} yorumuna yanıt verdi",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} yorumuna tepki verdi",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "Kullanıcı ara...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "Tepki ekle",
   "attachImage": "Resim ekle",
   "pickGif": "GIF seç",
@@ -1631,28 +1694,20 @@
   "typeYourStory": "Hikayeni yaz...",
   "selectBackground": "Arka plan seç",
   "highlightsTitle": "Öne Çıkanlar",
-  "newHighlight": "Yeni Öne Çıkan",
   "highlightTitle": "Başlık",
-  "addToHighlight": "Öne çıkanlara ekle",
   "createNewHighlight": "Yeni oluştur",
-  "editHighlight": "Düzenle",
-  "deleteHighlight": "Sil",
   "selectStories": "Hikayeleri seç",
   "selectCover": "Kapak seç",
   "addText": "Metin ekle",
-  "addSticker": "Çıkartma ekle",
   "fontStyleLabel": "Yazı tipi",
   "textColorLabel": "Metin rengi",
-  "dragToDelete": "Silmek için buraya sürükle"
-,
+  "dragToDelete": "Silmek için buraya sürükle",
   "momentUpdatedSuccessfully": "An başarıyla güncellendi",
   "failedToDeleteMoment": "An silinemedi",
   "failedToUpdateMoment": "An güncellenemedi",
-
   "mbtiUpdatedSuccessfully": "MBTI başarıyla güncellendi",
   "pleaseSelectMbti": "Lütfen bir MBTI türü seçin",
   "languageUpdatedSuccessfully": "Dil başarıyla güncellendi",
-
   "bioHintCard": "İyi bir biyografi, diğerlerinin seninle bağlantı kurmasına yardımcı olur. İlgi alanlarını, dillerini veya ne aradığını paylaş.",
   "bioCounterStartWriting": "Yazmaya başla...",
   "bioCounterABitMore": "Biraz daha yazsan iyi olur",
@@ -1679,8 +1734,6 @@
   "updateLocationCta": "Konumu Güncelle",
   "enterYourName": "Adınızı girin",
   "unsavedChanges": "Kaydedilmemiş değişiklikleriniz var",
-
-  "loadingLanguages": "Diller yükleniyor...",
   "tapBelowToBrowseLanguages": "{count} dil arasından seçmek için aşağıya dokunun",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1693,9 +1746,7 @@
   "browseLanguages": "Dillere Göz At",
   "yourLearningLanguageIsPrefix": "Öğrendiğiniz dil: ",
   "yourNativeLanguageIsPrefix": "Ana diliniz: ",
-
   "profileCompleteProgress": "tamamlandı",
-
   "drawerPreferences": "Tercihler",
   "drawerStorage": "Depolama",
   "drawerReports": "Raporlar",
@@ -1712,7 +1763,6 @@
   "aboutBananatalkTagline": "Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.",
   "aboutCopyright": "© 2024 Bananatalk. Tüm hakları saklıdır.",
   "logoutFailedPrefix": "Çıkış başarısız",
-
   "profileVisitorsTitle": "Profil Ziyaretçileri",
   "visitorStatistics": "Ziyaretçi İstatistikleri",
   "visitorsTotalVisits": "Toplam Ziyaret",
@@ -1727,24 +1777,19 @@
   "visitedDirect": "Doğrudan ziyaret",
   "visitorTrackingUnavailable": "Ziyaretçi takip özelliği kullanılamıyor. Lütfen backend'i güncelleyin.",
   "visitorTrackingNotAvailableYet": "Ziyaretçi takibi henüz mevcut değil",
-
   "noFollowersYetSubtitle": "Başkalarıyla bağlantı kurmaya başlayın!",
   "partnerButton": "Ortak",
-
   "notFollowingAnyoneYetSubtitle": "Güncellemelerini görmek için kişileri takip edin!",
   "unfollowButton": "Takibi Bırak",
-
   "profileThemeTitle": "Profil Teması",
   "themeAutoSwitch": "Otomatik Geçiş (Sistem Teması)",
   "themeSystemHint": "Etkinleştirildiğinde uygulama sistem teması ayarlarınızı takip eder",
   "themeLightMode": "Açık Mod",
   "themeDarkMode": "Koyu Mod",
-
   "myMoments": "Anlarım",
   "momentListView": "Liste Görünümü",
   "momentGridView": "Izgara Görünümü",
   "shareLanguageLearningJourney": "Dil öğrenme yolculuğunuzu paylaşın!",
-
   "deleteHighlightTitle": "Öne Çıkanı Sil",
   "deleteHighlightConfirm": "\"{title}\" silinsin mi? İçindeki hikayeler silinmeyecek.",
   "@deleteHighlightConfirm": {
@@ -1756,7 +1801,6 @@
   },
   "highlightDeletedSuccess": "Öne çıkan silindi",
   "highlightNewBadge": "Yeni",
-
   "editMoment": "Anı Düzenle",
   "momentDescriptionLabel": "Açıklama",
   "momentImagesLabel": "Görseller",
@@ -1769,5 +1813,23 @@
   "updateAvailableBody": "İyileştirmeler ve hata düzeltmeleri içeren yeni bir Bananatalk sürümü mevcut.",
   "updateNow": "Şimdi Güncelle",
   "updateLater": "Sonra",
-  "updateOpenStoreFailed": "Mağaza açılamadı. Lütfen App Store veya Play Store'dan güncelleyin."
+  "updateOpenStoreFailed": "Mağaza açılamadı. Lütfen App Store veya Play Store'dan güncelleyin.",
+  "rememberMe": "Beni hatırla",
+  "passwordWeak": "Zayıf",
+  "passwordFair": "Orta",
+  "passwordStrong": "Güçlü",
+  "passwordVeryStrong": "Çok güçlü",
+  "showPassword": "Şifreyi göster",
+  "hidePassword": "Şifreyi gizle",
+  "stepProgress": "Adım {current} / {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

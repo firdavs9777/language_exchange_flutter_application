@@ -4408,4 +4408,30 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'स्टोर नहीं खुल सका। कृपया App Store या Play Store से अपडेट करें।';
+
+  @override
+  String get rememberMe => 'मुझे याद रखें';
+
+  @override
+  String get passwordWeak => 'कमज़ोर';
+
+  @override
+  String get passwordFair => 'ठीक';
+
+  @override
+  String get passwordStrong => 'मज़बूत';
+
+  @override
+  String get passwordVeryStrong => 'बहुत मज़बूत';
+
+  @override
+  String get showPassword => 'पासवर्ड दिखाएं';
+
+  @override
+  String get hidePassword => 'पासवर्ड छिपाएं';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'चरण $current / $total';
+  }
 }

@@ -50,7 +50,7 @@
   "loading": "กำลังโหลด...",
   "error": "ข้อผิดพลาด",
   "success": "สำเร็จ",
-  "tryAgain": "ลองอีกครั้ง",
+  "tryAgain": "ลองใหม่",
   "networkError": "ข้อผิดพลาดของเครือข่าย กรุณาตรวจสอบการเชื่อมต่อ",
   "somethingWentWrong": "เกิดข้อผิดพลาด",
   "ok": "ตกลง",
@@ -489,7 +489,6 @@
   "learningLanguage": "กำลังเรียน{language}",
   "noPartnersFound": "ไม่พบคู่หู",
   "noUsersFoundForLanguages": "ไม่พบผู้ใช้ที่พูด{learning}เป็นภาษาแม่หรือต้องการเรียน{native}",
-  "tryAdjustingFilters": "ลองปรับตัวกรอง",
   "removeAllFilters": "ลบตัวกรองทั้งหมด",
   "browseAllUsers": "ดูผู้ใช้ทั้งหมด",
   "allCaughtUp": "ดูหมดแล้ว!",
@@ -499,8 +498,6 @@
   "startOver": "เริ่มใหม่",
   "changeFilters": "เปลี่ยนตัวกรอง",
   "findingPartners": "กำลังค้นหาคู่หู...",
-  "somethingWentWrong": "เกิดข้อผิดพลาด",
-  "retry": "ลองใหม่",
   "setLocationReminder": "ตั้งค่าตำแหน่งเพื่อค้นหาคู่หูใกล้เคียง",
   "updateLocationReminder": "อัปเดตตำแหน่งเพื่อผลลัพธ์ที่ดีขึ้น",
   "male": "ชาย",
@@ -532,12 +529,11 @@
   "seeUserCountsPerCountry": "ดูจำนวนผู้ใช้ต่อประเทศ",
   "upgradeToVip": "อัปเกรดเป็น VIP",
   "searchByCity": "ค้นหาตามเมือง",
-  "loading": "กำลังโหลด...",
   "usersWorldwide": "{count} ผู้ใช้ทั่วโลก",
   "noUsersFound": "ไม่พบผู้ใช้",
   "tryDifferentCity": "ลองเมืองอื่น",
   "usersCount": "{count} ผู้ใช้",
-  "searchCountry": "ค้นหาประเทศ",
+  "searchCountry": "ค้นหาประเทศ...",
   "wave": "โบกมือ",
   "newUser": "ผู้ใช้ใหม่",
   "warningPermanent": "คำเตือน: การกระทำนี้ถาวร!",
@@ -702,7 +698,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "รับสาย",
@@ -728,11 +726,12 @@
   "callAt": "โทรเวลา {time}",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "สายเสียง",
-  "tryAgain": "ลองใหม่",
   "voiceRoom": "ห้องเสียง",
   "noVoiceRooms": "ไม่มีห้องเสียงที่ใช้งานอยู่",
   "createVoiceRoom": "สร้างห้องเสียง",
@@ -740,8 +739,6 @@
   "leaveRoom": "ออกจากห้อง",
   "leaveRoomConfirm": "ออกจากห้อง?",
   "leaveRoomMessage": "คุณแน่ใจหรือไม่ว่าต้องการออกจากห้องนี้?",
-  "stay": "อยู่",
-  "leave": "ออก",
   "roomTitle": "ชื่อห้อง",
   "roomTitleHint": "ป้อนชื่อห้อง",
   "roomTopic": "หัวข้อ",
@@ -750,17 +747,20 @@
   "roomParticipants": "{count} ผู้เข้าร่วม",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "สูงสุด {count} ผู้เข้าร่วม",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "เลือกหัวข้อ",
-  "selectLanguage": "เลือกภาษา",
   "raiseHand": "ยกมือ",
   "lowerHand": "ลดมือ",
   "handRaisedNotification": "ยกมือแล้ว! โฮสต์จะเห็นคำขอของคุณ",
@@ -780,7 +780,9 @@
   "liveRoomsCount": "{count} สด",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "ไม่มีห้องที่ใช้งานอยู่",
@@ -796,18 +798,25 @@
   "nPeople": "{count} คน",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "โฮสต์โดย {name}",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "สด",
   "joinLabel": "เข้าร่วม",
   "fullLabel": "เต็ม",
   "justStarted": "เพิ่งเริ่ม",
   "allLanguages": "ทุกภาษา",
   "allTopics": "ทุกหัวข้อ",
-
   "dataAndStorage": "ข้อมูลและพื้นที่จัดเก็บ",
   "manageStorageAndDownloads": "จัดการพื้นที่จัดเก็บและการดาวน์โหลด",
   "storageUsage": "การใช้พื้นที่จัดเก็บ",
@@ -830,18 +839,21 @@
   "clearCacheConfirmationFor": "ล้าง{category}?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} จะถูกปลดปล่อย",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "กำลังคำนวณ...",
   "noDataToShow": "ไม่มีข้อมูลที่จะแสดง",
-
   "profileCompletion": "ความสมบูรณ์ของโปรไฟล์",
   "justGettingStarted": "เพิ่งเริ่มต้น",
   "lookingGood": "ดูดี!",
@@ -860,7 +872,6 @@
   "whenYouGetNotifications": "เมื่อคุณได้รับการแจ้งเตือน จะแสดงที่นี่",
   "failedToLoadNotifications": "โหลดการแจ้งเตือนไม่สำเร็จ",
   "clearAllNotificationsConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบการแจ้งเตือนทั้งหมด? การดำเนินการนี้ไม่สามารถยกเลิกได้",
-
   "tapToChange": "แตะเพื่อเปลี่ยน",
   "noPictureSet": "ไม่มีรูปภาพ",
   "nameAndGender": "ชื่อและเพศ",
@@ -878,14 +889,18 @@
   "howWellDoYouSpeak": "คุณพูด{language}ได้ดีแค่ไหน?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "ภาษา",
   "languageLevelSetTo": "ระดับภาษาตั้งเป็น {level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "อัปเดตไม่สำเร็จ",
@@ -893,7 +908,7 @@
   "genderRequired": "เพศ (จำเป็น)",
   "editHometown": "แก้ไขบ้านเกิด",
   "useCurrentLocation": "ใช้ตำแหน่งปัจจุบัน",
-  "detecting": "กำลังตรวจหา...",
+  "detecting": "กำลังตรวจจับ...",
   "getCurrentLocation": "รับตำแหน่งปัจจุบัน",
   "country": "ประเทศ",
   "city": "เมือง",
@@ -910,7 +925,9 @@
   "charactersCount": "{count}/500 ตัวอักษร",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectYourMbti": "เลือก MBTI ของคุณ",
@@ -927,7 +944,9 @@
   "maxTopicsAllowed": "สูงสุด {count} หัวข้อ",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "อัปเดตหัวข้อสำเร็จ!",
@@ -935,8 +954,12 @@
   "selectedCount": "{count}/{max} ที่เลือก",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "รูปโปรไฟล์",
@@ -957,7 +980,9 @@
   "uploadImages": "อัปโหลด {count} รูป",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "ลบรูปสำเร็จ",
@@ -971,7 +996,9 @@
   "youHaveUnuploadedImages": "{count} รูปยังไม่ได้อัปโหลด อัปโหลดเลย?",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "ยกเลิก",
@@ -979,22 +1006,32 @@
   "maxImagesInfo": "สูงสุด {max} รูป ปัจจุบัน: {current}/{max}",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "เพิ่มได้อีก {count} รูป สูงสุด {max}",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "สูงสุด 5 รูปต่อครั้ง",
   "canOnlyHaveMaxImages": "สูงสุด {max} รูป",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "ขนาดเกิน 10MB",
@@ -1005,7 +1042,6 @@
   "hometown": "บ้านเกิด",
   "characters": "ตัวอักษร",
   "failedToLoadLanguages": "โหลดภาษาไม่สำเร็จ",
-
   "studyHub": "ศูนย์การเรียนรู้",
   "dailyLearningJourney": "เส้นทางการเรียนรู้ประจำวันของคุณ",
   "learnTab": "เรียน",
@@ -1128,22 +1164,13 @@
   "findYourPerfect": "ค้นหา",
   "languagePartner": "คู่ฝึกภาษาที่สมบูรณ์แบบ",
   "learningLanguageLabel": "ภาษาที่กำลังเรียน",
-  "languageLevel": "ระดับภาษา",
-  "country": "ประเทศ",
   "ageRange": "ช่วงอายุ",
   "genderPreference": "ความต้องการเพศ",
   "any": "ทั้งหมด",
-  "male": "ชาย",
-  "female": "หญิง",
-  "other": "อื่นๆ",
-  "newUsersOnly": "เฉพาะผู้ใช้ใหม่",
   "showNewUsersSubtitle": "แสดงผู้ใช้ที่เข้าร่วมใน 6 วันที่ผ่านมา",
-  "applyFilters": "ใช้ตัวกรอง",
   "autoDetectLocation": "ตรวจจับตำแหน่งของฉันอัตโนมัติ",
-  "detecting": "กำลังตรวจจับ...",
   "selectCountry": "เลือกประเทศ",
   "anyCountry": "ทุกประเทศ",
-  "searchCountry": "ค้นหาประเทศ...",
   "loadingLanguages": "กำลังโหลดภาษา...",
   "minAge": "ต่ำสุด: {age}",
   "@minAge": {
@@ -1161,7 +1188,6 @@
       }
     }
   },
-
   "captionRequired": "จำเป็นต้องมีคำบรรยาย",
   "captionTooLong": "คำบรรยายต้องมี {maxLength} ตัวอักษรหรือน้อยกว่า",
   "@captionTooLong": {
@@ -1211,26 +1237,80 @@
   },
   "chooseBackground": "เลือกพื้นหลัง",
   "likedByXPeople": "ถูกใจโดย {count} คน",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} ความคิดเห็น",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 ความคิดเห็น",
   "addAComment": "เพิ่มความคิดเห็น...",
   "viewXReplies": "ดู {count} การตอบกลับ",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "เห็นโดย {count}",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count} ชม.ที่แล้ว",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count} นาทีที่แล้ว",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "ตอบกลับสตอรี่ของคุณ",
   "mentionedYouInComment": "{name} กล่าวถึงคุณในความคิดเห็น",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} ตอบกลับความคิดเห็นของคุณ",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} รีแอคชันความคิดเห็นของคุณ",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "searchUsers": "ค้นหาผู้ใช้...",
   "addReaction": "เพิ่มรีแอคชัน",
   "attachImage": "แนบรูปภาพ",
@@ -1251,16 +1331,13 @@
   "addSticker": "เพิ่มสติกเกอร์",
   "fontStyleLabel": "รูปแบบตัวอักษร",
   "textColorLabel": "สีข้อความ",
-  "dragToDelete": "ลากมาที่นี่เพื่อลบ"
-,
+  "dragToDelete": "ลากมาที่นี่เพื่อลบ",
   "momentUpdatedSuccessfully": "อัปเดตโมเมนต์สำเร็จ",
   "failedToDeleteMoment": "ลบโมเมนต์ไม่สำเร็จ",
   "failedToUpdateMoment": "อัปเดตโมเมนต์ไม่สำเร็จ",
-
   "mbtiUpdatedSuccessfully": "อัปเดต MBTI สำเร็จ",
   "pleaseSelectMbti": "กรุณาเลือกประเภท MBTI",
   "languageUpdatedSuccessfully": "อัปเดตภาษาสำเร็จ",
-
   "bioHintCard": "ประวัติที่ดีช่วยให้ผู้อื่นเชื่อมต่อกับคุณได้ แบ่งปันความสนใจ ภาษา หรือสิ่งที่คุณกำลังมองหา",
   "bioCounterStartWriting": "เริ่มเขียน...",
   "bioCounterABitMore": "เขียนเพิ่มอีกนิดจะดีมาก",
@@ -1287,8 +1364,6 @@
   "updateLocationCta": "อัปเดตตำแหน่ง",
   "enterYourName": "กรอกชื่อของคุณ",
   "unsavedChanges": "คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
-
-  "loadingLanguages": "กำลังโหลดภาษา...",
   "tapBelowToBrowseLanguages": "แตะด้านล่างเพื่อเลือกจาก {count} ภาษา",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1301,9 +1376,7 @@
   "browseLanguages": "เรียกดูภาษา",
   "yourLearningLanguageIsPrefix": "ภาษาที่คุณกำลังเรียนคือ",
   "yourNativeLanguageIsPrefix": "ภาษาแม่ของคุณคือ",
-
   "profileCompleteProgress": "สมบูรณ์",
-
   "drawerPreferences": "การตั้งค่า",
   "drawerStorage": "พื้นที่จัดเก็บ",
   "drawerReports": "รายงาน",
@@ -1320,7 +1393,6 @@
   "aboutBananatalkTagline": "เชื่อมต่อกับผู้เรียนภาษาทั่วโลกและพัฒนาทักษะผ่านการสนทนาจริง",
   "aboutCopyright": "© 2024 Bananatalk. สงวนลิขสิทธิ์ทั้งหมด",
   "logoutFailedPrefix": "ออกจากระบบล้มเหลว",
-
   "profileVisitorsTitle": "ผู้เยี่ยมชมโปรไฟล์",
   "visitorStatistics": "สถิติผู้เยี่ยมชม",
   "visitorsTotalVisits": "การเยี่ยมชมทั้งหมด",
@@ -1335,24 +1407,19 @@
   "visitedDirect": "เยี่ยมชมโดยตรง",
   "visitorTrackingUnavailable": "ฟีเจอร์ติดตามผู้เยี่ยมชมไม่พร้อมใช้งาน กรุณาอัปเดต backend",
   "visitorTrackingNotAvailableYet": "การติดตามผู้เยี่ยมชมยังไม่พร้อมใช้งาน",
-
   "noFollowersYetSubtitle": "เริ่มเชื่อมต่อกับผู้อื่นได้เลย!",
   "partnerButton": "คู่หู",
-
   "notFollowingAnyoneYetSubtitle": "เริ่มติดตามผู้คนเพื่อดูการอัปเดตของพวกเขา!",
   "unfollowButton": "เลิกติดตาม",
-
   "profileThemeTitle": "ธีมโปรไฟล์",
   "themeAutoSwitch": "สลับอัตโนมัติ (ธีมระบบ)",
   "themeSystemHint": "เมื่อเปิดใช้งาน แอปจะปฏิบัติตามการตั้งค่าธีมของระบบ",
   "themeLightMode": "โหมดสว่าง",
   "themeDarkMode": "โหมดมืด",
-
   "myMoments": "โมเมนต์ของฉัน",
   "momentListView": "มุมมองรายการ",
   "momentGridView": "มุมมองตาราง",
   "shareLanguageLearningJourney": "แชร์การเดินทางการเรียนภาษาของคุณ!",
-
   "deleteHighlightTitle": "ลบไฮไลต์",
   "deleteHighlightConfirm": "ลบ \"{title}\" หรือไม่? สตอรีภายในจะไม่ถูกลบ",
   "@deleteHighlightConfirm": {
@@ -1364,7 +1431,6 @@
   },
   "highlightDeletedSuccess": "ลบไฮไลต์แล้ว",
   "highlightNewBadge": "ใหม่",
-
   "editMoment": "แก้ไขโมเมนต์",
   "momentDescriptionLabel": "คำอธิบาย",
   "momentImagesLabel": "รูปภาพ",
@@ -1377,5 +1443,23 @@
   "updateAvailableBody": "Bananatalk เวอร์ชันใหม่พร้อมการปรับปรุงและแก้ไขข้อผิดพลาดพร้อมให้ใช้งานแล้ว",
   "updateNow": "อัปเดตเดี๋ยวนี้",
   "updateLater": "ภายหลัง",
-  "updateOpenStoreFailed": "ไม่สามารถเปิดร้านค้าได้ กรุณาอัปเดตจาก App Store หรือ Play Store"
+  "updateOpenStoreFailed": "ไม่สามารถเปิดร้านค้าได้ กรุณาอัปเดตจาก App Store หรือ Play Store",
+  "rememberMe": "จดจำฉัน",
+  "passwordWeak": "อ่อนแอ",
+  "passwordFair": "พอใช้",
+  "passwordStrong": "แข็งแรง",
+  "passwordVeryStrong": "แข็งแรงมาก",
+  "showPassword": "แสดงรหัสผ่าน",
+  "hidePassword": "ซ่อนรหัสผ่าน",
+  "stepProgress": "ขั้นตอน {current} จาก {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

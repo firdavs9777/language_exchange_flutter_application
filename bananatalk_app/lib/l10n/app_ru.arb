@@ -50,7 +50,7 @@
   "loading": "Загрузка...",
   "error": "Ошибка",
   "success": "Успешно",
-  "tryAgain": "Попробовать снова",
+  "tryAgain": "Повторить",
   "networkError": "Ошибка сети. Проверьте подключение.",
   "somethingWentWrong": "Что-то пошло не так",
   "ok": "ОК",
@@ -175,7 +175,7 @@
   "failedToSendMessage": "Не удалось отправить сообщение",
   "dailyMessageLimitExceeded": "Превышен дневной лимит сообщений. Обновитесь до VIP для неограниченных сообщений.",
   "cannotSendMessageUserMayBeBlocked": "Не удалось отправить сообщение. Пользователь может быть заблокирован.",
-  "sessionExpired": "Сеанс истек. Пожалуйста, войдите снова.",
+  "sessionExpired": "Сессия истекла. Войдите снова.",
   "sendThisSticker": "Отправить этот стикер?",
   "chooseHowYouWantToDeleteThisMessage": "Выберите, как вы хотите удалить это сообщение:",
   "deleteForEveryone": "Удалить для всех",
@@ -514,7 +514,7 @@
   "wallpaperSaved": "Обои сохранены локально",
   "typeDeleteToConfirm": "Введите DELETE для подтверждения",
   "storyArchive": "Архив историй",
-  "newHighlight": "Новый актуальный",
+  "newHighlight": "Новое актуальное",
   "addToHighlight": "Добавить в актуальное",
   "repost": "Репост",
   "repostFeatureSoon": "Функция репоста скоро",
@@ -522,15 +522,15 @@
   "addFriends": "Добавить друзей",
   "highlights": "Актуальное",
   "createHighlight": "Создать актуальное",
-  "deleteHighlight": "Удалить актуальное?",
+  "deleteHighlight": "Удалить",
   "editHighlight": "Редактировать",
   "addMoreToStory": "Добавить в историю",
   "noViewersYet": "Пока нет зрителей",
   "noReactionsYet": "Пока нет реакций",
-  "leaveRoom": "Покинуть комнату?",
+  "leaveRoom": "Покинуть комнату",
   "areYouSureLeaveRoom": "Вы уверены, что хотите покинуть эту комнату?",
   "stay": "Остаться",
-  "leave": "Выйти",
+  "leave": "Покинуть",
   "enableGPS": "Включить GPS",
   "wavedToUser": "Вы помахали {name}!",
   "areYouSureFollow": "Вы уверены, что хотите подписаться на",
@@ -668,7 +668,6 @@
   "learningLanguage": "Изучает {language}",
   "noPartnersFound": "Партнёры не найдены",
   "noUsersFoundForLanguages": "Не найдено пользователей для {learning} и {native}",
-  "tryAdjustingFilters": "Попробуйте изменить фильтры",
   "removeAllFilters": "Убрать все фильтры",
   "browseAllUsers": "Просмотреть всех пользователей",
   "allCaughtUp": "Вы всё посмотрели!",
@@ -678,8 +677,6 @@
   "startOver": "Начать сначала",
   "changeFilters": "Изменить фильтры",
   "findingPartners": "Поиск партнёров...",
-  "somethingWentWrong": "Что-то пошло не так",
-  "retry": "Повторить",
   "setLocationReminder": "Укажите местоположение, чтобы найти партнёров поблизости",
   "updateLocationReminder": "Обновите местоположение для лучших результатов",
   "male": "Мужской",
@@ -711,12 +708,11 @@
   "seeUserCountsPerCountry": "Посмотреть количество пользователей по странам",
   "upgradeToVip": "Перейти на VIP",
   "searchByCity": "Поиск по городу",
-  "loading": "Загрузка...",
   "usersWorldwide": "{count} пользователей по всему миру",
   "noUsersFound": "Пользователи не найдены",
   "tryDifferentCity": "Попробуйте другой город",
   "usersCount": "{count} пользователей",
-  "searchCountry": "Поиск страны",
+  "searchCountry": "Поиск страны...",
   "wave": "Помахать",
   "newUser": "Новый",
   "warningPermanent": "Внимание: это действие необратимо!",
@@ -738,7 +734,7 @@
   "intermediate": "Средний",
   "upperIntermediate": "Выше среднего",
   "advanced": "Продвинутый",
-  "proficient": "Свободное владение",
+  "proficient": "Свободный",
   "showingPartnersByDistance": "Показ партнёров по расстоянию",
   "enableLocationForResults": "Включите геолокацию для результатов",
   "enable": "Включить",
@@ -779,7 +775,6 @@
   "pleaseEnterBothEmailAndPassword": "Введите email и пароль",
   "pleaseEnterValidEmail": "Введите действительный email",
   "loginSuccessful": "Вход выполнен!",
-  "sessionExpired": "Сессия истекла. Войдите снова.",
   "stepOneOfTwo": "Шаг 1 из 2",
   "createYourAccount": "Создайте аккаунт",
   "basicInfoToGetStarted": "Базовая информация для начала",
@@ -792,12 +787,9 @@
   "pleaseEnterYourName": "Введите ваше имя",
   "pleaseEnterAPassword": "Введите пароль",
   "passwordsDoNotMatch": "Пароли не совпадают",
-  "male": "Мужской",
-  "female": "Женский",
   "otherGender": "Другой",
   "continueWithGoogleAccount": "Продолжите через Google-аккаунт\nдля удобного входа",
   "signingYouIn": "Выполняется вход...",
-  "tryAgain": "Попробовать снова",
   "backToSignInMethods": "Назад к способам входа",
   "securedByGoogle": "Защищено Google",
   "dataProtectedEncryption": "Ваши данные защищены стандартным шифрованием",
@@ -885,7 +877,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "Принять",
@@ -911,20 +905,18 @@
   "callAt": "Звонок в {time}",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "Аудиозвонок",
-  "tryAgain": "Повторить",
   "voiceRoom": "Голосовая комната",
   "noVoiceRooms": "Нет активных голосовых комнат",
   "createVoiceRoom": "Создать голосовую комнату",
   "joinRoom": "Присоединиться",
-  "leaveRoom": "Покинуть комнату",
   "leaveRoomConfirm": "Покинуть комнату?",
   "leaveRoomMessage": "Вы уверены, что хотите покинуть эту комнату?",
-  "stay": "Остаться",
-  "leave": "Покинуть",
   "roomTitle": "Название комнаты",
   "roomTitleHint": "Введите название комнаты",
   "roomTopic": "Тема",
@@ -933,17 +925,20 @@
   "roomParticipants": "{count} участников",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "Макс. {count} участников",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "Выбрать тему",
-  "selectLanguage": "Выбрать язык",
   "raiseHand": "Поднять руку",
   "lowerHand": "Опустить руку",
   "handRaisedNotification": "Рука поднята! Ведущий увидит ваш запрос.",
@@ -963,7 +958,9 @@
   "liveRoomsCount": "{count} онлайн",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "Нет активных комнат",
@@ -979,18 +976,25 @@
   "nPeople": "{count} человек",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "Ведущий: {name}",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "ПРЯМОЙ ЭФИР",
   "joinLabel": "Войти",
   "fullLabel": "Заполнено",
   "justStarted": "Только что началось",
   "allLanguages": "Все языки",
   "allTopics": "Все темы",
-
   "dataAndStorage": "Данные и Хранилище",
   "manageStorageAndDownloads": "Управление хранилищем и загрузками",
   "storageUsage": "Использование Хранилища",
@@ -1013,13 +1017,17 @@
   "clearCacheConfirmationFor": "Очистить {category}?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} будет освобождено",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "Вычисление...",
@@ -1031,14 +1039,7 @@
   "addMissingFields": "Добавить: {fields}",
   "profilePicture": "Фото профиля",
   "nativeSpeaker": "Носитель языка",
-  "beginner": "Начинающий",
-  "elementary": "Элементарный",
-  "intermediate": "Средний",
-  "upperIntermediate": "Выше среднего",
-  "advanced": "Продвинутый",
-  "proficient": "Свободный",
   "peopleInterestedInTopic": "Люди, интересующиеся этой темой",
-  "noUsersFound": "Пользователи не найдены",
   "beFirstToAddTopic": "Будьте первым, кто добавит эту тему в свои интересы!",
   "recentMoments": "Недавние моменты",
   "seeAll": "Смотреть все",
@@ -1049,11 +1050,10 @@
   "whenYouGetNotifications": "Когда вы получите уведомления, они появятся здесь",
   "failedToLoadNotifications": "Не удалось загрузить уведомления",
   "clearAllNotificationsConfirm": "Вы уверены, что хотите удалить все уведомления? Это действие нельзя отменить.",
-
   "tapToChange": "Нажмите для изменения",
   "noPictureSet": "Фото не установлено",
   "nameAndGender": "Имя и Пол",
-  "languageLevel": "Уровень Языка",
+  "languageLevel": "Уровень языка",
   "personalInformation": "Личная Информация",
   "mbti": "MBTI",
   "topicsOfInterest": "Темы Интересов",
@@ -1067,14 +1067,18 @@
   "howWellDoYouSpeak": "Насколько хорошо вы говорите на {language}?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "язык",
   "languageLevelSetTo": "Уровень языка установлен на {level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "Не удалось обновить",
@@ -1082,7 +1086,7 @@
   "genderRequired": "Пол (обязательно)",
   "editHometown": "Изменить Родной Город",
   "useCurrentLocation": "Использовать Текущее Местоположение",
-  "detecting": "Определение...",
+  "detecting": "Определяется...",
   "getCurrentLocation": "Получить Текущее Местоположение",
   "country": "Страна",
   "city": "Город",
@@ -1099,7 +1103,9 @@
   "charactersCount": "{count}/500 символов",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectYourMbti": "Выберите Ваш MBTI",
@@ -1116,7 +1122,9 @@
   "maxTopicsAllowed": "Максимум {count} тем",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "Темы успешно обновлены!",
@@ -1124,8 +1132,12 @@
   "selectedCount": "{count}/{max} выбрано",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "Фото Профиля",
@@ -1146,7 +1158,9 @@
   "uploadImages": "Загрузить {count}",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "Изображение удалено",
@@ -1160,7 +1174,9 @@
   "youHaveUnuploadedImages": "{count} изображений не загружено. Загрузить?",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "Отменить",
@@ -1168,22 +1184,32 @@
   "maxImagesInfo": "Максимум {max} изображений. Текущее: {current}/{max}",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "Можно добавить еще {count}. Максимум {max}.",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "Максимум 5 изображений за раз",
   "canOnlyHaveMaxImages": "Максимум {max} изображений",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "Размер превышает 10МБ",
@@ -1194,7 +1220,6 @@
   "hometown": "Родной Город",
   "characters": "символов",
   "failedToLoadLanguages": "Не удалось загрузить языки",
-
   "studyHub": "Учебный центр",
   "dailyLearningJourney": "Ваш ежедневный путь обучения",
   "learnTab": "Учиться",
@@ -1317,22 +1342,13 @@
   "findYourPerfect": "Найдите своего идеального",
   "languagePartner": "языкового партнёра",
   "learningLanguageLabel": "Изучаемый язык",
-  "languageLevel": "Уровень языка",
-  "country": "Страна",
   "ageRange": "Возрастной диапазон",
   "genderPreference": "Предпочтение по полу",
   "any": "Любой",
-  "male": "Мужской",
-  "female": "Женский",
-  "other": "Другой",
-  "newUsersOnly": "Только новые пользователи",
   "showNewUsersSubtitle": "Показывать пользователей, присоединившихся за последние 6 дней",
-  "applyFilters": "Применить фильтры",
   "autoDetectLocation": "Автоматически определить моё местоположение",
-  "detecting": "Определяется...",
   "selectCountry": "Выбрать страну",
   "anyCountry": "Любая страна",
-  "searchCountry": "Поиск страны...",
   "loadingLanguages": "Загрузка языков...",
   "minAge": "Мин: {age}",
   "@minAge": {
@@ -1350,7 +1366,6 @@
       }
     }
   },
-
   "captionRequired": "Подпись обязательна",
   "captionTooLong": "Подпись должна содержать не более {maxLength} символов",
   "@captionTooLong": {
@@ -1400,27 +1415,80 @@
   },
   "chooseBackground": "Выбрать фон",
   "likedByXPeople": "Понравилось {count} людям",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} комментариев",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 комментарий",
   "addAComment": "Добавить комментарий...",
   "viewXReplies": "Показать {count} ответов",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "Просмотрели {count}",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count}ч назад",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count}м назад",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "Ответил на вашу историю",
   "mentionedYouInComment": "{name} упомянул вас в комментарии",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} ответил на ваш комментарий",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} отреагировал на ваш комментарий",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "Поиск пользователей...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "Добавить реакцию",
   "attachImage": "Прикрепить изображение",
   "pickGif": "Выбрать GIF",
@@ -1428,28 +1496,20 @@
   "typeYourStory": "Напишите историю...",
   "selectBackground": "Выбрать фон",
   "highlightsTitle": "Актуальное",
-  "newHighlight": "Новое актуальное",
   "highlightTitle": "Название",
-  "addToHighlight": "Добавить в актуальное",
   "createNewHighlight": "Создать новое",
-  "editHighlight": "Редактировать",
-  "deleteHighlight": "Удалить",
   "selectStories": "Выбрать истории",
   "selectCover": "Выбрать обложку",
   "addText": "Добавить текст",
-  "addSticker": "Добавить стикер",
   "fontStyleLabel": "Стиль шрифта",
   "textColorLabel": "Цвет текста",
-  "dragToDelete": "Перетащите сюда для удаления"
-,
+  "dragToDelete": "Перетащите сюда для удаления",
   "momentUpdatedSuccessfully": "Момент успешно обновлён",
   "failedToDeleteMoment": "Не удалось удалить момент",
   "failedToUpdateMoment": "Не удалось обновить момент",
-
   "mbtiUpdatedSuccessfully": "MBTI успешно обновлён",
   "pleaseSelectMbti": "Пожалуйста, выберите тип MBTI",
   "languageUpdatedSuccessfully": "Язык успешно обновлён",
-
   "bioHintCard": "Хорошая анкета помогает другим узнать вас. Расскажите о своих интересах, языках или о том, что вы ищете.",
   "bioCounterStartWriting": "Начните писать...",
   "bioCounterABitMore": "Можно написать чуть больше",
@@ -1476,8 +1536,6 @@
   "updateLocationCta": "Обновить местоположение",
   "enterYourName": "Введите ваше имя",
   "unsavedChanges": "У вас есть несохранённые изменения",
-
-  "loadingLanguages": "Загрузка языков...",
   "tapBelowToBrowseLanguages": "Нажмите ниже, чтобы выбрать из {count} языков",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1490,9 +1548,7 @@
   "browseLanguages": "Просмотр языков",
   "yourLearningLanguageIsPrefix": "Ваш язык изучения — ",
   "yourNativeLanguageIsPrefix": "Ваш родной язык — ",
-
   "profileCompleteProgress": "заполнено",
-
   "drawerPreferences": "Настройки",
   "drawerStorage": "Хранилище",
   "drawerReports": "Жалобы",
@@ -1509,7 +1565,6 @@
   "aboutBananatalkTagline": "Общайтесь с изучающими языки по всему миру и улучшайте навыки через реальные разговоры.",
   "aboutCopyright": "© 2024 Bananatalk. Все права защищены.",
   "logoutFailedPrefix": "Ошибка выхода",
-
   "profileVisitorsTitle": "Посетители профиля",
   "visitorStatistics": "Статистика посещений",
   "visitorsTotalVisits": "Всего посещений",
@@ -1524,24 +1579,19 @@
   "visitedDirect": "Прямой визит",
   "visitorTrackingUnavailable": "Отслеживание посетителей недоступно. Обновите бэкенд.",
   "visitorTrackingNotAvailableYet": "Отслеживание посетителей пока недоступно",
-
   "noFollowersYetSubtitle": "Начните общаться с другими!",
   "partnerButton": "Партнёр",
-
   "notFollowingAnyoneYetSubtitle": "Подпишитесь на людей, чтобы видеть их обновления!",
   "unfollowButton": "Отписаться",
-
   "profileThemeTitle": "Тема профиля",
   "themeAutoSwitch": "Авто (системная тема)",
   "themeSystemHint": "При включении приложение будет следовать настройкам темы системы",
   "themeLightMode": "Светлая тема",
   "themeDarkMode": "Тёмная тема",
-
   "myMoments": "Мои моменты",
   "momentListView": "Список",
   "momentGridView": "Сетка",
   "shareLanguageLearningJourney": "Поделитесь своим путём изучения языка!",
-
   "deleteHighlightTitle": "Удалить подборку",
   "deleteHighlightConfirm": "Удалить «{title}»? Истории внутри удалены не будут.",
   "@deleteHighlightConfirm": {
@@ -1553,7 +1603,6 @@
   },
   "highlightDeletedSuccess": "Подборка удалена",
   "highlightNewBadge": "Новое",
-
   "editMoment": "Редактировать момент",
   "momentDescriptionLabel": "Описание",
   "momentImagesLabel": "Изображения",
@@ -1566,5 +1615,23 @@
   "updateAvailableBody": "Доступна новая версия Bananatalk с улучшениями и исправлениями ошибок.",
   "updateNow": "Обновить сейчас",
   "updateLater": "Позже",
-  "updateOpenStoreFailed": "Не удалось открыть магазин. Пожалуйста, обновите приложение из App Store или Play Store."
+  "updateOpenStoreFailed": "Не удалось открыть магазин. Пожалуйста, обновите приложение из App Store или Play Store.",
+  "rememberMe": "Запомнить меня",
+  "passwordWeak": "Слабый",
+  "passwordFair": "Средний",
+  "passwordStrong": "Сильный",
+  "passwordVeryStrong": "Очень сильный",
+  "showPassword": "Показать пароль",
+  "hidePassword": "Скрыть пароль",
+  "stepProgress": "Шаг {current} из {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

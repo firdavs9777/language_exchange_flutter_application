@@ -522,14 +522,14 @@
   "addFriends": "친구 추가",
   "highlights": "하이라이트",
   "createHighlight": "하이라이트 만들기",
-  "deleteHighlight": "하이라이트를 삭제하시겠습니까?",
-  "editHighlight": "하이라이트 수정",
+  "deleteHighlight": "하이라이트 삭제",
+  "editHighlight": "하이라이트 편집",
   "addMoreToStory": "스토리에 더 추가하기",
   "noViewersYet": "아직 시청자가 없습니다",
   "noReactionsYet": "아직 반응이 없습니다",
-  "leaveRoom": "방을 나가시겠습니까?",
+  "leaveRoom": "방 나가기",
   "areYouSureLeaveRoom": "이 음성 방을 나가시겠습니까?",
-  "stay": "머무르기",
+  "stay": "머물기",
   "leave": "나가기",
   "enableGPS": "GPS 활성화",
   "wavedToUser": "{name}에게 인사했습니다!",
@@ -730,12 +730,12 @@
   "connectWithNativeSpeakers": "원어민과 연결해 드립니다",
   "selectLearningLanguage": "배우는 언어를 선택해 주세요",
   "selectCurrentLevel": "현재 레벨을 선택해 주세요",
-  "beginner": "초급 — 몇 단어를 알고 있어요",
-  "elementary": "초중급 — 간단한 문장을 만들 수 있어요",
-  "intermediate": "중급 — 기본적인 대화가 가능해요",
-  "upperIntermediate": "중상급 — 대부분의 주제를 논의할 수 있어요",
-  "advanced": "고급 — 유창하게 말할 수 있어요",
-  "proficient": "최고급 — 원어민 수준",
+  "beginner": "입문",
+  "elementary": "초급",
+  "intermediate": "중급",
+  "upperIntermediate": "중상급",
+  "advanced": "고급",
+  "proficient": "능숙",
   "showingPartnersByDistance": "거리순으로 파트너 표시 중",
   "enableLocationForResults": "거리 기반 결과를 위해 위치를 활성화하세요",
   "enable": "활성화",
@@ -776,7 +776,6 @@
   "pleaseEnterBothEmailAndPassword": "이메일과 비밀번호를 모두 입력하세요",
   "pleaseEnterValidEmail": "유효한 이메일 주소를 입력하세요",
   "loginSuccessful": "로그인 성공!",
-  "sessionExpired": "세션이 만료되었습니다. 다시 로그인하세요.",
   "stepOneOfTwo": "1단계 / 2단계",
   "createYourAccount": "계정 만들기",
   "basicInfoToGetStarted": "시작을 위한 기본 정보",
@@ -789,12 +788,9 @@
   "pleaseEnterYourName": "이름을 입력하세요",
   "pleaseEnterAPassword": "비밀번호를 입력하세요",
   "passwordsDoNotMatch": "비밀번호가 일치하지 않습니다",
-  "male": "남성",
-  "female": "여성",
   "otherGender": "기타",
   "continueWithGoogleAccount": "Google 계정으로 계속하여\n원활한 경험을 즐기세요",
   "signingYouIn": "로그인 중...",
-  "tryAgain": "다시 시도",
   "backToSignInMethods": "로그인 방법으로 돌아가기",
   "securedByGoogle": "Google 보안",
   "dataProtectedEncryption": "업계 표준 암호화로 데이터가 보호됩니다",
@@ -881,7 +877,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "받기",
@@ -907,20 +905,18 @@
   "callAt": "{time}에 통화",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "음성 통화",
-  "tryAgain": "다시 시도",
   "voiceRoom": "음성 채팅방",
   "noVoiceRooms": "활성화된 음성 채팅방 없음",
   "createVoiceRoom": "음성 채팅방 만들기",
   "joinRoom": "방 참여",
-  "leaveRoom": "방 나가기",
   "leaveRoomConfirm": "방을 나가시겠습니까?",
   "leaveRoomMessage": "정말 이 방을 나가시겠습니까?",
-  "stay": "머물기",
-  "leave": "나가기",
   "roomTitle": "방 제목",
   "roomTitleHint": "방 제목 입력",
   "roomTopic": "주제",
@@ -929,17 +925,20 @@
   "roomParticipants": "{count}명 참여",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "최대 {count}명",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "주제 선택",
-  "selectLanguage": "언어 선택",
   "raiseHand": "손 들기",
   "lowerHand": "손 내리기",
   "handRaisedNotification": "손을 들었습니다! 호스트가 요청을 확인합니다.",
@@ -959,7 +958,9 @@
   "liveRoomsCount": "{count}개 라이브",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "활성화된 방 없음",
@@ -975,18 +976,25 @@
   "nPeople": "{count}명",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "{name}님이 호스팅",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "라이브",
   "joinLabel": "참여",
   "fullLabel": "가득 참",
   "justStarted": "방금 시작됨",
   "allLanguages": "모든 언어",
   "allTopics": "모든 주제",
-
   "dataAndStorage": "데이터 및 저장공간",
   "manageStorageAndDownloads": "저장공간 및 다운로드 관리",
   "storageUsage": "저장공간 사용량",
@@ -1009,18 +1017,21 @@
   "clearCacheConfirmationFor": "{category} 삭제?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size}이(가) 확보됩니다",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "계산 중...",
   "noDataToShow": "표시할 데이터가 없습니다",
-
   "profileCompletion": "프로필 완성도",
   "justGettingStarted": "시작하는 중",
   "lookingGood": "잘하고 있어요!",
@@ -1028,19 +1039,14 @@
   "addMissingFields": "추가하기: {fields}",
   "@addMissingFields": {
     "placeholders": {
-      "fields": {"type": "String"}
+      "fields": {
+        "type": "String"
+      }
     }
   },
   "profilePicture": "프로필 사진",
   "nativeSpeaker": "원어민",
-  "beginner": "입문",
-  "elementary": "초급",
-  "intermediate": "중급",
-  "upperIntermediate": "중상급",
-  "advanced": "고급",
-  "proficient": "능숙",
   "peopleInterestedInTopic": "이 주제에 관심 있는 사람들",
-  "noUsersFound": "사용자를 찾을 수 없습니다",
   "beFirstToAddTopic": "이 주제를 관심사에 추가하는 첫 번째가 되세요!",
   "recentMoments": "최근 모먼트",
   "seeAll": "모두 보기",
@@ -1051,7 +1057,6 @@
   "whenYouGetNotifications": "알림이 오면 여기에 표시됩니다",
   "failedToLoadNotifications": "알림을 불러오지 못했습니다",
   "clearAllNotificationsConfirm": "모든 알림을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
-
   "tapToChange": "탭하여 변경",
   "noPictureSet": "사진 미설정",
   "nameAndGender": "이름 및 성별",
@@ -1059,7 +1064,6 @@
   "personalInformation": "개인 정보",
   "mbti": "MBTI",
   "topicsOfInterest": "관심 주제",
-  "more": "더보기",
   "levelBeginner": "입문",
   "levelElementary": "초급",
   "levelIntermediate": "중급",
@@ -1070,20 +1074,23 @@
   "howWellDoYouSpeak": "{language} 실력이 어느 정도인가요?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "언어",
   "languageLevelSetTo": "언어 수준이 {level}(으)로 설정되었습니다",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "업데이트 실패",
   "profileUpdatedSuccessfully": "프로필이 성공적으로 업데이트되었습니다",
   "genderRequired": "성별 (필수)",
-
   "editHometown": "고향 편집",
   "useCurrentLocation": "현재 위치 사용",
   "detecting": "감지 중...",
@@ -1097,34 +1104,34 @@
   "locationServicesDisabled": "위치 서비스가 비활성화되어 있습니다. 활성화해주세요.",
   "locationPermissionPermanentlyDenied": "위치 권한이 영구적으로 거부되었습니다.",
   "unknown": "알 수 없음",
-
   "editBio": "소개글 편집",
   "bioUpdatedSuccessfully": "소개글이 성공적으로 업데이트되었습니다",
   "tellOthersAboutYourself": "자신에 대해 알려주세요...",
   "charactersCount": "{count}/500자",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "selectYourMbti": "MBTI 선택",
   "myBloodType": "내 혈액형",
   "pleaseSelectABloodType": "혈액형을 선택해주세요",
   "bloodTypeSavedSuccessfully": "혈액형이 성공적으로 저장되었습니다",
   "hometownSavedSuccessfully": "고향이 성공적으로 저장되었습니다",
-
   "nativeLanguageRequired": "모국어 (필수)",
   "languageToLearnRequired": "배울 언어 (필수)",
   "nativeLanguageCannotBeSame": "모국어는 배우는 언어와 같을 수 없습니다",
   "learningLanguageCannotBeSame": "배우는 언어는 모국어와 같을 수 없습니다",
   "pleaseSelectALanguage": "언어를 선택해주세요",
-
   "editInterests": "관심사 편집",
   "maxTopicsAllowed": "최대 {count}개 주제까지 선택 가능",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "관심 주제가 성공적으로 업데이트되었습니다!",
@@ -1132,11 +1139,14 @@
   "selectedCount": "{count}/{max} 선택됨",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "profilePictures": "프로필 사진",
   "addImages": "이미지 추가",
   "selectUpToImages": "최대 5개 이미지 선택",
@@ -1155,7 +1165,9 @@
   "uploadImages": "{count}개 이미지 업로드",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "이미지가 성공적으로 제거되었습니다",
@@ -1169,7 +1181,9 @@
   "youHaveUnuploadedImages": "{count}개의 이미지가 선택되었지만 업로드되지 않았습니다. 지금 업로드하시겠습니까?",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "취소",
@@ -1177,34 +1191,42 @@
   "maxImagesInfo": "최대 {max}개 이미지 업로드 가능. 현재: {current}/{max}\n한 번에 최대 5개 이미지.",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "{count}개의 이미지만 더 추가할 수 있습니다. 최대 {max}개입니다.",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "한 번에 최대 5개 이미지만 업로드할 수 있습니다. 처음 5개만 추가됩니다.",
   "canOnlyHaveMaxImages": "최대 {max}개 이미지만 가질 수 있습니다",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "이미지 크기가 10MB 제한을 초과합니다",
   "unsupportedImageFormat": "지원되지 않는 이미지 형식",
   "pleaseSelectAtLeastOneImage": "업로드할 이미지를 최소 1개 선택해주세요",
-
   "basicInformation": "기본 정보",
   "languageToLearn": "배울 언어",
   "hometown": "고향",
   "characters": "자",
   "failedToLoadLanguages": "언어 목록을 불러오지 못했습니다",
-
   "studyHub": "학습 허브",
   "dailyLearningJourney": "오늘의 학습 여정",
   "learnTab": "학습",
@@ -1327,23 +1349,14 @@
   "findYourPerfect": "이상적인",
   "languagePartner": "언어 파트너 찾기",
   "learningLanguageLabel": "학습 언어",
-  "languageLevel": "언어 수준",
-  "country": "국가",
   "ageRange": "나이 범위",
   "genderPreference": "성별 선호",
   "any": "모두",
-  "male": "남성",
-  "female": "여성",
-  "other": "기타",
-  "newUsersOnly": "신규 사용자만",
   "showNewUsersSubtitle": "지난 6일 이내에 가입한 사용자 표시",
-  "applyFilters": "필터 적용",
   "autoDetectLocation": "내 위치 자동 감지",
-  "detecting": "감지 중...",
   "selectCountry": "국가 선택",
   "anyCountry": "모든 국가",
-  "searchCountry": "국가 검색...",
-  "loadingLanguages": "언어 로딩 중...",
+  "loadingLanguages": "언어를 불러오는 중...",
   "minAge": "최소: {age}",
   "@minAge": {
     "placeholders": {
@@ -1360,7 +1373,6 @@
       }
     }
   },
-
   "captionRequired": "캡션은 필수입니다",
   "captionTooLong": "캡션은 {maxLength}자 이하여야 합니다",
   "@captionTooLong": {
@@ -1410,27 +1422,80 @@
   },
   "chooseBackground": "배경 선택",
   "likedByXPeople": "{count}명이 좋아합니다",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "댓글 {count}개",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "댓글 1개",
   "addAComment": "댓글 달기...",
   "viewXReplies": "답글 {count}개 보기",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "{count}명이 봄",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "{count}시간 전",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "{count}분 전",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "스토리에 답장함",
   "mentionedYouInComment": "{name}님이 댓글에서 회원님을 언급했습니다",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name}님이 댓글에 답글을 달았습니다",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name}님이 댓글에 반응했습니다",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "사용자 검색...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "반응 추가",
   "attachImage": "이미지 첨부",
   "pickGif": "GIF 선택",
@@ -1438,28 +1503,20 @@
   "typeYourStory": "스토리를 입력하세요...",
   "selectBackground": "배경 선택",
   "highlightsTitle": "하이라이트",
-  "newHighlight": "새 하이라이트",
   "highlightTitle": "하이라이트 제목",
-  "addToHighlight": "하이라이트에 추가",
   "createNewHighlight": "새로 만들기",
-  "editHighlight": "하이라이트 편집",
-  "deleteHighlight": "하이라이트 삭제",
   "selectStories": "스토리 선택",
   "selectCover": "커버 선택",
   "addText": "텍스트 추가",
-  "addSticker": "스티커 추가",
   "fontStyleLabel": "글꼴 스타일",
   "textColorLabel": "텍스트 색상",
-  "dragToDelete": "여기로 끌어서 삭제"
-,
+  "dragToDelete": "여기로 끌어서 삭제",
   "momentUpdatedSuccessfully": "모멘트가 성공적으로 업데이트되었습니다",
   "failedToDeleteMoment": "모멘트 삭제에 실패했습니다",
   "failedToUpdateMoment": "모멘트 업데이트에 실패했습니다",
-
   "mbtiUpdatedSuccessfully": "MBTI가 성공적으로 업데이트되었습니다",
   "pleaseSelectMbti": "MBTI 유형을 선택해 주세요",
   "languageUpdatedSuccessfully": "언어가 성공적으로 업데이트되었습니다",
-
   "bioHintCard": "좋은 자기소개는 다른 사람들이 나와 연결하는 데 도움이 됩니다. 관심사, 사용 언어, 또는 찾고 있는 것을 공유해 보세요.",
   "bioCounterStartWriting": "작성을 시작하세요...",
   "bioCounterABitMore": "조금 더 작성하면 좋겠어요",
@@ -1486,8 +1543,6 @@
   "updateLocationCta": "위치 업데이트",
   "enterYourName": "이름을 입력하세요",
   "unsavedChanges": "저장되지 않은 변경 사항이 있습니다",
-
-  "loadingLanguages": "언어를 불러오는 중...",
   "tapBelowToBrowseLanguages": "아래를 탭하여 {count}개 언어 중 선택",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1500,9 +1555,7 @@
   "browseLanguages": "언어 찾기",
   "yourLearningLanguageIsPrefix": "학습 중인 언어: ",
   "yourNativeLanguageIsPrefix": "모국어: ",
-
   "profileCompleteProgress": "완료",
-
   "drawerPreferences": "환경설정",
   "drawerStorage": "저장공간",
   "drawerReports": "신고",
@@ -1519,7 +1572,6 @@
   "aboutBananatalkTagline": "전 세계 언어 학습자와 연결하고 실제 대화를 통해 실력을 키워보세요.",
   "aboutCopyright": "© 2024 Bananatalk. 무단 전재 금지.",
   "logoutFailedPrefix": "로그아웃 실패",
-
   "profileVisitorsTitle": "프로필 방문자",
   "visitorStatistics": "방문자 통계",
   "visitorsTotalVisits": "총 방문 수",
@@ -1534,24 +1586,19 @@
   "visitedDirect": "직접 방문",
   "visitorTrackingUnavailable": "방문자 추적 기능을 사용할 수 없습니다. 백엔드를 업데이트해 주세요.",
   "visitorTrackingNotAvailableYet": "방문자 추적은 아직 사용할 수 없습니다",
-
   "noFollowersYetSubtitle": "다른 사람들과 연결을 시작하세요!",
   "partnerButton": "파트너",
-
   "notFollowingAnyoneYetSubtitle": "팔로우하여 업데이트를 확인하세요!",
   "unfollowButton": "언팔로우",
-
   "profileThemeTitle": "프로필 테마",
   "themeAutoSwitch": "자동 전환 (시스템 테마)",
   "themeSystemHint": "활성화하면 앱이 시스템 테마 설정을 따릅니다",
   "themeLightMode": "라이트 모드",
   "themeDarkMode": "다크 모드",
-
   "myMoments": "내 모멘트",
   "momentListView": "목록 보기",
   "momentGridView": "그리드 보기",
   "shareLanguageLearningJourney": "언어 학습 여정을 공유하세요!",
-
   "deleteHighlightTitle": "하이라이트 삭제",
   "deleteHighlightConfirm": "\"{title}\"을(를) 삭제할까요? 안에 있는 스토리는 삭제되지 않습니다.",
   "@deleteHighlightConfirm": {
@@ -1563,7 +1610,6 @@
   },
   "highlightDeletedSuccess": "하이라이트가 삭제되었습니다",
   "highlightNewBadge": "새로운",
-
   "editMoment": "모멘트 편집",
   "momentDescriptionLabel": "설명",
   "momentImagesLabel": "이미지",
@@ -1576,5 +1622,23 @@
   "updateAvailableBody": "개선 사항 및 버그 수정이 포함된 Bananatalk의 새 버전이 출시되었습니다.",
   "updateNow": "지금 업데이트",
   "updateLater": "나중에",
-  "updateOpenStoreFailed": "스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요."
+  "updateOpenStoreFailed": "스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요.",
+  "rememberMe": "자동 로그인",
+  "passwordWeak": "약함",
+  "passwordFair": "보통",
+  "passwordStrong": "강함",
+  "passwordVeryStrong": "매우 강함",
+  "showPassword": "비밀번호 표시",
+  "hidePassword": "비밀번호 숨기기",
+  "stepProgress": "단계 {current} / {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

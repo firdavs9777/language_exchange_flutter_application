@@ -4408,4 +4408,30 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Tidak dapat membuka toko. Harap perbarui dari App Store atau Play Store.';
+
+  @override
+  String get rememberMe => 'Ingat saya';
+
+  @override
+  String get passwordWeak => 'Lemah';
+
+  @override
+  String get passwordFair => 'Cukup';
+
+  @override
+  String get passwordStrong => 'Kuat';
+
+  @override
+  String get passwordVeryStrong => 'Sangat kuat';
+
+  @override
+  String get showPassword => 'Tampilkan kata sandi';
+
+  @override
+  String get hidePassword => 'Sembunyikan kata sandi';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Langkah $current dari $total';
+  }
 }

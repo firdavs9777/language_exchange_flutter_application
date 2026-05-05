@@ -20,7 +20,7 @@
   "settings": "Configurações",
   "logout": "Sair",
   "language": "Idioma",
-  "selectLanguage": "Selecionar Idioma",
+  "selectLanguage": "Selecionar idioma",
   "autoTranslate": "Tradução Automática",
   "autoTranslateMessages": "Traduzir Mensagens Automaticamente",
   "autoTranslateMoments": "Traduzir Momentos Automaticamente",
@@ -508,12 +508,12 @@
   "addFriends": "Adicionar amigos",
   "highlights": "Destaques",
   "createHighlight": "Criar destaque",
-  "deleteHighlight": "Excluir destaque?",
+  "deleteHighlight": "Excluir destaque",
   "editHighlight": "Editar destaque",
   "addMoreToStory": "Adicionar mais ao story",
   "noViewersYet": "Nenhum espectador ainda",
   "noReactionsYet": "Nenhuma reação ainda",
-  "leaveRoom": "Sair da sala?",
+  "leaveRoom": "Sair da sala",
   "areYouSureLeaveRoom": "Tem certeza que deseja sair desta sala de voz?",
   "stay": "Ficar",
   "leave": "Sair",
@@ -654,7 +654,6 @@
   "learningLanguage": "Aprendendo {language}",
   "noPartnersFound": "Nenhum parceiro encontrado",
   "noUsersFoundForLanguages": "Nenhum usuário encontrado que fale {learning} nativamente ou queira aprender {native}.",
-  "tryAdjustingFilters": "Tente ajustar seus filtros",
   "removeAllFilters": "Remover todos os filtros",
   "browseAllUsers": "Navegar por todos os usuários",
   "allCaughtUp": "Tudo em dia!",
@@ -664,8 +663,6 @@
   "startOver": "Recomeçar",
   "changeFilters": "Alterar filtros",
   "findingPartners": "Encontrando parceiros...",
-  "somethingWentWrong": "Algo deu errado",
-  "retry": "Tentar novamente",
   "setLocationReminder": "Defina sua localização para encontrar parceiros próximos",
   "updateLocationReminder": "Atualize sua localização para melhores resultados",
   "male": "Masculino",
@@ -697,12 +694,11 @@
   "seeUserCountsPerCountry": "Ver contagem de usuários por país",
   "upgradeToVip": "Atualizar para VIP",
   "searchByCity": "Buscar por cidade",
-  "loading": "Carregando...",
   "usersWorldwide": "{count} usuários no mundo",
   "noUsersFound": "Nenhum usuário encontrado",
   "tryDifferentCity": "Tente uma cidade diferente",
   "usersCount": "{count} usuários",
-  "searchCountry": "Buscar país",
+  "searchCountry": "Pesquisar país...",
   "wave": "Acenar",
   "newUser": "Novo usuário",
   "warningPermanent": "Aviso: Esta ação é permanente!",
@@ -765,7 +761,6 @@
   "pleaseEnterBothEmailAndPassword": "Insira e-mail e senha",
   "pleaseEnterValidEmail": "Insira um e-mail válido",
   "loginSuccessful": "Login realizado!",
-  "sessionExpired": "Sessão expirada. Faça login novamente.",
   "stepOneOfTwo": "Passo 1 de 2",
   "createYourAccount": "Crie sua conta",
   "basicInfoToGetStarted": "Informações básicas para começar",
@@ -778,12 +773,9 @@
   "pleaseEnterYourName": "Insira seu nome",
   "pleaseEnterAPassword": "Insira uma senha",
   "passwordsDoNotMatch": "As senhas não coincidem",
-  "male": "Masculino",
-  "female": "Feminino",
   "otherGender": "Outro",
   "continueWithGoogleAccount": "Continue com sua conta Google\npara uma experiência fluida",
   "signingYouIn": "Entrando...",
-  "tryAgain": "Tentar novamente",
   "backToSignInMethods": "Voltar aos métodos de login",
   "securedByGoogle": "Protegido pelo Google",
   "dataProtectedEncryption": "Seus dados são protegidos com criptografia padrão",
@@ -871,7 +863,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "Aceitar",
@@ -897,20 +891,18 @@
   "callAt": "Chamada às {time}",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "Chamada de áudio",
-  "tryAgain": "Tentar novamente",
   "voiceRoom": "Sala de voz",
   "noVoiceRooms": "Nenhuma sala de voz ativa",
   "createVoiceRoom": "Criar sala de voz",
   "joinRoom": "Entrar na sala",
-  "leaveRoom": "Sair da sala",
   "leaveRoomConfirm": "Sair da sala?",
   "leaveRoomMessage": "Tem certeza de que deseja sair desta sala?",
-  "stay": "Ficar",
-  "leave": "Sair",
   "roomTitle": "Título da sala",
   "roomTitleHint": "Digite o título da sala",
   "roomTopic": "Tópico",
@@ -919,17 +911,20 @@
   "roomParticipants": "{count} participantes",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "Máx. {count} participantes",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "Selecionar tópico",
-  "selectLanguage": "Selecionar idioma",
   "raiseHand": "Levantar mão",
   "lowerHand": "Abaixar mão",
   "handRaisedNotification": "Mão levantada! O anfitrião verá sua solicitação.",
@@ -949,7 +944,9 @@
   "liveRoomsCount": "{count} ao vivo",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "Nenhuma sala ativa",
@@ -965,18 +962,25 @@
   "nPeople": "{count} pessoas",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "Hospedado por {name}",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "AO VIVO",
   "joinLabel": "Entrar",
   "fullLabel": "Cheio",
   "justStarted": "Acabou de começar",
   "allLanguages": "Todos os idiomas",
   "allTopics": "Todos os tópicos",
-
   "dataAndStorage": "Dados e Armazenamento",
   "manageStorageAndDownloads": "Gerenciar armazenamento e downloads",
   "storageUsage": "Uso do Armazenamento",
@@ -999,13 +1003,17 @@
   "clearCacheConfirmationFor": "Limpar {category}?",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "{size} serão liberados",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "Calculando...",
@@ -1017,14 +1025,7 @@
   "addMissingFields": "Adicionar: {fields}",
   "profilePicture": "Foto de perfil",
   "nativeSpeaker": "Falante nativo",
-  "beginner": "Iniciante",
-  "elementary": "Elementar",
-  "intermediate": "Intermediário",
-  "upperIntermediate": "Intermediário superior",
-  "advanced": "Avançado",
-  "proficient": "Proficiente",
   "peopleInterestedInTopic": "Pessoas interessadas neste tópico",
-  "noUsersFound": "Nenhum usuário encontrado",
   "beFirstToAddTopic": "Seja o primeiro a adicionar este tópico aos seus interesses!",
   "recentMoments": "Momentos recentes",
   "seeAll": "Ver tudo",
@@ -1035,11 +1036,10 @@
   "whenYouGetNotifications": "Quando você receber notificações, elas aparecerão aqui",
   "failedToLoadNotifications": "Falha ao carregar notificações",
   "clearAllNotificationsConfirm": "Tem certeza de que deseja limpar todas as notificações? Esta ação não pode ser desfeita.",
-
   "tapToChange": "Toque para alterar",
   "noPictureSet": "Sem foto definida",
   "nameAndGender": "Nome e Gênero",
-  "languageLevel": "Nível do Idioma",
+  "languageLevel": "Nível de idioma",
   "personalInformation": "Informações Pessoais",
   "mbti": "MBTI",
   "topicsOfInterest": "Tópicos de Interesse",
@@ -1053,20 +1053,23 @@
   "howWellDoYouSpeak": "Quão bem você fala {language}?",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "o idioma",
   "languageLevelSetTo": "Nível de idioma definido para {level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "Falha ao atualizar",
   "profileUpdatedSuccessfully": "Perfil atualizado com sucesso",
   "genderRequired": "Gênero (Obrigatório)",
-
   "editHometown": "Editar Cidade Natal",
   "useCurrentLocation": "Usar Localização Atual",
   "detecting": "Detectando...",
@@ -1080,34 +1083,34 @@
   "locationServicesDisabled": "Os serviços de localização estão desativados. Por favor, ative-os.",
   "locationPermissionPermanentlyDenied": "As permissões de localização estão permanentemente negadas.",
   "unknown": "Desconhecido",
-
   "editBio": "Editar Biografia",
   "bioUpdatedSuccessfully": "Biografia atualizada com sucesso",
   "tellOthersAboutYourself": "Conte aos outros sobre você...",
   "charactersCount": "{count}/500 caracteres",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "selectYourMbti": "Selecione Seu MBTI",
   "myBloodType": "Meu Tipo Sanguíneo",
   "pleaseSelectABloodType": "Por favor, selecione um tipo sanguíneo",
   "bloodTypeSavedSuccessfully": "Tipo sanguíneo salvo com sucesso",
   "hometownSavedSuccessfully": "Cidade natal salva com sucesso",
-
   "nativeLanguageRequired": "Idioma Nativo (Obrigatório)",
   "languageToLearnRequired": "Idioma para Aprender (Obrigatório)",
   "nativeLanguageCannotBeSame": "O idioma nativo não pode ser igual ao idioma que você está aprendendo",
   "learningLanguageCannotBeSame": "O idioma que você está aprendendo não pode ser igual ao seu idioma nativo",
   "pleaseSelectALanguage": "Por favor, selecione um idioma",
-
   "editInterests": "Editar Interesses",
   "maxTopicsAllowed": "Máximo de {count} tópicos permitidos",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "Tópicos atualizados com sucesso!",
@@ -1115,11 +1118,14 @@
   "selectedCount": "{count}/{max} selecionados",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
-
   "profilePictures": "Fotos de Perfil",
   "addImages": "Adicionar Imagens",
   "selectUpToImages": "Selecione até 5 imagens",
@@ -1138,7 +1144,9 @@
   "uploadImages": "Enviar {count} Imagem(ns)",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "Imagem removida com sucesso",
@@ -1152,7 +1160,9 @@
   "youHaveUnuploadedImages": "Você tem {count} imagem(ns) selecionadas mas não enviadas. Deseja enviá-las agora?",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "Descartar",
@@ -1160,34 +1170,42 @@
   "maxImagesInfo": "Você pode enviar até {max} imagens. Atual: {current}/{max}\nMáx 5 imagens por envio.",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "Você só pode adicionar mais {count} imagem(ns). Máximo é {max} imagens.",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "Você pode enviar no máximo 5 imagens por vez. Apenas as primeiras 5 serão adicionadas.",
   "canOnlyHaveMaxImages": "Você só pode ter até {max} imagens",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "O tamanho da imagem excede o limite de 10MB",
   "unsupportedImageFormat": "Formato de imagem não suportado",
   "pleaseSelectAtLeastOneImage": "Por favor, selecione pelo menos uma imagem para enviar",
-
   "basicInformation": "Informações Básicas",
   "languageToLearn": "Idioma para Aprender",
   "hometown": "Cidade Natal",
   "characters": "caracteres",
   "failedToLoadLanguages": "Falha ao carregar idiomas",
-
   "studyHub": "Central de estudos",
   "dailyLearningJourney": "Sua jornada de aprendizado diária",
   "learnTab": "Aprender",
@@ -1310,22 +1328,13 @@
   "findYourPerfect": "Encontre seu perfeito",
   "languagePartner": "Parceiro de idioma",
   "learningLanguageLabel": "Língua de aprendizado",
-  "languageLevel": "Nível de idioma",
-  "country": "País",
   "ageRange": "Faixa etária",
   "genderPreference": "Preferência de gênero",
   "any": "Qualquer",
-  "male": "Masculino",
-  "female": "Feminino",
-  "other": "Outro",
-  "newUsersOnly": "Apenas novos usuários",
   "showNewUsersSubtitle": "Mostrar usuários que entraram nos últimos 6 dias",
-  "applyFilters": "Aplicar filtros",
   "autoDetectLocation": "Detectar minha localização automaticamente",
-  "detecting": "Detectando...",
   "selectCountry": "Selecionar país",
   "anyCountry": "Qualquer país",
-  "searchCountry": "Pesquisar país...",
   "loadingLanguages": "Carregando idiomas...",
   "minAge": "Mín: {age}",
   "@minAge": {
@@ -1343,7 +1352,6 @@
       }
     }
   },
-
   "captionRequired": "A legenda é obrigatória",
   "captionTooLong": "A legenda deve ter {maxLength} caracteres ou menos",
   "@captionTooLong": {
@@ -1393,27 +1401,80 @@
   },
   "chooseBackground": "Escolher fundo",
   "likedByXPeople": "Curtido por {count} pessoas",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} comentários",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "1 comentário",
   "addAComment": "Adicionar um comentário...",
   "viewXReplies": "Ver {count} respostas",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "Visto por {count}",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "há {count}h",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "há {count}m",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "Respondeu à sua história",
   "mentionedYouInComment": "{name} mencionou você em um comentário",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} respondeu ao seu comentário",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} reagiu ao seu comentário",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "Pesquisar usuários...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "Adicionar reação",
   "attachImage": "Anexar imagem",
   "pickGif": "Escolher GIF",
@@ -1421,28 +1482,20 @@
   "typeYourStory": "Escreva sua história...",
   "selectBackground": "Selecionar fundo",
   "highlightsTitle": "Destaques",
-  "newHighlight": "Novo destaque",
   "highlightTitle": "Título do destaque",
-  "addToHighlight": "Adicionar ao destaque",
   "createNewHighlight": "Criar novo",
-  "editHighlight": "Editar destaque",
-  "deleteHighlight": "Excluir destaque",
   "selectStories": "Selecionar histórias",
   "selectCover": "Selecionar capa",
   "addText": "Adicionar texto",
-  "addSticker": "Adicionar sticker",
   "fontStyleLabel": "Estilo da fonte",
   "textColorLabel": "Cor do texto",
-  "dragToDelete": "Arraste aqui para excluir"
-,
+  "dragToDelete": "Arraste aqui para excluir",
   "momentUpdatedSuccessfully": "Momento atualizado com sucesso",
   "failedToDeleteMoment": "Falha ao excluir o momento",
   "failedToUpdateMoment": "Falha ao atualizar o momento",
-
   "mbtiUpdatedSuccessfully": "MBTI atualizado com sucesso",
   "pleaseSelectMbti": "Por favor selecione um tipo MBTI",
   "languageUpdatedSuccessfully": "Idioma atualizado com sucesso",
-
   "bioHintCard": "Uma boa bio ajuda os outros a se conectarem com você. Compartilhe seus interesses, idiomas ou o que você está procurando.",
   "bioCounterStartWriting": "Comece a escrever...",
   "bioCounterABitMore": "Um pouco mais seria ótimo",
@@ -1469,8 +1522,6 @@
   "updateLocationCta": "Atualizar localização",
   "enterYourName": "Digite seu nome",
   "unsavedChanges": "Você tem alterações não salvas",
-
-  "loadingLanguages": "Carregando idiomas...",
   "tapBelowToBrowseLanguages": "Toque abaixo para explorar {count} idiomas",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1483,9 +1534,7 @@
   "browseLanguages": "Explorar idiomas",
   "yourLearningLanguageIsPrefix": "Seu idioma de aprendizado é ",
   "yourNativeLanguageIsPrefix": "Seu idioma nativo é ",
-
   "profileCompleteProgress": "completo",
-
   "drawerPreferences": "Preferências",
   "drawerStorage": "Armazenamento",
   "drawerReports": "Relatórios",
@@ -1502,7 +1551,6 @@
   "aboutBananatalkTagline": "Conecte-se com estudantes de idiomas de todo o mundo e melhore suas habilidades por meio de conversas reais.",
   "aboutCopyright": "© 2024 Bananatalk. Todos os direitos reservados.",
   "logoutFailedPrefix": "Falha ao sair",
-
   "profileVisitorsTitle": "Visitantes do perfil",
   "visitorStatistics": "Estatísticas de visitantes",
   "visitorsTotalVisits": "Total de visitas",
@@ -1517,24 +1565,19 @@
   "visitedDirect": "Visita direta",
   "visitorTrackingUnavailable": "Recurso de rastreamento de visitantes não disponível. Por favor, atualize o backend.",
   "visitorTrackingNotAvailableYet": "Rastreamento de visitantes ainda não disponível",
-
   "noFollowersYetSubtitle": "Comece a se conectar com outras pessoas!",
   "partnerButton": "Parceiro",
-
   "notFollowingAnyoneYetSubtitle": "Comece a seguir pessoas para ver as atualizações delas!",
   "unfollowButton": "Deixar de seguir",
-
   "profileThemeTitle": "Tema do perfil",
   "themeAutoSwitch": "Troca automática (Tema do sistema)",
   "themeSystemHint": "Quando ativado, o aplicativo seguirá as configurações de tema do seu sistema",
   "themeLightMode": "Modo claro",
   "themeDarkMode": "Modo escuro",
-
   "myMoments": "Meus momentos",
   "momentListView": "Visualização em lista",
   "momentGridView": "Visualização em grade",
   "shareLanguageLearningJourney": "Compartilhe sua jornada de aprendizado de idiomas!",
-
   "deleteHighlightTitle": "Excluir destaque",
   "deleteHighlightConfirm": "Excluir \"{title}\"? As histórias dentro não serão excluídas.",
   "@deleteHighlightConfirm": {
@@ -1546,7 +1589,6 @@
   },
   "highlightDeletedSuccess": "Destaque excluído",
   "highlightNewBadge": "Novo",
-
   "editMoment": "Editar momento",
   "momentDescriptionLabel": "Descrição",
   "momentImagesLabel": "Imagens",
@@ -1559,5 +1601,23 @@
   "updateAvailableBody": "Uma nova versão do Bananatalk está disponível com melhorias e correções de bugs.",
   "updateNow": "Atualizar agora",
   "updateLater": "Mais tarde",
-  "updateOpenStoreFailed": "Não foi possível abrir a loja. Por favor, atualize pela App Store ou Play Store."
+  "updateOpenStoreFailed": "Não foi possível abrir a loja. Por favor, atualize pela App Store ou Play Store.",
+  "rememberMe": "Lembrar-me",
+  "passwordWeak": "Fraca",
+  "passwordFair": "Razoável",
+  "passwordStrong": "Forte",
+  "passwordVeryStrong": "Muito forte",
+  "showPassword": "Mostrar senha",
+  "hidePassword": "Ocultar senha",
+  "stepProgress": "Passo {current} de {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

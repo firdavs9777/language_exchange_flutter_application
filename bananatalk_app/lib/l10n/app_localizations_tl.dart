@@ -4408,4 +4408,30 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Hindi mabuksan ang store. Mangyaring mag-update mula sa App Store o Play Store.';
+
+  @override
+  String get rememberMe => 'Tandaan ako';
+
+  @override
+  String get passwordWeak => 'Mahina';
+
+  @override
+  String get passwordFair => 'Katamtaman';
+
+  @override
+  String get passwordStrong => 'Malakas';
+
+  @override
+  String get passwordVeryStrong => 'Napakalakas';
+
+  @override
+  String get showPassword => 'Ipakita ang password';
+
+  @override
+  String get hidePassword => 'Itago ang password';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Hakbang $current ng $total';
+  }
 }

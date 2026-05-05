@@ -175,7 +175,7 @@
   "failedToSendMessage": "فشل إرسال الرسالة",
   "dailyMessageLimitExceeded": "تم تجاوز الحد اليومي للرسائل. قم بالترقية إلى VIP للحصول على رسائل غير محدودة.",
   "cannotSendMessageUserMayBeBlocked": "لا يمكن إرسال الرسالة. قد يكون المستخدم محظوراً.",
-  "sessionExpired": "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.",
+  "sessionExpired": "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.",
   "sendThisSticker": "إرسال هذا الملصق؟",
   "chooseHowYouWantToDeleteThisMessage": "اختر كيفية حذف هذه الرسالة:",
   "deleteForEveryone": "حذف للجميع",
@@ -514,20 +514,20 @@
   "wallpaperSaved": "تم حفظ الخلفية محلياً",
   "typeDeleteToConfirm": "اكتب DELETE للتأكيد",
   "storyArchive": "أرشيف القصص",
-  "newHighlight": "إبراز جديد",
-  "addToHighlight": "إضافة إلى الإبراز",
+  "newHighlight": "مميز جديد",
+  "addToHighlight": "إضافة للمميزات",
   "repost": "إعادة النشر",
   "repostFeatureSoon": "ميزة إعادة النشر قريباً",
   "closeFriends": "الأصدقاء المقربون",
   "addFriends": "إضافة أصدقاء",
   "highlights": "الإبرازات",
   "createHighlight": "إنشاء إبراز",
-  "deleteHighlight": "حذف الإبراز؟",
-  "editHighlight": "تعديل الإبراز",
+  "deleteHighlight": "حذف المميز",
+  "editHighlight": "تعديل المميز",
   "addMoreToStory": "إضافة المزيد إلى القصة",
   "noViewersYet": "لا يوجد مشاهدون بعد",
   "noReactionsYet": "لا توجد تفاعلات بعد",
-  "leaveRoom": "مغادرة الغرفة؟",
+  "leaveRoom": "مغادرة الغرفة",
   "areYouSureLeaveRoom": "هل أنت متأكد أنك تريد مغادرة هذه الغرفة؟",
   "stay": "البقاء",
   "leave": "مغادرة",
@@ -620,7 +620,7 @@
   "emailPreferences": "تفضيلات البريد",
   "category": "الفئة",
   "mood": "المزاج",
-  "applyFilters": "تطبيق التصفية",
+  "applyFilters": "تطبيق الفلاتر",
   "edited": "(معدّل)",
   "now": "الآن",
   "weeksAgo": "منذ {count} أسبوع",
@@ -712,7 +712,7 @@
   "noUsersFound": "لم يتم العثور على مستخدمين",
   "tryDifferentCity": "جرب مدينة أو دولة أخرى",
   "usersCount": "{count} مستخدم",
-  "searchCountry": "البحث عن دولة...",
+  "searchCountry": "ابحث عن بلد...",
   "wave": "تحية",
   "newUser": "جديد",
   "warningPermanent": "تحذير: هذا الإجراء نهائي!",
@@ -729,12 +729,12 @@
   "connectWithNativeSpeakers": "سنربطك بمتحدثين أصليين",
   "selectLearningLanguage": "يرجى اختيار اللغة التي تتعلمها",
   "selectCurrentLevel": "يرجى اختيار مستواك الحالي",
-  "beginner": "مبتدئ — أعرف بعض الكلمات",
-  "elementary": "أساسي — أستطيع تكوين جمل بسيطة",
-  "intermediate": "متوسط — أستطيع إجراء محادثات بسيطة",
-  "upperIntermediate": "فوق المتوسط — أستطيع مناقشة معظم المواضيع",
-  "advanced": "متقدم — أتحدث بطلاقة",
-  "proficient": "متمكن — مستوى شبه أصلي",
+  "beginner": "مبتدئ",
+  "elementary": "أساسي",
+  "intermediate": "متوسط",
+  "upperIntermediate": "فوق المتوسط",
+  "advanced": "متقدم",
+  "proficient": "متمكن",
   "showingPartnersByDistance": "عرض الشركاء حسب المسافة",
   "enableLocationForResults": "فعّل الموقع للحصول على نتائج حسب المسافة",
   "enable": "تفعيل",
@@ -775,7 +775,6 @@
   "pleaseEnterBothEmailAndPassword": "يرجى إدخال البريد الإلكتروني وكلمة المرور",
   "pleaseEnterValidEmail": "يرجى إدخال بريد إلكتروني صالح",
   "loginSuccessful": "تم تسجيل الدخول بنجاح!",
-  "sessionExpired": "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.",
   "stepOneOfTwo": "الخطوة 1 من 2",
   "createYourAccount": "إنشاء حسابك",
   "basicInfoToGetStarted": "معلومات أساسية للبدء",
@@ -788,12 +787,9 @@
   "pleaseEnterYourName": "يرجى إدخال اسمك",
   "pleaseEnterAPassword": "يرجى إدخال كلمة مرور",
   "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
-  "male": "ذكر",
-  "female": "أنثى",
   "otherGender": "أخرى",
   "continueWithGoogleAccount": "تابع بحساب Google\nللحصول على تجربة سلسة",
   "signingYouIn": "جاري تسجيل الدخول...",
-  "tryAgain": "حاول مرة أخرى",
   "backToSignInMethods": "العودة لطرق تسجيل الدخول",
   "securedByGoogle": "محمي بواسطة Google",
   "dataProtectedEncryption": "بياناتك محمية بتشفير معياري",
@@ -881,7 +877,9 @@
   "callDuration": "{duration}",
   "@callDuration": {
     "placeholders": {
-      "duration": {"type": "String"}
+      "duration": {
+        "type": "String"
+      }
     }
   },
   "acceptCall": "قبول",
@@ -907,20 +905,18 @@
   "callAt": "مكالمة في {time}",
   "@callAt": {
     "placeholders": {
-      "time": {"type": "String"}
+      "time": {
+        "type": "String"
+      }
     }
   },
   "audioCall": "مكالمة صوتية",
-  "tryAgain": "حاول مرة أخرى",
   "voiceRoom": "غرفة صوتية",
   "noVoiceRooms": "لا توجد غرف صوتية نشطة",
   "createVoiceRoom": "إنشاء غرفة صوتية",
   "joinRoom": "انضمام للغرفة",
-  "leaveRoom": "مغادرة الغرفة",
   "leaveRoomConfirm": "مغادرة الغرفة؟",
   "leaveRoomMessage": "هل أنت متأكد أنك تريد مغادرة هذه الغرفة؟",
-  "stay": "البقاء",
-  "leave": "مغادرة",
   "roomTitle": "عنوان الغرفة",
   "roomTitleHint": "أدخل عنوان الغرفة",
   "roomTopic": "الموضوع",
@@ -929,17 +925,20 @@
   "roomParticipants": "{count} مشاركين",
   "@roomParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "roomMaxParticipants": "الحد الأقصى {count} مشاركين",
   "@roomMaxParticipants": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectTopic": "اختر الموضوع",
-  "selectLanguage": "اختر اللغة",
   "raiseHand": "رفع اليد",
   "lowerHand": "خفض اليد",
   "handRaisedNotification": "تم رفع اليد! سيرى المضيف طلبك.",
@@ -959,7 +958,9 @@
   "liveRoomsCount": "{count} مباشر",
   "@liveRoomsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noActiveRooms": "لا توجد غرف نشطة",
@@ -975,18 +976,25 @@
   "nPeople": "{count} أشخاص",
   "@nPeople": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "hostedBy": "يستضيفه {name}",
-  "@hostedBy": { "placeholders": { "name": { "type": "String" } } },
+  "@hostedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "liveLabel": "مباشر",
   "joinLabel": "انضمام",
   "fullLabel": "ممتلئ",
   "justStarted": "بدأ للتو",
   "allLanguages": "جميع اللغات",
   "allTopics": "جميع المواضيع",
-
   "dataAndStorage": "البيانات والتخزين",
   "manageStorageAndDownloads": "إدارة التخزين والتنزيلات",
   "storageUsage": "استخدام التخزين",
@@ -1009,13 +1017,17 @@
   "clearCacheConfirmationFor": "مسح {category}؟",
   "@clearCacheConfirmationFor": {
     "placeholders": {
-      "category": {"type": "String"}
+      "category": {
+        "type": "String"
+      }
     }
   },
   "storageToFree": "سيتم تحرير {size}",
   "@storageToFree": {
     "placeholders": {
-      "size": {"type": "String"}
+      "size": {
+        "type": "String"
+      }
     }
   },
   "calculating": "جاري الحساب...",
@@ -1027,14 +1039,7 @@
   "addMissingFields": "أضف: {fields}",
   "profilePicture": "صورة الملف الشخصي",
   "nativeSpeaker": "متحدث أصلي",
-  "beginner": "مبتدئ",
-  "elementary": "أساسي",
-  "intermediate": "متوسط",
-  "upperIntermediate": "فوق المتوسط",
-  "advanced": "متقدم",
-  "proficient": "متمكن",
   "peopleInterestedInTopic": "أشخاص مهتمون بهذا الموضوع",
-  "noUsersFound": "لم يتم العثور على مستخدمين",
   "beFirstToAddTopic": "كن أول من يضيف هذا الموضوع إلى اهتماماتك!",
   "recentMoments": "اللحظات الأخيرة",
   "seeAll": "عرض الكل",
@@ -1045,7 +1050,6 @@
   "whenYouGetNotifications": "عندما تتلقى إشعارات، ستظهر هنا",
   "failedToLoadNotifications": "فشل في تحميل الإشعارات",
   "clearAllNotificationsConfirm": "هل أنت متأكد أنك تريد مسح جميع الإشعارات؟ لا يمكن التراجع عن هذا الإجراء.",
-
   "tapToChange": "اضغط للتغيير",
   "noPictureSet": "لم يتم تعيين صورة",
   "nameAndGender": "الاسم والجنس",
@@ -1063,14 +1067,18 @@
   "howWellDoYouSpeak": "ما مدى إجادتك لـ {language}؟",
   "@howWellDoYouSpeak": {
     "placeholders": {
-      "language": {"type": "String"}
+      "language": {
+        "type": "String"
+      }
     }
   },
   "theLanguage": "اللغة",
   "languageLevelSetTo": "تم تعيين مستوى اللغة إلى {level}",
   "@languageLevelSetTo": {
     "placeholders": {
-      "level": {"type": "String"}
+      "level": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdate": "فشل التحديث",
@@ -1078,7 +1086,7 @@
   "genderRequired": "الجنس (مطلوب)",
   "editHometown": "تعديل مسقط الرأس",
   "useCurrentLocation": "استخدام الموقع الحالي",
-  "detecting": "جاري الكشف...",
+  "detecting": "جارٍ التحديد...",
   "getCurrentLocation": "الحصول على الموقع",
   "country": "البلد",
   "city": "المدينة",
@@ -1095,7 +1103,9 @@
   "charactersCount": "{count}/500 حرف",
   "@charactersCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectYourMbti": "اختر MBTI",
@@ -1112,7 +1122,9 @@
   "maxTopicsAllowed": "الحد الأقصى {count} موضوع",
   "@maxTopicsAllowed": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "topicsUpdatedSuccessfully": "تم تحديث المواضيع!",
@@ -1120,8 +1132,12 @@
   "selectedCount": "{count}/{max} محدد",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "profilePictures": "صور الملف الشخصي",
@@ -1142,7 +1158,9 @@
   "uploadImages": "رفع {count} صورة",
   "@uploadImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "imageRemovedSuccessfully": "تمت إزالة الصورة",
@@ -1156,7 +1174,9 @@
   "youHaveUnuploadedImages": "{count} صورة لم يتم رفعها. رفع الآن؟",
   "@youHaveUnuploadedImages": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discard": "تجاهل",
@@ -1164,22 +1184,32 @@
   "maxImagesInfo": "حد أقصى {max} صورة. الحالي: {current}/{max}",
   "@maxImagesInfo": {
     "placeholders": {
-      "max": {"type": "int"},
-      "current": {"type": "int"}
+      "max": {
+        "type": "int"
+      },
+      "current": {
+        "type": "int"
+      }
     }
   },
   "canOnlyAddMoreImages": "يمكن إضافة {count} فقط. الحد {max}.",
   "@canOnlyAddMoreImages": {
     "placeholders": {
-      "count": {"type": "int"},
-      "max": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
     }
   },
   "maxImagesPerUpload": "حد أقصى 5 صور في المرة",
   "canOnlyHaveMaxImages": "حد أقصى {max} صورة",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
-      "max": {"type": "int"}
+      "max": {
+        "type": "int"
+      }
     }
   },
   "imageSizeExceedsLimit": "الحجم يتجاوز 10 ميجابايت",
@@ -1190,7 +1220,6 @@
   "hometown": "مسقط الرأس",
   "characters": "حرف",
   "failedToLoadLanguages": "فشل تحميل اللغات",
-
   "studyHub": "مركز الدراسة",
   "dailyLearningJourney": "رحلتك التعليمية اليومية",
   "learnTab": "تعلّم",
@@ -1313,22 +1342,13 @@
   "findYourPerfect": "ابحث عن",
   "languagePartner": "شريك اللغة المثالي",
   "learningLanguageLabel": "اللغة المتعلَّمة",
-  "languageLevel": "مستوى اللغة",
-  "country": "البلد",
   "ageRange": "الفئة العمرية",
   "genderPreference": "تفضيل الجنس",
   "any": "أي",
-  "male": "ذكر",
-  "female": "أنثى",
-  "other": "آخر",
-  "newUsersOnly": "المستخدمون الجدد فقط",
   "showNewUsersSubtitle": "إظهار المستخدمين الذين انضموا في آخر 6 أيام",
-  "applyFilters": "تطبيق الفلاتر",
   "autoDetectLocation": "تحديد موقعي تلقائياً",
-  "detecting": "جارٍ التحديد...",
   "selectCountry": "اختر البلد",
   "anyCountry": "أي بلد",
-  "searchCountry": "ابحث عن بلد...",
   "loadingLanguages": "جارٍ تحميل اللغات...",
   "minAge": "الحد الأدنى: {age}",
   "@minAge": {
@@ -1346,7 +1366,6 @@
       }
     }
   },
-
   "captionRequired": "النص مطلوب",
   "captionTooLong": "يجب ألا يتجاوز النص {maxLength} حرفاً",
   "@captionTooLong": {
@@ -1396,27 +1415,80 @@
   },
   "chooseBackground": "اختر خلفية",
   "likedByXPeople": "أعجب {count} شخص",
-  "@likedByXPeople": { "placeholders": { "count": { "type": "int" } } },
+  "@likedByXPeople": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xComments": "{count} تعليقات",
-  "@xComments": { "placeholders": { "count": { "type": "int" } } },
+  "@xComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "oneComment": "تعليق واحد",
   "addAComment": "أضف تعليقاً...",
   "viewXReplies": "عرض {count} ردود",
-  "@viewXReplies": { "placeholders": { "count": { "type": "int" } } },
+  "@viewXReplies": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "seenByX": "شوهد من {count}",
-  "@seenByX": { "placeholders": { "count": { "type": "int" } } },
+  "@seenByX": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xHoursAgo": "منذ {count} ساعة",
-  "@xHoursAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "xMinutesAgo": "منذ {count} دقيقة",
-  "@xMinutesAgo": { "placeholders": { "count": { "type": "int" } } },
+  "@xMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "repliedToYourStory": "رد على قصتك",
   "mentionedYouInComment": "{name} ذكرك في تعليق",
-  "@mentionedYouInComment": { "placeholders": { "name": { "type": "String" } } },
+  "@mentionedYouInComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "repliedToYourComment": "{name} رد على تعليقك",
-  "@repliedToYourComment": { "placeholders": { "name": { "type": "String" } } },
+  "@repliedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "reactedToYourComment": "{name} تفاعل مع تعليقك",
-  "@reactedToYourComment": { "placeholders": { "name": { "type": "String" } } },
-  "searchUsers": "البحث عن مستخدمين...",
+  "@reactedToYourComment": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "addReaction": "أضف تفاعل",
   "attachImage": "إرفاق صورة",
   "pickGif": "اختر GIF",
@@ -1424,28 +1496,20 @@
   "typeYourStory": "اكتب قصتك...",
   "selectBackground": "اختر الخلفية",
   "highlightsTitle": "المميزات",
-  "newHighlight": "مميز جديد",
   "highlightTitle": "عنوان المميز",
-  "addToHighlight": "إضافة للمميزات",
   "createNewHighlight": "إنشاء جديد",
-  "editHighlight": "تعديل المميز",
-  "deleteHighlight": "حذف المميز",
   "selectStories": "اختر القصص",
   "selectCover": "اختر الغلاف",
   "addText": "إضافة نص",
-  "addSticker": "إضافة ملصق",
   "fontStyleLabel": "نمط الخط",
   "textColorLabel": "لون النص",
   "dragToDelete": "اسحب هنا للحذف",
-
   "mbtiUpdatedSuccessfully": "تم تحديث نوع الشخصية بنجاح",
   "pleaseSelectMbti": "يرجى اختيار نوع الشخصية",
-  "languageUpdatedSuccessfully": "تم تحديث اللغة بنجاح"
-,
+  "languageUpdatedSuccessfully": "تم تحديث اللغة بنجاح",
   "momentUpdatedSuccessfully": "تم تحديث اللحظة بنجاح",
   "failedToDeleteMoment": "فشل حذف اللحظة",
   "failedToUpdateMoment": "فشل تحديث اللحظة",
-
   "bioHintCard": "السيرة الذاتية الجيدة تساعد الآخرين على التواصل معك. شارك اهتماماتك ولغاتك أو ما تبحث عنه.",
   "bioCounterStartWriting": "ابدأ الكتابة...",
   "bioCounterABitMore": "قليل من الكتابة سيكون رائعاً",
@@ -1472,8 +1536,6 @@
   "updateLocationCta": "تحديث الموقع",
   "enterYourName": "أدخل اسمك",
   "unsavedChanges": "لديك تغييرات غير محفوظة",
-
-  "loadingLanguages": "جارٍ تحميل اللغات...",
   "tapBelowToBrowseLanguages": "انقر أدناه للاستعراض من {count} لغة",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -1486,9 +1548,7 @@
   "browseLanguages": "استعراض اللغات",
   "yourLearningLanguageIsPrefix": "لغتك التي تتعلمها هي ",
   "yourNativeLanguageIsPrefix": "لغتك الأم هي ",
-
   "profileCompleteProgress": "مكتمل",
-
   "drawerPreferences": "التفضيلات",
   "drawerStorage": "التخزين",
   "drawerReports": "التقارير",
@@ -1505,7 +1565,6 @@
   "aboutBananatalkTagline": "تواصل مع متعلمي اللغات حول العالم وحسّن مهاراتك من خلال محادثات حقيقية.",
   "aboutCopyright": "© 2024 Bananatalk. جميع الحقوق محفوظة.",
   "logoutFailedPrefix": "فشل تسجيل الخروج",
-
   "profileVisitorsTitle": "زوار الملف الشخصي",
   "visitorStatistics": "إحصائيات الزوار",
   "visitorsTotalVisits": "إجمالي الزيارات",
@@ -1520,24 +1579,19 @@
   "visitedDirect": "زيارة مباشرة",
   "visitorTrackingUnavailable": "ميزة تتبع الزوار غير متوفرة. يرجى تحديث الخادم.",
   "visitorTrackingNotAvailableYet": "تتبع الزوار غير متوفر بعد",
-
   "noFollowersYetSubtitle": "ابدأ التواصل مع الآخرين!",
   "partnerButton": "شريك",
-
   "notFollowingAnyoneYetSubtitle": "ابدأ بمتابعة الأشخاص لرؤية تحديثاتهم!",
   "unfollowButton": "إلغاء المتابعة",
-
   "profileThemeTitle": "سمة الملف الشخصي",
   "themeAutoSwitch": "التبديل التلقائي (سمة النظام)",
   "themeSystemHint": "عند التفعيل، سيتبع التطبيق إعدادات سمة نظامك",
   "themeLightMode": "الوضع الفاتح",
   "themeDarkMode": "الوضع الداكن",
-
   "myMoments": "لحظاتي",
   "momentListView": "عرض القائمة",
   "momentGridView": "عرض الشبكة",
   "shareLanguageLearningJourney": "شارك رحلتك في تعلم اللغة!",
-
   "deleteHighlightTitle": "حذف القصة المميزة",
   "deleteHighlightConfirm": "هل تريد حذف \"{title}\"؟ لن يتم حذف القصص الموجودة بداخلها.",
   "@deleteHighlightConfirm": {
@@ -1549,7 +1603,6 @@
   },
   "highlightDeletedSuccess": "تم حذف القصة المميزة",
   "highlightNewBadge": "جديد",
-
   "editMoment": "تعديل اللحظة",
   "momentDescriptionLabel": "الوصف",
   "momentImagesLabel": "الصور",
@@ -1562,5 +1615,23 @@
   "updateAvailableBody": "يتوفر إصدار جديد من Bananatalk مع تحسينات وإصلاح للأخطاء.",
   "updateNow": "تحديث الآن",
   "updateLater": "لاحقًا",
-  "updateOpenStoreFailed": "تعذر فتح المتجر. يرجى التحديث من App Store أو Play Store."
+  "updateOpenStoreFailed": "تعذر فتح المتجر. يرجى التحديث من App Store أو Play Store.",
+  "rememberMe": "تذكرني",
+  "passwordWeak": "ضعيفة",
+  "passwordFair": "متوسطة",
+  "passwordStrong": "قوية",
+  "passwordVeryStrong": "قوية جدًا",
+  "showPassword": "إظهار كلمة المرور",
+  "hidePassword": "إخفاء كلمة المرور",
+  "stepProgress": "الخطوة {current} من {total}",
+  "@stepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

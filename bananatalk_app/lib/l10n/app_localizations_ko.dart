@@ -4408,4 +4408,30 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => '스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요.';
+
+  @override
+  String get rememberMe => '자동 로그인';
+
+  @override
+  String get passwordWeak => '약함';
+
+  @override
+  String get passwordFair => '보통';
+
+  @override
+  String get passwordStrong => '강함';
+
+  @override
+  String get passwordVeryStrong => '매우 강함';
+
+  @override
+  String get showPassword => '비밀번호 표시';
+
+  @override
+  String get hidePassword => '비밀번호 숨기기';
+
+  @override
+  String stepProgress(int current, int total) {
+    return '단계 $current / $total';
+  }
 }

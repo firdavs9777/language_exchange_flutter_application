@@ -4408,4 +4408,30 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Не удалось открыть магазин. Пожалуйста, обновите приложение из App Store или Play Store.';
+
+  @override
+  String get rememberMe => 'Запомнить меня';
+
+  @override
+  String get passwordWeak => 'Слабый';
+
+  @override
+  String get passwordFair => 'Средний';
+
+  @override
+  String get passwordStrong => 'Сильный';
+
+  @override
+  String get passwordVeryStrong => 'Очень сильный';
+
+  @override
+  String get showPassword => 'Показать пароль';
+
+  @override
+  String get hidePassword => 'Скрыть пароль';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Шаг $current из $total';
+  }
 }

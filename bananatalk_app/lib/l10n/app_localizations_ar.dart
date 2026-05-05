@@ -4408,4 +4408,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'تعذر فتح المتجر. يرجى التحديث من App Store أو Play Store.';
+
+  @override
+  String get rememberMe => 'تذكرني';
+
+  @override
+  String get passwordWeak => 'ضعيفة';
+
+  @override
+  String get passwordFair => 'متوسطة';
+
+  @override
+  String get passwordStrong => 'قوية';
+
+  @override
+  String get passwordVeryStrong => 'قوية جدًا';
+
+  @override
+  String get showPassword => 'إظهار كلمة المرور';
+
+  @override
+  String get hidePassword => 'إخفاء كلمة المرور';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'الخطوة $current من $total';
+  }
 }

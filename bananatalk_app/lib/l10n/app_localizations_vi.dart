@@ -4408,4 +4408,30 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get updateOpenStoreFailed => 'Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store.';
+
+  @override
+  String get rememberMe => 'Ghi nhớ tôi';
+
+  @override
+  String get passwordWeak => 'Yếu';
+
+  @override
+  String get passwordFair => 'Khá';
+
+  @override
+  String get passwordStrong => 'Mạnh';
+
+  @override
+  String get passwordVeryStrong => 'Rất mạnh';
+
+  @override
+  String get showPassword => 'Hiện mật khẩu';
+
+  @override
+  String get hidePassword => 'Ẩn mật khẩu';
+
+  @override
+  String stepProgress(int current, int total) {
+    return 'Bước $current / $total';
+  }
 }
