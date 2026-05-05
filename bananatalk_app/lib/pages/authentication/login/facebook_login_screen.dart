@@ -2,6 +2,7 @@ import 'package:bananatalk_app/pages/authentication/register/register_two_screen
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -152,7 +153,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -166,18 +167,18 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
               leading: Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.surfaceColor,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
                   ],
                 ),
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.black87),
+                  icon: Icon(Icons.arrow_back, color: context.textPrimary),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
@@ -209,7 +210,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF1877F2).withOpacity(0.3),
+                            color: const Color(0xFF1877F2).withValues(alpha: 0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -246,11 +247,11 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                       Container(
                         padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: context.surfaceColor,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
+                              color: Colors.black.withValues(alpha: 0.05),
                               blurRadius: 20,
                               offset: const Offset(0, 4),
                             ),
@@ -375,7 +376,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.grey[700],
+                        foregroundColor: context.textSecondary,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,
@@ -396,14 +397,14 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                               Icon(
                                 Icons.shield_outlined,
                                 size: 16,
-                                color: Colors.grey[600],
+                                color: context.textSecondary,
                               ),
                               const SizedBox(width: 6),
                               Text(
                                 'Secured by Facebook',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.grey[600],
+                                  color: context.textSecondary,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -415,7 +416,7 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 11,
-                              color: Colors.grey[500],
+                              color: context.textMuted,
                             ),
                           ),
                         ],

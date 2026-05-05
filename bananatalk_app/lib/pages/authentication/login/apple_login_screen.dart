@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -233,7 +234,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: context.scaffoldBackground,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -247,18 +248,18 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               leading: Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.surfaceColor,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
                   ],
                 ),
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.black87),
+                  icon: Icon(Icons.arrow_back, color: context.textPrimary),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
@@ -287,7 +288,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withValues(alpha: 0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -324,11 +325,11 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                       Container(
                         padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: context.surfaceColor,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
+                              color: Colors.black.withValues(alpha: 0.05),
                               blurRadius: 20,
                               offset: const Offset(0, 4),
                             ),
@@ -336,13 +337,13 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                         ),
                         child: Column(
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               width: 40,
                               height: 40,
                               child: CircularProgressIndicator(
                                 strokeWidth: 3,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.black,
+                                  context.textPrimary,
                                 ),
                               ),
                             ),
@@ -450,7 +451,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.grey[700],
+                        foregroundColor: context.textSecondary,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,
@@ -471,14 +472,14 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                               Icon(
                                 Icons.shield_outlined,
                                 size: 16,
-                                color: Colors.grey[600],
+                                color: context.textSecondary,
                               ),
                               const SizedBox(width: 6),
                               Text(
                                 AppLocalizations.of(context)!.securedByApple,
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.grey[600],
+                                  color: context.textSecondary,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -490,7 +491,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 11,
-                              color: Colors.grey[500],
+                              color: context.textMuted,
                             ),
                           ),
                         ],
