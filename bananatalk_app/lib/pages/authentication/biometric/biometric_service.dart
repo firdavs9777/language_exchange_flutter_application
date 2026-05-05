@@ -1,7 +1,44 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_token_storage.dart';
+
+/// Snapshot of auth state preserved across logout for biometric login.
+class BiometricAuthState {
+  final String token;
+  final String refreshToken;
+  final String userId;
+  final String userName;
+
+  const BiometricAuthState({
+    required this.token,
+    required this.refreshToken,
+    required this.userId,
+    required this.userName,
+  });
+
+  Map<String, String> toJson() => {
+        'token': token,
+        'refreshToken': refreshToken,
+        'userId': userId,
+        'userName': userName,
+      };
+
+  static BiometricAuthState? tryParse(String raw) {
+    try {
+      final m = json.decode(raw) as Map<String, dynamic>;
+      return BiometricAuthState(
+        token: m['token']?.toString() ?? '',
+        refreshToken: m['refreshToken']?.toString() ?? '',
+        userId: m['userId']?.toString() ?? '',
+        userName: m['userName']?.toString() ?? '',
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+}
 
 /// Wraps local_auth + secure-storage for biometric login.
 ///
@@ -18,6 +55,7 @@ class BiometricService {
         _storage = storage ?? BiometricTokenStorage();
 
   static const _enabledFlagKey = 'biometric_enabled';
+  static const _userNameDisplayKey = 'biometric_user_name_display';
 
   final LocalAuthentication _auth;
   final BiometricTokenStorage _storage;
@@ -61,23 +99,39 @@ class BiometricService {
     }
   }
 
-  /// Enable biometric login: store the token + flip the flag.
+  /// Enable biometric login: store the auth snapshot + flip the flag.
   /// Caller is responsible for having JUST authenticated successfully.
-  Future<void> enable(String token) async {
-    await _storage.save(token);
+  Future<void> enable(BiometricAuthState state) async {
+    await _storage.save(json.encode(state.toJson()));
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_enabledFlagKey, true);
+    // Cache the userName for display on the login button (needs no
+    // biometric to read — it's not sensitive).
+    await prefs.setString(_userNameDisplayKey, state.userName);
   }
 
-  /// Disable + wipe stored token. Called on logout, on opt-out, and after
-  /// any 401 that proves the stored token is no longer valid.
+  /// Display name for the "Continue as <name>" button. Available
+  /// without biometric since it's just a label, not a credential.
+  Future<String?> readUserNameDisplay() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userNameDisplayKey);
+  }
+
+  /// Disable + wipe stored token. Called on opt-out and after any 401 that
+  /// proves the stored token is no longer valid. Logout does NOT call this
+  /// — biometric is meant to survive logout so the user can re-enter quickly.
   Future<void> disable() async {
     await _storage.clear();
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_enabledFlagKey);
+    await prefs.remove(_userNameDisplayKey);
   }
 
-  /// Read the stored token if biometric is enabled. Returns null if disabled,
-  /// if the keychain entry is unreadable, or if the device is locked.
-  Future<String?> readStoredToken() async => _storage.read();
+  /// Read the stored auth snapshot. Returns null if disabled, if the
+  /// keychain entry is unreadable, or if the device is locked.
+  Future<BiometricAuthState?> readState() async {
+    final raw = await _storage.read();
+    if (raw == null || raw.isEmpty) return null;
+    return BiometricAuthState.tryParse(raw);
+  }
 }

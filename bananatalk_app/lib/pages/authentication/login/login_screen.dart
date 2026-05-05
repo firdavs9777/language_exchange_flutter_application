@@ -5,10 +5,13 @@ import 'package:bananatalk_app/pages/authentication/email_verification/email_inp
 import 'package:bananatalk_app/pages/authentication/password_reset/forgot_password_email_screen.dart';
 import 'package:bananatalk_app/pages/authentication/login/google_login_screen.dart';
 import 'package:bananatalk_app/pages/authentication/terms_of_service_screen.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/enable_biometric_prompt.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/biometric_login_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/password_field.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:go_router/go_router.dart';
@@ -33,12 +36,134 @@ class _LoginState extends ConsumerState<Login> {
   bool _isLoading = false;
   bool _rememberMe = true;
 
+  // Biometric — only populated when device supports + user opted in.
+  bool _biometricVisible = false;
+  bool _biometricAuthing = false;
+  String? _biometricUserName;
+  final BiometricService _biometric = BiometricService();
+
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _loadRememberedEmail();
+    _checkBiometricButton();
+  }
+
+  Future<void> _checkBiometricButton() async {
+    final enabled = await _biometric.isEnabled();
+    if (!enabled) return;
+    final available = await _biometric.isAvailable();
+    if (!available) return;
+    final name = await _biometric.readUserNameDisplay();
+    if (!mounted) return;
+    setState(() {
+      _biometricVisible = true;
+      _biometricUserName = name;
+    });
+  }
+
+  Future<void> _biometricLogin() async {
+    if (_biometricAuthing) return;
+    final l10n = AppLocalizations.of(context)!;
+    setState(() => _biometricAuthing = true);
+
+    final ok = await _biometric.authenticate(
+      reason: l10n.biometricSignInPrompt,
+    );
+    if (!mounted) {
+      return;
+    }
+    if (!ok) {
+      setState(() => _biometricAuthing = false);
+      return;
+    }
+
+    final state = await _biometric.readState();
+    if (state == null || state.token.isEmpty) {
+      // Stored snapshot is missing or unreadable — disable + drop to manual.
+      await _biometric.disable();
+      if (!mounted) return;
+      setState(() {
+        _biometricAuthing = false;
+        _biometricVisible = false;
+      });
+      showAuthSnackBar(
+        context,
+        message: l10n.sessionExpired,
+        type: AuthSnackBarType.error,
+      );
+      return;
+    }
+
+    // Restore auth state into prefs and run the existing init/validate flow.
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', state.token);
+    await prefs.setString('refreshToken', state.refreshToken);
+    await prefs.setString('userId', state.userId);
+
+    final auth = ref.read(authServiceProvider);
+    final authed = await auth.initializeAuth();
+    if (!mounted) return;
+
+    if (!authed) {
+      await _biometric.disable();
+      setState(() {
+        _biometricAuthing = false;
+        _biometricVisible = false;
+      });
+      showAuthSnackBar(
+        context,
+        message: l10n.sessionExpired,
+        type: AuthSnackBarType.error,
+      );
+      return;
+    }
+
+    setState(() => _biometricAuthing = false);
+    context.go('/home');
+  }
+
+  /// Show the opt-in dialog after a fresh login if biometric is available
+  /// and not already enabled. No-op otherwise.
+  Future<void> _maybeOfferBiometric() async {
+    final available = await _biometric.isAvailable();
+    if (!available) return;
+    final already = await _biometric.isEnabled();
+    if (already) return;
+    if (!mounted) return;
+
+    final accepted = await showEnableBiometricPrompt(context);
+    if (!accepted || !mounted) return;
+
+    final l10n = AppLocalizations.of(context)!;
+    final ok = await _biometric.authenticate(reason: l10n.biometricSignInPrompt);
+    if (!ok) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+    final refreshToken = prefs.getString('refreshToken') ?? '';
+    final userId = prefs.getString('userId') ?? '';
+    if (token.isEmpty || userId.isEmpty) return;
+
+    String userName = '';
+    try {
+      final user = await ref.read(authServiceProvider).getLoggedInUser();
+      userName = user.name;
+    } catch (_) {
+      // Fall back to the email's local-part if we can't load the user.
+      userName = _emailController.text.trim().split('@').first;
+    }
+
+    await _biometric.enable(
+      BiometricAuthState(
+        token: token,
+        refreshToken: refreshToken,
+        userId: userId,
+        userName: userName,
+      ),
+    );
   }
 
   Future<void> _loadRememberedEmail() async {
@@ -145,6 +270,11 @@ class _LoginState extends ConsumerState<Login> {
 
         if (!mounted) return;
 
+        // Offer biometric login for next time. Only ask once — if already
+        // enabled or unavailable on the device, skip silently.
+        await _maybeOfferBiometric();
+        if (!mounted) return;
+
         context.go('/home');
 
         showAuthSnackBar(
@@ -201,6 +331,38 @@ class _LoginState extends ConsumerState<Login> {
             style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 24),
+          if (_biometricVisible) ...[
+            BiometricLoginButton(
+              userName: _biometricUserName ?? '',
+              isAuthenticating: _biometricAuthing,
+              onPressed: _biometricLogin,
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Divider(
+                    color: context.dividerColor.withValues(alpha: 0.5),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    'or',
+                    style: context.captionSmall.copyWith(
+                      color: context.textMuted,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: context.dividerColor.withValues(alpha: 0.5),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+          ],
           AuthTextField(
             controller: _emailController,
             label: l10n.email,
