@@ -1,17 +1,11 @@
-// lib/pages/chat/chat_screen.dart
+// lib/pages/chat/conversation/chat_conversation_screen.dart
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
-import 'package:bananatalk_app/pages/chat/header/chat_app_bar.dart';
-import 'package:bananatalk_app/pages/chat/input/chat_input_section.dart';
-import 'package:bananatalk_app/pages/chat/message/messages_list.dart';
-import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -22,7 +16,6 @@ import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
-import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/media_service.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
@@ -38,16 +31,16 @@ import 'package:bananatalk_app/services/voice_message_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/delete_message_dialog.dart';
-import 'package:bananatalk_app/pages/chat/message/pinned_messages_bar.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/forward_message_dialog.dart';
-import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
-import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/pages/chat/panels/gif_picker_panel.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/conversation/edit_message_dialog.dart';
+import 'package:bananatalk_app/pages/chat/conversation/conversation_header.dart';
+import 'package:bananatalk_app/pages/chat/conversation/conversation_messages_view.dart';
+import 'package:bananatalk_app/pages/chat/conversation/conversation_input_area.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -170,11 +163,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _loadMoreMessages();
       }
 
-      // Show scroll to bottom button when not at bottom
-      // In non-reversed list, check if we're far from maxScrollExtent
+      // Show scroll-to-bottom FAB when user is >300 px above the latest message
       final maxScroll = _scrollController.position.maxScrollExtent;
       final currentScroll = _scrollController.offset;
-      final showButton = (maxScroll - currentScroll) > 200;
+      final showButton = (maxScroll - currentScroll) > 300;
       if (showButton != _showScrollButton) {
         setState(() {
           _showScrollButton = showButton;
@@ -1761,28 +1753,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     final chatState = ref.watch(chatStateProvider(chatParams));
 
-    // Check the other user's privacy settings to decide whether to show online status
-    final otherUserAsync = ref.watch(singleCommunityProvider(widget.userId));
-    final showOnlineStatus =
-        otherUserAsync.whenOrNull(
-          data: (community) => community != null
-              ? PrivacyUtils.shouldShowOnlineStatus(community)
-              : true,
-        ) ??
-        true;
-
     return Scaffold(
-      appBar: ChatAppBar(
+      appBar: ConversationHeader(
         userName: widget.userName,
         profilePicture: widget.profilePicture,
-        isTyping: chatState.isOtherUserTyping,
         userId: widget.userId,
-        isConnected: chatState.isSocketConnected,
-        connectionStatus: chatState.connectionStatus,
-        isOnline: showOnlineStatus ? chatState.isOtherUserOnline : null,
-        lastSeen: showOnlineStatus ? chatState.otherUserLastSeen : null,
-        onThemeChanged: _loadChatWallpaper,
         isVip: widget.isVip,
+        isTyping: chatState.isOtherUserTyping,
+        isSocketConnected: chatState.isSocketConnected,
+        connectionStatus: chatState.connectionStatus,
+        isOtherUserOnline: chatState.isOtherUserOnline,
+        otherUserLastSeen: chatState.otherUserLastSeen,
+        onThemeChanged: _loadChatWallpaper,
       ),
       body: Container(
         decoration: _getWallpaperDecoration(),
@@ -1791,968 +1773,96 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           child: ClipRect(
             child: Column(
               children: [
-                const ConnectionStatusIndicator(),
-                // Pinned messages bar
-                if (chatState.pinnedMessages.isNotEmpty)
-                  PinnedMessagesBar(
+                Expanded(
+                  child: ConversationMessagesView(
+                    isLoading: chatState.isLoading,
+                    error: chatState.error,
+                    messages: chatState.messages,
+                    currentUserId: _currentUserId,
+                    otherUserName: widget.userName,
+                    otherUserPicture: widget.profilePicture,
+                    otherUserTyping: chatState.isOtherUserTyping,
+                    scrollController: _scrollController,
+                    isLoadingMore: _isLoadingMore,
+                    hasMoreMessages: _hasMoreMessages,
+                    headerWidget: ConversationUserInfoHeader(
+                      userId: widget.userId,
+                      userName: widget.userName,
+                      profilePicture: widget.profilePicture,
+                    ),
                     pinnedMessages: chatState.pinnedMessages,
-                    onTap: () {
+                    onPinnedTap: () {
                       if (chatState.pinnedMessages.isNotEmpty) {
                         _scrollToMessage(chatState.pinnedMessages.first.id);
                       }
                     },
-                    onClose: () {
-                      // Unpin the message when X is clicked
+                    onPinnedClose: () {
                       if (chatState.pinnedMessages.isNotEmpty) {
                         _handlePinMessage(chatState.pinnedMessages.first);
                       }
                     },
-                  ),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      RefreshIndicator(
-                        onRefresh: _loadMessages,
-                        displacement: 20,
-                        color: AppColors.primary,
-                        child: ChatMessagesList(
-                          isLoading: chatState.isLoading,
-                          error: chatState.error,
-                          messages: chatState.messages,
-                          currentUserId: _currentUserId,
-                          otherUserName: widget.userName,
-                          otherUserPicture: widget.profilePicture,
-                          otherUserTyping: chatState.isOtherUserTyping,
-                          scrollController: _scrollController,
-                          onRetry: _loadMessages,
-                          isSelectionMode: _isSelectionMode,
-                          selectedMessageIds: _selectedMessageIds,
-                          isLoadingMore: _isLoadingMore,
-                          hasMoreMessages: _hasMoreMessages,
-                          headerWidget:
-                              _buildUserInfoHeader(), // User info at top
-                          onSelectionChanged: (msg, selected) {
-                            setState(() {
-                              if (selected) {
-                                _selectedMessageIds.add(msg.id);
-                                if (!_isSelectionMode) _isSelectionMode = true;
-                              } else {
-                                _selectedMessageIds.remove(msg.id);
-                                if (_selectedMessageIds.isEmpty)
-                                  _isSelectionMode = false;
-                              }
-                            });
-                          },
-                          onDelete: _handleDeleteMessage,
-                          onEdit: _handleEditMessage,
-                          onReply: (msg) =>
-                              setState(() => _replyingToMessage = msg),
-                          onReplyTap: _scrollToMessage,
-                          onPin: _handlePinMessage,
-                          onUnpin:
-                              _handlePinMessage, // Same handler - it toggles
-                          onForward: _handleForwardMessage,
-                          onRetryMessage: _handleRetryMessage,
-                          onDeleteFailedMessage: _handleDeleteFailedMessage,
-                          onSendWave: _sendWaveSticker,
-                        ),
-                      ),
-                      // Scroll to bottom button
-                      if (_showScrollButton)
-                        Positioned(
-                          right: 16,
-                          bottom: 16,
-                          child: _buildScrollToBottomButton(),
-                        ),
-                    ],
-                  ),
-                ),
-                if (_isBlockedChat)
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 24,
-                    ),
-                    decoration: BoxDecoration(
-                      color: context.containerColor,
-                      border: Border(
-                        top: BorderSide(
-                          color: context.dividerColor,
-                          width: 0.5,
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.block,
-                          size: 18,
-                          color: context.textSecondary,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.cannotSendMessageUserMayBeBlocked,
-                          style: TextStyle(
-                            color: context.textSecondary,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                else
-                  ChatInputSection(
-                    messageController: _messageController,
-                    isSending: _isSending,
-                    showMediaPanel: _showMediaPanel,
-                    showStickerPanel: _showStickerPanel,
-                    mediaPanelController: _mediaPanelController,
-                    stickerPanelController: _stickerPanelController,
-                    onSendMessage: _sendMessage,
-                    onSelectSticker: _selectSticker,
-                    onSendGif: (gifUrl) {
-                      _hidePanels();
-                      _sendMessage(messageText: gifUrl, messageType: 'gif');
+                    isSelectionMode: _isSelectionMode,
+                    selectedMessageIds: _selectedMessageIds,
+                    onSelectionChanged: (msg, selected) {
+                      setState(() {
+                        if (selected) {
+                          _selectedMessageIds.add(msg.id);
+                          if (!_isSelectionMode) _isSelectionMode = true;
+                        } else {
+                          _selectedMessageIds.remove(msg.id);
+                          if (_selectedMessageIds.isEmpty) {
+                            _isSelectionMode = false;
+                          }
+                        }
+                      });
                     },
-                    onToggleMediaPanel: _toggleMediaPanel,
-                    onToggleStickerPanel: _toggleStickerPanel,
-                    onTyping: _onTyping,
-                    onStopTyping: _stopTyping,
-                    onHidePanels: _hidePanels,
-                    onMediaOption: _handleMediaOption,
-                    replyingToMessage: _replyingToMessage,
-                    otherUserName: widget.userName,
-                    onCancelReply: () =>
-                        setState(() => _replyingToMessage = null),
-                    onAudioPressed: _showVoiceRecorder,
-                    uploadBytesSent: _uploadBytesSent,
-                    uploadTotalBytes: _uploadTotalBytes,
-                    uploadFileName: _uploadFileName,
+                    onRetry: _loadMessages,
+                    onDelete: _handleDeleteMessage,
+                    onEdit: _handleEditMessage,
+                    onReply: (msg) => setState(() => _replyingToMessage = msg),
+                    onReplyTap: _scrollToMessage,
+                    onPin: _handlePinMessage,
+                    onUnpin: _handlePinMessage,
+                    onForward: _handleForwardMessage,
+                    onRetryMessage: _handleRetryMessage,
+                    onDeleteFailedMessage: _handleDeleteFailedMessage,
+                    onSendWave: _sendWaveSticker,
+                    showScrollToBottomFab: _showScrollButton,
+                    onScrollToBottom: _scrollToBottom,
                   ),
+                ),
+                ConversationInputArea(
+                  isBlockedChat: _isBlockedChat,
+                  messageController: _messageController,
+                  isSending: _isSending,
+                  showMediaPanel: _showMediaPanel,
+                  showStickerPanel: _showStickerPanel,
+                  mediaPanelController: _mediaPanelController,
+                  stickerPanelController: _stickerPanelController,
+                  onSendMessage: _sendMessage,
+                  onSelectSticker: _selectSticker,
+                  onSendGif: (gifUrl) {
+                    _hidePanels();
+                    _sendMessage(messageText: gifUrl, messageType: 'gif');
+                  },
+                  onToggleMediaPanel: _toggleMediaPanel,
+                  onToggleStickerPanel: _toggleStickerPanel,
+                  onTyping: _onTyping,
+                  onStopTyping: _stopTyping,
+                  onHidePanels: _hidePanels,
+                  onMediaOption: _handleMediaOption,
+                  replyingToMessage: _replyingToMessage,
+                  otherUserName: widget.userName,
+                  onCancelReply: () => setState(() => _replyingToMessage = null),
+                  onAudioPressed: _showVoiceRecorder,
+                  uploadBytesSent: _uploadBytesSent,
+                  uploadTotalBytes: _uploadTotalBytes,
+                  uploadFileName: _uploadFileName,
+                ),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  /// Build compact user info header at top of chat
-  Widget _buildCompactUserInfoHeader() {
-    final communityAsync = ref.watch(singleCommunityProvider(widget.userId));
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return communityAsync.when(
-      data: (user) {
-        // Calculate age from birth_year
-        int? age;
-        if (user?.birth_year != null && user!.birth_year.isNotEmpty) {
-          try {
-            final birthYear = int.parse(user.birth_year);
-            age = DateTime.now().year - birthYear;
-          } catch (_) {}
-        }
-
-        // Get location string (respects privacy settings)
-        String? location;
-        if (user != null) {
-          final locText = PrivacyUtils.getLocationText(user);
-          if (locText.isNotEmpty) {
-            location = locText;
-          }
-        }
-
-        return GestureDetector(
-          onTap: () => _navigateToProfile(user),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-              color: isDark
-                  ? AppColors.gray900.withValues(alpha: 0.9)
-                  : AppColors.white.withValues(alpha: 0.95),
-              border: Border(
-                bottom: BorderSide(
-                  color: isDark ? AppColors.gray800 : AppColors.gray200,
-                  width: 0.5,
-                ),
-              ),
-            ),
-            child: Row(
-              children: [
-                // Small profile picture
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.3),
-                      width: 2,
-                    ),
-                  ),
-                  child: ClipOval(
-                    child: widget.profilePicture != null
-                        ? Image.network(
-                            widget.profilePicture!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(
-                              color: AppColors.primary.withOpacity(0.2),
-                              child: const Icon(
-                                Icons.person,
-                                size: 20,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            color: AppColors.primary.withOpacity(0.2),
-                            child: const Icon(
-                              Icons.person,
-                              size: 20,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // User info
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Name and age
-                      Row(
-                        children: [
-                          Text(
-                            user?.name ?? widget.userName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: isDark
-                                  ? AppColors.white
-                                  : AppColors.gray900,
-                            ),
-                          ),
-                          if (age != null) ...[
-                            const SizedBox(width: 6),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 1,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primary.withValues(
-                                  alpha: 0.15,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                '$age',
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      const SizedBox(height: 2),
-                      // Location and languages in one line
-                      Row(
-                        children: [
-                          if (location != null) ...[
-                            Icon(
-                              Icons.location_on_outlined,
-                              size: 12,
-                              color: isDark
-                                  ? AppColors.gray400
-                                  : AppColors.gray600,
-                            ),
-                            const SizedBox(width: 2),
-                            Flexible(
-                              child: Text(
-                                location,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: isDark
-                                      ? AppColors.gray400
-                                      : AppColors.gray600,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                          if (location != null &&
-                              (user?.native_language != null ||
-                                  user?.language_to_learn != null))
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                              ),
-                              child: Text(
-                                '•',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: isDark
-                                      ? AppColors.gray500
-                                      : AppColors.gray400,
-                                ),
-                              ),
-                            ),
-                          if (user?.native_language != null)
-                            Text(
-                              user!.native_language,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.success,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          if (user?.native_language != null &&
-                              user?.language_to_learn != null)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 4,
-                              ),
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 10,
-                                color: isDark
-                                    ? AppColors.gray500
-                                    : AppColors.gray400,
-                              ),
-                            ),
-                          if (user?.language_to_learn != null)
-                            Text(
-                              user!.language_to_learn,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.info,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                // Arrow icon to indicate tap action
-                Icon(
-                  Icons.chevron_right,
-                  size: 20,
-                  color: isDark ? AppColors.gray500 : AppColors.gray400,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      loading: () => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: isDark
-              ? AppColors.gray900.withValues(alpha: 0.9)
-              : AppColors.white.withValues(alpha: 0.95),
-          border: Border(
-            bottom: BorderSide(
-              color: isDark ? AppColors.gray800 : AppColors.gray200,
-              width: 0.5,
-            ),
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isDark ? AppColors.gray700 : AppColors.gray300,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 100,
-                  height: 14,
-                  color: isDark ? AppColors.gray700 : AppColors.gray300,
-                ),
-                const SizedBox(height: 4),
-                Container(
-                  width: 150,
-                  height: 10,
-                  color: isDark ? AppColors.gray700 : AppColors.gray200,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      error: (_, __) => const SizedBox.shrink(),
-    );
-  }
-
-  /// Navigate to full user profile
-  void _navigateToProfile(dynamic user) {
-    if (user != null) {
-      Navigator.push(
-        context,
-        AppPageRoute(builder: (_) => SingleCommunity(community: user)),
-      );
-    }
-  }
-
-  /// Build user info header shown at top of chat (scrollable with messages)
-  Widget _buildUserInfoHeader() {
-    final communityAsync = ref.watch(singleCommunityProvider(widget.userId));
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return communityAsync.when(
-      data: (user) {
-        // Debug: Print user data
-
-        // Calculate age from birth_year
-        int? age;
-        if (user?.birth_year != null && user!.birth_year.isNotEmpty) {
-          try {
-            final birthYear = int.parse(user.birth_year);
-            age = DateTime.now().year - birthYear;
-          } catch (_) {}
-        }
-
-        // Get location string (respects privacy settings)
-        String? location;
-        if (user != null) {
-          final locText = PrivacyUtils.getLocationText(user);
-          if (locText.isNotEmpty) {
-            location = locText;
-          }
-        }
-
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Bigger profile picture (100px)
-              GestureDetector(
-                onTap: () => _navigateToProfile(user),
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.3),
-                      width: 3,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.2),
-                        blurRadius: 16,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: ClipOval(
-                    child:
-                        widget.profilePicture != null &&
-                            widget.profilePicture!.isNotEmpty
-                        ? Image.network(
-                            widget.profilePicture!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(
-                              color: AppColors.primary.withValues(alpha: 0.2),
-                              child: const Icon(
-                                Icons.person,
-                                size: 50,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            color: AppColors.primary.withValues(alpha: 0.2),
-                            child: const Icon(
-                              Icons.person,
-                              size: 50,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              // Name and age
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.userName,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors.white : AppColors.gray900,
-                    ),
-                  ),
-                  if (age != null) ...[
-                    const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        '$age',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-
-              // Location
-              if (location != null) ...[
-                const SizedBox(height: 4),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      size: 14,
-                      color: isDark ? AppColors.gray400 : AppColors.gray600,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      location,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: isDark ? AppColors.gray400 : AppColors.gray600,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-
-              // Bio
-              if (user?.bio != null && user!.bio.isNotEmpty) ...[
-                const SizedBox(height: 12),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? AppColors.white.withValues(alpha: 0.05)
-                        : AppColors.gray500.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    user.bio,
-                    textAlign: TextAlign.center,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: isDark ? AppColors.gray400 : AppColors.gray600,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ),
-              ],
-
-              // Interests / Topics
-              if (user?.topics != null && user!.topics.isNotEmpty) ...[
-                const SizedBox(height: 12),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 6,
-                  runSpacing: 6,
-                  children: user.topics.take(5).map((topic) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.2),
-                        ),
-                      ),
-                      child: Text(
-                        topic,
-                        style: const TextStyle(
-                          fontSize: 11,
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ],
-
-              const SizedBox(height: 8),
-
-              // Divider
-              Divider(
-                color: isDark ? AppColors.gray700 : AppColors.gray300,
-                height: 1,
-              ),
-            ],
-          ),
-        );
-      },
-      loading: () => const SizedBox.shrink(),
-      error: (_, __) => const SizedBox.shrink(),
-    );
-  }
-
-  /// Build empty chat state - shows user info, bio, interests, and "Say Hi" button
-  Widget _buildEmptyChatWithUserInfo(ChatState chatState) {
-    final communityAsync = ref.watch(singleCommunityProvider(widget.userId));
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return communityAsync.when(
-      data: (user) {
-        // Debug: Print user data
-
-        // Calculate age from birth_year
-        int? age;
-        if (user?.birth_year != null && user!.birth_year.isNotEmpty) {
-          try {
-            final birthYear = int.parse(user.birth_year);
-            age = DateTime.now().year - birthYear;
-          } catch (_) {}
-        }
-
-        // Get location string (respects privacy settings)
-        String? location;
-        if (user != null) {
-          final locText = PrivacyUtils.getLocationText(user);
-          if (locText.isNotEmpty) {
-            location = locText;
-          }
-        }
-
-        return ListView(
-          reverse: true,
-          controller: _scrollController,
-          children: [
-            // User info card with image, bio, interests
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Bigger profile picture (100px)
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColors.primary.withValues(alpha: 0.3),
-                        width: 3,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.2),
-                          blurRadius: 16,
-                          offset: const Offset(0, 6),
-                        ),
-                      ],
-                    ),
-                    child: ClipOval(
-                      child:
-                          widget.profilePicture != null &&
-                              widget.profilePicture!.isNotEmpty
-                          ? Image.network(
-                              widget.profilePicture!,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => Container(
-                                color: AppColors.primary.withValues(alpha: 0.2),
-                                child: const Icon(
-                                  Icons.person,
-                                  size: 50,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                            )
-                          : Container(
-                              color: AppColors.primary.withValues(alpha: 0.2),
-                              child: const Icon(
-                                Icons.person,
-                                size: 50,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Name and age
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.userName,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.white : AppColors.gray900,
-                        ),
-                      ),
-                      if (age != null) ...[
-                        const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            '$age',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-
-                  // Location
-                  if (location != null) ...[
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 14,
-                          color: isDark ? AppColors.gray400 : AppColors.gray600,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          location,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: isDark
-                                ? AppColors.gray400
-                                : AppColors.gray600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-
-                  // Bio
-                  if (user?.bio != null && user!.bio.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: isDark
-                            ? AppColors.white.withValues(alpha: 0.05)
-                            : AppColors.gray500.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        user.bio,
-                        textAlign: TextAlign.center,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: isDark ? AppColors.gray400 : AppColors.gray600,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ),
-                  ],
-
-                  // Interests / Topics
-                  if (user?.topics != null && user!.topics.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: user.topics.take(5).map((topic) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: AppColors.primary.withValues(alpha: 0.2),
-                            ),
-                          ),
-                          child: Text(
-                            topic,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-
-                  const SizedBox(height: 24),
-
-                  // Say Hi button - sends wave sticker
-                  GestureDetector(
-                    onTap: _sendWaveSticker,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFFFFE082), Color(0xFFFFCA28)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(
-                              0xFFFFCA28,
-                            ).withValues(alpha: 0.4),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('👋', style: TextStyle(fontSize: 24)),
-                          SizedBox(width: 8),
-                          Text(
-                            'Say Hi!',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF5D4037),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-      loading: () => ListView(
-        reverse: true,
-        controller: _scrollController,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(32),
-            child: Center(child: CircularProgressIndicator()),
-          ),
-        ],
-      ),
-      error: (_, __) => ListView(
-        reverse: true,
-        controller: _scrollController,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('👋', style: TextStyle(fontSize: 72)),
-                const SizedBox(height: 16),
-                Text(
-                  'Start a conversation with ${widget.userName}!',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: isDark ? AppColors.gray400 : AppColors.gray600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: _sendWaveSticker,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
-                      vertical: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFFFFE082), Color(0xFFFFCA28)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFFFFCA28).withValues(alpha: 0.4),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('👋', style: TextStyle(fontSize: 24)),
-                        SizedBox(width: 8),
-                        Text(
-                          'Say Hi!',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF5D4037),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -2760,36 +1870,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   /// Send wave sticker to start conversation
   void _sendWaveSticker() {
     _sendMessage(messageText: '👋');
-  }
-
-  /// Build scroll to bottom floating button
-  Widget _buildScrollToBottomButton() {
-    final isDarkBtn = Theme.of(context).brightness == Brightness.dark;
-    return Material(
-      elevation: 4,
-      shadowColor: Colors.black26,
-      shape: const CircleBorder(),
-      child: InkWell(
-        onTap: _scrollToBottom,
-        customBorder: const CircleBorder(),
-        child: Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Theme.of(context).colorScheme.surface,
-            border: Border.all(
-              color: isDarkBtn ? AppColors.gray700 : AppColors.gray300,
-            ),
-          ),
-          child: Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: Theme.of(context).colorScheme.primary,
-            size: 28,
-          ),
-        ),
-      ),
-    );
   }
 
   BoxDecoration _getWallpaperDecoration() {
