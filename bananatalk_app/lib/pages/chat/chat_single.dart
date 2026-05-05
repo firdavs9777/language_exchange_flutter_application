@@ -47,6 +47,7 @@ import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/pages/chat/gif_picker_panel.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/chat/conversation/edit_message_dialog.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -1434,7 +1435,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     final newText = await showDialog<String>(
       context: context,
       builder: (context) =>
-          _EditMessageDialog(initialText: message.message ?? ''),
+          EditMessageDialog(initialText: message.message ?? ''),
     );
 
     if (newText != null && newText.trim().isNotEmpty && mounted) {
@@ -2902,107 +2903,3 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 }
 
-/// Simple edit message dialog
-class _EditMessageDialog extends StatefulWidget {
-  final String initialText;
-
-  const _EditMessageDialog({required this.initialText});
-
-  @override
-  State<_EditMessageDialog> createState() => _EditMessageDialogState();
-}
-
-class _EditMessageDialogState extends State<_EditMessageDialog> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.initialText);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    return AlertDialog(
-      backgroundColor: isDark ? AppColors.cardDark : AppColors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      title: Text(
-        AppLocalizations.of(context)!.editMessage,
-        style: TextStyle(
-          color: isDark ? AppColors.white : AppColors.gray900,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      content: TextField(
-        controller: _controller,
-        autofocus: true,
-        maxLines: 5,
-        minLines: 1,
-        maxLength: 2000,
-        style: TextStyle(color: isDark ? AppColors.white : AppColors.gray900),
-        decoration: InputDecoration(
-          hintText: AppLocalizations.of(context)!.enterMessage,
-          hintStyle: TextStyle(
-            color: isDark ? AppColors.gray500 : AppColors.gray600,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: isDark ? AppColors.gray700 : AppColors.gray300,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: isDark ? AppColors.gray700 : AppColors.gray300,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: theme.primaryColor, width: 2),
-          ),
-          filled: true,
-          fillColor: isDark ? AppColors.gray800 : AppColors.gray100,
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(
-            AppLocalizations.of(context)!.cancel,
-            style: TextStyle(
-              color: isDark ? AppColors.gray400 : AppColors.gray600,
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final text = _controller.text.trim();
-            if (text.isNotEmpty) {
-              Navigator.pop(context, text);
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: theme.primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          child: Text(
-            AppLocalizations.of(context)!.save,
-            style: const TextStyle(color: AppColors.white),
-          ),
-        ),
-      ],
-    );
-  }
-}
