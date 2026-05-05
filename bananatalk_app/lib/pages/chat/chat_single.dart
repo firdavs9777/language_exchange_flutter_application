@@ -37,17 +37,14 @@ import 'package:bananatalk_app/widgets/voice_recorder_widget.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
-import 'package:bananatalk_app/pages/chat/message_actions_bottom_sheet.dart';
 import 'package:bananatalk_app/pages/chat/delete_message_dialog.dart';
 import 'package:bananatalk_app/pages/chat/pinned_messages_bar.dart';
 import 'package:bananatalk_app/pages/chat/forward_message_dialog.dart';
-import 'package:bananatalk_app/pages/chat/chat_user_info_card.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/pages/chat/gif_picker_panel.dart';
-import 'package:bananatalk_app/services/giphy_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -137,6 +134,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (state == AppLifecycleState.resumed) {
       // Ensure socket is connected when returning to chat
       final socketService = ChatSocketService();
+      socketService.forceReconnect();
       if (!socketService.isConnected) {
         socketService.connect(forceReset: true);
       }
@@ -296,7 +294,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       );
       if (!mounted) return;
       if (result['success'] == true) {
-        final blocked = result['isBlocked'] == true || result['isBlockedBy'] == true;
+        final blocked =
+            result['isBlocked'] == true || result['isBlockedBy'] == true;
         if (blocked != _isBlockedChat) {
           setState(() => _isBlockedChat = blocked);
         }
@@ -344,7 +343,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
       ref
           .read(messageCountProvider.notifier)
-          .setMessageCount(widget.userId, result['total'] ?? conversationMessages.length);
+          .setMessageCount(
+            widget.userId,
+            result['total'] ?? conversationMessages.length,
+          );
 
       // Mark messages as read via socket (notifies backend)
       chatNotifier.markAsRead();
@@ -371,7 +373,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   Future<void> _loadMoreMessages() async {
-    if (_currentUserId == null || _isLoadingMore || !_hasMoreMessages || !mounted) return;
+    if (_currentUserId == null ||
+        _isLoadingMore ||
+        !_hasMoreMessages ||
+        !mounted)
+      return;
 
     setState(() => _isLoadingMore = true);
 
@@ -447,7 +453,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         conversationId: widget.userId, // Using partner ID as conversation ID
       );
 
-
       if (result['success'] == true && result['data'] != null) {
         final themeData = result['data'];
         final preset = themeData['preset'] as String?;
@@ -486,7 +491,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final changedBy = data['changedBy']?.toString();
         final theme = data['theme'];
 
-
         // Check if this theme change was made by our chat partner
         if (changedBy == widget.userId && theme != null && mounted) {
           final preset = theme['preset']?.toString();
@@ -519,8 +523,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     final authService = ref.watch(authServiceProvider);
-    if (!authService.isLoggedIn && _currentUserId != null) {
-    }
+    if (!authService.isLoggedIn && _currentUserId != null) {}
   }
 
   void _toggleMediaPanel() {
@@ -601,7 +604,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           receiver: widget.userId,
         );
 
-
         if (mounted) setState(() => _isSending = false);
 
         if (result['success'] == true && mounted) {
@@ -616,7 +618,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           );
 
           // Dedup: socket may have already added this message before API returned
-          final alreadyExists = state.messages.any((m) => m.id == replyMessage.id);
+          final alreadyExists = state.messages.any(
+            (m) => m.id == replyMessage.id,
+          );
           if (!alreadyExists) {
             final messages = List<Message>.from(state.messages)
               ..add(replyMessage);
@@ -626,8 +630,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
               ).compareTo(DateTime.parse(b.createdAt)),
             );
             chatNotifier.setMessages(messages);
-          } else {
-          }
+          } else {}
 
           if (mounted) {
             setState(() => _replyingToMessage = null);
@@ -671,7 +674,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   /// Send message in background and handle result
   /// Checks limits and sends via socket - runs after optimistic UI update
-  Future<void> _sendMessageInBackground(String text, String localId, String? messageType) async {
+  Future<void> _sendMessageInBackground(
+    String text,
+    String localId,
+    String? messageType,
+  ) async {
     if (!mounted) return;
 
     try {
@@ -714,7 +721,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         ).notifier,
       );
 
-      final result = await chatNotifier.sendMessage(text, localId: localId, messageType: messageType);
+      final result = await chatNotifier.sendMessage(
+        text,
+        localId: localId,
+        messageType: messageType,
+      );
 
       // Check mounted after async operation
       if (!mounted) return;
@@ -838,9 +849,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         default:
           if (mounted) {
             final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.featureComingSoon)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(l10n.featureComingSoon)));
           }
       }
     } catch (e) {
@@ -942,7 +953,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(AppLocalizations.of(context)!.videoMustBeUnder1GB),
+                content: Text(
+                  AppLocalizations.of(context)!.videoMustBeUnder1GB,
+                ),
                 backgroundColor: Colors.red,
               ),
             );
@@ -982,7 +995,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(AppLocalizations.of(context)!.videoMustBeUnder1GB),
+                content: Text(
+                  AppLocalizations.of(context)!.videoMustBeUnder1GB,
+                ),
                 backgroundColor: Colors.red,
               ),
             );
@@ -1013,7 +1028,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         allowMultiple: false,
       );
 
-      if (result != null && result.files.isNotEmpty && result.files.single.path != null && mounted) {
+      if (result != null &&
+          result.files.isNotEmpty &&
+          result.files.single.path != null &&
+          mounted) {
         final pickedFile = result.files.single;
         final file = File(pickedFile.path!);
 
@@ -1023,7 +1041,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(AppLocalizations.of(context)!.documentMustBeUnder50MB),
+                content: Text(
+                  AppLocalizations.of(context)!.documentMustBeUnder50MB,
+                ),
                 backgroundColor: Colors.red,
               ),
             );
@@ -1079,7 +1099,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Compress if needed
     final compressionService = VideoCompressionService();
-    final needsCompression = await compressionService.needsCompression(editedVideoFile);
+    final needsCompression = await compressionService.needsCompression(
+      editedVideoFile,
+    );
 
     File finalVideoFile = editedVideoFile;
     if (needsCompression) {
@@ -1091,7 +1113,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           final dialogDark = Theme.of(dialogCtx).brightness == Brightness.dark;
           return AlertDialog(
             backgroundColor: dialogDark ? AppColors.gray900 : AppColors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -1099,7 +1123,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 const SizedBox(height: 16),
                 Text(
                   'Compressing video...',
-                  style: TextStyle(color: dialogDark ? AppColors.white : AppColors.gray900),
+                  style: TextStyle(
+                    color: dialogDark ? AppColors.white : AppColors.gray900,
+                  ),
                 ),
               ],
             ),
@@ -1144,18 +1170,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       } else {
         if (mounted) {
           String errorMsg = result['error'] ?? 'Failed to send video';
-          if (errorMsg.contains('duration') || errorMsg.contains('600 seconds') || errorMsg.contains('10 minutes')) {
+          if (errorMsg.contains('duration') ||
+              errorMsg.contains('600 seconds') ||
+              errorMsg.contains('10 minutes')) {
             errorMsg = 'Video must be under 10 minutes';
-          } else if (errorMsg.contains('size') || errorMsg.contains('1024MB') || errorMsg.contains('1GB')) {
+          } else if (errorMsg.contains('size') ||
+              errorMsg.contains('1024MB') ||
+              errorMsg.contains('1GB')) {
             errorMsg = 'Video must be under 1GB. Please compress the video.';
           } else if (errorMsg.contains('format')) {
             errorMsg = 'Unsupported video format. Use MP4, MOV, or WebM.';
           }
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMsg),
-              backgroundColor: Colors.red,
-            ),
+            SnackBar(content: Text(errorMsg), backgroundColor: Colors.red),
           );
         }
       }
@@ -1230,10 +1257,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             errorMsg = 'Voice message file too large';
           }
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMsg),
-              backgroundColor: Colors.red,
-            ),
+            SnackBar(content: Text(errorMsg), backgroundColor: Colors.red),
           );
         }
       }
@@ -1514,9 +1538,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // Show edit dialog
     final newText = await showDialog<String>(
       context: context,
-      builder: (context) => _EditMessageDialog(
-        initialText: message.message ?? '',
-      ),
+      builder: (context) =>
+          _EditMessageDialog(initialText: message.message ?? ''),
     );
 
     if (newText != null && newText.trim().isNotEmpty && mounted) {
@@ -1530,7 +1553,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       );
 
       // Optimistic update
-      chatNotifier.updateMessageLocally(message.id, newText: newText, isEdited: true);
+      chatNotifier.updateMessageLocally(
+        message.id,
+        newText: newText,
+        isEdited: true,
+      );
 
       // Call API
       final messageService = ref.read(messageServiceProvider);
@@ -1637,7 +1664,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       // Show confirmation
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(message.isPinned ? 'Message unpinned' : 'Message pinned'),
+          content: Text(
+            message.isPinned ? 'Message unpinned' : 'Message pinned',
+          ),
           duration: const Duration(seconds: 1),
         ),
       );
@@ -1672,7 +1701,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (msg.sender.id != _currentUserId && msg.sender.id != widget.userId) {
           uniqueUserIds.add(msg.sender.id);
         }
-        if (msg.receiver.id != _currentUserId && msg.receiver.id != widget.userId) {
+        if (msg.receiver.id != _currentUserId &&
+            msg.receiver.id != widget.userId) {
           uniqueUserIds.add(msg.receiver.id);
         }
       }
@@ -1708,14 +1738,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (forwardResult['success'] == true && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.messageForwardedTo(result.length)),
+            content: Text(
+              AppLocalizations.of(context)!.messageForwardedTo(result.length),
+            ),
             duration: const Duration(seconds: 2),
           ),
         );
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(forwardResult['error'] ?? 'Failed to forward message'),
+            content: Text(
+              forwardResult['error'] ?? 'Failed to forward message',
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -1729,7 +1763,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     final messageText = message.message;
     if (messageText == null || messageText.isEmpty) return;
-
 
     final chatNotifier = ref.read(
       chatStateProvider(
@@ -1750,7 +1783,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   /// Handle deleting failed message from UI
   void _handleDeleteFailedMessage(Message message) {
     if (_currentUserId == null || !mounted) return;
-
 
     final chatNotifier = ref.read(
       chatStateProvider(
@@ -1860,8 +1892,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           next.messages.length > previous.messages.length &&
           !next.isLoading) {
         // Only auto-scroll if user is near the bottom (not reading old messages)
-        final isNearBottom = !_scrollController.hasClients ||
-            (_scrollController.position.maxScrollExtent - _scrollController.offset) < 300;
+        final isNearBottom =
+            !_scrollController.hasClients ||
+            (_scrollController.position.maxScrollExtent -
+                    _scrollController.offset) <
+                300;
         if (isNearBottom) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) {
@@ -1878,11 +1913,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Check the other user's privacy settings to decide whether to show online status
     final otherUserAsync = ref.watch(singleCommunityProvider(widget.userId));
-    final showOnlineStatus = otherUserAsync.whenOrNull(
-      data: (community) => community != null
-          ? PrivacyUtils.shouldShowOnlineStatus(community)
-          : true,
-    ) ?? true;
+    final showOnlineStatus =
+        otherUserAsync.whenOrNull(
+          data: (community) => community != null
+              ? PrivacyUtils.shouldShowOnlineStatus(community)
+              : true,
+        ) ??
+        true;
 
     return Scaffold(
       appBar: ChatAppBar(
@@ -1902,135 +1939,151 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         child: GestureDetector(
           onTap: _hidePanels,
           child: ClipRect(
-          child: Column(
-            children: [
-              const ConnectionStatusIndicator(),
-              // Pinned messages bar
-              if (chatState.pinnedMessages.isNotEmpty)
-                PinnedMessagesBar(
-                  pinnedMessages: chatState.pinnedMessages,
-                  onTap: () {
-                    if (chatState.pinnedMessages.isNotEmpty) {
-                      _scrollToMessage(chatState.pinnedMessages.first.id);
-                    }
-                  },
-                  onClose: () {
-                    // Unpin the message when X is clicked
-                    if (chatState.pinnedMessages.isNotEmpty) {
-                      _handlePinMessage(chatState.pinnedMessages.first);
-                    }
-                  },
-                ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    RefreshIndicator(
-                      onRefresh: _loadMessages,
-                      displacement: 20,
-                      color: AppColors.primary,
-                      child: ChatMessagesList(
-                              isLoading: chatState.isLoading,
-                              error: chatState.error,
-                              messages: chatState.messages,
-                              currentUserId: _currentUserId,
-                              otherUserName: widget.userName,
-                              otherUserPicture: widget.profilePicture,
-                              otherUserTyping: chatState.isOtherUserTyping,
-                              scrollController: _scrollController,
-                              onRetry: _loadMessages,
-                              isSelectionMode: _isSelectionMode,
-                              selectedMessageIds: _selectedMessageIds,
-                              isLoadingMore: _isLoadingMore,
-                              hasMoreMessages: _hasMoreMessages,
-                              headerWidget: _buildUserInfoHeader(), // User info at top
-                              onSelectionChanged: (msg, selected) {
-                                setState(() {
-                                  if (selected) {
-                                    _selectedMessageIds.add(msg.id);
-                                    if (!_isSelectionMode) _isSelectionMode = true;
-                                  } else {
-                                    _selectedMessageIds.remove(msg.id);
-                                    if (_selectedMessageIds.isEmpty)
-                                      _isSelectionMode = false;
-                                  }
-                                });
-                              },
-                              onDelete: _handleDeleteMessage,
-                              onEdit: _handleEditMessage,
-                              onReply: (msg) => setState(() => _replyingToMessage = msg),
-                              onReplyTap: _scrollToMessage,
-                              onPin: _handlePinMessage,
-                              onUnpin: _handlePinMessage, // Same handler - it toggles
-                              onForward: _handleForwardMessage,
-                              onRetryMessage: _handleRetryMessage,
-                              onDeleteFailedMessage: _handleDeleteFailedMessage,
-                              onSendWave: _sendWaveSticker,
-                            ),
-                    ),
-                    // Scroll to bottom button
-                    if (_showScrollButton)
-                      Positioned(
-                        right: 16,
-                        bottom: 16,
-                        child: _buildScrollToBottomButton(),
-                      ),
-                  ],
-                ),
-              ),
-              if (_isBlockedChat)
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                  decoration: BoxDecoration(
-                    color: context.containerColor,
-                    border: Border(
-                      top: BorderSide(color: context.dividerColor, width: 0.5),
-                    ),
+            child: Column(
+              children: [
+                const ConnectionStatusIndicator(),
+                // Pinned messages bar
+                if (chatState.pinnedMessages.isNotEmpty)
+                  PinnedMessagesBar(
+                    pinnedMessages: chatState.pinnedMessages,
+                    onTap: () {
+                      if (chatState.pinnedMessages.isNotEmpty) {
+                        _scrollToMessage(chatState.pinnedMessages.first.id);
+                      }
+                    },
+                    onClose: () {
+                      // Unpin the message when X is clicked
+                      if (chatState.pinnedMessages.isNotEmpty) {
+                        _handlePinMessage(chatState.pinnedMessages.first);
+                      }
+                    },
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                Expanded(
+                  child: Stack(
                     children: [
-                      Icon(Icons.block, size: 18, color: context.textSecondary),
-                      const SizedBox(width: 8),
-                      Text(
-                        AppLocalizations.of(context)!.cannotSendMessageUserMayBeBlocked,
-                        style: TextStyle(
-                          color: context.textSecondary,
-                          fontSize: 14,
+                      RefreshIndicator(
+                        onRefresh: _loadMessages,
+                        displacement: 20,
+                        color: AppColors.primary,
+                        child: ChatMessagesList(
+                          isLoading: chatState.isLoading,
+                          error: chatState.error,
+                          messages: chatState.messages,
+                          currentUserId: _currentUserId,
+                          otherUserName: widget.userName,
+                          otherUserPicture: widget.profilePicture,
+                          otherUserTyping: chatState.isOtherUserTyping,
+                          scrollController: _scrollController,
+                          onRetry: _loadMessages,
+                          isSelectionMode: _isSelectionMode,
+                          selectedMessageIds: _selectedMessageIds,
+                          isLoadingMore: _isLoadingMore,
+                          hasMoreMessages: _hasMoreMessages,
+                          headerWidget:
+                              _buildUserInfoHeader(), // User info at top
+                          onSelectionChanged: (msg, selected) {
+                            setState(() {
+                              if (selected) {
+                                _selectedMessageIds.add(msg.id);
+                                if (!_isSelectionMode) _isSelectionMode = true;
+                              } else {
+                                _selectedMessageIds.remove(msg.id);
+                                if (_selectedMessageIds.isEmpty)
+                                  _isSelectionMode = false;
+                              }
+                            });
+                          },
+                          onDelete: _handleDeleteMessage,
+                          onEdit: _handleEditMessage,
+                          onReply: (msg) =>
+                              setState(() => _replyingToMessage = msg),
+                          onReplyTap: _scrollToMessage,
+                          onPin: _handlePinMessage,
+                          onUnpin:
+                              _handlePinMessage, // Same handler - it toggles
+                          onForward: _handleForwardMessage,
+                          onRetryMessage: _handleRetryMessage,
+                          onDeleteFailedMessage: _handleDeleteFailedMessage,
+                          onSendWave: _sendWaveSticker,
                         ),
                       ),
+                      // Scroll to bottom button
+                      if (_showScrollButton)
+                        Positioned(
+                          right: 16,
+                          bottom: 16,
+                          child: _buildScrollToBottomButton(),
+                        ),
                     ],
                   ),
-                )
-              else
-                ChatInputSection(
-                  messageController: _messageController,
-                  isSending: _isSending,
-                  showMediaPanel: _showMediaPanel,
-                  showStickerPanel: _showStickerPanel,
-                  mediaPanelController: _mediaPanelController,
-                  stickerPanelController: _stickerPanelController,
-                  onSendMessage: _sendMessage,
-                  onSelectSticker: _selectSticker,
-                  onSendGif: (gifUrl) {
-                    _hidePanels();
-                    _sendMessage(messageText: gifUrl, messageType: 'gif');
-                  },
-                  onToggleMediaPanel: _toggleMediaPanel,
-                  onToggleStickerPanel: _toggleStickerPanel,
-                  onTyping: _onTyping,
-                  onStopTyping: _stopTyping,
-                  onHidePanels: _hidePanels,
-                  onMediaOption: _handleMediaOption,
-                  replyingToMessage: _replyingToMessage,
-                  otherUserName: widget.userName,
-                  onCancelReply: () => setState(() => _replyingToMessage = null),
-                  onAudioPressed: _showVoiceRecorder,
-                  uploadBytesSent: _uploadBytesSent,
-                  uploadTotalBytes: _uploadTotalBytes,
-                  uploadFileName: _uploadFileName,
                 ),
-            ],
-          ),
+                if (_isBlockedChat)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 24,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.containerColor,
+                      border: Border(
+                        top: BorderSide(
+                          color: context.dividerColor,
+                          width: 0.5,
+                        ),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.block,
+                          size: 18,
+                          color: context.textSecondary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          AppLocalizations.of(
+                            context,
+                          )!.cannotSendMessageUserMayBeBlocked,
+                          style: TextStyle(
+                            color: context.textSecondary,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  ChatInputSection(
+                    messageController: _messageController,
+                    isSending: _isSending,
+                    showMediaPanel: _showMediaPanel,
+                    showStickerPanel: _showStickerPanel,
+                    mediaPanelController: _mediaPanelController,
+                    stickerPanelController: _stickerPanelController,
+                    onSendMessage: _sendMessage,
+                    onSelectSticker: _selectSticker,
+                    onSendGif: (gifUrl) {
+                      _hidePanels();
+                      _sendMessage(messageText: gifUrl, messageType: 'gif');
+                    },
+                    onToggleMediaPanel: _toggleMediaPanel,
+                    onToggleStickerPanel: _toggleStickerPanel,
+                    onTyping: _onTyping,
+                    onStopTyping: _stopTyping,
+                    onHidePanels: _hidePanels,
+                    onMediaOption: _handleMediaOption,
+                    replyingToMessage: _replyingToMessage,
+                    otherUserName: widget.userName,
+                    onCancelReply: () =>
+                        setState(() => _replyingToMessage = null),
+                    onAudioPressed: _showVoiceRecorder,
+                    uploadBytesSent: _uploadBytesSent,
+                    uploadTotalBytes: _uploadTotalBytes,
+                    uploadFileName: _uploadFileName,
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -2097,12 +2150,20 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => Container(
                               color: AppColors.primary.withOpacity(0.2),
-                              child: const Icon(Icons.person, size: 20, color: AppColors.primary),
+                              child: const Icon(
+                                Icons.person,
+                                size: 20,
+                                color: AppColors.primary,
+                              ),
                             ),
                           )
                         : Container(
                             color: AppColors.primary.withOpacity(0.2),
-                            child: const Icon(Icons.person, size: 20, color: AppColors.primary),
+                            child: const Icon(
+                              Icons.person,
+                              size: 20,
+                              color: AppColors.primary,
+                            ),
                           ),
                   ),
                 ),
@@ -2121,15 +2182,22 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
-                              color: isDark ? AppColors.white : AppColors.gray900,
+                              color: isDark
+                                  ? AppColors.white
+                                  : AppColors.gray900,
                             ),
                           ),
                           if (age != null) ...[
                             const SizedBox(width: 6),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 1,
+                              ),
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withValues(alpha: 0.15),
+                                color: AppColors.primary.withValues(
+                                  alpha: 0.15,
+                                ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
@@ -2152,7 +2220,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                             Icon(
                               Icons.location_on_outlined,
                               size: 12,
-                              color: isDark ? AppColors.gray400 : AppColors.gray600,
+                              color: isDark
+                                  ? AppColors.gray400
+                                  : AppColors.gray600,
                             ),
                             const SizedBox(width: 2),
                             Flexible(
@@ -2160,21 +2230,29 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                                 location,
                                 style: TextStyle(
                                   fontSize: 11,
-                                  color: isDark ? AppColors.gray400 : AppColors.gray600,
+                                  color: isDark
+                                      ? AppColors.gray400
+                                      : AppColors.gray600,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
-                          if (location != null && (user?.native_language != null || user?.language_to_learn != null))
+                          if (location != null &&
+                              (user?.native_language != null ||
+                                  user?.language_to_learn != null))
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                              ),
                               child: Text(
                                 '•',
                                 style: TextStyle(
                                   fontSize: 11,
-                                  color: isDark ? AppColors.gray500 : AppColors.gray400,
+                                  color: isDark
+                                      ? AppColors.gray500
+                                      : AppColors.gray400,
                                 ),
                               ),
                             ),
@@ -2187,13 +2265,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                          if (user?.native_language != null && user?.language_to_learn != null)
+                          if (user?.native_language != null &&
+                              user?.language_to_learn != null)
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
                               child: Icon(
                                 Icons.arrow_forward,
                                 size: 10,
-                                color: isDark ? AppColors.gray500 : AppColors.gray400,
+                                color: isDark
+                                    ? AppColors.gray500
+                                    : AppColors.gray400,
                               ),
                             ),
                           if (user?.language_to_learn != null)
@@ -2224,7 +2307,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       loading: () => Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isDark ? AppColors.gray900.withValues(alpha: 0.9) : AppColors.white.withValues(alpha: 0.95),
+          color: isDark
+              ? AppColors.gray900.withValues(alpha: 0.9)
+              : AppColors.white.withValues(alpha: 0.95),
           border: Border(
             bottom: BorderSide(
               color: isDark ? AppColors.gray800 : AppColors.gray200,
@@ -2246,9 +2331,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(width: 100, height: 14, color: isDark ? AppColors.gray700 : AppColors.gray300),
+                Container(
+                  width: 100,
+                  height: 14,
+                  color: isDark ? AppColors.gray700 : AppColors.gray300,
+                ),
                 const SizedBox(height: 4),
-                Container(width: 150, height: 10, color: isDark ? AppColors.gray700 : AppColors.gray200),
+                Container(
+                  width: 150,
+                  height: 10,
+                  color: isDark ? AppColors.gray700 : AppColors.gray200,
+                ),
               ],
             ),
           ],
@@ -2263,9 +2356,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (user != null) {
       Navigator.push(
         context,
-        AppPageRoute(
-          builder: (_) => SingleCommunity(community: user),
-        ),
+        AppPageRoute(builder: (_) => SingleCommunity(community: user)),
       );
     }
   }
@@ -2323,18 +2414,28 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     ],
                   ),
                   child: ClipOval(
-                    child: widget.profilePicture != null && widget.profilePicture!.isNotEmpty
+                    child:
+                        widget.profilePicture != null &&
+                            widget.profilePicture!.isNotEmpty
                         ? Image.network(
                             widget.profilePicture!,
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => Container(
                               color: AppColors.primary.withValues(alpha: 0.2),
-                              child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                              child: const Icon(
+                                Icons.person,
+                                size: 50,
+                                color: AppColors.primary,
+                              ),
                             ),
                           )
                         : Container(
                             color: AppColors.primary.withValues(alpha: 0.2),
-                            child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                            child: const Icon(
+                              Icons.person,
+                              size: 50,
+                              color: AppColors.primary,
+                            ),
                           ),
                   ),
                 ),
@@ -2356,7 +2457,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   if (age != null) ...[
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(12),
@@ -2432,7 +2536,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   runSpacing: 6,
                   children: user.topics.take(5).map((topic) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
@@ -2525,18 +2632,28 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                       ],
                     ),
                     child: ClipOval(
-                      child: widget.profilePicture != null && widget.profilePicture!.isNotEmpty
+                      child:
+                          widget.profilePicture != null &&
+                              widget.profilePicture!.isNotEmpty
                           ? Image.network(
                               widget.profilePicture!,
                               fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Container(
                                 color: AppColors.primary.withValues(alpha: 0.2),
-                                child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                                child: const Icon(
+                                  Icons.person,
+                                  size: 50,
+                                  color: AppColors.primary,
+                                ),
                               ),
                             )
                           : Container(
                               color: AppColors.primary.withValues(alpha: 0.2),
-                              child: const Icon(Icons.person, size: 50, color: AppColors.primary),
+                              child: const Icon(
+                                Icons.person,
+                                size: 50,
+                                color: AppColors.primary,
+                              ),
                             ),
                     ),
                   ),
@@ -2557,7 +2674,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                       if (age != null) ...[
                         const SizedBox(width: 8),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.primary.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(12),
@@ -2591,7 +2711,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                           location,
                           style: TextStyle(
                             fontSize: 13,
-                            color: isDark ? AppColors.gray400 : AppColors.gray600,
+                            color: isDark
+                                ? AppColors.gray400
+                                : AppColors.gray600,
                           ),
                         ),
                       ],
@@ -2633,7 +2755,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                       runSpacing: 8,
                       children: user.topics.take(5).map((topic) {
                         return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(16),
@@ -2660,7 +2785,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   GestureDetector(
                     onTap: _sendWaveSticker,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32,
+                        vertical: 16,
+                      ),
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [Color(0xFFFFE082), Color(0xFFFFCA28)],
@@ -2670,7 +2798,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFFFFCA28).withValues(alpha: 0.4),
+                            color: const Color(
+                              0xFFFFCA28,
+                            ).withValues(alpha: 0.4),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -2679,10 +2809,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            '👋',
-                            style: TextStyle(fontSize: 24),
-                          ),
+                          Text('👋', style: TextStyle(fontSize: 24)),
                           SizedBox(width: 8),
                           Text(
                             'Say Hi!',
@@ -2721,10 +2848,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  '👋',
-                  style: TextStyle(fontSize: 72),
-                ),
+                const Text('👋', style: TextStyle(fontSize: 72)),
                 const SizedBox(height: 16),
                 Text(
                   'Start a conversation with ${widget.userName}!',
@@ -2739,7 +2863,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 GestureDetector(
                   onTap: _sendWaveSticker,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [Color(0xFFFFE082), Color(0xFFFFCA28)],
@@ -2758,10 +2885,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          '👋',
-                          style: TextStyle(fontSize: 24),
-                        ),
+                        Text('👋', style: TextStyle(fontSize: 24)),
                         SizedBox(width: 8),
                         Text(
                           'Say Hi!',
@@ -2821,7 +2945,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   BoxDecoration _getWallpaperDecoration() {
     if (_chatWallpaper == null) {
       final isDark = Theme.of(context).brightness == Brightness.dark;
-      return BoxDecoration(color: isDark ? AppColors.backgroundDark : AppColors.gray100);
+      return BoxDecoration(
+        color: isDark ? AppColors.backgroundDark : AppColors.gray100,
+      );
     }
 
     if (_chatWallpaper!.startsWith('gradient_')) {
@@ -2835,7 +2961,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     const gradients = {
       'gradient_sunset': [Color(0xFFFF512F), Color(0xFFDD2476)],
       'gradient_ocean': [Color(0xFF2193B0), Color(0xFF6DD5ED)],
-      'gradient_aurora': [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+      'gradient_aurora': [
+        Color(0xFF0F2027),
+        Color(0xFF203A43),
+        Color(0xFF2C5364),
+      ],
       'gradient_purple': [Color(0xFF667EEA), Color(0xFF764BA2)],
       'gradient_midnight': [Color(0xFF232526), Color(0xFF414345)],
       'gradient_forest': [Color(0xFF134E5E), Color(0xFF71B280)],
@@ -2846,8 +2976,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       'gradient_winter': [Color(0xFFE6DADA), Color(0xFF274046)],
       'gradient_lavender': [Color(0xFFEE9CA7), Color(0xFFFFDDE1)],
       // Legacy gradients for backwards compatibility
-      'gradient_blue': [Color(0xFF4158D0), Color(0xFFC850C0), Color(0xFFFFCC70)],
-      'gradient_green': [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
+      'gradient_blue': [
+        Color(0xFF4158D0),
+        Color(0xFFC850C0),
+        Color(0xFFFFCC70),
+      ],
+      'gradient_green': [
+        Color(0xFF0F2027),
+        Color(0xFF203A43),
+        Color(0xFF2C5364),
+      ],
       'gradient_pink': [Color(0xFFFF9A9E), Color(0xFFFECFEF)],
     };
 
@@ -2910,7 +3048,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       'sunset': Color(0xFFFF6B6B),
     };
 
-    return colors[colorName] ?? (isDark ? AppColors.backgroundDark : AppColors.gray100);
+    return colors[colorName] ??
+        (isDark ? AppColors.backgroundDark : AppColors.gray100);
   }
 }
 
@@ -2963,14 +3102,20 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
         style: TextStyle(color: isDark ? AppColors.white : AppColors.gray900),
         decoration: InputDecoration(
           hintText: AppLocalizations.of(context)!.enterMessage,
-          hintStyle: TextStyle(color: isDark ? AppColors.gray500 : AppColors.gray600),
+          hintStyle: TextStyle(
+            color: isDark ? AppColors.gray500 : AppColors.gray600,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: isDark ? AppColors.gray700 : AppColors.gray300),
+            borderSide: BorderSide(
+              color: isDark ? AppColors.gray700 : AppColors.gray300,
+            ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: isDark ? AppColors.gray700 : AppColors.gray300),
+            borderSide: BorderSide(
+              color: isDark ? AppColors.gray700 : AppColors.gray300,
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -2985,7 +3130,9 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
           onPressed: () => Navigator.pop(context),
           child: Text(
             AppLocalizations.of(context)!.cancel,
-            style: TextStyle(color: isDark ? AppColors.gray400 : AppColors.gray600),
+            style: TextStyle(
+              color: isDark ? AppColors.gray400 : AppColors.gray600,
+            ),
           ),
         ),
         ElevatedButton(
@@ -2997,9 +3144,14 @@ class _EditMessageDialogState extends State<_EditMessageDialog> {
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: theme.primaryColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
-          child: Text(AppLocalizations.of(context)!.save, style: const TextStyle(color: AppColors.white)),
+          child: Text(
+            AppLocalizations.of(context)!.save,
+            style: const TextStyle(color: AppColors.white),
+          ),
         ),
       ],
     );

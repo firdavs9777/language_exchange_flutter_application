@@ -32,7 +32,6 @@ class AuthService extends ChangeNotifier {
 
     // If we have tokens, validate them
     if (token.isNotEmpty && userId.isNotEmpty) {
-
       // Try to validate token by making a test API call
       final isValid = await _validateToken();
 
@@ -183,8 +182,10 @@ class AuthService extends ChangeNotifier {
         await prefs.setString('userId', userId);
 
         // Cache native language for auto-translation
-        final nativeLang = responseData['user']?['native_language']?.toString() ??
-            responseData['data']?['user']?['native_language']?.toString() ?? '';
+        final nativeLang =
+            responseData['user']?['native_language']?.toString() ??
+            responseData['data']?['user']?['native_language']?.toString() ??
+            '';
         if (nativeLang.isNotEmpty) {
           await prefs.setString('user_native_language', nativeLang);
         }
@@ -200,8 +201,7 @@ class AuthService extends ChangeNotifier {
           final chatSocketService = ChatSocketService();
           chatSocketService.enableReconnection();
           await chatSocketService.connect();
-        } catch (e) {
-        }
+        } catch (e) {}
 
         notifyListeners();
 
@@ -209,8 +209,7 @@ class AuthService extends ChangeNotifier {
         try {
           final notificationService = NotificationService();
           await notificationService.registerToken(userId);
-        } catch (e) {
-        }
+        } catch (e) {}
 
         return {
           'success': true,
@@ -280,13 +279,11 @@ class AuthService extends ChangeNotifier {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/facebook/mobile');
 
-
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'accessToken': accessToken}),
       );
-
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -313,11 +310,10 @@ class AuthService extends ChangeNotifier {
             await prefs.setString('userId', responseUserId);
 
             // Re-enable socket reconnection for new login
-            final socketService = SocketService();
-            socketService.enableReconnection();
+            SocketService().enableReconnection();
+            ChatSocketService().enableReconnection();
 
             notifyListeners();
-
 
             return {
               'success': true,
@@ -403,8 +399,7 @@ class AuthService extends ChangeNotifier {
           final chatSocketService = ChatSocketService();
           chatSocketService.enableReconnection();
           await chatSocketService.connect();
-        } catch (e) {
-        }
+        } catch (e) {}
 
         notifyListeners();
 
@@ -458,13 +453,11 @@ class AuthService extends ChangeNotifier {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/apple/mobile');
 
-
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'identityToken': identityToken, 'user': appleUser}),
       );
-
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -490,9 +483,11 @@ class AuthService extends ChangeNotifier {
             }
             await prefs.setString('userId', responseUserId);
 
-            // NOTE: Don't connect socket here - wait until profile is complete
-            // Socket will be connected in apple_login.dart or register_second.dart
-            // after verifying profileCompleted status
+            // Re-enable socket reconnection so a previous logout's
+            // disabled flags don't block the next forceReconnect() call.
+            // Actual connect() runs in apple_login.dart after profile/terms checks.
+            SocketService().enableReconnection();
+            ChatSocketService().enableReconnection();
 
             notifyListeners();
 
@@ -551,7 +546,6 @@ class AuthService extends ChangeNotifier {
         }),
       );
 
-
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
@@ -582,13 +576,11 @@ class AuthService extends ChangeNotifier {
     try {
       final url = Uri.parse('${Endpoints.baseURL}auth/google/mobile');
 
-
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'idToken': idToken}),
       );
-
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
@@ -614,9 +606,11 @@ class AuthService extends ChangeNotifier {
             }
             await prefs.setString('userId', responseUserId);
 
-            // NOTE: Don't connect socket here - wait until profile is complete
-            // Socket will be connected in google_login.dart or register_second.dart
-            // after verifying profileCompleted status
+            // Re-enable socket reconnection so a previous logout's
+            // disabled flags don't block the next forceReconnect() call.
+            // Actual connect() runs in google_login.dart after profile/terms checks.
+            SocketService().enableReconnection();
+            ChatSocketService().enableReconnection();
 
             notifyListeners();
 
@@ -713,12 +707,11 @@ class AuthService extends ChangeNotifier {
   /// 4. Clear storage
   /// 5. Clear caches
   Future<void> _clearAuthData() async {
-    final tokenPreview = token.length > 20 ? '${token.substring(0, 20)}...' : (token.isNotEmpty ? token : '(empty)');
+    final prefs = await SharedPreferences.getInstance();
 
     // 1. FIRST: Disconnect all socket connections (WHILE STILL AUTHENTICATED!)
     // This sends 'logout' event to backend which requires the token
     try {
-
       // Disconnect chat socket service
       final chatSocketService = ChatSocketService();
       chatSocketService.disableReconnection();
@@ -747,14 +740,8 @@ class AuthService extends ChangeNotifier {
     isLoggedIn = false;
 
     // 4. FOURTH: Clear ALL SharedPreferences (user data, tokens, caches, etc.)
-    final prefs = await SharedPreferences.getInstance();
     try {
-      // Get all keys before clearing
-      final keys = prefs.getKeys();
-
-      // Clear all data
       await prefs.clear();
-
     } catch (e) {
       // Fallback: remove specific keys
       await prefs.remove('token');
@@ -780,8 +767,7 @@ class AuthService extends ChangeNotifier {
       final imageCache = PaintingBinding.instance.imageCache;
       imageCache.clear();
       imageCache.clearLiveImages();
-    } catch (e) {
-    }
+    } catch (e) {}
 
     notifyListeners();
   }
@@ -792,7 +778,6 @@ class AuthService extends ChangeNotifier {
     );
 
     try {
-
       // ✅ CRITICAL: Disconnect socket BEFORE clearing auth data
       final chatSocketService = ChatSocketService();
       chatSocketService.disableReconnection(); // Prevent reconnection
@@ -819,14 +804,12 @@ class AuthService extends ChangeNotifier {
         return {'success': true, 'message': 'Logged out locally'};
       }
     } catch (e) {
-
       // Still disconnect socket and clear data
       try {
         final chatSocketService = ChatSocketService();
         chatSocketService.disableReconnection();
         await chatSocketService.disconnect();
-      } catch (socketError) {
-      }
+      } catch (socketError) {}
 
       await _clearAuthData();
       return {'success': true, 'message': 'Logged out locally'};
@@ -885,7 +868,6 @@ class AuthService extends ChangeNotifier {
     required String code,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.verifyEmailCode}');
-
 
     try {
       final response = await http.post(
@@ -991,8 +973,7 @@ class AuthService extends ChangeNotifier {
           final chatSocketService = ChatSocketService();
           chatSocketService.enableReconnection();
           await chatSocketService.connect();
-        } catch (e) {
-        }
+        } catch (e) {}
 
         notifyListeners();
 
@@ -1259,8 +1240,7 @@ class AuthService extends ChangeNotifier {
           final chatSocketService = ChatSocketService();
           chatSocketService.enableReconnection();
           await chatSocketService.connect();
-        } catch (e) {
-        }
+        } catch (e) {}
 
         notifyListeners();
 
@@ -1339,7 +1319,9 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<Community> updateUserLanguageLevel({required String languageLevel}) async {
+  Future<Community> updateUserLanguageLevel({
+    required String languageLevel,
+  }) async {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}/${userId}',
     );
@@ -1549,7 +1531,6 @@ class AuthService extends ChangeNotifier {
       },
     );
 
-
     if (response.statusCode == 200) {
       if (response.body.isEmpty) {
         throw Exception('Empty response body');
@@ -1630,8 +1611,9 @@ class AuthService extends ChangeNotifier {
         return <Community>[];
       }
 
-      List<Community> followers =
-          followersList.map((json) => Community.fromJson(json)).toList();
+      List<Community> followers = followersList
+          .map((json) => Community.fromJson(json))
+          .toList();
 
       return followers;
     } else {
@@ -1653,7 +1635,9 @@ class AuthService extends ChangeNotifier {
 
     for (String userId in userIds) {
       try {
-        final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
+        final url = Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.usersURL}/$userId',
+        );
         final response = await http.get(
           url,
           headers: {
@@ -1669,8 +1653,7 @@ class AuthService extends ChangeNotifier {
             users.add(Community.fromJson(userData));
           }
         }
-      } catch (e) {
-      }
+      } catch (e) {}
     }
 
     return users;
@@ -1730,8 +1713,9 @@ class AuthService extends ChangeNotifier {
         return <Community>[];
       }
 
-      List<Community> followings =
-          followingList.map((json) => Community.fromJson(json)).toList();
+      List<Community> followings = followingList
+          .map((json) => Community.fromJson(json))
+          .toList();
 
       return followings;
     } else {
@@ -1813,7 +1797,6 @@ class AuthService extends ChangeNotifier {
       if (request.files.isEmpty) {
         return;
       }
-
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);

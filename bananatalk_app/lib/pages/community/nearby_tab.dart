@@ -7,11 +7,13 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
@@ -133,6 +135,21 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       final maxAge = widget.filters['maxAge'] as int?;
       final gender = widget.filters['gender']?.toString();
       final onlineOnly = widget.filters['onlineOnly'] as bool? ?? false;
+      final filterNative = widget.filters['nativeLanguage']?.toString();
+      final filterLearning = widget.filters['learningLanguage']?.toString();
+
+      // Default to user's learning language (find native speakers nearby) when no explicit filter
+      String? langParam;
+      if (filterNative != null && filterNative.isNotEmpty) {
+        langParam = filterNative;
+      } else if (filterLearning != null && filterLearning.isNotEmpty) {
+        langParam = filterLearning;
+      } else {
+        final me = ref.read(userProvider).valueOrNull;
+        if (me != null && me.language_to_learn.isNotEmpty) {
+          langParam = me.language_to_learn;
+        }
+      }
 
       final response = await service.getNearbyUsers(
         latitude: _userPosition!.latitude,
@@ -144,6 +161,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         maxAge: (maxAge != null && maxAge < 100) ? maxAge : null,
         gender: (gender != null && gender.isNotEmpty) ? gender.toLowerCase() : null,
         onlineOnly: onlineOnly ? true : null,
+        language: langParam,
       );
 
       if (response.users.isNotEmpty) {
@@ -251,6 +269,14 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               child: SmallBannerAdWidget(),
             ),
           ),
+          // Skeleton during initial fetch (no users yet)
+          if (_nearbyUsers.isEmpty && _isLoadingMore)
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 600,
+                child: UserGridSkeleton(count: 6, padding: EdgeInsets.fromLTRB(16, 0, 16, 0)),
+              ),
+            ),
           // Grid of users
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -882,27 +908,7 @@ class _NearbyUserCard extends StatelessWidget {
     );
   }
 
-  String _getLanguageFlag(String language) {
-    if (language.isEmpty) return LanguageFlags.getFlag('');
-    final langLower = language.toLowerCase().trim();
-    final nameToCodeMap = {
-      'english': 'en',
-      'korean': 'ko',
-      'japanese': 'ja',
-      'chinese': 'zh',
-      'spanish': 'es',
-      'french': 'fr',
-      'german': 'de',
-      'uzbek': 'uz',
-    };
-    if (nameToCodeMap.containsKey(langLower)) {
-      return LanguageFlags.getFlag(nameToCodeMap[langLower]!);
-    }
-    if (langLower.length == 2) {
-      return LanguageFlags.getFlag(langLower);
-    }
-    return LanguageFlags.getFlag('');
-  }
+  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
 
   /// Get location text with city and country
   String _getLocationText(BuildContext context, Community user) {
@@ -1164,16 +1170,7 @@ class _NearbyUserCardFromApi extends StatelessWidget {
     }
   }
 
-  String _getLanguageFlag(String language) {
-    if (language.isEmpty) return LanguageFlags.getFlag('');
-    final langLower = language.toLowerCase().trim();
-    final nameToCodeMap = {
-      'english': 'en', 'spanish': 'es', 'french': 'fr', 'german': 'de',
-      'italian': 'it', 'portuguese': 'pt', 'russian': 'ru', 'chinese': 'zh',
-      'japanese': 'ja', 'korean': 'ko', 'arabic': 'ar',
-    };
-    return LanguageFlags.getFlag(nameToCodeMap[langLower] ?? langLower);
-  }
+  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
 
   /// Returns location text respecting privacy settings, or null if hidden
   String? _getPrivacyLocationText() {

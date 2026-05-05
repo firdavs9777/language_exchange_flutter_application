@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:bananatalk_app/pages/authentication/screens/apple_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/email_input.dart';
-import 'package:bananatalk_app/pages/authentication/screens/facebook_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/forget_password_email.dart';
 import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
-import 'package:bananatalk_app/pages/authentication/screens/register.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -84,10 +82,9 @@ class _LoginState extends ConsumerState<Login> {
     });
 
     try {
-      final response = await ref.read(authServiceProvider).login(
-            email: email,
-            password: password,
-          );
+      final response = await ref
+          .read(authServiceProvider)
+          .login(email: email, password: password);
 
       setState(() {
         _isLoading = false;
@@ -108,7 +105,9 @@ class _LoginState extends ConsumerState<Login> {
             if (!mounted) return;
 
             // Re-check after terms acceptance
-            final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
+            final updatedUser = await ref
+                .read(authServiceProvider)
+                .getLoggedInUser();
             if (!updatedUser.termsAccepted) {
               // User didn't accept terms, stay on login screen
               return;
@@ -197,83 +196,87 @@ class _LoginState extends ConsumerState<Login> {
         padding: EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                child: Text(
-                  'BananaTalk',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: Theme.of(context).primaryColor,
-                    letterSpacing: -0.5,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  child: Text(
+                    'BananaTalk',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w800,
+                      color: Theme.of(context).primaryColor,
+                      letterSpacing: -0.5,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: BananaText(
-                  AppLocalizations.of(context)!.login,
-                  BanaStyles: BananaTextStyles.title,
+                Center(
+                  child: BananaText(
+                    AppLocalizations.of(context)!.login,
+                    BanaStyles: BananaTextStyles.title,
+                  ),
                 ),
-              ),
-              Spacing.gapLG,
-              Form(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      textCapitalization: TextCapitalization.none,
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.email_sharp),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: context.dividerColor),
-                          borderRadius: AppRadius.borderXL,
-                        ),
-                        label: BananaText(
-                          AppLocalizations.of(context)!.email,
-                          BanaStyles: BananaTextStyles.inputText,
-                        ),
-                      ),
-                    ),
-                    Spacing.gapLG,
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                        filled: true,
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
-                          child: Icon(
-                            _obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: _obscureText ? context.iconColor : AppColors.info,
+                Spacing.gapLG,
+                Form(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email_sharp),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: context.dividerColor),
+                            borderRadius: AppRadius.borderXL,
+                          ),
+                          label: BananaText(
+                            AppLocalizations.of(context)!.email,
+                            BanaStyles: BananaTextStyles.inputText,
                           ),
                         ),
-                        prefixIcon: const Icon(Icons.password_outlined),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: context.dividerColor),
-                          borderRadius: AppRadius.borderXL,
-                        ),
-                        label: BananaText(
-                          AppLocalizations.of(context)!.password,
-                          BanaStyles: BananaTextStyles.inputText,
+                      ),
+                      Spacing.gapLG,
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obscureText,
+                        decoration: InputDecoration(
+                          filled: true,
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: _obscureText
+                                  ? context.iconColor
+                                  : AppColors.info,
+                            ),
+                          ),
+                          prefixIcon: const Icon(Icons.password_outlined),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: context.dividerColor),
+                            borderRadius: AppRadius.borderXL,
+                          ),
+                          label: BananaText(
+                            AppLocalizations.of(context)!.password,
+                            BanaStyles: BananaTextStyles.inputText,
+                          ),
                         ),
                       ),
-                    ),
-                    Spacing.gapXXL,
-                    SizedBox(
+                      Spacing.gapXXL,
+                      SizedBox(
                         width: 250.0,
                         child: _isLoading
                             ? Center(
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppColors.primary),
+                                    AppColors.primary,
+                                  ),
                                 ),
                               )
                             : BananaButton(
@@ -283,186 +286,206 @@ class _LoginState extends ConsumerState<Login> {
                                   AppLocalizations.of(context)!.login,
                                   BanaStyles: BananaTextStyles.buttonText,
                                 ),
-                                textColor:
-                                    Theme.of(context).colorScheme.onPrimary,
+                                textColor: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimary,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 12.0, vertical: 12.0),
+                                  horizontal: 12.0,
+                                  vertical: 12.0,
+                                ),
                                 borderRadius: AppRadius.borderSM,
-                              )),
-                    Spacing.gapXXL,
-                    // OR Divider
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: context.dividerColor,
-                            thickness: 1,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: BananaText(
-                            AppLocalizations.of(context)!.or,
-                            BanaStyles: BananaTextStyles.body,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: context.dividerColor,
-                            thickness: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacing.gapXXL,
-                    // Social Login Buttons
-                    SizedBox(
-                      width: 250.0,
-                      child: Column(
+                              ),
+                      ),
+                      Spacing.gapXXL,
+                      // OR Divider
+                      Row(
                         children: [
-                          // Facebook Login Button
-                          // Container(
-                          //   width: double.infinity,
-                          //   height: 50,
-                          //   margin: const EdgeInsets.only(bottom: 12.0),
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: AppRadius.borderXL,
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //         color: const Color(0xFF1877F2).withOpacity(0.3),
-                          //         blurRadius: 8,
-                          //         offset: const Offset(0, 4),
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   child: ElevatedButton.icon(
-                          //     onPressed: () {
-                          //       Navigator.of(context).push(
-                          //         MaterialPageRoute(
-                          //           builder: (ctx) => const FacebookLogin(),
-                          //         ),
-                          //       );
-                          //     },
-                          //     icon: const Icon(
-                          //       Icons.facebook,
-                          //       color: Colors.white,
-                          //       size: 24,
-                          //     ),
-                          //     label: BananaText(
-                          //       'Continue with Facebook',
-                          //       BanaStyles: BananaTextStyles.buttonText,
-                          //     ),
-                          //     style: ElevatedButton.styleFrom(
-                          //       backgroundColor: const Color(0xFF1877F2),
-                          //       foregroundColor: Colors.white,
-                          //       shape: RoundedRectangleBorder(
-                          //         borderRadius: AppRadius.borderXL,
-                          //       ),
-                          //       elevation: 0,
-                          //     ),
-                          //   ),
-                          // ),
-                          // Google Login Button
-
-                          if (Platform.isIOS) // ONLY SHOW ON iOS
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Container(
-                                height: 45.0,
-                                width: double.infinity,
-                                child: BananaButton(
-                                  BananaText: BananaText(AppLocalizations.of(context)!.signInWithApple),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (ctx) => const AppleLogin()),
-                                    );
-                                  },
-                                  color: Colors.black, // Apple black color
-                                  textColor: Color(0xFFFFFFFF),
-                                  borderRadius: AppRadius.borderSM,
-                                  icon: Icon(
-                                    Icons.apple, // Apple icon
-                                    color: Colors.white,
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ),
+                          Expanded(
+                            child: Divider(
+                              color: context.dividerColor,
+                              thickness: 1,
                             ),
-                          Container(
-                            width: double.infinity,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: AppRadius.borderXL,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color(0xFF4285F4).withOpacity(0.3),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
                             ),
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (ctx) => const GoogleLogin(),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.g_mobiledata_rounded,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                              label: BananaText(
-                                AppLocalizations.of(context)!.continueWithGoogle,
-                                BanaStyles: BananaTextStyles.buttonText,
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4285F4),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: AppRadius.borderXL,
-                                ),
-                                elevation: 0,
-                              ),
+                            child: BananaText(
+                              AppLocalizations.of(context)!.or,
+                              BanaStyles: BananaTextStyles.body,
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: context.dividerColor,
+                              thickness: 1,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    Spacing.gapSM,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => const ForgotPasswordEmail()));
-                          },
-                          child: BananaText(
-                            AppLocalizations.of(context)!.forgotPassword,
-                            BanaStyles: BananaTextStyles.link,
-                          ),
+                      Spacing.gapXXL,
+                      // Social Login Buttons
+                      SizedBox(
+                        width: 250.0,
+                        child: Column(
+                          children: [
+                            // Facebook Login Button
+                            // Container(
+                            //   width: double.infinity,
+                            //   height: 50,
+                            //   margin: const EdgeInsets.only(bottom: 12.0),
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: AppRadius.borderXL,
+                            //     boxShadow: [
+                            //       BoxShadow(
+                            //         color: const Color(0xFF1877F2).withOpacity(0.3),
+                            //         blurRadius: 8,
+                            //         offset: const Offset(0, 4),
+                            //       ),
+                            //     ],
+                            //   ),
+                            //   child: ElevatedButton.icon(
+                            //     onPressed: () {
+                            //       Navigator.of(context).push(
+                            //         MaterialPageRoute(
+                            //           builder: (ctx) => const FacebookLogin(),
+                            //         ),
+                            //       );
+                            //     },
+                            //     icon: const Icon(
+                            //       Icons.facebook,
+                            //       color: Colors.white,
+                            //       size: 24,
+                            //     ),
+                            //     label: BananaText(
+                            //       'Continue with Facebook',
+                            //       BanaStyles: BananaTextStyles.buttonText,
+                            //     ),
+                            //     style: ElevatedButton.styleFrom(
+                            //       backgroundColor: const Color(0xFF1877F2),
+                            //       foregroundColor: Colors.white,
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: AppRadius.borderXL,
+                            //       ),
+                            //       elevation: 0,
+                            //     ),
+                            //   ),
+                            // ),
+                            // Google Login Button
+                            if (Platform.isIOS) // ONLY SHOW ON iOS
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Container(
+                                  height: 45.0,
+                                  width: double.infinity,
+                                  child: BananaButton(
+                                    BananaText: BananaText(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.signInWithApple,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (ctx) => const AppleLogin(),
+                                        ),
+                                      );
+                                    },
+                                    color: Colors.black, // Apple black color
+                                    textColor: Color(0xFFFFFFFF),
+                                    borderRadius: AppRadius.borderSM,
+                                    icon: Icon(
+                                      Icons.apple, // Apple icon
+                                      color: Colors.white,
+                                      size: 24.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            Container(
+                              width: double.infinity,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: AppRadius.borderXL,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(
+                                      0xFF4285F4,
+                                    ).withOpacity(0.3),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (ctx) => const GoogleLogin(),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.g_mobiledata_rounded,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                                label: BananaText(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.continueWithGoogle,
+                                  BanaStyles: BananaTextStyles.buttonText,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF4285F4),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: AppRadius.borderXL,
+                                  ),
+                                  elevation: 0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => const EmailInput()));
-                          },
-                          child: BananaText(
-                            AppLocalizations.of(context)!.registerLink,
-                            BanaStyles: BananaTextStyles.link,
+                      ),
+                      Spacing.gapSM,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => const ForgotPasswordEmail(),
+                                ),
+                              );
+                            },
+                            child: BananaText(
+                              AppLocalizations.of(context)!.forgotPassword,
+                              BanaStyles: BananaTextStyles.link,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => const EmailInput(),
+                                ),
+                              );
+                            },
+                            child: BananaText(
+                              AppLocalizations.of(context)!.registerLink,
+                              BanaStyles: BananaTextStyles.link,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ]),
+              ],
+            ),
           ),
         ),
       ),

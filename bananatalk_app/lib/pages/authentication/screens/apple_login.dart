@@ -30,7 +30,6 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
     });
 
     try {
-
       // Request Apple Sign-In credentials
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
@@ -38,7 +37,6 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
           AppleIDAuthorizationScopes.fullName,
         ],
       );
-
 
       final String? identityToken = credential.identityToken;
 
@@ -59,13 +57,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         'email': credential.email,
       };
 
-
       // Send to backend for verification
-      final result = await ref.read(authServiceProvider).signInWithAppleNative(
-            identityToken,
-            appleUser,
-          );
-
+      final result = await ref
+          .read(authServiceProvider)
+          .signInWithAppleNative(identityToken, appleUser);
 
       if (result['success'] == true) {
         // Get user data from response
@@ -93,7 +88,6 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         // User needs to complete profile if backend flag is false OR core fields missing
         final bool needsProfileCompletion = !profileCompleted || !hasCoreFields;
 
-
         setState(() {
           _isLoading = false;
         });
@@ -107,8 +101,11 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
             // Only use birthdate if all parts are present and valid
             String birthDate = '';
-            if (birthYear.isNotEmpty && birthMonth.isNotEmpty && birthDay.isNotEmpty) {
-              birthDate = '$birthYear.${birthMonth.padLeft(2, '0')}.${birthDay.padLeft(2, '0')}';
+            if (birthYear.isNotEmpty &&
+                birthMonth.isNotEmpty &&
+                birthDay.isNotEmpty) {
+              birthDate =
+                  '$birthYear.${birthMonth.padLeft(2, '0')}.${birthDay.padLeft(2, '0')}';
             }
 
             // Profile not completed - redirect to RegisterTwo
@@ -121,7 +118,8 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                   gender: user?['gender'] ?? '',
                   birthDate: birthDate,
                   nativeLanguage: user?['native_language']?.toString() ?? '',
-                  learningLanguage: user?['language_to_learn']?.toString() ?? '',
+                  learningLanguage:
+                      user?['language_to_learn']?.toString() ?? '',
                 ),
               ),
             );
@@ -144,7 +142,9 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
             // Profile completed - check terms before going to main app
             // Check if user has accepted terms of service
             try {
-              final loggedInUser = await ref.read(authServiceProvider).getLoggedInUser();
+              final loggedInUser = await ref
+                  .read(authServiceProvider)
+                  .getLoggedInUser();
               if (!loggedInUser.termsAccepted) {
                 // Show terms screen before entering app
                 await Navigator.of(context).push(
@@ -152,11 +152,13 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                     builder: (context) => const TermsOfServiceScreen(),
                   ),
                 );
-                
+
                 if (!mounted) return;
-                
+
                 // Re-check after terms acceptance
-                final updatedUser = await ref.read(authServiceProvider).getLoggedInUser();
+                final updatedUser = await ref
+                    .read(authServiceProvider)
+                    .getLoggedInUser();
                 if (!updatedUser.termsAccepted) {
                   // User didn't accept terms, stay on login screen
                   return;
@@ -184,11 +186,8 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
             // NOW connect socket - profile is complete and terms accepted
             try {
-              final chatSocketService = ChatSocketService();
-              chatSocketService.enableReconnection();
-              await chatSocketService.connect();
-            } catch (e) {
-            }
+              await ChatSocketService().forceReconnect();
+            } catch (e) {}
 
             // Register FCM token for push notifications
             try {
@@ -197,8 +196,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               if (userId.isNotEmpty) {
                 await notificationService.registerToken(userId);
               }
-            } catch (e) {
-            }
+            } catch (e) {}
 
             // Invalidate userProvider to force fresh fetch
             ref.invalidate(userProvider);
@@ -208,7 +206,9 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: BananaText(
-                  AppLocalizations.of(context)!.welcomeBackName(user?['name'] ?? ''),
+                  AppLocalizations.of(
+                    context,
+                  )!.welcomeBackName(user?['name'] ?? ''),
                   BanaStyles: BananaTextStyles.success,
                 ),
                 duration: const Duration(seconds: 2),
@@ -229,17 +229,19 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
         });
       }
     } catch (e, stackTrace) {
-
       String userFriendlyMessage = 'Apple sign-in error';
 
       // Parse common errors
       final errorString = e.toString().toLowerCase();
-      if (errorString.contains('canceled') || errorString.contains('cancelled')) {
+      if (errorString.contains('canceled') ||
+          errorString.contains('cancelled')) {
         userFriendlyMessage = 'Sign-in was cancelled.';
       } else if (errorString.contains('network')) {
-        userFriendlyMessage = 'Network error. Please check your internet connection.';
+        userFriendlyMessage =
+            'Network error. Please check your internet connection.';
       } else if (errorString.contains('credential')) {
-        userFriendlyMessage = 'Failed to get Apple credentials. Please try again.';
+        userFriendlyMessage =
+            'Failed to get Apple credentials. Please try again.';
       } else if (errorString.contains('authorization')) {
         userFriendlyMessage = 'Authorization failed. Please try again.';
       }
@@ -301,10 +303,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                       height: 100,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF000000),
-                            Color(0xFF434343),
-                          ],
+                          colors: [Color(0xFF000000), Color(0xFF434343)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -489,10 +488,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                     // Back to Sign In Methods Link
                     TextButton.icon(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 18,
-                      ),
+                      icon: const Icon(Icons.arrow_back, size: 18),
                       label: Text(
                         AppLocalizations.of(context)!.backToSignInMethods,
                         style: const TextStyle(

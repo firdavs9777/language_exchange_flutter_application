@@ -4,7 +4,6 @@ import 'package:bananatalk_app/pages/authentication/screens/register_second.dart
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
@@ -58,14 +57,12 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
   Future<void> _signInWithGoogleNative() async {
     try {
-
       final googleSignIn = GoogleSignIn(
         scopes: const ['email', 'profile'],
         // iOS uses clientId, Android uses serverClientId
         clientId: Platform.isIOS ? _iosClientId : null,
         serverClientId: Platform.isAndroid ? _webClientId : null,
       );
-
 
       // Sign out any previously signed-in account to force account picker
       // This ensures the account selection popup appears when user has multiple accounts
@@ -83,28 +80,25 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         return;
       }
 
-
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
-
 
       final String? idToken = googleAuth.idToken;
 
       if (idToken == null) {
         setState(() {
-          _errorMessage = 'Failed to get ID token from Google. Please check configuration.';
+          _errorMessage =
+              'Failed to get ID token from Google. Please check configuration.';
           _isLoading = false;
         });
         return;
       }
 
-
       final result = await ref
           .read(authServiceProvider)
           .signInWithGoogleNative(idToken);
 
-      if (result['user'] != null) {
-      }
+      if (result['user'] != null) {}
       if (result['success'] == true) {
         // Get user data from response
         final user = result['user'] as Map<String, dynamic>?;
@@ -131,7 +125,6 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         // User needs to complete profile if backend flag is false OR core fields missing
         final bool needsProfileCompletion = !profileCompleted || !hasCoreFields;
 
-
         setState(() {
           _isLoading = false;
         });
@@ -147,8 +140,11 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
             // Only use birthdate if all parts are present and valid
             String birthDate = '';
-            if (birthYear.isNotEmpty && birthMonth.isNotEmpty && birthDay.isNotEmpty) {
-              birthDate = '$birthYear.${birthMonth.padLeft(2, '0')}.${birthDay.padLeft(2, '0')}';
+            if (birthYear.isNotEmpty &&
+                birthMonth.isNotEmpty &&
+                birthDay.isNotEmpty) {
+              birthDate =
+                  '$birthYear.${birthMonth.padLeft(2, '0')}.${birthDay.padLeft(2, '0')}';
             }
 
             Navigator.of(context).pushReplacement(
@@ -160,7 +156,8 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                   gender: user?['gender'] ?? '',
                   birthDate: birthDate,
                   nativeLanguage: user?['native_language']?.toString() ?? '',
-                  learningLanguage: user?['language_to_learn']?.toString() ?? '',
+                  learningLanguage:
+                      user?['language_to_learn']?.toString() ?? '',
                 ),
               ),
             );
@@ -228,11 +225,8 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
 
             // NOW connect socket - profile is complete and terms accepted
             try {
-              final chatSocketService = ChatSocketService();
-              chatSocketService.enableReconnection();
-              await chatSocketService.connect();
-            } catch (e) {
-            }
+              await ChatSocketService().forceReconnect();
+            } catch (e) {}
 
             // Register FCM token for push notifications
             try {
@@ -241,8 +235,7 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
               if (userId.isNotEmpty) {
                 await notificationService.registerToken(userId);
               }
-            } catch (e) {
-            }
+            } catch (e) {}
 
             // Invalidate userProvider to force fresh fetch
             ref.invalidate(userProvider);
@@ -252,7 +245,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: BananaText(
-                  AppLocalizations.of(context)!.welcomeBackName(user?['name'] ?? ''),
+                  AppLocalizations.of(
+                    context,
+                  )!.welcomeBackName(user?['name'] ?? ''),
                   BanaStyles: BananaTextStyles.success,
                 ),
                 duration: const Duration(seconds: 2),
@@ -273,25 +268,30 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
         });
       }
     } catch (e, stackTrace) {
-
       String userFriendlyMessage = 'Google sign-in error';
 
       // Parse common errors
       final errorString = e.toString().toLowerCase();
       if (errorString.contains('network')) {
-        userFriendlyMessage = 'Network error. Please check your internet connection.';
-      } else if (errorString.contains('canceled') || errorString.contains('cancelled')) {
+        userFriendlyMessage =
+            'Network error. Please check your internet connection.';
+      } else if (errorString.contains('canceled') ||
+          errorString.contains('cancelled')) {
         userFriendlyMessage = 'Sign-in was cancelled.';
-      } else if (errorString.contains('configuration') || errorString.contains('client')) {
+      } else if (errorString.contains('configuration') ||
+          errorString.contains('client')) {
         userFriendlyMessage = 'Configuration error. Please contact support.';
       } else if (errorString.contains('10:')) {
-        userFriendlyMessage = 'Developer error (10). SHA-1 fingerprint may be incorrect.';
+        userFriendlyMessage =
+            'Developer error (10). SHA-1 fingerprint may be incorrect.';
       } else if (errorString.contains('12500')) {
-        userFriendlyMessage = 'Google Play services error. Please update Google Play services.';
+        userFriendlyMessage =
+            'Google Play services error. Please update Google Play services.';
       } else if (errorString.contains('12501')) {
         userFriendlyMessage = 'Sign-in was cancelled.';
       } else if (errorString.contains('7:')) {
-        userFriendlyMessage = 'Network error (7). Please check your connection.';
+        userFriendlyMessage =
+            'Network error (7). Please check your connection.';
       }
 
       setState(() {
@@ -391,7 +391,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                     // Description
                     BananaText(
                       Platform.isIOS || Platform.isAndroid
-                          ? AppLocalizations.of(context)!.continueWithGoogleAccount
+                          ? AppLocalizations.of(
+                              context,
+                            )!.continueWithGoogleAccount
                           : 'You will be redirected to Google\nfor secure authentication',
                       textAlign: TextAlign.center,
                       BanaStyles: BananaTextStyles.body,
@@ -529,7 +531,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                                 ),
                                 child: Text(
                                   AppLocalizations.of(context)!.tryAgain,
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ),
@@ -588,7 +592,9 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            AppLocalizations.of(context)!.dataProtectedEncryption,
+                            AppLocalizations.of(
+                              context,
+                            )!.dataProtectedEncryption,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 11,

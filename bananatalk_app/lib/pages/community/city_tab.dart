@@ -10,6 +10,8 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
@@ -57,6 +59,11 @@ class _CityTabState extends ConsumerState<CityTab> {
   final MapController _mapController = MapController();
 
   bool _isLoadingCounts = true;
+
+  // Worldwide preview (avatar stack on map view)
+  List<Community> _worldwidePreview = [];
+  bool _isWorldwideView = false;
+  int _worldwideTotal = 0;
 
   // Users for selected country/city
   List<Community> _users = [];
@@ -128,6 +135,30 @@ class _CityTabState extends ConsumerState<CityTab> {
       });
     }
     await _loadCountryCounts();
+    await _loadWorldwidePreview();
+  }
+
+  /// Resolve language filter — explicit filter wins; otherwise default to user's
+  /// own native + learning languages with `matchLanguage` for exchange matching.
+  ({String? native, String? learning, bool matchLanguage}) _resolveLangFilter() {
+    final filterNative = widget.filters['nativeLanguage']?.toString();
+    final filterLearning = widget.filters['learningLanguage']?.toString();
+    final hasExplicit = (filterNative?.isNotEmpty ?? false) ||
+        (filterLearning?.isNotEmpty ?? false);
+    if (hasExplicit) {
+      return (native: filterNative, learning: filterLearning, matchLanguage: false);
+    }
+    final me = ref.read(userProvider).valueOrNull;
+    if (me != null &&
+        me.native_language.isNotEmpty &&
+        me.language_to_learn.isNotEmpty) {
+      return (
+        native: me.native_language,
+        learning: me.language_to_learn,
+        matchLanguage: true,
+      );
+    }
+    return (native: null, learning: null, matchLanguage: false);
   }
 
   Future<void> _loadCountryCounts() async {
@@ -135,6 +166,7 @@ class _CityTabState extends ConsumerState<CityTab> {
 
     try {
       final service = ref.read(communityServiceProvider);
+      final lang = _resolveLangFilter();
 
       // Fetch counts in batches of 6 to avoid overwhelming the server
       for (var i = 0; i < _countryPins.length; i += 6) {
@@ -145,6 +177,9 @@ class _CityTabState extends ConsumerState<CityTab> {
               page: 1,
               limit: 1,
               country: pin.name,
+              nativeLanguage: (lang.native?.isNotEmpty ?? false) ? lang.native : null,
+              learningLanguage: (lang.learning?.isNotEmpty ?? false) ? lang.learning : null,
+              matchLanguage: lang.matchLanguage,
             );
             pin.userCount = result.total;
           } catch (_) {
@@ -158,6 +193,40 @@ class _CityTabState extends ConsumerState<CityTab> {
     } catch (e) {
       if (mounted) setState(() => _isLoadingCounts = false);
     }
+  }
+
+  Future<void> _loadWorldwidePreview() async {
+    try {
+      final service = ref.read(communityServiceProvider);
+      final lang = _resolveLangFilter();
+      final result = await service.getCommunityPaginated(
+        page: 1,
+        limit: 5,
+        nativeLanguage: (lang.native?.isNotEmpty ?? false) ? lang.native : null,
+        learningLanguage: (lang.learning?.isNotEmpty ?? false) ? lang.learning : null,
+        matchLanguage: lang.matchLanguage,
+      );
+      if (mounted) {
+        setState(() {
+          _worldwidePreview = result.users
+              .where((u) => u.id != _userId)
+              .take(5)
+              .toList();
+          _worldwideTotal = result.total;
+        });
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _viewAllWorldwide() async {
+    setState(() {
+      _selectedCountry = null;
+      _isWorldwideView = true;
+      _users = [];
+      _currentPage = 1;
+      _hasMore = true;
+    });
+    await _loadUsers();
   }
 
   Future<void> _selectCountry(String country, LatLng position) async {
@@ -190,11 +259,26 @@ class _CityTabState extends ConsumerState<CityTab> {
 
     try {
       final service = ref.read(communityServiceProvider);
+      final gender = widget.filters['gender']?.toString();
+      final minAge = widget.filters['minAge'] as int?;
+      final maxAge = widget.filters['maxAge'] as int?;
+      final onlineOnly = widget.filters['onlineOnly'] as bool? ?? false;
+      final languageLevel = widget.filters['languageLevel']?.toString();
+      final lang = _resolveLangFilter();
+
       final result = await service.getCommunityPaginated(
         page: _currentPage,
         limit: 20,
         country: _selectedCountry,
         search: _citySearch.trim().isNotEmpty ? _citySearch.trim() : null,
+        nativeLanguage: (lang.native?.isNotEmpty ?? false) ? lang.native : null,
+        learningLanguage: (lang.learning?.isNotEmpty ?? false) ? lang.learning : null,
+        matchLanguage: lang.matchLanguage,
+        gender: (gender != null && gender.isNotEmpty) ? gender : null,
+        minAge: (minAge != null && minAge > 18) ? minAge : null,
+        maxAge: (maxAge != null && maxAge < 100) ? maxAge : null,
+        onlineOnly: onlineOnly ? true : null,
+        languageLevel: (languageLevel != null && languageLevel.isNotEmpty) ? languageLevel : null,
       );
 
       final filtered = result.users.where((u) => u.id != _userId).toList();
@@ -220,6 +304,7 @@ class _CityTabState extends ConsumerState<CityTab> {
   void _goBack() {
     setState(() {
       _selectedCountry = null;
+      _isWorldwideView = false;
       _users = [];
       _citySearch = '';
       _citySearchController.clear();
@@ -235,6 +320,7 @@ class _CityTabState extends ConsumerState<CityTab> {
         _buildCitySearchBar(),
         Expanded(
           child: _selectedCountry != null ||
+                  _isWorldwideView ||
                   (_citySearch.trim().isNotEmpty && _users.isNotEmpty)
               ? _buildUserList()
               : _buildMapView(isDark),
@@ -501,34 +587,32 @@ class _CityTabState extends ConsumerState<CityTab> {
             ),
           ],
         ),
-        // Total user count overlay
+        // Worldwide preview card (top overlay). RefreshIndicator wraps a
+        // tiny scrollview so pull-down on the card refreshes counts +
+        // worldwide preview. The Positioned is constrained to just above
+        // the card so taps on the map below pass through to country pins.
         Positioned(
           top: 8,
           left: 16,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: context.surfaceColor.withValues(alpha: 0.9),
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 8,
+          right: 16,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 380),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: RefreshIndicator(
+                displacement: 18,
+                edgeOffset: 0,
+                onRefresh: () async {
+                  await Future.wait([
+                    _loadCountryCounts(),
+                    _loadWorldwidePreview(),
+                  ]);
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: _buildWorldwideCard(),
                 ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.public_rounded, size: 16, color: context.primaryColor),
-                const SizedBox(width: 6),
-                Text(
-                  _isLoadingCounts
-                      ? AppLocalizations.of(context)!.loading
-                      : AppLocalizations.of(context)!.usersWorldwide(_countryPins.fold<int>(0, (a, b) => a + b.userCount).toString()),
-                  style: context.labelMedium.copyWith(fontWeight: FontWeight.w600),
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -536,8 +620,196 @@ class _CityTabState extends ConsumerState<CityTab> {
     );
   }
 
+  Widget _buildWorldwideCard() {
+    final total = _worldwideTotal > 0
+        ? _worldwideTotal
+        : _countryPins.fold<int>(0, (a, b) => a + b.userCount);
+    final showAvatars = !_isLoadingCounts && _worldwidePreview.isNotEmpty;
+    final topCountries = _countryPins
+        .where((p) => p.userCount > 0)
+        .toList()
+      ..sort((a, b) => b.userCount.compareTo(a.userCount));
+    final showCountries = !_isLoadingCounts && topCountries.isNotEmpty;
+
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: total > 0 ? _viewAllWorldwide : null,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: context.surfaceColor.withValues(alpha: 0.95),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.12),
+                blurRadius: 14,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            border: Border.all(
+              color: context.primaryColor.withValues(alpha: 0.15),
+              width: 1,
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Row 1: globe + count + see all
+              Row(
+                children: [
+                  Icon(Icons.public_rounded, size: 16, color: context.primaryColor),
+                  const SizedBox(width: 6),
+                  Text(
+                    _isLoadingCounts
+                        ? AppLocalizations.of(context)!.loading
+                        : AppLocalizations.of(context)!.usersWorldwide(total.toString()),
+                    style: context.labelMedium.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  const Spacer(),
+                  if (total > 0) ...[
+                    Text(
+                      'See all',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: context.primaryColor,
+                      ),
+                    ),
+                    const SizedBox(width: 2),
+                    Icon(Icons.chevron_right_rounded, size: 16, color: context.primaryColor),
+                  ],
+                ],
+              ),
+              // Row 2: stacked avatar preview
+              if (showAvatars) ...[
+                const SizedBox(height: 8),
+                _buildAvatarStack(total),
+              ],
+              // Row 3: top-3 countries
+              if (showCountries) ...[
+                const SizedBox(height: 6),
+                _buildTopCountriesRow(topCountries.take(3).toList()),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAvatarStack(int total) {
+    final preview = _worldwidePreview.take(4).toList();
+    final overflow = total - preview.length;
+    const avatarSize = 28.0;
+    const overlap = 18.0;
+    final width = avatarSize + (preview.length - 1).clamp(0, 4) * overlap +
+        (overflow > 0 ? overlap + 4 : 0);
+    return SizedBox(
+      height: avatarSize + 2,
+      width: width,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          for (int i = 0; i < preview.length; i++)
+            Positioned(
+              left: i * overlap,
+              child: Container(
+                width: avatarSize,
+                height: avatarSize,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: context.surfaceColor, width: 2),
+                ),
+                child: ClipOval(
+                  child: preview[i].profileImageUrl != null
+                      ? CachedImageWidget(
+                          imageUrl: preview[i].profileImageUrl!,
+                          width: avatarSize - 4,
+                          height: avatarSize - 4,
+                          fit: BoxFit.cover,
+                          errorWidget: _avatarFallback(preview[i].name),
+                        )
+                      : _avatarFallback(preview[i].name),
+                ),
+              ),
+            ),
+          if (overflow > 0)
+            Positioned(
+              left: preview.length * overlap,
+              child: Container(
+                width: avatarSize,
+                height: avatarSize,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: context.primaryColor.withValues(alpha: 0.15),
+                  border: Border.all(color: context.surfaceColor, width: 2),
+                ),
+                child: Center(
+                  child: Text(
+                    '+$overflow',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: context.primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _avatarFallback(String name) {
+    return Container(
+      color: context.primaryColor.withValues(alpha: 0.4),
+      child: Center(
+        child: Text(
+          name.isNotEmpty ? name[0].toUpperCase() : '?',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopCountriesRow(List<_CountryPin> countries) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          for (int i = 0; i < countries.length; i++) ...[
+            Text(
+              '${countries[i].flag} ${countries[i].name} ${countries[i].userCount}',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: context.textSecondary,
+              ),
+            ),
+            if (i < countries.length - 1)
+              Text(
+                ' · ',
+                style: TextStyle(fontSize: 11, color: context.textMuted),
+              ),
+          ],
+        ],
+      ),
+    );
+  }
+
   Widget _buildUserList() {
-    final title = _selectedCountry ?? 'Search: $_citySearch';
+    final title = _isWorldwideView
+        ? '🌍 Worldwide'
+        : (_selectedCountry ?? 'Search: $_citySearch');
 
     return Column(
       children: [
@@ -571,7 +843,7 @@ class _CityTabState extends ConsumerState<CityTab> {
         // User list
         Expanded(
           child: _isLoadingUsers && _users.isEmpty
-              ? const Center(child: CircularProgressIndicator())
+              ? const UserListSkeleton(count: 6)
               : _users.isEmpty
                   ? Center(
                       child: Column(

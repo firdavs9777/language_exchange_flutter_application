@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/community/community_filter.dart';
 import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -147,6 +148,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               .animate()
               .fadeIn(duration: 250.ms, delay: 100.ms)
               .slideY(begin: -0.03, end: 0, duration: 250.ms, delay: 100.ms, curve: Curves.easeOutCubic),
+          // Active filter chips
+          if (_hasActiveFilters()) _buildActiveFilterChips(),
           // Tab content
           Expanded(
             child: TabBarView(
@@ -517,4 +520,151 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       ),
     );
   }
+
+  bool _hasActiveFilters() {
+    final f = _filters;
+    return f['gender'] != null ||
+        f['nativeLanguage'] != null ||
+        f['learningLanguage'] != null ||
+        f['country'] != null ||
+        f['languageLevel'] != null ||
+        (f['onlineOnly'] == true) ||
+        (f['newUsersOnly'] == true) ||
+        (f['minAge'] != null && (f['minAge'] as int) > 18) ||
+        (f['maxAge'] != null && (f['maxAge'] as int) < 100);
+  }
+
+  Widget _buildActiveFilterChips() {
+    final chips = <_FilterChipData>[];
+    final f = _filters;
+
+    if (f['nativeLanguage'] != null) {
+      final lang = f['nativeLanguage'] as String;
+      final flag = LanguageFlags.getFlagByName(lang);
+      chips.add(_FilterChipData('$flag $lang', 'nativeLanguage'));
+    }
+    if (f['learningLanguage'] != null) {
+      final lang = f['learningLanguage'] as String;
+      final flag = LanguageFlags.getFlagByName(lang);
+      chips.add(_FilterChipData('$flag $lang', 'learningLanguage'));
+    }
+    if (f['country'] != null) {
+      chips.add(_FilterChipData('📍 ${f['country']}', 'country'));
+    }
+    if (f['gender'] != null) {
+      final g = f['gender'] as String;
+      chips.add(_FilterChipData(
+        g == 'male' ? '♂ Male' : '♀ Female',
+        'gender',
+      ));
+    }
+    if (f['languageLevel'] != null) {
+      chips.add(_FilterChipData('🎯 ${f['languageLevel']}', 'languageLevel'));
+    }
+    if (f['onlineOnly'] == true) {
+      chips.add(_FilterChipData('🟢 Online', 'onlineOnly'));
+    }
+    if (f['newUsersOnly'] == true) {
+      chips.add(_FilterChipData('✨ New', 'newUsersOnly'));
+    }
+    if ((f['minAge'] as int?) != null && (f['minAge'] as int) > 18 ||
+        (f['maxAge'] as int?) != null && (f['maxAge'] as int) < 100) {
+      final min = f['minAge'] as int? ?? 18;
+      final max = f['maxAge'] as int? ?? 100;
+      chips.add(_FilterChipData('$min-$max y/o', 'age'));
+    }
+
+    if (chips.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(12, 6, 12, 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: chips.map((chip) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: context.primaryColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: context.primaryColor.withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            chip.label,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: context.primaryColor,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          GestureDetector(
+                            onTap: () => _removeFilter(chip.key),
+                            child: Icon(
+                              Icons.close_rounded,
+                              size: 14,
+                              color: context.primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          const SizedBox(width: 6),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _filters = Map<String, dynamic>.from(_defaultFilters);
+              });
+              _saveFilters(_filters);
+            },
+            child: Text(
+              'Clear',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Colors.red.withValues(alpha: 0.8),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _removeFilter(String key) {
+    setState(() {
+      final updated = Map<String, dynamic>.from(_filters);
+      if (key == 'age') {
+        updated['minAge'] = 18;
+        updated['maxAge'] = 100;
+      } else if (key == 'onlineOnly' || key == 'newUsersOnly') {
+        updated[key] = false;
+      } else {
+        updated[key] = null;
+      }
+      _filters = updated;
+    });
+    _saveFilters(_filters);
+  }
+}
+
+class _FilterChipData {
+  final String label;
+  final String key;
+  const _FilterChipData(this.label, this.key);
 }

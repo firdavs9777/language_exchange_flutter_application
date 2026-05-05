@@ -502,34 +502,7 @@ class PartnerCard extends StatelessWidget {
     );
   }
 
-  String _getLanguageFlag(String language) {
-    if (language.isEmpty) return LanguageFlags.getFlag('');
-    final langLower = language.toLowerCase().trim();
-    final nameToCodeMap = {
-      'english': 'en',
-      'korean': 'ko',
-      'japanese': 'ja',
-      'chinese': 'zh',
-      'spanish': 'es',
-      'french': 'fr',
-      'german': 'de',
-      'italian': 'it',
-      'portuguese': 'pt',
-      'russian': 'ru',
-      'arabic': 'ar',
-      'hindi': 'hi',
-      'thai': 'th',
-      'vietnamese': 'vi',
-      'uzbek': 'uz',
-    };
-    if (nameToCodeMap.containsKey(langLower)) {
-      return LanguageFlags.getFlag(nameToCodeMap[langLower]!);
-    }
-    if (langLower.length == 2) {
-      return LanguageFlags.getFlag(langLower);
-    }
-    return LanguageFlags.getFlag('');
-  }
+  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
 }
 
 class _ActionButton extends StatelessWidget {

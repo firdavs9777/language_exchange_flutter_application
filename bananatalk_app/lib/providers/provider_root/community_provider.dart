@@ -52,14 +52,14 @@ class CommunityService {
       };
 
       // Add filter parameters
-      if (matchLanguage && (nativeLanguage != null || learningLanguage != null)) {
+      if (nativeLanguage != null && nativeLanguage.isNotEmpty) {
+        queryParams['nativeLanguage'] = nativeLanguage;
+      }
+      if (learningLanguage != null && learningLanguage.isNotEmpty) {
+        queryParams['learningLanguage'] = learningLanguage;
+      }
+      if (matchLanguage) {
         queryParams['matchLanguage'] = 'true';
-        if (nativeLanguage != null && nativeLanguage.isNotEmpty) {
-          queryParams['nativeLanguage'] = nativeLanguage;
-        }
-        if (learningLanguage != null && learningLanguage.isNotEmpty) {
-          queryParams['learningLanguage'] = learningLanguage;
-        }
       }
       if (gender != null && gender.isNotEmpty) {
         queryParams['gender'] = gender;

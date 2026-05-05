@@ -663,33 +663,72 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
               ),
             ),
           ),
-          // Fixed Bottom Button
+          // Fixed Bottom Buttons
           Container(
-            padding: EdgeInsets.fromLTRB(20, 12, 20, 12 + bottomPadding),
+            padding: EdgeInsets.fromLTRB(20, 12, 20, 8 + bottomPadding),
             decoration: BoxDecoration(
               color: context.surfaceColor,
               boxShadow: AppShadows.sm,
             ),
             child: SafeArea(
               top: false,
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: _applyFilters,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: context.primaryColor,
-                    foregroundColor: context.textOnPrimary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: _applyFilters,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.primaryColor,
+                        foregroundColor: context.textOnPrimary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        l10n.applyFilters,
+                        style: context.titleMedium.copyWith(color: context.textOnPrimary),
+                      ),
                     ),
-                    elevation: 0,
                   ),
-                  child: Text(
-                    l10n.applyFilters,
-                    style: context.titleMedium.copyWith(color: context.textOnPrimary),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 44,
+                    child: TextButton(
+                      onPressed: () {
+                        resetFilters();
+                        _applyFilters();
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          side: BorderSide(
+                            color: Colors.red.withValues(alpha: 0.3),
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.restart_alt_rounded, size: 18),
+                          const SizedBox(width: 6),
+                          Text(
+                            l10n.reset,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

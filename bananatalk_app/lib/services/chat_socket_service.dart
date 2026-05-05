@@ -51,11 +51,14 @@ class ChatSocketService {
   final _themeChangedController = StreamController<dynamic>.broadcast();
 
   // Voice room stream controllers
-  final _voiceRoomParticipantJoinedController = StreamController<dynamic>.broadcast();
-  final _voiceRoomParticipantLeftController = StreamController<dynamic>.broadcast();
+  final _voiceRoomParticipantJoinedController =
+      StreamController<dynamic>.broadcast();
+  final _voiceRoomParticipantLeftController =
+      StreamController<dynamic>.broadcast();
   final _voiceRoomOfferController = StreamController<dynamic>.broadcast();
   final _voiceRoomAnswerController = StreamController<dynamic>.broadcast();
-  final _voiceRoomIceCandidateController = StreamController<dynamic>.broadcast();
+  final _voiceRoomIceCandidateController =
+      StreamController<dynamic>.broadcast();
   final _voiceRoomMuteController = StreamController<dynamic>.broadcast();
   final _voiceRoomHandRaisedController = StreamController<dynamic>.broadcast();
   final _voiceRoomChatController = StreamController<dynamic>.broadcast();
@@ -72,17 +75,22 @@ class ChatSocketService {
   Stream<Map<String, dynamic>> get onMessageDelivery =>
       _messageDeliveryController.stream;
   Stream<dynamic> get onMessageReaction => _messageReactionController.stream;
-  Stream<dynamic> get onMessageCorrection => _messageCorrectionController.stream;
+  Stream<dynamic> get onMessageCorrection =>
+      _messageCorrectionController.stream;
   Stream<dynamic> get onThemeChanged => _themeChangedController.stream;
 
   // Voice room stream getters
-  Stream<dynamic> get onVoiceRoomParticipantJoined => _voiceRoomParticipantJoinedController.stream;
-  Stream<dynamic> get onVoiceRoomParticipantLeft => _voiceRoomParticipantLeftController.stream;
+  Stream<dynamic> get onVoiceRoomParticipantJoined =>
+      _voiceRoomParticipantJoinedController.stream;
+  Stream<dynamic> get onVoiceRoomParticipantLeft =>
+      _voiceRoomParticipantLeftController.stream;
   Stream<dynamic> get onVoiceRoomOffer => _voiceRoomOfferController.stream;
   Stream<dynamic> get onVoiceRoomAnswer => _voiceRoomAnswerController.stream;
-  Stream<dynamic> get onVoiceRoomIceCandidate => _voiceRoomIceCandidateController.stream;
+  Stream<dynamic> get onVoiceRoomIceCandidate =>
+      _voiceRoomIceCandidateController.stream;
   Stream<dynamic> get onVoiceRoomMute => _voiceRoomMuteController.stream;
-  Stream<dynamic> get onVoiceRoomHandRaised => _voiceRoomHandRaisedController.stream;
+  Stream<dynamic> get onVoiceRoomHandRaised =>
+      _voiceRoomHandRaisedController.stream;
   Stream<dynamic> get onVoiceRoomChat => _voiceRoomChatController.stream;
   Stream<dynamic> get onVoiceRoomEnded => _voiceRoomEndedController.stream;
   Stream<dynamic> get onVoiceRoomKicked => _voiceRoomKickedController.stream;
@@ -105,13 +113,11 @@ class ChatSocketService {
   void _initConnectivityListener() {
     try {
       _connectivitySubscription?.cancel();
-      _connectivitySubscription = Connectivity().onConnectivityChanged.listen(
-        (List<ConnectivityResult> results) {
-          _handleConnectivityChange(results);
-        },
-        onError: (error) {
-        },
-      );
+      _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+        List<ConnectivityResult> results,
+      ) {
+        _handleConnectivityChange(results);
+      }, onError: (error) {});
     } catch (e) {
       // Handle MissingPluginException when plugin not properly loaded
     }
@@ -119,20 +125,19 @@ class ChatSocketService {
 
   /// Handle network connectivity changes
   void _handleConnectivityChange(List<ConnectivityResult> results) {
-    final hasConnection = results.isNotEmpty &&
-        !results.contains(ConnectivityResult.none);
-
+    final hasConnection =
+        results.isNotEmpty && !results.contains(ConnectivityResult.none);
 
     if (hasConnection && _wasOffline) {
       // Network restored after being offline
       _wasOffline = false;
-
+      if (!_shouldAllowReconnection) return;
       // Reset reconnect attempts since this is a fresh network connection
       _reconnectAttempts = 0;
       _isPermanentlyDisconnected = false;
 
       // Attempt to reconnect if we should - but only if not already connecting/connected
-      if (_shouldAllowReconnection && !isConnected && !_isConnecting) {
+      if (!isConnected && !_isConnecting) {
         // Longer delay to let other connection attempts finish first
         Future.delayed(const Duration(seconds: 2), () {
           // Double-check conditions after delay
@@ -184,26 +189,13 @@ class ChatSocketService {
   }
 
   Future<void> connect({bool forceReset = false}) async {
-    // FIRST: Check if reconnection is allowed (logout check)
-    if (!_shouldAllowReconnection || _isPermanentlyDisconnected) {
-      return;
-    }
+    if (!_shouldAllowReconnection || _isPermanentlyDisconnected) return;
+    if (_isConnecting) return;
+    if (_socket?.connected ?? false) return;
 
-    // Prevent concurrent connection attempts
-    if (_isConnecting) {
-      return;
-    }
-
-    if (_socket?.connected ?? false) {
-      return;
-    }
-
-    // Cooldown check - prevent rapid reconnection attempts (unless force reset)
     if (!forceReset && _lastConnectedAt != null) {
       final timeSinceLastConnect = DateTime.now().difference(_lastConnectedAt!);
-      if (timeSinceLastConnect < _connectionCooldown) {
-        return;
-      }
+      if (timeSinceLastConnect < _connectionCooldown) return;
     }
 
     _isConnecting = true;
@@ -217,12 +209,11 @@ class ChatSocketService {
         return;
       }
 
+      // Re-check after async gap
       if (!_shouldAllowReconnection) {
         return;
       }
 
-      // Reset reconnect attempts on force reset (e.g., app resume)
-      // This ensures we try fresh after coming back from background
       if (forceReset) {
         _reconnectAttempts = 0;
         _isPermanentlyDisconnected = false;
@@ -232,8 +223,11 @@ class ChatSocketService {
       _currentUserId = userId;
       final deviceId = await _getDeviceId();
 
+      // Re-check again after async
+      if (!_shouldAllowReconnection) {
+        return;
+      }
 
-      // IMPORTANT: Disconnect old socket first
       if (_socket != null) {
         _socket?.clearListeners();
         _socket?.disconnect();
@@ -245,15 +239,15 @@ class ChatSocketService {
         _baseUrl,
         IO.OptionBuilder()
             .setTransports(['websocket'])
+            .enableForceNew()
             .enableAutoConnect()
             .setAuth({'token': token})
             .setQuery({'userId': userId, 'deviceId': deviceId})
             .setReconnectionAttempts(
               _shouldAllowReconnection ? _maxReconnectAttempts : 0,
             )
-            .setReconnectionDelay(2000) // Increased from 1000
-            .setReconnectionDelayMax(10000) // Increased from 5000
-            .enableReconnection()
+            .setReconnectionDelay(2000)
+            .setReconnectionDelayMax(10000)
             .setTimeout(20000)
             .setExtraHeaders({'Connection': 'keep-alive'})
             .build(),
@@ -303,8 +297,7 @@ class ChatSocketService {
       _scheduleReconnect();
     });
 
-    _socket?.onError((err) {
-    });
+    _socket?.onError((err) {});
 
     _socket?.on('ping', (_) {
       _socket?.emit('pong');
@@ -529,7 +522,9 @@ class ChatSocketService {
     _heartbeatTimer = Timer.periodic(const Duration(seconds: 25), (timer) {
       if (_socket?.connected ?? false) {
         // Send client-side keepalive ping (silent - no debug log to reduce noise)
-        _socket?.emit('ping', {'timestamp': DateTime.now().millisecondsSinceEpoch});
+        _socket?.emit('ping', {
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+        });
       } else {
         timer.cancel();
         // Don't schedule reconnect here - socket library handles it automatically
@@ -543,29 +538,29 @@ class ChatSocketService {
   }
 
   void _scheduleReconnect() {
-    if (!_shouldAllowReconnection) {
+    if (!_shouldAllowReconnection || _isPermanentlyDisconnected) {
       return;
     }
 
     if (_reconnectAttempts >= _maxReconnectAttempts) {
       _isPermanentlyDisconnected = true;
-      // Don't schedule more reconnects - wait for external trigger (app resume, network change)
       return;
     }
 
     _reconnectTimer?.cancel();
 
     final delay = Duration(
-      milliseconds:
-          1000 * (1 << _reconnectAttempts.clamp(0, 6)), // Cap at 64 seconds
+      milliseconds: 1000 * (1 << _reconnectAttempts.clamp(0, 6)),
     );
 
-
     _reconnectTimer = Timer(delay, () {
-      // Double-check flag before connecting (might have changed during delay)
       if (!_shouldAllowReconnection || _isPermanentlyDisconnected) {
         return;
       }
+
+      // Prevent overlap with an ongoing connection attempt
+      if (_isConnecting) return;
+
       _reconnectAttempts++;
       connect();
     });
@@ -577,6 +572,7 @@ class ChatSocketService {
     _shouldAllowReconnection = true;
     _reconnectAttempts = 0;
     _isPermanentlyDisconnected = false;
+    _isConnecting = false;
     _reconnectTimer?.cancel();
 
     // Disconnect existing socket cleanly
@@ -584,6 +580,7 @@ class ChatSocketService {
       _socket?.clearListeners();
       _socket?.disconnect();
       _socket?.dispose();
+      _socket?.destroy();
       _socket = null;
     }
 
@@ -652,8 +649,7 @@ class ChatSocketService {
   void emit(String event, dynamic data) {
     if (_socket?.connected ?? false) {
       _socket?.emit(event, data);
-    } else {
-    }
+    } else {}
   }
 
   void requestStatusUpdates(List<String> userIds) {
@@ -737,7 +733,6 @@ class ChatSocketService {
   }
 
   Future<void> disconnect() async {
-
     // 1. FIRST: Disable all reconnection flags
     _shouldAllowReconnection = false;
     _isPermanentlyDisconnected = true;
@@ -749,28 +744,28 @@ class ChatSocketService {
     _heartbeatTimer?.cancel();
     _heartbeatTimer = null;
 
+    print('Socket connected: ${_socket?.connected}');
     // 3. Send logout event if connected
-    if (_socket?.connected ?? false) {
+    final socket = _socket;
+
+    if (socket?.connected == true) {
       try {
-        _socket?.emit('logout', {});
+        socket!.emit('logout', {});
         await Future.delayed(const Duration(milliseconds: 300));
-      } catch (e) {
-      }
+      } catch (e) {}
     }
 
     // 4. Clear all listeners to prevent callbacks from triggering reconnection
     try {
       _socket?.clearListeners();
-    } catch (e) {
-    }
+    } catch (e) {}
 
     // 5. Disconnect and destroy socket completely
     try {
       _socket?.disconnect();
       _socket?.dispose();
       _socket?.destroy();
-    } catch (e) {
-    }
+    } catch (e) {}
 
     _socket = null;
     _currentUserId = null;

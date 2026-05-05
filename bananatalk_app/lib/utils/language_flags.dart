@@ -205,7 +205,153 @@ class LanguageFlags {
     if (languageCode.isEmpty) return '🌐';
     return flags[languageCode.toLowerCase()] ?? '🌐';
   }
-  
+
+  /// Language name → code mapping for backend values like "Chinese (Simplified)", "Korean", etc.
+  static const Map<String, String> _nameToCode = {
+    // Exact names with variants
+    'english': 'en',
+    'korean': 'ko',
+    'japanese': 'ja',
+    'japan': 'ja',
+    'chinese': 'zh',
+    'chinese (simplified)': 'zh',
+    'chinese (traditional)': 'zh',
+    'mandarin': 'zh',
+    'mandarin chinese': 'zh',
+    'cantonese': 'zh',
+    'spanish': 'es',
+    'french': 'fr',
+    'german': 'de',
+    'italian': 'it',
+    'portuguese': 'pt',
+    'portuguese (brazil)': 'pt',
+    'portuguese (portugal)': 'pt',
+    'russian': 'ru',
+    'arabic': 'ar',
+    'hindi': 'hi',
+    'thai': 'th',
+    'vietnamese': 'vi',
+    'dutch': 'nl',
+    'danish': 'da',
+    'swedish': 'sv',
+    'norwegian': 'no',
+    'finnish': 'fi',
+    'polish': 'pl',
+    'turkish': 'tr',
+    'greek': 'el',
+    'hebrew': 'he',
+    'indonesian': 'id',
+    'malay': 'ms',
+    'ukrainian': 'uk',
+    'romanian': 'ro',
+    'hungarian': 'hu',
+    'czech': 'cs',
+    'bulgarian': 'bg',
+    'croatian': 'hr',
+    'serbian': 'sr',
+    'uzbek': 'uz',
+    'persian': 'fa',
+    'farsi': 'fa',
+    'bengali': 'bn',
+    'tamil': 'ta',
+    'telugu': 'te',
+    'urdu': 'ur',
+    'punjabi': 'pa',
+    'gujarati': 'gu',
+    'kannada': 'kn',
+    'malayalam': 'ml',
+    'marathi': 'mr',
+    'nepali': 'ne',
+    'sinhala': 'si',
+    'sinhalese': 'si',
+    'burmese': 'my',
+    'khmer': 'km',
+    'cambodian': 'km',
+    'lao': 'lo',
+    'laotian': 'lo',
+    'georgian': 'ka',
+    'armenian': 'hy',
+    'azerbaijani': 'az',
+    'kazakh': 'kk',
+    'kyrgyz': 'ky',
+    'tajik': 'tg',
+    'turkmen': 'tk',
+    'mongolian': 'mn',
+    'albanian': 'sq',
+    'belarusian': 'be',
+    'bosnian': 'bs',
+    'catalan': 'ca',
+    'estonian': 'et',
+    'galician': 'gl',
+    'icelandic': 'is',
+    'irish': 'ga',
+    'latvian': 'lv',
+    'lithuanian': 'lt',
+    'luxembourgish': 'lb',
+    'macedonian': 'mk',
+    'maltese': 'mt',
+    'slovak': 'sk',
+    'slovenian': 'sl',
+    'welsh': 'cy',
+    'basque': 'eu',
+    'swahili': 'sw',
+    'tagalog': 'tl',
+    'filipino': 'tl',
+    'cebuano': 'ceb',
+    'somali': 'so',
+    'amharic': 'am',
+    'hausa': 'ha',
+    'yoruba': 'yo',
+    'igbo': 'ig',
+    'zulu': 'zu',
+    'xhosa': 'xh',
+    'afrikaans': 'af',
+    'malagasy': 'mg',
+    'hawaiian': 'haw',
+    'samoan': 'sm',
+    'tongan': 'to',
+    'fijian': 'fj',
+    'maori': 'mi',
+    'haitian creole': 'ht',
+    'yiddish': 'yi',
+    'pashto': 'ps',
+    'kurdish': 'ku',
+    'tibetan': 'bo',
+    'uyghur': 'ug',
+    'esperanto': 'eo',
+    'latin': 'la',
+    'sanskrit': 'sa',
+    'javanese': 'jv',
+    'sundanese': 'su',
+  };
+
+  /// Get flag emoji for a language name (e.g., "Chinese (Simplified)", "Korean", "Tagalog")
+  /// Handles full names, names with variants in parentheses, and 2-letter codes.
+  /// Returns a globe emoji 🌐 if no match found.
+  static String getFlagByName(String language) {
+    if (language.isEmpty) return '🌐';
+    final langLower = language.toLowerCase().trim();
+
+    // 1. Exact match
+    if (_nameToCode.containsKey(langLower)) {
+      return getFlag(_nameToCode[langLower]!);
+    }
+
+    // 2. Partial match (e.g., "chinese" in "chinese (simplified)")
+    for (final entry in _nameToCode.entries) {
+      if (langLower.contains(entry.key) || entry.key.contains(langLower)) {
+        return getFlag(entry.value);
+      }
+    }
+
+    // 3. Maybe it's already a 2-letter code
+    if (langLower.length == 2) {
+      return getFlag(langLower);
+    }
+
+    return '🌐';
+  }
+
   /// Get recommended languages (most commonly learned - top 10 popular languages)
   static List<String> getRecommendedCodes() {
     return ['en', 'ko', 'ja', 'zh', 'es', 'fr', 'de', 'it', 'pt', 'ru'];

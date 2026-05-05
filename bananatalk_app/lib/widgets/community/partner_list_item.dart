@@ -260,34 +260,7 @@ class PartnerListItem extends StatelessWidget {
     return '${lang[0].toUpperCase()}${lang.substring(1).toLowerCase()}';
   }
 
-  /// Get flag emoji for a language (handles both codes and names)
-  String _getLanguageFlag(String language) {
-    if (language.isEmpty) return LanguageFlags.getFlag('');
-
-    // Common language name to code mappings
-    const nameToCodeMap = {
-      'english': 'en', 'spanish': 'es', 'french': 'fr', 'german': 'de',
-      'italian': 'it', 'portuguese': 'pt', 'russian': 'ru', 'chinese': 'zh',
-      'japanese': 'ja', 'korean': 'ko', 'arabic': 'ar', 'hindi': 'hi',
-      'dutch': 'nl', 'turkish': 'tr', 'polish': 'pl', 'swedish': 'sv',
-      'danish': 'da', 'norwegian': 'no', 'finnish': 'fi', 'czech': 'cs',
-      'greek': 'el', 'hebrew': 'he', 'thai': 'th', 'vietnamese': 'vi',
-      'indonesian': 'id', 'malay': 'ms', 'ukrainian': 'uk', 'romanian': 'ro',
-      'hungarian': 'hu', 'bulgarian': 'bg', 'croatian': 'hr', 'serbian': 'sr',
-    };
-
-    final langLower = language.toLowerCase();
-
-    // Try name mapping first
-    if (nameToCodeMap.containsKey(langLower)) {
-      return LanguageFlags.getFlag(nameToCodeMap[langLower]!);
-    }
-    // Try as code directly
-    if (language.length <= 3) {
-      return LanguageFlags.getFlag(langLower);
-    }
-    return LanguageFlags.getFlag('');
-  }
+  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
 
   Widget _buildLanguageRow(BuildContext context) {
     final nativeFlag = _getLanguageFlag(user.native_language);

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/widgets/community/voice_room_card.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_screen.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/create_room_sheet.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
@@ -149,13 +150,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             return Column(
               children: [
                 _buildFilters(l10n),
-                const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Color(0xFF00BFA5),
-                    ),
-                  ),
-                ),
+                const Expanded(child: UserListSkeleton(count: 5)),
               ],
             );
           }

@@ -13,6 +13,7 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -60,6 +61,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   bool _quickOnlineOnly = false;
   String? _quickNativeLanguage; // "Show users who speak X natively"
   String? _quickLearningLanguage; // "Show users who are learning X"
+
+  // Tracks whether the list has been scrolled — used to elevate the sticky chip bar
+  bool _isScrolled = false;
 
   @override
   void initState() {
@@ -112,6 +116,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   /// Handle scroll for pagination in list view
   void _onScroll() {
     if (_viewMode != PartnerViewMode.list) return;
+
+    // Track scroll for sticky chip elevation
+    final scrolled = _scrollController.position.pixels > 8;
+    if (scrolled != _isScrolled && mounted) {
+      setState(() => _isScrolled = scrolled);
+    }
 
     final partnerState = ref.read(partnerFilterProvider);
     if (_scrollController.position.pixels >=
@@ -474,10 +484,30 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         // Build content based on view mode
         return Column(
           children: [
-            // View mode toggle
-            _buildViewToggle(),
-            // Quick filter chips
-            _buildQuickFilterChips(currentUser),
+            // Sticky bar: view toggle + quick filter chips. Elevation animates on scroll.
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              curve: Curves.easeOut,
+              decoration: BoxDecoration(
+                color: context.surfaceColor,
+                boxShadow: _isScrolled
+                    ? [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.06),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ]
+                    : const [],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildViewToggle(),
+                  _buildQuickFilterChips(currentUser),
+                ],
+              ),
+            ),
             // Location reminder when prioritize nearby is on but no location
             if (widget.filters['prioritizeNearby'] == true && !userHasLocation)
               _buildLocationReminder(),
@@ -1198,21 +1228,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   Widget _buildLoading() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircularProgressIndicator(
-            color: context.primaryColor,
-          ),
-          Spacing.gapLG,
-          Text(
-            AppLocalizations.of(context)!.findingPartners,
-            style: context.bodyMedium.copyWith(color: context.textSecondary),
-          ),
-        ],
-      ),
-    );
+    return const UserListSkeleton(count: 6);
   }
 
   Widget _buildError(dynamic error) {

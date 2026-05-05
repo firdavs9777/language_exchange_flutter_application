@@ -23,6 +23,7 @@ import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/block_user_dialog.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -1314,6 +1315,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                 child: _buildLanguageCard(
                   label: l10n.native,
                   language: _community.native_language,
+                  flag: _getLanguageFlag(_community.native_language),
                   icon: Icons.home_rounded,
                   color: Colors.orange,
                   isDark: isDark,
@@ -1332,6 +1334,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                 child: _buildLanguageCard(
                   label: l10n.learning,
                   language: _community.language_to_learn,
+                  flag: _getLanguageFlag(_community.language_to_learn),
                   icon: Icons.school_rounded,
                   color: Colors.purple,
                   isDark: isDark,
@@ -1348,6 +1351,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   Widget _buildLanguageCard({
     required String label,
     required String language,
+    required String flag,
     required IconData icon,
     required Color color,
     required bool isDark,
@@ -1369,7 +1373,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         children: [
           Row(
             children: [
-              Icon(icon, color: color, size: 16),
+              Text(flag, style: const TextStyle(fontSize: 18)),
               const SizedBox(width: 6),
               Text(
                 label,
@@ -1394,6 +1398,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       ),
     );
   }
+
+  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
 
   /// Moments Tab - Grid of moments
   Widget _buildMomentsTab() {

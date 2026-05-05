@@ -8,6 +8,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/compact_user_tile.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -275,9 +276,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             builder: (context) {
               // Show loading if initial load
               if (topicUsersState.isLoading && topicUsersState.users.isEmpty) {
-                return const Center(
-                  child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
-                );
+                return const UserListSkeleton(count: 6);
               }
 
               // Show error if any

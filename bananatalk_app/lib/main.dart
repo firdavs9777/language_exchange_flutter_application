@@ -7,7 +7,8 @@ import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
+import 'package:bananatalk_app/router/app_router.dart'
+    show callOverlayNavigatorKey;
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,9 +49,7 @@ Future<void> main() async {
 
     // Initialize Google Mobile Ads SDK
     await AdService().initialize();
-
-  } catch (e) {
-  }
+  } catch (e) {}
 
   // Initialize socket and notification services if user is logged in
   try {
@@ -65,17 +64,18 @@ Future<void> main() async {
       chatSocketService.refreshConnection();
     };
 
-    if (token != null && token.isNotEmpty && userId != null && userId.isNotEmpty) {
+    if (token != null &&
+        token.isNotEmpty &&
+        userId != null &&
+        userId.isNotEmpty) {
       await chatSocketService.connect();
 
       // Initialize notification service for logged-in users
       final notificationService = NotificationService();
       await notificationService.initialize();
       await notificationService.registerToken(userId);
-    } else {
-    }
-  } catch (e) {
-  }
+    } else {}
+  } catch (e) {}
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -132,7 +132,8 @@ final languageProvider = StateNotifierProvider<LanguageNotifier, Locale>((ref) {
 
 class LanguageNotifier extends StateNotifier<Locale> {
   // Use device language synchronously as initial state to avoid English flash
-  LanguageNotifier() : super(LanguageService.getLocale(LanguageService.getDeviceLanguage())) {
+  LanguageNotifier()
+    : super(LanguageService.getLocale(LanguageService.getDeviceLanguage())) {
     _loadLanguage();
   }
 
@@ -184,7 +185,9 @@ class MyApp extends ConsumerWidget {
         callNotifier.setIncomingCallCallback((call) {
           final navState = callOverlayNavigatorKey.currentState;
           if (navState != null) {
-            debugPrint('📞 Incoming call from ${call.userName} - showing screen');
+            debugPrint(
+              '📞 Incoming call from ${call.userName} - showing screen',
+            );
             navState.push(
               MaterialPageRoute(
                 builder: (_) => IncomingCallScreen(call: call),
@@ -207,7 +210,11 @@ class MyApp extends ConsumerWidget {
         Locale('en', 'US'),
         Locale('ko', 'KR'),
         Locale('zh', 'CN'),
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+        Locale.fromSubtags(
+          languageCode: 'zh',
+          scriptCode: 'Hant',
+          countryCode: 'TW',
+        ),
         Locale('es', 'ES'),
         Locale('fr', 'FR'),
         Locale('de', 'DE'),
