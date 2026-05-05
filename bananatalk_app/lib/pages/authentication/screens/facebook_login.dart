@@ -1,7 +1,7 @@
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -278,34 +278,10 @@ class _FacebookLoginState extends ConsumerState<FacebookLogin> {
                       ),
                     ] else ...[
                       // Facebook Sign In Button
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF1877F2).withOpacity(0.3),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
-                        ),
-                        child: BananaButton(
-                          BananaText: BananaText(
-                            'Continue with Facebook',
-                            BanaStyles: BananaTextStyles.buttonText,
-                          ),
-                          onPressed: _signInWithFacebook,
-                          color: const Color(0xFF1877F2),
-                          textColor: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          icon: const Icon(
-                            Icons.facebook,
-                            color: Colors.white,
-                            size: 28,
-                          ),
-                        ),
+                      SocialLoginButton(
+                        provider: SocialProvider.facebook,
+                        onPressed: _signInWithFacebook,
+                        isLoading: false,
                       ),
                     ],
 

@@ -1,12 +1,12 @@
-import 'dart:io';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/authentication/screens/register_second.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
-import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -124,19 +124,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               ),
             );
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: BananaText(
-                  AppLocalizations.of(context)!.welcomeCompleteProfile,
-                  BanaStyles: BananaTextStyles.body,
-                ),
-                duration: const Duration(seconds: 3),
-                backgroundColor: Colors.orange,
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+            showAuthSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.welcomeCompleteProfile,
+              type: AuthSnackBarType.info,
             );
           } else {
             // Profile completed - check terms before going to main app
@@ -169,15 +160,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
               await ref.read(authServiceProvider).logout();
               if (!mounted) return;
               context.go('/login');
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: BananaText(
-                    AppLocalizations.of(context)!.sessionExpired,
-                    BanaStyles: BananaTextStyles.warning,
-                  ),
-                  duration: const Duration(seconds: 3),
-                  backgroundColor: Colors.orange,
-                ),
+              showAuthSnackBar(
+                context,
+                message: AppLocalizations.of(context)!.sessionExpired,
+                type: AuthSnackBarType.error,
               );
               return;
             }
@@ -203,21 +189,12 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
             context.go('/home');
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: BananaText(
-                  AppLocalizations.of(
-                    context,
-                  )!.welcomeBackName(user?['name'] ?? ''),
-                  BanaStyles: BananaTextStyles.success,
-                ),
-                duration: const Duration(seconds: 2),
-                backgroundColor: Colors.green,
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+            showAuthSnackBar(
+              context,
+              message: AppLocalizations.of(
+                context,
+              )!.welcomeBackName(user?['name'] ?? ''),
+              type: AuthSnackBarType.success,
             );
           }
         }
@@ -379,34 +356,10 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
                       ),
                     ] else ...[
                       // Apple Sign In Button
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
-                        ),
-                        child: BananaButton(
-                          BananaText: BananaText(
-                            AppLocalizations.of(context)!.continueWithApple,
-                            BanaStyles: BananaTextStyles.buttonText,
-                          ),
-                          onPressed: _signInWithApple,
-                          color: Colors.black,
-                          textColor: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          icon: const Icon(
-                            Icons.apple,
-                            color: Colors.white,
-                            size: 28,
-                          ),
-                        ),
+                      SocialLoginButton(
+                        provider: SocialProvider.apple,
+                        onPressed: _signInWithApple,
+                        isLoading: false,
                       ),
                     ],
 

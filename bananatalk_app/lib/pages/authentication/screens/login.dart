@@ -5,15 +5,20 @@ import 'package:bananatalk_app/pages/authentication/screens/email_input.dart';
 import 'package:bananatalk_app/pages/authentication/screens/forget_password_email.dart';
 import 'package:bananatalk_app/pages/authentication/screens/google_login.dart';
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/password_field.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/banana_button.dart';
-import 'package:bananatalk_app/widgets/banana_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends ConsumerStatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -25,12 +30,25 @@ class Login extends ConsumerStatefulWidget {
 class _LoginState extends ConsumerState<Login> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  bool _isLoading = false;
+  bool _rememberMe = true;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _loadRememberedEmail();
+  }
+
+  Future<void> _loadRememberedEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    final remembered = prefs.getString('rememberedEmail');
+    if (remembered != null && remembered.isNotEmpty && mounted) {
+      setState(() {
+        _emailController.text = remembered;
+      });
+    }
   }
 
   @override
@@ -40,9 +58,6 @@ class _LoginState extends ConsumerState<Login> {
     super.dispose();
   }
 
-  bool _obscureText = true;
-  bool _isLoading = false;
-
   void submit() async {
     if (_isLoading) return;
 
@@ -51,28 +66,21 @@ class _LoginState extends ConsumerState<Login> {
 
     // Basic validation
     if (email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
+      showAuthSnackBar(
+        context,
+        message:
             AppLocalizations.of(context)!.pleaseEnterBothEmailAndPassword,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: const Duration(seconds: 2),
-        ),
+        type: AuthSnackBarType.error,
       );
       return;
     }
 
     // Validate email format
     if (!AuthService.validateEmail(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            AppLocalizations.of(context)!.pleaseEnterValidEmail,
-            BanaStyles: BananaTextStyles.warning,
-          ),
-          duration: const Duration(seconds: 2),
-        ),
+      showAuthSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseEnterValidEmail,
+        type: AuthSnackBarType.error,
       );
       return;
     }
@@ -91,6 +99,14 @@ class _LoginState extends ConsumerState<Login> {
       });
 
       if (response['success'] == true) {
+        // Persist or clear remembered email
+        final prefs = await SharedPreferences.getInstance();
+        if (_rememberMe) {
+          await prefs.setString('rememberedEmail', email);
+        } else {
+          await prefs.remove('rememberedEmail');
+        }
+
         // Check if user has accepted terms of service
         try {
           final user = await ref.read(authServiceProvider).getLoggedInUser();
@@ -119,15 +135,10 @@ class _LoginState extends ConsumerState<Login> {
           await ref.read(authServiceProvider).logout();
           if (!mounted) return;
           context.go('/login');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: BananaText(
-                AppLocalizations.of(context)!.sessionExpired,
-                BanaStyles: BananaTextStyles.warning,
-              ),
-              duration: const Duration(seconds: 3),
-              backgroundColor: AppColors.warning,
-            ),
+          showAuthSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.sessionExpired,
+            type: AuthSnackBarType.error,
           );
           return;
         }
@@ -136,31 +147,20 @@ class _LoginState extends ConsumerState<Login> {
 
         context.go('/home');
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: BananaText(
-              AppLocalizations.of(context)!.loginSuccessful,
-              BanaStyles: BananaTextStyles.success,
-            ),
-            duration: const Duration(seconds: 2),
-            backgroundColor: AppColors.success,
-          ),
+        showAuthSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.loginSuccessful,
+          type: AuthSnackBarType.success,
         );
       } else {
         // Handle different error types
-        String errorMessage =
+        final String errorMessage =
             response['message'] ?? 'Login failed. Please try again.';
 
-        // Show appropriate error message
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: BananaText(
-              errorMessage,
-              BanaStyles: BananaTextStyles.error,
-            ),
-            duration: Duration(seconds: response['isLocked'] == true ? 5 : 3),
-            backgroundColor: AppColors.error,
-          ),
+        showAuthSnackBar(
+          context,
+          message: errorMessage,
+          type: AuthSnackBarType.error,
         );
       }
     } catch (error) {
@@ -168,326 +168,169 @@ class _LoginState extends ConsumerState<Login> {
         _isLoading = false;
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: BananaText(
-            'Network error: ${error.toString()}',
-            BanaStyles: BananaTextStyles.error,
-          ),
-          duration: const Duration(seconds: 3),
-          backgroundColor: AppColors.error,
-        ),
+      showAuthSnackBar(
+        context,
+        message: 'Network error: ${error.toString()}',
+        type: AuthSnackBarType.error,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: BananaText(
-          AppLocalizations.of(context)!.login,
-          BanaStyles: BananaTextStyles.title,
-        ),
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                  child: Text(
-                    'Bananatalk',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      color: Theme.of(context).primaryColor,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                ),
-                Center(
-                  child: BananaText(
-                    AppLocalizations.of(context)!.login,
-                    BanaStyles: BananaTextStyles.title,
-                  ),
-                ),
-                Spacing.gapLG,
-                Form(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        textCapitalization: TextCapitalization.none,
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.email_sharp),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: context.dividerColor),
-                            borderRadius: AppRadius.borderXL,
-                          ),
-                          label: BananaText(
-                            AppLocalizations.of(context)!.email,
-                            BanaStyles: BananaTextStyles.inputText,
-                          ),
-                        ),
-                      ),
-                      Spacing.gapLG,
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obscureText,
-                        decoration: InputDecoration(
-                          filled: true,
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                            child: Icon(
-                              _obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: _obscureText
-                                  ? context.iconColor
-                                  : AppColors.info,
-                            ),
-                          ),
-                          prefixIcon: const Icon(Icons.password_outlined),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: context.dividerColor),
-                            borderRadius: AppRadius.borderXL,
-                          ),
-                          label: BananaText(
-                            AppLocalizations.of(context)!.password,
-                            BanaStyles: BananaTextStyles.inputText,
-                          ),
-                        ),
-                      ),
-                      Spacing.gapXXL,
-                      SizedBox(
-                        width: 250.0,
-                        child: _isLoading
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.primary,
-                                  ),
-                                ),
-                              )
-                            : BananaButton(
-                                onPressed: submit,
-                                color: AppColors.primary,
-                                BananaText: BananaText(
-                                  AppLocalizations.of(context)!.login,
-                                  BanaStyles: BananaTextStyles.buttonText,
-                                ),
-                                textColor: Theme.of(
-                                  context,
-                                ).colorScheme.onPrimary,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 12.0,
-                                  vertical: 12.0,
-                                ),
-                                borderRadius: AppRadius.borderSM,
-                              ),
-                      ),
-                      Spacing.gapXXL,
-                      // OR Divider
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: context.dividerColor,
-                              thickness: 1,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: BananaText(
-                              AppLocalizations.of(context)!.or,
-                              BanaStyles: BananaTextStyles.body,
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: context.dividerColor,
-                              thickness: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacing.gapXXL,
-                      // Social Login Buttons
-                      SizedBox(
-                        width: 250.0,
-                        child: Column(
-                          children: [
-                            // Facebook Login Button
-                            // Container(
-                            //   width: double.infinity,
-                            //   height: 50,
-                            //   margin: const EdgeInsets.only(bottom: 12.0),
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: AppRadius.borderXL,
-                            //     boxShadow: [
-                            //       BoxShadow(
-                            //         color: const Color(0xFF1877F2).withOpacity(0.3),
-                            //         blurRadius: 8,
-                            //         offset: const Offset(0, 4),
-                            //       ),
-                            //     ],
-                            //   ),
-                            //   child: ElevatedButton.icon(
-                            //     onPressed: () {
-                            //       Navigator.of(context).push(
-                            //         MaterialPageRoute(
-                            //           builder: (ctx) => const FacebookLogin(),
-                            //         ),
-                            //       );
-                            //     },
-                            //     icon: const Icon(
-                            //       Icons.facebook,
-                            //       color: Colors.white,
-                            //       size: 24,
-                            //     ),
-                            //     label: BananaText(
-                            //       'Continue with Facebook',
-                            //       BanaStyles: BananaTextStyles.buttonText,
-                            //     ),
-                            //     style: ElevatedButton.styleFrom(
-                            //       backgroundColor: const Color(0xFF1877F2),
-                            //       foregroundColor: Colors.white,
-                            //       shape: RoundedRectangleBorder(
-                            //         borderRadius: AppRadius.borderXL,
-                            //       ),
-                            //       elevation: 0,
-                            //     ),
-                            //   ),
-                            // ),
-                            // Google Login Button
-                            if (Platform.isIOS) // ONLY SHOW ON iOS
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Container(
-                                  height: 45.0,
-                                  width: double.infinity,
-                                  child: BananaButton(
-                                    BananaText: BananaText(
-                                      AppLocalizations.of(
-                                        context,
-                                      )!.signInWithApple,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (ctx) => const AppleLogin(),
-                                        ),
-                                      );
-                                    },
-                                    color: Colors.black, // Apple black color
-                                    textColor: Color(0xFFFFFFFF),
-                                    borderRadius: AppRadius.borderSM,
-                                    icon: Icon(
-                                      Icons.apple, // Apple icon
-                                      color: Colors.white,
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            Container(
-                              width: double.infinity,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: AppRadius.borderXL,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(
-                                      0xFF4285F4,
-                                    ).withOpacity(0.3),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (ctx) => const GoogleLogin(),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.g_mobiledata_rounded,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                                label: BananaText(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.continueWithGoogle,
-                                  BanaStyles: BananaTextStyles.buttonText,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF4285F4),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: AppRadius.borderXL,
-                                  ),
-                                  elevation: 0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacing.gapSM,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => const ForgotPasswordEmail(),
-                                ),
-                              );
-                            },
-                            child: BananaText(
-                              AppLocalizations.of(context)!.forgotPassword,
-                              BanaStyles: BananaTextStyles.link,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) => const EmailInput(),
-                                ),
-                              );
-                            },
-                            child: BananaText(
-                              AppLocalizations.of(context)!.registerLink,
-                              BanaStyles: BananaTextStyles.link,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+    final l10n = AppLocalizations.of(context)!;
+
+    return AuthScreenScaffold(
+      showBackButton: false,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
+          Text(
+            'Bananatalk',
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w800,
+              color: Theme.of(context).primaryColor,
+              letterSpacing: -0.5,
             ),
           ),
-        ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.login,
+            style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 24),
+          AuthTextField(
+            controller: _emailController,
+            label: l10n.email,
+            prefixIcon: Icons.email_outlined,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+          ),
+          const SizedBox(height: 16),
+          PasswordField(
+            controller: _passwordController,
+            label: l10n.password,
+            showStrengthMeter: false,
+            textInputAction: TextInputAction.done,
+          ),
+          const SizedBox(height: 8),
+          // Remember Me
+          Row(
+            children: [
+              Checkbox(
+                value: _rememberMe,
+                onChanged: (v) => setState(() => _rememberMe = v ?? true),
+                activeColor: AppColors.primary,
+              ),
+              const SizedBox(width: 4),
+              GestureDetector(
+                onTap: () => setState(() => _rememberMe = !_rememberMe),
+                child: Text(
+                  l10n.rememberMe,
+                  style: context.bodyMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          AuthGradientButton(
+            label: l10n.login,
+            onPressed: _isLoading ? null : submit,
+            isLoading: _isLoading,
+          ),
+          const SizedBox(height: 24),
+          // OR Divider
+          Row(
+            children: [
+              Expanded(
+                child: Divider(
+                  color: context.dividerColor,
+                  thickness: 1,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  l10n.or,
+                  style: context.bodyMedium,
+                ),
+              ),
+              Expanded(
+                child: Divider(
+                  color: context.dividerColor,
+                  thickness: 1,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          // Social Login Buttons
+          if (Platform.isIOS)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: SocialLoginButton(
+                provider: SocialProvider.apple,
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => const AppleLogin(),
+                    ),
+                  );
+                },
+              ),
+            ),
+          SocialLoginButton(
+            provider: SocialProvider.google,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => const GoogleLogin(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => const ForgotPasswordEmail(),
+                    ),
+                  );
+                },
+                child: Text(
+                  l10n.forgotPassword,
+                  style: context.bodyMedium.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => const EmailInput(),
+                    ),
+                  );
+                },
+                child: Text(
+                  l10n.registerLink,
+                  style: context.bodyMedium.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }
