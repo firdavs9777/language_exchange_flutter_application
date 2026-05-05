@@ -893,6 +893,8 @@
     }
   },
   "failedToUpdate": "Gagal memperbarui",
+  "profileUpdatedSuccessfully": "Profil berhasil diperbarui",
+  "genderRequired": "Jenis Kelamin (Wajib)",
   "editHometown": "Edit Kampung Halaman",
   "useCurrentLocation": "Gunakan Lokasi Saat Ini",
   "detecting": "Mendeteksi...",
@@ -918,6 +920,8 @@
   "selectYourMbti": "Pilih MBTI Anda",
   "myBloodType": "Golongan Darah Saya",
   "pleaseSelectABloodType": "Pilih golongan darah",
+  "bloodTypeSavedSuccessfully": "Golongan darah berhasil disimpan",
+  "hometownSavedSuccessfully": "Kota asal berhasil disimpan",
   "nativeLanguageRequired": "Bahasa Ibu (Wajib)",
   "languageToLearnRequired": "Bahasa Dipelajari (Wajib)",
   "nativeLanguageCannotBeSame": "Bahasa ibu tidak boleh sama dengan bahasa yang dipelajari",
@@ -1252,4 +1256,39 @@
   "fontStyleLabel": "Gaya Font",
   "textColorLabel": "Warna Teks",
   "dragToDelete": "Seret ke sini untuk menghapus"
+,
+  "momentUpdatedSuccessfully": "Momen berhasil diperbarui",
+  "failedToDeleteMoment": "Gagal menghapus momen",
+  "failedToUpdateMoment": "Gagal memperbarui momen",
+
+  "mbtiUpdatedSuccessfully": "MBTI berhasil diperbarui",
+  "pleaseSelectMbti": "Silakan pilih tipe MBTI",
+  "languageUpdatedSuccessfully": "Bahasa berhasil diperbarui",
+
+  "bioHintCard": "Bio yang bagus membantu orang lain terhubung denganmu. Bagikan minat, bahasa, atau apa yang kamu cari.",
+  "bioCounterStartWriting": "Mulai menulis...",
+  "bioCounterABitMore": "Sedikit lebih banyak akan lebih baik",
+  "bioCounterAlmostAtLimit": "Hampir mencapai batas",
+  "bioCounterTooLong": "Terlalu panjang",
+  "bioQuickStarters": "Mulai cepat",
+  "rhPositive": "Rh Positif",
+  "rhNegative": "Rh Negatif",
+  "rhPositiveDesc": "Paling umum",
+  "rhNegativeDesc": "Donor universal / langka",
+  "yourBloodType": "Golongan darahmu",
+  "noBloodTypeSelected": "Tidak ada golongan darah yang dipilih",
+  "tapTypeBelow": "Ketuk jenis di bawah",
+  "tapButtonToDetectLocation": "Ketuk tombol di bawah untuk mendeteksi lokasi saat ini",
+  "currentAddressLabel": "Saat ini: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Hanya kota dan negaramu yang ditampilkan kepada orang lain. Koordinat tepat tetap bersifat pribadi.",
+  "updateLocationCta": "Perbarui Lokasi",
+  "enterYourName": "Masukkan namamu",
+  "unsavedChanges": "Kamu memiliki perubahan yang belum disimpan"
 }

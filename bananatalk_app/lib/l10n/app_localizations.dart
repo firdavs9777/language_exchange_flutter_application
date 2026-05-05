@@ -6474,6 +6474,18 @@ abstract class AppLocalizations {
   /// **'Failed to update'**
   String get failedToUpdate;
 
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @genderRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender (Required)'**
+  String get genderRequired;
+
   /// No description provided for @editHometown.
   ///
   /// In en, this message translates to:
@@ -6593,6 +6605,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select a blood type'**
   String get pleaseSelectABloodType;
+
+  /// No description provided for @bloodTypeSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood type saved successfully'**
+  String get bloodTypeSavedSuccessfully;
+
+  /// No description provided for @hometownSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Hometown saved successfully'**
+  String get hometownSavedSuccessfully;
 
   /// No description provided for @nativeLanguageRequired.
   ///
@@ -7949,6 +7973,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Silenced by daily limit'**
   String get silencedByCap;
+
+  /// No description provided for @momentUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment updated successfully'**
+  String get momentUpdatedSuccessfully;
+
+  /// No description provided for @failedToDeleteMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete moment'**
+  String get failedToDeleteMoment;
+
+  /// No description provided for @failedToUpdateMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update moment'**
+  String get failedToUpdateMoment;
+
+  /// No description provided for @mbtiUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'MBTI updated successfully'**
+  String get mbtiUpdatedSuccessfully;
+
+  /// No description provided for @pleaseSelectMbti.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an MBTI type'**
+  String get pleaseSelectMbti;
+
+  /// No description provided for @languageUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Language updated successfully'**
+  String get languageUpdatedSuccessfully;
+
+  /// No description provided for @bioHintCard.
+  ///
+  /// In en, this message translates to:
+  /// **'A great bio helps others connect with you. Share your interests, languages, or what you\'re looking for.'**
+  String get bioHintCard;
+
+  /// No description provided for @bioCounterStartWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Start writing...'**
+  String get bioCounterStartWriting;
+
+  /// No description provided for @bioCounterABitMore.
+  ///
+  /// In en, this message translates to:
+  /// **'A bit more would be great'**
+  String get bioCounterABitMore;
+
+  /// No description provided for @bioCounterAlmostAtLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost at the limit'**
+  String get bioCounterAlmostAtLimit;
+
+  /// No description provided for @bioCounterTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Too long'**
+  String get bioCounterTooLong;
+
+  /// No description provided for @bioQuickStarters.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick starters'**
+  String get bioQuickStarters;
+
+  /// No description provided for @rhPositive.
+  ///
+  /// In en, this message translates to:
+  /// **'Rh Positive'**
+  String get rhPositive;
+
+  /// No description provided for @rhNegative.
+  ///
+  /// In en, this message translates to:
+  /// **'Rh Negative'**
+  String get rhNegative;
+
+  /// No description provided for @rhPositiveDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Most common'**
+  String get rhPositiveDesc;
+
+  /// No description provided for @rhNegativeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Universal donors / rare'**
+  String get rhNegativeDesc;
+
+  /// No description provided for @yourBloodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Your blood type'**
+  String get yourBloodType;
+
+  /// No description provided for @noBloodTypeSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No blood type selected'**
+  String get noBloodTypeSelected;
+
+  /// No description provided for @tapTypeBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a type below'**
+  String get tapTypeBelow;
+
+  /// No description provided for @tapButtonToDetectLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the button below to detect your current location'**
+  String get tapButtonToDetectLocation;
+
+  /// No description provided for @currentAddressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current: {address}'**
+  String currentAddressLabel(String address);
+
+  /// No description provided for @onlyCityCountryShown.
+  ///
+  /// In en, this message translates to:
+  /// **'Only your city and country are shown to others. Exact coordinates remain private.'**
+  String get onlyCityCountryShown;
+
+  /// No description provided for @updateLocationCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Location'**
+  String get updateLocationCta;
+
+  /// No description provided for @enterYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enterYourName;
+
+  /// No description provided for @unsavedChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unsaved changes'**
+  String get unsavedChanges;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

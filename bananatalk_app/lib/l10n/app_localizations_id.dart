@@ -3311,6 +3311,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get failedToUpdate => 'Gagal memperbarui';
 
   @override
+  String get profileUpdatedSuccessfully => 'Profil berhasil diperbarui';
+
+  @override
+  String get genderRequired => 'Jenis Kelamin (Wajib)';
+
+  @override
   String get editHometown => 'Edit Kampung Halaman';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Pilih golongan darah';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Golongan darah berhasil disimpan';
+
+  @override
+  String get hometownSavedSuccessfully => 'Kota asal berhasil disimpan';
 
   @override
   String get nativeLanguageRequired => 'Bahasa Ibu (Wajib)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'Momen berhasil diperbarui';
+
+  @override
+  String get failedToDeleteMoment => 'Gagal menghapus momen';
+
+  @override
+  String get failedToUpdateMoment => 'Gagal memperbarui momen';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI berhasil diperbarui';
+
+  @override
+  String get pleaseSelectMbti => 'Silakan pilih tipe MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Bahasa berhasil diperbarui';
+
+  @override
+  String get bioHintCard => 'Bio yang bagus membantu orang lain terhubung denganmu. Bagikan minat, bahasa, atau apa yang kamu cari.';
+
+  @override
+  String get bioCounterStartWriting => 'Mulai menulis...';
+
+  @override
+  String get bioCounterABitMore => 'Sedikit lebih banyak akan lebih baik';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Hampir mencapai batas';
+
+  @override
+  String get bioCounterTooLong => 'Terlalu panjang';
+
+  @override
+  String get bioQuickStarters => 'Mulai cepat';
+
+  @override
+  String get rhPositive => 'Rh Positif';
+
+  @override
+  String get rhNegative => 'Rh Negatif';
+
+  @override
+  String get rhPositiveDesc => 'Paling umum';
+
+  @override
+  String get rhNegativeDesc => 'Donor universal / langka';
+
+  @override
+  String get yourBloodType => 'Golongan darahmu';
+
+  @override
+  String get noBloodTypeSelected => 'Tidak ada golongan darah yang dipilih';
+
+  @override
+  String get tapTypeBelow => 'Ketuk jenis di bawah';
+
+  @override
+  String get tapButtonToDetectLocation => 'Ketuk tombol di bawah untuk mendeteksi lokasi saat ini';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Saat ini: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Hanya kota dan negaramu yang ditampilkan kepada orang lain. Koordinat tepat tetap bersifat pribadi.';
+
+  @override
+  String get updateLocationCta => 'Perbarui Lokasi';
+
+  @override
+  String get enterYourName => 'Masukkan namamu';
+
+  @override
+  String get unsavedChanges => 'Kamu memiliki perubahan yang belum disimpan';
 }

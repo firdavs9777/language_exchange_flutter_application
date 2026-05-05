@@ -3311,6 +3311,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get failedToUpdate => 'فشل التحديث';
 
   @override
+  String get profileUpdatedSuccessfully => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get genderRequired => 'الجنس (مطلوب)';
+
+  @override
   String get editHometown => 'تعديل مسقط الرأس';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'اختر فصيلة الدم';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'تم حفظ فصيلة الدم بنجاح';
+
+  @override
+  String get hometownSavedSuccessfully => 'تم حفظ المسقط الأصلي بنجاح';
 
   @override
   String get nativeLanguageRequired => 'اللغة الأم (مطلوب)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'تم تحديث اللحظة بنجاح';
+
+  @override
+  String get failedToDeleteMoment => 'فشل حذف اللحظة';
+
+  @override
+  String get failedToUpdateMoment => 'فشل تحديث اللحظة';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'تم تحديث نوع الشخصية بنجاح';
+
+  @override
+  String get pleaseSelectMbti => 'يرجى اختيار نوع الشخصية';
+
+  @override
+  String get languageUpdatedSuccessfully => 'تم تحديث اللغة بنجاح';
+
+  @override
+  String get bioHintCard => 'السيرة الذاتية الجيدة تساعد الآخرين على التواصل معك. شارك اهتماماتك ولغاتك أو ما تبحث عنه.';
+
+  @override
+  String get bioCounterStartWriting => 'ابدأ الكتابة...';
+
+  @override
+  String get bioCounterABitMore => 'قليل من الكتابة سيكون رائعاً';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'اقتربت من الحد الأقصى';
+
+  @override
+  String get bioCounterTooLong => 'طويل جداً';
+
+  @override
+  String get bioQuickStarters => 'بدايات سريعة';
+
+  @override
+  String get rhPositive => 'Rh موجب';
+
+  @override
+  String get rhNegative => 'Rh سالب';
+
+  @override
+  String get rhPositiveDesc => 'الأكثر شيوعاً';
+
+  @override
+  String get rhNegativeDesc => 'المتبرعون الشاملون / نادر';
+
+  @override
+  String get yourBloodType => 'فصيلة دمك';
+
+  @override
+  String get noBloodTypeSelected => 'لم يتم اختيار فصيلة الدم';
+
+  @override
+  String get tapTypeBelow => 'اضغط على نوع أدناه';
+
+  @override
+  String get tapButtonToDetectLocation => 'اضغط على الزر أدناه لتحديد موقعك الحالي';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'الحالي: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'يظهر للآخرين مدينتك وبلدك فقط. تبقى الإحداثيات الدقيقة خاصة.';
+
+  @override
+  String get updateLocationCta => 'تحديث الموقع';
+
+  @override
+  String get enterYourName => 'أدخل اسمك';
+
+  @override
+  String get unsavedChanges => 'لديك تغييرات غير محفوظة';
 }

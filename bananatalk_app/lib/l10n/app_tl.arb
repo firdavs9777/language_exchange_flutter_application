@@ -1048,6 +1048,8 @@
     }
   },
   "failedToUpdate": "Hindi na-update",
+  "profileUpdatedSuccessfully": "Matagumpay na na-update ang profile",
+  "genderRequired": "Kasarian (Kinakailangan)",
   "editHometown": "I-edit ang Hometown",
   "useCurrentLocation": "Gamitin ang Kasalukuyang Lokasyon",
   "detecting": "Nagde-detect...",
@@ -1065,9 +1067,12 @@
   "bioUpdatedSuccessfully": "Na-update na ang bio!",
   "tellOthersAboutYourself": "Magkuwento tungkol sa sarili mo",
   "charactersCount": "{count}/500 character",
+  "characters": "character",
   "selectYourMbti": "Piliin ang iyong MBTI",
   "myBloodType": "Ang Blood Type Ko",
   "pleaseSelectABloodType": "Pumili ng blood type",
+  "bloodTypeSavedSuccessfully": "Matagumpay na na-save ang blood type",
+  "hometownSavedSuccessfully": "Matagumpay na na-save ang hometown",
   "nativeLanguageRequired": "Kinakailangan ang native language",
   "languageToLearnRequired": "Kinakailangan ang wikang aaralin",
   "nativeLanguageCannotBeSame": "Hindi maaaring pareho ang native language sa inaaral",
@@ -1363,4 +1368,39 @@
   "fontStyleLabel": "Istilo ng Font",
   "textColorLabel": "Kulay ng Teksto",
   "dragToDelete": "I-drag dito para burahin"
+,
+  "momentUpdatedSuccessfully": "Matagumpay na na-update ang moment",
+  "failedToDeleteMoment": "Nabigo ang pag-delete ng moment",
+  "failedToUpdateMoment": "Nabigo ang pag-update ng moment",
+
+  "mbtiUpdatedSuccessfully": "Matagumpay na na-update ang MBTI",
+  "pleaseSelectMbti": "Mangyaring pumili ng uri ng MBTI",
+  "languageUpdatedSuccessfully": "Matagumpay na na-update ang wika",
+
+  "bioHintCard": "Ang isang magandang bio ay tumutulong sa iba na makakonekta sa iyo. Ibahagi ang iyong mga interes, wika, o kung ano ang hinahanap mo.",
+  "bioCounterStartWriting": "Magsimulang sumulat...",
+  "bioCounterABitMore": "Magdagdag pa ng kaunti",
+  "bioCounterAlmostAtLimit": "Malapit na sa limitasyon",
+  "bioCounterTooLong": "Masyadong mahaba",
+  "bioQuickStarters": "Mabilis na simula",
+  "rhPositive": "Rh Positibo",
+  "rhNegative": "Rh Negatibo",
+  "rhPositiveDesc": "Pinaka-karaniwan",
+  "rhNegativeDesc": "Unibersal na donor / bihira",
+  "yourBloodType": "Ang iyong uri ng dugo",
+  "noBloodTypeSelected": "Walang uri ng dugo na napili",
+  "tapTypeBelow": "I-tap ang isang uri sa ibaba",
+  "tapButtonToDetectLocation": "I-tap ang button sa ibaba upang matukoy ang iyong kasalukuyang lokasyon",
+  "currentAddressLabel": "Kasalukuyan: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Ang iyong lungsod at bansa lamang ang makikita ng iba. Ang eksaktong koordinasyon ay mananatiling pribado.",
+  "updateLocationCta": "I-update ang Lokasyon",
+  "enterYourName": "Ilagay ang iyong pangalan",
+  "unsavedChanges": "Mayroon kang mga hindi pa nai-save na pagbabago"
 }

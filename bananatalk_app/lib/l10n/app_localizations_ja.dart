@@ -3311,6 +3311,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToUpdate => '更新に失敗しました';
 
   @override
+  String get profileUpdatedSuccessfully => 'プロフィールを正常に更新しました';
+
+  @override
+  String get genderRequired => '性別（必須）';
+
+  @override
   String get editHometown => '出身地を編集';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => '血液型を選択してください';
+
+  @override
+  String get bloodTypeSavedSuccessfully => '血液型を正常に保存しました';
+
+  @override
+  String get hometownSavedSuccessfully => '出身地を正常に保存しました';
 
   @override
   String get nativeLanguageRequired => '母国語（必須）';
@@ -4117,4 +4129,81 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'モーメントが正常に更新されました';
+
+  @override
+  String get failedToDeleteMoment => 'モーメントの削除に失敗しました';
+
+  @override
+  String get failedToUpdateMoment => 'モーメントの更新に失敗しました';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTIが正常に更新されました';
+
+  @override
+  String get pleaseSelectMbti => 'MBTIタイプを選択してください';
+
+  @override
+  String get languageUpdatedSuccessfully => '言語が正常に更新されました';
+
+  @override
+  String get bioHintCard => '充実した自己紹介は他のユーザーとの出会いを助けます。興味、使用言語、求めているものなどを共有しましょう。';
+
+  @override
+  String get bioCounterStartWriting => '書き始めましょう...';
+
+  @override
+  String get bioCounterABitMore => 'もう少し書くとよいでしょう';
+
+  @override
+  String get bioCounterAlmostAtLimit => '文字数制限に近づいています';
+
+  @override
+  String get bioCounterTooLong => '文字数オーバー';
+
+  @override
+  String get bioQuickStarters => 'クイックスターター';
+
+  @override
+  String get rhPositive => 'Rhプラス';
+
+  @override
+  String get rhNegative => 'Rhマイナス';
+
+  @override
+  String get rhPositiveDesc => '最も一般的';
+
+  @override
+  String get rhNegativeDesc => '万能ドナー / 希少';
+
+  @override
+  String get yourBloodType => 'あなたの血液型';
+
+  @override
+  String get noBloodTypeSelected => '血液型が選択されていません';
+
+  @override
+  String get tapTypeBelow => '下のタイプをタップしてください';
+
+  @override
+  String get tapButtonToDetectLocation => '下のボタンをタップして現在地を検出してください';
+
+  @override
+  String currentAddressLabel(String address) {
+    return '現在地: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => '他のユーザーには市区町村と国のみ表示されます。正確な座標は非公開のままです。';
+
+  @override
+  String get updateLocationCta => '位置情報を更新';
+
+  @override
+  String get enterYourName => '名前を入力してください';
+
+  @override
+  String get unsavedChanges => '未保存の変更があります';
 }

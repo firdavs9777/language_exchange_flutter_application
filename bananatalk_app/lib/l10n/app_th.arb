@@ -889,6 +889,8 @@
     }
   },
   "failedToUpdate": "อัปเดตไม่สำเร็จ",
+  "profileUpdatedSuccessfully": "อัปเดตโปรไฟล์สำเร็จ",
+  "genderRequired": "เพศ (จำเป็น)",
   "editHometown": "แก้ไขบ้านเกิด",
   "useCurrentLocation": "ใช้ตำแหน่งปัจจุบัน",
   "detecting": "กำลังตรวจหา...",
@@ -914,6 +916,8 @@
   "selectYourMbti": "เลือก MBTI ของคุณ",
   "myBloodType": "กรุ๊ปเลือดของฉัน",
   "pleaseSelectABloodType": "กรุณาเลือกกรุ๊ปเลือด",
+  "bloodTypeSavedSuccessfully": "บันทึกกรุ๊ปเลือดสำเร็จ",
+  "hometownSavedSuccessfully": "บันทึกบ้านเกิดสำเร็จ",
   "nativeLanguageRequired": "ภาษาแม่ (จำเป็น)",
   "languageToLearnRequired": "ภาษาที่เรียน (จำเป็น)",
   "nativeLanguageCannotBeSame": "ภาษาแม่ไม่สามารถเหมือนภาษาที่เรียน",
@@ -1248,4 +1252,39 @@
   "fontStyleLabel": "รูปแบบตัวอักษร",
   "textColorLabel": "สีข้อความ",
   "dragToDelete": "ลากมาที่นี่เพื่อลบ"
+,
+  "momentUpdatedSuccessfully": "อัปเดตโมเมนต์สำเร็จ",
+  "failedToDeleteMoment": "ลบโมเมนต์ไม่สำเร็จ",
+  "failedToUpdateMoment": "อัปเดตโมเมนต์ไม่สำเร็จ",
+
+  "mbtiUpdatedSuccessfully": "อัปเดต MBTI สำเร็จ",
+  "pleaseSelectMbti": "กรุณาเลือกประเภท MBTI",
+  "languageUpdatedSuccessfully": "อัปเดตภาษาสำเร็จ",
+
+  "bioHintCard": "ประวัติที่ดีช่วยให้ผู้อื่นเชื่อมต่อกับคุณได้ แบ่งปันความสนใจ ภาษา หรือสิ่งที่คุณกำลังมองหา",
+  "bioCounterStartWriting": "เริ่มเขียน...",
+  "bioCounterABitMore": "เขียนเพิ่มอีกนิดจะดีมาก",
+  "bioCounterAlmostAtLimit": "ใกล้ถึงขีดจำกัดแล้ว",
+  "bioCounterTooLong": "ยาวเกินไป",
+  "bioQuickStarters": "เริ่มต้นอย่างรวดเร็ว",
+  "rhPositive": "Rh บวก",
+  "rhNegative": "Rh ลบ",
+  "rhPositiveDesc": "พบมากที่สุด",
+  "rhNegativeDesc": "ผู้บริจาคสากล / หายาก",
+  "yourBloodType": "หมู่เลือดของคุณ",
+  "noBloodTypeSelected": "ยังไม่ได้เลือกหมู่เลือด",
+  "tapTypeBelow": "แตะประเภทด้านล่าง",
+  "tapButtonToDetectLocation": "แตะปุ่มด้านล่างเพื่อตรวจจับตำแหน่งปัจจุบันของคุณ",
+  "currentAddressLabel": "ปัจจุบัน: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "ผู้อื่นเห็นเพียงเมืองและประเทศของคุณ พิกัดที่แน่นอนจะยังคงเป็นความลับ",
+  "updateLocationCta": "อัปเดตตำแหน่ง",
+  "enterYourName": "กรอกชื่อของคุณ",
+  "unsavedChanges": "คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก"
 }

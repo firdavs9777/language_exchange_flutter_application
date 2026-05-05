@@ -1078,6 +1078,8 @@
     }
   },
   "failedToUpdate": "Не удалось обновить",
+  "profileUpdatedSuccessfully": "Профиль успешно обновлён",
+  "genderRequired": "Пол (обязательно)",
   "editHometown": "Изменить Родной Город",
   "useCurrentLocation": "Использовать Текущее Местоположение",
   "detecting": "Определение...",
@@ -1103,6 +1105,8 @@
   "selectYourMbti": "Выберите Ваш MBTI",
   "myBloodType": "Моя Группа Крови",
   "pleaseSelectABloodType": "Пожалуйста, выберите группу крови",
+  "bloodTypeSavedSuccessfully": "Группа крови успешно сохранена",
+  "hometownSavedSuccessfully": "Родной город успешно сохранён",
   "nativeLanguageRequired": "Родной Язык (Обязательно)",
   "languageToLearnRequired": "Изучаемый Язык (Обязательно)",
   "nativeLanguageCannotBeSame": "Родной язык не может совпадать с изучаемым",
@@ -1437,4 +1441,39 @@
   "fontStyleLabel": "Стиль шрифта",
   "textColorLabel": "Цвет текста",
   "dragToDelete": "Перетащите сюда для удаления"
+,
+  "momentUpdatedSuccessfully": "Момент успешно обновлён",
+  "failedToDeleteMoment": "Не удалось удалить момент",
+  "failedToUpdateMoment": "Не удалось обновить момент",
+
+  "mbtiUpdatedSuccessfully": "MBTI успешно обновлён",
+  "pleaseSelectMbti": "Пожалуйста, выберите тип MBTI",
+  "languageUpdatedSuccessfully": "Язык успешно обновлён",
+
+  "bioHintCard": "Хорошая анкета помогает другим узнать вас. Расскажите о своих интересах, языках или о том, что вы ищете.",
+  "bioCounterStartWriting": "Начните писать...",
+  "bioCounterABitMore": "Можно написать чуть больше",
+  "bioCounterAlmostAtLimit": "Почти достигнут лимит",
+  "bioCounterTooLong": "Слишком длинно",
+  "bioQuickStarters": "Быстрые подсказки",
+  "rhPositive": "Rh положительный",
+  "rhNegative": "Rh отрицательный",
+  "rhPositiveDesc": "Самый распространённый",
+  "rhNegativeDesc": "Универсальные доноры / редкий",
+  "yourBloodType": "Ваша группа крови",
+  "noBloodTypeSelected": "Группа крови не выбрана",
+  "tapTypeBelow": "Выберите тип ниже",
+  "tapButtonToDetectLocation": "Нажмите кнопку ниже, чтобы определить ваше текущее местоположение",
+  "currentAddressLabel": "Текущий: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Другим пользователям видны только ваш город и страна. Точные координаты остаются конфиденциальными.",
+  "updateLocationCta": "Обновить местоположение",
+  "enterYourName": "Введите ваше имя",
+  "unsavedChanges": "У вас есть несохранённые изменения"
 }

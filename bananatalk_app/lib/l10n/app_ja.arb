@@ -1059,6 +1059,8 @@
     }
   },
   "failedToUpdate": "更新に失敗しました",
+  "profileUpdatedSuccessfully": "プロフィールを正常に更新しました",
+  "genderRequired": "性別（必須）",
 
   "editHometown": "出身地を編集",
   "useCurrentLocation": "現在地を使用",
@@ -1087,6 +1089,8 @@
   "selectYourMbti": "MBTIを選択",
   "myBloodType": "私の血液型",
   "pleaseSelectABloodType": "血液型を選択してください",
+  "bloodTypeSavedSuccessfully": "血液型を正常に保存しました",
+  "hometownSavedSuccessfully": "出身地を正常に保存しました",
 
   "nativeLanguageRequired": "母国語（必須）",
   "languageToLearnRequired": "学習言語（必須）",
@@ -1425,4 +1429,39 @@
   "fontStyleLabel": "フォントスタイル",
   "textColorLabel": "テキスト色",
   "dragToDelete": "ここにドラッグして削除"
+,
+  "momentUpdatedSuccessfully": "モーメントが正常に更新されました",
+  "failedToDeleteMoment": "モーメントの削除に失敗しました",
+  "failedToUpdateMoment": "モーメントの更新に失敗しました",
+
+  "mbtiUpdatedSuccessfully": "MBTIが正常に更新されました",
+  "pleaseSelectMbti": "MBTIタイプを選択してください",
+  "languageUpdatedSuccessfully": "言語が正常に更新されました",
+
+  "bioHintCard": "充実した自己紹介は他のユーザーとの出会いを助けます。興味、使用言語、求めているものなどを共有しましょう。",
+  "bioCounterStartWriting": "書き始めましょう...",
+  "bioCounterABitMore": "もう少し書くとよいでしょう",
+  "bioCounterAlmostAtLimit": "文字数制限に近づいています",
+  "bioCounterTooLong": "文字数オーバー",
+  "bioQuickStarters": "クイックスターター",
+  "rhPositive": "Rhプラス",
+  "rhNegative": "Rhマイナス",
+  "rhPositiveDesc": "最も一般的",
+  "rhNegativeDesc": "万能ドナー / 希少",
+  "yourBloodType": "あなたの血液型",
+  "noBloodTypeSelected": "血液型が選択されていません",
+  "tapTypeBelow": "下のタイプをタップしてください",
+  "tapButtonToDetectLocation": "下のボタンをタップして現在地を検出してください",
+  "currentAddressLabel": "現在地: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "他のユーザーには市区町村と国のみ表示されます。正確な座標は非公開のままです。",
+  "updateLocationCta": "位置情報を更新",
+  "enterYourName": "名前を入力してください",
+  "unsavedChanges": "未保存の変更があります"
 }

@@ -3311,6 +3311,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToUpdate => 'Güncelleme başarısız';
 
   @override
+  String get profileUpdatedSuccessfully => 'Profil başarıyla güncellendi';
+
+  @override
+  String get genderRequired => 'Cinsiyet (Zorunlu)';
+
+  @override
   String get editHometown => 'Memleketi Düzenle';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Lütfen bir kan grubu seçin';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Kan grubu başarıyla kaydedildi';
+
+  @override
+  String get hometownSavedSuccessfully => 'Memleket başarıyla kaydedildi';
 
   @override
   String get nativeLanguageRequired => 'Ana dil gerekli';
@@ -3528,7 +3540,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hometown => 'Hometown';
 
   @override
-  String get characters => 'characters';
+  String get characters => 'karakter';
 
   @override
   String get failedToLoadLanguages => 'Failed to load languages';
@@ -4117,4 +4129,81 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'An başarıyla güncellendi';
+
+  @override
+  String get failedToDeleteMoment => 'An silinemedi';
+
+  @override
+  String get failedToUpdateMoment => 'An güncellenemedi';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI başarıyla güncellendi';
+
+  @override
+  String get pleaseSelectMbti => 'Lütfen bir MBTI türü seçin';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Dil başarıyla güncellendi';
+
+  @override
+  String get bioHintCard => 'İyi bir biyografi, diğerlerinin seninle bağlantı kurmasına yardımcı olur. İlgi alanlarını, dillerini veya ne aradığını paylaş.';
+
+  @override
+  String get bioCounterStartWriting => 'Yazmaya başla...';
+
+  @override
+  String get bioCounterABitMore => 'Biraz daha yazsan iyi olur';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Limite yaklaşıyorsun';
+
+  @override
+  String get bioCounterTooLong => 'Çok uzun';
+
+  @override
+  String get bioQuickStarters => 'Hızlı başlangıçlar';
+
+  @override
+  String get rhPositive => 'Rh Pozitif';
+
+  @override
+  String get rhNegative => 'Rh Negatif';
+
+  @override
+  String get rhPositiveDesc => 'En yaygın';
+
+  @override
+  String get rhNegativeDesc => 'Evrensel donör / nadir';
+
+  @override
+  String get yourBloodType => 'Kan grubunuz';
+
+  @override
+  String get noBloodTypeSelected => 'Kan grubu seçilmedi';
+
+  @override
+  String get tapTypeBelow => 'Aşağıdan bir tür seçin';
+
+  @override
+  String get tapButtonToDetectLocation => 'Mevcut konumunu tespit etmek için aşağıdaki düğmeye dokun';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Mevcut: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Diğer kullanıcılara yalnızca şehrin ve ülken gösterilir. Kesin koordinatlar gizli kalır.';
+
+  @override
+  String get updateLocationCta => 'Konumu Güncelle';
+
+  @override
+  String get enterYourName => 'Adınızı girin';
+
+  @override
+  String get unsavedChanges => 'Kaydedilmemiş değişiklikleriniz var';
 }

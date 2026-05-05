@@ -1324,6 +1324,8 @@
     }
   },
   "failedToUpdate": "Güncelleme başarısız",
+  "profileUpdatedSuccessfully": "Profil başarıyla güncellendi",
+  "genderRequired": "Cinsiyet (Zorunlu)",
   "editHometown": "Memleketi Düzenle",
   "useCurrentLocation": "Mevcut Konumu Kullan",
   "detecting": "Algılanıyor...",
@@ -1341,9 +1343,12 @@
   "bioUpdatedSuccessfully": "Biyografi güncellendi!",
   "tellOthersAboutYourself": "Kendiniz hakkında bir şeyler yazın",
   "charactersCount": "{count}/500 karakter",
+  "characters": "karakter",
   "selectYourMbti": "MBTI'nizi seçin",
   "myBloodType": "Kan Grubum",
   "pleaseSelectABloodType": "Lütfen bir kan grubu seçin",
+  "bloodTypeSavedSuccessfully": "Kan grubu başarıyla kaydedildi",
+  "hometownSavedSuccessfully": "Memleket başarıyla kaydedildi",
   "nativeLanguageRequired": "Ana dil gerekli",
   "languageToLearnRequired": "Öğrenilecek dil gerekli",
   "nativeLanguageCannotBeSame": "Ana dil öğrenilen dille aynı olamaz",
@@ -1639,4 +1644,39 @@
   "fontStyleLabel": "Yazı tipi",
   "textColorLabel": "Metin rengi",
   "dragToDelete": "Silmek için buraya sürükle"
+,
+  "momentUpdatedSuccessfully": "An başarıyla güncellendi",
+  "failedToDeleteMoment": "An silinemedi",
+  "failedToUpdateMoment": "An güncellenemedi",
+
+  "mbtiUpdatedSuccessfully": "MBTI başarıyla güncellendi",
+  "pleaseSelectMbti": "Lütfen bir MBTI türü seçin",
+  "languageUpdatedSuccessfully": "Dil başarıyla güncellendi",
+
+  "bioHintCard": "İyi bir biyografi, diğerlerinin seninle bağlantı kurmasına yardımcı olur. İlgi alanlarını, dillerini veya ne aradığını paylaş.",
+  "bioCounterStartWriting": "Yazmaya başla...",
+  "bioCounterABitMore": "Biraz daha yazsan iyi olur",
+  "bioCounterAlmostAtLimit": "Limite yaklaşıyorsun",
+  "bioCounterTooLong": "Çok uzun",
+  "bioQuickStarters": "Hızlı başlangıçlar",
+  "rhPositive": "Rh Pozitif",
+  "rhNegative": "Rh Negatif",
+  "rhPositiveDesc": "En yaygın",
+  "rhNegativeDesc": "Evrensel donör / nadir",
+  "yourBloodType": "Kan grubunuz",
+  "noBloodTypeSelected": "Kan grubu seçilmedi",
+  "tapTypeBelow": "Aşağıdan bir tür seçin",
+  "tapButtonToDetectLocation": "Mevcut konumunu tespit etmek için aşağıdaki düğmeye dokun",
+  "currentAddressLabel": "Mevcut: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Diğer kullanıcılara yalnızca şehrin ve ülken gösterilir. Kesin koordinatlar gizli kalır.",
+  "updateLocationCta": "Konumu Güncelle",
+  "enterYourName": "Adınızı girin",
+  "unsavedChanges": "Kaydedilmemiş değişiklikleriniz var"
 }

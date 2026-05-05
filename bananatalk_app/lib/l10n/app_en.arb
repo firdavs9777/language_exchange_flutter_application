@@ -1581,6 +1581,8 @@
     }
   },
   "failedToUpdate": "Failed to update",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "genderRequired": "Gender (Required)",
 
   "editHometown": "Edit Hometown",
   "useCurrentLocation": "Use Current Location",
@@ -1613,6 +1615,8 @@
   "saved": "Saved",
   "myBloodType": "My Blood Type",
   "pleaseSelectABloodType": "Please select a blood type",
+  "bloodTypeSavedSuccessfully": "Blood type saved successfully",
+  "hometownSavedSuccessfully": "Hometown saved successfully",
 
   "nativeLanguageRequired": "Native Language (Required)",
   "languageToLearnRequired": "Language to Learn (Required)",
@@ -2127,6 +2131,40 @@
   "quietHoursAllowUrgent": "Allow urgent notifications",
   "quietHoursAllowUrgentSubtitle": "Calls and messages from VIP partners can still come through",
   "silencedByQuietHours": "Silenced by Quiet Hours",
-  "silencedByCap": "Silenced by daily limit"
+  "silencedByCap": "Silenced by daily limit",
+  "momentUpdatedSuccessfully": "Moment updated successfully",
+  "failedToDeleteMoment": "Failed to delete moment",
+  "failedToUpdateMoment": "Failed to update moment",
+
+  "mbtiUpdatedSuccessfully": "MBTI updated successfully",
+  "pleaseSelectMbti": "Please select an MBTI type",
+  "languageUpdatedSuccessfully": "Language updated successfully",
+
+  "bioHintCard": "A great bio helps others connect with you. Share your interests, languages, or what you're looking for.",
+  "bioCounterStartWriting": "Start writing...",
+  "bioCounterABitMore": "A bit more would be great",
+  "bioCounterAlmostAtLimit": "Almost at the limit",
+  "bioCounterTooLong": "Too long",
+  "bioQuickStarters": "Quick starters",
+  "rhPositive": "Rh Positive",
+  "rhNegative": "Rh Negative",
+  "rhPositiveDesc": "Most common",
+  "rhNegativeDesc": "Universal donors / rare",
+  "yourBloodType": "Your blood type",
+  "noBloodTypeSelected": "No blood type selected",
+  "tapTypeBelow": "Tap a type below",
+  "tapButtonToDetectLocation": "Tap the button below to detect your current location",
+  "currentAddressLabel": "Current: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Only your city and country are shown to others. Exact coordinates remain private.",
+  "updateLocationCta": "Update Location",
+  "enterYourName": "Enter your name",
+  "unsavedChanges": "You have unsaved changes"
 }
 

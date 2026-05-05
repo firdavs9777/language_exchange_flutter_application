@@ -1058,6 +1058,8 @@
     }
   },
   "failedToUpdate": "अपडेट विफल",
+  "profileUpdatedSuccessfully": "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई",
+  "genderRequired": "लिंग (आवश्यक)",
   "editHometown": "गृहनगर संपादित करें",
   "useCurrentLocation": "वर्तमान स्थान का उपयोग करें",
   "detecting": "पता लगा रहा है...",
@@ -1083,6 +1085,8 @@
   "selectYourMbti": "MBTI चुनें",
   "myBloodType": "मेरा रक्त प्रकार",
   "pleaseSelectABloodType": "रक्त प्रकार चुनें",
+  "bloodTypeSavedSuccessfully": "रक्त प्रकार सफलतापूर्वक सहेजा गया",
+  "hometownSavedSuccessfully": "मूल शहर सफलतापूर्वक सहेजा गया",
   "nativeLanguageRequired": "मूल भाषा (आवश्यक)",
   "languageToLearnRequired": "सीखने की भाषा (आवश्यक)",
   "nativeLanguageCannotBeSame": "मूल भाषा सीखने वाली भाषा नहीं हो सकती",
@@ -1417,4 +1421,39 @@
   "fontStyleLabel": "फ़ॉन्ट शैली",
   "textColorLabel": "टेक्स्ट रंग",
   "dragToDelete": "हटाने के लिए यहां खींचें"
+,
+  "momentUpdatedSuccessfully": "मोमेंट सफलतापूर्वक अपडेट किया गया",
+  "failedToDeleteMoment": "मोमेंट हटाने में विफल",
+  "failedToUpdateMoment": "मोमेंट अपडेट करने में विफल",
+
+  "mbtiUpdatedSuccessfully": "MBTI सफलतापूर्वक अपडेट हो गया",
+  "pleaseSelectMbti": "कृपया एक MBTI प्रकार चुनें",
+  "languageUpdatedSuccessfully": "भाषा सफलतापूर्वक अपडेट हो गई",
+
+  "bioHintCard": "एक अच्छी बायो दूसरों को आपसे जुड़ने में मदद करती है। अपनी रुचियाँ, भाषाएँ या आप क्या ढूंढ रहे हैं, साझा करें।",
+  "bioCounterStartWriting": "लिखना शुरू करें...",
+  "bioCounterABitMore": "थोड़ा और लिखें",
+  "bioCounterAlmostAtLimit": "सीमा के करीब",
+  "bioCounterTooLong": "बहुत लंबा",
+  "bioQuickStarters": "त्वरित सुझाव",
+  "rhPositive": "Rh पॉजिटिव",
+  "rhNegative": "Rh नेगेटिव",
+  "rhPositiveDesc": "सबसे सामान्य",
+  "rhNegativeDesc": "सार्वभौमिक दाता / दुर्लभ",
+  "yourBloodType": "आपका रक्त समूह",
+  "noBloodTypeSelected": "कोई रक्त समूह नहीं चुना गया",
+  "tapTypeBelow": "नीचे एक प्रकार टैप करें",
+  "tapButtonToDetectLocation": "अपना वर्तमान स्थान पता करने के लिए नीचे का बटन टैप करें",
+  "currentAddressLabel": "वर्तमान: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "केवल आपका शहर और देश दूसरों को दिखाया जाता है। सटीक निर्देशांक निजी रहते हैं।",
+  "updateLocationCta": "स्थान अपडेट करें",
+  "enterYourName": "अपना नाम दर्ज करें",
+  "unsavedChanges": "आपके पास सहेजे नहीं गए परिवर्तन हैं"
 }

@@ -3311,6 +3311,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get failedToUpdate => 'Falha ao atualizar';
 
   @override
+  String get profileUpdatedSuccessfully => 'Perfil atualizado com sucesso';
+
+  @override
+  String get genderRequired => 'Gênero (Obrigatório)';
+
+  @override
   String get editHometown => 'Editar Cidade Natal';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Por favor, selecione um tipo sanguíneo';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Tipo sanguíneo salvo com sucesso';
+
+  @override
+  String get hometownSavedSuccessfully => 'Cidade natal salva com sucesso';
 
   @override
   String get nativeLanguageRequired => 'Idioma Nativo (Obrigatório)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'Momento atualizado com sucesso';
+
+  @override
+  String get failedToDeleteMoment => 'Falha ao excluir o momento';
+
+  @override
+  String get failedToUpdateMoment => 'Falha ao atualizar o momento';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI atualizado com sucesso';
+
+  @override
+  String get pleaseSelectMbti => 'Por favor selecione um tipo MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Idioma atualizado com sucesso';
+
+  @override
+  String get bioHintCard => 'Uma boa bio ajuda os outros a se conectarem com você. Compartilhe seus interesses, idiomas ou o que você está procurando.';
+
+  @override
+  String get bioCounterStartWriting => 'Comece a escrever...';
+
+  @override
+  String get bioCounterABitMore => 'Um pouco mais seria ótimo';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Quase no limite';
+
+  @override
+  String get bioCounterTooLong => 'Muito longo';
+
+  @override
+  String get bioQuickStarters => 'Sugestões rápidas';
+
+  @override
+  String get rhPositive => 'Rh Positivo';
+
+  @override
+  String get rhNegative => 'Rh Negativo';
+
+  @override
+  String get rhPositiveDesc => 'O mais comum';
+
+  @override
+  String get rhNegativeDesc => 'Doadores universais / raro';
+
+  @override
+  String get yourBloodType => 'Seu tipo sanguíneo';
+
+  @override
+  String get noBloodTypeSelected => 'Nenhum tipo sanguíneo selecionado';
+
+  @override
+  String get tapTypeBelow => 'Toque em um tipo abaixo';
+
+  @override
+  String get tapButtonToDetectLocation => 'Toque no botão abaixo para detectar sua localização atual';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Atual: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Somente sua cidade e país são exibidos para os outros. As coordenadas exatas permanecem privadas.';
+
+  @override
+  String get updateLocationCta => 'Atualizar localização';
+
+  @override
+  String get enterYourName => 'Digite seu nome';
+
+  @override
+  String get unsavedChanges => 'Você tem alterações não salvas';
 }

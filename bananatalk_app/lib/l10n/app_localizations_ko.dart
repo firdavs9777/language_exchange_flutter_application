@@ -3311,6 +3311,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToUpdate => '업데이트 실패';
 
   @override
+  String get profileUpdatedSuccessfully => '프로필이 성공적으로 업데이트되었습니다';
+
+  @override
+  String get genderRequired => '성별 (필수)';
+
+  @override
   String get editHometown => '고향 편집';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => '혈액형을 선택해주세요';
+
+  @override
+  String get bloodTypeSavedSuccessfully => '혈액형이 성공적으로 저장되었습니다';
+
+  @override
+  String get hometownSavedSuccessfully => '고향이 성공적으로 저장되었습니다';
 
   @override
   String get nativeLanguageRequired => '모국어 (필수)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => '모멘트가 성공적으로 업데이트되었습니다';
+
+  @override
+  String get failedToDeleteMoment => '모멘트 삭제에 실패했습니다';
+
+  @override
+  String get failedToUpdateMoment => '모멘트 업데이트에 실패했습니다';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI가 성공적으로 업데이트되었습니다';
+
+  @override
+  String get pleaseSelectMbti => 'MBTI 유형을 선택해 주세요';
+
+  @override
+  String get languageUpdatedSuccessfully => '언어가 성공적으로 업데이트되었습니다';
+
+  @override
+  String get bioHintCard => '좋은 자기소개는 다른 사람들이 나와 연결하는 데 도움이 됩니다. 관심사, 사용 언어, 또는 찾고 있는 것을 공유해 보세요.';
+
+  @override
+  String get bioCounterStartWriting => '작성을 시작하세요...';
+
+  @override
+  String get bioCounterABitMore => '조금 더 작성하면 좋겠어요';
+
+  @override
+  String get bioCounterAlmostAtLimit => '거의 한도에 달했어요';
+
+  @override
+  String get bioCounterTooLong => '너무 길어요';
+
+  @override
+  String get bioQuickStarters => '빠른 시작';
+
+  @override
+  String get rhPositive => 'Rh 양성';
+
+  @override
+  String get rhNegative => 'Rh 음성';
+
+  @override
+  String get rhPositiveDesc => '가장 흔한 혈액형';
+
+  @override
+  String get rhNegativeDesc => '만능 공혈자 / 희귀';
+
+  @override
+  String get yourBloodType => '혈액형';
+
+  @override
+  String get noBloodTypeSelected => '혈액형이 선택되지 않았습니다';
+
+  @override
+  String get tapTypeBelow => '아래에서 혈액형을 선택하세요';
+
+  @override
+  String get tapButtonToDetectLocation => '아래 버튼을 눌러 현재 위치를 감지하세요';
+
+  @override
+  String currentAddressLabel(String address) {
+    return '현재: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => '다른 사람들에게는 도시와 국가만 표시됩니다. 정확한 좌표는 비공개로 유지됩니다.';
+
+  @override
+  String get updateLocationCta => '위치 업데이트';
+
+  @override
+  String get enterYourName => '이름을 입력하세요';
+
+  @override
+  String get unsavedChanges => '저장되지 않은 변경 사항이 있습니다';
 }

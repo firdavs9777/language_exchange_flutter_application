@@ -1335,6 +1335,8 @@
     }
   },
   "failedToUpdate": "Échec de la mise à jour",
+  "profileUpdatedSuccessfully": "Profil mis à jour avec succès",
+  "genderRequired": "Genre (Obligatoire)",
 
   "editHometown": "Modifier la Ville d'Origine",
   "useCurrentLocation": "Utiliser la Position Actuelle",
@@ -1363,6 +1365,8 @@
   "selectYourMbti": "Sélectionnez Votre MBTI",
   "myBloodType": "Mon Groupe Sanguin",
   "pleaseSelectABloodType": "Veuillez sélectionner un groupe sanguin",
+  "bloodTypeSavedSuccessfully": "Groupe sanguin enregistré avec succès",
+  "hometownSavedSuccessfully": "Ville natale enregistrée avec succès",
 
   "nativeLanguageRequired": "Langue Maternelle (Obligatoire)",
   "languageToLearnRequired": "Langue à Apprendre (Obligatoire)",
@@ -1701,4 +1705,39 @@
   "fontStyleLabel": "Style de police",
   "textColorLabel": "Couleur du texte",
   "dragToDelete": "Faites glisser ici pour supprimer"
+,
+  "momentUpdatedSuccessfully": "Moment mis à jour avec succès",
+  "failedToDeleteMoment": "Échec de la suppression du moment",
+  "failedToUpdateMoment": "Échec de la mise à jour du moment",
+
+  "mbtiUpdatedSuccessfully": "MBTI mis à jour avec succès",
+  "pleaseSelectMbti": "Veuillez sélectionner un type MBTI",
+  "languageUpdatedSuccessfully": "Langue mise à jour avec succès",
+
+  "bioHintCard": "Une bonne bio aide les autres à vous connaître. Partagez vos intérêts, langues ou ce que vous recherchez.",
+  "bioCounterStartWriting": "Commencez à écrire...",
+  "bioCounterABitMore": "Un peu plus serait bien",
+  "bioCounterAlmostAtLimit": "Presque à la limite",
+  "bioCounterTooLong": "Trop long",
+  "bioQuickStarters": "Suggestions rapides",
+  "rhPositive": "Rh Positif",
+  "rhNegative": "Rh Négatif",
+  "rhPositiveDesc": "Le plus courant",
+  "rhNegativeDesc": "Donneurs universels / rare",
+  "yourBloodType": "Votre groupe sanguin",
+  "noBloodTypeSelected": "Aucun groupe sanguin sélectionné",
+  "tapTypeBelow": "Appuyez sur un type ci-dessous",
+  "tapButtonToDetectLocation": "Appuyez sur le bouton ci-dessous pour détecter votre position actuelle",
+  "currentAddressLabel": "Actuel : {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Seules votre ville et votre pays sont visibles par les autres. Les coordonnées exactes restent privées.",
+  "updateLocationCta": "Mettre à jour la position",
+  "enterYourName": "Entrez votre prénom",
+  "unsavedChanges": "Vous avez des modifications non enregistrées"
 }

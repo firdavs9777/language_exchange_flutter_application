@@ -3311,6 +3311,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToUpdate => 'Cập nhật thất bại';
 
   @override
+  String get profileUpdatedSuccessfully => 'Cập nhật hồ sơ thành công';
+
+  @override
+  String get genderRequired => 'Giới tính (Bắt buộc)';
+
+  @override
   String get editHometown => 'Sửa Quê quán';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Vui lòng chọn nhóm máu';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Nhóm máu đã được lưu thành công';
+
+  @override
+  String get hometownSavedSuccessfully => 'Quê hương đã được lưu thành công';
 
   @override
   String get nativeLanguageRequired => 'Ngôn ngữ Mẹ đẻ (Bắt buộc)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'Khoảnh khắc đã được cập nhật thành công';
+
+  @override
+  String get failedToDeleteMoment => 'Xóa khoảnh khắc thất bại';
+
+  @override
+  String get failedToUpdateMoment => 'Cập nhật khoảnh khắc thất bại';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'Cập nhật MBTI thành công';
+
+  @override
+  String get pleaseSelectMbti => 'Vui lòng chọn loại MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Cập nhật ngôn ngữ thành công';
+
+  @override
+  String get bioHintCard => 'Một tiểu sử hay giúp người khác kết nối với bạn hơn. Hãy chia sẻ sở thích, ngôn ngữ hoặc điều bạn đang tìm kiếm.';
+
+  @override
+  String get bioCounterStartWriting => 'Bắt đầu viết...';
+
+  @override
+  String get bioCounterABitMore => 'Thêm một chút nữa sẽ tốt hơn';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Gần đến giới hạn';
+
+  @override
+  String get bioCounterTooLong => 'Quá dài';
+
+  @override
+  String get bioQuickStarters => 'Gợi ý nhanh';
+
+  @override
+  String get rhPositive => 'Rh Dương';
+
+  @override
+  String get rhNegative => 'Rh Âm';
+
+  @override
+  String get rhPositiveDesc => 'Phổ biến nhất';
+
+  @override
+  String get rhNegativeDesc => 'Người hiến máu toàn phần / hiếm';
+
+  @override
+  String get yourBloodType => 'Nhóm máu của bạn';
+
+  @override
+  String get noBloodTypeSelected => 'Chưa chọn nhóm máu';
+
+  @override
+  String get tapTypeBelow => 'Chọn nhóm máu bên dưới';
+
+  @override
+  String get tapButtonToDetectLocation => 'Nhấn nút bên dưới để xác định vị trí hiện tại của bạn';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Hiện tại: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Chỉ thành phố và quốc gia của bạn được hiển thị cho người khác. Tọa độ chính xác vẫn được giữ bí mật.';
+
+  @override
+  String get updateLocationCta => 'Cập nhật vị trí';
+
+  @override
+  String get enterYourName => 'Nhập tên của bạn';
+
+  @override
+  String get unsavedChanges => 'Bạn có những thay đổi chưa được lưu';
 }

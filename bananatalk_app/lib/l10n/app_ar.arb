@@ -1074,6 +1074,8 @@
     }
   },
   "failedToUpdate": "فشل التحديث",
+  "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح",
+  "genderRequired": "الجنس (مطلوب)",
   "editHometown": "تعديل مسقط الرأس",
   "useCurrentLocation": "استخدام الموقع الحالي",
   "detecting": "جاري الكشف...",
@@ -1099,6 +1101,8 @@
   "selectYourMbti": "اختر MBTI",
   "myBloodType": "فصيلة دمي",
   "pleaseSelectABloodType": "اختر فصيلة الدم",
+  "bloodTypeSavedSuccessfully": "تم حفظ فصيلة الدم بنجاح",
+  "hometownSavedSuccessfully": "تم حفظ المسقط الأصلي بنجاح",
   "nativeLanguageRequired": "اللغة الأم (مطلوب)",
   "languageToLearnRequired": "لغة التعلم (مطلوب)",
   "nativeLanguageCannotBeSame": "اللغة الأم لا يمكن أن تكون نفس لغة التعلم",
@@ -1432,5 +1436,40 @@
   "addSticker": "إضافة ملصق",
   "fontStyleLabel": "نمط الخط",
   "textColorLabel": "لون النص",
-  "dragToDelete": "اسحب هنا للحذف"
+  "dragToDelete": "اسحب هنا للحذف",
+
+  "mbtiUpdatedSuccessfully": "تم تحديث نوع الشخصية بنجاح",
+  "pleaseSelectMbti": "يرجى اختيار نوع الشخصية",
+  "languageUpdatedSuccessfully": "تم تحديث اللغة بنجاح"
+,
+  "momentUpdatedSuccessfully": "تم تحديث اللحظة بنجاح",
+  "failedToDeleteMoment": "فشل حذف اللحظة",
+  "failedToUpdateMoment": "فشل تحديث اللحظة",
+
+  "bioHintCard": "السيرة الذاتية الجيدة تساعد الآخرين على التواصل معك. شارك اهتماماتك ولغاتك أو ما تبحث عنه.",
+  "bioCounterStartWriting": "ابدأ الكتابة...",
+  "bioCounterABitMore": "قليل من الكتابة سيكون رائعاً",
+  "bioCounterAlmostAtLimit": "اقتربت من الحد الأقصى",
+  "bioCounterTooLong": "طويل جداً",
+  "bioQuickStarters": "بدايات سريعة",
+  "rhPositive": "Rh موجب",
+  "rhNegative": "Rh سالب",
+  "rhPositiveDesc": "الأكثر شيوعاً",
+  "rhNegativeDesc": "المتبرعون الشاملون / نادر",
+  "yourBloodType": "فصيلة دمك",
+  "noBloodTypeSelected": "لم يتم اختيار فصيلة الدم",
+  "tapTypeBelow": "اضغط على نوع أدناه",
+  "tapButtonToDetectLocation": "اضغط على الزر أدناه لتحديد موقعك الحالي",
+  "currentAddressLabel": "الحالي: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "يظهر للآخرين مدينتك وبلدك فقط. تبقى الإحداثيات الدقيقة خاصة.",
+  "updateLocationCta": "تحديث الموقع",
+  "enterYourName": "أدخل اسمك",
+  "unsavedChanges": "لديك تغييرات غير محفوظة"
 }

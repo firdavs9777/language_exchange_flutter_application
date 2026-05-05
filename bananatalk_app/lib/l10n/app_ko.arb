@@ -1081,6 +1081,8 @@
     }
   },
   "failedToUpdate": "업데이트 실패",
+  "profileUpdatedSuccessfully": "프로필이 성공적으로 업데이트되었습니다",
+  "genderRequired": "성별 (필수)",
 
   "editHometown": "고향 편집",
   "useCurrentLocation": "현재 위치 사용",
@@ -1109,6 +1111,8 @@
   "selectYourMbti": "MBTI 선택",
   "myBloodType": "내 혈액형",
   "pleaseSelectABloodType": "혈액형을 선택해주세요",
+  "bloodTypeSavedSuccessfully": "혈액형이 성공적으로 저장되었습니다",
+  "hometownSavedSuccessfully": "고향이 성공적으로 저장되었습니다",
 
   "nativeLanguageRequired": "모국어 (필수)",
   "languageToLearnRequired": "배울 언어 (필수)",
@@ -1447,4 +1451,39 @@
   "fontStyleLabel": "글꼴 스타일",
   "textColorLabel": "텍스트 색상",
   "dragToDelete": "여기로 끌어서 삭제"
+,
+  "momentUpdatedSuccessfully": "모멘트가 성공적으로 업데이트되었습니다",
+  "failedToDeleteMoment": "모멘트 삭제에 실패했습니다",
+  "failedToUpdateMoment": "모멘트 업데이트에 실패했습니다",
+
+  "mbtiUpdatedSuccessfully": "MBTI가 성공적으로 업데이트되었습니다",
+  "pleaseSelectMbti": "MBTI 유형을 선택해 주세요",
+  "languageUpdatedSuccessfully": "언어가 성공적으로 업데이트되었습니다",
+
+  "bioHintCard": "좋은 자기소개는 다른 사람들이 나와 연결하는 데 도움이 됩니다. 관심사, 사용 언어, 또는 찾고 있는 것을 공유해 보세요.",
+  "bioCounterStartWriting": "작성을 시작하세요...",
+  "bioCounterABitMore": "조금 더 작성하면 좋겠어요",
+  "bioCounterAlmostAtLimit": "거의 한도에 달했어요",
+  "bioCounterTooLong": "너무 길어요",
+  "bioQuickStarters": "빠른 시작",
+  "rhPositive": "Rh 양성",
+  "rhNegative": "Rh 음성",
+  "rhPositiveDesc": "가장 흔한 혈액형",
+  "rhNegativeDesc": "만능 공혈자 / 희귀",
+  "yourBloodType": "혈액형",
+  "noBloodTypeSelected": "혈액형이 선택되지 않았습니다",
+  "tapTypeBelow": "아래에서 혈액형을 선택하세요",
+  "tapButtonToDetectLocation": "아래 버튼을 눌러 현재 위치를 감지하세요",
+  "currentAddressLabel": "현재: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "다른 사람들에게는 도시와 국가만 표시됩니다. 정확한 좌표는 비공개로 유지됩니다.",
+  "updateLocationCta": "위치 업데이트",
+  "enterYourName": "이름을 입력하세요",
+  "unsavedChanges": "저장되지 않은 변경 사항이 있습니다"
 }

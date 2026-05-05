@@ -3311,6 +3311,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get failedToUpdate => 'Échec de la mise à jour';
 
   @override
+  String get profileUpdatedSuccessfully => 'Profil mis à jour avec succès';
+
+  @override
+  String get genderRequired => 'Genre (Obligatoire)';
+
+  @override
   String get editHometown => 'Modifier la Ville d\'Origine';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Veuillez sélectionner un groupe sanguin';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Groupe sanguin enregistré avec succès';
+
+  @override
+  String get hometownSavedSuccessfully => 'Ville natale enregistrée avec succès';
 
   @override
   String get nativeLanguageRequired => 'Langue Maternelle (Obligatoire)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'Moment mis à jour avec succès';
+
+  @override
+  String get failedToDeleteMoment => 'Échec de la suppression du moment';
+
+  @override
+  String get failedToUpdateMoment => 'Échec de la mise à jour du moment';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI mis à jour avec succès';
+
+  @override
+  String get pleaseSelectMbti => 'Veuillez sélectionner un type MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Langue mise à jour avec succès';
+
+  @override
+  String get bioHintCard => 'Une bonne bio aide les autres à vous connaître. Partagez vos intérêts, langues ou ce que vous recherchez.';
+
+  @override
+  String get bioCounterStartWriting => 'Commencez à écrire...';
+
+  @override
+  String get bioCounterABitMore => 'Un peu plus serait bien';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Presque à la limite';
+
+  @override
+  String get bioCounterTooLong => 'Trop long';
+
+  @override
+  String get bioQuickStarters => 'Suggestions rapides';
+
+  @override
+  String get rhPositive => 'Rh Positif';
+
+  @override
+  String get rhNegative => 'Rh Négatif';
+
+  @override
+  String get rhPositiveDesc => 'Le plus courant';
+
+  @override
+  String get rhNegativeDesc => 'Donneurs universels / rare';
+
+  @override
+  String get yourBloodType => 'Votre groupe sanguin';
+
+  @override
+  String get noBloodTypeSelected => 'Aucun groupe sanguin sélectionné';
+
+  @override
+  String get tapTypeBelow => 'Appuyez sur un type ci-dessous';
+
+  @override
+  String get tapButtonToDetectLocation => 'Appuyez sur le bouton ci-dessous pour détecter votre position actuelle';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Actuel : $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Seules votre ville et votre pays sont visibles par les autres. Les coordonnées exactes restent privées.';
+
+  @override
+  String get updateLocationCta => 'Mettre à jour la position';
+
+  @override
+  String get enterYourName => 'Entrez votre prénom';
+
+  @override
+  String get unsavedChanges => 'Vous avez des modifications non enregistrées';
 }

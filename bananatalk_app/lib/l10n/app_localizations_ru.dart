@@ -3311,6 +3311,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get failedToUpdate => 'Не удалось обновить';
 
   @override
+  String get profileUpdatedSuccessfully => 'Профиль успешно обновлён';
+
+  @override
+  String get genderRequired => 'Пол (обязательно)';
+
+  @override
   String get editHometown => 'Изменить Родной Город';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Пожалуйста, выберите группу крови';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Группа крови успешно сохранена';
+
+  @override
+  String get hometownSavedSuccessfully => 'Родной город успешно сохранён';
 
   @override
   String get nativeLanguageRequired => 'Родной Язык (Обязательно)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'Момент успешно обновлён';
+
+  @override
+  String get failedToDeleteMoment => 'Не удалось удалить момент';
+
+  @override
+  String get failedToUpdateMoment => 'Не удалось обновить момент';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI успешно обновлён';
+
+  @override
+  String get pleaseSelectMbti => 'Пожалуйста, выберите тип MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Язык успешно обновлён';
+
+  @override
+  String get bioHintCard => 'Хорошая анкета помогает другим узнать вас. Расскажите о своих интересах, языках или о том, что вы ищете.';
+
+  @override
+  String get bioCounterStartWriting => 'Начните писать...';
+
+  @override
+  String get bioCounterABitMore => 'Можно написать чуть больше';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Почти достигнут лимит';
+
+  @override
+  String get bioCounterTooLong => 'Слишком длинно';
+
+  @override
+  String get bioQuickStarters => 'Быстрые подсказки';
+
+  @override
+  String get rhPositive => 'Rh положительный';
+
+  @override
+  String get rhNegative => 'Rh отрицательный';
+
+  @override
+  String get rhPositiveDesc => 'Самый распространённый';
+
+  @override
+  String get rhNegativeDesc => 'Универсальные доноры / редкий';
+
+  @override
+  String get yourBloodType => 'Ваша группа крови';
+
+  @override
+  String get noBloodTypeSelected => 'Группа крови не выбрана';
+
+  @override
+  String get tapTypeBelow => 'Выберите тип ниже';
+
+  @override
+  String get tapButtonToDetectLocation => 'Нажмите кнопку ниже, чтобы определить ваше текущее местоположение';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Текущий: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Другим пользователям видны только ваш город и страна. Точные координаты остаются конфиденциальными.';
+
+  @override
+  String get updateLocationCta => 'Обновить местоположение';
+
+  @override
+  String get enterYourName => 'Введите ваше имя';
+
+  @override
+  String get unsavedChanges => 'У вас есть несохранённые изменения';
 }

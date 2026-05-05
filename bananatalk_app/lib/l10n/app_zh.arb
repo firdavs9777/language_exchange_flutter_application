@@ -1073,6 +1073,8 @@
     }
   },
   "failedToUpdate": "更新失败",
+  "profileUpdatedSuccessfully": "个人资料已成功更新",
+  "genderRequired": "性别（必填）",
 
   "editHometown": "编辑家乡",
   "useCurrentLocation": "使用当前位置",
@@ -1101,6 +1103,8 @@
   "selectYourMbti": "选择您的MBTI",
   "myBloodType": "我的血型",
   "pleaseSelectABloodType": "请选择血型",
+  "bloodTypeSavedSuccessfully": "血型保存成功",
+  "hometownSavedSuccessfully": "家乡保存成功",
 
   "nativeLanguageRequired": "母语（必填）",
   "languageToLearnRequired": "学习语言（必填）",
@@ -1439,4 +1443,39 @@
   "fontStyleLabel": "字体样式",
   "textColorLabel": "文字颜色",
   "dragToDelete": "拖到此处删除"
+,
+  "momentUpdatedSuccessfully": "动态更新成功",
+  "failedToDeleteMoment": "删除动态失败",
+  "failedToUpdateMoment": "更新动态失败",
+
+  "mbtiUpdatedSuccessfully": "MBTI已成功更新",
+  "pleaseSelectMbti": "请选择一个MBTI类型",
+  "languageUpdatedSuccessfully": "语言已成功更新",
+
+  "bioHintCard": "精彩的个人简介有助于他人更好地了解你。分享你的兴趣爱好、语言或你正在寻找的内容。",
+  "bioCounterStartWriting": "开始写作...",
+  "bioCounterABitMore": "再多写一点会更好",
+  "bioCounterAlmostAtLimit": "快到字数上限了",
+  "bioCounterTooLong": "太长了",
+  "bioQuickStarters": "快速开始",
+  "rhPositive": "Rh阳性",
+  "rhNegative": "Rh阴性",
+  "rhPositiveDesc": "最常见",
+  "rhNegativeDesc": "万能献血者 / 稀有",
+  "yourBloodType": "你的血型",
+  "noBloodTypeSelected": "未选择血型",
+  "tapTypeBelow": "点击下方选择血型",
+  "tapButtonToDetectLocation": "点击下方按钮检测你的当前位置",
+  "currentAddressLabel": "当前：{address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "其他人只能看到你的城市和国家，精确坐标保持私密。",
+  "updateLocationCta": "更新位置",
+  "enterYourName": "输入你的名字",
+  "unsavedChanges": "你有未保存的更改"
 }

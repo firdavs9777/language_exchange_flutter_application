@@ -1083,6 +1083,8 @@
     }
   },
   "failedToUpdate": "更新失敗",
+  "profileUpdatedSuccessfully": "個人資料已成功更新",
+  "genderRequired": "性別（必填）",
   "editHometown": "編輯家鄉",
   "useCurrentLocation": "使用目前位置",
   "detecting": "偵測中...",
@@ -1100,9 +1102,12 @@
   "bioUpdatedSuccessfully": "個人簡介已更新！",
   "tellOthersAboutYourself": "介紹一下自己",
   "charactersCount": "{count}/500字",
+  "characters": "字",
   "selectYourMbti": "選擇您的MBTI",
   "myBloodType": "我的血型",
   "pleaseSelectABloodType": "請選擇血型",
+  "bloodTypeSavedSuccessfully": "血型儲存成功",
+  "hometownSavedSuccessfully": "家鄉儲存成功",
   "nativeLanguageRequired": "需要母語",
   "languageToLearnRequired": "需要學習語言",
   "nativeLanguageCannotBeSame": "母語不能與學習語言相同",
@@ -1398,4 +1403,39 @@
   "fontStyleLabel": "字型樣式",
   "textColorLabel": "文字顏色",
   "dragToDelete": "拖曳至此刪除"
+,
+  "momentUpdatedSuccessfully": "動態更新成功",
+  "failedToDeleteMoment": "刪除動態失敗",
+  "failedToUpdateMoment": "更新動態失敗",
+
+  "mbtiUpdatedSuccessfully": "MBTI已成功更新",
+  "pleaseSelectMbti": "請選擇一個MBTI類型",
+  "languageUpdatedSuccessfully": "語言已成功更新",
+
+  "bioHintCard": "精彩的個人簡介有助於他人更好地認識你。分享你的興趣愛好、語言或你正在尋找的內容。",
+  "bioCounterStartWriting": "開始寫作...",
+  "bioCounterABitMore": "再多寫一點會更好",
+  "bioCounterAlmostAtLimit": "快到字數上限了",
+  "bioCounterTooLong": "太長了",
+  "bioQuickStarters": "快速開始",
+  "rhPositive": "Rh陽性",
+  "rhNegative": "Rh陰性",
+  "rhPositiveDesc": "最常見",
+  "rhNegativeDesc": "萬能捐血者 / 稀有",
+  "yourBloodType": "你的血型",
+  "noBloodTypeSelected": "未選擇血型",
+  "tapTypeBelow": "點擊下方選擇血型",
+  "tapButtonToDetectLocation": "點擊下方按鈕偵測你的目前位置",
+  "currentAddressLabel": "目前：{address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "其他人只能看到你的城市和國家，確切座標保持私密。",
+  "updateLocationCta": "更新位置",
+  "enterYourName": "輸入你的名字",
+  "unsavedChanges": "你有未儲存的變更"
 }

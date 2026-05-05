@@ -1079,6 +1079,8 @@
     }
   },
   "failedToUpdate": "Error al actualizar",
+  "profileUpdatedSuccessfully": "Perfil actualizado correctamente",
+  "genderRequired": "Género (Obligatorio)",
 
   "editHometown": "Editar Ciudad Natal",
   "useCurrentLocation": "Usar Ubicación Actual",
@@ -1107,6 +1109,8 @@
   "selectYourMbti": "Selecciona Tu MBTI",
   "myBloodType": "Mi Tipo de Sangre",
   "pleaseSelectABloodType": "Por favor selecciona un tipo de sangre",
+  "bloodTypeSavedSuccessfully": "Tipo de sangre guardado correctamente",
+  "hometownSavedSuccessfully": "Ciudad natal guardada correctamente",
 
   "nativeLanguageRequired": "Idioma Nativo (Requerido)",
   "languageToLearnRequired": "Idioma a Aprender (Requerido)",
@@ -1445,4 +1449,39 @@
   "fontStyleLabel": "Estilo de fuente",
   "textColorLabel": "Color de texto",
   "dragToDelete": "Arrastra aquí para eliminar"
+,
+  "momentUpdatedSuccessfully": "Momento actualizado con éxito",
+  "failedToDeleteMoment": "Error al eliminar el momento",
+  "failedToUpdateMoment": "Error al actualizar el momento",
+
+  "mbtiUpdatedSuccessfully": "MBTI actualizado correctamente",
+  "pleaseSelectMbti": "Por favor selecciona un tipo MBTI",
+  "languageUpdatedSuccessfully": "Idioma actualizado correctamente",
+
+  "bioHintCard": "Una buena bio ayuda a otros a conectar contigo. Comparte tus intereses, idiomas o lo que estás buscando.",
+  "bioCounterStartWriting": "Empieza a escribir...",
+  "bioCounterABitMore": "Un poco más estaría bien",
+  "bioCounterAlmostAtLimit": "Casi en el límite",
+  "bioCounterTooLong": "Demasiado largo",
+  "bioQuickStarters": "Inicio rápido",
+  "rhPositive": "Rh Positivo",
+  "rhNegative": "Rh Negativo",
+  "rhPositiveDesc": "El más común",
+  "rhNegativeDesc": "Donantes universales / raro",
+  "yourBloodType": "Tu grupo sanguíneo",
+  "noBloodTypeSelected": "Ningún grupo sanguíneo seleccionado",
+  "tapTypeBelow": "Toca un tipo abajo",
+  "tapButtonToDetectLocation": "Toca el botón de abajo para detectar tu ubicación actual",
+  "currentAddressLabel": "Actual: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Solo tu ciudad y país se muestran a los demás. Las coordenadas exactas permanecen privadas.",
+  "updateLocationCta": "Actualizar ubicación",
+  "enterYourName": "Ingresa tu nombre",
+  "unsavedChanges": "Tienes cambios sin guardar"
 }

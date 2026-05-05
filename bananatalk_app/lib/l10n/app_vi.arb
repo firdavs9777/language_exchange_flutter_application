@@ -889,6 +889,8 @@
     }
   },
   "failedToUpdate": "Cập nhật thất bại",
+  "profileUpdatedSuccessfully": "Cập nhật hồ sơ thành công",
+  "genderRequired": "Giới tính (Bắt buộc)",
   "editHometown": "Sửa Quê quán",
   "useCurrentLocation": "Dùng Vị trí Hiện tại",
   "detecting": "Đang phát hiện...",
@@ -914,6 +916,8 @@
   "selectYourMbti": "Chọn MBTI",
   "myBloodType": "Nhóm máu",
   "pleaseSelectABloodType": "Vui lòng chọn nhóm máu",
+  "bloodTypeSavedSuccessfully": "Nhóm máu đã được lưu thành công",
+  "hometownSavedSuccessfully": "Quê hương đã được lưu thành công",
   "nativeLanguageRequired": "Ngôn ngữ Mẹ đẻ (Bắt buộc)",
   "languageToLearnRequired": "Ngôn ngữ Học (Bắt buộc)",
   "nativeLanguageCannotBeSame": "Ngôn ngữ mẹ đẻ không thể giống ngôn ngữ học",
@@ -1248,4 +1252,39 @@
   "fontStyleLabel": "Kiểu chữ",
   "textColorLabel": "Màu chữ",
   "dragToDelete": "Kéo vào đây để xóa"
+,
+  "momentUpdatedSuccessfully": "Khoảnh khắc đã được cập nhật thành công",
+  "failedToDeleteMoment": "Xóa khoảnh khắc thất bại",
+  "failedToUpdateMoment": "Cập nhật khoảnh khắc thất bại",
+
+  "mbtiUpdatedSuccessfully": "Cập nhật MBTI thành công",
+  "pleaseSelectMbti": "Vui lòng chọn loại MBTI",
+  "languageUpdatedSuccessfully": "Cập nhật ngôn ngữ thành công",
+
+  "bioHintCard": "Một tiểu sử hay giúp người khác kết nối với bạn hơn. Hãy chia sẻ sở thích, ngôn ngữ hoặc điều bạn đang tìm kiếm.",
+  "bioCounterStartWriting": "Bắt đầu viết...",
+  "bioCounterABitMore": "Thêm một chút nữa sẽ tốt hơn",
+  "bioCounterAlmostAtLimit": "Gần đến giới hạn",
+  "bioCounterTooLong": "Quá dài",
+  "bioQuickStarters": "Gợi ý nhanh",
+  "rhPositive": "Rh Dương",
+  "rhNegative": "Rh Âm",
+  "rhPositiveDesc": "Phổ biến nhất",
+  "rhNegativeDesc": "Người hiến máu toàn phần / hiếm",
+  "yourBloodType": "Nhóm máu của bạn",
+  "noBloodTypeSelected": "Chưa chọn nhóm máu",
+  "tapTypeBelow": "Chọn nhóm máu bên dưới",
+  "tapButtonToDetectLocation": "Nhấn nút bên dưới để xác định vị trí hiện tại của bạn",
+  "currentAddressLabel": "Hiện tại: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Chỉ thành phố và quốc gia của bạn được hiển thị cho người khác. Tọa độ chính xác vẫn được giữ bí mật.",
+  "updateLocationCta": "Cập nhật vị trí",
+  "enterYourName": "Nhập tên của bạn",
+  "unsavedChanges": "Bạn có những thay đổi chưa được lưu"
 }

@@ -3311,6 +3311,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToUpdate => '更新失败';
 
   @override
+  String get profileUpdatedSuccessfully => '个人资料已成功更新';
+
+  @override
+  String get genderRequired => '性别（必填）';
+
+  @override
   String get editHometown => '编辑家乡';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => '请选择血型';
+
+  @override
+  String get bloodTypeSavedSuccessfully => '血型保存成功';
+
+  @override
+  String get hometownSavedSuccessfully => '家乡保存成功';
 
   @override
   String get nativeLanguageRequired => '母语（必填）';
@@ -4117,6 +4129,83 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => '动态更新成功';
+
+  @override
+  String get failedToDeleteMoment => '删除动态失败';
+
+  @override
+  String get failedToUpdateMoment => '更新动态失败';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI已成功更新';
+
+  @override
+  String get pleaseSelectMbti => '请选择一个MBTI类型';
+
+  @override
+  String get languageUpdatedSuccessfully => '语言已成功更新';
+
+  @override
+  String get bioHintCard => '精彩的个人简介有助于他人更好地了解你。分享你的兴趣爱好、语言或你正在寻找的内容。';
+
+  @override
+  String get bioCounterStartWriting => '开始写作...';
+
+  @override
+  String get bioCounterABitMore => '再多写一点会更好';
+
+  @override
+  String get bioCounterAlmostAtLimit => '快到字数上限了';
+
+  @override
+  String get bioCounterTooLong => '太长了';
+
+  @override
+  String get bioQuickStarters => '快速开始';
+
+  @override
+  String get rhPositive => 'Rh阳性';
+
+  @override
+  String get rhNegative => 'Rh阴性';
+
+  @override
+  String get rhPositiveDesc => '最常见';
+
+  @override
+  String get rhNegativeDesc => '万能献血者 / 稀有';
+
+  @override
+  String get yourBloodType => '你的血型';
+
+  @override
+  String get noBloodTypeSelected => '未选择血型';
+
+  @override
+  String get tapTypeBelow => '点击下方选择血型';
+
+  @override
+  String get tapButtonToDetectLocation => '点击下方按钮检测你的当前位置';
+
+  @override
+  String currentAddressLabel(String address) {
+    return '当前：$address';
+  }
+
+  @override
+  String get onlyCityCountryShown => '其他人只能看到你的城市和国家，精确坐标保持私密。';
+
+  @override
+  String get updateLocationCta => '更新位置';
+
+  @override
+  String get enterYourName => '输入你的名字';
+
+  @override
+  String get unsavedChanges => '你有未保存的更改';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -7291,6 +7380,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get failedToUpdate => '更新失敗';
 
   @override
+  String get profileUpdatedSuccessfully => '個人資料已成功更新';
+
+  @override
+  String get genderRequired => '性別（必填）';
+
+  @override
   String get editHometown => '編輯家鄉';
 
   @override
@@ -7351,6 +7446,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get pleaseSelectABloodType => '請選擇血型';
+
+  @override
+  String get bloodTypeSavedSuccessfully => '血型儲存成功';
+
+  @override
+  String get hometownSavedSuccessfully => '家鄉儲存成功';
 
   @override
   String get nativeLanguageRequired => '需要母語';
@@ -7414,6 +7515,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get imagesUploadedSuccessfully => '照片已上傳';
+
+  @override
+  String get characters => '字';
 
   @override
   String get studyHub => '學習中心';
@@ -7940,4 +8044,81 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get dragToDelete => '拖曳至此刪除';
+
+  @override
+  String get momentUpdatedSuccessfully => '動態更新成功';
+
+  @override
+  String get failedToDeleteMoment => '刪除動態失敗';
+
+  @override
+  String get failedToUpdateMoment => '更新動態失敗';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'MBTI已成功更新';
+
+  @override
+  String get pleaseSelectMbti => '請選擇一個MBTI類型';
+
+  @override
+  String get languageUpdatedSuccessfully => '語言已成功更新';
+
+  @override
+  String get bioHintCard => '精彩的個人簡介有助於他人更好地認識你。分享你的興趣愛好、語言或你正在尋找的內容。';
+
+  @override
+  String get bioCounterStartWriting => '開始寫作...';
+
+  @override
+  String get bioCounterABitMore => '再多寫一點會更好';
+
+  @override
+  String get bioCounterAlmostAtLimit => '快到字數上限了';
+
+  @override
+  String get bioCounterTooLong => '太長了';
+
+  @override
+  String get bioQuickStarters => '快速開始';
+
+  @override
+  String get rhPositive => 'Rh陽性';
+
+  @override
+  String get rhNegative => 'Rh陰性';
+
+  @override
+  String get rhPositiveDesc => '最常見';
+
+  @override
+  String get rhNegativeDesc => '萬能捐血者 / 稀有';
+
+  @override
+  String get yourBloodType => '你的血型';
+
+  @override
+  String get noBloodTypeSelected => '未選擇血型';
+
+  @override
+  String get tapTypeBelow => '點擊下方選擇血型';
+
+  @override
+  String get tapButtonToDetectLocation => '點擊下方按鈕偵測你的目前位置';
+
+  @override
+  String currentAddressLabel(String address) {
+    return '目前：$address';
+  }
+
+  @override
+  String get onlyCityCountryShown => '其他人只能看到你的城市和國家，確切座標保持私密。';
+
+  @override
+  String get updateLocationCta => '更新位置';
+
+  @override
+  String get enterYourName => '輸入你的名字';
+
+  @override
+  String get unsavedChanges => '你有未儲存的變更';
 }

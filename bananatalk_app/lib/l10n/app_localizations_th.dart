@@ -3311,6 +3311,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get failedToUpdate => 'อัปเดตไม่สำเร็จ';
 
   @override
+  String get profileUpdatedSuccessfully => 'อัปเดตโปรไฟล์สำเร็จ';
+
+  @override
+  String get genderRequired => 'เพศ (จำเป็น)';
+
+  @override
   String get editHometown => 'แก้ไขบ้านเกิด';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'กรุณาเลือกกรุ๊ปเลือด';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'บันทึกกรุ๊ปเลือดสำเร็จ';
+
+  @override
+  String get hometownSavedSuccessfully => 'บันทึกบ้านเกิดสำเร็จ';
 
   @override
   String get nativeLanguageRequired => 'ภาษาแม่ (จำเป็น)';
@@ -4117,4 +4129,81 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'อัปเดตโมเมนต์สำเร็จ';
+
+  @override
+  String get failedToDeleteMoment => 'ลบโมเมนต์ไม่สำเร็จ';
+
+  @override
+  String get failedToUpdateMoment => 'อัปเดตโมเมนต์ไม่สำเร็จ';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'อัปเดต MBTI สำเร็จ';
+
+  @override
+  String get pleaseSelectMbti => 'กรุณาเลือกประเภท MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'อัปเดตภาษาสำเร็จ';
+
+  @override
+  String get bioHintCard => 'ประวัติที่ดีช่วยให้ผู้อื่นเชื่อมต่อกับคุณได้ แบ่งปันความสนใจ ภาษา หรือสิ่งที่คุณกำลังมองหา';
+
+  @override
+  String get bioCounterStartWriting => 'เริ่มเขียน...';
+
+  @override
+  String get bioCounterABitMore => 'เขียนเพิ่มอีกนิดจะดีมาก';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'ใกล้ถึงขีดจำกัดแล้ว';
+
+  @override
+  String get bioCounterTooLong => 'ยาวเกินไป';
+
+  @override
+  String get bioQuickStarters => 'เริ่มต้นอย่างรวดเร็ว';
+
+  @override
+  String get rhPositive => 'Rh บวก';
+
+  @override
+  String get rhNegative => 'Rh ลบ';
+
+  @override
+  String get rhPositiveDesc => 'พบมากที่สุด';
+
+  @override
+  String get rhNegativeDesc => 'ผู้บริจาคสากล / หายาก';
+
+  @override
+  String get yourBloodType => 'หมู่เลือดของคุณ';
+
+  @override
+  String get noBloodTypeSelected => 'ยังไม่ได้เลือกหมู่เลือด';
+
+  @override
+  String get tapTypeBelow => 'แตะประเภทด้านล่าง';
+
+  @override
+  String get tapButtonToDetectLocation => 'แตะปุ่มด้านล่างเพื่อตรวจจับตำแหน่งปัจจุบันของคุณ';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'ปัจจุบัน: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'ผู้อื่นเห็นเพียงเมืองและประเทศของคุณ พิกัดที่แน่นอนจะยังคงเป็นความลับ';
+
+  @override
+  String get updateLocationCta => 'อัปเดตตำแหน่ง';
+
+  @override
+  String get enterYourName => 'กรอกชื่อของคุณ';
+
+  @override
+  String get unsavedChanges => 'คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก';
 }

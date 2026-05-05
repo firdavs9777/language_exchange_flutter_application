@@ -1335,6 +1335,8 @@
     }
   },
   "failedToUpdate": "Aggiornamento fallito",
+  "profileUpdatedSuccessfully": "Profilo aggiornato con successo",
+  "genderRequired": "Genere (Obbligatorio)",
 
   "editHometown": "Modifica Città Natale",
   "useCurrentLocation": "Usa Posizione Attuale",
@@ -1363,6 +1365,8 @@
   "selectYourMbti": "Seleziona il Tuo MBTI",
   "myBloodType": "Il Mio Gruppo Sanguigno",
   "pleaseSelectABloodType": "Seleziona un gruppo sanguigno",
+  "bloodTypeSavedSuccessfully": "Gruppo sanguigno salvato con successo",
+  "hometownSavedSuccessfully": "Città natale salvata con successo",
 
   "nativeLanguageRequired": "Lingua Madre (Obbligatorio)",
   "languageToLearnRequired": "Lingua da Imparare (Obbligatorio)",
@@ -1701,4 +1705,39 @@
   "fontStyleLabel": "Stile font",
   "textColorLabel": "Colore testo",
   "dragToDelete": "Trascina qui per eliminare"
+,
+  "momentUpdatedSuccessfully": "Momento aggiornato con successo",
+  "failedToDeleteMoment": "Impossibile eliminare il momento",
+  "failedToUpdateMoment": "Impossibile aggiornare il momento",
+
+  "mbtiUpdatedSuccessfully": "MBTI aggiornato con successo",
+  "pleaseSelectMbti": "Seleziona un tipo MBTI",
+  "languageUpdatedSuccessfully": "Lingua aggiornata con successo",
+
+  "bioHintCard": "Una buona bio aiuta gli altri a conoscerti. Condividi i tuoi interessi, le lingue che parli o cosa stai cercando.",
+  "bioCounterStartWriting": "Inizia a scrivere...",
+  "bioCounterABitMore": "Un po' di più sarebbe meglio",
+  "bioCounterAlmostAtLimit": "Quasi al limite",
+  "bioCounterTooLong": "Troppo lungo",
+  "bioQuickStarters": "Suggerimenti rapidi",
+  "rhPositive": "Rh Positivo",
+  "rhNegative": "Rh Negativo",
+  "rhPositiveDesc": "Il più comune",
+  "rhNegativeDesc": "Donatori universali / raro",
+  "yourBloodType": "Il tuo gruppo sanguigno",
+  "noBloodTypeSelected": "Nessun gruppo sanguigno selezionato",
+  "tapTypeBelow": "Tocca un tipo qui sotto",
+  "tapButtonToDetectLocation": "Tocca il pulsante qui sotto per rilevare la tua posizione attuale",
+  "currentAddressLabel": "Attuale: {address}",
+  "@currentAddressLabel": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "onlyCityCountryShown": "Solo la tua città e il tuo paese vengono mostrati agli altri. Le coordinate esatte rimangono private.",
+  "updateLocationCta": "Aggiorna posizione",
+  "enterYourName": "Inserisci il tuo nome",
+  "unsavedChanges": "Hai modifiche non salvate"
 }

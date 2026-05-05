@@ -3311,6 +3311,12 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToUpdate => 'Hindi na-update';
 
   @override
+  String get profileUpdatedSuccessfully => 'Matagumpay na na-update ang profile';
+
+  @override
+  String get genderRequired => 'Kasarian (Kinakailangan)';
+
+  @override
   String get editHometown => 'I-edit ang Hometown';
 
   @override
@@ -3371,6 +3377,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get pleaseSelectABloodType => 'Pumili ng blood type';
+
+  @override
+  String get bloodTypeSavedSuccessfully => 'Matagumpay na na-save ang blood type';
+
+  @override
+  String get hometownSavedSuccessfully => 'Matagumpay na na-save ang hometown';
 
   @override
   String get nativeLanguageRequired => 'Kinakailangan ang native language';
@@ -3528,7 +3540,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get hometown => 'Hometown';
 
   @override
-  String get characters => 'characters';
+  String get characters => 'character';
 
   @override
   String get failedToLoadLanguages => 'Failed to load languages';
@@ -4117,4 +4129,81 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get silencedByCap => 'Silenced by daily limit';
+
+  @override
+  String get momentUpdatedSuccessfully => 'Matagumpay na na-update ang moment';
+
+  @override
+  String get failedToDeleteMoment => 'Nabigo ang pag-delete ng moment';
+
+  @override
+  String get failedToUpdateMoment => 'Nabigo ang pag-update ng moment';
+
+  @override
+  String get mbtiUpdatedSuccessfully => 'Matagumpay na na-update ang MBTI';
+
+  @override
+  String get pleaseSelectMbti => 'Mangyaring pumili ng uri ng MBTI';
+
+  @override
+  String get languageUpdatedSuccessfully => 'Matagumpay na na-update ang wika';
+
+  @override
+  String get bioHintCard => 'Ang isang magandang bio ay tumutulong sa iba na makakonekta sa iyo. Ibahagi ang iyong mga interes, wika, o kung ano ang hinahanap mo.';
+
+  @override
+  String get bioCounterStartWriting => 'Magsimulang sumulat...';
+
+  @override
+  String get bioCounterABitMore => 'Magdagdag pa ng kaunti';
+
+  @override
+  String get bioCounterAlmostAtLimit => 'Malapit na sa limitasyon';
+
+  @override
+  String get bioCounterTooLong => 'Masyadong mahaba';
+
+  @override
+  String get bioQuickStarters => 'Mabilis na simula';
+
+  @override
+  String get rhPositive => 'Rh Positibo';
+
+  @override
+  String get rhNegative => 'Rh Negatibo';
+
+  @override
+  String get rhPositiveDesc => 'Pinaka-karaniwan';
+
+  @override
+  String get rhNegativeDesc => 'Unibersal na donor / bihira';
+
+  @override
+  String get yourBloodType => 'Ang iyong uri ng dugo';
+
+  @override
+  String get noBloodTypeSelected => 'Walang uri ng dugo na napili';
+
+  @override
+  String get tapTypeBelow => 'I-tap ang isang uri sa ibaba';
+
+  @override
+  String get tapButtonToDetectLocation => 'I-tap ang button sa ibaba upang matukoy ang iyong kasalukuyang lokasyon';
+
+  @override
+  String currentAddressLabel(String address) {
+    return 'Kasalukuyan: $address';
+  }
+
+  @override
+  String get onlyCityCountryShown => 'Ang iyong lungsod at bansa lamang ang makikita ng iba. Ang eksaktong koordinasyon ay mananatiling pribado.';
+
+  @override
+  String get updateLocationCta => 'I-update ang Lokasyon';
+
+  @override
+  String get enterYourName => 'Ilagay ang iyong pangalan';
+
+  @override
+  String get unsavedChanges => 'Mayroon kang mga hindi pa nai-save na pagbabago';
 }
