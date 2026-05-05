@@ -67,7 +67,9 @@ release-keystore.jks
 ../*.png
 
 # Build directories
-lib/pages/authentication/screens/build/
+# Any stray build/ inside lib/ — usually leaked by an out-of-tree
+# `flutter build` run that picked up the wrong working directory.
+lib/**/build/
 
 # Note: google-services.json and GoogleService-Info.plist are NOT in .gitignore
 # because they're required for the app to build. These files contain client-side
