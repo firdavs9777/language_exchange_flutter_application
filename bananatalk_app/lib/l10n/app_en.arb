@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appName": "BananaTalk",
+  "appName": "Bananatalk",
   "@appName": {
     "description": "The application name"
   },
@@ -136,7 +136,7 @@
   "termsPrivacySubscriptionInfo": "Terms, Privacy & Subscription info",
   "helpCenter": "Help Center",
   "getHelpAndSupport": "Get help and support",
-  "aboutBanaTalk": "About BanaTalk",
+  "aboutBananatalk": "About Bananatalk",
   "deleteAccount": "Delete Account",
   "permanentlyDeleteYourAccount": "Permanently delete your account",
   "loggedOutSuccessfully": "Logged out successfully",
@@ -144,7 +144,7 @@
   "giftsLikes": "Gifts/Likes",
   "details": "Details",
   "to": "to",
-  "banaTalk": "BanaTalk",
+  "banaTalk": "Bananatalk",
   "chats": "Chats",
   "community": "Community",
   "editProfile": "Edit Profile",
@@ -304,7 +304,7 @@
   "privacyPolicy": "Privacy Policy",
   "howWeHandleYourData": "How we handle your data",
   "emailNotifications": "Email Notifications",
-  "receiveEmailNotificationsFromBananaTalk": "Receive email notifications from BananaTalk",
+  "receiveEmailNotificationsFromBananatalk": "Receive email notifications from Bananatalk",
   "weeklySummary": "Weekly Summary",
   "activityRecapEverySunday": "Activity recap every Sunday",
   "newMessages": "New Messages",
@@ -775,7 +775,7 @@
   "addHashtag": "Add hashtag",
   "sendAsMessage": "Send as Message",
   "shareExternally": "Share Externally",
-  "checkOutStory": "Check out this story on BananaTalk!",
+  "checkOutStory": "Check out this story on Bananatalk!",
   "viewsTab": "Views ({count})",
   "@viewsTab": {
     "placeholders": {
@@ -850,7 +850,7 @@
   "close": "Close",
   "emailPreferences": "Email Preferences",
   "emailNotifications": "Email Notifications",
-  "receiveEmailNotifications": "Receive email notifications from BananaTalk",
+  "receiveEmailNotifications": "Receive email notifications from Bananatalk",
   "notificationTypes": "NOTIFICATION TYPES",
   "weeklySummary": "Weekly Summary",
   "activityRecapEverySunday": "Activity recap every Sunday",
@@ -941,7 +941,7 @@
   "momentSaved": "Saved",
   "momentUnsaved": "Removed from saved",
   "failedToSave": "Failed to save",
-  "checkOutMoment": "Check out this moment on BananaTalk!",
+  "checkOutMoment": "Check out this moment on Bananatalk!",
   "failedToLoadMoments": "Failed to load moments",
   "noMomentsMatchFilters": "No moments match your filters",
   "beFirstToShareMoment": "Be the first to share a moment!",
@@ -2121,7 +2121,7 @@
       }
     }
   },
-  "logoutConfirmMessage": "Are you sure you want to logout from BanaTalk?",
+  "logoutConfirmMessage": "Are you sure you want to logout from Bananatalk?",
   "loggingOut": "Logging out...",
   "quietHours": "Quiet Hours",
   "quietHoursEnable": "Enable Quiet Hours",
@@ -2188,16 +2188,16 @@
   "drawerReports": "Reports",
   "drawerSupport": "Support",
   "drawerAccount": "Account",
-  "logoutConfirmBody": "Are you sure you want to logout from BanaTalk?",
+  "logoutConfirmBody": "Are you sure you want to logout from Bananatalk?",
   "helpEmailSupport": "Email Support",
   "helpEmailSupportSubtitle": "support@bananatalk.com",
   "helpReportBug": "Report a Bug",
-  "helpReportBugSubtitle": "Help us improve BanaTalk",
+  "helpReportBugSubtitle": "Help us improve Bananatalk",
   "helpFaqs": "FAQs",
   "helpFaqsSubtitle": "Frequently asked questions",
   "aboutDialogClose": "Close",
-  "aboutBanaTalkTagline": "Connect with language learners worldwide and improve your skills through real conversations.",
-  "aboutCopyright": "© 2024 BanaTalk. All rights reserved.",
+  "aboutBananatalkTagline": "Connect with language learners worldwide and improve your skills through real conversations.",
+  "aboutCopyright": "© 2024 Bananatalk. All rights reserved.",
   "logoutFailedPrefix": "Logout failed",
 
   "profileVisitorsTitle": "Profile Visitors",
@@ -2253,8 +2253,8 @@
 
   "updateRequiredTitle": "Update Required",
   "updateAvailableTitle": "Update Available",
-  "updateRequiredBody": "This version of BanaTalk is no longer supported. Please update to continue.",
-  "updateAvailableBody": "A new version of BanaTalk is available with improvements and bug fixes.",
+  "updateRequiredBody": "This version of Bananatalk is no longer supported. Please update to continue.",
+  "updateAvailableBody": "A new version of Bananatalk is available with improvements and bug fixes.",
   "updateNow": "Update Now",
   "updateLater": "Later",
   "updateOpenStoreFailed": "Couldn't open the store. Please update from the App Store or Play Store."

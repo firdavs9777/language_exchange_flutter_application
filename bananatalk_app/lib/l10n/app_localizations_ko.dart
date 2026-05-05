@@ -9,7 +9,7 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => '로그인';
@@ -342,7 +342,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get getHelpAndSupport => '도움말 및 지원 받기';
 
   @override
-  String get aboutBanaTalk => 'BanaTalk 정보';
+  String get aboutBananatalk => 'Bananatalk 정보';
 
   @override
   String get deleteAccount => '계정 삭제';
@@ -366,7 +366,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get to => '로';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => '채팅';
@@ -745,7 +745,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get emailNotifications => '이메일 알림';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => 'BananaTalk에서 이메일 알림 받기';
+  String get receiveEmailNotificationsFromBananatalk => 'Bananatalk에서 이메일 알림 받기';
 
   @override
   String get weeklySummary => '주간 요약';
@@ -1791,7 +1791,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get shareExternally => '외부로 공유';
 
   @override
-  String get checkOutStory => 'BananaTalk에서 이 스토리를 확인하세요!';
+  String get checkOutStory => 'Bananatalk에서 이 스토리를 확인하세요!';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get emailPreferences => '이메일 설정';
 
   @override
-  String get receiveEmailNotifications => 'BananaTalk에서 이메일 알림 받기';
+  String get receiveEmailNotifications => 'Bananatalk에서 이메일 알림 받기';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2031,7 +2031,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToSave => '저장 실패';
 
   @override
-  String get checkOutMoment => 'BananaTalk에서 이 모멘트를 확인해보세요!';
+  String get checkOutMoment => 'Bananatalk에서 이 모멘트를 확인해보세요!';
 
   @override
   String get failedToLoadMoments => '모멘트를 불러오지 못했습니다';
@@ -4098,7 +4098,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get drawerAccount => '계정';
 
   @override
-  String get logoutConfirmBody => 'BanaTalk에서 로그아웃하시겠습니까?';
+  String get logoutConfirmBody => 'Bananatalk에서 로그아웃하시겠습니까?';
 
   @override
   String get helpEmailSupport => '이메일 지원';
@@ -4255,7 +4255,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get helpReportBug => '버그 신고';
 
   @override
-  String get helpReportBugSubtitle => 'BanaTalk 개선에 도움을 주세요';
+  String get helpReportBugSubtitle => 'Bananatalk 개선에 도움을 주세요';
 
   @override
   String get helpFaqs => '자주 묻는 질문';
@@ -4267,10 +4267,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aboutDialogClose => '닫기';
 
   @override
-  String get aboutBanaTalkTagline => '전 세계 언어 학습자와 연결하고 실제 대화를 통해 실력을 키워보세요.';
+  String get aboutBananatalkTagline => '전 세계 언어 학습자와 연결하고 실제 대화를 통해 실력을 키워보세요.';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. 무단 전재 금지.';
+  String get aboutCopyright => '© 2024 Bananatalk. 무단 전재 금지.';
 
   @override
   String get logoutFailedPrefix => '로그아웃 실패';
@@ -4395,10 +4395,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get updateAvailableTitle => '업데이트 가능';
 
   @override
-  String get updateRequiredBody => '이 버전의 BanaTalk는 더 이상 지원되지 않습니다. 계속하려면 업데이트하세요.';
+  String get updateRequiredBody => '이 버전의 Bananatalk는 더 이상 지원되지 않습니다. 계속하려면 업데이트하세요.';
 
   @override
-  String get updateAvailableBody => '개선 사항 및 버그 수정이 포함된 BanaTalk의 새 버전이 출시되었습니다.';
+  String get updateAvailableBody => '개선 사항 및 버그 수정이 포함된 Bananatalk의 새 버전이 출시되었습니다.';
 
   @override
   String get updateNow => '지금 업데이트';

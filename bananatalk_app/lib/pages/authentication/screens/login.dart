@@ -202,7 +202,7 @@ class _LoginState extends ConsumerState<Login> {
                 Container(
                   margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
                   child: Text(
-                    'BananaTalk',
+                    'Bananatalk',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w800,

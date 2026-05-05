@@ -286,9 +286,9 @@ class LeftDrawer extends ConsumerWidget {
                       context: context,
                       icon: Icons.info_rounded,
                       iconColor: AppColors.info,
-                      title: l10n.aboutBanaTalk,
+                      title: l10n.aboutBananatalk,
                       subtitle: appVersion.isEmpty
-                          ? l10n.aboutBanaTalk
+                          ? l10n.aboutBananatalk
                           : 'Version $appVersion',
                       isLast: true,
                       onTap: () {
@@ -1121,7 +1121,7 @@ class LeftDrawer extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'BanaTalk',
+                  'Bananatalk',
                   style: ctx.titleLarge.copyWith(
                     fontWeight: FontWeight.w800,
                     fontSize: 22,
@@ -1143,7 +1143,7 @@ class LeftDrawer extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
-                    l10n.aboutBanaTalkTagline,
+                    l10n.aboutBananatalkTagline,
                     style: ctx.bodySmall.copyWith(height: 1.5),
                     textAlign: TextAlign.center,
                   ),

@@ -2408,7 +2408,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                               'https://tile.openstreetmap.org/$zoom/${centerX + dx}/${centerY + dy}.png',
                               fit: BoxFit.cover,
                               headers: const {
-                                'User-Agent': 'BananaTalk App',
+                                'User-Agent': 'Bananatalk App',
                               },
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(

@@ -9,7 +9,7 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => 'लॉगिन';
@@ -342,7 +342,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get getHelpAndSupport => 'सहायता प्राप्त करें';
 
   @override
-  String get aboutBanaTalk => 'BanaTalk के बारे में';
+  String get aboutBananatalk => 'Bananatalk के बारे में';
 
   @override
   String get deleteAccount => 'खाता हटाएं';
@@ -366,7 +366,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get to => 'को';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => 'चैट';
@@ -745,7 +745,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get emailNotifications => 'ईमेल सूचनाएं';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => 'BananaTalk से ईमेल सूचनाएं प्राप्त करें';
+  String get receiveEmailNotificationsFromBananatalk => 'Bananatalk से ईमेल सूचनाएं प्राप्त करें';
 
   @override
   String get weeklySummary => 'साप्ताहिक सारांश';
@@ -1791,7 +1791,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get shareExternally => 'बाहरी रूप से साझा करें';
 
   @override
-  String get checkOutStory => 'BananaTalk पर यह स्टोरी देखें!';
+  String get checkOutStory => 'Bananatalk पर यह स्टोरी देखें!';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get emailPreferences => 'ईमेल प्राथमिकताएं';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from BananaTalk';
+  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2031,7 +2031,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get failedToSave => 'सहेजने में विफल';
 
   @override
-  String get checkOutMoment => 'BananaTalk पर यह पल देखें!';
+  String get checkOutMoment => 'Bananatalk पर यह पल देखें!';
 
   @override
   String get failedToLoadMoments => 'पल लोड करने में विफल';
@@ -4098,7 +4098,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get drawerAccount => 'खाता';
 
   @override
-  String get logoutConfirmBody => 'क्या आप BanaTalk से लॉगआउट करना चाहते हैं?';
+  String get logoutConfirmBody => 'क्या आप Bananatalk से लॉगआउट करना चाहते हैं?';
 
   @override
   String get helpEmailSupport => 'ईमेल सहायता';
@@ -4255,7 +4255,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get helpReportBug => 'बग रिपोर्ट करें';
 
   @override
-  String get helpReportBugSubtitle => 'BanaTalk को बेहतर बनाने में हमारी मदद करें';
+  String get helpReportBugSubtitle => 'Bananatalk को बेहतर बनाने में हमारी मदद करें';
 
   @override
   String get helpFaqs => 'अक्सर पूछे जाने वाले प्रश्न';
@@ -4267,10 +4267,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get aboutDialogClose => 'बंद करें';
 
   @override
-  String get aboutBanaTalkTagline => 'दुनिया भर के भाषा सीखने वालों से जुड़ें और वास्तविक बातचीत के माध्यम से अपने कौशल में सुधार करें।';
+  String get aboutBananatalkTagline => 'दुनिया भर के भाषा सीखने वालों से जुड़ें और वास्तविक बातचीत के माध्यम से अपने कौशल में सुधार करें।';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. सर्वाधिकार सुरक्षित।';
+  String get aboutCopyright => '© 2024 Bananatalk. सर्वाधिकार सुरक्षित।';
 
   @override
   String get logoutFailedPrefix => 'लॉगआउट विफल';
@@ -4395,10 +4395,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get updateAvailableTitle => 'अपडेट उपलब्ध है';
 
   @override
-  String get updateRequiredBody => 'BanaTalk का यह संस्करण अब समर्थित नहीं है। जारी रखने के लिए कृपया अपडेट करें।';
+  String get updateRequiredBody => 'Bananatalk का यह संस्करण अब समर्थित नहीं है। जारी रखने के लिए कृपया अपडेट करें।';
 
   @override
-  String get updateAvailableBody => 'BanaTalk का एक नया संस्करण सुधारों और बग फिक्स के साथ उपलब्ध है।';
+  String get updateAvailableBody => 'Bananatalk का एक नया संस्करण सुधारों और बग फिक्स के साथ उपलब्ध है।';
 
   @override
   String get updateNow => 'अभी अपडेट करें';

@@ -197,7 +197,7 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
                         icon: Icons.email_outlined,
                         iconColor: AppColors.info,
                         title: 'Email Notifications',
-                        subtitle: 'Receive email notifications from BananaTalk',
+                        subtitle: 'Receive email notifications from Bananatalk',
                         value: _emailNotifications,
                         onChanged: (value) => _updatePreference('emailNotifications', value),
                         isMasterSwitch: true,

@@ -1,6 +1,6 @@
 // lib/core/core.dart
 //
-// BananaTalk Design System
+// Bananatalk Design System
 // Export all theme and widget components from this single file
 //
 

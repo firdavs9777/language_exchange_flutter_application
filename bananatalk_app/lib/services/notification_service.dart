@@ -411,7 +411,7 @@ class NotificationService {
               ? BigTextStyleInformation(
                   message.notification?.body ?? '',
                   htmlFormatBigText: false,
-                  contentTitle: message.notification?.title ?? 'BanaTalk',
+                  contentTitle: message.notification?.title ?? 'Bananatalk',
                   htmlFormatContentTitle: false,
                 )
               : null,
@@ -461,7 +461,7 @@ class NotificationService {
 
       await _localNotifications.show(
         message.hashCode,
-        message.notification?.title ?? 'BanaTalk',
+        message.notification?.title ?? 'Bananatalk',
         message.notification?.body ?? '',
         details,
         payload: jsonEncode(message.data),

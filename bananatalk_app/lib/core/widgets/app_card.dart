@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
-/// A customizable card widget following BananaTalk design system
+/// A customizable card widget following Bananatalk design system
 class AppCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;

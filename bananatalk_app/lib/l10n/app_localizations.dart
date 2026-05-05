@@ -129,7 +129,7 @@ abstract class AppLocalizations {
   /// The application name
   ///
   /// In en, this message translates to:
-  /// **'BananaTalk'**
+  /// **'Bananatalk'**
   String get appName;
 
   /// No description provided for @login.
@@ -780,11 +780,11 @@ abstract class AppLocalizations {
   /// **'Get help and support'**
   String get getHelpAndSupport;
 
-  /// No description provided for @aboutBanaTalk.
+  /// No description provided for @aboutBananatalk.
   ///
   /// In en, this message translates to:
-  /// **'About BanaTalk'**
-  String get aboutBanaTalk;
+  /// **'About Bananatalk'**
+  String get aboutBananatalk;
 
   /// No description provided for @deleteAccount.
   ///
@@ -831,7 +831,7 @@ abstract class AppLocalizations {
   /// No description provided for @banaTalk.
   ///
   /// In en, this message translates to:
-  /// **'BanaTalk'**
+  /// **'Bananatalk'**
   String get banaTalk;
 
   /// No description provided for @chats.
@@ -1566,11 +1566,11 @@ abstract class AppLocalizations {
   /// **'Email Notifications'**
   String get emailNotifications;
 
-  /// No description provided for @receiveEmailNotificationsFromBananaTalk.
+  /// No description provided for @receiveEmailNotificationsFromBananatalk.
   ///
   /// In en, this message translates to:
-  /// **'Receive email notifications from BananaTalk'**
-  String get receiveEmailNotificationsFromBananaTalk;
+  /// **'Receive email notifications from Bananatalk'**
+  String get receiveEmailNotificationsFromBananatalk;
 
   /// No description provided for @weeklySummary.
   ///
@@ -3597,7 +3597,7 @@ abstract class AppLocalizations {
   /// No description provided for @checkOutStory.
   ///
   /// In en, this message translates to:
-  /// **'Check out this story on BananaTalk!'**
+  /// **'Check out this story on Bananatalk!'**
   String get checkOutStory;
 
   /// No description provided for @viewsTab.
@@ -3765,7 +3765,7 @@ abstract class AppLocalizations {
   /// No description provided for @receiveEmailNotifications.
   ///
   /// In en, this message translates to:
-  /// **'Receive email notifications from BananaTalk'**
+  /// **'Receive email notifications from Bananatalk'**
   String get receiveEmailNotifications;
 
   /// No description provided for @whenAwayFor24Hours.
@@ -4029,7 +4029,7 @@ abstract class AppLocalizations {
   /// No description provided for @checkOutMoment.
   ///
   /// In en, this message translates to:
-  /// **'Check out this moment on BananaTalk!'**
+  /// **'Check out this moment on Bananatalk!'**
   String get checkOutMoment;
 
   /// No description provided for @failedToLoadMoments.
@@ -7911,7 +7911,7 @@ abstract class AppLocalizations {
   /// No description provided for @logoutConfirmMessage.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to logout from BanaTalk?'**
+  /// **'Are you sure you want to logout from Bananatalk?'**
   String get logoutConfirmMessage;
 
   /// No description provided for @loggingOut.
@@ -8193,7 +8193,7 @@ abstract class AppLocalizations {
   /// No description provided for @logoutConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to logout from BanaTalk?'**
+  /// **'Are you sure you want to logout from Bananatalk?'**
   String get logoutConfirmBody;
 
   /// No description provided for @helpEmailSupport.
@@ -8217,7 +8217,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpReportBugSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Help us improve BanaTalk'**
+  /// **'Help us improve Bananatalk'**
   String get helpReportBugSubtitle;
 
   /// No description provided for @helpFaqs.
@@ -8238,16 +8238,16 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get aboutDialogClose;
 
-  /// No description provided for @aboutBanaTalkTagline.
+  /// No description provided for @aboutBananatalkTagline.
   ///
   /// In en, this message translates to:
   /// **'Connect with language learners worldwide and improve your skills through real conversations.'**
-  String get aboutBanaTalkTagline;
+  String get aboutBananatalkTagline;
 
   /// No description provided for @aboutCopyright.
   ///
   /// In en, this message translates to:
-  /// **'© 2024 BanaTalk. All rights reserved.'**
+  /// **'© 2024 Bananatalk. All rights reserved.'**
   String get aboutCopyright;
 
   /// No description provided for @logoutFailedPrefix.
@@ -8493,13 +8493,13 @@ abstract class AppLocalizations {
   /// No description provided for @updateRequiredBody.
   ///
   /// In en, this message translates to:
-  /// **'This version of BanaTalk is no longer supported. Please update to continue.'**
+  /// **'This version of Bananatalk is no longer supported. Please update to continue.'**
   String get updateRequiredBody;
 
   /// No description provided for @updateAvailableBody.
   ///
   /// In en, this message translates to:
-  /// **'A new version of BanaTalk is available with improvements and bug fixes.'**
+  /// **'A new version of Bananatalk is available with improvements and bug fixes.'**
   String get updateAvailableBody;
 
   /// No description provided for @updateNow.

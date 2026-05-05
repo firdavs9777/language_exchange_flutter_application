@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// BananaTalk Design System
+/// Bananatalk Design System
 /// A comprehensive theme with colors, typography, spacing, and components
 ///
 /// Font System: System Font (San Francisco on iOS, Roboto on Android)

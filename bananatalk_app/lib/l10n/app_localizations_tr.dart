@@ -9,7 +9,7 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => 'Giriş Yap';
@@ -342,7 +342,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get getHelpAndSupport => 'Yardım ve destek alın';
 
   @override
-  String get aboutBanaTalk => 'BanaTalk Hakkında';
+  String get aboutBananatalk => 'Bananatalk Hakkında';
 
   @override
   String get deleteAccount => 'Hesabı Sil';
@@ -366,7 +366,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get to => 'kime';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => 'Sohbetler';
@@ -745,7 +745,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get emailNotifications => 'E-posta Bildirimleri';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => 'BananaTalk\'tan e-posta bildirimleri al';
+  String get receiveEmailNotificationsFromBananatalk => 'Bananatalk\'tan e-posta bildirimleri al';
 
   @override
   String get weeklySummary => 'Haftalık Özet';
@@ -1791,7 +1791,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get shareExternally => 'Dışarıda Paylaş';
 
   @override
-  String get checkOutStory => 'BananaTalk\'taki bu hikayeye göz at!';
+  String get checkOutStory => 'Bananatalk\'taki bu hikayeye göz at!';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get emailPreferences => 'E-posta Tercihleri';
 
   @override
-  String get receiveEmailNotifications => 'BananaTalk\'tan e-posta bildirimleri al';
+  String get receiveEmailNotifications => 'Bananatalk\'tan e-posta bildirimleri al';
 
   @override
   String get whenAwayFor24Hours => '24+ saat uzakta olduğunuzda';
@@ -2031,7 +2031,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToSave => 'Kaydetme başarısız';
 
   @override
-  String get checkOutMoment => 'BananaTalk\'ta bu anıya göz at!';
+  String get checkOutMoment => 'Bananatalk\'ta bu anıya göz at!';
 
   @override
   String get failedToLoadMoments => 'Anılar yüklenemedi';
@@ -4098,7 +4098,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get drawerAccount => 'Hesap';
 
   @override
-  String get logoutConfirmBody => 'BanaTalk\'tan çıkış yapmak istediğinizden emin misiniz?';
+  String get logoutConfirmBody => 'Bananatalk\'tan çıkış yapmak istediğinizden emin misiniz?';
 
   @override
   String get helpEmailSupport => 'E-posta Desteği';
@@ -4255,7 +4255,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get helpReportBug => 'Hata Bildir';
 
   @override
-  String get helpReportBugSubtitle => 'BanaTalk\'ı geliştirmemize yardımcı olun';
+  String get helpReportBugSubtitle => 'Bananatalk\'ı geliştirmemize yardımcı olun';
 
   @override
   String get helpFaqs => 'SSS';
@@ -4267,10 +4267,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aboutDialogClose => 'Kapat';
 
   @override
-  String get aboutBanaTalkTagline => 'Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.';
+  String get aboutBananatalkTagline => 'Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. Tüm hakları saklıdır.';
+  String get aboutCopyright => '© 2024 Bananatalk. Tüm hakları saklıdır.';
 
   @override
   String get logoutFailedPrefix => 'Çıkış başarısız';
@@ -4395,10 +4395,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get updateAvailableTitle => 'Güncelleme Mevcut';
 
   @override
-  String get updateRequiredBody => 'BanaTalk\'ın bu sürümü artık desteklenmiyor. Devam etmek için lütfen güncelleyin.';
+  String get updateRequiredBody => 'Bananatalk\'ın bu sürümü artık desteklenmiyor. Devam etmek için lütfen güncelleyin.';
 
   @override
-  String get updateAvailableBody => 'İyileştirmeler ve hata düzeltmeleri içeren yeni bir BanaTalk sürümü mevcut.';
+  String get updateAvailableBody => 'İyileştirmeler ve hata düzeltmeleri içeren yeni bir Bananatalk sürümü mevcut.';
 
   @override
   String get updateNow => 'Şimdi Güncelle';

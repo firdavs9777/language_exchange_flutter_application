@@ -9,7 +9,7 @@ class AppLocalizationsVi extends AppLocalizations {
   AppLocalizationsVi([String locale = 'vi']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => 'Đăng nhập';
@@ -342,7 +342,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get getHelpAndSupport => 'Nhận trợ giúp và hỗ trợ';
 
   @override
-  String get aboutBanaTalk => 'Về BanaTalk';
+  String get aboutBananatalk => 'Về Bananatalk';
 
   @override
   String get deleteAccount => 'Xóa tài khoản';
@@ -366,7 +366,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get to => 'đến';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => 'Trò chuyện';
@@ -745,7 +745,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get emailNotifications => 'Thông báo email';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => 'Nhận thông báo email từ BananaTalk';
+  String get receiveEmailNotificationsFromBananatalk => 'Nhận thông báo email từ Bananatalk';
 
   @override
   String get weeklySummary => 'Tóm tắt hàng tuần';
@@ -1791,7 +1791,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get shareExternally => 'Share Externally';
 
   @override
-  String get checkOutStory => 'Check out this story on BananaTalk!';
+  String get checkOutStory => 'Check out this story on Bananatalk!';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get emailPreferences => 'Email Preferences';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from BananaTalk';
+  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2031,7 +2031,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToSave => 'Lưu thất bại';
 
   @override
-  String get checkOutMoment => 'Xem khoảnh khắc này trên BananaTalk!';
+  String get checkOutMoment => 'Xem khoảnh khắc này trên Bananatalk!';
 
   @override
   String get failedToLoadMoments => 'Không thể tải khoảnh khắc';
@@ -4098,7 +4098,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get drawerAccount => 'Tài khoản';
 
   @override
-  String get logoutConfirmBody => 'Bạn có chắc chắn muốn đăng xuất khỏi BanaTalk không?';
+  String get logoutConfirmBody => 'Bạn có chắc chắn muốn đăng xuất khỏi Bananatalk không?';
 
   @override
   String get helpEmailSupport => 'Hỗ trợ qua email';
@@ -4255,7 +4255,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get helpReportBug => 'Báo cáo lỗi';
 
   @override
-  String get helpReportBugSubtitle => 'Giúp chúng tôi cải thiện BanaTalk';
+  String get helpReportBugSubtitle => 'Giúp chúng tôi cải thiện Bananatalk';
 
   @override
   String get helpFaqs => 'Câu hỏi thường gặp';
@@ -4267,10 +4267,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get aboutDialogClose => 'Đóng';
 
   @override
-  String get aboutBanaTalkTagline => 'Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.';
+  String get aboutBananatalkTagline => 'Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. Tất cả các quyền được bảo lưu.';
+  String get aboutCopyright => '© 2024 Bananatalk. Tất cả các quyền được bảo lưu.';
 
   @override
   String get logoutFailedPrefix => 'Đăng xuất thất bại';
@@ -4395,10 +4395,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get updateAvailableTitle => 'Có bản cập nhật';
 
   @override
-  String get updateRequiredBody => 'Phiên bản BanaTalk này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.';
+  String get updateRequiredBody => 'Phiên bản Bananatalk này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.';
 
   @override
-  String get updateAvailableBody => 'Có phiên bản BanaTalk mới với các cải tiến và sửa lỗi.';
+  String get updateAvailableBody => 'Có phiên bản Bananatalk mới với các cải tiến và sửa lỗi.';
 
   @override
   String get updateNow => 'Cập nhật ngay';

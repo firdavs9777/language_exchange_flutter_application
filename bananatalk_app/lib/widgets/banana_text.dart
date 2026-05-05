@@ -40,7 +40,7 @@ class BananaText extends StatelessWidget {
   }
 }
 
-/// Centralized text styles for BananaTalk
+/// Centralized text styles for Bananatalk
 /// Uses system font (San Francisco on iOS, Roboto on Android)
 /// Both have excellent multi-language support (Korean, Chinese, Japanese)
 class BananaTextStyles {

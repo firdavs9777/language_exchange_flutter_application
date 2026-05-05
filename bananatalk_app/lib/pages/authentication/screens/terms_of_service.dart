@@ -127,7 +127,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                   // Logo
                   Center(
                     child: Text(
-                      'BananaTalk',
+                      'Bananatalk',
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w800,
@@ -154,12 +154,12 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
 
                   // Introduction
                   BananaText(
-                    'Welcome to BananaTalk',
+                    'Welcome to Bananatalk',
                     BanaStyles: BananaTextStyles.subheading,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'By using BananaTalk, you agree to be bound by these Terms of Service. Please read them carefully before using our service.',
+                    'By using Bananatalk, you agree to be bound by these Terms of Service. Please read them carefully before using our service.',
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 24),
@@ -195,7 +195,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                         ),
                         const SizedBox(height: 12),
                         BananaText(
-                          'BananaTalk has a ZERO TOLERANCE policy for objectionable content and abusive users. We do not permit, condone, or tolerate:',
+                          'Bananatalk has a ZERO TOLERANCE policy for objectionable content and abusive users. We do not permit, condone, or tolerate:',
                           BanaStyles: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -242,12 +242,12 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'BananaTalk allows users to create and share content including messages, posts, images, and other materials. You are solely responsible for all content you create, upload, or share through the service.',
+                    'Bananatalk allows users to create and share content including messages, posts, images, and other materials. You are solely responsible for all content you create, upload, or share through the service.',
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'By using BananaTalk, you agree that:',
+                    'By using Bananatalk, you agree that:',
                     BanaStyles: BananaTextStyles.boldText,
                   ),
                   const SizedBox(height: 8),
@@ -272,7 +272,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
                   ),
                   const SizedBox(height: 8),
                   BananaText(
-                    'BananaTalk actively moderates user-generated content to maintain a safe and respectful environment. We use automated systems and human moderators to review and remove content that violates our policies.',
+                    'Bananatalk actively moderates user-generated content to maintain a safe and respectful environment. We use automated systems and human moderators to review and remove content that violates our policies.',
                     BanaStyles: BananaTextStyles.body,
                   ),
                   const SizedBox(height: 8),

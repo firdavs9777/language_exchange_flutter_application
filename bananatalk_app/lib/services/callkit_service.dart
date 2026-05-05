@@ -97,7 +97,7 @@ class CallKitService {
     final params = CallKitParams(
       id: uuid,
       nameCaller: callerName,
-      appName: 'BananaTalk',
+      appName: 'Bananatalk',
       avatar: callerAvatar,
       handle: callerName,
       type: isVideo ? 1 : 0, // 0 = audio, 1 = video
@@ -160,7 +160,7 @@ class CallKitService {
     final params = CallKitParams(
       id: uuid,
       nameCaller: calleeName,
-      appName: 'BananaTalk',
+      appName: 'Bananatalk',
       avatar: calleeAvatar,
       handle: calleeName,
       type: isVideo ? 1 : 0,

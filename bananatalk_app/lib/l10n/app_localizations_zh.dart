@@ -9,7 +9,7 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => '登录';
@@ -342,7 +342,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get getHelpAndSupport => '获取帮助和支持';
 
   @override
-  String get aboutBanaTalk => '关于 BanaTalk';
+  String get aboutBananatalk => '关于 Bananatalk';
 
   @override
   String get deleteAccount => '删除账户';
@@ -366,7 +366,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get to => '到';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => '聊天';
@@ -745,7 +745,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get emailNotifications => '邮件通知';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => '接收来自 BananaTalk 的电子邮件通知';
+  String get receiveEmailNotificationsFromBananatalk => '接收来自 Bananatalk 的电子邮件通知';
 
   @override
   String get weeklySummary => '每周摘要';
@@ -1791,7 +1791,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get shareExternally => '外部分享';
 
   @override
-  String get checkOutStory => '在BananaTalk查看这个故事！';
+  String get checkOutStory => '在Bananatalk查看这个故事！';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get emailPreferences => '邮件设置';
 
   @override
-  String get receiveEmailNotifications => '接收来自BananaTalk的邮件通知';
+  String get receiveEmailNotifications => '接收来自Bananatalk的邮件通知';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2031,7 +2031,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToSave => '保存失败';
 
   @override
-  String get checkOutMoment => '在BananaTalk上看看这条动态!';
+  String get checkOutMoment => '在Bananatalk上看看这条动态!';
 
   @override
   String get failedToLoadMoments => '加载动态失败';
@@ -4098,7 +4098,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get drawerAccount => '账户';
 
   @override
-  String get logoutConfirmBody => '确定要从 BanaTalk 退出登录吗？';
+  String get logoutConfirmBody => '确定要从 Bananatalk 退出登录吗？';
 
   @override
   String get helpEmailSupport => '邮件支持';
@@ -4255,7 +4255,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get helpReportBug => '报告问题';
 
   @override
-  String get helpReportBugSubtitle => '帮助我们改进 BanaTalk';
+  String get helpReportBugSubtitle => '帮助我们改进 Bananatalk';
 
   @override
   String get helpFaqs => '常见问题';
@@ -4267,10 +4267,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aboutDialogClose => '关闭';
 
   @override
-  String get aboutBanaTalkTagline => '与全球语言学习者连接，通过真实对话提升你的技能。';
+  String get aboutBananatalkTagline => '与全球语言学习者连接，通过真实对话提升你的技能。';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. 版权所有。';
+  String get aboutCopyright => '© 2024 Bananatalk. 版权所有。';
 
   @override
   String get logoutFailedPrefix => '退出失败';
@@ -4395,10 +4395,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get updateAvailableTitle => '有新版本';
 
   @override
-  String get updateRequiredBody => '此版本的BanaTalk已不再受支持，请更新后继续使用。';
+  String get updateRequiredBody => '此版本的Bananatalk已不再受支持，请更新后继续使用。';
 
   @override
-  String get updateAvailableBody => 'BanaTalk新版本已发布，包含改进和错误修复。';
+  String get updateAvailableBody => 'Bananatalk新版本已发布，包含改进和错误修复。';
 
   @override
   String get updateNow => '立即更新';
@@ -4415,7 +4415,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   AppLocalizationsZhTw(): super('zh_TW');
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => '登入';
@@ -4742,7 +4742,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get getHelpAndSupport => '獲取幫助和支援';
 
   @override
-  String get aboutBanaTalk => '關於 BanaTalk';
+  String get aboutBananatalk => '關於 Bananatalk';
 
   @override
   String get deleteAccount => '刪除帳戶';
@@ -4766,7 +4766,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get to => '至';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => '聊天';
@@ -5145,7 +5145,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get emailNotifications => '電子郵件通知';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => '接收來自 BananaTalk 的電子郵件通知';
+  String get receiveEmailNotificationsFromBananatalk => '接收來自 Bananatalk 的電子郵件通知';
 
   @override
   String get weeklySummary => '每週摘要';
@@ -6188,7 +6188,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get shareExternally => '對外分享';
 
   @override
-  String get checkOutStory => '在 BananaTalk 上查看此限時動態！';
+  String get checkOutStory => '在 Bananatalk 上查看此限時動態！';
 
   @override
   String viewsTab(String count) {
@@ -6288,7 +6288,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get emailPreferences => '電子郵件偏好設定';
 
   @override
-  String get receiveEmailNotifications => '接收來自 BananaTalk 的電子郵件通知';
+  String get receiveEmailNotifications => '接收來自 Bananatalk 的電子郵件通知';
 
   @override
   String get whenAwayFor24Hours => '當您離開超過 24 小時時';
@@ -6428,7 +6428,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get failedToSave => '儲存失敗';
 
   @override
-  String get checkOutMoment => '在BananaTalk上看看這則動態!';
+  String get checkOutMoment => '在Bananatalk上看看這則動態!';
 
   @override
   String get failedToLoadMoments => '載入動態失敗';
@@ -8360,7 +8360,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get drawerAccount => '帳號';
 
   @override
-  String get logoutConfirmBody => '確定要從 BanaTalk 登出嗎？';
+  String get logoutConfirmBody => '確定要從 Bananatalk 登出嗎？';
 
   @override
   String get helpEmailSupport => '電子郵件支援';
@@ -8372,7 +8372,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get helpReportBug => '回報問題';
 
   @override
-  String get helpReportBugSubtitle => '幫助我們改進 BanaTalk';
+  String get helpReportBugSubtitle => '幫助我們改進 Bananatalk';
 
   @override
   String get helpFaqs => '常見問題';
@@ -8384,10 +8384,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get aboutDialogClose => '關閉';
 
   @override
-  String get aboutBanaTalkTagline => '與全球語言學習者連結，透過真實對話提升你的技能。';
+  String get aboutBananatalkTagline => '與全球語言學習者連結，透過真實對話提升你的技能。';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. 版權所有。';
+  String get aboutCopyright => '© 2024 Bananatalk. 版權所有。';
 
   @override
   String get logoutFailedPrefix => '登出失敗';
@@ -8512,10 +8512,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get updateAvailableTitle => '有新版本';
 
   @override
-  String get updateRequiredBody => '此版本的BanaTalk已不再受支援，請更新後繼續使用。';
+  String get updateRequiredBody => '此版本的Bananatalk已不再受支援，請更新後繼續使用。';
 
   @override
-  String get updateAvailableBody => 'BanaTalk新版本已發布，包含改進和錯誤修復。';
+  String get updateAvailableBody => 'Bananatalk新版本已發布，包含改進和錯誤修復。';
 
   @override
   String get updateNow => '立即更新';

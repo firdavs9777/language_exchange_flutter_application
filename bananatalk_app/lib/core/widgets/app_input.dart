@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
-/// A customizable text input following BananaTalk design system
+/// A customizable text input following Bananatalk design system
 class AppInput extends StatefulWidget {
   final String? label;
   final String? hint;

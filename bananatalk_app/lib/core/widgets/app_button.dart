@@ -5,7 +5,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 enum AppButtonSize { small, medium, large }
 enum AppButtonVariant { primary, secondary, outline, ghost, danger }
 
-/// A customizable button widget following BananaTalk design system
+/// A customizable button widget following Bananatalk design system
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;

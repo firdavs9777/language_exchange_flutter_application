@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
-/// Loading indicator with BananaTalk styling
+/// Loading indicator with Bananatalk styling
 class AppLoading extends StatelessWidget {
   final double size;
   final Color? color;

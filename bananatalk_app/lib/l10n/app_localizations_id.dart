@@ -9,7 +9,7 @@ class AppLocalizationsId extends AppLocalizations {
   AppLocalizationsId([String locale = 'id']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => 'Masuk';
@@ -342,7 +342,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get getHelpAndSupport => 'Dapatkan bantuan dan dukungan';
 
   @override
-  String get aboutBanaTalk => 'Tentang BanaTalk';
+  String get aboutBananatalk => 'Tentang Bananatalk';
 
   @override
   String get deleteAccount => 'Hapus Akun';
@@ -366,7 +366,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get to => 'ke';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => 'Obrolan';
@@ -745,7 +745,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get emailNotifications => 'Notifikasi Email';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => 'Terima notifikasi email dari BananaTalk';
+  String get receiveEmailNotificationsFromBananatalk => 'Terima notifikasi email dari Bananatalk';
 
   @override
   String get weeklySummary => 'Ringkasan Mingguan';
@@ -1791,7 +1791,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get shareExternally => 'Share Externally';
 
   @override
-  String get checkOutStory => 'Check out this story on BananaTalk!';
+  String get checkOutStory => 'Check out this story on Bananatalk!';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get emailPreferences => 'Email Preferences';
 
   @override
-  String get receiveEmailNotifications => 'Receive email notifications from BananaTalk';
+  String get receiveEmailNotifications => 'Receive email notifications from Bananatalk';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2031,7 +2031,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get failedToSave => 'Gagal menyimpan';
 
   @override
-  String get checkOutMoment => 'Lihat momen ini di BananaTalk!';
+  String get checkOutMoment => 'Lihat momen ini di Bananatalk!';
 
   @override
   String get failedToLoadMoments => 'Gagal memuat momen';
@@ -4098,7 +4098,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get drawerAccount => 'Akun';
 
   @override
-  String get logoutConfirmBody => 'Apakah kamu yakin ingin keluar dari BanaTalk?';
+  String get logoutConfirmBody => 'Apakah kamu yakin ingin keluar dari Bananatalk?';
 
   @override
   String get helpEmailSupport => 'Dukungan Email';
@@ -4255,7 +4255,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get helpReportBug => 'Laporkan Bug';
 
   @override
-  String get helpReportBugSubtitle => 'Bantu kami meningkatkan BanaTalk';
+  String get helpReportBugSubtitle => 'Bantu kami meningkatkan Bananatalk';
 
   @override
   String get helpFaqs => 'FAQ';
@@ -4267,10 +4267,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get aboutDialogClose => 'Tutup';
 
   @override
-  String get aboutBanaTalkTagline => 'Terhubung dengan pelajar bahasa di seluruh dunia dan tingkatkan kemampuanmu melalui percakapan nyata.';
+  String get aboutBananatalkTagline => 'Terhubung dengan pelajar bahasa di seluruh dunia dan tingkatkan kemampuanmu melalui percakapan nyata.';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. Semua hak dilindungi.';
+  String get aboutCopyright => '© 2024 Bananatalk. Semua hak dilindungi.';
 
   @override
   String get logoutFailedPrefix => 'Gagal keluar';
@@ -4395,10 +4395,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get updateAvailableTitle => 'Pembaruan Tersedia';
 
   @override
-  String get updateRequiredBody => 'Versi BanaTalk ini tidak lagi didukung. Harap perbarui untuk melanjutkan.';
+  String get updateRequiredBody => 'Versi Bananatalk ini tidak lagi didukung. Harap perbarui untuk melanjutkan.';
 
   @override
-  String get updateAvailableBody => 'Versi baru BanaTalk tersedia dengan peningkatan dan perbaikan bug.';
+  String get updateAvailableBody => 'Versi baru Bananatalk tersedia dengan peningkatan dan perbaikan bug.';
 
   @override
   String get updateNow => 'Perbarui Sekarang';

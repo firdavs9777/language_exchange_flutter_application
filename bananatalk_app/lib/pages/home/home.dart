@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'BananaTalk',
+                'Bananatalk',
                 style: TextStyle(
                   fontSize: 42,
                   fontWeight: FontWeight.w800,
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 35),
               BananaText(
-                'Make global friends on BananaTalk.',
+                'Make global friends on Bananatalk.',
                 textAlign: TextAlign.center,
                 BanaStyles: BananaTextStyles.cardTitle,
               ),

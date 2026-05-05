@@ -381,7 +381,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
     final userName = _currentUser.user.name ?? 'User';
     final storyText = story.text?.isNotEmpty == true ? '\n"${story.text}"' : '';
-    final shareText = 'Check out $userName\'s story on BananaTalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
+    final shareText = 'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
 
     Share.share(shareText);
   }

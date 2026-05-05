@@ -132,7 +132,7 @@ class _EmailInputState extends ConsumerState<EmailInput> {
               margin: const EdgeInsets.only(bottom: 40),
               alignment: Alignment.center,
               child: Text(
-                'BananaTalk',
+                'Bananatalk',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w800,

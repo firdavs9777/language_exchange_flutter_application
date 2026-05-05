@@ -9,7 +9,7 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get appName => 'BananaTalk';
+  String get appName => 'Bananatalk';
 
   @override
   String get login => 'ログイン';
@@ -342,7 +342,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get getHelpAndSupport => 'ヘルプとサポートを受ける';
 
   @override
-  String get aboutBanaTalk => 'BanaTalkについて';
+  String get aboutBananatalk => 'Bananatalkについて';
 
   @override
   String get deleteAccount => 'アカウントを削除';
@@ -366,7 +366,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get to => '宛先';
 
   @override
-  String get banaTalk => 'BanaTalk';
+  String get banaTalk => 'Bananatalk';
 
   @override
   String get chats => 'チャット';
@@ -745,7 +745,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get emailNotifications => 'メール通知';
 
   @override
-  String get receiveEmailNotificationsFromBananaTalk => 'BananaTalkからのメール通知を受け取る';
+  String get receiveEmailNotificationsFromBananatalk => 'Bananatalkからのメール通知を受け取る';
 
   @override
   String get weeklySummary => '週間サマリー';
@@ -1791,7 +1791,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get shareExternally => '外部に共有';
 
   @override
-  String get checkOutStory => 'BananaTalkでこのストーリーをチェック！';
+  String get checkOutStory => 'Bananatalkでこのストーリーをチェック！';
 
   @override
   String viewsTab(String count) {
@@ -1891,7 +1891,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get emailPreferences => 'メール設定';
 
   @override
-  String get receiveEmailNotifications => 'BananaTalkからのメール通知を受け取る';
+  String get receiveEmailNotifications => 'Bananatalkからのメール通知を受け取る';
 
   @override
   String get whenAwayFor24Hours => 'When you\'re away for 24+ hours';
@@ -2031,7 +2031,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToSave => '保存に失敗しました';
 
   @override
-  String get checkOutMoment => 'BananaTalkでこのモーメントをチェック!';
+  String get checkOutMoment => 'Bananatalkでこのモーメントをチェック!';
 
   @override
   String get failedToLoadMoments => 'モーメントの読み込みに失敗しました';
@@ -4098,7 +4098,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get logoutConfirmMessage => 'Are you sure you want to logout from BanaTalk?';
+  String get logoutConfirmMessage => 'Are you sure you want to logout from Bananatalk?';
 
   @override
   String get loggingOut => 'Logging out...';
@@ -4243,7 +4243,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get drawerAccount => 'アカウント';
 
   @override
-  String get logoutConfirmBody => 'BanaTalkからログアウトしますか？';
+  String get logoutConfirmBody => 'Bananatalkからログアウトしますか？';
 
   @override
   String get helpEmailSupport => 'メールサポート';
@@ -4255,7 +4255,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get helpReportBug => 'バグを報告';
 
   @override
-  String get helpReportBugSubtitle => 'BanaTalkの改善にご協力ください';
+  String get helpReportBugSubtitle => 'Bananatalkの改善にご協力ください';
 
   @override
   String get helpFaqs => 'よくある質問';
@@ -4267,10 +4267,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aboutDialogClose => '閉じる';
 
   @override
-  String get aboutBanaTalkTagline => '世界中の語学学習者とつながり、実際の会話を通してスキルを向上させましょう。';
+  String get aboutBananatalkTagline => '世界中の語学学習者とつながり、実際の会話を通してスキルを向上させましょう。';
 
   @override
-  String get aboutCopyright => '© 2024 BanaTalk. 無断転載禁止。';
+  String get aboutCopyright => '© 2024 Bananatalk. 無断転載禁止。';
 
   @override
   String get logoutFailedPrefix => 'ログアウト失敗';
@@ -4395,10 +4395,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get updateAvailableTitle => 'アップデートが利用可能です';
 
   @override
-  String get updateRequiredBody => 'このバージョンのBanaTalkはサポートが終了しました。続けるにはアップデートしてください。';
+  String get updateRequiredBody => 'このバージョンのBananatalkはサポートが終了しました。続けるにはアップデートしてください。';
 
   @override
-  String get updateAvailableBody => '改善とバグ修正を含むBanaTalkの新しいバージョンが利用可能です。';
+  String get updateAvailableBody => '改善とバグ修正を含むBananatalkの新しいバージョンが利用可能です。';
 
   @override
   String get updateNow => '今すぐアップデート';

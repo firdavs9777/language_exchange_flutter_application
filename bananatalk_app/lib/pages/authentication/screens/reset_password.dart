@@ -142,7 +142,7 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
               Container(
                 margin: const EdgeInsets.only(top: 10, bottom: 20),
                 child: Text(
-                  'BananaTalk',
+                  'Bananatalk',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w800,

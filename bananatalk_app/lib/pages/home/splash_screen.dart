@@ -212,7 +212,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'BananaTalk',
+                    'Bananatalk',
                     style: TextStyle(
                       fontSize: 42,
                       fontWeight: FontWeight.w800,
