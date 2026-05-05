@@ -28,6 +28,7 @@ import 'package:bananatalk_app/services/correction_service.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
 
 class ChatMessageBubble extends ConsumerStatefulWidget {
   final Message message;
@@ -1546,9 +1547,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     // Build menu items list: Reply, Copy, Correct, Translate, Pin/Unpin, Edit, Delete
-    final menuItems = <_ContextMenuItem>[];
+    final menuItems = <MessageContextMenuItem>[];
 
-    menuItems.add(_ContextMenuItem(
+    menuItems.add(MessageContextMenuItem(
       icon: Icons.reply_rounded,
       label: 'Reply',
       onTap: () {
@@ -1558,7 +1559,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     ));
 
     if (hasText) {
-      menuItems.add(_ContextMenuItem(
+      menuItems.add(MessageContextMenuItem(
         icon: Icons.copy_rounded,
         label: 'Copy',
         onTap: () {
@@ -1570,7 +1571,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     if (hasText && !widget.isMe) {
-      menuItems.add(_ContextMenuItem(
+      menuItems.add(MessageContextMenuItem(
         icon: Icons.spellcheck_rounded,
         label: 'Correct',
         onTap: () {
@@ -1586,7 +1587,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     if (hasText) {
-      menuItems.add(_ContextMenuItem(
+      menuItems.add(MessageContextMenuItem(
         icon: Icons.translate_rounded,
         label: 'Translate',
         onTap: () {
@@ -1596,7 +1597,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       ));
     }
 
-    menuItems.add(_ContextMenuItem(
+    menuItems.add(MessageContextMenuItem(
       icon: widget.message.isPinned ? Icons.push_pin_outlined : Icons.push_pin_rounded,
       label: widget.message.isPinned ? 'Unpin' : 'Pin',
       onTap: () {
@@ -1610,7 +1611,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     ));
 
     if (canEdit) {
-      menuItems.add(_ContextMenuItem(
+      menuItems.add(MessageContextMenuItem(
         icon: Icons.edit_rounded,
         label: 'Edit',
         onTap: () {
@@ -1621,7 +1622,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     if (widget.isMe && !widget.message.isDeleted) {
-      menuItems.add(_ContextMenuItem(
+      menuItems.add(MessageContextMenuItem(
         icon: Icons.delete_rounded,
         label: 'Delete',
         isDestructive: true,
@@ -1812,16 +1813,3 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   }
 }
 
-class _ContextMenuItem {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-  final bool isDestructive;
-
-  const _ContextMenuItem({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-    this.isDestructive = false,
-  });
-}
