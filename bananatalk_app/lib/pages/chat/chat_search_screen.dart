@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
 
 class ChatSearchScreen extends StatefulWidget {
   final String? conversationId;
@@ -240,54 +241,18 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
     }
 
     if (_searchQuery.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.search, size: 64, color: context.textHint),
-            Spacing.gapMD,
-            Text(
-              'Search messages',
-              style: TextStyle(
-                fontSize: 18,
-                color: context.textSecondary,
-              ),
-            ),
-            Spacing.gapSM,
-            Text(
-              'Enter keywords to find messages',
-              style: TextStyle(
-                color: context.textHint,
-              ),
-            ),
-          ],
-        ),
+      return ChatEmptyState(
+        icon: Icons.search,
+        title: AppLocalizations.of(context)!.search,
+        body: AppLocalizations.of(context)!.searchInChatWith(widget.otherUserName),
       );
     }
 
     if (_searchResults.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.search_off, size: 64, color: context.textHint),
-            Spacing.gapMD,
-            Text(
-              'No results found',
-              style: TextStyle(
-                fontSize: 18,
-                color: context.textSecondary,
-              ),
-            ),
-            Spacing.gapSM,
-            Text(
-              'Try searching with different keywords',
-              style: TextStyle(
-                color: context.textHint,
-              ),
-            ),
-          ],
-        ),
+      return ChatEmptyState(
+        icon: Icons.search_off,
+        title: AppLocalizations.of(context)!.noResultsFound,
+        body: AppLocalizations.of(context)!.tryDifferentSearch,
       );
     }
 

@@ -27,6 +27,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
@@ -1745,25 +1746,14 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
       return FadeTransition(
         opacity: _fadeAnimation,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.search_off, size: 48, color: colors.outline),
-              const SizedBox(height: 16),
-              Text('No matching conversations', style: textTheme.titleMedium),
-              const SizedBox(height: 6),
-              Text(
-                isUsernameSearch
-                    ? 'User @$searchTerm not in your chats'
-                    : 'Try adjusting your search',
-                style: textTheme.bodySmall?.copyWith(
-                  color: colors.outlineVariant,
-                ),
-              ),
-              if (isUsernameSearch && searchTerm.isNotEmpty) ...[
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
+        child: ChatEmptyState(
+          icon: Icons.search_off,
+          title: AppLocalizations.of(context)!.noResultsFound,
+          body: isUsernameSearch
+              ? 'User @$searchTerm not in your chats'
+              : AppLocalizations.of(context)!.tryDifferentSearch,
+          cta: isUsernameSearch && searchTerm.isNotEmpty
+              ? ElevatedButton.icon(
                   onPressed: () => _searchAndStartChat(searchTerm),
                   icon: const Icon(Icons.person_search, size: 20),
                   label: Text('Find @$searchTerm'),
@@ -1778,10 +1768,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                ),
-              ],
-            ],
-          ),
+                )
+              : null,
         ),
       );
     }
@@ -1790,23 +1778,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
     if (displayPartners.isEmpty) {
       return FadeTransition(
         opacity: _fadeAnimation,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.chat_bubble_outline, size: 56, color: colors.outline),
-              const SizedBox(height: 16),
-              Text('No conversations yet', style: textTheme.titleMedium),
-              const SizedBox(height: 6),
-              Text(
-                'Start chatting to see messages here',
-                style: textTheme.bodySmall?.copyWith(
-                  color: colors.outlineVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+        child: ChatEmptyState(
+          icon: Icons.chat_bubble_outline,
+          title: AppLocalizations.of(context)!.chats,
+          body: AppLocalizations.of(context)!.searchConversations,
         ),
       );
     }

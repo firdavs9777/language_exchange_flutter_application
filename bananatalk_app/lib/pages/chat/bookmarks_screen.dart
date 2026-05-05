@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
@@ -212,28 +213,10 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     }
 
     if (_bookmarks.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.bookmark_border, size: 64, color: context.textHint),
-            Spacing.gapMD,
-            Text(
-              l10n.noBookmarkedMessages,
-              style: TextStyle(
-                fontSize: 18,
-                color: context.textSecondary,
-              ),
-            ),
-            Spacing.gapSM,
-            Text(
-              l10n.longPressToBookmark,
-              style: TextStyle(
-                color: context.textMuted,
-              ),
-            ),
-          ],
-        ),
+      return ChatEmptyState(
+        icon: Icons.bookmark_border,
+        title: l10n.noBookmarkedMessages,
+        body: l10n.longPressToBookmark,
       );
     }
 

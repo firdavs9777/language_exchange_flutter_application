@@ -10,6 +10,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -318,19 +319,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
   }
 
   Widget _buildEmptyState({required IconData icon, required String message}) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 64, color: context.textHint),
-          const SizedBox(height: 16),
-          Text(
-            message,
-            style: TextStyle(color: context.textSecondary, fontSize: 16),
-          ),
-        ],
-      ),
-    );
+    return ChatEmptyState(icon: icon, title: message);
   }
 
   Widget _buildMediaPlaceholder(bool isVideo) {
