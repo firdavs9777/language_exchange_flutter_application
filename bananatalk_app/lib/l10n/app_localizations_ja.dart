@@ -4387,4 +4387,25 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => 'モーメントは更新されましたが、画像のアップロードに失敗しました';
+
+  @override
+  String get updateRequiredTitle => 'アップデートが必要です';
+
+  @override
+  String get updateAvailableTitle => 'アップデートが利用可能です';
+
+  @override
+  String get updateRequiredBody => 'このバージョンのBanaTalkはサポートが終了しました。続けるにはアップデートしてください。';
+
+  @override
+  String get updateAvailableBody => '改善とバグ修正を含むBanaTalkの新しいバージョンが利用可能です。';
+
+  @override
+  String get updateNow => '今すぐアップデート';
+
+  @override
+  String get updateLater => '後で';
+
+  @override
+  String get updateOpenStoreFailed => 'ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。';
 }

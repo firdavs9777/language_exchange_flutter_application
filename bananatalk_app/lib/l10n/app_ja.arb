@@ -1547,5 +1547,12 @@
   "momentImagesLabel": "画像",
   "noImagesYet": "画像がありません",
   "momentEnterDescription": "説明を入力してください",
-  "momentUpdatedImageFailed": "モーメントは更新されましたが、画像のアップロードに失敗しました"
+  "momentUpdatedImageFailed": "モーメントは更新されましたが、画像のアップロードに失敗しました",
+  "updateRequiredTitle": "アップデートが必要です",
+  "updateAvailableTitle": "アップデートが利用可能です",
+  "updateRequiredBody": "このバージョンのBanaTalkはサポートが終了しました。続けるにはアップデートしてください。",
+  "updateAvailableBody": "改善とバグ修正を含むBanaTalkの新しいバージョンが利用可能です。",
+  "updateNow": "今すぐアップデート",
+  "updateLater": "後で",
+  "updateOpenStoreFailed": "ストアを開けませんでした。App StoreまたはPlay Storeからアップデートしてください。"
 }

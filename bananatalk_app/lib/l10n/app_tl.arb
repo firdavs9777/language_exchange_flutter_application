@@ -1486,5 +1486,12 @@
   "momentImagesLabel": "Mga Larawan",
   "noImagesYet": "Wala pang larawan",
   "momentEnterDescription": "Mangyaring maglagay ng paglalarawan",
-  "momentUpdatedImageFailed": "Na-update ang moment ngunit nabigo ang pag-upload ng larawan"
+  "momentUpdatedImageFailed": "Na-update ang moment ngunit nabigo ang pag-upload ng larawan",
+  "updateRequiredTitle": "Kailangan ang Update",
+  "updateAvailableTitle": "Available ang Update",
+  "updateRequiredBody": "Hindi na sinusuportahan ang bersyong ito ng BanaTalk. Mangyaring mag-update upang magpatuloy.",
+  "updateAvailableBody": "Available ang bagong bersyon ng BanaTalk na may mga pagpapabuti at pag-aayos ng bug.",
+  "updateNow": "I-update Ngayon",
+  "updateLater": "Mamaya",
+  "updateOpenStoreFailed": "Hindi mabuksan ang store. Mangyaring mag-update mula sa App Store o Play Store."
 }

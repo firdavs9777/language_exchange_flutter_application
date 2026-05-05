@@ -8477,6 +8477,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Moment updated but image upload failed'**
   String get momentUpdatedImageFailed;
+
+  /// No description provided for @updateRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Required'**
+  String get updateRequiredTitle;
+
+  /// No description provided for @updateAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Available'**
+  String get updateAvailableTitle;
+
+  /// No description provided for @updateRequiredBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This version of BanaTalk is no longer supported. Please update to continue.'**
+  String get updateRequiredBody;
+
+  /// No description provided for @updateAvailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A new version of BanaTalk is available with improvements and bug fixes.'**
+  String get updateAvailableBody;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Now'**
+  String get updateNow;
+
+  /// No description provided for @updateLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLater;
+
+  /// No description provided for @updateOpenStoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the store. Please update from the App Store or Play Store.'**
+  String get updateOpenStoreFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

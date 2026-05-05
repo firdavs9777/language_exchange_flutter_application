@@ -1521,5 +1521,12 @@
   "momentImagesLabel": "圖片",
   "noImagesYet": "目前沒有圖片",
   "momentEnterDescription": "請輸入描述",
-  "momentUpdatedImageFailed": "動態已更新，但圖片上傳失敗"
+  "momentUpdatedImageFailed": "動態已更新，但圖片上傳失敗",
+  "updateRequiredTitle": "需要更新",
+  "updateAvailableTitle": "有新版本",
+  "updateRequiredBody": "此版本的BanaTalk已不再受支援，請更新後繼續使用。",
+  "updateAvailableBody": "BanaTalk新版本已發布，包含改進和錯誤修復。",
+  "updateNow": "立即更新",
+  "updateLater": "稍後",
+  "updateOpenStoreFailed": "無法開啟商店，請從App Store或Play Store進行更新。"
 }

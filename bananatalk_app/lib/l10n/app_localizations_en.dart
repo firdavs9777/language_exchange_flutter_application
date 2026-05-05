@@ -4393,4 +4393,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => 'Moment updated but image upload failed';
+
+  @override
+  String get updateRequiredTitle => 'Update Required';
+
+  @override
+  String get updateAvailableTitle => 'Update Available';
+
+  @override
+  String get updateRequiredBody => 'This version of BanaTalk is no longer supported. Please update to continue.';
+
+  @override
+  String get updateAvailableBody => 'A new version of BanaTalk is available with improvements and bug fixes.';
+
+  @override
+  String get updateNow => 'Update Now';
+
+  @override
+  String get updateLater => 'Later';
+
+  @override
+  String get updateOpenStoreFailed => 'Couldn\'t open the store. Please update from the App Store or Play Store.';
 }

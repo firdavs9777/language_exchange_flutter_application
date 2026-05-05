@@ -4387,4 +4387,25 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => 'Momen diperbarui tetapi unggah gambar gagal';
+
+  @override
+  String get updateRequiredTitle => 'Pembaruan Diperlukan';
+
+  @override
+  String get updateAvailableTitle => 'Pembaruan Tersedia';
+
+  @override
+  String get updateRequiredBody => 'Versi BanaTalk ini tidak lagi didukung. Harap perbarui untuk melanjutkan.';
+
+  @override
+  String get updateAvailableBody => 'Versi baru BanaTalk tersedia dengan peningkatan dan perbaikan bug.';
+
+  @override
+  String get updateNow => 'Perbarui Sekarang';
+
+  @override
+  String get updateLater => 'Nanti';
+
+  @override
+  String get updateOpenStoreFailed => 'Tidak dapat membuka toko. Harap perbarui dari App Store atau Play Store.';
 }

@@ -4387,4 +4387,25 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => '모멘트는 업데이트되었지만 이미지 업로드에 실패했습니다';
+
+  @override
+  String get updateRequiredTitle => '업데이트 필요';
+
+  @override
+  String get updateAvailableTitle => '업데이트 가능';
+
+  @override
+  String get updateRequiredBody => '이 버전의 BanaTalk는 더 이상 지원되지 않습니다. 계속하려면 업데이트하세요.';
+
+  @override
+  String get updateAvailableBody => '개선 사항 및 버그 수정이 포함된 BanaTalk의 새 버전이 출시되었습니다.';
+
+  @override
+  String get updateNow => '지금 업데이트';
+
+  @override
+  String get updateLater => '나중에';
+
+  @override
+  String get updateOpenStoreFailed => '스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요.';
 }

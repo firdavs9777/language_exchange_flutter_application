@@ -1370,5 +1370,12 @@
   "momentImagesLabel": "รูปภาพ",
   "noImagesYet": "ยังไม่มีรูปภาพ",
   "momentEnterDescription": "กรุณากรอกคำอธิบาย",
-  "momentUpdatedImageFailed": "อัปเดตโมเมนต์แล้ว แต่การอัปโหลดรูปภาพล้มเหลว"
+  "momentUpdatedImageFailed": "อัปเดตโมเมนต์แล้ว แต่การอัปโหลดรูปภาพล้มเหลว",
+  "updateRequiredTitle": "จำเป็นต้องอัปเดต",
+  "updateAvailableTitle": "มีการอัปเดต",
+  "updateRequiredBody": "BanaTalk เวอร์ชันนี้ไม่ได้รับการรองรับอีกต่อไป กรุณาอัปเดตเพื่อดำเนินการต่อ",
+  "updateAvailableBody": "BanaTalk เวอร์ชันใหม่พร้อมการปรับปรุงและแก้ไขข้อผิดพลาดพร้อมให้ใช้งานแล้ว",
+  "updateNow": "อัปเดตเดี๋ยวนี้",
+  "updateLater": "ภายหลัง",
+  "updateOpenStoreFailed": "ไม่สามารถเปิดร้านค้าได้ กรุณาอัปเดตจาก App Store หรือ Play Store"
 }

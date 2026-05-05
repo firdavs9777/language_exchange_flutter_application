@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/profile/main/profile_settings.dart';
@@ -14,6 +15,7 @@ import 'package:bananatalk_app/pages/reports/my_reports_screen.dart';
 import 'package:bananatalk_app/pages/reports/admin_reports_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
@@ -34,6 +36,10 @@ class LeftDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final appVersion = ref.watch(runningAppVersionProvider).maybeWhen(
+      data: (v) => v,
+      orElse: () => '',
+    );
 
     return Drawer(
       backgroundColor: context.scaffoldBackground,
@@ -281,11 +287,13 @@ class LeftDrawer extends ConsumerWidget {
                       icon: Icons.info_rounded,
                       iconColor: AppColors.info,
                       title: l10n.aboutBanaTalk,
-                      subtitle: 'Version 1.9.2',
+                      subtitle: appVersion.isEmpty
+                          ? l10n.aboutBanaTalk
+                          : 'Version $appVersion',
                       isLast: true,
                       onTap: () {
                         Navigator.pop(context);
-                        _showAboutDialog(context);
+                        _showAboutDialog(context, appVersion);
                       },
                     ),
                   ]),
@@ -1071,7 +1079,7 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   // ========== ABOUT DIALOG ==========
-  void _showAboutDialog(BuildContext context) {
+  void _showAboutDialog(BuildContext context, String appVersion) {
     final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
@@ -1121,7 +1129,7 @@ class LeftDrawer extends ConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Version 1.9.2',
+                  appVersion.isEmpty ? '' : 'Version $appVersion',
                   style: ctx.captionSmall.copyWith(
                     color: ctx.textMuted,
                     fontWeight: FontWeight.w500,

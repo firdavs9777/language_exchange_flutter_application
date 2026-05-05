@@ -4387,6 +4387,27 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => '动态已更新，但图片上传失败';
+
+  @override
+  String get updateRequiredTitle => '需要更新';
+
+  @override
+  String get updateAvailableTitle => '有新版本';
+
+  @override
+  String get updateRequiredBody => '此版本的BanaTalk已不再受支持，请更新后继续使用。';
+
+  @override
+  String get updateAvailableBody => 'BanaTalk新版本已发布，包含改进和错误修复。';
+
+  @override
+  String get updateNow => '立即更新';
+
+  @override
+  String get updateLater => '稍后';
+
+  @override
+  String get updateOpenStoreFailed => '无法打开商店，请从App Store或Play Store进行更新。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -8483,4 +8504,25 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get momentUpdatedImageFailed => '動態已更新，但圖片上傳失敗';
+
+  @override
+  String get updateRequiredTitle => '需要更新';
+
+  @override
+  String get updateAvailableTitle => '有新版本';
+
+  @override
+  String get updateRequiredBody => '此版本的BanaTalk已不再受支援，請更新後繼續使用。';
+
+  @override
+  String get updateAvailableBody => 'BanaTalk新版本已發布，包含改進和錯誤修復。';
+
+  @override
+  String get updateNow => '立即更新';
+
+  @override
+  String get updateLater => '稍後';
+
+  @override
+  String get updateOpenStoreFailed => '無法開啟商店，請從App Store或Play Store進行更新。';
 }

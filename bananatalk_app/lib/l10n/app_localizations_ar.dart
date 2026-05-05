@@ -4387,4 +4387,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => 'تم تحديث اللحظة لكن فشل رفع الصورة';
+
+  @override
+  String get updateRequiredTitle => 'تحديث مطلوب';
+
+  @override
+  String get updateAvailableTitle => 'تحديث متاح';
+
+  @override
+  String get updateRequiredBody => 'هذا الإصدار من BanaTalk لم يعد مدعومًا. يرجى التحديث للمتابعة.';
+
+  @override
+  String get updateAvailableBody => 'يتوفر إصدار جديد من BanaTalk مع تحسينات وإصلاح للأخطاء.';
+
+  @override
+  String get updateNow => 'تحديث الآن';
+
+  @override
+  String get updateLater => 'لاحقًا';
+
+  @override
+  String get updateOpenStoreFailed => 'تعذر فتح المتجر. يرجى التحديث من App Store أو Play Store.';
 }

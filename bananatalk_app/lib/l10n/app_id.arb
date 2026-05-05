@@ -1374,5 +1374,12 @@
   "momentImagesLabel": "Gambar",
   "noImagesYet": "Belum ada gambar",
   "momentEnterDescription": "Mohon masukkan deskripsi",
-  "momentUpdatedImageFailed": "Momen diperbarui tetapi unggah gambar gagal"
+  "momentUpdatedImageFailed": "Momen diperbarui tetapi unggah gambar gagal",
+  "updateRequiredTitle": "Pembaruan Diperlukan",
+  "updateAvailableTitle": "Pembaruan Tersedia",
+  "updateRequiredBody": "Versi BanaTalk ini tidak lagi didukung. Harap perbarui untuk melanjutkan.",
+  "updateAvailableBody": "Versi baru BanaTalk tersedia dengan peningkatan dan perbaikan bug.",
+  "updateNow": "Perbarui Sekarang",
+  "updateLater": "Nanti",
+  "updateOpenStoreFailed": "Tidak dapat membuka toko. Harap perbarui dari App Store atau Play Store."
 }

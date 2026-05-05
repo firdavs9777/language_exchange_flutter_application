@@ -4387,4 +4387,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => 'Момент обновлён, но загрузка изображения не удалась';
+
+  @override
+  String get updateRequiredTitle => 'Требуется обновление';
+
+  @override
+  String get updateAvailableTitle => 'Доступно обновление';
+
+  @override
+  String get updateRequiredBody => 'Эта версия BanaTalk больше не поддерживается. Пожалуйста, обновите приложение, чтобы продолжить.';
+
+  @override
+  String get updateAvailableBody => 'Доступна новая версия BanaTalk с улучшениями и исправлениями ошибок.';
+
+  @override
+  String get updateNow => 'Обновить сейчас';
+
+  @override
+  String get updateLater => 'Позже';
+
+  @override
+  String get updateOpenStoreFailed => 'Не удалось открыть магазин. Пожалуйста, обновите приложение из App Store или Play Store.';
 }

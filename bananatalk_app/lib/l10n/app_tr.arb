@@ -1762,5 +1762,12 @@
   "momentImagesLabel": "Görseller",
   "noImagesYet": "Henüz görsel yok",
   "momentEnterDescription": "Lütfen bir açıklama girin",
-  "momentUpdatedImageFailed": "An güncellendi fakat görsel yükleme başarısız oldu"
+  "momentUpdatedImageFailed": "An güncellendi fakat görsel yükleme başarısız oldu",
+  "updateRequiredTitle": "Güncelleme Gerekli",
+  "updateAvailableTitle": "Güncelleme Mevcut",
+  "updateRequiredBody": "BanaTalk'ın bu sürümü artık desteklenmiyor. Devam etmek için lütfen güncelleyin.",
+  "updateAvailableBody": "İyileştirmeler ve hata düzeltmeleri içeren yeni bir BanaTalk sürümü mevcut.",
+  "updateNow": "Şimdi Güncelle",
+  "updateLater": "Sonra",
+  "updateOpenStoreFailed": "Mağaza açılamadı. Lütfen App Store veya Play Store'dan güncelleyin."
 }

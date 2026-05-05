@@ -1555,5 +1555,12 @@
   "momentImagesLabel": "الصور",
   "noImagesYet": "لا توجد صور بعد",
   "momentEnterDescription": "يرجى إدخال وصف",
-  "momentUpdatedImageFailed": "تم تحديث اللحظة لكن فشل رفع الصورة"
+  "momentUpdatedImageFailed": "تم تحديث اللحظة لكن فشل رفع الصورة",
+  "updateRequiredTitle": "تحديث مطلوب",
+  "updateAvailableTitle": "تحديث متاح",
+  "updateRequiredBody": "هذا الإصدار من BanaTalk لم يعد مدعومًا. يرجى التحديث للمتابعة.",
+  "updateAvailableBody": "يتوفر إصدار جديد من BanaTalk مع تحسينات وإصلاح للأخطاء.",
+  "updateNow": "تحديث الآن",
+  "updateLater": "لاحقًا",
+  "updateOpenStoreFailed": "تعذر فتح المتجر. يرجى التحديث من App Store أو Play Store."
 }

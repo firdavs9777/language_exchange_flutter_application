@@ -1823,5 +1823,12 @@
   "momentImagesLabel": "Bilder",
   "noImagesYet": "Noch keine Bilder",
   "momentEnterDescription": "Bitte gib eine Beschreibung ein",
-  "momentUpdatedImageFailed": "Moment aktualisiert, aber Bild-Upload fehlgeschlagen"
+  "momentUpdatedImageFailed": "Moment aktualisiert, aber Bild-Upload fehlgeschlagen",
+  "updateRequiredTitle": "Update erforderlich",
+  "updateAvailableTitle": "Update verfügbar",
+  "updateRequiredBody": "Diese Version von BanaTalk wird nicht mehr unterstützt. Bitte aktualisiere, um fortzufahren.",
+  "updateAvailableBody": "Eine neue Version von BanaTalk mit Verbesserungen und Fehlerbehebungen ist verfügbar.",
+  "updateNow": "Jetzt aktualisieren",
+  "updateLater": "Später",
+  "updateOpenStoreFailed": "Der Store konnte nicht geöffnet werden. Bitte aktualisiere über den App Store oder Play Store."
 }

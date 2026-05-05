@@ -1,9 +1,9 @@
 import 'package:bananatalk_app/pages/authentication/screens/terms_of_service.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,17 +36,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _fadeAnim = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeOut,
-    );
+    _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
     _scaleAnim = Tween<double>(begin: 0.85, end: 1.0).animate(
       CurvedAnimation(parent: _animController, curve: Curves.easeOutBack),
     );
-    _slideAnim = Tween<Offset>(
-      begin: const Offset(0, 0.08),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _animController, curve: Curves.easeOutCubic));
+    _slideAnim = Tween<Offset>(begin: const Offset(0, 0.08), end: Offset.zero)
+        .animate(
+          CurvedAnimation(parent: _animController, curve: Curves.easeOutCubic),
+        );
 
     _animController.forward();
     _initializeApp();
@@ -62,13 +59,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
       // Check if app was opened from a notification (cold start)
       // Store it — we'll handle navigation AFTER auth completes
-      final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+      final initialMessage = await FirebaseMessaging.instance
+          .getInitialMessage();
       if (initialMessage != null) {
         _pendingNotification = initialMessage;
       }
-
-    } catch (e) {
-    }
+    } catch (e) {}
 
     // Wait for auth initialization to complete
     final authService = ref.read(authServiceProvider);
@@ -79,12 +75,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     if (!mounted) return;
 
+    // Version-update gate. For force-update this never returns (dialog is
+    // non-dismissible and pins the user on splash). For soft prompts it
+    // returns once the user dismisses, then navigation continues.
+    await VersionCheckCoordinator().check(context);
+
+    if (!mounted) return;
+
     // Check if user has accepted terms of service
     // Note: For new users, terms are shown during registration.
     // This check is for existing users who haven't accepted yet.
     if (isAuthenticated) {
       final prefs = await SharedPreferences.getInstance();
-      final termsAcceptedLocally = prefs.getBool('termsAcceptedLocally') ?? false;
+      final termsAcceptedLocally =
+          prefs.getBool('termsAcceptedLocally') ?? false;
 
       // If terms already accepted locally, skip the network check entirely
       // This prevents logging users out when they're offline
@@ -107,7 +111,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             if (!mounted) return;
 
             // Re-check local flag after terms screen
-            final updatedLocalFlag = prefs.getBool('termsAcceptedLocally') ?? false;
+            final updatedLocalFlag =
+                prefs.getBool('termsAcceptedLocally') ?? false;
             if (!updatedLocalFlag) {
               final updatedUser = await authService.getLoggedInUser();
               if (!updatedUser.termsAccepted) {
@@ -179,15 +184,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           break;
         default:
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   @override
   void dispose() {
     _animController.dispose();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
     super.dispose();
   }
 
@@ -220,7 +226,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
-                      color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                      color: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
                       letterSpacing: 2.0,
                     ),
                   ),

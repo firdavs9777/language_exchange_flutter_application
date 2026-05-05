@@ -1370,5 +1370,12 @@
   "momentImagesLabel": "Hình ảnh",
   "noImagesYet": "Chưa có hình ảnh",
   "momentEnterDescription": "Vui lòng nhập mô tả",
-  "momentUpdatedImageFailed": "Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại"
+  "momentUpdatedImageFailed": "Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại",
+  "updateRequiredTitle": "Cần cập nhật",
+  "updateAvailableTitle": "Có bản cập nhật",
+  "updateRequiredBody": "Phiên bản BanaTalk này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.",
+  "updateAvailableBody": "Có phiên bản BanaTalk mới với các cải tiến và sửa lỗi.",
+  "updateNow": "Cập nhật ngay",
+  "updateLater": "Để sau",
+  "updateOpenStoreFailed": "Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store."
 }

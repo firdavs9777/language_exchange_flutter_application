@@ -1569,5 +1569,12 @@
   "momentImagesLabel": "이미지",
   "noImagesYet": "아직 이미지가 없습니다",
   "momentEnterDescription": "설명을 입력해 주세요",
-  "momentUpdatedImageFailed": "모멘트는 업데이트되었지만 이미지 업로드에 실패했습니다"
+  "momentUpdatedImageFailed": "모멘트는 업데이트되었지만 이미지 업로드에 실패했습니다",
+  "updateRequiredTitle": "업데이트 필요",
+  "updateAvailableTitle": "업데이트 가능",
+  "updateRequiredBody": "이 버전의 BanaTalk는 더 이상 지원되지 않습니다. 계속하려면 업데이트하세요.",
+  "updateAvailableBody": "개선 사항 및 버그 수정이 포함된 BanaTalk의 새 버전이 출시되었습니다.",
+  "updateNow": "지금 업데이트",
+  "updateLater": "나중에",
+  "updateOpenStoreFailed": "스토어를 열 수 없습니다. App Store 또는 Play Store에서 업데이트하세요."
 }

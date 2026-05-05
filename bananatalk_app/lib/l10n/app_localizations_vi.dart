@@ -4387,4 +4387,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get momentUpdatedImageFailed => 'Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại';
+
+  @override
+  String get updateRequiredTitle => 'Cần cập nhật';
+
+  @override
+  String get updateAvailableTitle => 'Có bản cập nhật';
+
+  @override
+  String get updateRequiredBody => 'Phiên bản BanaTalk này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.';
+
+  @override
+  String get updateAvailableBody => 'Có phiên bản BanaTalk mới với các cải tiến và sửa lỗi.';
+
+  @override
+  String get updateNow => 'Cập nhật ngay';
+
+  @override
+  String get updateLater => 'Để sau';
+
+  @override
+  String get updateOpenStoreFailed => 'Không thể mở cửa hàng. Vui lòng cập nhật từ App Store hoặc Play Store.';
 }
