@@ -5,7 +5,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/finish_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/native_language_step.dart';
 import 'package:bananatalk_app/pages/authentication/register/register_two/personal_info_step.dart';
-import 'package:bananatalk_app/pages/authentication/register/register_two/progress_indicator.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/auth_step_progress.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_snackbar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -558,9 +558,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           child: Column(
             children: [
               _buildAppBar(),
-              RegisterTwoProgressIndicator(
-                currentStep: _currentStep,
-                totalSteps: _totalSteps,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+                child: AuthStepProgress(
+                  currentStep: _currentStep,
+                  totalSteps: _totalSteps,
+                ),
               ),
               Expanded(
                 child: PageView(
@@ -661,9 +664,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             onPressed: _goBack,
           ),
           const Spacer(),
-          StepProgressLabel(
-            current: _currentStep + 1,
-            total: _totalSteps,
+          Text(
+            AppLocalizations.of(context)!
+                .stepProgress(_currentStep + 1, _totalSteps),
+            style: context.captionSmall.copyWith(
+              color: context.textMuted,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           Spacing.hGapLG,
         ],
