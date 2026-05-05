@@ -15,6 +15,7 @@ class User {
     required this.native_language,
     required this.language_to_learn,
     required this.location,
+    this.username,
     this.topics = const [],
     this.userMode = UserMode.regular,
     this.vipSubscription,
@@ -24,6 +25,7 @@ class User {
   });
 
   final String name;
+  final String? username;
   final String password;
   final String email;
   final String bio;
@@ -49,6 +51,7 @@ class User {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
+      if (username != null && username!.isNotEmpty) 'username': username,
       'password': password,
       'email': email,
       'birth_year': birth_year,

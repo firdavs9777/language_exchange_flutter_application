@@ -34,6 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// step widgets are dumb views parameterised via constructor.
 class RegisterTwo extends ConsumerStatefulWidget {
   final String name;
+  final String username; // Optional — empty string if user skipped it
   final String email;
   final String password;
   final String gender;
@@ -46,6 +47,7 @@ class RegisterTwo extends ConsumerStatefulWidget {
     required this.name,
     required this.email,
     required this.password,
+    this.username = '',
     this.gender = '',
     this.birthDate = '',
     this.nativeLanguage = '',
@@ -420,6 +422,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       // Email/Password registration
       final user = User(
         name: widget.name,
+        username: widget.username.isNotEmpty ? widget.username : null,
         password: widget.password,
         email: widget.email,
         bio: '',

@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button
 import 'package:bananatalk_app/pages/authentication/widgets/auth_screen_scaffold.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/auth_text_field.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/password_field.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/username_availability_field.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -30,10 +31,15 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   late TextEditingController _nameController;
+  late TextEditingController _usernameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late TextEditingController _passwordConfirmController;
   late TextEditingController _birthDateController;
+
+  // Username is optional. Available when empty OR confirmed available by
+  // the live availability check. Blocks submit while invalid/taken.
+  bool _usernameAvailable = true;
 
   String? _selectedGender;
   final List<String> _genders = ['Male', 'Female', 'Other'];
@@ -67,6 +73,7 @@ class _RegisterState extends State<Register> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.userName);
+    _usernameController = TextEditingController();
     _passwordController = TextEditingController(text: widget.userPassword);
     _emailController = TextEditingController(text: widget.userEmail);
     _passwordConfirmController =
@@ -77,6 +84,7 @@ class _RegisterState extends State<Register> {
   @override
   void dispose() {
     _nameController.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();
@@ -97,6 +105,11 @@ class _RegisterState extends State<Register> {
 
     if (_nameController.text.trim().isEmpty) {
       setState(() => _nameError = l10n.pleaseEnterYourName);
+      isValid = false;
+    }
+
+    // Username is optional, but if entered must be confirmed available.
+    if (_usernameController.text.trim().isNotEmpty && !_usernameAvailable) {
       isValid = false;
     }
 
@@ -154,6 +167,7 @@ class _RegisterState extends State<Register> {
       MaterialPageRoute(
         builder: (ctx) => RegisterTwo(
           name: _nameController.text.trim(),
+          username: _usernameController.text.trim().toLowerCase(),
           email: widget.userEmail,
           password: _passwordController.text,
           gender: genderMap[_selectedGender] ?? 'other',
@@ -320,6 +334,20 @@ class _RegisterState extends State<Register> {
               child: Text(_nameError!,
                   style: TextStyle(color: AppColors.error, fontSize: 12)),
             ),
+
+          const SizedBox(height: 20),
+
+          // Username (optional, with live availability check)
+          _buildLabel(l10n.usernameOptional),
+          const SizedBox(height: 8),
+          UsernameAvailabilityField(
+            controller: _usernameController,
+            onAvailabilityChanged: (ok) {
+              if (_usernameAvailable != ok) {
+                setState(() => _usernameAvailable = ok);
+              }
+            },
+          ),
 
           const SizedBox(height: 20),
 
