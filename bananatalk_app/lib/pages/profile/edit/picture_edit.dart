@@ -1,19 +1,18 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
-import 'package:bananatalk_app/widgets/cached_image_widget.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http_parser/http_parser.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
+import 'package:bananatalk_app/pages/profile/edit/picture_edit/photo_confirm_dialog.dart';
+import 'package:bananatalk_app/pages/profile/edit/picture_edit/photo_grid_tile.dart';
+import 'package:bananatalk_app/pages/profile/edit/picture_edit/photo_picker_sheet.dart';
+import 'package:bananatalk_app/pages/profile/edit/picture_edit/photo_upload_handler.dart';
 
 class ProfilePictureEdit extends ConsumerStatefulWidget {
   final Community user;
@@ -50,77 +49,40 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
     super.dispose();
   }
 
-  Future<String?> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token');
-  }
+  // ---------------------------------------------------------------------------
+  // Handlers
+  // ---------------------------------------------------------------------------
 
-  Future<void> _pickImages() async {
-    final l10n = AppLocalizations.of(context)!;
-    final picker = ImagePicker();
-    final pickedFiles = await picker.pickMultiImage(imageQuality: 85);
-
-    if (pickedFiles.isNotEmpty) {
-      final totalImages =
-          _existingImageUrls.length +
-          _selectedImages.length +
-          pickedFiles.length;
-      if (totalImages > maxImages) {
-        final remaining =
-            maxImages - (_existingImageUrls.length + _selectedImages.length);
-        _showErrorSnackBar(l10n.canOnlyAddMoreImages(remaining, maxImages));
-        return;
-      }
-
-      final imagesToAdd = pickedFiles.take(5).toList();
-      if (pickedFiles.length > 5) {
-        _showErrorSnackBar(l10n.maxImagesPerUpload);
-      }
-
-      setState(() {
-        _selectedImages.addAll(imagesToAdd.map((file) => File(file.path)));
-      });
-    }
-  }
-
-  Future<void> _takePhoto() async {
-    final l10n = AppLocalizations.of(context)!;
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 85,
+  Future<void> _openPhotoPicker() async {
+    final files = await showPhotoPickerSheet(
+      context,
+      existingCount: _existingImageUrls.length,
+      pendingCount: _selectedImages.length,
+      maxImages: maxImages,
     );
-
-    if (pickedFile != null) {
-      final totalImages =
-          _existingImageUrls.length + _selectedImages.length + 1;
-      if (totalImages > maxImages) {
-        _showErrorSnackBar(l10n.canOnlyHaveMaxImages(maxImages));
-        return;
-      }
-
-      setState(() {
-        _selectedImages.add(File(pickedFile.path));
-      });
+    if (files != null && files.isNotEmpty) {
+      setState(() => _selectedImages.addAll(files));
     }
   }
 
   void _removeSelectedImage(int index) {
     HapticFeedback.lightImpact();
-    setState(() {
-      _selectedImages.removeAt(index);
-    });
+    setState(() => _selectedImages.removeAt(index));
   }
 
   Future<void> _removeExistingImage(int index) async {
     final l10n = AppLocalizations.of(context)!;
 
     if (_existingImageUrls.length == 1) {
-      _showErrorSnackBar(l10n.mustKeepAtLeastOneProfilePicture);
+      showProfileSnackBar(
+        context,
+        message: l10n.mustKeepAtLeastOneProfilePicture,
+        type: ProfileSnackBarType.error,
+      );
       return;
     }
 
-    final confirmed = await _showConfirmDialog(
+    final confirmed = await showPhotoConfirmDialog(context,
       icon: Icons.delete_outline_rounded,
       iconColor: Colors.red,
       title: l10n.removeImage,
@@ -128,45 +90,39 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
       confirmLabel: l10n.remove,
       isDestructive: true,
     );
-
     if (confirmed != true) return;
 
-    try {
-      setState(() => _isRemoving = true);
+    setState(() => _isRemoving = true);
 
-      final token = await _getToken();
-      if (token == null) {
-        _showErrorSnackBar(l10n.authenticationTokenNotFound);
-        setState(() => _isRemoving = false);
-        return;
+    final handler = PhotoUploadHandler(userId: widget.user.id);
+    final result = await handler.deletePhoto(
+      index,
+      noTokenMessage: l10n.authenticationTokenNotFound,
+      failedMessage: l10n.failedToUpdate,
+      defaultSuccessMessage: l10n.imageRemovedSuccessfully,
+    );
+
+    if (!mounted) return;
+    setState(() {
+      if (result.success) {
+        if (result.imageUrls != null && result.imageUrls!.isNotEmpty) {
+          _existingImageUrls = result.imageUrls!;
+        } else {
+          _existingImageUrls.removeAt(index);
+        }
       }
+      _isRemoving = false;
+    });
 
-      final userId = widget.user.id;
-      final response = await http.delete(
-        Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$index'),
-        headers: {'Authorization': 'Bearer $token'},
+    if (result.success) {
+      ref.invalidate(userProvider);
+      showProfileSnackBar(context, message: result.message);
+    } else {
+      showProfileSnackBar(
+        context,
+        message: result.message,
+        type: ProfileSnackBarType.error,
       );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        setState(() {
-          if (data['images'] != null) {
-            _existingImageUrls = List<String>.from(data['images']);
-          } else {
-            _existingImageUrls.removeAt(index);
-          }
-          _isRemoving = false;
-        });
-        ref.invalidate(userProvider);
-        _showSuccessSnackBar(data['message'] ?? l10n.imageRemovedSuccessfully);
-      } else {
-        final errorData = json.decode(response.body);
-        setState(() => _isRemoving = false);
-        _showErrorSnackBar(errorData['error'] ?? l10n.failedToUpdate);
-      }
-    } catch (e) {
-      setState(() => _isRemoving = false);
-      _showErrorSnackBar(l10n.failedToUpdate);
     }
   }
 
@@ -174,98 +130,59 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
     final l10n = AppLocalizations.of(context)!;
 
     if (_selectedImages.isEmpty) {
-      _showErrorSnackBar(l10n.pleaseSelectAtLeastOneImage);
+      showProfileSnackBar(
+        context,
+        message: l10n.pleaseSelectAtLeastOneImage,
+        type: ProfileSnackBarType.error,
+      );
       return;
     }
 
-    try {
-      setState(() => _isUploading = true);
+    setState(() => _isUploading = true);
 
-      final token = await _getToken();
-      if (token == null) {
-        _showErrorSnackBar(l10n.authenticationTokenNotFound);
-        setState(() => _isUploading = false);
-        return;
+    final handler = PhotoUploadHandler(userId: widget.user.id);
+    final result = await handler.uploadPhotos(
+      _selectedImages,
+      noTokenMessage: l10n.authenticationTokenNotFound,
+      fileTooLargeMessage: l10n.imageSizeExceedsLimit,
+      unsupportedFormatPrefix: l10n.unsupportedImageFormat,
+      failedMessage: l10n.failedToUpdate,
+    );
+
+    if (!mounted) return;
+    setState(() {
+      if (result.success) {
+        if (result.imageUrls != null && result.imageUrls!.isNotEmpty) {
+          _existingImageUrls = result.imageUrls!;
+        }
+        _selectedImages.clear();
       }
+      _isUploading = false;
+    });
 
-      final userId = widget.user.id;
-      final request = http.MultipartRequest(
-        'POST',
-        Uri.parse('${Endpoints.baseURL}auth/users/$userId/photos'),
+    if (result.success) {
+      ref.invalidate(userProvider);
+      showProfileSnackBar(
+        context,
+        message: result.message.isNotEmpty
+            ? result.message
+            : l10n.imagesUploadedSuccessfully,
       );
-      request.headers['Authorization'] = 'Bearer $token';
-
-      for (var imageFile in _selectedImages) {
-        final fileSize = await imageFile.length();
-        if (fileSize > 10 * 1024 * 1024) {
-          _showErrorSnackBar(l10n.imageSizeExceedsLimit);
-          setState(() => _isUploading = false);
-          return;
-        }
-
-        final extension = imageFile.path.split('.').last.toLowerCase();
-        String? mimeType;
-        switch (extension) {
-          case 'jpg':
-          case 'jpeg':
-            mimeType = 'image/jpeg';
-            break;
-          case 'png':
-            mimeType = 'image/png';
-            break;
-          case 'gif':
-            mimeType = 'image/gif';
-            break;
-          case 'webp':
-            mimeType = 'image/webp';
-            break;
-          default:
-            _showErrorSnackBar('${l10n.unsupportedImageFormat}: $extension');
-            setState(() => _isUploading = false);
-            return;
-        }
-
-        request.files.add(
-          await http.MultipartFile.fromPath(
-            'photos',
-            imageFile.path,
-            contentType: MediaType.parse(mimeType),
-          ),
-        );
-      }
-
-      final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        setState(() {
-          if (data['images'] != null) {
-            _existingImageUrls = List<String>.from(data['images']);
-          }
-          _selectedImages.clear();
-          _isUploading = false;
-        });
-        ref.invalidate(userProvider);
-        _showSuccessSnackBar(
-          data['message'] ?? l10n.imagesUploadedSuccessfully,
-        );
-      } else {
-        final errorData = json.decode(response.body);
-        setState(() => _isUploading = false);
-        _showErrorSnackBar(errorData['error'] ?? l10n.failedToUpdate);
-      }
-    } catch (e) {
-      setState(() => _isUploading = false);
-      _showErrorSnackBar(l10n.failedToUpdate);
+    } else {
+      showProfileSnackBar(
+        context,
+        message: result.message,
+        type: ProfileSnackBarType.error,
+      );
     }
   }
 
   Future<void> _removeAllProfilePictures() async {
     final l10n = AppLocalizations.of(context)!;
 
+    // Only pending images queued
     if (_existingImageUrls.isEmpty && _selectedImages.isNotEmpty) {
-      final confirmed = await _showConfirmDialog(
+      final confirmed = await showPhotoConfirmDialog(context,
         icon: Icons.delete_sweep_rounded,
         iconColor: Colors.red,
         title: l10n.removeAllSelectedImages,
@@ -274,14 +191,15 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
         isDestructive: true,
       );
       if (confirmed != true) return;
-
+      if (!mounted) return;
       setState(() => _selectedImages.clear());
-      _showSuccessSnackBar(l10n.selectedImagesCleared);
+      showProfileSnackBar(context, message: l10n.selectedImagesCleared);
       return;
     }
 
+    // One existing + some pending — clear pending only
     if (_existingImageUrls.length == 1 && _selectedImages.isNotEmpty) {
-      final confirmed = await _showConfirmDialog(
+      final confirmed = await showPhotoConfirmDialog(context,
         icon: Icons.delete_sweep_rounded,
         iconColor: Colors.red,
         title: l10n.removeAllSelectedImages,
@@ -291,18 +209,32 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
         isDestructive: true,
       );
       if (confirmed != true) return;
-
+      if (!mounted) return;
       setState(() => _selectedImages.clear());
-      _showSuccessSnackBar(l10n.selectedImagesCleared);
+      showProfileSnackBar(context, message: l10n.selectedImagesCleared);
       return;
     }
 
+    // Only one existing and no pending — can't delete
     if (_existingImageUrls.length == 1 && _selectedImages.isEmpty) {
-      _showErrorSnackBar(l10n.mustKeepAtLeastOneProfilePicture);
+      showProfileSnackBar(
+        context,
+        message: l10n.mustKeepAtLeastOneProfilePicture,
+        type: ProfileSnackBarType.error,
+      );
       return;
     }
 
-    final confirmed = await _showConfirmDialog(
+    if (_existingImageUrls.isEmpty && _selectedImages.isEmpty) {
+      showProfileSnackBar(
+        context,
+        message: l10n.noProfilePicturesToRemove,
+        type: ProfileSnackBarType.error,
+      );
+      return;
+    }
+
+    final confirmed = await showPhotoConfirmDialog(context,
       icon: Icons.delete_sweep_rounded,
       iconColor: Colors.red,
       title: l10n.removeAllImages,
@@ -312,380 +244,60 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
     );
     if (confirmed != true) return;
 
-    try {
-      if (_existingImageUrls.isEmpty && _selectedImages.isEmpty) {
-        _showErrorSnackBar(l10n.noProfilePicturesToRemove);
-        return;
-      }
+    setState(() => _isRemoving = true);
 
-      setState(() => _isRemoving = true);
-
-      final token = await _getToken();
-      if (token == null) {
-        _showErrorSnackBar(l10n.authenticationTokenNotFound);
-        setState(() => _isRemoving = false);
-        return;
-      }
-
-      final userId = widget.user.id;
-
-      for (int i = _existingImageUrls.length - 1; i >= 1; i--) {
-        await http.delete(
-          Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$i'),
-          headers: {'Authorization': 'Bearer $token'},
-        );
-      }
-
-      final getUserResponse = await http.get(
-        Uri.parse('${Endpoints.baseURL}auth/users/$userId'),
-        headers: {'Authorization': 'Bearer $token'},
-      );
-
-      if (getUserResponse.statusCode == 200) {
-        final userData = json.decode(getUserResponse.body);
-        setState(() {
-          if (userData['images'] != null) {
-            _existingImageUrls = List<String>.from(userData['images']);
-          } else {
-            _existingImageUrls = _existingImageUrls.take(1).toList();
-          }
-          _selectedImages.clear();
-          _isRemoving = false;
-        });
-      } else {
-        setState(() {
-          _existingImageUrls = _existingImageUrls.take(1).toList();
-          _selectedImages.clear();
-          _isRemoving = false;
-        });
-      }
-
-      ref.invalidate(userProvider);
-      _showSuccessSnackBar(l10n.extraImagesRemovedSuccessfully);
-    } catch (e) {
-      setState(() => _isRemoving = false);
-      _showErrorSnackBar(l10n.failedToUpdate);
-    }
-  }
-
-  Future<bool?> _showConfirmDialog({
-    required IconData icon,
-    required Color iconColor,
-    required String title,
-    required String content,
-    required String confirmLabel,
-    bool isDestructive = false,
-  }) {
-    final l10n = AppLocalizations.of(context)!;
-    return showDialog<bool>(
-      context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.5),
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          backgroundColor: context.surfaceColor,
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: iconColor.withValues(alpha: 0.12),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(icon, color: iconColor, size: 28),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  title,
-                  style: context.titleMedium.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  content,
-                  style: context.bodySmall.copyWith(
-                    color: context.textSecondary,
-                    height: 1.4,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: context.containerColor,
-                        ),
-                        child: Text(
-                          l10n.cancel,
-                          style: TextStyle(
-                            color: context.textPrimary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.pop(context, true),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: isDestructive
-                              ? Colors.red
-                              : AppColors.primary,
-                        ),
-                        child: Text(
-                          confirmLabel,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    final handler = PhotoUploadHandler(userId: widget.user.id);
+    final result = await handler.deleteAllExtras(
+      existingCount: _existingImageUrls.length,
+      noTokenMessage: l10n.authenticationTokenNotFound,
+      failedMessage: l10n.failedToUpdate,
+      successMessage: l10n.extraImagesRemovedSuccessfully,
     );
+
+    if (!mounted) return;
+    setState(() {
+      if (result.success) {
+        _existingImageUrls =
+            result.imageUrls!.isNotEmpty ? result.imageUrls! : _existingImageUrls.take(1).toList();
+        _selectedImages.clear();
+      }
+      _isRemoving = false;
+    });
+
+    if (result.success) {
+      ref.invalidate(userProvider);
+      showProfileSnackBar(context, message: result.message);
+    } else {
+      showProfileSnackBar(
+        context,
+        message: result.message,
+        type: ProfileSnackBarType.error,
+      );
+    }
   }
 
   Future<void> _handleDone() async {
     final l10n = AppLocalizations.of(context)!;
 
     if (_selectedImages.isNotEmpty) {
-      final shouldSave = await _showConfirmDialog(
+      final shouldSave = await showPhotoConfirmDialog(context,
         icon: Icons.cloud_upload_outlined,
         iconColor: AppColors.primary,
         title: l10n.saveChangesQuestion,
         content: l10n.youHaveUnuploadedImages(_selectedImages.length),
         confirmLabel: l10n.upload,
       );
-
       if (shouldSave == true) {
         await _uploadProfilePictures();
-        if (mounted) Navigator.pop(context);
-        return;
-      } else {
-        if (mounted) Navigator.pop(context);
-        return;
       }
     }
 
     if (mounted) Navigator.pop(context);
   }
 
-  void _showImageSourceDialog() {
-    final l10n = AppLocalizations.of(context)!;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.surfaceColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-          ),
-          child: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(height: 12),
-                Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: context.dividerColor,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  l10n.addImages,
-                  style: context.titleLarge.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _buildSourceOption(
-                          icon: Icons.photo_library_rounded,
-                          label: l10n.chooseFromGallery,
-                          subtitle: l10n.selectUpToImages,
-                          color: AppColors.primary,
-                          onTap: () {
-                            Navigator.pop(context);
-                            _pickImages();
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildSourceOption(
-                          icon: Icons.camera_alt_rounded,
-                          label: l10n.takeAPhoto,
-                          subtitle: '',
-                          color: const Color(0xFF7C4DFF),
-                          onTap: () {
-                            Navigator.pop(context);
-                            _takePhoto();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildSourceOption({
-    required IconData icon,
-    required String label,
-    required String subtitle,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: isDark ? 0.15 : 0.08),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: color.withValues(alpha: isDark ? 0.25 : 0.15),
-              width: 1,
-            ),
-          ),
-          child: Column(
-            children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: color.withValues(alpha: 0.3),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Icon(icon, color: Colors.white, size: 28),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                label,
-                style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
-                textAlign: TextAlign.center,
-              ),
-              if (subtitle.isNotEmpty) ...[
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: context.captionSmall.copyWith(
-                    color: context.textSecondary,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessSnackBar(String message) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.success,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    HapticFeedback.mediumImpact();
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_rounded, color: Colors.white),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
+  // ---------------------------------------------------------------------------
+  // Build
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -770,14 +382,19 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
                     sliver: SliverGrid(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 12,
-                            childAspectRatio: 1,
-                          ),
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1,
+                      ),
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) =>
-                            _buildExistingImageTile(index, l10n),
+                        (context, index) => PhotoGridTile.existing(
+                          url: _existingImageUrls[index],
+                          index: index,
+                          showDeleteButton: _existingImageUrls.length > 1,
+                          onDelete: () => _removeExistingImage(index),
+                          profileLabel: l10n.profile,
+                        ),
                         childCount: _existingImageUrls.length,
                       ),
                     ),
@@ -800,13 +417,17 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
                     sliver: SliverGrid(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 12,
-                            childAspectRatio: 1,
-                          ),
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1,
+                      ),
                       delegate: SliverChildBuilderDelegate(
-                        (context, index) => _buildSelectedImageTile(index),
+                        (context, index) => PhotoGridTile.pending(
+                          file: _selectedImages[index],
+                          index: index,
+                          onDelete: () => _removeSelectedImage(index),
+                        ),
                         childCount: _selectedImages.length,
                       ),
                     ),
@@ -840,6 +461,10 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
       ),
     );
   }
+
+  // ---------------------------------------------------------------------------
+  // Layout helpers (screen-level only)
+  // ---------------------------------------------------------------------------
 
   Widget _buildProgressCard(
     AppLocalizations l10n,
@@ -971,203 +596,6 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
     );
   }
 
-  Widget _buildExistingImageTile(int index, AppLocalizations l10n) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.8, end: 1),
-      duration: Duration(milliseconds: 200 + (index * 50)),
-      curve: Curves.easeOutBack,
-      builder: (context, scale, child) {
-        return Transform.scale(scale: scale, child: child);
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedImageWidget(
-              imageUrl: _existingImageUrls[index],
-              fit: BoxFit.cover,
-              errorWidget: Container(
-                color: context.containerColor,
-                child: Icon(
-                  Icons.broken_image_rounded,
-                  color: context.iconColor,
-                ),
-              ),
-            ),
-          ),
-          if (index == 0)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.primary, width: 2.5),
-                  ),
-                ),
-              ),
-            ),
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withValues(alpha: 0.35),
-                    ],
-                    stops: const [0.6, 1.0],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          if (_existingImageUrls.length > 1)
-            Positioned(
-              top: 6,
-              right: 6,
-              child: GestureDetector(
-                onTap: () {
-                  HapticFeedback.mediumImpact();
-                  _removeExistingImage(index);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.65),
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.close_rounded,
-                    size: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          if (index == 0)
-            Positioned(
-              bottom: 6,
-              left: 6,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.4),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.star_rounded,
-                      size: 12,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(width: 2),
-                    Text(
-                      l10n.profile,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSelectedImageTile(int index) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.8, end: 1),
-      duration: Duration(milliseconds: 200 + (index * 50)),
-      curve: Curves.easeOutBack,
-      builder: (context, scale, child) {
-        return Transform.scale(scale: scale, child: child);
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.file(_selectedImages[index], fit: BoxFit.cover),
-          ),
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF7C4DFF), width: 2),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 6,
-            right: 6,
-            child: GestureDetector(
-              onTap: () => _removeSelectedImage(index),
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.65),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    width: 1,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.close_rounded,
-                  size: 14,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 6,
-            left: 6,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: const Color(0xFF7C4DFF),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                'NEW',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildAddButton(AppLocalizations l10n, int allImages) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
@@ -1175,15 +603,18 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: _isUploading || _isRemoving ? null : _showImageSourceDialog,
+          onTap: _isUploading || _isRemoving ? null : _openPhotoPicker,
           borderRadius: BorderRadius.circular(16),
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
             decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: isDark ? 0.15 : 0.08),
+              color:
+                  AppColors.primary.withValues(alpha: isDark ? 0.15 : 0.08),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: AppColors.primary.withValues(alpha: isDark ? 0.4 : 0.3),
+                color: AppColors.primary.withValues(
+                  alpha: isDark ? 0.4 : 0.3,
+                ),
                 width: 1.5,
               ),
             ),
@@ -1323,9 +754,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
                   height: 48,
                   child: CircularProgressIndicator(
                     strokeWidth: 3,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColors.primary,
-                    ),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                   ),
                 ),
                 const SizedBox(height: 16),
