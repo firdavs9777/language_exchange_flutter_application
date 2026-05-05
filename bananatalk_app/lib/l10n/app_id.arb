@@ -1290,5 +1290,89 @@
   "onlyCityCountryShown": "Hanya kota dan negaramu yang ditampilkan kepada orang lain. Koordinat tepat tetap bersifat pribadi.",
   "updateLocationCta": "Perbarui Lokasi",
   "enterYourName": "Masukkan namamu",
-  "unsavedChanges": "Kamu memiliki perubahan yang belum disimpan"
+  "unsavedChanges": "Kamu memiliki perubahan yang belum disimpan",
+
+  "loadingLanguages": "Memuat bahasa...",
+  "tapBelowToBrowseLanguages": "Ketuk di bawah untuk menelusuri {count} bahasa",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Ganti Bahasa",
+  "browseLanguages": "Telusuri Bahasa",
+  "yourLearningLanguageIsPrefix": "Bahasa yang kamu pelajari adalah ",
+  "yourNativeLanguageIsPrefix": "Bahasa aslimu adalah ",
+
+  "profileCompleteProgress": "selesai",
+
+  "drawerPreferences": "Preferensi",
+  "drawerStorage": "Penyimpanan",
+  "drawerReports": "Laporan",
+  "drawerSupport": "Dukungan",
+  "drawerAccount": "Akun",
+  "logoutConfirmBody": "Apakah kamu yakin ingin keluar dari BanaTalk?",
+  "helpEmailSupport": "Dukungan Email",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Laporkan Bug",
+  "helpReportBugSubtitle": "Bantu kami meningkatkan BanaTalk",
+  "helpFaqs": "FAQ",
+  "helpFaqsSubtitle": "Pertanyaan yang sering diajukan",
+  "aboutDialogClose": "Tutup",
+  "aboutBanaTalkTagline": "Terhubung dengan pelajar bahasa di seluruh dunia dan tingkatkan kemampuanmu melalui percakapan nyata.",
+  "aboutCopyright": "© 2024 BanaTalk. Semua hak dilindungi.",
+  "logoutFailedPrefix": "Gagal keluar",
+
+  "profileVisitorsTitle": "Pengunjung Profil",
+  "visitorStatistics": "Statistik Pengunjung",
+  "visitorsTotalVisits": "Total Kunjungan",
+  "visitorsUniqueVisitors": "Pengunjung Unik",
+  "visitorsToday": "Hari Ini",
+  "visitorsThisWeek": "Minggu Ini",
+  "noVisitorsYet": "Belum ada pengunjung",
+  "noVisitorsYetSubtitle": "Ketika orang mengunjungi profilmu,\nmereka akan muncul di sini",
+  "visitedViaSearch": "melalui Pencarian",
+  "visitedViaMoments": "melalui Momen",
+  "visitedViaChat": "melalui Chat",
+  "visitedDirect": "Kunjungan langsung",
+  "visitorTrackingUnavailable": "Fitur pelacakan pengunjung tidak tersedia. Harap perbarui backend.",
+  "visitorTrackingNotAvailableYet": "Pelacakan pengunjung belum tersedia",
+
+  "noFollowersYetSubtitle": "Mulailah terhubung dengan orang lain!",
+  "partnerButton": "Mitra",
+
+  "notFollowingAnyoneYetSubtitle": "Mulai ikuti orang untuk melihat pembaruan mereka!",
+  "unfollowButton": "Berhenti Mengikuti",
+
+  "profileThemeTitle": "Tema Profil",
+  "themeAutoSwitch": "Ganti Otomatis (Tema Sistem)",
+  "themeSystemHint": "Saat diaktifkan, aplikasi akan mengikuti pengaturan tema sistemmu",
+  "themeLightMode": "Mode Terang",
+  "themeDarkMode": "Mode Gelap",
+
+  "myMoments": "Momenku",
+  "momentListView": "Tampilan Daftar",
+  "momentGridView": "Tampilan Kotak",
+  "shareLanguageLearningJourney": "Bagikan perjalanan belajar bahasamu!",
+
+  "deleteHighlightTitle": "Hapus Highlight",
+  "deleteHighlightConfirm": "Hapus \"{title}\"? Cerita di dalamnya tidak akan dihapus.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Highlight dihapus",
+  "highlightNewBadge": "Baru",
+
+  "editMoment": "Edit Momen",
+  "momentDescriptionLabel": "Deskripsi",
+  "momentImagesLabel": "Gambar",
+  "noImagesYet": "Belum ada gambar",
+  "momentEnterDescription": "Mohon masukkan deskripsi",
+  "momentUpdatedImageFailed": "Momen diperbarui tetapi unggah gambar gagal"
 }

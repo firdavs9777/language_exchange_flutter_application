@@ -4206,4 +4206,185 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'Du hast ungespeicherte Änderungen';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'Tippe unten, um aus $count Sprachen zu wählen';
+  }
+
+  @override
+  String get changeLanguage => 'Sprache ändern';
+
+  @override
+  String get browseLanguages => 'Sprachen durchsuchen';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Deine Lernsprache ist ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Deine Muttersprache ist ';
+
+  @override
+  String get profileCompleteProgress => 'vollständig';
+
+  @override
+  String get drawerPreferences => 'Einstellungen';
+
+  @override
+  String get drawerStorage => 'Speicher';
+
+  @override
+  String get drawerReports => 'Berichte';
+
+  @override
+  String get drawerSupport => 'Support';
+
+  @override
+  String get drawerAccount => 'Konto';
+
+  @override
+  String get logoutConfirmBody => 'Bist du sicher, dass du dich von BanaTalk abmelden möchtest?';
+
+  @override
+  String get helpEmailSupport => 'E-Mail-Support';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Fehler melden';
+
+  @override
+  String get helpReportBugSubtitle => 'Hilf uns, BanaTalk zu verbessern';
+
+  @override
+  String get helpFaqs => 'FAQs';
+
+  @override
+  String get helpFaqsSubtitle => 'Häufig gestellte Fragen';
+
+  @override
+  String get aboutDialogClose => 'Schließen';
+
+  @override
+  String get aboutBanaTalkTagline => 'Verbinde dich mit Sprachlernenden weltweit und verbessere deine Fähigkeiten durch echte Gespräche.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Alle Rechte vorbehalten.';
+
+  @override
+  String get logoutFailedPrefix => 'Abmeldung fehlgeschlagen';
+
+  @override
+  String get profileVisitorsTitle => 'Profilbesucher';
+
+  @override
+  String get visitorStatistics => 'Besucherstatistiken';
+
+  @override
+  String get visitorsTotalVisits => 'Besuche gesamt';
+
+  @override
+  String get visitorsUniqueVisitors => 'Eindeutige Besucher';
+
+  @override
+  String get visitorsToday => 'Heute';
+
+  @override
+  String get visitorsThisWeek => 'Diese Woche';
+
+  @override
+  String get noVisitorsYet => 'Noch keine Besucher';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Wenn jemand dein Profil besucht,\nerscheinen sie hier';
+
+  @override
+  String get visitedViaSearch => 'über Suche';
+
+  @override
+  String get visitedViaMoments => 'über Momente';
+
+  @override
+  String get visitedViaChat => 'über Chat';
+
+  @override
+  String get visitedDirect => 'Direktbesuch';
+
+  @override
+  String get visitorTrackingUnavailable => 'Besucherverfolgung nicht verfügbar. Bitte Backend aktualisieren.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Besucherverfolgung noch nicht verfügbar';
+
+  @override
+  String get noFollowersYetSubtitle => 'Fang an, dich mit anderen zu vernetzen!';
+
+  @override
+  String get partnerButton => 'Partner';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Folge Personen, um ihre Updates zu sehen!';
+
+  @override
+  String get unfollowButton => 'Nicht mehr folgen';
+
+  @override
+  String get profileThemeTitle => 'Profildesign';
+
+  @override
+  String get themeAutoSwitch => 'Automatisch wechseln (Systemdesign)';
+
+  @override
+  String get themeSystemHint => 'Wenn aktiviert, folgt die App deinen Systemdesign-Einstellungen';
+
+  @override
+  String get themeLightMode => 'Heller Modus';
+
+  @override
+  String get themeDarkMode => 'Dunkler Modus';
+
+  @override
+  String get myMoments => 'Meine Momente';
+
+  @override
+  String get momentListView => 'Listenansicht';
+
+  @override
+  String get momentGridView => 'Rasteransicht';
+
+  @override
+  String get shareLanguageLearningJourney => 'Teile deine Sprachlernreise!';
+
+  @override
+  String get deleteHighlightTitle => 'Highlight löschen';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '\"$title\" löschen? Die enthaltenen Stories werden nicht gelöscht.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Highlight gelöscht';
+
+  @override
+  String get highlightNewBadge => 'Neu';
+
+  @override
+  String get editMoment => 'Moment bearbeiten';
+
+  @override
+  String get momentDescriptionLabel => 'Beschreibung';
+
+  @override
+  String get momentImagesLabel => 'Bilder';
+
+  @override
+  String get noImagesYet => 'Noch keine Bilder';
+
+  @override
+  String get momentEnterDescription => 'Bitte gib eine Beschreibung ein';
+
+  @override
+  String get momentUpdatedImageFailed => 'Moment aktualisiert, aber Bild-Upload fehlgeschlagen';
 }

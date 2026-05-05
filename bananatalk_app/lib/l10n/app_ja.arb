@@ -1463,5 +1463,89 @@
   "onlyCityCountryShown": "他のユーザーには市区町村と国のみ表示されます。正確な座標は非公開のままです。",
   "updateLocationCta": "位置情報を更新",
   "enterYourName": "名前を入力してください",
-  "unsavedChanges": "未保存の変更があります"
+  "unsavedChanges": "未保存の変更があります",
+
+  "loadingLanguages": "言語を読み込み中...",
+  "tapBelowToBrowseLanguages": "下をタップして{count}言語から選択",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "言語を変更",
+  "browseLanguages": "言語を探す",
+  "yourLearningLanguageIsPrefix": "学習中の言語：",
+  "yourNativeLanguageIsPrefix": "母国語：",
+
+  "profileCompleteProgress": "完了",
+
+  "drawerPreferences": "設定",
+  "drawerStorage": "ストレージ",
+  "drawerReports": "レポート",
+  "drawerSupport": "サポート",
+  "drawerAccount": "アカウント",
+  "logoutConfirmBody": "BanaTalkからログアウトしますか？",
+  "helpEmailSupport": "メールサポート",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "バグを報告",
+  "helpReportBugSubtitle": "BanaTalkの改善にご協力ください",
+  "helpFaqs": "よくある質問",
+  "helpFaqsSubtitle": "よく寄せられる質問",
+  "aboutDialogClose": "閉じる",
+  "aboutBanaTalkTagline": "世界中の語学学習者とつながり、実際の会話を通してスキルを向上させましょう。",
+  "aboutCopyright": "© 2024 BanaTalk. 無断転載禁止。",
+  "logoutFailedPrefix": "ログアウト失敗",
+
+  "profileVisitorsTitle": "プロフィール訪問者",
+  "visitorStatistics": "訪問者統計",
+  "visitorsTotalVisits": "総訪問数",
+  "visitorsUniqueVisitors": "ユニーク訪問者",
+  "visitorsToday": "今日",
+  "visitorsThisWeek": "今週",
+  "noVisitorsYet": "まだ訪問者がいません",
+  "noVisitorsYetSubtitle": "あなたのプロフィールを訪問した人が\nここに表示されます",
+  "visitedViaSearch": "検索経由",
+  "visitedViaMoments": "モーメント経由",
+  "visitedViaChat": "チャット経由",
+  "visitedDirect": "直接訪問",
+  "visitorTrackingUnavailable": "訪問者追跡機能は利用できません。バックエンドを更新してください。",
+  "visitorTrackingNotAvailableYet": "訪問者追跡はまだ利用できません",
+
+  "noFollowersYetSubtitle": "他のユーザーとつながり始めましょう！",
+  "partnerButton": "パートナー",
+
+  "notFollowingAnyoneYetSubtitle": "フォローして更新情報を確認しましょう！",
+  "unfollowButton": "フォロー解除",
+
+  "profileThemeTitle": "プロフィールテーマ",
+  "themeAutoSwitch": "自動切替（システムテーマ）",
+  "themeSystemHint": "有効にすると、アプリはシステムのテーマ設定に従います",
+  "themeLightMode": "ライトモード",
+  "themeDarkMode": "ダークモード",
+
+  "myMoments": "マイモーメント",
+  "momentListView": "リスト表示",
+  "momentGridView": "グリッド表示",
+  "shareLanguageLearningJourney": "語学学習の旅をシェアしよう！",
+
+  "deleteHighlightTitle": "ハイライトを削除",
+  "deleteHighlightConfirm": "「{title}」を削除しますか？中のストーリーは削除されません。",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "ハイライトを削除しました",
+  "highlightNewBadge": "新着",
+
+  "editMoment": "モーメントを編集",
+  "momentDescriptionLabel": "説明",
+  "momentImagesLabel": "画像",
+  "noImagesYet": "画像がありません",
+  "momentEnterDescription": "説明を入力してください",
+  "momentUpdatedImageFailed": "モーメントは更新されましたが、画像のアップロードに失敗しました"
 }

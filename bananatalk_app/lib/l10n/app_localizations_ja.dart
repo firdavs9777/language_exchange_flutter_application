@@ -4206,4 +4206,185 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get unsavedChanges => '未保存の変更があります';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return '下をタップして$count言語から選択';
+  }
+
+  @override
+  String get changeLanguage => '言語を変更';
+
+  @override
+  String get browseLanguages => '言語を探す';
+
+  @override
+  String get yourLearningLanguageIsPrefix => '学習中の言語：';
+
+  @override
+  String get yourNativeLanguageIsPrefix => '母国語：';
+
+  @override
+  String get profileCompleteProgress => '完了';
+
+  @override
+  String get drawerPreferences => '設定';
+
+  @override
+  String get drawerStorage => 'ストレージ';
+
+  @override
+  String get drawerReports => 'レポート';
+
+  @override
+  String get drawerSupport => 'サポート';
+
+  @override
+  String get drawerAccount => 'アカウント';
+
+  @override
+  String get logoutConfirmBody => 'BanaTalkからログアウトしますか？';
+
+  @override
+  String get helpEmailSupport => 'メールサポート';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'バグを報告';
+
+  @override
+  String get helpReportBugSubtitle => 'BanaTalkの改善にご協力ください';
+
+  @override
+  String get helpFaqs => 'よくある質問';
+
+  @override
+  String get helpFaqsSubtitle => 'よく寄せられる質問';
+
+  @override
+  String get aboutDialogClose => '閉じる';
+
+  @override
+  String get aboutBanaTalkTagline => '世界中の語学学習者とつながり、実際の会話を通してスキルを向上させましょう。';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. 無断転載禁止。';
+
+  @override
+  String get logoutFailedPrefix => 'ログアウト失敗';
+
+  @override
+  String get profileVisitorsTitle => 'プロフィール訪問者';
+
+  @override
+  String get visitorStatistics => '訪問者統計';
+
+  @override
+  String get visitorsTotalVisits => '総訪問数';
+
+  @override
+  String get visitorsUniqueVisitors => 'ユニーク訪問者';
+
+  @override
+  String get visitorsToday => '今日';
+
+  @override
+  String get visitorsThisWeek => '今週';
+
+  @override
+  String get noVisitorsYet => 'まだ訪問者がいません';
+
+  @override
+  String get noVisitorsYetSubtitle => 'あなたのプロフィールを訪問した人が\nここに表示されます';
+
+  @override
+  String get visitedViaSearch => '検索経由';
+
+  @override
+  String get visitedViaMoments => 'モーメント経由';
+
+  @override
+  String get visitedViaChat => 'チャット経由';
+
+  @override
+  String get visitedDirect => '直接訪問';
+
+  @override
+  String get visitorTrackingUnavailable => '訪問者追跡機能は利用できません。バックエンドを更新してください。';
+
+  @override
+  String get visitorTrackingNotAvailableYet => '訪問者追跡はまだ利用できません';
+
+  @override
+  String get noFollowersYetSubtitle => '他のユーザーとつながり始めましょう！';
+
+  @override
+  String get partnerButton => 'パートナー';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'フォローして更新情報を確認しましょう！';
+
+  @override
+  String get unfollowButton => 'フォロー解除';
+
+  @override
+  String get profileThemeTitle => 'プロフィールテーマ';
+
+  @override
+  String get themeAutoSwitch => '自動切替（システムテーマ）';
+
+  @override
+  String get themeSystemHint => '有効にすると、アプリはシステムのテーマ設定に従います';
+
+  @override
+  String get themeLightMode => 'ライトモード';
+
+  @override
+  String get themeDarkMode => 'ダークモード';
+
+  @override
+  String get myMoments => 'マイモーメント';
+
+  @override
+  String get momentListView => 'リスト表示';
+
+  @override
+  String get momentGridView => 'グリッド表示';
+
+  @override
+  String get shareLanguageLearningJourney => '語学学習の旅をシェアしよう！';
+
+  @override
+  String get deleteHighlightTitle => 'ハイライトを削除';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '「$title」を削除しますか？中のストーリーは削除されません。';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'ハイライトを削除しました';
+
+  @override
+  String get highlightNewBadge => '新着';
+
+  @override
+  String get editMoment => 'モーメントを編集';
+
+  @override
+  String get momentDescriptionLabel => '説明';
+
+  @override
+  String get momentImagesLabel => '画像';
+
+  @override
+  String get noImagesYet => '画像がありません';
+
+  @override
+  String get momentEnterDescription => '説明を入力してください';
+
+  @override
+  String get momentUpdatedImageFailed => 'モーメントは更新されましたが、画像のアップロードに失敗しました';
 }

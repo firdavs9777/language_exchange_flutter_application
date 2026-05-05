@@ -1475,5 +1475,89 @@
   "onlyCityCountryShown": "Другим пользователям видны только ваш город и страна. Точные координаты остаются конфиденциальными.",
   "updateLocationCta": "Обновить местоположение",
   "enterYourName": "Введите ваше имя",
-  "unsavedChanges": "У вас есть несохранённые изменения"
+  "unsavedChanges": "У вас есть несохранённые изменения",
+
+  "loadingLanguages": "Загрузка языков...",
+  "tapBelowToBrowseLanguages": "Нажмите ниже, чтобы выбрать из {count} языков",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Изменить язык",
+  "browseLanguages": "Просмотр языков",
+  "yourLearningLanguageIsPrefix": "Ваш язык изучения — ",
+  "yourNativeLanguageIsPrefix": "Ваш родной язык — ",
+
+  "profileCompleteProgress": "заполнено",
+
+  "drawerPreferences": "Настройки",
+  "drawerStorage": "Хранилище",
+  "drawerReports": "Жалобы",
+  "drawerSupport": "Поддержка",
+  "drawerAccount": "Аккаунт",
+  "logoutConfirmBody": "Вы уверены, что хотите выйти из BanaTalk?",
+  "helpEmailSupport": "Поддержка по email",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Сообщить об ошибке",
+  "helpReportBugSubtitle": "Помогите нам улучшить BanaTalk",
+  "helpFaqs": "Частые вопросы",
+  "helpFaqsSubtitle": "Часто задаваемые вопросы",
+  "aboutDialogClose": "Закрыть",
+  "aboutBanaTalkTagline": "Общайтесь с изучающими языки по всему миру и улучшайте навыки через реальные разговоры.",
+  "aboutCopyright": "© 2024 BanaTalk. Все права защищены.",
+  "logoutFailedPrefix": "Ошибка выхода",
+
+  "profileVisitorsTitle": "Посетители профиля",
+  "visitorStatistics": "Статистика посещений",
+  "visitorsTotalVisits": "Всего посещений",
+  "visitorsUniqueVisitors": "Уникальные посетители",
+  "visitorsToday": "Сегодня",
+  "visitorsThisWeek": "На этой неделе",
+  "noVisitorsYet": "Посетителей пока нет",
+  "noVisitorsYetSubtitle": "Когда люди посетят ваш профиль,\nони появятся здесь",
+  "visitedViaSearch": "через Поиск",
+  "visitedViaMoments": "через Моменты",
+  "visitedViaChat": "через Чат",
+  "visitedDirect": "Прямой визит",
+  "visitorTrackingUnavailable": "Отслеживание посетителей недоступно. Обновите бэкенд.",
+  "visitorTrackingNotAvailableYet": "Отслеживание посетителей пока недоступно",
+
+  "noFollowersYetSubtitle": "Начните общаться с другими!",
+  "partnerButton": "Партнёр",
+
+  "notFollowingAnyoneYetSubtitle": "Подпишитесь на людей, чтобы видеть их обновления!",
+  "unfollowButton": "Отписаться",
+
+  "profileThemeTitle": "Тема профиля",
+  "themeAutoSwitch": "Авто (системная тема)",
+  "themeSystemHint": "При включении приложение будет следовать настройкам темы системы",
+  "themeLightMode": "Светлая тема",
+  "themeDarkMode": "Тёмная тема",
+
+  "myMoments": "Мои моменты",
+  "momentListView": "Список",
+  "momentGridView": "Сетка",
+  "shareLanguageLearningJourney": "Поделитесь своим путём изучения языка!",
+
+  "deleteHighlightTitle": "Удалить подборку",
+  "deleteHighlightConfirm": "Удалить «{title}»? Истории внутри удалены не будут.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Подборка удалена",
+  "highlightNewBadge": "Новое",
+
+  "editMoment": "Редактировать момент",
+  "momentDescriptionLabel": "Описание",
+  "momentImagesLabel": "Изображения",
+  "noImagesYet": "Изображений пока нет",
+  "momentEnterDescription": "Введите описание",
+  "momentUpdatedImageFailed": "Момент обновлён, но загрузка изображения не удалась"
 }

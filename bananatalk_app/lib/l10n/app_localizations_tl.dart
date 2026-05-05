@@ -3901,7 +3901,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get anyCountry => 'Kahit anong Bansa';
 
   @override
-  String get loadingLanguages => 'Nilo-load ang mga wika...';
+  String get loadingLanguages => 'Naglo-load ng mga wika...';
 
   @override
   String minAge(int age) {
@@ -4206,4 +4206,185 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'Mayroon kang mga hindi pa nai-save na pagbabago';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'I-tap sa ibaba upang mag-browse mula sa $count wika';
+  }
+
+  @override
+  String get changeLanguage => 'Baguhin ang Wika';
+
+  @override
+  String get browseLanguages => 'I-browse ang mga Wika';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Ang iyong wikang pinag-aaralan ay ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Ang iyong katutubong wika ay ';
+
+  @override
+  String get profileCompleteProgress => 'kumpleto';
+
+  @override
+  String get drawerPreferences => 'Mga Kagustuhan';
+
+  @override
+  String get drawerStorage => 'Storage';
+
+  @override
+  String get drawerReports => 'Mga Ulat';
+
+  @override
+  String get drawerSupport => 'Suporta';
+
+  @override
+  String get drawerAccount => 'Account';
+
+  @override
+  String get logoutConfirmBody => 'Sigurado ka bang gusto mong mag-logout sa BanaTalk?';
+
+  @override
+  String get helpEmailSupport => 'Suporta sa Email';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Mag-ulat ng Bug';
+
+  @override
+  String get helpReportBugSubtitle => 'Tulungan kaming mapabuti ang BanaTalk';
+
+  @override
+  String get helpFaqs => 'Mga FAQ';
+
+  @override
+  String get helpFaqsSubtitle => 'Mga madalas itanong';
+
+  @override
+  String get aboutDialogClose => 'Isara';
+
+  @override
+  String get aboutBanaTalkTagline => 'Kumonekta sa mga nagaaral ng wika sa buong mundo at paunlarin ang iyong mga kasanayan sa pamamagitan ng tunay na pag-uusap.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Lahat ng karapatan ay nakalaan.';
+
+  @override
+  String get logoutFailedPrefix => 'Nabigo ang pag-logout';
+
+  @override
+  String get profileVisitorsTitle => 'Mga Bisita ng Profile';
+
+  @override
+  String get visitorStatistics => 'Estadistika ng Bisita';
+
+  @override
+  String get visitorsTotalVisits => 'Kabuuang Pagbisita';
+
+  @override
+  String get visitorsUniqueVisitors => 'Natatanging Bisita';
+
+  @override
+  String get visitorsToday => 'Ngayon';
+
+  @override
+  String get visitorsThisWeek => 'Ngayong Linggo';
+
+  @override
+  String get noVisitorsYet => 'Wala pang bisita';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Kapag may bumisita sa iyong profile,\nlalabas sila dito';
+
+  @override
+  String get visitedViaSearch => 'sa pamamagitan ng Paghahanap';
+
+  @override
+  String get visitedViaMoments => 'sa pamamagitan ng Moments';
+
+  @override
+  String get visitedViaChat => 'sa pamamagitan ng Chat';
+
+  @override
+  String get visitedDirect => 'Direktang pagbisita';
+
+  @override
+  String get visitorTrackingUnavailable => 'Hindi available ang feature ng pagsubaybay sa bisita. Pakiupdate ang backend.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Hindi pa available ang pagsubaybay sa bisita';
+
+  @override
+  String get noFollowersYetSubtitle => 'Simulan ang pakikipag-ugnayan sa iba!';
+
+  @override
+  String get partnerButton => 'Kasosyo';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Sundan ang mga tao upang makita ang kanilang mga update!';
+
+  @override
+  String get unfollowButton => 'I-unfollow';
+
+  @override
+  String get profileThemeTitle => 'Tema ng Profile';
+
+  @override
+  String get themeAutoSwitch => 'Awtomatikong Paglipat (Tema ng Sistema)';
+
+  @override
+  String get themeSystemHint => 'Kapag pinagana, susundin ng app ang mga setting ng tema ng iyong sistema';
+
+  @override
+  String get themeLightMode => 'Light Mode';
+
+  @override
+  String get themeDarkMode => 'Dark Mode';
+
+  @override
+  String get myMoments => 'Aking Mga Moment';
+
+  @override
+  String get momentListView => 'List View';
+
+  @override
+  String get momentGridView => 'Grid View';
+
+  @override
+  String get shareLanguageLearningJourney => 'Ibahagi ang iyong paglalakbay sa pag-aaral ng wika!';
+
+  @override
+  String get deleteHighlightTitle => 'Tanggalin ang Highlight';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'Tanggalin ang \"$title\"? Hindi matatanggal ang mga kuwento sa loob nito.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Natanggal ang highlight';
+
+  @override
+  String get highlightNewBadge => 'Bago';
+
+  @override
+  String get editMoment => 'I-edit ang Moment';
+
+  @override
+  String get momentDescriptionLabel => 'Paglalarawan';
+
+  @override
+  String get momentImagesLabel => 'Mga Larawan';
+
+  @override
+  String get noImagesYet => 'Wala pang larawan';
+
+  @override
+  String get momentEnterDescription => 'Mangyaring maglagay ng paglalarawan';
+
+  @override
+  String get momentUpdatedImageFailed => 'Na-update ang moment ngunit nabigo ang pag-upload ng larawan';
 }

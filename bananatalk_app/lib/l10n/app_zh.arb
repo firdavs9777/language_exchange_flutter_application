@@ -1477,5 +1477,89 @@
   "onlyCityCountryShown": "其他人只能看到你的城市和国家，精确坐标保持私密。",
   "updateLocationCta": "更新位置",
   "enterYourName": "输入你的名字",
-  "unsavedChanges": "你有未保存的更改"
+  "unsavedChanges": "你有未保存的更改",
+
+  "loadingLanguages": "正在加载语言...",
+  "tapBelowToBrowseLanguages": "点击下方浏览 {count} 种语言",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "更改语言",
+  "browseLanguages": "浏览语言",
+  "yourLearningLanguageIsPrefix": "你正在学习的语言是",
+  "yourNativeLanguageIsPrefix": "你的母语是",
+
+  "profileCompleteProgress": "已完成",
+
+  "drawerPreferences": "偏好设置",
+  "drawerStorage": "存储",
+  "drawerReports": "举报",
+  "drawerSupport": "支持",
+  "drawerAccount": "账户",
+  "logoutConfirmBody": "确定要从 BanaTalk 退出登录吗？",
+  "helpEmailSupport": "邮件支持",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "报告问题",
+  "helpReportBugSubtitle": "帮助我们改进 BanaTalk",
+  "helpFaqs": "常见问题",
+  "helpFaqsSubtitle": "常见问题解答",
+  "aboutDialogClose": "关闭",
+  "aboutBanaTalkTagline": "与全球语言学习者连接，通过真实对话提升你的技能。",
+  "aboutCopyright": "© 2024 BanaTalk. 版权所有。",
+  "logoutFailedPrefix": "退出失败",
+
+  "profileVisitorsTitle": "访客",
+  "visitorStatistics": "访客统计",
+  "visitorsTotalVisits": "总访问次数",
+  "visitorsUniqueVisitors": "独立访客",
+  "visitorsToday": "今日",
+  "visitorsThisWeek": "本周",
+  "noVisitorsYet": "暂无访客",
+  "noVisitorsYetSubtitle": "当有人访问你的主页时，\n他们将显示在这里",
+  "visitedViaSearch": "通过搜索",
+  "visitedViaMoments": "通过动态",
+  "visitedViaChat": "通过聊天",
+  "visitedDirect": "直接访问",
+  "visitorTrackingUnavailable": "访客追踪功能不可用。请更新后端。",
+  "visitorTrackingNotAvailableYet": "访客追踪功能暂不可用",
+
+  "noFollowersYetSubtitle": "开始与他人建立联系吧！",
+  "partnerButton": "搭档",
+
+  "notFollowingAnyoneYetSubtitle": "关注他人以查看他们的动态！",
+  "unfollowButton": "取消关注",
+
+  "profileThemeTitle": "主题",
+  "themeAutoSwitch": "自动切换（跟随系统）",
+  "themeSystemHint": "开启后，应用将跟随系统主题设置",
+  "themeLightMode": "浅色模式",
+  "themeDarkMode": "深色模式",
+
+  "myMoments": "我的动态",
+  "momentListView": "列表视图",
+  "momentGridView": "网格视图",
+  "shareLanguageLearningJourney": "分享你的语言学习之旅！",
+
+  "deleteHighlightTitle": "删除精选",
+  "deleteHighlightConfirm": "删除「{title}」？内部的故事不会被删除。",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "精选已删除",
+  "highlightNewBadge": "新",
+
+  "editMoment": "编辑动态",
+  "momentDescriptionLabel": "描述",
+  "momentImagesLabel": "图片",
+  "noImagesYet": "暂无图片",
+  "momentEnterDescription": "请输入描述",
+  "momentUpdatedImageFailed": "动态已更新，但图片上传失败"
 }

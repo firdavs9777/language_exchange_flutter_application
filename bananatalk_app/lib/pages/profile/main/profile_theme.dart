@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/main.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class ProfileTheme extends ConsumerStatefulWidget {
   const ProfileTheme({super.key});
@@ -14,6 +16,7 @@ class ProfileTheme extends ConsumerStatefulWidget {
 class _ProfileThemeState extends ConsumerState<ProfileTheme> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // Watch the themeProvider to get the current theme mode
     final themeMode = ref.watch(themeProvider);
 
@@ -23,9 +26,14 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
         backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         elevation: 0,
+        scrolledUnderElevation: 0.5,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(
-          'Profile Theme',
-          style: context.titleLarge,
+          l10n.profileThemeTitle,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
         ),
       ),
       body: Padding(
@@ -41,12 +49,13 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
               ),
               child: ListTile(
                 title: Text(
-                  'Auto Switch (System Theme)',
+                  l10n.themeAutoSwitch,
                   style: context.titleMedium,
                 ),
                 trailing: Switch(
                   value: themeMode == ThemeMode.system,
                   onChanged: (bool value) {
+                    HapticFeedback.selectionClick();
                     final newMode = value ? ThemeMode.system : ThemeMode.light;
                     ref.read(themeProvider.notifier).setTheme(newMode);
                   },
@@ -60,7 +69,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'When enabled, the app will follow your system theme settings',
+                l10n.themeSystemHint,
                 style: context.bodySmall,
               ),
             ),
@@ -74,7 +83,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
                 children: [
                   ListTile(
                     title: Text(
-                      'Light Mode',
+                      l10n.themeLightMode,
                       style: context.titleMedium,
                     ),
                     trailing: Radio<ThemeMode>(
@@ -82,19 +91,21 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
                       groupValue: themeMode,
                       onChanged: (ThemeMode? value) {
                         if (value != null) {
+                          HapticFeedback.selectionClick();
                           ref.read(themeProvider.notifier).setTheme(value);
                         }
                       },
                       activeColor: AppColors.primary,
                     ),
                     onTap: () {
+                      HapticFeedback.selectionClick();
                       ref.read(themeProvider.notifier).setTheme(ThemeMode.light);
                     },
                   ),
                   Divider(height: 1, color: context.dividerColor),
                   ListTile(
                     title: Text(
-                      'Dark Mode',
+                      l10n.themeDarkMode,
                       style: context.titleMedium,
                     ),
                     trailing: Radio<ThemeMode>(
@@ -102,12 +113,14 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
                       groupValue: themeMode,
                       onChanged: (ThemeMode? value) {
                         if (value != null) {
+                          HapticFeedback.selectionClick();
                           ref.read(themeProvider.notifier).setTheme(value);
                         }
                       },
                       activeColor: AppColors.primary,
                     ),
                     onTap: () {
+                      HapticFeedback.selectionClick();
                       ref.read(themeProvider.notifier).setTheme(ThemeMode.dark);
                     },
                   ),

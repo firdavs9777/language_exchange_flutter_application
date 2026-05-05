@@ -1455,5 +1455,89 @@
   "onlyCityCountryShown": "केवल आपका शहर और देश दूसरों को दिखाया जाता है। सटीक निर्देशांक निजी रहते हैं।",
   "updateLocationCta": "स्थान अपडेट करें",
   "enterYourName": "अपना नाम दर्ज करें",
-  "unsavedChanges": "आपके पास सहेजे नहीं गए परिवर्तन हैं"
+  "unsavedChanges": "आपके पास सहेजे नहीं गए परिवर्तन हैं",
+
+  "loadingLanguages": "भाषाएँ लोड हो रही हैं...",
+  "tapBelowToBrowseLanguages": "{count} भाषाओं में से ब्राउज़ करने के लिए नीचे टैप करें",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "भाषा बदलें",
+  "browseLanguages": "भाषाएँ ब्राउज़ करें",
+  "yourLearningLanguageIsPrefix": "आपकी सीखने की भाषा है ",
+  "yourNativeLanguageIsPrefix": "आपकी मातृभाषा है ",
+
+  "profileCompleteProgress": "पूर्ण",
+
+  "drawerPreferences": "प्राथमिकताएँ",
+  "drawerStorage": "संग्रहण",
+  "drawerReports": "रिपोर्ट",
+  "drawerSupport": "सहायता",
+  "drawerAccount": "खाता",
+  "logoutConfirmBody": "क्या आप BanaTalk से लॉगआउट करना चाहते हैं?",
+  "helpEmailSupport": "ईमेल सहायता",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "बग रिपोर्ट करें",
+  "helpReportBugSubtitle": "BanaTalk को बेहतर बनाने में हमारी मदद करें",
+  "helpFaqs": "अक्सर पूछे जाने वाले प्रश्न",
+  "helpFaqsSubtitle": "सामान्य प्रश्न और उत्तर",
+  "aboutDialogClose": "बंद करें",
+  "aboutBanaTalkTagline": "दुनिया भर के भाषा सीखने वालों से जुड़ें और वास्तविक बातचीत के माध्यम से अपने कौशल में सुधार करें।",
+  "aboutCopyright": "© 2024 BanaTalk. सर्वाधिकार सुरक्षित।",
+  "logoutFailedPrefix": "लॉगआउट विफल",
+
+  "profileVisitorsTitle": "प्रोफाइल विजिटर",
+  "visitorStatistics": "विजिटर आँकड़े",
+  "visitorsTotalVisits": "कुल विज़िट",
+  "visitorsUniqueVisitors": "अद्वितीय विजिटर",
+  "visitorsToday": "आज",
+  "visitorsThisWeek": "इस सप्ताह",
+  "noVisitorsYet": "अभी तक कोई विजिटर नहीं",
+  "noVisitorsYetSubtitle": "जब लोग आपकी प्रोफाइल देखेंगे,\nवे यहाँ दिखाई देंगे",
+  "visitedViaSearch": "खोज के ज़रिए",
+  "visitedViaMoments": "मोमेंट्स के ज़रिए",
+  "visitedViaChat": "चैट के ज़रिए",
+  "visitedDirect": "सीधी विज़िट",
+  "visitorTrackingUnavailable": "विजिटर ट्रैकिंग सुविधा उपलब्ध नहीं है। कृपया बैकएंड अपडेट करें।",
+  "visitorTrackingNotAvailableYet": "विजिटर ट्रैकिंग अभी उपलब्ध नहीं है",
+
+  "noFollowersYetSubtitle": "दूसरों से जुड़ना शुरू करें!",
+  "partnerButton": "साथी",
+
+  "notFollowingAnyoneYetSubtitle": "लोगों को फॉलो करें और उनके अपडेट देखें!",
+  "unfollowButton": "अनफॉलो",
+
+  "profileThemeTitle": "प्रोफाइल थीम",
+  "themeAutoSwitch": "ऑटो स्विच (सिस्टम थीम)",
+  "themeSystemHint": "सक्षम होने पर, ऐप आपकी सिस्टम थीम सेटिंग्स का अनुसरण करेगा",
+  "themeLightMode": "लाइट मोड",
+  "themeDarkMode": "डार्क मोड",
+
+  "myMoments": "मेरे मोमेंट्स",
+  "momentListView": "सूची दृश्य",
+  "momentGridView": "ग्रिड दृश्य",
+  "shareLanguageLearningJourney": "अपनी भाषा सीखने की यात्रा साझा करें!",
+
+  "deleteHighlightTitle": "हाइलाइट हटाएँ",
+  "deleteHighlightConfirm": "\"{title}\" हटाएँ? इसके अंदर की स्टोरीज़ नहीं हटाई जाएंगी।",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "हाइलाइट हटाई गई",
+  "highlightNewBadge": "नया",
+
+  "editMoment": "मोमेंट संपादित करें",
+  "momentDescriptionLabel": "विवरण",
+  "momentImagesLabel": "छवियाँ",
+  "noImagesYet": "अभी तक कोई छवि नहीं",
+  "momentEnterDescription": "कृपया एक विवरण दर्ज करें",
+  "momentUpdatedImageFailed": "मोमेंट अपडेट हुआ लेकिन छवि अपलोड विफल रही"
 }

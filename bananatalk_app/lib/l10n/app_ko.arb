@@ -1485,5 +1485,89 @@
   "onlyCityCountryShown": "다른 사람들에게는 도시와 국가만 표시됩니다. 정확한 좌표는 비공개로 유지됩니다.",
   "updateLocationCta": "위치 업데이트",
   "enterYourName": "이름을 입력하세요",
-  "unsavedChanges": "저장되지 않은 변경 사항이 있습니다"
+  "unsavedChanges": "저장되지 않은 변경 사항이 있습니다",
+
+  "loadingLanguages": "언어를 불러오는 중...",
+  "tapBelowToBrowseLanguages": "아래를 탭하여 {count}개 언어 중 선택",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "언어 변경",
+  "browseLanguages": "언어 찾기",
+  "yourLearningLanguageIsPrefix": "학습 중인 언어: ",
+  "yourNativeLanguageIsPrefix": "모국어: ",
+
+  "profileCompleteProgress": "완료",
+
+  "drawerPreferences": "환경설정",
+  "drawerStorage": "저장공간",
+  "drawerReports": "신고",
+  "drawerSupport": "고객지원",
+  "drawerAccount": "계정",
+  "logoutConfirmBody": "BanaTalk에서 로그아웃하시겠습니까?",
+  "helpEmailSupport": "이메일 지원",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "버그 신고",
+  "helpReportBugSubtitle": "BanaTalk 개선에 도움을 주세요",
+  "helpFaqs": "자주 묻는 질문",
+  "helpFaqsSubtitle": "자주 하는 질문들",
+  "aboutDialogClose": "닫기",
+  "aboutBanaTalkTagline": "전 세계 언어 학습자와 연결하고 실제 대화를 통해 실력을 키워보세요.",
+  "aboutCopyright": "© 2024 BanaTalk. 무단 전재 금지.",
+  "logoutFailedPrefix": "로그아웃 실패",
+
+  "profileVisitorsTitle": "프로필 방문자",
+  "visitorStatistics": "방문자 통계",
+  "visitorsTotalVisits": "총 방문 수",
+  "visitorsUniqueVisitors": "고유 방문자",
+  "visitorsToday": "오늘",
+  "visitorsThisWeek": "이번 주",
+  "noVisitorsYet": "아직 방문자가 없습니다",
+  "noVisitorsYetSubtitle": "누군가 프로필을 방문하면\n여기에 표시됩니다",
+  "visitedViaSearch": "검색을 통해",
+  "visitedViaMoments": "모멘트를 통해",
+  "visitedViaChat": "채팅을 통해",
+  "visitedDirect": "직접 방문",
+  "visitorTrackingUnavailable": "방문자 추적 기능을 사용할 수 없습니다. 백엔드를 업데이트해 주세요.",
+  "visitorTrackingNotAvailableYet": "방문자 추적은 아직 사용할 수 없습니다",
+
+  "noFollowersYetSubtitle": "다른 사람들과 연결을 시작하세요!",
+  "partnerButton": "파트너",
+
+  "notFollowingAnyoneYetSubtitle": "팔로우하여 업데이트를 확인하세요!",
+  "unfollowButton": "언팔로우",
+
+  "profileThemeTitle": "프로필 테마",
+  "themeAutoSwitch": "자동 전환 (시스템 테마)",
+  "themeSystemHint": "활성화하면 앱이 시스템 테마 설정을 따릅니다",
+  "themeLightMode": "라이트 모드",
+  "themeDarkMode": "다크 모드",
+
+  "myMoments": "내 모멘트",
+  "momentListView": "목록 보기",
+  "momentGridView": "그리드 보기",
+  "shareLanguageLearningJourney": "언어 학습 여정을 공유하세요!",
+
+  "deleteHighlightTitle": "하이라이트 삭제",
+  "deleteHighlightConfirm": "\"{title}\"을(를) 삭제할까요? 안에 있는 스토리는 삭제되지 않습니다.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "하이라이트가 삭제되었습니다",
+  "highlightNewBadge": "새로운",
+
+  "editMoment": "모멘트 편집",
+  "momentDescriptionLabel": "설명",
+  "momentImagesLabel": "이미지",
+  "noImagesYet": "아직 이미지가 없습니다",
+  "momentEnterDescription": "설명을 입력해 주세요",
+  "momentUpdatedImageFailed": "모멘트는 업데이트되었지만 이미지 업로드에 실패했습니다"
 }

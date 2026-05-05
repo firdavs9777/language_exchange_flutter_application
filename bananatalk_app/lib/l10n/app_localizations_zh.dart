@@ -4206,6 +4206,187 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get unsavedChanges => '你有未保存的更改';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return '点击下方浏览 $count 种语言';
+  }
+
+  @override
+  String get changeLanguage => '更改语言';
+
+  @override
+  String get browseLanguages => '浏览语言';
+
+  @override
+  String get yourLearningLanguageIsPrefix => '你正在学习的语言是';
+
+  @override
+  String get yourNativeLanguageIsPrefix => '你的母语是';
+
+  @override
+  String get profileCompleteProgress => '已完成';
+
+  @override
+  String get drawerPreferences => '偏好设置';
+
+  @override
+  String get drawerStorage => '存储';
+
+  @override
+  String get drawerReports => '举报';
+
+  @override
+  String get drawerSupport => '支持';
+
+  @override
+  String get drawerAccount => '账户';
+
+  @override
+  String get logoutConfirmBody => '确定要从 BanaTalk 退出登录吗？';
+
+  @override
+  String get helpEmailSupport => '邮件支持';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => '报告问题';
+
+  @override
+  String get helpReportBugSubtitle => '帮助我们改进 BanaTalk';
+
+  @override
+  String get helpFaqs => '常见问题';
+
+  @override
+  String get helpFaqsSubtitle => '常见问题解答';
+
+  @override
+  String get aboutDialogClose => '关闭';
+
+  @override
+  String get aboutBanaTalkTagline => '与全球语言学习者连接，通过真实对话提升你的技能。';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. 版权所有。';
+
+  @override
+  String get logoutFailedPrefix => '退出失败';
+
+  @override
+  String get profileVisitorsTitle => '访客';
+
+  @override
+  String get visitorStatistics => '访客统计';
+
+  @override
+  String get visitorsTotalVisits => '总访问次数';
+
+  @override
+  String get visitorsUniqueVisitors => '独立访客';
+
+  @override
+  String get visitorsToday => '今日';
+
+  @override
+  String get visitorsThisWeek => '本周';
+
+  @override
+  String get noVisitorsYet => '暂无访客';
+
+  @override
+  String get noVisitorsYetSubtitle => '当有人访问你的主页时，\n他们将显示在这里';
+
+  @override
+  String get visitedViaSearch => '通过搜索';
+
+  @override
+  String get visitedViaMoments => '通过动态';
+
+  @override
+  String get visitedViaChat => '通过聊天';
+
+  @override
+  String get visitedDirect => '直接访问';
+
+  @override
+  String get visitorTrackingUnavailable => '访客追踪功能不可用。请更新后端。';
+
+  @override
+  String get visitorTrackingNotAvailableYet => '访客追踪功能暂不可用';
+
+  @override
+  String get noFollowersYetSubtitle => '开始与他人建立联系吧！';
+
+  @override
+  String get partnerButton => '搭档';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => '关注他人以查看他们的动态！';
+
+  @override
+  String get unfollowButton => '取消关注';
+
+  @override
+  String get profileThemeTitle => '主题';
+
+  @override
+  String get themeAutoSwitch => '自动切换（跟随系统）';
+
+  @override
+  String get themeSystemHint => '开启后，应用将跟随系统主题设置';
+
+  @override
+  String get themeLightMode => '浅色模式';
+
+  @override
+  String get themeDarkMode => '深色模式';
+
+  @override
+  String get myMoments => '我的动态';
+
+  @override
+  String get momentListView => '列表视图';
+
+  @override
+  String get momentGridView => '网格视图';
+
+  @override
+  String get shareLanguageLearningJourney => '分享你的语言学习之旅！';
+
+  @override
+  String get deleteHighlightTitle => '删除精选';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '删除「$title」？内部的故事不会被删除。';
+  }
+
+  @override
+  String get highlightDeletedSuccess => '精选已删除';
+
+  @override
+  String get highlightNewBadge => '新';
+
+  @override
+  String get editMoment => '编辑动态';
+
+  @override
+  String get momentDescriptionLabel => '描述';
+
+  @override
+  String get momentImagesLabel => '图片';
+
+  @override
+  String get noImagesYet => '暂无图片';
+
+  @override
+  String get momentEnterDescription => '请输入描述';
+
+  @override
+  String get momentUpdatedImageFailed => '动态已更新，但图片上传失败';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -8121,4 +8302,185 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get unsavedChanges => '你有未儲存的變更';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return '點擊下方瀏覽 $count 種語言';
+  }
+
+  @override
+  String get changeLanguage => '更改語言';
+
+  @override
+  String get browseLanguages => '瀏覽語言';
+
+  @override
+  String get yourLearningLanguageIsPrefix => '你正在學習的語言是';
+
+  @override
+  String get yourNativeLanguageIsPrefix => '你的母語是';
+
+  @override
+  String get profileCompleteProgress => '已完成';
+
+  @override
+  String get drawerPreferences => '偏好設定';
+
+  @override
+  String get drawerStorage => '儲存空間';
+
+  @override
+  String get drawerReports => '檢舉';
+
+  @override
+  String get drawerSupport => '支援';
+
+  @override
+  String get drawerAccount => '帳號';
+
+  @override
+  String get logoutConfirmBody => '確定要從 BanaTalk 登出嗎？';
+
+  @override
+  String get helpEmailSupport => '電子郵件支援';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => '回報問題';
+
+  @override
+  String get helpReportBugSubtitle => '幫助我們改進 BanaTalk';
+
+  @override
+  String get helpFaqs => '常見問題';
+
+  @override
+  String get helpFaqsSubtitle => '常見問題解答';
+
+  @override
+  String get aboutDialogClose => '關閉';
+
+  @override
+  String get aboutBanaTalkTagline => '與全球語言學習者連結，透過真實對話提升你的技能。';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. 版權所有。';
+
+  @override
+  String get logoutFailedPrefix => '登出失敗';
+
+  @override
+  String get profileVisitorsTitle => '訪客';
+
+  @override
+  String get visitorStatistics => '訪客統計';
+
+  @override
+  String get visitorsTotalVisits => '總訪問次數';
+
+  @override
+  String get visitorsUniqueVisitors => '不重複訪客';
+
+  @override
+  String get visitorsToday => '今日';
+
+  @override
+  String get visitorsThisWeek => '本週';
+
+  @override
+  String get noVisitorsYet => '目前沒有訪客';
+
+  @override
+  String get noVisitorsYetSubtitle => '當有人造訪你的個人頁面時，\n他們將顯示在這裡';
+
+  @override
+  String get visitedViaSearch => '透過搜尋';
+
+  @override
+  String get visitedViaMoments => '透過動態';
+
+  @override
+  String get visitedViaChat => '透過聊天';
+
+  @override
+  String get visitedDirect => '直接造訪';
+
+  @override
+  String get visitorTrackingUnavailable => '訪客追蹤功能不可用。請更新後端。';
+
+  @override
+  String get visitorTrackingNotAvailableYet => '訪客追蹤功能暫不可用';
+
+  @override
+  String get noFollowersYetSubtitle => '開始與他人建立聯繫吧！';
+
+  @override
+  String get partnerButton => '夥伴';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => '追蹤他人以查看他們的動態！';
+
+  @override
+  String get unfollowButton => '取消追蹤';
+
+  @override
+  String get profileThemeTitle => '主題';
+
+  @override
+  String get themeAutoSwitch => '自動切換（跟隨系統）';
+
+  @override
+  String get themeSystemHint => '開啟後，應用程式將跟隨系統主題設定';
+
+  @override
+  String get themeLightMode => '淺色模式';
+
+  @override
+  String get themeDarkMode => '深色模式';
+
+  @override
+  String get myMoments => '我的動態';
+
+  @override
+  String get momentListView => '列表檢視';
+
+  @override
+  String get momentGridView => '格狀檢視';
+
+  @override
+  String get shareLanguageLearningJourney => '分享你的語言學習之旅！';
+
+  @override
+  String get deleteHighlightTitle => '刪除精選';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '刪除「$title」？內部的故事不會被刪除。';
+  }
+
+  @override
+  String get highlightDeletedSuccess => '精選已刪除';
+
+  @override
+  String get highlightNewBadge => '新';
+
+  @override
+  String get editMoment => '編輯動態';
+
+  @override
+  String get momentDescriptionLabel => '描述';
+
+  @override
+  String get momentImagesLabel => '圖片';
+
+  @override
+  String get noImagesYet => '目前沒有圖片';
+
+  @override
+  String get momentEnterDescription => '請輸入描述';
+
+  @override
+  String get momentUpdatedImageFailed => '動態已更新，但圖片上傳失敗';
 }

@@ -4206,4 +4206,185 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'Bạn có những thay đổi chưa được lưu';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'Nhấn bên dưới để duyệt $count ngôn ngữ';
+  }
+
+  @override
+  String get changeLanguage => 'Thay đổi ngôn ngữ';
+
+  @override
+  String get browseLanguages => 'Xem các ngôn ngữ';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Ngôn ngữ bạn đang học là ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Ngôn ngữ mẹ đẻ của bạn là ';
+
+  @override
+  String get profileCompleteProgress => 'hoàn thành';
+
+  @override
+  String get drawerPreferences => 'Tùy chọn';
+
+  @override
+  String get drawerStorage => 'Bộ nhớ';
+
+  @override
+  String get drawerReports => 'Báo cáo';
+
+  @override
+  String get drawerSupport => 'Hỗ trợ';
+
+  @override
+  String get drawerAccount => 'Tài khoản';
+
+  @override
+  String get logoutConfirmBody => 'Bạn có chắc chắn muốn đăng xuất khỏi BanaTalk không?';
+
+  @override
+  String get helpEmailSupport => 'Hỗ trợ qua email';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Báo cáo lỗi';
+
+  @override
+  String get helpReportBugSubtitle => 'Giúp chúng tôi cải thiện BanaTalk';
+
+  @override
+  String get helpFaqs => 'Câu hỏi thường gặp';
+
+  @override
+  String get helpFaqsSubtitle => 'Các câu hỏi phổ biến';
+
+  @override
+  String get aboutDialogClose => 'Đóng';
+
+  @override
+  String get aboutBanaTalkTagline => 'Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Tất cả các quyền được bảo lưu.';
+
+  @override
+  String get logoutFailedPrefix => 'Đăng xuất thất bại';
+
+  @override
+  String get profileVisitorsTitle => 'Người xem hồ sơ';
+
+  @override
+  String get visitorStatistics => 'Thống kê lượt xem';
+
+  @override
+  String get visitorsTotalVisits => 'Tổng lượt xem';
+
+  @override
+  String get visitorsUniqueVisitors => 'Người xem duy nhất';
+
+  @override
+  String get visitorsToday => 'Hôm nay';
+
+  @override
+  String get visitorsThisWeek => 'Tuần này';
+
+  @override
+  String get noVisitorsYet => 'Chưa có người xem';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Khi có người xem hồ sơ của bạn,\nhọ sẽ xuất hiện ở đây';
+
+  @override
+  String get visitedViaSearch => 'qua Tìm kiếm';
+
+  @override
+  String get visitedViaMoments => 'qua Khoảnh khắc';
+
+  @override
+  String get visitedViaChat => 'qua Trò chuyện';
+
+  @override
+  String get visitedDirect => 'Truy cập trực tiếp';
+
+  @override
+  String get visitorTrackingUnavailable => 'Tính năng theo dõi người xem không khả dụng. Vui lòng cập nhật backend.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Theo dõi người xem chưa khả dụng';
+
+  @override
+  String get noFollowersYetSubtitle => 'Hãy bắt đầu kết nối với người khác!';
+
+  @override
+  String get partnerButton => 'Đối tác';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Bắt đầu theo dõi mọi người để xem cập nhật của họ!';
+
+  @override
+  String get unfollowButton => 'Bỏ theo dõi';
+
+  @override
+  String get profileThemeTitle => 'Giao diện hồ sơ';
+
+  @override
+  String get themeAutoSwitch => 'Tự động chuyển (Giao diện hệ thống)';
+
+  @override
+  String get themeSystemHint => 'Khi bật, ứng dụng sẽ theo cài đặt giao diện hệ thống của bạn';
+
+  @override
+  String get themeLightMode => 'Chế độ sáng';
+
+  @override
+  String get themeDarkMode => 'Chế độ tối';
+
+  @override
+  String get myMoments => 'Khoảnh khắc của tôi';
+
+  @override
+  String get momentListView => 'Xem danh sách';
+
+  @override
+  String get momentGridView => 'Xem lưới';
+
+  @override
+  String get shareLanguageLearningJourney => 'Chia sẻ hành trình học ngôn ngữ của bạn!';
+
+  @override
+  String get deleteHighlightTitle => 'Xóa nổi bật';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'Xóa \"$title\"? Các câu chuyện bên trong sẽ không bị xóa.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Đã xóa nổi bật';
+
+  @override
+  String get highlightNewBadge => 'Mới';
+
+  @override
+  String get editMoment => 'Chỉnh sửa khoảnh khắc';
+
+  @override
+  String get momentDescriptionLabel => 'Mô tả';
+
+  @override
+  String get momentImagesLabel => 'Hình ảnh';
+
+  @override
+  String get noImagesYet => 'Chưa có hình ảnh';
+
+  @override
+  String get momentEnterDescription => 'Vui lòng nhập mô tả';
+
+  @override
+  String get momentUpdatedImageFailed => 'Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại';
 }

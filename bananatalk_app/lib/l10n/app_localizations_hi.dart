@@ -3901,7 +3901,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get anyCountry => 'कोई भी देश';
 
   @override
-  String get loadingLanguages => 'भाषाएं लोड हो रही हैं...';
+  String get loadingLanguages => 'भाषाएँ लोड हो रही हैं...';
 
   @override
   String minAge(int age) {
@@ -4206,4 +4206,185 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'आपके पास सहेजे नहीं गए परिवर्तन हैं';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return '$count भाषाओं में से ब्राउज़ करने के लिए नीचे टैप करें';
+  }
+
+  @override
+  String get changeLanguage => 'भाषा बदलें';
+
+  @override
+  String get browseLanguages => 'भाषाएँ ब्राउज़ करें';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'आपकी सीखने की भाषा है ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'आपकी मातृभाषा है ';
+
+  @override
+  String get profileCompleteProgress => 'पूर्ण';
+
+  @override
+  String get drawerPreferences => 'प्राथमिकताएँ';
+
+  @override
+  String get drawerStorage => 'संग्रहण';
+
+  @override
+  String get drawerReports => 'रिपोर्ट';
+
+  @override
+  String get drawerSupport => 'सहायता';
+
+  @override
+  String get drawerAccount => 'खाता';
+
+  @override
+  String get logoutConfirmBody => 'क्या आप BanaTalk से लॉगआउट करना चाहते हैं?';
+
+  @override
+  String get helpEmailSupport => 'ईमेल सहायता';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'बग रिपोर्ट करें';
+
+  @override
+  String get helpReportBugSubtitle => 'BanaTalk को बेहतर बनाने में हमारी मदद करें';
+
+  @override
+  String get helpFaqs => 'अक्सर पूछे जाने वाले प्रश्न';
+
+  @override
+  String get helpFaqsSubtitle => 'सामान्य प्रश्न और उत्तर';
+
+  @override
+  String get aboutDialogClose => 'बंद करें';
+
+  @override
+  String get aboutBanaTalkTagline => 'दुनिया भर के भाषा सीखने वालों से जुड़ें और वास्तविक बातचीत के माध्यम से अपने कौशल में सुधार करें।';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. सर्वाधिकार सुरक्षित।';
+
+  @override
+  String get logoutFailedPrefix => 'लॉगआउट विफल';
+
+  @override
+  String get profileVisitorsTitle => 'प्रोफाइल विजिटर';
+
+  @override
+  String get visitorStatistics => 'विजिटर आँकड़े';
+
+  @override
+  String get visitorsTotalVisits => 'कुल विज़िट';
+
+  @override
+  String get visitorsUniqueVisitors => 'अद्वितीय विजिटर';
+
+  @override
+  String get visitorsToday => 'आज';
+
+  @override
+  String get visitorsThisWeek => 'इस सप्ताह';
+
+  @override
+  String get noVisitorsYet => 'अभी तक कोई विजिटर नहीं';
+
+  @override
+  String get noVisitorsYetSubtitle => 'जब लोग आपकी प्रोफाइल देखेंगे,\nवे यहाँ दिखाई देंगे';
+
+  @override
+  String get visitedViaSearch => 'खोज के ज़रिए';
+
+  @override
+  String get visitedViaMoments => 'मोमेंट्स के ज़रिए';
+
+  @override
+  String get visitedViaChat => 'चैट के ज़रिए';
+
+  @override
+  String get visitedDirect => 'सीधी विज़िट';
+
+  @override
+  String get visitorTrackingUnavailable => 'विजिटर ट्रैकिंग सुविधा उपलब्ध नहीं है। कृपया बैकएंड अपडेट करें।';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'विजिटर ट्रैकिंग अभी उपलब्ध नहीं है';
+
+  @override
+  String get noFollowersYetSubtitle => 'दूसरों से जुड़ना शुरू करें!';
+
+  @override
+  String get partnerButton => 'साथी';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'लोगों को फॉलो करें और उनके अपडेट देखें!';
+
+  @override
+  String get unfollowButton => 'अनफॉलो';
+
+  @override
+  String get profileThemeTitle => 'प्रोफाइल थीम';
+
+  @override
+  String get themeAutoSwitch => 'ऑटो स्विच (सिस्टम थीम)';
+
+  @override
+  String get themeSystemHint => 'सक्षम होने पर, ऐप आपकी सिस्टम थीम सेटिंग्स का अनुसरण करेगा';
+
+  @override
+  String get themeLightMode => 'लाइट मोड';
+
+  @override
+  String get themeDarkMode => 'डार्क मोड';
+
+  @override
+  String get myMoments => 'मेरे मोमेंट्स';
+
+  @override
+  String get momentListView => 'सूची दृश्य';
+
+  @override
+  String get momentGridView => 'ग्रिड दृश्य';
+
+  @override
+  String get shareLanguageLearningJourney => 'अपनी भाषा सीखने की यात्रा साझा करें!';
+
+  @override
+  String get deleteHighlightTitle => 'हाइलाइट हटाएँ';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '\"$title\" हटाएँ? इसके अंदर की स्टोरीज़ नहीं हटाई जाएंगी।';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'हाइलाइट हटाई गई';
+
+  @override
+  String get highlightNewBadge => 'नया';
+
+  @override
+  String get editMoment => 'मोमेंट संपादित करें';
+
+  @override
+  String get momentDescriptionLabel => 'विवरण';
+
+  @override
+  String get momentImagesLabel => 'छवियाँ';
+
+  @override
+  String get noImagesYet => 'अभी तक कोई छवि नहीं';
+
+  @override
+  String get momentEnterDescription => 'कृपया एक विवरण दर्ज करें';
+
+  @override
+  String get momentUpdatedImageFailed => 'मोमेंट अपडेट हुआ लेकिन छवि अपलोड विफल रही';
 }

@@ -33,6 +33,7 @@ class ProfileTopicsEdit extends ConsumerStatefulWidget {
 
 class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
   late Set<String> _selectedTopics;
+  late Set<String> _initialTopics;
   String? _selectedCategory;
   bool _isSaving = false;
 
@@ -40,6 +41,12 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
   void initState() {
     super.initState();
     _selectedTopics = Set.from(widget.initialTopics);
+    _initialTopics = Set.from(widget.initialTopics);
+  }
+
+  bool get _hasChanges {
+    if (_selectedTopics.length != _initialTopics.length) return true;
+    return !_selectedTopics.containsAll(_initialTopics);
   }
 
   List<Topic> get _filteredTopics {
@@ -62,17 +69,9 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
         if (_selectedTopics.length < widget.maxTopics) {
           _selectedTopics.add(topicId);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(l10n.maxTopicsAllowed(widget.maxTopics)),
-              backgroundColor: Colors.orange,
-              behavior: SnackBarBehavior.floating,
-              margin: const EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-          );
+          HapticFeedback.heavyImpact();
+          _showWarningSnackBar(l10n.maxTopicsAllowed(widget.maxTopics));
+          return;
         }
       }
     });
@@ -94,47 +93,93 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       ref.invalidate(userProvider);
 
       if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              const Icon(Icons.check_circle_rounded, color: Colors.white),
-              const SizedBox(width: 12),
-              Expanded(child: Text(l10n.topicsUpdatedSuccessfully)),
-            ],
-          ),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 2),
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
-        ),
-      );
+      _showSuccessSnackBar(l10n.topicsUpdatedSuccessfully);
       Navigator.pop(context, _selectedTopics.toList());
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            '${l10n.failedToUpdateTopics}: '
-            '${e.toString().replaceFirst('Exception: ', '')}',
-          ),
-          backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
-        ),
+      _showErrorSnackBar(
+        '${l10n.failedToUpdateTopics}: ${e.toString().replaceFirst('Exception: ', '')}',
       );
     } finally {
-      if (mounted) {
-        setState(() => _isSaving = false);
-      }
+      if (mounted) setState(() => _isSaving = false);
     }
+  }
+
+  void _showSuccessSnackBar(String message) {
+    HapticFeedback.lightImpact();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _showErrorSnackBar(String message) {
+    HapticFeedback.mediumImpact();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.error_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.error,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  void _showWarningSnackBar(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.warning_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: const Color(0xFFFF9800),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -142,7 +187,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
     final l10n = AppLocalizations.of(context)!;
 
     if (widget.isStandalone) {
-      final canSave = !_isSaving;
+      final canSave = _hasChanges && !_isSaving;
       return Scaffold(
         backgroundColor: context.scaffoldBackground,
         appBar: AppBar(
@@ -184,8 +229,9 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
                         height: 16,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
                         ),
                       )
                     : Text(
@@ -211,195 +257,425 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Counter card
         Padding(
-          padding: Spacing.screenPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.title != null && !widget.isStandalone)
-                Text(
-                  widget.title!,
-                  style: context.titleLarge.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              if (widget.subtitle != null) ...[
-                Spacing.gapSM,
-                Text(
-                  widget.subtitle!,
-                  style: context.bodyMedium.copyWith(
-                    color: context.textSecondary,
-                  ),
-                ),
-              ],
-              Spacing.gapMD,
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  l10n.selectedCount(_selectedTopics.length, widget.maxTopics),
-                  style: TextStyle(
-                    color: _selectedTopics.length >= widget.maxTopics
-                        ? Colors.orange
-                        : AppColors.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+          child: _buildCounterCard(l10n),
         ),
 
+        if (widget.subtitle != null) ...[
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              widget.subtitle!,
+              style: context.bodySmall.copyWith(color: context.textSecondary),
+            ),
+          ),
+        ],
+
+        const SizedBox(height: 16),
+
+        // Category filter chips
         SizedBox(
           height: 40,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              _buildCategoryChip(null, l10n.all),
+              _buildCategoryChip(null, l10n.all, Icons.apps_rounded),
               ...Topic.categories.map(
-                (cat) => _buildCategoryChip(cat, Topic.getCategoryLabel(cat)),
+                (cat) => _buildCategoryChip(
+                  cat,
+                  Topic.getCategoryLabel(cat),
+                  _getCategoryIcon(cat),
+                ),
               ),
             ],
           ),
         ),
 
-        Spacing.gapLG,
+        const SizedBox(height: 12),
 
+        // Topics grid
         Expanded(
-          child: GridView.builder(
-            padding: Spacing.screenPadding,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 2.5,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-            ),
-            itemCount: _filteredTopics.length,
-            itemBuilder: (context, index) {
-              final topic = _filteredTopics[index];
-              final isSelected = _selectedTopics.contains(topic.id);
+          child: _filteredTopics.isEmpty
+              ? _buildEmptyState(l10n)
+              : GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2.6,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: _filteredTopics.length,
+                  itemBuilder: (context, index) {
+                    final topic = _filteredTopics[index];
+                    final isSelected = _selectedTopics.contains(topic.id);
+                    final atLimit = _selectedTopics.length >= widget.maxTopics;
 
-              return _TopicCard(
-                topic: topic,
-                isSelected: isSelected,
-                onTap: () => _toggleTopic(topic.id),
-              );
-            },
-          ),
+                    return _TopicCard(
+                      topic: topic,
+                      isSelected: isSelected,
+                      isDisabled: !isSelected && atLimit,
+                      onTap: () => _toggleTopic(topic.id),
+                    );
+                  },
+                ),
         ),
       ],
     );
   }
 
-  Widget _buildCategoryChip(String? category, String label) {
-    final isSelected = _selectedCategory == category;
+  // ========== COUNTER CARD ==========
+  Widget _buildCounterCard(AppLocalizations l10n) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final selectedCount = _selectedTopics.length;
+    final progress = selectedCount / widget.maxTopics;
+    final atLimit = selectedCount >= widget.maxTopics;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: FilterChip(
-        label: Text(label),
-        selected: isSelected,
-        onSelected: (_) {
-          setState(() => _selectedCategory = category);
-        },
-        selectedColor: AppColors.primary,
-        checkmarkColor: Colors.white,
-        labelStyle: TextStyle(
-          color: isSelected ? Colors.white : context.textPrimary,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+    final color = atLimit ? const Color(0xFFFF9800) : AppColors.primary;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            color.withValues(alpha: isDark ? 0.18 : 0.12),
+            color.withValues(alpha: isDark ? 0.06 : 0.04),
+          ],
         ),
-        backgroundColor: context.containerColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: color.withValues(alpha: isDark ? 0.3 : 0.2),
+          width: 1,
         ),
       ),
-    );
-  }
-}
-
-class _TopicCard extends StatelessWidget {
-  final Topic topic;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _TopicCard({
-    required this.topic,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          decoration: BoxDecoration(
-            color: isSelected
-                ? AppColors.primary.withValues(alpha: 0.15)
-                : context.containerColor,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: isSelected ? AppColors.primary : Colors.transparent,
-              width: 2,
-            ),
-          ),
-          child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  atLimit ? Icons.check_circle_rounded : Icons.favorite_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      topic.icon,
-                      style: const TextStyle(fontSize: 24),
+                      atLimit ? 'Maximum reached' : 'Pick your interests',
+                      style: context.titleSmall.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        topic.name,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.w500,
-                          color: isSelected
-                              ? AppColors.primary
-                              : context.textPrimary,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                    Text(
+                      atLimit
+                          ? 'Deselect one to choose another'
+                          : 'Tap topics that match your vibe',
+                      style: context.captionSmall.copyWith(
+                        color: context.textSecondary,
                       ),
                     ),
                   ],
                 ),
               ),
-              if (isSelected)
-                Positioned(
-                  top: 6,
-                  right: 6,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: const BoxDecoration(
-                      color: AppColors.primary,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      size: 14,
-                      color: Colors.white,
-                    ),
+              Text(
+                '$selectedCount / ${widget.maxTopics}',
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: progress),
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeOutCubic,
+              builder: (context, value, _) => LinearProgressIndicator(
+                value: value,
+                minHeight: 6,
+                backgroundColor: color.withValues(alpha: isDark ? 0.18 : 0.15),
+                valueColor: AlwaysStoppedAnimation<Color>(color),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ========== CATEGORY CHIP ==========
+  Widget _buildCategoryChip(String? category, String label, IconData icon) {
+    final isSelected = _selectedCategory == category;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            HapticFeedback.selectionClick();
+            setState(() => _selectedCategory = category);
+          },
+          borderRadius: BorderRadius.circular(20),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              gradient: isSelected
+                  ? const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+                    )
+                  : null,
+              color: isSelected
+                  ? null
+                  : (isDark
+                        ? Colors.white.withValues(alpha: 0.06)
+                        : context.containerColor),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isSelected
+                    ? Colors.transparent
+                    : context.dividerColor.withValues(alpha: 0.5),
+                width: 1,
+              ),
+              boxShadow: isSelected
+                  ? [
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: 0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon,
+                  size: 14,
+                  color: isSelected ? Colors.white : context.textSecondary,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : context.textPrimary,
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+                    fontSize: 13,
                   ),
                 ),
-            ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  IconData _getCategoryIcon(String category) {
+    final lower = category.toLowerCase();
+    if (lower.contains('hobby') || lower.contains('hobb')) {
+      return Icons.palette_rounded;
+    }
+    if (lower.contains('sport')) return Icons.sports_basketball_rounded;
+    if (lower.contains('music')) return Icons.music_note_rounded;
+    if (lower.contains('food')) return Icons.restaurant_rounded;
+    if (lower.contains('travel')) return Icons.flight_rounded;
+    if (lower.contains('tech')) return Icons.devices_rounded;
+    if (lower.contains('art')) return Icons.brush_rounded;
+    if (lower.contains('book') || lower.contains('read')) {
+      return Icons.menu_book_rounded;
+    }
+    if (lower.contains('movie') || lower.contains('film')) {
+      return Icons.movie_rounded;
+    }
+    if (lower.contains('game')) return Icons.sports_esports_rounded;
+    if (lower.contains('lifestyle')) return Icons.spa_rounded;
+    if (lower.contains('learn') || lower.contains('study')) {
+      return Icons.school_rounded;
+    }
+    return Icons.category_rounded;
+  }
+
+  // ========== EMPTY STATE ==========
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              color: context.containerColor,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.search_off_rounded,
+              size: 32,
+              color: context.textMuted,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'No topics in this category',
+            style: context.titleSmall.copyWith(
+              fontWeight: FontWeight.w600,
+              color: context.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ========== TOPIC CARD ==========
+class _TopicCard extends StatelessWidget {
+  final Topic topic;
+  final bool isSelected;
+  final bool isDisabled;
+  final VoidCallback onTap;
+
+  const _TopicCard({
+    required this.topic,
+    required this.isSelected,
+    required this.isDisabled,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: isDisabled ? null : onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          decoration: BoxDecoration(
+            gradient: isSelected
+                ? LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.primary,
+                      AppColors.primary.withValues(alpha: 0.8),
+                    ],
+                  )
+                : null,
+            color: isSelected
+                ? null
+                : (isDark
+                      ? Colors.white.withValues(alpha: 0.04)
+                      : context.surfaceColor),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: isSelected
+                  ? Colors.transparent
+                  : (isDark
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : context.dividerColor.withValues(alpha: 0.5)),
+              width: 1,
+            ),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Opacity(
+            opacity: isDisabled ? 0.4 : 1.0,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(topic.icon, style: const TextStyle(fontSize: 22)),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          topic.name,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: isSelected
+                                ? FontWeight.w700
+                                : FontWeight.w600,
+                            color: isSelected
+                                ? Colors.white
+                                : context.textPrimary,
+                            height: 1.2,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (isSelected)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4),
+                          child: Container(
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 4,
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              Icons.check_rounded,
+                              size: 12,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

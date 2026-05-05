@@ -3901,7 +3901,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get anyCountry => '모든 국가';
 
   @override
-  String get loadingLanguages => '언어 로딩 중...';
+  String get loadingLanguages => '언어를 불러오는 중...';
 
   @override
   String minAge(int age) {
@@ -4206,4 +4206,185 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get unsavedChanges => '저장되지 않은 변경 사항이 있습니다';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return '아래를 탭하여 $count개 언어 중 선택';
+  }
+
+  @override
+  String get changeLanguage => '언어 변경';
+
+  @override
+  String get browseLanguages => '언어 찾기';
+
+  @override
+  String get yourLearningLanguageIsPrefix => '학습 중인 언어: ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => '모국어: ';
+
+  @override
+  String get profileCompleteProgress => '완료';
+
+  @override
+  String get drawerPreferences => '환경설정';
+
+  @override
+  String get drawerStorage => '저장공간';
+
+  @override
+  String get drawerReports => '신고';
+
+  @override
+  String get drawerSupport => '고객지원';
+
+  @override
+  String get drawerAccount => '계정';
+
+  @override
+  String get logoutConfirmBody => 'BanaTalk에서 로그아웃하시겠습니까?';
+
+  @override
+  String get helpEmailSupport => '이메일 지원';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => '버그 신고';
+
+  @override
+  String get helpReportBugSubtitle => 'BanaTalk 개선에 도움을 주세요';
+
+  @override
+  String get helpFaqs => '자주 묻는 질문';
+
+  @override
+  String get helpFaqsSubtitle => '자주 하는 질문들';
+
+  @override
+  String get aboutDialogClose => '닫기';
+
+  @override
+  String get aboutBanaTalkTagline => '전 세계 언어 학습자와 연결하고 실제 대화를 통해 실력을 키워보세요.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. 무단 전재 금지.';
+
+  @override
+  String get logoutFailedPrefix => '로그아웃 실패';
+
+  @override
+  String get profileVisitorsTitle => '프로필 방문자';
+
+  @override
+  String get visitorStatistics => '방문자 통계';
+
+  @override
+  String get visitorsTotalVisits => '총 방문 수';
+
+  @override
+  String get visitorsUniqueVisitors => '고유 방문자';
+
+  @override
+  String get visitorsToday => '오늘';
+
+  @override
+  String get visitorsThisWeek => '이번 주';
+
+  @override
+  String get noVisitorsYet => '아직 방문자가 없습니다';
+
+  @override
+  String get noVisitorsYetSubtitle => '누군가 프로필을 방문하면\n여기에 표시됩니다';
+
+  @override
+  String get visitedViaSearch => '검색을 통해';
+
+  @override
+  String get visitedViaMoments => '모멘트를 통해';
+
+  @override
+  String get visitedViaChat => '채팅을 통해';
+
+  @override
+  String get visitedDirect => '직접 방문';
+
+  @override
+  String get visitorTrackingUnavailable => '방문자 추적 기능을 사용할 수 없습니다. 백엔드를 업데이트해 주세요.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => '방문자 추적은 아직 사용할 수 없습니다';
+
+  @override
+  String get noFollowersYetSubtitle => '다른 사람들과 연결을 시작하세요!';
+
+  @override
+  String get partnerButton => '파트너';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => '팔로우하여 업데이트를 확인하세요!';
+
+  @override
+  String get unfollowButton => '언팔로우';
+
+  @override
+  String get profileThemeTitle => '프로필 테마';
+
+  @override
+  String get themeAutoSwitch => '자동 전환 (시스템 테마)';
+
+  @override
+  String get themeSystemHint => '활성화하면 앱이 시스템 테마 설정을 따릅니다';
+
+  @override
+  String get themeLightMode => '라이트 모드';
+
+  @override
+  String get themeDarkMode => '다크 모드';
+
+  @override
+  String get myMoments => '내 모멘트';
+
+  @override
+  String get momentListView => '목록 보기';
+
+  @override
+  String get momentGridView => '그리드 보기';
+
+  @override
+  String get shareLanguageLearningJourney => '언어 학습 여정을 공유하세요!';
+
+  @override
+  String get deleteHighlightTitle => '하이라이트 삭제';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '\"$title\"을(를) 삭제할까요? 안에 있는 스토리는 삭제되지 않습니다.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => '하이라이트가 삭제되었습니다';
+
+  @override
+  String get highlightNewBadge => '새로운';
+
+  @override
+  String get editMoment => '모멘트 편집';
+
+  @override
+  String get momentDescriptionLabel => '설명';
+
+  @override
+  String get momentImagesLabel => '이미지';
+
+  @override
+  String get noImagesYet => '아직 이미지가 없습니다';
+
+  @override
+  String get momentEnterDescription => '설명을 입력해 주세요';
+
+  @override
+  String get momentUpdatedImageFailed => '모멘트는 업데이트되었지만 이미지 업로드에 실패했습니다';
 }

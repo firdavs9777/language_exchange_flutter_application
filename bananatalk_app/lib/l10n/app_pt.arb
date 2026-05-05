@@ -1468,5 +1468,89 @@
   "onlyCityCountryShown": "Somente sua cidade e país são exibidos para os outros. As coordenadas exatas permanecem privadas.",
   "updateLocationCta": "Atualizar localização",
   "enterYourName": "Digite seu nome",
-  "unsavedChanges": "Você tem alterações não salvas"
+  "unsavedChanges": "Você tem alterações não salvas",
+
+  "loadingLanguages": "Carregando idiomas...",
+  "tapBelowToBrowseLanguages": "Toque abaixo para explorar {count} idiomas",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Alterar idioma",
+  "browseLanguages": "Explorar idiomas",
+  "yourLearningLanguageIsPrefix": "Seu idioma de aprendizado é ",
+  "yourNativeLanguageIsPrefix": "Seu idioma nativo é ",
+
+  "profileCompleteProgress": "completo",
+
+  "drawerPreferences": "Preferências",
+  "drawerStorage": "Armazenamento",
+  "drawerReports": "Relatórios",
+  "drawerSupport": "Suporte",
+  "drawerAccount": "Conta",
+  "logoutConfirmBody": "Tem certeza que deseja sair do BanaTalk?",
+  "helpEmailSupport": "Suporte por e-mail",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Reportar um bug",
+  "helpReportBugSubtitle": "Ajude-nos a melhorar o BanaTalk",
+  "helpFaqs": "Perguntas Frequentes",
+  "helpFaqsSubtitle": "Perguntas mais comuns",
+  "aboutDialogClose": "Fechar",
+  "aboutBanaTalkTagline": "Conecte-se com estudantes de idiomas de todo o mundo e melhore suas habilidades por meio de conversas reais.",
+  "aboutCopyright": "© 2024 BanaTalk. Todos os direitos reservados.",
+  "logoutFailedPrefix": "Falha ao sair",
+
+  "profileVisitorsTitle": "Visitantes do perfil",
+  "visitorStatistics": "Estatísticas de visitantes",
+  "visitorsTotalVisits": "Total de visitas",
+  "visitorsUniqueVisitors": "Visitantes únicos",
+  "visitorsToday": "Hoje",
+  "visitorsThisWeek": "Esta semana",
+  "noVisitorsYet": "Ainda não há visitantes",
+  "noVisitorsYetSubtitle": "Quando as pessoas visitarem seu perfil,\nelas aparecerão aqui",
+  "visitedViaSearch": "via Pesquisa",
+  "visitedViaMoments": "via Momentos",
+  "visitedViaChat": "via Chat",
+  "visitedDirect": "Visita direta",
+  "visitorTrackingUnavailable": "Recurso de rastreamento de visitantes não disponível. Por favor, atualize o backend.",
+  "visitorTrackingNotAvailableYet": "Rastreamento de visitantes ainda não disponível",
+
+  "noFollowersYetSubtitle": "Comece a se conectar com outras pessoas!",
+  "partnerButton": "Parceiro",
+
+  "notFollowingAnyoneYetSubtitle": "Comece a seguir pessoas para ver as atualizações delas!",
+  "unfollowButton": "Deixar de seguir",
+
+  "profileThemeTitle": "Tema do perfil",
+  "themeAutoSwitch": "Troca automática (Tema do sistema)",
+  "themeSystemHint": "Quando ativado, o aplicativo seguirá as configurações de tema do seu sistema",
+  "themeLightMode": "Modo claro",
+  "themeDarkMode": "Modo escuro",
+
+  "myMoments": "Meus momentos",
+  "momentListView": "Visualização em lista",
+  "momentGridView": "Visualização em grade",
+  "shareLanguageLearningJourney": "Compartilhe sua jornada de aprendizado de idiomas!",
+
+  "deleteHighlightTitle": "Excluir destaque",
+  "deleteHighlightConfirm": "Excluir \"{title}\"? As histórias dentro não serão excluídas.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Destaque excluído",
+  "highlightNewBadge": "Novo",
+
+  "editMoment": "Editar momento",
+  "momentDescriptionLabel": "Descrição",
+  "momentImagesLabel": "Imagens",
+  "noImagesYet": "Ainda não há imagens",
+  "momentEnterDescription": "Por favor, insira uma descrição",
+  "momentUpdatedImageFailed": "Momento atualizado, mas o envio da imagem falhou"
 }

@@ -4206,4 +4206,185 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'Kaydedilmemiş değişiklikleriniz var';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return '$count dil arasından seçmek için aşağıya dokunun';
+  }
+
+  @override
+  String get changeLanguage => 'Dili Değiştir';
+
+  @override
+  String get browseLanguages => 'Dillere Göz At';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Öğrendiğiniz dil: ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Ana diliniz: ';
+
+  @override
+  String get profileCompleteProgress => 'tamamlandı';
+
+  @override
+  String get drawerPreferences => 'Tercihler';
+
+  @override
+  String get drawerStorage => 'Depolama';
+
+  @override
+  String get drawerReports => 'Raporlar';
+
+  @override
+  String get drawerSupport => 'Destek';
+
+  @override
+  String get drawerAccount => 'Hesap';
+
+  @override
+  String get logoutConfirmBody => 'BanaTalk\'tan çıkış yapmak istediğinizden emin misiniz?';
+
+  @override
+  String get helpEmailSupport => 'E-posta Desteği';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Hata Bildir';
+
+  @override
+  String get helpReportBugSubtitle => 'BanaTalk\'ı geliştirmemize yardımcı olun';
+
+  @override
+  String get helpFaqs => 'SSS';
+
+  @override
+  String get helpFaqsSubtitle => 'Sık sorulan sorular';
+
+  @override
+  String get aboutDialogClose => 'Kapat';
+
+  @override
+  String get aboutBanaTalkTagline => 'Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Tüm hakları saklıdır.';
+
+  @override
+  String get logoutFailedPrefix => 'Çıkış başarısız';
+
+  @override
+  String get profileVisitorsTitle => 'Profil Ziyaretçileri';
+
+  @override
+  String get visitorStatistics => 'Ziyaretçi İstatistikleri';
+
+  @override
+  String get visitorsTotalVisits => 'Toplam Ziyaret';
+
+  @override
+  String get visitorsUniqueVisitors => 'Tekil Ziyaretçi';
+
+  @override
+  String get visitorsToday => 'Bugün';
+
+  @override
+  String get visitorsThisWeek => 'Bu Hafta';
+
+  @override
+  String get noVisitorsYet => 'Henüz ziyaretçi yok';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Biri profilinizi ziyaret ettiğinde,\nburada görünecekler';
+
+  @override
+  String get visitedViaSearch => 'Arama yoluyla';
+
+  @override
+  String get visitedViaMoments => 'Anlar yoluyla';
+
+  @override
+  String get visitedViaChat => 'Sohbet yoluyla';
+
+  @override
+  String get visitedDirect => 'Doğrudan ziyaret';
+
+  @override
+  String get visitorTrackingUnavailable => 'Ziyaretçi takip özelliği kullanılamıyor. Lütfen backend\'i güncelleyin.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Ziyaretçi takibi henüz mevcut değil';
+
+  @override
+  String get noFollowersYetSubtitle => 'Başkalarıyla bağlantı kurmaya başlayın!';
+
+  @override
+  String get partnerButton => 'Ortak';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Güncellemelerini görmek için kişileri takip edin!';
+
+  @override
+  String get unfollowButton => 'Takibi Bırak';
+
+  @override
+  String get profileThemeTitle => 'Profil Teması';
+
+  @override
+  String get themeAutoSwitch => 'Otomatik Geçiş (Sistem Teması)';
+
+  @override
+  String get themeSystemHint => 'Etkinleştirildiğinde uygulama sistem teması ayarlarınızı takip eder';
+
+  @override
+  String get themeLightMode => 'Açık Mod';
+
+  @override
+  String get themeDarkMode => 'Koyu Mod';
+
+  @override
+  String get myMoments => 'Anlarım';
+
+  @override
+  String get momentListView => 'Liste Görünümü';
+
+  @override
+  String get momentGridView => 'Izgara Görünümü';
+
+  @override
+  String get shareLanguageLearningJourney => 'Dil öğrenme yolculuğunuzu paylaşın!';
+
+  @override
+  String get deleteHighlightTitle => 'Öne Çıkanı Sil';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return '\"$title\" silinsin mi? İçindeki hikayeler silinmeyecek.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Öne çıkan silindi';
+
+  @override
+  String get highlightNewBadge => 'Yeni';
+
+  @override
+  String get editMoment => 'Anı Düzenle';
+
+  @override
+  String get momentDescriptionLabel => 'Açıklama';
+
+  @override
+  String get momentImagesLabel => 'Görseller';
+
+  @override
+  String get noImagesYet => 'Henüz görsel yok';
+
+  @override
+  String get momentEnterDescription => 'Lütfen bir açıklama girin';
+
+  @override
+  String get momentUpdatedImageFailed => 'An güncellendi fakat görsel yükleme başarısız oldu';
 }

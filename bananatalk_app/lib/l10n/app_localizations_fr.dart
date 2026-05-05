@@ -4206,4 +4206,185 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'Vous avez des modifications non enregistrées';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'Appuyez ci-dessous pour parcourir $count langues';
+  }
+
+  @override
+  String get changeLanguage => 'Changer de langue';
+
+  @override
+  String get browseLanguages => 'Parcourir les langues';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Votre langue d\'apprentissage est ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Votre langue maternelle est ';
+
+  @override
+  String get profileCompleteProgress => 'complété';
+
+  @override
+  String get drawerPreferences => 'Préférences';
+
+  @override
+  String get drawerStorage => 'Stockage';
+
+  @override
+  String get drawerReports => 'Rapports';
+
+  @override
+  String get drawerSupport => 'Support';
+
+  @override
+  String get drawerAccount => 'Compte';
+
+  @override
+  String get logoutConfirmBody => 'Êtes-vous sûr de vouloir vous déconnecter de BanaTalk ?';
+
+  @override
+  String get helpEmailSupport => 'Support par e-mail';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Signaler un bug';
+
+  @override
+  String get helpReportBugSubtitle => 'Aidez-nous à améliorer BanaTalk';
+
+  @override
+  String get helpFaqs => 'FAQ';
+
+  @override
+  String get helpFaqsSubtitle => 'Questions fréquemment posées';
+
+  @override
+  String get aboutDialogClose => 'Fermer';
+
+  @override
+  String get aboutBanaTalkTagline => 'Connectez-vous avec des apprenants de langues du monde entier et améliorez vos compétences grâce à de vraies conversations.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Tous droits réservés.';
+
+  @override
+  String get logoutFailedPrefix => 'Échec de la déconnexion';
+
+  @override
+  String get profileVisitorsTitle => 'Visiteurs du profil';
+
+  @override
+  String get visitorStatistics => 'Statistiques des visiteurs';
+
+  @override
+  String get visitorsTotalVisits => 'Total des visites';
+
+  @override
+  String get visitorsUniqueVisitors => 'Visiteurs uniques';
+
+  @override
+  String get visitorsToday => 'Aujourd\'hui';
+
+  @override
+  String get visitorsThisWeek => 'Cette semaine';
+
+  @override
+  String get noVisitorsYet => 'Pas encore de visiteurs';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Quand des personnes visiteront votre profil,\nelles apparaîtront ici';
+
+  @override
+  String get visitedViaSearch => 'via Recherche';
+
+  @override
+  String get visitedViaMoments => 'via Moments';
+
+  @override
+  String get visitedViaChat => 'via Chat';
+
+  @override
+  String get visitedDirect => 'Visite directe';
+
+  @override
+  String get visitorTrackingUnavailable => 'Fonctionnalité de suivi des visiteurs non disponible. Veuillez mettre à jour le backend.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Suivi des visiteurs pas encore disponible';
+
+  @override
+  String get noFollowersYetSubtitle => 'Commencez à vous connecter avec les autres !';
+
+  @override
+  String get partnerButton => 'Partenaire';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Suivez des personnes pour voir leurs mises à jour !';
+
+  @override
+  String get unfollowButton => 'Ne plus suivre';
+
+  @override
+  String get profileThemeTitle => 'Thème du profil';
+
+  @override
+  String get themeAutoSwitch => 'Changement automatique (Thème système)';
+
+  @override
+  String get themeSystemHint => 'Quand activé, l\'appli suivra les paramètres de thème de votre système';
+
+  @override
+  String get themeLightMode => 'Mode clair';
+
+  @override
+  String get themeDarkMode => 'Mode sombre';
+
+  @override
+  String get myMoments => 'Mes moments';
+
+  @override
+  String get momentListView => 'Vue liste';
+
+  @override
+  String get momentGridView => 'Vue grille';
+
+  @override
+  String get shareLanguageLearningJourney => 'Partagez votre parcours d\'apprentissage des langues !';
+
+  @override
+  String get deleteHighlightTitle => 'Supprimer le highlight';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'Supprimer \"$title\" ? Les stories à l\'intérieur ne seront pas supprimées.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Highlight supprimé';
+
+  @override
+  String get highlightNewBadge => 'Nouveau';
+
+  @override
+  String get editMoment => 'Modifier le moment';
+
+  @override
+  String get momentDescriptionLabel => 'Description';
+
+  @override
+  String get momentImagesLabel => 'Images';
+
+  @override
+  String get noImagesYet => 'Pas encore d\'images';
+
+  @override
+  String get momentEnterDescription => 'Veuillez entrer une description';
+
+  @override
+  String get momentUpdatedImageFailed => 'Moment mis à jour mais l\'envoi de l\'image a échoué';
 }

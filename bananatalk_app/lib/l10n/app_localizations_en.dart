@@ -4229,4 +4229,168 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourNativeLanguageIsPrefix => 'Your native language is ';
+
+  @override
+  String get profileCompleteProgress => 'complete';
+
+  @override
+  String get drawerPreferences => 'Preferences';
+
+  @override
+  String get drawerStorage => 'Storage';
+
+  @override
+  String get drawerReports => 'Reports';
+
+  @override
+  String get drawerSupport => 'Support';
+
+  @override
+  String get drawerAccount => 'Account';
+
+  @override
+  String get logoutConfirmBody => 'Are you sure you want to logout from BanaTalk?';
+
+  @override
+  String get helpEmailSupport => 'Email Support';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Report a Bug';
+
+  @override
+  String get helpReportBugSubtitle => 'Help us improve BanaTalk';
+
+  @override
+  String get helpFaqs => 'FAQs';
+
+  @override
+  String get helpFaqsSubtitle => 'Frequently asked questions';
+
+  @override
+  String get aboutDialogClose => 'Close';
+
+  @override
+  String get aboutBanaTalkTagline => 'Connect with language learners worldwide and improve your skills through real conversations.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. All rights reserved.';
+
+  @override
+  String get logoutFailedPrefix => 'Logout failed';
+
+  @override
+  String get profileVisitorsTitle => 'Profile Visitors';
+
+  @override
+  String get visitorStatistics => 'Visitor Statistics';
+
+  @override
+  String get visitorsTotalVisits => 'Total Visits';
+
+  @override
+  String get visitorsUniqueVisitors => 'Unique Visitors';
+
+  @override
+  String get visitorsToday => 'Today';
+
+  @override
+  String get visitorsThisWeek => 'This Week';
+
+  @override
+  String get noVisitorsYet => 'No visitors yet';
+
+  @override
+  String get noVisitorsYetSubtitle => 'When people visit your profile,\nthey will appear here';
+
+  @override
+  String get visitedViaSearch => 'via Search';
+
+  @override
+  String get visitedViaMoments => 'via Moments';
+
+  @override
+  String get visitedViaChat => 'via Chat';
+
+  @override
+  String get visitedDirect => 'Direct visit';
+
+  @override
+  String get visitorTrackingUnavailable => 'Visitor tracking feature not available. Please update backend.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Visitor tracking not available yet';
+
+  @override
+  String get noFollowersYetSubtitle => 'Start connecting with others!';
+
+  @override
+  String get partnerButton => 'Partner';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Start following people to see their updates!';
+
+  @override
+  String get unfollowButton => 'Unfollow';
+
+  @override
+  String get profileThemeTitle => 'Profile Theme';
+
+  @override
+  String get themeAutoSwitch => 'Auto Switch (System Theme)';
+
+  @override
+  String get themeSystemHint => 'When enabled, the app will follow your system theme settings';
+
+  @override
+  String get themeLightMode => 'Light Mode';
+
+  @override
+  String get themeDarkMode => 'Dark Mode';
+
+  @override
+  String get myMoments => 'My Moments';
+
+  @override
+  String get momentListView => 'List View';
+
+  @override
+  String get momentGridView => 'Grid View';
+
+  @override
+  String get shareLanguageLearningJourney => 'Share your language learning journey!';
+
+  @override
+  String get deleteHighlightTitle => 'Delete Highlight';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'Delete \"$title\"? The stories inside won\'t be deleted.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Highlight deleted';
+
+  @override
+  String get highlightNewBadge => 'New';
+
+  @override
+  String get editMoment => 'Edit Moment';
+
+  @override
+  String get momentDescriptionLabel => 'Description';
+
+  @override
+  String get momentImagesLabel => 'Images';
+
+  @override
+  String get noImagesYet => 'No images yet';
+
+  @override
+  String get momentEnterDescription => 'Please enter a description';
+
+  @override
+  String get momentUpdatedImageFailed => 'Moment updated but image upload failed';
 }

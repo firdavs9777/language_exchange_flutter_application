@@ -1739,5 +1739,89 @@
   "onlyCityCountryShown": "Seules votre ville et votre pays sont visibles par les autres. Les coordonnées exactes restent privées.",
   "updateLocationCta": "Mettre à jour la position",
   "enterYourName": "Entrez votre prénom",
-  "unsavedChanges": "Vous avez des modifications non enregistrées"
+  "unsavedChanges": "Vous avez des modifications non enregistrées",
+
+  "loadingLanguages": "Chargement des langues...",
+  "tapBelowToBrowseLanguages": "Appuyez ci-dessous pour parcourir {count} langues",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Changer de langue",
+  "browseLanguages": "Parcourir les langues",
+  "yourLearningLanguageIsPrefix": "Votre langue d'apprentissage est ",
+  "yourNativeLanguageIsPrefix": "Votre langue maternelle est ",
+
+  "profileCompleteProgress": "complété",
+
+  "drawerPreferences": "Préférences",
+  "drawerStorage": "Stockage",
+  "drawerReports": "Rapports",
+  "drawerSupport": "Support",
+  "drawerAccount": "Compte",
+  "logoutConfirmBody": "Êtes-vous sûr de vouloir vous déconnecter de BanaTalk ?",
+  "helpEmailSupport": "Support par e-mail",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Signaler un bug",
+  "helpReportBugSubtitle": "Aidez-nous à améliorer BanaTalk",
+  "helpFaqs": "FAQ",
+  "helpFaqsSubtitle": "Questions fréquemment posées",
+  "aboutDialogClose": "Fermer",
+  "aboutBanaTalkTagline": "Connectez-vous avec des apprenants de langues du monde entier et améliorez vos compétences grâce à de vraies conversations.",
+  "aboutCopyright": "© 2024 BanaTalk. Tous droits réservés.",
+  "logoutFailedPrefix": "Échec de la déconnexion",
+
+  "profileVisitorsTitle": "Visiteurs du profil",
+  "visitorStatistics": "Statistiques des visiteurs",
+  "visitorsTotalVisits": "Total des visites",
+  "visitorsUniqueVisitors": "Visiteurs uniques",
+  "visitorsToday": "Aujourd'hui",
+  "visitorsThisWeek": "Cette semaine",
+  "noVisitorsYet": "Pas encore de visiteurs",
+  "noVisitorsYetSubtitle": "Quand des personnes visiteront votre profil,\nelles apparaîtront ici",
+  "visitedViaSearch": "via Recherche",
+  "visitedViaMoments": "via Moments",
+  "visitedViaChat": "via Chat",
+  "visitedDirect": "Visite directe",
+  "visitorTrackingUnavailable": "Fonctionnalité de suivi des visiteurs non disponible. Veuillez mettre à jour le backend.",
+  "visitorTrackingNotAvailableYet": "Suivi des visiteurs pas encore disponible",
+
+  "noFollowersYetSubtitle": "Commencez à vous connecter avec les autres !",
+  "partnerButton": "Partenaire",
+
+  "notFollowingAnyoneYetSubtitle": "Suivez des personnes pour voir leurs mises à jour !",
+  "unfollowButton": "Ne plus suivre",
+
+  "profileThemeTitle": "Thème du profil",
+  "themeAutoSwitch": "Changement automatique (Thème système)",
+  "themeSystemHint": "Quand activé, l'appli suivra les paramètres de thème de votre système",
+  "themeLightMode": "Mode clair",
+  "themeDarkMode": "Mode sombre",
+
+  "myMoments": "Mes moments",
+  "momentListView": "Vue liste",
+  "momentGridView": "Vue grille",
+  "shareLanguageLearningJourney": "Partagez votre parcours d'apprentissage des langues !",
+
+  "deleteHighlightTitle": "Supprimer le highlight",
+  "deleteHighlightConfirm": "Supprimer \"{title}\" ? Les stories à l'intérieur ne seront pas supprimées.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Highlight supprimé",
+  "highlightNewBadge": "Nouveau",
+
+  "editMoment": "Modifier le moment",
+  "momentDescriptionLabel": "Description",
+  "momentImagesLabel": "Images",
+  "noImagesYet": "Pas encore d'images",
+  "momentEnterDescription": "Veuillez entrer une description",
+  "momentUpdatedImageFailed": "Moment mis à jour mais l'envoi de l'image a échoué"
 }

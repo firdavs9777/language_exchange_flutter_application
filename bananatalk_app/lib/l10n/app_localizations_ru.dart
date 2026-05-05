@@ -4206,4 +4206,185 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'У вас есть несохранённые изменения';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'Нажмите ниже, чтобы выбрать из $count языков';
+  }
+
+  @override
+  String get changeLanguage => 'Изменить язык';
+
+  @override
+  String get browseLanguages => 'Просмотр языков';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Ваш язык изучения — ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Ваш родной язык — ';
+
+  @override
+  String get profileCompleteProgress => 'заполнено';
+
+  @override
+  String get drawerPreferences => 'Настройки';
+
+  @override
+  String get drawerStorage => 'Хранилище';
+
+  @override
+  String get drawerReports => 'Жалобы';
+
+  @override
+  String get drawerSupport => 'Поддержка';
+
+  @override
+  String get drawerAccount => 'Аккаунт';
+
+  @override
+  String get logoutConfirmBody => 'Вы уверены, что хотите выйти из BanaTalk?';
+
+  @override
+  String get helpEmailSupport => 'Поддержка по email';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Сообщить об ошибке';
+
+  @override
+  String get helpReportBugSubtitle => 'Помогите нам улучшить BanaTalk';
+
+  @override
+  String get helpFaqs => 'Частые вопросы';
+
+  @override
+  String get helpFaqsSubtitle => 'Часто задаваемые вопросы';
+
+  @override
+  String get aboutDialogClose => 'Закрыть';
+
+  @override
+  String get aboutBanaTalkTagline => 'Общайтесь с изучающими языки по всему миру и улучшайте навыки через реальные разговоры.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Все права защищены.';
+
+  @override
+  String get logoutFailedPrefix => 'Ошибка выхода';
+
+  @override
+  String get profileVisitorsTitle => 'Посетители профиля';
+
+  @override
+  String get visitorStatistics => 'Статистика посещений';
+
+  @override
+  String get visitorsTotalVisits => 'Всего посещений';
+
+  @override
+  String get visitorsUniqueVisitors => 'Уникальные посетители';
+
+  @override
+  String get visitorsToday => 'Сегодня';
+
+  @override
+  String get visitorsThisWeek => 'На этой неделе';
+
+  @override
+  String get noVisitorsYet => 'Посетителей пока нет';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Когда люди посетят ваш профиль,\nони появятся здесь';
+
+  @override
+  String get visitedViaSearch => 'через Поиск';
+
+  @override
+  String get visitedViaMoments => 'через Моменты';
+
+  @override
+  String get visitedViaChat => 'через Чат';
+
+  @override
+  String get visitedDirect => 'Прямой визит';
+
+  @override
+  String get visitorTrackingUnavailable => 'Отслеживание посетителей недоступно. Обновите бэкенд.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Отслеживание посетителей пока недоступно';
+
+  @override
+  String get noFollowersYetSubtitle => 'Начните общаться с другими!';
+
+  @override
+  String get partnerButton => 'Партнёр';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Подпишитесь на людей, чтобы видеть их обновления!';
+
+  @override
+  String get unfollowButton => 'Отписаться';
+
+  @override
+  String get profileThemeTitle => 'Тема профиля';
+
+  @override
+  String get themeAutoSwitch => 'Авто (системная тема)';
+
+  @override
+  String get themeSystemHint => 'При включении приложение будет следовать настройкам темы системы';
+
+  @override
+  String get themeLightMode => 'Светлая тема';
+
+  @override
+  String get themeDarkMode => 'Тёмная тема';
+
+  @override
+  String get myMoments => 'Мои моменты';
+
+  @override
+  String get momentListView => 'Список';
+
+  @override
+  String get momentGridView => 'Сетка';
+
+  @override
+  String get shareLanguageLearningJourney => 'Поделитесь своим путём изучения языка!';
+
+  @override
+  String get deleteHighlightTitle => 'Удалить подборку';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'Удалить «$title»? Истории внутри удалены не будут.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Подборка удалена';
+
+  @override
+  String get highlightNewBadge => 'Новое';
+
+  @override
+  String get editMoment => 'Редактировать момент';
+
+  @override
+  String get momentDescriptionLabel => 'Описание';
+
+  @override
+  String get momentImagesLabel => 'Изображения';
+
+  @override
+  String get noImagesYet => 'Изображений пока нет';
+
+  @override
+  String get momentEnterDescription => 'Введите описание';
+
+  @override
+  String get momentUpdatedImageFailed => 'Момент обновлён, но загрузка изображения не удалась';
 }

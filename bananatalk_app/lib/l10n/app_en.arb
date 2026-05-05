@@ -2179,6 +2179,76 @@
   "changeLanguage": "Change Language",
   "browseLanguages": "Browse Languages",
   "yourLearningLanguageIsPrefix": "Your learning language is ",
-  "yourNativeLanguageIsPrefix": "Your native language is "
+  "yourNativeLanguageIsPrefix": "Your native language is ",
+
+  "profileCompleteProgress": "complete",
+
+  "drawerPreferences": "Preferences",
+  "drawerStorage": "Storage",
+  "drawerReports": "Reports",
+  "drawerSupport": "Support",
+  "drawerAccount": "Account",
+  "logoutConfirmBody": "Are you sure you want to logout from BanaTalk?",
+  "helpEmailSupport": "Email Support",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Report a Bug",
+  "helpReportBugSubtitle": "Help us improve BanaTalk",
+  "helpFaqs": "FAQs",
+  "helpFaqsSubtitle": "Frequently asked questions",
+  "aboutDialogClose": "Close",
+  "aboutBanaTalkTagline": "Connect with language learners worldwide and improve your skills through real conversations.",
+  "aboutCopyright": "© 2024 BanaTalk. All rights reserved.",
+  "logoutFailedPrefix": "Logout failed",
+
+  "profileVisitorsTitle": "Profile Visitors",
+  "visitorStatistics": "Visitor Statistics",
+  "visitorsTotalVisits": "Total Visits",
+  "visitorsUniqueVisitors": "Unique Visitors",
+  "visitorsToday": "Today",
+  "visitorsThisWeek": "This Week",
+  "noVisitorsYet": "No visitors yet",
+  "noVisitorsYetSubtitle": "When people visit your profile,\nthey will appear here",
+  "visitedViaSearch": "via Search",
+  "visitedViaMoments": "via Moments",
+  "visitedViaChat": "via Chat",
+  "visitedDirect": "Direct visit",
+  "visitorTrackingUnavailable": "Visitor tracking feature not available. Please update backend.",
+  "visitorTrackingNotAvailableYet": "Visitor tracking not available yet",
+
+  "noFollowersYetSubtitle": "Start connecting with others!",
+  "partnerButton": "Partner",
+
+  "notFollowingAnyoneYetSubtitle": "Start following people to see their updates!",
+  "unfollowButton": "Unfollow",
+
+  "profileThemeTitle": "Profile Theme",
+  "themeAutoSwitch": "Auto Switch (System Theme)",
+  "themeSystemHint": "When enabled, the app will follow your system theme settings",
+  "themeLightMode": "Light Mode",
+  "themeDarkMode": "Dark Mode",
+
+  "myMoments": "My Moments",
+  "momentListView": "List View",
+  "momentGridView": "Grid View",
+  "shareLanguageLearningJourney": "Share your language learning journey!",
+
+  "deleteHighlightTitle": "Delete Highlight",
+  "deleteHighlightConfirm": "Delete \"{title}\"? The stories inside won't be deleted.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Highlight deleted",
+  "highlightNewBadge": "New",
+
+  "editMoment": "Edit Moment",
+  "momentDescriptionLabel": "Description",
+  "momentImagesLabel": "Images",
+  "noImagesYet": "No images yet",
+  "momentEnterDescription": "Please enter a description",
+  "momentUpdatedImageFailed": "Moment updated but image upload failed"
 }
 

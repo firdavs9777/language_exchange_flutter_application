@@ -303,7 +303,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               Spacing.gapLG,
               ElevatedButton(
                 onPressed: () => ref.refresh(userProvider),
-                child: const Text('Retry'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),

@@ -1471,5 +1471,89 @@
   "onlyCityCountryShown": "يظهر للآخرين مدينتك وبلدك فقط. تبقى الإحداثيات الدقيقة خاصة.",
   "updateLocationCta": "تحديث الموقع",
   "enterYourName": "أدخل اسمك",
-  "unsavedChanges": "لديك تغييرات غير محفوظة"
+  "unsavedChanges": "لديك تغييرات غير محفوظة",
+
+  "loadingLanguages": "جارٍ تحميل اللغات...",
+  "tapBelowToBrowseLanguages": "انقر أدناه للاستعراض من {count} لغة",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "تغيير اللغة",
+  "browseLanguages": "استعراض اللغات",
+  "yourLearningLanguageIsPrefix": "لغتك التي تتعلمها هي ",
+  "yourNativeLanguageIsPrefix": "لغتك الأم هي ",
+
+  "profileCompleteProgress": "مكتمل",
+
+  "drawerPreferences": "التفضيلات",
+  "drawerStorage": "التخزين",
+  "drawerReports": "التقارير",
+  "drawerSupport": "الدعم",
+  "drawerAccount": "الحساب",
+  "logoutConfirmBody": "هل أنت متأكد أنك تريد تسجيل الخروج من BanaTalk؟",
+  "helpEmailSupport": "الدعم عبر البريد الإلكتروني",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "الإبلاغ عن خطأ",
+  "helpReportBugSubtitle": "ساعدنا في تحسين BanaTalk",
+  "helpFaqs": "الأسئلة الشائعة",
+  "helpFaqsSubtitle": "الأسئلة المتداولة",
+  "aboutDialogClose": "إغلاق",
+  "aboutBanaTalkTagline": "تواصل مع متعلمي اللغات حول العالم وحسّن مهاراتك من خلال محادثات حقيقية.",
+  "aboutCopyright": "© 2024 BanaTalk. جميع الحقوق محفوظة.",
+  "logoutFailedPrefix": "فشل تسجيل الخروج",
+
+  "profileVisitorsTitle": "زوار الملف الشخصي",
+  "visitorStatistics": "إحصائيات الزوار",
+  "visitorsTotalVisits": "إجمالي الزيارات",
+  "visitorsUniqueVisitors": "الزوار الفريدون",
+  "visitorsToday": "اليوم",
+  "visitorsThisWeek": "هذا الأسبوع",
+  "noVisitorsYet": "لا يوجد زوار بعد",
+  "noVisitorsYetSubtitle": "عندما يزور الأشخاص ملفك الشخصي،\nسيظهرون هنا",
+  "visitedViaSearch": "عبر البحث",
+  "visitedViaMoments": "عبر اللحظات",
+  "visitedViaChat": "عبر الدردشة",
+  "visitedDirect": "زيارة مباشرة",
+  "visitorTrackingUnavailable": "ميزة تتبع الزوار غير متوفرة. يرجى تحديث الخادم.",
+  "visitorTrackingNotAvailableYet": "تتبع الزوار غير متوفر بعد",
+
+  "noFollowersYetSubtitle": "ابدأ التواصل مع الآخرين!",
+  "partnerButton": "شريك",
+
+  "notFollowingAnyoneYetSubtitle": "ابدأ بمتابعة الأشخاص لرؤية تحديثاتهم!",
+  "unfollowButton": "إلغاء المتابعة",
+
+  "profileThemeTitle": "سمة الملف الشخصي",
+  "themeAutoSwitch": "التبديل التلقائي (سمة النظام)",
+  "themeSystemHint": "عند التفعيل، سيتبع التطبيق إعدادات سمة نظامك",
+  "themeLightMode": "الوضع الفاتح",
+  "themeDarkMode": "الوضع الداكن",
+
+  "myMoments": "لحظاتي",
+  "momentListView": "عرض القائمة",
+  "momentGridView": "عرض الشبكة",
+  "shareLanguageLearningJourney": "شارك رحلتك في تعلم اللغة!",
+
+  "deleteHighlightTitle": "حذف القصة المميزة",
+  "deleteHighlightConfirm": "هل تريد حذف \"{title}\"؟ لن يتم حذف القصص الموجودة بداخلها.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "تم حذف القصة المميزة",
+  "highlightNewBadge": "جديد",
+
+  "editMoment": "تعديل اللحظة",
+  "momentDescriptionLabel": "الوصف",
+  "momentImagesLabel": "الصور",
+  "noImagesYet": "لا توجد صور بعد",
+  "momentEnterDescription": "يرجى إدخال وصف",
+  "momentUpdatedImageFailed": "تم تحديث اللحظة لكن فشل رفع الصورة"
 }

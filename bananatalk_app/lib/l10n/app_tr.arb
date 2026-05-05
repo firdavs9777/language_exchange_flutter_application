@@ -1678,5 +1678,89 @@
   "onlyCityCountryShown": "Diğer kullanıcılara yalnızca şehrin ve ülken gösterilir. Kesin koordinatlar gizli kalır.",
   "updateLocationCta": "Konumu Güncelle",
   "enterYourName": "Adınızı girin",
-  "unsavedChanges": "Kaydedilmemiş değişiklikleriniz var"
+  "unsavedChanges": "Kaydedilmemiş değişiklikleriniz var",
+
+  "loadingLanguages": "Diller yükleniyor...",
+  "tapBelowToBrowseLanguages": "{count} dil arasından seçmek için aşağıya dokunun",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Dili Değiştir",
+  "browseLanguages": "Dillere Göz At",
+  "yourLearningLanguageIsPrefix": "Öğrendiğiniz dil: ",
+  "yourNativeLanguageIsPrefix": "Ana diliniz: ",
+
+  "profileCompleteProgress": "tamamlandı",
+
+  "drawerPreferences": "Tercihler",
+  "drawerStorage": "Depolama",
+  "drawerReports": "Raporlar",
+  "drawerSupport": "Destek",
+  "drawerAccount": "Hesap",
+  "logoutConfirmBody": "BanaTalk'tan çıkış yapmak istediğinizden emin misiniz?",
+  "helpEmailSupport": "E-posta Desteği",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Hata Bildir",
+  "helpReportBugSubtitle": "BanaTalk'ı geliştirmemize yardımcı olun",
+  "helpFaqs": "SSS",
+  "helpFaqsSubtitle": "Sık sorulan sorular",
+  "aboutDialogClose": "Kapat",
+  "aboutBanaTalkTagline": "Dünya genelindeki dil öğrencileriyle bağlantı kurun ve gerçek sohbetler aracılığıyla becerilerinizi geliştirin.",
+  "aboutCopyright": "© 2024 BanaTalk. Tüm hakları saklıdır.",
+  "logoutFailedPrefix": "Çıkış başarısız",
+
+  "profileVisitorsTitle": "Profil Ziyaretçileri",
+  "visitorStatistics": "Ziyaretçi İstatistikleri",
+  "visitorsTotalVisits": "Toplam Ziyaret",
+  "visitorsUniqueVisitors": "Tekil Ziyaretçi",
+  "visitorsToday": "Bugün",
+  "visitorsThisWeek": "Bu Hafta",
+  "noVisitorsYet": "Henüz ziyaretçi yok",
+  "noVisitorsYetSubtitle": "Biri profilinizi ziyaret ettiğinde,\nburada görünecekler",
+  "visitedViaSearch": "Arama yoluyla",
+  "visitedViaMoments": "Anlar yoluyla",
+  "visitedViaChat": "Sohbet yoluyla",
+  "visitedDirect": "Doğrudan ziyaret",
+  "visitorTrackingUnavailable": "Ziyaretçi takip özelliği kullanılamıyor. Lütfen backend'i güncelleyin.",
+  "visitorTrackingNotAvailableYet": "Ziyaretçi takibi henüz mevcut değil",
+
+  "noFollowersYetSubtitle": "Başkalarıyla bağlantı kurmaya başlayın!",
+  "partnerButton": "Ortak",
+
+  "notFollowingAnyoneYetSubtitle": "Güncellemelerini görmek için kişileri takip edin!",
+  "unfollowButton": "Takibi Bırak",
+
+  "profileThemeTitle": "Profil Teması",
+  "themeAutoSwitch": "Otomatik Geçiş (Sistem Teması)",
+  "themeSystemHint": "Etkinleştirildiğinde uygulama sistem teması ayarlarınızı takip eder",
+  "themeLightMode": "Açık Mod",
+  "themeDarkMode": "Koyu Mod",
+
+  "myMoments": "Anlarım",
+  "momentListView": "Liste Görünümü",
+  "momentGridView": "Izgara Görünümü",
+  "shareLanguageLearningJourney": "Dil öğrenme yolculuğunuzu paylaşın!",
+
+  "deleteHighlightTitle": "Öne Çıkanı Sil",
+  "deleteHighlightConfirm": "\"{title}\" silinsin mi? İçindeki hikayeler silinmeyecek.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Öne çıkan silindi",
+  "highlightNewBadge": "Yeni",
+
+  "editMoment": "Anı Düzenle",
+  "momentDescriptionLabel": "Açıklama",
+  "momentImagesLabel": "Görseller",
+  "noImagesYet": "Henüz görsel yok",
+  "momentEnterDescription": "Lütfen bir açıklama girin",
+  "momentUpdatedImageFailed": "An güncellendi fakat görsel yükleme başarısız oldu"
 }

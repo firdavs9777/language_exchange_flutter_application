@@ -8,6 +8,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -240,7 +241,7 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
           future: followers,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const UserListSkeleton(count: 6);
             } else if (snapshot.hasError) {
               return Center(
                 child: Column(
@@ -274,12 +275,12 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
                     ),
                     Spacing.gapXXL,
                     Text(
-                      'No followers yet',
+                      AppLocalizations.of(context)!.noFollowersYet,
                       style: context.titleLarge,
                     ),
                     Spacing.gapSM,
                     Text(
-                      'Start connecting with others!',
+                      AppLocalizations.of(context)!.noFollowersYetSubtitle,
                       style: context.bodySmall,
                     ),
                   ],
@@ -398,7 +399,7 @@ class _UserCard extends StatelessWidget {
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue.withOpacity(0.1),
+                                  color: Colors.blue.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Row(
@@ -425,7 +426,7 @@ class _UserCard extends StatelessWidget {
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.orange.withOpacity(0.1),
+                                  color: Colors.orange.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Row(
@@ -468,7 +469,9 @@ class _UserCard extends StatelessWidget {
                         borderRadius: AppRadius.borderRound,
                       ),
                       child: Text(
-                        isFollowing ? 'Partner' : 'Follow',
+                        isFollowing
+                            ? AppLocalizations.of(context)!.partnerButton
+                            : AppLocalizations.of(context)!.follow,
                         style: context.labelLarge.copyWith(
                           color: isFollowing ? context.textPrimary : Colors.white,
                         ),

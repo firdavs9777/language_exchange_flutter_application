@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
@@ -138,19 +141,37 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
   }
 
   void _deleteHighlight(StoryHighlight highlight) async {
+    final l10n = AppLocalizations.of(context)!;
+    HapticFeedback.selectionClick();
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Delete Highlight'),
-        content: Text('Delete "${highlight.title}"? The stories inside won\'t be deleted.'),
+        shape: RoundedRectangleBorder(
+          borderRadius: AppRadius.borderLG,
+        ),
+        title: Text(
+          l10n.deleteHighlightTitle,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.bold),
+        ),
+        content: Text(
+          l10n.deleteHighlightConfirm(highlight.title),
+          style: context.bodyMedium,
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(
+              l10n.cancel,
+              style: context.labelLarge.copyWith(color: context.textSecondary),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            style: TextButton.styleFrom(foregroundColor: AppColors.error),
+            child: Text(
+              l10n.delete,
+              style: context.labelLarge.copyWith(color: AppColors.error),
+            ),
           ),
         ],
       ),
@@ -161,25 +182,64 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
         await StoriesService.deleteHighlight(highlightId: highlight.id);
         _loadHighlights(); // Refresh list
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Highlight deleted'),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+          _showSuccessSnackBar(l10n.highlightDeletedSuccess);
         }
       } catch (e) {
         if (mounted) {
+          HapticFeedback.mediumImpact();
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to delete: ${e.toString().replaceFirst("Exception: ", "")}'),
-              backgroundColor: Colors.red,
+              content: Row(
+                children: [
+                  const Icon(Icons.error_rounded, color: Colors.white),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      '${l10n.error}: ${e.toString().replaceFirst("Exception: ", "")}',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: AppColors.error,
               behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              duration: const Duration(seconds: 3),
             ),
           );
         }
       }
     }
+  }
+
+  void _showSuccessSnackBar(String message) {
+    HapticFeedback.lightImpact();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_rounded, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   Widget _buildAddHighlight(BuildContext context) {
@@ -206,7 +266,7 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
           ),
           const SizedBox(height: 4),
           Text(
-            'New',
+            AppLocalizations.of(context)!.highlightNewBadge,
             style: context.captionSmall.copyWith(color: context.textMuted, fontSize: 10),
             maxLines: 1,
           ),

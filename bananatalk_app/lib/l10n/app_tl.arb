@@ -1402,5 +1402,89 @@
   "onlyCityCountryShown": "Ang iyong lungsod at bansa lamang ang makikita ng iba. Ang eksaktong koordinasyon ay mananatiling pribado.",
   "updateLocationCta": "I-update ang Lokasyon",
   "enterYourName": "Ilagay ang iyong pangalan",
-  "unsavedChanges": "Mayroon kang mga hindi pa nai-save na pagbabago"
+  "unsavedChanges": "Mayroon kang mga hindi pa nai-save na pagbabago",
+
+  "loadingLanguages": "Naglo-load ng mga wika...",
+  "tapBelowToBrowseLanguages": "I-tap sa ibaba upang mag-browse mula sa {count} wika",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Baguhin ang Wika",
+  "browseLanguages": "I-browse ang mga Wika",
+  "yourLearningLanguageIsPrefix": "Ang iyong wikang pinag-aaralan ay ",
+  "yourNativeLanguageIsPrefix": "Ang iyong katutubong wika ay ",
+
+  "profileCompleteProgress": "kumpleto",
+
+  "drawerPreferences": "Mga Kagustuhan",
+  "drawerStorage": "Storage",
+  "drawerReports": "Mga Ulat",
+  "drawerSupport": "Suporta",
+  "drawerAccount": "Account",
+  "logoutConfirmBody": "Sigurado ka bang gusto mong mag-logout sa BanaTalk?",
+  "helpEmailSupport": "Suporta sa Email",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Mag-ulat ng Bug",
+  "helpReportBugSubtitle": "Tulungan kaming mapabuti ang BanaTalk",
+  "helpFaqs": "Mga FAQ",
+  "helpFaqsSubtitle": "Mga madalas itanong",
+  "aboutDialogClose": "Isara",
+  "aboutBanaTalkTagline": "Kumonekta sa mga nagaaral ng wika sa buong mundo at paunlarin ang iyong mga kasanayan sa pamamagitan ng tunay na pag-uusap.",
+  "aboutCopyright": "© 2024 BanaTalk. Lahat ng karapatan ay nakalaan.",
+  "logoutFailedPrefix": "Nabigo ang pag-logout",
+
+  "profileVisitorsTitle": "Mga Bisita ng Profile",
+  "visitorStatistics": "Estadistika ng Bisita",
+  "visitorsTotalVisits": "Kabuuang Pagbisita",
+  "visitorsUniqueVisitors": "Natatanging Bisita",
+  "visitorsToday": "Ngayon",
+  "visitorsThisWeek": "Ngayong Linggo",
+  "noVisitorsYet": "Wala pang bisita",
+  "noVisitorsYetSubtitle": "Kapag may bumisita sa iyong profile,\nlalabas sila dito",
+  "visitedViaSearch": "sa pamamagitan ng Paghahanap",
+  "visitedViaMoments": "sa pamamagitan ng Moments",
+  "visitedViaChat": "sa pamamagitan ng Chat",
+  "visitedDirect": "Direktang pagbisita",
+  "visitorTrackingUnavailable": "Hindi available ang feature ng pagsubaybay sa bisita. Pakiupdate ang backend.",
+  "visitorTrackingNotAvailableYet": "Hindi pa available ang pagsubaybay sa bisita",
+
+  "noFollowersYetSubtitle": "Simulan ang pakikipag-ugnayan sa iba!",
+  "partnerButton": "Kasosyo",
+
+  "notFollowingAnyoneYetSubtitle": "Sundan ang mga tao upang makita ang kanilang mga update!",
+  "unfollowButton": "I-unfollow",
+
+  "profileThemeTitle": "Tema ng Profile",
+  "themeAutoSwitch": "Awtomatikong Paglipat (Tema ng Sistema)",
+  "themeSystemHint": "Kapag pinagana, susundin ng app ang mga setting ng tema ng iyong sistema",
+  "themeLightMode": "Light Mode",
+  "themeDarkMode": "Dark Mode",
+
+  "myMoments": "Aking Mga Moment",
+  "momentListView": "List View",
+  "momentGridView": "Grid View",
+  "shareLanguageLearningJourney": "Ibahagi ang iyong paglalakbay sa pag-aaral ng wika!",
+
+  "deleteHighlightTitle": "Tanggalin ang Highlight",
+  "deleteHighlightConfirm": "Tanggalin ang \"{title}\"? Hindi matatanggal ang mga kuwento sa loob nito.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Natanggal ang highlight",
+  "highlightNewBadge": "Bago",
+
+  "editMoment": "I-edit ang Moment",
+  "momentDescriptionLabel": "Paglalarawan",
+  "momentImagesLabel": "Mga Larawan",
+  "noImagesYet": "Wala pang larawan",
+  "momentEnterDescription": "Mangyaring maglagay ng paglalarawan",
+  "momentUpdatedImageFailed": "Na-update ang moment ngunit nabigo ang pag-upload ng larawan"
 }

@@ -4206,4 +4206,185 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'แตะด้านล่างเพื่อเลือกจาก $count ภาษา';
+  }
+
+  @override
+  String get changeLanguage => 'เปลี่ยนภาษา';
+
+  @override
+  String get browseLanguages => 'เรียกดูภาษา';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'ภาษาที่คุณกำลังเรียนคือ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'ภาษาแม่ของคุณคือ';
+
+  @override
+  String get profileCompleteProgress => 'สมบูรณ์';
+
+  @override
+  String get drawerPreferences => 'การตั้งค่า';
+
+  @override
+  String get drawerStorage => 'พื้นที่จัดเก็บ';
+
+  @override
+  String get drawerReports => 'รายงาน';
+
+  @override
+  String get drawerSupport => 'ฝ่ายสนับสนุน';
+
+  @override
+  String get drawerAccount => 'บัญชี';
+
+  @override
+  String get logoutConfirmBody => 'คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ BanaTalk?';
+
+  @override
+  String get helpEmailSupport => 'ติดต่อฝ่ายสนับสนุนทางอีเมล';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'รายงานข้อบกพร่อง';
+
+  @override
+  String get helpReportBugSubtitle => 'ช่วยเราปรับปรุง BanaTalk';
+
+  @override
+  String get helpFaqs => 'คำถามที่พบบ่อย';
+
+  @override
+  String get helpFaqsSubtitle => 'คำถามที่ถามบ่อย';
+
+  @override
+  String get aboutDialogClose => 'ปิด';
+
+  @override
+  String get aboutBanaTalkTagline => 'เชื่อมต่อกับผู้เรียนภาษาทั่วโลกและพัฒนาทักษะผ่านการสนทนาจริง';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. สงวนลิขสิทธิ์ทั้งหมด';
+
+  @override
+  String get logoutFailedPrefix => 'ออกจากระบบล้มเหลว';
+
+  @override
+  String get profileVisitorsTitle => 'ผู้เยี่ยมชมโปรไฟล์';
+
+  @override
+  String get visitorStatistics => 'สถิติผู้เยี่ยมชม';
+
+  @override
+  String get visitorsTotalVisits => 'การเยี่ยมชมทั้งหมด';
+
+  @override
+  String get visitorsUniqueVisitors => 'ผู้เยี่ยมชมที่ไม่ซ้ำ';
+
+  @override
+  String get visitorsToday => 'วันนี้';
+
+  @override
+  String get visitorsThisWeek => 'สัปดาห์นี้';
+
+  @override
+  String get noVisitorsYet => 'ยังไม่มีผู้เยี่ยมชม';
+
+  @override
+  String get noVisitorsYetSubtitle => 'เมื่อมีคนเยี่ยมชมโปรไฟล์ของคุณ\nพวกเขาจะปรากฏที่นี่';
+
+  @override
+  String get visitedViaSearch => 'ผ่านการค้นหา';
+
+  @override
+  String get visitedViaMoments => 'ผ่านโมเมนต์';
+
+  @override
+  String get visitedViaChat => 'ผ่านแชท';
+
+  @override
+  String get visitedDirect => 'เยี่ยมชมโดยตรง';
+
+  @override
+  String get visitorTrackingUnavailable => 'ฟีเจอร์ติดตามผู้เยี่ยมชมไม่พร้อมใช้งาน กรุณาอัปเดต backend';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'การติดตามผู้เยี่ยมชมยังไม่พร้อมใช้งาน';
+
+  @override
+  String get noFollowersYetSubtitle => 'เริ่มเชื่อมต่อกับผู้อื่นได้เลย!';
+
+  @override
+  String get partnerButton => 'คู่หู';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'เริ่มติดตามผู้คนเพื่อดูการอัปเดตของพวกเขา!';
+
+  @override
+  String get unfollowButton => 'เลิกติดตาม';
+
+  @override
+  String get profileThemeTitle => 'ธีมโปรไฟล์';
+
+  @override
+  String get themeAutoSwitch => 'สลับอัตโนมัติ (ธีมระบบ)';
+
+  @override
+  String get themeSystemHint => 'เมื่อเปิดใช้งาน แอปจะปฏิบัติตามการตั้งค่าธีมของระบบ';
+
+  @override
+  String get themeLightMode => 'โหมดสว่าง';
+
+  @override
+  String get themeDarkMode => 'โหมดมืด';
+
+  @override
+  String get myMoments => 'โมเมนต์ของฉัน';
+
+  @override
+  String get momentListView => 'มุมมองรายการ';
+
+  @override
+  String get momentGridView => 'มุมมองตาราง';
+
+  @override
+  String get shareLanguageLearningJourney => 'แชร์การเดินทางการเรียนภาษาของคุณ!';
+
+  @override
+  String get deleteHighlightTitle => 'ลบไฮไลต์';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'ลบ \"$title\" หรือไม่? สตอรีภายในจะไม่ถูกลบ';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'ลบไฮไลต์แล้ว';
+
+  @override
+  String get highlightNewBadge => 'ใหม่';
+
+  @override
+  String get editMoment => 'แก้ไขโมเมนต์';
+
+  @override
+  String get momentDescriptionLabel => 'คำอธิบาย';
+
+  @override
+  String get momentImagesLabel => 'รูปภาพ';
+
+  @override
+  String get noImagesYet => 'ยังไม่มีรูปภาพ';
+
+  @override
+  String get momentEnterDescription => 'กรุณากรอกคำอธิบาย';
+
+  @override
+  String get momentUpdatedImageFailed => 'อัปเดตโมเมนต์แล้ว แต่การอัปโหลดรูปภาพล้มเหลว';
 }

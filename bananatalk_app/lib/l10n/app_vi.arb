@@ -1286,5 +1286,89 @@
   "onlyCityCountryShown": "Chỉ thành phố và quốc gia của bạn được hiển thị cho người khác. Tọa độ chính xác vẫn được giữ bí mật.",
   "updateLocationCta": "Cập nhật vị trí",
   "enterYourName": "Nhập tên của bạn",
-  "unsavedChanges": "Bạn có những thay đổi chưa được lưu"
+  "unsavedChanges": "Bạn có những thay đổi chưa được lưu",
+
+  "loadingLanguages": "Đang tải ngôn ngữ...",
+  "tapBelowToBrowseLanguages": "Nhấn bên dưới để duyệt {count} ngôn ngữ",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "Thay đổi ngôn ngữ",
+  "browseLanguages": "Xem các ngôn ngữ",
+  "yourLearningLanguageIsPrefix": "Ngôn ngữ bạn đang học là ",
+  "yourNativeLanguageIsPrefix": "Ngôn ngữ mẹ đẻ của bạn là ",
+
+  "profileCompleteProgress": "hoàn thành",
+
+  "drawerPreferences": "Tùy chọn",
+  "drawerStorage": "Bộ nhớ",
+  "drawerReports": "Báo cáo",
+  "drawerSupport": "Hỗ trợ",
+  "drawerAccount": "Tài khoản",
+  "logoutConfirmBody": "Bạn có chắc chắn muốn đăng xuất khỏi BanaTalk không?",
+  "helpEmailSupport": "Hỗ trợ qua email",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "Báo cáo lỗi",
+  "helpReportBugSubtitle": "Giúp chúng tôi cải thiện BanaTalk",
+  "helpFaqs": "Câu hỏi thường gặp",
+  "helpFaqsSubtitle": "Các câu hỏi phổ biến",
+  "aboutDialogClose": "Đóng",
+  "aboutBanaTalkTagline": "Kết nối với những người học ngôn ngữ trên toàn thế giới và nâng cao kỹ năng qua các cuộc hội thoại thực tế.",
+  "aboutCopyright": "© 2024 BanaTalk. Tất cả các quyền được bảo lưu.",
+  "logoutFailedPrefix": "Đăng xuất thất bại",
+
+  "profileVisitorsTitle": "Người xem hồ sơ",
+  "visitorStatistics": "Thống kê lượt xem",
+  "visitorsTotalVisits": "Tổng lượt xem",
+  "visitorsUniqueVisitors": "Người xem duy nhất",
+  "visitorsToday": "Hôm nay",
+  "visitorsThisWeek": "Tuần này",
+  "noVisitorsYet": "Chưa có người xem",
+  "noVisitorsYetSubtitle": "Khi có người xem hồ sơ của bạn,\nhọ sẽ xuất hiện ở đây",
+  "visitedViaSearch": "qua Tìm kiếm",
+  "visitedViaMoments": "qua Khoảnh khắc",
+  "visitedViaChat": "qua Trò chuyện",
+  "visitedDirect": "Truy cập trực tiếp",
+  "visitorTrackingUnavailable": "Tính năng theo dõi người xem không khả dụng. Vui lòng cập nhật backend.",
+  "visitorTrackingNotAvailableYet": "Theo dõi người xem chưa khả dụng",
+
+  "noFollowersYetSubtitle": "Hãy bắt đầu kết nối với người khác!",
+  "partnerButton": "Đối tác",
+
+  "notFollowingAnyoneYetSubtitle": "Bắt đầu theo dõi mọi người để xem cập nhật của họ!",
+  "unfollowButton": "Bỏ theo dõi",
+
+  "profileThemeTitle": "Giao diện hồ sơ",
+  "themeAutoSwitch": "Tự động chuyển (Giao diện hệ thống)",
+  "themeSystemHint": "Khi bật, ứng dụng sẽ theo cài đặt giao diện hệ thống của bạn",
+  "themeLightMode": "Chế độ sáng",
+  "themeDarkMode": "Chế độ tối",
+
+  "myMoments": "Khoảnh khắc của tôi",
+  "momentListView": "Xem danh sách",
+  "momentGridView": "Xem lưới",
+  "shareLanguageLearningJourney": "Chia sẻ hành trình học ngôn ngữ của bạn!",
+
+  "deleteHighlightTitle": "Xóa nổi bật",
+  "deleteHighlightConfirm": "Xóa \"{title}\"? Các câu chuyện bên trong sẽ không bị xóa.",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "Đã xóa nổi bật",
+  "highlightNewBadge": "Mới",
+
+  "editMoment": "Chỉnh sửa khoảnh khắc",
+  "momentDescriptionLabel": "Mô tả",
+  "momentImagesLabel": "Hình ảnh",
+  "noImagesYet": "Chưa có hình ảnh",
+  "momentEnterDescription": "Vui lòng nhập mô tả",
+  "momentUpdatedImageFailed": "Khoảnh khắc đã được cập nhật nhưng tải ảnh lên thất bại"
 }

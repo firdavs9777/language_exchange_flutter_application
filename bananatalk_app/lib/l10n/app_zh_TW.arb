@@ -1437,5 +1437,89 @@
   "onlyCityCountryShown": "其他人只能看到你的城市和國家，確切座標保持私密。",
   "updateLocationCta": "更新位置",
   "enterYourName": "輸入你的名字",
-  "unsavedChanges": "你有未儲存的變更"
+  "unsavedChanges": "你有未儲存的變更",
+
+  "loadingLanguages": "正在載入語言...",
+  "tapBelowToBrowseLanguages": "點擊下方瀏覽 {count} 種語言",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "更改語言",
+  "browseLanguages": "瀏覽語言",
+  "yourLearningLanguageIsPrefix": "你正在學習的語言是",
+  "yourNativeLanguageIsPrefix": "你的母語是",
+
+  "profileCompleteProgress": "已完成",
+
+  "drawerPreferences": "偏好設定",
+  "drawerStorage": "儲存空間",
+  "drawerReports": "檢舉",
+  "drawerSupport": "支援",
+  "drawerAccount": "帳號",
+  "logoutConfirmBody": "確定要從 BanaTalk 登出嗎？",
+  "helpEmailSupport": "電子郵件支援",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "回報問題",
+  "helpReportBugSubtitle": "幫助我們改進 BanaTalk",
+  "helpFaqs": "常見問題",
+  "helpFaqsSubtitle": "常見問題解答",
+  "aboutDialogClose": "關閉",
+  "aboutBanaTalkTagline": "與全球語言學習者連結，透過真實對話提升你的技能。",
+  "aboutCopyright": "© 2024 BanaTalk. 版權所有。",
+  "logoutFailedPrefix": "登出失敗",
+
+  "profileVisitorsTitle": "訪客",
+  "visitorStatistics": "訪客統計",
+  "visitorsTotalVisits": "總訪問次數",
+  "visitorsUniqueVisitors": "不重複訪客",
+  "visitorsToday": "今日",
+  "visitorsThisWeek": "本週",
+  "noVisitorsYet": "目前沒有訪客",
+  "noVisitorsYetSubtitle": "當有人造訪你的個人頁面時，\n他們將顯示在這裡",
+  "visitedViaSearch": "透過搜尋",
+  "visitedViaMoments": "透過動態",
+  "visitedViaChat": "透過聊天",
+  "visitedDirect": "直接造訪",
+  "visitorTrackingUnavailable": "訪客追蹤功能不可用。請更新後端。",
+  "visitorTrackingNotAvailableYet": "訪客追蹤功能暫不可用",
+
+  "noFollowersYetSubtitle": "開始與他人建立聯繫吧！",
+  "partnerButton": "夥伴",
+
+  "notFollowingAnyoneYetSubtitle": "追蹤他人以查看他們的動態！",
+  "unfollowButton": "取消追蹤",
+
+  "profileThemeTitle": "主題",
+  "themeAutoSwitch": "自動切換（跟隨系統）",
+  "themeSystemHint": "開啟後，應用程式將跟隨系統主題設定",
+  "themeLightMode": "淺色模式",
+  "themeDarkMode": "深色模式",
+
+  "myMoments": "我的動態",
+  "momentListView": "列表檢視",
+  "momentGridView": "格狀檢視",
+  "shareLanguageLearningJourney": "分享你的語言學習之旅！",
+
+  "deleteHighlightTitle": "刪除精選",
+  "deleteHighlightConfirm": "刪除「{title}」？內部的故事不會被刪除。",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "精選已刪除",
+  "highlightNewBadge": "新",
+
+  "editMoment": "編輯動態",
+  "momentDescriptionLabel": "描述",
+  "momentImagesLabel": "圖片",
+  "noImagesYet": "目前沒有圖片",
+  "momentEnterDescription": "請輸入描述",
+  "momentUpdatedImageFailed": "動態已更新，但圖片上傳失敗"
 }

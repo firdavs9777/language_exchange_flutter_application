@@ -4206,4 +4206,185 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'Kamu memiliki perubahan yang belum disimpan';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'Ketuk di bawah untuk menelusuri $count bahasa';
+  }
+
+  @override
+  String get changeLanguage => 'Ganti Bahasa';
+
+  @override
+  String get browseLanguages => 'Telusuri Bahasa';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'Bahasa yang kamu pelajari adalah ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'Bahasa aslimu adalah ';
+
+  @override
+  String get profileCompleteProgress => 'selesai';
+
+  @override
+  String get drawerPreferences => 'Preferensi';
+
+  @override
+  String get drawerStorage => 'Penyimpanan';
+
+  @override
+  String get drawerReports => 'Laporan';
+
+  @override
+  String get drawerSupport => 'Dukungan';
+
+  @override
+  String get drawerAccount => 'Akun';
+
+  @override
+  String get logoutConfirmBody => 'Apakah kamu yakin ingin keluar dari BanaTalk?';
+
+  @override
+  String get helpEmailSupport => 'Dukungan Email';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'Laporkan Bug';
+
+  @override
+  String get helpReportBugSubtitle => 'Bantu kami meningkatkan BanaTalk';
+
+  @override
+  String get helpFaqs => 'FAQ';
+
+  @override
+  String get helpFaqsSubtitle => 'Pertanyaan yang sering diajukan';
+
+  @override
+  String get aboutDialogClose => 'Tutup';
+
+  @override
+  String get aboutBanaTalkTagline => 'Terhubung dengan pelajar bahasa di seluruh dunia dan tingkatkan kemampuanmu melalui percakapan nyata.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. Semua hak dilindungi.';
+
+  @override
+  String get logoutFailedPrefix => 'Gagal keluar';
+
+  @override
+  String get profileVisitorsTitle => 'Pengunjung Profil';
+
+  @override
+  String get visitorStatistics => 'Statistik Pengunjung';
+
+  @override
+  String get visitorsTotalVisits => 'Total Kunjungan';
+
+  @override
+  String get visitorsUniqueVisitors => 'Pengunjung Unik';
+
+  @override
+  String get visitorsToday => 'Hari Ini';
+
+  @override
+  String get visitorsThisWeek => 'Minggu Ini';
+
+  @override
+  String get noVisitorsYet => 'Belum ada pengunjung';
+
+  @override
+  String get noVisitorsYetSubtitle => 'Ketika orang mengunjungi profilmu,\nmereka akan muncul di sini';
+
+  @override
+  String get visitedViaSearch => 'melalui Pencarian';
+
+  @override
+  String get visitedViaMoments => 'melalui Momen';
+
+  @override
+  String get visitedViaChat => 'melalui Chat';
+
+  @override
+  String get visitedDirect => 'Kunjungan langsung';
+
+  @override
+  String get visitorTrackingUnavailable => 'Fitur pelacakan pengunjung tidak tersedia. Harap perbarui backend.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'Pelacakan pengunjung belum tersedia';
+
+  @override
+  String get noFollowersYetSubtitle => 'Mulailah terhubung dengan orang lain!';
+
+  @override
+  String get partnerButton => 'Mitra';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'Mulai ikuti orang untuk melihat pembaruan mereka!';
+
+  @override
+  String get unfollowButton => 'Berhenti Mengikuti';
+
+  @override
+  String get profileThemeTitle => 'Tema Profil';
+
+  @override
+  String get themeAutoSwitch => 'Ganti Otomatis (Tema Sistem)';
+
+  @override
+  String get themeSystemHint => 'Saat diaktifkan, aplikasi akan mengikuti pengaturan tema sistemmu';
+
+  @override
+  String get themeLightMode => 'Mode Terang';
+
+  @override
+  String get themeDarkMode => 'Mode Gelap';
+
+  @override
+  String get myMoments => 'Momenku';
+
+  @override
+  String get momentListView => 'Tampilan Daftar';
+
+  @override
+  String get momentGridView => 'Tampilan Kotak';
+
+  @override
+  String get shareLanguageLearningJourney => 'Bagikan perjalanan belajar bahasamu!';
+
+  @override
+  String get deleteHighlightTitle => 'Hapus Highlight';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'Hapus \"$title\"? Cerita di dalamnya tidak akan dihapus.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'Highlight dihapus';
+
+  @override
+  String get highlightNewBadge => 'Baru';
+
+  @override
+  String get editMoment => 'Edit Momen';
+
+  @override
+  String get momentDescriptionLabel => 'Deskripsi';
+
+  @override
+  String get momentImagesLabel => 'Gambar';
+
+  @override
+  String get noImagesYet => 'Belum ada gambar';
+
+  @override
+  String get momentEnterDescription => 'Mohon masukkan deskripsi';
+
+  @override
+  String get momentUpdatedImageFailed => 'Momen diperbarui tetapi unggah gambar gagal';
 }

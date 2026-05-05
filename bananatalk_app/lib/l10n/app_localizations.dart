@@ -8153,6 +8153,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your native language is '**
   String get yourNativeLanguageIsPrefix;
+
+  /// No description provided for @profileCompleteProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'complete'**
+  String get profileCompleteProgress;
+
+  /// No description provided for @drawerPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get drawerPreferences;
+
+  /// No description provided for @drawerStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage'**
+  String get drawerStorage;
+
+  /// No description provided for @drawerReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get drawerReports;
+
+  /// No description provided for @drawerSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get drawerSupport;
+
+  /// No description provided for @drawerAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get drawerAccount;
+
+  /// No description provided for @logoutConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout from BanaTalk?'**
+  String get logoutConfirmBody;
+
+  /// No description provided for @helpEmailSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Support'**
+  String get helpEmailSupport;
+
+  /// No description provided for @helpEmailSupportSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'support@bananatalk.com'**
+  String get helpEmailSupportSubtitle;
+
+  /// No description provided for @helpReportBug.
+  ///
+  /// In en, this message translates to:
+  /// **'Report a Bug'**
+  String get helpReportBug;
+
+  /// No description provided for @helpReportBugSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help us improve BanaTalk'**
+  String get helpReportBugSubtitle;
+
+  /// No description provided for @helpFaqs.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQs'**
+  String get helpFaqs;
+
+  /// No description provided for @helpFaqsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently asked questions'**
+  String get helpFaqsSubtitle;
+
+  /// No description provided for @aboutDialogClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get aboutDialogClose;
+
+  /// No description provided for @aboutBanaTalkTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect with language learners worldwide and improve your skills through real conversations.'**
+  String get aboutBanaTalkTagline;
+
+  /// No description provided for @aboutCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'© 2024 BanaTalk. All rights reserved.'**
+  String get aboutCopyright;
+
+  /// No description provided for @logoutFailedPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout failed'**
+  String get logoutFailedPrefix;
+
+  /// No description provided for @profileVisitorsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Visitors'**
+  String get profileVisitorsTitle;
+
+  /// No description provided for @visitorStatistics.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor Statistics'**
+  String get visitorStatistics;
+
+  /// No description provided for @visitorsTotalVisits.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Visits'**
+  String get visitorsTotalVisits;
+
+  /// No description provided for @visitorsUniqueVisitors.
+  ///
+  /// In en, this message translates to:
+  /// **'Unique Visitors'**
+  String get visitorsUniqueVisitors;
+
+  /// No description provided for @visitorsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get visitorsToday;
+
+  /// No description provided for @visitorsThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get visitorsThisWeek;
+
+  /// No description provided for @noVisitorsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No visitors yet'**
+  String get noVisitorsYet;
+
+  /// No description provided for @noVisitorsYetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When people visit your profile,\nthey will appear here'**
+  String get noVisitorsYetSubtitle;
+
+  /// No description provided for @visitedViaSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'via Search'**
+  String get visitedViaSearch;
+
+  /// No description provided for @visitedViaMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'via Moments'**
+  String get visitedViaMoments;
+
+  /// No description provided for @visitedViaChat.
+  ///
+  /// In en, this message translates to:
+  /// **'via Chat'**
+  String get visitedViaChat;
+
+  /// No description provided for @visitedDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct visit'**
+  String get visitedDirect;
+
+  /// No description provided for @visitorTrackingUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor tracking feature not available. Please update backend.'**
+  String get visitorTrackingUnavailable;
+
+  /// No description provided for @visitorTrackingNotAvailableYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor tracking not available yet'**
+  String get visitorTrackingNotAvailableYet;
+
+  /// No description provided for @noFollowersYetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start connecting with others!'**
+  String get noFollowersYetSubtitle;
+
+  /// No description provided for @partnerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Partner'**
+  String get partnerButton;
+
+  /// No description provided for @notFollowingAnyoneYetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start following people to see their updates!'**
+  String get notFollowingAnyoneYetSubtitle;
+
+  /// No description provided for @unfollowButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unfollow'**
+  String get unfollowButton;
+
+  /// No description provided for @profileThemeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Theme'**
+  String get profileThemeTitle;
+
+  /// No description provided for @themeAutoSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Switch (System Theme)'**
+  String get themeAutoSwitch;
+
+  /// No description provided for @themeSystemHint.
+  ///
+  /// In en, this message translates to:
+  /// **'When enabled, the app will follow your system theme settings'**
+  String get themeSystemHint;
+
+  /// No description provided for @themeLightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get themeLightMode;
+
+  /// No description provided for @themeDarkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get themeDarkMode;
+
+  /// No description provided for @myMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'My Moments'**
+  String get myMoments;
+
+  /// No description provided for @momentListView.
+  ///
+  /// In en, this message translates to:
+  /// **'List View'**
+  String get momentListView;
+
+  /// No description provided for @momentGridView.
+  ///
+  /// In en, this message translates to:
+  /// **'Grid View'**
+  String get momentGridView;
+
+  /// No description provided for @shareLanguageLearningJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your language learning journey!'**
+  String get shareLanguageLearningJourney;
+
+  /// No description provided for @deleteHighlightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Highlight'**
+  String get deleteHighlightTitle;
+
+  /// No description provided for @deleteHighlightConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{title}\"? The stories inside won\'t be deleted.'**
+  String deleteHighlightConfirm(String title);
+
+  /// No description provided for @highlightDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlight deleted'**
+  String get highlightDeletedSuccess;
+
+  /// No description provided for @highlightNewBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get highlightNewBadge;
+
+  /// No description provided for @editMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Moment'**
+  String get editMoment;
+
+  /// No description provided for @momentDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get momentDescriptionLabel;
+
+  /// No description provided for @momentImagesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Images'**
+  String get momentImagesLabel;
+
+  /// No description provided for @noImagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No images yet'**
+  String get noImagesYet;
+
+  /// No description provided for @momentEnterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a description'**
+  String get momentEnterDescription;
+
+  /// No description provided for @momentUpdatedImageFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment updated but image upload failed'**
+  String get momentUpdatedImageFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

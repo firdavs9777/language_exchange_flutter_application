@@ -4206,4 +4206,185 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get unsavedChanges => 'لديك تغييرات غير محفوظة';
+
+  @override
+  String tapBelowToBrowseLanguages(int count) {
+    return 'انقر أدناه للاستعراض من $count لغة';
+  }
+
+  @override
+  String get changeLanguage => 'تغيير اللغة';
+
+  @override
+  String get browseLanguages => 'استعراض اللغات';
+
+  @override
+  String get yourLearningLanguageIsPrefix => 'لغتك التي تتعلمها هي ';
+
+  @override
+  String get yourNativeLanguageIsPrefix => 'لغتك الأم هي ';
+
+  @override
+  String get profileCompleteProgress => 'مكتمل';
+
+  @override
+  String get drawerPreferences => 'التفضيلات';
+
+  @override
+  String get drawerStorage => 'التخزين';
+
+  @override
+  String get drawerReports => 'التقارير';
+
+  @override
+  String get drawerSupport => 'الدعم';
+
+  @override
+  String get drawerAccount => 'الحساب';
+
+  @override
+  String get logoutConfirmBody => 'هل أنت متأكد أنك تريد تسجيل الخروج من BanaTalk؟';
+
+  @override
+  String get helpEmailSupport => 'الدعم عبر البريد الإلكتروني';
+
+  @override
+  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+
+  @override
+  String get helpReportBug => 'الإبلاغ عن خطأ';
+
+  @override
+  String get helpReportBugSubtitle => 'ساعدنا في تحسين BanaTalk';
+
+  @override
+  String get helpFaqs => 'الأسئلة الشائعة';
+
+  @override
+  String get helpFaqsSubtitle => 'الأسئلة المتداولة';
+
+  @override
+  String get aboutDialogClose => 'إغلاق';
+
+  @override
+  String get aboutBanaTalkTagline => 'تواصل مع متعلمي اللغات حول العالم وحسّن مهاراتك من خلال محادثات حقيقية.';
+
+  @override
+  String get aboutCopyright => '© 2024 BanaTalk. جميع الحقوق محفوظة.';
+
+  @override
+  String get logoutFailedPrefix => 'فشل تسجيل الخروج';
+
+  @override
+  String get profileVisitorsTitle => 'زوار الملف الشخصي';
+
+  @override
+  String get visitorStatistics => 'إحصائيات الزوار';
+
+  @override
+  String get visitorsTotalVisits => 'إجمالي الزيارات';
+
+  @override
+  String get visitorsUniqueVisitors => 'الزوار الفريدون';
+
+  @override
+  String get visitorsToday => 'اليوم';
+
+  @override
+  String get visitorsThisWeek => 'هذا الأسبوع';
+
+  @override
+  String get noVisitorsYet => 'لا يوجد زوار بعد';
+
+  @override
+  String get noVisitorsYetSubtitle => 'عندما يزور الأشخاص ملفك الشخصي،\nسيظهرون هنا';
+
+  @override
+  String get visitedViaSearch => 'عبر البحث';
+
+  @override
+  String get visitedViaMoments => 'عبر اللحظات';
+
+  @override
+  String get visitedViaChat => 'عبر الدردشة';
+
+  @override
+  String get visitedDirect => 'زيارة مباشرة';
+
+  @override
+  String get visitorTrackingUnavailable => 'ميزة تتبع الزوار غير متوفرة. يرجى تحديث الخادم.';
+
+  @override
+  String get visitorTrackingNotAvailableYet => 'تتبع الزوار غير متوفر بعد';
+
+  @override
+  String get noFollowersYetSubtitle => 'ابدأ التواصل مع الآخرين!';
+
+  @override
+  String get partnerButton => 'شريك';
+
+  @override
+  String get notFollowingAnyoneYetSubtitle => 'ابدأ بمتابعة الأشخاص لرؤية تحديثاتهم!';
+
+  @override
+  String get unfollowButton => 'إلغاء المتابعة';
+
+  @override
+  String get profileThemeTitle => 'سمة الملف الشخصي';
+
+  @override
+  String get themeAutoSwitch => 'التبديل التلقائي (سمة النظام)';
+
+  @override
+  String get themeSystemHint => 'عند التفعيل، سيتبع التطبيق إعدادات سمة نظامك';
+
+  @override
+  String get themeLightMode => 'الوضع الفاتح';
+
+  @override
+  String get themeDarkMode => 'الوضع الداكن';
+
+  @override
+  String get myMoments => 'لحظاتي';
+
+  @override
+  String get momentListView => 'عرض القائمة';
+
+  @override
+  String get momentGridView => 'عرض الشبكة';
+
+  @override
+  String get shareLanguageLearningJourney => 'شارك رحلتك في تعلم اللغة!';
+
+  @override
+  String get deleteHighlightTitle => 'حذف القصة المميزة';
+
+  @override
+  String deleteHighlightConfirm(String title) {
+    return 'هل تريد حذف \"$title\"؟ لن يتم حذف القصص الموجودة بداخلها.';
+  }
+
+  @override
+  String get highlightDeletedSuccess => 'تم حذف القصة المميزة';
+
+  @override
+  String get highlightNewBadge => 'جديد';
+
+  @override
+  String get editMoment => 'تعديل اللحظة';
+
+  @override
+  String get momentDescriptionLabel => 'الوصف';
+
+  @override
+  String get momentImagesLabel => 'الصور';
+
+  @override
+  String get noImagesYet => 'لا توجد صور بعد';
+
+  @override
+  String get momentEnterDescription => 'يرجى إدخال وصف';
+
+  @override
+  String get momentUpdatedImageFailed => 'تم تحديث اللحظة لكن فشل رفع الصورة';
 }

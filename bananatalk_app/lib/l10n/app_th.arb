@@ -1286,5 +1286,89 @@
   "onlyCityCountryShown": "ผู้อื่นเห็นเพียงเมืองและประเทศของคุณ พิกัดที่แน่นอนจะยังคงเป็นความลับ",
   "updateLocationCta": "อัปเดตตำแหน่ง",
   "enterYourName": "กรอกชื่อของคุณ",
-  "unsavedChanges": "คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก"
+  "unsavedChanges": "คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
+
+  "loadingLanguages": "กำลังโหลดภาษา...",
+  "tapBelowToBrowseLanguages": "แตะด้านล่างเพื่อเลือกจาก {count} ภาษา",
+  "@tapBelowToBrowseLanguages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "changeLanguage": "เปลี่ยนภาษา",
+  "browseLanguages": "เรียกดูภาษา",
+  "yourLearningLanguageIsPrefix": "ภาษาที่คุณกำลังเรียนคือ",
+  "yourNativeLanguageIsPrefix": "ภาษาแม่ของคุณคือ",
+
+  "profileCompleteProgress": "สมบูรณ์",
+
+  "drawerPreferences": "การตั้งค่า",
+  "drawerStorage": "พื้นที่จัดเก็บ",
+  "drawerReports": "รายงาน",
+  "drawerSupport": "ฝ่ายสนับสนุน",
+  "drawerAccount": "บัญชี",
+  "logoutConfirmBody": "คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ BanaTalk?",
+  "helpEmailSupport": "ติดต่อฝ่ายสนับสนุนทางอีเมล",
+  "helpEmailSupportSubtitle": "support@bananatalk.com",
+  "helpReportBug": "รายงานข้อบกพร่อง",
+  "helpReportBugSubtitle": "ช่วยเราปรับปรุง BanaTalk",
+  "helpFaqs": "คำถามที่พบบ่อย",
+  "helpFaqsSubtitle": "คำถามที่ถามบ่อย",
+  "aboutDialogClose": "ปิด",
+  "aboutBanaTalkTagline": "เชื่อมต่อกับผู้เรียนภาษาทั่วโลกและพัฒนาทักษะผ่านการสนทนาจริง",
+  "aboutCopyright": "© 2024 BanaTalk. สงวนลิขสิทธิ์ทั้งหมด",
+  "logoutFailedPrefix": "ออกจากระบบล้มเหลว",
+
+  "profileVisitorsTitle": "ผู้เยี่ยมชมโปรไฟล์",
+  "visitorStatistics": "สถิติผู้เยี่ยมชม",
+  "visitorsTotalVisits": "การเยี่ยมชมทั้งหมด",
+  "visitorsUniqueVisitors": "ผู้เยี่ยมชมที่ไม่ซ้ำ",
+  "visitorsToday": "วันนี้",
+  "visitorsThisWeek": "สัปดาห์นี้",
+  "noVisitorsYet": "ยังไม่มีผู้เยี่ยมชม",
+  "noVisitorsYetSubtitle": "เมื่อมีคนเยี่ยมชมโปรไฟล์ของคุณ\nพวกเขาจะปรากฏที่นี่",
+  "visitedViaSearch": "ผ่านการค้นหา",
+  "visitedViaMoments": "ผ่านโมเมนต์",
+  "visitedViaChat": "ผ่านแชท",
+  "visitedDirect": "เยี่ยมชมโดยตรง",
+  "visitorTrackingUnavailable": "ฟีเจอร์ติดตามผู้เยี่ยมชมไม่พร้อมใช้งาน กรุณาอัปเดต backend",
+  "visitorTrackingNotAvailableYet": "การติดตามผู้เยี่ยมชมยังไม่พร้อมใช้งาน",
+
+  "noFollowersYetSubtitle": "เริ่มเชื่อมต่อกับผู้อื่นได้เลย!",
+  "partnerButton": "คู่หู",
+
+  "notFollowingAnyoneYetSubtitle": "เริ่มติดตามผู้คนเพื่อดูการอัปเดตของพวกเขา!",
+  "unfollowButton": "เลิกติดตาม",
+
+  "profileThemeTitle": "ธีมโปรไฟล์",
+  "themeAutoSwitch": "สลับอัตโนมัติ (ธีมระบบ)",
+  "themeSystemHint": "เมื่อเปิดใช้งาน แอปจะปฏิบัติตามการตั้งค่าธีมของระบบ",
+  "themeLightMode": "โหมดสว่าง",
+  "themeDarkMode": "โหมดมืด",
+
+  "myMoments": "โมเมนต์ของฉัน",
+  "momentListView": "มุมมองรายการ",
+  "momentGridView": "มุมมองตาราง",
+  "shareLanguageLearningJourney": "แชร์การเดินทางการเรียนภาษาของคุณ!",
+
+  "deleteHighlightTitle": "ลบไฮไลต์",
+  "deleteHighlightConfirm": "ลบ \"{title}\" หรือไม่? สตอรีภายในจะไม่ถูกลบ",
+  "@deleteHighlightConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "highlightDeletedSuccess": "ลบไฮไลต์แล้ว",
+  "highlightNewBadge": "ใหม่",
+
+  "editMoment": "แก้ไขโมเมนต์",
+  "momentDescriptionLabel": "คำอธิบาย",
+  "momentImagesLabel": "รูปภาพ",
+  "noImagesYet": "ยังไม่มีรูปภาพ",
+  "momentEnterDescription": "กรุณากรอกคำอธิบาย",
+  "momentUpdatedImageFailed": "อัปเดตโมเมนต์แล้ว แต่การอัปโหลดรูปภาพล้มเหลว"
 }

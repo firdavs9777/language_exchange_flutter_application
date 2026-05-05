@@ -3,8 +3,10 @@ import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,29 +47,30 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        title: const Text(
-          'My Moments',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+        title: Text(
+          AppLocalizations.of(context)!.myMoments,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
         ),
         elevation: 0,
+        scrolledUnderElevation: 0.5,
         backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: Icon(_isGridView ? Icons.view_list : Icons.grid_view),
+            icon: Icon(_isGridView ? Icons.view_list_rounded : Icons.grid_view_rounded),
             onPressed: () {
+              HapticFeedback.selectionClick();
               setState(() {
                 _isGridView = !_isGridView;
               });
             },
-            tooltip: _isGridView ? 'List View' : 'Grid View',
+            tooltip: _isGridView
+                ? AppLocalizations.of(context)!.momentListView
+                : AppLocalizations.of(context)!.momentGridView,
           ),
         ],
       ),
@@ -80,7 +83,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
             }
             return _buildMomentsList(moments);
           },
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const UserGridSkeleton(count: 6, crossAxisCount: 3, childAspectRatio: 1),
           error: (error, stackTrace) => _buildErrorState(error),
         ),
       ),
@@ -88,6 +91,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
   }
 
   Widget _buildEmptyState() {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +99,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: const Color(0xFF00BFA5).withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(Icons.photo_library_outlined,
@@ -103,18 +107,16 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
           ),
           const SizedBox(height: 24),
           Text(
-            'No moments yet',
-            style: TextStyle(
-              fontSize: 20,
+            l10n.noMomentsYet,
+            style: context.titleMedium.copyWith(
               color: context.textSecondary,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Share your language learning journey!',
-            style: TextStyle(
-              fontSize: 14,
+            l10n.shareLanguageLearningJourney,
+            style: context.bodySmall.copyWith(
               color: context.textSecondary,
             ),
           ),
@@ -124,28 +126,69 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
   }
 
   Widget _buildErrorState(Object error) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.error_outline, size: 48, color: Colors.red),
+          Icon(Icons.error_outline, size: 48, color: AppColors.error),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
-              'Error: ${error.toString()}',
-              style: const TextStyle(color: Colors.red),
+              '${l10n.error}: ${error.toString()}',
+              style: context.bodyMedium.copyWith(color: AppColors.error),
               textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: _refreshMoments,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00BFA5),
-              foregroundColor: Colors.white,
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                HapticFeedback.lightImpact();
+                _refreshMoments();
+              },
+              borderRadius: BorderRadius.circular(16),
+              child: Ink(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xFF00BFA5), Color(0xFF00897B)],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.35),
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 14,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.refresh_rounded,
+                          color: Colors.white, size: 18),
+                      const SizedBox(width: 8),
+                      Text(
+                        l10n.retry,
+                        style: context.titleSmall.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: const Text('Retry'),
           ),
         ],
       ),

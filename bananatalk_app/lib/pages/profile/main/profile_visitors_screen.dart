@@ -64,7 +64,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
           });
         } else {
           setState(() {
-            _error = result['error'] ?? 'Visitor tracking feature not available. Please update backend.';
+            _error = result['error'];
             _isLoading = false;
           });
         }
@@ -72,7 +72,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = 'Visitor tracking not available yet';
+          _error = AppLocalizations.of(context)!.visitorTrackingNotAvailableYet;
           _isLoading = false;
         });
       }
@@ -94,19 +94,24 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         title: Text(
-          'Profile Visitors',
-          style: context.titleLarge,
+          AppLocalizations.of(context)!.profileVisitorsTitle,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.w700),
         ),
         elevation: 0,
+        scrolledUnderElevation: 0.5,
         backgroundColor: context.surfaceColor,
         foregroundColor: context.textPrimary,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: _buildBody(),
     );
+  }
+
+  Future<void> _refreshVisitors() async {
+    await _fetchVisitors(page: 1);
   }
 
   Widget _buildBody() {
@@ -119,28 +124,41 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     }
 
     if (_error != null) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      return RefreshIndicator(
+        onRefresh: _refreshVisitors,
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
           children: [
-            const Icon(Icons.error_outline, size: 64, color: AppColors.error),
-            Spacing.gapLG,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Text(
-                'Error: $_error',
-                style: context.bodyMedium.copyWith(color: AppColors.error),
-                textAlign: TextAlign.center,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.error_outline,
+                        size: 64, color: AppColors.error),
+                    Spacing.gapLG,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: Text(
+                        '${AppLocalizations.of(context)!.error}: $_error',
+                        style: context.bodyMedium
+                            .copyWith(color: AppColors.error),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Spacing.gapLG,
+                    ElevatedButton(
+                      onPressed: () => _fetchVisitors(page: 1),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: AppColors.white,
+                      ),
+                      child: Text(AppLocalizations.of(context)!.retry),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Spacing.gapLG,
-            ElevatedButton(
-              onPressed: () => _fetchVisitors(page: 1),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.white,
-              ),
-              child: Text(AppLocalizations.of(context)!.retry),
             ),
           ],
         ),
@@ -148,36 +166,47 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     }
 
     if (_visitors.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      return RefreshIndicator(
+        onRefresh: _refreshVisitors,
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
           children: [
-            Container(
-              padding: Spacing.paddingXXL,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
-                shape: BoxShape.circle,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: Spacing.paddingXXL,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.visibility_off_outlined,
+                        size: 64,
+                        color: context.textHint,
+                      ),
+                    ),
+                    Spacing.gapXXL,
+                    Text(
+                      AppLocalizations.of(context)!.noVisitorsYet,
+                      style: context.titleLarge.copyWith(
+                        color: context.textSecondary,
+                      ),
+                    ),
+                    Spacing.gapSM,
+                    Text(
+                      AppLocalizations.of(context)!.noVisitorsYetSubtitle,
+                      style: context.bodyMedium.copyWith(
+                        color: context.textMuted,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-              child: Icon(
-                Icons.visibility_off_outlined,
-                size: 64,
-                color: context.textHint,
-              ),
-            ),
-            Spacing.gapXXL,
-            Text(
-              'No visitors yet',
-              style: context.titleLarge.copyWith(
-                color: context.textSecondary,
-              ),
-            ),
-            Spacing.gapSM,
-            Text(
-              'When people visit your profile,\nthey will appear here',
-              style: context.bodyMedium.copyWith(
-                color: context.textMuted,
-              ),
-              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -185,7 +214,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     }
 
     return RefreshIndicator(
-      onRefresh: () => _fetchVisitors(page: _currentPage),
+      onRefresh: _refreshVisitors,
       child: CustomScrollView(
         slivers: [
           // Stats header
@@ -229,7 +258,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Visitor Statistics',
+            AppLocalizations.of(context)!.visitorStatistics,
             style: context.titleLarge,
           ),
           Spacing.gapLG,
@@ -239,14 +268,14 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                 child: _buildStatItem(
                   '👁️',
                   totalVisits.toString(),
-                  'Total Visits',
+                  AppLocalizations.of(context)!.visitorsTotalVisits,
                 ),
               ),
               Expanded(
                 child: _buildStatItem(
                   '👥',
                   uniqueVisitors.toString(),
-                  'Unique Visitors',
+                  AppLocalizations.of(context)!.visitorsUniqueVisitors,
                 ),
               ),
             ],
@@ -258,14 +287,14 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                 child: _buildStatItem(
                   '📅',
                   visitsToday.toString(),
-                  'Today',
+                  AppLocalizations.of(context)!.visitorsToday,
                 ),
               ),
               Expanded(
                 child: _buildStatItem(
                   '📊',
                   visitsThisWeek.toString(),
-                  'This Week',
+                  AppLocalizations.of(context)!.visitorsThisWeek,
                 ),
               ),
             ],
@@ -325,25 +354,26 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
     String sourceText;
     Color sourceColor;
 
+    final l10n = AppLocalizations.of(context)!;
     switch (source) {
       case 'search':
         sourceIcon = Icons.search;
-        sourceText = 'via Search';
+        sourceText = l10n.visitedViaSearch;
         sourceColor = AppColors.info;
         break;
       case 'moments':
         sourceIcon = Icons.photo_library;
-        sourceText = 'via Moments';
+        sourceText = l10n.visitedViaMoments;
         sourceColor = AppColors.accent;
         break;
       case 'chat':
         sourceIcon = Icons.chat;
-        sourceText = 'via Chat';
+        sourceText = l10n.visitedViaChat;
         sourceColor = AppColors.success;
         break;
       default:
         sourceIcon = Icons.person;
-        sourceText = 'Direct visit';
+        sourceText = l10n.visitedDirect;
         sourceColor = AppColors.gray500;
     }
 
@@ -370,7 +400,7 @@ class _ProfileVisitorsScreenState extends State<ProfileVisitorsScreen> {
                       )
                     : CircleAvatar(
                         radius: 32,
-                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                         child: const Icon(
                           Icons.person,
                           size: 32,
