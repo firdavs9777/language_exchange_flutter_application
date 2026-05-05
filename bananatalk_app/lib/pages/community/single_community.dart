@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/chat/chat_single.dart';
-import 'package:bananatalk_app/pages/profile/main/profile_highlights.dart';
+import 'package:bananatalk_app/pages/profile/highlights.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';

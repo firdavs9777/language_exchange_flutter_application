@@ -3,7 +3,7 @@ import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
-import 'package:bananatalk_app/pages/profile/main/profile_moment_edit.dart';
+import 'package:bananatalk_app/pages/profile/moments/moment_edit.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
