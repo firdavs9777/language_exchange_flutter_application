@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:bananatalk_app/pages/chat/gif_picker_panel.dart';
+import 'package:bananatalk_app/pages/chat/panels/gif_picker_panel.dart';
 import 'package:bananatalk_app/services/giphy_service.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';

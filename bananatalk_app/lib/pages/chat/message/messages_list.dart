@@ -6,10 +6,10 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/call/call_history_bubble.dart';
 import 'package:bananatalk_app/widgets/correction_message_bubble.dart';
 import 'package:bananatalk_app/models/call_record_model.dart';
-import 'chat_message_bubble.dart';
-import 'chat_typing_indicator.dart';
-import 'chat_error_widget.dart';
-import 'chat_empty_state.dart';
+import 'message_bubble.dart';
+import 'typing_indicator.dart';
+import 'conversation_empty_state.dart';
+import '../error/chat_error_widget.dart';
 
 class ChatMessagesList extends StatelessWidget {
   final bool isLoading;
@@ -144,7 +144,7 @@ class ChatMessagesList extends StatelessWidget {
           ],
         );
       }
-      return ChatEmptyState(userName: otherUserName, onSendWave: onSendWave);
+      return ConversationEmptyState(userName: otherUserName, onSendWave: onSendWave);
     }
 
     // Build list with header at top, then messages chronologically (oldest to newest)

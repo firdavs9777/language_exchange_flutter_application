@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/chat/chat_main.dart';
+import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
 import 'package:bananatalk_app/pages/moments/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/community_main.dart';

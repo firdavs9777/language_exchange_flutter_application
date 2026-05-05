@@ -10,7 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/community/compact_user_tile.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
-import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';

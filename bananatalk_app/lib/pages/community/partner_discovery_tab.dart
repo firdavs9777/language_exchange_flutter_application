@@ -15,7 +15,7 @@ import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
-import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';

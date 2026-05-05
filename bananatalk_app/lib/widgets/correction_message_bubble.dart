@@ -3,7 +3,7 @@ import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'package:bananatalk_app/pages/chat/user_avatar.dart';
+import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 
 /// A chat bubble that displays a correction as a standalone message
 /// in the chat flow (HelloTalk/Tandem style).

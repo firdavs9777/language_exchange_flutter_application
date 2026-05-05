@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'media_option_button.dart';
+import '../input/media_option_button.dart';
 
 class ChatMediaPanel extends StatelessWidget {
   final AnimationController animationController;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'user_avatar.dart';
+import '../header/user_avatar.dart';
 
 class ChatTypingIndicator extends StatefulWidget {
   final String userName;

@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
-class ChatEmptyState extends StatelessWidget {
+/// Empty state shown inside a 1:1 conversation when there are no messages
+/// yet — invites the user to send a wave to break the ice. Distinct from
+/// the generic `widgets/chat_empty_state.dart` (which is used for chat-list
+/// / search / bookmarks empty states).
+class ConversationEmptyState extends StatelessWidget {
   final String userName;
   final VoidCallback? onSendWave;
 
-  const ChatEmptyState({Key? key, required this.userName, this.onSendWave}) : super(key: key);
+  const ConversationEmptyState({
+    super.key,
+    required this.userName,
+    this.onSendWave,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +70,14 @@ class ChatEmptyState extends StatelessWidget {
               splashColor: AppColors.primary.withValues(alpha: 0.2),
               highlightColor: AppColors.primary.withValues(alpha: 0.1),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 decoration: BoxDecoration(
                   color: AppColors.primaryLight.withValues(alpha: 0.2),
                   borderRadius: AppRadius.borderXL,
-                  border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

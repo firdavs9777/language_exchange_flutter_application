@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
-import 'package:bananatalk_app/pages/chat/chat_single.dart';
+import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/pages/notifications/notification_history_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';

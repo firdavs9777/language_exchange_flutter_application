@@ -1,10 +1,10 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
-import 'package:bananatalk_app/pages/chat/chat_search_screen.dart';
-import 'package:bananatalk_app/pages/chat/chat_media_screen.dart';
-import 'package:bananatalk_app/pages/chat/mute_dialog.dart';
-import 'package:bananatalk_app/pages/chat/wallpaper_picker_screen.dart';
+import 'package:bananatalk_app/pages/chat/search/chat_search_screen.dart';
+import 'package:bananatalk_app/pages/chat/media/chat_media_screen.dart';
+import 'package:bananatalk_app/pages/chat/dialogs/mute_dialog.dart';
+import 'package:bananatalk_app/pages/chat/wallpaper/wallpaper_picker_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';

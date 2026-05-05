@@ -7,7 +7,7 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'package:bananatalk_app/pages/chat/chat_single.dart' as chat;
+import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart' as chat;
 
 enum StarterType { sharedTopic, recentMoment, language, location, mbti, generic }
 
