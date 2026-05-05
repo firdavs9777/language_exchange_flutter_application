@@ -7,6 +7,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_dialog_scaffold.dart';
 
 // Export the dialog widget
 class ForwardMessageDialog extends ConsumerStatefulWidget {
@@ -67,31 +68,32 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: AppRadius.borderXL,
-      ),
-      backgroundColor: context.surfaceColor,
-      title: Text(
-        AppLocalizations.of(context)!.forwardMessage,
-        style: context.titleLarge,
-      ),
+    final l10n = AppLocalizations.of(context)!;
+
+    return ChatDialogScaffold(
+      heroIcon: Icons.send_rounded,
+      heroColor: AppColors.primary,
+      title: l10n.forwardMessage,
+      titleAlignment: CrossAxisAlignment.start,
       content: SizedBox(
         width: double.maxFinite,
         child: _isLoading
             ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
             : _error.isNotEmpty
-                ? Text(AppLocalizations.of(context)!.failedToLoadUsers, style: context.bodyMedium.copyWith(color: AppColors.error))
+                ? Text(
+                    l10n.failedToLoadUsers,
+                    style: context.bodyMedium.copyWith(color: AppColors.error),
+                  )
                 : _users.isEmpty
                     ? Text(
-                        AppLocalizations.of(context)!.noUsersAvailableToForwardTo,
+                        l10n.noUsersAvailableToForwardTo,
                         style: context.bodyMedium,
                       )
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.selectUsersToForward,
+                            l10n.selectUsersToForward,
                             style: context.bodySmall,
                           ),
                           Spacing.gapLG,
@@ -147,7 +149,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context, null),
           child: Text(
-            AppLocalizations.of(context)!.cancel,
+            l10n.cancel,
             style: context.labelLarge.copyWith(
               color: context.textSecondary,
             ),
@@ -165,7 +167,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
             ),
           ),
           child: Text(
-            AppLocalizations.of(context)!.forwardCount(_selectedUserIds.length),
+            l10n.forwardCount(_selectedUserIds.length),
             style: context.labelLarge.copyWith(
               color: AppColors.white,
               fontWeight: FontWeight.w600,
@@ -176,4 +178,3 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
     );
   }
 }
-

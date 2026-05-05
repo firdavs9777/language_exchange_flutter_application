@@ -4,6 +4,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_dialog_scaffold.dart';
 
 /// Dialog for delete options: Delete for Me vs Delete for Everyone
 class DeleteMessageDialog extends StatelessWidget {
@@ -52,113 +54,67 @@ class DeleteMessageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
-    return Dialog(
-      backgroundColor: context.surfaceColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+    return ChatDialogScaffold(
+      heroIcon: Icons.delete_rounded,
+      heroColor: AppColors.error,
+      title: l10n.deleteMessageTitle,
+      body: l10n.actionCannotBeUndone,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildOption(
+            context,
+            icon: Icons.person_outline_rounded,
+            title: l10n.deleteForMe,
+            subtitle: l10n.onlyRemovesFromDevice,
+            onTap: () {
+              HapticUtils.onDelete();
+              Navigator.pop(context);
+              onDelete(false);
+            },
+          ),
+          const SizedBox(height: 12),
+          _buildOption(
+            context,
+            icon: Icons.people_outline_rounded,
+            title: l10n.deleteForEveryone,
+            subtitle: canDeleteForEveryone
+                ? 'Removes for you and $otherUserName'
+                : l10n.availableWithinOneHour,
+            trailing: deleteForEveryoneTimeRemaining(context),
+            enabled: canDeleteForEveryone,
+            onTap: () {
+              HapticUtils.onDelete();
+              Navigator.pop(context);
+              onDelete(true);
+            },
+          ),
+        ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Icon
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.delete_rounded,
-                color: Colors.red,
-                size: 32,
+      actions: [
+        SizedBox(
+          width: double.infinity,
+          child: TextButton(
+            onPressed: () => Navigator.pop(context),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
-            const SizedBox(height: 16),
-
-            // Title
-            Text(
-              AppLocalizations.of(context)!.deleteMessageTitle,
+            child: Text(
+              l10n.cancel,
               style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: context.textPrimary,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).primaryColor,
               ),
             ),
-            const SizedBox(height: 8),
-
-            // Subtitle
-            Text(
-              AppLocalizations.of(context)!.actionCannotBeUndone,
-              style: TextStyle(
-                fontSize: 14,
-                color: context.textSecondary,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-
-            // Delete for Me option
-            _buildOption(
-              context,
-              icon: Icons.person_outline_rounded,
-              title: AppLocalizations.of(context)!.deleteForMe,
-              subtitle: AppLocalizations.of(context)!.onlyRemovesFromDevice,
-              onTap: () {
-                HapticUtils.onDelete();
-                Navigator.pop(context);
-                onDelete(false);
-              },
-            ),
-
-            const SizedBox(height: 12),
-
-            // Delete for Everyone option
-            _buildOption(
-              context,
-              icon: Icons.people_outline_rounded,
-              title: AppLocalizations.of(context)!.deleteForEveryone,
-              subtitle: canDeleteForEveryone
-                  ? 'Removes for you and $otherUserName'
-                  : AppLocalizations.of(context)!.availableWithinOneHour,
-              trailing: deleteForEveryoneTimeRemaining(context),
-              enabled: canDeleteForEveryone,
-              onTap: () {
-                HapticUtils.onDelete();
-                Navigator.pop(context);
-                onDelete(true);
-              },
-            ),
-
-            const SizedBox(height: 20),
-
-            // Cancel button
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () => Navigator.pop(context),
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.cancel,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: theme.primaryColor,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -193,9 +149,7 @@ class DeleteMessageDialog extends StatelessWidget {
               Icon(
                 icon,
                 size: 24,
-                color: enabled
-                    ? context.textPrimary
-                    : Colors.grey,
+                color: enabled ? context.textPrimary : Colors.grey,
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -207,9 +161,7 @@ class DeleteMessageDialog extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: enabled
-                            ? context.textPrimary
-                            : Colors.grey,
+                        color: enabled ? context.textPrimary : Colors.grey,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -231,7 +183,7 @@ class DeleteMessageDialog extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: enabled
-                        ? theme.primaryColor.withOpacity(0.1)
+                        ? theme.primaryColor.withValues(alpha: 0.1)
                         : context.dividerColor,
                     borderRadius: BorderRadius.circular(6),
                   ),

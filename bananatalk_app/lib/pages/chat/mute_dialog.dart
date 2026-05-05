@@ -3,6 +3,7 @@ import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_dialog_scaffold.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class MuteDialog extends StatefulWidget {
@@ -90,7 +91,11 @@ class _MuteDialogState extends State<MuteDialog> {
           );
         } else {
           final l10n = AppLocalizations.of(context)!;
-          showChatSnackBar(context, message: result['error'] ?? l10n.failedToUpdateMuteSettings, type: ChatSnackBarType.error);
+          showChatSnackBar(
+            context,
+            message: result['error'] ?? l10n.failedToUpdateMuteSettings,
+            type: ChatSnackBarType.error,
+          );
           setState(() => _isLoading = false);
         }
       }
@@ -112,9 +117,11 @@ class _MuteDialogState extends State<MuteDialog> {
 
   Widget _buildUnmuteDialog() {
     final l10n = AppLocalizations.of(context)!;
-    return AlertDialog(
-      title: Text(l10n.unmuteUser(widget.userName)),
-      content: Text(l10n.willReceiveNotifications),
+    return ChatDialogScaffold(
+      heroIcon: Icons.notifications_active_rounded,
+      heroColor: AppColors.primary,
+      title: l10n.unmuteUser(widget.userName),
+      body: l10n.willReceiveNotifications,
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(false),
@@ -142,15 +149,18 @@ class _MuteDialogState extends State<MuteDialog> {
       '1 week': l10n.oneWeek,
       'Always': l10n.always,
     };
-    return AlertDialog(
-      title: Text(l10n.muteNotifications),
+    return ChatDialogScaffold(
+      heroIcon: Icons.notifications_off_rounded,
+      heroColor: AppColors.primary,
+      title: l10n.muteNotifications,
+      titleAlignment: CrossAxisAlignment.start,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             l10n.muteNotificationsFor(widget.userName),
-            style: TextStyle(color: context.textSecondary),
+            style: context.bodyMedium.copyWith(color: context.textSecondary),
           ),
           Spacing.gapMD,
           ..._durationOptions.keys.map((duration) => RadioListTile<String>(
@@ -184,4 +194,3 @@ class _MuteDialogState extends State<MuteDialog> {
     );
   }
 }
-
