@@ -16,6 +16,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class ChatOptionsMenu extends ConsumerStatefulWidget {
   final String userName;
@@ -86,9 +87,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
       if (community == null) {
         if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)));
+          showChatSnackBar(context, message: AppLocalizations.of(context)!.userNotFound, type: ChatSnackBarType.error);
         }
         return;
       }
@@ -124,13 +123,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error loading community: $e'),
-            backgroundColor: Theme.of(context).colorScheme.error,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error loading community: $e', type: ChatSnackBarType.error);
       }
     }
   }
@@ -230,12 +223,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           await redirect(widget.userId!);
         } else {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.userIdNotAvailable),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotAvailable, type: ChatSnackBarType.error);
           }
         }
         break;
@@ -273,14 +261,12 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         } else {
           // If no conversationId, show a message
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  widget.isMuted
-                      ? 'Notifications unmuted for ${widget.userName}'
-                      : 'Notifications muted for ${widget.userName}',
-                ),
-              ),
+            showChatSnackBar(
+              context,
+              message: widget.isMuted
+                  ? 'Notifications unmuted for ${widget.userName}'
+                  : 'Notifications muted for ${widget.userName}',
+              type: ChatSnackBarType.info,
             );
           }
         }
@@ -323,12 +309,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
           if (currentUserId == null) {
             if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.userIdNotFound),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotFound, type: ChatSnackBarType.error);
             }
             return;
           }
@@ -336,12 +317,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           // Check if trying to block yourself
           if (currentUserId == widget.userId) {
             if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.cannotBlockYourself),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              showChatSnackBar(context, message: AppLocalizations.of(context)!.cannotBlockYourself, type: ChatSnackBarType.error);
             }
             return;
           }
@@ -367,12 +343,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           }
         } else {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.userIdNotAvailable),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotAvailable, type: ChatSnackBarType.error);
           }
         }
         break;
@@ -385,12 +356,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
           if (currentUserId == null) {
             if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(l10n.userIdNotFound),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              showChatSnackBar(context, message: l10n.userIdNotFound, type: ChatSnackBarType.error);
             }
             return;
           }
@@ -442,13 +408,12 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
             // Show result and update state directly
             if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(result['message'] ?? l10n.operationCompleted),
-                  backgroundColor: result['success'] == true
-                      ? Colors.green
-                      : Colors.red,
-                ),
+              showChatSnackBar(
+                context,
+                message: result['message'] ?? l10n.operationCompleted,
+                type: result['success'] == true
+                    ? ChatSnackBarType.success
+                    : ChatSnackBarType.error,
               );
 
               // Update state directly on success instead of re-fetching
@@ -479,12 +444,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
           }
         } else {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.userIdNotAvailable),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showChatSnackBar(context, message: AppLocalizations.of(context)!.userIdNotAvailable, type: ChatSnackBarType.error);
           }
         }
         break;
@@ -510,9 +470,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
 
       default:
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Unknown action: $value')));
+          showChatSnackBar(context, message: 'Unknown action: $value', type: ChatSnackBarType.info);
         }
     }
   }

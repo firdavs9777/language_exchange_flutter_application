@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class WallpaperPickerScreen extends StatefulWidget {
   final String conversationId;
@@ -188,12 +189,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to pick image: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to pick image: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -249,15 +245,10 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
       if (mounted) {
         widget.onThemeChanged?.call();
         Navigator.of(context).pop(true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              result['success'] == true
-                  ? 'Wallpaper updated'
-                  : 'Wallpaper saved locally',
-            ),
-            backgroundColor: Colors.green,
-          ),
+        showChatSnackBar(
+          context,
+          message: result['success'] == true ? 'Wallpaper updated' : 'Wallpaper saved locally',
+          type: ChatSnackBarType.success,
         );
       }
     } catch (e) {
@@ -265,12 +256,7 @@ class _WallpaperPickerScreenState extends State<WallpaperPickerScreen> {
         // Save locally even if server fails
         await _saveThemeLocally(_selectedPreset!);
         Navigator.of(context).pop(true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Wallpaper saved locally'),
-            backgroundColor: Colors.orange,
-          ),
-        );
+        showChatSnackBar(context, message: 'Wallpaper saved locally', type: ChatSnackBarType.info);
       }
     }
   }

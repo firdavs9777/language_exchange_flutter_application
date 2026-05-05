@@ -3,6 +3,7 @@ import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class MuteDialog extends StatefulWidget {
   final String conversationId;
@@ -80,35 +81,22 @@ class _MuteDialogState extends State<MuteDialog> {
           widget.onMuteChanged?.call();
           Navigator.of(context).pop(true);
           final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                widget.isMuted
-                    ? l10n.notificationsUnmutedFor(widget.userName)
-                    : l10n.notificationsMutedFor(widget.userName),
-              ),
-              backgroundColor: Colors.green,
-            ),
+          showChatSnackBar(
+            context,
+            message: widget.isMuted
+                ? l10n.notificationsUnmutedFor(widget.userName)
+                : l10n.notificationsMutedFor(widget.userName),
+            type: ChatSnackBarType.success,
           );
         } else {
           final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? l10n.failedToUpdateMuteSettings),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showChatSnackBar(context, message: result['error'] ?? l10n.failedToUpdateMuteSettings, type: ChatSnackBarType.error);
           setState(() => _isLoading = false);
         }
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error: ${e.toString()}', type: ChatSnackBarType.error);
         setState(() => _isLoading = false);
       }
     }

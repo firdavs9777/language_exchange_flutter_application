@@ -46,6 +46,7 @@ import 'package:bananatalk_app/pages/community/single_community.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/pages/chat/gif_picker_panel.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -841,27 +842,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         case 'contact':
           if (mounted) {
             final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.contactSharingComingSoon)),
-            );
+            showChatSnackBar(context, message: l10n.contactSharingComingSoon, type: ChatSnackBarType.info);
           }
           break;
         default:
           if (mounted) {
             final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(l10n.featureComingSoon)));
+            showChatSnackBar(context, message: l10n.featureComingSoon, type: ChatSnackBarType.info);
           }
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -896,12 +888,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to take photo: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to take photo: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -926,12 +913,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to pick image: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to pick image: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -951,14 +933,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final fileSize = await file.length();
         if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  AppLocalizations.of(context)!.videoMustBeUnder1GB,
-                ),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showChatSnackBar(context, message: AppLocalizations.of(context)!.videoMustBeUnder1GB, type: ChatSnackBarType.error);
           }
           return;
         }
@@ -968,12 +943,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to pick video: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to pick video: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -993,14 +963,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final fileSize = await file.length();
         if (fileSize > 1024 * 1024 * 1024) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  AppLocalizations.of(context)!.videoMustBeUnder1GB,
-                ),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showChatSnackBar(context, message: AppLocalizations.of(context)!.videoMustBeUnder1GB, type: ChatSnackBarType.error);
           }
           return;
         }
@@ -1010,12 +973,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to record video: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to record video: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1039,14 +997,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         final fileSize = pickedFile.size;
         if (fileSize > 50 * 1024 * 1024) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  AppLocalizations.of(context)!.documentMustBeUnder50MB,
-                ),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showChatSnackBar(context, message: AppLocalizations.of(context)!.documentMustBeUnder50MB, type: ChatSnackBarType.error);
           }
           return;
         }
@@ -1067,12 +1018,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to pick file: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to pick file: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1181,20 +1127,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } else if (errorMsg.contains('format')) {
             errorMsg = 'Unsupported video format. Use MP4, MOV, or WebM.';
           }
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(errorMsg), backgroundColor: Colors.red),
-          );
+          showChatSnackBar(context, message: errorMsg, type: ChatSnackBarType.error);
         }
       }
     } catch (e) {
       setState(() => _isSending = false);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error sending video: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error sending video: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1256,20 +1195,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           } else if (errorMsg.contains('size')) {
             errorMsg = 'Voice message file too large';
           }
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(errorMsg), backgroundColor: Colors.red),
-          );
+          showChatSnackBar(context, message: errorMsg, type: ChatSnackBarType.error);
         }
       }
     } catch (e) {
       setState(() => _isSending = false);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error sending voice message: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error sending voice message: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1284,14 +1216,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (!permission.isGranted) {
         _isSharingLocation = false;
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Location permission is required to share location',
-              ),
-              backgroundColor: Colors.orange,
-            ),
-          );
+          showChatSnackBar(context, message: 'Location permission is required to share location', type: ChatSnackBarType.info);
         }
         return;
       }
@@ -1357,12 +1282,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           ref.refresh(userLimitsProvider(_currentUserId!));
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['error'] ?? 'Failed to share location'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: result['error'] ?? 'Failed to share location', type: ChatSnackBarType.error);
       }
     } catch (e) {
       // Dismiss loading dialog if still open
@@ -1370,12 +1290,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         Navigator.of(dialogContext!).pop();
       }
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to get location: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to get location: ${e.toString()}', type: ChatSnackBarType.error);
       }
     } finally {
       _isSharingLocation = false;
@@ -1403,12 +1318,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final validation = MediaService.validateMediaFile(file, detectedType);
       if (!validation['valid']) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(validation['error'] ?? 'Invalid file'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showChatSnackBar(context, message: validation['error'] ?? 'Invalid file', type: ChatSnackBarType.error);
         }
         return;
       }
@@ -1455,23 +1365,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         }
       } else {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? 'Failed to send media'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showChatSnackBar(context, message: result['error'] ?? 'Failed to send media', type: ChatSnackBarType.error);
         }
       }
     } catch (e) {
       setState(() => _isSending = false);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error sending media: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error sending media: ${e.toString()}', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1523,12 +1423,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final createdAt = DateTime.parse(message.createdAt);
       final diff = DateTime.now().difference(createdAt);
       if (diff.inMinutes >= 15) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.editWithin15Minutes),
-            backgroundColor: Colors.orange,
-          ),
-        );
+        showChatSnackBar(context, message: AppLocalizations.of(context)!.editWithin15Minutes, type: ChatSnackBarType.info);
         return;
       }
     } catch (e) {
@@ -1569,12 +1464,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (result['success'] != true && mounted) {
         // Revert on failure
         chatNotifier.updateMessageLocally(message.id, newText: message.message);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['error'] ?? 'Failed to edit message'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: result['error'] ?? 'Failed to edit message', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1617,12 +1507,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (result['success'] != true && mounted) {
           // Revert on failure - reload messages
           await _loadMessages();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? 'Failed to delete message'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showChatSnackBar(context, message: result['error'] ?? 'Failed to delete message', type: ChatSnackBarType.error);
         }
       },
     );
@@ -1654,21 +1539,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     if (result['success'] != true) {
       // Revert on failure
       chatNotifier.togglePinLocally(message.id);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(result['error'] ?? 'Failed to update pin status'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      showChatSnackBar(context, message: result['error'] ?? 'Failed to update pin status', type: ChatSnackBarType.error);
     } else if (mounted) {
       // Show confirmation
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            message.isPinned ? 'Message unpinned' : 'Message pinned',
-          ),
-          duration: const Duration(seconds: 1),
-        ),
+      showChatSnackBar(
+        context,
+        message: message.isPinned ? 'Message unpinned' : 'Message pinned',
+        type: ChatSnackBarType.success,
       );
     }
   }
@@ -1710,12 +1587,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     }
 
     if (userIds.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No other users to forward to'),
-          backgroundColor: Colors.orange,
-        ),
-      );
+      showChatSnackBar(context, message: 'No other users to forward to', type: ChatSnackBarType.info);
       return;
     }
 
@@ -1736,22 +1608,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       );
 
       if (forwardResult['success'] == true && mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              AppLocalizations.of(context)!.messageForwardedTo(result.length),
-            ),
-            duration: const Duration(seconds: 2),
-          ),
+        showChatSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.messageForwardedTo(result.length),
+          type: ChatSnackBarType.success,
         );
       } else if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              forwardResult['error'] ?? 'Failed to forward message',
-            ),
-            backgroundColor: Colors.red,
-          ),
+        showChatSnackBar(
+          context,
+          message: forwardResult['error'] ?? 'Failed to forward message',
+          type: ChatSnackBarType.error,
         );
       }
     }
@@ -1797,12 +1663,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     chatNotifier.removeMessageLocally(message.localId ?? message.id);
 
     if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Message deleted'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      showChatSnackBar(context, message: 'Message deleted', type: ChatSnackBarType.success);
     }
   }
 
@@ -1831,21 +1692,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       );
     } else if (error.startsWith('DENIED:')) {
       final message = error.substring('DENIED:'.length);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: Colors.orange,
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      showChatSnackBar(context, message: message, type: ChatSnackBarType.info);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      showChatSnackBar(context, message: error, type: ChatSnackBarType.error);
     }
   }
 

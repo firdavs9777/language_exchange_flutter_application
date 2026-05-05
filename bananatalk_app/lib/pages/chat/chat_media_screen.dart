@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -358,16 +359,12 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Cannot open: $url')),
-          );
+          showChatSnackBar(context, message: 'Cannot open: $url', type: ChatSnackBarType.error);
         }
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error opening link: $e')),
-        );
+        showChatSnackBar(context, message: 'Error opening link: $e', type: ChatSnackBarType.error);
       }
     }
   }

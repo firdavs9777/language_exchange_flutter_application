@@ -5,6 +5,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 /// Telegram-style bottom sheet for message actions
 class MessageActionsBottomSheet extends StatelessWidget {
@@ -211,12 +212,7 @@ class MessageActionsBottomSheet extends StatelessWidget {
                   Clipboard.setData(ClipboardData(text: message.message!));
                   Navigator.pop(context);
                   onCopy?.call();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(AppLocalizations.of(context)!.messageCopied),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
+                  showChatSnackBar(context, message: AppLocalizations.of(context)!.messageCopied, type: ChatSnackBarType.success);
                 },
               ),
 

@@ -18,6 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/linkified_text.dart';
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -760,12 +761,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to update reaction: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Failed to update reaction: $e', type: ChatSnackBarType.error);
       }
     }
   }
@@ -1135,12 +1131,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         }
       } else {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Story is no longer available'),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+          showChatSnackBar(context, message: 'Story is no longer available', type: ChatSnackBarType.info);
         }
       }
     } catch (e) {
@@ -1573,9 +1564,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         onTap: () {
           _hideReactionPicker();
           Clipboard.setData(ClipboardData(text: widget.message.message!));
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Copied'), duration: Duration(seconds: 1)),
-          );
+          showChatSnackBar(context, message: 'Copied', type: ChatSnackBarType.success);
         },
       ));
     }

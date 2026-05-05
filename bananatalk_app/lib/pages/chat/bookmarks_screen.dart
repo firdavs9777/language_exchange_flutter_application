@@ -6,6 +6,7 @@ import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
@@ -127,18 +128,9 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           setState(() {
             _bookmarks.insert(index, bookmark);
           });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? 'Failed to remove bookmark'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showChatSnackBar(context, message: result['error'] ?? 'Failed to remove bookmark', type: ChatSnackBarType.error);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.bookmarkRemoved),
-            ),
-          );
+          showChatSnackBar(context, message: AppLocalizations.of(context)!.bookmarkRemoved, type: ChatSnackBarType.success);
         }
       }
     } catch (e) {
@@ -310,11 +302,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           onTap: () {
             // Navigate to the message in its conversation
             // This would need to be implemented based on your navigation structure
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Navigate to message in chat with $senderName'),
-              ),
-            );
+            showChatSnackBar(context, message: 'Navigate to message in chat with $senderName', type: ChatSnackBarType.info);
           },
           child: Padding(
             padding: const EdgeInsets.all(16),

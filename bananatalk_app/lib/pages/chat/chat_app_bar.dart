@@ -20,6 +20,7 @@ import 'package:app_settings/app_settings.dart';
 import 'user_avatar.dart';
 import 'chat_options_menu.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String userName;
@@ -210,12 +211,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Future<void> _navigateToProfile(BuildContext context, WidgetRef ref) async {
     final l10n = AppLocalizations.of(context)!;
     if (userId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.userIdNotAvailable),
-          backgroundColor: Colors.red,
-        ),
-      );
+      showChatSnackBar(context, message: l10n.userIdNotAvailable, type: ChatSnackBarType.error);
       return;
     }
 
@@ -225,9 +221,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
       if (community == null) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(AppLocalizations.of(context)!.userNotFound)),
-          );
+          showChatSnackBar(context, message: AppLocalizations.of(context)!.userNotFound, type: ChatSnackBarType.error);
         }
         return;
       }
@@ -260,12 +254,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       }
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error loading profile: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        showChatSnackBar(context, message: 'Error loading profile: $e', type: ChatSnackBarType.error);
       }
     }
   }
@@ -374,13 +363,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   void _showCallDisabledTooltip(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(l10n.exchange3MessagesBeforeCall),
-        duration: const Duration(seconds: 3),
-        backgroundColor: Colors.orange,
-      ),
-    );
+    showChatSnackBar(context, message: l10n.exchange3MessagesBeforeCall, type: ChatSnackBarType.info);
   }
 
   Future<void> _initiateCall(
@@ -489,22 +472,10 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     } else if (error.startsWith('DENIED:')) {
       // Show snackbar for temporary denial
       final message = error.substring('DENIED:'.length);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: Colors.orange,
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      showChatSnackBar(context, message: message, type: ChatSnackBarType.info);
     } else {
       // Generic error
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      showChatSnackBar(context, message: error, type: ChatSnackBarType.error);
     }
   }
 

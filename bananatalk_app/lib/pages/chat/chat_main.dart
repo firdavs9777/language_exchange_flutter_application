@@ -26,6 +26,7 @@ import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 
 // Chat partner model to organize conversations
 class ChatPartner {
@@ -1571,16 +1572,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         });
       } else {
         // User not found
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('User @$username not found'),
-            backgroundColor: colors.error,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        );
+        showChatSnackBar(context, message: 'User @$username not found', type: ChatSnackBarType.error);
       }
     } catch (e) {
       if (!mounted) return;
@@ -1590,16 +1582,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         if (dialogOpen) {
           Navigator.of(context, rootNavigator: true).pop();
         }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error searching for user: $e'),
-            backgroundColor: colors.error,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        );
+        showChatSnackBar(context, message: 'Error searching for user: $e', type: ChatSnackBarType.error);
       });
     }
   }
@@ -2185,16 +2168,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
         _silentRefresh();
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                partner.isPinned
-                    ? 'Conversation unpinned'
-                    : 'Conversation pinned',
-              ),
-              duration: const Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showChatSnackBar(
+            context,
+            message: partner.isPinned ? 'Conversation unpinned' : 'Conversation pinned',
+            type: ChatSnackBarType.success,
           );
         }
       } else {}
@@ -2218,16 +2195,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
         _silentRefresh();
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                partner.isMuted
-                    ? 'Notifications enabled'
-                    : 'Conversation muted',
-              ),
-              duration: const Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showChatSnackBar(
+            context,
+            message: partner.isMuted ? 'Notifications enabled' : 'Conversation muted',
+            type: ChatSnackBarType.success,
           );
         }
       } else {}
@@ -2277,13 +2248,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
         _silentRefresh();
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Conversation deleted'),
-              duration: Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+          showChatSnackBar(context, message: 'Conversation deleted', type: ChatSnackBarType.success);
         }
       } else {}
     } catch (e) {}
