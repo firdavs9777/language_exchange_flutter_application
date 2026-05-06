@@ -157,7 +157,7 @@ lib/pages/community/
 | `nearby_tab.dart` | `tabs/nearby_tab.dart` | split helpers, polish | 1,188 → ~600 |
 | `city_tab.dart` | `tabs/city_tab.dart` | split helpers, polish | 1,054 → ~500 |
 | `genders_tab.dart` | `tabs/genders_tab.dart` | split helpers, polish | 931 → ~500 |
-| `topics_tab.dart` | `tabs/topics_tab.dart` | move + extract `_FilterChip` use | 482 → ~400 |
+| `topics_tab.dart` | `tabs/topics_tab.dart` | move | 482 → ~400 |
 | `waves_tab.dart` | `tabs/waves_tab.dart` | move + wire into `CommunityMain` (B) | 320 → ~320 |
 | `voice_rooms/voice_rooms_tab.dart` | same | split, drop hardcoded language list, use shared `_FilterChip`, shared snackbar/empty/error | 578 → ~300 |
 | `voice_rooms/voice_room_screen.dart` | same + 6 new files | split + add chat panel + host menu + hand-raise + speaking + reconnect banner (C-i to C-vii) | 556 → ~300 + new files |
@@ -170,7 +170,7 @@ These run as their own micro-PRs before any feature work:
 1. **C0 — deps + l10n keys:** add new ARB keys for waves-send, voice-room chat, host menu, online-now, reconnect banner; bump any deps as needed.
 2. **C1 — `widgets/` scaffolding:** create the 5 shared widgets, no callers yet.
 3. **C2 — snackbar migration:** replace ~30 inline `ScaffoldMessenger.showSnackBar(...)` calls with `showCommunitySnackBar()`.
-4. **C3 — `_FilterChip` unification:** delete 3 duplicates, point to `widgets/community_filter_chip.dart`.
+4. **C3 — `_FilterChip` extraction:** extract local `_FilterChip` from `voice_rooms_tab.dart:514` to `widgets/community_filter_chip.dart`; point the 4 in-file callers at the shared widget.
 5. **C4 — withOpacity → withValues + dark-mode pass:** sweep across the 13 files.
 6. **C5+ — file-by-file splits + feature work** (per the table above).
 
@@ -186,7 +186,7 @@ This mirrors the chat phase 1 C0–C5 cadence so the early commits are pure refa
 |---|---|
 | `users` | `_id, name, username, email, password, gender, birth_*, native_language, language_to_learn, images[], topics[], location{type,coordinates,city,country,formattedAddress}, languageLevel, vipStatus, termsAccepted, profileCompleted, followers[], following[]` |
 | `voicerooms` | `_id, title, host {populated user}, topic, language, participants[{user, role, isMuted, joinedAt}], maxParticipants, isLive, createdAt` |
-| `waves` | inferred: `_id, fromUserId, toUserId, emoji?, message?, isRead, createdAt` (model `Wave` referenced by `getWavesReceived()` + `markWavesAsRead()`) |
+| `waves` | inferred: `_id, fromUserId, targetUserId, message?, isRead, createdAt` (recipient field name unknown from Flutter side — `targetUserId` chosen to match the `sendWave` request body; verify against actual schema). The Flutter `Wave` model on the receive path only sees `id, fromUserId, fromUserName, fromUserImage?, message?, isRead, createdAt` (recipient is the current user, so not echoed) |
 | `topics` | `_id, name, icon` (used by `Topic.defaultTopics` + `community/topics/:id/users`) |
 | In-memory presence | likely tracked via chat socket connections, but **no API surface or socket events exposing it to clients** |
 
@@ -278,8 +278,8 @@ No backend changes (already wired). UI-only.
 
 | Collection | Index | Reason |
 |---|---|---|
-| `waves` | `{fromUserId, toUserId, createdAt}` | rate-limit check |
-| `waves` | `{toUserId, isRead, createdAt: -1}` | receive list (existing? confirm) |
+| `waves` | `{fromUserId, targetUserId, createdAt}` | rate-limit check (field name verified against actual schema during C15) |
+| `waves` | `{targetUserId, isRead, createdAt: -1}` | receive list (existing? confirm during C15) |
 | `voicerooms` | `{isLive, lastHeartbeatAt}` | active-rooms list + cleanup query |
 | `users` | `{lastSeenAt}` | future "recently active" sort (wave 2) — add now while we're touching the field |
 
@@ -528,7 +528,7 @@ The Flutter `sendWave({targetUserId, message?})` and `WaveResponse {waveId, isMu
 | Layer | Approach |
 |---|---|
 | **Refactor PRs (C0–C12)** | `flutter analyze` must be clean per PR. Manual smoke test each tab + filter sheet on iOS + Android. No new tests required (matches chat phase 1 cadence). |
-| **Backend additions** | Unit tests for: `POST community/waves` (rate-limit, block, self-wave, success), `voiceroom:heartbeat`/cleanup (TTL boundaries), `voiceroom:rejoin` (room exists / ended / not in room), host-transfer (host leaves with N>1, with N=1, returns within grace), `presence:*` events (online/offline/bulk fan-out scope). |
+| **Backend additions** | Unit tests for: `POST community/wave` (rate-limit, block, self-wave, success, mutual flag), `voiceroom:heartbeat`/cleanup (TTL boundaries), `voiceroom:rejoin` (room exists / ended / not in room, including ex-host returning post-grace), host-transfer (host leaves with N>1, with N=1, returns within grace), `presence:*` events (online/offline/bulk fan-out scope). |
 | **Critical user flows** | Manual E2E on a staging build: send wave → notification → mark read; create room → invite second device → kill app on host → confirm 30s host transfer; rejoin after airplane-mode toggle. |
 | **Speaking indicator perf** | Profile `getStats()` polling at 500ms with 8 peers on a mid-tier Android. Acceptance: < 5% CPU steady-state. If higher → drop to 1s polling. |
 | **Filter perf** | Match-count debounce verified (only one in-flight request); 2G throttle test in DevTools Network. |
