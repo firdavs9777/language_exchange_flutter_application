@@ -20,7 +20,7 @@ Restructure `lib/pages/community/` (~12,366 lines, 13 files) into focused subfol
 
 ## Current state diagnostics
 
-**Folder shape (12,366 lines, flat under `lib/pages/community/`):**
+**Current files & sizes** — `lib/pages/community/` is mostly flat (12 top-level files, 10,868 lines) plus an existing `voice_rooms/` subfolder (3 files, 1,498 lines). Total **12,366 lines**. The table below mixes both for total visibility:
 
 | File | Lines | Smell |
 |---|---|---|
@@ -41,7 +41,7 @@ Restructure `lib/pages/community/` (~12,366 lines, 13 files) into focused subfol
 **Cross-cutting smells:**
 
 - ~30+ inline `ScaffoldMessenger.showSnackBar(...)` calls; `voice_rooms_tab.dart:100,114` are typical
-- `_FilterChip` (re)defined locally in `voice_rooms_tab` + `community_filter` + `topics_tab` — three near-duplicates
+- `_FilterChip` defined locally in `voice_rooms_tab.dart:514` (used 4× in same file at 196/205/223/232). `community_main.dart:666` has an unrelated `_FilterChipData` helper. Other tab/filter files use Material's built-in `FilterChip` — **not duplicated** as initially thought. C3 covers extracting the one local class to `widgets/community_filter_chip.dart` and replacing the 4 in-file uses, plus making the new shared widget reusable for future filter UIs (no app-wide hunt needed)
 - Hardcoded `Colors.grey[100/300/400/600/700]` and `Colors.white` in card / filter chip / voice room participant tile
 - `withOpacity()` (deprecated) sprinkled across several files; community already uses `withValues(alpha:)` in newer code (see `voice_rooms_tab.dart`) — inconsistent
 - 13-language list duplicated in `voice_rooms_tab.dart:31-45` instead of consuming the existing `languages` API endpoint that the registration flow uses
@@ -59,12 +59,14 @@ Restructure `lib/pages/community/` (~12,366 lines, 13 files) into focused subfol
 **Backend surface today (inferred from `endpoints.dart` + provider code; MongoDB MCP not connected during design):**
 
 - `voicerooms` (GET/POST) — list, create, join, mute, etc. (mostly socket events `voiceroom:*`)
-- `community/waves` (GET) — receive waves
-- `community/waves/read` (POST) — mark all read
+- `community/waves` (GET) — paginated received waves (`{page, limit, unreadOnly}`); `getWavesReceived()` wired in `community_provider.dart:308-335`
+- `community/waves/read` (PUT) — mark waves read (optional `{waveIds}` body for selective marking); `markWavesAsRead()` wired in `community_provider.dart:338-347`
+- **`community/wave`** (POST, **singular**) — send wave: body `{targetUserId, message?}`, returns `WaveResponse {waveId, isMutual, message}`. Frontend wired in `community_provider.dart:283-306` with rate-limit handling via `response.isRateLimited`. Backend implementation status not yet verified — confirm during C15
 - `community/topics/:topicId/users` — topic-filtered users
 - `auth/users/...` — user CRUD, visitors, VIP
-- **No `community/waves/send`** — the send half of B is missing
 - **No presence broadcast events** on `chat_socket_service` — only voice-room signaling
+- **`WavesTab` is orphaned** — fully implemented widget at `lib/pages/community/waves_tab.dart` but not wired into `CommunityMain`'s `TabController`; spec adds this in C13
+- **Mutual-wave UI absent** — `WaveResponse.isMutual` flag returned by `sendWave` but no Flutter consumer surfaces "it's a match"; spec adds this in C14
 
 ## Target folder layout
 
@@ -74,7 +76,7 @@ lib/pages/community/
 │   ├── community_snackbar.dart           showCommunitySnackBar()
 │   ├── community_dialog_scaffold.dart    rounded card for dialogs/sheets
 │   ├── community_empty_state.dart        unified empty state
-│   ├── community_filter_chip.dart        unified _FilterChip (was 3 dupes)
+│   ├── community_filter_chip.dart        extracted from voice_rooms_tab.dart
 │   └── community_error_state.dart        unified error block
 │
 ├── main/                                 NEW — was community_main.dart (670)
@@ -89,8 +91,8 @@ lib/pages/community/
 │   ├── city_tab.dart                     ~500 (was 1,054)
 │   ├── genders_tab.dart                  ~500 (was 931)
 │   ├── topics_tab.dart                   MOVED
-│   ├── waves_tab.dart                    MOVED + wired into TabController
-│   └── voice_rooms_tab.dart              MOVED — see voice_rooms/
+│   └── waves_tab.dart                    MOVED + wired into TabController
+│   (voice rooms is also a tab but lives in voice_rooms/ — see below)
 │
 ├── card/                                 NEW — was community_card.dart (648)
 │   ├── community_card.dart               ~300
@@ -133,7 +135,7 @@ lib/pages/community/
     └── create_room_sheet.dart            MOVED
 ```
 
-**Total folders inside `community/`:** 7. Total files end at ~50 (was 13). Each new file targets ≤400 lines.
+**Total folders inside `community/`:** 7 (`widgets/`, `main/`, `tabs/`, `card/`, `single/`, `filter/`, `voice_rooms/`). Total files end at ~50 (was 13). Each new file targets ≤400 lines. Note the naming collision: the `TabController` exposes 7 *tabs* but those tabs are spread across 2 *folders* (`tabs/` for 6 of them, `voice_rooms/` for the voice-rooms tab) — the 7-tab and 7-folder counts are coincidental, not the same list.
 
 ### What stays put (deliberately not moved)
 
@@ -190,15 +192,18 @@ This mirrors the chat phase 1 C0–C5 cadence so the early commits are pure refa
 
 > **Validation needed:** confirm the `waves` collection schema and presence-store implementation against the actual database before implementing the backend pieces below. Where actual schema differs, update this spec in place.
 
-### B — Waves (send side)
+### B — Waves (send + mutual + UI surfaces)
+
+The Flutter side already has `sendWave({targetUserId, message?})` wired against `POST community/wave` (singular) returning `WaveResponse {waveId, isMutual, message}`. Wave 1's backend work is to **confirm the endpoint actually exists on the server** and add what's missing — not to design a new contract.
 
 | Change | Detail |
 |---|---|
-| **New endpoint** | `POST community/waves` — body `{toUserId, emoji?}` (default `👋`); returns the created wave |
-| **Validation** | Reject if `toUserId == self`, if user has been blocked by recipient, or if a wave from this sender to this recipient was sent within the last 24h (anti-spam). Cooldown is server-config-driven via `WAVE_COOLDOWN_HOURS` env var (default 24) so it's tunable without redeploy |
-| **Indexes** | Compound `{fromUserId, toUserId, createdAt}` for the rate-limit check; `{toUserId, isRead, createdAt: -1}` for the receive list |
-| **Push notification** | Reuse existing notification pipeline; payload type `wave_received`, deep-link to community → Waves tab. **Coalesce:** if user has > 3 unread waves, send one summary push instead of one per wave |
-| **`Wave` model field if missing** | Verify `emoji` field exists; if not, add. Default `'👋'` for backwards compat |
+| **Endpoint (existing contract)** | `POST community/wave` — body `{targetUserId, message?}`. Confirm during C15 that the server route exists with this contract; if it doesn't, implement it matching the existing Flutter shape rather than redesigning |
+| **Validation** | Reject if `targetUserId == self` (400), if either user has blocked the other (403), or if a wave from this sender to this recipient was sent within `WAVE_COOLDOWN_HOURS` (env var, default 24h) (429 — Flutter already maps this to `response.isRateLimited`). Cooldown applies only to **future** sends; existing waves in the window are not retroactively invalidated when env tuned |
+| **Mutual detection** | If recipient has previously waved at sender within configurable lookback (default: any time), set `isMutual: true` in response. Server work, no schema change |
+| **Indexes** | Compound `{fromUserId, targetUserId, createdAt}` for the rate-limit check; `{targetUserId, isRead, createdAt: -1}` for the receive list (verify if not present) |
+| **Push notification** | Reuse existing FCM pipeline. **Payload format will be designed against the actual notification handler in C15** — this spec doesn't lock the type-string format because the existing handler shape wasn't grepable from spec context. Goal: tap → community route, deep-linked to Waves tab |
+| **Coalescing** | If user has > 3 unread waves in last 6h, suppress per-wave pushes and send one daily summary "{N} people waved at you" (cron-driven). Server-side flag |
 
 ### C — Voice rooms
 
@@ -221,12 +226,31 @@ This mirrors the chat phase 1 C0–C5 cadence so the early commits are pure refa
 
 #### C-vii: Host transfer
 
+**State machine for host disconnect** (resolves the C-vi × C-vii × wave race):
+
+```
+Host states: PRESENT → DISCONNECTED (grace) → PROMOTED_AWAY | RECLAIMED
+                                ↑                ↓
+                                └── rejoin ──────┘  (only if before grace expires)
+```
+
+- **Trigger:** Host's heartbeat misses 2 cycles (40s no `voiceroom:heartbeat`) OR explicit `voiceroom:leave`.
+- **On trigger:** server starts a 30s grace timer keyed on `{roomId, hostUserId}`. Host stays in `host` field; `participants[]` unchanged. No broadcast yet.
+- **During grace:**
+  - If host emits `voiceroom:rejoin` (ACK) before timer fires → cancel timer, host stays. No broadcast.
+  - If `voiceroom:heartbeat` resumes → cancel timer, host stays.
+  - If timer fires → promote next-oldest `joinedAt` participant: update `host` field + their `role: 'host'`, broadcast `voiceroom:host-changed {newHostId, previousHostId}`. Old host moves to `role: 'guest'` (or removed if also disconnected; see below).
+- **After grace expired (PROMOTED_AWAY):**
+  - If old host's `voiceroom:rejoin` arrives, server treats them as a returning guest: re-add to `participants[]` with `role: 'guest'`, `isHost: false`. Server includes `youArePromoted: false` and `currentHostId: <newHostId>` in the rejoin ACK so client can demote local UI.
+  - Old host's snackbar: "{newHost.name} is now the host" (same as for everyone else).
+- **Empty-room edge:** if grace fires and `participants.length == 0` (everyone disconnected), set `isLive: false` and skip the broadcast.
+
 | Change | Detail |
 |---|---|
-| **Server logic** | On `voiceroom:leave` from host AND `participants.length > 1`, promote the next-oldest `joinedAt` participant: update `host` field to that user, set their `role: 'host'`, broadcast `voiceroom:host-changed` `{newHostId}` to room |
-| **Disconnect detection** | Same logic when socket disconnect for host; grace period of 30s before promotion (in case of brief reconnect) |
-| **New socket event** | `voiceroom:host-changed` — clients update local `RoomParticipant.isHost` + `VoiceRoom.hostId` |
-| **Empty room** | If host leaves and no other participants, set `isLive: false` immediately (existing behavior) |
+| **Server logic** | Per state machine above. Grace timer stored in-memory keyed by `{roomId, hostUserId}` |
+| **New socket event** | `voiceroom:host-changed` — `{newHostId, previousHostId}`. Clients update local `RoomParticipant.isHost` + `VoiceRoom.hostId`; show snackbar |
+| **Rejoin ACK extension** | `voiceroom:rejoin` ACK payload gains `{youArePromoted: bool, currentHostId: string}` so a returning ex-host can correctly resync their UI role |
+| **Empty room** | If host leaves and no other participants, set `isLive: false` immediately (skip grace) |
 
 #### C-ii / C-iii: Hand-raise + speaking
 
@@ -297,37 +321,43 @@ No backend changes (already wired). UI-only.
 - Removing a topic that's currently selected → other sections auto-update
 - Match-count API failure → hide the count silently; don't block applying
 
-### B. Waves (send side)
+### B. Waves — send UI + mutual + unread badge
+
+The Flutter `sendWave({targetUserId, message?})` and `WaveResponse {waveId, isMutual, message}` already exist (`community_provider.dart:283-306, 535-553`). Wave 1 adds the UI affordances and surfaces `isMutual`.
 
 **Behavior**
 
 - Wave button on every partner card (`card/community_card_actions.dart`) and on `single_community_actions.dart`
-- Tap → small bottom sheet with 6 emoji options (👋 default, ❤️, 😊, 🎉, ✋, 🌟) + "Send"
-- Sent → toast "Wave sent to {name}"; button greys out for 24h with tooltip "You can wave {name} again in {time}"
+- Tap → small bottom sheet with 6 quick-reply messages (each prefixed with an emoji): `"👋 Hi!"`, `"❤️ You seem cool"`, `"😊 Hey there"`, `"🎉 Let's chat"`, `"✋ Hello"`, `"🌟 Hi from {country}"` — plus an optional free-text input. The chosen string is the `message` param to `sendWave`
+- Sent → toast "Wave sent to {name}"; button greys out for cooldown window with tooltip "You can wave {name} again in {time}"
+- **Mutual celebration:** if `WaveResponse.isMutual == true`, show a one-shot dialog/lottie "It's a match! 🎉 You and {name} both waved" with a "Send a message" CTA that opens chat
 - Recipient: push notification → opens app on Community → Waves tab
-- `CommunityMain` Waves tab gets red unread-dot badge from `wavesUnreadProvider`
+- `CommunityMain` Waves tab gets red unread-dot badge from a new `wavesUnreadProvider` (FutureProvider that calls `getWavesReceived(unreadOnly: true)` and exposes the count)
 
 **Files**
 
 - New: `community/widgets/wave_button.dart`
-- New: `community/widgets/send_wave_sheet.dart`
-- Edit: `card/community_card_actions.dart`, `single/single_community_actions.dart`
-- Edit: `lib/providers/provider_root/community_provider.dart` — add `sendWave({toUserId, emoji})` + `wavesUnreadProvider`
-- Edit: `lib/service/endpoints.dart` — `wavesSendURL = 'community/waves'` (POST)
-- Edit: `services/community_service.dart` — `Future<Wave> sendWave({String toUserId, String emoji})`
+- New: `community/widgets/send_wave_sheet.dart` — quick-replies + free-text
+- New: `community/widgets/mutual_wave_dialog.dart` — one-shot "it's a match" UI
+- Edit: `card/community_card_actions.dart`, `single/single_community_actions.dart` — embed wave button (with live presence dot per cross-feature interaction)
+- Edit: `lib/providers/provider_root/community_provider.dart` — add `wavesUnreadProvider` FutureProvider (refresh on app resume + after `markWavesAsRead`)
+- **No changes to `endpoints.dart` or `sendWave()`** — both already exist
+- **No new `services/community_service.dart` method** — `sendWave` lives in the provider's `CommunityService` already
 
 **Data flow**
 
-- Tap → sheet opens → emoji choice → `communityService.sendWave(...)` → backend creates `wave` doc → push to recipient
+- Tap → sheet opens → user picks/composes message → `communityService.sendWave(targetUserId: id, message: chosenMessage)` → API POST → on 200, success snackbar; if `isMutual`, show match dialog; if rate-limit (`isRateLimited`), error snackbar with cooldown
 - Local optimistic state: button shows greyed immediately; reverts on error
-- Anti-spam check on backend: `findOne({fromUserId, toUserId, createdAt > now-24h})`; if exists → 429
+- Cooldown cache: client stores `{targetUserId → lastSentAt}` in memory + `SharedPreferences` so button stays greyed without re-hitting the API on rebuild
 
 **Edge cases**
 
 - Self-wave → button hidden on own profile (mirror existing follow-button check)
-- Recipient blocked sender → 403 → snackbar "Couldn't send wave"
-- Rate-limited → 429 → snackbar "You can wave {name} again in {time}"; client cache the timestamp so button stays greyed without re-hitting the API
+- Recipient blocked sender → 403 → snackbar "Couldn't send wave" (don't disclose blocked status)
+- Rate-limited → already mapped to `response.isRateLimited` → snackbar "You can wave {name} again in {time}"; cache the timestamp
 - Network failure → snackbar "Couldn't send wave"; un-grey button
+- During voice-room reconnect (C-vi): incoming waves still process via push notification path — no special handling needed
+- Recipient deleted account → 404 → silent fail; we don't expose this to sender
 
 ### C. Voice rooms overhaul
 
@@ -421,7 +451,7 @@ No backend changes (already wired). UI-only.
 - Host disconnects/leaves → after 30s grace → next-oldest participant (by `joinedAt`) becomes host
 - Promoted user sees snackbar "You're now the host" + UI swaps to host controls
 - Other users see snackbar "{name} is now the host"
-- If host returns within 30s, no transfer (handled server-side)
+- If host returns within the grace window, no transfer; if they return after, they come back as a guest. See state machine in **Data model & backend changes → C-vii** for the full logic (grace cancellation, post-grace rejoin ACK, empty-room edge)
 
 **Implementation**
 
@@ -507,11 +537,7 @@ No backend changes (already wired). UI-only.
 
 - **Backend goes first.** All schema additions are nullable/default-safe (`isHandRaised: false`, `lastHeartbeatAt: createdAt`, `lastSeenAt: null`, new indexes). New endpoints are additive. Old clients keep working.
 - **Frontend lands in commit waves**, not all at once. The refactor commits (C0–C12) are intentionally sequential and pure-refactor — each one safe to revert independently.
-- **Feature flags** — gate the visibly-new features behind `feature_gate.dart` flags so we can dark-launch and toggle:
-  - `community_waves_send_enabled` (default true; rollback toggle if anti-spam misfires)
-  - `community_voice_rooms_v2_enabled` (default true; covers chat panel + host menu + reconnect)
-  - `community_presence_enabled` (default true; rollback toggle if presence broadcast scale is bad)
-  - `community_filter_v2_enabled` (default true; old filter sheet stays compilable for a release as fallback if rebuild has UX issues)
+- **No feature-flag gating.** The codebase has `lib/utils/feature_gate.dart` but it's a VIP/permissions gate (`canSendMessage`, `canCreateMoment`), not a flag store, and there's no remote-config infrastructure. Wave 1 relies on **commit-revertability** — each `Cxx` commit is independently revertable. If a feature misbehaves in production, revert the relevant `Cxx` commit and ship a hotfix. Designing a flag store is itself a project and is out of scope here. Filter rebuild keeps the old code compilable (renamed) for one release as a manual fallback if needed (revert C19 to switch back).
 - **SharedPreferences migration** — `community_filters` key currently holds a `Map<String, dynamic>`. The new `FilterState.fromJson` includes a backwards-compat reader that coerces the old shape. Old saved filters survive the upgrade. After 1 release we can drop the compat reader.
 
 ## Risk register
@@ -553,7 +579,7 @@ Following the chat phase 1 cadence (C-prefixed sequential commits, often one-com
 - **C0** — `chore(community)`: deps + branch setup
 - **C1** — `refactor(community)`: add `widgets/` scaffolding (5 shared widgets, no callers)
 - **C2** — `refactor(community)`: migrate ~30 inline snackbars to `showCommunitySnackBar`
-- **C3** — `refactor(community)`: unify `_FilterChip` across 3 files
+- **C3** — `refactor(community)`: extract `_FilterChip` from `voice_rooms_tab.dart:514` to `widgets/community_filter_chip.dart`, point the 4 in-file callers at the shared widget
 - **C4** — `fix(community)`: `withOpacity` → `withValues` + dark-mode pass
 - **C5** — `refactor(community)`: add English ARB keys for wave 1 (~53)
 - **C6** — `refactor(community)`: translate keys to 17 locales
@@ -567,29 +593,33 @@ Following the chat phase 1 cadence (C-prefixed sequential commits, often one-com
 - **C11** — `refactor(community)`: flatten tabs into `tabs/`, extract helpers
 - **C12** — `refactor(community)`: split `voice_rooms/` into focused units
 
-**Features (visible changes, gated by flags):**
+**Features (visible changes — each commit has explicit acceptance criteria):**
 
-- **C13** — `feat(community)`: wire `WavesTab` into `CommunityMain` (7th tab + unread badge)
-- **C14** — `feat(community)`: waves send button + emoji sheet (frontend)
-- **C15** — `feat(community)` + backend: waves send endpoint + rate limit + push notification
-- **C16** — `feat(community)`: mutual interests on `single_community` (D)
-- **C17** — `feat(community)` + backend: presence socket events + `presence_provider` (E backend integration)
-- **C18** — `feat(community)`: online-now dot + filter toggle (E frontend complete)
-- **C19** — `feat(community)`: filter rebuild — match-count, sticky bars, sectioned (A)
+| # | Commit | Verification (definition of done) |
+|---|---|---|
+| C13 | `feat(community)`: wire `WavesTab` into `CommunityMain` (7th tab + unread badge) | Tab strip shows 7 tabs; tapping Waves loads received list; unread dot appears when `wavesUnreadProvider > 0`, clears on `markWavesAsRead` |
+| C14 | `feat(community)`: waves send button + quick-reply sheet + mutual-wave dialog | Wave button on every card and `single_community`; sheet picks message; success toast appears; `WaveResponse.isMutual == true` triggers match dialog with chat CTA; cooldown greys the button |
+| C15 | `feat(community)` + backend: confirm/implement `POST community/wave`, rate limit, push notification | Backend rejects self/blocked/cooldown with documented codes; push notification arrives on physical device; deep-link opens Waves tab |
+| C16 | `feat(community)`: mutual interests on `single_community` (D) | Section renders between languages and engagement; counts shared topics correctly across 5 test profiles; empty state shows when either has 0 topics |
+| C17 | `feat(community)` + backend: presence socket events + `presence_provider` (E backend integration) | Provider state updates within 2s of a peer connecting/disconnecting; `presence:bulk` arrives on connect with at most 200 entries (order doesn't matter — set-based) |
+| C18 | `feat(community)`: online-now dot + filter toggle (E frontend complete) | Green dot renders on cards for users in `presenceProvider.onlineUserIds`; toggle sends `online=true` query and filters list |
+| C19 | `feat(community)`: filter rebuild — match-count, sticky bars, sectioned (A) | Sheet opens with sections collapsed; match count debounces (only 1 in-flight); Apply returns typed `FilterState`; old `Map<String,dynamic>` saved-filters survive upgrade (unit test) |
 
 **Voice rooms overhaul:**
 
-- **C20** — `feat(voice-rooms)`: in-room chat panel (C-i)
-- **C21** — `fix(voice-rooms)`: hand-raise visible on tile (C-ii)
-- **C22** — `feat(voice-rooms)`: speaking indicator via WebRTC stats (C-iii)
-- **C23** — `feat(voice-rooms)`: host controls — kick + end-room (C-iv)
-- **C24** — `feat(voice-rooms)` + backend: heartbeat + stale-room cleanup (C-v)
-- **C25** — `feat(voice-rooms)` + backend: reconnect banner + rejoin protocol (C-vi)
-- **C26** — `feat(voice-rooms)` + backend: host transfer protocol (C-vii)
+| # | Commit | Verification (definition of done) |
+|---|---|---|
+| C20 | `feat(voice-rooms)`: in-room chat panel (C-i) | Chat icon opens `DraggableScrollableSheet`; messages from socket render newest-at-bottom; sending an empty message is a no-op; closing/reopening preserves messages until leave |
+| C21 | `fix(voice-rooms)`: hand-raise visible on tile (C-ii) | `RoomParticipant.isHandRaised` updates from socket; tile shows hand badge when raised; pulse animation runs while raised |
+| C22 | `feat(voice-rooms)`: speaking indicator via WebRTC stats (C-iii) | Green ring lights up on talking peer; suppressed if peer `isMuted == true`; CPU < 5% steady-state on Pixel 4a with 4 peers |
+| C23 | `feat(voice-rooms)`: host controls — kick + end-room (C-iv) | Host control bar shows "End room"; long-press participant tile opens kick sheet; both confirm via dialog; non-host UI unchanged |
+| C24 | `feat(voice-rooms)` + backend: heartbeat + stale-room cleanup (C-v) | Client emits heartbeat every 20s while in room; cron flips `isLive: false` on rooms with `lastHeartbeatAt < now-90s`; `GET voicerooms` excludes stale rooms |
+| C25 | `feat(voice-rooms)` + backend: reconnect banner + rejoin protocol (C-vi) | Airplane-mode toggle in room shows "Reconnecting…" banner; on recovery, banner clears and participants list re-syncs; if room ended during gap, snackbar + auto-pop |
+| C26 | `feat(voice-rooms)` + backend: host transfer protocol (C-vii — see state machine) | Host-leaves-with-N>1 → 30s grace → next-oldest promoted → snackbars on all clients; host-rejoins-during-grace → no transfer; host-rejoins-after-grace → demoted to guest with correct local UI |
 
 **Polish:**
 
-- **C27** — `chore(community)`: final analyzer cleanup, docs touch-ups, feature-flag defaults review
+- **C27** — `chore(community)`: final analyzer cleanup, docs touch-ups, manual smoke pass across all 7 tabs in iOS + Android dark + light modes
 
 **Total: ~28 commits, ~6–8 weeks.** Mirrors chat phase 1 throughput.
 
