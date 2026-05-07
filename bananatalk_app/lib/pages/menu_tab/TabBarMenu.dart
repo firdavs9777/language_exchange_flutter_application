@@ -1,7 +1,7 @@
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
 import 'package:bananatalk_app/pages/moments/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
-import 'package:bananatalk_app/pages/community/community_main.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/learning/learning_main.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
