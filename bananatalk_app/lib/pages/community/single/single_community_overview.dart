@@ -10,6 +10,7 @@ import 'package:bananatalk_app/widgets/vip_upsell_banner.dart';
 import 'package:bananatalk_app/widgets/community/language_match_card.dart';
 import 'package:bananatalk_app/widgets/community/engagement_stats_bar.dart';
 import 'package:bananatalk_app/widgets/community/conversation_starters_card.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_topics.dart';
 
 /// Overview tab body: VIP banner, language match, engagement stats, follower
 /// counts, conversation starters, and a quick-chat CTA.
@@ -48,6 +49,11 @@ class SingleCommunityOverview extends ConsumerWidget {
 
         // Language Match Card
         LanguageMatchCard(profile: community),
+
+        const SizedBox(height: 12),
+
+        // Mutual Interests Section
+        SingleCommunityTopics(community: community),
 
         const SizedBox(height: 12),
         const SmallBannerAdWidget(),
