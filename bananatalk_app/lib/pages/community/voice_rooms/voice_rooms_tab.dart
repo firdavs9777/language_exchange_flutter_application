@@ -299,7 +299,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                     Icon(
                       Icons.search_off_rounded,
                       size: 48,
-                      color: Colors.grey[400],
+                      color: context.textMuted,
                     ),
                     Spacing.gapMD,
                     Text(

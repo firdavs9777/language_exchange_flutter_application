@@ -1576,7 +1576,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       decoration: BoxDecoration(
         color: AppColors.errorLight,
         borderRadius: AppRadius.borderMD,
-        border: Border.all(color: AppColors.error.withOpacity(0.3)),
+        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -1752,7 +1752,7 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                     borderRadius: AppRadius.borderMD,
                   ),
                   tileColor: isSelected
-                      ? context.primaryColor.withOpacity(0.1)
+                      ? context.primaryColor.withValues(alpha: 0.1)
                       : null,
                 );
               },

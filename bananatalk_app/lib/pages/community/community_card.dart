@@ -107,8 +107,8 @@ class _CommunityCardState extends State<CommunityCard>
                     child: InkWell(
                       borderRadius: BorderRadius.circular(24),
                       onTap: widget.onTap,
-                      splashColor: AppColors.primary.withOpacity(0.1),
-                      highlightColor: AppColors.primary.withOpacity(0.05),
+                      splashColor: AppColors.primary.withValues(alpha: 0.1),
+                      highlightColor: AppColors.primary.withValues(alpha: 0.05),
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         child: Column(
@@ -182,8 +182,8 @@ class _CommunityCardState extends State<CommunityCard>
         shape: BoxShape.circle,
         gradient: LinearGradient(
           colors: [
-            AppColors.primary.withOpacity(0.2),
-            AppColors.primary.withOpacity(0.1),
+            AppColors.primary.withValues(alpha: 0.2),
+            AppColors.primary.withValues(alpha: 0.1),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -208,7 +208,7 @@ class _CommunityCardState extends State<CommunityCard>
                         : null,
                     boxShadow: context.isDarkMode ? [] : [
                       BoxShadow(
-                        color: AppColors.primary.withOpacity(0.3),
+                        color: AppColors.primary.withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -231,7 +231,7 @@ class _CommunityCardState extends State<CommunityCard>
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppColors.primary.withOpacity(0.5),
+                                      AppColors.primary.withValues(alpha: 0.5),
                                     ),
                                   ),
                                 ),
@@ -255,7 +255,7 @@ class _CommunityCardState extends State<CommunityCard>
                   color: context.surfaceColor,
                   boxShadow: context.isDarkMode ? [] : [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -265,7 +265,7 @@ class _CommunityCardState extends State<CommunityCard>
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
-                      color: context.surfaceColor.withOpacity(0.9),
+                      color: context.surfaceColor.withValues(alpha: 0.9),
                       child: Center(
                         child: Text(
                           _getLanguageFlag(widget.community.native_language),
@@ -291,7 +291,7 @@ class _CommunityCardState extends State<CommunityCard>
                     border: Border.all(color: context.surfaceColor, width: 2),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.online.withOpacity(0.5),
+                        color: AppColors.online.withValues(alpha: 0.5),
                         blurRadius: 4,
                         spreadRadius: 1,
                       ),
@@ -334,10 +334,10 @@ class _CommunityCardState extends State<CommunityCard>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: AppColors.success.withOpacity(context.isDarkMode ? 0.2 : 0.15),
+        color: AppColors.success.withValues(alpha: context.isDarkMode ? 0.2 : 0.15),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: AppColors.success.withOpacity(0.3),
+          color: AppColors.success.withValues(alpha: 0.3),
           width: 1,
         ),
       ),
@@ -405,7 +405,7 @@ class _CommunityCardState extends State<CommunityCard>
         borderRadius: BorderRadius.circular(16),
         boxShadow: context.isDarkMode ? [] : [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.4),
+            color: AppColors.primary.withValues(alpha: 0.4),
             blurRadius: 12,
             offset: const Offset(0, 4),
             spreadRadius: 0,
@@ -454,10 +454,10 @@ class _CommunityCardState extends State<CommunityCard>
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(context.isDarkMode ? 0.15 : 0.08),
+        color: AppColors.primary.withValues(alpha: context.isDarkMode ? 0.15 : 0.08),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.15),
+          color: AppColors.primary.withValues(alpha: 0.15),
           width: 1.5,
         ),
       ),
@@ -480,7 +480,7 @@ class _CommunityCardState extends State<CommunityCard>
                 shape: BoxShape.circle,
                 boxShadow: context.isDarkMode ? [] : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -618,7 +618,7 @@ class _CommunityCardState extends State<CommunityCard>
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.3),
+          color: AppColors.primary.withValues(alpha: 0.3),
           width: 1.5,
         ),
       ),

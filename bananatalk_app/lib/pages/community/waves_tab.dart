@@ -95,7 +95,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
+            Icon(Icons.error_outline, size: 48, color: context.textMuted),
             Spacing.gapMD,
             Builder(
               builder: (context) => Text(
@@ -126,7 +126,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: const Color(0xFF00BFA5).withOpacity(0.1),
+                color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -195,15 +195,15 @@ class _WaveCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: wave.isRead ? Colors.white : const Color(0xFF00BFA5).withOpacity(0.05),
+        color: wave.isRead ? context.surfaceColor : const Color(0xFF00BFA5).withValues(alpha: 0.05),
         borderRadius: AppRadius.borderMD,
         border: Border.all(
-          color: wave.isRead ? Colors.grey.shade200 : const Color(0xFF00BFA5).withOpacity(0.3),
+          color: wave.isRead ? context.dividerColor : const Color(0xFF00BFA5).withValues(alpha: 0.3),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -230,7 +230,7 @@ class _WaveCard extends StatelessWidget {
                         width: 56,
                         height: 56,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF00BFA5).withOpacity(0.2),
+                          color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(

@@ -792,7 +792,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  Colors.black.withOpacity(0.7),
+                  Colors.black.withValues(alpha: 0.7),
                 ],
               ),
             ),
@@ -923,10 +923,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                         if (age != null) ...[
                           Text(
                             '$age yrs',
-                            style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 13),
+                            style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13),
                           ),
                           if (locationText.isNotEmpty) ...[
-                            Text(' • ', style: TextStyle(color: Colors.white.withOpacity(0.6))),
+                            Text(' • ', style: TextStyle(color: Colors.white.withValues(alpha: 0.6))),
                           ],
                         ],
                         if (locationText.isNotEmpty) ...[
@@ -935,7 +935,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                           Flexible(
                             child: Text(
                               locationText,
-                              style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 13),
+                              style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -1013,7 +1013,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: color, size: 20),
@@ -2415,10 +2415,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: const Color(0xFF00BFA5).withOpacity(0.2),
+                color: const Color(0xFF00BFA5).withValues(alpha: 0.2),
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: const Color(0xFF00BFA5).withOpacity(0.6),
+                  color: const Color(0xFF00BFA5).withValues(alpha: 0.6),
                   width: 2,
                 ),
               ),
@@ -2454,7 +2454,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         child: Icon(
           Icons.location_off_rounded,
           size: 48,
-          color: Colors.white.withOpacity(0.3),
+          color: Colors.white.withValues(alpha: 0.3),
         ),
       ),
     );

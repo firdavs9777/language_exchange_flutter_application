@@ -141,12 +141,12 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                     ? (isDark
                         ? primaryColor.withValues(alpha: 0.25)
                         : primaryColor.withValues(alpha: 0.15))
-                    : (isDark ? Colors.grey[850] : Colors.grey[100]),
+                    : context.containerColor,
                 borderRadius: AppRadius.borderLG,
                 border: Border.all(
                   color: isSelected
                       ? primaryColor
-                      : (isDark ? Colors.grey[700]! : Colors.transparent),
+                      : context.dividerColor,
                   width: 1.5,
                 ),
               ),
@@ -240,7 +240,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                 },
                 icon: const Icon(Icons.arrow_back_rounded),
                 style: IconButton.styleFrom(
-                  backgroundColor: isDark ? Colors.grey[850] : Colors.grey[100],
+                  backgroundColor: context.containerColor,
                 ),
               ),
               Spacing.hGapMD,
@@ -366,7 +366,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             Icon(
               Icons.people_outline_rounded,
               size: 64,
-              color: isDark ? Colors.grey[600] : Colors.grey[400],
+              color: context.textMuted,
             ),
             Spacing.gapMD,
             Builder(

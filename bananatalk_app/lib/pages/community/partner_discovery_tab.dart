@@ -932,8 +932,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
       decoration: BoxDecoration(
         color: isWave
-            ? AppColors.success.withOpacity(0.2)
-            : context.textMuted.withOpacity(0.2),
+            ? AppColors.success.withValues(alpha: 0.2)
+            : context.textMuted.withValues(alpha: 0.2),
         borderRadius: AppRadius.borderXXL,
       ),
       alignment: isWave ? Alignment.centerLeft : Alignment.centerRight,

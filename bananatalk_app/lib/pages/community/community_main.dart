@@ -436,7 +436,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         color: colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: context.dividerColor.withOpacity(0.3),
+            color: context.dividerColor.withValues(alpha: 0.3),
             width: 1,
           ),
         ),

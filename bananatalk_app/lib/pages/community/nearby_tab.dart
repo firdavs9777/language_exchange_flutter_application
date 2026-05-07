@@ -415,7 +415,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: context.primaryColor.withOpacity(0.1),
+                color: context.primaryColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -492,13 +492,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            context.primaryColor.withOpacity(0.1),
-            AppColors.info.withOpacity(0.05),
+            context.primaryColor.withValues(alpha: 0.1),
+            AppColors.info.withValues(alpha: 0.05),
           ],
         ),
         borderRadius: AppRadius.borderLG,
         border: Border.all(
-          color: context.primaryColor.withOpacity(0.2),
+          color: context.primaryColor.withValues(alpha: 0.2),
         ),
       ),
       child: Row(
@@ -507,7 +507,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: context.primaryColor.withOpacity(0.15),
+              color: context.primaryColor.withValues(alpha: 0.15),
               borderRadius: AppRadius.borderMD,
             ),
             child: _locationLoading
