@@ -9,7 +9,8 @@ import 'package:bananatalk_app/pages/community/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/topics_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
 import 'package:bananatalk_app/pages/community/single_community.dart';
-import 'package:bananatalk_app/pages/community/community_filter.dart';
+import 'package:bananatalk_app/pages/community/filter/community_filter_sheet.dart';
+import 'package:bananatalk_app/pages/community/filter/filter_state.dart';
 import 'package:bananatalk_app/pages/community/main/community_app_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_filter_chips.dart';
@@ -35,21 +36,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   bool _isSearching = false;
   String _searchQuery = '';
 
-  static const Map<String, dynamic> _defaultFilters = {
-    'minAge': 18,
-    'maxAge': 100,
-    'gender': null,
-    'nativeLanguage': null,
-    'learningLanguage': null,
-    'country': null,
-    'topics': <String>[],
-    'languageLevel': null,
-    'onlineOnly': false,
-    'newUsersOnly': false,
-    'prioritizeNearby': false,
-  };
-
-  Map<String, dynamic> _filters = Map<String, dynamic>.from(_defaultFilters);
+  FilterState _filters = FilterState.defaults;
 
   @override
   void initState() {
@@ -58,7 +45,10 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     _loadSavedFilters();
   }
 
-  /// Load saved filters from SharedPreferences
+  /// Load saved filters from SharedPreferences.
+  ///
+  /// Uses [FilterState.fromJson] which is backwards-compatible with the old
+  /// `Map<String,dynamic>` shape previously written under [_filtersKey].
   Future<void> _loadSavedFilters() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -66,19 +56,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       if (savedFilters != null) {
         final decoded = json.decode(savedFilters) as Map<String, dynamic>;
         setState(() {
-          _filters = {
-            'minAge': decoded['minAge'] ?? 18,
-            'maxAge': decoded['maxAge'] ?? 100,
-            'gender': decoded['gender'],
-            'nativeLanguage': decoded['nativeLanguage'],
-            'learningLanguage': decoded['learningLanguage'],
-            'country': decoded['country'],
-            'topics': List<String>.from(decoded['topics'] ?? []),
-            'languageLevel': decoded['languageLevel'],
-            'onlineOnly': decoded['onlineOnly'] ?? false,
-            'newUsersOnly': decoded['newUsersOnly'] ?? false,
-            'prioritizeNearby': decoded['prioritizeNearby'] ?? false,
-          };
+          _filters = FilterState.fromJson(decoded);
         });
       }
     } catch (e) {
@@ -86,11 +64,11 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     }
   }
 
-  /// Save filters to SharedPreferences
-  Future<void> _saveFilters(Map<String, dynamic> filters) async {
+  /// Save filters to SharedPreferences.
+  Future<void> _saveFilters(FilterState filters) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_filtersKey, json.encode(filters));
+      await prefs.setString(_filtersKey, json.encode(filters.toJson()));
     } catch (e) {
       // ignore: filter save failure is non-fatal
     }
@@ -109,28 +87,56 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => CommunityFilter(
-        onApplyFilters: (filters) {
+        onApplyFilters: (filtersMap) {
+          final updated = FilterState.fromJson(filtersMap);
           setState(() {
-            _filters = filters;
+            _filters = updated;
           });
-          _saveFilters(filters);
+          _saveFilters(updated);
         },
-        initialFilters: _filters,
+        initialFilters: _filters.toJson(),
       ),
     );
   }
 
   void _removeFilter(String key) {
+    FilterState updated;
+    switch (key) {
+      case 'age':
+        updated = _filters.copyWith(minAge: 18, maxAge: 100);
+        break;
+      case 'gender':
+        updated = FilterState.fromJson({..._filters.toJson(), 'gender': null});
+        break;
+      case 'nativeLanguage':
+        updated = FilterState.fromJson(
+            {..._filters.toJson(), 'nativeLanguage': null});
+        break;
+      case 'learningLanguage':
+        updated = FilterState.fromJson(
+            {..._filters.toJson(), 'learningLanguage': null});
+        break;
+      case 'country':
+        updated =
+            FilterState.fromJson({..._filters.toJson(), 'country': null});
+        break;
+      case 'languageLevel':
+        updated = FilterState.fromJson(
+            {..._filters.toJson(), 'languageLevel': null});
+        break;
+      case 'onlineOnly':
+        updated = _filters.copyWith(onlineOnly: false);
+        break;
+      case 'newUsersOnly':
+        updated = _filters.copyWith(newUsersOnly: false);
+        break;
+      case 'prioritizeNearby':
+        updated = _filters.copyWith(prioritizeNearby: false);
+        break;
+      default:
+        updated = _filters;
+    }
     setState(() {
-      final updated = Map<String, dynamic>.from(_filters);
-      if (key == 'age') {
-        updated['minAge'] = 18;
-        updated['maxAge'] = 100;
-      } else if (key == 'onlineOnly' || key == 'newUsersOnly') {
-        updated[key] = false;
-      } else {
-        updated[key] = null;
-      }
       _filters = updated;
     });
     _saveFilters(_filters);
@@ -174,13 +180,13 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           // Tab bar
           CommunityTabBar(tabController: _tabController),
           // Active filter chips
-          if (CommunityFilterChips.hasActiveFilters(_filters))
+          if (CommunityFilterChips.hasActiveFilters(_filters.toJson()))
             CommunityFilterChips(
-              filters: _filters,
+              filters: _filters.toJson(),
               onRemove: _removeFilter,
               onClearAll: () {
                 setState(() {
-                  _filters = Map<String, dynamic>.from(_defaultFilters);
+                  _filters = FilterState.defaults;
                 });
                 _saveFilters(_filters);
               },
@@ -192,33 +198,33 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               children: [
                 PartnerDiscoveryTab(
                   key: ValueKey('partners_${_filters.hashCode}'),
-                  filters: _filters,
+                  filters: _filters.toJson(),
                   searchQuery: _searchQuery,
                   onClearFilters: () {
                     setState(() {
-                      _filters = Map<String, dynamic>.from(_defaultFilters);
+                      _filters = FilterState.defaults;
                     });
                     _saveFilters(_filters);
                   },
                 ),
                 GendersTab(
                   key: ValueKey('genders_${_filters.hashCode}'),
-                  filters: _filters,
+                  filters: _filters.toJson(),
                   searchQuery: _searchQuery,
                 ),
                 NearbyTab(
                   key: ValueKey('nearby_${_filters.hashCode}'),
-                  filters: _filters,
+                  filters: _filters.toJson(),
                   searchQuery: _searchQuery,
                 ),
                 CityTab(
                   key: ValueKey('city_${_filters.hashCode}'),
-                  filters: _filters,
+                  filters: _filters.toJson(),
                   searchQuery: _searchQuery,
                 ),
                 TopicsTab(
                   key: ValueKey('topics_${_filters.hashCode}'),
-                  filters: _filters,
+                  filters: _filters.toJson(),
                   searchQuery: _searchQuery,
                 ),
                 const VoiceRoomsTab(),
