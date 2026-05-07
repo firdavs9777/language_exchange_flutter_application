@@ -23,7 +23,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/providers/provider_models/location_modal.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -92,8 +91,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   late final bool _hasExistingLanguages;
 
   // ─── Finish step ─────────────────────────────────────────────────────────
-  List<File> _selectedImages = [];
-  bool _showPhotoError = false;
   bool _isFetchingLocation = false;
   String? _country;
   String? _city;
@@ -114,7 +111,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
         widget.nativeLanguage.isNotEmpty && widget.learningLanguage.isNotEmpty;
 
     _totalSteps = (_needsPersonalInfo ? 1 : 0) +
-        1 + // photo step (always shown — user can skip with Later button)
+        1 + // profile photo step (required)
         (_hasExistingLanguages ? 0 : 2) +
         1; // finish step always shown
 
@@ -230,32 +227,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     }
   }
 
-  // ─── Image picker ────────────────────────────────────────────────────────
-
-  Future<void> _pickImage() async {
-    try {
-      final picker = ImagePicker();
-      final pickedFiles = await picker.pickMultiImage(imageQuality: 85);
-
-      if (pickedFiles.isNotEmpty) {
-        if (_selectedImages.length + pickedFiles.length > 6) {
-          _showError(AppLocalizations.of(context)!.maximum6Photos);
-          return;
-        }
-        setState(() {
-          _selectedImages.addAll(pickedFiles.map((f) => File(f.path)));
-          _showPhotoError = false;
-        });
-      }
-    } catch (e) {
-      _showError('Error selecting images');
-    }
-  }
-
-  void _removeImage(int index) {
-    setState(() => _selectedImages.removeAt(index));
-  }
-
   // ─── Location ────────────────────────────────────────────────────────────
 
   Future<void> _getCurrentLocation() async {
@@ -316,8 +287,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
   Future<void> _submit() async {
     if (_isSubmitting) return;
 
-    if (_selectedImages.isEmpty) {
-      setState(() => _showPhotoError = true);
+    if (_pickedPhoto == null) {
       _showError(AppLocalizations.of(context)!.profilePhotoRequired);
       return;
     }
@@ -400,9 +370,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
             }
 
             final userId = authService.userId;
-            if (userId.isNotEmpty && _selectedImages.isNotEmpty) {
+            if (userId.isNotEmpty && _pickedPhoto != null) {
               try {
-                await authService.uploadUserPhoto(userId, _selectedImages);
+                await authService.uploadUserPhoto(userId, [_pickedPhoto!]);
               } catch (e) {
                 // Non-blocking
               }
@@ -465,14 +435,9 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           final userId = userData?.id ?? '';
 
           if (mounted) {
-            // Combine wizard-picked photo with any other _selectedImages.
-            final imagesToUpload = <File>[
-              if (_pickedPhoto != null) _pickedPhoto!,
-              ..._selectedImages,
-            ];
-            if (userId.isNotEmpty && imagesToUpload.isNotEmpty) {
+            if (userId.isNotEmpty && _pickedPhoto != null) {
               try {
-                await authService.uploadUserPhoto(userId, imagesToUpload);
+                await authService.uploadUserPhoto(userId, [_pickedPhoto!]);
               } catch (e) {
                 // Non-blocking
               }
@@ -608,7 +573,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                       pickedPhoto: _pickedPhoto,
                       onPhotoChanged: (p) => setState(() => _pickedPhoto = p),
                       onContinue: _goToNext,
-                      onSkip: _goToNext,
                     ),
                     if (!_hasExistingLanguages)
                       NativeLanguageStep(
@@ -651,10 +615,6 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
                         },
                       ),
                     FinishStep(
-                      selectedImages: _selectedImages,
-                      showPhotoError: _showPhotoError,
-                      onPickImage: _pickImage,
-                      onRemoveImage: _removeImage,
                       city: _city,
                       country: _country,
                       isFetchingLocation: _isFetchingLocation,

@@ -7,22 +7,21 @@ import 'package:bananatalk_app/pages/authentication/widgets/auth_gradient_button
 import 'package:bananatalk_app/pages/profile/edit/picture_edit/photo_picker_sheet.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Optional profile-photo step in the register wizard. Tapping the avatar
+/// Required profile-photo step in the register wizard. Tapping the avatar
 /// opens the same picker bottom sheet used by the post-signup edit flow,
-/// which now runs single picks through ImageCropper. The chosen photo is
-/// reported up to the parent and uploaded after the final register call.
+/// which runs the picked image through ImageCropper at a locked 1:1 aspect.
+/// The chosen photo is reported up to the parent and uploaded after the
+/// final register call. Continue is disabled until a photo is picked.
 class ProfilePhotoStep extends StatelessWidget {
   final File? pickedPhoto;
   final void Function(File? photo) onPhotoChanged;
   final VoidCallback onContinue;
-  final VoidCallback onSkip;
 
   const ProfilePhotoStep({
     super.key,
     required this.pickedPhoto,
     required this.onPhotoChanged,
     required this.onContinue,
-    required this.onSkip,
   });
 
   Future<void> _pick(BuildContext context) async {
@@ -124,18 +123,7 @@ class ProfilePhotoStep extends StatelessWidget {
           AuthGradientButton(
             label: l10n.nextButton,
             icon: Icons.arrow_forward_rounded,
-            onPressed: onContinue,
-          ),
-          const SizedBox(height: 12),
-          TextButton(
-            onPressed: onSkip,
-            child: Text(
-              l10n.addProfilePhotoSkip,
-              style: context.titleSmall.copyWith(
-                color: context.textSecondary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            onPressed: hasPhoto ? onContinue : null,
           ),
           const SizedBox(height: 16),
         ],
