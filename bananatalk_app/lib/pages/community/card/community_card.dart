@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -172,30 +171,9 @@ class _CommunityCardState extends State<CommunityCard>
         CommunityCardActions(
           community: widget.community,
           onMessageTap: widget.onTap,
-          onWaveTap: () => _handleWaveTap(context),
         ),
       ],
     );
   }
 
-  void _handleWaveTap(BuildContext context) {
-    HapticFeedback.lightImpact();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.waving_hand, color: Colors.white, size: 20),
-            const SizedBox(width: 12),
-            Text('Waved to ${widget.community.name}! 👋'),
-          ],
-        ),
-        backgroundColor: AppColors.primary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
 }
