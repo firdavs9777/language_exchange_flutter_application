@@ -2291,6 +2291,125 @@
     }
   },
   "addProfilePhotoTitle": "Add a profile photo",
-  "addProfilePhotoSkip": "Skip for now"
+  "addProfilePhotoSkip": "Skip for now",
+
+  "wavesTab": "Waves",
+  "sendWave": "Send a wave",
+  "sendWaveTo": "Send a wave to {name}",
+  "@sendWaveTo": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "waveSent": "Wave sent to {name}",
+  "@waveSent": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "waveCooldown": "You can wave {name} again in {time}",
+  "@waveCooldown": {
+    "placeholders": {
+      "name": { "type": "String" },
+      "time": { "type": "String" }
+    }
+  },
+  "waveCouldntSend": "Couldn't send wave",
+  "itsAMatch": "It's a match!",
+  "itsAMatchSubtitle": "You and {name} both waved",
+  "@itsAMatchSubtitle": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "sendAMessage": "Send a message",
+  "waveQuickReplyHi": "Hi!",
+  "waveQuickReplyCool": "You seem cool",
+  "waveQuickReplyHey": "Hey there",
+  "waveQuickReplyChat": "Let's chat",
+  "waveQuickReplyHello": "Hello",
+  "waveQuickReplyFromCountry": "Hi from {country}",
+  "@waveQuickReplyFromCountry": {
+    "placeholders": {
+      "country": { "type": "String" }
+    }
+  },
+  "waveCustomMessage": "Or write your own…",
+
+  "voiceRoomChat": "Chat",
+  "voiceRoomChatPlaceholder": "Send a message…",
+  "voiceRoomChatEmpty": "No messages yet — say hi",
+  "voiceRoomChatSend": "Send",
+  "voiceRoomChatNewBadge": "{n}",
+  "@voiceRoomChatNewBadge": {
+    "placeholders": {
+      "n": { "type": "int" }
+    }
+  },
+
+  "voiceRoomEnd": "End room",
+  "voiceRoomEndConfirm": "End this room?",
+  "voiceRoomEndConfirmBody": "Everyone will be disconnected.",
+  "voiceRoomKick": "Remove from room",
+  "voiceRoomKickConfirm": "Remove {name}?",
+  "@voiceRoomKickConfirm": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "voiceRoomKicked": "Removed",
+  "voiceRoomYouAreHostNow": "You're now the host",
+  "voiceRoomHostChanged": "{name} is now the host",
+  "@voiceRoomHostChanged": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "voiceRoomHostMenuTitle": "Room actions",
+  "voiceRoomViewProfile": "View profile",
+
+  "voiceRoomReconnecting": "Reconnecting…",
+  "voiceRoomReconnected": "Reconnected",
+  "voiceRoomEnded": "Room ended",
+  "voiceRoomReconnectRetry": "Retry",
+
+  "mutualInterests": "Mutual interests",
+  "interestsInCommon": "{count, plural, =0{No interests in common yet} =1{1 interest in common} other{{count} interests in common}}",
+  "@interestsInCommon": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "interestsInCommonSeeAll": "See all",
+  "interestsInCommonAddCta": "Add topics",
+  "interestsInCommonAddSubtitle": "Add topics to your profile to find common ground",
+
+  "activeAgo": "Active {time} ago",
+  "@activeAgo": {
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+  "filterOnlineNow": "Online now",
+
+  "filterAge": "Age",
+  "filterGender": "Gender",
+  "filterLanguages": "Languages",
+  "filterCountry": "Country",
+  "filterTopics": "Topics",
+  "filterLevel": "Language level",
+  "filterToggles": "Other",
+  "filterMatchCount": "{count, plural, =0{No partners match} =1{1 partner matches} other{{count} partners match}}",
+  "@filterMatchCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "filterClearAll": "Clear all",
+  "filterReset": "Reset",
+  "filterApply": "Apply",
+  "filterNewUsers": "New users only",
+  "filterPrioritizeNearby": "Prioritize nearby",
+  "filterSheetTitle": "Filters"
 }
 

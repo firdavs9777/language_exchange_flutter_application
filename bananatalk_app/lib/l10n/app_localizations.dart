@@ -8645,6 +8645,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip for now'**
   String get addProfilePhotoSkip;
+
+  /// No description provided for @wavesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Waves'**
+  String get wavesTab;
+
+  /// No description provided for @sendWave.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a wave'**
+  String get sendWave;
+
+  /// No description provided for @sendWaveTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a wave to {name}'**
+  String sendWaveTo(String name);
+
+  /// No description provided for @waveSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Wave sent to {name}'**
+  String waveSent(String name);
+
+  /// No description provided for @waveCooldown.
+  ///
+  /// In en, this message translates to:
+  /// **'You can wave {name} again in {time}'**
+  String waveCooldown(String name, String time);
+
+  /// No description provided for @waveCouldntSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send wave'**
+  String get waveCouldntSend;
+
+  /// No description provided for @itsAMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s a match!'**
+  String get itsAMatch;
+
+  /// No description provided for @itsAMatchSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You and {name} both waved'**
+  String itsAMatchSubtitle(String name);
+
+  /// No description provided for @sendAMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a message'**
+  String get sendAMessage;
+
+  /// No description provided for @waveQuickReplyHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi!'**
+  String get waveQuickReplyHi;
+
+  /// No description provided for @waveQuickReplyCool.
+  ///
+  /// In en, this message translates to:
+  /// **'You seem cool'**
+  String get waveQuickReplyCool;
+
+  /// No description provided for @waveQuickReplyHey.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey there'**
+  String get waveQuickReplyHey;
+
+  /// No description provided for @waveQuickReplyChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s chat'**
+  String get waveQuickReplyChat;
+
+  /// No description provided for @waveQuickReplyHello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get waveQuickReplyHello;
+
+  /// No description provided for @waveQuickReplyFromCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi from {country}'**
+  String waveQuickReplyFromCountry(String country);
+
+  /// No description provided for @waveCustomMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Or write your own…'**
+  String get waveCustomMessage;
+
+  /// No description provided for @voiceRoomChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get voiceRoomChat;
+
+  /// No description provided for @voiceRoomChatPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a message…'**
+  String get voiceRoomChatPlaceholder;
+
+  /// No description provided for @voiceRoomChatEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet — say hi'**
+  String get voiceRoomChatEmpty;
+
+  /// No description provided for @voiceRoomChatSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get voiceRoomChatSend;
+
+  /// No description provided for @voiceRoomChatNewBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'{n}'**
+  String voiceRoomChatNewBadge(int n);
+
+  /// No description provided for @voiceRoomEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'End room'**
+  String get voiceRoomEnd;
+
+  /// No description provided for @voiceRoomEndConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'End this room?'**
+  String get voiceRoomEndConfirm;
+
+  /// No description provided for @voiceRoomEndConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone will be disconnected.'**
+  String get voiceRoomEndConfirmBody;
+
+  /// No description provided for @voiceRoomKick.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from room'**
+  String get voiceRoomKick;
+
+  /// No description provided for @voiceRoomKickConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}?'**
+  String voiceRoomKickConfirm(String name);
+
+  /// No description provided for @voiceRoomKicked.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed'**
+  String get voiceRoomKicked;
+
+  /// No description provided for @voiceRoomYouAreHostNow.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re now the host'**
+  String get voiceRoomYouAreHostNow;
+
+  /// No description provided for @voiceRoomHostChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is now the host'**
+  String voiceRoomHostChanged(String name);
+
+  /// No description provided for @voiceRoomHostMenuTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Room actions'**
+  String get voiceRoomHostMenuTitle;
+
+  /// No description provided for @voiceRoomViewProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'View profile'**
+  String get voiceRoomViewProfile;
+
+  /// No description provided for @voiceRoomReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting…'**
+  String get voiceRoomReconnecting;
+
+  /// No description provided for @voiceRoomReconnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnected'**
+  String get voiceRoomReconnected;
+
+  /// No description provided for @voiceRoomEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Room ended'**
+  String get voiceRoomEnded;
+
+  /// No description provided for @voiceRoomReconnectRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get voiceRoomReconnectRetry;
+
+  /// No description provided for @mutualInterests.
+  ///
+  /// In en, this message translates to:
+  /// **'Mutual interests'**
+  String get mutualInterests;
+
+  /// No description provided for @interestsInCommon.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No interests in common yet} =1{1 interest in common} other{{count} interests in common}}'**
+  String interestsInCommon(int count);
+
+  /// No description provided for @interestsInCommonSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get interestsInCommonSeeAll;
+
+  /// No description provided for @interestsInCommonAddCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Add topics'**
+  String get interestsInCommonAddCta;
+
+  /// No description provided for @interestsInCommonAddSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add topics to your profile to find common ground'**
+  String get interestsInCommonAddSubtitle;
+
+  /// No description provided for @activeAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Active {time} ago'**
+  String activeAgo(String time);
+
+  /// No description provided for @filterOnlineNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Online now'**
+  String get filterOnlineNow;
+
+  /// No description provided for @filterAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get filterAge;
+
+  /// No description provided for @filterGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get filterGender;
+
+  /// No description provided for @filterLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get filterLanguages;
+
+  /// No description provided for @filterCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get filterCountry;
+
+  /// No description provided for @filterTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics'**
+  String get filterTopics;
+
+  /// No description provided for @filterLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language level'**
+  String get filterLevel;
+
+  /// No description provided for @filterToggles.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get filterToggles;
+
+  /// No description provided for @filterMatchCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No partners match} =1{1 partner matches} other{{count} partners match}}'**
+  String filterMatchCount(int count);
+
+  /// No description provided for @filterClearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get filterClearAll;
+
+  /// No description provided for @filterReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get filterReset;
+
+  /// No description provided for @filterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get filterApply;
+
+  /// No description provided for @filterNewUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'New users only'**
+  String get filterNewUsers;
+
+  /// No description provided for @filterPrioritizeNearby.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize nearby'**
+  String get filterPrioritizeNearby;
+
+  /// No description provided for @filterSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filterSheetTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

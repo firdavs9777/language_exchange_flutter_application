@@ -4481,4 +4481,208 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Skip for now';
+
+  @override
+  String get wavesTab => 'Waves';
+
+  @override
+  String get sendWave => 'Send a wave';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'Send a wave to $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'Wave sent to $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'You can wave $name again in $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'Couldn\'t send wave';
+
+  @override
+  String get itsAMatch => 'It\'s a match!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'You and $name both waved';
+  }
+
+  @override
+  String get sendAMessage => 'Send a message';
+
+  @override
+  String get waveQuickReplyHi => 'Hi!';
+
+  @override
+  String get waveQuickReplyCool => 'You seem cool';
+
+  @override
+  String get waveQuickReplyHey => 'Hey there';
+
+  @override
+  String get waveQuickReplyChat => 'Let\'s chat';
+
+  @override
+  String get waveQuickReplyHello => 'Hello';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'Hi from $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'Or write your own…';
+
+  @override
+  String get voiceRoomChat => 'Chat';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Send a message…';
+
+  @override
+  String get voiceRoomChatEmpty => 'No messages yet — say hi';
+
+  @override
+  String get voiceRoomChatSend => 'Send';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'End room';
+
+  @override
+  String get voiceRoomEndConfirm => 'End this room?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Everyone will be disconnected.';
+
+  @override
+  String get voiceRoomKick => 'Remove from room';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'Remove $name?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Removed';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'You\'re now the host';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name is now the host';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Room actions';
+
+  @override
+  String get voiceRoomViewProfile => 'View profile';
+
+  @override
+  String get voiceRoomReconnecting => 'Reconnecting…';
+
+  @override
+  String get voiceRoomReconnected => 'Reconnected';
+
+  @override
+  String get voiceRoomEnded => 'Room ended';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Retry';
+
+  @override
+  String get mutualInterests => 'Mutual interests';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count interests in common',
+      one: '1 interest in common',
+      zero: 'No interests in common yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'See all';
+
+  @override
+  String get interestsInCommonAddCta => 'Add topics';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Add topics to your profile to find common ground';
+
+  @override
+  String activeAgo(String time) {
+    return 'Active $time ago';
+  }
+
+  @override
+  String get filterOnlineNow => 'Online now';
+
+  @override
+  String get filterAge => 'Age';
+
+  @override
+  String get filterGender => 'Gender';
+
+  @override
+  String get filterLanguages => 'Languages';
+
+  @override
+  String get filterCountry => 'Country';
+
+  @override
+  String get filterTopics => 'Topics';
+
+  @override
+  String get filterLevel => 'Language level';
+
+  @override
+  String get filterToggles => 'Other';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count partners match',
+      one: '1 partner matches',
+      zero: 'No partners match',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'Clear all';
+
+  @override
+  String get filterReset => 'Reset';
+
+  @override
+  String get filterApply => 'Apply';
+
+  @override
+  String get filterNewUsers => 'New users only';
+
+  @override
+  String get filterPrioritizeNearby => 'Prioritize nearby';
+
+  @override
+  String get filterSheetTitle => 'Filters';
 }
