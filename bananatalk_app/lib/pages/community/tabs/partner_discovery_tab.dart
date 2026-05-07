@@ -570,37 +570,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     required String label,
     required bool isSelected,
     required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected ? context.primaryColor : Colors.transparent,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 18,
-              color: isSelected ? Colors.white : context.textSecondary,
-            ),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                color: isSelected ? Colors.white : context.textSecondary,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  }) => _ViewModeButton(icon: icon, label: label, isSelected: isSelected, onTap: onTap);
 
   /// Build quick filter chips
   Widget _buildQuickFilterChips(dynamic currentUser) {
@@ -927,36 +897,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     );
   }
 
-  Widget _buildSwipeBackground(bool isWave) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
-      decoration: BoxDecoration(
-        color: isWave
-            ? AppColors.success.withValues(alpha: 0.2)
-            : context.textMuted.withValues(alpha: 0.2),
-        borderRadius: AppRadius.borderXXL,
-      ),
-      alignment: isWave ? Alignment.centerLeft : Alignment.centerRight,
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            isWave ? Icons.waving_hand_rounded : Icons.close_rounded,
-            color: isWave ? AppColors.success : context.textMuted,
-            size: 48,
-          ),
-          Spacing.gapSM,
-          Text(
-            isWave ? 'Wave' : 'Skip',
-            style: context.titleLarge.copyWith(
-              color: isWave ? AppColors.success : context.textMuted,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _buildSwipeBackground(bool isWave) => _SwipeBackground(isWave: isWave);
 
   /// Check if any non-default filters are active
   bool get _hasActiveFilters {
@@ -1268,6 +1209,95 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Private helper widgets
+// ---------------------------------------------------------------------------
+
+class _ViewModeButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _ViewModeButton({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? context.primaryColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 18,
+              color: isSelected ? Colors.white : context.textSecondary,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                color: isSelected ? Colors.white : context.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SwipeBackground extends StatelessWidget {
+  final bool isWave;
+
+  const _SwipeBackground({required this.isWave});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
+      decoration: BoxDecoration(
+        color: isWave
+            ? AppColors.success.withValues(alpha: 0.2)
+            : context.textMuted.withValues(alpha: 0.2),
+        borderRadius: AppRadius.borderXXL,
+      ),
+      alignment: isWave ? Alignment.centerLeft : Alignment.centerRight,
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            isWave ? Icons.waving_hand_rounded : Icons.close_rounded,
+            color: isWave ? AppColors.success : context.textMuted,
+            size: 48,
+          ),
+          Spacing.gapSM,
+          Text(
+            isWave ? 'Wave' : 'Skip',
+            style: context.titleLarge.copyWith(
+              color: isWave ? AppColors.success : context.textMuted,
+            ),
+          ),
+        ],
       ),
     );
   }

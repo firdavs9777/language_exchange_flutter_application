@@ -308,7 +308,7 @@ class _WaveCard extends StatelessWidget {
                 // Arrow
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.grey[400],
+                  color: context.textMuted,
                 ),
               ],
             ),

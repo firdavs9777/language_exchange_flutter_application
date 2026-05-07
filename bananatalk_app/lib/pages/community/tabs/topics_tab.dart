@@ -461,7 +461,7 @@ class _TopicCard extends StatelessWidget {
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: isDark ? Colors.grey[600] : Colors.grey[400],
+                color: context.textMuted,
                 size: 20,
               ),
             ],
