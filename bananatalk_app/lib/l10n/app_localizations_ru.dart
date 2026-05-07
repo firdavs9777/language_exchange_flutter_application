@@ -4475,4 +4475,208 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Пропустить';
+
+  @override
+  String get wavesTab => 'Приветствия';
+
+  @override
+  String get sendWave => 'Поздороваться';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'Поздороваться с $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'Приветствие отправлено $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'Вы сможете снова поздороваться с $name через $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'Не удалось отправить приветствие';
+
+  @override
+  String get itsAMatch => 'Совпадение!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'Вы и $name поздоровались друг с другом';
+  }
+
+  @override
+  String get sendAMessage => 'Отправить сообщение';
+
+  @override
+  String get waveQuickReplyHi => 'Привет!';
+
+  @override
+  String get waveQuickReplyCool => 'Ты классный';
+
+  @override
+  String get waveQuickReplyHey => 'Эй';
+
+  @override
+  String get waveQuickReplyChat => 'Давай поговорим';
+
+  @override
+  String get waveQuickReplyHello => 'Здравствуй';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'Привет из $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'Или напишите своё…';
+
+  @override
+  String get voiceRoomChat => 'Чат';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Отправить сообщение…';
+
+  @override
+  String get voiceRoomChatEmpty => 'Сообщений пока нет — скажите привет';
+
+  @override
+  String get voiceRoomChatSend => 'Отправить';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'Завершить комнату';
+
+  @override
+  String get voiceRoomEndConfirm => 'Завершить эту комнату?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Все будут отключены.';
+
+  @override
+  String get voiceRoomKick => 'Удалить из комнаты';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'Удалить $name?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Удалён';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'Теперь вы ведущий';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name теперь ведущий';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Действия с комнатой';
+
+  @override
+  String get voiceRoomViewProfile => 'Смотреть профиль';
+
+  @override
+  String get voiceRoomReconnecting => 'Повторное подключение…';
+
+  @override
+  String get voiceRoomReconnected => 'Подключение восстановлено';
+
+  @override
+  String get voiceRoomEnded => 'Комната завершена';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Повторить';
+
+  @override
+  String get mutualInterests => 'Общие интересы';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count общих интересов',
+      one: '1 общий интерес',
+      zero: 'Пока нет общих интересов',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'Смотреть все';
+
+  @override
+  String get interestsInCommonAddCta => 'Добавить темы';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Добавьте темы в профиль, чтобы найти точки соприкосновения';
+
+  @override
+  String activeAgo(String time) {
+    return 'Активен $time назад';
+  }
+
+  @override
+  String get filterOnlineNow => 'Сейчас онлайн';
+
+  @override
+  String get filterAge => 'Возраст';
+
+  @override
+  String get filterGender => 'Пол';
+
+  @override
+  String get filterLanguages => 'Языки';
+
+  @override
+  String get filterCountry => 'Страна';
+
+  @override
+  String get filterTopics => 'Темы';
+
+  @override
+  String get filterLevel => 'Уровень языка';
+
+  @override
+  String get filterToggles => 'Прочее';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count партнёров найдено',
+      one: '1 партнёр найден',
+      zero: 'Партнёры не найдены',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'Очистить всё';
+
+  @override
+  String get filterReset => 'Сбросить';
+
+  @override
+  String get filterApply => 'Применить';
+
+  @override
+  String get filterNewUsers => 'Только новые пользователи';
+
+  @override
+  String get filterPrioritizeNearby => 'Приоритет рядом';
+
+  @override
+  String get filterSheetTitle => 'Фильтры';
 }

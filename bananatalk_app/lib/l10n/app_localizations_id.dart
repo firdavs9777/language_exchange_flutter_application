@@ -4475,4 +4475,208 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Lewati dulu';
+
+  @override
+  String get wavesTab => 'Lambaian';
+
+  @override
+  String get sendWave => 'Kirim lambaian';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'Kirim lambaian ke $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'Lambaian terkirim ke $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'Kamu bisa melambaikan ke $name lagi dalam $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'Lambaian tidak bisa dikirim';
+
+  @override
+  String get itsAMatch => 'Cocok!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'Kamu dan $name saling melambaikan tangan';
+  }
+
+  @override
+  String get sendAMessage => 'Kirim pesan';
+
+  @override
+  String get waveQuickReplyHi => 'Hei!';
+
+  @override
+  String get waveQuickReplyCool => 'Kamu terlihat keren';
+
+  @override
+  String get waveQuickReplyHey => 'Hei';
+
+  @override
+  String get waveQuickReplyChat => 'Yuk ngobrol';
+
+  @override
+  String get waveQuickReplyHello => 'Halo';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'Halo dari $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'Atau tulis pesanmu sendiri…';
+
+  @override
+  String get voiceRoomChat => 'Obrolan';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Kirim pesan…';
+
+  @override
+  String get voiceRoomChatEmpty => 'Belum ada pesan — ucapkan halo';
+
+  @override
+  String get voiceRoomChatSend => 'Kirim';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'Akhiri ruangan';
+
+  @override
+  String get voiceRoomEndConfirm => 'Akhiri ruangan ini?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Semua orang akan terputus.';
+
+  @override
+  String get voiceRoomKick => 'Keluarkan dari ruangan';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'Keluarkan $name?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Dikeluarkan';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'Kamu sekarang jadi tuan rumah';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name sekarang jadi tuan rumah';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Tindakan ruangan';
+
+  @override
+  String get voiceRoomViewProfile => 'Lihat profil';
+
+  @override
+  String get voiceRoomReconnecting => 'Menghubungkan kembali…';
+
+  @override
+  String get voiceRoomReconnected => 'Terhubung kembali';
+
+  @override
+  String get voiceRoomEnded => 'Ruangan berakhir';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Coba lagi';
+
+  @override
+  String get mutualInterests => 'Minat bersama';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minat bersama',
+      one: '1 minat bersama',
+      zero: 'Belum ada minat bersama',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'Lihat semua';
+
+  @override
+  String get interestsInCommonAddCta => 'Tambah topik';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Tambah topik ke profilmu untuk menemukan kesamaan';
+
+  @override
+  String activeAgo(String time) {
+    return 'Aktif $time lalu';
+  }
+
+  @override
+  String get filterOnlineNow => 'Online sekarang';
+
+  @override
+  String get filterAge => 'Usia';
+
+  @override
+  String get filterGender => 'Gender';
+
+  @override
+  String get filterLanguages => 'Bahasa';
+
+  @override
+  String get filterCountry => 'Negara';
+
+  @override
+  String get filterTopics => 'Topik';
+
+  @override
+  String get filterLevel => 'Tingkat bahasa';
+
+  @override
+  String get filterToggles => 'Lainnya';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mitra cocok',
+      one: '1 mitra cocok',
+      zero: 'Tidak ada mitra yang cocok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'Hapus semua';
+
+  @override
+  String get filterReset => 'Atur ulang';
+
+  @override
+  String get filterApply => 'Terapkan';
+
+  @override
+  String get filterNewUsers => 'Pengguna baru saja';
+
+  @override
+  String get filterPrioritizeNearby => 'Prioritaskan terdekat';
+
+  @override
+  String get filterSheetTitle => 'Filter';
 }

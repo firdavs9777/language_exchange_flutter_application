@@ -4475,4 +4475,208 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'अभी छोड़ें';
+
+  @override
+  String get wavesTab => 'वेव्स';
+
+  @override
+  String get sendWave => 'वेव भेजें';
+
+  @override
+  String sendWaveTo(String name) {
+    return '$name को वेव भेजें';
+  }
+
+  @override
+  String waveSent(String name) {
+    return '$name को वेव भेजा गया';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'आप $time में $name को फिर से वेव कर सकते हैं';
+  }
+
+  @override
+  String get waveCouldntSend => 'वेव नहीं भेजा जा सका';
+
+  @override
+  String get itsAMatch => 'मैच हो गया!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'आप और $name दोनों ने वेव किया';
+  }
+
+  @override
+  String get sendAMessage => 'संदेश भेजें';
+
+  @override
+  String get waveQuickReplyHi => 'हाय!';
+
+  @override
+  String get waveQuickReplyCool => 'आप बहुत अच्छे लगते हैं';
+
+  @override
+  String get waveQuickReplyHey => 'नमस्ते';
+
+  @override
+  String get waveQuickReplyChat => 'बात करते हैं';
+
+  @override
+  String get waveQuickReplyHello => 'हेलो';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return '$country से नमस्ते';
+  }
+
+  @override
+  String get waveCustomMessage => 'या अपना संदेश लिखें…';
+
+  @override
+  String get voiceRoomChat => 'चैट';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'संदेश भेजें…';
+
+  @override
+  String get voiceRoomChatEmpty => 'अभी कोई संदेश नहीं — हाय कहें';
+
+  @override
+  String get voiceRoomChatSend => 'भेजें';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'रूम समाप्त करें';
+
+  @override
+  String get voiceRoomEndConfirm => 'यह रूम समाप्त करें?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'सभी का कनेक्शन टूट जाएगा।';
+
+  @override
+  String get voiceRoomKick => 'रूम से हटाएं';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return '$name को हटाएं?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'हटा दिया गया';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'अब आप होस्ट हैं';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name अब होस्ट हैं';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'रूम क्रियाएं';
+
+  @override
+  String get voiceRoomViewProfile => 'प्रोफ़ाइल देखें';
+
+  @override
+  String get voiceRoomReconnecting => 'पुनः कनेक्ट हो रहा है…';
+
+  @override
+  String get voiceRoomReconnected => 'पुनः कनेक्ट हो गया';
+
+  @override
+  String get voiceRoomEnded => 'रूम समाप्त हो गया';
+
+  @override
+  String get voiceRoomReconnectRetry => 'पुनः प्रयास करें';
+
+  @override
+  String get mutualInterests => 'साझा रुचियां';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count साझा रुचियां',
+      one: '1 साझा रुचि',
+      zero: 'अभी कोई साझा रुचि नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'सभी देखें';
+
+  @override
+  String get interestsInCommonAddCta => 'विषय जोड़ें';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'समान आधार खोजने के लिए अपनी प्रोफ़ाइल में विषय जोड़ें';
+
+  @override
+  String activeAgo(String time) {
+    return '$time पहले सक्रिय';
+  }
+
+  @override
+  String get filterOnlineNow => 'अभी ऑनलाइन';
+
+  @override
+  String get filterAge => 'आयु';
+
+  @override
+  String get filterGender => 'लिंग';
+
+  @override
+  String get filterLanguages => 'भाषाएं';
+
+  @override
+  String get filterCountry => 'देश';
+
+  @override
+  String get filterTopics => 'विषय';
+
+  @override
+  String get filterLevel => 'भाषा स्तर';
+
+  @override
+  String get filterToggles => 'अन्य';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count साझेदार मेल खाते हैं',
+      one: '1 साझेदार मेल खाता है',
+      zero: 'कोई साझेदार मेल नहीं खाता',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'सब साफ़ करें';
+
+  @override
+  String get filterReset => 'रीसेट करें';
+
+  @override
+  String get filterApply => 'लागू करें';
+
+  @override
+  String get filterNewUsers => 'केवल नए उपयोगकर्ता';
+
+  @override
+  String get filterPrioritizeNearby => 'नज़दीकी को प्राथमिकता';
+
+  @override
+  String get filterSheetTitle => 'फ़िल्टर';
 }
