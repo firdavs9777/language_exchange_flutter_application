@@ -8,7 +8,7 @@ import 'package:bananatalk_app/pages/community/city_tab.dart';
 import 'package:bananatalk_app/pages/community/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/topics_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/community/filter/community_filter_sheet.dart';
 import 'package:bananatalk_app/pages/community/filter/filter_state.dart';
 import 'package:bananatalk_app/pages/community/main/community_app_bar.dart';

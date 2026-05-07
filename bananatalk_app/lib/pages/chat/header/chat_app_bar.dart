@@ -7,7 +7,7 @@ import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/daily_call_limit_service.dart';
