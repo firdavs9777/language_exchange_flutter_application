@@ -40,6 +40,7 @@ import 'package:bananatalk_app/widgets/community/language_match_card.dart';
 import 'package:bananatalk_app/widgets/community/engagement_stats_bar.dart';
 import 'package:bananatalk_app/widgets/community/conversation_starters_card.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 class SingleCommunity extends ConsumerStatefulWidget {
   final Community community;
@@ -253,11 +254,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       if (mounted) Navigator.of(context).pop();
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['message'] ?? 'Operation completed'),
-            backgroundColor: result['success'] ? Colors.green : Colors.red,
-          ),
+        showCommunitySnackBar(
+          context,
+          message: result['message'] ?? 'Operation completed',
+          type: result['success'] ? CommunitySnackBarType.success : CommunitySnackBarType.error,
         );
 
         if (result['success']) {
@@ -274,11 +274,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
   void followUser(String userId, String targetUserId) async {
     if (userId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.pleaseLoginToFollow),
-          backgroundColor: Colors.orange,
-        ),
+      showCommunitySnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseLoginToFollow,
+        type: CommunitySnackBarType.info,
       );
       return;
     }
@@ -303,32 +302,29 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         await _refreshProfile();
         if (mounted) {
           final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result == 'already_following'
-                  ? '${l10n.alreadyFollowing} ${_community.name}'
-                  : l10n.youFollowedUser(_community.name)),
-              backgroundColor: Colors.green,
-            ),
+          showCommunitySnackBar(
+            context,
+            message: result == 'already_following'
+                ? '${l10n.alreadyFollowing} ${_community.name}'
+                : l10n.youFollowedUser(_community.name),
+            type: CommunitySnackBarType.success,
           );
         }
       } else {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.failedToFollowUser),
-              backgroundColor: Colors.red,
-            ),
+          showCommunitySnackBar(
+            context,
+            message: AppLocalizations.of(context)!.failedToFollowUser,
+            type: CommunitySnackBarType.error,
           );
         }
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${AppLocalizations.of(context)!.failedToFollowUser}: ${e.toString().replaceAll('Exception: ', '')}'),
-            backgroundColor: Colors.red,
-          ),
+        showCommunitySnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToFollowUser}: ${e.toString().replaceAll('Exception: ', '')}',
+          type: CommunitySnackBarType.error,
         );
       }
     }
@@ -337,11 +333,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   void unFollowUser(String userId, String targetUserId) async {
     final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.pleaseLoginToFollow),
-          backgroundColor: Colors.orange,
-        ),
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseLoginToFollow,
+        type: CommunitySnackBarType.info,
       );
       return;
     }
@@ -387,32 +382,29 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           await _refreshProfile();
           if (mounted) {
             final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(result == 'not_following'
-                    ? l10n.notFollowingUser(_community.name)
-                    : l10n.youUnfollowedUser(_community.name)),
-                backgroundColor: Colors.green,
-              ),
+            showCommunitySnackBar(
+              context,
+              message: result == 'not_following'
+                  ? l10n.notFollowingUser(_community.name)
+                  : l10n.youUnfollowedUser(_community.name),
+              type: CommunitySnackBarType.success,
             );
           }
         } else {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.failedToUnfollowUser),
-                backgroundColor: Colors.red,
-              ),
+            showCommunitySnackBar(
+              context,
+              message: AppLocalizations.of(context)!.failedToUnfollowUser,
+              type: CommunitySnackBarType.error,
             );
           }
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('${AppLocalizations.of(context)!.failedToUnfollowUser}: ${e.toString().replaceAll('Exception: ', '')}'),
-              backgroundColor: Colors.red,
-            ),
+          showCommunitySnackBar(
+            context,
+            message: '${AppLocalizations.of(context)!.failedToUnfollowUser}: ${e.toString().replaceAll('Exception: ', '')}',
+            type: CommunitySnackBarType.error,
           );
         }
       }
@@ -470,21 +462,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   Future<void> _makeVideoCall() async {
     final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.pleaseLoginToCall),
-          backgroundColor: Colors.red,
-        ),
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseLoginToCall,
+        type: CommunitySnackBarType.error,
       );
       return;
     }
 
     if (userId == _community.id) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.cannotCallYourself),
-          backgroundColor: Colors.orange,
-        ),
+      showCommunitySnackBar(
+        context,
+        message: l10n.cannotCallYourself,
+        type: CommunitySnackBarType.info,
       );
       return;
     }
@@ -528,21 +518,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   Future<void> _makeVoiceCall() async {
     final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.pleaseLoginToCall),
-          backgroundColor: Colors.red,
-        ),
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseLoginToCall,
+        type: CommunitySnackBarType.error,
       );
       return;
     }
 
     if (userId == _community.id) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.cannotCallYourself),
-          backgroundColor: Colors.orange,
-        ),
+    showCommunitySnackBar(
+        context,
+        message: l10n.cannotCallYourself,
+        type: CommunitySnackBarType.info,
       );
       return;
     }
@@ -609,20 +597,18 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       );
     } else if (error.startsWith('DENIED:')) {
       final message = error.substring('DENIED:'.length);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: Colors.orange,
-          duration: const Duration(seconds: 3),
-        ),
+      showCommunitySnackBar(
+        context,
+        message: message,
+        type: CommunitySnackBarType.info,
+        duration: const Duration(seconds: 3),
       );
     } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Text(error),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-      ),
+    showCommunitySnackBar(
+      context,
+      message: error,
+      type: CommunitySnackBarType.error,
+      duration: const Duration(seconds: 3),
     );
     }
   }
@@ -2493,11 +2479,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       await launchUrl(mapsUrl, mode: LaunchMode.externalApplication);
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${AppLocalizations.of(context)!.couldNotOpenMaps}: ${location.city}, ${location.country}'),
-            backgroundColor: Colors.orange,
-          ),
+        showCommunitySnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.couldNotOpenMaps}: ${location.city}, ${location.country}',
+          type: CommunitySnackBarType.info,
         );
       }
     }

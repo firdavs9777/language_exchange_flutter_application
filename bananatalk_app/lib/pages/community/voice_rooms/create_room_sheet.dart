@@ -3,6 +3,7 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Create Room Bottom Sheet
 class CreateRoomSheet extends StatefulWidget {
@@ -49,15 +50,10 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   void _createRoom() {
     final l10n = AppLocalizations.of(context)!;
     if (_titleController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.pleaseEnterRoomTitle),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: AppRadius.borderMD,
-          ),
-        ),
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseEnterRoomTitle,
+        type: CommunitySnackBarType.error,
       );
       return;
     }

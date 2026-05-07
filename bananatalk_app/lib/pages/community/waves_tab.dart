@@ -7,6 +7,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Waves Tab - Shows waves received from other users
 class WavesTab extends ConsumerStatefulWidget {
@@ -72,11 +73,10 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to load profile'),
-            backgroundColor: Colors.red,
-          ),
+        showCommunitySnackBar(
+          context,
+          message: 'Failed to load profile',
+          type: CommunitySnackBarType.error,
         );
       }
     }

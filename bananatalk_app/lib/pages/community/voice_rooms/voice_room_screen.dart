@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Voice Room Screen - Active voice chat room
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -61,16 +62,11 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     ref.read(voiceRoomProvider).toggleHandRaised();
     final l10n = AppLocalizations.of(context)!;
     final isHandRaised = ref.read(voiceRoomProvider).isHandRaised;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          isHandRaised ? l10n.handRaisedNotification : l10n.handLoweredNotification,
-        ),
-        backgroundColor: const Color(0xFF00BFA5),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        duration: const Duration(seconds: 2),
-      ),
+    showCommunitySnackBar(
+      context,
+      message: isHandRaised ? l10n.handRaisedNotification : l10n.handLoweredNotification,
+      type: CommunitySnackBarType.success,
+      duration: const Duration(seconds: 2),
     );
   }
 

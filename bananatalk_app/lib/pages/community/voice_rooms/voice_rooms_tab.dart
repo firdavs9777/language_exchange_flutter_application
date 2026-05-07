@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -97,29 +98,19 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 await ref.read(voiceRoomProvider).createRoom(request);
             _refreshRooms();
             if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(l10n.roomCreated),
-                  backgroundColor: const Color(0xFF00BFA5),
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderMD,
-                  ),
-                ),
+              showCommunitySnackBar(
+                context,
+                message: l10n.roomCreated,
+                type: CommunitySnackBarType.success,
               );
               _joinRoom(room);
             }
           } catch (e) {
             if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(l10n.failedToCreateRoom),
-                  backgroundColor: Colors.red,
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadius.borderMD,
-                  ),
-                ),
+              showCommunitySnackBar(
+                context,
+                message: l10n.failedToCreateRoom,
+                type: CommunitySnackBarType.error,
               );
             }
           }

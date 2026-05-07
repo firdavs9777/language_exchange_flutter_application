@@ -15,6 +15,7 @@ import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 class CommunityFilter extends ConsumerStatefulWidget {
   final Function(Map<String, dynamic> filters) onApplyFilters;
@@ -419,11 +420,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       final permission = await Permission.location.request();
       if (!permission.isGranted) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Location permission is required'),
-              backgroundColor: Colors.orange,
-            ),
+          showCommunitySnackBar(
+            context,
+            message: 'Location permission is required',
+            type: CommunitySnackBarType.info,
           );
         }
         setState(() {
@@ -484,11 +484,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Could not detect country'),
-            backgroundColor: Colors.orange,
-          ),
+        showCommunitySnackBar(
+          context,
+          message: 'Could not detect country',
+          type: CommunitySnackBarType.info,
         );
       }
     } catch (e) {
@@ -497,11 +496,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
+        showCommunitySnackBar(
+          context,
+          message: 'Error: ${e.toString()}',
+          type: CommunitySnackBarType.error,
         );
       }
     }
@@ -520,11 +518,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   // Open language picker
   Future<void> _openLanguagePicker() async {
     if (_languages.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.languagesAreStillLoading),
-          backgroundColor: const Color(0xFF00BFA5),
-        ),
+      showCommunitySnackBar(
+        context,
+        message: AppLocalizations.of(context)!.languagesAreStillLoading,
+        type: CommunitySnackBarType.success,
       );
       return;
     }
@@ -549,11 +546,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   // Open learning language picker
   Future<void> _openLearningLanguagePicker() async {
     if (_languages.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.languagesAreStillLoading),
-          backgroundColor: const Color(0xFF00BFA5),
-        ),
+      showCommunitySnackBar(
+        context,
+        message: AppLocalizations.of(context)!.languagesAreStillLoading,
+        type: CommunitySnackBarType.success,
       );
       return;
     }
