@@ -14,6 +14,25 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_empty_state.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
+
+// TODO(wave-2): Replace with data from the languages API.
+const List<String> kVoiceRoomLanguages = [
+  'English',
+  'Korean',
+  'Japanese',
+  'Chinese',
+  'Spanish',
+  'French',
+  'German',
+  'Italian',
+  'Portuguese',
+  'Russian',
+  'Arabic',
+  'Hindi',
+  'Uzbek',
+];
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -26,25 +45,8 @@ class VoiceRoomsTab extends ConsumerStatefulWidget {
 class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   late Future<List<VoiceRoom>> _roomsFuture;
 
-  // Filter state
   String? _selectedLanguage;
   String? _selectedTopic;
-
-  static const List<String> _languages = [
-    'English',
-    'Korean',
-    'Japanese',
-    'Chinese',
-    'Spanish',
-    'French',
-    'German',
-    'Italian',
-    'Portuguese',
-    'Russian',
-    'Arabic',
-    'Hindi',
-    'Uzbek',
-  ];
 
   @override
   void initState() {
@@ -147,11 +149,17 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             );
           }
           if (snapshot.hasError) {
-            return _buildErrorState(l10n, snapshot.error.toString());
+            return CommunityErrorState(
+              message: l10n.errorLoadingRooms,
+              onRetry: _refreshRooms,
+              retryLabel: l10n.tryAgain,
+            );
           }
           final rooms = snapshot.data ?? [];
-          if (rooms.isEmpty && _selectedLanguage == null && _selectedTopic == null) {
-            return _buildEmptyState();
+          if (rooms.isEmpty &&
+              _selectedLanguage == null &&
+              _selectedTopic == null) {
+            return _buildEmptyState(l10n);
           }
           return _buildRoomsList(rooms, l10n);
         },
@@ -192,7 +200,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 onTap: () => _setLanguageFilter(null),
               ),
               const SizedBox(width: 8),
-              ..._languages.map((lang) => Padding(
+              ...kVoiceRoomLanguages.map((lang) => Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: CommunityFilterChip(
                       label: lang,
@@ -237,59 +245,26 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     );
   }
 
-  Widget _buildErrorState(AppLocalizations l10n, String error) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.error_outline_rounded,
-              size: 64,
-              color: Colors.red,
-            ),
-            Spacing.gapLG,
-            Text(
-              l10n.errorLoadingRooms,
-              style: context.titleMedium,
-              textAlign: TextAlign.center,
-            ),
-            Spacing.gapMD,
-            ElevatedButton.icon(
-              onPressed: _refreshRooms,
-              icon: const Icon(Icons.refresh_rounded),
-              label: Text(l10n.tryAgain),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildRoomsList(List<VoiceRoom> rooms, AppLocalizations l10n) {
     return RefreshIndicator(
       onRefresh: _refreshRooms,
       child: CustomScrollView(
         slivers: [
-          // Header
           SliverToBoxAdapter(
             child: _buildHeader(rooms.length)
                 .animate()
                 .fadeIn(duration: 300.ms)
-                .slideY(begin: -0.05, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
+                .slideY(
+                    begin: -0.05,
+                    end: 0,
+                    duration: 300.ms,
+                    curve: Curves.easeOutCubic),
           ),
-          // Filters
           SliverToBoxAdapter(
             child: _buildFilters(l10n)
                 .animate()
                 .fadeIn(duration: 300.ms, delay: 80.ms),
           ),
-          // Rooms list or filtered empty state
           if (rooms.isEmpty)
             SliverFillRemaining(
               child: Center(
@@ -328,13 +303,15 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                         .animate()
                         .fadeIn(
                           duration: 350.ms,
-                          delay: Duration(milliseconds: (index * 60).clamp(0, 500)),
+                          delay: Duration(
+                              milliseconds: (index * 60).clamp(0, 500)),
                         )
                         .slideY(
                           begin: 0.05,
                           end: 0,
                           duration: 350.ms,
-                          delay: Duration(milliseconds: (index * 60).clamp(0, 500)),
+                          delay: Duration(
+                              milliseconds: (index * 60).clamp(0, 500)),
                           curve: Curves.easeOutCubic,
                         );
                   },
@@ -342,7 +319,6 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 ),
               ),
             ),
-          // Bottom padding for FAB
           const SliverToBoxAdapter(
             child: SizedBox(height: 100),
           ),
@@ -386,27 +362,16 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           ),
           Spacing.hGapMD,
           Expanded(
-            child: Builder(
-              builder: (context) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.voiceRooms,
-                    style: context.titleMedium,
-                  ),
-                  Text(
-                    l10n.voiceRoomsDescription,
-                    style: context.caption,
-                  ),
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(l10n.voiceRooms, style: context.titleMedium),
+                Text(l10n.voiceRoomsDescription, style: context.caption),
+              ],
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: const Color(0xFFE91E63).withValues(alpha: 0.15),
               borderRadius: AppRadius.borderMD,
@@ -439,64 +404,20 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     );
   }
 
-  Widget _buildEmptyState() {
-    final l10n = AppLocalizations.of(context)!;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFE91E63), Color(0xFF9C27B0)],
-                ),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: const Icon(
-                Icons.mic_off_rounded,
-                size: 50,
-                color: Colors.white,
-              ),
-            ),
-            Spacing.gapLG,
-            Builder(
-              builder: (context) => Text(
-                l10n.noActiveRooms,
-                style: context.titleLarge,
-              ),
-            ),
-            Spacing.gapMD,
-            Builder(
-              builder: (context) => Text(
-                l10n.noActiveRoomsDescription,
-                textAlign: TextAlign.center,
-                style: context.bodyMedium.copyWith(
-                  color: context.textSecondary,
-                ),
-              ),
-            ),
-            Spacing.gapXL,
-            ElevatedButton.icon(
-              onPressed: _createRoom,
-              icon: const Icon(Icons.add_rounded),
-              label: Text(l10n.startRoom),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00BFA5),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 14,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: AppRadius.borderMD,
-                ),
-              ),
-            ),
-          ],
+  Widget _buildEmptyState(AppLocalizations l10n) {
+    return CommunityEmptyState(
+      icon: Icons.mic_off_rounded,
+      title: l10n.noActiveRooms,
+      subtitle: l10n.noActiveRoomsDescription,
+      action: ElevatedButton.icon(
+        onPressed: _createRoom,
+        icon: const Icon(Icons.add_rounded),
+        label: Text(l10n.startRoom),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF00BFA5),
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
         ),
       ),
     );
