@@ -13,6 +13,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -184,7 +185,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              _FilterChip(
+              CommunityFilterChip(
                 label: l10n.allLanguages,
                 icon: Icons.language_rounded,
                 isSelected: _selectedLanguage == null,
@@ -193,7 +194,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               const SizedBox(width: 8),
               ..._languages.map((lang) => Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: _FilterChip(
+                    child: CommunityFilterChip(
                       label: lang,
                       isSelected: _selectedLanguage == lang,
                       onTap: () => _setLanguageFilter(
@@ -211,7 +212,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              _FilterChip(
+              CommunityFilterChip(
                 label: l10n.allTopics,
                 icon: Icons.tag_rounded,
                 isSelected: _selectedTopic == null,
@@ -220,7 +221,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               const SizedBox(width: 8),
               ...Topic.defaultTopics.take(12).map((topic) => Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: _FilterChip(
+                    child: CommunityFilterChip(
                       label: topic.name,
                       emoji: topic.icon,
                       isSelected: _selectedTopic == topic.id,
@@ -493,72 +494,6 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 shape: RoundedRectangleBorder(
                   borderRadius: AppRadius.borderMD,
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _FilterChip extends StatelessWidget {
-  final String label;
-  final IconData? icon;
-  final String? emoji;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _FilterChip({
-    required this.label,
-    this.icon,
-    this.emoji,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFF00BFA5).withValues(alpha: 0.15)
-              : Colors.grey[100],
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected
-                ? const Color(0xFF00BFA5)
-                : Colors.grey[300]!,
-            width: 1.5,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (emoji != null) ...[
-              Text(emoji!, style: const TextStyle(fontSize: 14)),
-              const SizedBox(width: 6),
-            ] else if (icon != null) ...[
-              Icon(
-                icon,
-                size: 15,
-                color: isSelected
-                    ? const Color(0xFF00BFA5)
-                    : Colors.grey[600],
-              ),
-              const SizedBox(width: 6),
-            ],
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                color: isSelected
-                    ? const Color(0xFF00BFA5)
-                    : Colors.grey[700],
               ),
             ),
           ],
