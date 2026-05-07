@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/community/tabs/city_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/topics_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
+import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/community/filter/community_filter_sheet.dart';
 import 'package:bananatalk_app/pages/community/filter/filter_state.dart';
@@ -41,7 +42,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
     _loadSavedFilters();
   }
 
@@ -228,6 +229,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   searchQuery: _searchQuery,
                 ),
                 const VoiceRoomsTab(),
+                const WavesTab(),
               ],
             ),
           ),

@@ -846,6 +846,18 @@ final wavesProvider = FutureProvider<List<Wave>>((ref) async {
   return service.getWavesReceived();
 });
 
+/// Returns the count of unread waves for the current user. Refresh on
+/// app resume and after `markWavesAsRead`.
+final wavesUnreadProvider = FutureProvider<int>((ref) async {
+  final service = ref.read(communityServiceProvider);
+  try {
+    final waves = await service.getWavesReceived(unreadOnly: true, limit: 100);
+    return waves.length;
+  } catch (e) {
+    return 0;
+  }
+});
+
 // ==================== TOPIC USERS PAGINATED ====================
 
 /// State for paginated topic users
