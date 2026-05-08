@@ -4,7 +4,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
-import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
+import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
