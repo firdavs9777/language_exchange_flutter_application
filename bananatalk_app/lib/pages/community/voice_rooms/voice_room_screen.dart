@@ -13,6 +13,9 @@ import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_info_bar.d
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_participants_grid.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_controls.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_chat_panel.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_host_menu.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_participant_actions.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 
 /// Voice Room Screen — active voice chat room.
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -148,6 +151,8 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final voiceRoom = ref.watch(voiceRoomProvider);
+    final currentUserId = ref.read(authServiceProvider).userId;
+    final isHost = currentUserId == widget.room.hostId;
 
     final rawParticipants = voiceRoom.participants.isNotEmpty
         ? voiceRoom.participants
@@ -185,6 +190,16 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                       );
                     }
                   },
+                  onTileLongPress: isHost
+                      ? (participant) {
+                          final participantIsHost =
+                              participant.isHost ||
+                              participant.id == widget.room.hostId;
+                          if (!participantIsHost) {
+                            showParticipantActions(context, ref, participant);
+                          }
+                        }
+                      : null,
                 ),
               ),
               VoiceRoomControls(
@@ -193,6 +208,8 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                 onRaiseHand: _toggleHandRaise,
                 onMute: _toggleMute,
                 onLeave: _leaveRoom,
+                isHost: isHost,
+                onEnd: () => showEndRoomConfirm(context, ref),
                 unreadChatCount: _chatVisible ? 0 : unread,
                 onChatToggle: _toggleChat,
                 raiseHandLabel: l10n.raiseHand,
@@ -200,6 +217,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                 muteLabel: l10n.mute,
                 unmuteLabel: l10n.unmute,
                 leaveLabel: l10n.leave,
+                endRoomLabel: l10n.voiceRoomEnd,
               ),
             ],
           ),

@@ -12,12 +12,17 @@ class VoiceRoomParticipantsGrid extends StatelessWidget {
   final String hostLabel;
   final void Function(RoomParticipant participant) onTileTap;
 
+  /// Optional long-press handler — only supplied when the current user is host.
+  /// When non-null, each tile is wrapped in a [GestureDetector].
+  final void Function(RoomParticipant participant)? onTileLongPress;
+
   const VoiceRoomParticipantsGrid({
     super.key,
     required this.room,
     required this.participants,
     required this.hostLabel,
     required this.onTileTap,
+    this.onTileLongPress,
   });
 
   @override
@@ -35,12 +40,19 @@ class VoiceRoomParticipantsGrid extends StatelessWidget {
         final participant = participants[index];
         final isHost =
             participant.isHost || participant.id == room.hostId;
-        return VoiceRoomParticipantTile(
+        final tile = VoiceRoomParticipantTile(
           participant: participant,
           isHost: isHost,
           hostLabel: hostLabel,
           onTap: () => onTileTap(participant),
         );
+        if (onTileLongPress != null) {
+          return GestureDetector(
+            onLongPress: () => onTileLongPress!(participant),
+            child: tile,
+          );
+        }
+        return tile;
       },
     );
   }

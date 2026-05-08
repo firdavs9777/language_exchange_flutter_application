@@ -9,6 +9,11 @@ class VoiceRoomControls extends StatelessWidget {
   final VoidCallback onMute;
   final VoidCallback onLeave;
 
+  /// When [isHost] is true the leave button is replaced with an "End room"
+  /// button that calls [onEnd] instead of [onLeave].
+  final bool isHost;
+  final VoidCallback onEnd;
+
   /// Chat panel toggle
   final int unreadChatCount;
   final VoidCallback onChatToggle;
@@ -20,6 +25,7 @@ class VoiceRoomControls extends StatelessWidget {
   final String muteLabel;
   final String unmuteLabel;
   final String leaveLabel;
+  final String endRoomLabel;
 
   const VoiceRoomControls({
     super.key,
@@ -28,6 +34,8 @@ class VoiceRoomControls extends StatelessWidget {
     required this.onRaiseHand,
     required this.onMute,
     required this.onLeave,
+    required this.isHost,
+    required this.onEnd,
     required this.unreadChatCount,
     required this.onChatToggle,
     required this.raiseHandLabel,
@@ -35,6 +43,7 @@ class VoiceRoomControls extends StatelessWidget {
     required this.muteLabel,
     required this.unmuteLabel,
     required this.leaveLabel,
+    required this.endRoomLabel,
   });
 
   @override
@@ -107,11 +116,11 @@ class VoiceRoomControls extends StatelessWidget {
               isLarge: true,
             ),
             _ControlButton(
-              icon: Icons.call_end_rounded,
-              label: leaveLabel,
+              icon: isHost ? Icons.cancel_rounded : Icons.call_end_rounded,
+              label: isHost ? endRoomLabel : leaveLabel,
               color: Colors.red,
               backgroundColor: Colors.red.withValues(alpha: 0.2),
-              onTap: onLeave,
+              onTap: isHost ? onEnd : onLeave,
             ),
           ],
         ),
