@@ -49,6 +49,9 @@ class VoiceRoomManager {
   bool _isMuted = true; // Start muted by default
   bool _isHandRaised = false;
 
+  // Timers
+  Timer? _heartbeatTimer;
+
   // Stream subscriptions
   StreamSubscription? _participantJoinedSub;
   StreamSubscription? _participantLeftSub;
@@ -297,6 +300,14 @@ class VoiceRoomManager {
     // Begin audio-level polling so the speaking indicator stays live
     _webrtcService.startAudioLevelPolling();
 
+    // Start heartbeat timer
+    _heartbeatTimer?.cancel();
+    _heartbeatTimer = Timer.periodic(const Duration(seconds: 20), (_) {
+      if (_currentRoom != null && _socket != null) {
+        _socket!.emit('voiceroom:heartbeat', {'roomId': _currentRoom!.id});
+      }
+    });
+
     onStateChanged?.call();
   }
 
@@ -360,6 +371,8 @@ class VoiceRoomManager {
   }
 
   void _cleanup() {
+    _heartbeatTimer?.cancel();
+    _heartbeatTimer = null;
     _webrtcService.stopAudioLevelPolling();
     _audioLevelSub?.cancel();
     _audioLevelSub = null;
@@ -373,6 +386,7 @@ class VoiceRoomManager {
   }
 
   void dispose() {
+    _heartbeatTimer?.cancel();
     _participantJoinedSub?.cancel();
     _participantLeftSub?.cancel();
     _offerSub?.cancel();
