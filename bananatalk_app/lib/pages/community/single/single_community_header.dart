@@ -1,6 +1,9 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/presence_provider.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/block_user_dialog.dart';
 import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
@@ -8,13 +11,12 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Flexible-space background (map tiles or gradient) + avatar/name/location row
 /// rendered inside [FlexibleSpaceBar].
-class SingleCommunityHeader extends StatelessWidget {
+class SingleCommunityHeader extends ConsumerWidget {
   final Community community;
   final int? age;
   final String locationText;
@@ -33,7 +35,8 @@ class SingleCommunityHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final presenceState = ref.watch(presenceProvider);
     return Stack(
       children: [
         // Map or gradient background
@@ -204,6 +207,8 @@ class SingleCommunityHeader extends StatelessWidget {
                         ],
                       ],
                     ),
+                    const SizedBox(height: 6),
+                    _buildPresencePill(context, presenceState),
                   ],
                 ),
               ),
@@ -212,6 +217,49 @@ class SingleCommunityHeader extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildPresencePill(BuildContext context, PresenceState presenceState) {
+    final l10n = AppLocalizations.of(context)!;
+    if (presenceState.isOnline(community.id)) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.green.withValues(alpha: 0.20),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.green.withValues(alpha: 0.35)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 6,
+              height: 6,
+              decoration: const BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              l10n.onlineNow,
+              style: const TextStyle(fontSize: 11, color: Colors.green, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      );
+    }
+    final lastSeen = presenceState.lastSeen[community.id];
+    if (lastSeen != null) {
+      return Text(
+        l10n.activeAgo(timeago.format(lastSeen)),
+        style: TextStyle(
+          fontSize: 11,
+          color: Colors.white.withValues(alpha: 0.7),
+        ),
+      );
+    }
+    return const SizedBox.shrink();
   }
 
   bool _hasValidCoordinates() {

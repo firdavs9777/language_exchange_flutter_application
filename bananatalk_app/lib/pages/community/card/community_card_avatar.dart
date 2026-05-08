@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/presence_provider.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -11,10 +13,8 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 /// - A gradient ring border
 /// - The user's profile image (or initials fallback)
 /// - A country-flag badge at the bottom-right
-/// - An online-status dot at the top-right when [isOnline] is true
-///
-/// TODO(C18): Wire real presence data into [isOnline] once the presence system
-/// lands in C18. Currently accepts the param and renders a green dot when true.
+/// - A reactive online-status dot at the top-right, driven by [presenceProvider]
+///   when [userId] is provided, or by the legacy [isOnline] prop otherwise.
 class CommunityCardAvatar extends StatelessWidget {
   const CommunityCardAvatar({
     super.key,
@@ -23,6 +23,7 @@ class CommunityCardAvatar extends StatelessWidget {
     required this.nativeLanguage,
     this.isVip = false,
     this.isOnline = false,
+    this.userId,
     this.size = 64.0,
   });
 
@@ -33,10 +34,12 @@ class CommunityCardAvatar extends StatelessWidget {
   /// Whether to render a VIP frame around the avatar.
   final bool isVip;
 
-  /// Whether to render a green online-status dot.
-  ///
-  /// TODO(C18): replace this manual param with a presence stream subscription.
+  /// Legacy prop for backwards-compatibility. Ignored when [userId] is set.
   final bool isOnline;
+
+  /// When provided, the presence dot is driven reactively by [presenceProvider]
+  /// instead of the static [isOnline] prop.
+  final String? userId;
 
   /// Diameter of the inner avatar circle.
   final double size;
@@ -73,7 +76,18 @@ class CommunityCardAvatar extends StatelessWidget {
           children: [
             _buildCircleImage(context),
             _buildFlagBadge(context),
-            if (isOnline) _buildOnlineDot(context),
+            if (userId != null)
+              Consumer(
+                builder: (_, ref, __) {
+                  final online = ref.watch(
+                    presenceProvider.select((p) => p.isOnline(userId!)),
+                  );
+                  if (!online) return const SizedBox.shrink();
+                  return _buildOnlineDot(context);
+                },
+              )
+            else if (isOnline)
+              _buildOnlineDot(context),
           ],
         ),
       ),
@@ -192,7 +206,6 @@ class CommunityCardAvatar extends StatelessWidget {
   }
 
   Widget _buildOnlineDot(BuildContext context) {
-    // TODO(C18): presence wiring lands in C18; for now renders a static green dot.
     return Positioned(
       top: 0,
       right: 0,

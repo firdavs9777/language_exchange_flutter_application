@@ -158,7 +158,9 @@ class _CommunityCardState extends State<CommunityCard>
           name: widget.community.name,
           nativeLanguage: widget.community.native_language,
           isVip: widget.community.isVip,
-          isOnline: PrivacyUtils.shouldShowOnlineStatus(widget.community),
+          userId: PrivacyUtils.shouldShowOnlineStatus(widget.community)
+              ? widget.community.id
+              : null,
           size: 64,
         ),
         const SizedBox(width: 16),

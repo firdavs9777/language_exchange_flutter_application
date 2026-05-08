@@ -45,6 +45,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   Language? _selectedLearningLanguage;
   String? _selectedLanguageLevel;
   String? _selectedCountry;
+  bool _onlineOnly = false;
   bool _newUsersOnly = false;
   bool _prioritizeNearby = false;
   List<Language> _languages = [];
@@ -64,6 +65,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     _maxAge = (widget.initialFilters['maxAge'] ?? 100).toDouble();
     _selectedGender = widget.initialFilters['gender'];
     _selectedCountry = widget.initialFilters['country'];
+    _onlineOnly = widget.initialFilters['onlineOnly'] ?? false;
     _newUsersOnly = widget.initialFilters['newUsersOnly'] ?? false;
     _prioritizeNearby = widget.initialFilters['prioritizeNearby'] ?? false;
     // _selectedLanguage will be set after languages are loaded in fetchLanguages()
@@ -167,6 +169,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       _selectedLearningLanguage = null;
       _selectedLanguageLevel = null;
       _selectedCountry = null;
+      _onlineOnly = false;
       _newUsersOnly = false;
       _prioritizeNearby = false;
     });
@@ -184,6 +187,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'learningLanguage': _selectedLearningLanguage?.name,
       'languageLevel': _selectedLanguageLevel,
       'country': _selectedCountry,
+      'onlineOnly': _onlineOnly,
       'newUsersOnly': _newUsersOnly,
       'prioritizeNearby': _prioritizeNearby,
     };
@@ -516,6 +520,16 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     ),
                   ),
                   const SizedBox(height: 24),
+                  FilterToggleRow(
+                    title: l10n.filterOnlineNow,
+                    subtitle: l10n.onlineNow,
+                    icon: Icons.circle,
+                    value: _onlineOnly,
+                    activeColor: AppColors.success,
+                    onChanged: (val) =>
+                        setState(() => _onlineOnly = val),
+                  ),
+                  const SizedBox(height: 16),
                   FilterToggleRow(
                     title: l10n.newUsersOnly,
                     subtitle: l10n.showNewUsersSubtitle,
