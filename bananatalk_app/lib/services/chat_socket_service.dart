@@ -71,6 +71,7 @@ class ChatSocketService {
   final _voiceRoomChatController = StreamController<dynamic>.broadcast();
   final _voiceRoomEndedController = StreamController<dynamic>.broadcast();
   final _voiceRoomKickedController = StreamController<dynamic>.broadcast();
+  final _voiceRoomHostChangedController = StreamController<dynamic>.broadcast();
 
   // Getters for streams
   Stream<dynamic> get onNewMessage => _newMessageController.stream;
@@ -108,6 +109,8 @@ class ChatSocketService {
   Stream<dynamic> get onVoiceRoomChat => _voiceRoomChatController.stream;
   Stream<dynamic> get onVoiceRoomEnded => _voiceRoomEndedController.stream;
   Stream<dynamic> get onVoiceRoomKicked => _voiceRoomKickedController.stream;
+  Stream<dynamic> get onVoiceRoomHostChanged =>
+      _voiceRoomHostChangedController.stream;
 
   bool get isConnected => _socket?.connected ?? false;
   bool get shouldAllowReconnection => _shouldAllowReconnection;
@@ -496,6 +499,11 @@ class ChatSocketService {
       _safeAdd(_voiceRoomKickedController, data);
     });
 
+    // Host transferred to a new participant
+    _socket?.on('voiceroom:host-changed', (data) {
+      _safeAdd(_voiceRoomHostChangedController, data);
+    });
+
     // ============ Presence Events ============
 
     _socket?.on('presence:online', (data) {
@@ -834,6 +842,7 @@ class ChatSocketService {
     _presenceOnlineController.close();
     _presenceOfflineController.close();
     _presenceBulkController.close();
+    _voiceRoomHostChangedController.close();
     disconnect();
   }
 }

@@ -63,6 +63,7 @@ class VoiceRoomManager {
   StreamSubscription? _chatSub;
   StreamSubscription? _endedSub;
   StreamSubscription? _kickedSub;
+  StreamSubscription? _hostChangedSub;
   StreamSubscription<Map<String, double>>? _audioLevelSub;
   StreamSubscription<bool>? _connectionSub;
 
@@ -71,6 +72,7 @@ class VoiceRoomManager {
   bool get isReconnecting => _isReconnecting;
 
   // Callbacks
+  Function(String newHostId, String? previousHostId)? onHostChanged;
   Function(RoomParticipant)? onParticipantJoined;
   Function(String participantId)? onParticipantLeft;
   Function(VoiceRoomChatMessage)? onChatMessage;
@@ -256,6 +258,32 @@ class VoiceRoomManager {
     _kickedSub = _chatSocketService!.onVoiceRoomKicked.listen((data) {
       onKicked?.call();
       _cleanup();
+    });
+
+    // Host transferred
+    _hostChangedSub = _chatSocketService!.onVoiceRoomHostChanged.listen((data) {
+      if (_currentRoom == null) return;
+      final m = data is Map ? Map<String, dynamic>.from(data) : null;
+      if (m == null) return;
+      final newHostId = m['newHostId']?.toString() ?? '';
+      final previousHostId = m['previousHostId']?.toString();
+      if (newHostId.isEmpty) return;
+
+      // Update room hostId
+      _currentRoom = _currentRoom!.copyWith(hostId: newHostId);
+
+      // Flip isHost flags on participants
+      for (var i = 0; i < _participants.length; i++) {
+        final p = _participants[i];
+        if (p.id == newHostId) {
+          _participants[i] = p.copyWith(isHost: true);
+        } else if (p.isHost) {
+          _participants[i] = p.copyWith(isHost: false);
+        }
+      }
+
+      onHostChanged?.call(newHostId, previousHostId);
+      onStateChanged?.call();
     });
   }
 
@@ -450,6 +478,7 @@ class VoiceRoomManager {
     _chatSub?.cancel();
     _endedSub?.cancel();
     _kickedSub?.cancel();
+    _hostChangedSub?.cancel();
     _audioLevelSub?.cancel();
     _connectionSub?.cancel();
     _cleanup();

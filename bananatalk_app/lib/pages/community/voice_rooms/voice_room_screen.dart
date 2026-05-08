@@ -54,6 +54,40 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(voiceRoomProvider).joinRoom(widget.room);
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final manager = ref.read(voiceRoomProvider).manager;
+      manager.onHostChanged = (newHostId, _) {
+        if (!mounted) return;
+        final l10n = AppLocalizations.of(context)!;
+        final myId = ref.read(authServiceProvider).userId;
+        final isMe = newHostId == myId;
+        if (isMe) {
+          showCommunitySnackBar(
+            context,
+            message: l10n.voiceRoomYouAreHostNow,
+            type: CommunitySnackBarType.success,
+          );
+        } else {
+          final participants = ref.read(voiceRoomProvider).participants;
+          final newHost = participants.firstWhere(
+            (p) => p.id == newHostId,
+            orElse: () => RoomParticipant(
+              id: '',
+              name: '',
+              joinedAt: DateTime.now(),
+            ),
+          );
+          if (newHost.name.isNotEmpty) {
+            showCommunitySnackBar(
+              context,
+              message: l10n.voiceRoomHostChanged(newHost.name),
+              type: CommunitySnackBarType.info,
+            );
+          }
+        }
+      };
+    });
   }
 
   @override
