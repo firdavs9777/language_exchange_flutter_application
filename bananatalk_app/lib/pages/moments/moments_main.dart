@@ -6,7 +6,7 @@ import 'package:bananatalk_app/pages/moments/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/moment_filter_utility.dart';
-import 'package:bananatalk_app/pages/stories/stories_feed_widget.dart';
+import 'package:bananatalk_app/pages/stories/feed/stories_feed_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
