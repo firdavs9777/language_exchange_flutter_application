@@ -17,7 +17,6 @@ class EmailPreferencesScreen extends StatefulWidget {
 
 class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
   bool _isLoading = true;
-  bool _isSaving = false;
 
   // Email preference states
   bool _emailNotifications = true;
