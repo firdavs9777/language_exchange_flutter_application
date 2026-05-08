@@ -4679,4 +4679,69 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Mga filter';
+
+  @override
+  String get notificationPreferencesTitle => 'Mga Abiso';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Piliin ang mga alerto na matatanggap mo';
+
+  @override
+  String get notifPrefChat => 'Mga bagong mensahe';
+
+  @override
+  String get notifPrefWave => 'Mga wave';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Mga imbitasyon sa voice room';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Mga paalala sa naka-iskedyul na silid';
+
+  @override
+  String get notifPrefFollowerMoment => 'Mga bagong sandali mula sa mga taong sinusundan mo';
+
+  @override
+  String get notifPrefVisitorAlert => 'Mga bisita ng profile';
+
+  @override
+  String get notifPrefMatchAlert => 'Magkaparehong wave';
+
+  @override
+  String get notifResetToDefaults => 'I-reset sa mga default';
+
+  @override
+  String get themeMode => 'Tema';
+
+  @override
+  String get themeLight => 'Maliwanag';
+
+  @override
+  String get themeDark => 'Madilim';
+
+  @override
+  String get themeSystem => 'Sistema';
+
+  @override
+  String get languageSettingsRow => 'Wika';
+
+  @override
+  String get waveDailySummaryTitle => 'Mga bagong wave na naghihintay';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tao ang nag-wave sa iyo',
+      one: '1 tao ang nag-wave sa iyo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Mga paksa';
+
+  @override
+  String get filterTopicsEmpty => 'Walang paksang napili';
 }

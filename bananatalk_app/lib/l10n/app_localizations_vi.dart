@@ -4679,4 +4679,69 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Bộ lọc';
+
+  @override
+  String get notificationPreferencesTitle => 'Thông báo';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Chọn những cảnh báo bạn muốn nhận';
+
+  @override
+  String get notifPrefChat => 'Tin nhắn mới';
+
+  @override
+  String get notifPrefWave => 'Vẫy tay';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Lời mời phòng thoại';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Nhắc nhở phòng đã lên lịch';
+
+  @override
+  String get notifPrefFollowerMoment => 'Khoảnh khắc mới từ người bạn theo dõi';
+
+  @override
+  String get notifPrefVisitorAlert => 'Khách thăm hồ sơ';
+
+  @override
+  String get notifPrefMatchAlert => 'Vẫy tay qua lại';
+
+  @override
+  String get notifResetToDefaults => 'Đặt lại về mặc định';
+
+  @override
+  String get themeMode => 'Giao diện';
+
+  @override
+  String get themeLight => 'Sáng';
+
+  @override
+  String get themeDark => 'Tối';
+
+  @override
+  String get themeSystem => 'Hệ thống';
+
+  @override
+  String get languageSettingsRow => 'Ngôn ngữ';
+
+  @override
+  String get waveDailySummaryTitle => 'Có vẫy tay mới đang chờ';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người đã vẫy tay với bạn',
+      one: '1 người đã vẫy tay với bạn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Chủ đề';
+
+  @override
+  String get filterTopicsEmpty => 'Chưa chọn chủ đề nào';
 }

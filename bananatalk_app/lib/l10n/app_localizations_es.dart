@@ -4679,4 +4679,69 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filtros';
+
+  @override
+  String get notificationPreferencesTitle => 'Notificaciones';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Elige qué alertas recibes';
+
+  @override
+  String get notifPrefChat => 'Nuevos mensajes';
+
+  @override
+  String get notifPrefWave => 'Saludos';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Invitaciones a sala de voz';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Recordatorios de salas programadas';
+
+  @override
+  String get notifPrefFollowerMoment => 'Nuevos momentos de personas que sigues';
+
+  @override
+  String get notifPrefVisitorAlert => 'Visitantes de perfil';
+
+  @override
+  String get notifPrefMatchAlert => 'Saludos mutuos';
+
+  @override
+  String get notifResetToDefaults => 'Restablecer valores predeterminados';
+
+  @override
+  String get themeMode => 'Tema';
+
+  @override
+  String get themeLight => 'Claro';
+
+  @override
+  String get themeDark => 'Oscuro';
+
+  @override
+  String get themeSystem => 'Sistema';
+
+  @override
+  String get languageSettingsRow => 'Idioma';
+
+  @override
+  String get waveDailySummaryTitle => 'Nuevos saludos esperando';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count personas te saludaron',
+      one: '1 persona te saludó',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Temas';
+
+  @override
+  String get filterTopicsEmpty => 'No se seleccionaron temas';
 }

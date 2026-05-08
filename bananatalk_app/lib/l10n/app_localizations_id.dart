@@ -4679,4 +4679,69 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filter';
+
+  @override
+  String get notificationPreferencesTitle => 'Notifikasi';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Pilih peringatan yang Anda terima';
+
+  @override
+  String get notifPrefChat => 'Pesan baru';
+
+  @override
+  String get notifPrefWave => 'Sapa';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Undangan ruang suara';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Pengingat ruang terjadwal';
+
+  @override
+  String get notifPrefFollowerMoment => 'Momen baru dari orang yang Anda ikuti';
+
+  @override
+  String get notifPrefVisitorAlert => 'Pengunjung profil';
+
+  @override
+  String get notifPrefMatchAlert => 'Sapa saling balas';
+
+  @override
+  String get notifResetToDefaults => 'Atur ulang ke default';
+
+  @override
+  String get themeMode => 'Tema';
+
+  @override
+  String get themeLight => 'Terang';
+
+  @override
+  String get themeDark => 'Gelap';
+
+  @override
+  String get themeSystem => 'Sistem';
+
+  @override
+  String get languageSettingsRow => 'Bahasa';
+
+  @override
+  String get waveDailySummaryTitle => 'Sapa baru menunggu';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count orang menyapa Anda',
+      one: '1 orang menyapa Anda',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Topik';
+
+  @override
+  String get filterTopicsEmpty => 'Tidak ada topik yang dipilih';
 }

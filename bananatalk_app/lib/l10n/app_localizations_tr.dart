@@ -4679,4 +4679,69 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filtreler';
+
+  @override
+  String get notificationPreferencesTitle => 'Bildirimler';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Hangi uyarıları alacağınızı seçin';
+
+  @override
+  String get notifPrefChat => 'Yeni mesajlar';
+
+  @override
+  String get notifPrefWave => 'Dalgalar';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Sesli oda davetleri';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Planlanmış oda hatırlatıcıları';
+
+  @override
+  String get notifPrefFollowerMoment => 'Takip ettiğiniz kişilerin yeni anları';
+
+  @override
+  String get notifPrefVisitorAlert => 'Profil ziyaretçileri';
+
+  @override
+  String get notifPrefMatchAlert => 'Karşılıklı dalgalar';
+
+  @override
+  String get notifResetToDefaults => 'Varsayılanlara sıfırla';
+
+  @override
+  String get themeMode => 'Tema';
+
+  @override
+  String get themeLight => 'Açık';
+
+  @override
+  String get themeDark => 'Koyu';
+
+  @override
+  String get themeSystem => 'Sistem';
+
+  @override
+  String get languageSettingsRow => 'Dil';
+
+  @override
+  String get waveDailySummaryTitle => 'Bekleyen yeni dalgalar';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kişi size dalga gönderdi',
+      one: '1 kişi size dalga gönderdi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Konular';
+
+  @override
+  String get filterTopicsEmpty => 'Konu seçilmedi';
 }

@@ -4679,4 +4679,69 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'الفلاتر';
+
+  @override
+  String get notificationPreferencesTitle => 'الإشعارات';
+
+  @override
+  String get notificationPreferencesSubtitle => 'اختر التنبيهات التي تتلقاها';
+
+  @override
+  String get notifPrefChat => 'رسائل جديدة';
+
+  @override
+  String get notifPrefWave => 'الموجات';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'دعوات غرفة الصوت';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'تذكيرات الغرف المجدولة';
+
+  @override
+  String get notifPrefFollowerMoment => 'لحظات جديدة ممن تتابعهم';
+
+  @override
+  String get notifPrefVisitorAlert => 'زوار الملف الشخصي';
+
+  @override
+  String get notifPrefMatchAlert => 'الموجات المتبادلة';
+
+  @override
+  String get notifResetToDefaults => 'إعادة التعيين إلى الافتراضي';
+
+  @override
+  String get themeMode => 'المظهر';
+
+  @override
+  String get themeLight => 'فاتح';
+
+  @override
+  String get themeDark => 'داكن';
+
+  @override
+  String get themeSystem => 'النظام';
+
+  @override
+  String get languageSettingsRow => 'اللغة';
+
+  @override
+  String get waveDailySummaryTitle => 'موجات جديدة في الانتظار';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count أشخاص أرسلوا لك موجة',
+      one: 'شخص واحد أرسل لك موجة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'المواضيع';
+
+  @override
+  String get filterTopicsEmpty => 'لم يتم اختيار أي موضوع';
 }

@@ -4679,4 +4679,69 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'フィルター';
+
+  @override
+  String get notificationPreferencesTitle => '通知';
+
+  @override
+  String get notificationPreferencesSubtitle => '受け取るアラートを選択してください';
+
+  @override
+  String get notifPrefChat => '新しいメッセージ';
+
+  @override
+  String get notifPrefWave => 'ウェーブ';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'ボイスルームの招待';
+
+  @override
+  String get notifPrefScheduledRoomReminder => '予定済みルームのリマインダー';
+
+  @override
+  String get notifPrefFollowerMoment => 'フォロー中のユーザーの新しいモーメント';
+
+  @override
+  String get notifPrefVisitorAlert => 'プロフィール訪問者';
+
+  @override
+  String get notifPrefMatchAlert => '相互ウェーブ';
+
+  @override
+  String get notifResetToDefaults => 'デフォルトにリセット';
+
+  @override
+  String get themeMode => 'テーマ';
+
+  @override
+  String get themeLight => 'ライト';
+
+  @override
+  String get themeDark => 'ダーク';
+
+  @override
+  String get themeSystem => 'システム';
+
+  @override
+  String get languageSettingsRow => '言語';
+
+  @override
+  String get waveDailySummaryTitle => '新しいウェーブが届いています';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人があなたにウェーブしました',
+      one: '1人があなたにウェーブしました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'トピック';
+
+  @override
+  String get filterTopicsEmpty => 'トピックが選択されていません';
 }

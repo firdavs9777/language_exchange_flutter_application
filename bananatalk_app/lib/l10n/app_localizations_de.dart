@@ -4679,4 +4679,69 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filter';
+
+  @override
+  String get notificationPreferencesTitle => 'Benachrichtigungen';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Wählen Sie, welche Benachrichtigungen Sie erhalten';
+
+  @override
+  String get notifPrefChat => 'Neue Nachrichten';
+
+  @override
+  String get notifPrefWave => 'Wellen';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Sprachraum-Einladungen';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Erinnerungen für geplante Räume';
+
+  @override
+  String get notifPrefFollowerMoment => 'Neue Momente von Personen, denen Sie folgen';
+
+  @override
+  String get notifPrefVisitorAlert => 'Profilbesucher';
+
+  @override
+  String get notifPrefMatchAlert => 'Gegenseitige Wellen';
+
+  @override
+  String get notifResetToDefaults => 'Auf Standard zurücksetzen';
+
+  @override
+  String get themeMode => 'Design';
+
+  @override
+  String get themeLight => 'Hell';
+
+  @override
+  String get themeDark => 'Dunkel';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get languageSettingsRow => 'Sprache';
+
+  @override
+  String get waveDailySummaryTitle => 'Neue Wellen warten';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Personen haben Sie angewinkt',
+      one: '1 Person hat Sie angewinkt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Themen';
+
+  @override
+  String get filterTopicsEmpty => 'Keine Themen ausgewählt';
 }

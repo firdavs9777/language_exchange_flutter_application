@@ -4679,4 +4679,69 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'ตัวกรอง';
+
+  @override
+  String get notificationPreferencesTitle => 'การแจ้งเตือน';
+
+  @override
+  String get notificationPreferencesSubtitle => 'เลือกการแจ้งเตือนที่คุณต้องการรับ';
+
+  @override
+  String get notifPrefChat => 'ข้อความใหม่';
+
+  @override
+  String get notifPrefWave => 'เวฟ';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'คำเชิญห้องเสียง';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'การแจ้งเตือนห้องที่นัดหมาย';
+
+  @override
+  String get notifPrefFollowerMoment => 'โมเมนต์ใหม่จากคนที่คุณติดตาม';
+
+  @override
+  String get notifPrefVisitorAlert => 'ผู้เยี่ยมชมโปรไฟล์';
+
+  @override
+  String get notifPrefMatchAlert => 'เวฟตอบกลับ';
+
+  @override
+  String get notifResetToDefaults => 'รีเซ็ตเป็นค่าเริ่มต้น';
+
+  @override
+  String get themeMode => 'ธีม';
+
+  @override
+  String get themeLight => 'สว่าง';
+
+  @override
+  String get themeDark => 'มืด';
+
+  @override
+  String get themeSystem => 'ระบบ';
+
+  @override
+  String get languageSettingsRow => 'ภาษา';
+
+  @override
+  String get waveDailySummaryTitle => 'มีเวฟใหม่รอคุณอยู่';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count คนส่งเวฟมาหาคุณ',
+      one: '1 คนส่งเวฟมาหาคุณ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'หัวข้อ';
+
+  @override
+  String get filterTopicsEmpty => 'ยังไม่ได้เลือกหัวข้อ';
 }

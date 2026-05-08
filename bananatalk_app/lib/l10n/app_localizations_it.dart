@@ -4679,4 +4679,69 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filtri';
+
+  @override
+  String get notificationPreferencesTitle => 'Notifiche';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Scegli quali avvisi ricevere';
+
+  @override
+  String get notifPrefChat => 'Nuovi messaggi';
+
+  @override
+  String get notifPrefWave => 'Onde';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Inviti alla stanza vocale';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Promemoria stanze programmate';
+
+  @override
+  String get notifPrefFollowerMoment => 'Nuovi momenti dalle persone che segui';
+
+  @override
+  String get notifPrefVisitorAlert => 'Visitatori del profilo';
+
+  @override
+  String get notifPrefMatchAlert => 'Onde reciproche';
+
+  @override
+  String get notifResetToDefaults => 'Ripristina impostazioni predefinite';
+
+  @override
+  String get themeMode => 'Tema';
+
+  @override
+  String get themeLight => 'Chiaro';
+
+  @override
+  String get themeDark => 'Scuro';
+
+  @override
+  String get themeSystem => 'Sistema';
+
+  @override
+  String get languageSettingsRow => 'Lingua';
+
+  @override
+  String get waveDailySummaryTitle => 'Nuove onde in attesa';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count persone ti hanno salutato',
+      one: '1 persona ti ha salutato',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Argomenti';
+
+  @override
+  String get filterTopicsEmpty => 'Nessun argomento selezionato';
 }

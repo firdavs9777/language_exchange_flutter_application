@@ -4679,4 +4679,69 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filtros';
+
+  @override
+  String get notificationPreferencesTitle => 'Notificações';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Escolha quais alertas você recebe';
+
+  @override
+  String get notifPrefChat => 'Novas mensagens';
+
+  @override
+  String get notifPrefWave => 'Acenos';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Convites para sala de voz';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Lembretes de salas agendadas';
+
+  @override
+  String get notifPrefFollowerMoment => 'Novos momentos de pessoas que você segue';
+
+  @override
+  String get notifPrefVisitorAlert => 'Visitantes do perfil';
+
+  @override
+  String get notifPrefMatchAlert => 'Acenos mútuos';
+
+  @override
+  String get notifResetToDefaults => 'Redefinir para padrão';
+
+  @override
+  String get themeMode => 'Tema';
+
+  @override
+  String get themeLight => 'Claro';
+
+  @override
+  String get themeDark => 'Escuro';
+
+  @override
+  String get themeSystem => 'Sistema';
+
+  @override
+  String get languageSettingsRow => 'Idioma';
+
+  @override
+  String get waveDailySummaryTitle => 'Novos acenos aguardando';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pessoas acenaram para você',
+      one: '1 pessoa acenou para você',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Tópicos';
+
+  @override
+  String get filterTopicsEmpty => 'Nenhum tópico selecionado';
 }
