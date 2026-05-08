@@ -8,6 +8,7 @@ import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
@@ -78,8 +79,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${AppLocalizations.of(context)!.failedToPickImage}: $e')),
+        showStoriesSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToPickImage}: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -102,8 +105,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${AppLocalizations.of(context)!.failedToTakePhoto}: $e')),
+        showStoriesSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToTakePhoto}: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -122,8 +127,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${AppLocalizations.of(context)!.failedToPickVideo}: $e')),
+        showStoriesSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToPickVideo}: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -183,25 +190,20 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         });
 
         if (mounted && result.wasCompressed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
-              ),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: 'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            type: StoriesSnackBarType.success,
           );
         }
       } else {
         setState(() => _isProcessingVideo = false);
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result.error ?? 'Failed to process video'),
-              backgroundColor: Colors.red,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: result.error ?? 'Failed to process video',
+            type: StoriesSnackBarType.error,
           );
         }
       }
@@ -212,8 +214,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       setState(() => _isProcessingVideo = false);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+        showStoriesSnackBar(
+          context,
+          message: 'Error: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -288,14 +292,18 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   Future<void> _uploadStory() async {
     if (_isTextStory) {
       if (_textOverlayController.text.trim().isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.pleaseEnterSomeText)),
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.pleaseEnterSomeText,
+          type: StoriesSnackBarType.info,
         );
         return;
       }
     } else if (_mediaFile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.pleaseSelectMedia)),
+      showStoriesSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseSelectMedia,
+        type: StoriesSnackBarType.info,
       );
       return;
     }
@@ -317,19 +325,17 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           if (result.success) {
             widget.onStoryCreated?.call();
             Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.storyPosted),
-                backgroundColor: Colors.green,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.storyPosted,
+              type: StoriesSnackBarType.success,
             );
           } else {
             setState(() => _isUploading = false);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(result.error ?? 'Failed to post story'),
-                backgroundColor: Colors.red,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: result.error ?? 'Failed to post story',
+              type: StoriesSnackBarType.error,
             );
           }
         }
@@ -348,19 +354,17 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           if (result.success) {
             widget.onStoryCreated?.call();
             Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.storyPosted),
-                backgroundColor: Colors.green,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.storyPosted,
+              type: StoriesSnackBarType.success,
             );
           } else {
             setState(() => _isUploading = false);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(result.error ?? 'Failed to post story'),
-                backgroundColor: Colors.red,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: result.error ?? 'Failed to post story',
+              type: StoriesSnackBarType.error,
             );
           }
         }
@@ -368,8 +372,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _isUploading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+        showStoriesSnackBar(
+          context,
+          message: 'Error: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }

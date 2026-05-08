@@ -17,6 +17,7 @@ import 'package:video_player/video_player.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:async';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 
 class StoryViewerScreen extends StatefulWidget {
   final List<UserStories> userStories;
@@ -283,8 +284,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
         setState(() => _isBlocked = true);
         BlockedContentSnackbar.show(context, message: "You can't react to this story");
       } else if (result['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.sent(emoji))),
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.sent(emoji),
+          type: StoriesSnackBarType.success,
         );
       }
     }
@@ -308,8 +311,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       } else if (result['success'] == true) {
         _replyController.clear();
         setState(() => _showReplyField = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.replySent)),
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.replySent,
+          type: StoriesSnackBarType.success,
         );
       }
       _resumeStory();
@@ -859,12 +864,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     // Check if story is already in a highlight
     if (story.highlightId != null && story.highlightId!.isNotEmpty) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Already saved to a highlight'),
-            backgroundColor: Color(0xFF00BFA5),
-            behavior: SnackBarBehavior.floating,
-          ),
+        showStoriesSnackBar(
+          context,
+          message: 'Already saved to a highlight',
+          type: StoriesSnackBarType.success,
         );
       }
       if (mounted) _resumeStory();
@@ -925,22 +928,18 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                       try {
                         await StoriesService.addToHighlight(highlightId: h.id, storyId: story.id);
                         if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Added to "${h.title}"'),
-                              backgroundColor: const Color(0xFF00BFA5),
-                              behavior: SnackBarBehavior.floating,
-                            ),
+                          showStoriesSnackBar(
+                            context,
+                            message: 'Added to "${h.title}"',
+                            type: StoriesSnackBarType.success,
                           );
                         }
                       } catch (e) {
                         if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Failed: ${e.toString().replaceFirst("Exception: ", "")}'),
-                              backgroundColor: Colors.red,
-                              behavior: SnackBarBehavior.floating,
-                            ),
+                          showStoriesSnackBar(
+                            context,
+                            message: 'Failed: ${e.toString().replaceFirst("Exception: ", "")}',
+                            type: StoriesSnackBarType.error,
                           );
                         }
                       }
@@ -1013,22 +1012,18 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       try {
         await StoriesService.createHighlight(title: result, storyId: story.id);
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Created highlight "$result"'),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: 'Created highlight "$result"',
+            type: StoriesSnackBarType.success,
           );
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Failed: ${e.toString().replaceFirst("Exception: ", "")}'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: 'Failed: ${e.toString().replaceFirst("Exception: ", "")}',
+            type: StoriesSnackBarType.error,
           );
         }
       }
