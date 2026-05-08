@@ -4685,4 +4685,69 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filters';
+
+  @override
+  String get notificationPreferencesTitle => 'Notifications';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Choose which alerts you receive';
+
+  @override
+  String get notifPrefChat => 'New messages';
+
+  @override
+  String get notifPrefWave => 'Waves';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Voice room invites';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Scheduled room reminders';
+
+  @override
+  String get notifPrefFollowerMoment => 'New moments from people you follow';
+
+  @override
+  String get notifPrefVisitorAlert => 'Profile visitors';
+
+  @override
+  String get notifPrefMatchAlert => 'Mutual waves';
+
+  @override
+  String get notifResetToDefaults => 'Reset to defaults';
+
+  @override
+  String get themeMode => 'Theme';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get languageSettingsRow => 'Language';
+
+  @override
+  String get waveDailySummaryTitle => 'New waves waiting';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count people waved at you',
+      one: '1 person waved at you',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Topics';
+
+  @override
+  String get filterTopicsEmpty => 'No topics selected';
 }
