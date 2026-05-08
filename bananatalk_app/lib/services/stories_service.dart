@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,8 +95,7 @@ class StoriesService {
   static Future<StoriesResponse> getMyStories() async {
     try {
       final token = await _getToken();
-      final currentUserId = await _getCurrentUserId();
-      
+
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.myStoriesURL}');
       final response = await http.get(url, headers: _getHeaders(token));
 
@@ -268,9 +266,6 @@ class StoriesService {
         // For image stories, multiple images allowed
         for (final file in mediaFiles) {
           final fileMimeType = _getMimeType(file.path);
-          final fileSize = await file.length();
-
-
           request.files.add(await http.MultipartFile.fromPath(
             fieldName, file.path, contentType: MediaType.parse(fileMimeType),
           ));
@@ -314,8 +309,6 @@ class StoriesService {
         return 'friends';
       case StoryPrivacy.closeFriends:
         return 'close_friends';
-      default:
-        return 'friends';
     }
   }
 

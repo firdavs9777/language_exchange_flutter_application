@@ -6,8 +6,6 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
@@ -17,9 +15,9 @@ class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
 
   const CreateStoryScreen({
-    Key? key,
+    super.key,
     this.onStoryCreated,
-  }) : super(key: key);
+  });
 
   @override
   State<CreateStoryScreen> createState() => _CreateStoryScreenState();
@@ -42,7 +40,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   // Video support
   final VideoCompressionService _videoCompressionService = VideoCompressionService();
   VideoPlayerController? _videoController;
-  bool _isProcessingVideo = false;
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
   VideoProcessResult? _videoProcessResult;
@@ -148,7 +145,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     _showVideoProcessingDialog();
 
     setState(() {
-      _isProcessingVideo = true;
       _videoCompressionProgress = 0;
       _videoProcessingStatus = 'Preparing video...';
     });
@@ -193,7 +189,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           _mediaType = 'video';
           _isTextStory = false;
           _videoProcessResult = result;
-          _isProcessingVideo = false;
         });
 
         if (mounted && result.wasCompressed) {
@@ -204,8 +199,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           );
         }
       } else {
-        setState(() => _isProcessingVideo = false);
-
         if (mounted) {
           showStoriesSnackBar(
             context,
@@ -218,8 +211,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       if (mounted) {
         Navigator.of(context, rootNavigator: true).pop();
       }
-      setState(() => _isProcessingVideo = false);
-
       if (mounted) {
         showStoriesSnackBar(
           context,

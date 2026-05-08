@@ -11,8 +11,6 @@ import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:async';
@@ -28,12 +26,12 @@ class StoryViewerScreen extends StatefulWidget {
   final VoidCallback? onStoriesUpdated;
 
   const StoryViewerScreen({
-    Key? key,
+    super.key,
     required this.userStories,
     this.initialUserIndex = 0,
     this.isOwnStory = false,
     this.onStoriesUpdated,
-  }) : super(key: key);
+  });
 
   @override
   State<StoryViewerScreen> createState() => _StoryViewerScreenState();
@@ -386,8 +384,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     final story = _currentStory;
     if (story == null) return;
 
-    final userName = _currentUser.user.name ?? 'User';
-    final storyText = story.text?.isNotEmpty == true ? '\n"${story.text}"' : '';
+    final userName = _currentUser.user.name;
+    final storyText = (story.text != null && story.text!.isNotEmpty) ? '\n"${story.text}"' : '';
     final shareText = 'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
 
     Share.share(shareText);
@@ -725,8 +723,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      _currentUser.user.name?.isNotEmpty == true
-                          ? _currentUser.user.name![0].toUpperCase()
+                      _currentUser.user.name.isNotEmpty
+                          ? _currentUser.user.name[0].toUpperCase()
                           : '?',
                       style: const TextStyle(fontSize: 14, color: Colors.white70),
                     ),
@@ -741,7 +739,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                     Row(
                       children: [
                         Text(
-                          _currentUser.user.name ?? 'User',
+                          _currentUser.user.name,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -909,34 +907,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
 
         // Seen by bar is now rendered at top-level Stack (outside GestureDetector)
       ],
-    );
-  }
-
-  Widget _buildSeenByBar(Story story) {
-    final viewCount = story.viewCount;
-    return GestureDetector(
-      onTap: () => _showViewersList(story),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: Colors.black45,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.visibility_outlined, color: Colors.white, size: 18),
-            const SizedBox(width: 8),
-            Text(
-              'Seen by $viewCount',
-              style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(width: 4),
-            const Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 18),
-          ],
-        ),
-      ),
     );
   }
 
@@ -1169,7 +1139,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                         // view is a StoryView object
                         String userName = 'User';
                         String? userImage;
-                        String userId = '';
                         DateTime viewedAt = DateTime.now();
                         Community? userCommunity;
                         if (view is StoryView) {
@@ -1177,7 +1146,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                           userImage = view.user?.imageUrls.isNotEmpty == true
                               ? view.user!.imageUrls.first
                               : (view.user?.images.isNotEmpty == true ? view.user!.images.first : null);
-                          userId = view.userId;
                           viewedAt = view.viewedAt;
                           userCommunity = view.user;
                         }

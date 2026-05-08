@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 /// A single overlay element that can be dragged, scaled, and rotated
@@ -31,7 +30,7 @@ class OverlayElement {
     'y': position.dy,
     'scale': scale,
     'rotation': rotation,
-    'color': '#${color.value.toRadixString(16).padLeft(8, '0').substring(2)}',
+    'color': '#${color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2)}',
     'fontStyle': fontStyle,
     'bgMode': bgMode,
   };
