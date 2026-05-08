@@ -18,6 +18,7 @@ import 'package:share_plus/share_plus.dart';
 import 'dart:async';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
+import 'package:bananatalk_app/pages/stories/viewer/viewer_text_story_layer.dart';
 
 class StoryViewerScreen extends StatefulWidget {
   final List<UserStories> userStories;
@@ -558,6 +559,54 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     if (story == null) {
       return const Center(
         child: Text('No stories', style: TextStyle(color: Colors.white)),
+      );
+    }
+
+    // Text stories render their own full-screen layer; no image/video stack needed.
+    if (story.mediaType == 'text') {
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          ViewerTextStoryLayer(
+            text: story.text ?? '',
+            backgroundColorHint: story.backgroundColor,
+            textColor: story.textColor,
+            fontStyle: story.fontStyle,
+          ),
+
+          // Gradient overlay (top fade for progress bar legibility)
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.center,
+                colors: [
+                  Colors.black.withValues(alpha: 0.5),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+
+          // Progress bars - enhanced with StoryProgressBar
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 12,
+            right: 12,
+            child: AnimatedBuilder(
+              animation: _progressController,
+              builder: (context, child) {
+                return StoryProgressBar(
+                  totalSegments: _currentStories.length,
+                  currentSegment: _currentStoryIndex,
+                  currentProgress: _progressController.value,
+                  height: 2.5,
+                  spacing: 4,
+                );
+              },
+            ),
+          ),
+        ],
       );
     }
 
