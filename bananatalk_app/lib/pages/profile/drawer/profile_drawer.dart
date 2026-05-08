@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
+import 'package:bananatalk_app/pages/settings/notification_preferences_screen.dart';
 import 'package:bananatalk_app/pages/profile/settings.dart';
 import 'package:bananatalk_app/pages/profile/theme.dart';
 import 'package:bananatalk_app/pages/profile/edit/picture_edit.dart';
@@ -97,6 +98,23 @@ class LeftDrawer extends ConsumerWidget {
                             AppPageRoute(
                               builder: (context) =>
                                   const NotificationSettingsScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.notifications_outlined,
+                        iconColor: const Color(0xFF0288D1),
+                        title: l10n.notificationPreferencesTitle,
+                        subtitle: l10n.notificationPreferencesSubtitle,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) =>
+                                  const NotificationPreferencesScreen(),
                             ),
                           );
                         },

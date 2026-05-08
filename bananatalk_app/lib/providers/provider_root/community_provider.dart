@@ -422,6 +422,34 @@ class CommunityService {
     }
   }
 
+  /// Get push notification preferences for the current user.
+  Future<Map<String, bool>> getNotificationPreferences() async {
+    final response = await _apiClient.get(
+      '${Endpoints.usersURL}/me/notification-preferences',
+    );
+    if (response.success && response.data != null) {
+      final data = response.data is Map ? response.data : null;
+      final prefs = data?['prefs'] as Map?;
+      return prefs?.map((k, v) => MapEntry(k.toString(), v == true)) ?? {};
+    }
+    throw Exception(response.error ?? 'Failed to load preferences');
+  }
+
+  /// Update push notification preferences for the current user (partial update OK).
+  Future<Map<String, bool>> updateNotificationPreferences(
+      Map<String, bool> prefs) async {
+    final response = await _apiClient.put(
+      '${Endpoints.usersURL}/me/notification-preferences',
+      body: {'prefs': prefs},
+    );
+    if (response.success && response.data != null) {
+      final data = response.data is Map ? response.data : null;
+      final returned = data?['prefs'] as Map?;
+      return returned?.map((k, v) => MapEntry(k.toString(), v == true)) ?? {};
+    }
+    throw Exception(response.error ?? 'Failed to update preferences');
+  }
+
   /// Get matching user count for a given filter map (used by live match-count in filter sheet).
   Future<int> getUsersCount({Map<String, dynamic>? filters}) async {
     try {
