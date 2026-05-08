@@ -585,7 +585,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
               begin: Alignment.topCenter,
               end: Alignment.center,
               colors: [
-                Colors.black.withOpacity(0.7),
+                Colors.black.withValues(alpha: 0.7),
                 Colors.transparent,
               ],
             ),
@@ -1144,7 +1144,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(32),
       ),
       child: Row(
@@ -1159,7 +1159,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
+                  color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Row(
@@ -1242,7 +1242,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
               hintText: AppLocalizations.of(context)!.reply2,
               hintStyle: const TextStyle(color: Colors.white54),
               filled: true,
-              fillColor: Colors.white.withOpacity(0.1),
+              fillColor: Colors.white.withValues(alpha: 0.1),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: BorderSide.none,
