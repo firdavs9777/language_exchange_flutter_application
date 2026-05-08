@@ -7,7 +7,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
-import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 
 /// Instagram-style highlights row for user profiles
 class ProfileHighlights extends StatefulWidget {
