@@ -4475,4 +4475,208 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Bỏ qua ngay';
+
+  @override
+  String get wavesTab => 'Chào hỏi';
+
+  @override
+  String get sendWave => 'Gửi lời chào';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'Gửi lời chào đến $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'Đã gửi lời chào đến $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'Bạn có thể chào $name lại sau $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'Không thể gửi lời chào';
+
+  @override
+  String get itsAMatch => 'Kết đôi thành công!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'Bạn và $name đã chào nhau';
+  }
+
+  @override
+  String get sendAMessage => 'Gửi tin nhắn';
+
+  @override
+  String get waveQuickReplyHi => 'Xin chào!';
+
+  @override
+  String get waveQuickReplyCool => 'Bạn có vẻ thú vị';
+
+  @override
+  String get waveQuickReplyHey => 'Này';
+
+  @override
+  String get waveQuickReplyChat => 'Cùng trò chuyện nhé';
+
+  @override
+  String get waveQuickReplyHello => 'Chào bạn';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'Xin chào từ $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'Hoặc tự viết tin nhắn của bạn…';
+
+  @override
+  String get voiceRoomChat => 'Trò chuyện';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Gửi tin nhắn…';
+
+  @override
+  String get voiceRoomChatEmpty => 'Chưa có tin nhắn — hãy chào hỏi';
+
+  @override
+  String get voiceRoomChatSend => 'Gửi';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'Kết thúc phòng';
+
+  @override
+  String get voiceRoomEndConfirm => 'Kết thúc phòng này?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Tất cả mọi người sẽ bị ngắt kết nối.';
+
+  @override
+  String get voiceRoomKick => 'Xóa khỏi phòng';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'Xóa $name?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Đã xóa';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'Bạn hiện là chủ phòng';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name hiện là chủ phòng';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Quản lý phòng';
+
+  @override
+  String get voiceRoomViewProfile => 'Xem hồ sơ';
+
+  @override
+  String get voiceRoomReconnecting => 'Đang kết nối lại…';
+
+  @override
+  String get voiceRoomReconnected => 'Đã kết nối lại';
+
+  @override
+  String get voiceRoomEnded => 'Phòng đã kết thúc';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Thử lại';
+
+  @override
+  String get mutualInterests => 'Sở thích chung';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sở thích chung',
+      one: '1 sở thích chung',
+      zero: 'Chưa có sở thích chung',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'Xem tất cả';
+
+  @override
+  String get interestsInCommonAddCta => 'Thêm chủ đề';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Thêm chủ đề vào hồ sơ để tìm điểm chung';
+
+  @override
+  String activeAgo(String time) {
+    return 'Hoạt động $time trước';
+  }
+
+  @override
+  String get filterOnlineNow => 'Đang trực tuyến';
+
+  @override
+  String get filterAge => 'Tuổi';
+
+  @override
+  String get filterGender => 'Giới tính';
+
+  @override
+  String get filterLanguages => 'Ngôn ngữ';
+
+  @override
+  String get filterCountry => 'Quốc gia';
+
+  @override
+  String get filterTopics => 'Chủ đề';
+
+  @override
+  String get filterLevel => 'Trình độ ngôn ngữ';
+
+  @override
+  String get filterToggles => 'Khác';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count đối tác phù hợp',
+      one: '1 đối tác phù hợp',
+      zero: 'Không có đối tác phù hợp',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'Xóa tất cả';
+
+  @override
+  String get filterReset => 'Đặt lại';
+
+  @override
+  String get filterApply => 'Áp dụng';
+
+  @override
+  String get filterNewUsers => 'Chỉ người dùng mới';
+
+  @override
+  String get filterPrioritizeNearby => 'Ưu tiên gần đây';
+
+  @override
+  String get filterSheetTitle => 'Bộ lọc';
 }

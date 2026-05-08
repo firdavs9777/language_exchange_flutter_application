@@ -4475,4 +4475,208 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Pular por enquanto';
+
+  @override
+  String get wavesTab => 'Acenos';
+
+  @override
+  String get sendWave => 'Enviar aceno';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'Enviar aceno para $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'Aceno enviado para $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'Você pode acenar para $name novamente em $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'Não foi possível enviar o aceno';
+
+  @override
+  String get itsAMatch => 'É um match!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'Você e $name se acenaram mutuamente';
+  }
+
+  @override
+  String get sendAMessage => 'Enviar mensagem';
+
+  @override
+  String get waveQuickReplyHi => 'Oi!';
+
+  @override
+  String get waveQuickReplyCool => 'Você parece legal';
+
+  @override
+  String get waveQuickReplyHey => 'Ei';
+
+  @override
+  String get waveQuickReplyChat => 'Vamos conversar';
+
+  @override
+  String get waveQuickReplyHello => 'Olá';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'Oi de $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'Ou escreva a sua própria…';
+
+  @override
+  String get voiceRoomChat => 'Chat';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Enviar mensagem…';
+
+  @override
+  String get voiceRoomChatEmpty => 'Sem mensagens ainda — diga oi';
+
+  @override
+  String get voiceRoomChatSend => 'Enviar';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'Encerrar sala';
+
+  @override
+  String get voiceRoomEndConfirm => 'Encerrar esta sala?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Todos serão desconectados.';
+
+  @override
+  String get voiceRoomKick => 'Remover da sala';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'Remover $name?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Removido';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'Você é agora o anfitrião';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name é agora o anfitrião';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Ações da sala';
+
+  @override
+  String get voiceRoomViewProfile => 'Ver perfil';
+
+  @override
+  String get voiceRoomReconnecting => 'Reconectando…';
+
+  @override
+  String get voiceRoomReconnected => 'Reconectado';
+
+  @override
+  String get voiceRoomEnded => 'Sala encerrada';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Tentar novamente';
+
+  @override
+  String get mutualInterests => 'Interesses em comum';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count interesses em comum',
+      one: '1 interesse em comum',
+      zero: 'Sem interesses em comum ainda',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'Ver tudo';
+
+  @override
+  String get interestsInCommonAddCta => 'Adicionar tópicos';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Adicione tópicos ao seu perfil para encontrar pontos em comum';
+
+  @override
+  String activeAgo(String time) {
+    return 'Ativo há $time';
+  }
+
+  @override
+  String get filterOnlineNow => 'Online agora';
+
+  @override
+  String get filterAge => 'Idade';
+
+  @override
+  String get filterGender => 'Gênero';
+
+  @override
+  String get filterLanguages => 'Idiomas';
+
+  @override
+  String get filterCountry => 'País';
+
+  @override
+  String get filterTopics => 'Tópicos';
+
+  @override
+  String get filterLevel => 'Nível de idioma';
+
+  @override
+  String get filterToggles => 'Outros';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count parceiros correspondem',
+      one: '1 parceiro corresponde',
+      zero: 'Nenhum parceiro corresponde',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'Limpar tudo';
+
+  @override
+  String get filterReset => 'Redefinir';
+
+  @override
+  String get filterApply => 'Aplicar';
+
+  @override
+  String get filterNewUsers => 'Apenas novos usuários';
+
+  @override
+  String get filterPrioritizeNearby => 'Priorizar próximos';
+
+  @override
+  String get filterSheetTitle => 'Filtros';
 }

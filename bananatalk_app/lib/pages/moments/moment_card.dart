@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';

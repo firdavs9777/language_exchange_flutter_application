@@ -14,7 +14,7 @@ import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
 import 'package:bananatalk_app/widgets/correction_bottom_sheet.dart';
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import '../header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';

@@ -4475,6 +4475,210 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => '暂时跳过';
+
+  @override
+  String get wavesTab => '招手';
+
+  @override
+  String get sendWave => '发送招手';
+
+  @override
+  String sendWaveTo(String name) {
+    return '向$name发送招手';
+  }
+
+  @override
+  String waveSent(String name) {
+    return '已向$name发送招手';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return '$time后可以再次向$name招手';
+  }
+
+  @override
+  String get waveCouldntSend => '无法发送招手';
+
+  @override
+  String get itsAMatch => '匹配成功！';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return '你和$name互相招手了';
+  }
+
+  @override
+  String get sendAMessage => '发送消息';
+
+  @override
+  String get waveQuickReplyHi => '嗨！';
+
+  @override
+  String get waveQuickReplyCool => '你看起来很酷';
+
+  @override
+  String get waveQuickReplyHey => '你好啊';
+
+  @override
+  String get waveQuickReplyChat => '一起聊吧';
+
+  @override
+  String get waveQuickReplyHello => '你好';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return '来自$country的问候！';
+  }
+
+  @override
+  String get waveCustomMessage => '或者写自己的消息…';
+
+  @override
+  String get voiceRoomChat => '聊天';
+
+  @override
+  String get voiceRoomChatPlaceholder => '发送消息…';
+
+  @override
+  String get voiceRoomChatEmpty => '暂无消息 — 打个招呼吧';
+
+  @override
+  String get voiceRoomChatSend => '发送';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => '结束房间';
+
+  @override
+  String get voiceRoomEndConfirm => '确定结束此房间？';
+
+  @override
+  String get voiceRoomEndConfirmBody => '所有人将断开连接。';
+
+  @override
+  String get voiceRoomKick => '移出房间';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return '移出$name？';
+  }
+
+  @override
+  String get voiceRoomKicked => '已移出';
+
+  @override
+  String get voiceRoomYouAreHostNow => '您现在是主持人';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name现在是主持人';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => '房间操作';
+
+  @override
+  String get voiceRoomViewProfile => '查看资料';
+
+  @override
+  String get voiceRoomReconnecting => '重新连接中…';
+
+  @override
+  String get voiceRoomReconnected => '已重新连接';
+
+  @override
+  String get voiceRoomEnded => '房间已结束';
+
+  @override
+  String get voiceRoomReconnectRetry => '重试';
+
+  @override
+  String get mutualInterests => '共同兴趣';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count个共同兴趣',
+      one: '1个共同兴趣',
+      zero: '暂无共同兴趣',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => '查看全部';
+
+  @override
+  String get interestsInCommonAddCta => '添加话题';
+
+  @override
+  String get interestsInCommonAddSubtitle => '在资料中添加话题，寻找共同点';
+
+  @override
+  String activeAgo(String time) {
+    return '$time前活跃';
+  }
+
+  @override
+  String get filterOnlineNow => '当前在线';
+
+  @override
+  String get filterAge => '年龄';
+
+  @override
+  String get filterGender => '性别';
+
+  @override
+  String get filterLanguages => '语言';
+
+  @override
+  String get filterCountry => '国家';
+
+  @override
+  String get filterTopics => '话题';
+
+  @override
+  String get filterLevel => '语言水平';
+
+  @override
+  String get filterToggles => '其他';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count位伙伴匹配',
+      one: '1位伙伴匹配',
+      zero: '无匹配伙伴',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => '全部清除';
+
+  @override
+  String get filterReset => '重置';
+
+  @override
+  String get filterApply => '应用';
+
+  @override
+  String get filterNewUsers => '仅新用户';
+
+  @override
+  String get filterPrioritizeNearby => '优先附近';
+
+  @override
+  String get filterSheetTitle => '筛选';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -8659,4 +8863,208 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get addProfilePhotoSkip => '暫時跳過';
+
+  @override
+  String get wavesTab => '招手';
+
+  @override
+  String get sendWave => '發送招手';
+
+  @override
+  String sendWaveTo(String name) {
+    return '向$name發送招手';
+  }
+
+  @override
+  String waveSent(String name) {
+    return '已向$name發送招手';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return '$time後可以再次向$name招手';
+  }
+
+  @override
+  String get waveCouldntSend => '無法發送招手';
+
+  @override
+  String get itsAMatch => '配對成功！';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return '你和$name互相招手了';
+  }
+
+  @override
+  String get sendAMessage => '發送訊息';
+
+  @override
+  String get waveQuickReplyHi => '嗨！';
+
+  @override
+  String get waveQuickReplyCool => '你看起來很酷';
+
+  @override
+  String get waveQuickReplyHey => '你好啊';
+
+  @override
+  String get waveQuickReplyChat => '一起聊吧';
+
+  @override
+  String get waveQuickReplyHello => '你好';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return '來自$country的問候！';
+  }
+
+  @override
+  String get waveCustomMessage => '或者寫自己的訊息…';
+
+  @override
+  String get voiceRoomChat => '聊天';
+
+  @override
+  String get voiceRoomChatPlaceholder => '發送訊息…';
+
+  @override
+  String get voiceRoomChatEmpty => '尚無訊息 — 打個招呼吧';
+
+  @override
+  String get voiceRoomChatSend => '發送';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => '結束房間';
+
+  @override
+  String get voiceRoomEndConfirm => '確定結束此房間？';
+
+  @override
+  String get voiceRoomEndConfirmBody => '所有人將斷開連線。';
+
+  @override
+  String get voiceRoomKick => '移出房間';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return '移出$name？';
+  }
+
+  @override
+  String get voiceRoomKicked => '已移出';
+
+  @override
+  String get voiceRoomYouAreHostNow => '您現在是主持人';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name現在是主持人';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => '房間操作';
+
+  @override
+  String get voiceRoomViewProfile => '查看個人資料';
+
+  @override
+  String get voiceRoomReconnecting => '重新連線中…';
+
+  @override
+  String get voiceRoomReconnected => '已重新連線';
+
+  @override
+  String get voiceRoomEnded => '房間已結束';
+
+  @override
+  String get voiceRoomReconnectRetry => '重試';
+
+  @override
+  String get mutualInterests => '共同興趣';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個共同興趣',
+      one: '1個共同興趣',
+      zero: '尚無共同興趣',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => '查看全部';
+
+  @override
+  String get interestsInCommonAddCta => '新增話題';
+
+  @override
+  String get interestsInCommonAddSubtitle => '在個人資料中新增話題，尋找共同點';
+
+  @override
+  String activeAgo(String time) {
+    return '$time前活躍';
+  }
+
+  @override
+  String get filterOnlineNow => '目前上線';
+
+  @override
+  String get filterAge => '年齡';
+
+  @override
+  String get filterGender => '性別';
+
+  @override
+  String get filterLanguages => '語言';
+
+  @override
+  String get filterCountry => '國家';
+
+  @override
+  String get filterTopics => '話題';
+
+  @override
+  String get filterLevel => '語言程度';
+
+  @override
+  String get filterToggles => '其他';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count位夥伴匹配',
+      one: '1位夥伴匹配',
+      zero: '無匹配夥伴',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => '全部清除';
+
+  @override
+  String get filterReset => '重置';
+
+  @override
+  String get filterApply => '套用';
+
+  @override
+  String get filterNewUsers => '僅新用戶';
+
+  @override
+  String get filterPrioritizeNearby => '優先附近';
+
+  @override
+  String get filterSheetTitle => '篩選';
 }

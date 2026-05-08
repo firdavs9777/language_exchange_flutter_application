@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
@@ -84,8 +83,9 @@ class CommunityService {
         queryParams['search'] = search.trim();
       }
 
-      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}')
-          .replace(queryParameters: queryParams);
+      final url = Uri.parse(
+        '${Endpoints.baseURL}${Endpoints.usersURL}',
+      ).replace(queryParameters: queryParams);
 
       final response = await http.get(url, headers: headers);
 
@@ -105,15 +105,15 @@ class CommunityService {
           );
         }
 
-        if (page == 1 && dataList.isNotEmpty) {
-        }
+        if (page == 1 && dataList.isNotEmpty) {}
 
         final users = dataList
             .where((item) => item != null && item is Map<String, dynamic>)
-            .map((postJson) =>
-                Community.fromJson(postJson as Map<String, dynamic>))
+            .map(
+              (postJson) =>
+                  Community.fromJson(postJson as Map<String, dynamic>),
+            )
             .toList();
-
 
         return PaginatedCommunityResponse(
           users: users,
@@ -139,11 +139,7 @@ class CommunityService {
       final headers = await _getHeaders();
       final url = '${Endpoints.baseURL}${Endpoints.usersURL}/$id';
 
-      final response = await http.get(
-        Uri.parse(url),
-        headers: headers,
-      );
-
+      final response = await http.get(Uri.parse(url), headers: headers);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -171,7 +167,8 @@ class CommunityService {
   Future<String> followUser({required userId, required targetUserId}) async {
     final headers = await _getHeaders();
     final url = Uri.parse(
-        '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/follow/$targetUserId');
+      '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/follow/$targetUserId',
+    );
     try {
       final response = await http.put(url, headers: headers);
 
@@ -182,7 +179,9 @@ class CommunityService {
         _apiClient.onAuthorizationError?.call('You cannot follow this user');
         throw Exception('Not authorized');
       } else if (response.statusCode == 429) {
-        _apiClient.onRateLimitError?.call('Too many follow requests. Slow down!');
+        _apiClient.onRateLimitError?.call(
+          'Too many follow requests. Slow down!',
+        );
         throw Exception('Rate limited');
       } else if (response.statusCode >= 200 && response.statusCode < 300) {
         return 'success';
@@ -208,7 +207,8 @@ class CommunityService {
   Future<String> unfollowUser({required userId, required targetUserId}) async {
     final headers = await _getHeaders();
     final url = Uri.parse(
-        '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/unfollow/$targetUserId');
+      '${Endpoints.baseURL}${Endpoints.usersURL}/$userId/unfollow/$targetUserId',
+    );
     try {
       final response = await http.put(url, headers: headers);
 
@@ -358,7 +358,8 @@ class CommunityService {
       );
 
       if (response.success && response.data != null) {
-        final dataList = response.data['data'] as List? ?? response.data as List? ?? [];
+        final dataList =
+            response.data['data'] as List? ?? response.data as List? ?? [];
         return dataList
             .map((item) => Topic.fromJson(item as Map<String, dynamic>))
             .toList();
@@ -379,10 +380,7 @@ class CommunityService {
     try {
       final response = await _apiClient.get(
         Endpoints.topicUsersURL(topicId),
-        queryParams: {
-          'page': page.toString(),
-          'limit': limit.toString(),
-        },
+        queryParams: {'page': page.toString(), 'limit': limit.toString()},
       );
 
       if (response.success && response.data != null) {
@@ -418,9 +416,34 @@ class CommunityService {
   Future<void> getCountriesList() async {
     final url = Uri.parse(Endpoints.countriesURL);
     try {
-      final response = await http.get(url);
+      await http.get(url);
     } catch (error) {
       throw Exception('Failed to call the api: $error');
+    }
+  }
+
+  /// Get matching user count for a given filter map (used by live match-count in filter sheet).
+  Future<int> getUsersCount({Map<String, dynamic>? filters}) async {
+    try {
+      final params = <String, String>{};
+      if (filters != null) {
+        filters.forEach((k, v) {
+          if (v != null && v != '' && !(v is List && v.isEmpty)) {
+            params[k] = v.toString();
+          }
+        });
+      }
+      final response = await _apiClient.get(
+        '${Endpoints.usersURL}/count',
+        queryParams: params,
+      );
+      if (response.success && response.data != null) {
+        final data = response.data is Map ? response.data as Map : null;
+        return (data?['count'] as num?)?.toInt() ?? 0;
+      }
+      return 0;
+    } catch (_) {
+      return 0;
     }
   }
 }
@@ -501,7 +524,9 @@ class NearbyUser {
           ? DateTime.tryParse(json['lastSeen'] as String)
           : null,
       privacySettings: json['privacySettings'] != null
-          ? PrivacySettings.fromJson(json['privacySettings'] as Map<String, dynamic>)
+          ? PrivacySettings.fromJson(
+              json['privacySettings'] as Map<String, dynamic>,
+            )
           : null,
       age: age,
     );
@@ -580,7 +605,8 @@ class Wave {
       fromUserImage: json['fromUserImage'] as String?,
       message: json['message'] as String?,
       isRead: json['isRead'] as bool? ?? false,
-      createdAt: DateTime.tryParse(json['createdAt'] as String? ?? '') ??
+      createdAt:
+          DateTime.tryParse(json['createdAt'] as String? ?? '') ??
           DateTime.now(),
     );
   }
@@ -651,11 +677,13 @@ class PaginatedCommunityState {
 }
 
 /// State notifier for paginated community
-class PaginatedCommunityNotifier extends StateNotifier<PaginatedCommunityState> {
+class PaginatedCommunityNotifier
+    extends StateNotifier<PaginatedCommunityState> {
   final CommunityService _service;
   static const int _pageSize = 20;
 
-  PaginatedCommunityNotifier(this._service) : super(const PaginatedCommunityState());
+  PaginatedCommunityNotifier(this._service)
+    : super(const PaginatedCommunityState());
 
   /// Load initial data (first page)
   Future<void> loadInitial() async {
@@ -688,10 +716,7 @@ class PaginatedCommunityNotifier extends StateNotifier<PaginatedCommunityState> 
         isLoading: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
 
@@ -727,10 +752,7 @@ class PaginatedCommunityNotifier extends StateNotifier<PaginatedCommunityState> 
         isLoadingMore: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoadingMore: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoadingMore: false, error: e.toString());
     }
   }
 
@@ -765,36 +787,48 @@ final communityProvider = FutureProvider<List<Community>>((ref) async {
 
 final communityServiceProvider = Provider((ref) => CommunityService());
 
+/// Live match-count provider — call with [FilterState.toJson()] as the family key.
+/// Uses [Map<String, dynamic>] so identical filter maps share the same cache slot.
+final filterMatchCountProvider = FutureProvider.autoDispose
+    .family<int, Map<String, dynamic>>((ref, filters) {
+      return ref.read(communityServiceProvider).getUsersCount(filters: filters);
+    });
+
 /// Single user/community provider - fetches user details by ID
-final singleCommunityProvider = FutureProvider.family<Community?, String>((ref, userId) async {
+final singleCommunityProvider = FutureProvider.family<Community?, String>((
+  ref,
+  userId,
+) async {
   final service = ref.read(communityServiceProvider);
   return service.getSingleCommunity(id: userId);
 });
 
 /// Paginated community provider
 final paginatedCommunityProvider =
-    StateNotifierProvider<PaginatedCommunityNotifier, PaginatedCommunityState>(
-  (ref) {
-    final service = ref.read(communityServiceProvider);
-    return PaginatedCommunityNotifier(service);
-  },
-);
+    StateNotifierProvider<PaginatedCommunityNotifier, PaginatedCommunityState>((
+      ref,
+    ) {
+      final service = ref.read(communityServiceProvider);
+      return PaginatedCommunityNotifier(service);
+    });
 
 /// Nearby users provider with location parameters
-final nearbyUsersProvider = FutureProvider.family<NearbyUsersResponse, NearbyUsersParams>(
-  (ref, params) async {
-    final service = ref.read(communityServiceProvider);
-    return service.getNearbyUsers(
-      latitude: params.latitude,
-      longitude: params.longitude,
-      radius: params.radius,
-      limit: params.limit,
-      offset: params.offset,
-      language: params.language,
-      onlineOnly: params.onlineOnly,
-    );
-  },
-);
+final nearbyUsersProvider =
+    FutureProvider.family<NearbyUsersResponse, NearbyUsersParams>((
+      ref,
+      params,
+    ) async {
+      final service = ref.read(communityServiceProvider);
+      return service.getNearbyUsers(
+        latitude: params.latitude,
+        longitude: params.longitude,
+        radius: params.radius,
+        limit: params.limit,
+        offset: params.offset,
+        language: params.language,
+        onlineOnly: params.onlineOnly,
+      );
+    });
 
 class NearbyUsersParams {
   final double latitude;
@@ -844,6 +878,18 @@ final topicsProvider = FutureProvider<List<Topic>>((ref) async {
 final wavesProvider = FutureProvider<List<Wave>>((ref) async {
   final service = ref.read(communityServiceProvider);
   return service.getWavesReceived();
+});
+
+/// Returns the count of unread waves for the current user. Refresh on
+/// app resume and after `markWavesAsRead`.
+final wavesUnreadProvider = FutureProvider<int>((ref) async {
+  final service = ref.read(communityServiceProvider);
+  try {
+    final waves = await service.getWavesReceived(unreadOnly: true, limit: 100);
+    return waves.length;
+  } catch (e) {
+    return 0;
+  }
 });
 
 // ==================== TOPIC USERS PAGINATED ====================
@@ -912,7 +958,11 @@ class TopicUsersNotifier extends StateNotifier<TopicUsersState> {
     }
 
     try {
-      final users = await _service.getUsersByTopic(topicId, page: 1, limit: _pageSize);
+      final users = await _service.getUsersByTopic(
+        topicId,
+        page: 1,
+        limit: _pageSize,
+      );
 
       state = state.copyWith(
         users: users,
@@ -921,10 +971,7 @@ class TopicUsersNotifier extends StateNotifier<TopicUsersState> {
         isLoading: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
 
@@ -949,10 +996,7 @@ class TopicUsersNotifier extends StateNotifier<TopicUsersState> {
         isLoadingMore: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoadingMore: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoadingMore: false, error: e.toString());
     }
   }
 
@@ -964,12 +1008,10 @@ class TopicUsersNotifier extends StateNotifier<TopicUsersState> {
 
 /// Provider for paginated topic users
 final topicUsersProvider =
-    StateNotifierProvider<TopicUsersNotifier, TopicUsersState>(
-  (ref) {
-    final service = ref.read(communityServiceProvider);
-    return TopicUsersNotifier(service);
-  },
-);
+    StateNotifierProvider<TopicUsersNotifier, TopicUsersState>((ref) {
+      final service = ref.read(communityServiceProvider);
+      return TopicUsersNotifier(service);
+    });
 
 // ==================== PARTNER FILTER (SERVER-SIDE) ====================
 
@@ -1080,7 +1122,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   Future<void> loadWithFilters(PartnerFilterParams filters) async {
     if (state.isLoading) return;
 
-
     // Reset if different filters
     if (state.filters != filters) {
       state = PartnerFilterState(filters: filters, isLoading: true);
@@ -1104,7 +1145,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         search: filters.search,
       );
 
-
       // If 0 results returned, set hasMore to false to prevent infinite loading
       final hasMore = response.users.isNotEmpty && response.hasMore;
 
@@ -1116,10 +1156,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         isLoading: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
 
@@ -1146,7 +1183,6 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         search: state.filters!.search,
       );
 
-
       // If 0 results returned on load more, stop trying to load more
       final hasMore = response.users.isNotEmpty && response.hasMore;
 
@@ -1158,10 +1194,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         isLoadingMore: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoadingMore: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoadingMore: false, error: e.toString());
     }
   }
 
@@ -1181,9 +1214,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
 /// Provider for server-side filtered partners
 final partnerFilterProvider =
-    StateNotifierProvider<PartnerFilterNotifier, PartnerFilterState>(
-  (ref) {
-    final service = ref.read(communityServiceProvider);
-    return PartnerFilterNotifier(service);
-  },
-);
+    StateNotifierProvider<PartnerFilterNotifier, PartnerFilterState>((ref) {
+      final service = ref.read(communityServiceProvider);
+      return PartnerFilterNotifier(service);
+    });

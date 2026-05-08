@@ -5,18 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -159,26 +157,30 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         offset: _currentOffset,
         minAge: (minAge != null && minAge > 18) ? minAge : null,
         maxAge: (maxAge != null && maxAge < 100) ? maxAge : null,
-        gender: (gender != null && gender.isNotEmpty) ? gender.toLowerCase() : null,
+        gender: (gender != null && gender.isNotEmpty)
+            ? gender.toLowerCase()
+            : null,
         onlineOnly: onlineOnly ? true : null,
         language: langParam,
       );
 
-      if (response.users.isNotEmpty) {
-      }
+      if (response.users.isNotEmpty) {}
 
       // Filter out current user from the list
-      final filteredUsers = response.users.where((user) => user.id != _userId).toList();
+      final filteredUsers = response.users
+          .where((user) => user.id != _userId)
+          .toList();
 
       if (mounted) {
         setState(() {
           _nearbyUsers.addAll(filteredUsers);
-          _currentOffset += response.users.length; // Keep original offset for pagination
+          _currentOffset +=
+              response.users.length; // Keep original offset for pagination
           _hasMore = response.pagination.hasMore;
           _isLoadingMore = false;
         });
       }
-    } catch (e, stack) {
+    } catch (e) {
       if (mounted) setState(() => _isLoadingMore = false);
     }
   }
@@ -211,10 +213,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
 
     try {
       final messageService = ref.read(messageServiceProvider);
-      await messageService.sendMessage(
-        receiver: user.id,
-        message: '\u{1F44B}',
-      );
+      await messageService.sendMessage(receiver: user.id, message: '\u{1F44B}');
     } catch (_) {}
   }
 
@@ -254,13 +253,19 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             child: _buildLocationHeader()
                 .animate()
                 .fadeIn(duration: 300.ms)
-                .slideY(begin: -0.1, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
+                .slideY(
+                  begin: -0.1,
+                  end: 0,
+                  duration: 300.ms,
+                  curve: Curves.easeOutCubic,
+                ),
           ),
           // Radius selector
           SliverToBoxAdapter(
-            child: _buildRadiusSelector()
-                .animate()
-                .fadeIn(duration: 300.ms, delay: 80.ms),
+            child: _buildRadiusSelector().animate().fadeIn(
+              duration: 300.ms,
+              delay: 80.ms,
+            ),
           ),
           // Ad banner
           const SliverToBoxAdapter(
@@ -274,7 +279,10 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             const SliverToBoxAdapter(
               child: SizedBox(
                 height: 600,
-                child: UserGridSkeleton(count: 6, padding: EdgeInsets.fromLTRB(16, 0, 16, 0)),
+                child: UserGridSkeleton(
+                  count: 6,
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                ),
               ),
             ),
           // Grid of users
@@ -287,29 +295,26 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
               ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final user = _nearbyUsers[index];
-                  return _NearbyUserCardFromApi(
-                    user: user,
-                    onTap: () => _viewNearbyUserProfile(user),
-                    onWave: () => _onWave(user),
-                  )
-                      .animate()
-                      .fadeIn(
-                        duration: 350.ms,
-                        delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
-                      )
-                      .scale(
-                        begin: const Offset(0.92, 0.92),
-                        end: const Offset(1.0, 1.0),
-                        duration: 350.ms,
-                        delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
-                        curve: Curves.easeOutBack,
-                      );
-                },
-                childCount: _nearbyUsers.length,
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final user = _nearbyUsers[index];
+                return _NearbyUserCardFromApi(
+                      user: user,
+                      onTap: () => _viewNearbyUserProfile(user),
+                      onWave: () => _onWave(user),
+                    )
+                    .animate()
+                    .fadeIn(
+                      duration: 350.ms,
+                      delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+                    )
+                    .scale(
+                      begin: const Offset(0.92, 0.92),
+                      end: const Offset(1.0, 1.0),
+                      duration: 350.ms,
+                      delay: Duration(milliseconds: (index * 50).clamp(0, 500)),
+                      curve: Curves.easeOutBack,
+                    );
+              }, childCount: _nearbyUsers.length),
             ),
           ),
           // Loading more indicator
@@ -323,9 +328,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               ),
             ),
           // Bottom padding
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 100),
-          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
       ),
     );
@@ -333,7 +336,10 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
 
   Widget _buildRadiusSelector() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Spacing.lg,
+        vertical: Spacing.sm,
+      ),
       child: Row(
         children: [
           Icon(Icons.radar, color: context.primaryColor, size: 20),
@@ -357,8 +363,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                       onSelected: (_) => _onRadiusChanged(radius),
                       selectedColor: context.primaryColor,
                       labelStyle: TextStyle(
-                        color: isSelected ? context.textOnPrimary : context.textPrimary,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected
+                            ? context.textOnPrimary
+                            : context.textPrimary,
+                        fontWeight: isSelected
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   );
@@ -395,13 +405,10 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       if (fullProfile != null && mounted) {
         Navigator.push(
           context,
-          AppPageRoute(
-            builder: (_) => SingleCommunity(community: fullProfile),
-          ),
+          AppPageRoute(builder: (_) => SingleCommunity(community: fullProfile)),
         );
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   Widget _buildLocationPermissionRequest() {
@@ -415,7 +422,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: context.primaryColor.withOpacity(0.1),
+                color: context.primaryColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -442,7 +449,8 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             Spacing.gapSM,
             ElevatedButton.icon(
               onPressed: () async {
-                final granted = await _locationService.checkAndRequestPermission();
+                final granted = await _locationService
+                    .checkAndRequestPermission();
                 if (granted) {
                   await _loadUserLocation();
                 } else {
@@ -455,10 +463,11 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.primaryColor,
                 foregroundColor: context.textOnPrimary,
-                padding: const EdgeInsets.symmetric(horizontal: Spacing.xxxl, vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: AppRadius.borderMD,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.xxxl,
+                  vertical: 14,
                 ),
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
               ),
             ),
             Spacing.gapLG,
@@ -472,9 +481,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               },
               child: Text(
                 AppLocalizations.of(context)!.browseByCityCountry,
-                style: context.labelLarge.copyWith(
-                  color: context.primaryColor,
-                ),
+                style: context.labelLarge.copyWith(color: context.primaryColor),
               ),
             ),
           ],
@@ -492,14 +499,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            context.primaryColor.withOpacity(0.1),
-            AppColors.info.withOpacity(0.05),
+            context.primaryColor.withValues(alpha: 0.1),
+            AppColors.info.withValues(alpha: 0.05),
           ],
         ),
         borderRadius: AppRadius.borderLG,
-        border: Border.all(
-          color: context.primaryColor.withOpacity(0.2),
-        ),
+        border: Border.all(color: context.primaryColor.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
@@ -507,7 +512,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: context.primaryColor.withOpacity(0.15),
+              color: context.primaryColor.withValues(alpha: 0.15),
               borderRadius: AppRadius.borderMD,
             ),
             child: _locationLoading
@@ -520,7 +525,9 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                     ),
                   )
                 : Icon(
-                    hasLocation ? Icons.near_me_rounded : Icons.location_off_rounded,
+                    hasLocation
+                        ? Icons.near_me_rounded
+                        : Icons.location_off_rounded,
                     color: context.primaryColor,
                   ),
           ),
@@ -549,9 +556,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               },
               child: Text(
                 AppLocalizations.of(context)!.enable,
-                style: context.labelLarge.copyWith(
-                  color: context.primaryColor,
-                ),
+                style: context.labelLarge.copyWith(color: context.primaryColor),
               ),
             ),
         ],
@@ -561,368 +566,39 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
 
   Widget _buildEmptyState() {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(Spacing.xxxl),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.location_off_rounded,
-              size: 64,
-              color: context.textMuted,
+          child: Padding(
+            padding: const EdgeInsets.all(Spacing.xxxl),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_off_rounded,
+                  size: 64,
+                  color: context.textMuted,
+                ),
+                Spacing.gapLG,
+                Text(
+                  AppLocalizations.of(context)!.noNearbyUsersFound,
+                  style: context.titleLarge,
+                ),
+                Spacing.gapSM,
+                Text(
+                  AppLocalizations.of(context)!.tryExpandingSearch,
+                  textAlign: TextAlign.center,
+                  style: context.bodySmall,
+                ),
+              ],
             ),
-            Spacing.gapLG,
-            Text(
-              AppLocalizations.of(context)!.noNearbyUsersFound,
-              style: context.titleLarge,
-            ),
-            Spacing.gapSM,
-            Text(
-              AppLocalizations.of(context)!.tryExpandingSearch,
-              textAlign: TextAlign.center,
-              style: context.bodySmall,
-            ),
-          ],
-        ),
-      ),
-    ).animate().fadeIn(duration: 400.ms).scale(
+          ),
+        )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .scale(
           begin: const Offset(0.95, 0.95),
           end: const Offset(1.0, 1.0),
           duration: 400.ms,
           curve: Curves.easeOutCubic,
         );
-  }
-
-  Widget _buildError(dynamic error) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(Spacing.xxxl),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.error_outline_rounded,
-              size: 64,
-              color: context.textMuted,
-            ),
-            Spacing.gapLG,
-            Text(
-              AppLocalizations.of(context)!.somethingWentWrong,
-              style: context.titleLarge,
-            ),
-            Spacing.gapXXL,
-            ElevatedButton.icon(
-              onPressed: () => ref.invalidate(communityProvider),
-              icon: const Icon(Icons.refresh_rounded),
-              label: Text(AppLocalizations.of(context)!.retry),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.primaryColor,
-                foregroundColor: context.textOnPrimary,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-}
-
-class _NearbyUserCard extends StatelessWidget {
-  final Community user;
-  final double? distance;
-  final VoidCallback? onTap;
-  final VoidCallback? onWave;
-
-  const _NearbyUserCard({
-    required this.user,
-    this.distance,
-    this.onTap,
-    this.onWave,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user);
-    final showAge = PrivacyUtils.shouldShowAge(user);
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: context.surfaceColor,
-          borderRadius: AppRadius.borderLG,
-          boxShadow: AppShadows.md,
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Image section - takes most of the space
-            Expanded(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  // Profile image - uses model's profileImageUrl getter
-                  user.profileImageUrl != null
-                      ? CachedImageWidget(
-                          imageUrl: user.profileImageUrl!,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                          errorWidget: _buildFallbackAvatar(),
-                        )
-                      : _buildFallbackAvatar(),
-                  // Gradient overlay at bottom
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withValues(alpha: 0.7),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Online indicator (respects privacy)
-                  if (showOnline && user.isOnline)
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        width: 12,
-                        height: 12,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4CAF50),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF4CAF50).withValues(alpha: 0.4),
-                              blurRadius: 6,
-                              spreadRadius: 1,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  // VIP badge if applicable
-                  if (user.isVip)
-                    Positioned(
-                      top: 10,
-                      left: 10,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.workspace_premium, size: 10, color: Colors.white),
-                            SizedBox(width: 2),
-                            Text(
-                              'VIP',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  // Name and info overlay at bottom
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // Name and age
-                          Row(
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  user.name,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              if (showAge && user.age != null)
-                                Text(
-                                  ', ${user.age}',
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                            ],
-                          ),
-                          const SizedBox(height: 3),
-                          // Distance or location
-                          Row(
-                            children: [
-                              Icon(
-                                distance != null ? Icons.near_me_rounded : Icons.location_on_rounded,
-                                size: 11,
-                                color: distance != null ? const Color(0xFF00E5CC) : Colors.white60,
-                              ),
-                              const SizedBox(width: 3),
-                              Expanded(
-                                child: Text(
-                                  distance != null
-                                      ? LocationService.formatDistance(distance!)
-                                      : _getLocationText(context, user),
-                                  style: TextStyle(
-                                    color: distance != null ? const Color(0xFF00E5CC) : Colors.white60,
-                                    fontSize: 11,
-                                    fontWeight: distance != null ? FontWeight.w600 : FontWeight.normal,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Bottom section with languages and action
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: Spacing.sm),
-              decoration: BoxDecoration(
-                color: context.containerColor,
-              ),
-              child: Row(
-                children: [
-                  // Language flags
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: context.surfaceColor,
-                      borderRadius: AppRadius.borderXS,
-                      border: Border.all(color: context.dividerColor),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _getLanguageFlag(user.native_language),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 3),
-                          child: Icon(
-                            Icons.arrow_forward_rounded,
-                            size: 8,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Text(
-                          _getLanguageFlag(user.language_to_learn),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  // Wave button
-                  GestureDetector(
-                    onTap: onWave,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF00BFA5),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.waving_hand_rounded, size: 12, color: Colors.white),
-                          const SizedBox(width: 3),
-                          Text(
-                            AppLocalizations.of(context)!.wave,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFallbackAvatar() {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Center(
-        child: Text(
-          user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-
-  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
-
-  /// Get location text with city and country
-  String _getLocationText(BuildContext context, Community user) {
-    final city = user.location.city;
-    final country = user.location.country;
-
-    if (city.isNotEmpty && country.isNotEmpty) {
-      return '$city, $country';
-    } else if (city.isNotEmpty) {
-      return city;
-    } else if (country.isNotEmpty) {
-      return country;
-    }
-    return AppLocalizations.of(context)!.locationNotSet;
   }
 }
 
@@ -932,11 +608,7 @@ class _NearbyUserCardFromApi extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onWave;
 
-  const _NearbyUserCardFromApi({
-    required this.user,
-    this.onTap,
-    this.onWave,
-  });
+  const _NearbyUserCardFromApi({required this.user, this.onTap, this.onWave});
 
   @override
   Widget build(BuildContext context) {
@@ -987,7 +659,8 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                     ),
                   ),
                   // Online indicator (respect privacy settings)
-                  if ((user.privacySettings?.showOnlineStatus ?? true) && user.isOnline)
+                  if ((user.privacySettings?.showOnlineStatus ?? true) &&
+                      user.isOnline)
                     Positioned(
                       top: 10,
                       right: 10,
@@ -1006,7 +679,10 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                     top: 10,
                     left: 10,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black.withValues(alpha: 0.6),
                         borderRadius: BorderRadius.circular(8),
@@ -1014,7 +690,11 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.near_me, size: 12, color: Colors.white),
+                          const Icon(
+                            Icons.near_me,
+                            size: 12,
+                            color: Colors.white,
+                          ),
                           const SizedBox(width: 4),
                           Text(
                             _formatDistance(user.distance),
@@ -1068,7 +748,10 @@ class _NearbyUserCardFromApi extends StatelessWidget {
             ),
             // Bottom section - languages and wave button
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: Spacing.sm),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: Spacing.sm,
+              ),
               decoration: BoxDecoration(
                 color: context.containerColor,
                 border: Border(top: BorderSide(color: context.dividerColor)),
@@ -1076,9 +759,13 @@ class _NearbyUserCardFromApi extends StatelessWidget {
               child: Row(
                 children: [
                   // Language flags
-                  if (user.nativeLanguage != null || user.languageToLearn != null)
+                  if (user.nativeLanguage != null ||
+                      user.languageToLearn != null)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: context.surfaceColor,
                         borderRadius: AppRadius.borderXS,
@@ -1093,7 +780,11 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 3),
-                            child: Icon(Icons.arrow_forward_rounded, size: 8, color: Colors.grey),
+                            child: Icon(
+                              Icons.arrow_forward_rounded,
+                              size: 8,
+                              color: Colors.grey,
+                            ),
                           ),
                           Text(
                             _getLanguageFlag(user.languageToLearn ?? ''),
@@ -1107,7 +798,10 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                   GestureDetector(
                     onTap: onWave,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF00BFA5),
                         borderRadius: BorderRadius.circular(6),
@@ -1115,7 +809,11 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.waving_hand_rounded, size: 12, color: Colors.white),
+                          const Icon(
+                            Icons.waving_hand_rounded,
+                            size: 12,
+                            color: Colors.white,
+                          ),
                           const SizedBox(width: 3),
                           Text(
                             AppLocalizations.of(context)!.wave,
@@ -1170,7 +868,8 @@ class _NearbyUserCardFromApi extends StatelessWidget {
     }
   }
 
-  String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
+  String _getLanguageFlag(String language) =>
+      LanguageFlags.getFlagByName(language);
 
   /// Returns location text respecting privacy settings, or null if hidden
   String? _getPrivacyLocationText() {

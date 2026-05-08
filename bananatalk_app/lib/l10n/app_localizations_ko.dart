@@ -4475,4 +4475,208 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => '건너뛰기';
+
+  @override
+  String get wavesTab => '웨이브';
+
+  @override
+  String get sendWave => '웨이브 보내기';
+
+  @override
+  String sendWaveTo(String name) {
+    return '$name에게 웨이브 보내기';
+  }
+
+  @override
+  String waveSent(String name) {
+    return '$name에게 웨이브를 보냈어요';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return '$time 후에 $name에게 다시 웨이브를 보낼 수 있어요';
+  }
+
+  @override
+  String get waveCouldntSend => '웨이브를 보낼 수 없어요';
+
+  @override
+  String get itsAMatch => '매칭 성공!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return '$name님과 서로 웨이브를 보냈어요';
+  }
+
+  @override
+  String get sendAMessage => '메시지 보내기';
+
+  @override
+  String get waveQuickReplyHi => '안녕!';
+
+  @override
+  String get waveQuickReplyCool => '멋져 보여요';
+
+  @override
+  String get waveQuickReplyHey => '안녕하세요';
+
+  @override
+  String get waveQuickReplyChat => '대화해요';
+
+  @override
+  String get waveQuickReplyHello => '반가워요';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return '$country에서 안녕!';
+  }
+
+  @override
+  String get waveCustomMessage => '직접 메시지를 작성해 보세요…';
+
+  @override
+  String get voiceRoomChat => '채팅';
+
+  @override
+  String get voiceRoomChatPlaceholder => '메시지 보내기…';
+
+  @override
+  String get voiceRoomChatEmpty => '아직 메시지가 없어요 — 인사해 보세요';
+
+  @override
+  String get voiceRoomChatSend => '보내기';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => '방 종료';
+
+  @override
+  String get voiceRoomEndConfirm => '이 방을 종료할까요?';
+
+  @override
+  String get voiceRoomEndConfirmBody => '모든 참가자가 연결이 끊깁니다.';
+
+  @override
+  String get voiceRoomKick => '방에서 내보내기';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return '$name님을 내보낼까요?';
+  }
+
+  @override
+  String get voiceRoomKicked => '내보내졌습니다';
+
+  @override
+  String get voiceRoomYouAreHostNow => '이제 호스트가 되었어요';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name님이 호스트가 되었어요';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => '방 관리';
+
+  @override
+  String get voiceRoomViewProfile => '프로필 보기';
+
+  @override
+  String get voiceRoomReconnecting => '재연결 중…';
+
+  @override
+  String get voiceRoomReconnected => '재연결되었습니다';
+
+  @override
+  String get voiceRoomEnded => '방이 종료되었습니다';
+
+  @override
+  String get voiceRoomReconnectRetry => '다시 시도';
+
+  @override
+  String get mutualInterests => '공통 관심사';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '공통 관심사 $count개',
+      one: '공통 관심사 1개',
+      zero: '아직 공통 관심사가 없어요',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => '모두 보기';
+
+  @override
+  String get interestsInCommonAddCta => '주제 추가';
+
+  @override
+  String get interestsInCommonAddSubtitle => '프로필에 주제를 추가해 공통점을 찾아보세요';
+
+  @override
+  String activeAgo(String time) {
+    return '$time 전에 활동';
+  }
+
+  @override
+  String get filterOnlineNow => '지금 온라인';
+
+  @override
+  String get filterAge => '나이';
+
+  @override
+  String get filterGender => '성별';
+
+  @override
+  String get filterLanguages => '언어';
+
+  @override
+  String get filterCountry => '국가';
+
+  @override
+  String get filterTopics => '주제';
+
+  @override
+  String get filterLevel => '언어 수준';
+
+  @override
+  String get filterToggles => '기타';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '파트너 $count명 일치',
+      one: '파트너 1명 일치',
+      zero: '일치하는 파트너 없음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => '전체 지우기';
+
+  @override
+  String get filterReset => '초기화';
+
+  @override
+  String get filterApply => '적용';
+
+  @override
+  String get filterNewUsers => '신규 사용자만';
+
+  @override
+  String get filterPrioritizeNearby => '근처 우선';
+
+  @override
+  String get filterSheetTitle => '필터';
 }

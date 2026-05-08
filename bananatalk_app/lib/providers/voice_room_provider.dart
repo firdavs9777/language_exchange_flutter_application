@@ -13,6 +13,7 @@ class VoiceRoomState {
   final bool isMuted;
   final bool isHandRaised;
   final bool isLoading;
+  final bool isReconnecting;
   final String? error;
 
   const VoiceRoomState({
@@ -22,6 +23,7 @@ class VoiceRoomState {
     this.isMuted = true,
     this.isHandRaised = false,
     this.isLoading = false,
+    this.isReconnecting = false,
     this.error,
   });
 
@@ -32,6 +34,7 @@ class VoiceRoomState {
     bool? isMuted,
     bool? isHandRaised,
     bool? isLoading,
+    bool? isReconnecting,
     String? error,
   }) {
     return VoiceRoomState(
@@ -41,6 +44,7 @@ class VoiceRoomState {
       isMuted: isMuted ?? this.isMuted,
       isHandRaised: isHandRaised ?? this.isHandRaised,
       isLoading: isLoading ?? this.isLoading,
+      isReconnecting: isReconnecting ?? this.isReconnecting,
       error: error,
     );
   }
@@ -63,6 +67,7 @@ class VoiceRoomNotifier extends ChangeNotifier {
   bool get isHandRaised => _state.isHandRaised;
   bool get isInRoom => _state.isInRoom;
   bool get isLoading => _state.isLoading;
+  bool get isReconnecting => _state.isReconnecting;
 
   VoiceRoomManager get manager => _manager;
 
@@ -106,6 +111,10 @@ class VoiceRoomNotifier extends ChangeNotifier {
     _manager.onStateChanged = () {
       _updateState();
     };
+
+    _manager.onConnectionChanged = () {
+      _updateState();
+    };
   }
 
   void _updateState() {
@@ -115,6 +124,7 @@ class VoiceRoomNotifier extends ChangeNotifier {
       chatMessages: _manager.chatMessages,
       isMuted: _manager.isMuted,
       isHandRaised: _manager.isHandRaised,
+      isReconnecting: _manager.isReconnecting,
     );
     notifyListeners();
   }

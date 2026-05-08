@@ -4475,4 +4475,208 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'ข้ามไปก่อน';
+
+  @override
+  String get wavesTab => 'ทักทาย';
+
+  @override
+  String get sendWave => 'ส่งการทักทาย';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'ส่งการทักทายถึง $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'ส่งการทักทายถึง $name แล้ว';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'คุณสามารถทักทาย $name อีกครั้งใน $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'ไม่สามารถส่งการทักทายได้';
+
+  @override
+  String get itsAMatch => 'จับคู่สำเร็จ!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'คุณและ $name ทักทายกัน';
+  }
+
+  @override
+  String get sendAMessage => 'ส่งข้อความ';
+
+  @override
+  String get waveQuickReplyHi => 'สวัสดี!';
+
+  @override
+  String get waveQuickReplyCool => 'คุณดูดีมาก';
+
+  @override
+  String get waveQuickReplyHey => 'เฮ้';
+
+  @override
+  String get waveQuickReplyChat => 'มาคุยกันเถอะ';
+
+  @override
+  String get waveQuickReplyHello => 'สวัสดีครับ/ค่ะ';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'สวัสดีจาก $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'หรือเขียนข้อความของตัวเอง…';
+
+  @override
+  String get voiceRoomChat => 'แชท';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'ส่งข้อความ…';
+
+  @override
+  String get voiceRoomChatEmpty => 'ยังไม่มีข้อความ — พูดสวัสดีสิ';
+
+  @override
+  String get voiceRoomChatSend => 'ส่ง';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'สิ้นสุดห้อง';
+
+  @override
+  String get voiceRoomEndConfirm => 'สิ้นสุดห้องนี้?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'ทุกคนจะถูกตัดการเชื่อมต่อ';
+
+  @override
+  String get voiceRoomKick => 'นำออกจากห้อง';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'นำ $name ออก?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'ถูกนำออกแล้ว';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'คุณเป็นเจ้าภาพแล้ว';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name เป็นเจ้าภาพแล้ว';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'การจัดการห้อง';
+
+  @override
+  String get voiceRoomViewProfile => 'ดูโปรไฟล์';
+
+  @override
+  String get voiceRoomReconnecting => 'กำลังเชื่อมต่อใหม่…';
+
+  @override
+  String get voiceRoomReconnected => 'เชื่อมต่อใหม่แล้ว';
+
+  @override
+  String get voiceRoomEnded => 'ห้องสิ้นสุดแล้ว';
+
+  @override
+  String get voiceRoomReconnectRetry => 'ลองใหม่';
+
+  @override
+  String get mutualInterests => 'ความสนใจร่วมกัน';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ความสนใจร่วมกัน',
+      one: '1 ความสนใจร่วมกัน',
+      zero: 'ยังไม่มีความสนใจร่วมกัน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'ดูทั้งหมด';
+
+  @override
+  String get interestsInCommonAddCta => 'เพิ่มหัวข้อ';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'เพิ่มหัวข้อในโปรไฟล์เพื่อหาจุดร่วม';
+
+  @override
+  String activeAgo(String time) {
+    return 'ใช้งานเมื่อ $time ที่แล้ว';
+  }
+
+  @override
+  String get filterOnlineNow => 'ออนไลน์อยู่';
+
+  @override
+  String get filterAge => 'อายุ';
+
+  @override
+  String get filterGender => 'เพศ';
+
+  @override
+  String get filterLanguages => 'ภาษา';
+
+  @override
+  String get filterCountry => 'ประเทศ';
+
+  @override
+  String get filterTopics => 'หัวข้อ';
+
+  @override
+  String get filterLevel => 'ระดับภาษา';
+
+  @override
+  String get filterToggles => 'อื่นๆ';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count คนตรงกัน',
+      one: '1 คนตรงกัน',
+      zero: 'ไม่มีคู่ที่ตรงกัน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'ล้างทั้งหมด';
+
+  @override
+  String get filterReset => 'รีเซ็ต';
+
+  @override
+  String get filterApply => 'ใช้งาน';
+
+  @override
+  String get filterNewUsers => 'เฉพาะผู้ใช้ใหม่';
+
+  @override
+  String get filterPrioritizeNearby => 'ให้ความสำคัญกับบริเวณใกล้เคียง';
+
+  @override
+  String get filterSheetTitle => 'ตัวกรอง';
 }

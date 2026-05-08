@@ -4475,4 +4475,208 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Laktawan muna';
+
+  @override
+  String get wavesTab => 'Mga Wave';
+
+  @override
+  String get sendWave => 'Magpadala ng wave';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'Magpadala ng wave kay $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'Naipadala ang wave kay $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'Maaari kang mag-wave kay $name muli pagkatapos ng $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'Hindi maipadala ang wave';
+
+  @override
+  String get itsAMatch => 'Nag-match kayo!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'Ikaw at si $name ay magkasamang nag-wave';
+  }
+
+  @override
+  String get sendAMessage => 'Magpadala ng mensahe';
+
+  @override
+  String get waveQuickReplyHi => 'Hi!';
+
+  @override
+  String get waveQuickReplyCool => 'Mukhang cool ka';
+
+  @override
+  String get waveQuickReplyHey => 'Hey';
+
+  @override
+  String get waveQuickReplyChat => 'Mag-usap tayo';
+
+  @override
+  String get waveQuickReplyHello => 'Kumusta';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'Hi mula sa $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'O sumulat ng sarili mong mensahe…';
+
+  @override
+  String get voiceRoomChat => 'Chat';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Magpadala ng mensahe…';
+
+  @override
+  String get voiceRoomChatEmpty => 'Wala pang mensahe — kumusta ka';
+
+  @override
+  String get voiceRoomChatSend => 'Ipadala';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'Tapusin ang kuwarto';
+
+  @override
+  String get voiceRoomEndConfirm => 'Tapusin ang kuwartong ito?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Lahat ay ididiskonekta.';
+
+  @override
+  String get voiceRoomKick => 'Alisin sa kuwarto';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'Alisin si $name?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Naalis na';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'Ikaw na ang host ngayon';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return 'Si $name na ang host ngayon';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Mga aksyon sa kuwarto';
+
+  @override
+  String get voiceRoomViewProfile => 'Tingnan ang profile';
+
+  @override
+  String get voiceRoomReconnecting => 'Nagre-reconnect…';
+
+  @override
+  String get voiceRoomReconnected => 'Nakakonekta na ulit';
+
+  @override
+  String get voiceRoomEnded => 'Natapos na ang kuwarto';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Subukang muli';
+
+  @override
+  String get mutualInterests => 'Magkaparehong interes';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count magkaparehong interes',
+      one: '1 magkaparehong interes',
+      zero: 'Wala pang magkaparehong interes',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'Tingnan lahat';
+
+  @override
+  String get interestsInCommonAddCta => 'Magdagdag ng paksa';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Magdagdag ng paksa sa iyong profile para mahanap ang pagkakatulad';
+
+  @override
+  String activeAgo(String time) {
+    return 'Aktibo noong $time nakalipas';
+  }
+
+  @override
+  String get filterOnlineNow => 'Online ngayon';
+
+  @override
+  String get filterAge => 'Edad';
+
+  @override
+  String get filterGender => 'Kasarian';
+
+  @override
+  String get filterLanguages => 'Mga wika';
+
+  @override
+  String get filterCountry => 'Bansa';
+
+  @override
+  String get filterTopics => 'Mga paksa';
+
+  @override
+  String get filterLevel => 'Antas ng wika';
+
+  @override
+  String get filterToggles => 'Iba pa';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kasosyo ang tumutugma',
+      one: '1 kasosyo ang tumutugma',
+      zero: 'Walang kasosyong tumutugma',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'I-clear lahat';
+
+  @override
+  String get filterReset => 'I-reset';
+
+  @override
+  String get filterApply => 'Ilapat';
+
+  @override
+  String get filterNewUsers => 'Bagong users lamang';
+
+  @override
+  String get filterPrioritizeNearby => 'Unahin ang malapit';
+
+  @override
+  String get filterSheetTitle => 'Mga filter';
 }

@@ -1,6 +1,5 @@
 // lib/services/chat_socket_service.dart
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -50,6 +49,13 @@ class ChatSocketService {
   final _messageCorrectionController = StreamController<dynamic>.broadcast();
   final _themeChangedController = StreamController<dynamic>.broadcast();
 
+  // Presence stream controllers
+  final _presenceOnlineController =
+      StreamController<Map<String, dynamic>>.broadcast();
+  final _presenceOfflineController =
+      StreamController<Map<String, dynamic>>.broadcast();
+  final _presenceBulkController = StreamController<List<String>>.broadcast();
+
   // Voice room stream controllers
   final _voiceRoomParticipantJoinedController =
       StreamController<dynamic>.broadcast();
@@ -64,6 +70,7 @@ class ChatSocketService {
   final _voiceRoomChatController = StreamController<dynamic>.broadcast();
   final _voiceRoomEndedController = StreamController<dynamic>.broadcast();
   final _voiceRoomKickedController = StreamController<dynamic>.broadcast();
+  final _voiceRoomHostChangedController = StreamController<dynamic>.broadcast();
 
   // Getters for streams
   Stream<dynamic> get onNewMessage => _newMessageController.stream;
@@ -78,6 +85,13 @@ class ChatSocketService {
   Stream<dynamic> get onMessageCorrection =>
       _messageCorrectionController.stream;
   Stream<dynamic> get onThemeChanged => _themeChangedController.stream;
+
+  // Presence stream getters
+  Stream<Map<String, dynamic>> get onPresenceOnline =>
+      _presenceOnlineController.stream;
+  Stream<Map<String, dynamic>> get onPresenceOffline =>
+      _presenceOfflineController.stream;
+  Stream<List<String>> get onPresenceBulk => _presenceBulkController.stream;
 
   // Voice room stream getters
   Stream<dynamic> get onVoiceRoomParticipantJoined =>
@@ -94,6 +108,8 @@ class ChatSocketService {
   Stream<dynamic> get onVoiceRoomChat => _voiceRoomChatController.stream;
   Stream<dynamic> get onVoiceRoomEnded => _voiceRoomEndedController.stream;
   Stream<dynamic> get onVoiceRoomKicked => _voiceRoomKickedController.stream;
+  Stream<dynamic> get onVoiceRoomHostChanged =>
+      _voiceRoomHostChangedController.stream;
 
   bool get isConnected => _socket?.connected ?? false;
   bool get shouldAllowReconnection => _shouldAllowReconnection;
@@ -481,6 +497,34 @@ class ChatSocketService {
     _socket?.on('voiceroom:kicked', (data) {
       _safeAdd(_voiceRoomKickedController, data);
     });
+
+    // Host transferred to a new participant
+    _socket?.on('voiceroom:host-changed', (data) {
+      _safeAdd(_voiceRoomHostChangedController, data);
+    });
+
+    // ============ Presence Events ============
+
+    _socket?.on('presence:online', (data) {
+      if (data is Map) {
+        _safeAdd(_presenceOnlineController, Map<String, dynamic>.from(data));
+      }
+    });
+
+    _socket?.on('presence:offline', (data) {
+      if (data is Map) {
+        _safeAdd(_presenceOfflineController, Map<String, dynamic>.from(data));
+      }
+    });
+
+    _socket?.on('presence:bulk', (data) {
+      if (data is Map && data['onlineUserIds'] is List) {
+        _safeAdd(
+          _presenceBulkController,
+          (data['onlineUserIds'] as List).map((e) => e.toString()).toList(),
+        );
+      }
+    });
   }
 
   // Safe add to stream controller (prevents adding to closed controllers)
@@ -794,6 +838,10 @@ class ChatSocketService {
     _messageDeliveryController.close();
     _messageReactionController.close();
     _messageCorrectionController.close();
+    _presenceOnlineController.close();
+    _presenceOfflineController.close();
+    _presenceBulkController.close();
+    _voiceRoomHostChangedController.close();
     disconnect();
   }
 }

@@ -14,7 +14,7 @@ import 'package:bananatalk_app/services/interaction_service.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -44,9 +44,12 @@ class PartnerDiscoveryTab extends ConsumerStatefulWidget {
 
 class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   String _userId = '';
-  final Set<String> _sessionSkippedUsers = {}; // Local session cache for instant UI
-  final Set<String> _sessionWavedUsers = {}; // Local session cache for instant UI
-  Set<String> _serverExcludedUsers = {}; // Users excluded by server (persisted skips/waves)
+  final Set<String> _sessionSkippedUsers =
+      {}; // Local session cache for instant UI
+  final Set<String> _sessionWavedUsers =
+      {}; // Local session cache for instant UI
+  Set<String> _serverExcludedUsers =
+      {}; // Users excluded by server (persisted skips/waves)
   bool _isProcessingSwipe = false; // Prevent double swipes
   bool _initialLoadDone = false;
   PartnerFilterParams? _lastFilters;
@@ -91,7 +94,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     final savedMode = prefs.getString(_viewModeKey);
     if (savedMode != null && mounted) {
       setState(() {
-        _viewMode = savedMode == 'swipe' ? PartnerViewMode.swipe : PartnerViewMode.list;
+        _viewMode = savedMode == 'swipe'
+            ? PartnerViewMode.swipe
+            : PartnerViewMode.list;
       });
     }
   }
@@ -99,7 +104,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   /// Save view mode preference
   Future<void> _saveViewMode(PartnerViewMode mode) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_viewModeKey, mode == PartnerViewMode.swipe ? 'swipe' : 'list');
+    await prefs.setString(
+      _viewModeKey,
+      mode == PartnerViewMode.swipe ? 'swipe' : 'list',
+    );
   }
 
   /// Toggle between list and swipe view
@@ -141,8 +149,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           _serverExcludedUsers = excluded;
         });
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   @override
@@ -171,12 +178,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     }
   }
 
-  void _refreshData() {
-    if (_lastFilters != null) {
-      ref.read(partnerFilterProvider.notifier).loadWithFilters(_lastFilters!);
-    }
-  }
-
   /// Build filter params from current user and UI filters
   /// Uses filter screen selection if available, otherwise user's profile languages
   ///
@@ -194,7 +195,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     final filterLearning = widget.filters['learningLanguage']?.toString();
 
     final hasFilterNative = filterNative != null && filterNative.isNotEmpty;
-    final hasFilterLearning = filterLearning != null && filterLearning.isNotEmpty;
+    final hasFilterLearning =
+        filterLearning != null && filterLearning.isNotEmpty;
 
     // Determine effective languages
     String? apiNativeParam; // API: finds users LEARNING this language
@@ -217,7 +219,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       apiLearningParam = myLearning;
       apiNativeParam = myNative;
     }
-
 
     // Quick filter chips override full filter screen values
     // When a quick chip is active, ONLY apply that filter (clear the other)
@@ -251,13 +252,15 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
     );
 
-
     return params;
   }
 
   /// Filter out session-skipped/waved users (local cache for instant UI feedback)
   /// Server-side already excludes persisted skips/waves, this is just for current session
-  List<Community> _filterSessionUsers(List<Community> users, Set<String> blockedUserIds) {
+  List<Community> _filterSessionUsers(
+    List<Community> users,
+    Set<String> blockedUserIds,
+  ) {
     return users.where((user) {
       if (user.id == _userId) return false;
       if (blockedUserIds.contains(user.id)) return false;
@@ -278,10 +281,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       // Send wave sticker - this will be detected and rendered as a big wave sticker
       await messageService.sendMessage(
         receiver: receiverId,
-        message: '👋',  // Wave emoji - renders as big sticker
+        message: '👋', // Wave emoji - renders as big sticker
       );
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   void _onWaveFromButton(Community community) {
@@ -291,8 +293,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     _sessionWavedUsers.add(community.id);
 
     // Persist to server in background
-    InteractionService.waveUser(community.id).then((result) {
-    });
+    InteractionService.waveUser(community.id).then((result) {});
 
     // Navigate to chat
     Navigator.push(
@@ -318,8 +319,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     _sessionWavedUsers.add(community.id);
 
     // Persist to server in background
-    InteractionService.waveUser(community.id).then((result) {
-    });
+    InteractionService.waveUser(community.id).then((result) {});
 
     // Update state to show next card
     setState(() {
@@ -365,9 +365,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   void _viewProfile(Community community) {
     Navigator.push(
       context,
-      AppPageRoute(
-        builder: (_) => SingleCommunity(community: community),
-      ),
+      AppPageRoute(builder: (_) => SingleCommunity(community: community)),
     );
   }
 
@@ -393,7 +391,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           // Schedule the load after the current frame to avoid provider conflicts
           Future(() {
             if (!mounted) return;
-            ref.read(partnerFilterProvider.notifier).loadWithFilters(filterParams);
+            ref
+                .read(partnerFilterProvider.notifier)
+                .loadWithFilters(filterParams);
           });
         }
 
@@ -425,13 +425,17 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         // Client-side: prioritize nearby (sort by distance from current user)
         if (widget.filters['prioritizeNearby'] == true) {
           final myCoords = currentUser.location.coordinates;
-          final myHasCoords = myCoords.length >= 2 && (myCoords[0] != 0.0 || myCoords[1] != 0.0);
+          final myHasCoords =
+              myCoords.length >= 2 &&
+              (myCoords[0] != 0.0 || myCoords[1] != 0.0);
 
           filteredCommunities.sort((a, b) {
             final aCoords = a.location.coordinates;
             final bCoords = b.location.coordinates;
-            final aHasCoords = aCoords.length >= 2 && (aCoords[0] != 0.0 || aCoords[1] != 0.0);
-            final bHasCoords = bCoords.length >= 2 && (bCoords[0] != 0.0 || bCoords[1] != 0.0);
+            final aHasCoords =
+                aCoords.length >= 2 && (aCoords[0] != 0.0 || aCoords[1] != 0.0);
+            final bHasCoords =
+                bCoords.length >= 2 && (bCoords[0] != 0.0 || bCoords[1] != 0.0);
 
             // Users without coordinates go to the bottom
             if (aHasCoords && !bHasCoords) return -1;
@@ -440,8 +444,18 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
             // If current user has coordinates, sort by distance
             if (myHasCoords) {
-              final aDist = _haversineDistance(myCoords[0], myCoords[1], aCoords[0], aCoords[1]);
-              final bDist = _haversineDistance(myCoords[0], myCoords[1], bCoords[0], bCoords[1]);
+              final aDist = _haversineDistance(
+                myCoords[0],
+                myCoords[1],
+                aCoords[0],
+                aCoords[1],
+              );
+              final bDist = _haversineDistance(
+                myCoords[0],
+                myCoords[1],
+                bCoords[0],
+                bCoords[1],
+              );
               return aDist.compareTo(bDist);
             }
 
@@ -479,7 +493,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
         // Check if user has location set (for nearby banner)
         final myCoords = currentUser.location.coordinates;
-        final userHasLocation = myCoords.length >= 2 && (myCoords[0] != 0.0 || myCoords[1] != 0.0);
+        final userHasLocation =
+            myCoords.length >= 2 && (myCoords[0] != 0.0 || myCoords[1] != 0.0);
 
         // Build content based on view mode
         return Column(
@@ -514,8 +529,16 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             // Content
             Expanded(
               child: _viewMode == PartnerViewMode.list
-                  ? _buildListView(filteredCommunities, partnerState.isLoadingMore, partnerState.hasMore, currentUser)
-                  : _buildCardStack(filteredCommunities, partnerState.isLoadingMore),
+                  ? _buildListView(
+                      filteredCommunities,
+                      partnerState.isLoadingMore,
+                      partnerState.hasMore,
+                      currentUser,
+                    )
+                  : _buildCardStack(
+                      filteredCommunities,
+                      partnerState.isLoadingMore,
+                    ),
             ),
           ],
         );
@@ -570,37 +593,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     required String label,
     required bool isSelected,
     required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected ? context.primaryColor : Colors.transparent,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 18,
-              color: isSelected ? Colors.white : context.textSecondary,
-            ),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                color: isSelected ? Colors.white : context.textSecondary,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  }) => _ViewModeButton(
+    icon: icon,
+    label: label,
+    isSelected: isSelected,
+    onTap: onTap,
+  );
 
   /// Build quick filter chips
   Widget _buildQuickFilterChips(dynamic currentUser) {
@@ -645,9 +643,13 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               ),
               backgroundColor: context.containerColor,
               side: BorderSide(
-                color: _quickOnlineOnly ? context.primaryColor : context.dividerColor,
+                color: _quickOnlineOnly
+                    ? context.primaryColor
+                    : context.dividerColor,
               ),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               showCheckmark: false,
             ),
           ),
@@ -656,7 +658,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: FilterChip(
-                label: Text(AppLocalizations.of(context)!.speaksLanguage(_capitalizeFirst(userLearning))),
+                label: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.speaksLanguage(_capitalizeFirst(userLearning)),
+                ),
                 selected: _quickNativeLanguage == userLearning,
                 onSelected: (selected) {
                   setState(() {
@@ -666,15 +672,21 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 },
                 selectedColor: context.primaryColor,
                 labelStyle: TextStyle(
-                  color: _quickNativeLanguage == userLearning ? Colors.white : context.textPrimary,
+                  color: _quickNativeLanguage == userLearning
+                      ? Colors.white
+                      : context.textPrimary,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),
                 backgroundColor: context.containerColor,
                 side: BorderSide(
-                  color: _quickNativeLanguage == userLearning ? context.primaryColor : context.dividerColor,
+                  color: _quickNativeLanguage == userLearning
+                      ? context.primaryColor
+                      : context.dividerColor,
                 ),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 showCheckmark: false,
               ),
             ),
@@ -683,7 +695,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: FilterChip(
-                label: Text(AppLocalizations.of(context)!.learningLanguage(_capitalizeFirst(userNative))),
+                label: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.learningLanguage(_capitalizeFirst(userNative)),
+                ),
                 selected: _quickLearningLanguage == userNative,
                 onSelected: (selected) {
                   setState(() {
@@ -693,15 +709,21 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 },
                 selectedColor: context.primaryColor,
                 labelStyle: TextStyle(
-                  color: _quickLearningLanguage == userNative ? Colors.white : context.textPrimary,
+                  color: _quickLearningLanguage == userNative
+                      ? Colors.white
+                      : context.textPrimary,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),
                 backgroundColor: context.containerColor,
                 side: BorderSide(
-                  color: _quickLearningLanguage == userNative ? context.primaryColor : context.dividerColor,
+                  color: _quickLearningLanguage == userNative
+                      ? context.primaryColor
+                      : context.dividerColor,
                 ),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 showCheckmark: false,
               ),
             ),
@@ -722,7 +744,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.location_off_rounded, size: 18, color: Colors.orange),
+          const Icon(
+            Icons.location_off_rounded,
+            size: 18,
+            color: Colors.orange,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -744,13 +770,21 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   /// Haversine distance in km between two coordinates
-  double _haversineDistance(double lat1, double lon1, double lat2, double lon2) {
+  double _haversineDistance(
+    double lat1,
+    double lon1,
+    double lat2,
+    double lon2,
+  ) {
     const R = 6371.0; // Earth's radius in km
     final dLat = _toRadians(lat2 - lat1);
     final dLon = _toRadians(lon2 - lon1);
-    final a = math.sin(dLat / 2) * math.sin(dLat / 2) +
-        math.cos(_toRadians(lat1)) * math.cos(_toRadians(lat2)) *
-        math.sin(dLon / 2) * math.sin(dLon / 2);
+    final a =
+        math.sin(dLat / 2) * math.sin(dLat / 2) +
+        math.cos(_toRadians(lat1)) *
+            math.cos(_toRadians(lat2)) *
+            math.sin(dLon / 2) *
+            math.sin(dLon / 2);
     return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
   }
 
@@ -762,7 +796,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   /// Build list view of partners
-  Widget _buildListView(List<Community> communities, bool isLoadingMore, bool hasMore, [dynamic currentUser]) {
+  Widget _buildListView(
+    List<Community> communities,
+    bool isLoadingMore,
+    bool hasMore, [
+    dynamic currentUser,
+  ]) {
     return RefreshIndicator(
       onRefresh: () async {
         ref.read(partnerFilterProvider.notifier).refresh();
@@ -778,10 +817,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         itemCount: communities.length + 1 + (isLoadingMore || hasMore ? 1 : 0),
         separatorBuilder: (context, index) => index == 0
             ? const SizedBox.shrink()
-            : Divider(
-                height: 1,
-                color: context.dividerColor,
-              ),
+            : Divider(height: 1, color: context.dividerColor),
         itemBuilder: (context, index) {
           // Banner ad at position 0
           if (index == 0) {
@@ -797,20 +833,18 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           if (realIndex == communities.length) {
             return const Padding(
               padding: EdgeInsets.all(16),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
+              child: Center(child: CircularProgressIndicator()),
             );
           }
 
           final community = communities[realIndex];
           return PartnerListItem(
-            user: community,
-            currentUser: currentUser is Community ? currentUser : null,
-            onTap: () => _viewProfile(community),
-            onWave: () => _onWaveFromButton(community),
-            onMessage: () => _onMessage(community),
-          )
+                user: community,
+                currentUser: currentUser is Community ? currentUser : null,
+                onTap: () => _viewProfile(community),
+                onWave: () => _onWaveFromButton(community),
+                onMessage: () => _onMessage(community),
+              )
               .animate()
               .fadeIn(
                 duration: 300.ms,
@@ -828,7 +862,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     );
   }
 
-  Widget _buildCardStack(List<Community> communities, [bool isLoadingMore = false]) {
+  Widget _buildCardStack(
+    List<Community> communities, [
+    bool isLoadingMore = false,
+  ]) {
     if (communities.isEmpty) {
       return _buildAllDoneState();
     }
@@ -848,9 +885,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 child: Opacity(
                   opacity: 0.4,
                   child: IgnorePointer(
-                    child: PartnerCard(
-                      user: communities[1],
-                    ),
+                    child: PartnerCard(user: communities[1]),
                   ),
                 ),
               ),
@@ -861,7 +896,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               child: Transform.scale(
                 scale: 0.92,
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: Spacing.lg,
+                    vertical: Spacing.sm,
+                  ),
                   decoration: BoxDecoration(
                     color: context.containerColor,
                     borderRadius: AppRadius.borderXXL,
@@ -894,8 +932,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   // Swiped left - Skip
                   _sessionSkippedUsers.add(currentCommunity.id);
                   // Persist to server in background
-                  InteractionService.skipUser(currentCommunity.id).then((result) {
-                  });
+                  InteractionService.skipUser(
+                    currentCommunity.id,
+                  ).then((result) {});
                   setState(() {
                     _isProcessingSwipe = false;
                   });
@@ -913,8 +952,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   if (_isProcessingSwipe) return;
                   _sessionSkippedUsers.add(currentCommunity.id);
                   // Persist to server in background
-                  InteractionService.skipUser(currentCommunity.id).then((result) {
-                  });
+                  InteractionService.skipUser(
+                    currentCommunity.id,
+                  ).then((result) {});
                   setState(() {});
                 },
                 onWave: () => _onWaveFromButton(currentCommunity),
@@ -927,36 +967,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     );
   }
 
-  Widget _buildSwipeBackground(bool isWave) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: Spacing.sm),
-      decoration: BoxDecoration(
-        color: isWave
-            ? AppColors.success.withOpacity(0.2)
-            : context.textMuted.withOpacity(0.2),
-        borderRadius: AppRadius.borderXXL,
-      ),
-      alignment: isWave ? Alignment.centerLeft : Alignment.centerRight,
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            isWave ? Icons.waving_hand_rounded : Icons.close_rounded,
-            color: isWave ? AppColors.success : context.textMuted,
-            size: 48,
-          ),
-          Spacing.gapSM,
-          Text(
-            isWave ? 'Wave' : 'Skip',
-            style: context.titleLarge.copyWith(
-              color: isWave ? AppColors.success : context.textMuted,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _buildSwipeBackground(bool isWave) => _SwipeBackground(isWave: isWave);
 
   /// Check if any non-default filters are active
   bool get _hasActiveFilters {
@@ -1009,10 +1020,14 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 Spacing.gapMD,
                 Text(
                   learningLang.isNotEmpty && nativeLang.isNotEmpty
-                      ? AppLocalizations.of(context)!.noUsersFoundForLanguages(learningLang, nativeLang)
+                      ? AppLocalizations.of(
+                          context,
+                        )!.noUsersFoundForLanguages(learningLang, nativeLang)
                       : AppLocalizations.of(context)!.tryAdjustingFilters,
                   textAlign: TextAlign.center,
-                  style: context.bodyMedium.copyWith(color: context.textSecondary),
+                  style: context.bodyMedium.copyWith(
+                    color: context.textSecondary,
+                  ),
                 ),
                 Spacing.gapXXL,
                 // Actionable buttons
@@ -1031,11 +1046,15 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                         widget.onClearFilters?.call();
                       },
                       icon: const Icon(Icons.filter_alt_off_rounded),
-                      label: Text(AppLocalizations.of(context)!.removeAllFilters),
+                      label: Text(
+                        AppLocalizations.of(context)!.removeAllFilters,
+                      ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: context.primaryColor,
                         side: BorderSide(color: context.primaryColor),
-                        padding: const EdgeInsets.symmetric(vertical: Spacing.md),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: Spacing.md,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: AppRadius.borderMD,
                         ),
@@ -1054,15 +1073,17 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                         _quickLearningLanguage = null;
                         _lastFilters = null;
                       });
-                      ref.read(partnerFilterProvider.notifier).loadWithFilters(
-                        PartnerFilterParams(
-                          gender: widget.filters['gender']?.toString(),
-                          minAge: widget.filters['minAge'] as int?,
-                          maxAge: widget.filters['maxAge'] as int?,
-                          country: widget.filters['country']?.toString(),
-                          onlineOnly: _quickOnlineOnly,
-                        ),
-                      );
+                      ref
+                          .read(partnerFilterProvider.notifier)
+                          .loadWithFilters(
+                            PartnerFilterParams(
+                              gender: widget.filters['gender']?.toString(),
+                              minAge: widget.filters['minAge'] as int?,
+                              maxAge: widget.filters['maxAge'] as int?,
+                              country: widget.filters['country']?.toString(),
+                              onlineOnly: _quickOnlineOnly,
+                            ),
+                          );
                     },
                     icon: const Icon(Icons.people_rounded),
                     label: Text(AppLocalizations.of(context)!.browseAllUsers),
@@ -1121,7 +1142,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               Text(
                 AppLocalizations.of(context)!.tryAdjustingFilters,
                 textAlign: TextAlign.center,
-                style: context.bodyMedium.copyWith(color: context.textSecondary),
+                style: context.bodyMedium.copyWith(
+                  color: context.textSecondary,
+                ),
               ),
             ],
           ),
@@ -1154,7 +1177,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             ),
             Spacing.gapXXL,
             Text(
-              partnerState.hasMore ? AppLocalizations.of(context)!.loadingMore : AppLocalizations.of(context)!.allCaughtUp,
+              partnerState.hasMore
+                  ? AppLocalizations.of(context)!.loadingMore
+                  : AppLocalizations.of(context)!.allCaughtUp,
               style: context.displaySmall,
             ),
             Spacing.gapMD,
@@ -1191,9 +1216,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   horizontal: Spacing.xxl,
                   vertical: Spacing.md,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: AppRadius.borderMD,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
               ),
             ),
             Spacing.gapSM,
@@ -1216,9 +1239,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   horizontal: Spacing.xxl,
                   vertical: Spacing.md,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: AppRadius.borderMD,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
               ),
             ),
           ],
@@ -1268,6 +1289,98 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Private helper widgets
+// ---------------------------------------------------------------------------
+
+class _ViewModeButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _ViewModeButton({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? context.primaryColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 18,
+              color: isSelected ? Colors.white : context.textSecondary,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                color: isSelected ? Colors.white : context.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SwipeBackground extends StatelessWidget {
+  final bool isWave;
+
+  const _SwipeBackground({required this.isWave});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: Spacing.lg,
+        vertical: Spacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: isWave
+            ? AppColors.success.withValues(alpha: 0.2)
+            : context.textMuted.withValues(alpha: 0.2),
+        borderRadius: AppRadius.borderXXL,
+      ),
+      alignment: isWave ? Alignment.centerLeft : Alignment.centerRight,
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            isWave ? Icons.waving_hand_rounded : Icons.close_rounded,
+            color: isWave ? AppColors.success : context.textMuted,
+            size: 48,
+          ),
+          Spacing.gapSM,
+          Text(
+            isWave ? 'Wave' : 'Skip',
+            style: context.titleLarge.copyWith(
+              color: isWave ? AppColors.success : context.textMuted,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -49,6 +49,9 @@ class VoiceRoomManager {
   bool _isMuted = true; // Start muted by default
   bool _isHandRaised = false;
 
+  // Timers
+  Timer? _heartbeatTimer;
+
   // Stream subscriptions
   StreamSubscription? _participantJoinedSub;
   StreamSubscription? _participantLeftSub;
@@ -60,14 +63,23 @@ class VoiceRoomManager {
   StreamSubscription? _chatSub;
   StreamSubscription? _endedSub;
   StreamSubscription? _kickedSub;
+  StreamSubscription? _hostChangedSub;
+  StreamSubscription<Map<String, double>>? _audioLevelSub;
+  StreamSubscription<bool>? _connectionSub;
+
+  // Reconnect state
+  bool _isReconnecting = false;
+  bool get isReconnecting => _isReconnecting;
 
   // Callbacks
+  Function(String newHostId, String? previousHostId)? onHostChanged;
   Function(RoomParticipant)? onParticipantJoined;
   Function(String participantId)? onParticipantLeft;
   Function(VoiceRoomChatMessage)? onChatMessage;
   Function()? onRoomEnded;
   Function()? onKicked;
   Function()? onStateChanged;
+  Function()? onConnectionChanged;
 
   // Getters
   WebRTCService get webrtcService => _webrtcService;
@@ -88,7 +100,54 @@ class VoiceRoomManager {
     await _webrtcService.initialize();
     _setupSocketListeners();
     _setupWebRTCCallbacks();
+    _setupConnectionListener();
     _isInitialized = true;
+  }
+
+  void _setupConnectionListener() {
+    _connectionSub?.cancel();
+    _connectionSub = _chatSocketService!.onConnectionStateChange.listen((connected) {
+      if (_currentRoom == null) return;
+
+      if (!connected) {
+        _isReconnecting = true;
+        onConnectionChanged?.call();
+        onStateChanged?.call();
+        return;
+      }
+
+      // Reconnected — refresh socket reference then emit rejoin with ACK
+      _socket = _chatSocketService!.socket;
+
+      final payload = {
+        'roomId': _currentRoom!.id,
+        'lastSeenAt': DateTime.now().toIso8601String(),
+      };
+
+      _socket?.emitWithAck(
+        'voiceroom:rejoin',
+        payload,
+        ack: (ackData) {
+          _isReconnecting = false;
+          if (ackData is Map) {
+            final m = Map<String, dynamic>.from(ackData);
+            if (m['ended'] == true || m['ok'] == false) {
+              onRoomEnded?.call();
+              _cleanup();
+              return;
+            }
+            // Update hostId if demoted during reconnect gap
+            if (m['currentHostId'] != null && _currentRoom != null) {
+              _currentRoom = _currentRoom!.copyWith(
+                hostId: m['currentHostId'].toString(),
+              );
+            }
+          }
+          onConnectionChanged?.call();
+          onStateChanged?.call();
+        },
+      );
+    });
   }
 
   void _setupSocketListeners() {
@@ -164,15 +223,7 @@ class VoiceRoomManager {
 
       final index = _participants.indexWhere((p) => p.id == participantId);
       if (index != -1) {
-        _participants[index] = RoomParticipant(
-          id: _participants[index].id,
-          name: _participants[index].name,
-          avatar: _participants[index].avatar,
-          isSpeaking: _participants[index].isSpeaking,
-          isMuted: isMuted,
-          isHost: _participants[index].isHost,
-          joinedAt: _participants[index].joinedAt,
-        );
+        _participants[index] = _participants[index].copyWith(isMuted: isMuted);
         onStateChanged?.call();
       }
     });
@@ -180,10 +231,13 @@ class VoiceRoomManager {
     // Hand raised
     _handRaisedSub = _chatSocketService!.onVoiceRoomHandRaised.listen((data) {
       final participantId = data['userId']?.toString() ?? '';
-      final isHandRaised = data['isRaised'] == true;
-
-      // Update participant if needed (could add handRaised to model)
-      onStateChanged?.call();
+      final isRaised = data['isRaised'] == true;
+      if (participantId.isEmpty) return;
+      final i = _participants.indexWhere((p) => p.id == participantId);
+      if (i != -1) {
+        _participants[i] = _participants[i].copyWith(isHandRaised: isRaised);
+        onStateChanged?.call();
+      }
     });
 
     // Chat message
@@ -204,6 +258,32 @@ class VoiceRoomManager {
     _kickedSub = _chatSocketService!.onVoiceRoomKicked.listen((data) {
       onKicked?.call();
       _cleanup();
+    });
+
+    // Host transferred
+    _hostChangedSub = _chatSocketService!.onVoiceRoomHostChanged.listen((data) {
+      if (_currentRoom == null) return;
+      final m = data is Map ? Map<String, dynamic>.from(data) : null;
+      if (m == null) return;
+      final newHostId = m['newHostId']?.toString() ?? '';
+      final previousHostId = m['previousHostId']?.toString();
+      if (newHostId.isEmpty) return;
+
+      // Update room hostId
+      _currentRoom = _currentRoom!.copyWith(hostId: newHostId);
+
+      // Flip isHost flags on participants
+      for (var i = 0; i < _participants.length; i++) {
+        final p = _participants[i];
+        if (p.id == newHostId) {
+          _participants[i] = p.copyWith(isHost: true);
+        } else if (p.isHost) {
+          _participants[i] = p.copyWith(isHost: false);
+        }
+      }
+
+      onHostChanged?.call(newHostId, previousHostId);
+      onStateChanged?.call();
     });
   }
 
@@ -238,6 +318,24 @@ class VoiceRoomManager {
         },
       });
     };
+
+    // Audio-level stream → flip isSpeaking on participant tiles
+    _audioLevelSub?.cancel();
+    _audioLevelSub = _webrtcService.peerAudioLevels.listen((levels) {
+      bool changed = false;
+      for (var i = 0; i < _participants.length; i++) {
+        final p = _participants[i];
+        final level = levels[p.id] ?? 0;
+        // 0.05 RMS: breathing/typing (~0.01-0.03) stays below;
+        // intentional speech is typically 0.1+.
+        final shouldSpeak = level > 0.05 && !p.isMuted;
+        if (p.isSpeaking != shouldSpeak) {
+          _participants[i] = p.copyWith(isSpeaking: shouldSpeak);
+          changed = true;
+        }
+      }
+      if (changed) onStateChanged?.call();
+    });
   }
 
   /// Join a voice room
@@ -279,6 +377,17 @@ class VoiceRoomManager {
         await _webrtcService.createOfferForPeer(participant.id);
       }
     }
+
+    // Begin audio-level polling so the speaking indicator stays live
+    _webrtcService.startAudioLevelPolling();
+
+    // Start heartbeat timer
+    _heartbeatTimer?.cancel();
+    _heartbeatTimer = Timer.periodic(const Duration(seconds: 20), (_) {
+      if (_currentRoom != null && _socket != null) {
+        _socket!.emit('voiceroom:heartbeat', {'roomId': _currentRoom!.id});
+      }
+    });
 
     onStateChanged?.call();
   }
@@ -343,6 +452,11 @@ class VoiceRoomManager {
   }
 
   void _cleanup() {
+    _heartbeatTimer?.cancel();
+    _heartbeatTimer = null;
+    _webrtcService.stopAudioLevelPolling();
+    _audioLevelSub?.cancel();
+    _audioLevelSub = null;
     _webrtcService.disposeMultiPeer();
     _currentRoom = null;
     _participants = [];
@@ -353,6 +467,7 @@ class VoiceRoomManager {
   }
 
   void dispose() {
+    _heartbeatTimer?.cancel();
     _participantJoinedSub?.cancel();
     _participantLeftSub?.cancel();
     _offerSub?.cancel();
@@ -363,6 +478,9 @@ class VoiceRoomManager {
     _chatSub?.cancel();
     _endedSub?.cancel();
     _kickedSub?.cancel();
+    _hostChangedSub?.cancel();
+    _audioLevelSub?.cancel();
+    _connectionSub?.cancel();
     _cleanup();
   }
 }

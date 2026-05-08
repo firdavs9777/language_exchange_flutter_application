@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';

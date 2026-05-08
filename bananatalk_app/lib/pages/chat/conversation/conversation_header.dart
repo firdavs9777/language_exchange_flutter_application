@@ -5,7 +5,7 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/chat/header/chat_app_bar.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'package:bananatalk_app/pages/community/single_community.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// AppBar section for the conversation screen.

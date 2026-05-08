@@ -4475,4 +4475,208 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'Şimdilik atla';
+
+  @override
+  String get wavesTab => 'Dalgalar';
+
+  @override
+  String get sendWave => 'El salla';
+
+  @override
+  String sendWaveTo(String name) {
+    return '$name kişisine el salla';
+  }
+
+  @override
+  String waveSent(String name) {
+    return '$name kişisine el sallandı';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return '$name kişisine $time sonra tekrar el sallayabilirsin';
+  }
+
+  @override
+  String get waveCouldntSend => 'El sallama gönderilemedi';
+
+  @override
+  String get itsAMatch => 'Eşleşme!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'Sen ve $name birbirinize el salladınız';
+  }
+
+  @override
+  String get sendAMessage => 'Mesaj gönder';
+
+  @override
+  String get waveQuickReplyHi => 'Merhaba!';
+
+  @override
+  String get waveQuickReplyCool => 'Harika görünüyorsun';
+
+  @override
+  String get waveQuickReplyHey => 'Hey';
+
+  @override
+  String get waveQuickReplyChat => 'Sohbet edelim';
+
+  @override
+  String get waveQuickReplyHello => 'Selam';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return '$country\'dan merhaba';
+  }
+
+  @override
+  String get waveCustomMessage => 'Ya da kendine ait bir mesaj yaz…';
+
+  @override
+  String get voiceRoomChat => 'Sohbet';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'Mesaj gönder…';
+
+  @override
+  String get voiceRoomChatEmpty => 'Henüz mesaj yok — merhaba de';
+
+  @override
+  String get voiceRoomChatSend => 'Gönder';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'Odayı bitir';
+
+  @override
+  String get voiceRoomEndConfirm => 'Bu odayı bitir?';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'Herkesin bağlantısı kesilecek.';
+
+  @override
+  String get voiceRoomKick => 'Odadan çıkar';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return '$name kişisini çıkar?';
+  }
+
+  @override
+  String get voiceRoomKicked => 'Çıkarıldı';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'Artık ev sahibisin';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name artık ev sahibi';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'Oda işlemleri';
+
+  @override
+  String get voiceRoomViewProfile => 'Profili gör';
+
+  @override
+  String get voiceRoomReconnecting => 'Yeniden bağlanıyor…';
+
+  @override
+  String get voiceRoomReconnected => 'Yeniden bağlandı';
+
+  @override
+  String get voiceRoomEnded => 'Oda sona erdi';
+
+  @override
+  String get voiceRoomReconnectRetry => 'Tekrar dene';
+
+  @override
+  String get mutualInterests => 'Ortak ilgi alanları';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ortak ilgi',
+      one: '1 ortak ilgi',
+      zero: 'Henüz ortak ilgi yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'Tümünü gör';
+
+  @override
+  String get interestsInCommonAddCta => 'Konu ekle';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'Ortak nokta bulmak için profiline konu ekle';
+
+  @override
+  String activeAgo(String time) {
+    return '$time önce aktifti';
+  }
+
+  @override
+  String get filterOnlineNow => 'Şu an çevrimiçi';
+
+  @override
+  String get filterAge => 'Yaş';
+
+  @override
+  String get filterGender => 'Cinsiyet';
+
+  @override
+  String get filterLanguages => 'Diller';
+
+  @override
+  String get filterCountry => 'Ülke';
+
+  @override
+  String get filterTopics => 'Konular';
+
+  @override
+  String get filterLevel => 'Dil seviyesi';
+
+  @override
+  String get filterToggles => 'Diğer';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ortak eşleşiyor',
+      one: '1 ortak eşleşiyor',
+      zero: 'Eşleşen ortak yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'Tümünü temizle';
+
+  @override
+  String get filterReset => 'Sıfırla';
+
+  @override
+  String get filterApply => 'Uygula';
+
+  @override
+  String get filterNewUsers => 'Yalnızca yeni kullanıcılar';
+
+  @override
+  String get filterPrioritizeNearby => 'Yakınları önceliklendir';
+
+  @override
+  String get filterSheetTitle => 'Filtreler';
 }

@@ -3,16 +3,19 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Create Room Bottom Sheet
 class CreateRoomSheet extends StatefulWidget {
-  final Function(String title, String topic, String language, int maxParticipants)
-      onCreateRoom;
+  final Function(
+    String title,
+    String topic,
+    String language,
+    int maxParticipants,
+  )
+  onCreateRoom;
 
-  const CreateRoomSheet({
-    super.key,
-    required this.onCreateRoom,
-  });
+  const CreateRoomSheet({super.key, required this.onCreateRoom});
 
   @override
   State<CreateRoomSheet> createState() => _CreateRoomSheetState();
@@ -49,15 +52,10 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   void _createRoom() {
     final l10n = AppLocalizations.of(context)!;
     if (_titleController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.pleaseEnterRoomTitle),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: AppRadius.borderMD,
-          ),
-        ),
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseEnterRoomTitle,
+        type: CommunitySnackBarType.error,
       );
       return;
     }
@@ -73,9 +71,9 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: context.surfaceColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -92,7 +90,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: context.dividerColor,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -141,7 +139,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                         onPressed: () => Navigator.pop(context),
                         icon: const Icon(Icons.close_rounded),
                         style: IconButton.styleFrom(
-                          backgroundColor: Colors.grey[100],
+                          backgroundColor: context.containerColor,
                         ),
                       ),
                     ],
@@ -173,7 +171,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                         decoration: InputDecoration(
                           hintText: l10n.roomTitleHint,
                           filled: true,
-                          fillColor: Colors.grey[100],
+                          fillColor: context.containerColor,
                           border: OutlineInputBorder(
                             borderRadius: AppRadius.borderMD,
                             borderSide: BorderSide.none,
@@ -221,7 +219,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Colors.grey[600],
+                              color: context.textSecondary,
                             ),
                           ),
                         ],
@@ -298,8 +296,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: isSelected
-                  ? const Color(0xFF00BFA5).withValues(alpha:0.15)
-                  : Colors.grey[100],
+                  ? const Color(0xFF00BFA5).withValues(alpha: 0.15)
+                  : context.containerColor,
               borderRadius: AppRadius.borderLG,
               border: Border.all(
                 color: isSelected
@@ -320,7 +318,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                     color: isSelected
                         ? const Color(0xFF00BFA5)
-                        : Colors.grey[700],
+                        : context.textSecondary,
                   ),
                 ),
               ],
@@ -332,31 +330,30 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   }
 
   Widget _buildLanguageSelector() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: AppRadius.borderMD,
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: _selectedLanguage,
-          isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+    return Builder(
+      builder: (context) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: context.containerColor,
           borderRadius: AppRadius.borderMD,
-          items: _languages.map((language) {
-            return DropdownMenuItem(
-              value: language,
-              child: Text(language),
-            );
-          }).toList(),
-          onChanged: (value) {
-            if (value != null) {
-              setState(() {
-                _selectedLanguage = value;
-              });
-            }
-          },
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            value: _selectedLanguage,
+            isExpanded: true,
+            icon: const Icon(Icons.keyboard_arrow_down_rounded),
+            borderRadius: AppRadius.borderMD,
+            items: _languages.map((language) {
+              return DropdownMenuItem(value: language, child: Text(language));
+            }).toList(),
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
+                  _selectedLanguage = value;
+                });
+              }
+            },
+          ),
         ),
       ),
     );

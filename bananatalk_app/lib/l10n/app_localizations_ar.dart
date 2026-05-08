@@ -4475,4 +4475,208 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addProfilePhotoSkip => 'تخطّي الآن';
+
+  @override
+  String get wavesTab => 'التحيات';
+
+  @override
+  String get sendWave => 'أرسل تحية';
+
+  @override
+  String sendWaveTo(String name) {
+    return 'أرسل تحية إلى $name';
+  }
+
+  @override
+  String waveSent(String name) {
+    return 'تم إرسال التحية إلى $name';
+  }
+
+  @override
+  String waveCooldown(String name, String time) {
+    return 'يمكنك إرسال تحية إلى $name مجدداً خلال $time';
+  }
+
+  @override
+  String get waveCouldntSend => 'تعذّر إرسال التحية';
+
+  @override
+  String get itsAMatch => 'لقد تطابقتما!';
+
+  @override
+  String itsAMatchSubtitle(String name) {
+    return 'أنت و$name بعثتما تحيةً لبعضكما';
+  }
+
+  @override
+  String get sendAMessage => 'أرسل رسالة';
+
+  @override
+  String get waveQuickReplyHi => 'مرحباً!';
+
+  @override
+  String get waveQuickReplyCool => 'تبدو رائعاً';
+
+  @override
+  String get waveQuickReplyHey => 'أهلاً';
+
+  @override
+  String get waveQuickReplyChat => 'لنتحدث';
+
+  @override
+  String get waveQuickReplyHello => 'مرحباً';
+
+  @override
+  String waveQuickReplyFromCountry(String country) {
+    return 'تحيةً من $country';
+  }
+
+  @override
+  String get waveCustomMessage => 'أو اكتب رسالتك الخاصة…';
+
+  @override
+  String get voiceRoomChat => 'المحادثة';
+
+  @override
+  String get voiceRoomChatPlaceholder => 'أرسل رسالة…';
+
+  @override
+  String get voiceRoomChatEmpty => 'لا رسائل بعد — قل مرحباً';
+
+  @override
+  String get voiceRoomChatSend => 'إرسال';
+
+  @override
+  String voiceRoomChatNewBadge(int n) {
+    return '$n';
+  }
+
+  @override
+  String get voiceRoomEnd => 'إنهاء الغرفة';
+
+  @override
+  String get voiceRoomEndConfirm => 'إنهاء هذه الغرفة؟';
+
+  @override
+  String get voiceRoomEndConfirmBody => 'سيتم قطع الاتصال بالجميع.';
+
+  @override
+  String get voiceRoomKick => 'إزالة من الغرفة';
+
+  @override
+  String voiceRoomKickConfirm(String name) {
+    return 'إزالة $name؟';
+  }
+
+  @override
+  String get voiceRoomKicked => 'تمت الإزالة';
+
+  @override
+  String get voiceRoomYouAreHostNow => 'أنت الآن المضيف';
+
+  @override
+  String voiceRoomHostChanged(String name) {
+    return '$name هو المضيف الآن';
+  }
+
+  @override
+  String get voiceRoomHostMenuTitle => 'إجراءات الغرفة';
+
+  @override
+  String get voiceRoomViewProfile => 'عرض الملف الشخصي';
+
+  @override
+  String get voiceRoomReconnecting => 'جارٍ إعادة الاتصال…';
+
+  @override
+  String get voiceRoomReconnected => 'تمت إعادة الاتصال';
+
+  @override
+  String get voiceRoomEnded => 'انتهت الغرفة';
+
+  @override
+  String get voiceRoomReconnectRetry => 'إعادة المحاولة';
+
+  @override
+  String get mutualInterests => 'الاهتمامات المشتركة';
+
+  @override
+  String interestsInCommon(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count اهتمامات مشتركة',
+      one: 'اهتمام مشترك واحد',
+      zero: 'لا اهتمامات مشتركة بعد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get interestsInCommonSeeAll => 'عرض الكل';
+
+  @override
+  String get interestsInCommonAddCta => 'إضافة مواضيع';
+
+  @override
+  String get interestsInCommonAddSubtitle => 'أضف مواضيع إلى ملفك الشخصي للعثور على أرضية مشتركة';
+
+  @override
+  String activeAgo(String time) {
+    return 'نشط منذ $time';
+  }
+
+  @override
+  String get filterOnlineNow => 'متصل الآن';
+
+  @override
+  String get filterAge => 'العمر';
+
+  @override
+  String get filterGender => 'الجنس';
+
+  @override
+  String get filterLanguages => 'اللغات';
+
+  @override
+  String get filterCountry => 'البلد';
+
+  @override
+  String get filterTopics => 'المواضيع';
+
+  @override
+  String get filterLevel => 'المستوى اللغوي';
+
+  @override
+  String get filterToggles => 'أخرى';
+
+  @override
+  String filterMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count شركاء مطابقون',
+      one: 'شريك واحد مطابق',
+      zero: 'لا يوجد شركاء مطابقون',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterClearAll => 'مسح الكل';
+
+  @override
+  String get filterReset => 'إعادة تعيين';
+
+  @override
+  String get filterApply => 'تطبيق';
+
+  @override
+  String get filterNewUsers => 'المستخدمون الجدد فقط';
+
+  @override
+  String get filterPrioritizeNearby => 'إعطاء الأولوية للقريبين';
+
+  @override
+  String get filterSheetTitle => 'الفلاتر';
 }
