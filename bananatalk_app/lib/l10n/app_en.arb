@@ -2431,6 +2431,32 @@
   "waveDailySummaryBody": "{count, plural, =1{1 person waved at you} other{{count} people waved at you}}",
   "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
   "filterTopicsTitle": "Topics",
-  "filterTopicsEmpty": "No topics selected"
+  "filterTopicsEmpty": "No topics selected",
+
+  "storiesEmpty": "No stories yet",
+  "storiesLoadError": "Couldn't load stories",
+  "storiesRetry": "Try again",
+  "storiesNoMore": "You're all caught up",
+  "createTextStoryTab": "Text",
+  "createImageStoryTab": "Photo",
+  "createVideoStoryTab": "Video",
+  "enterTextHint": "Tap to type",
+  "pickBackground": "Background",
+  "pickFontStyle": "Font",
+  "pickTextColor": "Color",
+  "addEmoji": "Add emoji",
+  "chooseFont": "Choose font",
+  "chooseColor": "Choose color",
+  "dragToMove": "Drag to move",
+  "pinchToScale": "Pinch to scale",
+  "removeFromHighlight": "Remove from highlight",
+  "highlightDeleted": "Highlight deleted",
+  "storySaved": "Saved to your story",
+  "storyTooLong": "Text is too long",
+  "storyPostFailed": "Couldn't post story",
+  "fontNormal": "Normal",
+  "fontBold": "Bold",
+  "fontItalic": "Italic",
+  "fontHandwriting": "Handwriting"
 }
 
