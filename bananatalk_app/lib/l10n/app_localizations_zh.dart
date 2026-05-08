@@ -4744,6 +4744,81 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => '未选择任何话题';
+
+  @override
+  String get storiesEmpty => '暂无故事';
+
+  @override
+  String get storiesLoadError => '无法加载故事';
+
+  @override
+  String get storiesRetry => '重试';
+
+  @override
+  String get storiesNoMore => '您已全部看完';
+
+  @override
+  String get createTextStoryTab => '文字';
+
+  @override
+  String get createImageStoryTab => '照片';
+
+  @override
+  String get createVideoStoryTab => '视频';
+
+  @override
+  String get enterTextHint => '点击输入';
+
+  @override
+  String get pickBackground => '背景';
+
+  @override
+  String get pickFontStyle => '字体';
+
+  @override
+  String get pickTextColor => '颜色';
+
+  @override
+  String get addEmoji => '添加表情';
+
+  @override
+  String get chooseFont => '选择字体';
+
+  @override
+  String get chooseColor => '选择颜色';
+
+  @override
+  String get dragToMove => '拖动移位';
+
+  @override
+  String get pinchToScale => '捏合缩放';
+
+  @override
+  String get removeFromHighlight => '从精选中移除';
+
+  @override
+  String get highlightDeleted => '精选已删除';
+
+  @override
+  String get storySaved => '已保存到您的故事';
+
+  @override
+  String get storyTooLong => '文字太长';
+
+  @override
+  String get storyPostFailed => '无法发布故事';
+
+  @override
+  String get fontNormal => '常规';
+
+  @override
+  String get fontBold => '粗体';
+
+  @override
+  String get fontItalic => '斜体';
+
+  @override
+  String get fontHandwriting => '手写体';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -9197,4 +9272,79 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get filterTopicsEmpty => '未選擇任何話題';
+
+  @override
+  String get storiesEmpty => '尚無故事';
+
+  @override
+  String get storiesLoadError => '無法載入故事';
+
+  @override
+  String get storiesRetry => '重試';
+
+  @override
+  String get storiesNoMore => '您已全部看完';
+
+  @override
+  String get createTextStoryTab => '文字';
+
+  @override
+  String get createImageStoryTab => '照片';
+
+  @override
+  String get createVideoStoryTab => '影片';
+
+  @override
+  String get enterTextHint => '點擊輸入';
+
+  @override
+  String get pickBackground => '背景';
+
+  @override
+  String get pickFontStyle => '字型';
+
+  @override
+  String get pickTextColor => '顏色';
+
+  @override
+  String get addEmoji => '新增表情符號';
+
+  @override
+  String get chooseFont => '選擇字型';
+
+  @override
+  String get chooseColor => '選擇顏色';
+
+  @override
+  String get dragToMove => '拖曳移位';
+
+  @override
+  String get pinchToScale => '捏合縮放';
+
+  @override
+  String get removeFromHighlight => '從精選移除';
+
+  @override
+  String get highlightDeleted => '精選已刪除';
+
+  @override
+  String get storySaved => '已儲存至您的故事';
+
+  @override
+  String get storyTooLong => '文字太長';
+
+  @override
+  String get storyPostFailed => '無法發佈故事';
+
+  @override
+  String get fontNormal => '一般';
+
+  @override
+  String get fontBold => '粗體';
+
+  @override
+  String get fontItalic => '斜體';
+
+  @override
+  String get fontHandwriting => '手寫體';
 }

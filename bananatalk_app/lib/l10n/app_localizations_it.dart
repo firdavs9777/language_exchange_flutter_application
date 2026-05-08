@@ -4744,4 +4744,79 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'Nessun argomento selezionato';
+
+  @override
+  String get storiesEmpty => 'Nessuna storia ancora';
+
+  @override
+  String get storiesLoadError => 'Impossibile caricare le storie';
+
+  @override
+  String get storiesRetry => 'Riprova';
+
+  @override
+  String get storiesNoMore => 'Sei aggiornato';
+
+  @override
+  String get createTextStoryTab => 'Testo';
+
+  @override
+  String get createImageStoryTab => 'Foto';
+
+  @override
+  String get createVideoStoryTab => 'Video';
+
+  @override
+  String get enterTextHint => 'Tocca per scrivere';
+
+  @override
+  String get pickBackground => 'Sfondo';
+
+  @override
+  String get pickFontStyle => 'Font';
+
+  @override
+  String get pickTextColor => 'Colore';
+
+  @override
+  String get addEmoji => 'Aggiungi emoji';
+
+  @override
+  String get chooseFont => 'Scegli font';
+
+  @override
+  String get chooseColor => 'Scegli colore';
+
+  @override
+  String get dragToMove => 'Trascina per spostare';
+
+  @override
+  String get pinchToScale => 'Pizzica per ridimensionare';
+
+  @override
+  String get removeFromHighlight => 'Rimuovi dall\'evidenziazione';
+
+  @override
+  String get highlightDeleted => 'Evidenziazione eliminata';
+
+  @override
+  String get storySaved => 'Salvato nella tua storia';
+
+  @override
+  String get storyTooLong => 'Il testo è troppo lungo';
+
+  @override
+  String get storyPostFailed => 'Impossibile pubblicare la storia';
+
+  @override
+  String get fontNormal => 'Normale';
+
+  @override
+  String get fontBold => 'Grassetto';
+
+  @override
+  String get fontItalic => 'Corsivo';
+
+  @override
+  String get fontHandwriting => 'Scrittura a mano';
 }

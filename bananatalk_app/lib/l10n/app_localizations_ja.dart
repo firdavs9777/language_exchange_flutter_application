@@ -4744,4 +4744,79 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'トピックが選択されていません';
+
+  @override
+  String get storiesEmpty => 'まだストーリーがありません';
+
+  @override
+  String get storiesLoadError => 'ストーリーを読み込めませんでした';
+
+  @override
+  String get storiesRetry => 'もう一度試す';
+
+  @override
+  String get storiesNoMore => 'すべて確認しました';
+
+  @override
+  String get createTextStoryTab => 'テキスト';
+
+  @override
+  String get createImageStoryTab => '写真';
+
+  @override
+  String get createVideoStoryTab => '動画';
+
+  @override
+  String get enterTextHint => 'タップして入力';
+
+  @override
+  String get pickBackground => '背景';
+
+  @override
+  String get pickFontStyle => 'フォント';
+
+  @override
+  String get pickTextColor => 'カラー';
+
+  @override
+  String get addEmoji => '絵文字を追加';
+
+  @override
+  String get chooseFont => 'フォントを選択';
+
+  @override
+  String get chooseColor => 'カラーを選択';
+
+  @override
+  String get dragToMove => 'ドラッグして移動';
+
+  @override
+  String get pinchToScale => 'ピンチで拡大縮小';
+
+  @override
+  String get removeFromHighlight => 'ハイライトから削除';
+
+  @override
+  String get highlightDeleted => 'ハイライトが削除されました';
+
+  @override
+  String get storySaved => 'ストーリーに保存しました';
+
+  @override
+  String get storyTooLong => 'テキストが長すぎます';
+
+  @override
+  String get storyPostFailed => 'ストーリーを投稿できませんでした';
+
+  @override
+  String get fontNormal => '通常';
+
+  @override
+  String get fontBold => '太字';
+
+  @override
+  String get fontItalic => '斜体';
+
+  @override
+  String get fontHandwriting => '手書き';
 }
