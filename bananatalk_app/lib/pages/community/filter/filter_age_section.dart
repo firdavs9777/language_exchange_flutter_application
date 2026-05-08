@@ -31,7 +31,10 @@ class FilterAgeSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: context.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -44,13 +47,12 @@ class FilterAgeSection extends StatelessWidget {
                   ),
                 ),
               ),
+              Container(width: 24, height: 1, color: context.dividerColor),
               Container(
-                width: 24,
-                height: 1,
-                color: context.dividerColor,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: context.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),

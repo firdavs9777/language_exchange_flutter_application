@@ -115,10 +115,8 @@ class _CommunityCardState extends State<CommunityCard>
                     child: InkWell(
                       borderRadius: BorderRadius.circular(24),
                       onTap: widget.onTap,
-                      splashColor:
-                          AppColors.primary.withValues(alpha: 0.1),
-                      highlightColor:
-                          AppColors.primary.withValues(alpha: 0.05),
+                      splashColor: AppColors.primary.withValues(alpha: 0.1),
+                      highlightColor: AppColors.primary.withValues(alpha: 0.05),
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         child: Column(
@@ -127,15 +125,21 @@ class _CommunityCardState extends State<CommunityCard>
                             _buildHeader(context),
                             const SizedBox(height: 16),
                             CommunityCardMeta.buildLanguageExchange(
-                                context, widget.community),
+                              context,
+                              widget.community,
+                            ),
                             if (widget.community.bio.isNotEmpty) ...[
                               const SizedBox(height: 12),
                               CommunityCardMeta.buildBio(
-                                  context, widget.community.bio),
+                                context,
+                                widget.community.bio,
+                              ),
                             ],
                             const SizedBox(height: 16),
                             CommunityCardMeta.buildFooter(
-                                context, widget.community),
+                              context,
+                              widget.community,
+                            ),
                           ],
                         ),
                       ),
@@ -177,5 +181,4 @@ class _CommunityCardState extends State<CommunityCard>
       ],
     );
   }
-
 }

@@ -15,19 +15,17 @@ class PresenceState {
   bool isOnline(String userId) => onlineUserIds.contains(userId);
 
   PresenceState withOnline(String userId) => PresenceState(
-        onlineUserIds: {...onlineUserIds, userId},
-        lastSeen: lastSeen,
-      );
+    onlineUserIds: {...onlineUserIds, userId},
+    lastSeen: lastSeen,
+  );
 
   PresenceState withOffline(String userId, DateTime at) => PresenceState(
-        onlineUserIds: onlineUserIds.where((id) => id != userId).toSet(),
-        lastSeen: {...lastSeen, userId: at},
-      );
+    onlineUserIds: onlineUserIds.where((id) => id != userId).toSet(),
+    lastSeen: {...lastSeen, userId: at},
+  );
 
-  PresenceState withBulk(List<String> ids) => PresenceState(
-        onlineUserIds: ids.toSet(),
-        lastSeen: lastSeen,
-      );
+  PresenceState withBulk(List<String> ids) =>
+      PresenceState(onlineUserIds: ids.toSet(), lastSeen: lastSeen);
 }
 
 class PresenceNotifier extends StateNotifier<PresenceState> {
@@ -41,7 +39,8 @@ class PresenceNotifier extends StateNotifier<PresenceState> {
     _subOffline = _socket.onPresenceOffline.listen((data) {
       final id = data['userId']?.toString();
       if (id == null || id.isEmpty) return;
-      final at = DateTime.tryParse(data['lastSeenAt']?.toString() ?? '') ??
+      final at =
+          DateTime.tryParse(data['lastSeenAt']?.toString() ?? '') ??
           DateTime.now();
       state = state.withOffline(id, at);
     });
@@ -64,11 +63,12 @@ class PresenceNotifier extends StateNotifier<PresenceState> {
   }
 }
 
-final presenceProvider =
-    StateNotifierProvider<PresenceNotifier, PresenceState>((ref) {
-  // ChatSocketService() always returns the process-wide singleton via its
-  // factory constructor — same pattern used throughout the codebase.
-  final notifier = PresenceNotifier(ChatSocketService());
-  ref.onDispose(notifier.dispose);
-  return notifier;
-});
+final presenceProvider = StateNotifierProvider<PresenceNotifier, PresenceState>(
+  (ref) {
+    // ChatSocketService() always returns the process-wide singleton via its
+    // factory constructor — same pattern used throughout the codebase.
+    final notifier = PresenceNotifier(ChatSocketService());
+    ref.onDispose(notifier.dispose);
+    return notifier;
+  },
+);

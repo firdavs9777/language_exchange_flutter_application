@@ -56,10 +56,7 @@ class CommunityFilterChips extends StatelessWidget {
     }
     if (f['gender'] != null) {
       final g = f['gender'] as String;
-      chips.add(FilterChipData(
-        g == 'male' ? '♂ Male' : '♀ Female',
-        'gender',
-      ));
+      chips.add(FilterChipData(g == 'male' ? '♂ Male' : '♀ Female', 'gender'));
     }
     if (f['languageLevel'] != null) {
       chips.add(FilterChipData('🎯 ${f['languageLevel']}', 'languageLevel'));
@@ -98,13 +95,14 @@ class CommunityFilterChips extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 6),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: context.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color:
-                              context.primaryColor.withValues(alpha: 0.3),
+                          color: context.primaryColor.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(

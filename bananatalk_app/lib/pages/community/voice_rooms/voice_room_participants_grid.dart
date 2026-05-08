@@ -38,8 +38,7 @@ class VoiceRoomParticipantsGrid extends StatelessWidget {
       itemCount: participants.length,
       itemBuilder: (context, index) {
         final participant = participants[index];
-        final isHost =
-            participant.isHost || participant.id == room.hostId;
+        final isHost = participant.isHost || participant.id == room.hostId;
         final tile = VoiceRoomParticipantTile(
           participant: participant,
           isHost: isHost,

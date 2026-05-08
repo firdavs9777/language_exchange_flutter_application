@@ -52,7 +52,8 @@ class SingleCommunityActions extends ConsumerWidget {
       decoration: BoxDecoration(
         color: context.surfaceColor,
         border: Border(
-            bottom: BorderSide(color: context.dividerColor, width: 0.5)),
+          bottom: BorderSide(color: context.dividerColor, width: 0.5),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -84,15 +85,12 @@ class SingleCommunityActions extends ConsumerWidget {
               future: _inCooldown(community.id),
               builder: (context, snapshot) {
                 final cooldownActive = snapshot.data ?? false;
-                return _buildWaveActionButton(
-                    context, l10n, cooldownActive);
+                return _buildWaveActionButton(context, l10n, cooldownActive);
               },
             ),
           _buildCompactActionButton(
             context,
-            isFollower
-                ? Icons.check_circle_rounded
-                : Icons.person_add_rounded,
+            isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
             isFollower ? l10n.following : l10n.follow,
             isFollower ? Colors.green[600]! : Colors.blue[600]!,
             onFollowToggle,
@@ -103,19 +101,22 @@ class SingleCommunityActions extends ConsumerWidget {
   }
 
   Widget _buildWaveActionButton(
-      BuildContext context, AppLocalizations l10n, bool cooldownActive) {
+    BuildContext context,
+    AppLocalizations l10n,
+    bool cooldownActive,
+  ) {
     final color = cooldownActive ? Colors.grey[400]! : AppColors.primary;
     return InkWell(
       onTap: cooldownActive
           ? null
           : () => showSendWaveSheet(
-                context,
-                targetUserId: community.id,
-                targetUserName: community.name,
-                targetUserCountry: community.location.country.isNotEmpty
-                    ? community.location.country
-                    : null,
-              ),
+              context,
+              targetUserId: community.id,
+              targetUserName: community.name,
+              targetUserCountry: community.location.country.isNotEmpty
+                  ? community.location.country
+                  : null,
+            ),
       borderRadius: BorderRadius.circular(8),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
@@ -134,9 +135,10 @@ class SingleCommunityActions extends ConsumerWidget {
             Text(
               l10n.sendWave,
               style: TextStyle(
-                  fontSize: 11,
-                  color: color,
-                  fontWeight: FontWeight.w500),
+                fontSize: 11,
+                color: color,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -171,9 +173,10 @@ class SingleCommunityActions extends ConsumerWidget {
             Text(
               label,
               style: TextStyle(
-                  fontSize: 11,
-                  color: color,
-                  fontWeight: FontWeight.w500),
+                fontSize: 11,
+                color: color,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),

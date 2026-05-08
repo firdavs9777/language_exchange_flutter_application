@@ -244,8 +244,10 @@ class FilterCountrySelector extends StatelessWidget {
         GestureDetector(
           onTap: isDetectingLocation ? null : onDetectLocation,
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: Spacing.lg, vertical: 14),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.lg,
+              vertical: 14,
+            ),
             margin: const EdgeInsets.only(bottom: Spacing.md),
             decoration: BoxDecoration(
               gradient: AppColors.primaryGradient,
@@ -262,7 +264,8 @@ class FilterCountrySelector extends StatelessWidget {
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(
-                          context.textOnPrimary),
+                        context.textOnPrimary,
+                      ),
                     ),
                   )
                 else
@@ -276,8 +279,9 @@ class FilterCountrySelector extends StatelessWidget {
                   isDetectingLocation
                       ? AppLocalizations.of(context)!.detecting
                       : AppLocalizations.of(context)!.autoDetectLocation,
-                  style:
-                      context.labelLarge.copyWith(color: context.textOnPrimary),
+                  style: context.labelLarge.copyWith(
+                    color: context.textOnPrimary,
+                  ),
                 ),
               ],
             ),
@@ -290,7 +294,9 @@ class FilterCountrySelector extends StatelessWidget {
           borderRadius: AppRadius.borderMD,
           child: Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: Spacing.lg, vertical: Spacing.lg),
+              horizontal: Spacing.lg,
+              vertical: Spacing.lg,
+            ),
             decoration: BoxDecoration(
               color: context.surfaceColor,
               borderRadius: AppRadius.borderMD,
@@ -307,8 +313,7 @@ class FilterCountrySelector extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    selectedCountry ??
-                        AppLocalizations.of(context)!.anyCountry,
+                    selectedCountry ?? AppLocalizations.of(context)!.anyCountry,
                     style: context.titleMedium.copyWith(
                       color: selectedCountry != null
                           ? context.textPrimary
@@ -384,9 +389,11 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
         _filteredCountries = kAllCountries;
       } else {
         _filteredCountries = kAllCountries
-            .where((c) =>
-                c['name']!.toLowerCase().contains(query.toLowerCase()) ||
-                c['code']!.toLowerCase().contains(query.toLowerCase()))
+            .where(
+              (c) =>
+                  c['name']!.toLowerCase().contains(query.toLowerCase()) ||
+                  c['code']!.toLowerCase().contains(query.toLowerCase()),
+            )
             .toList();
       }
     });
@@ -427,7 +434,9 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
                   onPressed: () => widget.onSelect(null),
                   child: Text(
                     AppLocalizations.of(context)!.anyCountry,
-                    style: context.labelLarge.copyWith(color: context.primaryColor),
+                    style: context.labelLarge.copyWith(
+                      color: context.primaryColor,
+                    ),
                   ),
                 ),
               ],
@@ -442,8 +451,9 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
               onChanged: _filterCountries,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.searchCountry,
-                hintStyle:
-                    context.bodyMedium.copyWith(color: context.textMuted),
+                hintStyle: context.bodyMedium.copyWith(
+                  color: context.textMuted,
+                ),
                 prefixIcon: Icon(Icons.search, color: context.textMuted),
                 filled: true,
                 fillColor: context.containerColor,
@@ -468,8 +478,7 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
               itemCount: _filteredCountries.length,
               itemBuilder: (context, index) {
                 final country = _filteredCountries[index];
-                final isSelected =
-                    country['name'] == widget.selectedCountry;
+                final isSelected = country['name'] == widget.selectedCountry;
 
                 return ListTile(
                   onTap: () => widget.onSelect(country['name']),
@@ -480,18 +489,16 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
                   title: Text(
                     country['name']!,
                     style: context.titleSmall.copyWith(
-                      fontWeight:
-                          isSelected ? FontWeight.w600 : FontWeight.w500,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.w500,
                       color: isSelected
                           ? context.primaryColor
                           : context.textPrimary,
                     ),
                   ),
                   trailing: isSelected
-                      ? Icon(
-                          Icons.check_circle,
-                          color: context.primaryColor,
-                        )
+                      ? Icon(Icons.check_circle, color: context.primaryColor)
                       : null,
                   shape: RoundedRectangleBorder(
                     borderRadius: AppRadius.borderMD,

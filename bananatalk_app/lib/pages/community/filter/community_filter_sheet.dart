@@ -164,9 +164,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     final user = ref.read(userProvider).valueOrNull;
     Navigator.push(
       context,
-      AppPageRoute(
-        builder: (_) => VipPlansScreen(userId: user?.id),
-      ),
+      AppPageRoute(builder: (_) => VipPlansScreen(userId: user?.id)),
     );
   }
 
@@ -480,11 +478,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     initiallyExpanded: true,
                     title: Text(
                       l10n.filterAge,
-                      style: context.titleMedium
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    childrenPadding:
-                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
                       FilterAgeSection(
                         minAge: _minAge,
@@ -503,11 +501,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     initiallyExpanded: true,
                     title: Text(
                       l10n.filterGender,
-                      style: context.titleMedium
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    childrenPadding:
-                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
                       _isVip
                           ? FilterGenderSection(
@@ -544,57 +542,58 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     initiallyExpanded: false,
                     title: Text(
                       l10n.filterLanguages,
-                      style: context.titleMedium
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    childrenPadding:
-                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
                       _isLoadingLanguages
                           ? const FilterLanguageLoadingCard()
                           : _errorMessage.isNotEmpty
-                              ? FilterLanguageErrorCard(
-                                  errorMessage: _errorMessage,
-                                  onRetry: () {
-                                    setState(() {
-                                      _isLoadingLanguages = true;
-                                      _errorMessage = '';
-                                    });
-                                    fetchLanguages();
-                                  },
-                                )
-                              : FilterLanguageSelector(
-                                  selectedLanguage: _selectedLanguage,
-                                  onTap: _openLanguagePicker,
-                                  placeholderIcon: Icons.public,
-                                ),
+                          ? FilterLanguageErrorCard(
+                              errorMessage: _errorMessage,
+                              onRetry: () {
+                                setState(() {
+                                  _isLoadingLanguages = true;
+                                  _errorMessage = '';
+                                });
+                                fetchLanguages();
+                              },
+                            )
+                          : FilterLanguageSelector(
+                              selectedLanguage: _selectedLanguage,
+                              onTap: _openLanguagePicker,
+                              placeholderIcon: Icons.public,
+                            ),
                       const SizedBox(height: 12),
                       _isLoadingLanguages
                           ? const FilterLanguageLoadingCard()
                           : _errorMessage.isNotEmpty
-                              ? FilterLanguageErrorCard(
-                                  errorMessage: _errorMessage,
-                                  onRetry: () {
-                                    setState(() {
-                                      _isLoadingLanguages = true;
-                                      _errorMessage = '';
-                                    });
-                                    fetchLanguages();
-                                  },
-                                )
-                              : FilterLanguageSelector(
-                                  selectedLanguage: _selectedLearningLanguage,
-                                  onTap: _openLearningLanguagePicker,
-                                  placeholderIcon: Icons.school,
-                                ),
+                          ? FilterLanguageErrorCard(
+                              errorMessage: _errorMessage,
+                              onRetry: () {
+                                setState(() {
+                                  _isLoadingLanguages = true;
+                                  _errorMessage = '';
+                                });
+                                fetchLanguages();
+                              },
+                            )
+                          : FilterLanguageSelector(
+                              selectedLanguage: _selectedLearningLanguage,
+                              onTap: _openLearningLanguagePicker,
+                              placeholderIcon: Icons.school,
+                            ),
                     ],
                   ),
                   ExpansionTile(
                     initiallyExpanded: false,
                     title: Text(
                       l10n.filterCountry,
-                      style: context.titleMedium
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     trailing: !_isVip
                         ? Row(
@@ -605,8 +604,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                             ],
                           )
                         : null,
-                    childrenPadding:
-                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
                       _isVip
                           ? FilterCountrySelector(
@@ -640,11 +638,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     initiallyExpanded: false,
                     title: Text(
                       l10n.filterLevel,
-                      style: context.titleMedium
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    childrenPadding:
-                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
                       FilterLevelSection(
                         selectedLevel: _selectedLanguageLevel,
@@ -659,11 +657,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     initiallyExpanded: false,
                     title: Text(
                       l10n.filterToggles,
-                      style: context.titleMedium
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    childrenPadding:
-                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
                       FilterToggleRow(
                         title: l10n.filterOnlineNow,
@@ -713,7 +711,9 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                         ),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 12),
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -741,12 +741,15 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                       ),
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 28, vertical: 14),
+                        horizontal: 28,
+                        vertical: 14,
+                      ),
                     ),
                     child: Text(
                       l10n.filterApply,
-                      style: context.titleMedium
-                          .copyWith(color: context.textOnPrimary),
+                      style: context.titleMedium.copyWith(
+                        color: context.textOnPrimary,
+                      ),
                     ),
                   ),
                 ],
@@ -787,11 +790,11 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
 
   Widget _buildPrioritizeNearbyToggle(AppLocalizations l10n) {
     final userAsync = ref.watch(userProvider);
-    final hasLocation = userAsync.whenOrNull(
+    final hasLocation =
+        userAsync.whenOrNull(
           data: (user) {
             final coords = user.location.coordinates;
-            return coords.length >= 2 &&
-                (coords[0] != 0.0 || coords[1] != 0.0);
+            return coords.length >= 2 && (coords[0] != 0.0 || coords[1] != 0.0);
           },
         ) ??
         false;
@@ -815,24 +818,22 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         if (_prioritizeNearby && !hasLocation) ...[
           const SizedBox(height: 8),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.orange.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderSM,
-              border: Border.all(
-                  color: Colors.orange.withValues(alpha: 0.3)),
+              border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
-                const Icon(Icons.info_outline,
-                    size: 18, color: Colors.orange),
+                const Icon(Icons.info_outline, size: 18, color: Colors.orange),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     l10n.updateLocationReminder,
-                    style: context.caption
-                        .copyWith(color: Colors.orange.shade800),
+                    style: context.caption.copyWith(
+                      color: Colors.orange.shade800,
+                    ),
                   ),
                 ),
               ],
@@ -847,12 +848,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const SizedBox(width: 8),
-            _buildVipBadge(),
-          ],
-        ),
+        Row(children: [const SizedBox(width: 8), _buildVipBadge()]),
         const SizedBox(height: 8),
         GestureDetector(
           onTap: _showVipPrompt,

@@ -63,7 +63,8 @@ class CommunityCardMeta extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: AppColors.success.withValues(
-            alpha: context.isDarkMode ? 0.2 : 0.15),
+          alpha: context.isDarkMode ? 0.2 : 0.15,
+        ),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: AppColors.success.withValues(alpha: 0.3),
@@ -129,12 +130,15 @@ class CommunityCardMeta extends StatelessWidget {
 
   /// Standalone language-exchange widget, usable from the parent card's build.
   static Widget buildLanguageExchange(
-      BuildContext context, Community community) {
+    BuildContext context,
+    Community community,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.primary
-            .withValues(alpha: context.isDarkMode ? 0.15 : 0.08),
+        color: AppColors.primary.withValues(
+          alpha: context.isDarkMode ? 0.15 : 0.08,
+        ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppColors.primary.withValues(alpha: 0.15),
@@ -235,8 +239,7 @@ class CommunityCardMeta extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.format_quote_rounded,
-              size: 18, color: context.textMuted),
+          Icon(Icons.format_quote_rounded, size: 18, color: context.textMuted),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -268,8 +271,7 @@ class CommunityCardMeta extends StatelessWidget {
           'followers',
         ),
         const SizedBox(width: 12),
-        _buildStatChip(
-            context, Icons.chat_bubble_rounded, 'Active', 'status'),
+        _buildStatChip(context, Icons.chat_bubble_rounded, 'Active', 'status'),
         const Spacer(),
         _buildViewProfileButton(context),
       ],
@@ -330,11 +332,7 @@ class CommunityCardMeta extends StatelessWidget {
             ),
           ),
           SizedBox(width: 4),
-          Icon(
-            Icons.arrow_forward_rounded,
-            size: 14,
-            color: AppColors.primary,
-          ),
+          Icon(Icons.arrow_forward_rounded, size: 14, color: AppColors.primary),
         ],
       ),
     );

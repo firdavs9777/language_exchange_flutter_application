@@ -33,12 +33,12 @@ class WaveButton extends StatelessWidget {
         onPressed: greyedOut
             ? null
             : () => showSendWaveSheet(
-                  context,
-                  targetUserId: targetUserId,
-                  targetUserName: targetUserName,
-                  targetUserCountry: targetUserCountry,
-                  onSent: onSent,
-                ),
+                context,
+                targetUserId: targetUserId,
+                targetUserName: targetUserName,
+                targetUserCountry: targetUserCountry,
+                onSent: onSent,
+              ),
       ),
     );
   }

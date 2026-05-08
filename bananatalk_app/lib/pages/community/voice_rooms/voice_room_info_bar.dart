@@ -81,11 +81,7 @@ class _ParticipantCountChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.people_rounded,
-            size: 16,
-            color: Color(0xB3FFFFFF),
-          ),
+          const Icon(Icons.people_rounded, size: 16, color: Color(0xB3FFFFFF)),
           Spacing.hGapSM,
           Text(
             countText,

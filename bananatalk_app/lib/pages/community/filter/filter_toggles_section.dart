@@ -31,14 +31,18 @@ class FilterToggleRow extends StatelessWidget {
             : context.surfaceColor,
         borderRadius: AppRadius.borderMD,
         border: Border.all(
-          color:
-              value ? activeColor.withValues(alpha: 0.3) : context.dividerColor,
+          color: value
+              ? activeColor.withValues(alpha: 0.3)
+              : context.dividerColor,
         ),
       ),
       child: Row(
         children: [
-          Icon(icon,
-              size: 22, color: value ? activeColor : context.textSecondary),
+          Icon(
+            icon,
+            size: 22,
+            color: value ? activeColor : context.textSecondary,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -61,7 +65,7 @@ class FilterToggleRow extends StatelessWidget {
           Switch.adaptive(
             value: value,
             onChanged: onChanged,
-            activeColor: activeColor,
+            activeThumbColor: activeColor,
           ),
         ],
       ),

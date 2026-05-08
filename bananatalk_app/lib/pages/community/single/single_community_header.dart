@@ -78,7 +78,8 @@ class SingleCommunityHeader extends ConsumerWidget {
                     Navigator.push(
                       context,
                       AppPageRoute(
-                        builder: (context) => ImageGallery(imageUrls: imageUrls),
+                        builder: (context) =>
+                            ImageGallery(imageUrls: imageUrls),
                       ),
                     );
                   }
@@ -102,7 +103,11 @@ class SingleCommunityHeader extends ConsumerWidget {
                             ? NetworkImage(profileImageUrl!)
                             : null,
                         child: profileImageUrl == null
-                            ? const Icon(Icons.person, size: 40, color: Colors.white)
+                            ? const Icon(
+                                Icons.person,
+                                size: 40,
+                                color: Colors.white,
+                              )
                             : null,
                       ),
                     ),
@@ -126,7 +131,11 @@ class SingleCommunityHeader extends ConsumerWidget {
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                               shadows: [
-                                Shadow(offset: Offset(0, 1), blurRadius: 3, color: Colors.black45),
+                                Shadow(
+                                  offset: Offset(0, 1),
+                                  blurRadius: 3,
+                                  color: Colors.black45,
+                                ),
                               ],
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -135,7 +144,10 @@ class SingleCommunityHeader extends ConsumerWidget {
                         if (community.isVip) ...[
                           const SizedBox(width: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
                                 colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
@@ -145,9 +157,20 @@ class SingleCommunityHeader extends ConsumerWidget {
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+                                Icon(
+                                  Icons.workspace_premium,
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
                                 SizedBox(width: 2),
-                                Text('VIP', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                                Text(
+                                  'VIP',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -161,7 +184,10 @@ class SingleCommunityHeader extends ConsumerWidget {
                         children: [
                           Text(
                             community.displayUsername!,
-                            style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 13),
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.8),
+                              fontSize: 13,
+                            ),
                           ),
                           const SizedBox(width: 6),
                           GestureDetector(
@@ -188,19 +214,34 @@ class SingleCommunityHeader extends ConsumerWidget {
                         if (age != null) ...[
                           Text(
                             '$age yrs',
-                            style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13),
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              fontSize: 13,
+                            ),
                           ),
                           if (locationText.isNotEmpty) ...[
-                            Text(' • ', style: TextStyle(color: Colors.white.withValues(alpha: 0.6))),
+                            Text(
+                              ' • ',
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.6),
+                              ),
+                            ),
                           ],
                         ],
                         if (locationText.isNotEmpty) ...[
-                          const Icon(Icons.location_on, size: 12, color: Colors.white70),
+                          const Icon(
+                            Icons.location_on,
+                            size: 12,
+                            color: Colors.white70,
+                          ),
                           const SizedBox(width: 2),
                           Flexible(
                             child: Text(
                               locationText,
-                              style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13),
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.9),
+                                fontSize: 13,
+                              ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -243,7 +284,11 @@ class SingleCommunityHeader extends ConsumerWidget {
             const SizedBox(width: 5),
             Text(
               l10n.onlineNow,
-              style: const TextStyle(fontSize: 11, color: Colors.green, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 11,
+                color: Colors.green,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
@@ -268,8 +313,15 @@ class SingleCommunityHeader extends ConsumerWidget {
     if (coords.length < 2) return false;
     final lon = coords[0];
     final lat = coords[1];
-    final hasValidCoords = lat != 0 && lon != 0 && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
-    final hasLocationInfo = location.city.isNotEmpty ||
+    final hasValidCoords =
+        lat != 0 &&
+        lon != 0 &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lon >= -180 &&
+        lon <= 180;
+    final hasLocationInfo =
+        location.city.isNotEmpty ||
         location.country.isNotEmpty ||
         location.formattedAddress.isNotEmpty;
     return hasValidCoords && hasLocationInfo;
@@ -288,7 +340,11 @@ class SingleCommunityHeader extends ConsumerWidget {
     final n = 1 << zoom;
     final centerX = ((lon + 180) / 360 * n).floor();
     final latRad = lat * math.pi / 180;
-    final centerY = ((1 - math.log(math.tan(latRad) + 1 / math.cos(latRad)) / math.pi) / 2 * n).floor();
+    final centerY =
+        ((1 - math.log(math.tan(latRad) + 1 / math.cos(latRad)) / math.pi) /
+                2 *
+                n)
+            .floor();
 
     return ClipRect(
       child: Stack(
@@ -307,9 +363,7 @@ class SingleCommunityHeader extends ConsumerWidget {
                             child: Image.network(
                               'https://tile.openstreetmap.org/$zoom/${centerX + dx}/${centerY + dy}.png',
                               fit: BoxFit.cover,
-                              headers: const {
-                                'User-Agent': 'Bananatalk App',
-                              },
+                              headers: const {'User-Agent': 'Bananatalk App'},
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(color: AppColors.gray300);
                               },
@@ -353,11 +407,7 @@ class SingleCommunityHeader extends ConsumerWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF00BFA5),
-            Color(0xFF00ACC1),
-            Color(0xFF26C6DA),
-          ],
+          colors: [Color(0xFF00BFA5), Color(0xFF00ACC1), Color(0xFF26C6DA)],
         ),
       ),
       child: Center(
@@ -399,7 +449,9 @@ class SingleCommunityMoreMenu extends ConsumerWidget {
     return PopupMenuButton<String>(
       icon: Icon(
         Icons.more_vert,
-        color: isScrolled ? Theme.of(context).colorScheme.onSurface : Colors.white,
+        color: isScrolled
+            ? Theme.of(context).colorScheme.onSurface
+            : Colors.white,
       ),
       onSelected: (value) async {
         if (value == 'report') {
@@ -448,7 +500,10 @@ class SingleCommunityMoreMenu extends ConsumerWidget {
               children: [
                 const Icon(Icons.check_circle, color: Colors.green, size: 20),
                 const SizedBox(width: 8),
-                Text(l10n.unblockUser, style: const TextStyle(color: Colors.green)),
+                Text(
+                  l10n.unblockUser,
+                  style: const TextStyle(color: Colors.green),
+                ),
               ],
             ),
           )
@@ -492,7 +547,8 @@ Future<void> openLocationInMaps(
     if (context.mounted) {
       showCommunitySnackBar(
         context,
-        message: '$couldNotOpenMapsLabel: ${location.city}, ${location.country}',
+        message:
+            '$couldNotOpenMapsLabel: ${location.city}, ${location.country}',
         type: CommunitySnackBarType.info,
       );
     }

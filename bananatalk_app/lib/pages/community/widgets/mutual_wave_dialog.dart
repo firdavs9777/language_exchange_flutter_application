@@ -19,11 +19,17 @@ void showMutualWaveDialog(
         children: [
           const Text('🎉', style: TextStyle(fontSize: 56)),
           const SizedBox(height: 16),
-          Text(l10n.itsAMatch,
-              style: context.titleLarge, textAlign: TextAlign.center),
+          Text(
+            l10n.itsAMatch,
+            style: context.titleLarge,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 8),
-          Text(l10n.itsAMatchSubtitle(name),
-              textAlign: TextAlign.center, style: context.bodyMedium),
+          Text(
+            l10n.itsAMatchSubtitle(name),
+            textAlign: TextAlign.center,
+            style: context.bodyMedium,
+          ),
         ],
       ),
       actions: [
@@ -33,8 +39,9 @@ void showMutualWaveDialog(
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white),
+            backgroundColor: AppColors.primary,
+            foregroundColor: Colors.white,
+          ),
           onPressed: () {
             Navigator.pop(dialogContext);
             // Navigate to chat using the go_router '/chat/:userId' route.

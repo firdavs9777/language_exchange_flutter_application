@@ -13,7 +13,8 @@ import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
-import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
+import 'package:bananatalk_app/router/app_router.dart'
+    show callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
@@ -142,8 +143,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     if (userId.isEmpty || userId == _community.id) return;
 
     try {
-      final userAsync = ref.read(userProvider);
-      final user = await userAsync;
+      final user = await ref.read(userProvider.future);
       final limits = ref.read(currentUserLimitsProvider(userId));
 
       if (!FeatureGate.canViewProfile(user, limits)) {
@@ -157,7 +157,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           );
         }
       } else {
-        ref.refresh(userLimitsProvider(userId));
+        ref.invalidate(userLimitsProvider(userId));
       }
     } catch (_) {}
   }
@@ -196,10 +196,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     }
 
     try {
-      final result = await ref.read(communityServiceProvider).followUser(
-        userId: userId,
-        targetUserId: _community.id,
-      );
+      final result = await ref
+          .read(communityServiceProvider)
+          .followUser(userId: userId, targetUserId: _community.id);
 
       if (result == 'success' || result == 'already_following') {
         setState(() => isFollower = true);
@@ -269,10 +268,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     if (shouldUnfollow != true) return;
 
     try {
-      final result = await ref.read(communityServiceProvider).unfollowUser(
-        userId: userId,
-        targetUserId: _community.id,
-      );
+      final result = await ref
+          .read(communityServiceProvider)
+          .unfollowUser(userId: userId, targetUserId: _community.id);
 
       if (result == 'success' || result == 'not_following') {
         setState(() => isFollower = false);
@@ -355,7 +353,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       showCommunitySnackBar(
         context,
         message: result['message'] ?? 'Operation completed',
-        type: result['success'] ? CommunitySnackBarType.success : CommunitySnackBarType.error,
+        type: result['success']
+            ? CommunitySnackBarType.success
+            : CommunitySnackBarType.error,
       );
 
       if (result['success']) {
@@ -402,10 +402,13 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
-              end: Offset.zero,
-            ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
+            position:
+                Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                ).animate(
+                  CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+                ),
             child: child,
           );
         },
@@ -417,11 +420,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   Future<void> _makeVideoCall() async {
     final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
-      showCommunitySnackBar(context, message: l10n.pleaseLoginToCall, type: CommunitySnackBarType.error);
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseLoginToCall,
+        type: CommunitySnackBarType.error,
+      );
       return;
     }
     if (userId == _community.id) {
-      showCommunitySnackBar(context, message: l10n.cannotCallYourself, type: CommunitySnackBarType.info);
+      showCommunitySnackBar(
+        context,
+        message: l10n.cannotCallYourself,
+        type: CommunitySnackBarType.info,
+      );
       return;
     }
 
@@ -430,12 +441,20 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       callNotifier.setCallErrorCallback((error) {
         if (mounted) _handleCallError(context, error);
       });
-      await callNotifier.initiateCall(_community.id, _community.name, _getProfileImageUrl(), CallType.video);
+      await callNotifier.initiateCall(
+        _community.id,
+        _community.name,
+        _getProfileImageUrl(),
+        CallType.video,
+      );
       if (mounted) {
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
           callOverlayNavigatorKey.currentState?.push(
-            AppPageRoute(builder: (_) => ActiveCallScreen(call: currentCall), fullscreenDialog: true),
+            AppPageRoute(
+              builder: (_) => ActiveCallScreen(call: currentCall),
+              fullscreenDialog: true,
+            ),
           );
         }
       }
@@ -445,11 +464,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   Future<void> _makeVoiceCall() async {
     final l10n = AppLocalizations.of(context)!;
     if (userId.isEmpty) {
-      showCommunitySnackBar(context, message: l10n.pleaseLoginToCall, type: CommunitySnackBarType.error);
+      showCommunitySnackBar(
+        context,
+        message: l10n.pleaseLoginToCall,
+        type: CommunitySnackBarType.error,
+      );
       return;
     }
     if (userId == _community.id) {
-      showCommunitySnackBar(context, message: l10n.cannotCallYourself, type: CommunitySnackBarType.info);
+      showCommunitySnackBar(
+        context,
+        message: l10n.cannotCallYourself,
+        type: CommunitySnackBarType.info,
+      );
       return;
     }
 
@@ -458,12 +485,20 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       callNotifier.setCallErrorCallback((error) {
         if (mounted) _handleCallError(context, error);
       });
-      await callNotifier.initiateCall(_community.id, _community.name, _getProfileImageUrl(), CallType.audio);
+      await callNotifier.initiateCall(
+        _community.id,
+        _community.name,
+        _getProfileImageUrl(),
+        CallType.audio,
+      );
       if (mounted) {
         final currentCall = callNotifier.currentCall;
         if (currentCall != null) {
           callOverlayNavigatorKey.currentState?.push(
-            AppPageRoute(builder: (_) => ActiveCallScreen(call: currentCall), fullscreenDialog: true),
+            AppPageRoute(
+              builder: (_) => ActiveCallScreen(call: currentCall),
+              fullscreenDialog: true,
+            ),
           );
         }
       }
@@ -480,7 +515,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           title: Text(l10n.permissionsRequired),
           content: Text(message),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n.cancel)),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(l10n.cancel),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -493,9 +531,19 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       );
     } else if (error.startsWith('DENIED:')) {
       final message = error.substring('DENIED:'.length);
-      showCommunitySnackBar(context, message: message, type: CommunitySnackBarType.info, duration: const Duration(seconds: 3));
+      showCommunitySnackBar(
+        context,
+        message: message,
+        type: CommunitySnackBarType.info,
+        duration: const Duration(seconds: 3),
+      );
     } else {
-      showCommunitySnackBar(context, message: error, type: CommunitySnackBarType.error, duration: const Duration(seconds: 3));
+      showCommunitySnackBar(
+        context,
+        message: error,
+        type: CommunitySnackBarType.error,
+        duration: const Duration(seconds: 3),
+      );
     }
   }
 
@@ -521,7 +569,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
               backgroundColor: Theme.of(context).colorScheme.surface,
               foregroundColor: Theme.of(context).colorScheme.onSurface,
               title: innerBoxIsScrolled
-                  ? Text(age != null ? '${_community.name}, $age' : _community.name)
+                  ? Text(
+                      age != null
+                          ? '${_community.name}, $age'
+                          : _community.name,
+                    )
                   : null,
               actions: [
                 IconButton(
@@ -583,7 +635,10 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                   unselectedLabelColor: context.textSecondary,
                   indicatorColor: AppColors.primary,
                   indicatorWeight: 3,
-                  labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
                   tabs: [
                     Tab(text: l10n.overview),
                     Tab(text: l10n.about),
@@ -631,12 +686,17 @@ class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(color: backgroundColor, child: tabBar);
   }
 
   @override
   bool shouldRebuild(_SliverTabBarDelegate oldDelegate) {
-    return tabBar != oldDelegate.tabBar || backgroundColor != oldDelegate.backgroundColor;
+    return tabBar != oldDelegate.tabBar ||
+        backgroundColor != oldDelegate.backgroundColor;
   }
 }

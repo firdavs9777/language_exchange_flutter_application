@@ -55,10 +55,9 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   }
 
   Future<List<VoiceRoom>> _fetchWithFilters() {
-    return ref.read(voiceRoomProvider).fetchRooms(
-          language: _selectedLanguage,
-          topic: _selectedTopic,
-        );
+    return ref
+        .read(voiceRoomProvider)
+        .fetchRooms(language: _selectedLanguage, topic: _selectedTopic);
   }
 
   Future<void> _refreshRooms() async {
@@ -97,8 +96,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               language: language,
               maxParticipants: maxParticipants,
             );
-            final room =
-                await ref.read(voiceRoomProvider).createRoom(request);
+            final room = await ref.read(voiceRoomProvider).createRoom(request);
             _refreshRooms();
             if (mounted) {
               showCommunitySnackBar(
@@ -125,9 +123,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   void _joinRoom(VoiceRoom room) async {
     await Navigator.push(
       context,
-      AppPageRoute(
-        builder: (_) => VoiceRoomScreen(room: room),
-      ),
+      AppPageRoute(builder: (_) => VoiceRoomScreen(room: room)),
     );
     if (mounted) _refreshRooms();
   }
@@ -200,15 +196,18 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 onTap: () => _setLanguageFilter(null),
               ),
               const SizedBox(width: 8),
-              ...kVoiceRoomLanguages.map((lang) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: CommunityFilterChip(
-                      label: lang,
-                      isSelected: _selectedLanguage == lang,
-                      onTap: () => _setLanguageFilter(
-                          _selectedLanguage == lang ? null : lang),
+              ...kVoiceRoomLanguages.map(
+                (lang) => Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: CommunityFilterChip(
+                    label: lang,
+                    isSelected: _selectedLanguage == lang,
+                    onTap: () => _setLanguageFilter(
+                      _selectedLanguage == lang ? null : lang,
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -227,16 +226,21 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 onTap: () => _setTopicFilter(null),
               ),
               const SizedBox(width: 8),
-              ...Topic.defaultTopics.take(12).map((topic) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: CommunityFilterChip(
-                      label: topic.name,
-                      emoji: topic.icon,
-                      isSelected: _selectedTopic == topic.id,
-                      onTap: () => _setTopicFilter(
-                          _selectedTopic == topic.id ? null : topic.id),
+              ...Topic.defaultTopics
+                  .take(12)
+                  .map(
+                    (topic) => Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: CommunityFilterChip(
+                        label: topic.name,
+                        emoji: topic.icon,
+                        isSelected: _selectedTopic == topic.id,
+                        onTap: () => _setTopicFilter(
+                          _selectedTopic == topic.id ? null : topic.id,
+                        ),
+                      ),
                     ),
-                  )),
+                  ),
             ],
           ),
         ),
@@ -255,15 +259,16 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 .animate()
                 .fadeIn(duration: 300.ms)
                 .slideY(
-                    begin: -0.05,
-                    end: 0,
-                    duration: 300.ms,
-                    curve: Curves.easeOutCubic),
+                  begin: -0.05,
+                  end: 0,
+                  duration: 300.ms,
+                  curve: Curves.easeOutCubic,
+                ),
           ),
           SliverToBoxAdapter(
-            child: _buildFilters(l10n)
-                .animate()
-                .fadeIn(duration: 300.ms, delay: 80.ms),
+            child: _buildFilters(
+              l10n,
+            ).animate().fadeIn(duration: 300.ms, delay: 80.ms),
           ),
           if (rooms.isEmpty)
             SliverFillRemaining(
@@ -277,10 +282,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                       color: context.textMuted,
                     ),
                     Spacing.gapMD,
-                    Text(
-                      l10n.noActiveRooms,
-                      style: context.titleMedium,
-                    ),
+                    Text(l10n.noActiveRooms, style: context.titleMedium),
                   ],
                 ),
               ),
@@ -289,39 +291,36 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             SliverPadding(
               padding: const EdgeInsets.all(16),
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final room = rooms[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: VoiceRoomCard(
-                        room: room,
-                        onTap: () => _joinRoom(room),
-                        onJoin: () => _joinRoom(room),
-                      ),
-                    )
-                        .animate()
-                        .fadeIn(
-                          duration: 350.ms,
-                          delay: Duration(
-                              milliseconds: (index * 60).clamp(0, 500)),
-                        )
-                        .slideY(
-                          begin: 0.05,
-                          end: 0,
-                          duration: 350.ms,
-                          delay: Duration(
-                              milliseconds: (index * 60).clamp(0, 500)),
-                          curve: Curves.easeOutCubic,
-                        );
-                  },
-                  childCount: rooms.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final room = rooms[index];
+                  return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: VoiceRoomCard(
+                          room: room,
+                          onTap: () => _joinRoom(room),
+                          onJoin: () => _joinRoom(room),
+                        ),
+                      )
+                      .animate()
+                      .fadeIn(
+                        duration: 350.ms,
+                        delay: Duration(
+                          milliseconds: (index * 60).clamp(0, 500),
+                        ),
+                      )
+                      .slideY(
+                        begin: 0.05,
+                        end: 0,
+                        duration: 350.ms,
+                        delay: Duration(
+                          milliseconds: (index * 60).clamp(0, 500),
+                        ),
+                        curve: Curves.easeOutCubic,
+                      );
+                }, childCount: rooms.length),
               ),
             ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 100),
-          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
       ),
     );
@@ -355,10 +354,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               ),
               borderRadius: AppRadius.borderMD,
             ),
-            child: const Icon(
-              Icons.mic_rounded,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.mic_rounded, color: Colors.white),
           ),
           Spacing.hGapMD,
           Expanded(

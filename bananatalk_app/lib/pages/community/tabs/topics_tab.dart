@@ -50,9 +50,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   void _viewProfile(Community community) {
     Navigator.push(
       context,
-      AppPageRoute(
-        builder: (_) => SingleCommunity(community: community),
-      ),
+      AppPageRoute(builder: (_) => SingleCommunity(community: community)),
     );
   }
 
@@ -60,12 +58,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   Future<void> _sendHiMessage(String receiverId) async {
     try {
       final messageService = ref.read(messageServiceProvider);
-      await messageService.sendMessage(
-        receiver: receiverId,
-        message: 'Hi 👋',
-      );
-    } catch (e) {
-    }
+      await messageService.sendMessage(receiver: receiverId, message: 'Hi 👋');
+    } catch (e) {}
   }
 
   void _onWave(Community user) {
@@ -123,7 +117,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
-          final isSelected = (category == 'All' && _selectedCategory == null) ||
+          final isSelected =
+              (category == 'All' && _selectedCategory == null) ||
               category == _selectedCategory;
 
           return GestureDetector(
@@ -139,28 +134,22 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
               decoration: BoxDecoration(
                 color: isSelected
                     ? (isDark
-                        ? primaryColor.withValues(alpha: 0.25)
-                        : primaryColor.withValues(alpha: 0.15))
+                          ? primaryColor.withValues(alpha: 0.25)
+                          : primaryColor.withValues(alpha: 0.15))
                     : context.containerColor,
                 borderRadius: AppRadius.borderLG,
                 border: Border.all(
-                  color: isSelected
-                      ? primaryColor
-                      : context.dividerColor,
+                  color: isSelected ? primaryColor : context.dividerColor,
                   width: 1.5,
                 ),
               ),
               alignment: Alignment.center,
               child: Builder(
                 builder: (context) => Text(
-                  category == 'All'
-                      ? 'All'
-                      : Topic.getCategoryLabel(category),
+                  category == 'All' ? 'All' : Topic.getCategoryLabel(category),
                   style: context.labelMedium.copyWith(
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    color: isSelected
-                        ? primaryColor
-                        : context.textSecondary,
+                    color: isSelected ? primaryColor : context.textSecondary,
                   ),
                 ),
               ),
@@ -184,15 +173,15 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
       itemBuilder: (context, index) {
         final topic = _filteredTopics[index];
         return _TopicCard(
-          topic: topic,
-          onTap: () {
-            setState(() {
-              _selectedTopicId = topic.id;
-            });
-            // Load users from server
-            _loadTopicUsers(topic.id);
-          },
-        )
+              topic: topic,
+              onTap: () {
+                setState(() {
+                  _selectedTopicId = topic.id;
+                });
+                // Load users from server
+                _loadTopicUsers(topic.id);
+              },
+            )
             .animate()
             .fadeIn(
               duration: 300.ms,
@@ -222,8 +211,6 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
       ),
     );
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Column(
       children: [
         // Topic header with back button
@@ -244,20 +231,14 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                 ),
               ),
               Spacing.hGapMD,
-              Text(
-                selectedTopic.icon,
-                style: const TextStyle(fontSize: 28),
-              ),
+              Text(selectedTopic.icon, style: const TextStyle(fontSize: 28)),
               Spacing.hGapMD,
               Expanded(
                 child: Builder(
                   builder: (context) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        selectedTopic.name,
-                        style: context.titleMedium,
-                      ),
+                      Text(selectedTopic.name, style: context.titleMedium),
                       Text(
                         'People interested in this topic',
                         style: context.caption,
@@ -280,10 +261,9 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
               }
 
               // Show error if any
-              if (topicUsersState.error != null && topicUsersState.users.isEmpty) {
-                return Center(
-                  child: Text('Error: ${topicUsersState.error}'),
-                );
+              if (topicUsersState.error != null &&
+                  topicUsersState.users.isEmpty) {
+                return Center(child: Text('Error: ${topicUsersState.error}'));
               }
 
               final users = topicUsersState.users;
@@ -318,29 +298,35 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                         return const Padding(
                           padding: EdgeInsets.all(16),
                           child: Center(
-                            child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF00BFA5),
+                            ),
                           ),
                         );
                       }
                       final user = users[index];
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: CompactUserTile(
-                          user: user,
-                          onTap: () => _viewProfile(user),
-                          onWave: () => _onWave(user),
-                        ),
-                      )
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: CompactUserTile(
+                              user: user,
+                              onTap: () => _viewProfile(user),
+                              onWave: () => _onWave(user),
+                            ),
+                          )
                           .animate()
                           .fadeIn(
                             duration: 300.ms,
-                            delay: Duration(milliseconds: (index * 45).clamp(0, 450)),
+                            delay: Duration(
+                              milliseconds: (index * 45).clamp(0, 450),
+                            ),
                           )
                           .slideX(
                             begin: 0.04,
                             end: 0,
                             duration: 300.ms,
-                            delay: Duration(milliseconds: (index * 45).clamp(0, 450)),
+                            delay: Duration(
+                              milliseconds: (index * 45).clamp(0, 450),
+                            ),
                             curve: Curves.easeOutCubic,
                           );
                     },
@@ -355,8 +341,6 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
   }
 
   Widget _buildNoUsersForTopic() {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -370,10 +354,8 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             ),
             Spacing.gapMD,
             Builder(
-              builder: (context) => Text(
-                'No users found',
-                style: context.titleMedium,
-              ),
+              builder: (context) =>
+                  Text('No users found', style: context.titleMedium),
             ),
             Spacing.gapSM,
             Builder(
@@ -396,10 +378,7 @@ class _TopicCard extends StatelessWidget {
   final Topic topic;
   final VoidCallback? onTap;
 
-  const _TopicCard({
-    required this.topic,
-    this.onTap,
-  });
+  const _TopicCard({required this.topic, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -430,10 +409,7 @@ class _TopicCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Text(
-                topic.icon,
-                style: const TextStyle(fontSize: 28),
-              ),
+              Text(topic.icon, style: const TextStyle(fontSize: 28)),
               Spacing.hGapMD,
               Expanded(
                 child: Column(

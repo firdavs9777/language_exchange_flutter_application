@@ -41,8 +41,7 @@ class FilterLevelSection extends StatelessWidget {
                 ? context.primaryColor
                 : context.dividerColor,
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: AppRadius.borderSM),
+          shape: RoundedRectangleBorder(borderRadius: AppRadius.borderSM),
         ),
         // Level chips
         ...kLanguageLevels.map((level) {
@@ -63,8 +62,7 @@ class FilterLevelSection extends StatelessWidget {
             side: BorderSide(
               color: isSelected ? context.primaryColor : context.dividerColor,
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: AppRadius.borderSM),
+            shape: RoundedRectangleBorder(borderRadius: AppRadius.borderSM),
           );
         }),
       ],

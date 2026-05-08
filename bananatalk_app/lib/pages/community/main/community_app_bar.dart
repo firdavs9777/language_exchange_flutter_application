@@ -45,10 +45,7 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
         // Smart Match button
         IconButton(
           onPressed: () => context.push('/matching'),
-          icon: Icon(
-            Icons.auto_awesome_rounded,
-            color: AppColors.primary,
-          ),
+          icon: Icon(Icons.auto_awesome_rounded, color: AppColors.primary),
           tooltip: AppLocalizations.of(context)!.findPartners,
         ),
         // Search toggle button
@@ -68,10 +65,7 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           child: IconButton(
             onPressed: onFilterTap,
-            icon: Icon(
-              Icons.tune_rounded,
-              color: colorScheme.onPrimary,
-            ),
+            icon: Icon(Icons.tune_rounded, color: colorScheme.onPrimary),
             tooltip: AppLocalizations.of(context)!.filters,
           ),
         ),

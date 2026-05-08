@@ -13,10 +13,7 @@ import 'package:bananatalk_app/pages/profile/highlights.dart';
 class SingleCommunityAbout extends ConsumerWidget {
   final Community community;
 
-  const SingleCommunityAbout({
-    super.key,
-    required this.community,
-  });
+  const SingleCommunityAbout({super.key, required this.community});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -68,16 +65,20 @@ class SingleCommunityAbout extends ConsumerWidget {
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.1)
+              : context.dividerColor,
           width: 0.5,
         ),
-        boxShadow: isDark ? null : [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +95,11 @@ class SingleCommunityAbout extends ConsumerWidget {
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.format_quote_rounded, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.format_quote_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Text(
@@ -148,16 +153,20 @@ class SingleCommunityAbout extends ConsumerWidget {
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.1)
+              : context.dividerColor,
           width: 0.5,
         ),
-        boxShadow: isDark ? null : [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +183,11 @@ class SingleCommunityAbout extends ConsumerWidget {
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.translate_rounded, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.translate_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Text(
@@ -201,14 +214,20 @@ class SingleCommunityAbout extends ConsumerWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Icon(Icons.arrow_forward_rounded, color: context.textMuted, size: 20),
+              Icon(
+                Icons.arrow_forward_rounded,
+                color: context.textMuted,
+                size: 20,
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: _buildLanguageCard(
                   context,
                   label: l10n.learning,
                   language: community.language_to_learn,
-                  flag: LanguageFlags.getFlagByName(community.language_to_learn),
+                  flag: LanguageFlags.getFlagByName(
+                    community.language_to_learn,
+                  ),
                   icon: Icons.school_rounded,
                   color: Colors.purple,
                   isDark: isDark,
@@ -277,7 +296,11 @@ class SingleCommunityAbout extends ConsumerWidget {
   // Interests
   // ---------------------------------------------------------------------------
 
-  Widget _buildInterestsSection(BuildContext context, WidgetRef ref, bool isDark) {
+  Widget _buildInterestsSection(
+    BuildContext context,
+    WidgetRef ref,
+    bool isDark,
+  ) {
     if (community.topics.isEmpty) return const SizedBox.shrink();
 
     final currentUserAsync = ref.watch(userProvider);
@@ -297,16 +320,20 @@ class SingleCommunityAbout extends ConsumerWidget {
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.1)
+              : context.dividerColor,
           width: 0.5,
         ),
-        boxShadow: isDark ? null : [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -323,7 +350,11 @@ class SingleCommunityAbout extends ConsumerWidget {
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.favorite_rounded, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Text(
@@ -336,7 +367,10 @@ class SingleCommunityAbout extends ConsumerWidget {
               const Spacer(),
               if (sharedTopics.isNotEmpty)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: isDark
                         ? AppColors.primary.withValues(alpha: 0.2)
@@ -346,7 +380,11 @@ class SingleCommunityAbout extends ConsumerWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.handshake_rounded, size: 14, color: AppColors.primary),
+                      Icon(
+                        Icons.handshake_rounded,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
                       const SizedBox(width: 4),
                       Text(
                         '${sharedTopics.length} shared',
@@ -370,31 +408,42 @@ class SingleCommunityAbout extends ConsumerWidget {
                 (t) => t.id == topicId,
                 orElse: () => Topic(
                   id: topicId,
-                  name: topicId.replaceAll('_', ' ').split(' ').map((word) =>
-                    word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : ''
-                  ).join(' '),
+                  name: topicId
+                      .replaceAll('_', ' ')
+                      .split(' ')
+                      .map(
+                        (word) => word.isNotEmpty
+                            ? '${word[0].toUpperCase()}${word.substring(1)}'
+                            : '',
+                      )
+                      .join(' '),
                   icon: '🏷️',
                   category: 'other',
                 ),
               );
 
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: isShared
                       ? (isDark
-                          ? AppColors.primary.withValues(alpha: 0.2)
-                          : AppColors.primary.withValues(alpha: 0.1))
+                            ? AppColors.primary.withValues(alpha: 0.2)
+                            : AppColors.primary.withValues(alpha: 0.1))
                       : (isDark
-                          ? Colors.white.withValues(alpha: 0.08)
-                          : context.containerColor),
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : context.containerColor),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: isShared
-                        ? AppColors.primary.withValues(alpha: isDark ? 0.5 : 0.3)
+                        ? AppColors.primary.withValues(
+                            alpha: isDark ? 0.5 : 0.3,
+                          )
                         : (isDark
-                            ? Colors.white.withValues(alpha: 0.15)
-                            : context.dividerColor),
+                              ? Colors.white.withValues(alpha: 0.15)
+                              : context.dividerColor),
                     width: isShared ? 1.5 : 1,
                   ),
                 ),
@@ -406,13 +455,21 @@ class SingleCommunityAbout extends ConsumerWidget {
                     Text(
                       topic.name,
                       style: context.labelMedium.copyWith(
-                        color: isShared ? AppColors.primary : context.textPrimary,
-                        fontWeight: isShared ? FontWeight.w600 : FontWeight.w500,
+                        color: isShared
+                            ? AppColors.primary
+                            : context.textPrimary,
+                        fontWeight: isShared
+                            ? FontWeight.w600
+                            : FontWeight.w500,
                       ),
                     ),
                     if (isShared) ...[
                       const SizedBox(width: 4),
-                      Icon(Icons.check_circle_rounded, size: 14, color: AppColors.primary),
+                      Icon(
+                        Icons.check_circle_rounded,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
                     ],
                   ],
                 ),
@@ -441,16 +498,20 @@ class SingleCommunityAbout extends ConsumerWidget {
         color: context.surfaceColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.1)
+              : context.dividerColor,
           width: 0.5,
         ),
-        boxShadow: isDark ? null : [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -467,7 +528,11 @@ class SingleCommunityAbout extends ConsumerWidget {
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.psychology_rounded, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.psychology_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Text(

@@ -27,9 +27,7 @@ class SingleCommunityMoments extends ConsumerWidget {
     return ListView(
       key: const PageStorageKey<String>('moments'),
       padding: const EdgeInsets.all(16),
-      children: [
-        _buildMomentsSection(context, ref),
-      ],
+      children: [_buildMomentsSection(context, ref)],
     );
   }
 
@@ -44,7 +42,8 @@ class SingleCommunityMoments extends ConsumerWidget {
 
         return momentsAsync.when(
           loading: () => _buildMomentsLoading(context),
-          error: (error, stack) => _buildMomentsError(context, error.toString()),
+          error: (error, stack) =>
+              _buildMomentsError(context, error.toString()),
           data: (moments) {
             if (moments.isEmpty) return _buildMomentsEmpty(context);
             return _buildMomentsGrid(context, moments);
@@ -72,7 +71,9 @@ class SingleCommunityMoments extends ConsumerWidget {
               color: context.surfaceColor,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : context.dividerColor,
                 width: 0.5,
               ),
             ),
@@ -210,7 +211,9 @@ class SingleCommunityMoments extends ConsumerWidget {
             color: context.surfaceColor,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : context.dividerColor,
               width: 0.5,
             ),
           ),
@@ -225,7 +228,11 @@ class SingleCommunityMoments extends ConsumerWidget {
                       : context.containerColor,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.photo_library_outlined, size: 32, color: context.textMuted),
+                child: Icon(
+                  Icons.photo_library_outlined,
+                  size: 32,
+                  color: context.textMuted,
+                ),
               ),
               Spacing.gapMD,
               Text(
@@ -237,7 +244,9 @@ class SingleCommunityMoments extends ConsumerWidget {
               ),
               Spacing.gapXS,
               Text(
-                AppLocalizations.of(context)!.hasntSharedMoments(community.name),
+                AppLocalizations.of(
+                  context,
+                )!.hasntSharedMoments(community.name),
                 style: context.caption.copyWith(color: context.textMuted),
                 textAlign: TextAlign.center,
               ),
@@ -252,7 +261,11 @@ class SingleCommunityMoments extends ConsumerWidget {
   // Header
   // ---------------------------------------------------------------------------
 
-  Widget _buildMomentsHeader(BuildContext context, int count, {bool isLoading = false}) {
+  Widget _buildMomentsHeader(
+    BuildContext context,
+    int count, {
+    bool isLoading = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -263,10 +276,17 @@ class SingleCommunityMoments extends ConsumerWidget {
               color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.photo_library_rounded, color: AppColors.primary, size: 18),
+            child: const Icon(
+              Icons.photo_library_rounded,
+              color: AppColors.primary,
+              size: 18,
+            ),
           ),
           Spacing.hGapSM,
-          Text(AppLocalizations.of(context)!.moments, style: context.titleMedium),
+          Text(
+            AppLocalizations.of(context)!.moments,
+            style: context.titleMedium,
+          ),
           Spacing.hGapSM,
           if (!isLoading && count > 0)
             Container(
@@ -326,16 +346,20 @@ class SingleCommunityMoments extends ConsumerWidget {
           color: context.surfaceColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.1)
+                : context.dividerColor,
             width: 0.5,
           ),
-          boxShadow: isDark ? null : [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          boxShadow: isDark
+              ? null
+              : [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
         ),
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -353,7 +377,11 @@ class SingleCommunityMoments extends ConsumerWidget {
                         ? NetworkImage(profileImageUrl!)
                         : null,
                     child: profileImageUrl == null
-                        ? const Icon(Icons.person, size: 18, color: Colors.white)
+                        ? const Icon(
+                            Icons.person,
+                            size: 18,
+                            color: Colors.white,
+                          )
                         : null,
                   ),
                   const SizedBox(width: 10),
@@ -371,7 +399,9 @@ class SingleCommunityMoments extends ConsumerWidget {
                         const SizedBox(height: 2),
                         Text(
                           _formatTimeAgo(moment.createdAt),
-                          style: context.captionSmall.copyWith(color: context.textMuted),
+                          style: context.captionSmall.copyWith(
+                            color: context.textMuted,
+                          ),
                         ),
                       ],
                     ),
@@ -386,23 +416,32 @@ class SingleCommunityMoments extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
                   moment.description,
-                  style: context.bodyMedium.copyWith(color: context.textPrimary),
+                  style: context.bodyMedium.copyWith(
+                    color: context.textPrimary,
+                  ),
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
 
-            if (hasText && (hasImages || hasVideo))
-              const SizedBox(height: 10),
+            if (hasText && (hasImages || hasVideo)) const SizedBox(height: 10),
 
             // Media
             if (hasImages || hasVideo)
-              _buildMomentMedia(moment, hasVideo, hasImages, hasMultipleImages, isDark),
+              _buildMomentMedia(
+                moment,
+                hasVideo,
+                hasImages,
+                hasMultipleImages,
+                isDark,
+              ),
 
             Divider(
               height: 1,
               thickness: 0.5,
-              color: isDark ? Colors.white.withValues(alpha: 0.1) : context.dividerColor,
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : context.dividerColor,
             ),
 
             // Engagement counts
@@ -415,22 +454,32 @@ class SingleCommunityMoments extends ConsumerWidget {
                     const SizedBox(width: 4),
                     Text(
                       _formatCount(moment.likeCount),
-                      style: context.labelSmall.copyWith(color: context.textSecondary),
+                      style: context.labelSmall.copyWith(
+                        color: context.textSecondary,
+                      ),
                     ),
                     const SizedBox(width: 16),
                   ],
                   if (moment.commentCount > 0) ...[
-                    Icon(Icons.chat_bubble_outline, size: 15, color: context.textMuted),
+                    Icon(
+                      Icons.chat_bubble_outline,
+                      size: 15,
+                      color: context.textMuted,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       '${_formatCount(moment.commentCount)} ${moment.commentCount == 1 ? 'comment' : 'comments'}',
-                      style: context.labelSmall.copyWith(color: context.textSecondary),
+                      style: context.labelSmall.copyWith(
+                        color: context.textSecondary,
+                      ),
                     ),
                   ],
                   if (moment.likeCount == 0 && moment.commentCount == 0)
                     Text(
                       'Be the first to like this',
-                      style: context.captionSmall.copyWith(color: context.textMuted),
+                      style: context.captionSmall.copyWith(
+                        color: context.textMuted,
+                      ),
                     ),
                 ],
               ),
@@ -459,7 +508,10 @@ class SingleCommunityMoments extends ConsumerWidget {
         children: [
           AspectRatio(
             aspectRatio: 16 / 9,
-            child: CachedImageWidget(imageUrl: videoThumbnail, fit: BoxFit.cover),
+            child: CachedImageWidget(
+              imageUrl: videoThumbnail,
+              fit: BoxFit.cover,
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(14),
@@ -471,7 +523,11 @@ class SingleCommunityMoments extends ConsumerWidget {
                 width: 2,
               ),
             ),
-            child: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 32),
+            child: const Icon(
+              Icons.play_arrow_rounded,
+              color: Colors.white,
+              size: 32,
+            ),
           ),
         ],
       );
@@ -491,14 +547,20 @@ class SingleCommunityMoments extends ConsumerWidget {
             Expanded(
               child: AspectRatio(
                 aspectRatio: 1,
-                child: CachedImageWidget(imageUrl: moment.imageUrls[0], fit: BoxFit.cover),
+                child: CachedImageWidget(
+                  imageUrl: moment.imageUrls[0],
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(width: isDark ? 1 : 2),
             Expanded(
               child: AspectRatio(
                 aspectRatio: 1,
-                child: CachedImageWidget(imageUrl: moment.imageUrls[1], fit: BoxFit.cover),
+                child: CachedImageWidget(
+                  imageUrl: moment.imageUrls[1],
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ],
@@ -520,7 +582,10 @@ class SingleCommunityMoments extends ConsumerWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: CachedImageWidget(imageUrl: moment.imageUrls[1], fit: BoxFit.cover),
+                    child: CachedImageWidget(
+                      imageUrl: moment.imageUrls[1],
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   SizedBox(width: isDark ? 1 : 2),
                   Expanded(
@@ -574,8 +639,10 @@ class SingleCommunityMoments extends ConsumerWidget {
     if (difference.inMinutes < 60) return '${difference.inMinutes}m ago';
     if (difference.inHours < 24) return '${difference.inHours}h ago';
     if (difference.inDays < 7) return '${difference.inDays}d ago';
-    if (difference.inDays < 30) return '${(difference.inDays / 7).floor()}w ago';
-    if (difference.inDays < 365) return '${(difference.inDays / 30).floor()}mo ago';
+    if (difference.inDays < 30)
+      return '${(difference.inDays / 7).floor()}w ago';
+    if (difference.inDays < 365)
+      return '${(difference.inDays / 30).floor()}mo ago';
     return '${(difference.inDays / 365).floor()}y ago';
   }
 

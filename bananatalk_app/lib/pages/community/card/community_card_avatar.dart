@@ -64,10 +64,7 @@ class CommunityCardAvatar extends StatelessWidget {
         ),
         // VIP frame: an extra gold border when isVip is true.
         border: isVip
-            ? Border.all(
-                color: const Color(0xFFFFD700),
-                width: 2.5,
-              )
+            ? Border.all(color: const Color(0xFFFFD700), width: 2.5)
             : null,
       ),
       child: Padding(

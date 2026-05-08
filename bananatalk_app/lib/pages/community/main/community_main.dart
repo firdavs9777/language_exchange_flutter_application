@@ -110,20 +110,25 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         updated = FilterState.fromJson({..._filters.toJson(), 'gender': null});
         break;
       case 'nativeLanguage':
-        updated = FilterState.fromJson(
-            {..._filters.toJson(), 'nativeLanguage': null});
+        updated = FilterState.fromJson({
+          ..._filters.toJson(),
+          'nativeLanguage': null,
+        });
         break;
       case 'learningLanguage':
-        updated = FilterState.fromJson(
-            {..._filters.toJson(), 'learningLanguage': null});
+        updated = FilterState.fromJson({
+          ..._filters.toJson(),
+          'learningLanguage': null,
+        });
         break;
       case 'country':
-        updated =
-            FilterState.fromJson({..._filters.toJson(), 'country': null});
+        updated = FilterState.fromJson({..._filters.toJson(), 'country': null});
         break;
       case 'languageLevel':
-        updated = FilterState.fromJson(
-            {..._filters.toJson(), 'languageLevel': null});
+        updated = FilterState.fromJson({
+          ..._filters.toJson(),
+          'languageLevel': null,
+        });
         break;
       case 'onlineOnly':
         updated = _filters.copyWith(onlineOnly: false);
@@ -246,7 +251,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
     return Container(
       margin: const EdgeInsets.symmetric(
-          horizontal: Spacing.lg, vertical: Spacing.sm),
+        horizontal: Spacing.lg,
+        vertical: Spacing.sm,
+      ),
       decoration: BoxDecoration(
         color: context.containerHighColor,
         borderRadius: AppRadius.borderLG,
@@ -256,12 +263,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         autofocus: true,
         decoration: InputDecoration(
           hintText: 'Search or type @username',
-          hintStyle:
-              context.bodyMedium.copyWith(color: context.textSecondary),
-          prefixIcon: Icon(
-            Icons.search_rounded,
-            color: context.primaryColor,
-          ),
+          hintStyle: context.bodyMedium.copyWith(color: context.textSecondary),
+          prefixIcon: Icon(Icons.search_rounded, color: context.primaryColor),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -271,13 +274,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   onPressed: () => _findUserByUsername(username),
                   style: TextButton.styleFrom(
                     foregroundColor: context.primaryColor,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     minimumSize: Size.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text('Find',
-                      style: TextStyle(fontWeight: FontWeight.w600)),
+                  child: const Text(
+                    'Find',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               // Clear button
               if (_searchQuery.isNotEmpty)
@@ -386,11 +390,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         });
 
         // Navigate to user profile
-        Navigator.of(context).push(
-          AppPageRoute(
-            builder: (_) => SingleCommunity(community: user),
-          ),
-        );
+        Navigator.of(
+          context,
+        ).push(AppPageRoute(builder: (_) => SingleCommunity(community: user)));
       } else {
         messenger.showSnackBar(
           SnackBar(

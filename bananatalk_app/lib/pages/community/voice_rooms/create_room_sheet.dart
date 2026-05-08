@@ -7,13 +7,15 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Create Room Bottom Sheet
 class CreateRoomSheet extends StatefulWidget {
-  final Function(String title, String topic, String language, int maxParticipants)
-      onCreateRoom;
+  final Function(
+    String title,
+    String topic,
+    String language,
+    int maxParticipants,
+  )
+  onCreateRoom;
 
-  const CreateRoomSheet({
-    super.key,
-    required this.onCreateRoom,
-  });
+  const CreateRoomSheet({super.key, required this.onCreateRoom});
 
   @override
   State<CreateRoomSheet> createState() => _CreateRoomSheetState();
@@ -294,7 +296,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: isSelected
-                  ? const Color(0xFF00BFA5).withValues(alpha:0.15)
+                  ? const Color(0xFF00BFA5).withValues(alpha: 0.15)
                   : context.containerColor,
               borderRadius: AppRadius.borderLG,
               border: Border.all(
@@ -342,10 +344,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
             icon: const Icon(Icons.keyboard_arrow_down_rounded),
             borderRadius: AppRadius.borderMD,
             items: _languages.map((language) {
-              return DropdownMenuItem(
-                value: language,
-                child: Text(language),
-              );
+              return DropdownMenuItem(value: language, child: Text(language));
             }).toList(),
             onChanged: (value) {
               if (value != null) {

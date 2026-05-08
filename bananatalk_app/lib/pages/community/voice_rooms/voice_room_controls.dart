@@ -75,17 +75,23 @@ class VoiceRoomControls extends StatelessWidget {
                     top: 4,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 2),
+                        horizontal: 5,
+                        vertical: 2,
+                      ),
                       decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),
                       constraints: const BoxConstraints(
-                          minWidth: 16, minHeight: 16),
+                        minWidth: 16,
+                        minHeight: 16,
+                      ),
                       child: Text(
                         unreadChatCount > 9 ? '9+' : '$unreadChatCount',
                         style: const TextStyle(
-                            color: Colors.white, fontSize: 10),
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -97,9 +103,7 @@ class VoiceRoomControls extends StatelessWidget {
                   ? Icons.front_hand_rounded
                   : Icons.front_hand_outlined,
               label: isHandRaised ? lowerHandLabel : raiseHandLabel,
-              color: isHandRaised
-                  ? const Color(0xFFFFB74D)
-                  : Colors.white,
+              color: isHandRaised ? const Color(0xFFFFB74D) : Colors.white,
               backgroundColor: isHandRaised
                   ? const Color(0xFFFFB74D).withValues(alpha: 0.2)
                   : const Color(0x1AFFFFFF),
@@ -173,10 +177,7 @@ class _ControlButton extends StatelessWidget {
         Spacing.gapSM,
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Color(0xB3FFFFFF),
-          ),
+          style: const TextStyle(fontSize: 12, color: Color(0xB3FFFFFF)),
         ),
       ],
     );

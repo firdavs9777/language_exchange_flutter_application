@@ -91,7 +91,7 @@ class _GenderButton extends StatelessWidget {
                       color: context.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
-                    )
+                    ),
                   ]
                 : null,
           ),

@@ -84,14 +84,17 @@ class _GendersTabState extends ConsumerState<GendersTab> {
       final filterNative = widget.filters['nativeLanguage']?.toString();
       final filterLearning = widget.filters['learningLanguage']?.toString();
       final country = widget.filters['country']?.toString();
-      final hasExplicitLangFilter = (filterNative != null && filterNative.isNotEmpty) ||
+      final hasExplicitLangFilter =
+          (filterNative != null && filterNative.isNotEmpty) ||
           (filterLearning != null && filterLearning.isNotEmpty);
       String? effectiveNative = filterNative;
       String? effectiveLearning = filterLearning;
       bool useMatchLanguage = false;
       if (!hasExplicitLangFilter) {
         final me = ref.read(userProvider).valueOrNull;
-        if (me != null && me.native_language.isNotEmpty && me.language_to_learn.isNotEmpty) {
+        if (me != null &&
+            me.native_language.isNotEmpty &&
+            me.language_to_learn.isNotEmpty) {
           effectiveNative = me.native_language;
           effectiveLearning = me.language_to_learn;
           useMatchLanguage = true;
@@ -104,8 +107,14 @@ class _GendersTabState extends ConsumerState<GendersTab> {
           limit: 1,
           gender: 'male',
           country: (country != null && country.isNotEmpty) ? country : null,
-          nativeLanguage: (effectiveNative != null && effectiveNative.isNotEmpty) ? effectiveNative : null,
-          learningLanguage: (effectiveLearning != null && effectiveLearning.isNotEmpty) ? effectiveLearning : null,
+          nativeLanguage:
+              (effectiveNative != null && effectiveNative.isNotEmpty)
+              ? effectiveNative
+              : null,
+          learningLanguage:
+              (effectiveLearning != null && effectiveLearning.isNotEmpty)
+              ? effectiveLearning
+              : null,
           matchLanguage: useMatchLanguage,
         ),
         service.getCommunityPaginated(
@@ -113,8 +122,14 @@ class _GendersTabState extends ConsumerState<GendersTab> {
           limit: 1,
           gender: 'female',
           country: (country != null && country.isNotEmpty) ? country : null,
-          nativeLanguage: (effectiveNative != null && effectiveNative.isNotEmpty) ? effectiveNative : null,
-          learningLanguage: (effectiveLearning != null && effectiveLearning.isNotEmpty) ? effectiveLearning : null,
+          nativeLanguage:
+              (effectiveNative != null && effectiveNative.isNotEmpty)
+              ? effectiveNative
+              : null,
+          learningLanguage:
+              (effectiveLearning != null && effectiveLearning.isNotEmpty)
+              ? effectiveLearning
+              : null,
           matchLanguage: useMatchLanguage,
         ),
       ]);
@@ -155,14 +170,17 @@ class _GendersTabState extends ConsumerState<GendersTab> {
       final languageLevel = widget.filters['languageLevel']?.toString();
 
       // Default to exchange matching when no explicit language filter is set
-      final hasExplicitLangFilter = (nativeLanguage != null && nativeLanguage.isNotEmpty) ||
+      final hasExplicitLangFilter =
+          (nativeLanguage != null && nativeLanguage.isNotEmpty) ||
           (learningLanguage != null && learningLanguage.isNotEmpty);
       String? effectiveNative = nativeLanguage;
       String? effectiveLearning = learningLanguage;
       bool useMatchLanguage = false;
       if (!hasExplicitLangFilter) {
         final me = ref.read(userProvider).valueOrNull;
-        if (me != null && me.native_language.isNotEmpty && me.language_to_learn.isNotEmpty) {
+        if (me != null &&
+            me.native_language.isNotEmpty &&
+            me.language_to_learn.isNotEmpty) {
           effectiveNative = me.native_language;
           effectiveLearning = me.language_to_learn;
           useMatchLanguage = true;
@@ -177,10 +195,17 @@ class _GendersTabState extends ConsumerState<GendersTab> {
         maxAge: (maxAge != null && maxAge < 100) ? maxAge : null,
         onlineOnly: onlineOnly ? true : null,
         country: (country != null && country.isNotEmpty) ? country : null,
-        nativeLanguage: (effectiveNative != null && effectiveNative.isNotEmpty) ? effectiveNative : null,
-        learningLanguage: (effectiveLearning != null && effectiveLearning.isNotEmpty) ? effectiveLearning : null,
+        nativeLanguage: (effectiveNative != null && effectiveNative.isNotEmpty)
+            ? effectiveNative
+            : null,
+        learningLanguage:
+            (effectiveLearning != null && effectiveLearning.isNotEmpty)
+            ? effectiveLearning
+            : null,
         matchLanguage: useMatchLanguage,
-        languageLevel: (languageLevel != null && languageLevel.isNotEmpty) ? languageLevel : null,
+        languageLevel: (languageLevel != null && languageLevel.isNotEmpty)
+            ? languageLevel
+            : null,
         search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
       );
 
@@ -291,7 +316,11 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                 ),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.workspace_premium, color: Colors.white, size: 16),
+              child: const Icon(
+                Icons.workspace_premium,
+                color: Colors.white,
+                size: 16,
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -396,7 +425,9 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
-                            color: !isMale ? Colors.white : context.textSecondary,
+                            color: !isMale
+                                ? Colors.white
+                                : context.textSecondary,
                           ),
                         ),
                       ],
@@ -462,7 +493,9 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
-                            color: isMale ? Colors.white : context.textSecondary,
+                            color: isMale
+                                ? Colors.white
+                                : context.textSecondary,
                           ),
                         ),
                       ],
@@ -623,19 +656,6 @@ class _GendersTabState extends ConsumerState<GendersTab> {
     } catch (_) {}
   }
 
-  void _onMessage(Community user) {
-    Navigator.push(
-      context,
-      AppPageRoute(
-        builder: (_) => ChatScreen(
-          userId: user.id,
-          userName: user.name,
-          profilePicture: user.profileImageUrl,
-        ),
-      ),
-    );
-  }
-
   String _formatCount(int count) {
     if (count >= 1000) return '${(count / 1000).toStringAsFixed(1)}k';
     return '$count';
@@ -715,7 +735,10 @@ class _GenderUserCard extends StatelessWidget {
                   // VIP badge
                   if (user.isVip)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
                           colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
@@ -723,7 +746,9 @@ class _GenderUserCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFFFFD700).withValues(alpha: 0.4),
+                            color: const Color(
+                              0xFFFFD700,
+                            ).withValues(alpha: 0.4),
                             blurRadius: 6,
                           ),
                         ],
@@ -731,25 +756,47 @@ class _GenderUserCard extends StatelessWidget {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.workspace_premium, size: 10, color: Colors.white),
+                          Icon(
+                            Icons.workspace_premium,
+                            size: 10,
+                            color: Colors.white,
+                          ),
                           SizedBox(width: 2),
-                          Text('VIP', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
+                          Text(
+                            'VIP',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 9,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   // New user badge
                   if (!user.isVip && user.isNewUser)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text('NEW', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
+                      child: const Text(
+                        'NEW',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   const Spacer(),
                   // Online indicator
-                  if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline)
+                  if (PrivacyUtils.shouldShowOnlineStatus(user) &&
+                      user.isOnline)
                     Container(
                       width: 10,
                       height: 10,
@@ -769,12 +816,16 @@ class _GenderUserCard extends StatelessWidget {
               ),
             ),
             // Language flags pill (top-right area below badges)
-            if (user.native_language.isNotEmpty || user.language_to_learn.isNotEmpty)
+            if (user.native_language.isNotEmpty ||
+                user.language_to_learn.isNotEmpty)
               Positioned(
                 top: 8,
                 right: 8,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.45),
                     borderRadius: BorderRadius.circular(8),
@@ -785,7 +836,11 @@ class _GenderUserCard extends StatelessWidget {
                       Text(nativeFlag, style: const TextStyle(fontSize: 11)),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 2),
-                        child: Icon(Icons.arrow_forward_rounded, size: 8, color: Colors.white70),
+                        child: Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 8,
+                          color: Colors.white70,
+                        ),
                       ),
                       Text(learningFlag, style: const TextStyle(fontSize: 11)),
                     ],
@@ -812,7 +867,9 @@ class _GenderUserCard extends StatelessWidget {
                               color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
-                              shadows: [Shadow(blurRadius: 4, color: Colors.black45)],
+                              shadows: [
+                                Shadow(blurRadius: 4, color: Colors.black45),
+                              ],
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -834,7 +891,8 @@ class _GenderUserCard extends StatelessWidget {
                     Builder(
                       builder: (context) {
                         final locationText = PrivacyUtils.getLocationText(user);
-                        if (locationText.isEmpty) return const SizedBox.shrink();
+                        if (locationText.isEmpty)
+                          return const SizedBox.shrink();
                         return Padding(
                           padding: const EdgeInsets.only(top: 3),
                           child: Row(
@@ -879,10 +937,7 @@ class _GenderUserCard extends StatelessWidget {
                   height: 36,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        genderColor.withValues(alpha: 0.8),
-                        genderColor,
-                      ],
+                      colors: [genderColor.withValues(alpha: 0.8), genderColor],
                     ),
                     shape: BoxShape.circle,
                     boxShadow: [

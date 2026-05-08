@@ -46,16 +46,14 @@ class VoiceRoomParticipantTile extends StatelessWidget {
                     end: Alignment.bottomRight,
                   ),
                   border: participant.isSpeaking
-                      ? Border.all(
-                          color: const Color(0xFF00BFA5),
-                          width: 3,
-                        )
+                      ? Border.all(color: const Color(0xFF00BFA5), width: 3)
                       : null,
                   boxShadow: participant.isSpeaking
                       ? [
                           BoxShadow(
-                            color: const Color(0xFF00BFA5)
-                                .withValues(alpha: 0.4),
+                            color: const Color(
+                              0xFF00BFA5,
+                            ).withValues(alpha: 0.4),
                             blurRadius: 12,
                             spreadRadius: 2,
                           ),
@@ -113,16 +111,20 @@ class VoiceRoomParticipantTile extends StatelessWidget {
                 Positioned(
                   top: -4,
                   left: -4,
-                  child: Container(
-                    padding: const EdgeInsets.all(3),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFFFB74D),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Text('✋', style: TextStyle(fontSize: 12)),
-                  )
-                      .animate(onPlay: (c) => c.repeat(reverse: true))
-                      .scaleXY(begin: 1.0, end: 1.1, duration: 600.ms),
+                  child:
+                      Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFFFB74D),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Text(
+                              '✋',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          )
+                          .animate(onPlay: (c) => c.repeat(reverse: true))
+                          .scaleXY(begin: 1.0, end: 1.1, duration: 600.ms),
                 ),
             ],
           ),
@@ -141,10 +143,7 @@ class VoiceRoomParticipantTile extends StatelessWidget {
           if (isHost)
             Text(
               hostLabel,
-              style: const TextStyle(
-                fontSize: 11,
-                color: Color(0x80FFFFFF),
-              ),
+              style: const TextStyle(fontSize: 11, color: Color(0x80FFFFFF)),
             ),
         ],
       ),
@@ -156,9 +155,7 @@ class VoiceRoomParticipantTile extends StatelessWidget {
       color: const Color(0xFF00BFA5),
       child: Center(
         child: Text(
-          participant.name.isNotEmpty
-              ? participant.name[0].toUpperCase()
-              : '?',
+          participant.name.isNotEmpty ? participant.name[0].toUpperCase() : '?',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 28,

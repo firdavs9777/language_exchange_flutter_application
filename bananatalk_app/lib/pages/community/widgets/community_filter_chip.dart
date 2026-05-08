@@ -41,9 +41,11 @@ class CommunityFilterChip extends StatelessWidget {
               Text(emoji!, style: const TextStyle(fontSize: 14)),
               const SizedBox(width: 6),
             ] else if (icon != null) ...[
-              Icon(icon,
-                  size: 15,
-                  color: isSelected ? AppColors.primary : context.textMuted),
+              Icon(
+                icon,
+                size: 15,
+                color: isSelected ? AppColors.primary : context.textMuted,
+              ),
               const SizedBox(width: 6),
             ],
             Text(

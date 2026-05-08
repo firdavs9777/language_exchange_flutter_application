@@ -60,15 +60,15 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
   }
 
   List<String> _quickReplies(AppLocalizations l10n) => [
-        '👋 ${l10n.waveQuickReplyHi}',
-        '❤️ ${l10n.waveQuickReplyCool}',
-        '😊 ${l10n.waveQuickReplyHey}',
-        '🎉 ${l10n.waveQuickReplyChat}',
-        '✋ ${l10n.waveQuickReplyHello}',
-        if (widget.targetUserCountry != null &&
-            widget.targetUserCountry!.isNotEmpty)
-          '🌟 ${l10n.waveQuickReplyFromCountry(widget.targetUserCountry!)}',
-      ];
+    '👋 ${l10n.waveQuickReplyHi}',
+    '❤️ ${l10n.waveQuickReplyCool}',
+    '😊 ${l10n.waveQuickReplyHey}',
+    '🎉 ${l10n.waveQuickReplyChat}',
+    '✋ ${l10n.waveQuickReplyHello}',
+    if (widget.targetUserCountry != null &&
+        widget.targetUserCountry!.isNotEmpty)
+      '🌟 ${l10n.waveQuickReplyFromCountry(widget.targetUserCountry!)}',
+  ];
 
   Future<void> _send() async {
     if (_isSending) return;
@@ -78,10 +78,9 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
         : (_selectedQuickReply ?? '👋');
     setState(() => _isSending = true);
     try {
-      final response = await ref.read(communityServiceProvider).sendWave(
-            targetUserId: widget.targetUserId,
-            message: message,
-          );
+      final response = await ref
+          .read(communityServiceProvider)
+          .sendWave(targetUserId: widget.targetUserId, message: message);
       // Cache cooldown locally (24h client-side; backend authoritative)
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt(
@@ -92,8 +91,11 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
       Navigator.pop(context);
       widget.onSent?.call();
       if (response.isMutual) {
-        showMutualWaveDialog(context,
-            name: widget.targetUserName, targetUserId: widget.targetUserId);
+        showMutualWaveDialog(
+          context,
+          name: widget.targetUserName,
+          targetUserId: widget.targetUserId,
+        );
       } else {
         showCommunitySnackBar(
           context,
@@ -104,8 +106,9 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
     } catch (e) {
       if (!mounted) return;
       Navigator.pop(context);
-      final isRateLimited =
-          e.toString().toLowerCase().contains('too many waves');
+      final isRateLimited = e.toString().toLowerCase().contains(
+        'too many waves',
+      );
       showCommunitySnackBar(
         context,
         message: isRateLimited
@@ -119,7 +122,8 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final canSend = !_isSending &&
+    final canSend =
+        !_isSending &&
         (_selectedQuickReply != null ||
             _customController.text.trim().isNotEmpty);
     return CommunityDialogScaffold(
@@ -127,22 +131,27 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(l10n.sendWaveTo(widget.targetUserName),
-              style: context.titleMedium, textAlign: TextAlign.center),
+          Text(
+            l10n.sendWaveTo(widget.targetUserName),
+            style: context.titleMedium,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 16),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             alignment: WrapAlignment.center,
             children: _quickReplies(l10n)
-                .map((reply) => ChoiceChip(
-                      label: Text(reply),
-                      selected: _selectedQuickReply == reply,
-                      onSelected: (selected) => setState(() {
-                        _selectedQuickReply = selected ? reply : null;
-                        _customController.clear();
-                      }),
-                    ))
+                .map(
+                  (reply) => ChoiceChip(
+                    label: Text(reply),
+                    selected: _selectedQuickReply == reply,
+                    onSelected: (selected) => setState(() {
+                      _selectedQuickReply = selected ? reply : null;
+                      _customController.clear();
+                    }),
+                  ),
+                )
                 .toList(),
           ),
           const SizedBox(height: 12),
@@ -151,8 +160,7 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
             onChanged: (_) => setState(() => _selectedQuickReply = null),
             decoration: InputDecoration(
               hintText: l10n.waveCustomMessage,
-              border:
-                  OutlineInputBorder(borderRadius: AppRadius.borderMD),
+              border: OutlineInputBorder(borderRadius: AppRadius.borderMD),
             ),
           ),
           const SizedBox(height: 16),

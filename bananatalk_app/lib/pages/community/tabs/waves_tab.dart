@@ -59,17 +59,15 @@ class _WavesTabState extends ConsumerState<WavesTab> {
   }
 
   Future<void> _viewProfile(Wave wave) async {
-    if (wave.fromUserId == null) return;
+    if (wave.fromUserId.isEmpty) return;
 
     try {
       final service = ref.read(communityServiceProvider);
-      final fullProfile = await service.getSingleCommunity(id: wave.fromUserId!);
+      final fullProfile = await service.getSingleCommunity(id: wave.fromUserId);
       if (fullProfile != null && mounted) {
         Navigator.push(
           context,
-          AppPageRoute(
-            builder: (_) => SingleCommunity(community: fullProfile),
-          ),
+          AppPageRoute(builder: (_) => SingleCommunity(community: fullProfile)),
         );
       }
     } catch (e) {
@@ -101,7 +99,9 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             Builder(
               builder: (context) => Text(
                 'Failed to load waves',
-                style: context.bodyMedium.copyWith(color: context.textSecondary),
+                style: context.bodyMedium.copyWith(
+                  color: context.textSecondary,
+                ),
               ),
             ),
             Spacing.gapMD,
@@ -140,9 +140,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
             Builder(
               builder: (context) => Text(
                 'No waves yet',
-                style: context.titleMedium.copyWith(
-                  color: context.textPrimary,
-                ),
+                style: context.titleMedium.copyWith(color: context.textPrimary),
               ),
             ),
             Spacing.gapSM,
@@ -168,10 +166,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         itemCount: _waves.length,
         itemBuilder: (context, index) {
           final wave = _waves[index];
-          return _WaveCard(
-            wave: wave,
-            onTap: () => _viewProfile(wave),
-          );
+          return _WaveCard(wave: wave, onTap: () => _viewProfile(wave));
         },
       ),
     );
@@ -182,24 +177,23 @@ class _WaveCard extends StatelessWidget {
   final Wave wave;
   final VoidCallback onTap;
 
-  const _WaveCard({
-    required this.wave,
-    required this.onTap,
-  });
+  const _WaveCard({required this.wave, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final timeAgo = wave.createdAt != null
-        ? timeago.format(wave.createdAt!)
-        : 'Recently';
+    final timeAgo = timeago.format(wave.createdAt);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: wave.isRead ? context.surfaceColor : const Color(0xFF00BFA5).withValues(alpha: 0.05),
+        color: wave.isRead
+            ? context.surfaceColor
+            : const Color(0xFF00BFA5).withValues(alpha: 0.05),
         borderRadius: AppRadius.borderMD,
         border: Border.all(
-          color: wave.isRead ? context.dividerColor : const Color(0xFF00BFA5).withValues(alpha: 0.3),
+          color: wave.isRead
+              ? context.dividerColor
+              : const Color(0xFF00BFA5).withValues(alpha: 0.3),
           width: 1,
         ),
         boxShadow: [
@@ -266,7 +260,7 @@ class _WaveCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              wave.fromUserName ?? 'Someone',
+                              wave.fromUserName,
                               style: context.titleMedium.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
@@ -307,10 +301,7 @@ class _WaveCard extends StatelessWidget {
                   ),
                 ),
                 // Arrow
-                Icon(
-                  Icons.chevron_right,
-                  color: context.textMuted,
-                ),
+                Icon(Icons.chevron_right, color: context.textMuted),
               ],
             ),
           ),

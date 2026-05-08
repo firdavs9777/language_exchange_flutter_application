@@ -22,10 +22,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 class VoiceRoomScreen extends ConsumerStatefulWidget {
   final VoiceRoom room;
 
-  const VoiceRoomScreen({
-    super.key,
-    required this.room,
-  });
+  const VoiceRoomScreen({super.key, required this.room});
 
   @override
   ConsumerState<VoiceRoomScreen> createState() => _VoiceRoomScreenState();
@@ -72,11 +69,8 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           final participants = ref.read(voiceRoomProvider).participants;
           final newHost = participants.firstWhere(
             (p) => p.id == newHostId,
-            orElse: () => RoomParticipant(
-              id: '',
-              name: '',
-              joinedAt: DateTime.now(),
-            ),
+            orElse: () =>
+                RoomParticipant(id: '', name: '', joinedAt: DateTime.now()),
           );
           if (newHost.name.isNotEmpty) {
             showCommunitySnackBar(
@@ -142,8 +136,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(l10n.leaveRoomConfirm),
         content: Text(l10n.leaveRoomMessage),
         actions: [
@@ -169,8 +162,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     );
   }
 
-  List<RoomParticipant> _sortedParticipants(
-      List<RoomParticipant> raw) {
+  List<RoomParticipant> _sortedParticipants(List<RoomParticipant> raw) {
     final list = List<RoomParticipant>.from(raw);
     list.sort((a, b) {
       final aIsHost = a.isHost || a.id == widget.room.hostId;

@@ -36,10 +36,7 @@ class VoiceRoomHeader extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Text(
             room.topic,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0x99FFFFFF),
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0x99FFFFFF)),
           ),
           Text(
             room.title,

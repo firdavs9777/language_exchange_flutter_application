@@ -24,7 +24,9 @@ class FilterLanguageSelector extends StatelessWidget {
       borderRadius: AppRadius.borderMD,
       child: Container(
         padding: const EdgeInsets.symmetric(
-            horizontal: Spacing.lg, vertical: Spacing.lg),
+          horizontal: Spacing.lg,
+          vertical: Spacing.lg,
+        ),
         decoration: BoxDecoration(
           color: context.surfaceColor,
           borderRadius: AppRadius.borderMD,
@@ -72,11 +74,7 @@ class FilterLanguageSelector extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: context.textMuted,
-            ),
+            Icon(Icons.arrow_forward_ios, size: 16, color: context.textMuted),
           ],
         ),
       ),

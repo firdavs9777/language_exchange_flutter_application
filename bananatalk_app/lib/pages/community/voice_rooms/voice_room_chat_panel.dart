@@ -107,14 +107,19 @@ class _VoiceRoomChatPanelState extends ConsumerState<VoiceRoomChatPanel> {
                           borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                       ),
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => _send(),
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.send_rounded, color: AppColors.primary),
+                    icon: const Icon(
+                      Icons.send_rounded,
+                      color: AppColors.primary,
+                    ),
                     onPressed: _send,
                   ),
                 ],

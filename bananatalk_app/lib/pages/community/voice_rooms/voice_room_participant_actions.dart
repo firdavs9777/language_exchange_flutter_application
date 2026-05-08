@@ -35,8 +35,7 @@ Future<void> showParticipantActions(
             },
           ),
           ListTile(
-            leading:
-                const Icon(Icons.person_remove_rounded, color: Colors.red),
+            leading: const Icon(Icons.person_remove_rounded, color: Colors.red),
             title: Text(
               l10n.voiceRoomKick,
               style: const TextStyle(color: Colors.red),
@@ -47,7 +46,8 @@ Future<void> showParticipantActions(
                 context: context,
                 builder: (d) => AlertDialog(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   title: Text(l10n.voiceRoomKickConfirm(participant.name)),
                   actions: [
                     TextButton(

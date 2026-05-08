@@ -47,8 +47,7 @@ class SingleCommunityTopics extends ConsumerWidget {
     }
 
     final shared = theirTopics.where((t) => myTopics.contains(t)).toList();
-    final notShared =
-        theirTopics.where((t) => !myTopics.contains(t)).toList();
+    final notShared = theirTopics.where((t) => !myTopics.contains(t)).toList();
     final visible = [...shared, ...notShared].take(6).toList();
 
     return Container(
@@ -94,11 +93,9 @@ class SingleCommunityTopics extends ConsumerWidget {
                   fontSize: 13,
                 ),
                 side: BorderSide(
-                  color:
-                      isShared ? AppColors.primary : context.dividerColor,
+                  color: isShared ? AppColors.primary : context.dividerColor,
                 ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
               );
             }).toList(),
           ),
@@ -168,9 +165,7 @@ class SingleCommunityTopics extends ConsumerWidget {
                 ),
               ),
             ),
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.primary,
-            ),
+            style: TextButton.styleFrom(foregroundColor: AppColors.primary),
             child: Text(l10n.interestsInCommonAddCta),
           ),
         ],
@@ -207,8 +202,7 @@ class SingleCommunityTopics extends ConsumerWidget {
                         color: Colors.white,
                       )
                     : null,
-                backgroundColor:
-                    isShared ? AppColors.primary : null,
+                backgroundColor: isShared ? AppColors.primary : null,
                 labelStyle: TextStyle(
                   color: isShared ? Colors.white : null,
                   fontSize: 13,

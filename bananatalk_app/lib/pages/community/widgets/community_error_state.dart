@@ -23,14 +23,13 @@ class CommunityErrorState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // ignore: prefer_const_constructors
-            Icon(
-              Icons.error_outline_rounded,
-              size: 64,
-              color: AppColors.error,
-            ),
+            Icon(Icons.error_outline_rounded, size: 64, color: AppColors.error),
             const SizedBox(height: 16),
-            Text(message,
-                style: context.titleMedium, textAlign: TextAlign.center),
+            Text(
+              message,
+              style: context.titleMedium,
+              textAlign: TextAlign.center,
+            ),
             if (onRetry != null) ...[
               const SizedBox(height: 24),
               ElevatedButton.icon(
