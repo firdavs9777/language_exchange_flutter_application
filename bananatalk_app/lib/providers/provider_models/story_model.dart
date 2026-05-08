@@ -51,9 +51,9 @@ class StoryVideoMetadata {
   bool get isValid => duration != null && duration! > 0;
 }
 
-/// Overlay element (text or sticker) on a story
+/// Overlay element (text or emoji) on a story
 class StoryOverlay {
-  final String type; // 'text' or 'sticker'
+  final String type; // 'text' or 'emoji' (backend C14 schema)
   final String content;
   final double x;
   final double y;
@@ -90,7 +90,8 @@ class StoryOverlay {
   }
 
   Map<String, dynamic> toJson() => {
-    'type': type,
+    // Map legacy 'sticker' → 'emoji' to match backend C14 schema
+    'type': type == 'sticker' ? 'emoji' : type,
     'content': content,
     'x': x,
     'y': y,

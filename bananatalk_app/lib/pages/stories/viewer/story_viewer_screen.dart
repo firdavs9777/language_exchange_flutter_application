@@ -19,6 +19,7 @@ import 'dart:async';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/viewer/viewer_text_story_layer.dart';
+import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart' as overlay_layer;
 
 class StoryViewerScreen extends StatefulWidget {
   final List<UserStories> userStories;
@@ -553,14 +554,34 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     );
   }
 
+  /// Converts [Story.overlays] (typed [StoryOverlay] from story_model) into
+  /// [overlay_layer.StoryOverlay] objects consumed by [ViewerOverlayLayer].
+  List<overlay_layer.StoryOverlay> _parseOverlays(Story story) {
+    return story.overlays.map((o) {
+      return overlay_layer.StoryOverlay(
+        type: o.type == 'sticker' ? 'emoji' : o.type,
+        content: o.content,
+        x: o.x,
+        y: o.y,
+        scale: o.scale,
+        rotation: o.rotation,
+        color: o.color,
+        fontStyle: o.fontStyle,
+        bgMode: o.bgMode,
+      );
+    }).toList();
+  }
+
   Widget _buildStoryView() {
     final story = _currentStory;
-    
+
     if (story == null) {
       return const Center(
         child: Text('No stories', style: TextStyle(color: Colors.white)),
       );
     }
+
+    final parsedOverlays = _parseOverlays(story);
 
     // Text stories render their own full-screen layer; no image/video stack needed.
     if (story.mediaType == 'text') {
@@ -573,6 +594,12 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
             textColor: story.textColor,
             fontStyle: story.fontStyle,
           ),
+
+          // Overlay layer (text / emoji annotations)
+          if (parsedOverlays.isNotEmpty)
+            Positioned.fill(
+              child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
+            ),
 
           // Gradient overlay (top fade for progress bar legibility)
           Container(
@@ -626,6 +653,12 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                   ),
                 ),
               ),
+
+        // Overlay layer (text / emoji annotations on top of media)
+        if (parsedOverlays.isNotEmpty)
+          Positioned.fill(
+            child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
+          ),
 
         // Gradient overlay
         Container(

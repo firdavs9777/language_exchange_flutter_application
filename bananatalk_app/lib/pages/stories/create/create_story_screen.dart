@@ -11,6 +11,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
+import 'package:bananatalk_app/pages/stories/widgets/overlay_editor.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
@@ -34,6 +35,9 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   bool _isTextStory = false;
   String _gradientId = StoryGradient.presets.first.id;
   final TextEditingController _textOverlayController = TextEditingController();
+
+  // Overlay elements added via the overlay editor
+  List<OverlayElement> _overlays = [];
 
   // Video support
   final VideoCompressionService _videoCompressionService = VideoCompressionService();
@@ -352,6 +356,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
               : _captionController.text.trim(),
           backgroundColor: _selectedColor,
           privacy: _privacy,
+          overlays: _overlays.map((e) => e.toJson()).toList(),
         );
 
         if (mounted) {
@@ -611,6 +616,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
               setState(() {
                 _mediaFile = null;
                 _isTextStory = false;
+                _overlays = [];
               });
             },
             child: Container(
@@ -629,8 +635,50 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
             ),
           ),
         ),
+
+        // Add overlays button (top-right)
+        Positioned(
+          top: 16,
+          right: 16,
+          child: GestureDetector(
+            onTap: _openOverlayEditor,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.text_fields, color: Colors.white, size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    _overlays.isEmpty ? 'Add Text' : 'Edit (${_overlays.length})',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
+  }
+
+  Future<void> _openOverlayEditor() async {
+    if (_mediaFile == null) return;
+    final result = await Navigator.push<List<OverlayElement>>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => _OverlayEditorScreen(
+          backgroundImage: _mediaFile!,
+          initial: List<OverlayElement>.from(_overlays),
+        ),
+      ),
+    );
+    if (result != null) {
+      setState(() => _overlays = result);
+    }
   }
 
   Widget _buildTextEditor() {
@@ -878,6 +926,222 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         _videoController!.play();
       }
     });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Full-screen overlay editor screen
+// ---------------------------------------------------------------------------
+
+/// A full-screen screen that lets the user place, drag, scale, and rotate
+/// [OverlayElement] objects on top of a background image preview.
+/// Returns the final [List<OverlayElement>] when the user taps "Done".
+class _OverlayEditorScreen extends StatefulWidget {
+  final File backgroundImage;
+  final List<OverlayElement> initial;
+
+  const _OverlayEditorScreen({
+    required this.backgroundImage,
+    required this.initial,
+  });
+
+  @override
+  State<_OverlayEditorScreen> createState() => _OverlayEditorScreenState();
+}
+
+class _OverlayEditorScreenState extends State<_OverlayEditorScreen> {
+  late List<OverlayElement> _elements;
+  int? _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _elements = List<OverlayElement>.from(widget.initial);
+  }
+
+  void _addText() async {
+    final controller = TextEditingController();
+    final text = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text('Add Text', style: TextStyle(color: Colors.white)),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
+            hintText: 'Enter text...',
+            hintStyle: TextStyle(color: Colors.white54),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white38),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white60)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, controller.text),
+            child: const Text('Add', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+    if (text != null && text.trim().isNotEmpty) {
+      setState(() {
+        _elements.add(OverlayElement(
+          type: 'text',
+          content: text.trim(),
+        ));
+        _selectedIndex = _elements.length - 1;
+      });
+    }
+  }
+
+  void _addSticker() async {
+    const stickers = ['😀', '😂', '❤️', '🔥', '👍', '✨', '🎉', '💯',
+                       '😎', '🌈', '⭐', '🏆', '💪', '🙌', '🤩', '🥳'];
+    final emoji = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text('Pick an Emoji', style: TextStyle(color: Colors.white)),
+        content: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: stickers
+              .map((e) => GestureDetector(
+                    onTap: () => Navigator.pop(ctx, e),
+                    child: Text(e, style: const TextStyle(fontSize: 36)),
+                  ))
+              .toList(),
+        ),
+      ),
+    );
+    if (emoji != null) {
+      setState(() {
+        _elements.add(OverlayElement(
+          type: 'sticker',
+          content: emoji,
+        ));
+        _selectedIndex = _elements.length - 1;
+      });
+    }
+  }
+
+  void _deleteSelected() {
+    if (_selectedIndex == null) return;
+    setState(() {
+      _elements.removeAt(_selectedIndex!);
+      _selectedIndex = null;
+    });
+  }
+
+  void _changeColor(Color color) {
+    if (_selectedIndex == null) return;
+    setState(() => _elements[_selectedIndex!].color = color);
+  }
+
+  void _changeFont(String font) {
+    if (_selectedIndex == null) return;
+    setState(() => _elements[_selectedIndex!].fontStyle = font);
+  }
+
+  void _changeBgMode(String mode) {
+    if (_selectedIndex == null) return;
+    setState(() => _elements[_selectedIndex!].bgMode = mode);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedElement =
+        _selectedIndex != null ? _elements[_selectedIndex!] : null;
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+        ),
+        leadingWidth: 80,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, _elements),
+            child: const Text(
+              'Done',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          // Canvas
+          Expanded(
+            child: LayoutBuilder(
+              builder: (_, constraints) {
+                final size = Size(constraints.maxWidth, constraints.maxHeight);
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = null),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      // Background image
+                      Image.file(
+                        widget.backgroundImage,
+                        fit: BoxFit.contain,
+                      ),
+                      // Draggable overlays
+                      ..._elements.asMap().entries.map((entry) {
+                        final i = entry.key;
+                        final el = entry.value;
+                        return DraggableOverlay(
+                          key: ValueKey(i),
+                          element: el,
+                          containerSize: size,
+                          isSelected: _selectedIndex == i,
+                          onTap: () => setState(() => _selectedIndex = i),
+                          onDelete: () {
+                            setState(() {
+                              _elements.removeAt(i);
+                              _selectedIndex = null;
+                            });
+                          },
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          // Toolbar
+          OverlayToolbar(
+            selectedElement: selectedElement,
+            onAddText: _addText,
+            onAddSticker: _addSticker,
+            onColorChanged: _changeColor,
+            onFontChanged: _changeFont,
+            onBgModeChanged: _changeBgMode,
+            onDelete: _deleteSelected,
+          ),
+          SizedBox(height: MediaQuery.of(context).padding.bottom),
+        ],
+      ),
+    );
   }
 }
 

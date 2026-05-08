@@ -211,6 +211,7 @@ class StoriesService {
     StoryMusic? music,
     bool allowReplies = true,
     bool allowSharing = true,
+    List<Map<String, dynamic>>? overlays,
   }) async {
     try {
       final token = await _getToken();
@@ -260,6 +261,9 @@ class StoriesService {
         if (backgroundColor != null) request.fields['backgroundColor'] = backgroundColor;
         if (textColor != null) request.fields['textColor'] = textColor;
         request.fields['privacy'] = _mapPrivacyToBackend(privacy);
+        if (overlays != null && overlays.isNotEmpty) {
+          request.fields['overlays'] = jsonEncode(overlays);
+        }
       } else {
         // For image stories, multiple images allowed
         for (final file in mediaFiles) {
@@ -270,6 +274,9 @@ class StoriesService {
           request.files.add(await http.MultipartFile.fromPath(
             fieldName, file.path, contentType: MediaType.parse(fileMimeType),
           ));
+        }
+        if (overlays != null && overlays.isNotEmpty) {
+          request.fields['overlays'] = jsonEncode(overlays);
         }
       }
 
@@ -321,6 +328,7 @@ class StoriesService {
     StoryPrivacy privacy = StoryPrivacy.everyone,
     bool allowReplies = true,
     bool allowSharing = true,
+    List<Map<String, dynamic>>? overlays,
   }) async {
     try {
       final token = await _getToken();
@@ -335,7 +343,7 @@ class StoriesService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storiesURL}');
 
 
-      final body = {
+      final body = <String, dynamic>{
         'text': text.trim(),
         'backgroundColor': backgroundColor,
         'textColor': textColor,
@@ -344,6 +352,7 @@ class StoriesService {
         'privacy': _mapPrivacyToBackend(privacy),
         'allowReplies': allowReplies,
         'allowSharing': allowSharing,
+        if (overlays != null && overlays.isNotEmpty) 'overlays': overlays,
       };
 
       final response = await http.post(

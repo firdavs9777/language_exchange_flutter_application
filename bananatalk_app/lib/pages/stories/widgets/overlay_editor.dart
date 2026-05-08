@@ -24,7 +24,8 @@ class OverlayElement {
   });
 
   Map<String, dynamic> toJson() => {
-    'type': type,
+    // Map client-side 'sticker' → backend 'emoji' (C14 schema)
+    'type': type == 'sticker' ? 'emoji' : type,
     'content': content,
     'x': position.dx,
     'y': position.dy,
