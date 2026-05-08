@@ -23,6 +23,60 @@ class WebRTCService {
   final Map<String, RTCPeerConnection> _peerConnections = {};
   final Map<String, MediaStream> _remoteStreams = {};
 
+  // Audio-level polling — emits peerId → 0..1 RMS level every poll interval
+  final _audioLevelsController =
+      StreamController<Map<String, double>>.broadcast();
+  Stream<Map<String, double>> get peerAudioLevels =>
+      _audioLevelsController.stream;
+
+  Timer? _audioLevelTimer;
+  Duration _pollInterval = const Duration(milliseconds: 500);
+
+  void startAudioLevelPolling() {
+    _audioLevelTimer?.cancel();
+    _audioLevelTimer =
+        Timer.periodic(_pollInterval, (_) => _pollAudioLevels());
+  }
+
+  void stopAudioLevelPolling() {
+    _audioLevelTimer?.cancel();
+    _audioLevelTimer = null;
+  }
+
+  /// Optionally throttle poll rate when peer count is high or CPU is limited.
+  void setAudioLevelPollInterval(Duration interval) {
+    _pollInterval = interval;
+    if (_audioLevelTimer != null) {
+      startAudioLevelPolling();
+    }
+  }
+
+  Future<void> _pollAudioLevels() async {
+    if (_audioLevelsController.isClosed) return;
+    final levels = <String, double>{};
+    for (final entry in _peerConnections.entries) {
+      final peerId = entry.key;
+      final pc = entry.value;
+      try {
+        final stats = await pc.getStats();
+        for (final report in stats) {
+          if (report.type == 'inbound-rtp' &&
+              report.values['kind'] == 'audio') {
+            final level =
+                (report.values['audioLevel'] as num?)?.toDouble() ?? 0;
+            if (level > 0) {
+              levels[peerId] = level;
+            }
+          }
+        }
+      } catch (_) {
+        // Skip this peer this tick — connection may be closing
+      }
+    }
+    if (_audioLevelsController.isClosed) return;
+    _audioLevelsController.add(levels);
+  }
+
   // Callbacks for multi-peer
   Function(String peerId, RTCSessionDescription)? onMultiPeerOfferCreated;
   Function(String peerId, RTCSessionDescription)? onMultiPeerAnswerCreated;
@@ -405,6 +459,8 @@ class WebRTCService {
 
   Future<void> dispose() async {
     _disposed = true;
+    stopAudioLevelPolling();
+    _audioLevelsController.close();
     try {
       _localStream?.getTracks().forEach((track) => track.stop());
       _localStream?.dispose();
@@ -541,6 +597,7 @@ class WebRTCService {
 
   /// Cleanup all multi-peer connections
   Future<void> disposeMultiPeer() async {
+    stopAudioLevelPolling();
     // Close all peer connections
     for (final entry in _peerConnections.entries) {
       await entry.value.close();

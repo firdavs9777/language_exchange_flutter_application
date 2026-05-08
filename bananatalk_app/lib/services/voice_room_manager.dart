@@ -60,6 +60,7 @@ class VoiceRoomManager {
   StreamSubscription? _chatSub;
   StreamSubscription? _endedSub;
   StreamSubscription? _kickedSub;
+  StreamSubscription<Map<String, double>>? _audioLevelSub;
 
   // Callbacks
   Function(RoomParticipant)? onParticipantJoined;
@@ -233,6 +234,24 @@ class VoiceRoomManager {
         },
       });
     };
+
+    // Audio-level stream → flip isSpeaking on participant tiles
+    _audioLevelSub?.cancel();
+    _audioLevelSub = _webrtcService.peerAudioLevels.listen((levels) {
+      bool changed = false;
+      for (var i = 0; i < _participants.length; i++) {
+        final p = _participants[i];
+        final level = levels[p.id] ?? 0;
+        // 0.05 RMS: breathing/typing (~0.01-0.03) stays below;
+        // intentional speech is typically 0.1+.
+        final shouldSpeak = level > 0.05 && !p.isMuted;
+        if (p.isSpeaking != shouldSpeak) {
+          _participants[i] = p.copyWith(isSpeaking: shouldSpeak);
+          changed = true;
+        }
+      }
+      if (changed) onStateChanged?.call();
+    });
   }
 
   /// Join a voice room
@@ -274,6 +293,9 @@ class VoiceRoomManager {
         await _webrtcService.createOfferForPeer(participant.id);
       }
     }
+
+    // Begin audio-level polling so the speaking indicator stays live
+    _webrtcService.startAudioLevelPolling();
 
     onStateChanged?.call();
   }
@@ -338,6 +360,9 @@ class VoiceRoomManager {
   }
 
   void _cleanup() {
+    _webrtcService.stopAudioLevelPolling();
+    _audioLevelSub?.cancel();
+    _audioLevelSub = null;
     _webrtcService.disposeMultiPeer();
     _currentRoom = null;
     _participants = [];
@@ -358,6 +383,7 @@ class VoiceRoomManager {
     _chatSub?.cancel();
     _endedSub?.cancel();
     _kickedSub?.cancel();
+    _audioLevelSub?.cancel();
     _cleanup();
   }
 }
