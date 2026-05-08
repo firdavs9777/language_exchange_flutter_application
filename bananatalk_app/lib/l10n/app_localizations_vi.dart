@@ -4744,4 +4744,79 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'Chưa chọn chủ đề nào';
+
+  @override
+  String get storiesEmpty => 'Chưa có tin nào';
+
+  @override
+  String get storiesLoadError => 'Không thể tải tin';
+
+  @override
+  String get storiesRetry => 'Thử lại';
+
+  @override
+  String get storiesNoMore => 'Bạn đã xem hết rồi';
+
+  @override
+  String get createTextStoryTab => 'Văn bản';
+
+  @override
+  String get createImageStoryTab => 'Ảnh';
+
+  @override
+  String get createVideoStoryTab => 'Video';
+
+  @override
+  String get enterTextHint => 'Nhấn để nhập';
+
+  @override
+  String get pickBackground => 'Nền';
+
+  @override
+  String get pickFontStyle => 'Phông chữ';
+
+  @override
+  String get pickTextColor => 'Màu sắc';
+
+  @override
+  String get addEmoji => 'Thêm biểu tượng cảm xúc';
+
+  @override
+  String get chooseFont => 'Chọn phông chữ';
+
+  @override
+  String get chooseColor => 'Chọn màu sắc';
+
+  @override
+  String get dragToMove => 'Kéo để di chuyển';
+
+  @override
+  String get pinchToScale => 'Chụm để thu phóng';
+
+  @override
+  String get removeFromHighlight => 'Xóa khỏi nổi bật';
+
+  @override
+  String get highlightDeleted => 'Đã xóa nổi bật';
+
+  @override
+  String get storySaved => 'Đã lưu vào tin của bạn';
+
+  @override
+  String get storyTooLong => 'Văn bản quá dài';
+
+  @override
+  String get storyPostFailed => 'Không thể đăng tin';
+
+  @override
+  String get fontNormal => 'Thường';
+
+  @override
+  String get fontBold => 'Đậm';
+
+  @override
+  String get fontItalic => 'Nghiêng';
+
+  @override
+  String get fontHandwriting => 'Chữ viết tay';
 }

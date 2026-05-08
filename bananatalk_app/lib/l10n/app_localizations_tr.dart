@@ -4744,4 +4744,79 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'Konu seçilmedi';
+
+  @override
+  String get storiesEmpty => 'Henüz hikaye yok';
+
+  @override
+  String get storiesLoadError => 'Hikayeler yüklenemedi';
+
+  @override
+  String get storiesRetry => 'Tekrar dene';
+
+  @override
+  String get storiesNoMore => 'Her şeyi gördünüz';
+
+  @override
+  String get createTextStoryTab => 'Metin';
+
+  @override
+  String get createImageStoryTab => 'Fotoğraf';
+
+  @override
+  String get createVideoStoryTab => 'Video';
+
+  @override
+  String get enterTextHint => 'Yazmak için dokunun';
+
+  @override
+  String get pickBackground => 'Arka plan';
+
+  @override
+  String get pickFontStyle => 'Yazı tipi';
+
+  @override
+  String get pickTextColor => 'Renk';
+
+  @override
+  String get addEmoji => 'Emoji ekle';
+
+  @override
+  String get chooseFont => 'Yazı tipi seç';
+
+  @override
+  String get chooseColor => 'Renk seç';
+
+  @override
+  String get dragToMove => 'Taşımak için sürükle';
+
+  @override
+  String get pinchToScale => 'Ölçeklendirmek için sıkıştır';
+
+  @override
+  String get removeFromHighlight => 'Öne çıkarmadan kaldır';
+
+  @override
+  String get highlightDeleted => 'Öne çıkarma silindi';
+
+  @override
+  String get storySaved => 'Hikayenize kaydedildi';
+
+  @override
+  String get storyTooLong => 'Metin çok uzun';
+
+  @override
+  String get storyPostFailed => 'Hikaye paylaşılamadı';
+
+  @override
+  String get fontNormal => 'Normal';
+
+  @override
+  String get fontBold => 'Kalın';
+
+  @override
+  String get fontItalic => 'İtalik';
+
+  @override
+  String get fontHandwriting => 'El yazısı';
 }

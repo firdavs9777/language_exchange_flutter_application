@@ -4750,4 +4750,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'No topics selected';
+
+  @override
+  String get storiesEmpty => 'No stories yet';
+
+  @override
+  String get storiesLoadError => 'Couldn\'t load stories';
+
+  @override
+  String get storiesRetry => 'Try again';
+
+  @override
+  String get storiesNoMore => 'You\'re all caught up';
+
+  @override
+  String get createTextStoryTab => 'Text';
+
+  @override
+  String get createImageStoryTab => 'Photo';
+
+  @override
+  String get createVideoStoryTab => 'Video';
+
+  @override
+  String get enterTextHint => 'Tap to type';
+
+  @override
+  String get pickBackground => 'Background';
+
+  @override
+  String get pickFontStyle => 'Font';
+
+  @override
+  String get pickTextColor => 'Color';
+
+  @override
+  String get addEmoji => 'Add emoji';
+
+  @override
+  String get chooseFont => 'Choose font';
+
+  @override
+  String get chooseColor => 'Choose color';
+
+  @override
+  String get dragToMove => 'Drag to move';
+
+  @override
+  String get pinchToScale => 'Pinch to scale';
+
+  @override
+  String get removeFromHighlight => 'Remove from highlight';
+
+  @override
+  String get highlightDeleted => 'Highlight deleted';
+
+  @override
+  String get storySaved => 'Saved to your story';
+
+  @override
+  String get storyTooLong => 'Text is too long';
+
+  @override
+  String get storyPostFailed => 'Couldn\'t post story';
+
+  @override
+  String get fontNormal => 'Normal';
+
+  @override
+  String get fontBold => 'Bold';
+
+  @override
+  String get fontItalic => 'Italic';
+
+  @override
+  String get fontHandwriting => 'Handwriting';
 }

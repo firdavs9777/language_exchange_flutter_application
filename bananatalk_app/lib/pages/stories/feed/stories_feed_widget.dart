@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
-import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
-import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
+import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
@@ -23,12 +23,12 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
   final ValueNotifier<int>? refreshNotifier;
 
   const StoriesFeedWidget({
-    Key? key,
+    super.key,
     this.onCreateStory,
     this.height = 130,
     this.avatarSize = 64,
     this.refreshNotifier,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<StoriesFeedWidget> createState() => _StoriesFeedWidgetState();
@@ -37,7 +37,6 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
 class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with WidgetsBindingObserver {
   List<UserStories> _stories = [];
   bool _isLoading = true;
-  bool _isRefreshing = false;
   String? _error;
   UserStories? _myStories;
   bool _hasLoadedOnce = false;
@@ -74,10 +73,6 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
       setState(() {
         _isLoading = true;
         _error = null;
-      });
-    } else {
-      setState(() {
-        _isRefreshing = true;
       });
     }
 
@@ -117,21 +112,18 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
           setState(() {
             _stories = filteredStories;
             _isLoading = false;
-            _isRefreshing = false;
             _hasLoadedOnce = true;
           });
         } else if (response.blocked) {
           setState(() {
             _stories = [];
             _isLoading = false;
-            _isRefreshing = false;
             _hasLoadedOnce = true;
           });
         } else {
           setState(() {
             _error = response.error;
             _isLoading = false;
-            _isRefreshing = false;
           });
         }
       }
@@ -140,7 +132,6 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         setState(() {
           _error = _hasLoadedOnce ? null : 'Failed to load stories: $e'; // Don't show error if we have cached data
           _isLoading = false;
-          _isRefreshing = false;
         });
       }
     }

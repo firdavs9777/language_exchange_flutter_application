@@ -4744,4 +4744,79 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => '선택된 주제가 없습니다';
+
+  @override
+  String get storiesEmpty => '아직 스토리가 없습니다';
+
+  @override
+  String get storiesLoadError => '스토리를 불러올 수 없습니다';
+
+  @override
+  String get storiesRetry => '다시 시도';
+
+  @override
+  String get storiesNoMore => '모두 확인하셨습니다';
+
+  @override
+  String get createTextStoryTab => '텍스트';
+
+  @override
+  String get createImageStoryTab => '사진';
+
+  @override
+  String get createVideoStoryTab => '동영상';
+
+  @override
+  String get enterTextHint => '탭하여 입력';
+
+  @override
+  String get pickBackground => '배경';
+
+  @override
+  String get pickFontStyle => '글꼴';
+
+  @override
+  String get pickTextColor => '색상';
+
+  @override
+  String get addEmoji => '이모지 추가';
+
+  @override
+  String get chooseFont => '글꼴 선택';
+
+  @override
+  String get chooseColor => '색상 선택';
+
+  @override
+  String get dragToMove => '드래그하여 이동';
+
+  @override
+  String get pinchToScale => '핀치하여 크기 조정';
+
+  @override
+  String get removeFromHighlight => '하이라이트에서 제거';
+
+  @override
+  String get highlightDeleted => '하이라이트가 삭제되었습니다';
+
+  @override
+  String get storySaved => '내 스토리에 저장되었습니다';
+
+  @override
+  String get storyTooLong => '텍스트가 너무 깁니다';
+
+  @override
+  String get storyPostFailed => '스토리를 게시할 수 없습니다';
+
+  @override
+  String get fontNormal => '보통';
+
+  @override
+  String get fontBold => '굵게';
+
+  @override
+  String get fontItalic => '기울임';
+
+  @override
+  String get fontHandwriting => '손글씨';
 }

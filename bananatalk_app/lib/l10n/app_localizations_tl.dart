@@ -4744,4 +4744,79 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'Walang paksang napili';
+
+  @override
+  String get storiesEmpty => 'Wala pang mga kwento';
+
+  @override
+  String get storiesLoadError => 'Hindi ma-load ang mga kwento';
+
+  @override
+  String get storiesRetry => 'Subukan muli';
+
+  @override
+  String get storiesNoMore => 'Nakita mo na ang lahat';
+
+  @override
+  String get createTextStoryTab => 'Teksto';
+
+  @override
+  String get createImageStoryTab => 'Larawan';
+
+  @override
+  String get createVideoStoryTab => 'Video';
+
+  @override
+  String get enterTextHint => 'I-tap para mag-type';
+
+  @override
+  String get pickBackground => 'Background';
+
+  @override
+  String get pickFontStyle => 'Font';
+
+  @override
+  String get pickTextColor => 'Kulay';
+
+  @override
+  String get addEmoji => 'Magdagdag ng emoji';
+
+  @override
+  String get chooseFont => 'Pumili ng font';
+
+  @override
+  String get chooseColor => 'Pumili ng kulay';
+
+  @override
+  String get dragToMove => 'I-drag para ilipat';
+
+  @override
+  String get pinchToScale => 'I-pinch para baguhin ang laki';
+
+  @override
+  String get removeFromHighlight => 'Alisin sa highlight';
+
+  @override
+  String get highlightDeleted => 'Nabura ang highlight';
+
+  @override
+  String get storySaved => 'Nai-save sa iyong kwento';
+
+  @override
+  String get storyTooLong => 'Masyadong mahaba ang teksto';
+
+  @override
+  String get storyPostFailed => 'Hindi ma-post ang kwento';
+
+  @override
+  String get fontNormal => 'Normal';
+
+  @override
+  String get fontBold => 'Naka-bold';
+
+  @override
+  String get fontItalic => 'Italic';
+
+  @override
+  String get fontHandwriting => 'Sulat-kamay';
 }

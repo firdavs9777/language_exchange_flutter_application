@@ -4744,4 +4744,79 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'Tidak ada topik yang dipilih';
+
+  @override
+  String get storiesEmpty => 'Belum ada cerita';
+
+  @override
+  String get storiesLoadError => 'Gagal memuat cerita';
+
+  @override
+  String get storiesRetry => 'Coba lagi';
+
+  @override
+  String get storiesNoMore => 'Kamu sudah melihat semuanya';
+
+  @override
+  String get createTextStoryTab => 'Teks';
+
+  @override
+  String get createImageStoryTab => 'Foto';
+
+  @override
+  String get createVideoStoryTab => 'Video';
+
+  @override
+  String get enterTextHint => 'Ketuk untuk mengetik';
+
+  @override
+  String get pickBackground => 'Latar belakang';
+
+  @override
+  String get pickFontStyle => 'Font';
+
+  @override
+  String get pickTextColor => 'Warna';
+
+  @override
+  String get addEmoji => 'Tambah emoji';
+
+  @override
+  String get chooseFont => 'Pilih font';
+
+  @override
+  String get chooseColor => 'Pilih warna';
+
+  @override
+  String get dragToMove => 'Seret untuk memindahkan';
+
+  @override
+  String get pinchToScale => 'Cubit untuk mengubah ukuran';
+
+  @override
+  String get removeFromHighlight => 'Hapus dari sorotan';
+
+  @override
+  String get highlightDeleted => 'Sorotan dihapus';
+
+  @override
+  String get storySaved => 'Disimpan ke ceritamu';
+
+  @override
+  String get storyTooLong => 'Teks terlalu panjang';
+
+  @override
+  String get storyPostFailed => 'Gagal memposting cerita';
+
+  @override
+  String get fontNormal => 'Normal';
+
+  @override
+  String get fontBold => 'Tebal';
+
+  @override
+  String get fontItalic => 'Miring';
+
+  @override
+  String get fontHandwriting => 'Tulisan tangan';
 }

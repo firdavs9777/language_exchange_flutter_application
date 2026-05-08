@@ -4744,4 +4744,79 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'ยังไม่ได้เลือกหัวข้อ';
+
+  @override
+  String get storiesEmpty => 'ยังไม่มีสตอรี่';
+
+  @override
+  String get storiesLoadError => 'โหลดสตอรี่ไม่สำเร็จ';
+
+  @override
+  String get storiesRetry => 'ลองอีกครั้ง';
+
+  @override
+  String get storiesNoMore => 'คุณดูครบแล้ว';
+
+  @override
+  String get createTextStoryTab => 'ข้อความ';
+
+  @override
+  String get createImageStoryTab => 'รูปภาพ';
+
+  @override
+  String get createVideoStoryTab => 'วิดีโอ';
+
+  @override
+  String get enterTextHint => 'แตะเพื่อพิมพ์';
+
+  @override
+  String get pickBackground => 'พื้นหลัง';
+
+  @override
+  String get pickFontStyle => 'ฟอนต์';
+
+  @override
+  String get pickTextColor => 'สี';
+
+  @override
+  String get addEmoji => 'เพิ่มอีโมจิ';
+
+  @override
+  String get chooseFont => 'เลือกฟอนต์';
+
+  @override
+  String get chooseColor => 'เลือกสี';
+
+  @override
+  String get dragToMove => 'ลากเพื่อย้าย';
+
+  @override
+  String get pinchToScale => 'หยิกเพื่อปรับขนาด';
+
+  @override
+  String get removeFromHighlight => 'นำออกจากไฮไลต์';
+
+  @override
+  String get highlightDeleted => 'ลบไฮไลต์แล้ว';
+
+  @override
+  String get storySaved => 'บันทึกในสตอรี่ของคุณแล้ว';
+
+  @override
+  String get storyTooLong => 'ข้อความยาวเกินไป';
+
+  @override
+  String get storyPostFailed => 'โพสต์สตอรี่ไม่สำเร็จ';
+
+  @override
+  String get fontNormal => 'ปกติ';
+
+  @override
+  String get fontBold => 'ตัวหนา';
+
+  @override
+  String get fontItalic => 'ตัวเอียง';
+
+  @override
+  String get fontHandwriting => 'ลายมือ';
 }

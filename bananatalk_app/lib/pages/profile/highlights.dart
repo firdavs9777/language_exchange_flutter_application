@@ -7,7 +7,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
-import 'package:bananatalk_app/pages/stories/story_viewer_screen.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 
 /// Instagram-style highlights row for user profiles
 class ProfileHighlights extends StatefulWidget {
@@ -243,36 +243,122 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
   }
 
   Widget _buildAddHighlight(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Theme.of(context).colorScheme.outlineVariant,
-                width: 1,
+    return GestureDetector(
+      onTap: () => _createHighlightFromProfile(context),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                  width: 1,
+                ),
+              ),
+              child: Icon(
+                Icons.add,
+                size: 24,
+                color: context.textMuted,
               ),
             ),
-            child: Icon(
-              Icons.add,
-              size: 24,
-              color: context.textMuted,
+            const SizedBox(height: 4),
+            Text(
+              AppLocalizations.of(context)!.highlightNewBadge,
+              style: context.captionSmall.copyWith(color: context.textMuted, fontSize: 10),
+              maxLines: 1,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _createHighlightFromProfile(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+    final controller = TextEditingController();
+    final result = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderLG),
+        title: Text(
+          l10n.newHighlight,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.bold),
+        ),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          maxLength: 50,
+          decoration: InputDecoration(
+            hintText: l10n.highlightName,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          ),
+          onSubmitted: (v) {
+            final t = v.trim();
+            if (t.isNotEmpty) Navigator.pop(ctx, t);
+          },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(
+              l10n.cancel,
+              style: context.labelLarge.copyWith(color: context.textSecondary),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            AppLocalizations.of(context)!.highlightNewBadge,
-            style: context.captionSmall.copyWith(color: context.textMuted, fontSize: 10),
-            maxLines: 1,
+          ElevatedButton(
+            onPressed: () {
+              final t = controller.text.trim();
+              if (t.isNotEmpty) Navigator.pop(ctx, t);
+            },
+            child: Text(l10n.createHighlight),
           ),
         ],
       ),
     );
+    controller.dispose();
+
+    if (result == null || result.isEmpty) return;
+    if (!mounted) return;
+
+    try {
+      await StoriesService.createHighlight(title: result);
+      _loadHighlights();
+      if (mounted) {
+        _showSuccessSnackBar('${l10n.createHighlight}: $result');
+      }
+    } catch (e) {
+      if (mounted) {
+        HapticFeedback.mediumImpact();
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error_rounded, color: Colors.white),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    '${l10n.error}: ${e.toString().replaceFirst("Exception: ", "")}',
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    }
   }
 }
 

@@ -6,16 +6,18 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
+import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
+import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
+import 'package:bananatalk_app/pages/stories/widgets/overlay_editor.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
 
   const CreateStoryScreen({
-    Key? key,
+    super.key,
     this.onStoryCreated,
-  }) : super(key: key);
+  });
 
   @override
   State<CreateStoryScreen> createState() => _CreateStoryScreenState();
@@ -29,12 +31,15 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   bool _isUploading = false;
   String? _selectedColor;
   bool _isTextStory = false;
+  String _gradientId = StoryGradient.presets.first.id;
   final TextEditingController _textOverlayController = TextEditingController();
+
+  // Overlay elements added via the overlay editor
+  List<OverlayElement> _overlays = [];
 
   // Video support
   final VideoCompressionService _videoCompressionService = VideoCompressionService();
   VideoPlayerController? _videoController;
-  bool _isProcessingVideo = false;
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
   VideoProcessResult? _videoProcessResult;
@@ -78,8 +83,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${AppLocalizations.of(context)!.failedToPickImage}: $e')),
+        showStoriesSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToPickImage}: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -102,8 +109,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${AppLocalizations.of(context)!.failedToTakePhoto}: $e')),
+        showStoriesSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToTakePhoto}: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -122,8 +131,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${AppLocalizations.of(context)!.failedToPickVideo}: $e')),
+        showStoriesSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.failedToPickVideo}: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -134,7 +145,6 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     _showVideoProcessingDialog();
 
     setState(() {
-      _isProcessingVideo = true;
       _videoCompressionProgress = 0;
       _videoProcessingStatus = 'Preparing video...';
     });
@@ -179,29 +189,21 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           _mediaType = 'video';
           _isTextStory = false;
           _videoProcessResult = result;
-          _isProcessingVideo = false;
         });
 
         if (mounted && result.wasCompressed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
-              ),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: 'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            type: StoriesSnackBarType.success,
           );
         }
       } else {
-        setState(() => _isProcessingVideo = false);
-
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result.error ?? 'Failed to process video'),
-              backgroundColor: Colors.red,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: result.error ?? 'Failed to process video',
+            type: StoriesSnackBarType.error,
           );
         }
       }
@@ -209,11 +211,11 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       if (mounted) {
         Navigator.of(context, rootNavigator: true).pop();
       }
-      setState(() => _isProcessingVideo = false);
-
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+        showStoriesSnackBar(
+          context,
+          message: 'Error: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -282,20 +284,25 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       _isTextStory = true;
       _mediaFile = null;
       _selectedColor = _backgroundColors.first;
+      _gradientId = StoryGradient.presets.first.id;
     });
   }
 
   Future<void> _uploadStory() async {
     if (_isTextStory) {
       if (_textOverlayController.text.trim().isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.pleaseEnterSomeText)),
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.pleaseEnterSomeText,
+          type: StoriesSnackBarType.info,
         );
         return;
       }
     } else if (_mediaFile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.pleaseSelectMedia)),
+      showStoriesSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseSelectMedia,
+        type: StoriesSnackBarType.info,
       );
       return;
     }
@@ -307,7 +314,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         // Create text-only story
         final result = await StoriesService.createTextStory(
           text: _textOverlayController.text.trim(),
-          backgroundColor: _selectedColor ?? '#FF6B6B',
+          backgroundColor: _gradientId,
           textColor: '#FFFFFF',
           fontStyle: 'normal',
           privacy: _privacy,
@@ -317,19 +324,17 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
           if (result.success) {
             widget.onStoryCreated?.call();
             Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.storyPosted),
-                backgroundColor: Colors.green,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.storyPosted,
+              type: StoriesSnackBarType.success,
             );
           } else {
             setState(() => _isUploading = false);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(result.error ?? 'Failed to post story'),
-                backgroundColor: Colors.red,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: result.error ?? 'Failed to post story',
+              type: StoriesSnackBarType.error,
             );
           }
         }
@@ -342,25 +347,24 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
               : _captionController.text.trim(),
           backgroundColor: _selectedColor,
           privacy: _privacy,
+          overlays: _overlays.map((e) => e.toJson()).toList(),
         );
 
         if (mounted) {
           if (result.success) {
             widget.onStoryCreated?.call();
             Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppLocalizations.of(context)!.storyPosted),
-                backgroundColor: Colors.green,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: AppLocalizations.of(context)!.storyPosted,
+              type: StoriesSnackBarType.success,
             );
           } else {
             setState(() => _isUploading = false);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(result.error ?? 'Failed to post story'),
-                backgroundColor: Colors.red,
-              ),
+            showStoriesSnackBar(
+              context,
+              message: result.error ?? 'Failed to post story',
+              type: StoriesSnackBarType.error,
             );
           }
         }
@@ -368,8 +372,10 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _isUploading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+        showStoriesSnackBar(
+          context,
+          message: 'Error: $e',
+          type: StoriesSnackBarType.error,
         );
       }
     }
@@ -482,7 +488,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         width: 80,
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: Colors.white.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -601,6 +607,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
               setState(() {
                 _mediaFile = null;
                 _isTextStory = false;
+                _overlays = [];
               });
             },
             child: Container(
@@ -619,137 +626,153 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
             ),
           ),
         ),
+
+        // Add overlays button (top-right)
+        Positioned(
+          top: 16,
+          right: 16,
+          child: GestureDetector(
+            onTap: _openOverlayEditor,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.text_fields, color: Colors.white, size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    _overlays.isEmpty ? 'Add Text' : 'Edit (${_overlays.length})',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildTextEditor() {
-    final color = _selectedColor != null
-        ? Color(int.parse(_selectedColor!.replaceFirst('#', '0xFF')))
-        : Colors.blue;
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Background color
-        Container(color: color),
-
-        // Text input
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: TextField(
-              controller: _textOverlayController,
-              autofocus: true,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-              decoration: const InputDecoration(
-                hintText: 'Type something...',
-                hintStyle: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 32,
-                ),
-                border: InputBorder.none,
-              ),
-              maxLines: 5,
-            ),
-          ),
+  Future<void> _openOverlayEditor() async {
+    if (_mediaFile == null) return;
+    final result = await Navigator.push<List<OverlayElement>>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => _OverlayEditorScreen(
+          backgroundImage: _mediaFile!,
+          initial: List<OverlayElement>.from(_overlays),
         ),
+      ),
+    );
+    if (result != null) {
+      setState(() => _overlays = result);
+    }
+  }
 
-        // Color picker
-        Positioned(
-          bottom: MediaQuery.of(context).padding.bottom + 80,
-          left: 16,
-          right: 16,
-          child: SizedBox(
-            height: 40,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _backgroundColors.length,
-              itemBuilder: (context, index) {
-                final bgColor = _backgroundColors[index];
-                final isSelected = bgColor == _selectedColor;
+  Widget _buildTextEditor() {
+    final gradient = StoryGradient.byId(_gradientId);
 
-                return GestureDetector(
-                  onTap: () => setState(() => _selectedColor = bgColor),
+    return Container(
+      decoration: BoxDecoration(gradient: gradient.toLinearGradient()),
+      child: SafeArea(
+        child: Column(
+          children: [
+            // Top bar: close button
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, right: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isTextStory = false;
+                      _selectedColor = null;
+                    });
+                  },
                   child: Container(
-                    width: 40,
-                    height: 40,
-                    margin: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Color(int.parse(bgColor.replaceFirst('#', '0xFF'))),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected ? Colors.white : Colors.transparent,
-                        width: 3,
-                      ),
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Icon(Icons.close, color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+
+            // Text input — fills available space
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: TextField(
+                    controller: _textOverlayController,
+                    autofocus: true,
+                    maxLength: 5000,
+                    textAlign: TextAlign.center,
+                    maxLines: null,
+                    style: const TextStyle(color: Colors.white, fontSize: 28),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.enterTextHint,
+                      hintStyle: const TextStyle(color: Colors.white70),
+                      border: InputBorder.none,
+                      counterText: '',
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        ),
 
-        // Privacy and share
-        Positioned(
-          bottom: MediaQuery.of(context).padding.bottom + 16,
-          left: 16,
-          right: 16,
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: DropdownButton<StoryPrivacy>(
-                  value: _privacy,
-                  dropdownColor: Colors.grey[900],
-                  underline: const SizedBox(),
-                  icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
-                  items: StoryPrivacy.values.map((p) {
-                    return DropdownMenuItem(
-                      value: p,
-                      child: Text(
-                        p.displayName,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _privacy = value);
-                    }
-                  },
-                ),
-              ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isTextStory = false;
-                    _selectedColor = null;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(20),
+            // Gradient picker
+            GradientPicker(
+              selectedId: _gradientId,
+              onChanged: (id) => setState(() => _gradientId = id),
+            ),
+
+            // Privacy selector
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: DropdownButton<StoryPrivacy>(
+                      value: _privacy,
+                      dropdownColor: Colors.grey[900],
+                      underline: const SizedBox(),
+                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      items: StoryPrivacy.values.map((p) {
+                        return DropdownMenuItem(
+                          value: p,
+                          child: Text(
+                            p.displayName,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() => _privacy = value);
+                        }
+                      },
+                    ),
                   ),
-                  child: const Icon(Icons.close, color: Colors.white),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 8),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -817,7 +840,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withValues(alpha: 0.6),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.play_arrow, color: Colors.white, size: 50),
@@ -831,7 +854,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withValues(alpha: 0.7),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -894,6 +917,222 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         _videoController!.play();
       }
     });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Full-screen overlay editor screen
+// ---------------------------------------------------------------------------
+
+/// A full-screen screen that lets the user place, drag, scale, and rotate
+/// [OverlayElement] objects on top of a background image preview.
+/// Returns the final [List<OverlayElement>] when the user taps "Done".
+class _OverlayEditorScreen extends StatefulWidget {
+  final File backgroundImage;
+  final List<OverlayElement> initial;
+
+  const _OverlayEditorScreen({
+    required this.backgroundImage,
+    required this.initial,
+  });
+
+  @override
+  State<_OverlayEditorScreen> createState() => _OverlayEditorScreenState();
+}
+
+class _OverlayEditorScreenState extends State<_OverlayEditorScreen> {
+  late List<OverlayElement> _elements;
+  int? _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _elements = List<OverlayElement>.from(widget.initial);
+  }
+
+  void _addText() async {
+    final controller = TextEditingController();
+    final text = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text('Add Text', style: TextStyle(color: Colors.white)),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
+            hintText: 'Enter text...',
+            hintStyle: TextStyle(color: Colors.white54),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white38),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white60)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, controller.text),
+            child: const Text('Add', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+    if (text != null && text.trim().isNotEmpty) {
+      setState(() {
+        _elements.add(OverlayElement(
+          type: 'text',
+          content: text.trim(),
+        ));
+        _selectedIndex = _elements.length - 1;
+      });
+    }
+  }
+
+  void _addSticker() async {
+    const stickers = ['😀', '😂', '❤️', '🔥', '👍', '✨', '🎉', '💯',
+                       '😎', '🌈', '⭐', '🏆', '💪', '🙌', '🤩', '🥳'];
+    final emoji = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: const Text('Pick an Emoji', style: TextStyle(color: Colors.white)),
+        content: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: stickers
+              .map((e) => GestureDetector(
+                    onTap: () => Navigator.pop(ctx, e),
+                    child: Text(e, style: const TextStyle(fontSize: 36)),
+                  ))
+              .toList(),
+        ),
+      ),
+    );
+    if (emoji != null) {
+      setState(() {
+        _elements.add(OverlayElement(
+          type: 'sticker',
+          content: emoji,
+        ));
+        _selectedIndex = _elements.length - 1;
+      });
+    }
+  }
+
+  void _deleteSelected() {
+    if (_selectedIndex == null) return;
+    setState(() {
+      _elements.removeAt(_selectedIndex!);
+      _selectedIndex = null;
+    });
+  }
+
+  void _changeColor(Color color) {
+    if (_selectedIndex == null) return;
+    setState(() => _elements[_selectedIndex!].color = color);
+  }
+
+  void _changeFont(String font) {
+    if (_selectedIndex == null) return;
+    setState(() => _elements[_selectedIndex!].fontStyle = font);
+  }
+
+  void _changeBgMode(String mode) {
+    if (_selectedIndex == null) return;
+    setState(() => _elements[_selectedIndex!].bgMode = mode);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedElement =
+        _selectedIndex != null ? _elements[_selectedIndex!] : null;
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+        ),
+        leadingWidth: 80,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, _elements),
+            child: const Text(
+              'Done',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          // Canvas
+          Expanded(
+            child: LayoutBuilder(
+              builder: (_, constraints) {
+                final size = Size(constraints.maxWidth, constraints.maxHeight);
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = null),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      // Background image
+                      Image.file(
+                        widget.backgroundImage,
+                        fit: BoxFit.contain,
+                      ),
+                      // Draggable overlays
+                      ..._elements.asMap().entries.map((entry) {
+                        final i = entry.key;
+                        final el = entry.value;
+                        return DraggableOverlay(
+                          key: ValueKey(i),
+                          element: el,
+                          containerSize: size,
+                          isSelected: _selectedIndex == i,
+                          onTap: () => setState(() => _selectedIndex = i),
+                          onDelete: () {
+                            setState(() {
+                              _elements.removeAt(i);
+                              _selectedIndex = null;
+                            });
+                          },
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          // Toolbar
+          OverlayToolbar(
+            selectedElement: selectedElement,
+            onAddText: _addText,
+            onAddSticker: _addSticker,
+            onColorChanged: _changeColor,
+            onFontChanged: _changeFont,
+            onBgModeChanged: _changeBgMode,
+            onDelete: _deleteSelected,
+          ),
+          SizedBox(height: MediaQuery.of(context).padding.bottom),
+        ],
+      ),
+    );
   }
 }
 

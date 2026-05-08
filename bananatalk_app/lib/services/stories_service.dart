@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,8 +95,7 @@ class StoriesService {
   static Future<StoriesResponse> getMyStories() async {
     try {
       final token = await _getToken();
-      final currentUserId = await _getCurrentUserId();
-      
+
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.myStoriesURL}');
       final response = await http.get(url, headers: _getHeaders(token));
 
@@ -211,6 +209,7 @@ class StoriesService {
     StoryMusic? music,
     bool allowReplies = true,
     bool allowSharing = true,
+    List<Map<String, dynamic>>? overlays,
   }) async {
     try {
       final token = await _getToken();
@@ -260,16 +259,19 @@ class StoriesService {
         if (backgroundColor != null) request.fields['backgroundColor'] = backgroundColor;
         if (textColor != null) request.fields['textColor'] = textColor;
         request.fields['privacy'] = _mapPrivacyToBackend(privacy);
+        if (overlays != null && overlays.isNotEmpty) {
+          request.fields['overlays'] = jsonEncode(overlays);
+        }
       } else {
         // For image stories, multiple images allowed
         for (final file in mediaFiles) {
           final fileMimeType = _getMimeType(file.path);
-          final fileSize = await file.length();
-
-
           request.files.add(await http.MultipartFile.fromPath(
             fieldName, file.path, contentType: MediaType.parse(fileMimeType),
           ));
+        }
+        if (overlays != null && overlays.isNotEmpty) {
+          request.fields['overlays'] = jsonEncode(overlays);
         }
       }
 
@@ -307,8 +309,6 @@ class StoriesService {
         return 'friends';
       case StoryPrivacy.closeFriends:
         return 'close_friends';
-      default:
-        return 'friends';
     }
   }
 
@@ -321,6 +321,7 @@ class StoriesService {
     StoryPrivacy privacy = StoryPrivacy.everyone,
     bool allowReplies = true,
     bool allowSharing = true,
+    List<Map<String, dynamic>>? overlays,
   }) async {
     try {
       final token = await _getToken();
@@ -335,7 +336,7 @@ class StoriesService {
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storiesURL}');
 
 
-      final body = {
+      final body = <String, dynamic>{
         'text': text.trim(),
         'backgroundColor': backgroundColor,
         'textColor': textColor,
@@ -344,6 +345,7 @@ class StoriesService {
         'privacy': _mapPrivacyToBackend(privacy),
         'allowReplies': allowReplies,
         'allowSharing': allowSharing,
+        if (overlays != null && overlays.isNotEmpty) 'overlays': overlays,
       };
 
       final response = await http.post(

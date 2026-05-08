@@ -8,15 +8,16 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
-import 'package:bananatalk_app/pages/stories/create_story_screen.dart';
+import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:async';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
+import 'package:bananatalk_app/pages/stories/viewer/viewer_text_story_layer.dart';
+import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart' as overlay_layer;
 
 class StoryViewerScreen extends StatefulWidget {
   final List<UserStories> userStories;
@@ -25,12 +26,12 @@ class StoryViewerScreen extends StatefulWidget {
   final VoidCallback? onStoriesUpdated;
 
   const StoryViewerScreen({
-    Key? key,
+    super.key,
     required this.userStories,
     this.initialUserIndex = 0,
     this.isOwnStory = false,
     this.onStoriesUpdated,
-  }) : super(key: key);
+  });
 
   @override
   State<StoryViewerScreen> createState() => _StoryViewerScreenState();
@@ -283,8 +284,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
         setState(() => _isBlocked = true);
         BlockedContentSnackbar.show(context, message: "You can't react to this story");
       } else if (result['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.sent(emoji))),
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.sent(emoji),
+          type: StoriesSnackBarType.success,
         );
       }
     }
@@ -308,8 +311,10 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       } else if (result['success'] == true) {
         _replyController.clear();
         setState(() => _showReplyField = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.replySent)),
+        showStoriesSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.replySent,
+          type: StoriesSnackBarType.success,
         );
       }
       _resumeStory();
@@ -379,8 +384,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     final story = _currentStory;
     if (story == null) return;
 
-    final userName = _currentUser.user.name ?? 'User';
-    final storyText = story.text?.isNotEmpty == true ? '\n"${story.text}"' : '';
+    final userName = _currentUser.user.name;
+    final storyText = (story.text != null && story.text!.isNotEmpty) ? '\n"${story.text}"' : '';
     final shareText = 'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
 
     Share.share(shareText);
@@ -547,12 +552,86 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     );
   }
 
+  /// Converts [Story.overlays] (typed [StoryOverlay] from story_model) into
+  /// [overlay_layer.StoryOverlay] objects consumed by [ViewerOverlayLayer].
+  List<overlay_layer.StoryOverlay> _parseOverlays(Story story) {
+    return story.overlays.map((o) {
+      return overlay_layer.StoryOverlay(
+        type: o.type == 'sticker' ? 'emoji' : o.type,
+        content: o.content,
+        x: o.x,
+        y: o.y,
+        scale: o.scale,
+        rotation: o.rotation,
+        color: o.color,
+        fontStyle: o.fontStyle,
+        bgMode: o.bgMode,
+      );
+    }).toList();
+  }
+
   Widget _buildStoryView() {
     final story = _currentStory;
-    
+
     if (story == null) {
       return const Center(
         child: Text('No stories', style: TextStyle(color: Colors.white)),
+      );
+    }
+
+    final parsedOverlays = _parseOverlays(story);
+
+    // Text stories render their own full-screen layer; no image/video stack needed.
+    if (story.mediaType == 'text') {
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          ViewerTextStoryLayer(
+            text: story.text ?? '',
+            backgroundColorHint: story.backgroundColor,
+            textColor: story.textColor,
+            fontStyle: story.fontStyle,
+          ),
+
+          // Overlay layer (text / emoji annotations)
+          if (parsedOverlays.isNotEmpty)
+            Positioned.fill(
+              child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
+            ),
+
+          // Gradient overlay (top fade for progress bar legibility)
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.center,
+                colors: [
+                  Colors.black.withValues(alpha: 0.5),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+
+          // Progress bars - enhanced with StoryProgressBar
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 12,
+            right: 12,
+            child: AnimatedBuilder(
+              animation: _progressController,
+              builder: (context, child) {
+                return StoryProgressBar(
+                  totalSegments: _currentStories.length,
+                  currentSegment: _currentStoryIndex,
+                  currentProgress: _progressController.value,
+                  height: 2.5,
+                  spacing: 4,
+                );
+              },
+            ),
+          ),
+        ],
       );
     }
 
@@ -573,6 +652,12 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                 ),
               ),
 
+        // Overlay layer (text / emoji annotations on top of media)
+        if (parsedOverlays.isNotEmpty)
+          Positioned.fill(
+            child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
+          ),
+
         // Gradient overlay
         Container(
           decoration: BoxDecoration(
@@ -580,7 +665,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
               begin: Alignment.topCenter,
               end: Alignment.center,
               colors: [
-                Colors.black.withOpacity(0.7),
+                Colors.black.withValues(alpha: 0.7),
                 Colors.transparent,
               ],
             ),
@@ -638,8 +723,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      _currentUser.user.name?.isNotEmpty == true
-                          ? _currentUser.user.name![0].toUpperCase()
+                      _currentUser.user.name.isNotEmpty
+                          ? _currentUser.user.name[0].toUpperCase()
                           : '?',
                       style: const TextStyle(fontSize: 14, color: Colors.white70),
                     ),
@@ -654,7 +739,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                     Row(
                       children: [
                         Text(
-                          _currentUser.user.name ?? 'User',
+                          _currentUser.user.name,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -825,46 +910,16 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     );
   }
 
-  Widget _buildSeenByBar(Story story) {
-    final viewCount = story.viewCount;
-    return GestureDetector(
-      onTap: () => _showViewersList(story),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: Colors.black45,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.visibility_outlined, color: Colors.white, size: 18),
-            const SizedBox(width: 8),
-            Text(
-              'Seen by $viewCount',
-              style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(width: 4),
-            const Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 18),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _saveToHighlight(Story story) async {
     _pauseStory();
 
     // Check if story is already in a highlight
     if (story.highlightId != null && story.highlightId!.isNotEmpty) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Already saved to a highlight'),
-            backgroundColor: Color(0xFF00BFA5),
-            behavior: SnackBarBehavior.floating,
-          ),
+        showStoriesSnackBar(
+          context,
+          message: 'Already saved to a highlight',
+          type: StoriesSnackBarType.success,
         );
       }
       if (mounted) _resumeStory();
@@ -925,22 +980,18 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                       try {
                         await StoriesService.addToHighlight(highlightId: h.id, storyId: story.id);
                         if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Added to "${h.title}"'),
-                              backgroundColor: const Color(0xFF00BFA5),
-                              behavior: SnackBarBehavior.floating,
-                            ),
+                          showStoriesSnackBar(
+                            context,
+                            message: 'Added to "${h.title}"',
+                            type: StoriesSnackBarType.success,
                           );
                         }
                       } catch (e) {
                         if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Failed: ${e.toString().replaceFirst("Exception: ", "")}'),
-                              backgroundColor: Colors.red,
-                              behavior: SnackBarBehavior.floating,
-                            ),
+                          showStoriesSnackBar(
+                            context,
+                            message: 'Failed: ${e.toString().replaceFirst("Exception: ", "")}',
+                            type: StoriesSnackBarType.error,
                           );
                         }
                       }
@@ -1013,22 +1064,18 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
       try {
         await StoriesService.createHighlight(title: result, storyId: story.id);
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Created highlight "$result"'),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: 'Created highlight "$result"',
+            type: StoriesSnackBarType.success,
           );
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Failed: ${e.toString().replaceFirst("Exception: ", "")}'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
+          showStoriesSnackBar(
+            context,
+            message: 'Failed: ${e.toString().replaceFirst("Exception: ", "")}',
+            type: StoriesSnackBarType.error,
           );
         }
       }
@@ -1092,7 +1139,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                         // view is a StoryView object
                         String userName = 'User';
                         String? userImage;
-                        String userId = '';
                         DateTime viewedAt = DateTime.now();
                         Community? userCommunity;
                         if (view is StoryView) {
@@ -1100,7 +1146,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
                           userImage = view.user?.imageUrls.isNotEmpty == true
                               ? view.user!.imageUrls.first
                               : (view.user?.images.isNotEmpty == true ? view.user!.images.first : null);
-                          userId = view.userId;
                           viewedAt = view.viewedAt;
                           userCommunity = view.user;
                         }
@@ -1149,7 +1194,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(32),
       ),
       child: Row(
@@ -1164,7 +1209,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
+                  color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Row(
@@ -1247,7 +1292,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen>
               hintText: AppLocalizations.of(context)!.reply2,
               hintStyle: const TextStyle(color: Colors.white54),
               filled: true,
-              fillColor: Colors.white.withOpacity(0.1),
+              fillColor: Colors.white.withValues(alpha: 0.1),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: BorderSide.none,

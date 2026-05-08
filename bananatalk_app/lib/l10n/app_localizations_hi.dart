@@ -4744,4 +4744,79 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'कोई विषय नहीं चुना गया';
+
+  @override
+  String get storiesEmpty => 'अभी कोई स्टोरी नहीं';
+
+  @override
+  String get storiesLoadError => 'स्टोरी लोड नहीं हो सकी';
+
+  @override
+  String get storiesRetry => 'पुनः प्रयास करें';
+
+  @override
+  String get storiesNoMore => 'आप अप-टु-डेट हैं';
+
+  @override
+  String get createTextStoryTab => 'टेक्स्ट';
+
+  @override
+  String get createImageStoryTab => 'फ़ोटो';
+
+  @override
+  String get createVideoStoryTab => 'वीडियो';
+
+  @override
+  String get enterTextHint => 'टाइप करने के लिए टैप करें';
+
+  @override
+  String get pickBackground => 'बैकग्राउंड';
+
+  @override
+  String get pickFontStyle => 'फ़ॉन्ट';
+
+  @override
+  String get pickTextColor => 'रंग';
+
+  @override
+  String get addEmoji => 'इमोजी जोड़ें';
+
+  @override
+  String get chooseFont => 'फ़ॉन्ट चुनें';
+
+  @override
+  String get chooseColor => 'रंग चुनें';
+
+  @override
+  String get dragToMove => 'खींचकर ले जाएं';
+
+  @override
+  String get pinchToScale => 'आकार बदलने के लिए पिंच करें';
+
+  @override
+  String get removeFromHighlight => 'हाइलाइट से हटाएं';
+
+  @override
+  String get highlightDeleted => 'हाइलाइट हटाया गया';
+
+  @override
+  String get storySaved => 'आपकी स्टोरी में सहेजा गया';
+
+  @override
+  String get storyTooLong => 'टेक्स्ट बहुत लंबा है';
+
+  @override
+  String get storyPostFailed => 'स्टोरी पोस्ट नहीं हो सकी';
+
+  @override
+  String get fontNormal => 'सामान्य';
+
+  @override
+  String get fontBold => 'बोल्ड';
+
+  @override
+  String get fontItalic => 'इटैलिक';
+
+  @override
+  String get fontHandwriting => 'हस्तलेखन';
 }

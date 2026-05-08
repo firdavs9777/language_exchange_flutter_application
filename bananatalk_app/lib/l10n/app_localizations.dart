@@ -9095,6 +9095,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No topics selected'**
   String get filterTopicsEmpty;
+
+  /// No description provided for @storiesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No stories yet'**
+  String get storiesEmpty;
+
+  /// No description provided for @storiesLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load stories'**
+  String get storiesLoadError;
+
+  /// No description provided for @storiesRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get storiesRetry;
+
+  /// No description provided for @storiesNoMore.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all caught up'**
+  String get storiesNoMore;
+
+  /// No description provided for @createTextStoryTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get createTextStoryTab;
+
+  /// No description provided for @createImageStoryTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get createImageStoryTab;
+
+  /// No description provided for @createVideoStoryTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get createVideoStoryTab;
+
+  /// No description provided for @enterTextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to type'**
+  String get enterTextHint;
+
+  /// No description provided for @pickBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Background'**
+  String get pickBackground;
+
+  /// No description provided for @pickFontStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Font'**
+  String get pickFontStyle;
+
+  /// No description provided for @pickTextColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get pickTextColor;
+
+  /// No description provided for @addEmoji.
+  ///
+  /// In en, this message translates to:
+  /// **'Add emoji'**
+  String get addEmoji;
+
+  /// No description provided for @chooseFont.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose font'**
+  String get chooseFont;
+
+  /// No description provided for @chooseColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose color'**
+  String get chooseColor;
+
+  /// No description provided for @dragToMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to move'**
+  String get dragToMove;
+
+  /// No description provided for @pinchToScale.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinch to scale'**
+  String get pinchToScale;
+
+  /// No description provided for @removeFromHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from highlight'**
+  String get removeFromHighlight;
+
+  /// No description provided for @highlightDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlight deleted'**
+  String get highlightDeleted;
+
+  /// No description provided for @storySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your story'**
+  String get storySaved;
+
+  /// No description provided for @storyTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Text is too long'**
+  String get storyTooLong;
+
+  /// No description provided for @storyPostFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t post story'**
+  String get storyPostFailed;
+
+  /// No description provided for @fontNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get fontNormal;
+
+  /// No description provided for @fontBold.
+  ///
+  /// In en, this message translates to:
+  /// **'Bold'**
+  String get fontBold;
+
+  /// No description provided for @fontItalic.
+  ///
+  /// In en, this message translates to:
+  /// **'Italic'**
+  String get fontItalic;
+
+  /// No description provided for @fontHandwriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Handwriting'**
+  String get fontHandwriting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

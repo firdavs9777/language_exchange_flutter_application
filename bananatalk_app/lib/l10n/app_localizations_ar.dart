@@ -4744,4 +4744,79 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'لم يتم اختيار أي موضوع';
+
+  @override
+  String get storiesEmpty => 'لا توجد قصص بعد';
+
+  @override
+  String get storiesLoadError => 'تعذّر تحميل القصص';
+
+  @override
+  String get storiesRetry => 'حاول مجدداً';
+
+  @override
+  String get storiesNoMore => 'اطلعت على كل شيء';
+
+  @override
+  String get createTextStoryTab => 'نص';
+
+  @override
+  String get createImageStoryTab => 'صورة';
+
+  @override
+  String get createVideoStoryTab => 'فيديو';
+
+  @override
+  String get enterTextHint => 'اضغط للكتابة';
+
+  @override
+  String get pickBackground => 'الخلفية';
+
+  @override
+  String get pickFontStyle => 'الخط';
+
+  @override
+  String get pickTextColor => 'اللون';
+
+  @override
+  String get addEmoji => 'إضافة رمز تعبيري';
+
+  @override
+  String get chooseFont => 'اختر الخط';
+
+  @override
+  String get chooseColor => 'اختر اللون';
+
+  @override
+  String get dragToMove => 'اسحب للتحريك';
+
+  @override
+  String get pinchToScale => 'قرّص للتكبير';
+
+  @override
+  String get removeFromHighlight => 'إزالة من المميّزات';
+
+  @override
+  String get highlightDeleted => 'تم حذف المميّز';
+
+  @override
+  String get storySaved => 'تم الحفظ في قصتك';
+
+  @override
+  String get storyTooLong => 'النص طويل جداً';
+
+  @override
+  String get storyPostFailed => 'تعذّر نشر القصة';
+
+  @override
+  String get fontNormal => 'عادي';
+
+  @override
+  String get fontBold => 'عريض';
+
+  @override
+  String get fontItalic => 'مائل';
+
+  @override
+  String get fontHandwriting => 'خط اليد';
 }

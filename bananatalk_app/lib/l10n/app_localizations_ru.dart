@@ -4744,4 +4744,79 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get filterTopicsEmpty => 'Темы не выбраны';
+
+  @override
+  String get storiesEmpty => 'Историй пока нет';
+
+  @override
+  String get storiesLoadError => 'Не удалось загрузить истории';
+
+  @override
+  String get storiesRetry => 'Попробовать снова';
+
+  @override
+  String get storiesNoMore => 'Вы всё просмотрели';
+
+  @override
+  String get createTextStoryTab => 'Текст';
+
+  @override
+  String get createImageStoryTab => 'Фото';
+
+  @override
+  String get createVideoStoryTab => 'Видео';
+
+  @override
+  String get enterTextHint => 'Нажмите для ввода';
+
+  @override
+  String get pickBackground => 'Фон';
+
+  @override
+  String get pickFontStyle => 'Шрифт';
+
+  @override
+  String get pickTextColor => 'Цвет';
+
+  @override
+  String get addEmoji => 'Добавить эмодзи';
+
+  @override
+  String get chooseFont => 'Выбрать шрифт';
+
+  @override
+  String get chooseColor => 'Выбрать цвет';
+
+  @override
+  String get dragToMove => 'Перетащите для перемещения';
+
+  @override
+  String get pinchToScale => 'Сведите пальцы для масштабирования';
+
+  @override
+  String get removeFromHighlight => 'Убрать из подборки';
+
+  @override
+  String get highlightDeleted => 'Подборка удалена';
+
+  @override
+  String get storySaved => 'Сохранено в вашу историю';
+
+  @override
+  String get storyTooLong => 'Текст слишком длинный';
+
+  @override
+  String get storyPostFailed => 'Не удалось опубликовать историю';
+
+  @override
+  String get fontNormal => 'Обычный';
+
+  @override
+  String get fontBold => 'Жирный';
+
+  @override
+  String get fontItalic => 'Курсив';
+
+  @override
+  String get fontHandwriting => 'Рукописный';
 }
