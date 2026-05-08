@@ -64,6 +64,11 @@ class VoiceRoomManager {
   StreamSubscription? _endedSub;
   StreamSubscription? _kickedSub;
   StreamSubscription<Map<String, double>>? _audioLevelSub;
+  StreamSubscription<bool>? _connectionSub;
+
+  // Reconnect state
+  bool _isReconnecting = false;
+  bool get isReconnecting => _isReconnecting;
 
   // Callbacks
   Function(RoomParticipant)? onParticipantJoined;
@@ -72,6 +77,7 @@ class VoiceRoomManager {
   Function()? onRoomEnded;
   Function()? onKicked;
   Function()? onStateChanged;
+  Function()? onConnectionChanged;
 
   // Getters
   WebRTCService get webrtcService => _webrtcService;
@@ -92,7 +98,54 @@ class VoiceRoomManager {
     await _webrtcService.initialize();
     _setupSocketListeners();
     _setupWebRTCCallbacks();
+    _setupConnectionListener();
     _isInitialized = true;
+  }
+
+  void _setupConnectionListener() {
+    _connectionSub?.cancel();
+    _connectionSub = _chatSocketService!.onConnectionStateChange.listen((connected) {
+      if (_currentRoom == null) return;
+
+      if (!connected) {
+        _isReconnecting = true;
+        onConnectionChanged?.call();
+        onStateChanged?.call();
+        return;
+      }
+
+      // Reconnected — refresh socket reference then emit rejoin with ACK
+      _socket = _chatSocketService!.socket;
+
+      final payload = {
+        'roomId': _currentRoom!.id,
+        'lastSeenAt': DateTime.now().toIso8601String(),
+      };
+
+      _socket?.emitWithAck(
+        'voiceroom:rejoin',
+        payload,
+        ack: (ackData) {
+          _isReconnecting = false;
+          if (ackData is Map) {
+            final m = Map<String, dynamic>.from(ackData);
+            if (m['ended'] == true || m['ok'] == false) {
+              onRoomEnded?.call();
+              _cleanup();
+              return;
+            }
+            // Update hostId if demoted during reconnect gap
+            if (m['currentHostId'] != null && _currentRoom != null) {
+              _currentRoom = _currentRoom!.copyWith(
+                hostId: m['currentHostId'].toString(),
+              );
+            }
+          }
+          onConnectionChanged?.call();
+          onStateChanged?.call();
+        },
+      );
+    });
   }
 
   void _setupSocketListeners() {
@@ -398,6 +451,7 @@ class VoiceRoomManager {
     _endedSub?.cancel();
     _kickedSub?.cancel();
     _audioLevelSub?.cancel();
+    _connectionSub?.cancel();
     _cleanup();
   }
 }

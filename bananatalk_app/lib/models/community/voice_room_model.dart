@@ -84,6 +84,34 @@ class VoiceRoom {
     };
   }
 
+  VoiceRoom copyWith({
+    String? id,
+    String? title,
+    String? hostId,
+    String? hostName,
+    String? hostAvatar,
+    String? topic,
+    String? language,
+    List<RoomParticipant>? participants,
+    int? maxParticipants,
+    bool? isLive,
+    DateTime? createdAt,
+  }) {
+    return VoiceRoom(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      hostId: hostId ?? this.hostId,
+      hostName: hostName ?? this.hostName,
+      hostAvatar: hostAvatar ?? this.hostAvatar,
+      topic: topic ?? this.topic,
+      language: language ?? this.language,
+      participants: participants ?? this.participants,
+      maxParticipants: maxParticipants ?? this.maxParticipants,
+      isLive: isLive ?? this.isLive,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   int get participantCount => participants.length;
   bool get isFull => participantCount >= maxParticipants;
 

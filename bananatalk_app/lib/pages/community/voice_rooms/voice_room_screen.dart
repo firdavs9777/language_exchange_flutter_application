@@ -15,6 +15,7 @@ import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_controls.d
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_chat_panel.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_host_menu.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_participant_actions.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_reconnect_banner.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 
 /// Voice Room Screen — active voice chat room.
@@ -153,6 +154,16 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     final voiceRoom = ref.watch(voiceRoomProvider);
     final currentUserId = ref.read(authServiceProvider).userId;
     final isHost = currentUserId == widget.room.hostId;
+    final isReconnecting = voiceRoom.isReconnecting;
+
+    // Auto-pop when room ends (including during reconnect gap)
+    ref.listen<VoiceRoomNotifier>(voiceRoomProvider, (previous, next) {
+      final wasInRoom = previous?.currentRoom != null;
+      final nowOutOfRoom = next.currentRoom == null;
+      if (wasInRoom && nowOutOfRoom && context.mounted) {
+        Navigator.of(context).maybePop();
+      }
+    });
 
     final rawParticipants = voiceRoom.participants.isNotEmpty
         ? voiceRoom.participants
@@ -173,6 +184,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         children: [
           Column(
             children: [
+              VoiceRoomReconnectBanner(isReconnecting: isReconnecting),
               VoiceRoomInfoBar(room: widget.room),
               Expanded(
                 child: VoiceRoomParticipantsGrid(
@@ -202,22 +214,25 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                       : null,
                 ),
               ),
-              VoiceRoomControls(
-                isMuted: voiceRoom.isMuted,
-                isHandRaised: voiceRoom.isHandRaised,
-                onRaiseHand: _toggleHandRaise,
-                onMute: _toggleMute,
-                onLeave: _leaveRoom,
-                isHost: isHost,
-                onEnd: () => showEndRoomConfirm(context, ref),
-                unreadChatCount: _chatVisible ? 0 : unread,
-                onChatToggle: _toggleChat,
-                raiseHandLabel: l10n.raiseHand,
-                lowerHandLabel: l10n.lowerHand,
-                muteLabel: l10n.mute,
-                unmuteLabel: l10n.unmute,
-                leaveLabel: l10n.leave,
-                endRoomLabel: l10n.voiceRoomEnd,
+              IgnorePointer(
+                ignoring: isReconnecting,
+                child: VoiceRoomControls(
+                  isMuted: voiceRoom.isMuted,
+                  isHandRaised: voiceRoom.isHandRaised,
+                  onRaiseHand: _toggleHandRaise,
+                  onMute: _toggleMute,
+                  onLeave: _leaveRoom,
+                  isHost: isHost,
+                  onEnd: () => showEndRoomConfirm(context, ref),
+                  unreadChatCount: _chatVisible ? 0 : unread,
+                  onChatToggle: _toggleChat,
+                  raiseHandLabel: l10n.raiseHand,
+                  lowerHandLabel: l10n.lowerHand,
+                  muteLabel: l10n.mute,
+                  unmuteLabel: l10n.unmute,
+                  leaveLabel: l10n.leave,
+                  endRoomLabel: l10n.voiceRoomEnd,
+                ),
               ),
             ],
           ),
