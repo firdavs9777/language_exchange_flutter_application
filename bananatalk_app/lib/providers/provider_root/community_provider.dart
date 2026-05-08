@@ -456,7 +456,12 @@ class CommunityService {
       final params = <String, String>{};
       if (filters != null) {
         filters.forEach((k, v) {
-          if (v != null && v != '' && !(v is List && v.isEmpty)) {
+          if (v == null || v == '') return;
+          if (v is List) {
+            if (v.isEmpty) return;
+            // Serialize lists as comma-separated values (e.g. topics=a,b,c)
+            params[k] = v.join(',');
+          } else {
             params[k] = v.toString();
           }
         });
