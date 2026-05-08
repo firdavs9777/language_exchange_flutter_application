@@ -50,6 +50,13 @@ class ChatSocketService {
   final _messageCorrectionController = StreamController<dynamic>.broadcast();
   final _themeChangedController = StreamController<dynamic>.broadcast();
 
+  // Presence stream controllers
+  final _presenceOnlineController =
+      StreamController<Map<String, dynamic>>.broadcast();
+  final _presenceOfflineController =
+      StreamController<Map<String, dynamic>>.broadcast();
+  final _presenceBulkController = StreamController<List<String>>.broadcast();
+
   // Voice room stream controllers
   final _voiceRoomParticipantJoinedController =
       StreamController<dynamic>.broadcast();
@@ -78,6 +85,13 @@ class ChatSocketService {
   Stream<dynamic> get onMessageCorrection =>
       _messageCorrectionController.stream;
   Stream<dynamic> get onThemeChanged => _themeChangedController.stream;
+
+  // Presence stream getters
+  Stream<Map<String, dynamic>> get onPresenceOnline =>
+      _presenceOnlineController.stream;
+  Stream<Map<String, dynamic>> get onPresenceOffline =>
+      _presenceOfflineController.stream;
+  Stream<List<String>> get onPresenceBulk => _presenceBulkController.stream;
 
   // Voice room stream getters
   Stream<dynamic> get onVoiceRoomParticipantJoined =>
@@ -481,6 +495,29 @@ class ChatSocketService {
     _socket?.on('voiceroom:kicked', (data) {
       _safeAdd(_voiceRoomKickedController, data);
     });
+
+    // ============ Presence Events ============
+
+    _socket?.on('presence:online', (data) {
+      if (data is Map) {
+        _safeAdd(_presenceOnlineController, Map<String, dynamic>.from(data));
+      }
+    });
+
+    _socket?.on('presence:offline', (data) {
+      if (data is Map) {
+        _safeAdd(_presenceOfflineController, Map<String, dynamic>.from(data));
+      }
+    });
+
+    _socket?.on('presence:bulk', (data) {
+      if (data is Map && data['onlineUserIds'] is List) {
+        _safeAdd(
+          _presenceBulkController,
+          (data['onlineUserIds'] as List).map((e) => e.toString()).toList(),
+        );
+      }
+    });
   }
 
   // Safe add to stream controller (prevents adding to closed controllers)
@@ -794,6 +831,9 @@ class ChatSocketService {
     _messageDeliveryController.close();
     _messageReactionController.close();
     _messageCorrectionController.close();
+    _presenceOnlineController.close();
+    _presenceOfflineController.close();
+    _presenceBulkController.close();
     disconnect();
   }
 }
