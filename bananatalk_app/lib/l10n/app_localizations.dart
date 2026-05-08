@@ -8981,6 +8981,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Filters'**
   String get filterSheetTitle;
+
+  /// No description provided for @notificationPreferencesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationPreferencesTitle;
+
+  /// No description provided for @notificationPreferencesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose which alerts you receive'**
+  String get notificationPreferencesSubtitle;
+
+  /// No description provided for @notifPrefChat.
+  ///
+  /// In en, this message translates to:
+  /// **'New messages'**
+  String get notifPrefChat;
+
+  /// No description provided for @notifPrefWave.
+  ///
+  /// In en, this message translates to:
+  /// **'Waves'**
+  String get notifPrefWave;
+
+  /// No description provided for @notifPrefVoiceRoomStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice room invites'**
+  String get notifPrefVoiceRoomStart;
+
+  /// No description provided for @notifPrefScheduledRoomReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled room reminders'**
+  String get notifPrefScheduledRoomReminder;
+
+  /// No description provided for @notifPrefFollowerMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'New moments from people you follow'**
+  String get notifPrefFollowerMoment;
+
+  /// No description provided for @notifPrefVisitorAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile visitors'**
+  String get notifPrefVisitorAlert;
+
+  /// No description provided for @notifPrefMatchAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Mutual waves'**
+  String get notifPrefMatchAlert;
+
+  /// No description provided for @notifResetToDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to defaults'**
+  String get notifResetToDefaults;
+
+  /// No description provided for @themeMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themeMode;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// No description provided for @languageSettingsRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageSettingsRow;
+
+  /// No description provided for @waveDailySummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New waves waiting'**
+  String get waveDailySummaryTitle;
+
+  /// No description provided for @waveDailySummaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person waved at you} other{{count} people waved at you}}'**
+  String waveDailySummaryBody(int count);
+
+  /// No description provided for @filterTopicsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics'**
+  String get filterTopicsTitle;
+
+  /// No description provided for @filterTopicsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No topics selected'**
+  String get filterTopicsEmpty;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

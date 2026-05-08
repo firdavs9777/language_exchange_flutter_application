@@ -4679,4 +4679,69 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get filterSheetTitle => '필터';
+
+  @override
+  String get notificationPreferencesTitle => '알림';
+
+  @override
+  String get notificationPreferencesSubtitle => '받을 알림을 선택하세요';
+
+  @override
+  String get notifPrefChat => '새 메시지';
+
+  @override
+  String get notifPrefWave => '웨이브';
+
+  @override
+  String get notifPrefVoiceRoomStart => '음성 방 초대';
+
+  @override
+  String get notifPrefScheduledRoomReminder => '예정된 방 알림';
+
+  @override
+  String get notifPrefFollowerMoment => '팔로우한 사람들의 새 모멘트';
+
+  @override
+  String get notifPrefVisitorAlert => '프로필 방문자';
+
+  @override
+  String get notifPrefMatchAlert => '서로 웨이브';
+
+  @override
+  String get notifResetToDefaults => '기본값으로 재설정';
+
+  @override
+  String get themeMode => '테마';
+
+  @override
+  String get themeLight => '라이트';
+
+  @override
+  String get themeDark => '다크';
+
+  @override
+  String get themeSystem => '시스템';
+
+  @override
+  String get languageSettingsRow => '언어';
+
+  @override
+  String get waveDailySummaryTitle => '새로운 웨이브가 있습니다';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count명이 웨이브를 보냈습니다',
+      one: '1명이 웨이브를 보냈습니다',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => '주제';
+
+  @override
+  String get filterTopicsEmpty => '선택된 주제가 없습니다';
 }

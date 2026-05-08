@@ -24,6 +24,8 @@ import 'package:bananatalk_app/pages/community/filter/filter_languages_section.d
 import 'package:bananatalk_app/pages/community/filter/filter_country_section.dart';
 import 'package:bananatalk_app/pages/community/filter/filter_level_section.dart';
 import 'package:bananatalk_app/pages/community/filter/filter_toggles_section.dart';
+import 'package:bananatalk_app/pages/community/filter/filter_topics_section.dart';
+import 'package:bananatalk_app/models/community/topic_model.dart';
 
 class CommunityFilter extends ConsumerStatefulWidget {
   final Function(Map<String, dynamic> filters) onApplyFilters;
@@ -50,6 +52,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   bool _onlineOnly = false;
   bool _newUsersOnly = false;
   bool _prioritizeNearby = false;
+  List<String> _selectedTopics = [];
   List<Language> _languages = [];
   bool _isLoadingLanguages = true;
   bool _isDetectingLocation = false;
@@ -78,6 +81,8 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     _onlineOnly = widget.initialFilters['onlineOnly'] ?? false;
     _newUsersOnly = widget.initialFilters['newUsersOnly'] ?? false;
     _prioritizeNearby = widget.initialFilters['prioritizeNearby'] ?? false;
+    _selectedTopics =
+        (widget.initialFilters['topics'] as List?)?.cast<String>() ?? [];
     // _selectedLanguage will be set after languages are loaded in fetchLanguages()
   }
 
@@ -194,6 +199,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'onlineOnly': _onlineOnly,
       'newUsersOnly': _newUsersOnly,
       'prioritizeNearby': _prioritizeNearby,
+      if (_selectedTopics.isNotEmpty) 'topics': _selectedTopics,
     };
   }
 
@@ -209,6 +215,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       _onlineOnly = false;
       _newUsersOnly = false;
       _prioritizeNearby = false;
+      _selectedTopics = [];
     });
     _onAnyFilterChanged();
   }
@@ -228,6 +235,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'onlineOnly': _onlineOnly,
       'newUsersOnly': _newUsersOnly,
       'prioritizeNearby': _prioritizeNearby,
+      'topics': _selectedTopics,
     };
 
     widget.onApplyFilters(filters);
@@ -648,6 +656,25 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                         selectedLevel: _selectedLanguageLevel,
                         onChanged: (level) {
                           setState(() => _selectedLanguageLevel = level);
+                          _onAnyFilterChanged();
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      l10n.filterTopicsTitle,
+                      style: context.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    children: [
+                      FilterTopicsSection(
+                        selectedTopics: _selectedTopics,
+                        topics: Topic.defaultTopics,
+                        onChanged: (next) {
+                          setState(() => _selectedTopics = next);
                           _onAnyFilterChanged();
                         },
                       ),

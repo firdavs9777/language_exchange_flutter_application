@@ -4679,6 +4679,71 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get filterSheetTitle => '筛选';
+
+  @override
+  String get notificationPreferencesTitle => '通知';
+
+  @override
+  String get notificationPreferencesSubtitle => '选择您希望接收的提醒';
+
+  @override
+  String get notifPrefChat => '新消息';
+
+  @override
+  String get notifPrefWave => '挥手';
+
+  @override
+  String get notifPrefVoiceRoomStart => '语音房间邀请';
+
+  @override
+  String get notifPrefScheduledRoomReminder => '预约房间提醒';
+
+  @override
+  String get notifPrefFollowerMoment => '您关注的人的新动态';
+
+  @override
+  String get notifPrefVisitorAlert => '个人资料访客';
+
+  @override
+  String get notifPrefMatchAlert => '互相挥手';
+
+  @override
+  String get notifResetToDefaults => '恢复默认设置';
+
+  @override
+  String get themeMode => '主题';
+
+  @override
+  String get themeLight => '浅色';
+
+  @override
+  String get themeDark => '深色';
+
+  @override
+  String get themeSystem => '跟随系统';
+
+  @override
+  String get languageSettingsRow => '语言';
+
+  @override
+  String get waveDailySummaryTitle => '有新的挥手等待';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人向您挥手',
+      one: '1人向您挥手',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => '话题';
+
+  @override
+  String get filterTopicsEmpty => '未选择任何话题';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -9067,4 +9132,69 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get filterSheetTitle => '篩選';
+
+  @override
+  String get notificationPreferencesTitle => '通知';
+
+  @override
+  String get notificationPreferencesSubtitle => '選擇您希望接收的提醒';
+
+  @override
+  String get notifPrefChat => '新訊息';
+
+  @override
+  String get notifPrefWave => '揮手';
+
+  @override
+  String get notifPrefVoiceRoomStart => '語音房間邀請';
+
+  @override
+  String get notifPrefScheduledRoomReminder => '預約房間提醒';
+
+  @override
+  String get notifPrefFollowerMoment => '您追蹤的人的新動態';
+
+  @override
+  String get notifPrefVisitorAlert => '個人資料訪客';
+
+  @override
+  String get notifPrefMatchAlert => '互相揮手';
+
+  @override
+  String get notifResetToDefaults => '恢復預設設定';
+
+  @override
+  String get themeMode => '主題';
+
+  @override
+  String get themeLight => '淺色';
+
+  @override
+  String get themeDark => '深色';
+
+  @override
+  String get themeSystem => '跟隨系統';
+
+  @override
+  String get languageSettingsRow => '語言';
+
+  @override
+  String get waveDailySummaryTitle => '有新的揮手等待';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人向您揮手',
+      one: '1人向您揮手',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => '話題';
+
+  @override
+  String get filterTopicsEmpty => '未選擇任何話題';
 }

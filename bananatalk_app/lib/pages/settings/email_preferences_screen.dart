@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 /// Email notification preferences screen
 class EmailPreferencesScreen extends StatefulWidget {
@@ -16,7 +17,6 @@ class EmailPreferencesScreen extends StatefulWidget {
 
 class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
   bool _isLoading = true;
-  bool _isSaving = false;
 
   // Email preference states
   bool _emailNotifications = true;
@@ -157,12 +157,10 @@ class _EmailPreferencesScreenState extends State<EmailPreferencesScreen> {
 
   void _showError(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-      ),
+    showSettingsSnackBar(
+      context,
+      message: message,
+      type: SettingsSnackBarType.error,
     );
   }
 

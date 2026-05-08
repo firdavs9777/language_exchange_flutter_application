@@ -4679,4 +4679,69 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'फ़िल्टर';
+
+  @override
+  String get notificationPreferencesTitle => 'सूचनाएं';
+
+  @override
+  String get notificationPreferencesSubtitle => 'चुनें कि आप कौन से अलर्ट प्राप्त करते हैं';
+
+  @override
+  String get notifPrefChat => 'नए संदेश';
+
+  @override
+  String get notifPrefWave => 'वेव्स';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'वॉयस रूम आमंत्रण';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'निर्धारित कमरे के रिमाइंडर';
+
+  @override
+  String get notifPrefFollowerMoment => 'जिन्हें आप फॉलो करते हैं उनके नए मोमेंट्स';
+
+  @override
+  String get notifPrefVisitorAlert => 'प्रोफ़ाइल आगंतुक';
+
+  @override
+  String get notifPrefMatchAlert => 'आपसी वेव्स';
+
+  @override
+  String get notifResetToDefaults => 'डिफ़ॉल्ट पर रीसेट करें';
+
+  @override
+  String get themeMode => 'थीम';
+
+  @override
+  String get themeLight => 'हल्का';
+
+  @override
+  String get themeDark => 'गहरा';
+
+  @override
+  String get themeSystem => 'सिस्टम';
+
+  @override
+  String get languageSettingsRow => 'भाषा';
+
+  @override
+  String get waveDailySummaryTitle => 'नई वेव्स प्रतीक्षारत';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count लोगों ने आपको वेव किया',
+      one: '1 व्यक्ति ने आपको वेव किया',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'विषय';
+
+  @override
+  String get filterTopicsEmpty => 'कोई विषय नहीं चुना गया';
 }

@@ -4679,4 +4679,69 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Filtres';
+
+  @override
+  String get notificationPreferencesTitle => 'Notifications';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Choisissez les alertes que vous recevez';
+
+  @override
+  String get notifPrefChat => 'Nouveaux messages';
+
+  @override
+  String get notifPrefWave => 'Vagues';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Invitations à la salle vocale';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Rappels de salles planifiées';
+
+  @override
+  String get notifPrefFollowerMoment => 'Nouveaux moments des personnes que vous suivez';
+
+  @override
+  String get notifPrefVisitorAlert => 'Visiteurs du profil';
+
+  @override
+  String get notifPrefMatchAlert => 'Vagues mutuelles';
+
+  @override
+  String get notifResetToDefaults => 'Réinitialiser par défaut';
+
+  @override
+  String get themeMode => 'Thème';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get themeSystem => 'Système';
+
+  @override
+  String get languageSettingsRow => 'Langue';
+
+  @override
+  String get waveDailySummaryTitle => 'Nouvelles vagues en attente';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count personnes vous ont envoyé une vague',
+      one: '1 personne vous a envoyé une vague',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Sujets';
+
+  @override
+  String get filterTopicsEmpty => 'Aucun sujet sélectionné';
 }

@@ -3,6 +3,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 class LegalScreen extends StatelessWidget {
   // Your actual URLs
@@ -18,21 +19,19 @@ class LegalScreen extends StatelessWidget {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
-              backgroundColor: AppColors.error,
-            ),
+          showSettingsSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.couldNotOpenLink,
+            type: SettingsSnackBarType.error,
           );
         }
       }
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
-            backgroundColor: AppColors.error,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.error}: $e',
+          type: SettingsSnackBarType.error,
         );
       }
     }
@@ -56,7 +55,7 @@ class LegalScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AppColors.primary.withOpacity(0.05),
+              AppColors.primary.withValues(alpha: 0.05),
               context.scaffoldBackground,
             ],
           ),
@@ -119,8 +118,8 @@ class LegalScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        AppColors.primary.withOpacity(0.1),
-                        AppColors.primary.withOpacity(0.05),
+                        AppColors.primary.withValues(alpha: 0.1),
+                        AppColors.primary.withValues(alpha: 0.05),
                       ],
                     ),
                     borderRadius: AppRadius.borderMD,
@@ -161,50 +160,4 @@ class LegalScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSubscriptionTier(BuildContext context, String period, String price, [String? badge]) {
-    return Row(
-      children: [
-        Container(
-          width: 6,
-          height: 6,
-          decoration: const BoxDecoration(
-            color: AppColors.primary,
-            shape: BoxShape.circle,
-          ),
-        ),
-        Spacing.hGapSM,
-        Text(
-          '$period: ',
-          style: context.labelLarge,
-        ),
-        Text(
-          price,
-          style: context.bodyMedium.copyWith(
-            color: context.textSecondary,
-          ),
-        ),
-        if (badge != null) ...[
-          Spacing.hGapSM,
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: AppColors.success.withOpacity(0.1),
-              borderRadius: AppRadius.borderMD,
-              border: Border.all(
-                color: AppColors.success.withOpacity(0.3),
-                width: 1,
-              ),
-            ),
-            child: Text(
-              badge,
-              style: context.captionSmall.copyWith(
-                fontWeight: FontWeight.w600,
-                color: AppColors.success,
-              ),
-            ),
-          ),
-        ],
-      ],
-    );
-  }
 }

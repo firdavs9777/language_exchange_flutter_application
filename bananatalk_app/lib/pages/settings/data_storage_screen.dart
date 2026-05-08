@@ -4,6 +4,8 @@ import 'package:bananatalk_app/services/storage_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
+import 'package:bananatalk_app/pages/settings/widgets/cache_stats_card.dart';
 
 class DataStorageScreen extends ConsumerStatefulWidget {
   const DataStorageScreen({super.key});
@@ -105,12 +107,10 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.clearCacheFailed}: $e'),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: '${l10n.clearCacheFailed}: $e',
+          type: SettingsSnackBarType.error,
         );
       }
     } finally {
@@ -163,9 +163,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: context.isDarkMode
-                    ? Colors.grey[800]
-                    : Colors.grey[100],
+                color: context.containerColor,
                 borderRadius: AppRadius.borderSM,
               ),
               child: Row(
@@ -229,7 +227,27 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
                   children: [
                     // Storage Usage Section
                     _buildSectionHeader(l10n.storageUsage),
-                    _buildStorageCard(),
+                    if (_storageBreakdown != null)
+                      CacheStatsCard(
+                        breakdown: _storageBreakdown!,
+                        isClearing: _isClearing,
+                        clearingType: _clearingType,
+                        onClearImages: () => _showClearConfirmation(
+                          'image',
+                          l10n.imageCache,
+                          _storageBreakdown!.imageCache,
+                        ),
+                        onClearVoice: () => _showClearConfirmation(
+                          'voice',
+                          l10n.voiceMessagesCache,
+                          _storageBreakdown!.voiceMessages,
+                        ),
+                        onClearVideo: () => _showClearConfirmation(
+                          'video',
+                          l10n.videoCache,
+                          _storageBreakdown!.videoCache,
+                        ),
+                      ),
 
                     const SizedBox(height: 24),
 
@@ -300,173 +318,6 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
           fontWeight: FontWeight.w600,
           letterSpacing: 1.2,
         ),
-      ),
-    );
-  }
-
-  Widget _buildStorageCard() {
-    final l10n = AppLocalizations.of(context)!;
-    final breakdown = _storageBreakdown;
-
-    if (breakdown == null) {
-      return const SizedBox.shrink();
-    }
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: context.cardBackground,
-        borderRadius: AppRadius.borderLG,
-        boxShadow: AppShadows.sm,
-      ),
-      child: Column(
-        children: [
-          // Total Storage Header
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.primary.withValues(alpha: 0.1),
-                  AppColors.primary.withValues(alpha: 0.05),
-                ],
-              ),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.2),
-                    borderRadius: AppRadius.borderMD,
-                  ),
-                  child: const Icon(Icons.storage, color: AppColors.primary, size: 28),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(l10n.totalCacheSize, style: context.bodySmall),
-                      const SizedBox(height: 4),
-                      Text(
-                        StorageBreakdown.formatBytes(breakdown.total),
-                        style: context.titleLarge.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Individual cache items
-          _buildStorageItem(
-            icon: Icons.image,
-            iconColor: Colors.blue,
-            title: l10n.imageCache,
-            size: breakdown.imageCache,
-            onClear: () => _showClearConfirmation(
-              'image',
-              l10n.imageCache,
-              breakdown.imageCache,
-            ),
-          ),
-          Divider(height: 1, color: context.dividerColor),
-          _buildStorageItem(
-            icon: Icons.mic,
-            iconColor: Colors.orange,
-            title: l10n.voiceMessagesCache,
-            size: breakdown.voiceMessages,
-            onClear: () => _showClearConfirmation(
-              'voice',
-              l10n.voiceMessagesCache,
-              breakdown.voiceMessages,
-            ),
-          ),
-          Divider(height: 1, color: context.dividerColor),
-          _buildStorageItem(
-            icon: Icons.videocam,
-            iconColor: Colors.purple,
-            title: l10n.videoCache,
-            size: breakdown.videoCache,
-            onClear: () => _showClearConfirmation(
-              'video',
-              l10n.videoCache,
-              breakdown.videoCache,
-            ),
-          ),
-          if (breakdown.otherCache > 0) ...[
-            Divider(height: 1, color: context.dividerColor),
-            _buildStorageItem(
-              icon: Icons.folder,
-              iconColor: Colors.grey,
-              title: l10n.otherCache,
-              size: breakdown.otherCache,
-              showClearButton: false,
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStorageItem({
-    required IconData icon,
-    required Color iconColor,
-    required String title,
-    required int size,
-    VoidCallback? onClear,
-    bool showClearButton = true,
-  }) {
-    final l10n = AppLocalizations.of(context)!;
-    final isClearingThis = _isClearing && _clearingType == title.toLowerCase();
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: iconColor.withValues(alpha: 0.1),
-              borderRadius: AppRadius.borderSM,
-            ),
-            child: Icon(icon, color: iconColor, size: 20),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: context.titleSmall),
-                Text(
-                  StorageBreakdown.formatBytes(size),
-                  style: context.bodySmall.copyWith(color: context.textSecondary),
-                ),
-              ],
-            ),
-          ),
-          if (showClearButton && size > 0)
-            isClearingThis
-                ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : TextButton(
-                    onPressed: _isClearing ? null : onClear,
-                    style: TextButton.styleFrom(
-                      foregroundColor: AppColors.primary,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                    ),
-                    child: Text(l10n.clear),
-                  ),
-        ],
       ),
     );
   }
@@ -595,9 +446,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: context.isDarkMode
-                    ? Colors.grey[800]
-                    : Colors.grey[100],
+                color: context.containerColor,
                 borderRadius: AppRadius.borderSM,
               ),
               child: Row(

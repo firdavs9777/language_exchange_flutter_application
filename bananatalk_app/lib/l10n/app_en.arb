@@ -2410,6 +2410,27 @@
   "filterApply": "Apply",
   "filterNewUsers": "New users only",
   "filterPrioritizeNearby": "Prioritize nearby",
-  "filterSheetTitle": "Filters"
+  "filterSheetTitle": "Filters",
+
+  "notificationPreferencesTitle": "Notifications",
+  "notificationPreferencesSubtitle": "Choose which alerts you receive",
+  "notifPrefChat": "New messages",
+  "notifPrefWave": "Waves",
+  "notifPrefVoiceRoomStart": "Voice room invites",
+  "notifPrefScheduledRoomReminder": "Scheduled room reminders",
+  "notifPrefFollowerMoment": "New moments from people you follow",
+  "notifPrefVisitorAlert": "Profile visitors",
+  "notifPrefMatchAlert": "Mutual waves",
+  "notifResetToDefaults": "Reset to defaults",
+  "themeMode": "Theme",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "themeSystem": "System",
+  "languageSettingsRow": "Language",
+  "waveDailySummaryTitle": "New waves waiting",
+  "waveDailySummaryBody": "{count, plural, =1{1 person waved at you} other{{count} people waved at you}}",
+  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "filterTopicsTitle": "Topics",
+  "filterTopicsEmpty": "No topics selected"
 }
 

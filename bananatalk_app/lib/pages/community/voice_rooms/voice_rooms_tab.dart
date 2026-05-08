@@ -8,6 +8,7 @@ import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_screen.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/create_room_sheet.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
+import 'package:bananatalk_app/providers/voice_room_languages_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -16,23 +17,6 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_empty_state.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
-
-// TODO(wave-2): Replace with data from the languages API.
-const List<String> kVoiceRoomLanguages = [
-  'English',
-  'Korean',
-  'Japanese',
-  'Chinese',
-  'Spanish',
-  'French',
-  'German',
-  'Italian',
-  'Portuguese',
-  'Russian',
-  'Arabic',
-  'Hindi',
-  'Uzbek',
-];
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -183,33 +167,15 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Language filter
-        SizedBox(
-          height: 44,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            children: [
-              CommunityFilterChip(
-                label: l10n.allLanguages,
-                icon: Icons.language_rounded,
-                isSelected: _selectedLanguage == null,
-                onTap: () => _setLanguageFilter(null),
-              ),
-              const SizedBox(width: 8),
-              ...kVoiceRoomLanguages.map(
-                (lang) => Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: CommunityFilterChip(
-                    label: lang,
-                    isSelected: _selectedLanguage == lang,
-                    onTap: () => _setLanguageFilter(
-                      _selectedLanguage == lang ? null : lang,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        Consumer(
+          builder: (context, ref, _) {
+            final asyncLangs = ref.watch(voiceRoomLanguagesProvider);
+            return asyncLangs.when(
+              data: (languages) => _buildLanguageChips(l10n, languages),
+              loading: () => const SizedBox(height: 44),
+              error: (_, __) => _buildLanguageChips(l10n, kVoiceRoomLanguagesFallback),
+            );
+          },
         ),
         const SizedBox(height: 8),
         // Topic filter
@@ -246,6 +212,37 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
         ),
         const SizedBox(height: 8),
       ],
+    );
+  }
+
+  Widget _buildLanguageChips(AppLocalizations l10n, List<String> languages) {
+    return SizedBox(
+      height: 44,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          CommunityFilterChip(
+            label: l10n.allLanguages,
+            icon: Icons.language_rounded,
+            isSelected: _selectedLanguage == null,
+            onTap: () => _setLanguageFilter(null),
+          ),
+          const SizedBox(width: 8),
+          ...languages.map(
+            (lang) => Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: CommunityFilterChip(
+                label: lang,
+                isSelected: _selectedLanguage == lang,
+                onTap: () => _setLanguageFilter(
+                  _selectedLanguage == lang ? null : lang,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

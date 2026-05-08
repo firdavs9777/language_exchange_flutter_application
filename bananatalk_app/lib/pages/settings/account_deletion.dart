@@ -8,6 +8,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/banana_button.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   final bool isOAuthUser; // Google, Facebook, or Apple user
@@ -89,31 +90,27 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
       if (mounted) {
         if (result['success'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content:
-                  Text(result['message'] ?? 'Account deleted successfully'),
-              backgroundColor: AppColors.success,
-            ),
+          showSettingsSnackBar(
+            context,
+            message: result['message'] ?? 'Account deleted successfully',
+            type: SettingsSnackBarType.success,
           );
 
           context.go('/login');
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['message'] ?? 'Failed to delete account'),
-              backgroundColor: AppColors.error,
-            ),
+          showSettingsSnackBar(
+            context,
+            message: result['message'] ?? 'Failed to delete account',
+            type: SettingsSnackBarType.error,
           );
         }
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $e'),
-            backgroundColor: AppColors.error,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: 'Error: $e',
+          type: SettingsSnackBarType.error,
         );
       }
     } finally {

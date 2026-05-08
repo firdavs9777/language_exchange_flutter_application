@@ -8,6 +8,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 class BlockedUsersScreen extends StatefulWidget {
   const BlockedUsersScreen({Key? key}) : super(key: key);
@@ -111,12 +112,12 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
       if (mounted) Navigator.of(context).pop();
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(unblockResult['message'] ?? l10n.operationCompleted),
-            backgroundColor:
-                unblockResult['success'] ? AppColors.success : AppColors.error,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: unblockResult['message'] ?? l10n.operationCompleted,
+          type: unblockResult['success']
+              ? SettingsSnackBarType.success
+              : SettingsSnackBarType.error,
         );
 
         if (unblockResult['success']) {

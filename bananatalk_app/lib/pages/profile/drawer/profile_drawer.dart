@@ -1,5 +1,8 @@
+import 'package:bananatalk_app/main.dart' show languageProvider;
+import 'package:bananatalk_app/services/language_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
+import 'package:bananatalk_app/pages/settings/notification_preferences_screen.dart';
 import 'package:bananatalk_app/pages/profile/settings.dart';
 import 'package:bananatalk_app/pages/profile/theme.dart';
 import 'package:bananatalk_app/pages/profile/edit/picture_edit.dart';
@@ -17,6 +20,7 @@ import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
+import 'package:bananatalk_app/providers/theme_mode_provider.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -43,6 +47,10 @@ class LeftDrawer extends ConsumerWidget {
       data: (v) => v,
       orElse: () => '',
     );
+    final currentLocale = ref.watch(languageProvider);
+    final currentLangCode = _localeToLangCode(currentLocale);
+    final langTrailing =
+        '${LanguageService.getLanguageFlag(currentLangCode)} ${LanguageService.getLanguageName(currentLangCode)}';
 
     return Drawer(
       backgroundColor: context.scaffoldBackground,
@@ -103,6 +111,23 @@ class LeftDrawer extends ConsumerWidget {
                       ),
                       const DrawerDivider(),
                       DrawerMenuItem(
+                        icon: Icons.notifications_outlined,
+                        iconColor: const Color(0xFF0288D1),
+                        title: l10n.notificationPreferencesTitle,
+                        subtitle: l10n.notificationPreferencesSubtitle,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (context) =>
+                                  const NotificationPreferencesScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
                         icon: Icons.lock_rounded,
                         iconColor: const Color(0xFF7C4DFF),
                         title: l10n.privacySecurity,
@@ -137,8 +162,9 @@ class LeftDrawer extends ConsumerWidget {
                       DrawerMenuItem(
                         icon: Icons.language_rounded,
                         iconColor: const Color(0xFF00BCD4),
-                        title: l10n.language,
+                        title: l10n.languageSettingsRow,
                         subtitle: l10n.changeAppLanguage,
+                        trailingLabel: langTrailing,
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
@@ -168,6 +194,63 @@ class LeftDrawer extends ConsumerWidget {
                         },
                       ),
                     ],
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // Theme toggle
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, bottom: 8),
+                          child: Text(
+                            l10n.themeMode,
+                            style: TextStyle(
+                              color: context.textSecondary,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Consumer(
+                          builder: (context, ref, _) {
+                            final mode = ref.watch(themeProvider);
+                            final l10n = AppLocalizations.of(context)!;
+                            return SegmentedButton<ThemeMode>(
+                              segments: [
+                                ButtonSegment(
+                                  value: ThemeMode.light,
+                                  label: Text(l10n.themeLight),
+                                  icon: const Icon(Icons.light_mode_outlined),
+                                ),
+                                ButtonSegment(
+                                  value: ThemeMode.dark,
+                                  label: Text(l10n.themeDark),
+                                  icon: const Icon(Icons.dark_mode_outlined),
+                                ),
+                                ButtonSegment(
+                                  value: ThemeMode.system,
+                                  label: Text(l10n.themeSystem),
+                                  icon: const Icon(Icons.settings_outlined),
+                                ),
+                              ],
+                              selected: {mode},
+                              onSelectionChanged: (s) {
+                                ref
+                                    .read(themeProvider.notifier)
+                                    .setTheme(s.first);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
 
                   const SizedBox(height: 20),
@@ -927,6 +1010,18 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   // ========== HELPERS ==========
+
+  /// Converts a [Locale] back to the LanguageService key (e.g. 'zh_TW').
+  static String _localeToLangCode(Locale locale) {
+    if (locale.languageCode == 'zh') {
+      if (locale.scriptCode == 'Hant' || locale.countryCode == 'TW') {
+        return 'zh_TW';
+      }
+      return 'zh';
+    }
+    return locale.languageCode;
+  }
+
   void _navigateToDeleteAccount(BuildContext context, WidgetRef ref) {
     final userAsync = ref.read(userProvider);
     final user = userAsync.valueOrNull;

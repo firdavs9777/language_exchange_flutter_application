@@ -4679,4 +4679,69 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get filterSheetTitle => 'Фильтры';
+
+  @override
+  String get notificationPreferencesTitle => 'Уведомления';
+
+  @override
+  String get notificationPreferencesSubtitle => 'Выберите, какие оповещения вы получаете';
+
+  @override
+  String get notifPrefChat => 'Новые сообщения';
+
+  @override
+  String get notifPrefWave => 'Волны';
+
+  @override
+  String get notifPrefVoiceRoomStart => 'Приглашения в голосовую комнату';
+
+  @override
+  String get notifPrefScheduledRoomReminder => 'Напоминания о запланированных комнатах';
+
+  @override
+  String get notifPrefFollowerMoment => 'Новые моменты от тех, на кого вы подписаны';
+
+  @override
+  String get notifPrefVisitorAlert => 'Посетители профиля';
+
+  @override
+  String get notifPrefMatchAlert => 'Взаимные волны';
+
+  @override
+  String get notifResetToDefaults => 'Сбросить до настроек по умолчанию';
+
+  @override
+  String get themeMode => 'Тема';
+
+  @override
+  String get themeLight => 'Светлая';
+
+  @override
+  String get themeDark => 'Тёмная';
+
+  @override
+  String get themeSystem => 'Системная';
+
+  @override
+  String get languageSettingsRow => 'Язык';
+
+  @override
+  String get waveDailySummaryTitle => 'Новые волны ожидают';
+
+  @override
+  String waveDailySummaryBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count человек отправили вам волну',
+      one: '1 человек отправил вам волну',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get filterTopicsTitle => 'Темы';
+
+  @override
+  String get filterTopicsEmpty => 'Темы не выбраны';
 }

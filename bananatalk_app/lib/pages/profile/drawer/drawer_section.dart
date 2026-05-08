@@ -88,6 +88,9 @@ class DrawerDivider extends StatelessWidget {
 ///
 /// [isFirst] / [isLast] round the corresponding corners so the row blends
 /// into the container's 18 px radius without a visible seam.
+///
+/// [trailingLabel] renders a small text label to the left of the chevron —
+/// useful for showing the current value of a setting (e.g. the active language).
 class DrawerMenuItem extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
@@ -98,6 +101,7 @@ class DrawerMenuItem extends StatelessWidget {
   final bool isLast;
   final bool isDestructive;
   final bool showAdminBadge;
+  final String? trailingLabel;
 
   const DrawerMenuItem({
     super.key,
@@ -110,6 +114,7 @@ class DrawerMenuItem extends StatelessWidget {
     this.isLast = false,
     this.isDestructive = false,
     this.showAdminBadge = false,
+    this.trailingLabel,
   });
 
   @override
@@ -196,6 +201,19 @@ class DrawerMenuItem extends StatelessWidget {
                   ],
                 ),
               ),
+              if (trailingLabel != null) ...[
+                const SizedBox(width: 4),
+                Text(
+                  trailingLabel!,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: context.textMuted,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
               const SizedBox(width: 4),
               Icon(
                 Icons.chevron_right_rounded,
