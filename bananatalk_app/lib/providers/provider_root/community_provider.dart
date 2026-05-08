@@ -423,6 +423,31 @@ class CommunityService {
       throw Exception('Failed to call the api: $error');
     }
   }
+
+  /// Get matching user count for a given filter map (used by live match-count in filter sheet).
+  Future<int> getUsersCount({Map<String, dynamic>? filters}) async {
+    try {
+      final params = <String, String>{};
+      if (filters != null) {
+        filters.forEach((k, v) {
+          if (v != null && v != '' && !(v is List && v.isEmpty)) {
+            params[k] = v.toString();
+          }
+        });
+      }
+      final response = await _apiClient.get(
+        '${Endpoints.usersURL}/count',
+        queryParams: params,
+      );
+      if (response.success && response.data != null) {
+        final data = response.data is Map ? response.data as Map : null;
+        return (data?['count'] as num?)?.toInt() ?? 0;
+      }
+      return 0;
+    } catch (_) {
+      return 0;
+    }
+  }
 }
 
 // ==================== MODELS ====================
@@ -764,6 +789,15 @@ final communityProvider = FutureProvider<List<Community>>((ref) async {
 });
 
 final communityServiceProvider = Provider((ref) => CommunityService());
+
+/// Live match-count provider — call with [FilterState.toJson()] as the family key.
+/// Uses [Map<String, dynamic>] so identical filter maps share the same cache slot.
+final filterMatchCountProvider =
+    FutureProvider.autoDispose.family<int, Map<String, dynamic>>(
+  (ref, filters) {
+    return ref.read(communityServiceProvider).getUsersCount(filters: filters);
+  },
+);
 
 /// Single user/community provider - fetches user details by ID
 final singleCommunityProvider = FutureProvider.family<Community?, String>((ref, userId) async {

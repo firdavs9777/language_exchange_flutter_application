@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -53,11 +55,19 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   bool _isDetectingLocation = false;
   String _errorMessage = '';
 
+  Timer? _matchCountDebounce;
+
   @override
   void initState() {
     super.initState();
     _initializeValues();
     fetchLanguages();
+  }
+
+  @override
+  void dispose() {
+    _matchCountDebounce?.cancel();
+    super.dispose();
   }
 
   void _initializeValues() {
@@ -160,7 +170,36 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     );
   }
 
-  void resetFilters() {
+  /// Called whenever any filter value changes. Triggers a debounced provider
+  /// invalidation so the match-count refreshes 300 ms after the last change.
+  void _onAnyFilterChanged() {
+    setState(() {});
+    _matchCountDebounce?.cancel();
+    _matchCountDebounce = Timer(const Duration(milliseconds: 300), () {
+      if (!mounted) return;
+      ref.invalidate(filterMatchCountProvider(_buildDraftFiltersMap()));
+    });
+  }
+
+  /// Serialises the current sheet state into a plain Map for the count endpoint.
+  Map<String, dynamic> _buildDraftFiltersMap() {
+    return {
+      'minAge': _minAge.toInt(),
+      'maxAge': _maxAge.toInt(),
+      if (_selectedGender != null) 'gender': _selectedGender!.toLowerCase(),
+      if (_selectedLanguage != null) 'nativeLanguage': _selectedLanguage!.name,
+      if (_selectedLearningLanguage != null)
+        'learningLanguage': _selectedLearningLanguage!.name,
+      if (_selectedLanguageLevel != null)
+        'languageLevel': _selectedLanguageLevel,
+      if (_selectedCountry != null) 'country': _selectedCountry,
+      'onlineOnly': _onlineOnly,
+      'newUsersOnly': _newUsersOnly,
+      'prioritizeNearby': _prioritizeNearby,
+    };
+  }
+
+  void _clearAll() {
     setState(() {
       _minAge = 18.0;
       _maxAge = 100.0;
@@ -173,6 +212,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       _newUsersOnly = false;
       _prioritizeNearby = false;
     });
+    _onAnyFilterChanged();
   }
 
   void _applyFilters() {
@@ -208,6 +248,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
             _selectedCountry = country;
           });
           Navigator.pop(context);
+          _onAnyFilterChanged();
         },
       ),
     );
@@ -260,6 +301,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
             _selectedCountry = matchingCountry['name'] ?? country;
             _isDetectingLocation = false;
           });
+          _onAnyFilterChanged();
 
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -329,6 +371,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       setState(() {
         _selectedLanguage = result;
       });
+      _onAnyFilterChanged();
     }
   }
 
@@ -356,414 +399,362 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       setState(() {
         _selectedLearningLanguage = result;
       });
+      _onAnyFilterChanged();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+    final draftFilters = _buildDraftFiltersMap();
+    final countAsync = ref.watch(filterMatchCountProvider(draftFilters));
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.88,
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          // Handle bar
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 4),
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: context.dividerColor,
-                borderRadius: BorderRadius.circular(2),
+    return SafeArea(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.88,
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          children: [
+            // Handle bar
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 10, bottom: 4),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: context.dividerColor,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
             ),
-          ),
-          // Header row with X, title, Reset
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Row(
-              children: [
-                IconButton(
-                  icon:
-                      Icon(Icons.close_rounded, color: context.textPrimary),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                Expanded(
-                  child: Text(
-                    l10n.filterCommunities,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      color: context.textPrimary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                TextButton(
-                  onPressed: resetFilters,
-                  child: Text(
-                    l10n.reset,
-                    style: TextStyle(
-                      color: context.primaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Header Banner
-          _buildHeaderBanner(),
-          // Scrollable Content
-          Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            // Sticky top — title + live match count
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+              child: Row(
                 children: [
-                  _buildSection(
-                    title: l10n.nativeLanguage,
-                    icon: Icons.translate,
-                    child: _isLoadingLanguages
-                        ? const FilterLanguageLoadingCard()
-                        : _errorMessage.isNotEmpty
-                            ? FilterLanguageErrorCard(
-                                errorMessage: _errorMessage,
-                                onRetry: () {
-                                  setState(() {
-                                    _isLoadingLanguages = true;
-                                    _errorMessage = '';
-                                  });
-                                  fetchLanguages();
-                                },
-                              )
-                            : FilterLanguageSelector(
-                                selectedLanguage: _selectedLanguage,
-                                onTap: _openLanguagePicker,
-                                placeholderIcon: Icons.public,
-                              ),
+                  IconButton(
+                    icon: Icon(Icons.close_rounded, color: context.textPrimary),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  const SizedBox(height: 24),
-                  _buildSection(
-                    title: l10n.learningLanguageLabel,
-                    icon: Icons.school,
-                    child: _isLoadingLanguages
-                        ? const FilterLanguageLoadingCard()
-                        : _errorMessage.isNotEmpty
-                            ? FilterLanguageErrorCard(
-                                errorMessage: _errorMessage,
-                                onRetry: () {
-                                  setState(() {
-                                    _isLoadingLanguages = true;
-                                    _errorMessage = '';
-                                  });
-                                  fetchLanguages();
-                                },
-                              )
-                            : FilterLanguageSelector(
-                                selectedLanguage: _selectedLearningLanguage,
-                                onTap: _openLearningLanguagePicker,
-                                placeholderIcon: Icons.school,
-                              ),
-                  ),
-                  const SizedBox(height: 24),
-                  _buildSection(
-                    title: l10n.languageLevel,
-                    icon: Icons.signal_cellular_alt,
-                    child: FilterLevelSection(
-                      selectedLevel: _selectedLanguageLevel,
-                      onChanged: (level) =>
-                          setState(() => _selectedLanguageLevel = level),
+                  Expanded(
+                    child: Text(
+                      l10n.filterSheetTitle,
+                      style: context.titleLarge.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  _buildVipGatedSection(
-                    title: l10n.country,
-                    icon: Icons.public,
-                    child: FilterCountrySelector(
-                      selectedCountry: _selectedCountry,
-                      isDetectingLocation: _isDetectingLocation,
-                      onDetectLocation: _autoDetectLocation,
-                      onOpenPicker: _openCountryPicker,
-                      onClear: () =>
-                          setState(() => _selectedCountry = null),
+                  countAsync.when(
+                    data: (n) => Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Text(
+                        l10n.filterMatchCount(n),
+                        style: context.bodyMedium.copyWith(
+                          color: context.textSecondary,
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 24),
-                  _buildSection(
-                    title: l10n.ageRange,
-                    icon: Icons.cake,
-                    child: FilterAgeSection(
-                      minAge: _minAge,
-                      maxAge: _maxAge,
-                      onChanged: (values) => setState(() {
-                        _minAge = values.start;
-                        _maxAge = values.end;
-                      }),
+                    loading: () => const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
                     ),
+                    error: (_, __) => const SizedBox.shrink(),
                   ),
-                  const SizedBox(height: 24),
-                  _buildVipGatedSection(
-                    title: l10n.genderPreference,
-                    icon: Icons.person,
-                    child: FilterGenderSection(
-                      selectedGender: _selectedGender,
-                      onChanged: (g) =>
-                          setState(() => _selectedGender = g),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  FilterToggleRow(
-                    title: l10n.filterOnlineNow,
-                    subtitle: l10n.onlineNow,
-                    icon: Icons.circle,
-                    value: _onlineOnly,
-                    activeColor: AppColors.success,
-                    onChanged: (val) =>
-                        setState(() => _onlineOnly = val),
-                  ),
-                  const SizedBox(height: 16),
-                  FilterToggleRow(
-                    title: l10n.newUsersOnly,
-                    subtitle: l10n.showNewUsersSubtitle,
-                    icon: Icons.fiber_new_rounded,
-                    value: _newUsersOnly,
-                    activeColor: const Color(0xFF00C853),
-                    onChanged: (val) =>
-                        setState(() => _newUsersOnly = val),
-                  ),
-                  const SizedBox(height: 24),
-                  _buildPrioritizeNearbyToggle(l10n),
-                  const SizedBox(height: 32),
                 ],
               ),
             ),
-          ),
-          // Fixed Bottom Buttons
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 12, 20, 8 + bottomPadding),
-            decoration: BoxDecoration(
-              color: context.surfaceColor,
-              boxShadow: AppShadows.sm,
-            ),
-            child: SafeArea(
-              top: false,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+            const Divider(height: 1),
+            // Scrollable body — sections in ExpansionTiles
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: _applyFilters,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: context.primaryColor,
-                        foregroundColor: context.textOnPrimary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        l10n.applyFilters,
-                        style: context.titleMedium
-                            .copyWith(color: context.textOnPrimary),
-                      ),
+                  ExpansionTile(
+                    initiallyExpanded: true,
+                    title: Text(
+                      l10n.filterAge,
+                      style: context.titleMedium
+                          .copyWith(fontWeight: FontWeight.w600),
                     ),
+                    childrenPadding:
+                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    children: [
+                      FilterAgeSection(
+                        minAge: _minAge,
+                        maxAge: _maxAge,
+                        onChanged: (values) {
+                          setState(() {
+                            _minAge = values.start;
+                            _maxAge = values.end;
+                          });
+                          _onAnyFilterChanged();
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: true,
+                    title: Text(
+                      l10n.filterGender,
+                      style: context.titleMedium
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    childrenPadding:
+                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    children: [
+                      _isVip
+                          ? FilterGenderSection(
+                              selectedGender: _selectedGender,
+                              onChanged: (g) {
+                                setState(() => _selectedGender = g);
+                                _onAnyFilterChanged();
+                              },
+                            )
+                          : GestureDetector(
+                              onTap: _showVipPrompt,
+                              child: Stack(
+                                children: [
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: IgnorePointer(
+                                      child: FilterGenderSection(
+                                        selectedGender: _selectedGender,
+                                        onChanged: (_) {},
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: _buildVipBadge(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      l10n.filterLanguages,
+                      style: context.titleMedium
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    childrenPadding:
+                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    children: [
+                      _isLoadingLanguages
+                          ? const FilterLanguageLoadingCard()
+                          : _errorMessage.isNotEmpty
+                              ? FilterLanguageErrorCard(
+                                  errorMessage: _errorMessage,
+                                  onRetry: () {
+                                    setState(() {
+                                      _isLoadingLanguages = true;
+                                      _errorMessage = '';
+                                    });
+                                    fetchLanguages();
+                                  },
+                                )
+                              : FilterLanguageSelector(
+                                  selectedLanguage: _selectedLanguage,
+                                  onTap: _openLanguagePicker,
+                                  placeholderIcon: Icons.public,
+                                ),
+                      const SizedBox(height: 12),
+                      _isLoadingLanguages
+                          ? const FilterLanguageLoadingCard()
+                          : _errorMessage.isNotEmpty
+                              ? FilterLanguageErrorCard(
+                                  errorMessage: _errorMessage,
+                                  onRetry: () {
+                                    setState(() {
+                                      _isLoadingLanguages = true;
+                                      _errorMessage = '';
+                                    });
+                                    fetchLanguages();
+                                  },
+                                )
+                              : FilterLanguageSelector(
+                                  selectedLanguage: _selectedLearningLanguage,
+                                  onTap: _openLearningLanguagePicker,
+                                  placeholderIcon: Icons.school,
+                                ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      l10n.filterCountry,
+                      style: context.titleMedium
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    trailing: !_isVip
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildVipBadge(),
+                              const Icon(Icons.expand_more),
+                            ],
+                          )
+                        : null,
+                    childrenPadding:
+                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    children: [
+                      _isVip
+                          ? FilterCountrySelector(
+                              selectedCountry: _selectedCountry,
+                              isDetectingLocation: _isDetectingLocation,
+                              onDetectLocation: _autoDetectLocation,
+                              onOpenPicker: _openCountryPicker,
+                              onClear: () {
+                                setState(() => _selectedCountry = null);
+                                _onAnyFilterChanged();
+                              },
+                            )
+                          : GestureDetector(
+                              onTap: _showVipPrompt,
+                              child: Opacity(
+                                opacity: 0.5,
+                                child: IgnorePointer(
+                                  child: FilterCountrySelector(
+                                    selectedCountry: _selectedCountry,
+                                    isDetectingLocation: false,
+                                    onDetectLocation: () {},
+                                    onOpenPicker: () {},
+                                    onClear: () {},
+                                  ),
+                                ),
+                              ),
+                            ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      l10n.filterLevel,
+                      style: context.titleMedium
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    childrenPadding:
+                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    children: [
+                      FilterLevelSection(
+                        selectedLevel: _selectedLanguageLevel,
+                        onChanged: (level) {
+                          setState(() => _selectedLanguageLevel = level);
+                          _onAnyFilterChanged();
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      l10n.filterToggles,
+                      style: context.titleMedium
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    childrenPadding:
+                        const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    children: [
+                      FilterToggleRow(
+                        title: l10n.filterOnlineNow,
+                        subtitle: l10n.onlineNow,
+                        icon: Icons.circle,
+                        value: _onlineOnly,
+                        activeColor: AppColors.success,
+                        onChanged: (val) {
+                          setState(() => _onlineOnly = val);
+                          _onAnyFilterChanged();
+                        },
+                      ),
+                      const SizedBox(height: 12),
+                      FilterToggleRow(
+                        title: l10n.newUsersOnly,
+                        subtitle: l10n.showNewUsersSubtitle,
+                        icon: Icons.fiber_new_rounded,
+                        value: _newUsersOnly,
+                        activeColor: const Color(0xFF00C853),
+                        onChanged: (val) {
+                          setState(() => _newUsersOnly = val);
+                          _onAnyFilterChanged();
+                        },
+                      ),
+                      const SizedBox(height: 12),
+                      _buildPrioritizeNearbyToggle(l10n),
+                    ],
                   ),
                   const SizedBox(height: 8),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 44,
-                    child: TextButton(
-                      onPressed: () {
-                        resetFilters();
-                        _applyFilters();
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          side: BorderSide(
-                            color: Colors.red.withValues(alpha: 0.3),
-                          ),
+                ],
+              ),
+            ),
+            // Sticky bottom — Clear all + Apply
+            const Divider(height: 1),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: _clearAll,
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(
+                          color: Colors.red.withValues(alpha: 0.3),
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.restart_alt_rounded, size: 18),
-                          const SizedBox(width: 6),
-                          Text(
-                            l10n.reset,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.clear_all_rounded, size: 18),
+                        const SizedBox(width: 6),
+                        Text(
+                          l10n.filterClearAll,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  ElevatedButton(
+                    onPressed: _applyFilters,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: context.primaryColor,
+                      foregroundColor: context.textOnPrimary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 28, vertical: 14),
+                    ),
+                    child: Text(
+                      l10n.filterApply,
+                      style: context.titleMedium
+                          .copyWith(color: context.textOnPrimary),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeaderBanner() {
-    final l10n = AppLocalizations.of(context)!;
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            context.primaryColor,
-            context.primaryColor.withValues(alpha: 0.8),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.tune_rounded,
-              color: Colors.white,
-              size: 22,
-            ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.findYourPerfect,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  l10n.languagePartner,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSection({
-    required String title,
-    required IconData icon,
-    required Widget child,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: context.primaryColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(icon, size: 16, color: context.primaryColor),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              title,
-              style: context.titleMedium.copyWith(fontWeight: FontWeight.w600),
-            ),
           ],
         ),
-        const SizedBox(height: 12),
-        child,
-      ],
-    );
-  }
-
-  /// VIP-gated section: shows content but intercepts taps for non-VIP users.
-  Widget _buildVipGatedSection({
-    required String title,
-    required IconData icon,
-    required Widget child,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: context.primaryColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(icon, size: 16, color: context.primaryColor),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              title,
-              style: context.titleMedium.copyWith(fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(width: 8),
-            if (!_isVip) _buildVipBadge(),
-          ],
-        ),
-        const SizedBox(height: 12),
-        if (_isVip)
-          child
-        else
-          GestureDetector(
-            onTap: _showVipPrompt,
-            child: Stack(
-              children: [
-                Opacity(
-                  opacity: 0.5,
-                  child: IgnorePointer(child: child),
-                ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: AppRadius.borderMD,
-                      color: Colors.transparent,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-      ],
+      ),
     );
   }
 
@@ -816,7 +807,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           icon: Icons.near_me_rounded,
           value: _prioritizeNearby,
           activeColor: context.primaryColor,
-          onChanged: (val) => setState(() => _prioritizeNearby = val),
+          onChanged: (val) {
+            setState(() => _prioritizeNearby = val);
+            _onAnyFilterChanged();
+          },
         ),
         if (_prioritizeNearby && !hasLocation) ...[
           const SizedBox(height: 8),
