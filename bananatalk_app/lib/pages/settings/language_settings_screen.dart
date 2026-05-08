@@ -6,6 +6,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/main.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 class LanguageSettingsScreen extends ConsumerStatefulWidget {
   const LanguageSettingsScreen({super.key});
@@ -65,14 +66,11 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              l10n.languageChangedTo(LanguageService.getLanguageName(languageCode)),
-            ),
-            backgroundColor: AppColors.success,
-            duration: const Duration(seconds: 2),
-          ),
+        showSettingsSnackBar(
+          context,
+          message: l10n.languageChangedTo(LanguageService.getLanguageName(languageCode)),
+          type: SettingsSnackBarType.success,
+          duration: const Duration(seconds: 2),
         );
       }
     } catch (e) {
@@ -82,11 +80,10 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
 
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.errorChangingLanguage}: $e'),
-            backgroundColor: AppColors.error,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: '${l10n.errorChangingLanguage}: $e',
+          type: SettingsSnackBarType.error,
         );
       }
     }

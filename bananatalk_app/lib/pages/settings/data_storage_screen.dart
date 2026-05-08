@@ -4,6 +4,7 @@ import 'package:bananatalk_app/services/storage_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 class DataStorageScreen extends ConsumerStatefulWidget {
   const DataStorageScreen({super.key});
@@ -105,12 +106,10 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.clearCacheFailed}: $e'),
-            backgroundColor: AppColors.error,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: '${l10n.clearCacheFailed}: $e',
+          type: SettingsSnackBarType.error,
         );
       }
     } finally {

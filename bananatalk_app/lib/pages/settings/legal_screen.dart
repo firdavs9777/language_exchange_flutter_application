@@ -3,6 +3,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
 class LegalScreen extends StatelessWidget {
   // Your actual URLs
@@ -18,21 +19,19 @@ class LegalScreen extends StatelessWidget {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.couldNotOpenLink),
-              backgroundColor: AppColors.error,
-            ),
+          showSettingsSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.couldNotOpenLink,
+            type: SettingsSnackBarType.error,
           );
         }
       }
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
-            backgroundColor: AppColors.error,
-          ),
+        showSettingsSnackBar(
+          context,
+          message: '${AppLocalizations.of(context)!.error}: $e',
+          type: SettingsSnackBarType.error,
         );
       }
     }
