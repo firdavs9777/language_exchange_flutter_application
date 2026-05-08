@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/main.dart' show languageProvider;
+import 'package:bananatalk_app/services/language_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/pages/notifications/notification_settings_screen.dart';
 import 'package:bananatalk_app/pages/settings/notification_preferences_screen.dart';
@@ -45,6 +47,10 @@ class LeftDrawer extends ConsumerWidget {
       data: (v) => v,
       orElse: () => '',
     );
+    final currentLocale = ref.watch(languageProvider);
+    final currentLangCode = _localeToLangCode(currentLocale);
+    final langTrailing =
+        '${LanguageService.getLanguageFlag(currentLangCode)} ${LanguageService.getLanguageName(currentLangCode)}';
 
     return Drawer(
       backgroundColor: context.scaffoldBackground,
@@ -156,8 +162,9 @@ class LeftDrawer extends ConsumerWidget {
                       DrawerMenuItem(
                         icon: Icons.language_rounded,
                         iconColor: const Color(0xFF00BCD4),
-                        title: l10n.language,
+                        title: l10n.languageSettingsRow,
                         subtitle: l10n.changeAppLanguage,
+                        trailingLabel: langTrailing,
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
@@ -1003,6 +1010,18 @@ class LeftDrawer extends ConsumerWidget {
   }
 
   // ========== HELPERS ==========
+
+  /// Converts a [Locale] back to the LanguageService key (e.g. 'zh_TW').
+  static String _localeToLangCode(Locale locale) {
+    if (locale.languageCode == 'zh') {
+      if (locale.scriptCode == 'Hant' || locale.countryCode == 'TW') {
+        return 'zh_TW';
+      }
+      return 'zh';
+    }
+    return locale.languageCode;
+  }
+
   void _navigateToDeleteAccount(BuildContext context, WidgetRef ref) {
     final userAsync = ref.read(userProvider);
     final user = userAsync.valueOrNull;
