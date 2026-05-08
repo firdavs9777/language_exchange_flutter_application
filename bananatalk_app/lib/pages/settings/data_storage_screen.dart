@@ -163,9 +163,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: context.isDarkMode
-                    ? Colors.grey[800]
-                    : Colors.grey[100],
+                color: context.containerColor,
                 borderRadius: AppRadius.borderSM,
               ),
               child: Row(
@@ -404,7 +402,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
             Divider(height: 1, color: context.dividerColor),
             _buildStorageItem(
               icon: Icons.folder,
-              iconColor: Colors.grey,
+              iconColor: context.textMuted,
               title: l10n.otherCache,
               size: breakdown.otherCache,
               showClearButton: false,
@@ -595,9 +593,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: context.isDarkMode
-                    ? Colors.grey[800]
-                    : Colors.grey[100],
+                color: context.containerColor,
                 borderRadius: AppRadius.borderSM,
               ),
               child: Row(

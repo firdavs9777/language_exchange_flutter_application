@@ -125,9 +125,9 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                     padding: Spacing.paddingLG,
                     margin: Spacing.screenPadding,
                     decoration: BoxDecoration(
-                      color: AppColors.info.withOpacity(0.1),
+                      color: AppColors.info.withValues(alpha: 0.1),
                       borderRadius: AppRadius.borderMD,
-                      border: Border.all(color: AppColors.info.withOpacity(0.3)),
+                      border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
