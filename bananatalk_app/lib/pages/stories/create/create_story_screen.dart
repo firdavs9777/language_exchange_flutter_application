@@ -9,6 +9,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
+import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
+import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
 
 class CreateStoryScreen extends StatefulWidget {
   final VoidCallback? onStoryCreated;
@@ -30,6 +32,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   bool _isUploading = false;
   String? _selectedColor;
   bool _isTextStory = false;
+  String _gradientId = StoryGradient.presets.first.id;
   final TextEditingController _textOverlayController = TextEditingController();
 
   // Video support
@@ -286,6 +289,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
       _isTextStory = true;
       _mediaFile = null;
       _selectedColor = _backgroundColors.first;
+      _gradientId = StoryGradient.presets.first.id;
     });
   }
 
@@ -315,7 +319,7 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
         // Create text-only story
         final result = await StoriesService.createTextStory(
           text: _textOverlayController.text.trim(),
-          backgroundColor: _selectedColor ?? '#FF6B6B',
+          backgroundColor: _gradientId,
           textColor: '#FFFFFF',
           fontStyle: 'normal',
           privacy: _privacy,
@@ -630,132 +634,106 @@ class _CreateStoryScreenState extends State<CreateStoryScreen> {
   }
 
   Widget _buildTextEditor() {
-    final color = _selectedColor != null
-        ? Color(int.parse(_selectedColor!.replaceFirst('#', '0xFF')))
-        : Colors.blue;
+    final gradient = StoryGradient.byId(_gradientId);
 
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Background color
-        Container(color: color),
-
-        // Text input
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: TextField(
-              controller: _textOverlayController,
-              autofocus: true,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-              decoration: const InputDecoration(
-                hintText: 'Type something...',
-                hintStyle: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 32,
-                ),
-                border: InputBorder.none,
-              ),
-              maxLines: 5,
-            ),
-          ),
-        ),
-
-        // Color picker
-        Positioned(
-          bottom: MediaQuery.of(context).padding.bottom + 80,
-          left: 16,
-          right: 16,
-          child: SizedBox(
-            height: 40,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _backgroundColors.length,
-              itemBuilder: (context, index) {
-                final bgColor = _backgroundColors[index];
-                final isSelected = bgColor == _selectedColor;
-
-                return GestureDetector(
-                  onTap: () => setState(() => _selectedColor = bgColor),
+    return Container(
+      decoration: BoxDecoration(gradient: gradient.toLinearGradient()),
+      child: SafeArea(
+        child: Column(
+          children: [
+            // Top bar: close button
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, right: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isTextStory = false;
+                      _selectedColor = null;
+                    });
+                  },
                   child: Container(
-                    width: 40,
-                    height: 40,
-                    margin: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Color(int.parse(bgColor.replaceFirst('#', '0xFF'))),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected ? Colors.white : Colors.transparent,
-                        width: 3,
-                      ),
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Icon(Icons.close, color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+
+            // Text input — fills available space
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: TextField(
+                    controller: _textOverlayController,
+                    autofocus: true,
+                    maxLength: 5000,
+                    textAlign: TextAlign.center,
+                    maxLines: null,
+                    style: const TextStyle(color: Colors.white, fontSize: 28),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.enterTextHint,
+                      hintStyle: const TextStyle(color: Colors.white70),
+                      border: InputBorder.none,
+                      counterText: '',
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        ),
 
-        // Privacy and share
-        Positioned(
-          bottom: MediaQuery.of(context).padding.bottom + 16,
-          left: 16,
-          right: 16,
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: DropdownButton<StoryPrivacy>(
-                  value: _privacy,
-                  dropdownColor: Colors.grey[900],
-                  underline: const SizedBox(),
-                  icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
-                  items: StoryPrivacy.values.map((p) {
-                    return DropdownMenuItem(
-                      value: p,
-                      child: Text(
-                        p.displayName,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _privacy = value);
-                    }
-                  },
-                ),
-              ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isTextStory = false;
-                    _selectedColor = null;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(20),
+            // Gradient picker
+            GradientPicker(
+              selectedId: _gradientId,
+              onChanged: (id) => setState(() => _gradientId = id),
+            ),
+
+            // Privacy selector
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: DropdownButton<StoryPrivacy>(
+                      value: _privacy,
+                      dropdownColor: Colors.grey[900],
+                      underline: const SizedBox(),
+                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      items: StoryPrivacy.values.map((p) {
+                        return DropdownMenuItem(
+                          value: p,
+                          child: Text(
+                            p.displayName,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() => _privacy = value);
+                        }
+                      },
+                    ),
                   ),
-                  child: const Icon(Icons.close, color: Colors.white),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 8),
+          ],
         ),
-      ],
+      ),
     );
   }
 
