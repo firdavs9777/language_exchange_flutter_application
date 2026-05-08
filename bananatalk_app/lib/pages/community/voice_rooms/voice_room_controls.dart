@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Bottom control bar for a voice room (raise-hand / mute / leave).
+/// Bottom control bar for a voice room (chat / raise-hand / mute / leave).
 class VoiceRoomControls extends StatelessWidget {
   final bool isMuted;
   final bool isHandRaised;
   final VoidCallback onRaiseHand;
   final VoidCallback onMute;
   final VoidCallback onLeave;
+
+  /// Chat panel toggle
+  final int unreadChatCount;
+  final VoidCallback onChatToggle;
 
   /// Localised labels passed in from the parent so this widget stays
   /// free of direct l10n dependencies.
@@ -24,6 +28,8 @@ class VoiceRoomControls extends StatelessWidget {
     required this.onRaiseHand,
     required this.onMute,
     required this.onLeave,
+    required this.unreadChatCount,
+    required this.onChatToggle,
     required this.raiseHandLabel,
     required this.lowerHandLabel,
     required this.muteLabel,
@@ -43,6 +49,40 @@ class VoiceRoomControls extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            // Chat toggle with unread badge
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                _ControlButton(
+                  icon: Icons.chat_bubble_outline_rounded,
+                  label: '',
+                  color: Colors.white,
+                  backgroundColor: const Color(0x1AFFFFFF),
+                  onTap: onChatToggle,
+                ),
+                if (unreadChatCount > 0)
+                  Positioned(
+                    right: 4,
+                    top: 4,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 2),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                          minWidth: 16, minHeight: 16),
+                      child: Text(
+                        unreadChatCount > 9 ? '9+' : '$unreadChatCount',
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 10),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
             _ControlButton(
               icon: isHandRaised
                   ? Icons.front_hand_rounded

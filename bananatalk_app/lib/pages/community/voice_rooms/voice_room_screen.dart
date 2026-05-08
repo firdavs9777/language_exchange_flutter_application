@@ -12,6 +12,7 @@ import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_header.dar
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_info_bar.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_participants_grid.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_controls.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_chat_panel.dart';
 
 /// Voice Room Screen — active voice chat room.
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -30,6 +31,9 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
+
+  bool _chatVisible = false;
+  int _lastSeenChatCount = 0;
 
   @override
   void initState() {
@@ -71,6 +75,15 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
       type: CommunitySnackBarType.success,
       duration: const Duration(seconds: 2),
     );
+  }
+
+  void _toggleChat() {
+    setState(() {
+      _chatVisible = !_chatVisible;
+      if (_chatVisible) {
+        _lastSeenChatCount = ref.read(voiceRoomProvider).chatMessages.length;
+      }
+    });
   }
 
   void _leaveRoom() {
@@ -128,6 +141,9 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         : widget.room.participants;
     final participants = _sortedParticipants(rawParticipants);
 
+    final messages = voiceRoom.chatMessages;
+    final unread = (messages.length - _lastSeenChatCount).clamp(0, 999);
+
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A2E),
       appBar: VoiceRoomHeader(
@@ -135,39 +151,53 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         onLeave: _leaveRoom,
         pulseAnimation: _pulseAnimation,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          VoiceRoomInfoBar(room: widget.room),
-          Expanded(
-            child: VoiceRoomParticipantsGrid(
-              room: widget.room,
-              participants: participants,
-              hostLabel: l10n.roomHost,
-              onTileTap: (participant) {
-                if (participant.id.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    AppPageRoute(
-                      builder: (_) =>
-                          ProfileWrapper(userId: participant.id),
-                    ),
-                  );
-                }
-              },
+          Column(
+            children: [
+              VoiceRoomInfoBar(room: widget.room),
+              Expanded(
+                child: VoiceRoomParticipantsGrid(
+                  room: widget.room,
+                  participants: participants,
+                  hostLabel: l10n.roomHost,
+                  onTileTap: (participant) {
+                    if (participant.id.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        AppPageRoute(
+                          builder: (_) =>
+                              ProfileWrapper(userId: participant.id),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              VoiceRoomControls(
+                isMuted: voiceRoom.isMuted,
+                isHandRaised: voiceRoom.isHandRaised,
+                onRaiseHand: _toggleHandRaise,
+                onMute: _toggleMute,
+                onLeave: _leaveRoom,
+                unreadChatCount: _chatVisible ? 0 : unread,
+                onChatToggle: _toggleChat,
+                raiseHandLabel: l10n.raiseHand,
+                lowerHandLabel: l10n.lowerHand,
+                muteLabel: l10n.mute,
+                unmuteLabel: l10n.unmute,
+                leaveLabel: l10n.leave,
+              ),
+            ],
+          ),
+          if (_chatVisible)
+            DraggableScrollableSheet(
+              initialChildSize: 0.5,
+              minChildSize: 0.0,
+              maxChildSize: 0.85,
+              builder: (_, scrollController) =>
+                  VoiceRoomChatPanel(scrollController: scrollController),
             ),
-          ),
-          VoiceRoomControls(
-            isMuted: voiceRoom.isMuted,
-            isHandRaised: voiceRoom.isHandRaised,
-            onRaiseHand: _toggleHandRaise,
-            onMute: _toggleMute,
-            onLeave: _leaveRoom,
-            raiseHandLabel: l10n.raiseHand,
-            lowerHandLabel: l10n.lowerHand,
-            muteLabel: l10n.mute,
-            unmuteLabel: l10n.unmute,
-            leaveLabel: l10n.leave,
-          ),
         ],
       ),
     );
