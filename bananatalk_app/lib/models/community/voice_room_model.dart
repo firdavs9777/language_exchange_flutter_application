@@ -111,6 +111,7 @@ class RoomParticipant {
   final bool isMuted;
   final bool isHost;
   final DateTime joinedAt;
+  final bool isHandRaised;
 
   const RoomParticipant({
     required this.id,
@@ -120,6 +121,7 @@ class RoomParticipant {
     this.isMuted = false,
     this.isHost = false,
     required this.joinedAt,
+    this.isHandRaised = false,
   });
 
   factory RoomParticipant.fromJson(Map<String, dynamic> json) {
@@ -160,6 +162,7 @@ class RoomParticipant {
       isSpeaking: json['isSpeaking'] ?? false,
       isMuted: json['isMuted'] ?? true,
       isHost: json['isHost'] == true || role == 'host',
+      isHandRaised: json['isHandRaised'] == true,
       joinedAt: json['joinedAt'] != null
           ? DateTime.tryParse(json['joinedAt'].toString()) ?? DateTime.now()
           : DateTime.now(),
@@ -174,9 +177,29 @@ class RoomParticipant {
       'isSpeaking': isSpeaking,
       'isMuted': isMuted,
       'isHost': isHost,
+      'isHandRaised': isHandRaised,
       'joinedAt': joinedAt.toIso8601String(),
     };
   }
+
+  /// Returns a copy with overridden fields. Used by VoiceRoomManager to update
+  /// per-participant flags (mute, speaking, host, hand-raised) from socket events.
+  RoomParticipant copyWith({
+    bool? isMuted,
+    bool? isSpeaking,
+    bool? isHost,
+    bool? isHandRaised,
+  }) =>
+      RoomParticipant(
+        id: id,
+        name: name,
+        avatar: avatar,
+        isSpeaking: isSpeaking ?? this.isSpeaking,
+        isMuted: isMuted ?? this.isMuted,
+        isHost: isHost ?? this.isHost,
+        joinedAt: joinedAt,
+        isHandRaised: isHandRaised ?? this.isHandRaised,
+      );
 }
 
 /// Request model for creating a voice room

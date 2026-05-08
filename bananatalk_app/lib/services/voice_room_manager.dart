@@ -164,15 +164,7 @@ class VoiceRoomManager {
 
       final index = _participants.indexWhere((p) => p.id == participantId);
       if (index != -1) {
-        _participants[index] = RoomParticipant(
-          id: _participants[index].id,
-          name: _participants[index].name,
-          avatar: _participants[index].avatar,
-          isSpeaking: _participants[index].isSpeaking,
-          isMuted: isMuted,
-          isHost: _participants[index].isHost,
-          joinedAt: _participants[index].joinedAt,
-        );
+        _participants[index] = _participants[index].copyWith(isMuted: isMuted);
         onStateChanged?.call();
       }
     });
@@ -180,10 +172,13 @@ class VoiceRoomManager {
     // Hand raised
     _handRaisedSub = _chatSocketService!.onVoiceRoomHandRaised.listen((data) {
       final participantId = data['userId']?.toString() ?? '';
-      final isHandRaised = data['isRaised'] == true;
-
-      // Update participant if needed (could add handRaised to model)
-      onStateChanged?.call();
+      final isRaised = data['isRaised'] == true;
+      if (participantId.isEmpty) return;
+      final i = _participants.indexWhere((p) => p.id == participantId);
+      if (i != -1) {
+        _participants[i] = _participants[i].copyWith(isHandRaised: isRaised);
+        onStateChanged?.call();
+      }
     });
 
     // Chat message

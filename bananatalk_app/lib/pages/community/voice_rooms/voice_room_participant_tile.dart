@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
@@ -107,7 +108,22 @@ class VoiceRoomParticipantTile extends StatelessWidget {
                     ),
                   ),
                 ),
-              // Hand-raise badge placeholder — rendered in C21
+              // Hand-raise badge (C21)
+              if (participant.isHandRaised)
+                Positioned(
+                  top: -4,
+                  left: -4,
+                  child: Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFFB74D),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Text('✋', style: TextStyle(fontSize: 12)),
+                  )
+                      .animate(onPlay: (c) => c.repeat(reverse: true))
+                      .scaleXY(begin: 1.0, end: 1.1, duration: 600.ms),
+                ),
             ],
           ),
           Spacing.gapSM,
