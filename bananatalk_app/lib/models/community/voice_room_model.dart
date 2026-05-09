@@ -11,6 +11,9 @@ class VoiceRoom {
   final int maxParticipants;
   final bool isLive;
   final DateTime createdAt;
+  final String? category;
+  final DateTime? scheduledFor;
+  final List<String> rsvpUserIds;
 
   const VoiceRoom({
     required this.id,
@@ -24,6 +27,9 @@ class VoiceRoom {
     this.maxParticipants = 8,
     this.isLive = true,
     required this.createdAt,
+    this.category,
+    this.scheduledFor,
+    this.rsvpUserIds = const [],
   });
 
   factory VoiceRoom.fromJson(Map<String, dynamic> json) {
@@ -65,6 +71,22 @@ class VoiceRoom {
       createdAt: json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
           : DateTime.now(),
+      category: json['category']?.toString(),
+      scheduledFor: json['scheduledFor'] != null
+          ? DateTime.tryParse(json['scheduledFor'].toString())
+          : null,
+      rsvpUserIds: (json['rsvps'] as List?)
+              ?.map((e) {
+                if (e is Map) {
+                  final user = e['user'];
+                  if (user is Map) return user['_id']?.toString() ?? user['id']?.toString();
+                  return user?.toString();
+                }
+                return null;
+              })
+              .whereType<String>()
+              .toList() ??
+          const [],
     );
   }
 
@@ -81,6 +103,9 @@ class VoiceRoom {
       'maxParticipants': maxParticipants,
       'isLive': isLive,
       'createdAt': createdAt.toIso8601String(),
+      if (category != null) 'category': category,
+      if (scheduledFor != null) 'scheduledFor': scheduledFor!.toIso8601String(),
+      'rsvpUserIds': rsvpUserIds,
     };
   }
 
@@ -96,6 +121,9 @@ class VoiceRoom {
     int? maxParticipants,
     bool? isLive,
     DateTime? createdAt,
+    String? category,
+    DateTime? scheduledFor,
+    List<String>? rsvpUserIds,
   }) {
     return VoiceRoom(
       id: id ?? this.id,
@@ -109,6 +137,9 @@ class VoiceRoom {
       maxParticipants: maxParticipants ?? this.maxParticipants,
       isLive: isLive ?? this.isLive,
       createdAt: createdAt ?? this.createdAt,
+      category: category ?? this.category,
+      scheduledFor: scheduledFor ?? this.scheduledFor,
+      rsvpUserIds: rsvpUserIds ?? this.rsvpUserIds,
     );
   }
 

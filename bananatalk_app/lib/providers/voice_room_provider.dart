@@ -255,6 +255,40 @@ class VoiceRoomNotifier extends ChangeNotifier {
     }
   }
 
+  /// RSVP to a scheduled room
+  Future<void> rsvp(String roomId) async {
+    await _apiClient.post('voicerooms/$roomId/rsvp');
+  }
+
+  /// Cancel RSVP for a scheduled room
+  Future<void> unrsvp(String roomId) async {
+    await _apiClient.delete('voicerooms/$roomId/rsvp');
+  }
+
+  /// Fetch scheduled (upcoming) rooms
+  Future<List<VoiceRoom>> fetchScheduledRooms() async {
+    try {
+      final response = await _apiClient.get('voicerooms?status=scheduled');
+      if (response.success) {
+        List data;
+        if (response.data is List) {
+          data = response.data as List;
+        } else if (response.data is Map && response.data['data'] is List) {
+          data = response.data['data'] as List;
+        } else {
+          data = [];
+        }
+        return data
+            .map((r) => VoiceRoom.fromJson(Map<String, dynamic>.from(r)))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      debugPrint('[VoiceRoom] fetchScheduledRooms error: $e');
+      return [];
+    }
+  }
+
   /// Clear error
   void clearError() {
     _state = _state.copyWith(error: null);
