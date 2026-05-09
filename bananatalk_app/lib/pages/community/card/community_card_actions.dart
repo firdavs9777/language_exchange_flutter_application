@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
+import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -53,7 +54,15 @@ class CommunityCardActions extends ConsumerWidget {
       future: _inCooldown(community.id),
       builder: (context, snapshot) {
         final cooldownActive = snapshot.data ?? false;
-        return _buildWaveButton(context, cooldownActive);
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _buildWaveButton(context, cooldownActive),
+            const SizedBox(height: 6),
+            ConversationStarterRibbon(community: community, compact: true),
+          ],
+        );
       },
     );
   }

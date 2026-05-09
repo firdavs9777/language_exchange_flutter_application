@@ -48,12 +48,15 @@ class ChatScreen extends ConsumerStatefulWidget {
   final String? profilePicture;
   final bool isVip;
 
+  final String? prefillMessage;
+
   const ChatScreen({
     super.key,
     required this.userId,
     required this.userName,
     this.profilePicture,
     this.isVip = false,
+    this.prefillMessage,
   });
 
   @override
@@ -117,6 +120,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       if (mounted) {
         _chatPartnersNotifier = ref.read(chatPartnersProvider.notifier);
         _chatPartnersNotifier?.setActiveChat(widget.userId);
+        // Pre-fill the message input if a prompt was passed (e.g. from
+        // the conversation-starter ribbon). Only set when the field is
+        // still empty so an existing draft is never overwritten.
+        if (widget.prefillMessage != null &&
+            widget.prefillMessage!.isNotEmpty &&
+            _messageController.text.isEmpty) {
+          _messageController.text = widget.prefillMessage!;
+        }
       }
     });
   }

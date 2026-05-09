@@ -172,9 +172,10 @@ final goRouter = GoRouter(
       path: '/chat/:userId',
       pageBuilder: (context, state) {
         final userId = state.pathParameters['userId']!;
+        final prefill = state.uri.queryParameters['prefill'];
         return _buildSlideTransition(
           state: state,
-          child: ChatScreenWrapper(userId: userId),
+          child: ChatScreenWrapper(userId: userId, prefillMessage: prefill),
         );
       },
     ),

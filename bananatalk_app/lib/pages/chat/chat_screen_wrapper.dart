@@ -11,10 +11,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChatScreenWrapper extends ConsumerStatefulWidget {
   final String userId;
+  final String? prefillMessage;
 
   const ChatScreenWrapper({
     super.key,
     required this.userId,
+    this.prefillMessage,
   });
 
   @override
@@ -220,6 +222,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
       userName: _userData!.name,
       profilePicture: _userData!.profileImageUrl,
       isVip: _userData!.isVip,
+      prefillMessage: widget.prefillMessage,
     );
   }
 }
