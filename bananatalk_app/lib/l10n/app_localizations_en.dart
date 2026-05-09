@@ -4825,4 +4825,146 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Handwriting';
+
+  @override
+  String get pickDate => 'Pick date';
+
+  @override
+  String get pickTime => 'Pick time';
+
+  @override
+  String get upcomingRooms => 'Upcoming';
+
+  @override
+  String inHours(int h, int m) {
+    return 'in ${h}h ${m}m';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'in ${m}m';
+  }
+
+  @override
+  String get startsNow => 'Starting now';
+
+  @override
+  String get iWillBeThere => 'I\'ll be there';
+
+  @override
+  String get cantMakeIt => 'Can\'t make it';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count RSVPs',
+      one: '1 RSVP',
+      zero: 'No RSVPs',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title starts in 1 hour';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title starts in 15 minutes';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title is starting now';
+  }
+
+  @override
+  String get cancelRoom => 'Cancel room';
+
+  @override
+  String get muteAll => 'Mute all';
+
+  @override
+  String get mutedByHost => 'Host muted everyone';
+
+  @override
+  String get muteAllConfirm => 'Mute everyone in the room?';
+
+  @override
+  String get categoryCasual => 'Casual';
+
+  @override
+  String get categoryLanguagePractice => 'Language practice';
+
+  @override
+  String get categoryTopic => 'Topic';
+
+  @override
+  String get categoryQA => 'Q&A';
+
+  @override
+  String get pickCategory => 'Category';
+
+  @override
+  String get sortRecentlyActive => 'Recently active';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count people visited your profile',
+      one: '1 person visited your profile',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'No recent visitors';
+
+  @override
+  String get viewArchive => 'View archive';
+
+  @override
+  String get archivedWaves => 'Archived waves';
+
+  @override
+  String get noArchivedWaves => 'No archived waves';
+
+  @override
+  String get mutualInterestsMin => 'Mutual interests (min)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'At least $n topics in common',
+      one: 'At least 1 topic in common',
+      zero: 'Any',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Ask about their last moment';
+
+  @override
+  String get starterSayHi => 'Say hi in their language';
+
+  @override
+  String get starterCurious => 'What are they curious about?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Hi from $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Help them practice $language!';
+  }
 }
