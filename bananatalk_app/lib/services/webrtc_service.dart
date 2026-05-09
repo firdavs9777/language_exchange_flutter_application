@@ -32,6 +32,12 @@ class WebRTCService {
   Timer? _audioLevelTimer;
   Duration _pollInterval = const Duration(milliseconds: 500);
 
+  // Local audio-level polling — separate stream for the local user's mic level
+  final _localAudioLevelController = StreamController<double>.broadcast();
+  Stream<double> get localAudioLevel => _localAudioLevelController.stream;
+
+  Timer? _localPollTimer;
+
   void startAudioLevelPolling() {
     _audioLevelTimer?.cancel();
     _audioLevelTimer =
@@ -49,6 +55,49 @@ class WebRTCService {
     if (_audioLevelTimer != null) {
       startAudioLevelPolling();
     }
+  }
+
+  void startLocalAudioLevelPolling() {
+    _localPollTimer?.cancel();
+    _localPollTimer =
+        Timer.periodic(const Duration(milliseconds: 500), (_) async {
+      if (_localStream == null || _peerConnections.isEmpty) return;
+      try {
+        // Local audio level appears under media-source on any peer connection
+        final pc = _peerConnections.values.first;
+        final stats = await pc.getStats();
+        for (final report in stats) {
+          if (report.type == 'media-source' &&
+              report.values['kind'] == 'audio') {
+            final level =
+                (report.values['audioLevel'] as num?)?.toDouble() ?? 0;
+            if (!_localAudioLevelController.isClosed) {
+              _localAudioLevelController.add(level);
+            }
+            return;
+          }
+        }
+        // Fallback: try outbound-rtp audio reports if media-source isn't available
+        for (final report in stats) {
+          if (report.type == 'outbound-rtp' &&
+              report.values['kind'] == 'audio') {
+            final level =
+                (report.values['audioLevel'] as num?)?.toDouble() ?? 0;
+            if (!_localAudioLevelController.isClosed) {
+              _localAudioLevelController.add(level);
+            }
+            return;
+          }
+        }
+      } catch (_) {
+        // Skip this tick
+      }
+    });
+  }
+
+  void stopLocalAudioLevelPolling() {
+    _localPollTimer?.cancel();
+    _localPollTimer = null;
   }
 
   Future<void> _pollAudioLevels() async {
@@ -461,6 +510,8 @@ class WebRTCService {
     _disposed = true;
     stopAudioLevelPolling();
     _audioLevelsController.close();
+    stopLocalAudioLevelPolling();
+    _localAudioLevelController.close();
     try {
       _localStream?.getTracks().forEach((track) => track.stop());
       _localStream?.dispose();
