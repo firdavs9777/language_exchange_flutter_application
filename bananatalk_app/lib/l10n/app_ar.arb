@@ -1774,5 +1774,112 @@
   "fontNormal": "عادي",
   "fontBold": "عريض",
   "fontItalic": "مائل",
-  "fontHandwriting": "خط اليد"
+  "fontHandwriting": "خط اليد",
+  "pickDate": "اختر التاريخ",
+  "pickTime": "اختر الوقت",
+  "upcomingRooms": "القادمة",
+  "inHours": "خلال {h}س {m}د",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "خلال {m}د",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "يبدأ الآن",
+  "iWillBeThere": "سأكون هناك",
+  "cantMakeIt": "لا أستطيع الحضور",
+  "rsvpCount": "{count, plural, =0{لا يوجد تأكيد} =1{تأكيد واحد} other{{count} تأكيدات}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "يبدأ {title} خلال ساعة",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "يبدأ {title} خلال 15 دقيقة",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} يبدأ الآن",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "إلغاء الغرفة",
+  "muteAll": "كتم الجميع",
+  "mutedByHost": "قام المضيف بكتم الجميع",
+  "muteAllConfirm": "كتم الجميع في الغرفة؟",
+  "categoryCasual": "عادي",
+  "categoryLanguagePractice": "ممارسة اللغة",
+  "categoryTopic": "موضوع",
+  "categoryQA": "سؤال وجواب",
+  "pickCategory": "الفئة",
+  "sortRecentlyActive": "النشط مؤخراً",
+  "visitedYourProfile": "{count, plural, =1{شخص واحد زار ملفك الشخصي} other{{count} أشخاص زاروا ملفك الشخصي}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "لا يوجد زوار مؤخراً",
+  "viewArchive": "عرض الأرشيف",
+  "archivedWaves": "الموجات المؤرشفة",
+  "noArchivedWaves": "لا توجد موجات مؤرشفة",
+  "mutualInterestsMin": "الاهتمامات المشتركة (الحد الأدنى)",
+  "atLeastNTopics": "{n, plural, =0{أي} =1{موضوع مشترك واحد على الأقل} other{{n} مواضيع مشتركة على الأقل}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "اسأل عن آخر لحظة لديهم",
+  "starterSayHi": "قل مرحباً بلغتهم",
+  "starterCurious": "ما الذي يثير فضولهم؟",
+  "starterFromCountry": "مرحباً من {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "ساعدهم على ممارسة {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -4819,4 +4819,146 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Chữ viết tay';
+
+  @override
+  String get pickDate => 'Chọn ngày';
+
+  @override
+  String get pickTime => 'Chọn giờ';
+
+  @override
+  String get upcomingRooms => 'Sắp diễn ra';
+
+  @override
+  String inHours(int h, int m) {
+    return 'sau ${h}g ${m}ph';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'sau ${m}ph';
+  }
+
+  @override
+  String get startsNow => 'Đang bắt đầu';
+
+  @override
+  String get iWillBeThere => 'Tôi sẽ tham gia';
+
+  @override
+  String get cantMakeIt => 'Tôi không thể tham gia';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count xác nhận',
+      one: '1 xác nhận',
+      zero: 'Chưa có xác nhận',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title bắt đầu sau 1 giờ';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title bắt đầu sau 15 phút';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title đang bắt đầu ngay bây giờ';
+  }
+
+  @override
+  String get cancelRoom => 'Huỷ phòng';
+
+  @override
+  String get muteAll => 'Tắt tiếng tất cả';
+
+  @override
+  String get mutedByHost => 'Chủ phòng đã tắt tiếng mọi người';
+
+  @override
+  String get muteAllConfirm => 'Tắt tiếng tất cả trong phòng?';
+
+  @override
+  String get categoryCasual => 'Thông thường';
+
+  @override
+  String get categoryLanguagePractice => 'Luyện ngôn ngữ';
+
+  @override
+  String get categoryTopic => 'Chủ đề';
+
+  @override
+  String get categoryQA => 'Hỏi đáp';
+
+  @override
+  String get pickCategory => 'Danh mục';
+
+  @override
+  String get sortRecentlyActive => 'Hoạt động gần đây';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người đã xem hồ sơ của bạn',
+      one: '1 người đã xem hồ sơ của bạn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Không có người xem gần đây';
+
+  @override
+  String get viewArchive => 'Xem kho lưu trữ';
+
+  @override
+  String get archivedWaves => 'Wave đã lưu trữ';
+
+  @override
+  String get noArchivedWaves => 'Không có Wave đã lưu trữ';
+
+  @override
+  String get mutualInterestsMin => 'Sở thích chung (tối thiểu)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Ít nhất $n chủ đề chung',
+      one: 'Ít nhất 1 chủ đề chung',
+      zero: 'Bất kỳ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Hỏi về khoảnh khắc gần nhất của họ';
+
+  @override
+  String get starterSayHi => 'Chào hỏi bằng ngôn ngữ của họ';
+
+  @override
+  String get starterCurious => 'Họ đang tò mò về điều gì?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Xin chào từ $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Giúp họ luyện tập $language!';
+  }
 }

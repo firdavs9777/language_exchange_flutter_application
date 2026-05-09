@@ -1725,5 +1725,112 @@
   "fontNormal": "一般",
   "fontBold": "粗體",
   "fontItalic": "斜體",
-  "fontHandwriting": "手寫體"
+  "fontHandwriting": "手寫體",
+  "pickDate": "選擇日期",
+  "pickTime": "選擇時間",
+  "upcomingRooms": "即將開始",
+  "inHours": "{h}小時{m}分鐘後",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "{m}分鐘後",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "正在開始",
+  "iWillBeThere": "我會參加",
+  "cantMakeIt": "我無法參加",
+  "rsvpCount": "{count, plural, =0{尚無報名} =1{1人報名} other{{count}人報名}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title}將在1小時後開始",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title}將在15分鐘後開始",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title}正在開始",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "取消房間",
+  "muteAll": "全員靜音",
+  "mutedByHost": "主持人已將所有人靜音",
+  "muteAllConfirm": "將房間內所有人靜音？",
+  "categoryCasual": "輕鬆",
+  "categoryLanguagePractice": "語言練習",
+  "categoryTopic": "話題",
+  "categoryQA": "問答",
+  "pickCategory": "分類",
+  "sortRecentlyActive": "最近活躍",
+  "visitedYourProfile": "{count, plural, =1{1人造訪了您的個人頁面} other{{count}人造訪了您的個人頁面}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "暫無近期訪客",
+  "viewArchive": "查看封存",
+  "archivedWaves": "已封存的Wave",
+  "noArchivedWaves": "暫無已封存的Wave",
+  "mutualInterestsMin": "共同興趣（最少）",
+  "atLeastNTopics": "{n, plural, =0{不限} =1{至少1個共同話題} other{至少{n}個共同話題}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "詢問他們最近的難忘時刻",
+  "starterSayHi": "用他們的語言打招呼",
+  "starterCurious": "他們對什麼感到好奇？",
+  "starterFromCountry": "來自{country}的您好！",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "幫助他們練習{language}！",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

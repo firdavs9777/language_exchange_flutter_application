@@ -1602,5 +1602,112 @@
   "fontNormal": "ปกติ",
   "fontBold": "ตัวหนา",
   "fontItalic": "ตัวเอียง",
-  "fontHandwriting": "ลายมือ"
+  "fontHandwriting": "ลายมือ",
+  "pickDate": "เลือกวันที่",
+  "pickTime": "เลือกเวลา",
+  "upcomingRooms": "กำลังจะมาถึง",
+  "inHours": "ใน {h}ชม. {m}น.",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "ใน {m}น.",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "เริ่มแล้วตอนนี้",
+  "iWillBeThere": "ฉันจะไป",
+  "cantMakeIt": "ฉันไปไม่ได้",
+  "rsvpCount": "{count, plural, =0{ยังไม่มีการตอบรับ} =1{1 การตอบรับ} other{{count} การตอบรับ}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} จะเริ่มใน 1 ชั่วโมง",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} จะเริ่มใน 15 นาที",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} กำลังเริ่มต้นแล้ว",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "ยกเลิกห้อง",
+  "muteAll": "ปิดเสียงทุกคน",
+  "mutedByHost": "โฮสต์ปิดเสียงทุกคนแล้ว",
+  "muteAllConfirm": "ปิดเสียงทุกคนในห้องใช่ไหม?",
+  "categoryCasual": "ทั่วไป",
+  "categoryLanguagePractice": "ฝึกภาษา",
+  "categoryTopic": "หัวข้อ",
+  "categoryQA": "ถาม-ตอบ",
+  "pickCategory": "หมวดหมู่",
+  "sortRecentlyActive": "เคลื่อนไหวล่าสุด",
+  "visitedYourProfile": "{count, plural, =1{1 คนเยี่ยมชมโปรไฟล์ของคุณ} other{{count} คนเยี่ยมชมโปรไฟล์ของคุณ}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "ยังไม่มีผู้เยี่ยมชมล่าสุด",
+  "viewArchive": "ดูคลังเก็บถาวร",
+  "archivedWaves": "Wave ที่เก็บถาวร",
+  "noArchivedWaves": "ไม่มี Wave ที่เก็บถาวร",
+  "mutualInterestsMin": "ความสนใจร่วม (ขั้นต่ำ)",
+  "atLeastNTopics": "{n, plural, =0{ทั้งหมด} =1{อย่างน้อย 1 หัวข้อร่วม} other{อย่างน้อย {n} หัวข้อร่วม}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "ถามเกี่ยวกับช่วงเวลาล่าสุดของพวกเขา",
+  "starterSayHi": "ทักทายด้วยภาษาของพวกเขา",
+  "starterCurious": "พวกเขาสงสัยเรื่องอะไร?",
+  "starterFromCountry": "สวัสดีจาก {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "ช่วยพวกเขาฝึก {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

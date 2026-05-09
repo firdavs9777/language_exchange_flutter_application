@@ -4819,4 +4819,146 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get fontHandwriting => '手書き';
+
+  @override
+  String get pickDate => '日付を選択';
+
+  @override
+  String get pickTime => '時間を選択';
+
+  @override
+  String get upcomingRooms => '予定';
+
+  @override
+  String inHours(int h, int m) {
+    return '$h時間$m分後';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return '$m分後';
+  }
+
+  @override
+  String get startsNow => '今すぐ開始';
+
+  @override
+  String get iWillBeThere => '参加します';
+
+  @override
+  String get cantMakeIt => '参加できません';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の参加',
+      one: '1件の参加',
+      zero: '参加者なし',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$titleは1時間後に始まります';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$titleは15分後に始まります';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$titleが今始まります';
+  }
+
+  @override
+  String get cancelRoom => 'ルームをキャンセル';
+
+  @override
+  String get muteAll => '全員をミュート';
+
+  @override
+  String get mutedByHost => 'ホストが全員をミュートしました';
+
+  @override
+  String get muteAllConfirm => 'ルーム全員をミュートしますか？';
+
+  @override
+  String get categoryCasual => 'カジュアル';
+
+  @override
+  String get categoryLanguagePractice => '語学練習';
+
+  @override
+  String get categoryTopic => 'トピック';
+
+  @override
+  String get categoryQA => 'Q&A';
+
+  @override
+  String get pickCategory => 'カテゴリ';
+
+  @override
+  String get sortRecentlyActive => '最近アクティブ';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人があなたのプロフィールを訪問しました',
+      one: '1人があなたのプロフィールを訪問しました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => '最近の訪問者はいません';
+
+  @override
+  String get viewArchive => 'アーカイブを見る';
+
+  @override
+  String get archivedWaves => 'アーカイブ済みWave';
+
+  @override
+  String get noArchivedWaves => 'アーカイブ済みWaveなし';
+
+  @override
+  String get mutualInterestsMin => '共通の興味（最低）';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '少なくとも$nつの共通トピック',
+      one: '少なくとも1つの共通トピック',
+      zero: '任意',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => '彼らの最近の出来事を聞いてみよう';
+
+  @override
+  String get starterSayHi => '彼らの言語で挨拶しよう';
+
+  @override
+  String get starterCurious => '彼らが気になっていることは？';
+
+  @override
+  String starterFromCountry(String country) {
+    return '$countryからこんにちは！';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return '$languageの練習を手伝ってあげよう！';
+  }
 }

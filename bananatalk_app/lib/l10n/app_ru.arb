@@ -1774,5 +1774,112 @@
   "fontNormal": "Обычный",
   "fontBold": "Жирный",
   "fontItalic": "Курсив",
-  "fontHandwriting": "Рукописный"
+  "fontHandwriting": "Рукописный",
+  "pickDate": "Выбрать дату",
+  "pickTime": "Выбрать время",
+  "upcomingRooms": "Предстоящие",
+  "inHours": "через {h}ч {m}мин",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "через {m}мин",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Начинается сейчас",
+  "iWillBeThere": "Я буду",
+  "cantMakeIt": "Не смогу прийти",
+  "rsvpCount": "{count, plural, =0{Нет подтверждений} =1{1 подтверждение} other{{count} подтверждений}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} начнётся через 1 час",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} начнётся через 15 минут",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} начинается сейчас",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Отменить комнату",
+  "muteAll": "Отключить всех",
+  "mutedByHost": "Хост отключил всех",
+  "muteAllConfirm": "Отключить всех в комнате?",
+  "categoryCasual": "Непринуждённо",
+  "categoryLanguagePractice": "Языковая практика",
+  "categoryTopic": "Тема",
+  "categoryQA": "Вопросы и ответы",
+  "pickCategory": "Категория",
+  "sortRecentlyActive": "Недавно активные",
+  "visitedYourProfile": "{count, plural, =1{1 человек посетил ваш профиль} other{{count} человек посетили ваш профиль}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "Нет недавних посетителей",
+  "viewArchive": "Просмотреть архив",
+  "archivedWaves": "Архивные волны",
+  "noArchivedWaves": "Нет архивных волн",
+  "mutualInterestsMin": "Общие интересы (мин)",
+  "atLeastNTopics": "{n, plural, =0{Любые} =1{Хотя бы 1 общая тема} other{Хотя бы {n} общих темы}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Спросите об их последнем моменте",
+  "starterSayHi": "Поздоровайтесь на их языке",
+  "starterCurious": "Что им интересно?",
+  "starterFromCountry": "Привет из {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "Помогите им практиковать {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

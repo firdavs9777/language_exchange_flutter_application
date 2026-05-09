@@ -1602,5 +1602,112 @@
   "fontNormal": "Thường",
   "fontBold": "Đậm",
   "fontItalic": "Nghiêng",
-  "fontHandwriting": "Chữ viết tay"
+  "fontHandwriting": "Chữ viết tay",
+  "pickDate": "Chọn ngày",
+  "pickTime": "Chọn giờ",
+  "upcomingRooms": "Sắp diễn ra",
+  "inHours": "sau {h}g {m}ph",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "sau {m}ph",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Đang bắt đầu",
+  "iWillBeThere": "Tôi sẽ tham gia",
+  "cantMakeIt": "Tôi không thể tham gia",
+  "rsvpCount": "{count, plural, =0{Chưa có xác nhận} =1{1 xác nhận} other{{count} xác nhận}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} bắt đầu sau 1 giờ",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} bắt đầu sau 15 phút",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} đang bắt đầu ngay bây giờ",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Huỷ phòng",
+  "muteAll": "Tắt tiếng tất cả",
+  "mutedByHost": "Chủ phòng đã tắt tiếng mọi người",
+  "muteAllConfirm": "Tắt tiếng tất cả trong phòng?",
+  "categoryCasual": "Thông thường",
+  "categoryLanguagePractice": "Luyện ngôn ngữ",
+  "categoryTopic": "Chủ đề",
+  "categoryQA": "Hỏi đáp",
+  "pickCategory": "Danh mục",
+  "sortRecentlyActive": "Hoạt động gần đây",
+  "visitedYourProfile": "{count, plural, =1{1 người đã xem hồ sơ của bạn} other{{count} người đã xem hồ sơ của bạn}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "Không có người xem gần đây",
+  "viewArchive": "Xem kho lưu trữ",
+  "archivedWaves": "Wave đã lưu trữ",
+  "noArchivedWaves": "Không có Wave đã lưu trữ",
+  "mutualInterestsMin": "Sở thích chung (tối thiểu)",
+  "atLeastNTopics": "{n, plural, =0{Bất kỳ} =1{Ít nhất 1 chủ đề chung} other{Ít nhất {n} chủ đề chung}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Hỏi về khoảnh khắc gần nhất của họ",
+  "starterSayHi": "Chào hỏi bằng ngôn ngữ của họ",
+  "starterCurious": "Họ đang tò mò về điều gì?",
+  "starterFromCountry": "Xin chào từ {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "Giúp họ luyện tập {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

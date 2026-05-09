@@ -4819,4 +4819,146 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Рукописный';
+
+  @override
+  String get pickDate => 'Выбрать дату';
+
+  @override
+  String get pickTime => 'Выбрать время';
+
+  @override
+  String get upcomingRooms => 'Предстоящие';
+
+  @override
+  String inHours(int h, int m) {
+    return 'через $hч $mмин';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'через $mмин';
+  }
+
+  @override
+  String get startsNow => 'Начинается сейчас';
+
+  @override
+  String get iWillBeThere => 'Я буду';
+
+  @override
+  String get cantMakeIt => 'Не смогу прийти';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count подтверждений',
+      one: '1 подтверждение',
+      zero: 'Нет подтверждений',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title начнётся через 1 час';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title начнётся через 15 минут';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title начинается сейчас';
+  }
+
+  @override
+  String get cancelRoom => 'Отменить комнату';
+
+  @override
+  String get muteAll => 'Отключить всех';
+
+  @override
+  String get mutedByHost => 'Хост отключил всех';
+
+  @override
+  String get muteAllConfirm => 'Отключить всех в комнате?';
+
+  @override
+  String get categoryCasual => 'Непринуждённо';
+
+  @override
+  String get categoryLanguagePractice => 'Языковая практика';
+
+  @override
+  String get categoryTopic => 'Тема';
+
+  @override
+  String get categoryQA => 'Вопросы и ответы';
+
+  @override
+  String get pickCategory => 'Категория';
+
+  @override
+  String get sortRecentlyActive => 'Недавно активные';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count человек посетили ваш профиль',
+      one: '1 человек посетил ваш профиль',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Нет недавних посетителей';
+
+  @override
+  String get viewArchive => 'Просмотреть архив';
+
+  @override
+  String get archivedWaves => 'Архивные волны';
+
+  @override
+  String get noArchivedWaves => 'Нет архивных волн';
+
+  @override
+  String get mutualInterestsMin => 'Общие интересы (мин)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Хотя бы $n общих темы',
+      one: 'Хотя бы 1 общая тема',
+      zero: 'Любые',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Спросите об их последнем моменте';
+
+  @override
+  String get starterSayHi => 'Поздоровайтесь на их языке';
+
+  @override
+  String get starterCurious => 'Что им интересно?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Привет из $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Помогите им практиковать $language!';
+  }
 }

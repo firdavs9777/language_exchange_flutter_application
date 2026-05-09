@@ -2029,5 +2029,112 @@
   "fontNormal": "Normal",
   "fontBold": "Gras",
   "fontItalic": "Italique",
-  "fontHandwriting": "Écriture manuscrite"
+  "fontHandwriting": "Écriture manuscrite",
+  "pickDate": "Choisir une date",
+  "pickTime": "Choisir une heure",
+  "upcomingRooms": "À venir",
+  "inHours": "dans {h}h {m}min",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "dans {m}min",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Démarre maintenant",
+  "iWillBeThere": "J'y serai",
+  "cantMakeIt": "Je ne peux pas venir",
+  "rsvpCount": "{count, plural, =0{Aucune confirmation} =1{1 confirmation} other{{count} confirmations}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} commence dans 1 heure",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} commence dans 15 minutes",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} commence maintenant",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Annuler le salon",
+  "muteAll": "Couper le son de tous",
+  "mutedByHost": "L'hôte a coupé le son de tous",
+  "muteAllConfirm": "Couper le son de tous dans le salon ?",
+  "categoryCasual": "Décontracté",
+  "categoryLanguagePractice": "Pratique linguistique",
+  "categoryTopic": "Sujet",
+  "categoryQA": "Questions-réponses",
+  "pickCategory": "Catégorie",
+  "sortRecentlyActive": "Actif récemment",
+  "visitedYourProfile": "{count, plural, =1{1 personne a visité votre profil} other{{count} personnes ont visité votre profil}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "Aucun visiteur récent",
+  "viewArchive": "Voir l'archive",
+  "archivedWaves": "Waves archivées",
+  "noArchivedWaves": "Aucune wave archivée",
+  "mutualInterestsMin": "Intérêts communs (min)",
+  "atLeastNTopics": "{n, plural, =0{N'importe lequel} =1{Au moins 1 sujet en commun} other{Au moins {n} sujets en commun}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Demandez-leur leur dernier moment",
+  "starterSayHi": "Dites bonjour dans leur langue",
+  "starterCurious": "Qu'est-ce qui les intéresse ?",
+  "starterFromCountry": "Bonjour depuis {country} !",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "Aidez-les à pratiquer {language} !",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -4819,4 +4819,146 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Tulisan tangan';
+
+  @override
+  String get pickDate => 'Pilih tanggal';
+
+  @override
+  String get pickTime => 'Pilih waktu';
+
+  @override
+  String get upcomingRooms => 'Mendatang';
+
+  @override
+  String inHours(int h, int m) {
+    return 'dalam ${h}j ${m}m';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'dalam ${m}m';
+  }
+
+  @override
+  String get startsNow => 'Dimulai sekarang';
+
+  @override
+  String get iWillBeThere => 'Saya akan hadir';
+
+  @override
+  String get cantMakeIt => 'Saya tidak bisa hadir';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count RSVP',
+      one: '1 RSVP',
+      zero: 'Belum ada RSVP',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title dimulai dalam 1 jam';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title dimulai dalam 15 menit';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title sedang dimulai sekarang';
+  }
+
+  @override
+  String get cancelRoom => 'Batalkan ruangan';
+
+  @override
+  String get muteAll => 'Bisukan semua';
+
+  @override
+  String get mutedByHost => 'Host membisukan semua orang';
+
+  @override
+  String get muteAllConfirm => 'Bisukan semua orang di ruangan?';
+
+  @override
+  String get categoryCasual => 'Santai';
+
+  @override
+  String get categoryLanguagePractice => 'Latihan bahasa';
+
+  @override
+  String get categoryTopic => 'Topik';
+
+  @override
+  String get categoryQA => 'Tanya jawab';
+
+  @override
+  String get pickCategory => 'Kategori';
+
+  @override
+  String get sortRecentlyActive => 'Baru-baru ini aktif';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count orang mengunjungi profil Anda',
+      one: '1 orang mengunjungi profil Anda',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Tidak ada pengunjung baru-baru ini';
+
+  @override
+  String get viewArchive => 'Lihat arsip';
+
+  @override
+  String get archivedWaves => 'Waves yang diarsipkan';
+
+  @override
+  String get noArchivedWaves => 'Tidak ada wave yang diarsipkan';
+
+  @override
+  String get mutualInterestsMin => 'Minat bersama (min)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Minimal $n topik yang sama',
+      one: 'Minimal 1 topik yang sama',
+      zero: 'Semua',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Tanyakan momen terakhir mereka';
+
+  @override
+  String get starterSayHi => 'Sapa dalam bahasa mereka';
+
+  @override
+  String get starterCurious => 'Apa yang membuat mereka penasaran?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Halo dari $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Bantu mereka berlatih $language!';
+  }
 }

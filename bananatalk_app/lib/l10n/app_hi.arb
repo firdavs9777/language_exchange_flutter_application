@@ -1760,5 +1760,112 @@
   "fontNormal": "सामान्य",
   "fontBold": "बोल्ड",
   "fontItalic": "इटैलिक",
-  "fontHandwriting": "हस्तलेखन"
+  "fontHandwriting": "हस्तलेखन",
+  "pickDate": "तारीख चुनें",
+  "pickTime": "समय चुनें",
+  "upcomingRooms": "आगामी",
+  "inHours": "{h}घं {m}मि में",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "{m}मि में",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "अभी शुरू हो रहा है",
+  "iWillBeThere": "मैं वहाँ रहूँगा/रहूँगी",
+  "cantMakeIt": "मैं नहीं आ सकता/सकती",
+  "rsvpCount": "{count, plural, =0{कोई RSVP नहीं} =1{1 RSVP} other{{count} RSVPs}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} 1 घंटे में शुरू होगा",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} 15 मिनट में शुरू होगा",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} अभी शुरू हो रहा है",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "कमरा रद्द करें",
+  "muteAll": "सभी को म्यूट करें",
+  "mutedByHost": "होस्ट ने सभी को म्यूट किया",
+  "muteAllConfirm": "कमरे में सभी को म्यूट करें?",
+  "categoryCasual": "आरामदायक",
+  "categoryLanguagePractice": "भाषा अभ्यास",
+  "categoryTopic": "विषय",
+  "categoryQA": "प्रश्न और उत्तर",
+  "pickCategory": "श्रेणी",
+  "sortRecentlyActive": "हाल ही में सक्रिय",
+  "visitedYourProfile": "{count, plural, =1{1 व्यक्ति ने आपकी प्रोफ़ाइल देखी} other{{count} लोगों ने आपकी प्रोफ़ाइल देखी}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "हाल के कोई आगंतुक नहीं",
+  "viewArchive": "संग्रह देखें",
+  "archivedWaves": "संग्रहीत Waves",
+  "noArchivedWaves": "कोई संग्रहीत Wave नहीं",
+  "mutualInterestsMin": "साझा रुचियाँ (न्यूनतम)",
+  "atLeastNTopics": "{n, plural, =0{कोई भी} =1{कम से कम 1 साझा विषय} other{कम से कम {n} साझा विषय}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "उनके आखिरी पल के बारे में पूछें",
+  "starterSayHi": "उनकी भाषा में नमस्ते कहें",
+  "starterCurious": "वे किस बारे में उत्सुक हैं?",
+  "starterFromCountry": "{country} से नमस्ते!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "उन्हें {language} अभ्यास करने में मदद करें!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

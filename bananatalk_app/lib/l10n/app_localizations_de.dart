@@ -4819,4 +4819,146 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Handschrift';
+
+  @override
+  String get pickDate => 'Datum auswählen';
+
+  @override
+  String get pickTime => 'Zeit auswählen';
+
+  @override
+  String get upcomingRooms => 'Bevorstehend';
+
+  @override
+  String inHours(int h, int m) {
+    return 'in ${h}Std. ${m}Min.';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'in ${m}Min.';
+  }
+
+  @override
+  String get startsNow => 'Beginnt jetzt';
+
+  @override
+  String get iWillBeThere => 'Ich bin dabei';
+
+  @override
+  String get cantMakeIt => 'Ich kann nicht kommen';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Zusagen',
+      one: '1 Zusage',
+      zero: 'Keine Zusagen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title beginnt in 1 Stunde';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title beginnt in 15 Minuten';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title beginnt jetzt';
+  }
+
+  @override
+  String get cancelRoom => 'Raum abbrechen';
+
+  @override
+  String get muteAll => 'Alle stummschalten';
+
+  @override
+  String get mutedByHost => 'Host hat alle stummgeschaltet';
+
+  @override
+  String get muteAllConfirm => 'Alle im Raum stummschalten?';
+
+  @override
+  String get categoryCasual => 'Locker';
+
+  @override
+  String get categoryLanguagePractice => 'Sprachübung';
+
+  @override
+  String get categoryTopic => 'Thema';
+
+  @override
+  String get categoryQA => 'Fragen & Antworten';
+
+  @override
+  String get pickCategory => 'Kategorie';
+
+  @override
+  String get sortRecentlyActive => 'Kürzlich aktiv';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Personen haben dein Profil besucht',
+      one: '1 Person hat dein Profil besucht',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Keine kürzlichen Besucher';
+
+  @override
+  String get viewArchive => 'Archiv anzeigen';
+
+  @override
+  String get archivedWaves => 'Archivierte Waves';
+
+  @override
+  String get noArchivedWaves => 'Keine archivierten Waves';
+
+  @override
+  String get mutualInterestsMin => 'Gemeinsame Interessen (min)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Mindestens $n gemeinsame Themen',
+      one: 'Mindestens 1 gemeinsames Thema',
+      zero: 'Beliebig',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Nach ihrem letzten Moment fragen';
+
+  @override
+  String get starterSayHi => 'Hallo in ihrer Sprache sagen';
+
+  @override
+  String get starterCurious => 'Was interessiert sie?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Hallo aus $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Hilf ihnen, $language zu üben!';
+  }
 }
