@@ -19,6 +19,7 @@ import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
 
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
@@ -183,6 +184,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               child: _isSearching ? _buildSearchBar(colorScheme) : null,
             ),
           ),
+          // Profile-visitor recall card (hidden when no visitors)
+          const VisitorRecallCard(),
           // Tab bar
           CommunityTabBar(tabController: _tabController),
           // Active filter chips
