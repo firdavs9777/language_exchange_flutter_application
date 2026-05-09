@@ -17,6 +17,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_empty_state.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/upcoming_section.dart';
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -28,6 +29,7 @@ class VoiceRoomsTab extends ConsumerStatefulWidget {
 
 class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   late Future<List<VoiceRoom>> _roomsFuture;
+  List<VoiceRoom> _scheduledRooms = [];
 
   String? _selectedLanguage;
   String? _selectedTopic;
@@ -36,6 +38,16 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   void initState() {
     super.initState();
     _roomsFuture = _fetchWithFilters();
+    _loadScheduled();
+  }
+
+  Future<void> _loadScheduled() async {
+    try {
+      final scheduled = await ref.read(voiceRoomProvider).fetchScheduledRooms();
+      if (mounted) setState(() => _scheduledRooms = scheduled);
+    } catch (_) {
+      // Silent fail — UpcomingSection hides itself when rooms is empty
+    }
   }
 
   Future<List<VoiceRoom>> _fetchWithFilters() {
@@ -48,6 +60,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     setState(() {
       _roomsFuture = _fetchWithFilters();
     });
+    await _loadScheduled();
   }
 
   void _setLanguageFilter(String? language) {
@@ -90,15 +103,17 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               category: category,
             );
             final room = await ref.read(voiceRoomProvider).createRoom(request);
-            _refreshRooms();
             if (mounted) {
               showCommunitySnackBar(
                 context,
                 message: l10n.roomCreated,
                 type: CommunitySnackBarType.success,
               );
-              if (scheduledFor == null) {
-                _joinRoom(room);
+              if (scheduledFor != null) {
+                await _loadScheduled();
+              } else {
+                _refreshRooms();
+                if (mounted) _joinRoom(room);
               }
             }
           } catch (e) {
@@ -277,6 +292,12 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             child: _buildFilters(
               l10n,
             ).animate().fadeIn(duration: 300.ms, delay: 80.ms),
+          ),
+          SliverToBoxAdapter(
+            child: UpcomingSection(
+              rooms: _scheduledRooms,
+              onRsvpToggle: _loadScheduled,
+            ),
           ),
           if (rooms.isEmpty)
             SliverFillRemaining(
