@@ -217,6 +217,11 @@ class VoiceRoomNotifier extends ChangeNotifier {
     _manager.kickParticipant(participantId);
   }
 
+  /// Mute all participants (host only)
+  void muteAll() {
+    _manager.muteAll();
+  }
+
   /// End the room (host only)
   void endRoom() {
     _manager.endRoom();

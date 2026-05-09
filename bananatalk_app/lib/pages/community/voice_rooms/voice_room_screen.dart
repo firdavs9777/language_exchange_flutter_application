@@ -81,6 +81,16 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           }
         }
       };
+
+      manager.onForcedMuteSelf = () {
+        if (!mounted) return;
+        final l10n = AppLocalizations.of(context)!;
+        showCommunitySnackBar(
+          context,
+          message: l10n.mutedByHost,
+          type: CommunitySnackBarType.info,
+        );
+      };
     });
   }
 
@@ -249,7 +259,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                   onMute: _toggleMute,
                   onLeave: _leaveRoom,
                   isHost: isHost,
-                  onEnd: () => showEndRoomConfirm(context, ref),
+                  onEnd: () => showHostMenu(context, ref),
                   unreadChatCount: _chatVisible ? 0 : unread,
                   onChatToggle: _toggleChat,
                   raiseHandLabel: l10n.raiseHand,

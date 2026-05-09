@@ -80,6 +80,8 @@ class VoiceRoomManager {
   Function()? onKicked;
   Function()? onStateChanged;
   Function()? onConnectionChanged;
+  /// Called when the host issues a mute-all and this user was forcibly muted.
+  Function()? onForcedMuteSelf;
 
   // Getters
   WebRTCService get webrtcService => _webrtcService;
@@ -220,12 +222,26 @@ class VoiceRoomManager {
     _muteSub = _chatSocketService!.onVoiceRoomMute.listen((data) {
       final participantId = data['userId']?.toString() ?? '';
       final isMuted = data['isMuted'] == true;
+      final forced = data['forced'] == true;
 
       final index = _participants.indexWhere((p) => p.id == participantId);
       if (index != -1) {
         _participants[index] = _participants[index].copyWith(isMuted: isMuted);
-        onStateChanged?.call();
       }
+
+      // If this is a forced mute aimed at the local user, mute the mic too
+      if (forced && isMuted) {
+        final myId = _chatSocketService?.currentUserId;
+        if (myId != null && participantId == myId) {
+          if (_webrtcService.isMicrophoneEnabled) {
+            _webrtcService.toggleMicrophone();
+          }
+          _isMuted = true;
+          onForcedMuteSelf?.call();
+        }
+      }
+
+      onStateChanged?.call();
     });
 
     // Hand raised
@@ -435,6 +451,12 @@ class VoiceRoomManager {
       'roomId': _currentRoom!.id,
       'message': message.trim(),
     });
+  }
+
+  /// Mute all participants (host only)
+  void muteAll() {
+    if (_currentRoom == null) return;
+    _socket?.emit('voiceroom:mute-all', {'roomId': _currentRoom!.id});
   }
 
   /// Kick a participant (host only)
