@@ -267,12 +267,16 @@ class CreateRoomRequest {
   final String topic;
   final String language;
   final int maxParticipants;
+  final DateTime? scheduledFor;
+  final String? category;
 
   const CreateRoomRequest({
     required this.title,
     required this.topic,
     required this.language,
     this.maxParticipants = 8,
+    this.scheduledFor,
+    this.category,
   });
 
   Map<String, dynamic> toJson() {
@@ -281,6 +285,9 @@ class CreateRoomRequest {
       'topic': topic,
       'language': language,
       'maxParticipants': maxParticipants,
+      if (scheduledFor != null) 'scheduledFor': scheduledFor!.toIso8601String(),
+      if (scheduledFor != null) 'status': 'scheduled',
+      if (category != null) 'category': category,
     };
   }
 }

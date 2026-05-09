@@ -71,7 +71,14 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => CreateRoomSheet(
-        onCreateRoom: (title, topic, language, maxParticipants) async {
+        onCreateRoom: (
+          title,
+          topic,
+          language,
+          maxParticipants,
+          scheduledFor,
+          category,
+        ) async {
           Navigator.pop(sheetContext);
           try {
             final request = CreateRoomRequest(
@@ -79,6 +86,8 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               topic: topic,
               language: language,
               maxParticipants: maxParticipants,
+              scheduledFor: scheduledFor,
+              category: category,
             );
             final room = await ref.read(voiceRoomProvider).createRoom(request);
             _refreshRooms();
@@ -88,7 +97,9 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                 message: l10n.roomCreated,
                 type: CommunitySnackBarType.success,
               );
-              _joinRoom(room);
+              if (scheduledFor == null) {
+                _joinRoom(room);
+              }
             }
           } catch (e) {
             if (mounted) {
