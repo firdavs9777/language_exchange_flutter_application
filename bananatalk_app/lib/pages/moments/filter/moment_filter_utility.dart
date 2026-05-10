@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:bananatalk_app/pages/moments/moment_filter_model.dart';
+import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 
 class MomentFilterUtility {
