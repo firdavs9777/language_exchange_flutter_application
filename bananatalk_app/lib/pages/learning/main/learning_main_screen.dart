@@ -7,6 +7,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/ai_tools_tab.dart';
+import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 
 /// Unified Study Hub — composes the Learn tab and AI Tools tab.
 class LearningMain extends ConsumerStatefulWidget {
@@ -20,6 +22,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _currentTab = 0;
+  int? _previousStreak;
 
   @override
   void initState() {
@@ -41,6 +44,21 @@ class _LearningMainState extends ConsumerState<LearningMain>
   @override
   Widget build(BuildContext context) {
     final isDark = context.isDarkMode;
+
+    ref.listen(learningProgressProvider, (previous, next) {
+      next.whenData((progress) {
+        if (progress == null) return;
+        final newStreak = progress.currentStreak;
+        if (_previousStreak != null && newStreak > _previousStreak!) {
+          StreakMilestoneCelebration.showIfMilestone(
+            context,
+            newStreak: newStreak,
+            previousStreak: _previousStreak!,
+          );
+        }
+        _previousStreak = newStreak;
+      });
+    });
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
