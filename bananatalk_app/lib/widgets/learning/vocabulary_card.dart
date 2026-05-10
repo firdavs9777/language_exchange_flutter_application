@@ -8,6 +8,9 @@ class VocabularyCard extends StatelessWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
   final bool showActions;
+  /// Optional mastery chip widget rendered in the top-right corner alongside
+  /// the SRS indicator and action buttons.
+  final Widget? masteryChip;
 
   const VocabularyCard({
     super.key,
@@ -16,6 +19,7 @@ class VocabularyCard extends StatelessWidget {
     this.onEdit,
     this.onDelete,
     this.showActions = true,
+    this.masteryChip,
   });
 
   @override
@@ -73,6 +77,10 @@ class VocabularyCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      if (masteryChip != null) ...[
+                        masteryChip!,
+                        const SizedBox(height: 6),
+                      ],
                       _buildSrsIndicator(),
                       if (showActions) ...[
                         const SizedBox(height: 8),
