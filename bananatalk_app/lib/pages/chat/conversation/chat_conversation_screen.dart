@@ -11,7 +11,6 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
@@ -38,6 +37,8 @@ import 'package:bananatalk_app/pages/chat/conversation/conversation_header.dart'
 import 'package:bananatalk_app/pages/chat/conversation/conversation_messages_view.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_input_area.dart';
 import 'package:bananatalk_app/pages/chat/conversation/handlers/message_action_handlers.dart';
+import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scroll_helpers.dart';
+import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_setup.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -183,23 +184,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
   }
 
-  /// Scroll to bottom (newest messages)
-  void _scrollToBottom({bool animated = true}) {
-    if (!_scrollController.hasClients) return;
-
-    // For non-reversed list, scroll to maxScrollExtent (bottom)
-    final targetPosition = _scrollController.position.maxScrollExtent;
-
-    if (animated && targetPosition > 0) {
-      _scrollController.animateTo(
-        targetPosition,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      );
-    } else {
-      _scrollController.jumpTo(targetPosition);
-    }
-  }
+  /// Scroll to bottom (newest messages).
+  /// Delegates to [scrollToBottom] in conversation_scroll_helpers.dart.
+  void _scrollToBottom({bool animated = true}) =>
+      scrollToBottom(controller: _scrollController, animated: animated);
 
   /// Scroll to a specific message by ID
   void _scrollToMessage(String messageId) {
@@ -508,18 +496,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
   }
 
-  void _setupCallListeners() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Check if still mounted before accessing providers
-      if (!mounted) return;
-
-      final callNotifier = ref.read(callProvider.notifier);
-      // Incoming call callback is set globally in main.dart
-      callNotifier.setCallErrorCallback((error) {
-        if (mounted) _handleCallError(context, error);
-      });
-    });
-  }
+  /// Registers call-error callback.
+  /// Delegates to [setupCallListeners] in conversation_setup.dart.
+  void _setupCallListeners() => setupCallListeners(
+        ref: ref,
+        onCallError: (error) {
+          if (mounted) _handleCallError(context, error);
+        },
+      );
 
   @override
   void didChangeDependencies() {
