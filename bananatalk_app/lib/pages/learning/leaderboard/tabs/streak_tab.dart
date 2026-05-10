@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_row_v1.dart';
+import 'package:bananatalk_app/pages/learning/leaderboard/widgets/leaderboard_row.dart';
 
 /// Streaks tab with current/longest type selector
 class StreakLeaderboardTab extends ConsumerWidget {
@@ -43,10 +44,35 @@ class StreakLeaderboardTab extends ConsumerWidget {
               if (response == null || response.entries.isEmpty) {
                 return buildLeaderboardEmptyState(context, l10n);
               }
-              return LeaderboardListV1(
-                response: response,
-                showStreak: true,
-                onRefresh: () => ref.invalidate(streakLeaderboardProvider(streakType)),
+              return RefreshIndicator(
+                onRefresh: () async =>
+                    ref.invalidate(streakLeaderboardProvider(streakType)),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    if (response.entries.length >= 3)
+                      LeaderboardPodiumV1(
+                        entries: response.entries.take(3).toList(),
+                        showStreak: true,
+                      ),
+                    if (response.userPosition != null &&
+                        response.userPosition!.rank > 10)
+                      LeaderboardUserPositionCard(
+                          position: response.userPosition!),
+                    ...response.entries.skip(3).map(
+                          (entry) => LeaderboardRow(
+                            rank: entry.rank,
+                            userId: entry.user.id,
+                            userName: entry.user.username,
+                            avatarUrl: entry.user.avatar,
+                            score: entry.streakDays ?? entry.streak,
+                            scoreLabel: l10n.days,
+                            isCurrentUser: entry.isCurrentUser,
+                          ),
+                        ),
+                    const SizedBox(height: 80),
+                  ],
+                ),
               );
             },
             loading: () => const Center(

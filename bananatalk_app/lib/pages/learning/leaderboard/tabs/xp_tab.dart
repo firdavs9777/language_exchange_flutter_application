@@ -5,6 +5,7 @@ import 'package:bananatalk_app/models/learning/leaderboard_model.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_row_v1.dart';
+import 'package:bananatalk_app/pages/learning/leaderboard/widgets/leaderboard_row.dart';
 
 /// XP Rankings tab with period selector
 class XpLeaderboardTab extends ConsumerWidget {
@@ -52,11 +53,35 @@ class XpLeaderboardTab extends ConsumerWidget {
               if (response == null || response.entries.isEmpty) {
                 return buildLeaderboardEmptyState(context, l10n);
               }
-              return LeaderboardListV1(
-                response: response,
-                onRefresh: () => ref.invalidate(xpLeaderboardProvider(
+              return RefreshIndicator(
+                onRefresh: () async => ref.invalidate(xpLeaderboardProvider(
                   LeaderboardFilter(period: period),
                 )),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    if (response.entries.length >= 3)
+                      LeaderboardPodiumV1(
+                        entries: response.entries.take(3).toList(),
+                      ),
+                    if (response.userPosition != null &&
+                        response.userPosition!.rank > 10)
+                      LeaderboardUserPositionCard(
+                          position: response.userPosition!),
+                    ...response.entries.skip(3).map(
+                          (entry) => LeaderboardRow(
+                            rank: entry.rank,
+                            userId: entry.user.id,
+                            userName: entry.user.username,
+                            avatarUrl: entry.user.avatar,
+                            score: entry.xp,
+                            scoreLabel: 'XP',
+                            isCurrentUser: entry.isCurrentUser,
+                          ),
+                        ),
+                    const SizedBox(height: 80),
+                  ],
+                ),
               );
             },
             loading: () => const Center(
