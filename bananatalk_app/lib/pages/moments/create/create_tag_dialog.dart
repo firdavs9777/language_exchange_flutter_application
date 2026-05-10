@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
+
+const String _kRecentTagsKey = 'recent_moment_tags';
+const int _kMaxRecentTags = 10;
+
+Future<List<String>> loadRecentMomentTags() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getStringList(_kRecentTagsKey) ?? <String>[];
+}
+
+Future<void> persistRecentMomentTag(String tag) async {
+  if (tag.isEmpty) return;
+  final prefs = await SharedPreferences.getInstance();
+  final current = prefs.getStringList(_kRecentTagsKey) ?? <String>[];
+  current.remove(tag);
+  current.insert(0, tag);
+  if (current.length > _kMaxRecentTags) {
+    current.removeRange(_kMaxRecentTags, current.length);
+  }
+  await prefs.setStringList(_kRecentTagsKey, current);
+}
 
 /// Shows a dialog that lets the user add and remove tags for a moment.
 ///
@@ -32,11 +53,11 @@ Future<List<String>> showCreateTagDialog(
           final l10n = AppLocalizations.of(dialogContext)!;
           final theme = Theme.of(dialogContext);
 
-          void addTag() {
-            final tag = controller.text.trim();
+          void addTag([String? tagOverride]) {
+            final tag = tagOverride ?? controller.text.trim();
             if (tag.isEmpty) return;
             if (workingTags.contains(tag)) {
-              controller.clear();
+              if (tagOverride == null) controller.clear();
               return;
             }
             if (workingTags.length >= maxTags) {
@@ -48,8 +69,9 @@ Future<List<String>> showCreateTagDialog(
             }
             setDialogState(() {
               workingTags.add(tag);
-              controller.clear();
+              if (tagOverride == null) controller.clear();
             });
+            persistRecentMomentTag(tag);
           }
 
           return AlertDialog(
@@ -109,6 +131,48 @@ Future<List<String>> showCreateTagDialog(
                       );
                     }).toList(),
                   ),
+                const SizedBox(height: 16),
+                FutureBuilder<List<String>>(
+                  future: loadRecentMomentTags(),
+                  builder: (ctx, snapshot) {
+                    final recent = snapshot.data ?? <String>[];
+                    final suggestable = recent
+                        .where((t) => !workingTags.contains(t))
+                        .take(8)
+                        .toList();
+                    if (suggestable.isEmpty) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          l10n.noRecentTags,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.disabledColor,
+                          ),
+                        ),
+                      );
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.recentTags,
+                          style: theme.textTheme.labelMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 6,
+                          children: suggestable.map((tag) {
+                            return ActionChip(
+                              label: Text('#$tag'),
+                              onPressed: () => addTag(tag),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
             actions: [
