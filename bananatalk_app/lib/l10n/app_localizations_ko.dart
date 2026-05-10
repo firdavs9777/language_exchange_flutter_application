@@ -4964,4 +4964,49 @@ class AppLocalizationsKo extends AppLocalizations {
   String starterPracticeLang(String language) {
     return '$language 연습을 도와드릴게요!';
   }
+
+  @override
+  String get momentsLoadError => '모먼트를 불러올 수 없습니다';
+
+  @override
+  String get momentsRetry => '다시 시도';
+
+  @override
+  String get recentTags => '최근 태그';
+
+  @override
+  String get noRecentTags => '최근 태그가 없습니다';
+
+  @override
+  String get hideMomentsFromUser => '이 사용자의 모먼트 숨기기';
+
+  @override
+  String get momentsHidden => '이 사용자의 모먼트가 숨겨집니다';
+
+  @override
+  String get unhideMoments => '이 사용자의 모먼트 다시 표시';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '사용자 $count명 숨김',
+      one: '사용자 1명 숨김',
+      zero: '숨긴 사용자 없음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => '모먼트를 저장할 수 없습니다';
+
+  @override
+  String get tagAlreadyAdded => '이미 추가된 태그입니다';
+
+  @override
+  String get tagLimitReached => '최대 태그 수에 도달했습니다';
+
+  @override
+  String get hideThisUser => '이 사용자의 게시물 숨기기';
 }

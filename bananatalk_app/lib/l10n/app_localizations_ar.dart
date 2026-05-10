@@ -4964,4 +4964,49 @@ class AppLocalizationsAr extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'ساعدهم على ممارسة $language!';
   }
+
+  @override
+  String get momentsLoadError => 'تعذر تحميل اللحظات';
+
+  @override
+  String get momentsRetry => 'إعادة المحاولة';
+
+  @override
+  String get recentTags => 'العلامات الأخيرة';
+
+  @override
+  String get noRecentTags => 'لا توجد علامات حديثة بعد';
+
+  @override
+  String get hideMomentsFromUser => 'إخفاء لحظات هذا المستخدم';
+
+  @override
+  String get momentsHidden => 'سيتم إخفاء لحظات هذا المستخدم';
+
+  @override
+  String get unhideMoments => 'إظهار لحظات هذا المستخدم';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مستخدمين مخفيين',
+      one: 'مستخدم واحد مخفي',
+      zero: 'لا يوجد مستخدمون مخفيون',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'تعذر حفظ اللحظة';
+
+  @override
+  String get tagAlreadyAdded => 'العلامة مضافة بالفعل';
+
+  @override
+  String get tagLimitReached => 'تم الوصول إلى الحد الأقصى للعلامات';
+
+  @override
+  String get hideThisUser => 'إخفاء منشورات هذا المستخدم';
 }

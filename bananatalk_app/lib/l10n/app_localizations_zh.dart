@@ -4964,6 +4964,51 @@ class AppLocalizationsZh extends AppLocalizations {
   String starterPracticeLang(String language) {
     return '帮助他们练习$language！';
   }
+
+  @override
+  String get momentsLoadError => '无法加载动态';
+
+  @override
+  String get momentsRetry => '重试';
+
+  @override
+  String get recentTags => '最近的标签';
+
+  @override
+  String get noRecentTags => '还没有最近使用的标签';
+
+  @override
+  String get hideMomentsFromUser => '隐藏此用户的动态';
+
+  @override
+  String get momentsHidden => '此用户的动态将被隐藏';
+
+  @override
+  String get unhideMoments => '显示此用户的动态';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已隐藏 $count 位用户',
+      one: '已隐藏 1 位用户',
+      zero: '没有隐藏的用户',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => '无法保存动态';
+
+  @override
+  String get tagAlreadyAdded => '标签已添加';
+
+  @override
+  String get tagLimitReached => '已达到最大标签数';
+
+  @override
+  String get hideThisUser => '隐藏此用户的帖子';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -9637,4 +9682,49 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String starterPracticeLang(String language) {
     return '幫助他們練習$language！';
   }
+
+  @override
+  String get momentsLoadError => '無法載入動態';
+
+  @override
+  String get momentsRetry => '重試';
+
+  @override
+  String get recentTags => '最近的標籤';
+
+  @override
+  String get noRecentTags => '還沒有最近使用的標籤';
+
+  @override
+  String get hideMomentsFromUser => '隱藏此使用者的動態';
+
+  @override
+  String get momentsHidden => '此使用者的動態將被隱藏';
+
+  @override
+  String get unhideMoments => '顯示此使用者的動態';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已隱藏 $count 位使用者',
+      one: '已隱藏 1 位使用者',
+      zero: '沒有隱藏的使用者',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => '無法儲存動態';
+
+  @override
+  String get tagAlreadyAdded => '標籤已新增';
+
+  @override
+  String get tagLimitReached => '已達到最大標籤數';
+
+  @override
+  String get hideThisUser => '隱藏此使用者的貼文';
 }

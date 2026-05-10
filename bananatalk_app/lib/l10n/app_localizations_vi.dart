@@ -4964,4 +4964,49 @@ class AppLocalizationsVi extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Giúp họ luyện tập $language!';
   }
+
+  @override
+  String get momentsLoadError => 'Không thể tải các khoảnh khắc';
+
+  @override
+  String get momentsRetry => 'Thử lại';
+
+  @override
+  String get recentTags => 'Thẻ gần đây';
+
+  @override
+  String get noRecentTags => 'Chưa có thẻ gần đây';
+
+  @override
+  String get hideMomentsFromUser => 'Ẩn khoảnh khắc của người dùng này';
+
+  @override
+  String get momentsHidden => 'Khoảnh khắc của người dùng này sẽ được ẩn';
+
+  @override
+  String get unhideMoments => 'Hiển thị khoảnh khắc của người dùng này';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Đã ẩn $count người dùng',
+      one: 'Đã ẩn 1 người dùng',
+      zero: 'Không có người dùng nào bị ẩn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Không thể lưu khoảnh khắc';
+
+  @override
+  String get tagAlreadyAdded => 'Đã thêm thẻ này';
+
+  @override
+  String get tagLimitReached => 'Đã đạt số lượng thẻ tối đa';
+
+  @override
+  String get hideThisUser => 'Ẩn bài đăng của người dùng này';
 }

@@ -10,7 +10,7 @@ import 'package:bananatalk_app/widgets/vip_avatar_frame.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/pages/moments/image_viewer.dart';
+import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 

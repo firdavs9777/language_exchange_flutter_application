@@ -4964,4 +4964,49 @@ class AppLocalizationsRu extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Помогите им практиковать $language!';
   }
+
+  @override
+  String get momentsLoadError => 'Не удалось загрузить моменты';
+
+  @override
+  String get momentsRetry => 'Повторить';
+
+  @override
+  String get recentTags => 'Недавние теги';
+
+  @override
+  String get noRecentTags => 'Пока нет недавних тегов';
+
+  @override
+  String get hideMomentsFromUser => 'Скрыть моменты этого пользователя';
+
+  @override
+  String get momentsHidden => 'Моменты этого пользователя будут скрыты';
+
+  @override
+  String get unhideMoments => 'Показать моменты этого пользователя';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count пользователей скрыто',
+      one: '1 пользователь скрыт',
+      zero: 'Скрытых пользователей нет',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Не удалось сохранить момент';
+
+  @override
+  String get tagAlreadyAdded => 'Тег уже добавлен';
+
+  @override
+  String get tagLimitReached => 'Достигнут максимум тегов';
+
+  @override
+  String get hideThisUser => 'Скрыть публикации этого пользователя';
 }

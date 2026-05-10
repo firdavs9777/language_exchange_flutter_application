@@ -4964,4 +4964,49 @@ class AppLocalizationsTl extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Tulungan silang magsanay ng $language!';
   }
+
+  @override
+  String get momentsLoadError => 'Hindi ma-load ang mga moment';
+
+  @override
+  String get momentsRetry => 'Subukan ulit';
+
+  @override
+  String get recentTags => 'Kamakailang mga tag';
+
+  @override
+  String get noRecentTags => 'Wala pang kamakailang tag';
+
+  @override
+  String get hideMomentsFromUser => 'Itago ang mga moment ng user na ito';
+
+  @override
+  String get momentsHidden => 'Itatago ang mga moment ng user na ito';
+
+  @override
+  String get unhideMoments => 'Ipakita ang mga moment ng user na ito';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count users ang nakatago',
+      one: '1 user ang nakatago',
+      zero: 'Walang nakatagong user',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Hindi ma-save ang moment';
+
+  @override
+  String get tagAlreadyAdded => 'Naidagdag na ang tag';
+
+  @override
+  String get tagLimitReached => 'Naabot ang max na tag';
+
+  @override
+  String get hideThisUser => 'Itago ang mga post ng user na ito';
 }

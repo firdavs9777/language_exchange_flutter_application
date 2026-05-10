@@ -4964,4 +4964,49 @@ class AppLocalizationsDe extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Hilf ihnen, $language zu üben!';
   }
+
+  @override
+  String get momentsLoadError => 'Momente konnten nicht geladen werden';
+
+  @override
+  String get momentsRetry => 'Erneut versuchen';
+
+  @override
+  String get recentTags => 'Letzte Tags';
+
+  @override
+  String get noRecentTags => 'Noch keine letzten Tags';
+
+  @override
+  String get hideMomentsFromUser => 'Momente dieses Nutzers ausblenden';
+
+  @override
+  String get momentsHidden => 'Momente dieses Nutzers werden ausgeblendet';
+
+  @override
+  String get unhideMoments => 'Momente dieses Nutzers anzeigen';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Nutzer ausgeblendet',
+      one: '1 Nutzer ausgeblendet',
+      zero: 'Keine ausgeblendeten Nutzer',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Moment konnte nicht gespeichert werden';
+
+  @override
+  String get tagAlreadyAdded => 'Tag bereits hinzugefügt';
+
+  @override
+  String get tagLimitReached => 'Maximale Tag-Anzahl erreicht';
+
+  @override
+  String get hideThisUser => 'Beiträge dieses Nutzers ausblenden';
 }

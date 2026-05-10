@@ -4964,4 +4964,49 @@ class AppLocalizationsTr extends AppLocalizations {
   String starterPracticeLang(String language) {
     return '$language pratiği yapmalarına yardım et!';
   }
+
+  @override
+  String get momentsLoadError => 'Anlar yüklenemedi';
+
+  @override
+  String get momentsRetry => 'Tekrar dene';
+
+  @override
+  String get recentTags => 'Son etiketler';
+
+  @override
+  String get noRecentTags => 'Henüz son etiket yok';
+
+  @override
+  String get hideMomentsFromUser => 'Bu kullanıcının anlarını gizle';
+
+  @override
+  String get momentsHidden => 'Bu kullanıcının anları gizlenecek';
+
+  @override
+  String get unhideMoments => 'Bu kullanıcının anlarını göster';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kullanıcı gizli',
+      one: '1 kullanıcı gizli',
+      zero: 'Gizli kullanıcı yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'An kaydedilemedi';
+
+  @override
+  String get tagAlreadyAdded => 'Etiket zaten eklendi';
+
+  @override
+  String get tagLimitReached => 'Maksimum etiket sayısına ulaşıldı';
+
+  @override
+  String get hideThisUser => 'Bu kullanıcının gönderilerini gizle';
 }

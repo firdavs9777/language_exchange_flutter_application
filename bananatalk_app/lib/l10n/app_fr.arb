@@ -2137,5 +2137,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Impossible de charger les moments",
+  "momentsRetry": "Réessayer",
+  "recentTags": "Étiquettes récentes",
+  "noRecentTags": "Aucune étiquette récente",
+  "hideMomentsFromUser": "Masquer les moments de cet utilisateur",
+  "momentsHidden": "Les moments de cet utilisateur seront masqués",
+  "unhideMoments": "Afficher les moments de cet utilisateur",
+  "momentsHiddenCount": "{count, plural, =0{Aucun utilisateur masqué} =1{1 utilisateur masqué} other{{count} utilisateurs masqués}}",
+  "momentSaveFailed": "Impossible d'enregistrer le moment",
+  "tagAlreadyAdded": "Étiquette déjà ajoutée",
+  "tagLimitReached": "Nombre maximum d'étiquettes atteint",
+  "hideThisUser": "Masquer les publications de cet utilisateur"
 }

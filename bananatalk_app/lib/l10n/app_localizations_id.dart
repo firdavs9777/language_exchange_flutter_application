@@ -4964,4 +4964,49 @@ class AppLocalizationsId extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Bantu mereka berlatih $language!';
   }
+
+  @override
+  String get momentsLoadError => 'Tidak dapat memuat momen';
+
+  @override
+  String get momentsRetry => 'Coba lagi';
+
+  @override
+  String get recentTags => 'Tag terbaru';
+
+  @override
+  String get noRecentTags => 'Belum ada tag terbaru';
+
+  @override
+  String get hideMomentsFromUser => 'Sembunyikan momen pengguna ini';
+
+  @override
+  String get momentsHidden => 'Momen pengguna ini akan disembunyikan';
+
+  @override
+  String get unhideMoments => 'Tampilkan momen pengguna ini';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pengguna disembunyikan',
+      one: '1 pengguna disembunyikan',
+      zero: 'Tidak ada pengguna tersembunyi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Tidak dapat menyimpan momen';
+
+  @override
+  String get tagAlreadyAdded => 'Tag sudah ditambahkan';
+
+  @override
+  String get tagLimitReached => 'Batas maksimum tag tercapai';
+
+  @override
+  String get hideThisUser => 'Sembunyikan postingan pengguna ini';
 }

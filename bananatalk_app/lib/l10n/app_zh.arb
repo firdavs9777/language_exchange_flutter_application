@@ -1881,5 +1881,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "无法加载动态",
+  "momentsRetry": "重试",
+  "recentTags": "最近的标签",
+  "noRecentTags": "还没有最近使用的标签",
+  "hideMomentsFromUser": "隐藏此用户的动态",
+  "momentsHidden": "此用户的动态将被隐藏",
+  "unhideMoments": "显示此用户的动态",
+  "momentsHiddenCount": "{count, plural, =0{没有隐藏的用户} =1{已隐藏 1 位用户} other{已隐藏 {count} 位用户}}",
+  "momentSaveFailed": "无法保存动态",
+  "tagAlreadyAdded": "标签已添加",
+  "tagLimitReached": "已达到最大标签数",
+  "hideThisUser": "隐藏此用户的帖子"
 }

@@ -2137,5 +2137,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Momente konnten nicht geladen werden",
+  "momentsRetry": "Erneut versuchen",
+  "recentTags": "Letzte Tags",
+  "noRecentTags": "Noch keine letzten Tags",
+  "hideMomentsFromUser": "Momente dieses Nutzers ausblenden",
+  "momentsHidden": "Momente dieses Nutzers werden ausgeblendet",
+  "unhideMoments": "Momente dieses Nutzers anzeigen",
+  "momentsHiddenCount": "{count, plural, =0{Keine ausgeblendeten Nutzer} =1{1 Nutzer ausgeblendet} other{{count} Nutzer ausgeblendet}}",
+  "momentSaveFailed": "Moment konnte nicht gespeichert werden",
+  "tagAlreadyAdded": "Tag bereits hinzugefügt",
+  "tagLimitReached": "Maximale Tag-Anzahl erreicht",
+  "hideThisUser": "Beiträge dieses Nutzers ausblenden"
 }

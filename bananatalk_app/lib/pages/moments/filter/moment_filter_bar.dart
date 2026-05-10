@@ -88,7 +88,7 @@ class MomentFilterBar extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       color: currentFilter.hasActiveFilters
-                          ? colorScheme.primary.withOpacity(0.15)
+                          ? colorScheme.primary.withValues(alpha: 0.15)
                           : colorScheme.surfaceVariant,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
@@ -234,7 +234,7 @@ class MomentFilterBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? colorScheme.primary.withOpacity(0.12) : Colors.transparent,
+          color: isActive ? colorScheme.primary.withValues(alpha: 0.12) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isActive ? colorScheme.primary : Colors.transparent,
@@ -272,10 +272,10 @@ class MomentFilterBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: colorScheme.primary.withOpacity(0.15),
+        color: colorScheme.primary.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: colorScheme.primary.withOpacity(0.3),
+          color: colorScheme.primary.withValues(alpha: 0.3),
         ),
       ),
       child: Row(

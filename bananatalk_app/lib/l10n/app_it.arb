@@ -2137,5 +2137,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Impossibile caricare i momenti",
+  "momentsRetry": "Riprova",
+  "recentTags": "Tag recenti",
+  "noRecentTags": "Nessun tag recente",
+  "hideMomentsFromUser": "Nascondi i momenti di questo utente",
+  "momentsHidden": "I momenti di questo utente saranno nascosti",
+  "unhideMoments": "Mostra i momenti di questo utente",
+  "momentsHiddenCount": "{count, plural, =0{Nessun utente nascosto} =1{1 utente nascosto} other{{count} utenti nascosti}}",
+  "momentSaveFailed": "Impossibile salvare il momento",
+  "tagAlreadyAdded": "Tag già aggiunto",
+  "tagLimitReached": "Numero massimo di tag raggiunto",
+  "hideThisUser": "Nascondi i post di questo utente"
 }

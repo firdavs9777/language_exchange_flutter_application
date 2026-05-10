@@ -2080,5 +2080,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Anlar yüklenemedi",
+  "momentsRetry": "Tekrar dene",
+  "recentTags": "Son etiketler",
+  "noRecentTags": "Henüz son etiket yok",
+  "hideMomentsFromUser": "Bu kullanıcının anlarını gizle",
+  "momentsHidden": "Bu kullanıcının anları gizlenecek",
+  "unhideMoments": "Bu kullanıcının anlarını göster",
+  "momentsHiddenCount": "{count, plural, =0{Gizli kullanıcı yok} =1{1 kullanıcı gizli} other{{count} kullanıcı gizli}}",
+  "momentSaveFailed": "An kaydedilemedi",
+  "tagAlreadyAdded": "Etiket zaten eklendi",
+  "tagLimitReached": "Maksimum etiket sayısına ulaşıldı",
+  "hideThisUser": "Bu kullanıcının gönderilerini gizle"
 }

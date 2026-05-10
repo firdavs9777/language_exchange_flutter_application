@@ -4964,4 +4964,49 @@ class AppLocalizationsEs extends AppLocalizations {
   String starterPracticeLang(String language) {
     return '¡Ayúdales a practicar $language!';
   }
+
+  @override
+  String get momentsLoadError => 'No se pudieron cargar los momentos';
+
+  @override
+  String get momentsRetry => 'Reintentar';
+
+  @override
+  String get recentTags => 'Etiquetas recientes';
+
+  @override
+  String get noRecentTags => 'Aún no hay etiquetas recientes';
+
+  @override
+  String get hideMomentsFromUser => 'Ocultar momentos de este usuario';
+
+  @override
+  String get momentsHidden => 'Los momentos de este usuario se ocultarán';
+
+  @override
+  String get unhideMoments => 'Mostrar momentos de este usuario';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count usuarios ocultos',
+      one: '1 usuario oculto',
+      zero: 'Sin usuarios ocultos',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'No se pudo guardar el momento';
+
+  @override
+  String get tagAlreadyAdded => 'Etiqueta ya agregada';
+
+  @override
+  String get tagLimitReached => 'Máximo de etiquetas alcanzado';
+
+  @override
+  String get hideThisUser => 'Ocultar las publicaciones de este usuario';
 }

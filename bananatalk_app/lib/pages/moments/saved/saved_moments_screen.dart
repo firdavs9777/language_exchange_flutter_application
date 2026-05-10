@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart';
-import 'package:bananatalk_app/pages/moments/moment_card.dart';
+import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -140,11 +141,11 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: Colors.grey[400]),
+            Icon(Icons.error_outline, size: 48, color: context.dividerColor),
             const SizedBox(height: 16),
             Text(
               _error!,
-              style: TextStyle(color: Colors.grey[600]),
+              style: TextStyle(color: context.textSecondary),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
@@ -162,16 +163,16 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.bookmark_border, size: 64, color: Colors.grey[300]),
+            Icon(Icons.bookmark_border, size: 64, color: context.dividerColor),
             const SizedBox(height: 16),
             Text(
               AppLocalizations.of(context)!.noSavedMoments,
-              style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 18, color: context.textSecondary),
             ),
             const SizedBox(height: 8),
             Text(
               AppLocalizations.of(context)!.tapBookmarkToSave,
-              style: TextStyle(color: Colors.grey[400]),
+              style: TextStyle(color: context.dividerColor),
             ),
           ],
         ),
@@ -222,10 +223,9 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             },
             onDismissed: (direction) {
               _removeMoment(moment.id);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.momentUnsaved),
-                ),
+              showMomentsSnackBar(
+                context,
+                message: AppLocalizations.of(context)!.momentUnsaved,
               );
             },
             child: MomentCard(
@@ -292,7 +292,7 @@ class MomentCard extends StatelessWidget {
                           _formatDate(moment.createdAt),
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey[500],
+                            color: context.textSecondary,
                           ),
                         ),
                       ],
@@ -307,7 +307,7 @@ class MomentCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor.withOpacity(0.1),
+                        color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -345,7 +345,7 @@ class MomentCard extends StatelessWidget {
                       return Container(
                         width: double.infinity,
                         height: 200,
-                        color: Colors.grey[200],
+                        color: context.containerColor,
                         child: const Icon(Icons.broken_image),
                       );
                     },
@@ -376,18 +376,18 @@ class MomentCard extends StatelessWidget {
               // Stats row
               Row(
                 children: [
-                  Icon(Icons.favorite, size: 16, color: Colors.grey[400]),
+                  Icon(Icons.favorite, size: 16, color: context.dividerColor),
                   const SizedBox(width: 4),
                   Text(
                     '${moment.likeCount}',
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    style: TextStyle(color: context.textSecondary, fontSize: 12),
                   ),
                   const SizedBox(width: 16),
-                  Icon(Icons.comment, size: 16, color: Colors.grey[400]),
+                  Icon(Icons.comment, size: 16, color: context.dividerColor),
                   const SizedBox(width: 4),
                   Text(
                     '${moment.commentCount}',
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    style: TextStyle(color: context.textSecondary, fontSize: 12),
                   ),
                   const SizedBox(width: 16),
                   Icon(
@@ -398,7 +398,7 @@ class MomentCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   Text(
                     '${moment.saveCount}',
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    style: TextStyle(color: context.textSecondary, fontSize: 12),
                   ),
                   const Spacer(),
                   if (moment.mood.isNotEmpty)

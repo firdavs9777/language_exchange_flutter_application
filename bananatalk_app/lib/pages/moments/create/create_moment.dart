@@ -20,7 +20,10 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
+import 'package:bananatalk_app/pages/moments/create/create_tag_dialog.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
   final Moments? momentToEdit; // If provided, we're editing an existing moment
@@ -33,7 +36,6 @@ class CreateMoment extends ConsumerStatefulWidget {
 
 class _CreateMomentState extends ConsumerState<CreateMoment> {
   final descriptionController = TextEditingController();
-  final tagsController = TextEditingController();
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier(false);
 
   List<File> _selectedImages = [];
@@ -172,7 +174,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   void dispose() {
     descriptionController.removeListener(_updateButtonState);
     descriptionController.dispose();
-    tagsController.dispose();
     isButtonEnabled.dispose();
     super.dispose();
   }
@@ -181,27 +182,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     isButtonEnabled.value = descriptionController.text.isNotEmpty;
     // Trigger rebuild to update character counter
     if (mounted) setState(() {});
-  }
-
-  void _addTag() {
-    final tag = tagsController.text.trim();
-    if (tag.isNotEmpty && !_tags.contains(tag)) {
-      // Enforce max 5 tags (backend limit)
-      if (_tags.length >= 5) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.maxTagsAllowed),
-            backgroundColor: Colors.orange,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-        return;
-      }
-      setState(() {
-        _tags.add(tag);
-        tagsController.clear();
-      });
-    }
   }
 
   void _removeTag(String tag) {
@@ -275,13 +255,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           .toList();
 
       if (pickedFiles.length > remainingSlots) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Maximum $maxImages images allowed. Only $remainingSlots images added.'),
-            backgroundColor: Colors.orange,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Maximum $maxImages images allowed. Only $remainingSlots images added.',
         );
       }
 
@@ -312,12 +288,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   Future<void> _pickVideo() async {
     // Can't have both video and images
     if (_selectedImages.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.pleaseRemoveImagesFirst),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
+      showMomentsSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseRemoveImagesFirst,
       );
       return;
     }
@@ -336,12 +309,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       final allowedExtensions = ['mp4', 'mov', 'avi', 'webm', '3gp', 'm4v'];
       if (!allowedExtensions.contains(extension)) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: 'Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}',
+            type: MomentsSnackBarType.error,
           );
         }
         return;
@@ -417,14 +388,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         // Show success message with compression info
         if (mounted && result.wasCompressed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
-              ),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: 'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            type: MomentsSnackBarType.success,
           );
         }
       } else {
@@ -433,12 +400,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         });
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result.error ?? 'Failed to process video'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: result.error ?? 'Failed to process video',
+            type: MomentsSnackBarType.error,
           );
         }
       }
@@ -453,12 +418,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error processing video: $e'),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Error processing video: $e',
+          type: MomentsSnackBarType.error,
         );
       }
     }
@@ -488,7 +451,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             ? _videoCompressionProgress / 100
                             : null,
                         strokeWidth: 6,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: context.containerColor,
                         valueColor: const AlwaysStoppedAnimation<Color>(
                           Color(0xFF00BFA5),
                         ),
@@ -527,7 +490,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   'Please wait while we optimize your video',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.grey[600],
+                    color: context.textSecondary,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -543,12 +506,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// Record video with camera
   Future<void> _recordVideo() async {
     if (_selectedImages.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please remove images first to record a video'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
+      showMomentsSnackBar(
+        context,
+        message: 'Please remove images first to record a video',
       );
       return;
     }
@@ -724,23 +684,20 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('✓ Location added'),
-            duration: Duration(seconds: 1),
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Color(0xFF00BFA5),
-          ),
+        showMomentsSnackBar(
+          context,
+          message: '✓ Location added',
+          type: MomentsSnackBarType.success,
+          duration: const Duration(seconds: 1),
         );
       }
     } catch (e) {
       debugPrint("Error getting location: $e");
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to get location: $e'),
-            backgroundColor: Colors.red,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Failed to get location: $e',
+          type: MomentsSnackBarType.error,
         );
       }
     }
@@ -771,7 +728,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: TextStyle(color: Colors.grey[600])),
+              child: Text('Cancel', style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () async {
@@ -810,7 +767,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Not Now', style: TextStyle(color: Colors.grey[600])),
+              child: Text('Not Now', style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () {
@@ -849,7 +806,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: TextStyle(color: Colors.grey[600])),
+              child: Text('Cancel', style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () async {
@@ -915,8 +872,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFF00BFA5).withOpacity(0.1)
-                            : Colors.grey[100],
+                            ? const Color(0xFF00BFA5).withValues(alpha: 0.1)
+                            : context.containerColor,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isSelected
@@ -934,7 +891,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             mood[0].toUpperCase() + mood.substring(1),
                             style: TextStyle(
                               fontSize: 10,
-                              color: Colors.grey[700],
+                              color: context.textSecondary,
                             ),
                           ),
                         ],
@@ -1012,7 +969,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Row(
@@ -1070,12 +1027,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // Validate inputs
     final validationError = _validateInputs();
     if (validationError != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(validationError),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
+      showMomentsSnackBar(
+        context,
+        message: validationError,
       );
       return;
     }
@@ -1144,12 +1098,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         if (mounted) {
           Navigator.of(context).pop(true); // Return true to indicate success
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.success),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.success,
+            type: MomentsSnackBarType.success,
           );
         }
       } else {
@@ -1195,12 +1147,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         if (mounted) {
           Navigator.of(context).pop();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.momentCreatedSuccessfully),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.momentCreatedSuccessfully,
+            type: MomentsSnackBarType.success,
           );
         }
       }
@@ -1222,13 +1172,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           }
         } else {
           final errorMessage = e.toString().replaceFirst('Exception: ', '');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMessage),
-              backgroundColor: AppColors.error,
-              behavior: SnackBarBehavior.floating,
-              duration: const Duration(seconds: 4),
-            ),
+          showMomentsSnackBar(
+            context,
+            message: errorMessage,
+            type: MomentsSnackBarType.error,
+            duration: const Duration(seconds: 4),
           );
         }
       }
@@ -1288,12 +1236,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}'),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}',
+          type: MomentsSnackBarType.error,
         );
       }
     }
@@ -1554,31 +1500,37 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildActionIcon(
+                createActionIcon(
+                  context: context,
                   icon: Icons.image,
                   color: const Color(0xFF4CAF50),
                   onTap: _pickImages,
                 ),
-                _buildActionIcon(
+                createActionIcon(
+                  context: context,
                   icon: Icons.emoji_emotions,
                   color: const Color(0xFFFFC107),
                   onTap: _showMoodPicker,
                   badge: _selectedMood,
                 ),
-                _buildActionIcon(
+                createActionIcon(
+                  context: context,
                   icon: Icons.location_on,
                   color: const Color(0xFFF44336),
                   onTap: _requestLocationPermission,
                   isActive: _currentPosition != null,
                 ),
-                _buildActionIcon(
+                createActionIcon(
+                  context: context,
                   icon: Icons.tag,
                   color: const Color(0xFF2196F3),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => _buildTagDialog(),
+                  onTap: () async {
+                    final updated = await showCreateTagDialog(
+                      context,
+                      existingTags: _tags,
+                      maxTags: 5,
                     );
+                    setState(() => _tags = updated);
                   },
                   badge: _tags.isNotEmpty ? '${_tags.length}' : null,
                 ),
@@ -2071,14 +2023,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildBottomButton(
+              createBottomButton(
+                context: context,
                 icon: Icons.photo_library_outlined,
                 label: AppLocalizations.of(context)!.photos,
                 onTap: _pickImages,
                 color: AppColors.primary,
               ),
               // TODO: Re-enable video upload when needed (commented out to reduce app size)
-              // _buildBottomButton(
+              // createBottomButton(
+              //   context: context,
               //   icon: Icons.videocam_outlined,
               //   label: 'Video',
               //   onTap: _pickVideo,
@@ -2086,7 +2040,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               //       ? const Color(0xFF9C27B0)
               //       : Colors.grey,
               // ),
-              _buildBottomButton(
+              createBottomButton(
+                context: context,
                 icon: Icons.camera_alt_outlined,
                 label: AppLocalizations.of(context)!.camera,
                 onTap: _takePhoto,
@@ -2099,180 +2054,4 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     );
   }
 
-  Widget _buildActionIcon({
-    required IconData icon,
-    required Color color,
-    required VoidCallback onTap,
-    bool isActive = false,
-    String? badge,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
-          color: isActive ? color.withValues(alpha: 0.1) : Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isActive ? color : Theme.of(context).dividerColor,
-            width: isActive ? 2 : 1,
-          ),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            if (badge != null && badge.isNotEmpty)
-              Text(
-                badge,
-                style: TextStyle(fontSize: badge.length == 1 ? 28 : 16),
-              )
-            else
-              Icon(icon, color: color, size: 28),
-            if (badge != null && badge.length > 1)
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF44336),
-                    shape: BoxShape.circle,
-                  ),
-                  constraints: const BoxConstraints(
-                    minWidth: 18,
-                    minHeight: 18,
-                  ),
-                  child: Center(
-                    child: Text(
-                      badge,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomButton({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-    required Color color,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: AppRadius.borderMD,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: color, size: 28),
-            Spacing.gapXS,
-            Text(
-              label,
-              style: context.labelSmall.copyWith(color: color),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTagDialog() {
-    return StatefulBuilder(
-      builder: (dialogContext, setDialogState) {
-        final theme = Theme.of(context);
-        return AlertDialog(
-          backgroundColor: theme.colorScheme.surface,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: Text(
-            AppLocalizations.of(context)!.addTags,
-            style: TextStyle(color: theme.colorScheme.onSurface),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: tagsController,
-                style: TextStyle(color: theme.colorScheme.onSurface),
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.enterTag,
-                  hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: theme.colorScheme.outline),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: AppColors.primary, width: 2),
-                  ),
-                ),
-                onSubmitted: (_) {
-                  _addTag();
-                  setDialogState(() {});
-                  setState(() {});
-                },
-              ),
-              const SizedBox(height: 12),
-              if (_tags.isNotEmpty)
-                Wrap(
-                  spacing: 8,
-                  children: _tags.map((tag) {
-                    return Chip(
-                      label: Text(
-                        '#$tag',
-                        style: TextStyle(color: AppColors.primary),
-                      ),
-                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
-                      deleteIcon: Icon(Icons.close, size: 16, color: theme.colorScheme.onSurface),
-                      side: BorderSide(color: AppColors.primary.withValues(alpha: 0.3)),
-                      onDeleted: () {
-                        setState(() {
-                          _tags.remove(tag);
-                        });
-                        setDialogState(() {});
-                      },
-                    );
-                  }).toList(),
-                ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: Text(
-                AppLocalizations.of(context)!.done,
-                style: TextStyle(color: theme.colorScheme.onSurface),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _addTag();
-                setDialogState(() {});
-                setState(() {});
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-              ),
-              child: Text(AppLocalizations.of(context)!.add),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }

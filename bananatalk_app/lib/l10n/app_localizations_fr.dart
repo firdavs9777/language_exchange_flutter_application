@@ -4964,4 +4964,49 @@ class AppLocalizationsFr extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Aidez-les à pratiquer $language !';
   }
+
+  @override
+  String get momentsLoadError => 'Impossible de charger les moments';
+
+  @override
+  String get momentsRetry => 'Réessayer';
+
+  @override
+  String get recentTags => 'Étiquettes récentes';
+
+  @override
+  String get noRecentTags => 'Aucune étiquette récente';
+
+  @override
+  String get hideMomentsFromUser => 'Masquer les moments de cet utilisateur';
+
+  @override
+  String get momentsHidden => 'Les moments de cet utilisateur seront masqués';
+
+  @override
+  String get unhideMoments => 'Afficher les moments de cet utilisateur';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count utilisateurs masqués',
+      one: '1 utilisateur masqué',
+      zero: 'Aucun utilisateur masqué',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Impossible d\'enregistrer le moment';
+
+  @override
+  String get tagAlreadyAdded => 'Étiquette déjà ajoutée';
+
+  @override
+  String get tagLimitReached => 'Nombre maximum d\'étiquettes atteint';
+
+  @override
+  String get hideThisUser => 'Masquer les publications de cet utilisateur';
 }

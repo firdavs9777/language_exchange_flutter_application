@@ -1710,5 +1710,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "ไม่สามารถโหลดโมเมนต์ได้",
+  "momentsRetry": "ลองอีกครั้ง",
+  "recentTags": "แท็กล่าสุด",
+  "noRecentTags": "ยังไม่มีแท็กล่าสุด",
+  "hideMomentsFromUser": "ซ่อนโมเมนต์ของผู้ใช้นี้",
+  "momentsHidden": "โมเมนต์ของผู้ใช้นี้จะถูกซ่อน",
+  "unhideMoments": "แสดงโมเมนต์ของผู้ใช้นี้",
+  "momentsHiddenCount": "{count, plural, =0{ไม่มีผู้ใช้ที่ซ่อน} =1{ซ่อนผู้ใช้ 1 คน} other{ซ่อนผู้ใช้ {count} คน}}",
+  "momentSaveFailed": "ไม่สามารถบันทึกโมเมนต์ได้",
+  "tagAlreadyAdded": "เพิ่มแท็กแล้ว",
+  "tagLimitReached": "ถึงขีดจำกัดแท็กแล้ว",
+  "hideThisUser": "ซ่อนโพสต์ของผู้ใช้นี้"
 }

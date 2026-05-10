@@ -4964,4 +4964,49 @@ class AppLocalizationsIt extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'Aiutali a praticare $language!';
   }
+
+  @override
+  String get momentsLoadError => 'Impossibile caricare i momenti';
+
+  @override
+  String get momentsRetry => 'Riprova';
+
+  @override
+  String get recentTags => 'Tag recenti';
+
+  @override
+  String get noRecentTags => 'Nessun tag recente';
+
+  @override
+  String get hideMomentsFromUser => 'Nascondi i momenti di questo utente';
+
+  @override
+  String get momentsHidden => 'I momenti di questo utente saranno nascosti';
+
+  @override
+  String get unhideMoments => 'Mostra i momenti di questo utente';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count utenti nascosti',
+      one: '1 utente nascosto',
+      zero: 'Nessun utente nascosto',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Impossibile salvare il momento';
+
+  @override
+  String get tagAlreadyAdded => 'Tag già aggiunto';
+
+  @override
+  String get tagLimitReached => 'Numero massimo di tag raggiunto';
+
+  @override
+  String get hideThisUser => 'Nascondi i post di questo utente';
 }

@@ -4964,4 +4964,49 @@ class AppLocalizationsJa extends AppLocalizations {
   String starterPracticeLang(String language) {
     return '$languageの練習を手伝ってあげよう！';
   }
+
+  @override
+  String get momentsLoadError => 'モーメントを読み込めません';
+
+  @override
+  String get momentsRetry => '再試行';
+
+  @override
+  String get recentTags => '最近のタグ';
+
+  @override
+  String get noRecentTags => '最近のタグはまだありません';
+
+  @override
+  String get hideMomentsFromUser => 'このユーザーのモーメントを非表示';
+
+  @override
+  String get momentsHidden => 'このユーザーのモーメントは非表示になります';
+
+  @override
+  String get unhideMoments => 'このユーザーのモーメントを表示';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人のユーザーを非表示',
+      one: '1人のユーザーを非表示',
+      zero: '非表示のユーザーなし',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'モーメントを保存できませんでした';
+
+  @override
+  String get tagAlreadyAdded => 'タグはすでに追加されています';
+
+  @override
+  String get tagLimitReached => 'タグの上限に達しました';
+
+  @override
+  String get hideThisUser => 'このユーザーの投稿を非表示';
 }

@@ -158,7 +158,7 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                 )
               else
                 Container(
-                  color: Colors.grey[900],
+                  color: context.textMuted,
                   child: const Center(
                     child: Icon(Icons.videocam, color: Colors.white38, size: 48),
                   ),

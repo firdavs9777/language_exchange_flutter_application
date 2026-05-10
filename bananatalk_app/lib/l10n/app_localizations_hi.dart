@@ -4964,4 +4964,49 @@ class AppLocalizationsHi extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'उन्हें $language अभ्यास करने में मदद करें!';
   }
+
+  @override
+  String get momentsLoadError => 'मोमेंट्स लोड नहीं हो सके';
+
+  @override
+  String get momentsRetry => 'फिर से कोशिश करें';
+
+  @override
+  String get recentTags => 'हाल के टैग';
+
+  @override
+  String get noRecentTags => 'अभी कोई हाल का टैग नहीं';
+
+  @override
+  String get hideMomentsFromUser => 'इस उपयोगकर्ता के मोमेंट्स छिपाएं';
+
+  @override
+  String get momentsHidden => 'इस उपयोगकर्ता के मोमेंट्स छिपाए जाएंगे';
+
+  @override
+  String get unhideMoments => 'इस उपयोगकर्ता के मोमेंट्स दिखाएं';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count उपयोगकर्ता छिपे',
+      one: '1 उपयोगकर्ता छिपा',
+      zero: 'कोई छिपा उपयोगकर्ता नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'मोमेंट सहेजा नहीं जा सका';
+
+  @override
+  String get tagAlreadyAdded => 'टैग पहले से जोड़ा गया है';
+
+  @override
+  String get tagLimitReached => 'अधिकतम टैग संख्या पहुंची';
+
+  @override
+  String get hideThisUser => 'इस उपयोगकर्ता के पोस्ट छिपाएं';
 }
