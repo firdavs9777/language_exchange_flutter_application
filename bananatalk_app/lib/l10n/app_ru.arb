@@ -1882,5 +1882,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Не удалось загрузить моменты",
+  "momentsRetry": "Повторить",
+  "recentTags": "Недавние теги",
+  "noRecentTags": "Пока нет недавних тегов",
+  "hideMomentsFromUser": "Скрыть моменты этого пользователя",
+  "momentsHidden": "Моменты этого пользователя будут скрыты",
+  "unhideMoments": "Показать моменты этого пользователя",
+  "momentsHiddenCount": "{count, plural, =0{Скрытых пользователей нет} =1{1 пользователь скрыт} other{{count} пользователей скрыто}}",
+  "momentSaveFailed": "Не удалось сохранить момент",
+  "tagAlreadyAdded": "Тег уже добавлен",
+  "tagLimitReached": "Достигнут максимум тегов",
+  "hideThisUser": "Скрыть публикации этого пользователя"
 }

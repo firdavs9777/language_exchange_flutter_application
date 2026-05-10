@@ -1867,5 +1867,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "モーメントを読み込めません",
+  "momentsRetry": "再試行",
+  "recentTags": "最近のタグ",
+  "noRecentTags": "最近のタグはまだありません",
+  "hideMomentsFromUser": "このユーザーのモーメントを非表示",
+  "momentsHidden": "このユーザーのモーメントは非表示になります",
+  "unhideMoments": "このユーザーのモーメントを表示",
+  "momentsHiddenCount": "{count, plural, =0{非表示のユーザーなし} =1{1人のユーザーを非表示} other{{count}人のユーザーを非表示}}",
+  "momentSaveFailed": "モーメントを保存できませんでした",
+  "tagAlreadyAdded": "タグはすでに追加されています",
+  "tagLimitReached": "タグの上限に達しました",
+  "hideThisUser": "このユーザーの投稿を非表示"
 }

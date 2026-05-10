@@ -4966,47 +4966,47 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get momentsLoadError => 'Couldn\'t load moments';
+  String get momentsLoadError => 'Не удалось загрузить моменты';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => 'Повторить';
 
   @override
-  String get recentTags => 'Recent tags';
+  String get recentTags => 'Недавние теги';
 
   @override
-  String get noRecentTags => 'No recent tags yet';
+  String get noRecentTags => 'Пока нет недавних тегов';
 
   @override
-  String get hideMomentsFromUser => 'Hide moments from this user';
+  String get hideMomentsFromUser => 'Скрыть моменты этого пользователя';
 
   @override
-  String get momentsHidden => 'Moments from this user will be hidden';
+  String get momentsHidden => 'Моменты этого пользователя будут скрыты';
 
   @override
-  String get unhideMoments => 'Show moments from this user';
+  String get unhideMoments => 'Показать моменты этого пользователя';
 
   @override
   String momentsHiddenCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count users hidden',
-      one: '1 user hidden',
-      zero: 'No hidden users',
+      other: '$count пользователей скрыто',
+      one: '1 пользователь скрыт',
+      zero: 'Скрытых пользователей нет',
     );
     return '$_temp0';
   }
 
   @override
-  String get momentSaveFailed => 'Couldn\'t save moment';
+  String get momentSaveFailed => 'Не удалось сохранить момент';
 
   @override
-  String get tagAlreadyAdded => 'Tag already added';
+  String get tagAlreadyAdded => 'Тег уже добавлен';
 
   @override
-  String get tagLimitReached => 'Maximum tags reached';
+  String get tagLimitReached => 'Достигнут максимум тегов';
 
   @override
-  String get hideThisUser => 'Hide this user\'s posts';
+  String get hideThisUser => 'Скрыть публикации этого пользователя';
 }

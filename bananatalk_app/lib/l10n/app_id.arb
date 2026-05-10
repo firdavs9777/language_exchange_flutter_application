@@ -1710,5 +1710,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Tidak dapat memuat momen",
+  "momentsRetry": "Coba lagi",
+  "recentTags": "Tag terbaru",
+  "noRecentTags": "Belum ada tag terbaru",
+  "hideMomentsFromUser": "Sembunyikan momen pengguna ini",
+  "momentsHidden": "Momen pengguna ini akan disembunyikan",
+  "unhideMoments": "Tampilkan momen pengguna ini",
+  "momentsHiddenCount": "{count, plural, =0{Tidak ada pengguna tersembunyi} =1{1 pengguna disembunyikan} other{{count} pengguna disembunyikan}}",
+  "momentSaveFailed": "Tidak dapat menyimpan momen",
+  "tagAlreadyAdded": "Tag sudah ditambahkan",
+  "tagLimitReached": "Batas maksimum tag tercapai",
+  "hideThisUser": "Sembunyikan postingan pengguna ini"
 }

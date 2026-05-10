@@ -1833,5 +1833,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "無法載入動態",
+  "momentsRetry": "重試",
+  "recentTags": "最近的標籤",
+  "noRecentTags": "還沒有最近使用的標籤",
+  "hideMomentsFromUser": "隱藏此使用者的動態",
+  "momentsHidden": "此使用者的動態將被隱藏",
+  "unhideMoments": "顯示此使用者的動態",
+  "momentsHiddenCount": "{count, plural, =0{沒有隱藏的使用者} =1{已隱藏 1 位使用者} other{已隱藏 {count} 位使用者}}",
+  "momentSaveFailed": "無法儲存動態",
+  "tagAlreadyAdded": "標籤已新增",
+  "tagLimitReached": "已達到最大標籤數",
+  "hideThisUser": "隱藏此使用者的貼文"
 }

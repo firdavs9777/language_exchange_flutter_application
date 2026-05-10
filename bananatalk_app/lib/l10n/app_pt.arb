@@ -1868,5 +1868,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Não foi possível carregar os momentos",
+  "momentsRetry": "Tentar novamente",
+  "recentTags": "Etiquetas recentes",
+  "noRecentTags": "Nenhuma etiqueta recente",
+  "hideMomentsFromUser": "Ocultar momentos deste usuário",
+  "momentsHidden": "Os momentos deste usuário serão ocultados",
+  "unhideMoments": "Mostrar momentos deste usuário",
+  "momentsHiddenCount": "{count, plural, =0{Nenhum usuário oculto} =1{1 usuário oculto} other{{count} usuários ocultos}}",
+  "momentSaveFailed": "Não foi possível salvar o momento",
+  "tagAlreadyAdded": "Etiqueta já adicionada",
+  "tagLimitReached": "Limite de etiquetas atingido",
+  "hideThisUser": "Ocultar publicações deste usuário"
 }

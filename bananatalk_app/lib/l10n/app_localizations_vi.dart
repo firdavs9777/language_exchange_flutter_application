@@ -4966,47 +4966,47 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get momentsLoadError => 'Couldn\'t load moments';
+  String get momentsLoadError => 'Không thể tải các khoảnh khắc';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => 'Thử lại';
 
   @override
-  String get recentTags => 'Recent tags';
+  String get recentTags => 'Thẻ gần đây';
 
   @override
-  String get noRecentTags => 'No recent tags yet';
+  String get noRecentTags => 'Chưa có thẻ gần đây';
 
   @override
-  String get hideMomentsFromUser => 'Hide moments from this user';
+  String get hideMomentsFromUser => 'Ẩn khoảnh khắc của người dùng này';
 
   @override
-  String get momentsHidden => 'Moments from this user will be hidden';
+  String get momentsHidden => 'Khoảnh khắc của người dùng này sẽ được ẩn';
 
   @override
-  String get unhideMoments => 'Show moments from this user';
+  String get unhideMoments => 'Hiển thị khoảnh khắc của người dùng này';
 
   @override
   String momentsHiddenCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count users hidden',
-      one: '1 user hidden',
-      zero: 'No hidden users',
+      other: 'Đã ẩn $count người dùng',
+      one: 'Đã ẩn 1 người dùng',
+      zero: 'Không có người dùng nào bị ẩn',
     );
     return '$_temp0';
   }
 
   @override
-  String get momentSaveFailed => 'Couldn\'t save moment';
+  String get momentSaveFailed => 'Không thể lưu khoảnh khắc';
 
   @override
-  String get tagAlreadyAdded => 'Tag already added';
+  String get tagAlreadyAdded => 'Đã thêm thẻ này';
 
   @override
-  String get tagLimitReached => 'Maximum tags reached';
+  String get tagLimitReached => 'Đã đạt số lượng thẻ tối đa';
 
   @override
-  String get hideThisUser => 'Hide this user\'s posts';
+  String get hideThisUser => 'Ẩn bài đăng của người dùng này';
 }

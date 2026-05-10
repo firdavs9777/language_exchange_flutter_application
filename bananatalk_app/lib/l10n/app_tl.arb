@@ -1804,5 +1804,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Hindi ma-load ang mga moment",
+  "momentsRetry": "Subukan ulit",
+  "recentTags": "Kamakailang mga tag",
+  "noRecentTags": "Wala pang kamakailang tag",
+  "hideMomentsFromUser": "Itago ang mga moment ng user na ito",
+  "momentsHidden": "Itatago ang mga moment ng user na ito",
+  "unhideMoments": "Ipakita ang mga moment ng user na ito",
+  "momentsHiddenCount": "{count, plural, =0{Walang nakatagong user} =1{1 user ang nakatago} other{{count} users ang nakatago}}",
+  "momentSaveFailed": "Hindi ma-save ang moment",
+  "tagAlreadyAdded": "Naidagdag na ang tag",
+  "tagLimitReached": "Naabot ang max na tag",
+  "hideThisUser": "Itago ang mga post ng user na ito"
 }

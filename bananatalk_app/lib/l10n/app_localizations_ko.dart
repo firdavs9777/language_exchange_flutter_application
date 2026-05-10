@@ -4966,47 +4966,47 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get momentsLoadError => 'Couldn\'t load moments';
+  String get momentsLoadError => '모먼트를 불러올 수 없습니다';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => '다시 시도';
 
   @override
-  String get recentTags => 'Recent tags';
+  String get recentTags => '최근 태그';
 
   @override
-  String get noRecentTags => 'No recent tags yet';
+  String get noRecentTags => '최근 태그가 없습니다';
 
   @override
-  String get hideMomentsFromUser => 'Hide moments from this user';
+  String get hideMomentsFromUser => '이 사용자의 모먼트 숨기기';
 
   @override
-  String get momentsHidden => 'Moments from this user will be hidden';
+  String get momentsHidden => '이 사용자의 모먼트가 숨겨집니다';
 
   @override
-  String get unhideMoments => 'Show moments from this user';
+  String get unhideMoments => '이 사용자의 모먼트 다시 표시';
 
   @override
   String momentsHiddenCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count users hidden',
-      one: '1 user hidden',
-      zero: 'No hidden users',
+      other: '사용자 $count명 숨김',
+      one: '사용자 1명 숨김',
+      zero: '숨긴 사용자 없음',
     );
     return '$_temp0';
   }
 
   @override
-  String get momentSaveFailed => 'Couldn\'t save moment';
+  String get momentSaveFailed => '모먼트를 저장할 수 없습니다';
 
   @override
-  String get tagAlreadyAdded => 'Tag already added';
+  String get tagAlreadyAdded => '이미 추가된 태그입니다';
 
   @override
-  String get tagLimitReached => 'Maximum tags reached';
+  String get tagLimitReached => '최대 태그 수에 도달했습니다';
 
   @override
-  String get hideThisUser => 'Hide this user\'s posts';
+  String get hideThisUser => '이 사용자의 게시물 숨기기';
 }

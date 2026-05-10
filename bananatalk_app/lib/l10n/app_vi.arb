@@ -1710,5 +1710,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "Không thể tải các khoảnh khắc",
+  "momentsRetry": "Thử lại",
+  "recentTags": "Thẻ gần đây",
+  "noRecentTags": "Chưa có thẻ gần đây",
+  "hideMomentsFromUser": "Ẩn khoảnh khắc của người dùng này",
+  "momentsHidden": "Khoảnh khắc của người dùng này sẽ được ẩn",
+  "unhideMoments": "Hiển thị khoảnh khắc của người dùng này",
+  "momentsHiddenCount": "{count, plural, =0{Không có người dùng nào bị ẩn} =1{Đã ẩn 1 người dùng} other{Đã ẩn {count} người dùng}}",
+  "momentSaveFailed": "Không thể lưu khoảnh khắc",
+  "tagAlreadyAdded": "Đã thêm thẻ này",
+  "tagLimitReached": "Đã đạt số lượng thẻ tối đa",
+  "hideThisUser": "Ẩn bài đăng của người dùng này"
 }

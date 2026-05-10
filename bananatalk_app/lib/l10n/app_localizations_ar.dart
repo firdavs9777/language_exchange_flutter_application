@@ -4966,47 +4966,47 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get momentsLoadError => 'Couldn\'t load moments';
+  String get momentsLoadError => 'تعذر تحميل اللحظات';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => 'إعادة المحاولة';
 
   @override
-  String get recentTags => 'Recent tags';
+  String get recentTags => 'العلامات الأخيرة';
 
   @override
-  String get noRecentTags => 'No recent tags yet';
+  String get noRecentTags => 'لا توجد علامات حديثة بعد';
 
   @override
-  String get hideMomentsFromUser => 'Hide moments from this user';
+  String get hideMomentsFromUser => 'إخفاء لحظات هذا المستخدم';
 
   @override
-  String get momentsHidden => 'Moments from this user will be hidden';
+  String get momentsHidden => 'سيتم إخفاء لحظات هذا المستخدم';
 
   @override
-  String get unhideMoments => 'Show moments from this user';
+  String get unhideMoments => 'إظهار لحظات هذا المستخدم';
 
   @override
   String momentsHiddenCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count users hidden',
-      one: '1 user hidden',
-      zero: 'No hidden users',
+      other: '$count مستخدمين مخفيين',
+      one: 'مستخدم واحد مخفي',
+      zero: 'لا يوجد مستخدمون مخفيون',
     );
     return '$_temp0';
   }
 
   @override
-  String get momentSaveFailed => 'Couldn\'t save moment';
+  String get momentSaveFailed => 'تعذر حفظ اللحظة';
 
   @override
-  String get tagAlreadyAdded => 'Tag already added';
+  String get tagAlreadyAdded => 'العلامة مضافة بالفعل';
 
   @override
-  String get tagLimitReached => 'Maximum tags reached';
+  String get tagLimitReached => 'تم الوصول إلى الحد الأقصى للعلامات';
 
   @override
-  String get hideThisUser => 'Hide this user\'s posts';
+  String get hideThisUser => 'إخفاء منشورات هذا المستخدم';
 }

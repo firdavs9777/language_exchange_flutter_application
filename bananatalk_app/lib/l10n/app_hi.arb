@@ -1868,5 +1868,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "momentsLoadError": "मोमेंट्स लोड नहीं हो सके",
+  "momentsRetry": "फिर से कोशिश करें",
+  "recentTags": "हाल के टैग",
+  "noRecentTags": "अभी कोई हाल का टैग नहीं",
+  "hideMomentsFromUser": "इस उपयोगकर्ता के मोमेंट्स छिपाएं",
+  "momentsHidden": "इस उपयोगकर्ता के मोमेंट्स छिपाए जाएंगे",
+  "unhideMoments": "इस उपयोगकर्ता के मोमेंट्स दिखाएं",
+  "momentsHiddenCount": "{count, plural, =0{कोई छिपा उपयोगकर्ता नहीं} =1{1 उपयोगकर्ता छिपा} other{{count} उपयोगकर्ता छिपे}}",
+  "momentSaveFailed": "मोमेंट सहेजा नहीं जा सका",
+  "tagAlreadyAdded": "टैग पहले से जोड़ा गया है",
+  "tagLimitReached": "अधिकतम टैग संख्या पहुंची",
+  "hideThisUser": "इस उपयोगकर्ता के पोस्ट छिपाएं"
 }

@@ -4966,47 +4966,47 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get momentsLoadError => 'Couldn\'t load moments';
+  String get momentsLoadError => 'Tidak dapat memuat momen';
 
   @override
-  String get momentsRetry => 'Try again';
+  String get momentsRetry => 'Coba lagi';
 
   @override
-  String get recentTags => 'Recent tags';
+  String get recentTags => 'Tag terbaru';
 
   @override
-  String get noRecentTags => 'No recent tags yet';
+  String get noRecentTags => 'Belum ada tag terbaru';
 
   @override
-  String get hideMomentsFromUser => 'Hide moments from this user';
+  String get hideMomentsFromUser => 'Sembunyikan momen pengguna ini';
 
   @override
-  String get momentsHidden => 'Moments from this user will be hidden';
+  String get momentsHidden => 'Momen pengguna ini akan disembunyikan';
 
   @override
-  String get unhideMoments => 'Show moments from this user';
+  String get unhideMoments => 'Tampilkan momen pengguna ini';
 
   @override
   String momentsHiddenCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count users hidden',
-      one: '1 user hidden',
-      zero: 'No hidden users',
+      other: '$count pengguna disembunyikan',
+      one: '1 pengguna disembunyikan',
+      zero: 'Tidak ada pengguna tersembunyi',
     );
     return '$_temp0';
   }
 
   @override
-  String get momentSaveFailed => 'Couldn\'t save moment';
+  String get momentSaveFailed => 'Tidak dapat menyimpan momen';
 
   @override
-  String get tagAlreadyAdded => 'Tag already added';
+  String get tagAlreadyAdded => 'Tag sudah ditambahkan';
 
   @override
-  String get tagLimitReached => 'Maximum tags reached';
+  String get tagLimitReached => 'Batas maksimum tag tercapai';
 
   @override
-  String get hideThisUser => 'Hide this user\'s posts';
+  String get hideThisUser => 'Sembunyikan postingan pengguna ini';
 }
