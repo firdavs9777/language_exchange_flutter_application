@@ -5,7 +5,7 @@ import 'package:bananatalk_app/pages/moments/card/moment_card_header.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_media.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/single/single_moment.dart';
-import 'package:bananatalk_app/pages/moments/video_player_widget.dart';
+import 'package:bananatalk_app/pages/moments/viewer/video_player_widget.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
