@@ -149,7 +149,7 @@ class DeleteMessageDialog extends StatelessWidget {
               Icon(
                 icon,
                 size: 24,
-                color: enabled ? context.textPrimary : Colors.grey,
+                color: enabled ? context.textPrimary : context.textSecondary,
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -161,7 +161,7 @@ class DeleteMessageDialog extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: enabled ? context.textPrimary : Colors.grey,
+                        color: enabled ? context.textPrimary : context.textSecondary,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -192,7 +192,7 @@ class DeleteMessageDialog extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: enabled ? theme.primaryColor : Colors.grey,
+                      color: enabled ? theme.primaryColor : context.textSecondary,
                     ),
                   ),
                 ),

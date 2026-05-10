@@ -13,7 +13,6 @@ import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -247,12 +246,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
     _newMessageSub = _chatSocketService.onNewMessage.listen(
       _handleNewMessage,
       onError: onStreamError,
-      onDone: () => debugPrint('📭 New message stream closed'),
     );
     _messageSentSub = _chatSocketService.onMessageSent.listen(
       _handleMessageSent,
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Message sent stream closed'),
     );
     _typingSub = _chatSocketService.onTyping.listen(
       (data) {
@@ -263,7 +260,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Typing stream closed'),
     );
     _statusSub = _chatSocketService.onStatusUpdate.listen(
       (data) {
@@ -278,7 +274,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Status stream closed'),
     );
     _messageReadSub = _chatSocketService.onMessageRead.listen(
       (data) {
@@ -289,7 +284,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Message read stream closed'),
     );
     _connectionStateSub = _chatSocketService.onConnectionStateChange.listen(
       (isConnected) {
@@ -298,7 +292,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Connection state stream closed'),
     );
   }
 

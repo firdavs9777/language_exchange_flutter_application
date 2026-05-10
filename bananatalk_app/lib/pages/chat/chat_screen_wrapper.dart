@@ -8,6 +8,7 @@ import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 class ChatScreenWrapper extends ConsumerStatefulWidget {
   final String userId;
@@ -131,7 +132,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                   'Free users can chat with up to ${DailyChatLimitService.maxDailyChats} people per day.\nUpgrade to VIP for unlimited conversations!',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey[600],
+                    color: context.textSecondary,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -181,7 +182,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     'Maybe Later',
-                    style: TextStyle(color: Colors.grey[600]),
+                    style: TextStyle(color: context.textSecondary),
                   ),
                 ),
               ],
