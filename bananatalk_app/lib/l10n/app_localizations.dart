@@ -9587,6 +9587,384 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get chatRetry;
+
+  /// Title for the learning hub screen
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get learningHubTitle;
+
+  /// Generic retry button label in learning surface
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get learningCommonRetry;
+
+  /// Generic continue button label in learning surface
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get learningCommonContinue;
+
+  /// Generic positive reinforcement label
+  ///
+  /// In en, this message translates to:
+  /// **'Awesome!'**
+  String get learningCommonAwesome;
+
+  /// Generic error message in learning surface
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get learningErrorGeneric;
+
+  /// Label for the current streak count
+  ///
+  /// In en, this message translates to:
+  /// **'Current streak'**
+  String get learningStreakCurrent;
+
+  /// Label for the longest streak count
+  ///
+  /// In en, this message translates to:
+  /// **'Longest streak'**
+  String get learningStreakLongest;
+
+  /// Plural days count for streak display
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{0 days} =1{1 day} other{{count} days}}'**
+  String learningStreakDaysCount(int count);
+
+  /// Plural freeze count for streak freeze display
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No freezes available} =1{1 freeze available} other{{count} freezes available}}'**
+  String learningStreakFreezeAvailable(int count);
+
+  /// Button label to use a streak freeze
+  ///
+  /// In en, this message translates to:
+  /// **'Use freeze'**
+  String get learningStreakFreezeUse;
+
+  /// Explanatory text for streak freezes
+  ///
+  /// In en, this message translates to:
+  /// **'Freezes protect your streak when you miss a day.'**
+  String get learningStreakFreezeDescription;
+
+  /// Snackbar when a streak freeze is applied
+  ///
+  /// In en, this message translates to:
+  /// **'Streak protected!'**
+  String get learningStreakFreezeProtected;
+
+  /// Celebration label for 7-day streak milestone
+  ///
+  /// In en, this message translates to:
+  /// **'7-day streak!'**
+  String get learningStreakMilestone7;
+
+  /// Celebration label for 30-day streak milestone
+  ///
+  /// In en, this message translates to:
+  /// **'30-day streak!'**
+  String get learningStreakMilestone30;
+
+  /// Celebration label for 100-day streak milestone
+  ///
+  /// In en, this message translates to:
+  /// **'100-day streak!'**
+  String get learningStreakMilestone100;
+
+  /// Celebration label for 365-day streak milestone
+  ///
+  /// In en, this message translates to:
+  /// **'365-day streak!'**
+  String get learningStreakMilestone365;
+
+  /// Title for the weekly digest card
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get learningWeeklyDigestTitle;
+
+  /// XP earned this week in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP earned'**
+  String learningWeeklyDigestXp(int xp);
+
+  /// Plural lesson count in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 lesson} other{{count} lessons}}'**
+  String learningWeeklyDigestLessons(int count);
+
+  /// Plural vocabulary words learned in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 word learned} other{{count} words learned}}'**
+  String learningWeeklyDigestVocab(int count);
+
+  /// Plural active days count in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 active day} other{{count} active days}}'**
+  String learningWeeklyDigestDaysActive(int count);
+
+  /// Label for top achievement in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'Top achievement'**
+  String get learningWeeklyDigestTopAchievement;
+
+  /// Positive trend indicator in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'Up {pct}% from last week'**
+  String learningWeeklyDigestTrendUp(int pct);
+
+  /// Negative trend indicator in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'Down {pct}% from last week'**
+  String learningWeeklyDigestTrendDown(int pct);
+
+  /// Flat trend indicator in weekly digest
+  ///
+  /// In en, this message translates to:
+  /// **'Same as last week'**
+  String get learningWeeklyDigestTrendFlat;
+
+  /// Title for the SRS daily review dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Review'**
+  String get learningSrsDashboardTitle;
+
+  /// Plural SRS cards due today
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No cards due today} =1{1 card due today} other{{count} cards due today}}'**
+  String learningSrsDueToday(int count);
+
+  /// SRS cards due tomorrow
+  ///
+  /// In en, this message translates to:
+  /// **'{count} due tomorrow'**
+  String learningSrsDueTomorrow(int count);
+
+  /// SRS cards due this week
+  ///
+  /// In en, this message translates to:
+  /// **'{count} due this week'**
+  String learningSrsDueThisWeek(int count);
+
+  /// Button to start SRS review session
+  ///
+  /// In en, this message translates to:
+  /// **'Start review'**
+  String get learningSrsStartReview;
+
+  /// Empty state when no SRS cards are due
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all caught up!'**
+  String get learningSrsAllCaughtUp;
+
+  /// Encouragement label in SRS session
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get learningSrsKeepGoing;
+
+  /// Leaderboard tab label for XP ranking
+  ///
+  /// In en, this message translates to:
+  /// **'XP'**
+  String get learningLeaderboardXpTab;
+
+  /// Leaderboard tab label for streak ranking
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get learningLeaderboardStreakTab;
+
+  /// Leaderboard tab label for language ranking
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get learningLeaderboardLanguageTab;
+
+  /// Leaderboard tab label for friends ranking
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get learningLeaderboardFriendsTab;
+
+  /// Empty state for leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'No rankings yet'**
+  String get learningLeaderboardEmpty;
+
+  /// Label to mark the current user in leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get learningLeaderboardYouLabel;
+
+  /// Badge label for friends in leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'Friend'**
+  String get learningLeaderboardFriendBadge;
+
+  /// Empty state for vocabulary list
+  ///
+  /// In en, this message translates to:
+  /// **'Add words you want to remember'**
+  String get learningEmptyVocab;
+
+  /// Empty state for lessons list
+  ///
+  /// In en, this message translates to:
+  /// **'No lessons available yet'**
+  String get learningEmptyLessons;
+
+  /// Empty state for quizzes list
+  ///
+  /// In en, this message translates to:
+  /// **'No quizzes available'**
+  String get learningEmptyQuizzes;
+
+  /// Empty state for daily challenges
+  ///
+  /// In en, this message translates to:
+  /// **'Check back tomorrow'**
+  String get learningEmptyChallenges;
+
+  /// Empty state for achievements list
+  ///
+  /// In en, this message translates to:
+  /// **'Earn your first achievement'**
+  String get learningEmptyAchievements;
+
+  /// Empty state for search results in learning surface
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get learningEmptySearchResults;
+
+  /// XP gained notification label
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP'**
+  String learningXpGained(int xp);
+
+  /// Celebration label when user levels up
+  ///
+  /// In en, this message translates to:
+  /// **'Level up!'**
+  String get learningLevelUp;
+
+  /// Label showing the level reached on level up
+  ///
+  /// In en, this message translates to:
+  /// **'You reached {level}'**
+  String learningLevelReached(String level);
+
+  /// Snackbar/toast when an achievement is unlocked
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement unlocked'**
+  String get learningAchievementUnlocked;
+
+  /// Hint text for vocabulary search field
+  ///
+  /// In en, this message translates to:
+  /// **'Search vocabulary'**
+  String get learningVocabularySearchHint;
+
+  /// Vocabulary filter chip label for all words
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get learningVocabularyFilterAll;
+
+  /// Vocabulary filter chip label for new words
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get learningVocabularyFilterNew;
+
+  /// Vocabulary filter chip label for words in learning
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get learningVocabularyFilterLearning;
+
+  /// Vocabulary filter chip label for mastered words
+  ///
+  /// In en, this message translates to:
+  /// **'Mastered'**
+  String get learningVocabularyFilterMastered;
+
+  /// Vocabulary sort option by recency
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get learningVocabularySortRecent;
+
+  /// Vocabulary sort option alphabetically
+  ///
+  /// In en, this message translates to:
+  /// **'Alphabetical'**
+  String get learningVocabularySortAlphabetical;
+
+  /// Vocabulary sort option by mastery level
+  ///
+  /// In en, this message translates to:
+  /// **'Mastery'**
+  String get learningVocabularySortMastery;
+
+  /// Mastery status label for new vocabulary words
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get learningVocabularyMasteryNew;
+
+  /// Mastery status label for vocabulary words in learning
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get learningVocabularyMasteryLearning;
+
+  /// Mastery status label for mastered vocabulary words
+  ///
+  /// In en, this message translates to:
+  /// **'Mastered'**
+  String get learningVocabularyMasteryMastered;
+
+  /// Label for the level indicator in progress section
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get learningProgressLevelLabel;
+
+  /// XP needed to reach the next level
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP to next level'**
+  String learningProgressXpToNextLevel(int xp);
+
+  /// Title for the weekly progress chart
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get learningProgressWeeklyChartTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

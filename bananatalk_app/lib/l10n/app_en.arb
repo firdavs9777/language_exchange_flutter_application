@@ -2530,5 +2530,236 @@
   "@noConversationsYet": { "description": "Empty state for the chat list" },
 
   "chatRetry": "Try again",
-  "@chatRetry": { "description": "Retry button on chat error states" }
+  "@chatRetry": { "description": "Retry button on chat error states" },
+
+  "learningHubTitle": "Learning",
+  "@learningHubTitle": { "description": "Title for the learning hub screen" },
+
+  "learningCommonRetry": "Retry",
+  "@learningCommonRetry": { "description": "Generic retry button label in learning surface" },
+
+  "learningCommonContinue": "Continue",
+  "@learningCommonContinue": { "description": "Generic continue button label in learning surface" },
+
+  "learningCommonAwesome": "Awesome!",
+  "@learningCommonAwesome": { "description": "Generic positive reinforcement label" },
+
+  "learningErrorGeneric": "Something went wrong",
+  "@learningErrorGeneric": { "description": "Generic error message in learning surface" },
+
+  "learningStreakCurrent": "Current streak",
+  "@learningStreakCurrent": { "description": "Label for the current streak count" },
+
+  "learningStreakLongest": "Longest streak",
+  "@learningStreakLongest": { "description": "Label for the longest streak count" },
+
+  "learningStreakDaysCount": "{count, plural, =0{0 days} =1{1 day} other{{count} days}}",
+  "@learningStreakDaysCount": {
+    "description": "Plural days count for streak display",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningStreakFreezeAvailable": "{count, plural, =0{No freezes available} =1{1 freeze available} other{{count} freezes available}}",
+  "@learningStreakFreezeAvailable": {
+    "description": "Plural freeze count for streak freeze display",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningStreakFreezeUse": "Use freeze",
+  "@learningStreakFreezeUse": { "description": "Button label to use a streak freeze" },
+
+  "learningStreakFreezeDescription": "Freezes protect your streak when you miss a day.",
+  "@learningStreakFreezeDescription": { "description": "Explanatory text for streak freezes" },
+
+  "learningStreakFreezeProtected": "Streak protected!",
+  "@learningStreakFreezeProtected": { "description": "Snackbar when a streak freeze is applied" },
+
+  "learningStreakMilestone7": "7-day streak!",
+  "@learningStreakMilestone7": { "description": "Celebration label for 7-day streak milestone" },
+
+  "learningStreakMilestone30": "30-day streak!",
+  "@learningStreakMilestone30": { "description": "Celebration label for 30-day streak milestone" },
+
+  "learningStreakMilestone100": "100-day streak!",
+  "@learningStreakMilestone100": { "description": "Celebration label for 100-day streak milestone" },
+
+  "learningStreakMilestone365": "365-day streak!",
+  "@learningStreakMilestone365": { "description": "Celebration label for 365-day streak milestone" },
+
+  "learningWeeklyDigestTitle": "This Week",
+  "@learningWeeklyDigestTitle": { "description": "Title for the weekly digest card" },
+
+  "learningWeeklyDigestXp": "{xp} XP earned",
+  "@learningWeeklyDigestXp": {
+    "description": "XP earned this week in weekly digest",
+    "placeholders": {"xp": {"type": "int"}}
+  },
+
+  "learningWeeklyDigestLessons": "{count, plural, =1{1 lesson} other{{count} lessons}}",
+  "@learningWeeklyDigestLessons": {
+    "description": "Plural lesson count in weekly digest",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningWeeklyDigestVocab": "{count, plural, =1{1 word learned} other{{count} words learned}}",
+  "@learningWeeklyDigestVocab": {
+    "description": "Plural vocabulary words learned in weekly digest",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningWeeklyDigestDaysActive": "{count, plural, =1{1 active day} other{{count} active days}}",
+  "@learningWeeklyDigestDaysActive": {
+    "description": "Plural active days count in weekly digest",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningWeeklyDigestTopAchievement": "Top achievement",
+  "@learningWeeklyDigestTopAchievement": { "description": "Label for top achievement in weekly digest" },
+
+  "learningWeeklyDigestTrendUp": "Up {pct}% from last week",
+  "@learningWeeklyDigestTrendUp": {
+    "description": "Positive trend indicator in weekly digest",
+    "placeholders": {"pct": {"type": "int"}}
+  },
+
+  "learningWeeklyDigestTrendDown": "Down {pct}% from last week",
+  "@learningWeeklyDigestTrendDown": {
+    "description": "Negative trend indicator in weekly digest",
+    "placeholders": {"pct": {"type": "int"}}
+  },
+
+  "learningWeeklyDigestTrendFlat": "Same as last week",
+  "@learningWeeklyDigestTrendFlat": { "description": "Flat trend indicator in weekly digest" },
+
+  "learningSrsDashboardTitle": "Daily Review",
+  "@learningSrsDashboardTitle": { "description": "Title for the SRS daily review dashboard" },
+
+  "learningSrsDueToday": "{count, plural, =0{No cards due today} =1{1 card due today} other{{count} cards due today}}",
+  "@learningSrsDueToday": {
+    "description": "Plural SRS cards due today",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningSrsDueTomorrow": "{count} due tomorrow",
+  "@learningSrsDueTomorrow": {
+    "description": "SRS cards due tomorrow",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningSrsDueThisWeek": "{count} due this week",
+  "@learningSrsDueThisWeek": {
+    "description": "SRS cards due this week",
+    "placeholders": {"count": {"type": "int"}}
+  },
+
+  "learningSrsStartReview": "Start review",
+  "@learningSrsStartReview": { "description": "Button to start SRS review session" },
+
+  "learningSrsAllCaughtUp": "You're all caught up!",
+  "@learningSrsAllCaughtUp": { "description": "Empty state when no SRS cards are due" },
+
+  "learningSrsKeepGoing": "Keep going",
+  "@learningSrsKeepGoing": { "description": "Encouragement label in SRS session" },
+
+  "learningLeaderboardXpTab": "XP",
+  "@learningLeaderboardXpTab": { "description": "Leaderboard tab label for XP ranking" },
+
+  "learningLeaderboardStreakTab": "Streak",
+  "@learningLeaderboardStreakTab": { "description": "Leaderboard tab label for streak ranking" },
+
+  "learningLeaderboardLanguageTab": "Language",
+  "@learningLeaderboardLanguageTab": { "description": "Leaderboard tab label for language ranking" },
+
+  "learningLeaderboardFriendsTab": "Friends",
+  "@learningLeaderboardFriendsTab": { "description": "Leaderboard tab label for friends ranking" },
+
+  "learningLeaderboardEmpty": "No rankings yet",
+  "@learningLeaderboardEmpty": { "description": "Empty state for leaderboard" },
+
+  "learningLeaderboardYouLabel": "You",
+  "@learningLeaderboardYouLabel": { "description": "Label to mark the current user in leaderboard" },
+
+  "learningLeaderboardFriendBadge": "Friend",
+  "@learningLeaderboardFriendBadge": { "description": "Badge label for friends in leaderboard" },
+
+  "learningEmptyVocab": "Add words you want to remember",
+  "@learningEmptyVocab": { "description": "Empty state for vocabulary list" },
+
+  "learningEmptyLessons": "No lessons available yet",
+  "@learningEmptyLessons": { "description": "Empty state for lessons list" },
+
+  "learningEmptyQuizzes": "No quizzes available",
+  "@learningEmptyQuizzes": { "description": "Empty state for quizzes list" },
+
+  "learningEmptyChallenges": "Check back tomorrow",
+  "@learningEmptyChallenges": { "description": "Empty state for daily challenges" },
+
+  "learningEmptyAchievements": "Earn your first achievement",
+  "@learningEmptyAchievements": { "description": "Empty state for achievements list" },
+
+  "learningEmptySearchResults": "No results found",
+  "@learningEmptySearchResults": { "description": "Empty state for search results in learning surface" },
+
+  "learningXpGained": "+{xp} XP",
+  "@learningXpGained": {
+    "description": "XP gained notification label",
+    "placeholders": {"xp": {"type": "int"}}
+  },
+
+  "learningLevelUp": "Level up!",
+  "@learningLevelUp": { "description": "Celebration label when user levels up" },
+
+  "learningLevelReached": "You reached {level}",
+  "@learningLevelReached": {
+    "description": "Label showing the level reached on level up",
+    "placeholders": {"level": {"type": "String"}}
+  },
+
+  "learningAchievementUnlocked": "Achievement unlocked",
+  "@learningAchievementUnlocked": { "description": "Snackbar/toast when an achievement is unlocked" },
+
+  "learningVocabularySearchHint": "Search vocabulary",
+  "@learningVocabularySearchHint": { "description": "Hint text for vocabulary search field" },
+
+  "learningVocabularyFilterAll": "All",
+  "@learningVocabularyFilterAll": { "description": "Vocabulary filter chip label for all words" },
+
+  "learningVocabularyFilterNew": "New",
+  "@learningVocabularyFilterNew": { "description": "Vocabulary filter chip label for new words" },
+
+  "learningVocabularyFilterLearning": "Learning",
+  "@learningVocabularyFilterLearning": { "description": "Vocabulary filter chip label for words in learning" },
+
+  "learningVocabularyFilterMastered": "Mastered",
+  "@learningVocabularyFilterMastered": { "description": "Vocabulary filter chip label for mastered words" },
+
+  "learningVocabularySortRecent": "Recent",
+  "@learningVocabularySortRecent": { "description": "Vocabulary sort option by recency" },
+
+  "learningVocabularySortAlphabetical": "Alphabetical",
+  "@learningVocabularySortAlphabetical": { "description": "Vocabulary sort option alphabetically" },
+
+  "learningVocabularySortMastery": "Mastery",
+  "@learningVocabularySortMastery": { "description": "Vocabulary sort option by mastery level" },
+
+  "learningVocabularyMasteryNew": "New",
+  "@learningVocabularyMasteryNew": { "description": "Mastery status label for new vocabulary words" },
+
+  "learningVocabularyMasteryLearning": "Learning",
+  "@learningVocabularyMasteryLearning": { "description": "Mastery status label for vocabulary words in learning" },
+
+  "learningVocabularyMasteryMastered": "Mastered",
+  "@learningVocabularyMasteryMastered": { "description": "Mastery status label for mastered vocabulary words" },
+
+  "learningProgressLevelLabel": "Level",
+  "@learningProgressLevelLabel": { "description": "Label for the level indicator in progress section" },
+
+  "learningProgressXpToNextLevel": "{xp} XP to next level",
+  "@learningProgressXpToNextLevel": {
+    "description": "XP needed to reach the next level",
+    "placeholders": {"xp": {"type": "int"}}
+  },
+
+  "learningProgressWeeklyChartTitle": "Last 7 days",
+  "@learningProgressWeeklyChartTitle": { "description": "Title for the weekly progress chart" }
 }
