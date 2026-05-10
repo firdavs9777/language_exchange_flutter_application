@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/moments/card/moment_card_media.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/single/single_moment.dart';
 import 'package:bananatalk_app/pages/moments/viewer/video_player_widget.dart';
+import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
@@ -288,6 +289,23 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   _shareMoment(context, widget.moments.id);
                 },
               ),
+              if (!isOwnMoment)
+                ListTile(
+                  leading: const Icon(Icons.visibility_off_outlined),
+                  title: Text(AppLocalizations.of(context)!.hideThisUser),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await ref
+                        .read(mutedMomentsProvider.notifier)
+                        .mute(widget.moments.user.id);
+                    if (!mounted) return;
+                    showMomentsSnackBar(
+                      context,
+                      message: AppLocalizations.of(context)!.momentsHidden,
+                      type: MomentsSnackBarType.success,
+                    );
+                  },
+                ),
               if (!isOwnMoment)
                 ListTile(
                   leading: Icon(Icons.flag_outlined, color: Colors.orange[700]),

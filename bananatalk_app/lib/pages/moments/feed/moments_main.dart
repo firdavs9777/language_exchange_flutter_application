@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
@@ -70,18 +71,20 @@ final filteredMomentsProvider = Provider<AsyncValue<List<Moments>>>((ref) {
   final momentsAsync = ref.watch(momentsFeedProvider);
   final filter = ref.watch(momentFilterProvider);
   final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
+  final mutedUserIds = ref.watch(mutedMomentsProvider); // NEW
 
   return momentsAsync.whenData((moments) {
     // Get blocked user IDs
     final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
 
-    // Filter out moments from blocked users
-    final filteredByBlock = moments.where((moment) {
-      return !blockedUserIds.contains(moment.user.id);
+    // Filter out moments from blocked and muted users
+    final filteredByBlockAndMute = moments.where((moment) {
+      return !blockedUserIds.contains(moment.user.id) &&
+             !mutedUserIds.contains(moment.user.id);
     }).toList();
 
     // Apply other filters
-    return MomentFilterUtility.filterMoments(filteredByBlock, filter);
+    return MomentFilterUtility.filterMoments(filteredByBlockAndMute, filter);
   });
 });
 
