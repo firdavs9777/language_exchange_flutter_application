@@ -25,13 +25,13 @@ class LeaderboardPeriodChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.grey[200],
+          color: isSelected ? AppColors.primary : Theme.of(context).colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey[700],
+            color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.w600,
             fontSize: 13,
           ),
@@ -110,7 +110,7 @@ class LeaderboardPodiumV1 extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -273,7 +273,7 @@ class LeaderboardPodiumItemV1 extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 medalColor,
-                medalColor.withOpacity(0.7),
+                medalColor.withValues(alpha: 0.7),
               ],
             ),
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
@@ -308,10 +308,10 @@ class LeaderboardUserPositionCard extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.3),
+          color: AppColors.primary.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -386,10 +386,10 @@ class LeaderboardRankingItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: isCurrentUser ? AppColors.primary.withOpacity(0.1) : Colors.white,
+        color: isCurrentUser ? AppColors.primary.withValues(alpha: 0.1) : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: isCurrentUser
-            ? Border.all(color: AppColors.primary.withOpacity(0.3))
+            ? Border.all(color: AppColors.primary.withValues(alpha: 0.3))
             : null,
       ),
       child: Row(
@@ -402,7 +402,7 @@ class LeaderboardRankingItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: isCurrentUser ? AppColors.primary : Colors.grey[700],
+                color: isCurrentUser ? AppColors.primary : Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
           ),
@@ -413,7 +413,7 @@ class LeaderboardRankingItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: isCurrentUser ? AppColors.primary : Colors.grey[300]!,
+                color: isCurrentUser ? AppColors.primary : Theme.of(context).colorScheme.outlineVariant,
                 width: 2,
               ),
             ),
@@ -462,7 +462,7 @@ class LeaderboardRankingItem extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: _getLevelColor(entry.level).withOpacity(0.1),
+                        color: _getLevelColor(entry.level).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -534,7 +534,7 @@ class LeaderboardDefaultAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.primary.withOpacity(0.2),
+      color: AppColors.primary.withValues(alpha: 0.2),
       child: Center(
         child: Text(
           username.isNotEmpty ? username[0].toUpperCase() : '?',

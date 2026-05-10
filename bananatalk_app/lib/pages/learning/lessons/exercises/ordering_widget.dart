@@ -161,8 +161,8 @@ class _OrderingWidgetState extends State<OrderingWidget> {
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
               color: _isCorrect
-                  ? AppColors.success.withOpacity(0.1)
-                  : AppColors.error.withOpacity(0.1),
+                  ? AppColors.success.withValues(alpha: 0.1)
+                  : AppColors.error.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
               border: Border.all(
                 color: _isCorrect ? AppColors.success : AppColors.error,
@@ -208,9 +208,9 @@ class _OrderingWidgetState extends State<OrderingWidget> {
             width: double.infinity,
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
-              color: AppColors.info.withOpacity(0.1),
+              color: AppColors.info.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(color: AppColors.info.withOpacity(0.3)),
+              border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,11 +332,11 @@ class _OrderingWidgetState extends State<OrderingWidget> {
 
         if (isCorrect != null) {
           if (isCorrect) {
-            backgroundColor = AppColors.success.withOpacity(0.1);
+            backgroundColor = AppColors.success.withValues(alpha: 0.1);
             borderColor = AppColors.success;
             numberColor = AppColors.success;
           } else {
-            backgroundColor = AppColors.error.withOpacity(0.1);
+            backgroundColor = AppColors.error.withValues(alpha: 0.1);
             borderColor = AppColors.error;
             numberColor = AppColors.error;
           }
@@ -356,7 +356,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: numberColor.withOpacity(0.1),
+                  color: numberColor.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Center(

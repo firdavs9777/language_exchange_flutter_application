@@ -273,7 +273,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
               decoration: BoxDecoration(
                 color: achievement.isUnlocked
                     ? _getCategoryColor(achievement.category ?? 'other')
-                        .withOpacity(0.1)
+                        .withValues(alpha: 0.1)
                     : ctx.containerColor,
                 shape: BoxShape.circle,
               ),
@@ -343,7 +343,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 borderRadius: AppRadius.borderXL,
               ),
               child: Row(

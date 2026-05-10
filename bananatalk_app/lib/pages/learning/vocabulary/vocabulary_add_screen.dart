@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/learning/widgets/learning_snackbar.dart';
 
 /// Add vocabulary screen
 class VocabularyAddScreen extends ConsumerStatefulWidget {
@@ -83,20 +84,10 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
 
       if (mounted) {
         if (result['success'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Word added successfully!'),
-              backgroundColor: AppColors.primary,
-            ),
-          );
+          showLearningSnackBar(context, 'Word added successfully!');
           Navigator.pop(context);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? 'Failed to add word'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showLearningSnackBar(context, result['error'] ?? 'Failed to add word');
         }
       }
     } finally {
@@ -287,7 +278,7 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
                         setState(() => _tags.remove(tag));
                       },
                       backgroundColor:
-                          AppColors.primary.withOpacity(0.1),
+                          AppColors.primary.withValues(alpha: 0.1),
                       labelStyle: const TextStyle(color: AppColors.primary),
                     );
                   }).toList(),

@@ -80,7 +80,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.orange.withOpacity(0.1),
+                      color: Colors.orange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -156,7 +156,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
         // Progress bar
         LinearProgressIndicator(
           value: state.currentIndex / state.questions.length,
-          backgroundColor: Colors.grey[200],
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
           valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF00BFA5)),
           minHeight: 4,
         ),
@@ -168,7 +168,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             child: Text(
               'Question ${state.currentIndex + 1} of ${state.questions.length}',
               style: TextStyle(
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -189,7 +189,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -229,13 +229,13 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? const Color(0xFF00BFA5).withOpacity(0.1)
+                              ? const Color(0xFF00BFA5).withValues(alpha: 0.1)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: isSelected
                                 ? const Color(0xFF00BFA5)
-                                : Colors.grey[300]!,
+                                : Theme.of(context).colorScheme.outlineVariant,
                             width: isSelected ? 2 : 1,
                           ),
                         ),
@@ -248,7 +248,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                                 shape: BoxShape.circle,
                                 color: isSelected
                                     ? const Color(0xFF00BFA5)
-                                    : Colors.grey[100],
+                                    : Theme.of(context).colorScheme.surfaceContainerHighest,
                               ),
                               child: Center(
                                 child: isSelected
@@ -261,7 +261,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                                         String.fromCharCode(65 + index),
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.grey[600],
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                                         ),
                                       ),
                               ),
@@ -304,7 +304,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     },
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      side: BorderSide(color: Colors.grey[400]!),
+                      side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -312,7 +312,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     child: Text(
                       'Previous',
                       style: TextStyle(
-                        color: Colors.grey[700],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -371,7 +371,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               width: 140,
               height: 140,
               decoration: BoxDecoration(
-                color: _getResultColor(accuracy).withOpacity(0.1),
+                color: _getResultColor(accuracy).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Stack(
@@ -383,7 +383,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                     child: CircularProgressIndicator(
                       value: accuracy / 100,
                       strokeWidth: 8,
-                      backgroundColor: Colors.grey[200],
+                      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                       valueColor: AlwaysStoppedAnimation<Color>(
                         _getResultColor(accuracy),
                       ),
@@ -404,7 +404,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                         'Score',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey[600],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -425,7 +425,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               quiz.title,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
             ),
@@ -449,7 +449,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   Container(
                     width: 1,
                     height: 50,
-                    color: Colors.grey[200],
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   ),
                   _buildResultStat(
                     'Wrong',
@@ -460,7 +460,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   Container(
                     width: 1,
                     height: 50,
-                    color: Colors.grey[200],
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   ),
                   _buildResultStat(
                     'XP',
@@ -477,10 +477,10 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF9C27B0).withOpacity(0.1),
+                  color: const Color(0xFF9C27B0).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: const Color(0xFF9C27B0).withOpacity(0.3),
+                    color: const Color(0xFF9C27B0).withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(
@@ -577,7 +577,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
           label,
           style: TextStyle(
             fontSize: 12,
-            color: Colors.grey[600],
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ],

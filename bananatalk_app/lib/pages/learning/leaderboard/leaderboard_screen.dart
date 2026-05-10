@@ -80,7 +80,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen>
                         Spacing.gapXS,
                         Text(
                           l10n.competeWithLearners,
-                          style: context.bodySmall.copyWith(color: Colors.white.withOpacity(0.8)),
+                          style: context.bodySmall.copyWith(color: Colors.white.withValues(alpha: 0.8)),
                         ),
                       ],
                     ),

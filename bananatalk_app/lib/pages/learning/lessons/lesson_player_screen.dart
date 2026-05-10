@@ -400,7 +400,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: _getResultColor(accuracy).withOpacity(0.1),
+                  color: _getResultColor(accuracy).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Center(

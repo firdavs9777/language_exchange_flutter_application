@@ -145,7 +145,7 @@ class QuizzesScreen extends ConsumerWidget {
           Container(
             padding: Spacing.paddingSM,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
             ),
             child: Icon(icon, color: color, size: 24),
@@ -216,9 +216,9 @@ class _QuizCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        _buildTypeBadge(),
+                        _buildTypeBadge(context),
                         const SizedBox(width: 8),
-                        _buildLevelBadge(),
+                        _buildLevelBadge(context),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -234,7 +234,7 @@ class _QuizCard extends StatelessWidget {
                       quiz.description,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey[600],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -243,24 +243,24 @@ class _QuizCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(Icons.help_outline,
-                            size: 14, color: Colors.grey[500]),
+                            size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
                         const SizedBox(width: 4),
                         Text(
                           '${quiz.questionCount} questions',
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey[500],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                         ),
                         const SizedBox(width: 16),
                         Icon(Icons.timer_outlined,
-                            size: 14, color: Colors.grey[500]),
+                            size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
                         const SizedBox(width: 4),
                         Text(
                           '${quiz.timeLimit} min',
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey[500],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                         ),
                         const Spacer(),
@@ -270,7 +270,7 @@ class _QuizCard extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5).withOpacity(0.1),
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -299,7 +299,7 @@ class _QuizCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(Icons.chevron_right, color: Colors.grey[400]),
+              Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.outlineVariant),
             ],
           ),
         ),
@@ -307,7 +307,7 @@ class _QuizCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTypeBadge() {
+  Widget _buildTypeBadge(BuildContext context) {
     Color color;
     String label;
 
@@ -325,14 +325,14 @@ class _QuizCard extends StatelessWidget {
         label = 'PRACTICE';
         break;
       default:
-        color = Colors.grey;
+        color = Theme.of(context).colorScheme.outline;
         label = quiz.type.toUpperCase();
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -346,7 +346,7 @@ class _QuizCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLevelBadge() {
+  Widget _buildLevelBadge(BuildContext context) {
     Color color;
     final level = quiz.level ?? 'beginner';
 
@@ -361,13 +361,13 @@ class _QuizCard extends StatelessWidget {
         color = const Color(0xFFE91E63);
         break;
       default:
-        color = Colors.grey;
+        color = Theme.of(context).colorScheme.outline;
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
