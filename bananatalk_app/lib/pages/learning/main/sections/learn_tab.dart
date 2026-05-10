@@ -8,6 +8,7 @@ import 'package:bananatalk_app/widgets/learning/daily_goal_widget.dart';
 import 'package:bananatalk_app/widgets/learning/challenge_card.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/srs_dashboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
 import 'package:bananatalk_app/pages/learning/achievements/achievements_screen.dart';
 import 'package:bananatalk_app/pages/learning/challenges/challenges_screen.dart';
@@ -561,6 +562,18 @@ class LearnTab extends ConsumerWidget {
   Widget _buildLearningSections(BuildContext context, bool isDark) {
     return Column(
       children: [
+        _LearningNavCard(
+          icon: Icons.auto_stories,
+          title: AppLocalizations.of(context)!.learningSrsDashboardTitle,
+          subtitle: AppLocalizations.of(context)!.learningSrsStartReview,
+          color: const Color(0xFFFF6B6B),
+          isDark: isDark,
+          onTap: () => Navigator.push(
+            context,
+            AppPageRoute(builder: (_) => const SrsDashboardScreen()),
+          ),
+        ),
+        const SizedBox(height: 10),
         _LearningNavCard(
           icon: Icons.school_rounded,
           title: AppLocalizations.of(context)!.lessons,
