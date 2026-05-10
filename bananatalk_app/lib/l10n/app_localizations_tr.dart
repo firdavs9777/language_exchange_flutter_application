@@ -5011,34 +5011,34 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hideThisUser => 'Bu kullanıcının gönderilerini gizle';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => 'Yazıya dök';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => 'Yazıya dökülüyor…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => 'Mesaj yazıya dökülemedi';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return '\'$word\' kelimesini kelime hazinesine kaydet';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => 'Kelime hazinenize eklendi';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => 'Zaten kelime hazinenizde';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => 'Kaydetmek için kelimeye basılı tutun';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => 'Gelen mesajlar otomatik olarak çevrilecek';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => 'Henüz konuşma yok';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => 'Tekrar dene';
 }

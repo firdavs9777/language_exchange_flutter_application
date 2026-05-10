@@ -2092,5 +2092,15 @@
   "momentSaveFailed": "An kaydedilemedi",
   "tagAlreadyAdded": "Etiket zaten eklendi",
   "tagLimitReached": "Maksimum etiket sayısına ulaşıldı",
-  "hideThisUser": "Bu kullanıcının gönderilerini gizle"
+  "hideThisUser": "Bu kullanıcının gönderilerini gizle",
+  "transcribeMessage": "Yazıya dök",
+  "transcribing": "Yazıya dökülüyor…",
+  "transcriptionFailed": "Mesaj yazıya dökülemedi",
+  "saveToVocabulary": "'{word}' kelimesini kelime hazinesine kaydet",
+  "addedToVocabulary": "Kelime hazinenize eklendi",
+  "alreadyInVocabulary": "Zaten kelime hazinenizde",
+  "tapWordToSave": "Kaydetmek için kelimeye basılı tutun",
+  "autoTranslateChatHint": "Gelen mesajlar otomatik olarak çevrilecek",
+  "noConversationsYet": "Henüz konuşma yok",
+  "chatRetry": "Tekrar dene"
 }

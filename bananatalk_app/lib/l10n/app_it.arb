@@ -2149,5 +2149,15 @@
   "momentSaveFailed": "Impossibile salvare il momento",
   "tagAlreadyAdded": "Tag già aggiunto",
   "tagLimitReached": "Numero massimo di tag raggiunto",
-  "hideThisUser": "Nascondi i post di questo utente"
+  "hideThisUser": "Nascondi i post di questo utente",
+  "transcribeMessage": "Trascrivi",
+  "transcribing": "Trascrivendo…",
+  "transcriptionFailed": "Impossibile trascrivere il messaggio",
+  "saveToVocabulary": "Salva '{word}' nel vocabolario",
+  "addedToVocabulary": "Aggiunto al tuo vocabolario",
+  "alreadyInVocabulary": "Già nel tuo vocabolario",
+  "tapWordToSave": "Tieni premuta una parola per salvarla",
+  "autoTranslateChatHint": "I messaggi in arrivo saranno tradotti automaticamente",
+  "noConversationsYet": "Ancora nessuna conversazione",
+  "chatRetry": "Riprova"
 }

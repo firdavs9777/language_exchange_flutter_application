@@ -5011,34 +5011,34 @@ class AppLocalizationsHi extends AppLocalizations {
   String get hideThisUser => 'इस उपयोगकर्ता के पोस्ट छिपाएं';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => 'ट्रांसक्राइब';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => 'ट्रांसक्राइब हो रहा है…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => 'संदेश ट्रांसक्राइब नहीं हो सका';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return '\'$word\' को शब्दावली में सहेजें';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => 'आपकी शब्दावली में जोड़ा गया';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => 'पहले से आपकी शब्दावली में है';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => 'सहेजने के लिए शब्द को दबाकर रखें';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => 'आने वाले संदेश स्वचालित रूप से अनुवादित होंगे';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => 'अभी तक कोई बातचीत नहीं';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => 'पुनः प्रयास';
 }

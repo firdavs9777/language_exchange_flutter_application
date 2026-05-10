@@ -1845,5 +1845,15 @@
   "momentSaveFailed": "無法儲存動態",
   "tagAlreadyAdded": "標籤已新增",
   "tagLimitReached": "已達到最大標籤數",
-  "hideThisUser": "隱藏此使用者的貼文"
+  "hideThisUser": "隱藏此使用者的貼文",
+  "transcribeMessage": "轉寫",
+  "transcribing": "轉寫中…",
+  "transcriptionFailed": "無法轉寫訊息",
+  "saveToVocabulary": "將「{word}」儲存到詞彙表",
+  "addedToVocabulary": "已新增到您的詞彙表",
+  "alreadyInVocabulary": "已在您的詞彙表中",
+  "tapWordToSave": "長按單字以儲存",
+  "autoTranslateChatHint": "傳入的訊息將自動翻譯",
+  "noConversationsYet": "還沒有對話",
+  "chatRetry": "重試"
 }

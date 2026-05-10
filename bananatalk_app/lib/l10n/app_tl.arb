@@ -1816,5 +1816,15 @@
   "momentSaveFailed": "Hindi ma-save ang moment",
   "tagAlreadyAdded": "Naidagdag na ang tag",
   "tagLimitReached": "Naabot ang max na tag",
-  "hideThisUser": "Itago ang mga post ng user na ito"
+  "hideThisUser": "Itago ang mga post ng user na ito",
+  "transcribeMessage": "I-transcribe",
+  "transcribing": "Nag-transcribe…",
+  "transcriptionFailed": "Hindi ma-transcribe ang mensahe",
+  "saveToVocabulary": "I-save ang '{word}' sa bokabularyo",
+  "addedToVocabulary": "Naidagdag sa iyong bokabularyo",
+  "alreadyInVocabulary": "Nasa iyong bokabularyo na",
+  "tapWordToSave": "Pindutin at hawakan ang salita para mai-save",
+  "autoTranslateChatHint": "Ang mga papasok na mensahe ay automatikong isasalin",
+  "noConversationsYet": "Wala pang mga usapan",
+  "chatRetry": "Subukan ulit"
 }

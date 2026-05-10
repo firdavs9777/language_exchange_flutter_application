@@ -5011,34 +5011,34 @@ class AppLocalizationsVi extends AppLocalizations {
   String get hideThisUser => 'Ẩn bài đăng của người dùng này';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => 'Phiên âm';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => 'Đang phiên âm…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => 'Không thể phiên âm tin nhắn';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return 'Lưu \'$word\' vào từ vựng';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => 'Đã thêm vào từ vựng của bạn';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => 'Đã có trong từ vựng của bạn';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => 'Nhấn và giữ một từ để lưu';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => 'Tin nhắn đến sẽ được dịch tự động';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => 'Chưa có cuộc trò chuyện';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => 'Thử lại';
 }

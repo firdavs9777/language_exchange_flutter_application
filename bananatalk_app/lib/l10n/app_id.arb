@@ -1722,5 +1722,15 @@
   "momentSaveFailed": "Tidak dapat menyimpan momen",
   "tagAlreadyAdded": "Tag sudah ditambahkan",
   "tagLimitReached": "Batas maksimum tag tercapai",
-  "hideThisUser": "Sembunyikan postingan pengguna ini"
+  "hideThisUser": "Sembunyikan postingan pengguna ini",
+  "transcribeMessage": "Transkrip",
+  "transcribing": "Mentranskripsi…",
+  "transcriptionFailed": "Tidak dapat mentranskripsi pesan",
+  "saveToVocabulary": "Simpan '{word}' ke kosakata",
+  "addedToVocabulary": "Ditambahkan ke kosakata Anda",
+  "alreadyInVocabulary": "Sudah ada di kosakata Anda",
+  "tapWordToSave": "Tekan dan tahan kata untuk menyimpan",
+  "autoTranslateChatHint": "Pesan masuk akan diterjemahkan secara otomatis",
+  "noConversationsYet": "Belum ada percakapan",
+  "chatRetry": "Coba lagi"
 }

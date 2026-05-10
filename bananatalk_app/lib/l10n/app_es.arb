@@ -1895,5 +1895,15 @@
   "momentSaveFailed": "No se pudo guardar el momento",
   "tagAlreadyAdded": "Etiqueta ya agregada",
   "tagLimitReached": "Máximo de etiquetas alcanzado",
-  "hideThisUser": "Ocultar las publicaciones de este usuario"
+  "hideThisUser": "Ocultar las publicaciones de este usuario",
+  "transcribeMessage": "Transcribir",
+  "transcribing": "Transcribiendo…",
+  "transcriptionFailed": "No se pudo transcribir el mensaje",
+  "saveToVocabulary": "Guardar '{word}' en vocabulario",
+  "addedToVocabulary": "Agregado a tu vocabulario",
+  "alreadyInVocabulary": "Ya está en tu vocabulario",
+  "tapWordToSave": "Mantén presionada una palabra para guardarla",
+  "autoTranslateChatHint": "Los mensajes entrantes se traducirán automáticamente",
+  "noConversationsYet": "Aún no hay conversaciones",
+  "chatRetry": "Reintentar"
 }

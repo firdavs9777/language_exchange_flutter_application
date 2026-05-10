@@ -1894,5 +1894,15 @@
   "momentSaveFailed": "Не удалось сохранить момент",
   "tagAlreadyAdded": "Тег уже добавлен",
   "tagLimitReached": "Достигнут максимум тегов",
-  "hideThisUser": "Скрыть публикации этого пользователя"
+  "hideThisUser": "Скрыть публикации этого пользователя",
+  "transcribeMessage": "Транскрибировать",
+  "transcribing": "Транскрибирование…",
+  "transcriptionFailed": "Не удалось транскрибировать сообщение",
+  "saveToVocabulary": "Сохранить '{word}' в словарь",
+  "addedToVocabulary": "Добавлено в ваш словарь",
+  "alreadyInVocabulary": "Уже в вашем словаре",
+  "tapWordToSave": "Нажмите и удерживайте слово, чтобы сохранить",
+  "autoTranslateChatHint": "Входящие сообщения будут переведены автоматически",
+  "noConversationsYet": "Пока нет разговоров",
+  "chatRetry": "Повторить"
 }

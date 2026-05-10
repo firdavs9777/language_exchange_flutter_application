@@ -1901,5 +1901,15 @@
   "momentSaveFailed": "모먼트를 저장할 수 없습니다",
   "tagAlreadyAdded": "이미 추가된 태그입니다",
   "tagLimitReached": "최대 태그 수에 도달했습니다",
-  "hideThisUser": "이 사용자의 게시물 숨기기"
+  "hideThisUser": "이 사용자의 게시물 숨기기",
+  "transcribeMessage": "텍스트로 변환",
+  "transcribing": "변환 중…",
+  "transcriptionFailed": "음성을 변환할 수 없습니다",
+  "saveToVocabulary": "'{word}'을(를) 단어장에 저장",
+  "addedToVocabulary": "단어장에 추가되었습니다",
+  "alreadyInVocabulary": "이미 단어장에 있습니다",
+  "tapWordToSave": "단어를 길게 눌러 저장하세요",
+  "autoTranslateChatHint": "수신 메시지가 자동으로 번역됩니다",
+  "noConversationsYet": "아직 대화가 없습니다",
+  "chatRetry": "다시 시도"
 }

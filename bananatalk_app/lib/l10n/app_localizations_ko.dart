@@ -5011,34 +5011,34 @@ class AppLocalizationsKo extends AppLocalizations {
   String get hideThisUser => '이 사용자의 게시물 숨기기';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => '텍스트로 변환';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => '변환 중…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => '음성을 변환할 수 없습니다';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return '\'$word\'을(를) 단어장에 저장';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => '단어장에 추가되었습니다';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => '이미 단어장에 있습니다';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => '단어를 길게 눌러 저장하세요';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => '수신 메시지가 자동으로 번역됩니다';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => '아직 대화가 없습니다';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => '다시 시도';
 }

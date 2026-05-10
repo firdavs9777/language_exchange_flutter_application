@@ -5011,34 +5011,34 @@ class AppLocalizationsRu extends AppLocalizations {
   String get hideThisUser => 'Скрыть публикации этого пользователя';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => 'Транскрибировать';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => 'Транскрибирование…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => 'Не удалось транскрибировать сообщение';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return 'Сохранить \'$word\' в словарь';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => 'Добавлено в ваш словарь';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => 'Уже в вашем словаре';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => 'Нажмите и удерживайте слово, чтобы сохранить';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => 'Входящие сообщения будут переведены автоматически';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => 'Пока нет разговоров';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => 'Повторить';
 }

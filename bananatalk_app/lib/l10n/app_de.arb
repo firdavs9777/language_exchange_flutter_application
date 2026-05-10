@@ -2149,5 +2149,15 @@
   "momentSaveFailed": "Moment konnte nicht gespeichert werden",
   "tagAlreadyAdded": "Tag bereits hinzugefügt",
   "tagLimitReached": "Maximale Tag-Anzahl erreicht",
-  "hideThisUser": "Beiträge dieses Nutzers ausblenden"
+  "hideThisUser": "Beiträge dieses Nutzers ausblenden",
+  "transcribeMessage": "Transkribieren",
+  "transcribing": "Transkribiere…",
+  "transcriptionFailed": "Nachricht konnte nicht transkribiert werden",
+  "saveToVocabulary": "'{word}' im Vokabular speichern",
+  "addedToVocabulary": "Zu deinem Vokabular hinzugefügt",
+  "alreadyInVocabulary": "Bereits in deinem Vokabular",
+  "tapWordToSave": "Halte ein Wort gedrückt, um es zu speichern",
+  "autoTranslateChatHint": "Eingehende Nachrichten werden automatisch übersetzt",
+  "noConversationsYet": "Noch keine Konversationen",
+  "chatRetry": "Erneut versuchen"
 }

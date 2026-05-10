@@ -5011,34 +5011,34 @@ class AppLocalizationsTl extends AppLocalizations {
   String get hideThisUser => 'Itago ang mga post ng user na ito';
 
   @override
-  String get transcribeMessage => 'Transcribe';
+  String get transcribeMessage => 'I-transcribe';
 
   @override
-  String get transcribing => 'Transcribing…';
+  String get transcribing => 'Nag-transcribe…';
 
   @override
-  String get transcriptionFailed => 'Couldn\'t transcribe message';
+  String get transcriptionFailed => 'Hindi ma-transcribe ang mensahe';
 
   @override
   String saveToVocabulary(String word) {
-    return 'Save \'$word\' to vocabulary';
+    return 'I-save ang \'$word\' sa bokabularyo';
   }
 
   @override
-  String get addedToVocabulary => 'Added to your vocabulary';
+  String get addedToVocabulary => 'Naidagdag sa iyong bokabularyo';
 
   @override
-  String get alreadyInVocabulary => 'Already in your vocabulary';
+  String get alreadyInVocabulary => 'Nasa iyong bokabularyo na';
 
   @override
-  String get tapWordToSave => 'Tap and hold a word to save it';
+  String get tapWordToSave => 'Pindutin at hawakan ang salita para mai-save';
 
   @override
-  String get autoTranslateChatHint => 'Incoming messages will be translated automatically';
+  String get autoTranslateChatHint => 'Ang mga papasok na mensahe ay automatikong isasalin';
 
   @override
-  String get noConversationsYet => 'No conversations yet';
+  String get noConversationsYet => 'Wala pang mga usapan';
 
   @override
-  String get chatRetry => 'Try again';
+  String get chatRetry => 'Subukan ulit';
 }
