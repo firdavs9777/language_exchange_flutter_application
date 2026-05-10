@@ -9,7 +9,6 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
@@ -18,6 +17,8 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import '../header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
+import 'bubble/bubble_actions_menu.dart';
+import 'bubble/system_bubble.dart';
 import 'message_bubble/text_message_view.dart';
 import 'message_bubble/image_message_view.dart';
 import 'message_bubble/voice_message_view.dart';
@@ -413,84 +414,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   }
 
   void _showFailedMessageOptions(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    showModalBottomSheet(
+    showFailedMessageOptions(
       context: context,
-      backgroundColor: isDark ? AppColors.cardDark : AppColors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  'Message failed to send',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const Divider(),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Icon(Icons.refresh, color: AppColors.primary),
-                ),
-                title: Text(l10n?.retry ?? 'Retry'),
-                subtitle: const Text('Try sending this message again'),
-                onTap: () {
-                  Navigator.pop(context);
-                  widget.onRetry?.call(widget.message);
-                },
-              ),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.error.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:
-                      const Icon(Icons.delete_outline, color: AppColors.error),
-                ),
-                title: Text(
-                  l10n?.delete ?? 'Delete',
-                  style: const TextStyle(color: AppColors.error),
-                ),
-                subtitle: const Text('Remove this message'),
-                onTap: () {
-                  Navigator.pop(context);
-                  widget.onDeleteFailed?.call(widget.message);
-                },
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(l10n?.cancel ?? 'Cancel'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      message: widget.message,
+      onRetry: () => widget.onRetry?.call(widget.message),
+      onDelete: () => widget.onDeleteFailed?.call(widget.message),
     );
   }
 
@@ -761,7 +689,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     // Unknown type — safe fallback
-    return _FallbackMessageView(message: msg);
+    return SystemBubble(text: 'Unsupported message type');
   }
 
   // ---------- Build ----------
@@ -1014,35 +942,3 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   }
 }
 
-// ---------- Fallback for unknown message types ----------
-
-class _FallbackMessageView extends StatelessWidget {
-  final Message message;
-
-  const _FallbackMessageView({required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: context.containerColor.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.info_outline, size: 16, color: context.textSecondary),
-          const SizedBox(width: 6),
-          Text(
-            'Unsupported message type',
-            style: context.bodySmall.copyWith(
-              color: context.textSecondary,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
