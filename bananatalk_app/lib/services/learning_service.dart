@@ -1242,6 +1242,42 @@ class LearningService {
     }
   }
 
+  // ==================== STREAK FREEZE ====================
+
+  /// Use a streak freeze.
+  /// Returns the updated progress data map on success.
+  /// Throws a [Exception] if no freezes are available or a network error occurs.
+  static Future<Map<String, dynamic>> useStreakFreeze({String? language}) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}learning/progress/use-freeze');
+
+      final body = language != null ? {'language': language} : <String, dynamic>{};
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: body.isEmpty ? null : jsonEncode(body),
+      );
+
+      final data = _safeJsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'data': data?['data'],
+        };
+      } else {
+        return {
+          'success': false,
+          'error': _getErrorMessage(data, 'Failed to use streak freeze'),
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
   // ==================== CHALLENGES ====================
 
   /// Get challenges

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/learning/streak_widget.dart';
+import 'package:bananatalk_app/pages/learning/streak/streak_freeze_dialog.dart';
 import 'package:bananatalk_app/widgets/learning/daily_goal_widget.dart';
 import 'package:bananatalk_app/widgets/learning/challenge_card.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart';
@@ -273,6 +274,37 @@ class LearnTab extends ConsumerWidget {
                 currentStreak: progress.currentStreak,
                 compact: true,
               ),
+              if (progress.streakFreezes > 0) ...[
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => const StreakFreezeDialog(),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue.withValues(alpha: 0.20),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.ac_unit_rounded, size: 14, color: Colors.lightBlue),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${progress.streakFreezes}',
+                          style: const TextStyle(
+                            color: Colors.lightBlue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
           const SizedBox(height: 20),
