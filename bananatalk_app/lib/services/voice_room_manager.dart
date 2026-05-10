@@ -4,7 +4,7 @@ import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/services/webrtc_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as sio;
 
 /// Chat message in voice room
 class VoiceRoomChatMessage {
@@ -40,7 +40,7 @@ class VoiceRoomManager {
 
   final WebRTCService _webrtcService = WebRTCService();
   ChatSocketService? _chatSocketService;
-  IO.Socket? _socket;
+  sio.Socket? _socket;
   bool _isInitialized = false;
 
   VoiceRoom? _currentRoom;
