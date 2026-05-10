@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:bananatalk_app/pages/moments/create_moment.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_utility.dart';

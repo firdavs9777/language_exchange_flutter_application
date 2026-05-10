@@ -3,7 +3,7 @@ import 'package:bananatalk_app/pages/moments/card/moment_card_double_tap.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_gradient.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_header.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_media.dart';
-import 'package:bananatalk_app/pages/moments/create_moment.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/single/single_moment.dart';
 import 'package:bananatalk_app/pages/moments/video_player_widget.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
