@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/learning/vocabulary_card.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
 
 /// Vocabulary review screen with SRS flashcards
 class VocabularyReviewScreen extends ConsumerStatefulWidget {
@@ -16,6 +17,8 @@ class VocabularyReviewScreen extends ConsumerStatefulWidget {
 
 class _VocabularyReviewScreenState
     extends ConsumerState<VocabularyReviewScreen> {
+  bool _xpOverlayShown = false;
+
   @override
   void initState() {
     super.initState();
@@ -89,6 +92,12 @@ class _VocabularyReviewScreenState
           }
 
           if (reviewState.isComplete) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!_xpOverlayShown) {
+                _xpOverlayShown = true;
+                XpGainOverlay.show(context, reviewState.xpEarned ?? 0);
+              }
+            });
             return _buildResults(reviewState);
           }
 

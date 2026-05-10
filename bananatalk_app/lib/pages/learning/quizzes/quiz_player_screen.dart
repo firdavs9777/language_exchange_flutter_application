@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
 
 /// Quiz player screen
 class QuizPlayerScreen extends ConsumerStatefulWidget {
@@ -16,6 +17,8 @@ class QuizPlayerScreen extends ConsumerStatefulWidget {
 }
 
 class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
+  bool _xpOverlayShown = false;
+
   @override
   void initState() {
     super.initState();
@@ -112,6 +115,12 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             }
 
             if (playerState.isComplete) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (!_xpOverlayShown) {
+                  _xpOverlayShown = true;
+                  XpGainOverlay.show(context, playerState.xpEarned ?? 0);
+                }
+              });
               return _buildResults(playerState, quiz);
             }
 
