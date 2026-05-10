@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// A single toggle row used by newUsersOnly and prioritizeNearby sections.
 class FilterToggleRow extends StatelessWidget {
@@ -66,6 +67,54 @@ class FilterToggleRow extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             activeThumbColor: activeColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Slider row for "mutual interests minimum" (topicsAtLeast 0–5).
+class FilterMutualInterestsSlider extends StatelessWidget {
+  final int value;
+  final ValueChanged<int> onChanged;
+
+  const FilterMutualInterestsSlider({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.mutualInterestsMin,
+                  style: context.bodyMedium,
+                ),
+              ),
+              Text(
+                l10n.atLeastNTopics(value),
+                style: context.bodySmall.copyWith(color: context.textSecondary),
+              ),
+            ],
+          ),
+          Slider(
+            value: value.toDouble(),
+            min: 0,
+            max: 5,
+            divisions: 5,
+            label: value.toString(),
+            onChanged: (v) => onChanged(v.round()),
+            activeColor: AppColors.primary,
           ),
         ],
       ),
