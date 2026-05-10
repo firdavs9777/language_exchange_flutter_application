@@ -9455,6 +9455,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help them practice {language}!'**
   String starterPracticeLang(String language);
+
+  /// Error state on moments feed
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load moments'**
+  String get momentsLoadError;
+
+  /// Retry button on moments error state
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get momentsRetry;
+
+  /// Header in tag dialog showing tags this user has used recently
+  ///
+  /// In en, this message translates to:
+  /// **'Recent tags'**
+  String get recentTags;
+
+  /// Shown when user has no tag history yet
+  ///
+  /// In en, this message translates to:
+  /// **'No recent tags yet'**
+  String get noRecentTags;
+
+  /// 3-dot menu action on a moment card
+  ///
+  /// In en, this message translates to:
+  /// **'Hide moments from this user'**
+  String get hideMomentsFromUser;
+
+  /// Snackbar confirmation after hiding a user's moments
+  ///
+  /// In en, this message translates to:
+  /// **'Moments from this user will be hidden'**
+  String get momentsHidden;
+
+  /// Reverse action — re-show a user's moments
+  ///
+  /// In en, this message translates to:
+  /// **'Show moments from this user'**
+  String get unhideMoments;
+
+  /// Plural count of users whose moments are hidden
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No hidden users} =1{1 user hidden} other{{count} users hidden}}'**
+  String momentsHiddenCount(int count);
+
+  /// Error snackbar when save toggle fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save moment'**
+  String get momentSaveFailed;
+
+  /// Snackbar when user tries to add a duplicate tag
+  ///
+  /// In en, this message translates to:
+  /// **'Tag already added'**
+  String get tagAlreadyAdded;
+
+  /// Snackbar when tag limit hit
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum tags reached'**
+  String get tagLimitReached;
+
+  /// Short label for the 3-dot menu
+  ///
+  /// In en, this message translates to:
+  /// **'Hide this user\'s posts'**
+  String get hideThisUser;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

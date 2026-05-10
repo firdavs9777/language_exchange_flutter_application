@@ -4964,4 +4964,49 @@ class AppLocalizationsTh extends AppLocalizations {
   String starterPracticeLang(String language) {
     return 'ช่วยพวกเขาฝึก $language!';
   }
+
+  @override
+  String get momentsLoadError => 'Couldn\'t load moments';
+
+  @override
+  String get momentsRetry => 'Try again';
+
+  @override
+  String get recentTags => 'Recent tags';
+
+  @override
+  String get noRecentTags => 'No recent tags yet';
+
+  @override
+  String get hideMomentsFromUser => 'Hide moments from this user';
+
+  @override
+  String get momentsHidden => 'Moments from this user will be hidden';
+
+  @override
+  String get unhideMoments => 'Show moments from this user';
+
+  @override
+  String momentsHiddenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count users hidden',
+      one: '1 user hidden',
+      zero: 'No hidden users',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get momentSaveFailed => 'Couldn\'t save moment';
+
+  @override
+  String get tagAlreadyAdded => 'Tag already added';
+
+  @override
+  String get tagLimitReached => 'Maximum tags reached';
+
+  @override
+  String get hideThisUser => 'Hide this user\'s posts';
 }

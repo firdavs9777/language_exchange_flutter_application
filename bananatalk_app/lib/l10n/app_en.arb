@@ -2458,5 +2458,44 @@
         "type": "String"
       }
     }
-  }
+  },
+
+  "momentsLoadError": "Couldn't load moments",
+  "@momentsLoadError": { "description": "Error state on moments feed" },
+
+  "momentsRetry": "Try again",
+  "@momentsRetry": { "description": "Retry button on moments error state" },
+
+  "recentTags": "Recent tags",
+  "@recentTags": { "description": "Header in tag dialog showing tags this user has used recently" },
+
+  "noRecentTags": "No recent tags yet",
+  "@noRecentTags": { "description": "Shown when user has no tag history yet" },
+
+  "hideMomentsFromUser": "Hide moments from this user",
+  "@hideMomentsFromUser": { "description": "3-dot menu action on a moment card" },
+
+  "momentsHidden": "Moments from this user will be hidden",
+  "@momentsHidden": { "description": "Snackbar confirmation after hiding a user's moments" },
+
+  "unhideMoments": "Show moments from this user",
+  "@unhideMoments": { "description": "Reverse action — re-show a user's moments" },
+
+  "momentsHiddenCount": "{count, plural, =0{No hidden users} =1{1 user hidden} other{{count} users hidden}}",
+  "@momentsHiddenCount": {
+    "description": "Plural count of users whose moments are hidden",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "momentSaveFailed": "Couldn't save moment",
+  "@momentSaveFailed": { "description": "Error snackbar when save toggle fails" },
+
+  "tagAlreadyAdded": "Tag already added",
+  "@tagAlreadyAdded": { "description": "Snackbar when user tries to add a duplicate tag" },
+
+  "tagLimitReached": "Maximum tags reached",
+  "@tagLimitReached": { "description": "Snackbar when tag limit hit" },
+
+  "hideThisUser": "Hide this user's posts",
+  "@hideThisUser": { "description": "Short label for the 3-dot menu" }
 }
