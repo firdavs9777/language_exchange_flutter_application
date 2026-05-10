@@ -220,7 +220,6 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         children: [
           Column(
             children: [
-              VoiceRoomReconnectBanner(isReconnecting: isReconnecting),
               VoiceRoomInfoBar(room: widget.room),
               Expanded(
                 child: VoiceRoomParticipantsGrid(
@@ -280,6 +279,12 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
               builder: (_, scrollController) =>
                   VoiceRoomChatPanel(scrollController: scrollController),
             ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: VoiceRoomReconnectBanner(isReconnecting: isReconnecting),
+          ),
         ],
       ),
     );
