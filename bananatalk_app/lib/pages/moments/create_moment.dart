@@ -469,7 +469,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             ? _videoCompressionProgress / 100
                             : null,
                         strokeWidth: 6,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: context.containerColor,
                         valueColor: const AlwaysStoppedAnimation<Color>(
                           Color(0xFF00BFA5),
                         ),
@@ -508,7 +508,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   'Please wait while we optimize your video',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.grey[600],
+                    color: context.textSecondary,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -746,7 +746,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: TextStyle(color: Colors.grey[600])),
+              child: Text('Cancel', style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () async {
@@ -785,7 +785,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Not Now', style: TextStyle(color: Colors.grey[600])),
+              child: Text('Not Now', style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () {
@@ -824,7 +824,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: TextStyle(color: Colors.grey[600])),
+              child: Text('Cancel', style: TextStyle(color: context.textSecondary)),
             ),
             TextButton(
               onPressed: () async {
@@ -890,8 +890,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFF00BFA5).withOpacity(0.1)
-                            : Colors.grey[100],
+                            ? const Color(0xFF00BFA5).withValues(alpha: 0.1)
+                            : context.containerColor,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isSelected
@@ -909,7 +909,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             mood[0].toUpperCase() + mood.substring(1),
                             style: TextStyle(
                               fontSize: 10,
-                              color: Colors.grey[700],
+                              color: context.textSecondary,
                             ),
                           ),
                         ],
@@ -987,7 +987,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Row(

@@ -304,7 +304,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: colorScheme.primary.withOpacity(0.1),
+                    color: colorScheme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -405,7 +405,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color:
-              isSelected ? colorScheme.primary.withOpacity(0.1) : Colors.transparent,
+              isSelected ? colorScheme.primary.withValues(alpha: 0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? colorScheme.primary : colorScheme.outlineVariant,
@@ -453,7 +453,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
               hintText: AppLocalizations.of(context)!.searchLanguages,
               prefixIcon: Icon(Icons.search, color: context.textSecondary),
               filled: true,
-              fillColor: colorScheme.surfaceVariant.withOpacity(0.5),
+              fillColor: colorScheme.surfaceVariant.withValues(alpha: 0.5),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
@@ -523,7 +523,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                           '${langData['flag']} ${langData['name']}'),
                       deleteIcon: const Icon(Icons.close, size: 16),
                       onDeleted: () => _toggleLanguage(langCode),
-                      backgroundColor: colorScheme.primary.withOpacity(0.1),
+                      backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
                       side: BorderSide(color: colorScheme.primary),
                       labelStyle: TextStyle(
                         color: colorScheme.primary,
@@ -570,7 +570,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                   borderRadius: BorderRadius.circular(12),
                 ),
                 tileColor: isSelected
-                    ? colorScheme.primary.withOpacity(0.05)
+                    ? colorScheme.primary.withValues(alpha: 0.05)
                     : null,
               );
             },
@@ -674,7 +674,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected
-              ? colorScheme.primary.withOpacity(0.15)
+              ? colorScheme.primary.withValues(alpha: 0.15)
               : colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
@@ -709,7 +709,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: isSelected
-              ? colorScheme.primary.withOpacity(0.15)
+              ? colorScheme.primary.withValues(alpha: 0.15)
               : colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
@@ -745,7 +745,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
         color: colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
