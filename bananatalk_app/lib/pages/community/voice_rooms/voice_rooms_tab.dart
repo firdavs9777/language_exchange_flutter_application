@@ -17,6 +17,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_empty_state.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/upcoming_section.dart';
 
 /// Voice Rooms Tab
 class VoiceRoomsTab extends ConsumerStatefulWidget {
@@ -28,26 +29,39 @@ class VoiceRoomsTab extends ConsumerStatefulWidget {
 
 class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   late Future<List<VoiceRoom>> _roomsFuture;
+  List<VoiceRoom> _scheduledRooms = [];
 
   String? _selectedLanguage;
   String? _selectedTopic;
+  String? _selectedCategory;
 
   @override
   void initState() {
     super.initState();
     _roomsFuture = _fetchWithFilters();
+    _loadScheduled();
+  }
+
+  Future<void> _loadScheduled() async {
+    try {
+      final scheduled = await ref.read(voiceRoomProvider).fetchScheduledRooms();
+      if (mounted) setState(() => _scheduledRooms = scheduled);
+    } catch (_) {
+      // Silent fail — UpcomingSection hides itself when rooms is empty
+    }
   }
 
   Future<List<VoiceRoom>> _fetchWithFilters() {
     return ref
         .read(voiceRoomProvider)
-        .fetchRooms(language: _selectedLanguage, topic: _selectedTopic);
+        .fetchRooms(language: _selectedLanguage, topic: _selectedTopic, category: _selectedCategory);
   }
 
   Future<void> _refreshRooms() async {
     setState(() {
       _roomsFuture = _fetchWithFilters();
     });
+    await _loadScheduled();
   }
 
   void _setLanguageFilter(String? language) {
@@ -64,6 +78,13 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
     });
   }
 
+  void _setCategoryFilter(String? category) {
+    setState(() {
+      _selectedCategory = category;
+      _roomsFuture = _fetchWithFilters();
+    });
+  }
+
   void _createRoom() {
     final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
@@ -71,7 +92,14 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => CreateRoomSheet(
-        onCreateRoom: (title, topic, language, maxParticipants) async {
+        onCreateRoom: (
+          title,
+          topic,
+          language,
+          maxParticipants,
+          scheduledFor,
+          category,
+        ) async {
           Navigator.pop(sheetContext);
           try {
             final request = CreateRoomRequest(
@@ -79,16 +107,22 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
               topic: topic,
               language: language,
               maxParticipants: maxParticipants,
+              scheduledFor: scheduledFor,
+              category: category,
             );
             final room = await ref.read(voiceRoomProvider).createRoom(request);
-            _refreshRooms();
             if (mounted) {
               showCommunitySnackBar(
                 context,
                 message: l10n.roomCreated,
                 type: CommunitySnackBarType.success,
               );
-              _joinRoom(room);
+              if (scheduledFor != null) {
+                await _loadScheduled();
+              } else {
+                _refreshRooms();
+                if (mounted) _joinRoom(room);
+              }
             }
           } catch (e) {
             if (mounted) {
@@ -138,7 +172,8 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           final rooms = snapshot.data ?? [];
           if (rooms.isEmpty &&
               _selectedLanguage == null &&
-              _selectedTopic == null) {
+              _selectedTopic == null &&
+              _selectedCategory == null) {
             return _buildEmptyState(l10n);
           }
           return _buildRoomsList(rooms, l10n);
@@ -211,6 +246,42 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           ),
         ),
         const SizedBox(height: 8),
+        // Category filter
+        SizedBox(
+          height: 44,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              CommunityFilterChip(
+                label: l10n.allCategories,
+                isSelected: _selectedCategory == null,
+                onTap: () => _setCategoryFilter(null),
+              ),
+              const SizedBox(width: 8),
+              ...['casual', 'language_practice', 'topic', 'qa'].map((cat) {
+                final label = switch (cat) {
+                  'casual' => l10n.categoryCasual,
+                  'language_practice' => l10n.categoryLanguagePractice,
+                  'topic' => l10n.categoryTopic,
+                  'qa' => l10n.categoryQA,
+                  _ => cat,
+                };
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: CommunityFilterChip(
+                    label: label,
+                    isSelected: _selectedCategory == cat,
+                    onTap: () => _setCategoryFilter(
+                      _selectedCategory == cat ? null : cat,
+                    ),
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
       ],
     );
   }
@@ -266,6 +337,12 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
             child: _buildFilters(
               l10n,
             ).animate().fadeIn(duration: 300.ms, delay: 80.ms),
+          ),
+          SliverToBoxAdapter(
+            child: UpcomingSection(
+              rooms: _scheduledRooms,
+              onRsvpToggle: _loadScheduled,
+            ),
           ),
           if (rooms.isEmpty)
             SliverFillRemaining(

@@ -5874,6 +5874,12 @@ abstract class AppLocalizations {
   /// **'All Topics'**
   String get allTopics;
 
+  /// No description provided for @allCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'All Categories'**
+  String get allCategories;
+
   /// No description provided for @leaderboard.
   ///
   /// In en, this message translates to:
@@ -9245,6 +9251,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Handwriting'**
   String get fontHandwriting;
+
+  /// No description provided for @pickDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick date'**
+  String get pickDate;
+
+  /// No description provided for @pickTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick time'**
+  String get pickTime;
+
+  /// No description provided for @upcomingRooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get upcomingRooms;
+
+  /// No description provided for @inHours.
+  ///
+  /// In en, this message translates to:
+  /// **'in {h}h {m}m'**
+  String inHours(int h, int m);
+
+  /// No description provided for @inMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'in {m}m'**
+  String inMinutes(int m);
+
+  /// No description provided for @startsNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting now'**
+  String get startsNow;
+
+  /// No description provided for @iWillBeThere.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll be there'**
+  String get iWillBeThere;
+
+  /// No description provided for @cantMakeIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t make it'**
+  String get cantMakeIt;
+
+  /// No description provided for @rsvpCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No RSVPs} =1{1 RSVP} other{{count} RSVPs}}'**
+  String rsvpCount(int count);
+
+  /// No description provided for @roomStartsIn1h.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} starts in 1 hour'**
+  String roomStartsIn1h(String title);
+
+  /// No description provided for @roomStartsIn15min.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} starts in 15 minutes'**
+  String roomStartsIn15min(String title);
+
+  /// No description provided for @roomStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} is starting now'**
+  String roomStarted(String title);
+
+  /// No description provided for @cancelRoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel room'**
+  String get cancelRoom;
+
+  /// No description provided for @muteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute all'**
+  String get muteAll;
+
+  /// No description provided for @mutedByHost.
+  ///
+  /// In en, this message translates to:
+  /// **'Host muted everyone'**
+  String get mutedByHost;
+
+  /// No description provided for @muteAllConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute everyone in the room?'**
+  String get muteAllConfirm;
+
+  /// No description provided for @categoryCasual.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual'**
+  String get categoryCasual;
+
+  /// No description provided for @categoryLanguagePractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Language practice'**
+  String get categoryLanguagePractice;
+
+  /// No description provided for @categoryTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get categoryTopic;
+
+  /// No description provided for @categoryQA.
+  ///
+  /// In en, this message translates to:
+  /// **'Q&A'**
+  String get categoryQA;
+
+  /// No description provided for @pickCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get pickCategory;
+
+  /// No description provided for @sortRecentlyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently active'**
+  String get sortRecentlyActive;
+
+  /// No description provided for @visitedYourProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person visited your profile} other{{count} people visited your profile}}'**
+  String visitedYourProfile(int count);
+
+  /// No description provided for @noRecentVisitors.
+  ///
+  /// In en, this message translates to:
+  /// **'No recent visitors'**
+  String get noRecentVisitors;
+
+  /// No description provided for @viewArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'View archive'**
+  String get viewArchive;
+
+  /// No description provided for @archivedWaves.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived waves'**
+  String get archivedWaves;
+
+  /// No description provided for @noArchivedWaves.
+  ///
+  /// In en, this message translates to:
+  /// **'No archived waves'**
+  String get noArchivedWaves;
+
+  /// No description provided for @mutualInterestsMin.
+  ///
+  /// In en, this message translates to:
+  /// **'Mutual interests (min)'**
+  String get mutualInterestsMin;
+
+  /// No description provided for @atLeastNTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{Any} =1{At least 1 topic in common} other{At least {n} topics in common}}'**
+  String atLeastNTopics(int n);
+
+  /// No description provided for @starterAskMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask about their last moment'**
+  String get starterAskMoment;
+
+  /// No description provided for @starterSayHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Say hi in their language'**
+  String get starterSayHi;
+
+  /// No description provided for @starterCurious.
+  ///
+  /// In en, this message translates to:
+  /// **'What are they curious about?'**
+  String get starterCurious;
+
+  /// No description provided for @starterFromCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi from {country}!'**
+  String starterFromCountry(String country);
+
+  /// No description provided for @starterPracticeLang.
+  ///
+  /// In en, this message translates to:
+  /// **'Help them practice {language}!'**
+  String starterPracticeLang(String language);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

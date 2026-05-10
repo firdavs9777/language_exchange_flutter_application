@@ -817,6 +817,7 @@
   "justStarted": "Baru dimulai",
   "allLanguages": "Semua bahasa",
   "allTopics": "Semua topik",
+  "allCategories": "Semua kategori",
   "dataAndStorage": "Data dan Penyimpanan",
   "manageStorageAndDownloads": "Kelola penyimpanan dan unduhan",
   "storageUsage": "Penggunaan Penyimpanan",
@@ -1602,5 +1603,112 @@
   "fontNormal": "Normal",
   "fontBold": "Tebal",
   "fontItalic": "Miring",
-  "fontHandwriting": "Tulisan tangan"
+  "fontHandwriting": "Tulisan tangan",
+  "pickDate": "Pilih tanggal",
+  "pickTime": "Pilih waktu",
+  "upcomingRooms": "Mendatang",
+  "inHours": "dalam {h}j {m}m",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "dalam {m}m",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Dimulai sekarang",
+  "iWillBeThere": "Saya akan hadir",
+  "cantMakeIt": "Saya tidak bisa hadir",
+  "rsvpCount": "{count, plural, =0{Belum ada RSVP} =1{1 RSVP} other{{count} RSVP}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} dimulai dalam 1 jam",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} dimulai dalam 15 menit",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} sedang dimulai sekarang",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Batalkan ruangan",
+  "muteAll": "Bisukan semua",
+  "mutedByHost": "Host membisukan semua orang",
+  "muteAllConfirm": "Bisukan semua orang di ruangan?",
+  "categoryCasual": "Santai",
+  "categoryLanguagePractice": "Latihan bahasa",
+  "categoryTopic": "Topik",
+  "categoryQA": "Tanya jawab",
+  "pickCategory": "Kategori",
+  "sortRecentlyActive": "Baru-baru ini aktif",
+  "visitedYourProfile": "{count, plural, =1{1 orang mengunjungi profil Anda} other{{count} orang mengunjungi profil Anda}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "Tidak ada pengunjung baru-baru ini",
+  "viewArchive": "Lihat arsip",
+  "archivedWaves": "Waves yang diarsipkan",
+  "noArchivedWaves": "Tidak ada wave yang diarsipkan",
+  "mutualInterestsMin": "Minat bersama (min)",
+  "atLeastNTopics": "{n, plural, =0{Semua} =1{Minimal 1 topik yang sama} other{Minimal {n} topik yang sama}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Tanyakan momen terakhir mereka",
+  "starterSayHi": "Sapa dalam bahasa mereka",
+  "starterCurious": "Apa yang membuat mereka penasaran?",
+  "starterFromCountry": "Halo dari {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "Bantu mereka berlatih {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

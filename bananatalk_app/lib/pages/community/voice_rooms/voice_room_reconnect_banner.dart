@@ -7,31 +7,41 @@ class VoiceRoomReconnectBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!isReconnecting) return const SizedBox.shrink();
-    final l10n = AppLocalizations.of(context)!;
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Colors.amber,
-      child: Row(
-        children: [
-          const SizedBox(
-            width: 16,
-            height: 16,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              color: Colors.black,
+    return AnimatedSlide(
+      duration: const Duration(milliseconds: 300),
+      offset: isReconnecting ? Offset.zero : const Offset(0, 1),
+      curve: Curves.easeOut,
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 300),
+        opacity: isReconnecting ? 1.0 : 0.0,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: Colors.amber,
+          child: SafeArea(
+            top: false,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 14,
+                  height: 14,
+                  child: CircularProgressIndicator(
+                      strokeWidth: 2, color: Colors.black),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  AppLocalizations.of(context)!.voiceRoomReconnecting,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: 12),
-          Text(
-            l10n.voiceRoomReconnecting,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -975,6 +975,7 @@
   "justStarted": "Kakasimula lang",
   "allLanguages": "Lahat ng wika",
   "allTopics": "Lahat ng paksa",
+  "allCategories": "Lahat ng kategorya",
   "dataAndStorage": "Data at Storage",
   "manageStorageAndDownloads": "Pamahalaan ang storage at downloads",
   "storageUsage": "Paggamit ng Storage",
@@ -1696,5 +1697,112 @@
   "fontNormal": "Normal",
   "fontBold": "Naka-bold",
   "fontItalic": "Italic",
-  "fontHandwriting": "Sulat-kamay"
+  "fontHandwriting": "Sulat-kamay",
+  "pickDate": "Pumili ng petsa",
+  "pickTime": "Pumili ng oras",
+  "upcomingRooms": "Paparating",
+  "inHours": "sa {h}o {m}m",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "sa {m}m",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Nagsisimula na ngayon",
+  "iWillBeThere": "Nandoon ako",
+  "cantMakeIt": "Hindi ako makakadalo",
+  "rsvpCount": "{count, plural, =0{Walang RSVP} =1{1 RSVP} other{{count} mga RSVP}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "Magsisimula ang {title} sa loob ng 1 oras",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "Magsisimula ang {title} sa loob ng 15 minuto",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "Nagsisimula na ang {title}",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Kanselahin ang silid",
+  "muteAll": "I-mute ang lahat",
+  "mutedByHost": "Na-mute ng host ang lahat",
+  "muteAllConfirm": "I-mute ang lahat sa silid?",
+  "categoryCasual": "Pang-araw-araw",
+  "categoryLanguagePractice": "Pagsasanay sa wika",
+  "categoryTopic": "Paksa",
+  "categoryQA": "Tanong at sagot",
+  "pickCategory": "Kategorya",
+  "sortRecentlyActive": "Kamakailan nang aktibo",
+  "visitedYourProfile": "{count, plural, =1{1 tao ang bumisita sa iyong profile} other{{count} tao ang bumisita sa iyong profile}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "Walang mga kamakailang bisita",
+  "viewArchive": "Tingnan ang archive",
+  "archivedWaves": "Mga naka-archive na Wave",
+  "noArchivedWaves": "Walang naka-archive na Wave",
+  "mutualInterestsMin": "Magkaparehong interes (min)",
+  "atLeastNTopics": "{n, plural, =0{Anumang} =1{Hindi bababa sa 1 kaparehong paksa} other{Hindi bababa sa {n} kaparehong paksa}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Tanungin sila tungkol sa kanilang huling sandali",
+  "starterSayHi": "Magbati sa kanilang wika",
+  "starterCurious": "Ano ang kinukuriosa nila?",
+  "starterFromCountry": "Kamusta mula sa {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "Tulungan silang magsanay ng {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

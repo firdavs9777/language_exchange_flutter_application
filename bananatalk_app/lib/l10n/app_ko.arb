@@ -995,6 +995,7 @@
   "justStarted": "방금 시작됨",
   "allLanguages": "모든 언어",
   "allTopics": "모든 주제",
+  "allCategories": "모든 카테고리",
   "dataAndStorage": "데이터 및 저장공간",
   "manageStorageAndDownloads": "저장공간 및 다운로드 관리",
   "storageUsage": "저장공간 사용량",
@@ -1781,5 +1782,112 @@
   "fontNormal": "보통",
   "fontBold": "굵게",
   "fontItalic": "기울임",
-  "fontHandwriting": "손글씨"
+  "fontHandwriting": "손글씨",
+  "pickDate": "날짜 선택",
+  "pickTime": "시간 선택",
+  "upcomingRooms": "예정된",
+  "inHours": "{h}시간 {m}분 후",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "{m}분 후",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "지금 시작",
+  "iWillBeThere": "참여할게요",
+  "cantMakeIt": "참여하기 어렵습니다",
+  "rsvpCount": "{count, plural, =0{참여 없음} =1{1명 참여} other{{count}명 참여}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title}이(가) 1시간 후에 시작합니다",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title}이(가) 15분 후에 시작합니다",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title}이(가) 지금 시작합니다",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "방 취소",
+  "muteAll": "전체 음소거",
+  "mutedByHost": "호스트가 모두를 음소거했습니다",
+  "muteAllConfirm": "방의 모든 참가자를 음소거할까요?",
+  "categoryCasual": "캐주얼",
+  "categoryLanguagePractice": "언어 연습",
+  "categoryTopic": "주제",
+  "categoryQA": "Q&A",
+  "pickCategory": "카테고리",
+  "sortRecentlyActive": "최근 활동순",
+  "visitedYourProfile": "{count, plural, =1{1명이 내 프로필을 방문했습니다} other{{count}명이 내 프로필을 방문했습니다}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "최근 방문자가 없습니다",
+  "viewArchive": "아카이브 보기",
+  "archivedWaves": "보관된 Wave",
+  "noArchivedWaves": "보관된 Wave 없음",
+  "mutualInterestsMin": "공통 관심사 (최소)",
+  "atLeastNTopics": "{n, plural, =0{상관없음} =1{최소 1개 공통 주제} other{최소 {n}개 공통 주제}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "최근 기억에 남는 순간 물어보기",
+  "starterSayHi": "상대방 언어로 인사하기",
+  "starterCurious": "무엇이 궁금한가요?",
+  "starterFromCountry": "{country}에서 안녕하세요!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "{language} 연습을 도와드릴게요!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

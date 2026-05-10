@@ -2993,6 +2993,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get allTopics => 'Tutti gli argomenti';
 
   @override
+  String get allCategories => 'Tutte le categorie';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Scrittura a mano';
+
+  @override
+  String get pickDate => 'Scegli data';
+
+  @override
+  String get pickTime => 'Scegli orario';
+
+  @override
+  String get upcomingRooms => 'In arrivo';
+
+  @override
+  String inHours(int h, int m) {
+    return 'tra ${h}h ${m}min';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'tra ${m}min';
+  }
+
+  @override
+  String get startsNow => 'Inizia ora';
+
+  @override
+  String get iWillBeThere => 'Ci sarò';
+
+  @override
+  String get cantMakeIt => 'Non posso venire';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count conferme',
+      one: '1 conferma',
+      zero: 'Nessuna conferma',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title inizia tra 1 ora';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title inizia tra 15 minuti';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title sta iniziando ora';
+  }
+
+  @override
+  String get cancelRoom => 'Annulla stanza';
+
+  @override
+  String get muteAll => 'Silenzia tutti';
+
+  @override
+  String get mutedByHost => 'L\'host ha silenziato tutti';
+
+  @override
+  String get muteAllConfirm => 'Silenziare tutti nella stanza?';
+
+  @override
+  String get categoryCasual => 'Informale';
+
+  @override
+  String get categoryLanguagePractice => 'Pratica linguistica';
+
+  @override
+  String get categoryTopic => 'Argomento';
+
+  @override
+  String get categoryQA => 'Domande e risposte';
+
+  @override
+  String get pickCategory => 'Categoria';
+
+  @override
+  String get sortRecentlyActive => 'Attivi di recente';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count persone hanno visitato il tuo profilo',
+      one: '1 persona ha visitato il tuo profilo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Nessun visitatore recente';
+
+  @override
+  String get viewArchive => 'Vedi archivio';
+
+  @override
+  String get archivedWaves => 'Wave archiviate';
+
+  @override
+  String get noArchivedWaves => 'Nessuna wave archiviata';
+
+  @override
+  String get mutualInterestsMin => 'Interessi comuni (min)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Almeno $n argomenti in comune',
+      one: 'Almeno 1 argomento in comune',
+      zero: 'Qualsiasi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Chiedi del loro ultimo momento';
+
+  @override
+  String get starterSayHi => 'Saluta nella loro lingua';
+
+  @override
+  String get starterCurious => 'Cosa li incuriosisce?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Ciao da $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Aiutali a praticare $language!';
+  }
 }

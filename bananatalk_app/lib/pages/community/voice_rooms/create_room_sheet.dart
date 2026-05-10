@@ -7,13 +7,14 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
 /// Create Room Bottom Sheet
 class CreateRoomSheet extends StatefulWidget {
-  final Function(
+  final Future<void> Function(
     String title,
     String topic,
     String language,
     int maxParticipants,
-  )
-  onCreateRoom;
+    DateTime? scheduledFor,
+    String? category,
+  ) onCreateRoom;
 
   const CreateRoomSheet({super.key, required this.onCreateRoom});
 
@@ -26,6 +27,9 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   String _selectedTopicId = 'language_exchange';
   String _selectedLanguage = 'English';
   int _maxParticipants = 8;
+  bool _isScheduled = false;
+  DateTime? _scheduledFor;
+  String? _category;
 
   final List<String> _languages = [
     'English',
@@ -65,7 +69,51 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
       _selectedTopicId,
       _selectedLanguage,
       _maxParticipants,
+      _isScheduled ? _scheduledFor : null,
+      _category,
     );
+  }
+
+  Future<void> _pickDate() async {
+    final now = DateTime.now();
+    final initial = _scheduledFor ?? now.add(const Duration(hours: 1));
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: initial.isAfter(now) ? initial : now.add(const Duration(hours: 1)),
+      firstDate: now,
+      lastDate: now.add(const Duration(days: 30)),
+    );
+    if (picked != null) {
+      setState(() {
+        _scheduledFor = DateTime(
+          picked.year,
+          picked.month,
+          picked.day,
+          _scheduledFor?.hour ?? now.hour,
+          _scheduledFor?.minute ?? now.minute,
+        );
+      });
+    }
+  }
+
+  Future<void> _pickTime() async {
+    if (_scheduledFor == null) return;
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(_scheduledFor!),
+    );
+    if (picked != null) {
+      final rounded = picked.minute - (picked.minute % 15);
+      setState(() {
+        _scheduledFor = DateTime(
+          _scheduledFor!.year,
+          _scheduledFor!.month,
+          _scheduledFor!.day,
+          picked.hour,
+          rounded,
+        );
+      });
+    }
   }
 
   @override
@@ -238,6 +286,89 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                         },
                       ),
                       Spacing.gapLG,
+                      // Schedule for later
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(l10n.scheduleForLater),
+                        value: _isScheduled,
+                        onChanged: (v) => setState(() {
+                          _isScheduled = v;
+                          if (!v) _scheduledFor = null;
+                        }),
+                        activeThumbColor: AppColors.primary,
+                      ),
+                      if (_isScheduled) ...[
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: OutlinedButton.icon(
+                                icon: const Icon(
+                                  Icons.calendar_today,
+                                  size: 16,
+                                ),
+                                label: Text(
+                                  _scheduledFor == null
+                                      ? l10n.pickDate
+                                      : '${_scheduledFor!.year}-${_scheduledFor!.month.toString().padLeft(2, '0')}-${_scheduledFor!.day.toString().padLeft(2, '0')}',
+                                ),
+                                onPressed: _pickDate,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: OutlinedButton.icon(
+                                icon: const Icon(
+                                  Icons.access_time,
+                                  size: 16,
+                                ),
+                                label: Text(
+                                  _scheduledFor == null
+                                      ? l10n.pickTime
+                                      : '${_scheduledFor!.hour.toString().padLeft(2, '0')}:${_scheduledFor!.minute.toString().padLeft(2, '0')}',
+                                ),
+                                onPressed:
+                                    _scheduledFor == null ? null : _pickTime,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      const SizedBox(height: 16),
+                      // Category picker
+                      DropdownButtonFormField<String?>(
+                        decoration: InputDecoration(
+                          labelText: l10n.pickCategory,
+                          border: OutlineInputBorder(
+                            borderRadius: AppRadius.borderMD,
+                          ),
+                        ),
+                        initialValue: _category,
+                        items: [
+                          const DropdownMenuItem(
+                            value: null,
+                            child: Text('—'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'casual',
+                            child: Text(l10n.categoryCasual),
+                          ),
+                          DropdownMenuItem(
+                            value: 'language_practice',
+                            child: Text(l10n.categoryLanguagePractice),
+                          ),
+                          DropdownMenuItem(
+                            value: 'topic',
+                            child: Text(l10n.categoryTopic),
+                          ),
+                          DropdownMenuItem(
+                            value: 'qa',
+                            child: Text(l10n.categoryQA),
+                          ),
+                        ],
+                        onChanged: (v) => setState(() => _category = v),
+                      ),
+                      const SizedBox(height: 16),
                       // Create button
                       SizedBox(
                         width: double.infinity,

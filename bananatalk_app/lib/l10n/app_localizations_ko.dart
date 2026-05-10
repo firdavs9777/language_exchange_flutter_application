@@ -2993,6 +2993,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get allTopics => '모든 주제';
 
   @override
+  String get allCategories => '모든 카테고리';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get fontHandwriting => '손글씨';
+
+  @override
+  String get pickDate => '날짜 선택';
+
+  @override
+  String get pickTime => '시간 선택';
+
+  @override
+  String get upcomingRooms => '예정된';
+
+  @override
+  String inHours(int h, int m) {
+    return '$h시간 $m분 후';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return '$m분 후';
+  }
+
+  @override
+  String get startsNow => '지금 시작';
+
+  @override
+  String get iWillBeThere => '참여할게요';
+
+  @override
+  String get cantMakeIt => '참여하기 어렵습니다';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count명 참여',
+      one: '1명 참여',
+      zero: '참여 없음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title이(가) 1시간 후에 시작합니다';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title이(가) 15분 후에 시작합니다';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title이(가) 지금 시작합니다';
+  }
+
+  @override
+  String get cancelRoom => '방 취소';
+
+  @override
+  String get muteAll => '전체 음소거';
+
+  @override
+  String get mutedByHost => '호스트가 모두를 음소거했습니다';
+
+  @override
+  String get muteAllConfirm => '방의 모든 참가자를 음소거할까요?';
+
+  @override
+  String get categoryCasual => '캐주얼';
+
+  @override
+  String get categoryLanguagePractice => '언어 연습';
+
+  @override
+  String get categoryTopic => '주제';
+
+  @override
+  String get categoryQA => 'Q&A';
+
+  @override
+  String get pickCategory => '카테고리';
+
+  @override
+  String get sortRecentlyActive => '최근 활동순';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count명이 내 프로필을 방문했습니다',
+      one: '1명이 내 프로필을 방문했습니다',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => '최근 방문자가 없습니다';
+
+  @override
+  String get viewArchive => '아카이브 보기';
+
+  @override
+  String get archivedWaves => '보관된 Wave';
+
+  @override
+  String get noArchivedWaves => '보관된 Wave 없음';
+
+  @override
+  String get mutualInterestsMin => '공통 관심사 (최소)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '최소 $n개 공통 주제',
+      one: '최소 1개 공통 주제',
+      zero: '상관없음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => '최근 기억에 남는 순간 물어보기';
+
+  @override
+  String get starterSayHi => '상대방 언어로 인사하기';
+
+  @override
+  String get starterCurious => '무엇이 궁금한가요?';
+
+  @override
+  String starterFromCountry(String country) {
+    return '$country에서 안녕하세요!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return '$language 연습을 도와드릴게요!';
+  }
 }

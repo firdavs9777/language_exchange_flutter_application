@@ -994,6 +994,7 @@
   "justStarted": "刚刚开始",
   "allLanguages": "所有语言",
   "allTopics": "所有话题",
+  "allCategories": "所有类别",
   "dataAndStorage": "数据与存储",
   "manageStorageAndDownloads": "管理存储和下载",
   "storageUsage": "存储使用情况",
@@ -1773,5 +1774,112 @@
   "fontNormal": "常规",
   "fontBold": "粗体",
   "fontItalic": "斜体",
-  "fontHandwriting": "手写体"
+  "fontHandwriting": "手写体",
+  "pickDate": "选择日期",
+  "pickTime": "选择时间",
+  "upcomingRooms": "即将开始",
+  "inHours": "{h}小时{m}分钟后",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "{m}分钟后",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "正在开始",
+  "iWillBeThere": "我会参加",
+  "cantMakeIt": "我无法参加",
+  "rsvpCount": "{count, plural, =0{暂无报名} =1{1人报名} other{{count}人报名}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title}将在1小时后开始",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title}将在15分钟后开始",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title}正在开始",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "取消房间",
+  "muteAll": "全员静音",
+  "mutedByHost": "主持人已将所有人静音",
+  "muteAllConfirm": "将房间内所有人静音？",
+  "categoryCasual": "休闲",
+  "categoryLanguagePractice": "语言练习",
+  "categoryTopic": "话题",
+  "categoryQA": "问答",
+  "pickCategory": "分类",
+  "sortRecentlyActive": "最近活跃",
+  "visitedYourProfile": "{count, plural, =1{1人访问了您的主页} other{{count}人访问了您的主页}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "暂无近期访客",
+  "viewArchive": "查看归档",
+  "archivedWaves": "已归档的Wave",
+  "noArchivedWaves": "暂无已归档的Wave",
+  "mutualInterestsMin": "共同兴趣（最少）",
+  "atLeastNTopics": "{n, plural, =0{不限} =1{至少1个共同话题} other{至少{n}个共同话题}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "询问他们最近的难忘时刻",
+  "starterSayHi": "用他们的语言打招呼",
+  "starterCurious": "他们好奇什么？",
+  "starterFromCountry": "来自{country}的你好！",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "帮助他们练习{language}！",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

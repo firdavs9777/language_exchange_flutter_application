@@ -42,6 +42,7 @@ class CommunityService {
     String? country,
     String? languageLevel,
     String? search, // Server-side search
+    String? sort, // e.g. 'recently_active'
   }) async {
     try {
       final headers = await _getHeaders();
@@ -81,6 +82,10 @@ class CommunityService {
       // Server-side search
       if (search != null && search.trim().isNotEmpty) {
         queryParams['search'] = search.trim();
+      }
+      // Sort order
+      if (sort != null && sort.isNotEmpty) {
+        queryParams['sort'] = sort;
       }
 
       final url = Uri.parse(
@@ -310,15 +315,18 @@ class CommunityService {
     int page = 1,
     int limit = 20,
     bool unreadOnly = false,
+    bool archive = false,
   }) async {
     try {
+      final queryParams = <String, String>{
+        'page': page.toString(),
+        'limit': limit.toString(),
+        'unreadOnly': unreadOnly.toString(),
+      };
+      if (archive) queryParams['archive'] = 'true';
       final response = await _apiClient.get(
         Endpoints.wavesReceivedURL,
-        queryParams: {
-          'page': page.toString(),
-          'limit': limit.toString(),
-          'unreadOnly': unreadOnly.toString(),
-        },
+        queryParams: queryParams,
       );
 
       if (response.success && response.data != null) {
@@ -1059,6 +1067,7 @@ class PartnerFilterParams {
   final String? country;
   final String? languageLevel;
   final String? search; // Server-side search query
+  final String? sort; // e.g. 'recently_active'
 
   const PartnerFilterParams({
     this.nativeLanguage,
@@ -1070,6 +1079,7 @@ class PartnerFilterParams {
     this.country,
     this.languageLevel,
     this.search,
+    this.sort,
   });
 
   @override
@@ -1084,7 +1094,8 @@ class PartnerFilterParams {
           onlineOnly == other.onlineOnly &&
           country == other.country &&
           languageLevel == other.languageLevel &&
-          search == other.search;
+          search == other.search &&
+          sort == other.sort;
 
   @override
   int get hashCode =>
@@ -1096,7 +1107,8 @@ class PartnerFilterParams {
       onlineOnly.hashCode ^
       country.hashCode ^
       languageLevel.hashCode ^
-      search.hashCode;
+      search.hashCode ^
+      sort.hashCode;
 }
 
 /// State for server-side filtered partners
@@ -1176,6 +1188,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         country: filters.country,
         languageLevel: filters.languageLevel,
         search: filters.search,
+        sort: filters.sort,
       );
 
       // If 0 results returned, set hasMore to false to prevent infinite loading
@@ -1214,6 +1227,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         country: state.filters!.country,
         languageLevel: state.filters!.languageLevel,
         search: state.filters!.search,
+        sort: state.filters!.sort,
       );
 
       // If 0 results returned on load more, stop trying to load more

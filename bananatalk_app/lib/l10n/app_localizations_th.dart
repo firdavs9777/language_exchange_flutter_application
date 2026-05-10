@@ -2993,6 +2993,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get allTopics => 'ทุกหัวข้อ';
 
   @override
+  String get allCategories => 'ทุกหมวดหมู่';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'ลายมือ';
+
+  @override
+  String get pickDate => 'เลือกวันที่';
+
+  @override
+  String get pickTime => 'เลือกเวลา';
+
+  @override
+  String get upcomingRooms => 'กำลังจะมาถึง';
+
+  @override
+  String inHours(int h, int m) {
+    return 'ใน $hชม. $mน.';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'ใน $mน.';
+  }
+
+  @override
+  String get startsNow => 'เริ่มแล้วตอนนี้';
+
+  @override
+  String get iWillBeThere => 'ฉันจะไป';
+
+  @override
+  String get cantMakeIt => 'ฉันไปไม่ได้';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count การตอบรับ',
+      one: '1 การตอบรับ',
+      zero: 'ยังไม่มีการตอบรับ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title จะเริ่มใน 1 ชั่วโมง';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title จะเริ่มใน 15 นาที';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title กำลังเริ่มต้นแล้ว';
+  }
+
+  @override
+  String get cancelRoom => 'ยกเลิกห้อง';
+
+  @override
+  String get muteAll => 'ปิดเสียงทุกคน';
+
+  @override
+  String get mutedByHost => 'โฮสต์ปิดเสียงทุกคนแล้ว';
+
+  @override
+  String get muteAllConfirm => 'ปิดเสียงทุกคนในห้องใช่ไหม?';
+
+  @override
+  String get categoryCasual => 'ทั่วไป';
+
+  @override
+  String get categoryLanguagePractice => 'ฝึกภาษา';
+
+  @override
+  String get categoryTopic => 'หัวข้อ';
+
+  @override
+  String get categoryQA => 'ถาม-ตอบ';
+
+  @override
+  String get pickCategory => 'หมวดหมู่';
+
+  @override
+  String get sortRecentlyActive => 'เคลื่อนไหวล่าสุด';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count คนเยี่ยมชมโปรไฟล์ของคุณ',
+      one: '1 คนเยี่ยมชมโปรไฟล์ของคุณ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'ยังไม่มีผู้เยี่ยมชมล่าสุด';
+
+  @override
+  String get viewArchive => 'ดูคลังเก็บถาวร';
+
+  @override
+  String get archivedWaves => 'Wave ที่เก็บถาวร';
+
+  @override
+  String get noArchivedWaves => 'ไม่มี Wave ที่เก็บถาวร';
+
+  @override
+  String get mutualInterestsMin => 'ความสนใจร่วม (ขั้นต่ำ)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'อย่างน้อย $n หัวข้อร่วม',
+      one: 'อย่างน้อย 1 หัวข้อร่วม',
+      zero: 'ทั้งหมด',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'ถามเกี่ยวกับช่วงเวลาล่าสุดของพวกเขา';
+
+  @override
+  String get starterSayHi => 'ทักทายด้วยภาษาของพวกเขา';
+
+  @override
+  String get starterCurious => 'พวกเขาสงสัยเรื่องอะไร?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'สวัสดีจาก $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'ช่วยพวกเขาฝึก $language!';
+  }
 }

@@ -2993,6 +2993,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get allTopics => 'Lahat ng paksa';
 
   @override
+  String get allCategories => 'Lahat ng kategorya';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'Sulat-kamay';
+
+  @override
+  String get pickDate => 'Pumili ng petsa';
+
+  @override
+  String get pickTime => 'Pumili ng oras';
+
+  @override
+  String get upcomingRooms => 'Paparating';
+
+  @override
+  String inHours(int h, int m) {
+    return 'sa ${h}o ${m}m';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'sa ${m}m';
+  }
+
+  @override
+  String get startsNow => 'Nagsisimula na ngayon';
+
+  @override
+  String get iWillBeThere => 'Nandoon ako';
+
+  @override
+  String get cantMakeIt => 'Hindi ako makakadalo';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mga RSVP',
+      one: '1 RSVP',
+      zero: 'Walang RSVP',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return 'Magsisimula ang $title sa loob ng 1 oras';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return 'Magsisimula ang $title sa loob ng 15 minuto';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return 'Nagsisimula na ang $title';
+  }
+
+  @override
+  String get cancelRoom => 'Kanselahin ang silid';
+
+  @override
+  String get muteAll => 'I-mute ang lahat';
+
+  @override
+  String get mutedByHost => 'Na-mute ng host ang lahat';
+
+  @override
+  String get muteAllConfirm => 'I-mute ang lahat sa silid?';
+
+  @override
+  String get categoryCasual => 'Pang-araw-araw';
+
+  @override
+  String get categoryLanguagePractice => 'Pagsasanay sa wika';
+
+  @override
+  String get categoryTopic => 'Paksa';
+
+  @override
+  String get categoryQA => 'Tanong at sagot';
+
+  @override
+  String get pickCategory => 'Kategorya';
+
+  @override
+  String get sortRecentlyActive => 'Kamakailan nang aktibo';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tao ang bumisita sa iyong profile',
+      one: '1 tao ang bumisita sa iyong profile',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Walang mga kamakailang bisita';
+
+  @override
+  String get viewArchive => 'Tingnan ang archive';
+
+  @override
+  String get archivedWaves => 'Mga naka-archive na Wave';
+
+  @override
+  String get noArchivedWaves => 'Walang naka-archive na Wave';
+
+  @override
+  String get mutualInterestsMin => 'Magkaparehong interes (min)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Hindi bababa sa $n kaparehong paksa',
+      one: 'Hindi bababa sa 1 kaparehong paksa',
+      zero: 'Anumang',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Tanungin sila tungkol sa kanilang huling sandali';
+
+  @override
+  String get starterSayHi => 'Magbati sa kanilang wika';
+
+  @override
+  String get starterCurious => 'Ano ang kinukuriosa nila?';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'Kamusta mula sa $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'Tulungan silang magsanay ng $language!';
+  }
 }

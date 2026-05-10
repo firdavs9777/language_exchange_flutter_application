@@ -12,7 +12,7 @@
   "or": "OR",
   "more": "more",
   "signInWithGoogle": "Sign in with Google",
-  "signInWithApple": "Sign in with Apple",
+  "signInWithApple": "Sign In with Apple",
   "signInWithFacebook": "Sign in with Facebook",
   "welcome": "Welcome",
   "home": "Home",
@@ -181,7 +181,7 @@
   "notificationSettings": "Notification Settings",
   "enableNotifications": "Enable Notifications",
   "turnAllNotificationsOnOrOff": "Turn all notifications on or off",
-  "notificationTypes": "Notification Types",
+  "notificationTypes": "NOTIFICATION TYPES",
   "chatMessages": "Chat Messages",
   "getNotifiedWhenYouReceiveMessages": "Get notified when you receive messages",
   "likesAndCommentsOnYourMoments": "Likes and comments on your moments",
@@ -212,7 +212,7 @@
   "failedToSendMessage": "Failed to send message",
   "dailyMessageLimitExceeded": "Daily message limit exceeded. Upgrade to VIP for unlimited messages.",
   "cannotSendMessageUserMayBeBlocked": "Cannot send message. User may be blocked.",
-  "sessionExpired": "Session expired. Please log in again.",
+  "sessionExpired": "Session expired. Please login again.",
   "sendThisSticker": "Send this sticker?",
   "chooseHowYouWantToDeleteThisMessage": "Choose how you want to delete this message:",
   "deleteForEveryone": "Delete for everyone",
@@ -281,7 +281,6 @@
   "deletingYourAccountWillPermanentlyRemove": "Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.",
   "clearAllNotifications": "Clear all notifications?",
   "clearAll": "Clear All",
-  "notifications": "Notifications",
   "notificationDebug": "Notification Debug",
   "markAllRead": "Mark all read",
   "clearAll2": "Clear all",
@@ -296,7 +295,6 @@
   "detectYourLocation2": "Detect your location",
   "tapToUpdateLocation2": "Tap to update location",
   "helpOthersFindYouNearby2": "Help others find you nearby",
-  "signInWithApple": "Sign In with Apple",
   "couldNotOpenLink": "Could not open link",
   "legalPrivacy2": "Legal & Privacy",
   "termsOfUseEULA": "Terms of Use (EULA)",
@@ -322,7 +320,7 @@
   "yourPassword": "Your password",
   "typeDELETEToConfirm": "Type DELETE to confirm",
   "typeDELETEInCapitalLetters": "Type DELETE in capital letters",
-  "sent": "{emoji} sent!",
+  "sent": "Sent!",
   "@sent": {
     "placeholders": {
       "emoji": {
@@ -331,7 +329,7 @@
     }
   },
   "replySent": "Reply sent!",
-  "deleteStory": "Delete Story?",
+  "deleteStory": "Delete story?",
   "thisStoryWillBeRemovedPermanently": "This story will be removed permanently.",
   "noStories": "No stories",
   "views": "{count} views",
@@ -395,7 +393,6 @@
   "addNotesOptional": "Add Notes (Optional)",
   "enterModeratorNotes": "Enter moderator notes...",
   "skip": "Skip",
-  "reportsManagement": "Reports Management",
   "startReview": "Start Review",
   "resolve": "Resolve",
   "dismiss": "Dismiss",
@@ -424,7 +421,6 @@
   "noMomentsToShow": "No moments to show",
   "storiesNotAvailable": "Stories not available",
   "cantMessageThisUser": "Can't message this user",
-  "tryAgain": "Try Again",
   "pleaseSelectAReason": "Please select a reason",
   "reportSubmitted": "Report submitted. Thank you for helping keep our community safe.",
   "youHaveAlreadyReportedThisMoment": "You have already reported this moment",
@@ -436,24 +432,21 @@
   "noLanguagesFound": "No languages found",
   "selectALanguage": "Select a language",
   "languagesAreStillLoading": "Languages are still loading...",
-  "selectNativeLanguage": "Select native language",
+  "selectNativeLanguage": "Please select your native language",
   "subscriptionDetails": "Subscription Details",
   "activeFeatures": "Active Features",
   "legalInformation": "Legal Information",
   "termsOfUse": "Terms of Use",
-  "privacyPolicy": "Privacy Policy",
   "manageSubscription": "Manage Subscription",
   "manageSubscriptionInSettings": "To cancel your subscription, go to Settings > [Your Name] > Subscriptions on your device.",
   "contactSupportToCancel": "To cancel your subscription, please contact our support team.",
   "status": "Status",
-  "active": "Active",
+  "active": "active",
   "plan": "Plan",
   "startDate": "Start Date",
   "endDate": "End Date",
   "nextBillingDate": "Next Billing Date",
   "autoRenew": "Auto Renew",
-  "yes": "Yes",
-  "no": "No",
   "pleaseLogInToContinue": "Please log in to continue",
   "purchaseCanceledOrFailed": "Purchase was canceled or failed. Please try again.",
   "maximumTagsAllowed": "Maximum 5 tags allowed",
@@ -479,7 +472,7 @@
   "wallpaperSavedLocally": "Wallpaper saved locally",
   "messageCopied": "Message copied",
   "forwardFeatureComingSoon": "Forward feature coming soon",
-  "momentUnsaved": "Moment unsaved",
+  "momentUnsaved": "Removed from saved",
   "documentPickerComingSoon": "Document picker coming soon",
   "contactSharingComingSoon": "Contact sharing coming soon",
   "featureComingSoon": "Feature coming soon",
@@ -633,8 +626,6 @@
       }
     }
   },
-  "wallpaper": "Wallpaper",
-  "unblockUser": "Unblock User",
   "maxTagsAllowed": "Maximum 5 tags allowed",
   "maxImagesAllowed": "Maximum {count} images allowed",
   "@maxImagesAllowed": {
@@ -644,16 +635,8 @@
       }
     }
   },
-  "momentCreatedSuccessfully": "Moment created successfully",
-  "uploadingMomentInBackground": "Uploading moment in background...",
-  "failedToGetLocation": "Failed to get location",
-  "videoUploadFailed": "Video Upload Failed",
-  "skipVideo": "Skip Video",
-  "retryUpload": "Retry Upload",
-  "errorProcessingVideo": "Error processing video",
   "pleaseRemoveImagesFirst": "Please remove images first to add a video",
-  "unsupportedFormat": "Unsupported format",
-  "exchange3MessagesBeforeCall": "You need to exchange at least 3 messages before you can call this user",
+  "exchange3MessagesBeforeCall": "Exchange 3+ messages before calling",
   "mediaWithUser": "Media with {name}",
   "@mediaWithUser": {
     "placeholders": {
@@ -663,19 +646,13 @@
     }
   },
   "errorLoadingMedia": "Error loading media",
-  "retry": "Retry",
-  "blockedUsers": "Blocked Users",
   "savedMomentsTitle": "Saved Moments",
   "removeBookmark": "Remove bookmark?",
   "thisWillRemoveBookmark": "This will remove the message from your bookmarks.",
   "remove": "Remove",
   "bookmarkRemoved": "Bookmark removed",
   "bookmarkedMessages": "Bookmarked Messages",
-  "chatWallpaper": "Chat Wallpaper",
-  "apply": "Apply",
   "wallpaperSaved": "Wallpaper saved locally",
-  "deleteAccount": "Delete Account",
-  "enterYourPassword": "Enter your password",
   "typeDeleteToConfirm": "Type DELETE to confirm",
   "storyArchive": "Story Archive",
   "newHighlight": "New Highlight",
@@ -686,14 +663,12 @@
   "addFriends": "Add Friends",
   "highlights": "Highlights",
   "createHighlight": "Create Highlight",
-  "deleteHighlight": "Delete Highlight?",
+  "deleteHighlight": "Delete Highlight",
   "editHighlight": "Edit Highlight",
-  "noStories": "No stories",
   "addMoreToStory": "Add more to story",
-  "sent": "Sent!",
   "noViewersYet": "No viewers yet",
   "noReactionsYet": "No reactions yet",
-  "leaveRoom": "Leave Room?",
+  "leaveRoom": "Leave Room",
   "areYouSureLeaveRoom": "Are you sure you want to leave this voice room?",
   "stay": "Stay",
   "leave": "Leave",
@@ -706,8 +681,6 @@
       }
     }
   },
-  "createMoment": "Create Moment",
-  "learning": "Learning",
   "areYouSureFollow": "Are you sure you want to follow",
   "failedToLoadProfile": "Failed to load profile",
   "noFollowersYet": "No followers yet",
@@ -715,25 +688,25 @@
   "searchUsers": "Search users...",
   "noResultsFound": "No results found",
   "loadingFailed": "Loading failed",
-  "tryAgain": "Try again",
   "copyLink": "Copy link",
   "shareStory": "Share story",
-  "deleteStory": "Delete story?",
   "thisWillDeleteStory": "This will permanently delete this story.",
   "storyDeleted": "Story deleted",
   "addCaption": "Add a caption...",
-  "share": "Share",
   "yourStory": "Your Story",
   "sendMessage": "Send message",
   "replyToStory": "Reply to story...",
   "viewAllReplies": "View all replies",
-  "createStory": "Create Story",
   "preparingVideo": "Preparing video...",
   "videoOptimized": "Video optimized: {size}MB (saved {savings}%)",
   "@videoOptimized": {
     "placeholders": {
-      "size": {"type": "String"},
-      "savings": {"type": "String"}
+      "size": {
+        "type": "String"
+      },
+      "savings": {
+        "type": "String"
+      }
     }
   },
   "failedToProcessVideo": "Failed to process video",
@@ -779,13 +752,17 @@
   "viewsTab": "Views ({count})",
   "@viewsTab": {
     "placeholders": {
-      "count": {"type": "String"}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "reactionsTab": "Reactions ({count})",
   "@reactionsTab": {
     "placeholders": {
-      "count": {"type": "String"}
+      "count": {
+        "type": "String"
+      }
     }
   },
   "processingVideo": "Processing video...",
@@ -793,27 +770,34 @@
   "unmuteUser": "Unmute {name}?",
   "@unmuteUser": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "willReceiveNotifications": "You will receive notifications for new messages.",
-  "muteNotifications": "Mute notifications",
   "muteNotificationsFor": "Mute notifications for {name}",
   "@muteNotificationsFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notificationsUnmutedFor": "Notifications unmuted for {name}",
   "@notificationsUnmutedFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "notificationsMutedFor": "Notifications muted for {name}",
   "@notificationsMutedFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "failedToUpdateMuteSettings": "Failed to update mute settings",
@@ -821,69 +805,53 @@
   "eightHours": "8 hours",
   "oneWeek": "1 week",
   "always": "Always",
-  "bookmarkedMessages": "Bookmarked Messages",
   "failedToLoadBookmarks": "Failed to load bookmarks",
   "noBookmarkedMessages": "No bookmarked messages",
   "longPressToBookmark": "Long press on a message to bookmark it",
-  "removeBookmark": "Remove bookmark?",
   "thisWillRemoveFromBookmarks": "This will remove the message from your bookmarks.",
-  "bookmarkRemoved": "Bookmark removed",
   "navigateToMessage": "Navigate to message in chat with {name}",
   "@navigateToMessage": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "bookmarkedOn": "Bookmarked {date}",
   "@bookmarkedOn": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
   "voiceMessage": "Voice message",
   "document": "Document",
   "attachment": "Attachment",
   "sendMeAMessage": "Send me a message",
-  "answerSent": "Answer sent!",
   "shareWithFriends": "Share with friends",
   "shareAnywhere": "Share anywhere",
-  "close": "Close",
   "emailPreferences": "Email Preferences",
-  "emailNotifications": "Email Notifications",
   "receiveEmailNotifications": "Receive email notifications from Bananatalk",
-  "notificationTypes": "NOTIFICATION TYPES",
-  "weeklySummary": "Weekly Summary",
-  "activityRecapEverySunday": "Activity recap every Sunday",
-  "newMessages": "New Messages",
   "whenAwayFor24Hours": "When you're away for 24+ hours",
-  "newFollowers": "New Followers",
-  "whenSomeoneFollowsYou": "When someone follows you",
-  "securityAlerts": "Security Alerts",
   "passwordAndLoginAlerts": "Password & login alerts",
-  "recommended": "Recommended",
   "failedToLoadPreferences": "Failed to load preferences",
   "failedToUpdateSetting": "Failed to update setting",
   "securityAlertsRecommended": "We recommend keeping Security Alerts enabled to stay informed about important account activity.",
-  "chatWallpaper": "Chat Wallpaper",
   "chatWallpaperFor": "Chat wallpaper for {name}",
   "@chatWallpaperFor": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "solidColors": "Solid Colors",
   "gradients": "Gradients",
   "customImage": "Custom Image",
-  "chooseFromGallery": "Choose from gallery",
+  "chooseFromGallery": "Choose from Gallery",
   "preview": "Preview",
   "wallpaperUpdated": "Wallpaper updated",
-  "wallpaperSavedLocally": "Wallpaper saved locally",
-  "failedToPickImage": "Failed to pick image",
-  "filters": "Filters",
-  "clearAll": "Clear All",
-  "active": "active",
-  "sort": "Sort",
-  "language": "Language",
   "category": "Category",
   "mood": "Mood",
   "sortBy": "Sort By",
@@ -896,24 +864,20 @@
   "applyNFilters": "Apply {count} Filters",
   "@applyNFilters": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-  "failedToTakePhoto": "Failed to take photo",
-  "failedToPickImage": "Failed to pick image",
   "videoMustBeUnder1GB": "Video must be under 1GB.",
-  "failedToPickVideo": "Failed to pick video",
   "failedToRecordVideo": "Failed to record video",
   "errorSendingVideo": "Error sending video",
   "errorSendingVoiceMessage": "Error sending voice message",
-  "failedToGetLocation": "Failed to get location",
   "errorSendingMedia": "Error sending media",
-  "permissionsRequired": "Permissions Required",
-  "openSettings": "Open Settings",
   "cameraPermissionRequired": "Camera and microphone permissions are required to record videos.",
   "locationPermissionRequired": "Location permission is required to share your location.",
   "noInternetConnection": "No internet connection",
-  "tryAgainLater": "Please try again later",
+  "tryAgainLater": "Try again later",
   "messageSent": "Message sent",
   "messageDeleted": "Message deleted",
   "messageEdited": "Message edited",
@@ -939,14 +903,13 @@
   "saveMoment": "Save Moment",
   "removeFromSaved": "Remove from Saved",
   "momentSaved": "Saved",
-  "momentUnsaved": "Removed from saved",
   "failedToSave": "Failed to save",
   "checkOutMoment": "Check out this moment on Bananatalk!",
   "failedToLoadMoments": "Failed to load moments",
   "noMomentsMatchFilters": "No moments match your filters",
   "beFirstToShareMoment": "Be the first to share a moment!",
   "tryDifferentSearch": "Try a different search term",
-  "tryAdjustingFilters": "Try adjusting your filters",
+  "tryAdjustingFilters": "Try adjusting your filters to find language exchange partners.",
   "noSavedMoments": "No saved moments",
   "tapBookmarkToSave": "Tap the bookmark icon on a moment to save it",
   "failedToLoadVideo": "Failed to load video",
@@ -986,31 +949,37 @@
       }
     }
   },
-
   "listView": "List",
   "quickMatch": "Quick Match",
   "onlineNow": "Online Now",
   "speaksLanguage": "Speaks {language}",
   "@speaksLanguage": {
     "placeholders": {
-      "language": { "type": "String" }
+      "language": {
+        "type": "String"
+      }
     }
   },
   "learningLanguage": "Learning {language}",
   "@learningLanguage": {
     "placeholders": {
-      "language": { "type": "String" }
+      "language": {
+        "type": "String"
+      }
     }
   },
   "noPartnersFound": "No partners found",
   "noUsersFoundForLanguages": "No users found who speak {learning} natively or want to learn {native}.",
   "@noUsersFoundForLanguages": {
     "placeholders": {
-      "learning": { "type": "String" },
-      "native": { "type": "String" }
+      "learning": {
+        "type": "String"
+      },
+      "native": {
+        "type": "String"
+      }
     }
   },
-  "tryAdjustingFilters": "Try adjusting your filters to find language exchange partners.",
   "removeAllFilters": "Remove all filters",
   "browseAllUsers": "Browse all users",
   "allCaughtUp": "All caught up!",
@@ -1020,11 +989,8 @@
   "startOver": "Start Over",
   "changeFilters": "Change Filters",
   "findingPartners": "Finding partners...",
-  "somethingWentWrong": "Something went wrong",
-  "retry": "Retry",
   "setLocationReminder": "Set your location in your profile to see nearby users first.",
   "updateLocationReminder": "Update your location in Profile > Edit to get accurate nearby results.",
-
   "male": "Male",
   "female": "Female",
   "other": "Other",
@@ -1033,13 +999,11 @@
   "noMaleUsersFound": "No male users found",
   "noFemaleUsersFound": "No female users found",
   "vip": "VIP",
-
   "newUsersOnly": "New Users Only",
   "showNewUsers": "Show users who joined in the last 6 days",
   "prioritizeNearby": "Prioritize Nearby",
   "showNearbyFirst": "Show nearby users first in results",
   "setLocationToEnable": "Set your location to enable this feature",
-
   "radius": "Radius",
   "findingYourLocation": "Finding your location...",
   "enableLocationForDistance": "Enable Location for Distance",
@@ -1049,7 +1013,6 @@
   "peopleNearby": "People Nearby",
   "noNearbyUsersFound": "No nearby users found",
   "tryExpandingSearch": "Try expanding your search or check back later.",
-
   "exploreByCity": "Explore by City",
   "exploreByCurrentCity": "Browse users on an interactive map, see who's in your city, and discover language partners worldwide.",
   "interactiveWorldMap": "Interactive world map",
@@ -1057,11 +1020,12 @@
   "seeUserCountsPerCountry": "See user counts per country",
   "upgradeToVip": "Upgrade to VIP",
   "searchByCity": "Search by city...",
-  "loading": "Loading...",
   "usersWorldwide": "{count} users worldwide",
   "@usersWorldwide": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
   "noUsersFound": "No users found",
@@ -1069,44 +1033,38 @@
   "usersCount": "{count} users",
   "@usersCount": {
     "placeholders": {
-      "count": { "type": "String" }
+      "count": {
+        "type": "String"
+      }
     }
   },
-
   "searchCountry": "Search country...",
   "wave": "Wave",
   "newUser": "NEW",
-
-  "deleteAccount": "Delete Account",
   "warningPermanent": "Warning: This action is permanent!",
   "deleteAccountWarning": "Deleting your account will permanently remove:\n\n• Your profile and all personal data\n• All your messages and conversations\n• All your moments and stories\n• Your VIP subscription (no refund)\n• All your connections and followers\n\nThis action cannot be undone.",
-  "enterYourPassword": "Enter your password",
   "requiredForEmailOnly": "Required for email accounts only",
   "pleaseEnterPassword": "Please enter your password",
   "typeDELETE": "Type DELETE to confirm",
   "mustTypeDELETE": "You must type DELETE to confirm",
   "deletingAccount": "Deleting Account...",
   "deleteMyAccountPermanently": "Delete My Account Permanently",
-
   "whatsYourNativeLanguage": "What's your native language?",
   "helpsMatchWithLearners": "This helps us match you with learners",
   "whatAreYouLearning": "What are you learning?",
   "connectWithNativeSpeakers": "We'll connect you with native speakers",
-  "selectNativeLanguage": "Please select your native language",
   "selectLearningLanguage": "Please select the language you're learning",
   "selectCurrentLevel": "Please select your current level",
-  "beginner": "Beginner — I know a few words",
-  "elementary": "Elementary — I can make simple sentences",
-  "intermediate": "Intermediate — I can have basic conversations",
-  "upperIntermediate": "Upper Intermediate — I can discuss most topics",
-  "advanced": "Advanced — I speak fluently with few errors",
-  "proficient": "Proficient — Near-native level",
-
+  "beginner": "Beginner",
+  "elementary": "Elementary",
+  "intermediate": "Intermediate",
+  "upperIntermediate": "Upper Intermediate",
+  "advanced": "Advanced",
+  "proficient": "Proficient",
   "showingPartnersByDistance": "Showing partners sorted by distance",
   "enableLocationForResults": "Enable location for distance-based results",
   "enable": "Enable",
   "locationNotSet": "Location not set",
-
   "tellUsAboutYourself": "Tell us about yourself",
   "justACoupleQuickThings": "Just a couple of quick things",
   "gender": "Gender",
@@ -1136,7 +1094,9 @@
   "yourLevelIn": "Your level in {language} (optional)",
   "@yourLevelIn": {
     "placeholders": {
-      "language": { "type": "String" }
+      "language": {
+        "type": "String"
+      }
     }
   },
   "yourCurrentLevel": "Your current level",
@@ -1145,18 +1105,19 @@
   "stepOf": "Step {current} of {total}",
   "@stepOf": {
     "placeholders": {
-      "current": { "type": "String" },
-      "total": { "type": "String" }
+      "current": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
     }
   },
-
   "continueWithGoogle": "Continue with Google",
   "registerLink": "Register",
   "pleaseEnterBothEmailAndPassword": "Please enter both email and password",
   "pleaseEnterValidEmail": "Please enter a valid email address",
   "loginSuccessful": "Login Successful!",
-  "sessionExpired": "Session expired. Please login again.",
-
   "stepOneOfTwo": "Step 1 of 2",
   "createYourAccount": "Create Your Account",
   "basicInfoToGetStarted": "Basic info to get you started",
@@ -1169,13 +1130,9 @@
   "pleaseEnterYourName": "Please enter your name",
   "pleaseEnterAPassword": "Please enter a password",
   "passwordsDoNotMatch": "Passwords do not match",
-  "male": "Male",
-  "female": "Female",
   "otherGender": "Other",
-
   "continueWithGoogleAccount": "Continue with your Google account\nfor a seamless experience",
   "signingYouIn": "Signing you in...",
-  "tryAgain": "Try Again",
   "backToSignInMethods": "Back to sign-in methods",
   "securedByGoogle": "Secured by Google",
   "dataProtectedEncryption": "Your data is protected with industry-standard encryption",
@@ -1183,28 +1140,26 @@
   "welcomeBackName": "Welcome back, {name}!",
   "@welcomeBackName": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
-
   "continueWithAppleId": "Continue with your Apple ID\nfor a secure experience",
   "continueWithApple": "Continue with Apple",
   "securedByApple": "Secured by Apple",
   "privacyProtectedApple": "Your privacy is protected with Apple Sign-In",
-
   "createAccount": "Create Account",
   "enterEmailToGetStarted": "Enter your email to get started",
   "continueText": "Continue",
   "pleaseEnterEmailAddress": "Please enter your email address",
   "verificationCodeSent": "Verification code sent to your email!",
-
   "forgotPasswordTitle": "Forgot Password",
   "resetPasswordTitle": "Reset Password",
   "enterEmailForResetCode": "Enter your email address and we'll send you a code to reset your password",
   "sendResetCode": "Send Reset Code",
   "resetCodeSent": "Reset code sent to your email!",
   "rememberYourPassword": "Remember your password?",
-
   "verifyCode": "Verify Code",
   "enterResetCode": "Enter Reset Code",
   "weSentCodeTo": "We sent a 6-digit code to",
@@ -1216,23 +1171,22 @@
   "resendWithTimer": "Resend ({timer}s)",
   "@resendWithTimer": {
     "placeholders": {
-      "timer": { "type": "String" }
+      "timer": {
+        "type": "String"
+      }
     }
   },
   "resetCodeResent": "Reset code resent!",
-
   "verifyEmail": "Verify Email",
   "verifyYourEmail": "Verify Your Email",
   "emailVerifiedSuccessfully": "Email verified successfully!",
   "verificationCodeResent": "Verification code resent!",
-
   "createNewPassword": "Create New Password",
   "enterNewPasswordBelow": "Enter your new password below",
   "newPassword": "New Password",
   "confirmPasswordLabel": "Confirm Password",
   "pleaseFillAllFields": "Please fill in all fields",
   "passwordResetSuccessful": "Password reset successful! Please login with your new password",
-
   "privacyTitle": "Privacy",
   "profileVisibility": "Profile Visibility",
   "showCountryRegion": "Show Country/Region",
@@ -1255,7 +1209,6 @@
   "personalizedAdsDesc": "Allow personalized advertisements",
   "saveChanges": "Save Changes",
   "privacySettingsSaved": "Privacy settings saved",
-  "failedToSave": "Failed to save",
   "locationSection": "Location",
   "updateLocation": "Update Location",
   "updateLocationDesc": "Refresh your current location",
@@ -1265,9 +1218,7 @@
   "locationPermissionDenied": "Location permission denied. Please enable it in settings.",
   "locationServiceDisabled": "Location services are disabled. Please enable them.",
   "updatingLocation": "Updating location...",
-  "openSettings": "Open Settings",
   "locationCouldNotBeUpdated": "Location could not be updated",
-
   "incomingAudioCall": "Incoming Audio Call",
   "incomingVideoCall": "Incoming Video Call",
   "outgoingCall": "Calling...",
@@ -1316,17 +1267,12 @@
     }
   },
   "audioCall": "Audio Call",
-  "exchange3MessagesBeforeCall": "Exchange 3+ messages before calling",
-  "tryAgain": "Try Again",
   "voiceRoom": "Voice Room",
   "noVoiceRooms": "No voice rooms active",
   "createVoiceRoom": "Create Voice Room",
   "joinRoom": "Join Room",
-  "leaveRoom": "Leave Room",
   "leaveRoomConfirm": "Leave Room?",
   "leaveRoomMessage": "Are you sure you want to leave this room?",
-  "stay": "Stay",
-  "leave": "Leave",
   "roomTitle": "Room Title",
   "roomTitleHint": "Enter room title",
   "roomTopic": "Topic",
@@ -1349,7 +1295,6 @@
     }
   },
   "selectTopic": "Select Topic",
-  "selectLanguage": "Select Language",
   "raiseHand": "Raise Hand",
   "lowerHand": "Lower Hand",
   "handRaisedNotification": "Hand raised! The host will see your request.",
@@ -1406,7 +1351,7 @@
   "justStarted": "Just started",
   "allLanguages": "All Languages",
   "allTopics": "All Topics",
-
+  "allCategories": "All Categories",
   "leaderboard": "Leaderboard",
   "competeWithLearners": "Compete with other learners!",
   "xpRankings": "XP Rankings",
@@ -1415,7 +1360,6 @@
   "myRanks": "My Ranks",
   "currentStreak": "Current Streak",
   "longestStreak": "Longest Streak",
-  "allTime": "All Time",
   "weekly": "Weekly",
   "monthly": "Monthly",
   "yourRank": "Your Rank",
@@ -1450,18 +1394,12 @@
   "addFriendsToCompete": "Add friends to compete with them!",
   "failedToLoadLeaderboard": "Failed to load leaderboard",
   "you": "You",
-
   "findPartners": "Find Partners",
   "discoverLanguagePartners": "Discover language partners",
-  "recommended": "Recommended",
-  "onlineNow": "Online Now",
   "byLanguage": "By Language",
   "match": "match",
   "matchScore": "Match Score",
-  "viewProfile": "View Profile",
-  "message": "Message",
   "noMatchesFound": "No matches found",
-  "tryAgainLater": "Try again later",
   "noUsersOnline": "No users online",
   "checkBackLater": "Check back later",
   "selectLanguagePrompt": "Select a language",
@@ -1476,7 +1414,6 @@
   },
   "tryAnotherLanguage": "Try selecting another language",
   "failedToLoadMatches": "Failed to load matches",
-
   "dataAndStorage": "Data & Storage",
   "manageStorageAndDownloads": "Manage storage and downloads",
   "storageUsage": "Storage Usage",
@@ -1514,7 +1451,6 @@
   },
   "calculating": "Calculating...",
   "noDataToShow": "No data to show",
-
   "profileCompletion": "Profile Completion",
   "justGettingStarted": "Just getting started",
   "lookingGood": "Looking good!",
@@ -1529,14 +1465,7 @@
   },
   "profilePicture": "Profile Picture",
   "nativeSpeaker": "Native Speaker",
-  "beginner": "Beginner",
-  "elementary": "Elementary",
-  "intermediate": "Intermediate",
-  "upperIntermediate": "Upper Intermediate",
-  "advanced": "Advanced",
-  "proficient": "Proficient",
   "peopleInterestedInTopic": "People interested in this topic",
-  "noUsersFound": "No users found",
   "beFirstToAddTopic": "Be the first to add this topic to your interests!",
   "recentMoments": "Recent Moments",
   "seeAll": "See All",
@@ -1547,7 +1476,6 @@
   "whenYouGetNotifications": "When you get notifications, they'll show up here",
   "failedToLoadNotifications": "Failed to load notifications",
   "clearAllNotificationsConfirm": "Are you sure you want to clear all notifications? This cannot be undone.",
-
   "tapToChange": "Tap to change",
   "noPictureSet": "No picture set",
   "nameAndGender": "Name & Gender",
@@ -1555,7 +1483,6 @@
   "personalInformation": "Personal Information",
   "mbti": "MBTI",
   "topicsOfInterest": "Topics of Interest",
-  "more": "more",
   "levelBeginner": "Beginner",
   "levelElementary": "Elementary",
   "levelIntermediate": "Intermediate",
@@ -1583,7 +1510,6 @@
   "failedToUpdate": "Failed to update",
   "profileUpdatedSuccessfully": "Profile updated successfully",
   "genderRequired": "Gender (Required)",
-
   "editHometown": "Edit Hometown",
   "useCurrentLocation": "Use Current Location",
   "detecting": "Detecting...",
@@ -1594,11 +1520,9 @@
   "noLocationDetectedYet": "No location detected yet.",
   "detected": "Detected",
   "savedHometown": "Saved hometown",
-  "failedToGetLocation": "Failed to get location",
   "locationServicesDisabled": "Location services are disabled. Please enable them.",
   "locationPermissionPermanentlyDenied": "Location permissions are permanently denied.",
   "unknown": "Unknown",
-
   "editBio": "Edit Bio",
   "bioUpdatedSuccessfully": "Bio updated successfully",
   "tellOthersAboutYourself": "Tell others about yourself...",
@@ -1610,20 +1534,16 @@
       }
     }
   },
-
   "selectYourMbti": "Select Your MBTI",
-  "saved": "Saved",
   "myBloodType": "My Blood Type",
   "pleaseSelectABloodType": "Please select a blood type",
   "bloodTypeSavedSuccessfully": "Blood type saved successfully",
   "hometownSavedSuccessfully": "Hometown saved successfully",
-
   "nativeLanguageRequired": "Native Language (Required)",
   "languageToLearnRequired": "Language to Learn (Required)",
   "nativeLanguageCannotBeSame": "Native language cannot be the same as the language you're learning",
   "learningLanguageCannotBeSame": "Learning language cannot be the same as your native language",
   "pleaseSelectALanguage": "Please select a language",
-
   "editInterests": "Edit Interests",
   "maxTopicsAllowed": "Maximum {count} topics allowed",
   "@maxTopicsAllowed": {
@@ -1646,17 +1566,12 @@
       }
     }
   },
-  "all": "All",
-
   "profilePictures": "Profile Pictures",
   "addImages": "Add Images",
-  "chooseFromGallery": "Choose from Gallery",
   "selectUpToImages": "Select up to 5 images",
   "takeAPhoto": "Take a Photo",
   "removeImage": "Remove Image",
   "removeImageConfirm": "Are you sure you want to remove this image?",
-  "cancel": "Cancel",
-  "remove": "Remove",
   "removeAll": "Remove All",
   "removeAllSelectedImages": "Remove All Selected Images",
   "removeAllSelectedImagesConfirm": "Are you sure you want to remove all selected images?",
@@ -1665,7 +1580,6 @@
   "removeAllImagesConfirm": "Are you sure you want to remove all profile pictures?",
   "currentImages": "Current Images",
   "newImages": "New Images",
-  "profile": "Profile",
   "addMoreImages": "Add More Images",
   "uploadImages": "Upload {count} Image(s)",
   "@uploadImages": {
@@ -1727,21 +1641,11 @@
   "imageSizeExceedsLimit": "Image size exceeds 10MB limit",
   "unsupportedImageFormat": "Unsupported image format",
   "pleaseSelectAtLeastOneImage": "Please select at least one image to upload",
-
   "basicInformation": "Basic Information",
   "languageToLearn": "Language to Learn",
   "hometown": "Hometown",
   "characters": "characters",
   "failedToLoadLanguages": "Failed to load languages",
-  "maxTopicsAllowed": "Maximum {count} topics allowed",
-  "@maxTopicsAllowed": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-
   "studyHub": "Study Hub",
   "dailyLearningJourney": "Your daily learning journey",
   "learnTab": "Learn",
@@ -1880,7 +1784,6 @@
   "hearts": "Hearts",
   "tapToSayHi": "Tap to say hi!",
   "sendWaveToStart": "Send a wave to start chatting",
-  "videoMustBeUnder1GB": "Video must be under 1GB.",
   "documentMustBeUnder50MB": "Document must be under 50MB.",
   "editWithin15Minutes": "Messages can only be edited within 15 minutes",
   "messageForwardedTo": "Message forwarded to {count} user(s)",
@@ -1893,7 +1796,6 @@
   },
   "failedToLoadUsers": "Failed to load users",
   "voice": "Voice",
-  "you": "You",
   "searchGifs": "Search GIFs...",
   "trendingGifs": "Trending",
   "poweredByGiphy": "Powered by GIPHY",
@@ -1906,22 +1808,13 @@
   "findYourPerfect": "Find Your Perfect",
   "languagePartner": "Language Partner",
   "learningLanguageLabel": "Learning Language",
-  "languageLevel": "Language Level",
-  "country": "Country",
   "ageRange": "Age Range",
   "genderPreference": "Gender Preference",
   "any": "Any",
-  "male": "Male",
-  "female": "Female",
-  "other": "Other",
-  "newUsersOnly": "New Users Only",
   "showNewUsersSubtitle": "Show users who joined in the last 6 days",
-  "applyFilters": "Apply Filters",
   "autoDetectLocation": "Auto-detect my location",
-  "detecting": "Detecting...",
   "selectCountry": "Select Country",
   "anyCountry": "Any Country",
-  "searchCountry": "Search country...",
   "loadingLanguages": "Loading languages...",
   "minAge": "Min: {age}",
   "@minAge": {
@@ -1939,7 +1832,6 @@
       }
     }
   },
-
   "captionRequired": "Caption is required",
   "captionTooLong": "Caption must be {maxLength} characters or less",
   "@captionTooLong": {
@@ -1988,7 +1880,6 @@
     }
   },
   "chooseBackground": "Choose a background",
-
   "likedByXPeople": "Liked by {count} people",
   "@likedByXPeople": {
     "placeholders": {
@@ -2040,7 +1931,6 @@
     }
   },
   "repliedToYourStory": "Replied to your story",
-
   "mentionedYouInComment": "{name} mentioned you in a comment",
   "@mentionedYouInComment": {
     "placeholders": {
@@ -2065,25 +1955,18 @@
       }
     }
   },
-  "searchUsers": "Search users...",
   "addReaction": "Add reaction",
   "attachImage": "Attach image",
   "pickGif": "Pick a GIF",
-
   "textStory": "Text",
   "typeYourStory": "Type your story...",
   "selectBackground": "Select background",
   "highlightsTitle": "Highlights",
-  "newHighlight": "New Highlight",
   "highlightTitle": "Highlight Title",
-  "addToHighlight": "Add to Highlight",
   "createNewHighlight": "Create New",
-  "editHighlight": "Edit Highlight",
-  "deleteHighlight": "Delete Highlight",
   "selectStories": "Select Stories",
   "selectCover": "Select Cover",
   "addText": "Add Text",
-  "addSticker": "Add Sticker",
   "fontStyleLabel": "Font Style",
   "textColorLabel": "Text Color",
   "dragToDelete": "Drag here to delete",
@@ -2135,11 +2018,9 @@
   "momentUpdatedSuccessfully": "Moment updated successfully",
   "failedToDeleteMoment": "Failed to delete moment",
   "failedToUpdateMoment": "Failed to update moment",
-
   "mbtiUpdatedSuccessfully": "MBTI updated successfully",
   "pleaseSelectMbti": "Please select an MBTI type",
   "languageUpdatedSuccessfully": "Language updated successfully",
-
   "bioHintCard": "A great bio helps others connect with you. Share your interests, languages, or what you're looking for.",
   "bioCounterStartWriting": "Start writing...",
   "bioCounterABitMore": "A bit more would be great",
@@ -2166,8 +2047,6 @@
   "updateLocationCta": "Update Location",
   "enterYourName": "Enter your name",
   "unsavedChanges": "You have unsaved changes",
-
-  "loadingLanguages": "Loading languages...",
   "tapBelowToBrowseLanguages": "Tap below to browse from {count} languages",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
@@ -2180,9 +2059,7 @@
   "browseLanguages": "Browse Languages",
   "yourLearningLanguageIsPrefix": "Your learning language is ",
   "yourNativeLanguageIsPrefix": "Your native language is ",
-
   "profileCompleteProgress": "complete",
-
   "drawerPreferences": "Preferences",
   "drawerStorage": "Storage",
   "drawerReports": "Reports",
@@ -2199,7 +2076,6 @@
   "aboutBananatalkTagline": "Connect with language learners worldwide and improve your skills through real conversations.",
   "aboutCopyright": "© 2024 Bananatalk. All rights reserved.",
   "logoutFailedPrefix": "Logout failed",
-
   "profileVisitorsTitle": "Profile Visitors",
   "visitorStatistics": "Visitor Statistics",
   "visitorsTotalVisits": "Total Visits",
@@ -2214,24 +2090,19 @@
   "visitedDirect": "Direct visit",
   "visitorTrackingUnavailable": "Visitor tracking feature not available. Please update backend.",
   "visitorTrackingNotAvailableYet": "Visitor tracking not available yet",
-
   "noFollowersYetSubtitle": "Start connecting with others!",
   "partnerButton": "Partner",
-
   "notFollowingAnyoneYetSubtitle": "Start following people to see their updates!",
   "unfollowButton": "Unfollow",
-
   "profileThemeTitle": "Profile Theme",
   "themeAutoSwitch": "Auto Switch (System Theme)",
   "themeSystemHint": "When enabled, the app will follow your system theme settings",
   "themeLightMode": "Light Mode",
   "themeDarkMode": "Dark Mode",
-
   "myMoments": "My Moments",
   "momentListView": "List View",
   "momentGridView": "Grid View",
   "shareLanguageLearningJourney": "Share your language learning journey!",
-
   "deleteHighlightTitle": "Delete Highlight",
   "deleteHighlightConfirm": "Delete \"{title}\"? The stories inside won't be deleted.",
   "@deleteHighlightConfirm": {
@@ -2243,14 +2114,12 @@
   },
   "highlightDeletedSuccess": "Highlight deleted",
   "highlightNewBadge": "New",
-
   "editMoment": "Edit Moment",
   "momentDescriptionLabel": "Description",
   "momentImagesLabel": "Images",
   "noImagesYet": "No images yet",
   "momentEnterDescription": "Please enter a description",
   "momentUpdatedImageFailed": "Moment updated but image upload failed",
-
   "updateRequiredTitle": "Update Required",
   "updateAvailableTitle": "Update Available",
   "updateRequiredBody": "This version of Bananatalk is no longer supported. Please update to continue.",
@@ -2258,7 +2127,6 @@
   "updateNow": "Update Now",
   "updateLater": "Later",
   "updateOpenStoreFailed": "Couldn't open the store. Please update from the App Store or Play Store.",
-
   "rememberMe": "Remember me",
   "passwordWeak": "Weak",
   "passwordFair": "Fair",
@@ -2269,11 +2137,14 @@
   "stepProgress": "Step {current} of {total}",
   "@stepProgress": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "usernameOptional": "Username (optional)",
   "usernameAvailable": "Available",
   "usernameTaken": "Already taken",
@@ -2287,31 +2158,40 @@
   "continueAs": "Continue as {name}",
   "@continueAs": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "addProfilePhotoTitle": "Add a profile photo",
   "addProfilePhotoSkip": "Skip for now",
-
   "wavesTab": "Waves",
   "sendWave": "Send a wave",
   "sendWaveTo": "Send a wave to {name}",
   "@sendWaveTo": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "waveSent": "Wave sent to {name}",
   "@waveSent": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "waveCooldown": "You can wave {name} again in {time}",
   "@waveCooldown": {
     "placeholders": {
-      "name": { "type": "String" },
-      "time": { "type": "String" }
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
     }
   },
   "waveCouldntSend": "Couldn't send wave",
@@ -2319,7 +2199,9 @@
   "itsAMatchSubtitle": "You and {name} both waved",
   "@itsAMatchSubtitle": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "sendAMessage": "Send a message",
@@ -2331,11 +2213,12 @@
   "waveQuickReplyFromCountry": "Hi from {country}",
   "@waveQuickReplyFromCountry": {
     "placeholders": {
-      "country": { "type": "String" }
+      "country": {
+        "type": "String"
+      }
     }
   },
   "waveCustomMessage": "Or write your own…",
-
   "voiceRoomChat": "Chat",
   "voiceRoomChatPlaceholder": "Send a message…",
   "voiceRoomChatEmpty": "No messages yet — say hi",
@@ -2343,10 +2226,11 @@
   "voiceRoomChatNewBadge": "{n}",
   "@voiceRoomChatNewBadge": {
     "placeholders": {
-      "n": { "type": "int" }
+      "n": {
+        "type": "int"
+      }
     }
   },
-
   "voiceRoomEnd": "End room",
   "voiceRoomEndConfirm": "End this room?",
   "voiceRoomEndConfirmBody": "Everyone will be disconnected.",
@@ -2354,7 +2238,9 @@
   "voiceRoomKickConfirm": "Remove {name}?",
   "@voiceRoomKickConfirm": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomKicked": "Removed",
@@ -2362,36 +2248,38 @@
   "voiceRoomHostChanged": "{name} is now the host",
   "@voiceRoomHostChanged": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "voiceRoomHostMenuTitle": "Room actions",
   "voiceRoomViewProfile": "View profile",
-
   "voiceRoomReconnecting": "Reconnecting…",
   "voiceRoomReconnected": "Reconnected",
   "voiceRoomEnded": "Room ended",
   "voiceRoomReconnectRetry": "Retry",
-
   "mutualInterests": "Mutual interests",
   "interestsInCommon": "{count, plural, =0{No interests in common yet} =1{1 interest in common} other{{count} interests in common}}",
   "@interestsInCommon": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "interestsInCommonSeeAll": "See all",
   "interestsInCommonAddCta": "Add topics",
   "interestsInCommonAddSubtitle": "Add topics to your profile to find common ground",
-
   "activeAgo": "Active {time} ago",
   "@activeAgo": {
     "placeholders": {
-      "time": { "type": "String" }
+      "time": {
+        "type": "String"
+      }
     }
   },
   "filterOnlineNow": "Online now",
-
   "filterAge": "Age",
   "filterGender": "Gender",
   "filterLanguages": "Languages",
@@ -2402,7 +2290,9 @@
   "filterMatchCount": "{count, plural, =0{No partners match} =1{1 partner matches} other{{count} partners match}}",
   "@filterMatchCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "filterClearAll": "Clear all",
@@ -2411,7 +2301,6 @@
   "filterNewUsers": "New users only",
   "filterPrioritizeNearby": "Prioritize nearby",
   "filterSheetTitle": "Filters",
-
   "notificationPreferencesTitle": "Notifications",
   "notificationPreferencesSubtitle": "Choose which alerts you receive",
   "notifPrefChat": "New messages",
@@ -2429,10 +2318,15 @@
   "languageSettingsRow": "Language",
   "waveDailySummaryTitle": "New waves waiting",
   "waveDailySummaryBody": "{count, plural, =1{1 person waved at you} other{{count} people waved at you}}",
-  "@waveDailySummaryBody": {"placeholders": {"count": {"type": "int"}}},
+  "@waveDailySummaryBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "filterTopicsTitle": "Topics",
   "filterTopicsEmpty": "No topics selected",
-
   "storiesEmpty": "No stories yet",
   "storiesLoadError": "Couldn't load stories",
   "storiesRetry": "Try again",
@@ -2457,6 +2351,112 @@
   "fontNormal": "Normal",
   "fontBold": "Bold",
   "fontItalic": "Italic",
-  "fontHandwriting": "Handwriting"
+  "fontHandwriting": "Handwriting",
+  "pickDate": "Pick date",
+  "pickTime": "Pick time",
+  "upcomingRooms": "Upcoming",
+  "inHours": "in {h}h {m}m",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "in {m}m",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Starting now",
+  "iWillBeThere": "I'll be there",
+  "cantMakeIt": "Can't make it",
+  "rsvpCount": "{count, plural, =0{No RSVPs} =1{1 RSVP} other{{count} RSVPs}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} starts in 1 hour",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} starts in 15 minutes",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} is starting now",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Cancel room",
+  "muteAll": "Mute all",
+  "mutedByHost": "Host muted everyone",
+  "muteAllConfirm": "Mute everyone in the room?",
+  "categoryCasual": "Casual",
+  "categoryLanguagePractice": "Language practice",
+  "categoryTopic": "Topic",
+  "categoryQA": "Q&A",
+  "pickCategory": "Category",
+  "sortRecentlyActive": "Recently active",
+  "visitedYourProfile": "{count, plural, =1{1 person visited your profile} other{{count} people visited your profile}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "No recent visitors",
+  "viewArchive": "View archive",
+  "archivedWaves": "Archived waves",
+  "noArchivedWaves": "No archived waves",
+  "mutualInterestsMin": "Mutual interests (min)",
+  "atLeastNTopics": "{n, plural, =0{Any} =1{At least 1 topic in common} other{At least {n} topics in common}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Ask about their last moment",
+  "starterSayHi": "Say hi in their language",
+  "starterCurious": "What are they curious about?",
+  "starterFromCountry": "Hi from {country}!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "Help them practice {language}!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }
-

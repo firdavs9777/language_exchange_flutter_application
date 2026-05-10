@@ -81,6 +81,16 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           }
         }
       };
+
+      manager.onForcedMuteSelf = () {
+        if (!mounted) return;
+        final l10n = AppLocalizations.of(context)!;
+        showCommunitySnackBar(
+          context,
+          message: l10n.mutedByHost,
+          type: CommunitySnackBarType.info,
+        );
+      };
     });
   }
 
@@ -210,7 +220,6 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         children: [
           Column(
             children: [
-              VoiceRoomReconnectBanner(isReconnecting: isReconnecting),
               VoiceRoomInfoBar(room: widget.room),
               Expanded(
                 child: VoiceRoomParticipantsGrid(
@@ -249,7 +258,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                   onMute: _toggleMute,
                   onLeave: _leaveRoom,
                   isHost: isHost,
-                  onEnd: () => showEndRoomConfirm(context, ref),
+                  onEnd: () => showHostMenu(context, ref),
                   unreadChatCount: _chatVisible ? 0 : unread,
                   onChatToggle: _toggleChat,
                   raiseHandLabel: l10n.raiseHand,
@@ -270,6 +279,12 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
               builder: (_, scrollController) =>
                   VoiceRoomChatPanel(scrollController: scrollController),
             ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: VoiceRoomReconnectBanner(isReconnecting: isReconnecting),
+          ),
         ],
       ),
     );

@@ -980,6 +980,7 @@
   "justStarted": "開始したばかり",
   "allLanguages": "すべての言語",
   "allTopics": "すべてのトピック",
+  "allCategories": "すべてのカテゴリ",
   "dataAndStorage": "データとストレージ",
   "manageStorageAndDownloads": "ストレージとダウンロードを管理",
   "storageUsage": "ストレージ使用量",
@@ -1759,5 +1760,112 @@
   "fontNormal": "通常",
   "fontBold": "太字",
   "fontItalic": "斜体",
-  "fontHandwriting": "手書き"
+  "fontHandwriting": "手書き",
+  "pickDate": "日付を選択",
+  "pickTime": "時間を選択",
+  "upcomingRooms": "予定",
+  "inHours": "{h}時間{m}分後",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "{m}分後",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "今すぐ開始",
+  "iWillBeThere": "参加します",
+  "cantMakeIt": "参加できません",
+  "rsvpCount": "{count, plural, =0{参加者なし} =1{1件の参加} other{{count}件の参加}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title}は1時間後に始まります",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title}は15分後に始まります",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title}が今始まります",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "ルームをキャンセル",
+  "muteAll": "全員をミュート",
+  "mutedByHost": "ホストが全員をミュートしました",
+  "muteAllConfirm": "ルーム全員をミュートしますか？",
+  "categoryCasual": "カジュアル",
+  "categoryLanguagePractice": "語学練習",
+  "categoryTopic": "トピック",
+  "categoryQA": "Q&A",
+  "pickCategory": "カテゴリ",
+  "sortRecentlyActive": "最近アクティブ",
+  "visitedYourProfile": "{count, plural, =1{1人があなたのプロフィールを訪問しました} other{{count}人があなたのプロフィールを訪問しました}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "最近の訪問者はいません",
+  "viewArchive": "アーカイブを見る",
+  "archivedWaves": "アーカイブ済みWave",
+  "noArchivedWaves": "アーカイブ済みWaveなし",
+  "mutualInterestsMin": "共通の興味（最低）",
+  "atLeastNTopics": "{n, plural, =0{任意} =1{少なくとも1つの共通トピック} other{少なくとも{n}つの共通トピック}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "彼らの最近の出来事を聞いてみよう",
+  "starterSayHi": "彼らの言語で挨拶しよう",
+  "starterCurious": "彼らが気になっていることは？",
+  "starterFromCountry": "{country}からこんにちは！",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "{language}の練習を手伝ってあげよう！",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

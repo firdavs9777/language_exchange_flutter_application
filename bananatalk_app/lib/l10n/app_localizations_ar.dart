@@ -2993,6 +2993,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get allTopics => 'جميع المواضيع';
 
   @override
+  String get allCategories => 'جميع الفئات';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'خط اليد';
+
+  @override
+  String get pickDate => 'اختر التاريخ';
+
+  @override
+  String get pickTime => 'اختر الوقت';
+
+  @override
+  String get upcomingRooms => 'القادمة';
+
+  @override
+  String inHours(int h, int m) {
+    return 'خلال $hس $mد';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return 'خلال $mد';
+  }
+
+  @override
+  String get startsNow => 'يبدأ الآن';
+
+  @override
+  String get iWillBeThere => 'سأكون هناك';
+
+  @override
+  String get cantMakeIt => 'لا أستطيع الحضور';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تأكيدات',
+      one: 'تأكيد واحد',
+      zero: 'لا يوجد تأكيد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return 'يبدأ $title خلال ساعة';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return 'يبدأ $title خلال 15 دقيقة';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title يبدأ الآن';
+  }
+
+  @override
+  String get cancelRoom => 'إلغاء الغرفة';
+
+  @override
+  String get muteAll => 'كتم الجميع';
+
+  @override
+  String get mutedByHost => 'قام المضيف بكتم الجميع';
+
+  @override
+  String get muteAllConfirm => 'كتم الجميع في الغرفة؟';
+
+  @override
+  String get categoryCasual => 'عادي';
+
+  @override
+  String get categoryLanguagePractice => 'ممارسة اللغة';
+
+  @override
+  String get categoryTopic => 'موضوع';
+
+  @override
+  String get categoryQA => 'سؤال وجواب';
+
+  @override
+  String get pickCategory => 'الفئة';
+
+  @override
+  String get sortRecentlyActive => 'النشط مؤخراً';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count أشخاص زاروا ملفك الشخصي',
+      one: 'شخص واحد زار ملفك الشخصي',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'لا يوجد زوار مؤخراً';
+
+  @override
+  String get viewArchive => 'عرض الأرشيف';
+
+  @override
+  String get archivedWaves => 'الموجات المؤرشفة';
+
+  @override
+  String get noArchivedWaves => 'لا توجد موجات مؤرشفة';
+
+  @override
+  String get mutualInterestsMin => 'الاهتمامات المشتركة (الحد الأدنى)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n مواضيع مشتركة على الأقل',
+      one: 'موضوع مشترك واحد على الأقل',
+      zero: 'أي',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'اسأل عن آخر لحظة لديهم';
+
+  @override
+  String get starterSayHi => 'قل مرحباً بلغتهم';
+
+  @override
+  String get starterCurious => 'ما الذي يثير فضولهم؟';
+
+  @override
+  String starterFromCountry(String country) {
+    return 'مرحباً من $country!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'ساعدهم على ممارسة $language!';
+  }
 }

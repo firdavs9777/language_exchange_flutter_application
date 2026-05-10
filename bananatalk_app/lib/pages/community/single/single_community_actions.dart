@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
+import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Row of compact action buttons below the hero header:
@@ -55,46 +56,55 @@ class SingleCommunityActions extends ConsumerWidget {
           bottom: BorderSide(color: context.dividerColor, width: 0.5),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          _buildCompactActionButton(
-            context,
-            Icons.videocam_rounded,
-            l10n.videoCall,
-            Colors.blue[600]!,
-            onVideoCall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildCompactActionButton(
+                context,
+                Icons.videocam_rounded,
+                l10n.videoCall,
+                Colors.blue[600]!,
+                onVideoCall,
+              ),
+              _buildCompactActionButton(
+                context,
+                Icons.call_rounded,
+                l10n.voiceCall,
+                Colors.green[600]!,
+                onVoiceCall,
+              ),
+              _buildCompactActionButton(
+                context,
+                Icons.chat_bubble_rounded,
+                l10n.message,
+                AppColors.accent,
+                onMessage,
+              ),
+              // Wave button — hidden for own profile
+              if (!isOwnProfile)
+                FutureBuilder<bool>(
+                  future: _inCooldown(community.id),
+                  builder: (context, snapshot) {
+                    final cooldownActive = snapshot.data ?? false;
+                    return _buildWaveActionButton(context, l10n, cooldownActive);
+                  },
+                ),
+              _buildCompactActionButton(
+                context,
+                isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
+                isFollower ? l10n.following : l10n.follow,
+                isFollower ? Colors.green[600]! : Colors.blue[600]!,
+                onFollowToggle,
+              ),
+            ],
           ),
-          _buildCompactActionButton(
-            context,
-            Icons.call_rounded,
-            l10n.voiceCall,
-            Colors.green[600]!,
-            onVoiceCall,
-          ),
-          _buildCompactActionButton(
-            context,
-            Icons.chat_bubble_rounded,
-            l10n.message,
-            AppColors.accent,
-            onMessage,
-          ),
-          // Wave button — hidden for own profile
-          if (!isOwnProfile)
-            FutureBuilder<bool>(
-              future: _inCooldown(community.id),
-              builder: (context, snapshot) {
-                final cooldownActive = snapshot.data ?? false;
-                return _buildWaveActionButton(context, l10n, cooldownActive);
-              },
-            ),
-          _buildCompactActionButton(
-            context,
-            isFollower ? Icons.check_circle_rounded : Icons.person_add_rounded,
-            isFollower ? l10n.following : l10n.follow,
-            isFollower ? Colors.green[600]! : Colors.blue[600]!,
-            onFollowToggle,
-          ),
+          if (!isOwnProfile) ...[
+            const SizedBox(height: 8),
+            ConversationStarterRibbon(community: community),
+          ],
         ],
       ),
     );

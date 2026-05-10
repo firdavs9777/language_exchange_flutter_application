@@ -52,6 +52,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
   bool _onlineOnly = false;
   bool _newUsersOnly = false;
   bool _prioritizeNearby = false;
+  int _topicsAtLeast = 0;
   List<String> _selectedTopics = [];
   List<Language> _languages = [];
   bool _isLoadingLanguages = true;
@@ -81,6 +82,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     _onlineOnly = widget.initialFilters['onlineOnly'] ?? false;
     _newUsersOnly = widget.initialFilters['newUsersOnly'] ?? false;
     _prioritizeNearby = widget.initialFilters['prioritizeNearby'] ?? false;
+    _topicsAtLeast = (widget.initialFilters['topicsAtLeast'] as num?)?.toInt() ?? 0;
     _selectedTopics =
         (widget.initialFilters['topics'] as List?)?.cast<String>() ?? [];
     // _selectedLanguage will be set after languages are loaded in fetchLanguages()
@@ -199,6 +201,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'onlineOnly': _onlineOnly,
       'newUsersOnly': _newUsersOnly,
       'prioritizeNearby': _prioritizeNearby,
+      if (_topicsAtLeast > 0) 'topicsAtLeast': _topicsAtLeast,
       if (_selectedTopics.isNotEmpty) 'topics': _selectedTopics,
     };
   }
@@ -215,6 +218,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       _onlineOnly = false;
       _newUsersOnly = false;
       _prioritizeNearby = false;
+      _topicsAtLeast = 0;
       _selectedTopics = [];
     });
     _onAnyFilterChanged();
@@ -235,6 +239,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       'onlineOnly': _onlineOnly,
       'newUsersOnly': _newUsersOnly,
       'prioritizeNearby': _prioritizeNearby,
+      'topicsAtLeast': _topicsAtLeast,
       'topics': _selectedTopics,
     };
 
@@ -715,6 +720,14 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                       ),
                       const SizedBox(height: 12),
                       _buildPrioritizeNearbyToggle(l10n),
+                      const SizedBox(height: 16),
+                      FilterMutualInterestsSlider(
+                        value: _topicsAtLeast,
+                        onChanged: (v) {
+                          setState(() => _topicsAtLeast = v);
+                          _onAnyFilterChanged();
+                        },
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),

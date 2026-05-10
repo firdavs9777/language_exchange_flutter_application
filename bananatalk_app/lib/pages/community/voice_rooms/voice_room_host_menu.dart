@@ -3,6 +3,83 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/voice_room_provider.dart';
 
+/// Shows a bottom sheet with host-only actions (mute-all, end room, …).
+Future<void> showHostMenu(BuildContext context, WidgetRef ref) async {
+  final l10n = AppLocalizations.of(context)!;
+  await showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (sheetContext) => Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Drag handle
+            Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.4),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.mic_off, color: Colors.orange),
+              title: Text(l10n.muteAll),
+              onTap: () async {
+                Navigator.pop(sheetContext);
+                final confirm = await showDialog<bool>(
+                  context: context,
+                  builder: (d) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    title: Text(l10n.muteAllConfirm),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(d, false),
+                        child: Text(l10n.cancel),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () => Navigator.pop(d, true),
+                        child: Text(l10n.muteAll),
+                      ),
+                    ],
+                  ),
+                );
+                if (confirm == true) {
+                  ref.read(voiceRoomProvider).muteAll();
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.cancel_rounded, color: Colors.red),
+              title: Text(
+                l10n.voiceRoomEnd,
+                style: const TextStyle(color: Colors.red),
+              ),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                showEndRoomConfirm(context, ref);
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 Future<void> showEndRoomConfirm(BuildContext context, WidgetRef ref) async {
   final l10n = AppLocalizations.of(context)!;
   await showDialog<void>(

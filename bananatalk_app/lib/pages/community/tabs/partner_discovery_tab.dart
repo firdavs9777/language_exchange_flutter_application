@@ -20,6 +20,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 
 /// View mode for partner discovery
 enum PartnerViewMode { list, swipe }
@@ -64,6 +65,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   bool _quickOnlineOnly = false;
   String? _quickNativeLanguage; // "Show users who speak X natively"
   String? _quickLearningLanguage; // "Show users who are learning X"
+  String? _sort; // null = default, 'recently_active' = sort by lastSeenAt
 
   // Tracks whether the list has been scrolled — used to elevate the sticky chip bar
   bool _isScrolled = false;
@@ -250,6 +252,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       country: widget.filters['country']?.toString(),
       languageLevel: widget.filters['languageLevel']?.toString(),
       search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
+      sort: _sort,
     );
 
     return params;
@@ -611,6 +614,21 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: [
+          // Recently Active sort chip
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: CommunityFilterChip(
+              label: AppLocalizations.of(context)!.sortRecentlyActive,
+              icon: Icons.access_time_rounded,
+              isSelected: _sort == 'recently_active',
+              onTap: () {
+                setState(() {
+                  _sort = _sort == 'recently_active' ? null : 'recently_active';
+                });
+                _lastFilters = null; // Force reload
+              },
+            ),
+          ),
           // Online Now chip
           Padding(
             padding: const EdgeInsets.only(right: 8),

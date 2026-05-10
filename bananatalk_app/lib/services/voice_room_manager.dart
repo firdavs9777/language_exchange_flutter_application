@@ -4,7 +4,7 @@ import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/services/webrtc_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as sio;
 
 /// Chat message in voice room
 class VoiceRoomChatMessage {
@@ -40,7 +40,7 @@ class VoiceRoomManager {
 
   final WebRTCService _webrtcService = WebRTCService();
   ChatSocketService? _chatSocketService;
-  IO.Socket? _socket;
+  sio.Socket? _socket;
   bool _isInitialized = false;
 
   VoiceRoom? _currentRoom;
@@ -65,6 +65,7 @@ class VoiceRoomManager {
   StreamSubscription? _kickedSub;
   StreamSubscription? _hostChangedSub;
   StreamSubscription<Map<String, double>>? _audioLevelSub;
+  StreamSubscription<double>? _localAudioSub;
   StreamSubscription<bool>? _connectionSub;
 
   // Reconnect state
@@ -80,6 +81,8 @@ class VoiceRoomManager {
   Function()? onKicked;
   Function()? onStateChanged;
   Function()? onConnectionChanged;
+  /// Called when the host issues a mute-all and this user was forcibly muted.
+  Function()? onForcedMuteSelf;
 
   // Getters
   WebRTCService get webrtcService => _webrtcService;
@@ -220,12 +223,26 @@ class VoiceRoomManager {
     _muteSub = _chatSocketService!.onVoiceRoomMute.listen((data) {
       final participantId = data['userId']?.toString() ?? '';
       final isMuted = data['isMuted'] == true;
+      final forced = data['forced'] == true;
 
       final index = _participants.indexWhere((p) => p.id == participantId);
       if (index != -1) {
         _participants[index] = _participants[index].copyWith(isMuted: isMuted);
-        onStateChanged?.call();
       }
+
+      // If this is a forced mute aimed at the local user, mute the mic too
+      if (forced && isMuted) {
+        final myId = _chatSocketService?.currentUserId;
+        if (myId != null && participantId == myId) {
+          if (_webrtcService.isMicrophoneEnabled) {
+            _webrtcService.toggleMicrophone();
+          }
+          _isMuted = true;
+          onForcedMuteSelf?.call();
+        }
+      }
+
+      onStateChanged?.call();
     });
 
     // Hand raised
@@ -336,6 +353,22 @@ class VoiceRoomManager {
       }
       if (changed) onStateChanged?.call();
     });
+
+    // Local audio-level stream → flip isSpeaking for the local user's tile
+    _localAudioSub?.cancel();
+    _localAudioSub = _webrtcService.localAudioLevel.listen((level) {
+      final myId = _chatSocketService?.currentUserId;
+      if (myId == null) return;
+      final i = _participants.indexWhere((p) => p.id == myId);
+      if (i == -1) return;
+      final p = _participants[i];
+      // Same 0.05 threshold used for remote peers; suppress when muted
+      final shouldSpeak = level > 0.05 && !p.isMuted;
+      if (p.isSpeaking != shouldSpeak) {
+        _participants[i] = p.copyWith(isSpeaking: shouldSpeak);
+        onStateChanged?.call();
+      }
+    });
   }
 
   /// Join a voice room
@@ -380,6 +413,7 @@ class VoiceRoomManager {
 
     // Begin audio-level polling so the speaking indicator stays live
     _webrtcService.startAudioLevelPolling();
+    _webrtcService.startLocalAudioLevelPolling();
 
     // Start heartbeat timer
     _heartbeatTimer?.cancel();
@@ -437,6 +471,12 @@ class VoiceRoomManager {
     });
   }
 
+  /// Mute all participants (host only)
+  void muteAll() {
+    if (_currentRoom == null) return;
+    _socket?.emit('voiceroom:mute-all', {'roomId': _currentRoom!.id});
+  }
+
   /// Kick a participant (host only)
   void kickParticipant(String participantId) {
     _socket?.emit('voiceroom:kick', {
@@ -455,8 +495,11 @@ class VoiceRoomManager {
     _heartbeatTimer?.cancel();
     _heartbeatTimer = null;
     _webrtcService.stopAudioLevelPolling();
+    _webrtcService.stopLocalAudioLevelPolling();
     _audioLevelSub?.cancel();
     _audioLevelSub = null;
+    _localAudioSub?.cancel();
+    _localAudioSub = null;
     _webrtcService.disposeMultiPeer();
     _currentRoom = null;
     _participants = [];
@@ -480,6 +523,7 @@ class VoiceRoomManager {
     _kickedSub?.cancel();
     _hostChangedSub?.cancel();
     _audioLevelSub?.cancel();
+    _localAudioSub?.cancel();
     _connectionSub?.cancel();
     _cleanup();
   }

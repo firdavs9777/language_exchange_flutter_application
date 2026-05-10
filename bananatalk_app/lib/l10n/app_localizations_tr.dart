@@ -2993,6 +2993,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get allTopics => 'Tüm konular';
 
   @override
+  String get allCategories => 'Tüm kategoriler';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'El yazısı';
+
+  @override
+  String get pickDate => 'Tarih seç';
+
+  @override
+  String get pickTime => 'Saat seç';
+
+  @override
+  String get upcomingRooms => 'Yaklaşan';
+
+  @override
+  String inHours(int h, int m) {
+    return '${h}s ${m}dk sonra';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return '${m}dk sonra';
+  }
+
+  @override
+  String get startsNow => 'Şimdi başlıyor';
+
+  @override
+  String get iWillBeThere => 'Orada olacağım';
+
+  @override
+  String get cantMakeIt => 'Katılamayacağım';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count RSVP',
+      one: '1 RSVP',
+      zero: 'RSVP yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title 1 saat sonra başlıyor';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title 15 dakika sonra başlıyor';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title şimdi başlıyor';
+  }
+
+  @override
+  String get cancelRoom => 'Odayı iptal et';
+
+  @override
+  String get muteAll => 'Herkesi sustur';
+
+  @override
+  String get mutedByHost => 'Ev sahibi herkesi susturdu';
+
+  @override
+  String get muteAllConfirm => 'Odadaki herkesi susturmak ister misiniz?';
+
+  @override
+  String get categoryCasual => 'Sıradan';
+
+  @override
+  String get categoryLanguagePractice => 'Dil pratiği';
+
+  @override
+  String get categoryTopic => 'Konu';
+
+  @override
+  String get categoryQA => 'Soru-Cevap';
+
+  @override
+  String get pickCategory => 'Kategori';
+
+  @override
+  String get sortRecentlyActive => 'Son aktif';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kişi profilinizi ziyaret etti',
+      one: '1 kişi profilinizi ziyaret etti',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'Son ziyaretçi yok';
+
+  @override
+  String get viewArchive => 'Arşivi görüntüle';
+
+  @override
+  String get archivedWaves => 'Arşivlenmiş Waves';
+
+  @override
+  String get noArchivedWaves => 'Arşivlenmiş Wave yok';
+
+  @override
+  String get mutualInterestsMin => 'Ortak ilgi alanları (min)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'En az $n ortak konu',
+      one: 'En az 1 ortak konu',
+      zero: 'Herhangi biri',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'Son anıları hakkında sor';
+
+  @override
+  String get starterSayHi => 'Kendi dillerinde merhaba de';
+
+  @override
+  String get starterCurious => 'Ne merak ediyorlar?';
+
+  @override
+  String starterFromCountry(String country) {
+    return '$country\'dan merhaba!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return '$language pratiği yapmalarına yardım et!';
+  }
 }

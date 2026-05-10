@@ -2993,6 +2993,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get allTopics => 'सभी विषय';
 
   @override
+  String get allCategories => 'सभी श्रेणियाँ';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,4 +4822,146 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get fontHandwriting => 'हस्तलेखन';
+
+  @override
+  String get pickDate => 'तारीख चुनें';
+
+  @override
+  String get pickTime => 'समय चुनें';
+
+  @override
+  String get upcomingRooms => 'आगामी';
+
+  @override
+  String inHours(int h, int m) {
+    return '$hघं $mमि में';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return '$mमि में';
+  }
+
+  @override
+  String get startsNow => 'अभी शुरू हो रहा है';
+
+  @override
+  String get iWillBeThere => 'मैं वहाँ रहूँगा/रहूँगी';
+
+  @override
+  String get cantMakeIt => 'मैं नहीं आ सकता/सकती';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count RSVPs',
+      one: '1 RSVP',
+      zero: 'कोई RSVP नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title 1 घंटे में शुरू होगा';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title 15 मिनट में शुरू होगा';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title अभी शुरू हो रहा है';
+  }
+
+  @override
+  String get cancelRoom => 'कमरा रद्द करें';
+
+  @override
+  String get muteAll => 'सभी को म्यूट करें';
+
+  @override
+  String get mutedByHost => 'होस्ट ने सभी को म्यूट किया';
+
+  @override
+  String get muteAllConfirm => 'कमरे में सभी को म्यूट करें?';
+
+  @override
+  String get categoryCasual => 'आरामदायक';
+
+  @override
+  String get categoryLanguagePractice => 'भाषा अभ्यास';
+
+  @override
+  String get categoryTopic => 'विषय';
+
+  @override
+  String get categoryQA => 'प्रश्न और उत्तर';
+
+  @override
+  String get pickCategory => 'श्रेणी';
+
+  @override
+  String get sortRecentlyActive => 'हाल ही में सक्रिय';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count लोगों ने आपकी प्रोफ़ाइल देखी',
+      one: '1 व्यक्ति ने आपकी प्रोफ़ाइल देखी',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => 'हाल के कोई आगंतुक नहीं';
+
+  @override
+  String get viewArchive => 'संग्रह देखें';
+
+  @override
+  String get archivedWaves => 'संग्रहीत Waves';
+
+  @override
+  String get noArchivedWaves => 'कोई संग्रहीत Wave नहीं';
+
+  @override
+  String get mutualInterestsMin => 'साझा रुचियाँ (न्यूनतम)';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'कम से कम $n साझा विषय',
+      one: 'कम से कम 1 साझा विषय',
+      zero: 'कोई भी',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => 'उनके आखिरी पल के बारे में पूछें';
+
+  @override
+  String get starterSayHi => 'उनकी भाषा में नमस्ते कहें';
+
+  @override
+  String get starterCurious => 'वे किस बारे में उत्सुक हैं?';
+
+  @override
+  String starterFromCountry(String country) {
+    return '$country से नमस्ते!';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return 'उन्हें $language अभ्यास करने में मदद करें!';
+  }
 }

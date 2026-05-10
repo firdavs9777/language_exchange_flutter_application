@@ -1251,6 +1251,7 @@
   "justStarted": "Yeni başladı",
   "allLanguages": "Tüm diller",
   "allTopics": "Tüm konular",
+  "allCategories": "Tüm kategoriler",
   "dataAndStorage": "Veri ve Depolama",
   "manageStorageAndDownloads": "Depolama ve indirmeleri yönet",
   "storageUsage": "Depolama Kullanımı",
@@ -1972,5 +1973,112 @@
   "fontNormal": "Normal",
   "fontBold": "Kalın",
   "fontItalic": "İtalik",
-  "fontHandwriting": "El yazısı"
+  "fontHandwriting": "El yazısı",
+  "pickDate": "Tarih seç",
+  "pickTime": "Saat seç",
+  "upcomingRooms": "Yaklaşan",
+  "inHours": "{h}s {m}dk sonra",
+  "@inHours": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "inMinutes": "{m}dk sonra",
+  "@inMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
+  "startsNow": "Şimdi başlıyor",
+  "iWillBeThere": "Orada olacağım",
+  "cantMakeIt": "Katılamayacağım",
+  "rsvpCount": "{count, plural, =0{RSVP yok} =1{1 RSVP} other{{count} RSVP}}",
+  "@rsvpCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "roomStartsIn1h": "{title} 1 saat sonra başlıyor",
+  "@roomStartsIn1h": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStartsIn15min": "{title} 15 dakika sonra başlıyor",
+  "@roomStartsIn15min": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "roomStarted": "{title} şimdi başlıyor",
+  "@roomStarted": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelRoom": "Odayı iptal et",
+  "muteAll": "Herkesi sustur",
+  "mutedByHost": "Ev sahibi herkesi susturdu",
+  "muteAllConfirm": "Odadaki herkesi susturmak ister misiniz?",
+  "categoryCasual": "Sıradan",
+  "categoryLanguagePractice": "Dil pratiği",
+  "categoryTopic": "Konu",
+  "categoryQA": "Soru-Cevap",
+  "pickCategory": "Kategori",
+  "sortRecentlyActive": "Son aktif",
+  "visitedYourProfile": "{count, plural, =1{1 kişi profilinizi ziyaret etti} other{{count} kişi profilinizi ziyaret etti}}",
+  "@visitedYourProfile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noRecentVisitors": "Son ziyaretçi yok",
+  "viewArchive": "Arşivi görüntüle",
+  "archivedWaves": "Arşivlenmiş Waves",
+  "noArchivedWaves": "Arşivlenmiş Wave yok",
+  "mutualInterestsMin": "Ortak ilgi alanları (min)",
+  "atLeastNTopics": "{n, plural, =0{Herhangi biri} =1{En az 1 ortak konu} other{En az {n} ortak konu}}",
+  "@atLeastNTopics": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterAskMoment": "Son anıları hakkında sor",
+  "starterSayHi": "Kendi dillerinde merhaba de",
+  "starterCurious": "Ne merak ediyorlar?",
+  "starterFromCountry": "{country}'dan merhaba!",
+  "@starterFromCountry": {
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "starterPracticeLang": "{language} pratiği yapmalarına yardım et!",
+  "@starterPracticeLang": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  }
 }

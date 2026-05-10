@@ -10,6 +10,7 @@ class FilterState {
   final bool onlineOnly;
   final bool newUsersOnly;
   final bool prioritizeNearby;
+  final int topicsAtLeast; // 0 = off
 
   const FilterState({
     this.minAge = 18,
@@ -23,6 +24,7 @@ class FilterState {
     this.onlineOnly = false,
     this.newUsersOnly = false,
     this.prioritizeNearby = false,
+    this.topicsAtLeast = 0,
   });
 
   FilterState copyWith({
@@ -37,6 +39,7 @@ class FilterState {
     bool? onlineOnly,
     bool? newUsersOnly,
     bool? prioritizeNearby,
+    int? topicsAtLeast,
   }) => FilterState(
     minAge: minAge ?? this.minAge,
     maxAge: maxAge ?? this.maxAge,
@@ -49,6 +52,7 @@ class FilterState {
     onlineOnly: onlineOnly ?? this.onlineOnly,
     newUsersOnly: newUsersOnly ?? this.newUsersOnly,
     prioritizeNearby: prioritizeNearby ?? this.prioritizeNearby,
+    topicsAtLeast: topicsAtLeast ?? this.topicsAtLeast,
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,6 +67,7 @@ class FilterState {
     'onlineOnly': onlineOnly,
     'newUsersOnly': newUsersOnly,
     'prioritizeNearby': prioritizeNearby,
+    'topicsAtLeast': topicsAtLeast,
   };
 
   /// Backwards-compat reader for the old `Map<String, dynamic>` shape stored
@@ -79,6 +84,7 @@ class FilterState {
     onlineOnly: json['onlineOnly'] as bool? ?? false,
     newUsersOnly: json['newUsersOnly'] as bool? ?? false,
     prioritizeNearby: json['prioritizeNearby'] as bool? ?? false,
+    topicsAtLeast: (json['topicsAtLeast'] as num?)?.toInt() ?? 0,
   );
 
   static const FilterState defaults = FilterState();

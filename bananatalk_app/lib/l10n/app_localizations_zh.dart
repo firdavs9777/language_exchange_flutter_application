@@ -2993,6 +2993,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get allTopics => '所有话题';
 
   @override
+  String get allCategories => '所有类别';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -4819,6 +4822,148 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get fontHandwriting => '手写体';
+
+  @override
+  String get pickDate => '选择日期';
+
+  @override
+  String get pickTime => '选择时间';
+
+  @override
+  String get upcomingRooms => '即将开始';
+
+  @override
+  String inHours(int h, int m) {
+    return '$h小时$m分钟后';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return '$m分钟后';
+  }
+
+  @override
+  String get startsNow => '正在开始';
+
+  @override
+  String get iWillBeThere => '我会参加';
+
+  @override
+  String get cantMakeIt => '我无法参加';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人报名',
+      one: '1人报名',
+      zero: '暂无报名',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title将在1小时后开始';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title将在15分钟后开始';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title正在开始';
+  }
+
+  @override
+  String get cancelRoom => '取消房间';
+
+  @override
+  String get muteAll => '全员静音';
+
+  @override
+  String get mutedByHost => '主持人已将所有人静音';
+
+  @override
+  String get muteAllConfirm => '将房间内所有人静音？';
+
+  @override
+  String get categoryCasual => '休闲';
+
+  @override
+  String get categoryLanguagePractice => '语言练习';
+
+  @override
+  String get categoryTopic => '话题';
+
+  @override
+  String get categoryQA => '问答';
+
+  @override
+  String get pickCategory => '分类';
+
+  @override
+  String get sortRecentlyActive => '最近活跃';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人访问了您的主页',
+      one: '1人访问了您的主页',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => '暂无近期访客';
+
+  @override
+  String get viewArchive => '查看归档';
+
+  @override
+  String get archivedWaves => '已归档的Wave';
+
+  @override
+  String get noArchivedWaves => '暂无已归档的Wave';
+
+  @override
+  String get mutualInterestsMin => '共同兴趣（最少）';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '至少$n个共同话题',
+      one: '至少1个共同话题',
+      zero: '不限',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => '询问他们最近的难忘时刻';
+
+  @override
+  String get starterSayHi => '用他们的语言打招呼';
+
+  @override
+  String get starterCurious => '他们好奇什么？';
+
+  @override
+  String starterFromCountry(String country) {
+    return '来自$country的你好！';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return '帮助他们练习$language！';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -7801,6 +7946,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get allTopics => '所有話題';
 
   @override
+  String get allCategories => '所有類別';
+
+  @override
   String get you => '你';
 
   @override
@@ -9347,4 +9495,146 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get fontHandwriting => '手寫體';
+
+  @override
+  String get pickDate => '選擇日期';
+
+  @override
+  String get pickTime => '選擇時間';
+
+  @override
+  String get upcomingRooms => '即將開始';
+
+  @override
+  String inHours(int h, int m) {
+    return '$h小時$m分鐘後';
+  }
+
+  @override
+  String inMinutes(int m) {
+    return '$m分鐘後';
+  }
+
+  @override
+  String get startsNow => '正在開始';
+
+  @override
+  String get iWillBeThere => '我會參加';
+
+  @override
+  String get cantMakeIt => '我無法參加';
+
+  @override
+  String rsvpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人報名',
+      one: '1人報名',
+      zero: '尚無報名',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String roomStartsIn1h(String title) {
+    return '$title將在1小時後開始';
+  }
+
+  @override
+  String roomStartsIn15min(String title) {
+    return '$title將在15分鐘後開始';
+  }
+
+  @override
+  String roomStarted(String title) {
+    return '$title正在開始';
+  }
+
+  @override
+  String get cancelRoom => '取消房間';
+
+  @override
+  String get muteAll => '全員靜音';
+
+  @override
+  String get mutedByHost => '主持人已將所有人靜音';
+
+  @override
+  String get muteAllConfirm => '將房間內所有人靜音？';
+
+  @override
+  String get categoryCasual => '輕鬆';
+
+  @override
+  String get categoryLanguagePractice => '語言練習';
+
+  @override
+  String get categoryTopic => '話題';
+
+  @override
+  String get categoryQA => '問答';
+
+  @override
+  String get pickCategory => '分類';
+
+  @override
+  String get sortRecentlyActive => '最近活躍';
+
+  @override
+  String visitedYourProfile(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count人造訪了您的個人頁面',
+      one: '1人造訪了您的個人頁面',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noRecentVisitors => '暫無近期訪客';
+
+  @override
+  String get viewArchive => '查看封存';
+
+  @override
+  String get archivedWaves => '已封存的Wave';
+
+  @override
+  String get noArchivedWaves => '暫無已封存的Wave';
+
+  @override
+  String get mutualInterestsMin => '共同興趣（最少）';
+
+  @override
+  String atLeastNTopics(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '至少$n個共同話題',
+      one: '至少1個共同話題',
+      zero: '不限',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get starterAskMoment => '詢問他們最近的難忘時刻';
+
+  @override
+  String get starterSayHi => '用他們的語言打招呼';
+
+  @override
+  String get starterCurious => '他們對什麼感到好奇？';
+
+  @override
+  String starterFromCountry(String country) {
+    return '來自$country的您好！';
+  }
+
+  @override
+  String starterPracticeLang(String language) {
+    return '幫助他們練習$language！';
+  }
 }

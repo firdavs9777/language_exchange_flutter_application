@@ -217,6 +217,11 @@ class VoiceRoomNotifier extends ChangeNotifier {
     _manager.kickParticipant(participantId);
   }
 
+  /// Mute all participants (host only)
+  void muteAll() {
+    _manager.muteAll();
+  }
+
   /// End the room (host only)
   void endRoom() {
     _manager.endRoom();
@@ -225,11 +230,12 @@ class VoiceRoomNotifier extends ChangeNotifier {
   }
 
   /// Fetch available voice rooms with optional filters
-  Future<List<VoiceRoom>> fetchRooms({String? language, String? topic}) async {
+  Future<List<VoiceRoom>> fetchRooms({String? language, String? topic, String? category}) async {
     try {
       final queryParams = <String, String>{};
       if (language != null && language.isNotEmpty) queryParams['language'] = language;
       if (topic != null && topic.isNotEmpty) queryParams['topic'] = topic;
+      if (category != null && category.isNotEmpty) queryParams['category'] = category;
       final query = queryParams.isNotEmpty
           ? '?${queryParams.entries.map((e) => '${e.key}=${Uri.encodeComponent(e.value)}').join('&')}'
           : '';
@@ -251,6 +257,40 @@ class VoiceRoomNotifier extends ChangeNotifier {
       return [];
     } catch (e) {
       debugPrint('[VoiceRoom] fetchRooms error: $e');
+      return [];
+    }
+  }
+
+  /// RSVP to a scheduled room
+  Future<void> rsvp(String roomId) async {
+    await _apiClient.post('voicerooms/$roomId/rsvp');
+  }
+
+  /// Cancel RSVP for a scheduled room
+  Future<void> unrsvp(String roomId) async {
+    await _apiClient.delete('voicerooms/$roomId/rsvp');
+  }
+
+  /// Fetch scheduled (upcoming) rooms
+  Future<List<VoiceRoom>> fetchScheduledRooms() async {
+    try {
+      final response = await _apiClient.get('voicerooms?status=scheduled');
+      if (response.success) {
+        List data;
+        if (response.data is List) {
+          data = response.data as List;
+        } else if (response.data is Map && response.data['data'] is List) {
+          data = response.data['data'] as List;
+        } else {
+          data = [];
+        }
+        return data
+            .map((r) => VoiceRoom.fromJson(Map<String, dynamic>.from(r)))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      debugPrint('[VoiceRoom] fetchScheduledRooms error: $e');
       return [];
     }
   }
