@@ -43,7 +43,12 @@ class GifMessageView extends StatelessWidget {
               onReplyTap: onReplyTap,
             ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(20),
+              topRight: const Radius.circular(20),
+              bottomLeft: Radius.circular(isMe ? 20 : 4),
+              bottomRight: Radius.circular(isMe ? 4 : 20),
+            ),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 250, maxHeight: 250),
               child: CachedNetworkImage(

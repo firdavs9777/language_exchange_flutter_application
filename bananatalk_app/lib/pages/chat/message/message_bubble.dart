@@ -81,6 +81,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   String? _currentUserId;
   final GlobalKey _bubbleKey = GlobalKey();
 
+  // Slide-in animation flag: prevents replaying on every rebuild
+  bool _hasAnimatedIn = false;
+
   // Swipe-to-reply state
   double _swipeOffset = 0;
   static const double _swipeThreshold = 60.0;
@@ -102,44 +105,59 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   // ---------- Bubble shape ----------
 
+  // M3 asymmetric bubble radius: 20/20 top, 4/20 or 20/4 bottom based on isMe.
+  // In grouped messages the "tail corner" stays small (4) regardless of position
+  // to preserve the conversation-thread visual rhythm.
   BorderRadius _bubbleRadius() {
-    const double big = 18.0;
+    const double full = 20.0;
     const double small = 4.0;
 
     if (widget.isMe) {
+      // My messages: bottom-right is the tail corner
       if (widget.isFirstInGroup && widget.isLastInGroup) {
-        return AppRadius.chatBubbleMine;
+        return const BorderRadius.only(
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(full),
+          bottomRight: Radius.circular(small),
+        );
       } else if (widget.isFirstInGroup) {
         return const BorderRadius.only(
-          topLeft: Radius.circular(big),
-          topRight: Radius.circular(big),
-          bottomLeft: Radius.circular(big),
-          bottomRight: Radius.circular(big),
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(full),
+          bottomRight: Radius.circular(full),
         );
       } else {
         return const BorderRadius.only(
-          topLeft: Radius.circular(big),
+          topLeft: Radius.circular(full),
           topRight: Radius.circular(small),
-          bottomLeft: Radius.circular(big),
+          bottomLeft: Radius.circular(full),
           bottomRight: Radius.circular(small),
         );
       }
     } else {
+      // Other messages: bottom-left is the tail corner
       if (widget.isFirstInGroup && widget.isLastInGroup) {
-        return AppRadius.chatBubbleOther;
+        return const BorderRadius.only(
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(small),
+          bottomRight: Radius.circular(full),
+        );
       } else if (widget.isFirstInGroup) {
         return const BorderRadius.only(
-          topLeft: Radius.circular(big),
-          topRight: Radius.circular(big),
-          bottomLeft: Radius.circular(big),
-          bottomRight: Radius.circular(big),
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(full),
+          bottomRight: Radius.circular(full),
         );
       } else {
         return const BorderRadius.only(
           topLeft: Radius.circular(small),
-          topRight: Radius.circular(big),
+          topRight: Radius.circular(full),
           bottomLeft: Radius.circular(small),
-          bottomRight: Radius.circular(big),
+          bottomRight: Radius.circular(full),
         );
       }
     }
@@ -152,6 +170,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     super.initState();
     _loadCurrentUserId();
     _initSwipeAnimation();
+    // Mark animation as done after first frame so subsequent rebuilds
+    // (e.g. when a new message arrives) don't replay the slide-in.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() => _hasAnimatedIn = true);
+    });
   }
 
   void _initSwipeAnimation() {
@@ -792,8 +815,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   // ---------- Build ----------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBubbleContent(BuildContext context) {
     final swipeProgress = _swipeOffset.abs();
     final replyIconOpacity =
         (swipeProgress / _swipeThreshold).clamp(0.0, 1.0);
@@ -1036,6 +1058,26 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // After the first frame the flag is set — skip animation on every
+    // subsequent rebuild (e.g. when a new message arrives in the list).
+    if (_hasAnimatedIn) {
+      return _buildBubbleContent(context);
+    }
+
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 240),
+      curve: Curves.easeOutCubic,
+      builder: (context, value, child) => Transform.translate(
+        offset: Offset(widget.isMe ? (1 - value) * 16 : (1 - value) * -16, 0),
+        child: Opacity(opacity: value.clamp(0.0, 1.0), child: child),
+      ),
+      child: _buildBubbleContent(context),
     );
   }
 }
