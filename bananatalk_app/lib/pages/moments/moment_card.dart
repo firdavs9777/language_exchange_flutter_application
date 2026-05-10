@@ -119,7 +119,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         isLiked = widget.moments.likedUsers?.contains(currentUserId) ?? false;
         _cachedUserId = currentUserId;
       });
-      debugPrint('❤️ _initLikeStatus: momentId=${widget.moments.id}, userId=$currentUserId, isLiked=$isLiked, likeCount=$likeCount, likedUsers=${widget.moments.likedUsers}');
     }
   }
 
@@ -179,8 +178,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     final previousLiked = isLiked;
     final previousCount = likeCount;
 
-    debugPrint('❤️ toggleLike: momentId=${widget.moments.id}, wasLiked=$previousLiked, prevCount=$previousCount');
-
     setState(() {
       if (isLiked) {
         likeCount--;
@@ -194,38 +191,31 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     try {
       Map<String, dynamic> result;
       if (previousLiked) {
-        debugPrint('❤️ Calling dislikeMoment...');
         result = await ref
             .read(momentsServiceProvider)
             .dislikeMoment(widget.moments.id);
       } else {
-        debugPrint('❤️ Calling likeMoment...');
         result = await ref
             .read(momentsServiceProvider)
             .likeMoment(widget.moments.id);
       }
-
-      debugPrint('❤️ API result: $result');
 
       if (mounted) {
         setState(() {
           isLiked = result['isLiked'] ?? !previousLiked;
           likeCount = result['likeCount'] ?? previousCount;
         });
-        debugPrint('❤️ Updated state: isLiked=$isLiked, likeCount=$likeCount');
 
         // Invalidate moments provider so fresh data (with updated likedUsers) is fetched on next load
         ref.invalidate(momentsFeedProvider);
       }
     } catch (e) {
-      debugPrint('❤️ ERROR: $e');
       // Revert on error
       if (mounted) {
         setState(() {
           isLiked = previousLiked;
           likeCount = previousCount;
         });
-        debugPrint('❤️ Reverted to: isLiked=$previousLiked, likeCount=$previousCount');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(e.toString().replaceFirst('Exception: ', '')),
