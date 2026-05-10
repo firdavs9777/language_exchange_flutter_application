@@ -20,6 +20,8 @@ Four discrete wins, packaged as one wave:
    - **F5. Weekly digest card** — in-app weekly report on hub (XP earned, lessons completed, vocab learned, streak status, top achievement).
    - **F6. Vocabulary list polish (improve existing)** — current `vocabulary_screen.dart` (311L) has flat list. Add: search bar, filter by mastery level (new/learning/mastered), sort options (recent/alphabetical/mastery), per-row mastery indicator chip.
    - **F7. Progress hero weekly XP chart (improve existing)** — current hero shows level + XP number. Replace with: level progress ring + 7-day XP bar chart + trend indicator (↑/↓ vs last week).
+   - **F8. AI vocabulary auto-fill (NEW AI feature)** — when adding a vocab word, AI generates definition + 3 example sentences + common collocations + register notes. Reduces friction in vocabulary_add_screen.dart from ~351 manual fields to one-tap auto-fill. Backend: new `POST /learning/vocabulary/ai-define` endpoint using existing OpenAI key.
+   - **F9. AI daily practice sentence (NEW AI feature)** — personalized daily sentence on hub. AI picks 2-3 words from user's vocab list (preferably "learning" mastery, not yet mastered) and generates a sentence to translate. User submits translation, AI grades + explains errors. Backend: new `GET /learning/daily-practice` (personalized) + `POST /learning/daily-practice/grade` endpoints.
 
 ## Non-goals (explicit)
 
