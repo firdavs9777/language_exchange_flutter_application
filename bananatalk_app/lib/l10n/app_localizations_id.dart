@@ -5009,4 +5009,36 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get hideThisUser => 'Sembunyikan postingan pengguna ini';
+
+  @override
+  String get transcribeMessage => 'Transkrip';
+
+  @override
+  String get transcribing => 'Mentranskripsi…';
+
+  @override
+  String get transcriptionFailed => 'Tidak dapat mentranskripsi pesan';
+
+  @override
+  String saveToVocabulary(String word) {
+    return 'Simpan \'$word\' ke kosakata';
+  }
+
+  @override
+  String get addedToVocabulary => 'Ditambahkan ke kosakata Anda';
+
+  @override
+  String get alreadyInVocabulary => 'Sudah ada di kosakata Anda';
+
+  @override
+  String get tapWordToSave => 'Tekan dan tahan kata untuk menyimpan';
+
+  @override
+  String get autoTranslateChatHint => 'Pesan masuk akan diterjemahkan secara otomatis';
+
+  @override
+  String get noConversationsYet => 'Belum ada percakapan';
+
+  @override
+  String get chatRetry => 'Coba lagi';
 }

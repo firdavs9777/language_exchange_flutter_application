@@ -170,6 +170,33 @@ class VoiceMessageService {
     }
   }
 
+  /// Transcribe a stored voice message URL using backend STT
+  static Future<String?> transcribeMessage({
+    required String audioUrl,
+    String? languageHint,
+  }) async {
+    try {
+      final token = await _getToken();
+      final response = await http.post(
+        Uri.parse('${Endpoints.baseURL}speech/transcribe-url'),
+        headers: {
+          'Content-Type': 'application/json',
+          ..._getHeaders(token),
+        },
+        body: jsonEncode({
+          'audioUrl': audioUrl,
+          if (languageHint != null) 'language': languageHint,
+        }),
+      );
+      if (response.statusCode != 200) return null;
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return (data['data'] as Map<String, dynamic>?)?['transcript'] as String?;
+    } catch (e) {
+      debugPrint('Transcribe error: $e');
+      return null;
+    }
+  }
+
   /// Notify server that voice message was played
   static Future<void> notifyVoiceMessagePlayed({
     required String messageId,

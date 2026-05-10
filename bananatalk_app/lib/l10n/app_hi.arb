@@ -1880,5 +1880,15 @@
   "momentSaveFailed": "मोमेंट सहेजा नहीं जा सका",
   "tagAlreadyAdded": "टैग पहले से जोड़ा गया है",
   "tagLimitReached": "अधिकतम टैग संख्या पहुंची",
-  "hideThisUser": "इस उपयोगकर्ता के पोस्ट छिपाएं"
+  "hideThisUser": "इस उपयोगकर्ता के पोस्ट छिपाएं",
+  "transcribeMessage": "ट्रांसक्राइब",
+  "transcribing": "ट्रांसक्राइब हो रहा है…",
+  "transcriptionFailed": "संदेश ट्रांसक्राइब नहीं हो सका",
+  "saveToVocabulary": "'{word}' को शब्दावली में सहेजें",
+  "addedToVocabulary": "आपकी शब्दावली में जोड़ा गया",
+  "alreadyInVocabulary": "पहले से आपकी शब्दावली में है",
+  "tapWordToSave": "सहेजने के लिए शब्द को दबाकर रखें",
+  "autoTranslateChatHint": "आने वाले संदेश स्वचालित रूप से अनुवादित होंगे",
+  "noConversationsYet": "अभी तक कोई बातचीत नहीं",
+  "chatRetry": "पुनः प्रयास"
 }

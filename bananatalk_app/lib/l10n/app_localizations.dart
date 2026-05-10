@@ -9527,6 +9527,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hide this user\'s posts'**
   String get hideThisUser;
+
+  /// Button on a voice message to convert it to text
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribe'**
+  String get transcribeMessage;
+
+  /// Spinner label while voice transcription is in flight
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribing…'**
+  String get transcribing;
+
+  /// Error toast when speech-to-text fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t transcribe message'**
+  String get transcriptionFailed;
+
+  /// Long-press popup confirming a vocabulary save
+  ///
+  /// In en, this message translates to:
+  /// **'Save \'{word}\' to vocabulary'**
+  String saveToVocabulary(String word);
+
+  /// Snackbar after successful vocab save
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your vocabulary'**
+  String get addedToVocabulary;
+
+  /// Snackbar when word is already saved
+  ///
+  /// In en, this message translates to:
+  /// **'Already in your vocabulary'**
+  String get alreadyInVocabulary;
+
+  /// Optional onboarding hint shown once
+  ///
+  /// In en, this message translates to:
+  /// **'Tap and hold a word to save it'**
+  String get tapWordToSave;
+
+  /// Subtitle for the per-chat auto-translate toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming messages will be translated automatically'**
+  String get autoTranslateChatHint;
+
+  /// Empty state for the chat list
+  ///
+  /// In en, this message translates to:
+  /// **'No conversations yet'**
+  String get noConversationsYet;
+
+  /// Retry button on chat error states
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get chatRetry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

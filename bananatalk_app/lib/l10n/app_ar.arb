@@ -1894,5 +1894,15 @@
   "momentSaveFailed": "تعذر حفظ اللحظة",
   "tagAlreadyAdded": "العلامة مضافة بالفعل",
   "tagLimitReached": "تم الوصول إلى الحد الأقصى للعلامات",
-  "hideThisUser": "إخفاء منشورات هذا المستخدم"
+  "hideThisUser": "إخفاء منشورات هذا المستخدم",
+  "transcribeMessage": "نسخ النص",
+  "transcribing": "جاري النسخ…",
+  "transcriptionFailed": "تعذر نسخ الرسالة",
+  "saveToVocabulary": "احفظ '{word}' في المفردات",
+  "addedToVocabulary": "تمت الإضافة إلى مفرداتك",
+  "alreadyInVocabulary": "موجود بالفعل في مفرداتك",
+  "tapWordToSave": "اضغط مطولاً على كلمة لحفظها",
+  "autoTranslateChatHint": "ستتم ترجمة الرسائل الواردة تلقائياً",
+  "noConversationsYet": "لا توجد محادثات بعد",
+  "chatRetry": "إعادة المحاولة"
 }

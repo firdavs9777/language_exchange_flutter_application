@@ -1722,5 +1722,15 @@
   "momentSaveFailed": "Không thể lưu khoảnh khắc",
   "tagAlreadyAdded": "Đã thêm thẻ này",
   "tagLimitReached": "Đã đạt số lượng thẻ tối đa",
-  "hideThisUser": "Ẩn bài đăng của người dùng này"
+  "hideThisUser": "Ẩn bài đăng của người dùng này",
+  "transcribeMessage": "Phiên âm",
+  "transcribing": "Đang phiên âm…",
+  "transcriptionFailed": "Không thể phiên âm tin nhắn",
+  "saveToVocabulary": "Lưu '{word}' vào từ vựng",
+  "addedToVocabulary": "Đã thêm vào từ vựng của bạn",
+  "alreadyInVocabulary": "Đã có trong từ vựng của bạn",
+  "tapWordToSave": "Nhấn và giữ một từ để lưu",
+  "autoTranslateChatHint": "Tin nhắn đến sẽ được dịch tự động",
+  "noConversationsYet": "Chưa có cuộc trò chuyện",
+  "chatRetry": "Thử lại"
 }

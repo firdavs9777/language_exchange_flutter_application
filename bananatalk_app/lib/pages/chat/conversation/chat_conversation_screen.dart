@@ -11,7 +11,6 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
@@ -25,22 +24,21 @@ import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/widgets/voice_recorder_widget.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/pages/video_editor/video_editor_screen.dart';
-import 'package:bananatalk_app/pages/chat/dialogs/delete_message_dialog.dart';
-import 'package:bananatalk_app/pages/chat/dialogs/forward_message_dialog.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/pages/chat/panels/gif_picker_panel.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
-import 'package:bananatalk_app/pages/chat/conversation/edit_message_dialog.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_header.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_messages_view.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_input_area.dart';
+import 'package:bananatalk_app/pages/chat/conversation/handlers/message_action_handlers.dart';
+import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scroll_helpers.dart';
+import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_setup.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -186,23 +184,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
   }
 
-  /// Scroll to bottom (newest messages)
-  void _scrollToBottom({bool animated = true}) {
-    if (!_scrollController.hasClients) return;
-
-    // For non-reversed list, scroll to maxScrollExtent (bottom)
-    final targetPosition = _scrollController.position.maxScrollExtent;
-
-    if (animated && targetPosition > 0) {
-      _scrollController.animateTo(
-        targetPosition,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      );
-    } else {
-      _scrollController.jumpTo(targetPosition);
-    }
-  }
+  /// Scroll to bottom (newest messages).
+  /// Delegates to [scrollToBottom] in conversation_scroll_helpers.dart.
+  void _scrollToBottom({bool animated = true}) =>
+      scrollToBottom(controller: _scrollController, animated: animated);
 
   /// Scroll to a specific message by ID
   void _scrollToMessage(String messageId) {
@@ -511,18 +496,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     });
   }
 
-  void _setupCallListeners() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Check if still mounted before accessing providers
-      if (!mounted) return;
-
-      final callNotifier = ref.read(callProvider.notifier);
-      // Incoming call callback is set globally in main.dart
-      callNotifier.setCallErrorCallback((error) {
-        if (mounted) _handleCallError(context, error);
-      });
-    });
-  }
+  /// Registers call-error callback.
+  /// Delegates to [setupCallListeners] in conversation_setup.dart.
+  void _setupCallListeners() => setupCallListeners(
+        ref: ref,
+        onCallError: (error) {
+          if (mounted) _handleCallError(context, error);
+        },
+      );
 
   @override
   void didChangeDependencies() {
@@ -1418,288 +1399,82 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   // ==================== MESSAGE ACTIONS ====================
 
-  /// Handle edit message action
-  void _handleEditMessage(Message message) async {
+  // -------------------------------------------------------------------------
+  // Message-action handler delegates
+  // (bodies live in handlers/message_action_handlers.dart)
+  // -------------------------------------------------------------------------
+
+  void _handleEditMessage(Message message) {
     if (_currentUserId == null) return;
-
-    // Check if message can be edited (within 15 minutes)
-    try {
-      final createdAt = DateTime.parse(message.createdAt);
-      final diff = DateTime.now().difference(createdAt);
-      if (diff.inMinutes >= 15) {
-        showChatSnackBar(context, message: AppLocalizations.of(context)!.editWithin15Minutes, type: ChatSnackBarType.info);
-        return;
-      }
-    } catch (e) {
-      return;
-    }
-
-    // Show edit dialog
-    final newText = await showDialog<String>(
+    handleEditMessage(
       context: context,
-      builder: (context) =>
-          EditMessageDialog(initialText: message.message ?? ''),
-    );
-
-    if (newText != null && newText.trim().isNotEmpty && mounted) {
-      final chatNotifier = ref.read(
-        chatStateProvider(
-          ChatProviderParams(
-            chatPartnerId: widget.userId,
-            currentUserId: _currentUserId!,
-          ),
-        ).notifier,
-      );
-
-      // Optimistic update
-      chatNotifier.updateMessageLocally(
-        message.id,
-        newText: newText,
-        isEdited: true,
-      );
-
-      // Call API
-      final messageService = ref.read(messageServiceProvider);
-      final result = await messageService.editMessage(
-        messageId: message.id,
-        message: newText,
-      );
-
-      if (result['success'] != true && mounted) {
-        // Revert on failure
-        chatNotifier.updateMessageLocally(message.id, newText: message.message);
-        showChatSnackBar(context, message: result['error'] ?? 'Failed to edit message', type: ChatSnackBarType.error);
-      }
-    }
-  }
-
-  /// Handle delete message action
-  void _handleDeleteMessage(Message message) async {
-    if (_currentUserId == null) return;
-
-    await showDeleteMessageDialog(
-      context,
+      ref: ref,
       message: message,
-      otherUserName: widget.userName,
-      onDelete: (deleteForEveryone) async {
-        // Check mounted before using ref in callback
-        if (!mounted) return;
-
-        final chatNotifier = ref.read(
-          chatStateProvider(
-            ChatProviderParams(
-              chatPartnerId: widget.userId,
-              currentUserId: _currentUserId!,
-            ),
-          ).notifier,
-        );
-
-        // Optimistic update
-        if (deleteForEveryone) {
-          chatNotifier.markMessageAsDeleted(message.id);
-        } else {
-          chatNotifier.removeMessageLocally(message.id);
-        }
-
-        // Call API
-        final messageService = ref.read(messageServiceProvider);
-        final result = await messageService.deleteMessage(
-          messageId: message.id,
-          deleteForEveryone: deleteForEveryone,
-        );
-
-        if (result['success'] != true && mounted) {
-          // Revert on failure - reload messages
-          await _loadMessages();
-          showChatSnackBar(context, message: result['error'] ?? 'Failed to delete message', type: ChatSnackBarType.error);
-        }
-      },
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
     );
   }
 
-  /// Handle pin/unpin message action
-  void _handlePinMessage(Message message) async {
-    if (_currentUserId == null || !mounted) return;
-
-    final chatNotifier = ref.read(
-      chatStateProvider(
-        ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        ),
-      ).notifier,
-    );
-
-    // Optimistic update
-    chatNotifier.togglePinLocally(message.id);
-
-    // Call API
-    final messageService = ref.read(messageServiceProvider);
-    final result = await messageService.pinMessage(messageId: message.id);
-
-    // Check mounted after async operation
-    if (!mounted) return;
-
-    if (result['success'] != true) {
-      // Revert on failure
-      chatNotifier.togglePinLocally(message.id);
-      showChatSnackBar(context, message: result['error'] ?? 'Failed to update pin status', type: ChatSnackBarType.error);
-    } else if (mounted) {
-      // Show confirmation
-      showChatSnackBar(
-        context,
-        message: message.isPinned ? 'Message unpinned' : 'Message pinned',
-        type: ChatSnackBarType.success,
-      );
-    }
-  }
-
-  /// Handle forward message action
-  void _handleForwardMessage(Message message) async {
+  void _handleDeleteMessage(Message message) {
     if (_currentUserId == null) return;
-
-    // Get list of chat partners from unread counts (user IDs)
-    final chatPartnersState = ref.read(chatPartnersProvider);
-    final userIds = chatPartnersState.unreadCounts.keys
-        .where((id) => id != widget.userId) // Exclude current chat partner
-        .toList();
-
-    // If no chat partners from unread counts, try to get from current messages
-    if (userIds.isEmpty) {
-      // Get unique user IDs from recent conversations
-      final chatState = ref.read(
-        chatStateProvider(
-          ChatProviderParams(
-            chatPartnerId: widget.userId,
-            currentUserId: _currentUserId!,
-          ),
-        ),
-      );
-
-      // Get unique sender/receiver IDs that aren't current user or current chat partner
-      final uniqueUserIds = <String>{};
-      for (final msg in chatState.messages) {
-        if (msg.sender.id != _currentUserId && msg.sender.id != widget.userId) {
-          uniqueUserIds.add(msg.sender.id);
-        }
-        if (msg.receiver.id != _currentUserId &&
-            msg.receiver.id != widget.userId) {
-          uniqueUserIds.add(msg.receiver.id);
-        }
-      }
-      userIds.addAll(uniqueUserIds);
-    }
-
-    if (userIds.isEmpty) {
-      showChatSnackBar(context, message: 'No other users to forward to', type: ChatSnackBarType.info);
-      return;
-    }
-
-    final messageService = ref.read(messageServiceProvider);
-
-    final result = await showDialog<List<String>>(
+    handleDeleteMessage(
       context: context,
-      builder: (context) => ForwardMessageDialog(
-        userIds: userIds,
-        messageService: messageService,
-      ),
+      ref: ref,
+      message: message,
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
+      otherUserName: widget.userName,
+      onReloadMessages: _loadMessages,
     );
-
-    if (result != null && result.isNotEmpty && mounted) {
-      final forwardResult = await messageService.forwardMessage(
-        messageId: message.id,
-        receivers: result,
-      );
-
-      if (forwardResult['success'] == true && mounted) {
-        showChatSnackBar(
-          context,
-          message: AppLocalizations.of(context)!.messageForwardedTo(result.length),
-          type: ChatSnackBarType.success,
-        );
-      } else if (mounted) {
-        showChatSnackBar(
-          context,
-          message: forwardResult['error'] ?? 'Failed to forward message',
-          type: ChatSnackBarType.error,
-        );
-      }
-    }
   }
 
-  /// Handle retry sending failed message
-  void _handleRetryMessage(Message message) async {
-    if (_currentUserId == null || !mounted) return;
-
-    final messageText = message.message;
-    if (messageText == null || messageText.isEmpty) return;
-
-    final chatNotifier = ref.read(
-      chatStateProvider(
-        ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        ),
-      ).notifier,
+  void _handlePinMessage(Message message) {
+    if (_currentUserId == null) return;
+    handlePinMessage(
+      context: context,
+      ref: ref,
+      message: message,
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
     );
-
-    // Remove the failed message first
-    chatNotifier.removeMessageLocally(message.localId ?? message.id);
-
-    // Send again (only supports text retry for now)
-    await _sendMessage(messageText: messageText);
   }
 
-  /// Handle deleting failed message from UI
+  void _handleForwardMessage(Message message) {
+    if (_currentUserId == null) return;
+    handleForwardMessage(
+      context: context,
+      ref: ref,
+      message: message,
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
+    );
+  }
+
+  void _handleRetryMessage(Message message) {
+    if (_currentUserId == null) return;
+    handleRetryMessage(
+      context: context,
+      ref: ref,
+      message: message,
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
+      onSendMessage: _sendMessage,
+    );
+  }
+
   void _handleDeleteFailedMessage(Message message) {
-    if (_currentUserId == null || !mounted) return;
-
-    final chatNotifier = ref.read(
-      chatStateProvider(
-        ChatProviderParams(
-          chatPartnerId: widget.userId,
-          currentUserId: _currentUserId!,
-        ),
-      ).notifier,
+    if (_currentUserId == null) return;
+    handleDeleteFailedMessage(
+      context: context,
+      ref: ref,
+      message: message,
+      chatPartnerId: widget.userId,
+      currentUserId: _currentUserId!,
     );
-
-    // Remove the failed message from the UI
-    chatNotifier.removeMessageLocally(message.localId ?? message.id);
-
-    if (mounted) {
-      showChatSnackBar(context, message: 'Message deleted', type: ChatSnackBarType.success);
-    }
   }
 
   void _handleCallError(BuildContext context, String error) {
-    if (error.startsWith('PERMANENTLY_DENIED:')) {
-      final message = error.substring('PERMANENTLY_DENIED:'.length);
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(AppLocalizations.of(context)!.permissionsRequired),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(AppLocalizations.of(context)!.cancel),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                AppSettings.openAppSettings();
-              },
-              child: Text(AppLocalizations.of(context)!.openSettings),
-            ),
-          ],
-        ),
-      );
-    } else if (error.startsWith('DENIED:')) {
-      final message = error.substring('DENIED:'.length);
-      showChatSnackBar(context, message: message, type: ChatSnackBarType.info);
-    } else {
-      showChatSnackBar(context, message: error, type: ChatSnackBarType.error);
-    }
+    handleCallError(context: context, error: error);
   }
 
   @override

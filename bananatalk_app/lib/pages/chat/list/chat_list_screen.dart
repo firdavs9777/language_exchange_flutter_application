@@ -13,7 +13,6 @@ import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/widgets/connection_status_indicator.dart';
 import 'package:bananatalk_app/widgets/shimmer_loading.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
@@ -30,41 +29,7 @@ import 'package:bananatalk_app/pages/chat/list/chat_list_search_bar.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_filter_tabs.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_empty_state.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-/// Derive a short human-readable preview string from a raw socket message map.
-/// Used by both _handleNewMessage and _handleMessageSent.
-String _extractMessagePreview(Map<dynamic, dynamic> messageData) {
-  final rawText = messageData['message']?.toString() ?? '';
-  final messageType = messageData['type']?.toString() ?? '';
-  final mediaType = messageData['media']?['type']?.toString() ?? '';
-  final hasStoryRef = messageData['storyReference'] != null &&
-      messageData['storyReference']['storyId'] != null;
-  final isGifUrl = rawText.startsWith('http') &&
-      (rawText.contains('giphy.com') ||
-          rawText.contains('.gif') ||
-          rawText.contains('tenor.com') ||
-          rawText.contains('gph.is') ||
-          rawText.contains('media.giphy'));
-  final isUrlOnly = rawText.startsWith('http') && !rawText.contains(' ');
-
-  if (hasStoryRef) return '📖 Replied to story';
-  if (messageType == 'gif' || isGifUrl) return '🎬 GIF';
-  if (isUrlOnly) return '📎 Media';
-  if (rawText.isNotEmpty) return rawText;
-
-  if (messageType == 'sticker') return '😀 Sticker';
-  if (messageType == 'poll') return '📊 Poll';
-  if (mediaType == 'voice') return '🎤 Voice message';
-  if (mediaType == 'audio') return '🎵 Audio';
-  if (mediaType == 'image') return '📷 Photo';
-  if (mediaType == 'video') return '🎬 Video';
-  if (mediaType == 'document') return '📄 Document';
-  if (mediaType == 'location') return '📍 Location';
-  if (mediaType.isNotEmpty) return '📎 Attachment';
-  return rawText;
-}
+import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart';
 
 class ChatMain extends ConsumerStatefulWidget {
   final ValueNotifier<int>? tabRefreshNotifier;
@@ -244,52 +209,61 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
     void onStreamError(dynamic error, StackTrace stackTrace) {}
 
+    final ctx = ListSocketContext(
+      typingUsers: _typingUsers,
+      userStatuses: _userStatuses,
+      chatPartners: _chatPartners,
+      currentUserId: _currentUserId,
+      doSetState: setState,
+      readProviderUnreadCount: (userId) =>
+          ref.read(chatPartnersProvider).unreadCounts[userId] ?? 0,
+      syncUnreadCounts: _syncUnreadCounts,
+      processChatPartnersWithStatus: _processChatPartnersWithStatus,
+      getTypingTimer: () => _typingTimer,
+      setTypingTimer: (t) => _typingTimer = t,
+    );
+
     _newMessageSub = _chatSocketService.onNewMessage.listen(
-      _handleNewMessage,
+      (data) => handleNewMessage(ctx, data),
       onError: onStreamError,
-      onDone: () => debugPrint('📭 New message stream closed'),
     );
     _messageSentSub = _chatSocketService.onMessageSent.listen(
-      _handleMessageSent,
+      (data) => handleMessageSent(ctx, data),
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Message sent stream closed'),
     );
     _typingSub = _chatSocketService.onTyping.listen(
       (data) {
         if (data['isTyping'] == false) {
-          _handleUserStoppedTyping(data);
+          handleUserStoppedTyping(ctx, data);
         } else {
-          _handleUserTyping(data);
+          handleUserTyping(ctx, data);
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Typing stream closed'),
     );
     _statusSub = _chatSocketService.onStatusUpdate.listen(
       (data) {
         if (data is Map && data.containsKey('userId')) {
-          _handleStatusUpdate(data);
+          handleStatusUpdate(ctx, data);
         } else if (data is List) {
           for (var userData in data) {
-            _handleStatusUpdate(userData);
+            handleStatusUpdate(ctx, userData);
           }
         } else {
-          _handleBulkStatusUpdate(data);
+          handleBulkStatusUpdate(ctx, data);
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Status stream closed'),
     );
     _messageReadSub = _chatSocketService.onMessageRead.listen(
       (data) {
         if (data['readBy'] != null) {
-          _handleMessagesRead(data);
+          handleMessagesRead(ctx, data);
         } else {
-          _handleMessageRead(data);
+          handleMessageRead(ctx, data);
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Message read stream closed'),
     );
     _connectionStateSub = _chatSocketService.onConnectionStateChange.listen(
       (isConnected) {
@@ -298,7 +272,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         }
       },
       onError: onStreamError,
-      onDone: () => debugPrint('📭 Connection state stream closed'),
     );
   }
 
@@ -417,267 +390,6 @@ class _ChatMainState extends ConsumerState<ChatMain>
         _chatPartners = updatedPartners;
       });
     }
-  }
-
-  void _handleUserTyping(dynamic data) {
-    try {
-      final String userId = data['userId'].toString() ?? '';
-      if (userId.isEmpty || userId == _currentUserId) return;
-
-      if (!mounted) return;
-
-      setState(() {
-        _typingUsers[userId] = true;
-      });
-      _typingTimer?.cancel();
-      _typingTimer = Timer(const Duration(seconds: 5), () {
-        if (!mounted) return;
-        setState(() {
-          _typingUsers[userId] = false;
-        });
-      });
-    } catch (e) {}
-  }
-
-  void _handleNewMessage(dynamic data) {
-    try {
-      if (data == null) return;
-
-      final messageData = data['message'] ?? data;
-
-      final senderId =
-          messageData['sender']?['_id']?.toString() ??
-          messageData['sender']?.toString();
-      final senderName =
-          messageData['sender']?['name']?.toString() ?? 'Unknown';
-      final senderUsername = messageData['sender']?['username']?.toString();
-      final senderAvatar = messageData['sender']?['image']?.toString();
-      final senderImageUrls =
-          (messageData['sender']?['imageUrls'] as List?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [];
-      final senderIsVip =
-          messageData['sender']?['userMode'] == 'vip' ||
-          messageData['sender']?['vipSubscription']?['isActive'] == true;
-
-      final createdAt = messageData['createdAt'] != null
-          ? DateTime.parse(messageData['createdAt'].toString())
-          : DateTime.now();
-      final messageText = _extractMessagePreview(messageData);
-
-      if (senderId == null || senderId.isEmpty) return;
-      if (senderId == _currentUserId) return;
-      if (!mounted) return;
-
-      final providerState = ref.read(chatPartnersProvider);
-      final currentProviderCount = providerState.unreadCounts[senderId] ?? 0;
-
-      setState(() {
-        int partnerIndex = _chatPartners.indexWhere((p) => p.id == senderId);
-
-        if (partnerIndex != -1) {
-          final existingPartner = _chatPartners[partnerIndex];
-          final updatedPartner = existingPartner.copyWith(
-            lastMessage: messageText,
-            lastMessageTime: createdAt,
-            unreadCount: currentProviderCount,
-          );
-          _chatPartners.removeAt(partnerIndex);
-          _chatPartners.insert(0, updatedPartner);
-        } else {
-          final newPartner = ChatPartner(
-            id: senderId,
-            name: senderName,
-            username: senderUsername,
-            avatar: senderAvatar,
-            lastMessage: messageText,
-            lastMessageTime: createdAt,
-            unreadCount: currentProviderCount,
-            imageUrls: senderImageUrls,
-            status: 'online',
-            isVip: senderIsVip,
-          );
-          _chatPartners.insert(0, newPartner);
-        }
-      });
-    } catch (e, stackTrace) {}
-  }
-
-  void _handleMessageSent(dynamic data) {
-    try {
-      if (data == null) return;
-
-      final messageData = data['message'] ?? data;
-
-      final receiverId =
-          messageData['receiver']?['_id']?.toString() ??
-          messageData['receiver']?.toString();
-      final receiverName =
-          messageData['receiver']?['name']?.toString() ?? 'Unknown';
-      final receiverUsername = messageData['receiver']?['username']?.toString();
-      final receiverAvatar = messageData['receiver']?['image']?.toString();
-      final receiverImageUrls =
-          (messageData['receiver']?['imageUrls'] as List?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [];
-      final receiverIsVip =
-          messageData['receiver']?['userMode'] == 'vip' ||
-          messageData['receiver']?['vipSubscription']?['isActive'] == true;
-
-      final createdAt = messageData['createdAt'] != null
-          ? DateTime.parse(messageData['createdAt'].toString())
-          : DateTime.now();
-      final messageText = _extractMessagePreview(messageData);
-
-      if (receiverId == null || receiverId.isEmpty) return;
-      if (!mounted) return;
-
-      setState(() {
-        int partnerIndex =
-            _chatPartners.indexWhere((p) => p.id == receiverId);
-
-        if (partnerIndex != -1) {
-          final existingPartner = _chatPartners[partnerIndex];
-          final updatedPartner = existingPartner.copyWith(
-            lastMessage: messageText,
-            lastMessageTime: createdAt,
-          );
-          _chatPartners.removeAt(partnerIndex);
-          _chatPartners.insert(0, updatedPartner);
-        } else {
-          final newPartner = ChatPartner(
-            id: receiverId,
-            name: receiverName,
-            username: receiverUsername,
-            avatar: receiverAvatar,
-            lastMessage: messageText,
-            lastMessageTime: createdAt,
-            unreadCount: 0,
-            imageUrls: receiverImageUrls,
-            status: 'online',
-            isVip: receiverIsVip,
-          );
-          _chatPartners.insert(0, newPartner);
-        }
-      });
-
-      _syncUnreadCounts();
-    } catch (e, stackTrace) {}
-  }
-
-  void _handleStatusUpdate(dynamic data) {
-    try {
-      final userId = data['userId'];
-      final status = data['status'];
-      final lastSeen = data['lastSeen'];
-
-      if (userId == null) return;
-      if (!mounted) return;
-
-      setState(() {
-        _userStatuses[userId] = {
-          'status': status,
-          'lastSeen': lastSeen != null ? DateTime.parse(lastSeen) : null,
-        };
-      });
-
-      _processChatPartnersWithStatus();
-    } catch (e) {}
-  }
-
-  void _handleBulkStatusUpdate(dynamic data) {
-    try {
-      if (data is! Map) return;
-
-      final Map<String, dynamic> rawData = Map<String, dynamic>.from(data);
-
-      if (rawData.containsKey('type') && rawData['type'] == 'onlineUsers') {
-        _handleOnlineUsersUpdate(rawData['data']);
-        return;
-      }
-
-      if (rawData.containsKey('single')) {
-        _handleSingleUserStatusUpdate(rawData['single']);
-        return;
-      }
-
-      if (!mounted) return;
-
-      setState(() {
-        rawData.forEach((userId, statusData) {
-          if (statusData is Map) {
-            final statusMap = Map<String, dynamic>.from(statusData);
-            _userStatuses[userId] = {
-              'status': statusMap['status'],
-              'lastSeen': statusMap['lastSeen'] != null
-                  ? DateTime.parse(statusMap['lastSeen'].toString())
-                  : null,
-            };
-          }
-        });
-      });
-
-      _processChatPartnersWithStatus();
-    } catch (e, stackTrace) {}
-  }
-
-  void _handleOnlineUsersUpdate(dynamic data) {
-    if (!mounted) return;
-
-    if (data is List) {
-      setState(() {
-        for (final userId in data) {
-          if (userId is String) {
-            _userStatuses[userId] = {
-              'status': 'online',
-              'lastSeen': DateTime.now(),
-            };
-          }
-        }
-      });
-      _processChatPartnersWithStatus();
-    }
-  }
-
-  void _handleSingleUserStatusUpdate(dynamic data) {
-    if (!mounted || data == null) return;
-
-    try {
-      final statusMap = data is Map ? Map<String, dynamic>.from(data) : null;
-      if (statusMap == null) return;
-
-      final userId = statusMap['userId']?.toString();
-      if (userId == null) return;
-
-      setState(() {
-        _userStatuses[userId] = {
-          'status': statusMap['status'],
-          'lastSeen': statusMap['lastSeen'] != null
-              ? DateTime.parse(statusMap['lastSeen'].toString())
-              : null,
-        };
-      });
-
-      _processChatPartnersWithStatus();
-    } catch (e) {}
-  }
-
-  void _handleUserStoppedTyping(dynamic data) {}
-
-  void _handleMessagesRead(dynamic data) {
-    try {
-      final readBy = data['readBy']?.toString();
-      if (readBy != null && readBy.isNotEmpty) {}
-    } catch (e) {}
-  }
-
-  void _handleMessageRead(dynamic data) {
-    try {
-      final senderId = data['senderId'];
-      if (senderId == null) return;
-    } catch (e) {}
   }
 
   Future<void> _fetchMessages({bool silent = false}) async {

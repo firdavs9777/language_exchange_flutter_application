@@ -5009,4 +5009,36 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get hideThisUser => 'इस उपयोगकर्ता के पोस्ट छिपाएं';
+
+  @override
+  String get transcribeMessage => 'ट्रांसक्राइब';
+
+  @override
+  String get transcribing => 'ट्रांसक्राइब हो रहा है…';
+
+  @override
+  String get transcriptionFailed => 'संदेश ट्रांसक्राइब नहीं हो सका';
+
+  @override
+  String saveToVocabulary(String word) {
+    return '\'$word\' को शब्दावली में सहेजें';
+  }
+
+  @override
+  String get addedToVocabulary => 'आपकी शब्दावली में जोड़ा गया';
+
+  @override
+  String get alreadyInVocabulary => 'पहले से आपकी शब्दावली में है';
+
+  @override
+  String get tapWordToSave => 'सहेजने के लिए शब्द को दबाकर रखें';
+
+  @override
+  String get autoTranslateChatHint => 'आने वाले संदेश स्वचालित रूप से अनुवादित होंगे';
+
+  @override
+  String get noConversationsYet => 'अभी तक कोई बातचीत नहीं';
+
+  @override
+  String get chatRetry => 'पुनः प्रयास';
 }

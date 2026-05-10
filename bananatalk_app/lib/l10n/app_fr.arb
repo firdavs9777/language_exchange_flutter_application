@@ -2149,5 +2149,15 @@
   "momentSaveFailed": "Impossible d'enregistrer le moment",
   "tagAlreadyAdded": "Étiquette déjà ajoutée",
   "tagLimitReached": "Nombre maximum d'étiquettes atteint",
-  "hideThisUser": "Masquer les publications de cet utilisateur"
+  "hideThisUser": "Masquer les publications de cet utilisateur",
+  "transcribeMessage": "Transcrire",
+  "transcribing": "Transcription…",
+  "transcriptionFailed": "Impossible de transcrire le message",
+  "saveToVocabulary": "Enregistrer « {word} » dans le vocabulaire",
+  "addedToVocabulary": "Ajouté à votre vocabulaire",
+  "alreadyInVocabulary": "Déjà dans votre vocabulaire",
+  "tapWordToSave": "Appuyez longuement sur un mot pour l'enregistrer",
+  "autoTranslateChatHint": "Les messages entrants seront traduits automatiquement",
+  "noConversationsYet": "Pas encore de conversations",
+  "chatRetry": "Réessayer"
 }

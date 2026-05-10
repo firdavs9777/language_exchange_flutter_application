@@ -5009,4 +5009,36 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get hideThisUser => 'このユーザーの投稿を非表示';
+
+  @override
+  String get transcribeMessage => '文字起こし';
+
+  @override
+  String get transcribing => '文字起こし中…';
+
+  @override
+  String get transcriptionFailed => '音声を文字起こしできませんでした';
+
+  @override
+  String saveToVocabulary(String word) {
+    return '「$word」を単語帳に保存';
+  }
+
+  @override
+  String get addedToVocabulary => '単語帳に追加されました';
+
+  @override
+  String get alreadyInVocabulary => 'すでに単語帳にあります';
+
+  @override
+  String get tapWordToSave => '長押しして単語を保存';
+
+  @override
+  String get autoTranslateChatHint => '受信メッセージが自動的に翻訳されます';
+
+  @override
+  String get noConversationsYet => 'まだ会話がありません';
+
+  @override
+  String get chatRetry => '再試行';
 }

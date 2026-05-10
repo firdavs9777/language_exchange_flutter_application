@@ -5009,6 +5009,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get hideThisUser => '隐藏此用户的帖子';
+
+  @override
+  String get transcribeMessage => '转写';
+
+  @override
+  String get transcribing => '转写中…';
+
+  @override
+  String get transcriptionFailed => '无法转写消息';
+
+  @override
+  String saveToVocabulary(String word) {
+    return '将\'$word\'保存到词汇表';
+  }
+
+  @override
+  String get addedToVocabulary => '已添加到您的词汇表';
+
+  @override
+  String get alreadyInVocabulary => '已在您的词汇表中';
+
+  @override
+  String get tapWordToSave => '长按单词以保存';
+
+  @override
+  String get autoTranslateChatHint => '传入的消息将自动翻译';
+
+  @override
+  String get noConversationsYet => '还没有对话';
+
+  @override
+  String get chatRetry => '重试';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -9727,4 +9759,36 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get hideThisUser => '隱藏此使用者的貼文';
+
+  @override
+  String get transcribeMessage => '轉寫';
+
+  @override
+  String get transcribing => '轉寫中…';
+
+  @override
+  String get transcriptionFailed => '無法轉寫訊息';
+
+  @override
+  String saveToVocabulary(String word) {
+    return '將「$word」儲存到詞彙表';
+  }
+
+  @override
+  String get addedToVocabulary => '已新增到您的詞彙表';
+
+  @override
+  String get alreadyInVocabulary => '已在您的詞彙表中';
+
+  @override
+  String get tapWordToSave => '長按單字以儲存';
+
+  @override
+  String get autoTranslateChatHint => '傳入的訊息將自動翻譯';
+
+  @override
+  String get noConversationsYet => '還沒有對話';
+
+  @override
+  String get chatRetry => '重試';
 }

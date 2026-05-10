@@ -5009,4 +5009,36 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get hideThisUser => 'ซ่อนโพสต์ของผู้ใช้นี้';
+
+  @override
+  String get transcribeMessage => 'ถอดเสียงเป็นข้อความ';
+
+  @override
+  String get transcribing => 'กำลังถอดเสียง…';
+
+  @override
+  String get transcriptionFailed => 'ไม่สามารถถอดเสียงข้อความได้';
+
+  @override
+  String saveToVocabulary(String word) {
+    return 'บันทึก \'$word\' ลงในคำศัพท์';
+  }
+
+  @override
+  String get addedToVocabulary => 'เพิ่มลงในคำศัพท์ของคุณแล้ว';
+
+  @override
+  String get alreadyInVocabulary => 'อยู่ในคำศัพท์ของคุณแล้ว';
+
+  @override
+  String get tapWordToSave => 'กดค้างที่คำเพื่อบันทึก';
+
+  @override
+  String get autoTranslateChatHint => 'ข้อความที่ได้รับจะถูกแปลโดยอัตโนมัติ';
+
+  @override
+  String get noConversationsYet => 'ยังไม่มีการสนทนา';
+
+  @override
+  String get chatRetry => 'ลองอีกครั้ง';
 }

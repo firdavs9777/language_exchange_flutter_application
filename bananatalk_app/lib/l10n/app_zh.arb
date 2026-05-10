@@ -1893,5 +1893,15 @@
   "momentSaveFailed": "无法保存动态",
   "tagAlreadyAdded": "标签已添加",
   "tagLimitReached": "已达到最大标签数",
-  "hideThisUser": "隐藏此用户的帖子"
+  "hideThisUser": "隐藏此用户的帖子",
+  "transcribeMessage": "转写",
+  "transcribing": "转写中…",
+  "transcriptionFailed": "无法转写消息",
+  "saveToVocabulary": "将'{word}'保存到词汇表",
+  "addedToVocabulary": "已添加到您的词汇表",
+  "alreadyInVocabulary": "已在您的词汇表中",
+  "tapWordToSave": "长按单词以保存",
+  "autoTranslateChatHint": "传入的消息将自动翻译",
+  "noConversationsYet": "还没有对话",
+  "chatRetry": "重试"
 }

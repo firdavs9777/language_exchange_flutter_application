@@ -269,7 +269,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: context.surfaceColor,
       elevation: 0,
-      scrolledUnderElevation: 0,
+      scrolledUnderElevation: 1,
       surfaceTintColor: Colors.transparent,
       title: InkWell(
         onTap: () => _navigateToProfile(context, ref),
@@ -355,6 +355,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ChatOptionsMenu(
           userName: userName,
           userId: userId,
+          conversationId: userId, // partner ID doubles as conversation ID
           onThemeChanged: onThemeChanged,
         ),
       ],

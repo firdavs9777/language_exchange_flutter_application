@@ -194,13 +194,22 @@ class ImageMessageView extends StatelessWidget {
   }
 
   Widget _buildTextCaption(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.only(top: 4),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: isMe ? myMessageColor : otherMessageColor,
         borderRadius: bubbleRadius,
-        boxShadow: AppShadows.sm,
+        boxShadow: isDark
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
       child: LinkifiedText(
         text: message.message!,

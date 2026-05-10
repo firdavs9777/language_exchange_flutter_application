@@ -1722,5 +1722,15 @@
   "momentSaveFailed": "ไม่สามารถบันทึกโมเมนต์ได้",
   "tagAlreadyAdded": "เพิ่มแท็กแล้ว",
   "tagLimitReached": "ถึงขีดจำกัดแท็กแล้ว",
-  "hideThisUser": "ซ่อนโพสต์ของผู้ใช้นี้"
+  "hideThisUser": "ซ่อนโพสต์ของผู้ใช้นี้",
+  "transcribeMessage": "ถอดเสียงเป็นข้อความ",
+  "transcribing": "กำลังถอดเสียง…",
+  "transcriptionFailed": "ไม่สามารถถอดเสียงข้อความได้",
+  "saveToVocabulary": "บันทึก '{word}' ลงในคำศัพท์",
+  "addedToVocabulary": "เพิ่มลงในคำศัพท์ของคุณแล้ว",
+  "alreadyInVocabulary": "อยู่ในคำศัพท์ของคุณแล้ว",
+  "tapWordToSave": "กดค้างที่คำเพื่อบันทึก",
+  "autoTranslateChatHint": "ข้อความที่ได้รับจะถูกแปลโดยอัตโนมัติ",
+  "noConversationsYet": "ยังไม่มีการสนทนา",
+  "chatRetry": "ลองอีกครั้ง"
 }

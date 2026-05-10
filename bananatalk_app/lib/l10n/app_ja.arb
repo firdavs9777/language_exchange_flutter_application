@@ -1879,5 +1879,15 @@
   "momentSaveFailed": "モーメントを保存できませんでした",
   "tagAlreadyAdded": "タグはすでに追加されています",
   "tagLimitReached": "タグの上限に達しました",
-  "hideThisUser": "このユーザーの投稿を非表示"
+  "hideThisUser": "このユーザーの投稿を非表示",
+  "transcribeMessage": "文字起こし",
+  "transcribing": "文字起こし中…",
+  "transcriptionFailed": "音声を文字起こしできませんでした",
+  "saveToVocabulary": "「{word}」を単語帳に保存",
+  "addedToVocabulary": "単語帳に追加されました",
+  "alreadyInVocabulary": "すでに単語帳にあります",
+  "tapWordToSave": "長押しして単語を保存",
+  "autoTranslateChatHint": "受信メッセージが自動的に翻訳されます",
+  "noConversationsYet": "まだ会話がありません",
+  "chatRetry": "再試行"
 }

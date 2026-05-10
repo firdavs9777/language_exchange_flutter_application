@@ -5009,4 +5009,36 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get hideThisUser => 'إخفاء منشورات هذا المستخدم';
+
+  @override
+  String get transcribeMessage => 'نسخ النص';
+
+  @override
+  String get transcribing => 'جاري النسخ…';
+
+  @override
+  String get transcriptionFailed => 'تعذر نسخ الرسالة';
+
+  @override
+  String saveToVocabulary(String word) {
+    return 'احفظ \'$word\' في المفردات';
+  }
+
+  @override
+  String get addedToVocabulary => 'تمت الإضافة إلى مفرداتك';
+
+  @override
+  String get alreadyInVocabulary => 'موجود بالفعل في مفرداتك';
+
+  @override
+  String get tapWordToSave => 'اضغط مطولاً على كلمة لحفظها';
+
+  @override
+  String get autoTranslateChatHint => 'ستتم ترجمة الرسائل الواردة تلقائياً';
+
+  @override
+  String get noConversationsYet => 'لا توجد محادثات بعد';
+
+  @override
+  String get chatRetry => 'إعادة المحاولة';
 }

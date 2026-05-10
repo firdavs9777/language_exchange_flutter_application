@@ -5009,4 +5009,36 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get hideThisUser => 'Скрыть публикации этого пользователя';
+
+  @override
+  String get transcribeMessage => 'Транскрибировать';
+
+  @override
+  String get transcribing => 'Транскрибирование…';
+
+  @override
+  String get transcriptionFailed => 'Не удалось транскрибировать сообщение';
+
+  @override
+  String saveToVocabulary(String word) {
+    return 'Сохранить \'$word\' в словарь';
+  }
+
+  @override
+  String get addedToVocabulary => 'Добавлено в ваш словарь';
+
+  @override
+  String get alreadyInVocabulary => 'Уже в вашем словаре';
+
+  @override
+  String get tapWordToSave => 'Нажмите и удерживайте слово, чтобы сохранить';
+
+  @override
+  String get autoTranslateChatHint => 'Входящие сообщения будут переведены автоматически';
+
+  @override
+  String get noConversationsYet => 'Пока нет разговоров';
+
+  @override
+  String get chatRetry => 'Повторить';
 }

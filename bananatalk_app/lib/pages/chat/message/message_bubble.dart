@@ -9,7 +9,6 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/forwarded_message_indicator.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
@@ -18,6 +17,11 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import '../header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
+import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/services/translation_service.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'bubble/bubble_actions_menu.dart';
+import 'bubble/system_bubble.dart';
 import 'message_bubble/text_message_view.dart';
 import 'message_bubble/image_message_view.dart';
 import 'message_bubble/voice_message_view.dart';
@@ -77,6 +81,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   String? _currentUserId;
   final GlobalKey _bubbleKey = GlobalKey();
 
+  // Slide-in animation flag: prevents replaying on every rebuild
+  bool _hasAnimatedIn = false;
+
   // Swipe-to-reply state
   double _swipeOffset = 0;
   static const double _swipeThreshold = 60.0;
@@ -98,44 +105,59 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
   // ---------- Bubble shape ----------
 
+  // M3 asymmetric bubble radius: 20/20 top, 4/20 or 20/4 bottom based on isMe.
+  // In grouped messages the "tail corner" stays small (4) regardless of position
+  // to preserve the conversation-thread visual rhythm.
   BorderRadius _bubbleRadius() {
-    const double big = 18.0;
+    const double full = 20.0;
     const double small = 4.0;
 
     if (widget.isMe) {
+      // My messages: bottom-right is the tail corner
       if (widget.isFirstInGroup && widget.isLastInGroup) {
-        return AppRadius.chatBubbleMine;
+        return const BorderRadius.only(
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(full),
+          bottomRight: Radius.circular(small),
+        );
       } else if (widget.isFirstInGroup) {
         return const BorderRadius.only(
-          topLeft: Radius.circular(big),
-          topRight: Radius.circular(big),
-          bottomLeft: Radius.circular(big),
-          bottomRight: Radius.circular(big),
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(full),
+          bottomRight: Radius.circular(full),
         );
       } else {
         return const BorderRadius.only(
-          topLeft: Radius.circular(big),
+          topLeft: Radius.circular(full),
           topRight: Radius.circular(small),
-          bottomLeft: Radius.circular(big),
+          bottomLeft: Radius.circular(full),
           bottomRight: Radius.circular(small),
         );
       }
     } else {
+      // Other messages: bottom-left is the tail corner
       if (widget.isFirstInGroup && widget.isLastInGroup) {
-        return AppRadius.chatBubbleOther;
+        return const BorderRadius.only(
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(small),
+          bottomRight: Radius.circular(full),
+        );
       } else if (widget.isFirstInGroup) {
         return const BorderRadius.only(
-          topLeft: Radius.circular(big),
-          topRight: Radius.circular(big),
-          bottomLeft: Radius.circular(big),
-          bottomRight: Radius.circular(big),
+          topLeft: Radius.circular(full),
+          topRight: Radius.circular(full),
+          bottomLeft: Radius.circular(full),
+          bottomRight: Radius.circular(full),
         );
       } else {
         return const BorderRadius.only(
           topLeft: Radius.circular(small),
-          topRight: Radius.circular(big),
+          topRight: Radius.circular(full),
           bottomLeft: Radius.circular(small),
-          bottomRight: Radius.circular(big),
+          bottomRight: Radius.circular(full),
         );
       }
     }
@@ -148,6 +170,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     super.initState();
     _loadCurrentUserId();
     _initSwipeAnimation();
+    // Mark animation as done after first frame so subsequent rebuilds
+    // (e.g. when a new message arrives) don't replay the slide-in.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() => _hasAnimatedIn = true);
+    });
   }
 
   void _initSwipeAnimation() {
@@ -413,84 +440,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   }
 
   void _showFailedMessageOptions(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    showModalBottomSheet(
+    showFailedMessageOptions(
       context: context,
-      backgroundColor: isDark ? AppColors.cardDark : AppColors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  'Message failed to send',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const Divider(),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Icon(Icons.refresh, color: AppColors.primary),
-                ),
-                title: Text(l10n?.retry ?? 'Retry'),
-                subtitle: const Text('Try sending this message again'),
-                onTap: () {
-                  Navigator.pop(context);
-                  widget.onRetry?.call(widget.message);
-                },
-              ),
-              ListTile(
-                leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.error.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:
-                      const Icon(Icons.delete_outline, color: AppColors.error),
-                ),
-                title: Text(
-                  l10n?.delete ?? 'Delete',
-                  style: const TextStyle(color: AppColors.error),
-                ),
-                subtitle: const Text('Remove this message'),
-                onTap: () {
-                  Navigator.pop(context);
-                  widget.onDeleteFailed?.call(widget.message);
-                },
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(l10n?.cancel ?? 'Cancel'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      message: widget.message,
+      onRetry: () => widget.onRetry?.call(widget.message),
+      onDelete: () => widget.onDeleteFailed?.call(widget.message),
     );
   }
 
@@ -570,6 +524,17 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         onTap: () {
           _hideReactionPicker();
           _showTranslation(context);
+        },
+      ));
+    }
+
+    if (hasText && widget.message.type == 'text') {
+      menuItems.add(MessageContextMenuItem(
+        icon: Icons.bookmark_add_outlined,
+        label: 'Save phrase',
+        onTap: () {
+          _hideReactionPicker();
+          _saveMessageToVocab(context);
         },
       ));
     }
@@ -705,6 +670,86 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     Overlay.of(context).insert(_reactionPickerOverlay!);
   }
 
+  // ---------- Save-phrase-to-vocab helpers ----------
+
+  /// Returns the first word of [text], capped at 30 chars.
+  String _previewWord(String text) {
+    final firstWord = text.trim().split(RegExp(r'\s+')).first;
+    if (firstWord.length > 30) return '${firstWord.substring(0, 27)}…';
+    return firstWord;
+  }
+
+  Future<void> _saveMessageToVocab(BuildContext ctx) async {
+    final l10n = AppLocalizations.of(context)!;
+    final text = widget.message.message ?? '';
+    if (text.isEmpty) return;
+
+    // Cap phrase at 100 chars.
+    final phrase = text.length > 100 ? '${text.substring(0, 97)}…' : text;
+
+    // Resolve native language name → BCP-47 code.
+    final prefs = await SharedPreferences.getInstance();
+    final nativeLangName = prefs.getString('user_native_language') ?? 'English';
+    final targetCode = TranslationService.supportedLanguages
+            .firstWhere(
+              (l) =>
+                  l['name']!.toLowerCase() == nativeLangName.toLowerCase(),
+              orElse: () => {'code': 'en'},
+            )['code'] ??
+        'en';
+
+    // Fetch translation preview (best-effort).
+    String? translation;
+    try {
+      translation = await TranslationService.translateWord(
+        word: phrase,
+        targetLanguage: targetCode,
+      );
+    } catch (_) {
+      translation = null;
+    }
+
+    if (!mounted) return;
+
+    // Confirm dialog.
+    final titlePreview = _previewWord(phrase);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogCtx) => AlertDialog(
+        title: Text(l10n.saveToVocabulary(titlePreview)),
+        content: Text(translation ?? phrase),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogCtx, false),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogCtx, true),
+            child: Text(l10n.save),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    final result = await LearningService.addVocabulary(
+      word: phrase,
+      translation: translation ?? phrase,
+      language: 'auto',
+      exampleSentence: text != phrase ? text : null,
+    );
+
+    if (!mounted) return;
+
+    final success = result['success'] == true;
+    showChatSnackBar(
+      context,
+      message: success ? l10n.addedToVocabulary : l10n.alreadyInVocabulary,
+      type: success ? ChatSnackBarType.success : ChatSnackBarType.info,
+    );
+  }
+
   // ---------- Message content dispatcher ----------
 
   Widget _buildMessageContent(Message msg) {
@@ -747,6 +792,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     // Text (default — includes stickers, wave sticker, link preview)
     if (msg.type == 'text' || msg.type.isEmpty) {
+      // For received messages, the sender's user ID doubles as the
+      // conversation key (consistent with ChatOptionsMenu / ChatAppBar).
+      final convId = widget.isMe ? null : msg.sender.id;
       return TextMessageView(
         message: msg,
         isMe: widget.isMe,
@@ -757,17 +805,17 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         bubbleRadius: _bubbleRadius(),
         onReplyTap: widget.onReplyTap,
         onLongPress: () => _showContextMenu(context),
+        conversationId: convId,
       );
     }
 
     // Unknown type — safe fallback
-    return _FallbackMessageView(message: msg);
+    return SystemBubble(text: 'Unsupported message type');
   }
 
   // ---------- Build ----------
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBubbleContent(BuildContext context) {
     final swipeProgress = _swipeOffset.abs();
     final replyIconOpacity =
         (swipeProgress / _swipeThreshold).clamp(0.0, 1.0);
@@ -1012,37 +1060,25 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       ),
     );
   }
-}
-
-// ---------- Fallback for unknown message types ----------
-
-class _FallbackMessageView extends StatelessWidget {
-  final Message message;
-
-  const _FallbackMessageView({required this.message});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: context.containerColor.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
+    // After the first frame the flag is set — skip animation on every
+    // subsequent rebuild (e.g. when a new message arrives in the list).
+    if (_hasAnimatedIn) {
+      return _buildBubbleContent(context);
+    }
+
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 240),
+      curve: Curves.easeOutCubic,
+      builder: (context, value, child) => Transform.translate(
+        offset: Offset(widget.isMe ? (1 - value) * 16 : (1 - value) * -16, 0),
+        child: Opacity(opacity: value.clamp(0.0, 1.0), child: child),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.info_outline, size: 16, color: context.textSecondary),
-          const SizedBox(width: 6),
-          Text(
-            'Unsupported message type',
-            style: context.bodySmall.copyWith(
-              color: context.textSecondary,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ],
-      ),
+      child: _buildBubbleContent(context),
     );
   }
 }
+

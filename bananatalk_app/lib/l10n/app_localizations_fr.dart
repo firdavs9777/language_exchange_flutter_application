@@ -5009,4 +5009,36 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get hideThisUser => 'Masquer les publications de cet utilisateur';
+
+  @override
+  String get transcribeMessage => 'Transcrire';
+
+  @override
+  String get transcribing => 'Transcription…';
+
+  @override
+  String get transcriptionFailed => 'Impossible de transcrire le message';
+
+  @override
+  String saveToVocabulary(String word) {
+    return 'Enregistrer « $word » dans le vocabulaire';
+  }
+
+  @override
+  String get addedToVocabulary => 'Ajouté à votre vocabulaire';
+
+  @override
+  String get alreadyInVocabulary => 'Déjà dans votre vocabulaire';
+
+  @override
+  String get tapWordToSave => 'Appuyez longuement sur un mot pour l\'enregistrer';
+
+  @override
+  String get autoTranslateChatHint => 'Les messages entrants seront traduits automatiquement';
+
+  @override
+  String get noConversationsYet => 'Pas encore de conversations';
+
+  @override
+  String get chatRetry => 'Réessayer';
 }
