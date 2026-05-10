@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/ai_tools_tab.dart';
 import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
 import 'package:bananatalk_app/pages/learning/animations/achievement_unlock_overlay.dart';
+import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
 
@@ -25,6 +26,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
   late TabController _tabController;
   int _currentTab = 0;
   int? _previousStreak;
+  int? _previousLevel;
   // Tracks achievement IDs already shown this session to avoid re-triggering
   // the overlay. There is no server-side mark-seen API, so this is
   // client-side only; unseen achievements will re-fire on the next cold start.
@@ -63,6 +65,15 @@ class _LearningMainState extends ConsumerState<LearningMain>
           );
         }
         _previousStreak = newStreak;
+
+        // Level-up detection
+        final newLevel = progress.level;
+        LevelUpSequence.showIfChanged(
+          context,
+          newLevel: newLevel,
+          previousLevel: _previousLevel,
+        );
+        _previousLevel = newLevel;
       });
     });
 
