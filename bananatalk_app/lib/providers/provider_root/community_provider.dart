@@ -315,15 +315,18 @@ class CommunityService {
     int page = 1,
     int limit = 20,
     bool unreadOnly = false,
+    bool archive = false,
   }) async {
     try {
+      final queryParams = <String, String>{
+        'page': page.toString(),
+        'limit': limit.toString(),
+        'unreadOnly': unreadOnly.toString(),
+      };
+      if (archive) queryParams['archive'] = 'true';
       final response = await _apiClient.get(
         Endpoints.wavesReceivedURL,
-        queryParams: {
-          'page': page.toString(),
-          'limit': limit.toString(),
-          'unreadOnly': unreadOnly.toString(),
-        },
+        queryParams: queryParams,
       );
 
       if (response.success && response.data != null) {

@@ -8,6 +8,8 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
+import 'package:bananatalk_app/pages/community/tabs/waves_archive_screen.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Waves Tab - Shows waves received from other users
 class WavesTab extends ConsumerStatefulWidget {
@@ -163,9 +165,30 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       color: const Color(0xFF00BFA5),
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        itemCount: _waves.length,
+        // +1 for the archive header row
+        itemCount: _waves.length + 1,
         itemBuilder: (context, index) {
-          final wave = _waves[index];
+          if (index == 0) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: TextButton.icon(
+                  icon: const Icon(Icons.history, size: 16),
+                  label: Text(AppLocalizations.of(context)!.viewArchive),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const WavesArchiveScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          }
+          final wave = _waves[index - 1];
           return _WaveCard(wave: wave, onTap: () => _viewProfile(wave));
         },
       ),
