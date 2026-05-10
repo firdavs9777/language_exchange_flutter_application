@@ -7,6 +7,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
+import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
 
 /// Learning Service
 /// Handles all API calls for the learning feature
@@ -1276,6 +1277,29 @@ class LearningService {
     } catch (e) {
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
+  }
+
+  // ==================== WEEKLY DIGEST ====================
+
+  /// Fetch last-7-day learning digest for the current user.
+  static Future<WeeklyDigest> getWeeklyDigest({String? language}) async {
+    final token = await _getToken();
+    final queryParams = <String, String>{
+      if (language != null) 'language': language,
+    };
+    final url = Uri.parse('${Endpoints.baseURL}learning/weekly-digest')
+        .replace(queryParameters: queryParams.isNotEmpty ? queryParams : null);
+
+    final response = await http.get(
+      url,
+      headers: _getHeaders(token),
+    );
+
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return WeeklyDigest.fromJson(data['data']);
+    }
+    throw Exception('Failed to fetch weekly digest: ${response.statusCode}');
   }
 
   // ==================== CHALLENGES ====================

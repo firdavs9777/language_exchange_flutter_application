@@ -15,6 +15,7 @@ import 'package:bananatalk_app/pages/learning/challenges/challenges_screen.dart'
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/weekly_digest_card.dart';
 
 /// The "Learn" tab inside the Study Hub.
 class LearnTab extends ConsumerWidget {
@@ -49,6 +50,9 @@ class LearnTab extends ConsumerWidget {
                 // Progress Hero Card
                 _buildProgressHero(context, progress, isDark),
                 const SizedBox(height: 16),
+
+                // Weekly Digest Card
+                const WeeklyDigestCard(),
 
                 // Ad Banner
                 const BannerAdWidget(),
