@@ -1,6 +1,6 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
-import 'package:bananatalk_app/pages/moments/moment_card.dart';
+import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
     show momentFilterProvider;
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
