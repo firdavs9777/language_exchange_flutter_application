@@ -15,6 +15,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/weekly_digest_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/progress_hero.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/daily_practice_card.dart';
 
 /// The "Learn" tab inside the Study Hub.
 class LearnTab extends ConsumerWidget {
@@ -52,6 +53,9 @@ class LearnTab extends ConsumerWidget {
 
                 // Weekly Digest Card
                 const WeeklyDigestCard(),
+
+                // AI Daily Practice Card
+                const DailyPracticeCard(),
 
                 // Ad Banner
                 const BannerAdWidget(),

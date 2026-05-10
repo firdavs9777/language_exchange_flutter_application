@@ -1333,6 +1333,53 @@ class LearningService {
     }
   }
 
+  // ==================== AI DAILY PRACTICE ====================
+
+  /// Fetch today's personalized AI practice sentence.
+  static Future<Map<String, dynamic>> getDailyPractice() async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}learning/daily-practice');
+
+    final response = await http.get(
+      url,
+      headers: _getHeaders(token),
+    );
+
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode != 200) {
+      throw Exception(_getErrorMessage(data, 'Daily practice fetch failed'));
+    }
+    return Map<String, dynamic>.from(data!['data'] as Map);
+  }
+
+  /// Grade user's translation of the daily practice sentence.
+  static Future<Map<String, dynamic>> gradeDailyPractice({
+    required String sentenceNative,
+    required String userTranslation,
+    String? expectedTranslation,
+  }) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}learning/daily-practice/grade');
+
+    final body = <String, dynamic>{
+      'sentenceNative': sentenceNative,
+      'userTranslation': userTranslation,
+      if (expectedTranslation != null) 'expectedTranslation': expectedTranslation,
+    };
+
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode(body),
+    );
+
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode != 200) {
+      throw Exception(_getErrorMessage(data, 'Grading failed'));
+    }
+    return Map<String, dynamic>.from(data!['data'] as Map);
+  }
+
   // ==================== AI VOCABULARY ====================
 
   /// AI-fill vocabulary fields for a given word.
