@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
-import 'package:bananatalk_app/widgets/learning/streak_widget.dart';
-import 'package:bananatalk_app/pages/learning/streak/streak_freeze_dialog.dart';
 import 'package:bananatalk_app/widgets/learning/daily_goal_widget.dart';
 import 'package:bananatalk_app/widgets/learning/challenge_card.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart';
@@ -16,6 +14,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/weekly_digest_card.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/progress_hero.dart';
 
 /// The "Learn" tab inside the Study Hub.
 class LearnTab extends ConsumerWidget {
@@ -48,7 +47,7 @@ class LearnTab extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Progress Hero Card
-                _buildProgressHero(context, progress, isDark),
+                const ProgressHero(),
                 const SizedBox(height: 16),
 
                 // Weekly Digest Card
@@ -198,157 +197,6 @@ class LearnTab extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildProgressHero(BuildContext context, progress, bool isDark) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isDark
-              ? [const Color(0xFF2D2B55), const Color(0xFF1B1B3A)]
-              : [const Color(0xFF667EEA), const Color(0xFF764BA2)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: (isDark ? const Color(0xFF2D2B55) : const Color(0xFF667EEA))
-                .withValues(alpha: 0.35),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              // Level badge
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.3),
-                    width: 1.5,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    '${progress.level}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.levelN(progress.level),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      AppLocalizations.of(context)!.xpEarned(progress.totalXP),
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.75),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              StreakWidget(
-                currentStreak: progress.currentStreak,
-                compact: true,
-              ),
-              if (progress.streakFreezes > 0) ...[
-                const SizedBox(width: 8),
-                GestureDetector(
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => const StreakFreezeDialog(),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.lightBlue.withValues(alpha: 0.20),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.ac_unit_rounded, size: 14, color: Colors.lightBlue),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${progress.streakFreezes}',
-                          style: const TextStyle(
-                            color: Colors.lightBlue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ],
-          ),
-          const SizedBox(height: 20),
-          // XP Progress bar
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.nextLevel(progress.level + 1),
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.xpToGo(progress.levelInfo.xpNeeded),
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: LinearProgressIndicator(
-                  value: progress.levelInfo.progress.clamp(0.0, 1.0),
-                  backgroundColor: Colors.white.withValues(alpha: 0.15),
-                  valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFFFD700)),
-                  minHeight: 8,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
