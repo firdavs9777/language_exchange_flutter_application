@@ -340,6 +340,41 @@ class TranslationService {
     }
   }
 
+  /// Translate a single word or short phrase using the enhanced translation endpoint.
+  /// Returns the translated string, or null on failure.
+  static Future<String?> translateWord({
+    required String word,
+    required String targetLanguage,
+    String? sourceLanguage,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}translate/enhanced');
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({
+          'text': word,
+          'targetLanguage': targetLanguage,
+          if (sourceLanguage != null) 'sourceLanguage': sourceLanguage,
+          'includeBreakdown': false,
+          'includeGrammar': false,
+          'includeIdioms': false,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final translation = data['data']?['translation']?.toString();
+        return translation?.isNotEmpty == true ? translation : null;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// Map language name (e.g. "English") to code (e.g. "en")
   static String? _languageNameToCode(String name) {
     final normalized = name.trim().toLowerCase();

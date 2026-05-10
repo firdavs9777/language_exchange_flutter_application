@@ -12,6 +12,10 @@ class LinkifiedText extends StatefulWidget {
   final TextOverflow? overflow;
   final TextAlign? textAlign;
 
+  /// Optional key forwarded to the inner [Text] / [Text.rich] widget so that
+  /// callers can obtain its [RenderParagraph] for hit-testing.
+  final GlobalKey? textKey;
+
   // Public so callers (e.g. link preview) can reuse the same pattern
   static final urlRegex = RegExp(
     r'(https?://[^\s]+|www\.[^\s]+)',
@@ -26,6 +30,7 @@ class LinkifiedText extends StatefulWidget {
     this.maxLines,
     this.overflow,
     this.textAlign,
+    this.textKey,
   });
 
   @override
@@ -118,6 +123,7 @@ class _LinkifiedTextState extends State<LinkifiedText> {
     if (!LinkifiedText.urlRegex.hasMatch(widget.text)) {
       return Text(
         widget.text,
+        key: widget.textKey,
         style: widget.style,
         maxLines: widget.maxLines,
         overflow: widget.overflow,
@@ -127,6 +133,7 @@ class _LinkifiedTextState extends State<LinkifiedText> {
 
     return Text.rich(
       TextSpan(children: _buildSpans()),
+      key: widget.textKey,
       maxLines: widget.maxLines,
       overflow: widget.overflow,
       textAlign: widget.textAlign,
