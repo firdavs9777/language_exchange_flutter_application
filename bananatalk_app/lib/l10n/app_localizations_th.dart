@@ -5043,34 +5043,32 @@ class AppLocalizationsTh extends AppLocalizations {
   String get chatRetry => 'ลองอีกครั้ง';
 
   @override
-  String get learningHubTitle => 'Learning';
+  String get learningHubTitle => 'การเรียนรู้';
 
   @override
-  String get learningCommonRetry => 'Retry';
+  String get learningCommonRetry => 'ลองอีกครั้ง';
 
   @override
-  String get learningCommonContinue => 'Continue';
+  String get learningCommonContinue => 'ดำเนินการต่อ';
 
   @override
-  String get learningCommonAwesome => 'Awesome!';
+  String get learningCommonAwesome => 'ยอดเยี่ยม!';
 
   @override
-  String get learningErrorGeneric => 'Something went wrong';
+  String get learningErrorGeneric => 'เกิดข้อผิดพลาดบางอย่าง';
 
   @override
-  String get learningStreakCurrent => 'Current streak';
+  String get learningStreakCurrent => 'สตรีคปัจจุบัน';
 
   @override
-  String get learningStreakLongest => 'Longest streak';
+  String get learningStreakLongest => 'สตรีคที่ยาวที่สุด';
 
   @override
   String learningStreakDaysCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count days',
-      one: '1 day',
-      zero: '0 days',
+      other: '$countวัน',
     );
     return '$_temp0';
   }
@@ -5080,40 +5078,39 @@ class AppLocalizationsTh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count freezes available',
-      one: '1 freeze available',
-      zero: 'No freezes available',
+      other: '$countการหยุดพักพร้อมใช้',
+      zero: 'ไม่มีการหยุดพัก',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningStreakFreezeUse => 'Use freeze';
+  String get learningStreakFreezeUse => 'ใช้การหยุด';
 
   @override
-  String get learningStreakFreezeDescription => 'Freezes protect your streak when you miss a day.';
+  String get learningStreakFreezeDescription => 'การหยุดพักปกป้องสตรีคของคุณเมื่อคุณพลาดวัน';
 
   @override
-  String get learningStreakFreezeProtected => 'Streak protected!';
+  String get learningStreakFreezeProtected => 'สตรีคได้รับการปกป้อง!';
 
   @override
-  String get learningStreakMilestone7 => '7-day streak!';
+  String get learningStreakMilestone7 => 'สตรีค 7 วัน!';
 
   @override
-  String get learningStreakMilestone30 => '30-day streak!';
+  String get learningStreakMilestone30 => 'สตรีค 30 วัน!';
 
   @override
-  String get learningStreakMilestone100 => '100-day streak!';
+  String get learningStreakMilestone100 => 'สตรีค 100 วัน!';
 
   @override
-  String get learningStreakMilestone365 => '365-day streak!';
+  String get learningStreakMilestone365 => 'สตรีค 365 วัน!';
 
   @override
-  String get learningWeeklyDigestTitle => 'This Week';
+  String get learningWeeklyDigestTitle => 'สัปดาห์นี้';
 
   @override
   String learningWeeklyDigestXp(int xp) {
-    return '$xp XP earned';
+    return 'ได้รับ $xp XP';
   }
 
   @override
@@ -5121,8 +5118,7 @@ class AppLocalizationsTh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count lessons',
-      one: '1 lesson',
+      other: '$countบทเรียน',
     );
     return '$_temp0';
   }
@@ -5132,8 +5128,7 @@ class AppLocalizationsTh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count words learned',
-      one: '1 word learned',
+      other: 'เรียนรู้ $countคำ',
     );
     return '$_temp0';
   }
@@ -5143,100 +5138,98 @@ class AppLocalizationsTh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count active days',
-      one: '1 active day',
+      other: '$countวันที่ใช้งาน',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningWeeklyDigestTopAchievement => 'Top achievement';
+  String get learningWeeklyDigestTopAchievement => 'ความสำเร็จสูงสุด';
 
   @override
   String learningWeeklyDigestTrendUp(int pct) {
-    return 'Up $pct% from last week';
+    return 'เพิ่มขึ้น $pct% จากสัปดาห์ที่แล้ว';
   }
 
   @override
   String learningWeeklyDigestTrendDown(int pct) {
-    return 'Down $pct% from last week';
+    return 'ลดลง $pct% จากสัปดาห์ที่แล้ว';
   }
 
   @override
-  String get learningWeeklyDigestTrendFlat => 'Same as last week';
+  String get learningWeeklyDigestTrendFlat => 'เหมือนสัปดาห์ที่แล้ว';
 
   @override
-  String get learningSrsDashboardTitle => 'Daily Review';
+  String get learningSrsDashboardTitle => 'ทบทวนประจำวัน';
 
   @override
   String learningSrsDueToday(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards due today',
-      one: '1 card due today',
-      zero: 'No cards due today',
+      other: 'วันนี้ $countใบ',
+      zero: 'ไม่มีการ์ดวันนี้',
     );
     return '$_temp0';
   }
 
   @override
   String learningSrsDueTomorrow(int count) {
-    return '$count due tomorrow';
+    return 'พรุ่งนี้ $countใบ';
   }
 
   @override
   String learningSrsDueThisWeek(int count) {
-    return '$count due this week';
+    return 'สัปดาห์นี้ $countใบ';
   }
 
   @override
-  String get learningSrsStartReview => 'Start review';
+  String get learningSrsStartReview => 'เริ่มทบทวน';
 
   @override
-  String get learningSrsAllCaughtUp => 'You\'re all caught up!';
+  String get learningSrsAllCaughtUp => 'คุณทันหมดแล้ว!';
 
   @override
-  String get learningSrsKeepGoing => 'Keep going';
+  String get learningSrsKeepGoing => 'ต่อไปเลย';
 
   @override
   String get learningLeaderboardXpTab => 'XP';
 
   @override
-  String get learningLeaderboardStreakTab => 'Streak';
+  String get learningLeaderboardStreakTab => 'สตรีค';
 
   @override
-  String get learningLeaderboardLanguageTab => 'Language';
+  String get learningLeaderboardLanguageTab => 'ภาษา';
 
   @override
-  String get learningLeaderboardFriendsTab => 'Friends';
+  String get learningLeaderboardFriendsTab => 'เพื่อน';
 
   @override
-  String get learningLeaderboardEmpty => 'No rankings yet';
+  String get learningLeaderboardEmpty => 'ยังไม่มีการจัดอันดับ';
 
   @override
-  String get learningLeaderboardYouLabel => 'You';
+  String get learningLeaderboardYouLabel => 'คุณ';
 
   @override
-  String get learningLeaderboardFriendBadge => 'Friend';
+  String get learningLeaderboardFriendBadge => 'เพื่อน';
 
   @override
-  String get learningEmptyVocab => 'Add words you want to remember';
+  String get learningEmptyVocab => 'เพิ่มคำที่คุณต้องการจำ';
 
   @override
-  String get learningEmptyLessons => 'No lessons available yet';
+  String get learningEmptyLessons => 'ยังไม่มีบทเรียน';
 
   @override
-  String get learningEmptyQuizzes => 'No quizzes available';
+  String get learningEmptyQuizzes => 'ไม่มีแบบทดสอบ';
 
   @override
-  String get learningEmptyChallenges => 'Check back tomorrow';
+  String get learningEmptyChallenges => 'กลับมาตรวจสอบพรุ่งนี้';
 
   @override
-  String get learningEmptyAchievements => 'Earn your first achievement';
+  String get learningEmptyAchievements => 'รับความสำเร็จแรกของคุณ';
 
   @override
-  String get learningEmptySearchResults => 'No results found';
+  String get learningEmptySearchResults => 'ไม่พบผลลัพธ์';
 
   @override
   String learningXpGained(int xp) {
@@ -5244,57 +5237,57 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get learningLevelUp => 'Level up!';
+  String get learningLevelUp => 'เลเวลอัพ!';
 
   @override
   String learningLevelReached(String level) {
-    return 'You reached $level';
+    return 'คุณถึง $level';
   }
 
   @override
-  String get learningAchievementUnlocked => 'Achievement unlocked';
+  String get learningAchievementUnlocked => 'ปลดล็อกความสำเร็จ';
 
   @override
-  String get learningVocabularySearchHint => 'Search vocabulary';
+  String get learningVocabularySearchHint => 'ค้นหาคำศัพท์';
 
   @override
-  String get learningVocabularyFilterAll => 'All';
+  String get learningVocabularyFilterAll => 'ทั้งหมด';
 
   @override
-  String get learningVocabularyFilterNew => 'New';
+  String get learningVocabularyFilterNew => 'ใหม่';
 
   @override
-  String get learningVocabularyFilterLearning => 'Learning';
+  String get learningVocabularyFilterLearning => 'กำลังเรียน';
 
   @override
-  String get learningVocabularyFilterMastered => 'Mastered';
+  String get learningVocabularyFilterMastered => 'เชี่ยวชาญ';
 
   @override
-  String get learningVocabularySortRecent => 'Recent';
+  String get learningVocabularySortRecent => 'ล่าสุด';
 
   @override
-  String get learningVocabularySortAlphabetical => 'Alphabetical';
+  String get learningVocabularySortAlphabetical => 'ตามตัวอักษร';
 
   @override
-  String get learningVocabularySortMastery => 'Mastery';
+  String get learningVocabularySortMastery => 'ระดับความชำนาญ';
 
   @override
-  String get learningVocabularyMasteryNew => 'New';
+  String get learningVocabularyMasteryNew => 'ใหม่';
 
   @override
-  String get learningVocabularyMasteryLearning => 'Learning';
+  String get learningVocabularyMasteryLearning => 'กำลังเรียน';
 
   @override
-  String get learningVocabularyMasteryMastered => 'Mastered';
+  String get learningVocabularyMasteryMastered => 'เชี่ยวชาญ';
 
   @override
-  String get learningProgressLevelLabel => 'Level';
+  String get learningProgressLevelLabel => 'เลเวล';
 
   @override
   String learningProgressXpToNextLevel(int xp) {
-    return '$xp XP to next level';
+    return '$xp XP ถึงเลเวลถัดไป';
   }
 
   @override
-  String get learningProgressWeeklyChartTitle => 'Last 7 days';
+  String get learningProgressWeeklyChartTitle => '7 วันที่ผ่านมา';
 }

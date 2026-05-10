@@ -5043,34 +5043,32 @@ class AppLocalizationsZh extends AppLocalizations {
   String get chatRetry => '重试';
 
   @override
-  String get learningHubTitle => 'Learning';
+  String get learningHubTitle => '学习';
 
   @override
-  String get learningCommonRetry => 'Retry';
+  String get learningCommonRetry => '重试';
 
   @override
-  String get learningCommonContinue => 'Continue';
+  String get learningCommonContinue => '继续';
 
   @override
-  String get learningCommonAwesome => 'Awesome!';
+  String get learningCommonAwesome => '太棒了！';
 
   @override
-  String get learningErrorGeneric => 'Something went wrong';
+  String get learningErrorGeneric => '出了点问题';
 
   @override
-  String get learningStreakCurrent => 'Current streak';
+  String get learningStreakCurrent => '当前连击';
 
   @override
-  String get learningStreakLongest => 'Longest streak';
+  String get learningStreakLongest => '最长连击';
 
   @override
   String learningStreakDaysCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count days',
-      one: '1 day',
-      zero: '0 days',
+      other: '$count天',
     );
     return '$_temp0';
   }
@@ -5080,40 +5078,39 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count freezes available',
-      one: '1 freeze available',
-      zero: 'No freezes available',
+      other: '$count个冻结可用',
+      zero: '没有可用的冻结',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningStreakFreezeUse => 'Use freeze';
+  String get learningStreakFreezeUse => '使用冻结';
 
   @override
-  String get learningStreakFreezeDescription => 'Freezes protect your streak when you miss a day.';
+  String get learningStreakFreezeDescription => '冻结在你缺席一天时保护你的连击。';
 
   @override
-  String get learningStreakFreezeProtected => 'Streak protected!';
+  String get learningStreakFreezeProtected => '连击已保护！';
 
   @override
-  String get learningStreakMilestone7 => '7-day streak!';
+  String get learningStreakMilestone7 => '7天连击！';
 
   @override
-  String get learningStreakMilestone30 => '30-day streak!';
+  String get learningStreakMilestone30 => '30天连击！';
 
   @override
-  String get learningStreakMilestone100 => '100-day streak!';
+  String get learningStreakMilestone100 => '100天连击！';
 
   @override
-  String get learningStreakMilestone365 => '365-day streak!';
+  String get learningStreakMilestone365 => '365天连击！';
 
   @override
-  String get learningWeeklyDigestTitle => 'This Week';
+  String get learningWeeklyDigestTitle => '本周';
 
   @override
   String learningWeeklyDigestXp(int xp) {
-    return '$xp XP earned';
+    return '获得 $xp XP';
   }
 
   @override
@@ -5121,8 +5118,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count lessons',
-      one: '1 lesson',
+      other: '$count节课',
     );
     return '$_temp0';
   }
@@ -5132,8 +5128,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count words learned',
-      one: '1 word learned',
+      other: '学习了$count个词',
     );
     return '$_temp0';
   }
@@ -5143,100 +5138,98 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count active days',
-      one: '1 active day',
+      other: '$count天活跃',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningWeeklyDigestTopAchievement => 'Top achievement';
+  String get learningWeeklyDigestTopAchievement => '最佳成就';
 
   @override
   String learningWeeklyDigestTrendUp(int pct) {
-    return 'Up $pct% from last week';
+    return '比上周增加$pct%';
   }
 
   @override
   String learningWeeklyDigestTrendDown(int pct) {
-    return 'Down $pct% from last week';
+    return '比上周减少$pct%';
   }
 
   @override
-  String get learningWeeklyDigestTrendFlat => 'Same as last week';
+  String get learningWeeklyDigestTrendFlat => '与上周相同';
 
   @override
-  String get learningSrsDashboardTitle => 'Daily Review';
+  String get learningSrsDashboardTitle => '每日复习';
 
   @override
   String learningSrsDueToday(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards due today',
-      one: '1 card due today',
-      zero: 'No cards due today',
+      other: '今天$count张卡片',
+      zero: '今天没有卡片',
     );
     return '$_temp0';
   }
 
   @override
   String learningSrsDueTomorrow(int count) {
-    return '$count due tomorrow';
+    return '明天$count张';
   }
 
   @override
   String learningSrsDueThisWeek(int count) {
-    return '$count due this week';
+    return '本周$count张';
   }
 
   @override
-  String get learningSrsStartReview => 'Start review';
+  String get learningSrsStartReview => '开始复习';
 
   @override
-  String get learningSrsAllCaughtUp => 'You\'re all caught up!';
+  String get learningSrsAllCaughtUp => '你已全部完成！';
 
   @override
-  String get learningSrsKeepGoing => 'Keep going';
+  String get learningSrsKeepGoing => '继续加油';
 
   @override
   String get learningLeaderboardXpTab => 'XP';
 
   @override
-  String get learningLeaderboardStreakTab => 'Streak';
+  String get learningLeaderboardStreakTab => '连击';
 
   @override
-  String get learningLeaderboardLanguageTab => 'Language';
+  String get learningLeaderboardLanguageTab => '语言';
 
   @override
-  String get learningLeaderboardFriendsTab => 'Friends';
+  String get learningLeaderboardFriendsTab => '好友';
 
   @override
-  String get learningLeaderboardEmpty => 'No rankings yet';
+  String get learningLeaderboardEmpty => '暂无排名';
 
   @override
-  String get learningLeaderboardYouLabel => 'You';
+  String get learningLeaderboardYouLabel => '你';
 
   @override
-  String get learningLeaderboardFriendBadge => 'Friend';
+  String get learningLeaderboardFriendBadge => '好友';
 
   @override
-  String get learningEmptyVocab => 'Add words you want to remember';
+  String get learningEmptyVocab => '添加你想记住的单词';
 
   @override
-  String get learningEmptyLessons => 'No lessons available yet';
+  String get learningEmptyLessons => '暂无课程';
 
   @override
-  String get learningEmptyQuizzes => 'No quizzes available';
+  String get learningEmptyQuizzes => '暂无测验';
 
   @override
-  String get learningEmptyChallenges => 'Check back tomorrow';
+  String get learningEmptyChallenges => '明天再来查看';
 
   @override
-  String get learningEmptyAchievements => 'Earn your first achievement';
+  String get learningEmptyAchievements => '获得你的第一个成就';
 
   @override
-  String get learningEmptySearchResults => 'No results found';
+  String get learningEmptySearchResults => '未找到结果';
 
   @override
   String learningXpGained(int xp) {
@@ -5244,59 +5237,59 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get learningLevelUp => 'Level up!';
+  String get learningLevelUp => '升级了！';
 
   @override
   String learningLevelReached(String level) {
-    return 'You reached $level';
+    return '你达到了 $level';
   }
 
   @override
-  String get learningAchievementUnlocked => 'Achievement unlocked';
+  String get learningAchievementUnlocked => '成就解锁';
 
   @override
-  String get learningVocabularySearchHint => 'Search vocabulary';
+  String get learningVocabularySearchHint => '搜索词汇';
 
   @override
-  String get learningVocabularyFilterAll => 'All';
+  String get learningVocabularyFilterAll => '全部';
 
   @override
-  String get learningVocabularyFilterNew => 'New';
+  String get learningVocabularyFilterNew => '新词';
 
   @override
-  String get learningVocabularyFilterLearning => 'Learning';
+  String get learningVocabularyFilterLearning => '学习中';
 
   @override
-  String get learningVocabularyFilterMastered => 'Mastered';
+  String get learningVocabularyFilterMastered => '已掌握';
 
   @override
-  String get learningVocabularySortRecent => 'Recent';
+  String get learningVocabularySortRecent => '最近';
 
   @override
-  String get learningVocabularySortAlphabetical => 'Alphabetical';
+  String get learningVocabularySortAlphabetical => '按字母';
 
   @override
-  String get learningVocabularySortMastery => 'Mastery';
+  String get learningVocabularySortMastery => '掌握程度';
 
   @override
-  String get learningVocabularyMasteryNew => 'New';
+  String get learningVocabularyMasteryNew => '新词';
 
   @override
-  String get learningVocabularyMasteryLearning => 'Learning';
+  String get learningVocabularyMasteryLearning => '学习中';
 
   @override
-  String get learningVocabularyMasteryMastered => 'Mastered';
+  String get learningVocabularyMasteryMastered => '已掌握';
 
   @override
-  String get learningProgressLevelLabel => 'Level';
+  String get learningProgressLevelLabel => '等级';
 
   @override
   String learningProgressXpToNextLevel(int xp) {
-    return '$xp XP to next level';
+    return '距下一等级还需 $xp XP';
   }
 
   @override
-  String get learningProgressWeeklyChartTitle => 'Last 7 days';
+  String get learningProgressWeeklyChartTitle => '最近7天';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -10047,4 +10040,253 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatRetry => '重試';
+
+  @override
+  String get learningHubTitle => '學習';
+
+  @override
+  String get learningCommonRetry => '重試';
+
+  @override
+  String get learningCommonContinue => '繼續';
+
+  @override
+  String get learningCommonAwesome => '太棒了！';
+
+  @override
+  String get learningErrorGeneric => '發生了一些問題';
+
+  @override
+  String get learningStreakCurrent => '目前連擊';
+
+  @override
+  String get learningStreakLongest => '最長連擊';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個凍結可用',
+      zero: '沒有可用的凍結',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => '使用凍結';
+
+  @override
+  String get learningStreakFreezeDescription => '凍結在你缺席一天時保護你的連擊。';
+
+  @override
+  String get learningStreakFreezeProtected => '連擊已保護！';
+
+  @override
+  String get learningStreakMilestone7 => '7天連擊！';
+
+  @override
+  String get learningStreakMilestone30 => '30天連擊！';
+
+  @override
+  String get learningStreakMilestone100 => '100天連擊！';
+
+  @override
+  String get learningStreakMilestone365 => '365天連擊！';
+
+  @override
+  String get learningWeeklyDigestTitle => '本週';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '獲得 $xp XP';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count堂課',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '學習了$count個詞',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天活躍',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => '最佳成就';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return '比上週增加$pct%';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return '比上週減少$pct%';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => '與上週相同';
+
+  @override
+  String get learningSrsDashboardTitle => '每日複習';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天$count張卡片',
+      zero: '今天沒有卡片',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '明天$count張';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '本週$count張';
+  }
+
+  @override
+  String get learningSrsStartReview => '開始複習';
+
+  @override
+  String get learningSrsAllCaughtUp => '你已全部完成！';
+
+  @override
+  String get learningSrsKeepGoing => '繼續加油';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => '連擊';
+
+  @override
+  String get learningLeaderboardLanguageTab => '語言';
+
+  @override
+  String get learningLeaderboardFriendsTab => '好友';
+
+  @override
+  String get learningLeaderboardEmpty => '暫無排名';
+
+  @override
+  String get learningLeaderboardYouLabel => '你';
+
+  @override
+  String get learningLeaderboardFriendBadge => '好友';
+
+  @override
+  String get learningEmptyVocab => '新增你想記住的單字';
+
+  @override
+  String get learningEmptyLessons => '暫無課程';
+
+  @override
+  String get learningEmptyQuizzes => '暫無測驗';
+
+  @override
+  String get learningEmptyChallenges => '明天再來查看';
+
+  @override
+  String get learningEmptyAchievements => '獲得你的第一個成就';
+
+  @override
+  String get learningEmptySearchResults => '未找到結果';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => '升級了！';
+
+  @override
+  String learningLevelReached(String level) {
+    return '你達到了 $level';
+  }
+
+  @override
+  String get learningAchievementUnlocked => '成就解鎖';
+
+  @override
+  String get learningVocabularySearchHint => '搜尋詞彙';
+
+  @override
+  String get learningVocabularyFilterAll => '全部';
+
+  @override
+  String get learningVocabularyFilterNew => '新詞';
+
+  @override
+  String get learningVocabularyFilterLearning => '學習中';
+
+  @override
+  String get learningVocabularyFilterMastered => '已掌握';
+
+  @override
+  String get learningVocabularySortRecent => '最近';
+
+  @override
+  String get learningVocabularySortAlphabetical => '按字母';
+
+  @override
+  String get learningVocabularySortMastery => '掌握程度';
+
+  @override
+  String get learningVocabularyMasteryNew => '新詞';
+
+  @override
+  String get learningVocabularyMasteryLearning => '學習中';
+
+  @override
+  String get learningVocabularyMasteryMastered => '已掌握';
+
+  @override
+  String get learningProgressLevelLabel => '等級';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '距下一等級還需 $xp XP';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => '最近7天';
 }

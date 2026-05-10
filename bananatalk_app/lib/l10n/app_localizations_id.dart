@@ -5043,34 +5043,34 @@ class AppLocalizationsId extends AppLocalizations {
   String get chatRetry => 'Coba lagi';
 
   @override
-  String get learningHubTitle => 'Learning';
+  String get learningHubTitle => 'Belajar';
 
   @override
-  String get learningCommonRetry => 'Retry';
+  String get learningCommonRetry => 'Coba lagi';
 
   @override
-  String get learningCommonContinue => 'Continue';
+  String get learningCommonContinue => 'Lanjutkan';
 
   @override
-  String get learningCommonAwesome => 'Awesome!';
+  String get learningCommonAwesome => 'Luar biasa!';
 
   @override
-  String get learningErrorGeneric => 'Something went wrong';
+  String get learningErrorGeneric => 'Terjadi kesalahan';
 
   @override
-  String get learningStreakCurrent => 'Current streak';
+  String get learningStreakCurrent => 'Streak saat ini';
 
   @override
-  String get learningStreakLongest => 'Longest streak';
+  String get learningStreakLongest => 'Streak terpanjang';
 
   @override
   String learningStreakDaysCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count days',
-      one: '1 day',
-      zero: '0 days',
+      other: '$count hari',
+      one: '1 hari',
+      zero: '0 hari',
     );
     return '$_temp0';
   }
@@ -5080,40 +5080,40 @@ class AppLocalizationsId extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count freezes available',
-      one: '1 freeze available',
-      zero: 'No freezes available',
+      other: '$count freeze tersedia',
+      one: '1 freeze tersedia',
+      zero: 'Tidak ada freeze tersedia',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningStreakFreezeUse => 'Use freeze';
+  String get learningStreakFreezeUse => 'Gunakan beku';
 
   @override
-  String get learningStreakFreezeDescription => 'Freezes protect your streak when you miss a day.';
+  String get learningStreakFreezeDescription => 'Freeze melindungi streak Anda saat Anda melewatkan satu hari.';
 
   @override
-  String get learningStreakFreezeProtected => 'Streak protected!';
+  String get learningStreakFreezeProtected => 'Streak terlindungi!';
 
   @override
-  String get learningStreakMilestone7 => '7-day streak!';
+  String get learningStreakMilestone7 => 'Streak 7 hari!';
 
   @override
-  String get learningStreakMilestone30 => '30-day streak!';
+  String get learningStreakMilestone30 => 'Streak 30 hari!';
 
   @override
-  String get learningStreakMilestone100 => '100-day streak!';
+  String get learningStreakMilestone100 => 'Streak 100 hari!';
 
   @override
-  String get learningStreakMilestone365 => '365-day streak!';
+  String get learningStreakMilestone365 => 'Streak 365 hari!';
 
   @override
-  String get learningWeeklyDigestTitle => 'This Week';
+  String get learningWeeklyDigestTitle => 'Minggu ini';
 
   @override
   String learningWeeklyDigestXp(int xp) {
-    return '$xp XP earned';
+    return '$xp XP diperoleh';
   }
 
   @override
@@ -5121,8 +5121,8 @@ class AppLocalizationsId extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count lessons',
-      one: '1 lesson',
+      other: '$count pelajaran',
+      one: '1 pelajaran',
     );
     return '$_temp0';
   }
@@ -5132,8 +5132,8 @@ class AppLocalizationsId extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count words learned',
-      one: '1 word learned',
+      other: '$count kata dipelajari',
+      one: '1 kata dipelajari',
     );
     return '$_temp0';
   }
@@ -5143,61 +5143,61 @@ class AppLocalizationsId extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count active days',
-      one: '1 active day',
+      other: '$count hari aktif',
+      one: '1 hari aktif',
     );
     return '$_temp0';
   }
 
   @override
-  String get learningWeeklyDigestTopAchievement => 'Top achievement';
+  String get learningWeeklyDigestTopAchievement => 'Pencapaian terbaik';
 
   @override
   String learningWeeklyDigestTrendUp(int pct) {
-    return 'Up $pct% from last week';
+    return 'Naik $pct% dari minggu lalu';
   }
 
   @override
   String learningWeeklyDigestTrendDown(int pct) {
-    return 'Down $pct% from last week';
+    return 'Turun $pct% dari minggu lalu';
   }
 
   @override
-  String get learningWeeklyDigestTrendFlat => 'Same as last week';
+  String get learningWeeklyDigestTrendFlat => 'Sama seperti minggu lalu';
 
   @override
-  String get learningSrsDashboardTitle => 'Daily Review';
+  String get learningSrsDashboardTitle => 'Ulasan harian';
 
   @override
   String learningSrsDueToday(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count cards due today',
-      one: '1 card due today',
-      zero: 'No cards due today',
+      other: '$count kartu hari ini',
+      one: '1 kartu hari ini',
+      zero: 'Tidak ada kartu hari ini',
     );
     return '$_temp0';
   }
 
   @override
   String learningSrsDueTomorrow(int count) {
-    return '$count due tomorrow';
+    return '$count besok';
   }
 
   @override
   String learningSrsDueThisWeek(int count) {
-    return '$count due this week';
+    return '$count minggu ini';
   }
 
   @override
-  String get learningSrsStartReview => 'Start review';
+  String get learningSrsStartReview => 'Mulai ulasan';
 
   @override
-  String get learningSrsAllCaughtUp => 'You\'re all caught up!';
+  String get learningSrsAllCaughtUp => 'Kamu sudah tuntas!';
 
   @override
-  String get learningSrsKeepGoing => 'Keep going';
+  String get learningSrsKeepGoing => 'Terus semangat';
 
   @override
   String get learningLeaderboardXpTab => 'XP';
@@ -5206,37 +5206,37 @@ class AppLocalizationsId extends AppLocalizations {
   String get learningLeaderboardStreakTab => 'Streak';
 
   @override
-  String get learningLeaderboardLanguageTab => 'Language';
+  String get learningLeaderboardLanguageTab => 'Bahasa';
 
   @override
-  String get learningLeaderboardFriendsTab => 'Friends';
+  String get learningLeaderboardFriendsTab => 'Teman';
 
   @override
-  String get learningLeaderboardEmpty => 'No rankings yet';
+  String get learningLeaderboardEmpty => 'Belum ada peringkat';
 
   @override
-  String get learningLeaderboardYouLabel => 'You';
+  String get learningLeaderboardYouLabel => 'Kamu';
 
   @override
-  String get learningLeaderboardFriendBadge => 'Friend';
+  String get learningLeaderboardFriendBadge => 'Teman';
 
   @override
-  String get learningEmptyVocab => 'Add words you want to remember';
+  String get learningEmptyVocab => 'Tambahkan kata yang ingin kamu ingat';
 
   @override
-  String get learningEmptyLessons => 'No lessons available yet';
+  String get learningEmptyLessons => 'Belum ada pelajaran tersedia';
 
   @override
-  String get learningEmptyQuizzes => 'No quizzes available';
+  String get learningEmptyQuizzes => 'Tidak ada kuis tersedia';
 
   @override
-  String get learningEmptyChallenges => 'Check back tomorrow';
+  String get learningEmptyChallenges => 'Cek lagi besok';
 
   @override
-  String get learningEmptyAchievements => 'Earn your first achievement';
+  String get learningEmptyAchievements => 'Raih pencapaian pertamamu';
 
   @override
-  String get learningEmptySearchResults => 'No results found';
+  String get learningEmptySearchResults => 'Tidak ada hasil ditemukan';
 
   @override
   String learningXpGained(int xp) {
@@ -5244,57 +5244,57 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get learningLevelUp => 'Level up!';
+  String get learningLevelUp => 'Naik level!';
 
   @override
   String learningLevelReached(String level) {
-    return 'You reached $level';
+    return 'Kamu mencapai $level';
   }
 
   @override
-  String get learningAchievementUnlocked => 'Achievement unlocked';
+  String get learningAchievementUnlocked => 'Pencapaian terbuka';
 
   @override
-  String get learningVocabularySearchHint => 'Search vocabulary';
+  String get learningVocabularySearchHint => 'Cari kosakata';
 
   @override
-  String get learningVocabularyFilterAll => 'All';
+  String get learningVocabularyFilterAll => 'Semua';
 
   @override
-  String get learningVocabularyFilterNew => 'New';
+  String get learningVocabularyFilterNew => 'Baru';
 
   @override
-  String get learningVocabularyFilterLearning => 'Learning';
+  String get learningVocabularyFilterLearning => 'Sedang belajar';
 
   @override
-  String get learningVocabularyFilterMastered => 'Mastered';
+  String get learningVocabularyFilterMastered => 'Dikuasai';
 
   @override
-  String get learningVocabularySortRecent => 'Recent';
+  String get learningVocabularySortRecent => 'Terbaru';
 
   @override
-  String get learningVocabularySortAlphabetical => 'Alphabetical';
+  String get learningVocabularySortAlphabetical => 'Alfabetis';
 
   @override
-  String get learningVocabularySortMastery => 'Mastery';
+  String get learningVocabularySortMastery => 'Penguasaan';
 
   @override
-  String get learningVocabularyMasteryNew => 'New';
+  String get learningVocabularyMasteryNew => 'Baru';
 
   @override
-  String get learningVocabularyMasteryLearning => 'Learning';
+  String get learningVocabularyMasteryLearning => 'Sedang belajar';
 
   @override
-  String get learningVocabularyMasteryMastered => 'Mastered';
+  String get learningVocabularyMasteryMastered => 'Dikuasai';
 
   @override
   String get learningProgressLevelLabel => 'Level';
 
   @override
   String learningProgressXpToNextLevel(int xp) {
-    return '$xp XP to next level';
+    return '$xp XP ke level berikutnya';
   }
 
   @override
-  String get learningProgressWeeklyChartTitle => 'Last 7 days';
+  String get learningProgressWeeklyChartTitle => '7 hari terakhir';
 }
