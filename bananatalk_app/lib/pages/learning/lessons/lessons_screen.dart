@@ -158,7 +158,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
                                 );
                               },
                               selectedColor:
-                                  AppColors.primary.withOpacity(0.2),
+                                  AppColors.primary.withValues(alpha: 0.2),
                               checkmarkColor: AppColors.primary,
                               labelStyle: TextStyle(
                                 color: isSelected
@@ -315,7 +315,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen>
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: AppColors.accent.withOpacity(0.1),
+                  color: AppColors.accent.withValues(alpha: 0.1),
                   borderRadius: AppRadius.borderXL,
                 ),
                 child: const Icon(

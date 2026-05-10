@@ -5041,4 +5041,260 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get chatRetry => 'Tekrar dene';
+
+  @override
+  String get learningHubTitle => 'Öğrenme';
+
+  @override
+  String get learningCommonRetry => 'Yeniden dene';
+
+  @override
+  String get learningCommonContinue => 'Devam et';
+
+  @override
+  String get learningCommonAwesome => 'Harika!';
+
+  @override
+  String get learningErrorGeneric => 'Bir şeyler yanlış gitti';
+
+  @override
+  String get learningStreakCurrent => 'Mevcut seri';
+
+  @override
+  String get learningStreakLongest => 'En uzun seri';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gün',
+      one: '1 gün',
+      zero: '0 gün',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dondurma mevcut',
+      one: '1 dondurma mevcut',
+      zero: 'Mevcut dondurma yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'Donmayı kullan';
+
+  @override
+  String get learningStreakFreezeDescription => 'Dondurma, bir gün kaçırdığınızda serinizi korur.';
+
+  @override
+  String get learningStreakFreezeProtected => 'Seri korundu!';
+
+  @override
+  String get learningStreakMilestone7 => '7 günlük seri!';
+
+  @override
+  String get learningStreakMilestone30 => '30 günlük seri!';
+
+  @override
+  String get learningStreakMilestone100 => '100 günlük seri!';
+
+  @override
+  String get learningStreakMilestone365 => '365 günlük seri!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'Bu hafta';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP kazanıldı';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ders',
+      one: '1 ders',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kelime öğrenildi',
+      one: '1 kelime öğrenildi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aktif gün',
+      one: '1 aktif gün',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'En iyi başarı';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return 'Geçen haftadan $pct% daha fazla';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return 'Geçen haftadan $pct% daha az';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'Geçen haftayla aynı';
+
+  @override
+  String get learningSrsDashboardTitle => 'Günlük tekrar';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Bugün $count kart',
+      one: 'Bugün 1 kart',
+      zero: 'Bugün kart yok',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return 'Yarın $count';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return 'Bu hafta $count';
+  }
+
+  @override
+  String get learningSrsStartReview => 'Tekrarı başlat';
+
+  @override
+  String get learningSrsAllCaughtUp => 'Her şeyi tamamladınız!';
+
+  @override
+  String get learningSrsKeepGoing => 'Devam edin';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'Seri';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'Dil';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'Arkadaşlar';
+
+  @override
+  String get learningLeaderboardEmpty => 'Henüz sıralama yok';
+
+  @override
+  String get learningLeaderboardYouLabel => 'Sen';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'Arkadaş';
+
+  @override
+  String get learningEmptyVocab => 'Hatırlamak istediğin kelimeleri ekle';
+
+  @override
+  String get learningEmptyLessons => 'Henüz ders yok';
+
+  @override
+  String get learningEmptyQuizzes => 'Quiz mevcut değil';
+
+  @override
+  String get learningEmptyChallenges => 'Yarın tekrar kontrol et';
+
+  @override
+  String get learningEmptyAchievements => 'İlk başarını kazan';
+
+  @override
+  String get learningEmptySearchResults => 'Sonuç bulunamadı';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'Seviye atladın!';
+
+  @override
+  String learningLevelReached(String level) {
+    return '$level seviyesine ulaştın';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'Başarı kazandın';
+
+  @override
+  String get learningVocabularySearchHint => 'Kelime ara';
+
+  @override
+  String get learningVocabularyFilterAll => 'Tümü';
+
+  @override
+  String get learningVocabularyFilterNew => 'Yeni';
+
+  @override
+  String get learningVocabularyFilterLearning => 'Öğreniyorum';
+
+  @override
+  String get learningVocabularyFilterMastered => 'Hâkim';
+
+  @override
+  String get learningVocabularySortRecent => 'Son';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'Alfabetik';
+
+  @override
+  String get learningVocabularySortMastery => 'Hâkimiyet';
+
+  @override
+  String get learningVocabularyMasteryNew => 'Yeni';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'Öğreniyorum';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'Hâkim';
+
+  @override
+  String get learningProgressLevelLabel => 'Seviye';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return 'Sonraki seviye için $xp XP';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => 'Son 7 gün';
 }

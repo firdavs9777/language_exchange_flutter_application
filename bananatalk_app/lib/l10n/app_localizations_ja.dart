@@ -5041,4 +5041,253 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatRetry => '再試行';
+
+  @override
+  String get learningHubTitle => '学習';
+
+  @override
+  String get learningCommonRetry => '再試行';
+
+  @override
+  String get learningCommonContinue => '続ける';
+
+  @override
+  String get learningCommonAwesome => 'すごい！';
+
+  @override
+  String get learningErrorGeneric => '問題が発生しました';
+
+  @override
+  String get learningStreakCurrent => '現在のストリーク';
+
+  @override
+  String get learningStreakLongest => '最長ストリーク';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count日',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個のフリーズ利用可能',
+      zero: 'フリーズなし',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'フリーズを使う';
+
+  @override
+  String get learningStreakFreezeDescription => 'フリーズは1日休んでもストリークを守ります。';
+
+  @override
+  String get learningStreakFreezeProtected => 'ストリーク保護済み！';
+
+  @override
+  String get learningStreakMilestone7 => '7日間ストリーク！';
+
+  @override
+  String get learningStreakMilestone30 => '30日間ストリーク！';
+
+  @override
+  String get learningStreakMilestone100 => '100日間ストリーク！';
+
+  @override
+  String get learningStreakMilestone365 => '365日間ストリーク！';
+
+  @override
+  String get learningWeeklyDigestTitle => '今週';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP 獲得';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countレッスン',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count単語学習済み',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count日アクティブ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'トップ実績';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return '先週より$pct%アップ';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return '先週より$pct%ダウン';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => '先週と同じ';
+
+  @override
+  String get learningSrsDashboardTitle => '毎日のレビュー';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日$count枚',
+      zero: '今日のカードなし',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '明日$count枚';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '今週$count枚';
+  }
+
+  @override
+  String get learningSrsStartReview => 'レビュー開始';
+
+  @override
+  String get learningSrsAllCaughtUp => 'すべて完了！';
+
+  @override
+  String get learningSrsKeepGoing => '続けよう';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'ストリーク';
+
+  @override
+  String get learningLeaderboardLanguageTab => '言語';
+
+  @override
+  String get learningLeaderboardFriendsTab => '友達';
+
+  @override
+  String get learningLeaderboardEmpty => 'まだランキングなし';
+
+  @override
+  String get learningLeaderboardYouLabel => 'あなた';
+
+  @override
+  String get learningLeaderboardFriendBadge => '友達';
+
+  @override
+  String get learningEmptyVocab => '覚えたい単語を追加しよう';
+
+  @override
+  String get learningEmptyLessons => 'まだレッスンがありません';
+
+  @override
+  String get learningEmptyQuizzes => 'クイズがありません';
+
+  @override
+  String get learningEmptyChallenges => '明日また確認しよう';
+
+  @override
+  String get learningEmptyAchievements => '最初の実績を獲得しよう';
+
+  @override
+  String get learningEmptySearchResults => '結果が見つかりません';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'レベルアップ！';
+
+  @override
+  String learningLevelReached(String level) {
+    return '$levelに到達しました';
+  }
+
+  @override
+  String get learningAchievementUnlocked => '実績解除';
+
+  @override
+  String get learningVocabularySearchHint => '単語を検索';
+
+  @override
+  String get learningVocabularyFilterAll => 'すべて';
+
+  @override
+  String get learningVocabularyFilterNew => '新規';
+
+  @override
+  String get learningVocabularyFilterLearning => '学習中';
+
+  @override
+  String get learningVocabularyFilterMastered => '習得済み';
+
+  @override
+  String get learningVocabularySortRecent => '最近';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'アルファベット順';
+
+  @override
+  String get learningVocabularySortMastery => '習得度';
+
+  @override
+  String get learningVocabularyMasteryNew => '新規';
+
+  @override
+  String get learningVocabularyMasteryLearning => '学習中';
+
+  @override
+  String get learningVocabularyMasteryMastered => '習得済み';
+
+  @override
+  String get learningProgressLevelLabel => 'レベル';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '次のレベルまで$xp XP';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => '過去7日間';
 }

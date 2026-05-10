@@ -5041,4 +5041,260 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get chatRetry => 'Riprova';
+
+  @override
+  String get learningHubTitle => 'Imparare';
+
+  @override
+  String get learningCommonRetry => 'Riprova';
+
+  @override
+  String get learningCommonContinue => 'Continua';
+
+  @override
+  String get learningCommonAwesome => 'Fantastico!';
+
+  @override
+  String get learningErrorGeneric => 'Qualcosa è andato storto';
+
+  @override
+  String get learningStreakCurrent => 'Serie attuale';
+
+  @override
+  String get learningStreakLongest => 'Serie più lunga';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count giorni',
+      one: '1 giorno',
+      zero: '0 giorni',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count blocchi disponibili',
+      one: '1 blocco disponibile',
+      zero: 'Nessun blocco disponibile',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'Usa congelamento';
+
+  @override
+  String get learningStreakFreezeDescription => 'I blocchi proteggono la tua serie quando salti un giorno.';
+
+  @override
+  String get learningStreakFreezeProtected => 'Serie protetta!';
+
+  @override
+  String get learningStreakMilestone7 => 'Serie di 7 giorni!';
+
+  @override
+  String get learningStreakMilestone30 => 'Serie di 30 giorni!';
+
+  @override
+  String get learningStreakMilestone100 => 'Serie di 100 giorni!';
+
+  @override
+  String get learningStreakMilestone365 => 'Serie di 365 giorni!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'Questa settimana';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP guadagnati';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lezioni',
+      one: '1 lezione',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count parole imparate',
+      one: '1 parola imparata',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count giorni attivi',
+      one: '1 giorno attivo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'Miglior obiettivo';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return '$pct% in più rispetto alla settimana scorsa';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return '$pct% in meno rispetto alla settimana scorsa';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'Uguale alla settimana scorsa';
+
+  @override
+  String get learningSrsDashboardTitle => 'Revisione quotidiana';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count schede oggi',
+      one: '1 scheda oggi',
+      zero: 'Nessuna scheda oggi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '$count per domani';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '$count questa settimana';
+  }
+
+  @override
+  String get learningSrsStartReview => 'Inizia revisione';
+
+  @override
+  String get learningSrsAllCaughtUp => 'Sei in pari!';
+
+  @override
+  String get learningSrsKeepGoing => 'Continua così';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'Serie';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'Lingua';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'Amici';
+
+  @override
+  String get learningLeaderboardEmpty => 'Nessuna classifica ancora';
+
+  @override
+  String get learningLeaderboardYouLabel => 'Tu';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'Amico';
+
+  @override
+  String get learningEmptyVocab => 'Aggiungi parole che vuoi ricordare';
+
+  @override
+  String get learningEmptyLessons => 'Nessuna lezione disponibile ancora';
+
+  @override
+  String get learningEmptyQuizzes => 'Nessun quiz disponibile';
+
+  @override
+  String get learningEmptyChallenges => 'Torna domani';
+
+  @override
+  String get learningEmptyAchievements => 'Guadagna il tuo primo obiettivo';
+
+  @override
+  String get learningEmptySearchResults => 'Nessun risultato trovato';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'Salito di livello!';
+
+  @override
+  String learningLevelReached(String level) {
+    return 'Hai raggiunto $level';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'Obiettivo sbloccato';
+
+  @override
+  String get learningVocabularySearchHint => 'Cerca nel vocabolario';
+
+  @override
+  String get learningVocabularyFilterAll => 'Tutto';
+
+  @override
+  String get learningVocabularyFilterNew => 'Nuovo';
+
+  @override
+  String get learningVocabularyFilterLearning => 'In apprendimento';
+
+  @override
+  String get learningVocabularyFilterMastered => 'Padroneggiato';
+
+  @override
+  String get learningVocabularySortRecent => 'Recente';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'Alfabetico';
+
+  @override
+  String get learningVocabularySortMastery => 'Padronanza';
+
+  @override
+  String get learningVocabularyMasteryNew => 'Nuovo';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'In apprendimento';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'Padroneggiato';
+
+  @override
+  String get learningProgressLevelLabel => 'Livello';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '$xp XP al prossimo livello';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => 'Ultimi 7 giorni';
 }

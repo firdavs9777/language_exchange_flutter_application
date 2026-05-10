@@ -58,16 +58,16 @@ class MultipleChoiceWidget extends StatelessWidget {
 
           if (showResult) {
             if (isCorrect) {
-              backgroundColor = Colors.green.withOpacity(0.1);
+              backgroundColor = Colors.green.withValues(alpha: 0.1);
               borderColor = Colors.green;
               textColor = Colors.green[700];
             } else if (isSelected && !isCorrect) {
-              backgroundColor = Colors.red.withOpacity(0.1);
+              backgroundColor = Colors.red.withValues(alpha: 0.1);
               borderColor = Colors.red;
               textColor = Colors.red[700];
             }
           } else if (isSelected) {
-            backgroundColor = AppColors.primary.withOpacity(0.1);
+            backgroundColor = AppColors.primary.withValues(alpha: 0.1);
             borderColor = AppColors.primary;
             textColor = AppColors.primary;
           }
@@ -150,9 +150,9 @@ class MultipleChoiceWidget extends StatelessWidget {
             width: double.infinity,
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
-              color: AppColors.info.withOpacity(0.1),
+              color: AppColors.info.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(color: AppColors.info.withOpacity(0.3)),
+              border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

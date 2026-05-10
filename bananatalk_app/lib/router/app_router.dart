@@ -6,7 +6,7 @@ import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
-import 'package:bananatalk_app/pages/learning/leaderboard_screen.dart';
+import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
 

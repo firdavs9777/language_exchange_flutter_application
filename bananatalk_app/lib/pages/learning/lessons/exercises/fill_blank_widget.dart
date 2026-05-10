@@ -150,7 +150,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
                   ),
                   decoration: BoxDecoration(
                     color: _controller.text == option.text
-                        ? AppColors.primary.withOpacity(0.1)
+                        ? AppColors.primary.withValues(alpha: 0.1)
                         : context.surfaceColor,
                     borderRadius: AppRadius.borderRound,
                     border: Border.all(
@@ -183,8 +183,8 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
               color: _isCorrect
-                  ? AppColors.success.withOpacity(0.1)
-                  : AppColors.error.withOpacity(0.1),
+                  ? AppColors.success.withValues(alpha: 0.1)
+                  : AppColors.error.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
               border: Border.all(
                 color: _isCorrect ? AppColors.success : AppColors.error,
@@ -227,9 +227,9 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
             width: double.infinity,
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
-              color: AppColors.info.withOpacity(0.1),
+              color: AppColors.info.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(color: AppColors.info.withOpacity(0.3)),
+              border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,8 +316,8 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
             filled: true,
             fillColor: widget.showResult
                 ? (_isCorrect
-                    ? AppColors.success.withOpacity(0.1)
-                    : AppColors.error.withOpacity(0.1))
+                    ? AppColors.success.withValues(alpha: 0.1)
+                    : AppColors.error.withValues(alpha: 0.1))
                 : context.containerColor,
           ),
           onChanged: (_) => setState(() {}),

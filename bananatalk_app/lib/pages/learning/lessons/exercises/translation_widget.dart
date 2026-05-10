@@ -163,7 +163,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                             vertical: 8,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: AppRadius.borderSM,
                             border: Border.all(
                               color: AppColors.primary,
@@ -250,8 +250,8 @@ class _TranslationWidgetState extends State<TranslationWidget> {
               filled: true,
               fillColor: widget.showResult
                   ? (_isCorrect
-                      ? AppColors.success.withOpacity(0.1)
-                      : AppColors.error.withOpacity(0.1))
+                      ? AppColors.success.withValues(alpha: 0.1)
+                      : AppColors.error.withValues(alpha: 0.1))
                   : context.surfaceColor,
               border: OutlineInputBorder(
                 borderRadius: AppRadius.borderMD,
@@ -289,8 +289,8 @@ class _TranslationWidgetState extends State<TranslationWidget> {
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
               color: _isCorrect
-                  ? AppColors.success.withOpacity(0.1)
-                  : AppColors.error.withOpacity(0.1),
+                  ? AppColors.success.withValues(alpha: 0.1)
+                  : AppColors.error.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
               border: Border.all(
                 color: _isCorrect ? AppColors.success : AppColors.error,
@@ -334,9 +334,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
             width: double.infinity,
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
-              color: AppColors.info.withOpacity(0.1),
+              color: AppColors.info.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(color: AppColors.info.withOpacity(0.3)),
+              border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

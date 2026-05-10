@@ -5041,4 +5041,260 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get chatRetry => 'पुनः प्रयास';
+
+  @override
+  String get learningHubTitle => 'सीखना';
+
+  @override
+  String get learningCommonRetry => 'पुनः प्रयास करें';
+
+  @override
+  String get learningCommonContinue => 'जारी रखें';
+
+  @override
+  String get learningCommonAwesome => 'शानदार!';
+
+  @override
+  String get learningErrorGeneric => 'कुछ गलत हो गया';
+
+  @override
+  String get learningStreakCurrent => 'वर्तमान स्ट्रीक';
+
+  @override
+  String get learningStreakLongest => 'सबसे लंबी स्ट्रीक';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count दिन',
+      one: '1 दिन',
+      zero: '0 दिन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count फ्रीज़ उपलब्ध',
+      one: '1 फ्रीज़ उपलब्ध',
+      zero: 'कोई फ्रीज़ उपलब्ध नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'फ्रीज़ का उपयोग करें';
+
+  @override
+  String get learningStreakFreezeDescription => 'फ्रीज़ आपकी स्ट्रीक को उस दिन सुरक्षित रखते हैं जब आप चूक जाते हैं।';
+
+  @override
+  String get learningStreakFreezeProtected => 'स्ट्रीक सुरक्षित!';
+
+  @override
+  String get learningStreakMilestone7 => '7 दिन की स्ट्रीक!';
+
+  @override
+  String get learningStreakMilestone30 => '30 दिन की स्ट्रीक!';
+
+  @override
+  String get learningStreakMilestone100 => '100 दिन की स्ट्रीक!';
+
+  @override
+  String get learningStreakMilestone365 => '365 दिन की स्ट्रीक!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'इस सप्ताह';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP अर्जित';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count पाठ',
+      one: '1 पाठ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count शब्द सीखे',
+      one: '1 शब्द सीखा',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count सक्रिय दिन',
+      one: '1 सक्रिय दिन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'शीर्ष उपलब्धि';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return 'पिछले सप्ताह से $pct% अधिक';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return 'पिछले सप्ताह से $pct% कम';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'पिछले सप्ताह जैसा ही';
+
+  @override
+  String get learningSrsDashboardTitle => 'दैनिक समीक्षा';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'आज $count कार्ड',
+      one: 'आज 1 कार्ड',
+      zero: 'आज कोई कार्ड नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return 'कल $count बकाया';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return 'इस सप्ताह $count बकाया';
+  }
+
+  @override
+  String get learningSrsStartReview => 'समीक्षा शुरू करें';
+
+  @override
+  String get learningSrsAllCaughtUp => 'आप पूरी तरह तैयार हैं!';
+
+  @override
+  String get learningSrsKeepGoing => 'जारी रखें';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'स्ट्रीक';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'भाषा';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'दोस्त';
+
+  @override
+  String get learningLeaderboardEmpty => 'अभी तक कोई रैंकिंग नहीं';
+
+  @override
+  String get learningLeaderboardYouLabel => 'आप';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'दोस्त';
+
+  @override
+  String get learningEmptyVocab => 'वे शब्द जोड़ें जो आप याद रखना चाहते हैं';
+
+  @override
+  String get learningEmptyLessons => 'अभी तक कोई पाठ उपलब्ध नहीं';
+
+  @override
+  String get learningEmptyQuizzes => 'कोई क्विज़ उपलब्ध नहीं';
+
+  @override
+  String get learningEmptyChallenges => 'कल फिर देखें';
+
+  @override
+  String get learningEmptyAchievements => 'अपनी पहली उपलब्धि अर्जित करें';
+
+  @override
+  String get learningEmptySearchResults => 'कोई परिणाम नहीं मिला';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'स्तर बढ़ा!';
+
+  @override
+  String learningLevelReached(String level) {
+    return 'आपने $level प्राप्त किया';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'उपलब्धि अनलॉक हुई';
+
+  @override
+  String get learningVocabularySearchHint => 'शब्दावली खोजें';
+
+  @override
+  String get learningVocabularyFilterAll => 'सभी';
+
+  @override
+  String get learningVocabularyFilterNew => 'नया';
+
+  @override
+  String get learningVocabularyFilterLearning => 'सीख रहे हैं';
+
+  @override
+  String get learningVocabularyFilterMastered => 'महारत हासिल';
+
+  @override
+  String get learningVocabularySortRecent => 'हाल का';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'वर्णानुक्रम';
+
+  @override
+  String get learningVocabularySortMastery => 'महारत';
+
+  @override
+  String get learningVocabularyMasteryNew => 'नया';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'सीख रहे हैं';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'महारत हासिल';
+
+  @override
+  String get learningProgressLevelLabel => 'स्तर';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return 'अगले स्तर के लिए $xp XP';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => 'पिछले 7 दिन';
 }

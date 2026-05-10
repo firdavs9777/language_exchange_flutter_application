@@ -5041,4 +5041,260 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get chatRetry => 'Subukan ulit';
+
+  @override
+  String get learningHubTitle => 'Pag-aaral';
+
+  @override
+  String get learningCommonRetry => 'Subukan ulit';
+
+  @override
+  String get learningCommonContinue => 'Magpatuloy';
+
+  @override
+  String get learningCommonAwesome => 'Kamangha-mangha!';
+
+  @override
+  String get learningErrorGeneric => 'May nangyaring mali';
+
+  @override
+  String get learningStreakCurrent => 'Kasalukuyang streak';
+
+  @override
+  String get learningStreakLongest => 'Pinakamahabang streak';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count araw',
+      one: '1 araw',
+      zero: '0 araw',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count freeze available',
+      one: '1 freeze available',
+      zero: 'Walang available na freeze',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'Gamitin ang freeze';
+
+  @override
+  String get learningStreakFreezeDescription => 'Pinoprotektahan ng mga freeze ang iyong streak kapag napalampas mo ang isang araw.';
+
+  @override
+  String get learningStreakFreezeProtected => 'Streak protektado!';
+
+  @override
+  String get learningStreakMilestone7 => 'Streak ng 7 araw!';
+
+  @override
+  String get learningStreakMilestone30 => 'Streak ng 30 araw!';
+
+  @override
+  String get learningStreakMilestone100 => 'Streak ng 100 araw!';
+
+  @override
+  String get learningStreakMilestone365 => 'Streak ng 365 araw!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'Ngayong linggo';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP nakuha';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aralin',
+      one: '1 aralin',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count salitang natutunan',
+      one: '1 salitang natutunan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count araw na aktibo',
+      one: '1 araw na aktibo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'Pinakamataas na tagumpay';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return '$pct% mas mataas kaysa noong nakaraang linggo';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return '$pct% mas mababa kaysa noong nakaraang linggo';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'Kapareho ng nakaraang linggo';
+
+  @override
+  String get learningSrsDashboardTitle => 'Pang-araw-araw na pagsusuri';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kard ngayon',
+      one: '1 kard ngayon',
+      zero: 'Walang kard ngayon',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '$count bukas';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '$count ngayong linggo';
+  }
+
+  @override
+  String get learningSrsStartReview => 'Simulan ang pagsusuri';
+
+  @override
+  String get learningSrsAllCaughtUp => 'Natapos mo na lahat!';
+
+  @override
+  String get learningSrsKeepGoing => 'Ituloy';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'Streak';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'Wika';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'Mga kaibigan';
+
+  @override
+  String get learningLeaderboardEmpty => 'Wala pang ranggo';
+
+  @override
+  String get learningLeaderboardYouLabel => 'Ikaw';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'Kaibigan';
+
+  @override
+  String get learningEmptyVocab => 'Magdagdag ng mga salitang gusto mong matandaan';
+
+  @override
+  String get learningEmptyLessons => 'Wala pang available na aralin';
+
+  @override
+  String get learningEmptyQuizzes => 'Walang available na quiz';
+
+  @override
+  String get learningEmptyChallenges => 'Bumalik bukas';
+
+  @override
+  String get learningEmptyAchievements => 'Kunin ang iyong unang tagumpay';
+
+  @override
+  String get learningEmptySearchResults => 'Walang resultang nahanap';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'Tumaas ang level!';
+
+  @override
+  String learningLevelReached(String level) {
+    return 'Umabot ka sa $level';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'Nakuha ang tagumpay';
+
+  @override
+  String get learningVocabularySearchHint => 'Hanapin ang bokabularyo';
+
+  @override
+  String get learningVocabularyFilterAll => 'Lahat';
+
+  @override
+  String get learningVocabularyFilterNew => 'Bago';
+
+  @override
+  String get learningVocabularyFilterLearning => 'Nag-aaral';
+
+  @override
+  String get learningVocabularyFilterMastered => 'Naimaster';
+
+  @override
+  String get learningVocabularySortRecent => 'Kamakailang';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'Alpabetiko';
+
+  @override
+  String get learningVocabularySortMastery => 'Mastery';
+
+  @override
+  String get learningVocabularyMasteryNew => 'Bago';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'Nag-aaral';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'Naimaster';
+
+  @override
+  String get learningProgressLevelLabel => 'Antas';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '$xp XP hanggang sa susunod na antas';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => 'Nakaraang 7 araw';
 }

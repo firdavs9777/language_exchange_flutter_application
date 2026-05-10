@@ -97,9 +97,9 @@ class _MatchingWidgetState extends State<MatchingWidget> {
             width: double.infinity,
             padding: Spacing.paddingXL,
             decoration: BoxDecoration(
-              color: AppColors.warning.withOpacity(0.1),
+              color: AppColors.warning.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(color: AppColors.warning.withOpacity(0.5)),
+              border: Border.all(color: AppColors.warning.withValues(alpha: 0.5)),
             ),
             child: Column(
               children: [
@@ -205,17 +205,17 @@ class _MatchingWidgetState extends State<MatchingWidget> {
 
                   if (widget.showResult) {
                     if (isCorrect) {
-                      backgroundColor = AppColors.success.withOpacity(0.1);
+                      backgroundColor = AppColors.success.withValues(alpha: 0.1);
                       borderColor = AppColors.success;
                     } else if (isIncorrect) {
-                      backgroundColor = AppColors.error.withOpacity(0.1);
+                      backgroundColor = AppColors.error.withValues(alpha: 0.1);
                       borderColor = AppColors.error;
                     }
                   } else if (isSelected) {
-                    backgroundColor = AppColors.primary.withOpacity(0.1);
+                    backgroundColor = AppColors.primary.withValues(alpha: 0.1);
                     borderColor = AppColors.primary;
                   } else if (isMatched) {
-                    backgroundColor = AppColors.info.withOpacity(0.1);
+                    backgroundColor = AppColors.info.withValues(alpha: 0.1);
                     borderColor = AppColors.info;
                   }
 
@@ -301,14 +301,14 @@ class _MatchingWidgetState extends State<MatchingWidget> {
 
                   if (widget.showResult) {
                     if (isCorrect) {
-                      backgroundColor = AppColors.success.withOpacity(0.1);
+                      backgroundColor = AppColors.success.withValues(alpha: 0.1);
                       borderColor = AppColors.success;
                     } else if (isIncorrect) {
-                      backgroundColor = AppColors.error.withOpacity(0.1);
+                      backgroundColor = AppColors.error.withValues(alpha: 0.1);
                       borderColor = AppColors.error;
                     }
                   } else if (isMatched) {
-                    backgroundColor = AppColors.info.withOpacity(0.1);
+                    backgroundColor = AppColors.info.withValues(alpha: 0.1);
                     borderColor = AppColors.info;
                   }
 
@@ -404,8 +404,8 @@ class _MatchingWidgetState extends State<MatchingWidget> {
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
               color: _correctCount == _leftItems.length
-                  ? AppColors.success.withOpacity(0.1)
-                  : AppColors.warning.withOpacity(0.1),
+                  ? AppColors.success.withValues(alpha: 0.1)
+                  : AppColors.warning.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
               border: Border.all(
                 color: _correctCount == _leftItems.length
@@ -445,9 +445,9 @@ class _MatchingWidgetState extends State<MatchingWidget> {
             width: double.infinity,
             padding: Spacing.paddingLG,
             decoration: BoxDecoration(
-              color: AppColors.info.withOpacity(0.1),
+              color: AppColors.info.withValues(alpha: 0.1),
               borderRadius: AppRadius.borderMD,
-              border: Border.all(color: AppColors.info.withOpacity(0.3)),
+              border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -14,6 +14,7 @@ import 'package:bananatalk_app/widgets/ai/answer_feedback_sheet.dart';
 import 'package:bananatalk_app/widgets/ai/lesson_summary_sheet.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
 
 /// Lesson player screen
 class LessonPlayerScreen extends ConsumerStatefulWidget {
@@ -34,12 +35,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   int _previousIncorrectCount = 0;
   bool _summaryShown = false;
   bool _lessonStarted = false;
+  bool _xpOverlayShown = false;
 
   @override
   void initState() {
     super.initState();
     _previousIncorrectCount = 0;
     _summaryShown = false;
+    _xpOverlayShown = false;
     _lessonStarted = false;
 
     // If lesson data was passed directly, use it immediately
@@ -78,6 +81,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       _lessonStarted = false;
       _previousIncorrectCount = 0;
       _summaryShown = false;
+      _xpOverlayShown = false;
     });
     ref.read(lessonPlayerProvider.notifier).reset();
     ref.invalidate(lessonDetailProvider(widget.lessonId));
@@ -152,6 +156,13 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       userAnswer: userAnswerText,
       correctAnswer: correctAnswer,
     );
+  }
+
+  /// Show XP gain overlay when lesson completes
+  void _showXpOverlay(int xp) {
+    if (_xpOverlayShown) return;
+    _xpOverlayShown = true;
+    XpGainOverlay.show(context, xp);
   }
 
   /// Show AI summary sheet when lesson is complete
@@ -241,12 +252,13 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             });
 
             if (playerState.isComplete) {
-              // Show AI summary when lesson completes
+              // Show AI summary and XP overlay when lesson completes
               final total = playerState.exercises.length;
               final correct = playerState.correctCount;
               final accuracy = total > 0 ? (correct / total * 100).round() : 0;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 _showAISummary(accuracy);
+                _showXpOverlay(playerState.xpEarned ?? 0);
               });
               return _buildResults(playerState, lesson);
             }
@@ -400,7 +412,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: _getResultColor(accuracy).withOpacity(0.1),
+                  color: _getResultColor(accuracy).withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -474,6 +486,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                         _lessonStarted = false;
                         _previousIncorrectCount = 0;
                         _summaryShown = false;
+                        _xpOverlayShown = false;
                       });
                       ref.read(lessonPlayerProvider.notifier).reset();
                       // Lesson will restart automatically via _tryStartLesson in build

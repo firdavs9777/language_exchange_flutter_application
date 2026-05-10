@@ -146,7 +146,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
         Container(
           width: 1,
           height: 40,
-          color: Colors.grey[200],
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
         _buildStatItem(
           'XP Earned',
@@ -157,7 +157,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
         Container(
           width: 1,
           height: 40,
-          color: Colors.grey[200],
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
         _buildStatItem(
           'Progress',
@@ -199,7 +199,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
           label,
           style: TextStyle(
             fontSize: 11,
-            color: Colors.grey[600],
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ],
@@ -221,7 +221,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -236,13 +236,13 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: Colors.grey[700],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Check back later!',
-              style: TextStyle(color: Colors.grey[500]),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ],
         ),
@@ -264,9 +264,9 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: color.withOpacity(0.3)),
+              border: Border.all(color: color.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
@@ -322,7 +322,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   width: 4,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: Colors.grey[400],
+                    color: Theme.of(context).colorScheme.outlineVariant,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -332,7 +332,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey[600],
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -369,7 +369,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   width: 56,
                   height: 56,
                   decoration: BoxDecoration(
-                    color: _getTypeColor(challenge.type).withOpacity(0.1),
+                    color: _getTypeColor(challenge.type).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(
@@ -414,7 +414,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
               challenge.description,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 20),
@@ -426,7 +426,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   'Progress',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: Colors.grey[700],
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 Text(
@@ -435,7 +435,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                     fontWeight: FontWeight.bold,
                     color: challenge.isCompleted
                         ? const Color(0xFF00BFA5)
-                        : Colors.grey[700],
+                        : Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -445,7 +445,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
               borderRadius: BorderRadius.circular(8),
               child: LinearProgressIndicator(
                 value: progress.clamp(0.0, 1.0),
-                backgroundColor: Colors.grey[200],
+                backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                 valueColor: AlwaysStoppedAnimation<Color>(
                   challenge.isCompleted
                       ? const Color(0xFF00BFA5)
@@ -459,7 +459,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -470,7 +470,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF00BFA5).withOpacity(0.1),
+                            color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Icon(
@@ -494,7 +494,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                               'XP Reward',
                               style: TextStyle(
                                 fontSize: 11,
-                                color: Colors.grey[600],
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                               ),
                             ),
                           ],
@@ -506,7 +506,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                     Container(
                       width: 1,
                       height: 40,
-                      color: Colors.grey[300],
+                      color: Theme.of(context).colorScheme.outlineVariant,
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -515,7 +515,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF9C27B0).withOpacity(0.1),
+                              color: const Color(0xFF9C27B0).withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Icon(
@@ -540,7 +540,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                                   'Bonus',
                                   style: TextStyle(
                                     fontSize: 11,
-                                    color: Colors.grey[600],
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                                   ),
                                 ),
                               ],
@@ -563,7 +563,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   size: 16,
                   color: challenge.timeRemaining.inHours < 6
                       ? Colors.orange
-                      : Colors.grey[500],
+                      : Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(width: 6),
                 Text(
@@ -572,7 +572,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                     fontSize: 13,
                     color: challenge.timeRemaining.inHours < 6
                         ? Colors.orange
-                        : Colors.grey[600],
+                        : Theme.of(context).colorScheme.onSurfaceVariant,
                     fontWeight: challenge.timeRemaining.inHours < 6
                         ? FontWeight.w600
                         : null,
@@ -591,7 +591,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
@@ -614,7 +614,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
       case 'special':
         return const Color(0xFFFF9800);
       default:
-        return Colors.grey;
+        return Theme.of(context).colorScheme.outline;
     }
   }
 
@@ -627,7 +627,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
       case 'hard':
         return const Color(0xFFE91E63);
       default:
-        return Colors.grey;
+        return Theme.of(context).colorScheme.outline;
     }
   }
 

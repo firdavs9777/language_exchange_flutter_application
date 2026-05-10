@@ -7,6 +7,7 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
+import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
 
 /// Learning Service
 /// Handles all API calls for the learning feature
@@ -1242,6 +1243,65 @@ class LearningService {
     }
   }
 
+  // ==================== STREAK FREEZE ====================
+
+  /// Use a streak freeze.
+  /// Returns the updated progress data map on success.
+  /// Throws a [Exception] if no freezes are available or a network error occurs.
+  static Future<Map<String, dynamic>> useStreakFreeze({String? language}) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}learning/progress/use-freeze');
+
+      final body = language != null ? {'language': language} : <String, dynamic>{};
+
+      final response = await http.post(
+        url,
+        headers: _getHeaders(token),
+        body: body.isEmpty ? null : jsonEncode(body),
+      );
+
+      final data = _safeJsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'data': data?['data'],
+        };
+      } else {
+        return {
+          'success': false,
+          'error': _getErrorMessage(data, 'Failed to use streak freeze'),
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+    }
+  }
+
+  // ==================== WEEKLY DIGEST ====================
+
+  /// Fetch last-7-day learning digest for the current user.
+  static Future<WeeklyDigest> getWeeklyDigest({String? language}) async {
+    final token = await _getToken();
+    final queryParams = <String, String>{
+      if (language != null) 'language': language,
+    };
+    final url = Uri.parse('${Endpoints.baseURL}learning/weekly-digest')
+        .replace(queryParameters: queryParams.isNotEmpty ? queryParams : null);
+
+    final response = await http.get(
+      url,
+      headers: _getHeaders(token),
+    );
+
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode == 200 && data != null && data['data'] != null) {
+      return WeeklyDigest.fromJson(data['data']);
+    }
+    throw Exception('Failed to fetch weekly digest: ${response.statusCode}');
+  }
+
   // ==================== CHALLENGES ====================
 
   /// Get challenges
@@ -1271,5 +1331,89 @@ class LearningService {
     } catch (e) {
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
+  }
+
+  // ==================== AI DAILY PRACTICE ====================
+
+  /// Fetch today's personalized AI practice sentence.
+  static Future<Map<String, dynamic>> getDailyPractice() async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}learning/daily-practice');
+
+    final response = await http.get(
+      url,
+      headers: _getHeaders(token),
+    );
+
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode != 200) {
+      throw Exception(_getErrorMessage(data, 'Daily practice fetch failed'));
+    }
+    return Map<String, dynamic>.from(data!['data'] as Map);
+  }
+
+  /// Grade user's translation of the daily practice sentence.
+  static Future<Map<String, dynamic>> gradeDailyPractice({
+    required String sentenceNative,
+    required String userTranslation,
+    String? expectedTranslation,
+  }) async {
+    final token = await _getToken();
+    final url = Uri.parse('${Endpoints.baseURL}learning/daily-practice/grade');
+
+    final body = <String, dynamic>{
+      'sentenceNative': sentenceNative,
+      'userTranslation': userTranslation,
+      if (expectedTranslation != null) 'expectedTranslation': expectedTranslation,
+    };
+
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode(body),
+    );
+
+    final data = _safeJsonDecode(response.body);
+    if (response.statusCode != 200) {
+      throw Exception(_getErrorMessage(data, 'Grading failed'));
+    }
+    return Map<String, dynamic>.from(data!['data'] as Map);
+  }
+
+  // ==================== AI VOCABULARY ====================
+
+  /// AI-fill vocabulary fields for a given word.
+  /// Returns Map with: definition, translation, partOfSpeech,
+  /// examples (List<String>), collocations (List<String>),
+  /// registerNotes, pronunciation.
+  static Future<Map<String, dynamic>> aiDefineVocabulary({
+    required String word,
+    String? language,
+    String? nativeLanguage,
+  }) async {
+    final token = await _getToken();
+    final url = Uri.parse(
+        '${Endpoints.baseURL}learning/vocabulary/ai-define');
+
+    final body = <String, dynamic>{
+      'word': word,
+      if (language != null) 'language': language,
+      if (nativeLanguage != null) 'nativeLanguage': nativeLanguage,
+    };
+
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode(body),
+    );
+
+    final data = _safeJsonDecode(response.body);
+
+    if (response.statusCode != 200) {
+      throw Exception(
+          _getErrorMessage(data, 'AI define failed'));
+    }
+
+    return Map<String, dynamic>.from(data!['data'] as Map);
   }
 }

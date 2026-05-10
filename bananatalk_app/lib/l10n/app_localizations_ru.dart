@@ -5041,4 +5041,272 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chatRetry => 'Повторить';
+
+  @override
+  String get learningHubTitle => 'Обучение';
+
+  @override
+  String get learningCommonRetry => 'Повторить';
+
+  @override
+  String get learningCommonContinue => 'Продолжить';
+
+  @override
+  String get learningCommonAwesome => 'Отлично!';
+
+  @override
+  String get learningErrorGeneric => 'Что-то пошло не так';
+
+  @override
+  String get learningStreakCurrent => 'Текущая серия';
+
+  @override
+  String get learningStreakLongest => 'Самая длинная серия';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дней',
+      many: '$count дней',
+      few: '$count дня',
+      one: '1 день',
+      zero: '0 дней',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count заморозок',
+      many: '$count заморозок доступно',
+      few: '$count заморозки доступны',
+      one: '1 заморозка доступна',
+      zero: 'Нет доступных заморозок',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'Использовать заморозку';
+
+  @override
+  String get learningStreakFreezeDescription => 'Заморозки защищают вашу серию, когда вы пропускаете день.';
+
+  @override
+  String get learningStreakFreezeProtected => 'Серия защищена!';
+
+  @override
+  String get learningStreakMilestone7 => 'Серия 7 дней!';
+
+  @override
+  String get learningStreakMilestone30 => 'Серия 30 дней!';
+
+  @override
+  String get learningStreakMilestone100 => 'Серия 100 дней!';
+
+  @override
+  String get learningStreakMilestone365 => 'Серия 365 дней!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'На этой неделе';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP заработано';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count урока',
+      many: '$count уроков',
+      few: '$count урока',
+      one: '1 урок',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count слова',
+      many: '$count слов изучено',
+      few: '$count слова изучено',
+      one: '1 слово изучено',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дня',
+      many: '$count активных дней',
+      few: '$count активных дня',
+      one: '1 активный день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'Лучшее достижение';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return 'На $pct% больше, чем на прошлой неделе';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return 'На $pct% меньше, чем на прошлой неделе';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'Как и на прошлой неделе';
+
+  @override
+  String get learningSrsDashboardTitle => 'Ежедневное повторение';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count карточки',
+      many: '$count карточек сегодня',
+      few: '$count карточки сегодня',
+      one: '1 карточка сегодня',
+      zero: 'Сегодня нет карточек',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '$count завтра';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '$count на этой неделе';
+  }
+
+  @override
+  String get learningSrsStartReview => 'Начать повторение';
+
+  @override
+  String get learningSrsAllCaughtUp => 'Вы всё сделали!';
+
+  @override
+  String get learningSrsKeepGoing => 'Продолжайте';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'Серия';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'Язык';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'Друзья';
+
+  @override
+  String get learningLeaderboardEmpty => 'Рейтинга пока нет';
+
+  @override
+  String get learningLeaderboardYouLabel => 'Вы';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'Друг';
+
+  @override
+  String get learningEmptyVocab => 'Добавьте слова, которые хотите запомнить';
+
+  @override
+  String get learningEmptyLessons => 'Уроки пока недоступны';
+
+  @override
+  String get learningEmptyQuizzes => 'Викторин нет';
+
+  @override
+  String get learningEmptyChallenges => 'Загляните завтра';
+
+  @override
+  String get learningEmptyAchievements => 'Получите первое достижение';
+
+  @override
+  String get learningEmptySearchResults => 'Результатов не найдено';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'Уровень повышен!';
+
+  @override
+  String learningLevelReached(String level) {
+    return 'Вы достигли $level';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'Достижение разблокировано';
+
+  @override
+  String get learningVocabularySearchHint => 'Поиск словарного запаса';
+
+  @override
+  String get learningVocabularyFilterAll => 'Все';
+
+  @override
+  String get learningVocabularyFilterNew => 'Новые';
+
+  @override
+  String get learningVocabularyFilterLearning => 'Изучаю';
+
+  @override
+  String get learningVocabularyFilterMastered => 'Освоено';
+
+  @override
+  String get learningVocabularySortRecent => 'Недавние';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'По алфавиту';
+
+  @override
+  String get learningVocabularySortMastery => 'По уровню';
+
+  @override
+  String get learningVocabularyMasteryNew => 'Новые';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'Изучаю';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'Освоено';
+
+  @override
+  String get learningProgressLevelLabel => 'Уровень';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '$xp XP до следующего уровня';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => 'Последние 7 дней';
 }

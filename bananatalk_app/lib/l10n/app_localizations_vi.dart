@@ -5041,4 +5041,253 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatRetry => 'Thử lại';
+
+  @override
+  String get learningHubTitle => 'Học tập';
+
+  @override
+  String get learningCommonRetry => 'Thử lại';
+
+  @override
+  String get learningCommonContinue => 'Tiếp tục';
+
+  @override
+  String get learningCommonAwesome => 'Tuyệt vời!';
+
+  @override
+  String get learningErrorGeneric => 'Đã xảy ra lỗi';
+
+  @override
+  String get learningStreakCurrent => 'Chuỗi hiện tại';
+
+  @override
+  String get learningStreakLongest => 'Chuỗi dài nhất';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ngày',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count freeze khả dụng',
+      zero: 'Không có freeze',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'Dùng đóng băng';
+
+  @override
+  String get learningStreakFreezeDescription => 'Freeze bảo vệ chuỗi của bạn khi bỏ lỡ một ngày.';
+
+  @override
+  String get learningStreakFreezeProtected => 'Chuỗi được bảo vệ!';
+
+  @override
+  String get learningStreakMilestone7 => 'Chuỗi 7 ngày!';
+
+  @override
+  String get learningStreakMilestone30 => 'Chuỗi 30 ngày!';
+
+  @override
+  String get learningStreakMilestone100 => 'Chuỗi 100 ngày!';
+
+  @override
+  String get learningStreakMilestone365 => 'Chuỗi 365 ngày!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'Tuần này';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return 'Đã nhận $xp XP';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bài học',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'đã học $count từ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ngày hoạt động',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'Thành tích hàng đầu';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return 'Tăng $pct% so với tuần trước';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return 'Giảm $pct% so với tuần trước';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'Bằng tuần trước';
+
+  @override
+  String get learningSrsDashboardTitle => 'Ôn tập hàng ngày';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hôm nay $count thẻ',
+      zero: 'Không có thẻ hôm nay',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '$count ngày mai';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '$count tuần này';
+  }
+
+  @override
+  String get learningSrsStartReview => 'Bắt đầu ôn tập';
+
+  @override
+  String get learningSrsAllCaughtUp => 'Bạn đã hoàn thành tất cả!';
+
+  @override
+  String get learningSrsKeepGoing => 'Tiếp tục nào';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'Chuỗi';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'Ngôn ngữ';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'Bạn bè';
+
+  @override
+  String get learningLeaderboardEmpty => 'Chưa có bảng xếp hạng';
+
+  @override
+  String get learningLeaderboardYouLabel => 'Bạn';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'Bạn bè';
+
+  @override
+  String get learningEmptyVocab => 'Thêm các từ bạn muốn ghi nhớ';
+
+  @override
+  String get learningEmptyLessons => 'Chưa có bài học nào';
+
+  @override
+  String get learningEmptyQuizzes => 'Không có câu hỏi kiểm tra';
+
+  @override
+  String get learningEmptyChallenges => 'Quay lại vào ngày mai';
+
+  @override
+  String get learningEmptyAchievements => 'Hãy đạt được thành tích đầu tiên';
+
+  @override
+  String get learningEmptySearchResults => 'Không tìm thấy kết quả';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'Lên cấp!';
+
+  @override
+  String learningLevelReached(String level) {
+    return 'Bạn đã đạt $level';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'Mở khóa thành tựu';
+
+  @override
+  String get learningVocabularySearchHint => 'Tìm kiếm từ vựng';
+
+  @override
+  String get learningVocabularyFilterAll => 'Tất cả';
+
+  @override
+  String get learningVocabularyFilterNew => 'Mới';
+
+  @override
+  String get learningVocabularyFilterLearning => 'Đang học';
+
+  @override
+  String get learningVocabularyFilterMastered => 'Đã thành thạo';
+
+  @override
+  String get learningVocabularySortRecent => 'Gần đây';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'Theo bảng chữ cái';
+
+  @override
+  String get learningVocabularySortMastery => 'Độ thành thạo';
+
+  @override
+  String get learningVocabularyMasteryNew => 'Mới';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'Đang học';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'Đã thành thạo';
+
+  @override
+  String get learningProgressLevelLabel => 'Cấp độ';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '$xp XP đến cấp tiếp theo';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => '7 ngày qua';
 }

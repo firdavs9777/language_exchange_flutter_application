@@ -5041,4 +5041,269 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatRetry => 'إعادة المحاولة';
+
+  @override
+  String get learningHubTitle => 'التعلم';
+
+  @override
+  String get learningCommonRetry => 'إعادة المحاولة';
+
+  @override
+  String get learningCommonContinue => 'متابعة';
+
+  @override
+  String get learningCommonAwesome => 'رائع!';
+
+  @override
+  String get learningErrorGeneric => 'حدث خطأ ما';
+
+  @override
+  String get learningStreakCurrent => 'السلسلة الحالية';
+
+  @override
+  String get learningStreakLongest => 'أطول سلسلة';
+
+  @override
+  String learningStreakDaysCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count يوم',
+      many: '$count يومًا',
+      few: '$count أيام',
+      two: 'يومان',
+      one: 'يوم واحد',
+      zero: '0 أيام',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningStreakFreezeAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تجميد',
+      many: '$count تجميدًا متاحًا',
+      few: '$count تجميدات متاحة',
+      two: 'تجميدان متاحان',
+      one: 'تجميد واحد متاح',
+      zero: 'لا يوجد تجميد متاح',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningStreakFreezeUse => 'استخدام التجميد';
+
+  @override
+  String get learningStreakFreezeDescription => 'التجميدات تحمي سلسلتك عندما تفوتك يوم.';
+
+  @override
+  String get learningStreakFreezeProtected => 'السلسلة محمية!';
+
+  @override
+  String get learningStreakMilestone7 => 'سلسلة 7 أيام!';
+
+  @override
+  String get learningStreakMilestone30 => 'سلسلة 30 يومًا!';
+
+  @override
+  String get learningStreakMilestone100 => 'سلسلة 100 يوم!';
+
+  @override
+  String get learningStreakMilestone365 => 'سلسلة 365 يومًا!';
+
+  @override
+  String get learningWeeklyDigestTitle => 'هذا الأسبوع';
+
+  @override
+  String learningWeeklyDigestXp(int xp) {
+    return '$xp XP مكتسبة';
+  }
+
+  @override
+  String learningWeeklyDigestLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دروس',
+      one: 'درس واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestVocab(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count كلمات تعلمتها',
+      one: 'كلمة واحدة تعلمتها',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningWeeklyDigestDaysActive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count أيام نشطة',
+      one: 'يوم نشط واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get learningWeeklyDigestTopAchievement => 'أفضل إنجاز';
+
+  @override
+  String learningWeeklyDigestTrendUp(int pct) {
+    return 'ارتفاع $pct٪ عن الأسبوع الماضي';
+  }
+
+  @override
+  String learningWeeklyDigestTrendDown(int pct) {
+    return 'انخفاض $pct٪ عن الأسبوع الماضي';
+  }
+
+  @override
+  String get learningWeeklyDigestTrendFlat => 'مثل الأسبوع الماضي';
+
+  @override
+  String get learningSrsDashboardTitle => 'المراجعة اليومية';
+
+  @override
+  String learningSrsDueToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count بطاقات لليوم',
+      many: '$count بطاقةً لليوم',
+      few: '$count بطاقات لليوم',
+      two: 'بطاقتان لليوم',
+      one: 'بطاقة واحدة لليوم',
+      zero: 'لا توجد بطاقات لليوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learningSrsDueTomorrow(int count) {
+    return '$count للغد';
+  }
+
+  @override
+  String learningSrsDueThisWeek(int count) {
+    return '$count هذا الأسبوع';
+  }
+
+  @override
+  String get learningSrsStartReview => 'بدء المراجعة';
+
+  @override
+  String get learningSrsAllCaughtUp => 'أنت على اطلاع كامل!';
+
+  @override
+  String get learningSrsKeepGoing => 'استمر';
+
+  @override
+  String get learningLeaderboardXpTab => 'XP';
+
+  @override
+  String get learningLeaderboardStreakTab => 'السلسلة';
+
+  @override
+  String get learningLeaderboardLanguageTab => 'اللغة';
+
+  @override
+  String get learningLeaderboardFriendsTab => 'الأصدقاء';
+
+  @override
+  String get learningLeaderboardEmpty => 'لا توجد تصنيفات بعد';
+
+  @override
+  String get learningLeaderboardYouLabel => 'أنت';
+
+  @override
+  String get learningLeaderboardFriendBadge => 'صديق';
+
+  @override
+  String get learningEmptyVocab => 'أضف كلمات تريد تذكرها';
+
+  @override
+  String get learningEmptyLessons => 'لا توجد دروس متاحة بعد';
+
+  @override
+  String get learningEmptyQuizzes => 'لا توجد اختبارات متاحة';
+
+  @override
+  String get learningEmptyChallenges => 'تحقق مجددًا غدًا';
+
+  @override
+  String get learningEmptyAchievements => 'احصل على أول إنجاز لك';
+
+  @override
+  String get learningEmptySearchResults => 'لم يتم العثور على نتائج';
+
+  @override
+  String learningXpGained(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String get learningLevelUp => 'ارتفع المستوى!';
+
+  @override
+  String learningLevelReached(String level) {
+    return 'وصلت إلى $level';
+  }
+
+  @override
+  String get learningAchievementUnlocked => 'تم فتح الإنجاز';
+
+  @override
+  String get learningVocabularySearchHint => 'ابحث في المفردات';
+
+  @override
+  String get learningVocabularyFilterAll => 'الكل';
+
+  @override
+  String get learningVocabularyFilterNew => 'جديد';
+
+  @override
+  String get learningVocabularyFilterLearning => 'قيد التعلم';
+
+  @override
+  String get learningVocabularyFilterMastered => 'متقن';
+
+  @override
+  String get learningVocabularySortRecent => 'الأحدث';
+
+  @override
+  String get learningVocabularySortAlphabetical => 'أبجدي';
+
+  @override
+  String get learningVocabularySortMastery => 'الإتقان';
+
+  @override
+  String get learningVocabularyMasteryNew => 'جديد';
+
+  @override
+  String get learningVocabularyMasteryLearning => 'قيد التعلم';
+
+  @override
+  String get learningVocabularyMasteryMastered => 'متقن';
+
+  @override
+  String get learningProgressLevelLabel => 'المستوى';
+
+  @override
+  String learningProgressXpToNextLevel(int xp) {
+    return '$xp XP للمستوى التالي';
+  }
+
+  @override
+  String get learningProgressWeeklyChartTitle => 'آخر 7 أيام';
 }

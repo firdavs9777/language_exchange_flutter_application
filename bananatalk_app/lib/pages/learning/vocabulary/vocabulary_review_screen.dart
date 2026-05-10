@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/learning/vocabulary_card.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
 
 /// Vocabulary review screen with SRS flashcards
 class VocabularyReviewScreen extends ConsumerStatefulWidget {
@@ -16,6 +17,8 @@ class VocabularyReviewScreen extends ConsumerStatefulWidget {
 
 class _VocabularyReviewScreenState
     extends ConsumerState<VocabularyReviewScreen> {
+  bool _xpOverlayShown = false;
+
   @override
   void initState() {
     super.initState();
@@ -89,6 +92,12 @@ class _VocabularyReviewScreenState
           }
 
           if (reviewState.isComplete) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!_xpOverlayShown) {
+                _xpOverlayShown = true;
+                XpGainOverlay.show(context, reviewState.xpEarned ?? 0);
+              }
+            });
             return _buildResults(reviewState);
           }
 
@@ -132,7 +141,7 @@ class _VocabularyReviewScreenState
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -288,7 +297,7 @@ class _VocabularyReviewScreenState
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
