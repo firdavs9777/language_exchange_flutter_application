@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/moments/single_moment.dart';
+import 'package:bananatalk_app/pages/moments/single/single_moment.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';

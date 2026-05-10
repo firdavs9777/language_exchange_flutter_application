@@ -8,7 +8,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/pages/moments/single_moment.dart';
+import 'package:bananatalk_app/pages/moments/single/single_moment.dart';
 
 /// Moments tab body: fetches and renders a Facebook-style post list for the
 /// given community profile.

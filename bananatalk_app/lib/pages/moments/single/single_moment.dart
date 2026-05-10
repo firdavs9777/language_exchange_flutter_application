@@ -4,7 +4,7 @@ import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
-import 'package:bananatalk_app/pages/moments/image_viewer.dart';
+import 'package:bananatalk_app/pages/moments/single/moment_image_grid.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
@@ -618,10 +618,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ),
                     ),
                   if (widget.moment.imageUrls.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: _buildImageGrid(),
-                    ),
+                    MomentImageGrid(imageUrls: widget.moment.imageUrls),
 
                   // Mood, Tags, Location, Category info
                   if (widget.moment.mood.isNotEmpty ||
@@ -855,152 +852,4 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
     );
   }
 
-  Widget _buildImageGrid() {
-    final imageCount = widget.moment.imageUrls.length;
-
-    if (imageCount == 1) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            AppPageRoute(
-              builder: (context) => ImageGallery(
-                imageUrls: widget.moment.imageUrls,
-                initialIndex: 0,
-              ),
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: CachedImageWidget(
-            imageUrl: widget.moment.imageUrls[0],
-            width: double.infinity,
-            height: 280,
-            fit: BoxFit.cover,
-            borderRadius: BorderRadius.circular(8),
-            errorWidget: Container(
-              width: double.infinity,
-              height: 280,
-              color: context.containerColor,
-              child: Icon(
-                Icons.broken_image,
-                size: 50,
-                color: context.textMuted,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    if (imageCount == 2) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: _buildImageItem(widget.moment.imageUrls[0], 0),
-                ),
-              ),
-            ),
-            const SizedBox(width: 3),
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: _buildImageItem(widget.moment.imageUrls[1], 1),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 3,
-          mainAxisSpacing: 3,
-          childAspectRatio: 1,
-        ),
-        itemCount: imageCount > 6 ? 6 : imageCount,
-        itemBuilder: (context, index) {
-          final isLastItem = index == 5 && imageCount > 6;
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: _buildImageItem(
-              widget.moment.imageUrls[index],
-              index,
-              isLastItem: isLastItem,
-              remainingCount: isLastItem ? imageCount - 6 : 0,
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildImageItem(
-    String url,
-    int index, {
-    bool isLastItem = false,
-    int remainingCount = 0,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.selectionClick();
-        Navigator.push(
-          context,
-          AppPageRoute(
-            builder: (context) => ImageGallery(
-              imageUrls: widget.moment.imageUrls,
-              initialIndex: index,
-            ),
-          ),
-        );
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CachedImageWidget(
-            imageUrl: url,
-            fit: BoxFit.cover,
-            errorWidget: Container(
-              color: context.containerColor,
-              child: Icon(
-                Icons.broken_image,
-                size: 30,
-                color: context.textMuted,
-              ),
-            ),
-          ),
-          if (isLastItem)
-            Container(
-              color: Colors.black54,
-              child: Center(
-                child: Text(
-                  '+$remainingCount',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
 }
