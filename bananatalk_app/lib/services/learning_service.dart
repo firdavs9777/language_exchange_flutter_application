@@ -1332,4 +1332,41 @@ class LearningService {
       return {'success': false, 'error': 'Network error: ${e.toString()}'};
     }
   }
+
+  // ==================== AI VOCABULARY ====================
+
+  /// AI-fill vocabulary fields for a given word.
+  /// Returns Map with: definition, translation, partOfSpeech,
+  /// examples (List<String>), collocations (List<String>),
+  /// registerNotes, pronunciation.
+  static Future<Map<String, dynamic>> aiDefineVocabulary({
+    required String word,
+    String? language,
+    String? nativeLanguage,
+  }) async {
+    final token = await _getToken();
+    final url = Uri.parse(
+        '${Endpoints.baseURL}learning/vocabulary/ai-define');
+
+    final body = <String, dynamic>{
+      'word': word,
+      if (language != null) 'language': language,
+      if (nativeLanguage != null) 'nativeLanguage': nativeLanguage,
+    };
+
+    final response = await http.post(
+      url,
+      headers: _getHeaders(token),
+      body: jsonEncode(body),
+    );
+
+    final data = _safeJsonDecode(response.body);
+
+    if (response.statusCode != 200) {
+      throw Exception(
+          _getErrorMessage(data, 'AI define failed'));
+    }
+
+    return Map<String, dynamic>.from(data!['data'] as Map);
+  }
 }

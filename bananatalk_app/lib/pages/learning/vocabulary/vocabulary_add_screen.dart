@@ -27,6 +27,7 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
   String? _selectedPartOfSpeech;
   List<String> _tags = [];
   bool _isLoading = false;
+  bool _aiFilling = false;
 
   final List<String> _languages = [
     'en', 'ko', 'es', 'fr', 'de', 'ja', 'zh', 'ar', 'pt', 'ru', 'it', 'nl', 'hi', 'th', 'vi'
@@ -92,6 +93,58 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _onAiFill() async {
+    final word = _wordController.text.trim();
+    if (word.isEmpty) {
+      showLearningSnackBar(context, 'Enter a word first');
+      return;
+    }
+    setState(() => _aiFilling = true);
+    try {
+      final data = await LearningService.aiDefineVocabulary(
+        word: word,
+        language: _selectedLanguage,
+      );
+      if (!mounted) return;
+      setState(() {
+        final translation = data['translation'] as String? ?? '';
+        if (translation.isNotEmpty) {
+          _translationController.text = translation;
+        }
+        final pronunciation = data['pronunciation'] as String? ?? '';
+        if (pronunciation.isNotEmpty) {
+          _pronunciationController.text = pronunciation;
+        }
+        final examples = (data['examples'] as List?) ?? [];
+        if (examples.isNotEmpty) {
+          _exampleController.text = examples.first.toString();
+        }
+        final pos = data['partOfSpeech'] as String? ?? '';
+        if (pos.isNotEmpty && _partsOfSpeech.contains(pos)) {
+          _selectedPartOfSpeech = pos;
+        }
+        final notes = <String>[];
+        final registerNotes = data['registerNotes'] as String? ?? '';
+        if (registerNotes.isNotEmpty) notes.add(registerNotes);
+        final definition = data['definition'] as String? ?? '';
+        if (definition.isNotEmpty) notes.add('Def: $definition');
+        final collocations = (data['collocations'] as List?) ?? [];
+        if (collocations.isNotEmpty) {
+          notes.add('Collocations: ${collocations.join(', ')}');
+        }
+        if (notes.isNotEmpty) {
+          _notesController.text = notes.join('\n');
+        }
+      });
+      if (mounted) showLearningSnackBar(context, 'AI filled in!');
+    } catch (e) {
+      if (!mounted) return;
+      showLearningSnackBar(context, 'AI fill failed. Please try again.');
+    } finally {
+      if (mounted) setState(() => _aiFilling = false);
     }
   }
 
@@ -178,6 +231,25 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
                 controller: _wordController,
                 hint: 'Enter the word',
                 validator: (v) => v?.isEmpty == true ? 'Required' : null,
+              ),
+              Spacing.gapSM,
+
+              // AI Auto-fill button
+              FilledButton.icon(
+                onPressed: _aiFilling ? null : _onAiFill,
+                icon: _aiFilling
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.auto_awesome),
+                label: const Text('AI Auto-fill'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 44),
+                ),
               ),
               Spacing.gapLG,
 
