@@ -2497,5 +2497,38 @@
   "@tagLimitReached": { "description": "Snackbar when tag limit hit" },
 
   "hideThisUser": "Hide this user's posts",
-  "@hideThisUser": { "description": "Short label for the 3-dot menu" }
+  "@hideThisUser": { "description": "Short label for the 3-dot menu" },
+
+  "transcribeMessage": "Transcribe",
+  "@transcribeMessage": { "description": "Button on a voice message to convert it to text" },
+
+  "transcribing": "Transcribing…",
+  "@transcribing": { "description": "Spinner label while voice transcription is in flight" },
+
+  "transcriptionFailed": "Couldn't transcribe message",
+  "@transcriptionFailed": { "description": "Error toast when speech-to-text fails" },
+
+  "saveToVocabulary": "Save '{word}' to vocabulary",
+  "@saveToVocabulary": {
+    "description": "Long-press popup confirming a vocabulary save",
+    "placeholders": { "word": { "type": "String" } }
+  },
+
+  "addedToVocabulary": "Added to your vocabulary",
+  "@addedToVocabulary": { "description": "Snackbar after successful vocab save" },
+
+  "alreadyInVocabulary": "Already in your vocabulary",
+  "@alreadyInVocabulary": { "description": "Snackbar when word is already saved" },
+
+  "tapWordToSave": "Tap and hold a word to save it",
+  "@tapWordToSave": { "description": "Optional onboarding hint shown once" },
+
+  "autoTranslateChatHint": "Incoming messages will be translated automatically",
+  "@autoTranslateChatHint": { "description": "Subtitle for the per-chat auto-translate toggle" },
+
+  "noConversationsYet": "No conversations yet",
+  "@noConversationsYet": { "description": "Empty state for the chat list" },
+
+  "chatRetry": "Try again",
+  "@chatRetry": { "description": "Retry button on chat error states" }
 }
