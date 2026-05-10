@@ -2993,6 +2993,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get allTopics => '모든 주제';
 
   @override
+  String get allCategories => '모든 카테고리';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

@@ -2993,6 +2993,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get allTopics => '所有话题';
 
   @override
+  String get allCategories => '所有类别';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
@@ -7941,6 +7944,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get allTopics => '所有話題';
+
+  @override
+  String get allCategories => '所有類別';
 
   @override
   String get you => '你';

@@ -2993,6 +2993,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get allTopics => 'すべてのトピック';
 
   @override
+  String get allCategories => 'すべてのカテゴリ';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

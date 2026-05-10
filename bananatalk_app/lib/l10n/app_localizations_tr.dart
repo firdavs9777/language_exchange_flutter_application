@@ -2993,6 +2993,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get allTopics => 'Tüm konular';
 
   @override
+  String get allCategories => 'Tüm kategoriler';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

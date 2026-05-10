@@ -2993,6 +2993,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get allTopics => 'Semua topik';
 
   @override
+  String get allCategories => 'Semua kategori';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

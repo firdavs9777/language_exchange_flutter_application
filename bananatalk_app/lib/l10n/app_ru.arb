@@ -995,6 +995,7 @@
   "justStarted": "Только что началось",
   "allLanguages": "Все языки",
   "allTopics": "Все темы",
+  "allCategories": "Все категории",
   "dataAndStorage": "Данные и Хранилище",
   "manageStorageAndDownloads": "Управление хранилищем и загрузками",
   "storageUsage": "Использование Хранилища",

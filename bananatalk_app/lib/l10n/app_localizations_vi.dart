@@ -2993,6 +2993,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get allTopics => 'Tất cả chủ đề';
 
   @override
+  String get allCategories => 'Tất cả danh mục';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

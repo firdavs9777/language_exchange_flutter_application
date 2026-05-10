@@ -980,6 +980,7 @@
   "justStarted": "開始したばかり",
   "allLanguages": "すべての言語",
   "allTopics": "すべてのトピック",
+  "allCategories": "すべてのカテゴリ",
   "dataAndStorage": "データとストレージ",
   "manageStorageAndDownloads": "ストレージとダウンロードを管理",
   "storageUsage": "ストレージ使用量",

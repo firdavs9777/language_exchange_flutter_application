@@ -2993,6 +2993,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get allTopics => 'جميع المواضيع';
 
   @override
+  String get allCategories => 'جميع الفئات';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

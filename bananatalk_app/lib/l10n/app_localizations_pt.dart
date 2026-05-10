@@ -2993,6 +2993,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get allTopics => 'Todos os tópicos';
 
   @override
+  String get allCategories => 'Todas as categorias';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

@@ -2993,6 +2993,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get allTopics => 'Все темы';
 
   @override
+  String get allCategories => 'Все категории';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

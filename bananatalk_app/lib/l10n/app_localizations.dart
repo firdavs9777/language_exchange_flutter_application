@@ -5874,6 +5874,12 @@ abstract class AppLocalizations {
   /// **'All Topics'**
   String get allTopics;
 
+  /// No description provided for @allCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'All Categories'**
+  String get allCategories;
+
   /// No description provided for @leaderboard.
   ///
   /// In en, this message translates to:

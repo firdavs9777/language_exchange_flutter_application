@@ -2993,6 +2993,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get allTopics => 'Lahat ng paksa';
 
   @override
+  String get allCategories => 'Lahat ng kategorya';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

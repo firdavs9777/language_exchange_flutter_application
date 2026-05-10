@@ -2993,6 +2993,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get allTopics => 'Alle Themen';
 
   @override
+  String get allCategories => 'Alle Kategorien';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override

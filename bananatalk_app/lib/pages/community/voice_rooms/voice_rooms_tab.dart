@@ -33,6 +33,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
 
   String? _selectedLanguage;
   String? _selectedTopic;
+  String? _selectedCategory;
 
   @override
   void initState() {
@@ -53,7 +54,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   Future<List<VoiceRoom>> _fetchWithFilters() {
     return ref
         .read(voiceRoomProvider)
-        .fetchRooms(language: _selectedLanguage, topic: _selectedTopic);
+        .fetchRooms(language: _selectedLanguage, topic: _selectedTopic, category: _selectedCategory);
   }
 
   Future<void> _refreshRooms() async {
@@ -73,6 +74,13 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   void _setTopicFilter(String? topic) {
     setState(() {
       _selectedTopic = topic;
+      _roomsFuture = _fetchWithFilters();
+    });
+  }
+
+  void _setCategoryFilter(String? category) {
+    setState(() {
+      _selectedCategory = category;
       _roomsFuture = _fetchWithFilters();
     });
   }
@@ -164,7 +172,8 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
           final rooms = snapshot.data ?? [];
           if (rooms.isEmpty &&
               _selectedLanguage == null &&
-              _selectedTopic == null) {
+              _selectedTopic == null &&
+              _selectedCategory == null) {
             return _buildEmptyState(l10n);
           }
           return _buildRoomsList(rooms, l10n);
@@ -233,6 +242,42 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
                       ),
                     ),
                   ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // Category filter
+        SizedBox(
+          height: 44,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              CommunityFilterChip(
+                label: l10n.allCategories,
+                isSelected: _selectedCategory == null,
+                onTap: () => _setCategoryFilter(null),
+              ),
+              const SizedBox(width: 8),
+              ...['casual', 'language_practice', 'topic', 'qa'].map((cat) {
+                final label = switch (cat) {
+                  'casual' => l10n.categoryCasual,
+                  'language_practice' => l10n.categoryLanguagePractice,
+                  'topic' => l10n.categoryTopic,
+                  'qa' => l10n.categoryQA,
+                  _ => cat,
+                };
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: CommunityFilterChip(
+                    label: label,
+                    isSelected: _selectedCategory == cat,
+                    onTap: () => _setCategoryFilter(
+                      _selectedCategory == cat ? null : cat,
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
         ),

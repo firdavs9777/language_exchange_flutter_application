@@ -230,11 +230,12 @@ class VoiceRoomNotifier extends ChangeNotifier {
   }
 
   /// Fetch available voice rooms with optional filters
-  Future<List<VoiceRoom>> fetchRooms({String? language, String? topic}) async {
+  Future<List<VoiceRoom>> fetchRooms({String? language, String? topic, String? category}) async {
     try {
       final queryParams = <String, String>{};
       if (language != null && language.isNotEmpty) queryParams['language'] = language;
       if (topic != null && topic.isNotEmpty) queryParams['topic'] = topic;
+      if (category != null && category.isNotEmpty) queryParams['category'] = category;
       final query = queryParams.isNotEmpty
           ? '?${queryParams.entries.map((e) => '${e.key}=${Uri.encodeComponent(e.value)}').join('&')}'
           : '';

@@ -2993,6 +2993,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get allTopics => 'ทุกหัวข้อ';
 
   @override
+  String get allCategories => 'ทุกหมวดหมู่';
+
+  @override
   String get leaderboard => 'Leaderboard';
 
   @override
