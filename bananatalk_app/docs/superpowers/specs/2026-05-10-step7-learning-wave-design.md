@@ -12,12 +12,14 @@ Four discrete wins, packaged as one wave:
 1. **Split the 3 learning monoliths** — `learning_main.dart` (1,443) → main/ with hub + sections; `leaderboard_screen.dart` (1,108) → leaderboard/tabs/ structure; `learning_providers.dart` (1,023) → split by feature area. Target: each unit ≤500 lines, well-defined responsibility.
 2. **l10n catch-up** — Audit reveals only 4 learning ARB keys exist (`dailyMessageLimitExceeded`, `dailyLearningJourney`, `dailyChallenges`, `silencedByCap`). Hardcoded strings throughout. Goal: ~80 new English keys + 18-locale translations (~1,440 string adds).
 3. **Cleanup sweep** — `withOpacity` → `withValues`, `Colors.grey[*]` → `context.X` getters, inline snackbars → `showLearningSnackBar` helper, `debugPrint` purge. Plus `learning/widgets/` scaffolding (snackbar/empty/error helpers — mirrors past waves).
-4. **5 modern features**:
+4. **7 modern features (5 new + 2 existing-feature improvements)**:
    - **F1. Streak freeze UI** — backend has `streakFreezesAvailable` model field with no frontend. Surface freeze count in streak widget + "use freeze" affordance + freeze history.
    - **F2. SRS daily review dashboard** — backend SRS exists (`Vocabulary.nextReviewAt`, `interval`, `masteryLevel`). Build dedicated review queue UI: due-card count badge, daily review goal, session player.
    - **F3. Leaderboard social polish** — M3 redesign + friend badges + language-filtered ranks + animated rank-change indicators.
    - **F4. Gamification animations** — XP gain pop on completion, streak milestone celebration (7/30/100/365 days), achievement unlock confetti, level-up sequence.
    - **F5. Weekly digest card** — in-app weekly report on hub (XP earned, lessons completed, vocab learned, streak status, top achievement).
+   - **F6. Vocabulary list polish (improve existing)** — current `vocabulary_screen.dart` (311L) has flat list. Add: search bar, filter by mastery level (new/learning/mastered), sort options (recent/alphabetical/mastery), per-row mastery indicator chip.
+   - **F7. Progress hero weekly XP chart (improve existing)** — current hero shows level + XP number. Replace with: level progress ring + 7-day XP bar chart + trend indicator (↑/↓ vs last week).
 
 ## Non-goals (explicit)
 

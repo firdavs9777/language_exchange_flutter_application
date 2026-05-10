@@ -26,7 +26,7 @@
 
 5. **Service file `learning_service.dart` (1,275 lines) stays intact.** Spec already deferred service split. Confirmed.
 
-**Net commit count: 17 commits (vs spec estimate of 18-20).**
+**Net commit count: 19 commits (17 base + 2 for F6/F7 existing-feature improvements added per user directive).**
 
 ---
 
@@ -2281,6 +2281,350 @@ feat(learning): C16 — F5 weekly digest card
 In-app weekly summary on hub: XP earned, lessons, vocab,
 streak. Tappable for detail. Uses new GET /weekly-digest
 backend endpoint.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+## Task C17a — feat(learning): F6 vocabulary list polish
+
+**Files:**
+- Modify: `lib/pages/learning/vocabulary/vocabulary_screen.dart` (311L)
+
+- [ ] **Step 1: Add filter/sort state**
+
+Convert to ConsumerStatefulWidget with state for:
+- `String _searchQuery = ''`
+- `MasteryFilter _filter = MasteryFilter.all` (enum: all, new_, learning, mastered)
+- `SortOption _sort = SortOption.recent` (enum: recent, alphabetical, mastery)
+
+- [ ] **Step 2: Add search bar at top**
+
+```dart
+TextField(
+  decoration: InputDecoration(
+    hintText: l10n.vocabularySearchHint,
+    prefixIcon: const Icon(Icons.search),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
+    isDense: true,
+  ),
+  onChanged: (v) => setState(() => _searchQuery = v.toLowerCase()),
+),
+```
+
+- [ ] **Step 3: Add filter chip row**
+
+```dart
+SingleChildScrollView(
+  scrollDirection: Axis.horizontal,
+  child: Row(children: [
+    FilterChip(
+      label: Text(l10n.vocabularyFilterAll),
+      selected: _filter == MasteryFilter.all,
+      onSelected: (_) => setState(() => _filter = MasteryFilter.all),
+    ),
+    FilterChip(
+      label: Text(l10n.vocabularyFilterNew),
+      selected: _filter == MasteryFilter.new_,
+      onSelected: (_) => setState(() => _filter = MasteryFilter.new_),
+    ),
+    FilterChip(
+      label: Text(l10n.vocabularyFilterLearning),
+      selected: _filter == MasteryFilter.learning,
+      onSelected: (_) => setState(() => _filter = MasteryFilter.learning),
+    ),
+    FilterChip(
+      label: Text(l10n.vocabularyFilterMastered),
+      selected: _filter == MasteryFilter.mastered,
+      onSelected: (_) => setState(() => _filter = MasteryFilter.mastered),
+    ),
+  ]),
+),
+```
+
+- [ ] **Step 4: Add sort menu in app bar**
+
+```dart
+PopupMenuButton<SortOption>(
+  icon: const Icon(Icons.sort),
+  onSelected: (v) => setState(() => _sort = v),
+  itemBuilder: (_) => [
+    PopupMenuItem(value: SortOption.recent, child: Text(l10n.vocabularySortRecent)),
+    PopupMenuItem(value: SortOption.alphabetical, child: Text(l10n.vocabularySortAlphabetical)),
+    PopupMenuItem(value: SortOption.mastery, child: Text(l10n.vocabularySortMastery)),
+  ],
+),
+```
+
+- [ ] **Step 5: Filter + sort the displayed list**
+
+```dart
+final filtered = vocabulary.where((v) {
+  if (_searchQuery.isNotEmpty &&
+      !v.word.toLowerCase().contains(_searchQuery) &&
+      !(v.translation?.toLowerCase().contains(_searchQuery) ?? false)) {
+    return false;
+  }
+  return switch (_filter) {
+    MasteryFilter.all => true,
+    MasteryFilter.new_ => v.masteryLevel == 0,
+    MasteryFilter.learning => v.masteryLevel >= 1 && v.masteryLevel < 5,
+    MasteryFilter.mastered => v.masteryLevel >= 5,
+  };
+}).toList();
+
+switch (_sort) {
+  case SortOption.recent:
+    filtered.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  case SortOption.alphabetical:
+    filtered.sort((a, b) => a.word.compareTo(b.word));
+  case SortOption.mastery:
+    filtered.sort((a, b) => b.masteryLevel.compareTo(a.masteryLevel));
+}
+```
+
+- [ ] **Step 6: Add mastery chip per row**
+
+In each list tile trailing:
+
+```dart
+Container(
+  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+  decoration: BoxDecoration(
+    color: _masteryColor(v.masteryLevel).withValues(alpha: 0.15),
+    borderRadius: BorderRadius.circular(12),
+  ),
+  child: Text(
+    _masteryLabel(context, v.masteryLevel),
+    style: TextStyle(color: _masteryColor(v.masteryLevel), fontSize: 12),
+  ),
+),
+```
+
+Where `_masteryColor` returns gray (new) → orange (learning) → green (mastered) and `_masteryLabel` reads from l10n.
+
+- [ ] **Step 7: Empty state when search returns nothing**
+
+```dart
+if (filtered.isEmpty) {
+  return LearningEmptyState(
+    icon: Icons.search_off,
+    message: l10n.vocabularyNoResults,
+  );
+}
+```
+
+- [ ] **Step 8: Analyzer + smoke**
+
+- [ ] **Step 9: Commit**
+
+```bash
+git add lib/pages/learning/vocabulary/ lib/l10n/
+git commit -m "$(cat <<'EOF'
+feat(learning): C17a — F6 vocabulary list polish
+
+Add search bar, mastery filter (all/new/learning/mastered), sort
+menu (recent/alphabetical/mastery), per-row mastery chip with
+color coding. Improves existing 311L flat list.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+EOF
+)"
+```
+
+---
+
+## Task C17b — feat(learning): F7 progress hero weekly XP chart
+
+**Files:**
+- Modify: `lib/pages/learning/main/sections/progress_hero.dart`
+
+- [ ] **Step 1: Fetch last-7-day XP from progressProvider**
+
+The `LearningProgress.dailyHistory` array contains per-day XP. Slice last 7 days:
+
+```dart
+final history = progress.dailyHistory ?? [];
+final now = DateTime.now();
+final last7Days = List.generate(7, (i) {
+  final date = now.subtract(Duration(days: 6 - i));
+  final entry = history.firstWhere(
+    (h) => _isSameDay(h.date, date),
+    orElse: () => DailyHistory(date: date, xp: 0),
+  );
+  return entry;
+});
+```
+
+- [ ] **Step 2: Replace flat hero with composite layout**
+
+```dart
+Container(
+  padding: const EdgeInsets.all(20),
+  decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        Theme.of(context).colorScheme.primary,
+        Theme.of(context).colorScheme.primaryContainer,
+      ],
+    ),
+    borderRadius: BorderRadius.circular(20),
+  ),
+  child: Column(
+    children: [
+      Row(
+        children: [
+          // Level progress ring (left)
+          _LevelProgressRing(progress: progress),
+          const SizedBox(width: 16),
+          // Stats (middle)
+          Expanded(child: _HeroStats(progress: progress)),
+          // Trend indicator (right)
+          _TrendIndicator(thisWeek: thisWeekXp, lastWeek: lastWeekXp),
+        ],
+      ),
+      const SizedBox(height: 16),
+      // 7-day XP bar chart
+      _WeeklyXpChart(days: last7Days),
+    ],
+  ),
+)
+```
+
+- [ ] **Step 3: Build _LevelProgressRing**
+
+```dart
+class _LevelProgressRing extends StatelessWidget {
+  final LearningProgress progress;
+  const _LevelProgressRing({required this.progress});
+
+  @override
+  Widget build(BuildContext context) {
+    final ringProgress = progress.xpInLevel / progress.xpToNextLevel;
+    return SizedBox(
+      width: 80,
+      height: 80,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: CircularProgressIndicator(
+              value: ringProgress.clamp(0.0, 1.0),
+              strokeWidth: 6,
+              backgroundColor: Colors.white24,
+              valueColor: const AlwaysStoppedAnimation(Colors.white),
+            ),
+          ),
+          Text(
+            progress.proficiencyLevel,  // A1, A2, B1, etc.
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+- [ ] **Step 4: Build _WeeklyXpChart**
+
+```dart
+class _WeeklyXpChart extends StatelessWidget {
+  final List<DailyHistory> days;
+  const _WeeklyXpChart({required this.days});
+
+  @override
+  Widget build(BuildContext context) {
+    final maxXp = days.map((d) => d.xp).reduce((a, b) => a > b ? a : b).toDouble();
+    final scale = maxXp > 0 ? maxXp : 1.0;
+
+    return SizedBox(
+      height: 60,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: days.map((d) {
+          final h = (d.xp / scale * 50).clamp(2.0, 50.0);
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                width: 18,
+                height: h,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.85),
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                _shortDay(d.date),
+                style: const TextStyle(color: Colors.white70, fontSize: 10),
+              ),
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  String _shortDay(DateTime d) {
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return days[d.weekday - 1];
+  }
+}
+```
+
+- [ ] **Step 5: Build _TrendIndicator**
+
+```dart
+class _TrendIndicator extends StatelessWidget {
+  final int thisWeek;
+  final int lastWeek;
+  const _TrendIndicator({required this.thisWeek, required this.lastWeek});
+
+  @override
+  Widget build(BuildContext context) {
+    final delta = thisWeek - lastWeek;
+    final pct = lastWeek > 0 ? (delta / lastWeek * 100).round() : 0;
+    final up = delta > 0;
+    return Column(
+      children: [
+        Icon(
+          up ? Icons.trending_up : (delta == 0 ? Icons.trending_flat : Icons.trending_down),
+          color: Colors.white,
+        ),
+        Text(
+          delta == 0 ? '—' : '${up ? '+' : ''}$pct%',
+          style: const TextStyle(color: Colors.white, fontSize: 12),
+        ),
+      ],
+    );
+  }
+}
+```
+
+- [ ] **Step 6: Analyzer + smoke**
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add lib/pages/learning/main/sections/progress_hero.dart lib/l10n/
+git commit -m "$(cat <<'EOF'
+feat(learning): C17b — F7 progress hero weekly XP chart
+
+Replace flat hero with: level progress ring (proficiency
+percentage), 7-day XP bar chart, this-week-vs-last trend
+indicator. Improves existing static hero presentation.
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
