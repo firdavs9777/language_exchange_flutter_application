@@ -17,6 +17,9 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import '../header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
+import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/services/translation_service.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'bubble/bubble_actions_menu.dart';
 import 'bubble/system_bubble.dart';
 import 'message_bubble/text_message_view.dart';
@@ -502,6 +505,17 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       ));
     }
 
+    if (hasText && widget.message.type == 'text') {
+      menuItems.add(MessageContextMenuItem(
+        icon: Icons.bookmark_add_outlined,
+        label: 'Save phrase',
+        onTap: () {
+          _hideReactionPicker();
+          _saveMessageToVocab(context);
+        },
+      ));
+    }
+
     menuItems.add(MessageContextMenuItem(
       icon: widget.message.isPinned
           ? Icons.push_pin_outlined
@@ -631,6 +645,86 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     );
 
     Overlay.of(context).insert(_reactionPickerOverlay!);
+  }
+
+  // ---------- Save-phrase-to-vocab helpers ----------
+
+  /// Returns the first word of [text], capped at 30 chars.
+  String _previewWord(String text) {
+    final firstWord = text.trim().split(RegExp(r'\s+')).first;
+    if (firstWord.length > 30) return '${firstWord.substring(0, 27)}…';
+    return firstWord;
+  }
+
+  Future<void> _saveMessageToVocab(BuildContext ctx) async {
+    final l10n = AppLocalizations.of(context)!;
+    final text = widget.message.message ?? '';
+    if (text.isEmpty) return;
+
+    // Cap phrase at 100 chars.
+    final phrase = text.length > 100 ? '${text.substring(0, 97)}…' : text;
+
+    // Resolve native language name → BCP-47 code.
+    final prefs = await SharedPreferences.getInstance();
+    final nativeLangName = prefs.getString('user_native_language') ?? 'English';
+    final targetCode = TranslationService.supportedLanguages
+            .firstWhere(
+              (l) =>
+                  l['name']!.toLowerCase() == nativeLangName.toLowerCase(),
+              orElse: () => {'code': 'en'},
+            )['code'] ??
+        'en';
+
+    // Fetch translation preview (best-effort).
+    String? translation;
+    try {
+      translation = await TranslationService.translateWord(
+        word: phrase,
+        targetLanguage: targetCode,
+      );
+    } catch (_) {
+      translation = null;
+    }
+
+    if (!mounted) return;
+
+    // Confirm dialog.
+    final titlePreview = _previewWord(phrase);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogCtx) => AlertDialog(
+        title: Text(l10n.saveToVocabulary(titlePreview)),
+        content: Text(translation ?? phrase),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogCtx, false),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogCtx, true),
+            child: Text(l10n.save),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    final result = await LearningService.addVocabulary(
+      word: phrase,
+      translation: translation ?? phrase,
+      language: 'auto',
+      exampleSentence: text != phrase ? text : null,
+    );
+
+    if (!mounted) return;
+
+    final success = result['success'] == true;
+    showChatSnackBar(
+      context,
+      message: success ? l10n.addedToVocabulary : l10n.alreadyInVocabulary,
+      type: success ? ChatSnackBarType.success : ChatSnackBarType.info,
+    );
   }
 
   // ---------- Message content dispatcher ----------
