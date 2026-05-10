@@ -2,6 +2,7 @@ import 'package:bananatalk_app/pages/community/single/single_community_screen.da
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
 import 'package:bananatalk_app/pages/moments/single_moment.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/video_player_widget.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
@@ -145,25 +146,21 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
     if (result['success'] == true) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(isSaved ? AppLocalizations.of(context)!.momentSaved : AppLocalizations.of(context)!.momentUnsaved),
-            duration: const Duration(seconds: 1),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            backgroundColor: const Color(0xFF00BFA5),
-          ),
+        showMomentsSnackBar(
+          context,
+          message: isSaved ? AppLocalizations.of(context)!.momentSaved : AppLocalizations.of(context)!.momentUnsaved,
+          type: MomentsSnackBarType.success,
+          duration: const Duration(seconds: 1),
         );
       }
     } else {
       // Revert on error
       if (mounted) {
         setState(() => isSaved = previousSaved);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
-            backgroundColor: AppColors.error,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: result['error'] ?? AppLocalizations.of(context)!.failedToSave,
+          type: MomentsSnackBarType.error,
         );
       }
     }
@@ -216,13 +213,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
           isLiked = previousLiked;
           likeCount = previousCount;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString().replaceFirst('Exception: ', '')),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-          ),
+        showMomentsSnackBar(
+          context,
+          message: e.toString().replaceFirst('Exception: ', ''),
+          type: MomentsSnackBarType.error,
+          duration: const Duration(seconds: 2),
         );
       }
     } finally {
@@ -462,14 +457,17 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                             .read(momentsServiceProvider)
                             .deleteUserMoment(id: widget.moments.id);
                         final l10n = AppLocalizations.of(context)!;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(l10n.momentDeleted)),
+                        showMomentsSnackBar(
+                          context,
+                          message: l10n.momentDeleted,
                         );
                         widget.onRefresh?.call();
                       } catch (e) {
-                        ScaffoldMessenger.of(
+                        showMomentsSnackBar(
                           context,
-                        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                          message: 'Error: $e',
+                          type: MomentsSnackBarType.error,
+                        );
                       }
                     }
                   },
@@ -546,8 +544,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                       if (community == null) {
                         if (mounted) {
                           final l10n = AppLocalizations.of(context)!;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.userNotFound)),
+                          showMomentsSnackBar(
+                            context,
+                            message: l10n.userNotFound,
                           );
                         }
                         return;

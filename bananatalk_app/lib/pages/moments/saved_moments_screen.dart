@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart';
 import 'package:bananatalk_app/pages/moments/moment_card.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -222,10 +223,9 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
             },
             onDismissed: (direction) {
               _removeMoment(moment.id);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.momentUnsaved),
-                ),
+              showMomentsSnackBar(
+                context,
+                message: AppLocalizations.of(context)!.momentUnsaved,
               );
             },
             child: MomentCard(

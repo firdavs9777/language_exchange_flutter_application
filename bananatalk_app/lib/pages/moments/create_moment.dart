@@ -20,6 +20,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
@@ -188,12 +189,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     if (tag.isNotEmpty && !_tags.contains(tag)) {
       // Enforce max 5 tags (backend limit)
       if (_tags.length >= 5) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.maxTagsAllowed),
-            backgroundColor: Colors.orange,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: AppLocalizations.of(context)!.maxTagsAllowed,
         );
         return;
       }
@@ -275,13 +273,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           .toList();
 
       if (pickedFiles.length > remainingSlots) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Maximum $maxImages images allowed. Only $remainingSlots images added.'),
-            backgroundColor: Colors.orange,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Maximum $maxImages images allowed. Only $remainingSlots images added.',
         );
       }
 
@@ -312,12 +306,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   Future<void> _pickVideo() async {
     // Can't have both video and images
     if (_selectedImages.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.pleaseRemoveImagesFirst),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
+      showMomentsSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.pleaseRemoveImagesFirst,
       );
       return;
     }
@@ -336,12 +327,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       final allowedExtensions = ['mp4', 'mov', 'avi', 'webm', '3gp', 'm4v'];
       if (!allowedExtensions.contains(extension)) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: 'Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}',
+            type: MomentsSnackBarType.error,
           );
         }
         return;
@@ -417,14 +406,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         // Show success message with compression info
         if (mounted && result.wasCompressed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
-              ),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: 'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            type: MomentsSnackBarType.success,
           );
         }
       } else {
@@ -433,12 +418,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         });
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result.error ?? 'Failed to process video'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: result.error ?? 'Failed to process video',
+            type: MomentsSnackBarType.error,
           );
         }
       }
@@ -453,12 +436,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error processing video: $e'),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Error processing video: $e',
+          type: MomentsSnackBarType.error,
         );
       }
     }
@@ -543,12 +524,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// Record video with camera
   Future<void> _recordVideo() async {
     if (_selectedImages.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please remove images first to record a video'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
+      showMomentsSnackBar(
+        context,
+        message: 'Please remove images first to record a video',
       );
       return;
     }
@@ -724,23 +702,20 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('✓ Location added'),
-            duration: Duration(seconds: 1),
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Color(0xFF00BFA5),
-          ),
+        showMomentsSnackBar(
+          context,
+          message: '✓ Location added',
+          type: MomentsSnackBarType.success,
+          duration: const Duration(seconds: 1),
         );
       }
     } catch (e) {
       debugPrint("Error getting location: $e");
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to get location: $e'),
-            backgroundColor: Colors.red,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Failed to get location: $e',
+          type: MomentsSnackBarType.error,
         );
       }
     }
@@ -1070,12 +1045,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // Validate inputs
     final validationError = _validateInputs();
     if (validationError != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(validationError),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
+      showMomentsSnackBar(
+        context,
+        message: validationError,
       );
       return;
     }
@@ -1144,12 +1116,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         if (mounted) {
           Navigator.of(context).pop(true); // Return true to indicate success
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.success),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.success,
+            type: MomentsSnackBarType.success,
           );
         }
       } else {
@@ -1195,12 +1165,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
         if (mounted) {
           Navigator.of(context).pop();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.momentCreatedSuccessfully),
-              backgroundColor: const Color(0xFF00BFA5),
-              behavior: SnackBarBehavior.floating,
-            ),
+          showMomentsSnackBar(
+            context,
+            message: AppLocalizations.of(context)!.momentCreatedSuccessfully,
+            type: MomentsSnackBarType.success,
           );
         }
       }
@@ -1222,13 +1190,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           }
         } else {
           final errorMessage = e.toString().replaceFirst('Exception: ', '');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMessage),
-              backgroundColor: AppColors.error,
-              behavior: SnackBarBehavior.floating,
-              duration: const Duration(seconds: 4),
-            ),
+          showMomentsSnackBar(
+            context,
+            message: errorMessage,
+            type: MomentsSnackBarType.error,
+            duration: const Duration(seconds: 4),
           );
         }
       }
@@ -1288,12 +1254,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}'),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: 'Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}',
+          type: MomentsSnackBarType.error,
         );
       }
     }

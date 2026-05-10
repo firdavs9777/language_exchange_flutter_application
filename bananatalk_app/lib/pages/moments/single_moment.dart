@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/image_viewer.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -172,17 +173,13 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
     if (result['success'] == true) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              isSaved
-                  ? AppLocalizations.of(context)!.momentSaved
-                  : AppLocalizations.of(context)!.momentUnsaved,
-            ),
-            duration: const Duration(seconds: 1),
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: const Color(0xFF00BFA5),
-          ),
+        showMomentsSnackBar(
+          context,
+          message: isSaved
+              ? AppLocalizations.of(context)!.momentSaved
+              : AppLocalizations.of(context)!.momentUnsaved,
+          type: MomentsSnackBarType.success,
+          duration: const Duration(seconds: 1),
         );
       }
     } else {
@@ -236,12 +233,10 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
           isLiked = previousLiked;
           likeCount = previousCount;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString().replaceFirst('Exception: ', '')),
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
+        showMomentsSnackBar(
+          context,
+          message: e.toString().replaceFirst('Exception: ', ''),
+          type: MomentsSnackBarType.error,
         );
       }
     } finally {
@@ -400,17 +395,16 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             .read(momentsServiceProvider)
                             .deleteUserMoment(id: widget.moment.id);
                         Navigator.pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              AppLocalizations.of(context)!.momentDeleted,
-                            ),
-                          ),
+                        showMomentsSnackBar(
+                          context,
+                          message: AppLocalizations.of(context)!.momentDeleted,
                         );
                       } catch (e) {
-                        ScaffoldMessenger.of(
+                        showMomentsSnackBar(
                           context,
-                        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                          message: 'Error: $e',
+                          type: MomentsSnackBarType.error,
+                        );
                       }
                     }
                   },
@@ -462,12 +456,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
                       if (community == null) {
                         if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                AppLocalizations.of(context)!.userNotFound,
-                              ),
-                            ),
+                          showMomentsSnackBar(
+                            context,
+                            message: AppLocalizations.of(context)!.userNotFound,
                           );
                         }
                         return;
