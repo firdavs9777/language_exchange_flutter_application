@@ -421,5 +421,28 @@ class TranslationService {
     final key = 'auto_translate_${contentType}';
     await prefs.setBool(key, enabled);
   }
+
+  // ---------- Per-conversation auto-translate ----------
+
+  static String _autoTranslateChatKey(String conversationId) =>
+      'auto_translate_chat_$conversationId';
+
+  /// Returns true if auto-translate is ON for this specific conversation.
+  /// Falls back to the global 'auto_translate_chat' preference; defaults OFF.
+  static Future<bool> isAutoTranslateChatEnabled(String conversationId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final perConvKey = _autoTranslateChatKey(conversationId);
+    if (prefs.containsKey(perConvKey)) return prefs.getBool(perConvKey) ?? false;
+    return prefs.getBool('auto_translate_chat') ?? false;
+  }
+
+  /// Persists the per-conversation auto-translate toggle state.
+  static Future<void> setAutoTranslateChatForConversation(
+    String conversationId,
+    bool enabled,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_autoTranslateChatKey(conversationId), enabled);
+  }
 }
 

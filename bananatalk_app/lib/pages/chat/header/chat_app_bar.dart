@@ -355,6 +355,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ChatOptionsMenu(
           userName: userName,
           userId: userId,
+          conversationId: userId, // partner ID doubles as conversation ID
           onThemeChanged: onThemeChanged,
         ),
       ],

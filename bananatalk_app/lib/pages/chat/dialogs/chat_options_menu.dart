@@ -17,6 +17,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
+import 'package:bananatalk_app/pages/chat/header/auto_translate_toggle.dart';
 
 class ChatOptionsMenu extends ConsumerStatefulWidget {
   final String userName;
@@ -182,6 +183,14 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             contentPadding: EdgeInsets.zero,
           ),
         ),
+        PopupMenuItem(
+          value: 'auto_translate',
+          child: ListTile(
+            leading: const Icon(Icons.translate_rounded),
+            title: Text(l10n.autoTranslate),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
         const PopupMenuDivider(),
 
         // Block/Unblock - dynamically change based on status
@@ -299,6 +308,16 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
               ),
             );
           }
+        }
+        break;
+
+      case 'auto_translate':
+        final convId = widget.conversationId ?? widget.userId;
+        if (convId != null && context.mounted) {
+          showModalBottomSheet(
+            context: context,
+            builder: (_) => AutoTranslateBottomSheet(conversationId: convId),
+          );
         }
         break;
 

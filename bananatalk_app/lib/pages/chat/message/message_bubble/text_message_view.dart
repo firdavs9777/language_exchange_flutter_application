@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -29,6 +30,9 @@ class TextMessageView extends StatefulWidget {
   final BorderRadius bubbleRadius;
   final Function(String messageId)? onReplyTap;
   final VoidCallback? onLongPress;
+  /// Partner's user ID, used as the conversation ID for per-conversation
+  /// auto-translate. Null disables auto-translate for this bubble.
+  final String? conversationId;
 
   const TextMessageView({
     super.key,
@@ -41,6 +45,7 @@ class TextMessageView extends StatefulWidget {
     required this.bubbleRadius,
     this.onReplyTap,
     this.onLongPress,
+    this.conversationId,
   });
 
   @override
@@ -51,6 +56,46 @@ class _TextMessageViewState extends State<TextMessageView> {
   /// Key forwarded to the inner [Text] / [Text.rich] inside [LinkifiedText]
   /// so that [WordLongPressHandler] can hit-test word boundaries.
   final GlobalKey _textKey = GlobalKey();
+
+  // ---------- auto-translate state ----------
+  String? _autoTranslation;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.isMe) _maybeAutoTranslate();
+  }
+
+  Future<void> _maybeAutoTranslate() async {
+    if (widget.conversationId == null) return;
+
+    final isOn = await TranslationService.isAutoTranslateChatEnabled(
+      widget.conversationId!,
+    );
+    if (!mounted || !isOn) return;
+
+    final messageText = widget.message.message ?? '';
+    if (messageText.isEmpty) return;
+
+    // 1. Check cached translations on the message model first.
+    final targetCode = await TranslationService.getAutoTranslateLanguage();
+    final cached = widget.message.translations.where(
+      (t) => t.language == targetCode,
+    );
+    if (cached.isNotEmpty) {
+      if (!mounted) return;
+      setState(() => _autoTranslation = cached.first.translatedText);
+      return;
+    }
+
+    // 2. Fetch via API.
+    final translated = await TranslationService.translateWord(
+      word: messageText,
+      targetLanguage: targetCode,
+    );
+    if (!mounted) return;
+    setState(() => _autoTranslation = translated);
+  }
 
   // ---------- helpers ----------
 
@@ -364,6 +409,23 @@ class _TextMessageViewState extends State<TextMessageView> {
                           backgroundColor: Colors.transparent,
                           borderRadius: 0,
                           removeElevation: true,
+                        ),
+                      ),
+                    ),
+                  // Auto-translated text (italic, smaller, shown only for
+                  // incoming messages when auto-translate is ON)
+                  if (_autoTranslation != null &&
+                      _autoTranslation != text)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        _autoTranslation!,
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 13,
+                          color: widget.isMe
+                              ? Colors.white70
+                              : Theme.of(context).hintColor,
                         ),
                       ),
                     ),

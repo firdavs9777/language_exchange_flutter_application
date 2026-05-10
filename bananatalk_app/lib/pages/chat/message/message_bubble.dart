@@ -675,6 +675,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
     // Text (default — includes stickers, wave sticker, link preview)
     if (msg.type == 'text' || msg.type.isEmpty) {
+      // For received messages, the sender's user ID doubles as the
+      // conversation key (consistent with ChatOptionsMenu / ChatAppBar).
+      final convId = widget.isMe ? null : msg.sender.id;
       return TextMessageView(
         message: msg,
         isMe: widget.isMe,
@@ -685,6 +688,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         bubbleRadius: _bubbleRadius(),
         onReplyTap: widget.onReplyTap,
         onLongPress: () => _showContextMenu(context),
+        conversationId: convId,
       );
     }
 
