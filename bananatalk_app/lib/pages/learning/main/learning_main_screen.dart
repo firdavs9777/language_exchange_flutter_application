@@ -8,7 +8,9 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/ai_tools_tab.dart';
 import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
+import 'package:bananatalk_app/pages/learning/animations/achievement_unlock_overlay.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
 
 /// Unified Study Hub — composes the Learn tab and AI Tools tab.
 class LearningMain extends ConsumerStatefulWidget {
@@ -23,6 +25,10 @@ class _LearningMainState extends ConsumerState<LearningMain>
   late TabController _tabController;
   int _currentTab = 0;
   int? _previousStreak;
+  // Tracks achievement IDs already shown this session to avoid re-triggering
+  // the overlay. There is no server-side mark-seen API, so this is
+  // client-side only; unseen achievements will re-fire on the next cold start.
+  final Set<String> _seenAchievementIds = {};
 
   @override
   void initState() {
@@ -57,6 +63,34 @@ class _LearningMainState extends ConsumerState<LearningMain>
           );
         }
         _previousStreak = newStreak;
+      });
+    });
+
+    ref.listen(achievementsProvider, (previous, next) {
+      next.whenData((achievements) async {
+        // Find achievements that are newly unlocked and not yet shown
+        final newlyUnlocked = achievements
+            .where((a) => a.isUnlocked && !_seenAchievementIds.contains(a.id))
+            .toList();
+
+        if (newlyUnlocked.isEmpty) return;
+
+        // Mark all as seen immediately to prevent duplicate triggers
+        for (final a in newlyUnlocked) {
+          _seenAchievementIds.add(a.id);
+        }
+
+        // Show overlays sequentially; guard each iteration with context.mounted
+        for (final a in newlyUnlocked) {
+          if (!context.mounted) break;
+          await AchievementUnlockOverlay.show(
+            context,
+            name: a.name,
+            description: a.description,
+          );
+        }
+        // NOTE: No server-side markAchievementsSeen API exists. Overlays are
+        // deduplicated within the session via _seenAchievementIds only.
       });
     });
 
