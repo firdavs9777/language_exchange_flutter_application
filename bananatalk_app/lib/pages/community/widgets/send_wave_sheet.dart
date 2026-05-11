@@ -145,14 +145,15 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Drag handle
+              // Drag handle — uses textMuted with extra alpha so it's
+              // visible on both light surface and dark surface backgrounds.
               Center(
                 child: Container(
                   width: 36,
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
-                    color: context.dividerColor,
+                    color: context.textMuted.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -204,10 +205,26 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
                 onSubmitted: (_) {
                   if (canSend) _send();
                 },
+                style: TextStyle(color: context.textPrimary),
                 decoration: InputDecoration(
                   hintText: l10n.waveCustomMessage,
+                  hintStyle: TextStyle(color: context.textMuted),
+                  filled: true,
+                  fillColor: context.containerColor,
                   border: OutlineInputBorder(
                     borderRadius: AppRadius.borderMD,
+                    borderSide: BorderSide(color: context.dividerColor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: AppRadius.borderMD,
+                    borderSide: BorderSide(color: context.dividerColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: AppRadius.borderMD,
+                    borderSide: const BorderSide(
+                      color: AppColors.primary,
+                      width: 1.5,
+                    ),
                   ),
                 ),
               ),
