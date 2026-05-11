@@ -60,6 +60,12 @@ class CallManager with WidgetsBindingObserver {
   /// LiveKit `onLocalDisconnected` / `onPeerDisconnected` callbacks.
   bool _localTeardownInFlight = false;
 
+  // Set while a user-initiated teardown is in progress. Distinct from
+  // _localTeardownInFlight (which gates the LiveKit-fired disconnect
+  // callbacks) — this one guards against double-tap of the End button
+  // or CallKit `onEnded` racing with the in-app End.
+  bool _endInFlight = false;
+
   CallModel? currentCall;
 
   // Callbacks ----------------------------------------------------------------
@@ -670,13 +676,18 @@ class CallManager with WidgetsBindingObserver {
   /// Decline an incoming ringing call. Hits `POST /calls/:id/decline` and
   /// tears down local state. No LiveKit connect happens.
   void rejectCall() {
+    if (_endInFlight) {
+      debugPrint('[Call] rejectCall ignored (already in flight)');
+      return;
+    }
+    _endInFlight = true;
     debugPrint('[Call] rejectCall callId=${currentCall?.callId}');
-    if (currentCall == null) return;
+    if (currentCall == null) {
+      _endInFlight = false;
+      return;
+    }
     final callId = currentCall!.callId;
 
-    // Fire-and-forget — the receiver has already torn down locally and the
-    // caller is notified via the socket emit from the controller. If the
-    // request fails, the call will time out caller-side anyway.
     if (callId.isNotEmpty) {
       unawaited(ApiClient().post('calls/$callId/decline'));
     }
@@ -689,8 +700,16 @@ class CallManager with WidgetsBindingObserver {
   /// End the active or ringing call from the local side. Hits
   /// `POST /calls/:id/end` and disconnects the LiveKit room.
   void endCall() {
+    if (_endInFlight) {
+      debugPrint('[Call] endCall ignored (already in flight)');
+      return;
+    }
+    _endInFlight = true;
     debugPrint('[Call] endCall callId=${currentCall?.callId}');
-    if (currentCall == null) return;
+    if (currentCall == null) {
+      _endInFlight = false;
+      return;
+    }
 
     _playEndSound();
     _localTeardownInFlight = true;
@@ -996,6 +1015,7 @@ class CallManager with WidgetsBindingObserver {
     unawaited(oldLiveKit.disconnect());
 
     _localTeardownInFlight = false;
+    _endInFlight = false;
   }
 
   void dispose() {
