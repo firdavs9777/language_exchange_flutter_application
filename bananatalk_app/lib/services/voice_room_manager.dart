@@ -564,6 +564,7 @@ class VoiceRoomManager {
     _chatMessages = [];
     _isMuted = true;
     _isHandRaised = false;
+    _handlingEnd = false;
     onStateChanged?.call();
   }
 
