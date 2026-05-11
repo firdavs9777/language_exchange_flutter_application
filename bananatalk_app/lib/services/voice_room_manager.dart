@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
-import 'package:bananatalk_app/services/webrtc_service.dart';
 import 'package:bananatalk_app/services/voice_room_livekit_manager.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
@@ -48,11 +47,6 @@ class VoiceRoomManager {
   /// driven by offer/answer/ICE socket signaling.
   final VoiceRoomLiveKitManager _liveKit = VoiceRoomLiveKitManager();
 
-  /// Retained only so the existing UI's `manager.webrtcService` getter
-  /// continues to resolve while A4 migrates UI off it. Not used for
-  /// transport. Cleanup happens in Wave C / C3.
-  final WebRTCService _webrtcService = WebRTCService();
-
   ChatSocketService? _chatSocketService;
   sio.Socket? _socket;
   bool _isInitialized = false;
@@ -92,9 +86,14 @@ class VoiceRoomManager {
   Function()? onConnectionChanged;
   /// Called when the host issues a mute-all and this user was forcibly muted.
   Function()? onForcedMuteSelf;
+  /// Fired when a remote participant sends an in-room emoji reaction over
+  /// the LiveKit data channel. [participantId] is the sender's user id;
+  /// [emoji] is the rendered glyph. UI consumers should anchor a floating
+  /// emoji at the sender's avatar. Self-display is the caller's job
+  /// (LiveKit doesn't echo data packets to the publisher).
+  Function(String participantId, String emoji)? onReactionReceived;
 
   // Getters
-  WebRTCService get webrtcService => _webrtcService;
   VoiceRoom? get currentRoom => _currentRoom;
   List<RoomParticipant> get participants => List.unmodifiable(_participants);
   List<VoiceRoomChatMessage> get chatMessages => List.unmodifiable(_chatMessages);
@@ -109,9 +108,6 @@ class VoiceRoomManager {
 
     _chatSocketService = chatSocketService;
     _socket = chatSocketService.socket;
-    // Initialize the WebRTC renderer/service for the legacy getter so UI
-    // code that calls webrtcService.startAudioLevelPolling() etc. is safe.
-    await _webrtcService.initialize();
     _setupSocketListeners();
     _setupLiveKitCallbacks();
     _setupConnectionListener();
@@ -349,6 +345,10 @@ class VoiceRoomManager {
         onStateChanged?.call();
       }
     };
+
+    _liveKit.onReactionReceived = (participantId, emoji) {
+      onReactionReceived?.call(participantId, emoji);
+    };
   }
 
   /// Join a voice room.
@@ -464,6 +464,14 @@ class VoiceRoomManager {
       'roomId': _currentRoom!.id,
       'message': message.trim(),
     });
+  }
+
+  /// Broadcast an in-room emoji reaction over the LiveKit data channel.
+  /// Peer-to-peer; the backend is not involved. LiveKit does NOT echo data
+  /// to the publisher, so the caller is responsible for self-display.
+  Future<void> sendReaction(String emoji) async {
+    if (_currentRoom == null) return;
+    await _liveKit.sendReaction(emoji);
   }
 
   /// Mute all participants (host only)

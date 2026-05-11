@@ -16,6 +16,11 @@ class VoiceRoomParticipantsGrid extends StatelessWidget {
   /// When non-null, each tile is wrapped in a [GestureDetector].
   final void Function(RoomParticipant participant)? onTileLongPress;
 
+  /// Optional builder for a per-participant [GlobalKey] that wraps the tile.
+  /// Used by the parent screen to locate a tile's RenderBox so it can
+  /// anchor floating-emoji reactions over the right avatar (C1).
+  final GlobalKey? Function(RoomParticipant participant)? keyForParticipant;
+
   const VoiceRoomParticipantsGrid({
     super.key,
     required this.room,
@@ -23,6 +28,7 @@ class VoiceRoomParticipantsGrid extends StatelessWidget {
     required this.hostLabel,
     required this.onTileTap,
     this.onTileLongPress,
+    this.keyForParticipant,
   });
 
   @override
@@ -45,13 +51,20 @@ class VoiceRoomParticipantsGrid extends StatelessWidget {
           hostLabel: hostLabel,
           onTap: () => onTileTap(participant),
         );
+        Widget child = tile;
         if (onTileLongPress != null) {
-          return GestureDetector(
+          child = GestureDetector(
             onLongPress: () => onTileLongPress!(participant),
-            child: tile,
+            child: child,
           );
         }
-        return tile;
+        final tileKey = keyForParticipant?.call(participant);
+        if (tileKey != null) {
+          // KeyedSubtree binds the GlobalKey to the tile subtree without
+          // disturbing the tile widget's own key (if any).
+          child = KeyedSubtree(key: tileKey, child: child);
+        }
+        return child;
       },
     );
   }
