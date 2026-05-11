@@ -223,10 +223,8 @@ class VoiceRoomNotifier extends ChangeNotifier {
   }
 
   /// End the room (host only)
-  void endRoom() {
-    _manager.endRoom();
-    _state = const VoiceRoomState();
-    notifyListeners();
+  Future<bool> endRoom() async {
+    return _manager.endRoom();
   }
 
   /// Fetch available voice rooms with optional filters
