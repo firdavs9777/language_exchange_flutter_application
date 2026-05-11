@@ -31,6 +31,10 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   DateTime? _scheduledFor;
   String? _category;
 
+  // Inline validation state — cleared as user corrects the field.
+  String? _titleError;
+  String? _categoryError;
+
   final List<String> _languages = [
     'English',
     'Korean',
@@ -55,10 +59,21 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
 
   void _createRoom() {
     final l10n = AppLocalizations.of(context)!;
-    if (_titleController.text.trim().isEmpty) {
+    final titleEmpty = _titleController.text.trim().isEmpty;
+    final categoryEmpty = _category == null;
+
+    if (titleEmpty || categoryEmpty) {
+      setState(() {
+        _titleError = titleEmpty ? l10n.pleaseEnterRoomTitle : null;
+        _categoryError = categoryEmpty ? 'Please pick a category' : null;
+      });
+      // Toast the first missing field for visibility on screens that
+      // scroll the form below the fold.
       showCommunitySnackBar(
         context,
-        message: l10n.pleaseEnterRoomTitle,
+        message: titleEmpty
+            ? l10n.pleaseEnterRoomTitle
+            : 'Please pick a category',
         type: CommunitySnackBarType.error,
       );
       return;
@@ -205,9 +220,17 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Room title
-                      Text(
-                        l10n.roomTitle,
+                      // Room title (* required)
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(text: l10n.roomTitle),
+                            const TextSpan(
+                              text: ' *',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ],
+                        ),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -216,6 +239,11 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                       Spacing.gapSM,
                       TextField(
                         controller: _titleController,
+                        onChanged: (_) {
+                          if (_titleError != null) {
+                            setState(() => _titleError = null);
+                          }
+                        },
                         decoration: InputDecoration(
                           hintText: l10n.roomTitleHint,
                           filled: true,
@@ -224,6 +252,25 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                             borderRadius: AppRadius.borderMD,
                             borderSide: BorderSide.none,
                           ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: AppRadius.borderMD,
+                            borderSide: _titleError != null
+                                ? const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.5,
+                                  )
+                                : BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: AppRadius.borderMD,
+                            borderSide: BorderSide(
+                              color: _titleError != null
+                                  ? Colors.red
+                                  : const Color(0xFF00BFA5),
+                              width: 1.5,
+                            ),
+                          ),
+                          errorText: _titleError,
                           contentPadding: const EdgeInsets.all(16),
                         ),
                         maxLength: 50,
@@ -338,17 +385,32 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                       // Category picker
                       DropdownButtonFormField<String?>(
                         decoration: InputDecoration(
-                          labelText: l10n.pickCategory,
+                          labelText: '${l10n.pickCategory} *',
                           border: OutlineInputBorder(
                             borderRadius: AppRadius.borderMD,
                           ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: AppRadius.borderMD,
+                            borderSide: _categoryError != null
+                                ? const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.5,
+                                  )
+                                : const BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: AppRadius.borderMD,
+                            borderSide: BorderSide(
+                              color: _categoryError != null
+                                  ? Colors.red
+                                  : const Color(0xFF00BFA5),
+                              width: 1.5,
+                            ),
+                          ),
+                          errorText: _categoryError,
                         ),
                         initialValue: _category,
                         items: [
-                          const DropdownMenuItem(
-                            value: null,
-                            child: Text('—'),
-                          ),
                           DropdownMenuItem(
                             value: 'casual',
                             child: Text(l10n.categoryCasual),
@@ -366,7 +428,10 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                             child: Text(l10n.categoryQA),
                           ),
                         ],
-                        onChanged: (v) => setState(() => _category = v),
+                        onChanged: (v) => setState(() {
+                          _category = v;
+                          if (_categoryError != null) _categoryError = null;
+                        }),
                       ),
                       const SizedBox(height: 16),
                       // Create button
