@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/services/webrtc_service.dart';
+import 'package:bananatalk_app/services/voice_room_livekit_manager.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as sio;
 
 /// Chat message in voice room
@@ -32,13 +33,26 @@ class VoiceRoomChatMessage {
   }
 }
 
-/// Voice Room Manager - handles voice room orchestration
+/// Voice Room Manager — orchestrates voice-room business logic.
+///
+/// Transport (audio in/out, active speakers, transport-level presence) is
+/// delegated to [VoiceRoomLiveKitManager]. Socket.io is retained for the
+/// business-event channel: chat, hand-raise, host transfer, room-ended,
+/// kicked, mute broadcasts (for cross-client snappiness).
 class VoiceRoomManager {
   static final VoiceRoomManager _instance = VoiceRoomManager._internal();
   factory VoiceRoomManager() => _instance;
   VoiceRoomManager._internal();
 
+  /// LiveKit-backed transport. Replaces the prior mesh-WebRTC peer fan-out
+  /// driven by offer/answer/ICE socket signaling.
+  final VoiceRoomLiveKitManager _liveKit = VoiceRoomLiveKitManager();
+
+  /// Retained only so the existing UI's `manager.webrtcService` getter
+  /// continues to resolve while A4 migrates UI off it. Not used for
+  /// transport. Cleanup happens in Wave C / C3.
   final WebRTCService _webrtcService = WebRTCService();
+
   ChatSocketService? _chatSocketService;
   sio.Socket? _socket;
   bool _isInitialized = false;
@@ -52,20 +66,15 @@ class VoiceRoomManager {
   // Timers
   Timer? _heartbeatTimer;
 
-  // Stream subscriptions
+  // Stream subscriptions (socket.io business events only)
   StreamSubscription? _participantJoinedSub;
   StreamSubscription? _participantLeftSub;
-  StreamSubscription? _offerSub;
-  StreamSubscription? _answerSub;
-  StreamSubscription? _iceCandidateSub;
   StreamSubscription? _muteSub;
   StreamSubscription? _handRaisedSub;
   StreamSubscription? _chatSub;
   StreamSubscription? _endedSub;
   StreamSubscription? _kickedSub;
   StreamSubscription? _hostChangedSub;
-  StreamSubscription<Map<String, double>>? _audioLevelSub;
-  StreamSubscription<double>? _localAudioSub;
   StreamSubscription<bool>? _connectionSub;
 
   // Reconnect state
@@ -100,9 +109,11 @@ class VoiceRoomManager {
 
     _chatSocketService = chatSocketService;
     _socket = chatSocketService.socket;
+    // Initialize the WebRTC renderer/service for the legacy getter so UI
+    // code that calls webrtcService.startAudioLevelPolling() etc. is safe.
     await _webrtcService.initialize();
     _setupSocketListeners();
-    _setupWebRTCCallbacks();
+    _setupLiveKitCallbacks();
     _setupConnectionListener();
     _isInitialized = true;
   }
@@ -156,70 +167,37 @@ class VoiceRoomManager {
   void _setupSocketListeners() {
     if (_chatSocketService == null) return;
 
-    // Participant joined
+    // Participant joined — business-layer source of truth for avatar/joinedAt/host.
+    // LiveKit's own ParticipantConnected event may arrive earlier and seed a
+    // stub; this event hydrates it with the canonical Mongo fields.
     _participantJoinedSub = _chatSocketService!.onVoiceRoomParticipantJoined.listen((data) {
       final participant = RoomParticipant.fromJson(Map<String, dynamic>.from(data));
-      _participants.add(participant);
+      final existing = _participants.indexWhere((p) => p.id == participant.id);
+      if (existing != -1) {
+        // Preserve any LiveKit-driven runtime state (speaking/mute) we may
+        // have already learned from the transport layer before this event.
+        final prev = _participants[existing];
+        _participants[existing] = participant.copyWith(
+          isSpeaking: prev.isSpeaking,
+          isMuted: prev.isMuted,
+        );
+      } else {
+        _participants.add(participant);
+      }
       onParticipantJoined?.call(participant);
       onStateChanged?.call();
-
-      // Create offer for the new participant
-      _webrtcService.createOfferForPeer(participant.id);
     });
 
     // Participant left
     _participantLeftSub = _chatSocketService!.onVoiceRoomParticipantLeft.listen((data) {
       final userId = data['userId']?.toString() ?? '';
       _participants.removeWhere((p) => p.id == userId);
-      _webrtcService.disconnectFromPeer(userId);
       onParticipantLeft?.call(userId);
       onStateChanged?.call();
     });
 
-    // WebRTC offer from peer
-    _offerSub = _chatSocketService!.onVoiceRoomOffer.listen((data) async {
-      final peerId = data['fromUserId']?.toString() ?? '';
-      final offerData = data['offer'];
-      if (peerId.isEmpty || offerData == null) return;
-
-      final offer = RTCSessionDescription(
-        offerData['sdp'] ?? '',
-        offerData['type'] ?? 'offer',
-      );
-
-      await _webrtcService.createAnswerForPeer(peerId, offer);
-    });
-
-    // WebRTC answer from peer
-    _answerSub = _chatSocketService!.onVoiceRoomAnswer.listen((data) async {
-      final peerId = data['fromUserId']?.toString() ?? '';
-      final answerData = data['answer'];
-      if (peerId.isEmpty || answerData == null) return;
-
-      final answer = RTCSessionDescription(
-        answerData['sdp'] ?? '',
-        answerData['type'] ?? 'answer',
-      );
-
-      await _webrtcService.setRemoteDescriptionForPeer(peerId, answer);
-    });
-
-    // ICE candidate from peer
-    _iceCandidateSub = _chatSocketService!.onVoiceRoomIceCandidate.listen((data) async {
-      final peerId = data['fromUserId']?.toString() ?? '';
-      final candidateData = data['candidate'];
-      if (peerId.isEmpty || candidateData == null) return;
-
-      final candidate = RTCIceCandidate(
-        candidateData['candidate'] ?? '',
-        candidateData['sdpMid'],
-        candidateData['sdpMLineIndex'],
-      );
-
-      await _webrtcService.addIceCandidateForPeer(peerId, candidate);
-    });
-
-    // Participant mute state
+    // Participant mute state — broadcast for snappy cross-client UI;
+    // LiveKit's TrackMuted event lags by ~100ms and also updates this.
     _muteSub = _chatSocketService!.onVoiceRoomMute.listen((data) {
       final participantId = data['userId']?.toString() ?? '';
       final isMuted = data['isMuted'] == true;
@@ -234,9 +212,7 @@ class VoiceRoomManager {
       if (forced && isMuted) {
         final myId = _chatSocketService?.currentUserId;
         if (myId != null && participantId == myId) {
-          if (_webrtcService.isMicrophoneEnabled) {
-            _webrtcService.toggleMicrophone();
-          }
+          _liveKit.setMuted(true);
           _isMuted = true;
           onForcedMuteSelf?.call();
         }
@@ -304,118 +280,129 @@ class VoiceRoomManager {
     });
   }
 
-  void _setupWebRTCCallbacks() {
-    // When we create an offer for a peer
-    _webrtcService.onMultiPeerOfferCreated = (peerId, offer) {
-      _socket?.emit('voiceroom:offer', {
-        'roomId': _currentRoom?.id,
-        'targetUserId': peerId,
-        'offer': {'type': offer.type, 'sdp': offer.sdp},
-      });
-    };
-
-    // When we create an answer for a peer
-    _webrtcService.onMultiPeerAnswerCreated = (peerId, answer) {
-      _socket?.emit('voiceroom:answer', {
-        'roomId': _currentRoom?.id,
-        'targetUserId': peerId,
-        'answer': {'type': answer.type, 'sdp': answer.sdp},
-      });
-    };
-
-    // When we have an ICE candidate for a peer
-    _webrtcService.onMultiPeerIceCandidate = (peerId, candidate) {
-      _socket?.emit('voiceroom:ice-candidate', {
-        'roomId': _currentRoom?.id,
-        'targetUserId': peerId,
-        'candidate': {
-          'candidate': candidate.candidate,
-          'sdpMid': candidate.sdpMid,
-          'sdpMLineIndex': candidate.sdpMLineIndex,
-        },
-      });
-    };
-
-    // Audio-level stream → flip isSpeaking on participant tiles
-    _audioLevelSub?.cancel();
-    _audioLevelSub = _webrtcService.peerAudioLevels.listen((levels) {
-      bool changed = false;
-      for (var i = 0; i < _participants.length; i++) {
-        final p = _participants[i];
-        final level = levels[p.id] ?? 0;
-        // 0.05 RMS: breathing/typing (~0.01-0.03) stays below;
-        // intentional speech is typically 0.1+.
-        final shouldSpeak = level > 0.05 && !p.isMuted;
-        if (p.isSpeaking != shouldSpeak) {
-          _participants[i] = p.copyWith(isSpeaking: shouldSpeak);
-          changed = true;
-        }
-      }
-      if (changed) onStateChanged?.call();
-    });
-
-    // Local audio-level stream → flip isSpeaking for the local user's tile
-    _localAudioSub?.cancel();
-    _localAudioSub = _webrtcService.localAudioLevel.listen((level) {
-      final myId = _chatSocketService?.currentUserId;
-      if (myId == null) return;
-      final i = _participants.indexWhere((p) => p.id == myId);
-      if (i == -1) return;
-      final p = _participants[i];
-      // Same 0.05 threshold used for remote peers; suppress when muted
-      final shouldSpeak = level > 0.05 && !p.isMuted;
-      if (p.isSpeaking != shouldSpeak) {
-        _participants[i] = p.copyWith(isSpeaking: shouldSpeak);
+  void _setupLiveKitCallbacks() {
+    // Transport-level join. Socket `voiceroom:joined` is the authoritative
+    // source for full participant data; if LiveKit beats it here, insert a
+    // stub so the speaking/mute deltas have somewhere to land. The socket
+    // event will then merge in avatar/joinedAt/isHost.
+    _liveKit.onParticipantJoined = (participant) {
+      final existing = _participants.indexWhere((p) => p.id == participant.id);
+      if (existing == -1) {
+        _participants.add(participant);
         onStateChanged?.call();
       }
-    });
+    };
+
+    _liveKit.onParticipantLeft = (participantId) {
+      // Don't remove on LiveKit-only signal — wait for the authoritative
+      // socket `voiceroom:left`. (Transport disconnect can be transient
+      // during reconnect; socket event is the canonical leave.)
+      // We DO clear their speaking flag, though, so the UI doesn't pulse.
+      final i = _participants.indexWhere((p) => p.id == participantId);
+      if (i != -1 && _participants[i].isSpeaking) {
+        _participants[i] = _participants[i].copyWith(isSpeaking: false);
+        onStateChanged?.call();
+      }
+    };
+
+    _liveKit.onParticipantSpeakingChanged = (participantId, isSpeaking) {
+      final i = _participants.indexWhere((p) => p.id == participantId);
+      if (i == -1) return;
+      final p = _participants[i];
+      // Suppress speaking pulse for muted users (defense-in-depth; LiveKit
+      // shouldn't emit them as active speakers but UI shouldn't trust that).
+      final effective = isSpeaking && !p.isMuted;
+      if (p.isSpeaking != effective) {
+        _participants[i] = p.copyWith(isSpeaking: effective);
+        onStateChanged?.call();
+      }
+    };
+
+    _liveKit.onParticipantMuteChanged = (participantId, isMuted) {
+      final i = _participants.indexWhere((p) => p.id == participantId);
+      if (i == -1) return;
+      final p = _participants[i];
+      if (p.isMuted != isMuted) {
+        _participants[i] = p.copyWith(isMuted: isMuted);
+        onStateChanged?.call();
+      }
+    };
+
+    _liveKit.onRoomReconnecting = () {
+      _isReconnecting = true;
+      onConnectionChanged?.call();
+      onStateChanged?.call();
+    };
+
+    _liveKit.onRoomReconnected = () {
+      _isReconnecting = false;
+      onConnectionChanged?.call();
+      onStateChanged?.call();
+    };
+
+    _liveKit.onRoomDisconnected = () {
+      // Transport disconnect doesn't itself end the room — the socket
+      // `voiceroom:ended` does. Just surface the reconnecting flag.
+      if (_currentRoom != null) {
+        _isReconnecting = true;
+        onConnectionChanged?.call();
+        onStateChanged?.call();
+      }
+    };
   }
 
-  /// Join a voice room
+  /// Join a voice room.
+  ///
+  /// 1. `POST voicerooms/:id/join` to mutate Mongo state and obtain the
+  ///    authoritative participant list (avatars, host, joinedAt).
+  /// 2. Connect to LiveKit (muted) for media transport.
+  /// 3. Announce join on the socket business channel so other clients
+  ///    receive `voiceroom:joined` for their own UI.
   Future<void> joinRoom(VoiceRoom room) async {
     if (_socket == null || !(_chatSocketService?.isConnected ?? false)) {
       throw Exception('Not connected to server');
     }
 
-    // Request permissions
-    final permissionsGranted = await _webrtcService.requestPermissions(false);
-    if (!permissionsGranted) {
-      throw Exception('Microphone permission required');
-    }
-
-    // Initialize local stream
-    await _webrtcService.initLocalStreamForRoom();
-
-    // Start muted — disable the audio track right away
-    final audioTracks = _webrtcService.localStream?.getAudioTracks();
-    if (audioTracks != null && audioTracks.isNotEmpty) {
-      audioTracks[0].enabled = false;
-      debugPrint('🎤 Voice room: started muted, audio track disabled');
-    } else {
-      debugPrint('🎤 Voice room: WARNING - no audio tracks found');
-    }
-
+    // Seed local state from the room snapshot the caller already holds.
     _currentRoom = room;
     _participants = List.from(room.participants);
     _chatMessages = [];
     _isMuted = true;
     _isHandRaised = false;
 
-    // Emit join event
-    _socket!.emit('voiceroom:join', {'roomId': room.id});
+    // 1) Persist join via REST, 2) connect transport — run in parallel.
+    final joinFuture = ApiClient().post('voicerooms/${room.id}/join');
+    final connectFuture = _liveKit.connect(roomId: room.id);
+    final joinRes = await joinFuture;
+    await connectFuture;
 
-    // Create offers for existing participants
-    for (final participant in _participants) {
-      if (participant.id != _chatSocketService?.currentUserId) {
-        await _webrtcService.createOfferForPeer(participant.id);
+    if (joinRes.success && joinRes.data != null) {
+      // The /join endpoint returns the updated room (with full participant
+      // list). Reseed from it so we have canonical avatars + joinedAt.
+      final data = joinRes.data;
+      Map<String, dynamic>? roomJson;
+      if (data is Map<String, dynamic>) {
+        if (data['participants'] is List) {
+          roomJson = data;
+        } else if (data['data'] is Map<String, dynamic>) {
+          roomJson = Map<String, dynamic>.from(data['data']);
+        }
+      }
+      if (roomJson != null) {
+        try {
+          final updated = VoiceRoom.fromJson(roomJson);
+          _currentRoom = updated;
+          _participants = List.from(updated.participants);
+        } catch (e) {
+          debugPrint('VoiceRoomManager: failed to parse join response: $e');
+        }
       }
     }
 
-    // Begin audio-level polling so the speaking indicator stays live
-    _webrtcService.startAudioLevelPolling();
-    _webrtcService.startLocalAudioLevelPolling();
+    // Announce on the socket business channel for cross-client notification.
+    _socket!.emit('voiceroom:join', {'roomId': room.id});
 
-    // Start heartbeat timer
+    // Heartbeat keeps the server-side presence record fresh.
     _heartbeatTimer?.cancel();
     _heartbeatTimer = Timer.periodic(const Duration(seconds: 20), (_) {
       if (_currentRoom != null && _socket != null) {
@@ -426,20 +413,28 @@ class VoiceRoomManager {
     onStateChanged?.call();
   }
 
-  /// Leave the current room
+  /// Leave the current room — disconnect LiveKit first to silence the mic
+  /// promptly, then notify the server via socket + REST.
   Future<void> leaveRoom() async {
     if (_currentRoom == null) return;
+    final roomId = _currentRoom!.id;
 
-    _socket?.emit('voiceroom:leave', {'roomId': _currentRoom!.id});
+    await _liveKit.disconnect();
+    _socket?.emit('voiceroom:leave', {'roomId': roomId});
+    // Fire-and-forget the REST leave; cleanup local state immediately so the
+    // UI doesn't sit in a half-left state if the request is slow.
+    unawaited(ApiClient().post('voicerooms/$roomId/leave'));
     _cleanup();
   }
 
-  /// Toggle mute state
+  /// Toggle mute state — flips the LiveKit local mic, then broadcasts on
+  /// the socket for snappy cross-client UI (LiveKit's own TrackMuted
+  /// event reaches peers ~100ms later).
   void toggleMute() {
-    _webrtcService.toggleMicrophone();
-    _isMuted = !_webrtcService.isMicrophoneEnabled;
+    _isMuted = !_isMuted;
+    _liveKit.setMuted(_isMuted);
 
-    debugPrint('🎤 Voice room mute toggled: isMuted=$_isMuted, micEnabled=${_webrtcService.isMicrophoneEnabled}');
+    debugPrint('Voice room mute toggled: isMuted=$_isMuted');
 
     _socket?.emit('voiceroom:mute', {
       'roomId': _currentRoom?.id,
@@ -488,19 +483,13 @@ class VoiceRoomManager {
   /// End the room (host only)
   void endRoom() {
     _socket?.emit('voiceroom:end', {'roomId': _currentRoom?.id});
+    unawaited(_liveKit.disconnect());
     _cleanup();
   }
 
   void _cleanup() {
     _heartbeatTimer?.cancel();
     _heartbeatTimer = null;
-    _webrtcService.stopAudioLevelPolling();
-    _webrtcService.stopLocalAudioLevelPolling();
-    _audioLevelSub?.cancel();
-    _audioLevelSub = null;
-    _localAudioSub?.cancel();
-    _localAudioSub = null;
-    _webrtcService.disposeMultiPeer();
     _currentRoom = null;
     _participants = [];
     _chatMessages = [];
@@ -513,18 +502,14 @@ class VoiceRoomManager {
     _heartbeatTimer?.cancel();
     _participantJoinedSub?.cancel();
     _participantLeftSub?.cancel();
-    _offerSub?.cancel();
-    _answerSub?.cancel();
-    _iceCandidateSub?.cancel();
     _muteSub?.cancel();
     _handRaisedSub?.cancel();
     _chatSub?.cancel();
     _endedSub?.cancel();
     _kickedSub?.cancel();
     _hostChangedSub?.cancel();
-    _audioLevelSub?.cancel();
-    _localAudioSub?.cancel();
     _connectionSub?.cancel();
+    unawaited(_liveKit.disconnect());
     _cleanup();
   }
 }

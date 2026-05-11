@@ -29,7 +29,7 @@ class VoiceRoomScreen extends ConsumerStatefulWidget {
 }
 
 class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+    with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
@@ -39,7 +39,6 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     _pulseController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -96,20 +95,8 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     _pulseController.dispose();
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    final webrtc = ref.read(voiceRoomProvider).manager.webrtcService;
-    if (state == AppLifecycleState.resumed) {
-      webrtc.startAudioLevelPolling();
-    } else if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.inactive) {
-      webrtc.stopAudioLevelPolling();
-    }
   }
 
   void _toggleMute() {
