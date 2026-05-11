@@ -69,16 +69,20 @@ class VoiceRoomLiveKitManager {
   /// The token endpoint returns `{ success, data: { token, url, roomName,
   /// role } }`. `ApiClient` unwraps `data` for us.
   Future<void> connect({required String roomId}) async {
+    debugPrint('[VR] connect roomId=$roomId — fetching token');
     final res = await ApiClient().post('voicerooms/$roomId/token');
     if (!res.success || res.data == null) {
+      debugPrint('[VR] token fetch FAILED: ${res.error}');
       throw StateError(res.error ?? 'Failed to fetch voice room token');
     }
     final data = res.data as Map<String, dynamic>;
     final token = data['token'] as String?;
     final url = data['url'] as String?;
     if (token == null || url == null) {
+      debugPrint('[VR] malformed token response: $data');
       throw StateError('Malformed voice room token response: $data');
     }
+    debugPrint('[VR] token OK role=${data['role']} room=${data['roomName']}');
 
     await _livekit.connect(
       url: url,
@@ -139,10 +143,12 @@ class VoiceRoomLiveKitManager {
     _listener = l;
 
     l.on<lk.ParticipantConnectedEvent>((event) {
+      debugPrint('[VR] participantJoined ${event.participant.identity}');
       onParticipantJoined?.call(_toRoomParticipant(event.participant));
     });
 
     l.on<lk.ParticipantDisconnectedEvent>((event) {
+      debugPrint('[VR] participantLeft ${event.participant.identity}');
       onParticipantLeft?.call(event.participant.identity);
     });
 
@@ -173,9 +179,18 @@ class VoiceRoomLiveKitManager {
       }
     });
 
-    l.on<lk.RoomReconnectingEvent>((_) => onRoomReconnecting?.call());
-    l.on<lk.RoomReconnectedEvent>((_) => onRoomReconnected?.call());
-    l.on<lk.RoomDisconnectedEvent>((_) => onRoomDisconnected?.call());
+    l.on<lk.RoomReconnectingEvent>((_) {
+      debugPrint('[VR] roomReconnecting');
+      onRoomReconnecting?.call();
+    });
+    l.on<lk.RoomReconnectedEvent>((_) {
+      debugPrint('[VR] roomReconnected');
+      onRoomReconnected?.call();
+    });
+    l.on<lk.RoomDisconnectedEvent>((event) {
+      debugPrint('[VR] roomDisconnected reason=${event.reason}');
+      onRoomDisconnected?.call();
+    });
 
     l.on<lk.DataReceivedEvent>((event) {
       try {

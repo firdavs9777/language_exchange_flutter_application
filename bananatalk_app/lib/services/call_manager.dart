@@ -469,6 +469,7 @@ class CallManager with WidgetsBindingObserver {
     String? targetUserProfilePicture,
     CallType callType,
   ) async {
+    debugPrint('[Call] initiateCall target=$targetUserId type=$callType');
     try {
       // Permissions — same UX as before so existing error strings keep
       // surfacing through the UI's permission-handling flow.
@@ -659,6 +660,7 @@ class CallManager with WidgetsBindingObserver {
   /// Decline an incoming ringing call. Hits `POST /calls/:id/decline` and
   /// tears down local state. No LiveKit connect happens.
   void rejectCall() {
+    debugPrint('[Call] rejectCall callId=${currentCall?.callId}');
     if (currentCall == null) return;
     final callId = currentCall!.callId;
 
@@ -677,6 +679,7 @@ class CallManager with WidgetsBindingObserver {
   /// End the active or ringing call from the local side. Hits
   /// `POST /calls/:id/end` and disconnects the LiveKit room.
   void endCall() {
+    debugPrint('[Call] endCall callId=${currentCall?.callId}');
     if (currentCall == null) return;
 
     _playEndSound();

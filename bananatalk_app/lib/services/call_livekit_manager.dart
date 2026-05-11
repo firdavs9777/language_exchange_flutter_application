@@ -118,6 +118,7 @@ class CallLiveKitManager {
     required String token,
     required CallType type,
   }) async {
+    debugPrint('[Call] connect type=$type url=$url');
     await _livekit.connect(
       url: url,
       token: token,
@@ -182,11 +183,13 @@ class CallLiveKitManager {
     _listener = l;
 
     l.on<ParticipantConnectedEvent>((event) {
+      debugPrint('[Call] peerConnected ${event.participant.identity}');
       _remotePeer = event.participant;
       onPeerConnected?.call();
     });
 
     l.on<ParticipantDisconnectedEvent>((event) {
+      debugPrint('[Call] peerDisconnected ${event.participant.identity}');
       // Only signal if it's the participant we've been tracking. Do NOT
       // clear the field — caller decides whether to keep showing the
       // peer during a reconnect window.
@@ -233,12 +236,22 @@ class CallLiveKitManager {
     // the room itself and rarely useful at the call-screen level.
     l.on<ParticipantConnectionQualityUpdatedEvent>((event) {
       if (event.participant.identity == _remotePeer?.identity) {
+        debugPrint('[Call] quality=${event.connectionQuality}');
         onConnectionQualityChanged?.call(event.connectionQuality);
       }
     });
 
-    l.on<RoomReconnectingEvent>((_) => onReconnecting?.call());
-    l.on<RoomReconnectedEvent>((_) => onReconnected?.call());
-    l.on<RoomDisconnectedEvent>((_) => onLocalDisconnected?.call());
+    l.on<RoomReconnectingEvent>((_) {
+      debugPrint('[Call] reconnecting');
+      onReconnecting?.call();
+    });
+    l.on<RoomReconnectedEvent>((_) {
+      debugPrint('[Call] reconnected');
+      onReconnected?.call();
+    });
+    l.on<RoomDisconnectedEvent>((event) {
+      debugPrint('[Call] roomDisconnected reason=${event.reason}');
+      onLocalDisconnected?.call();
+    });
   }
 }

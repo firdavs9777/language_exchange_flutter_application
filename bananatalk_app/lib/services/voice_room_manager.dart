@@ -359,7 +359,9 @@ class VoiceRoomManager {
   /// 3. Announce join on the socket business channel so other clients
   ///    receive `voiceroom:joined` for their own UI.
   Future<void> joinRoom(VoiceRoom room) async {
+    debugPrint('[VR] joinRoom id=${room.id} title=${room.title}');
     if (_socket == null || !(_chatSocketService?.isConnected ?? false)) {
+      debugPrint('[VR] joinRoom FAILED: socket not connected');
       throw Exception('Not connected to server');
     }
 
@@ -416,6 +418,7 @@ class VoiceRoomManager {
   /// Leave the current room — disconnect LiveKit first to silence the mic
   /// promptly, then notify the server via socket + REST.
   Future<void> leaveRoom() async {
+    debugPrint('[VR] leaveRoom id=${_currentRoom?.id}');
     if (_currentRoom == null) return;
     final roomId = _currentRoom!.id;
 
