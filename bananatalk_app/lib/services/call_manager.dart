@@ -274,7 +274,17 @@ class CallManager with WidgetsBindingObserver {
     debugPrint('📞 call:incoming event received: $data');
 
     if (currentCall != null) {
-      debugPrint('📞 Already in a call, ignoring incoming');
+      debugPrint('📞 Already in a call, replying busy');
+      // Tell the caller we're busy so their ringback stops immediately
+      // instead of running the full 45s timeout.
+      try {
+        final incomingCallId = (data is Map ? data['callId'] : null)?.toString();
+        if (incomingCallId != null && incomingCallId.isNotEmpty) {
+          unawaited(ApiClient().post('calls/$incomingCallId/decline'));
+        }
+      } catch (e) {
+        debugPrint('📞 busy reply failed: $e');
+      }
       return;
     }
 
