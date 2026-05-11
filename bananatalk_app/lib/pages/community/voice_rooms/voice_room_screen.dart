@@ -17,6 +17,8 @@ import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_host_menu.
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_participant_actions.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_reconnect_banner.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/widgets/voice_room/floating_reaction.dart';
+import 'package:bananatalk_app/widgets/voice_room/reaction_picker.dart';
 
 /// Voice Room Screen — active voice chat room.
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -35,6 +37,17 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
 
   bool _chatVisible = false;
   int _lastSeenChatCount = 0;
+
+  /// GlobalKeys for each participant tile so [_showReactionFor] can
+  /// resolve a tile's screen position and anchor a floating emoji over
+  /// its avatar. Keyed by [RoomParticipant.id]; we never recycle keys
+  /// for the same id, so the same tile keeps a stable RenderBox lookup
+  /// across rebuilds.
+  final Map<String, GlobalKey> _participantKeys = <String, GlobalKey>{};
+
+  GlobalKey _keyForParticipant(String userId) {
+    return _participantKeys.putIfAbsent(userId, () => GlobalKey());
+  }
 
   @override
   void initState() {
@@ -90,7 +103,55 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
           type: CommunitySnackBarType.info,
         );
       };
+
+      manager.onReactionReceived = (participantId, emoji) {
+        _showReactionFor(participantId, emoji);
+      };
     });
+  }
+
+  /// Anchor a floating-emoji animation over the sender's avatar tile.
+  ///
+  /// We look up the tile's RenderBox via its GlobalKey and pin the emoji
+  /// at the top-center. If the tile is offscreen (long scroll, host
+  /// long-press kicked it off the layout, participant just left) we fall
+  /// back to a screen-top-quarter center anchor so the user still gets
+  /// visual feedback.
+  void _showReactionFor(String participantId, String emoji) {
+    if (!mounted) return;
+
+    Offset? anchor;
+    final key = _participantKeys[participantId];
+    final box = key?.currentContext?.findRenderObject() as RenderBox?;
+    if (box != null && box.attached) {
+      final size = box.size;
+      // Top-center of the tile — the avatar sits at the top of the tile,
+      // so this lands the emoji just above the avatar.
+      anchor = box.localToGlobal(Offset(size.width / 2, 0));
+    }
+    if (anchor == null) {
+      final mq = MediaQuery.of(context).size;
+      anchor = Offset(mq.width / 2, mq.height * 0.25);
+    }
+
+    showFloatingReaction(
+      context: context,
+      anchor: anchor,
+      emoji: emoji,
+    );
+  }
+
+  Future<void> _sendReaction() async {
+    final emoji = await showReactionPicker(context);
+    if (emoji == null || !mounted) return;
+    final manager = ref.read(voiceRoomProvider).manager;
+    await manager.sendReaction(emoji);
+    // LiveKit does not echo published data to the publisher; surface our
+    // own emoji locally so the sender sees their reaction float too.
+    final myId = ref.read(authServiceProvider).userId;
+    if (myId.isNotEmpty && mounted) {
+      _showReactionFor(myId, emoji);
+    }
   }
 
   @override
@@ -234,6 +295,10 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
                           }
                         }
                       : null,
+                  keyForParticipant: (participant) =>
+                      participant.id.isNotEmpty
+                          ? _keyForParticipant(participant.id)
+                          : null,
                 ),
               ),
               IgnorePointer(
@@ -265,6 +330,24 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
               maxChildSize: 0.85,
               builder: (_, scrollController) =>
                   VoiceRoomChatPanel(scrollController: scrollController),
+            ),
+          // Floating "React" FAB pinned above the bottom controls bar.
+          // Hidden while the chat panel is open so it doesn't fight for
+          // the same touch region as the chat input.
+          if (!_chatVisible)
+            Positioned(
+              right: 16,
+              bottom: 160,
+              child: SafeArea(
+                child: FloatingActionButton.small(
+                  heroTag: 'voice_room_react_fab',
+                  backgroundColor: const Color(0xFF00BFA5),
+                  foregroundColor: Colors.white,
+                  tooltip: 'React',
+                  onPressed: isReconnecting ? null : _sendReaction,
+                  child: const Icon(Icons.add_reaction_outlined),
+                ),
+              ),
             ),
           Positioned(
             left: 0,
