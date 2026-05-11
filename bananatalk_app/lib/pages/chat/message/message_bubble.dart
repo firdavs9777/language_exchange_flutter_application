@@ -790,8 +790,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       );
     }
 
-    // Text (default — includes stickers, wave sticker, link preview)
-    if (msg.type == 'text' || msg.type.isEmpty) {
+    // Text (default — includes stickers, wave sticker, link preview).
+    // Stickers come over the wire with type='sticker' (see chat_conversation_screen
+    // _sendMessage); TextMessageView already detects single-emoji content and
+    // renders it large without a bubble, so we just route the same view.
+    if (msg.type == 'text' || msg.type == 'sticker' || msg.type.isEmpty) {
       // For received messages, the sender's user ID doubles as the
       // conversation key (consistent with ChatOptionsMenu / ChatAppBar).
       final convId = widget.isMe ? null : msg.sender.id;
