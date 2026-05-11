@@ -276,7 +276,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A2E),
       appBar: VoiceRoomHeader(
-        room: widget.room,
+        room: voiceRoom.currentRoom ?? widget.room,
         onLeave: _leaveRoom,
         pulseAnimation: _pulseAnimation,
       ),
@@ -284,10 +284,10 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         children: [
           Column(
             children: [
-              VoiceRoomInfoBar(room: widget.room),
+              VoiceRoomInfoBar(room: voiceRoom.currentRoom ?? widget.room),
               Expanded(
                 child: VoiceRoomParticipantsGrid(
-                  room: widget.room,
+                  room: voiceRoom.currentRoom ?? widget.room,
                   participants: participants,
                   hostLabel: l10n.roomHost,
                   onTileTap: (participant) {
