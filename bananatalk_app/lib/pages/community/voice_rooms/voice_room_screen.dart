@@ -19,6 +19,7 @@ import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_reconnect_
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/voice_room/floating_reaction.dart';
 import 'package:bananatalk_app/widgets/voice_room/reaction_picker.dart';
+import 'package:bananatalk_app/widgets/voice_room/room_ended_modal.dart';
 
 /// Voice Room Screen — active voice chat room.
 class VoiceRoomScreen extends ConsumerStatefulWidget {
@@ -240,11 +241,26 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
     final isHost = currentUserId == widget.room.hostId;
     final isReconnecting = voiceRoom.isReconnecting;
 
-    // Auto-pop when room ends (including during reconnect gap)
-    ref.listen<VoiceRoomNotifier>(voiceRoomProvider, (previous, next) {
+    // Auto-pop when room ends. If the room ended because the host pressed
+    // End (or we were kicked), show an acknowledgement modal first so the
+    // user sees an explicit reason rather than the screen vanishing.
+    ref.listen<VoiceRoomNotifier>(voiceRoomProvider, (previous, next) async {
       final wasInRoom = previous?.currentRoom != null;
       final nowOutOfRoom = next.currentRoom == null;
-      if (wasInRoom && nowOutOfRoom && context.mounted) {
+      if (!(wasInRoom && nowOutOfRoom)) return;
+      if (!context.mounted) return;
+
+      // The host's own end flow already popped via the host menu (see
+      // showEndRoomConfirm); skip the modal for the host since they
+      // explicitly initiated the action.
+      if (isHost) {
+        Navigator.of(context).maybePop();
+        return;
+      }
+
+      final reason = next.state.error ?? 'Room ended';
+      await showRoomEndedModal(context, reason: reason);
+      if (context.mounted && Navigator.of(context).canPop()) {
         Navigator.of(context).maybePop();
       }
     });
@@ -323,14 +339,26 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
               ),
             ],
           ),
-          if (_chatVisible)
+          if (_chatVisible) ...[
+            // Tap-outside-to-dismiss backdrop. Sits below the sheet so it
+            // catches taps on the area above the chat panel only.
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: _toggleChat,
+                child: Container(color: Colors.black54),
+              ),
+            ),
             DraggableScrollableSheet(
               initialChildSize: 0.5,
               minChildSize: 0.0,
               maxChildSize: 0.85,
-              builder: (_, scrollController) =>
-                  VoiceRoomChatPanel(scrollController: scrollController),
+              builder: (_, scrollController) => VoiceRoomChatPanel(
+                scrollController: scrollController,
+                onClose: _toggleChat,
+              ),
             ),
+          ],
           // Floating "React" FAB pinned above the bottom controls bar.
           // Hidden while the chat panel is open so it doesn't fight for
           // the same touch region as the chat input.
