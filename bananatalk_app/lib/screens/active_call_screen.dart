@@ -1,12 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:livekit_client/livekit_client.dart' as lk;
+
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
     show CallUiState, CallQuality;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
+
+/// Maximum time (s) we tolerate a transient reconnect before auto-ending the
+/// call with a "Connection lost" snackbar. Matches the iOS dial-tone limit.
+const int _reconnectGraceSeconds = 15;
 
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
@@ -17,23 +24,48 @@ class ActiveCallScreen extends ConsumerStatefulWidget {
   ConsumerState<ActiveCallScreen> createState() => _ActiveCallScreenState();
 }
 
-class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
+class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
+    with SingleTickerProviderStateMixin {
   bool _isMuted = false;
   bool _isVideoEnabled = true;
   late bool _isSpeakerOn;
   DateTime? _connectedTime;
   bool _isPeerMuted = false;
+  bool _isPeerVideoEnabled = true;
   bool _isEnding = false;
   bool _callEnded = false;
   CallUiState _connState = CallUiState.ringing;
   CallQuality _quality = CallQuality.good;
+  // Raw LiveKit quality drives the new top-right badge. Distinct from the
+  // collapsed [_quality] which feeds the legacy 3-bar indicator and the
+  // "Poor connection" status text.
+  lk.ConnectionQuality _lkQuality = lk.ConnectionQuality.unknown;
   int? _durationWarningRemaining; // seconds remaining when warning fires
+  bool _isReconnecting = false;
+
+  // Reconnect banner — slide-down animation + 15s grace timer.
+  late final AnimationController _reconnectAnimController;
+  late final Animation<Offset> _reconnectSlide;
+  Timer? _reconnectGraceTimer;
 
   @override
   void initState() {
     super.initState();
     // Default: speaker ON for video calls, OFF for audio calls
     _isSpeakerOn = widget.call.callType == CallType.video;
+    _isVideoEnabled = widget.call.callType == CallType.video;
+
+    _reconnectAnimController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _reconnectSlide = Tween<Offset>(
+      begin: const Offset(0, -1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _reconnectAnimController,
+      curve: Curves.easeOut,
+    ));
 
     // Check if call is already connected
     if (widget.call.status == CallStatus.connected) {
@@ -42,7 +74,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
 
     // Setup call ended callback
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(callProvider.notifier).setCallEndedCallback((call) {
+      final callNotifier = ref.read(callProvider.notifier);
+      final callManager = callNotifier.callManager;
+
+      callNotifier.setCallEndedCallback((call) {
         if (mounted) {
           setState(() {
             _callEnded = true;
@@ -58,36 +93,68 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
       });
 
       // Setup callback to track when call connects
-      ref.read(callProvider.notifier).setCallAcceptedCallback((call) {
-        if (mounted && call.status == CallStatus.connected && _connectedTime == null) {
+      callNotifier.setCallAcceptedCallback((call) {
+        if (mounted &&
+            call.status == CallStatus.connected &&
+            _connectedTime == null) {
           setState(() => _connectedTime = DateTime.now());
         }
       });
 
       // Wire up onCallConnected — this fires when remote stream arrives
-      ref.read(callProvider.notifier).setCallConnectedCallback((call) {
+      callNotifier.setCallConnectedCallback((call) {
         if (mounted && _connectedTime == null) {
           debugPrint('📞 ActiveCallScreen: call connected, starting timer');
           setState(() => _connectedTime = DateTime.now());
         }
       });
 
-      // Listen for connection state changes
-      ref.read(callProvider.notifier).setConnectionStateCallback((state) {
-        if (mounted) {
-          setState(() => _connState = state);
+      // Listen for connection state changes (drives reconnect banner)
+      callNotifier.setConnectionStateCallback((state) {
+        if (!mounted) return;
+        setState(() => _connState = state);
+        if (state == CallUiState.reconnecting) {
+          _showReconnectBanner();
+        } else {
+          _hideReconnectBanner();
         }
       });
 
-      // Listen for call quality changes
-      ref.read(callProvider.notifier).setCallQualityCallback((quality) {
+      // Listen for call quality changes (collapsed CallQuality — drives the
+      // 3-bar legacy indicator + "Poor Connection" status line).
+      callNotifier.setCallQualityCallback((quality) {
         if (mounted) {
           setState(() => _quality = quality);
         }
       });
 
+      // Raw LiveKit per-peer quality — drives the top-right colored badge.
+      // We hook the manager directly because the app-level CallQuality enum
+      // collapses excellent+good and poor+lost into two buckets, and the badge
+      // wants the finer-grained signal.
+      callManager.liveKit.onConnectionQualityChanged = (q) {
+        if (!mounted) return;
+        setState(() => _lkQuality = q);
+      };
+
+      // Direct reconnect callbacks from CallManager (set by B3). These run in
+      // parallel with [setConnectionStateCallback] above — the connection-state
+      // callback updates the status-line text, while these drive the banner.
+      // Both paths are idempotent.
+      callManager.onPeerReconnecting = () {
+        if (!mounted) return;
+        setState(() => _isReconnecting = true);
+        _showReconnectBanner();
+      };
+
+      callManager.onPeerReconnected = () {
+        if (!mounted) return;
+        setState(() => _isReconnecting = false);
+        _hideReconnectBanner();
+      };
+
       // Listen for call duration warning (1 min remaining)
-      ref.read(callProvider.notifier).setCallDurationWarningCallback((remaining) {
+      callNotifier.setCallDurationWarningCallback((remaining) {
         if (mounted) {
           setState(() => _durationWarningRemaining = remaining);
           // Auto-hide after 10 seconds
@@ -98,21 +165,29 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
       });
 
       // Listen for call duration limit reached
-      ref.read(callProvider.notifier).setCallDurationLimitCallback(() {
+      callNotifier.setCallDurationLimitCallback(() {
         // Call will be ended by CallManager — onCallEnded handles navigation
       });
 
       // Listen for peer mute state
-      final callManager = ref.read(callProvider.notifier).callManager;
       callManager.onPeerMuteChanged = (isMuted) {
         if (mounted) {
           setState(() => _isPeerMuted = isMuted);
         }
       };
 
+      // Listen for peer video on/off so the remote tile rebuilds when the
+      // peer toggles their camera.
+      callManager.onPeerVideoChanged = (enabled) {
+        if (mounted) {
+          setState(() => _isPeerVideoEnabled = enabled);
+        }
+      };
+
       // Watch for status changes (fallback)
       ref.listenManual(callProvider, (previous, next) {
-        if (next?.currentCall?.status == CallStatus.connected && _connectedTime == null) {
+        if (next.currentCall?.status == CallStatus.connected &&
+            _connectedTime == null) {
           setState(() => _connectedTime = DateTime.now());
         }
       });
@@ -120,10 +195,55 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
   }
 
   @override
+  void dispose() {
+    _reconnectGraceTimer?.cancel();
+    // Null out the CallManager callbacks we wired directly so we don't leak
+    // a closure that captures this disposed State. The provider-mediated
+    // callbacks (setConnectionStateCallback, setCallQualityCallback, etc.)
+    // are owned by CallNotifier and managed there.
+    final callManager =
+        ref.read(callProvider.notifier).callManager;
+    callManager.onPeerReconnecting = null;
+    callManager.onPeerReconnected = null;
+    callManager.onPeerMuteChanged = null;
+    callManager.onPeerVideoChanged = null;
+    callManager.liveKit.onConnectionQualityChanged = null;
+    _reconnectAnimController.dispose();
+    super.dispose();
+  }
+
+  void _showReconnectBanner() {
+    _reconnectAnimController.forward();
+    _reconnectGraceTimer?.cancel();
+    _reconnectGraceTimer =
+        Timer(const Duration(seconds: _reconnectGraceSeconds), () {
+      if (!mounted) return;
+      // Still reconnecting after grace window — give up on this call.
+      final notifier = ref.read(callProvider.notifier);
+      notifier.endCall();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Connection lost'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    });
+  }
+
+  void _hideReconnectBanner() {
+    _reconnectGraceTimer?.cancel();
+    _reconnectGraceTimer = null;
+    _reconnectAnimController.reverse();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final callNotifier = ref.read(callProvider.notifier);
-    final webrtcService = callNotifier.callManager.webrtcService;
+    final callManager = callNotifier.callManager;
+    final localTrack = callManager.liveKit.localVideoTrack;
+    final remoteTrack = callManager.liveKit.remoteVideoTrack;
+    final isVideoCall = widget.call.callType == CallType.video;
 
     return PopScope(
       canPop: false,
@@ -132,17 +252,19 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
         body: SafeArea(
           child: Stack(
             children: [
-              // Remote Video (Full Screen)
-              if (widget.call.callType == CallType.video && !_isEnding && !webrtcService.isDisposed)
+              // Remote Video (Full Screen) — for video calls when the peer's
+              // camera is on and their video track is subscribed.
+              if (isVideoCall && !_isEnding && _isPeerVideoEnabled &&
+                  remoteTrack != null)
                 Positioned.fill(
-                  child: RTCVideoView(
-                    webrtcService.remoteRenderer,
-                    objectFit:
-                        RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                  child: lk.VideoTrackRenderer(
+                    remoteTrack,
+                    fit: lk.VideoViewFit.cover,
+                    mirrorMode: lk.VideoViewMirrorMode.off,
                   ),
                 )
               else
-                // Audio call - show user info
+                // Audio call OR remote video unavailable — show avatar/info
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -173,8 +295,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                   ),
                 ),
 
-              // Local Video (Picture in Picture)
-              if (widget.call.callType == CallType.video && !_isEnding && !webrtcService.isDisposed)
+              // Local Video (Picture in Picture) — only when camera is on.
+              if (isVideoCall && !_isEnding && _isVideoEnabled)
                 Positioned(
                   top: 20,
                   right: 20,
@@ -187,12 +309,25 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: RTCVideoView(
-                        webrtcService.localRenderer,
-                        mirror: true,
-                        objectFit:
-                            RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
-                      ),
+                      child: localTrack != null
+                          ? lk.VideoTrackRenderer(
+                              localTrack,
+                              fit: lk.VideoViewFit.cover,
+                              mirrorMode: lk.VideoViewMirrorMode.mirror,
+                            )
+                          : Container(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest,
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.videocam_off,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                                size: 32,
+                              ),
+                            ),
                     ),
                   ),
                 ),
@@ -235,7 +370,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                       ),
                       Row(
                         children: [
-                          // Signal quality indicator
+                          // Signal quality bars (legacy 3-bar indicator)
                           if (_connectedTime != null && !_callEnded)
                             _buildQualityIndicator(),
                           const SizedBox(width: 8),
@@ -252,6 +387,14 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                   ),
                 ),
               ),
+
+              // Connection-quality badge (top-right, pill)
+              if (_connectedTime != null && !_callEnded)
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: _buildQualityBadge(context),
+                ),
 
               // Bottom Controls
               Positioned(
@@ -279,8 +422,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                         icon: _isMuted ? Icons.mic_off : Icons.mic,
                         label: _isMuted ? l10n.unmuteCall : l10n.muteCall,
                         onPressed: () {
-                          setState(() => _isMuted = !_isMuted);
-                          callNotifier.toggleMute();
+                          final next = !_isMuted;
+                          callManager.setMuted(next);
+                          setState(() => _isMuted = next);
                         },
                         backgroundColor:
                             _isMuted ? Colors.white : Colors.white24,
@@ -303,7 +447,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                       ),
 
                       // Video Toggle (only for video calls)
-                      if (widget.call.callType == CallType.video)
+                      if (isVideoCall)
                         _ControlButton(
                           icon: _isVideoEnabled
                               ? Icons.videocam
@@ -311,8 +455,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                           label:
                               _isVideoEnabled ? l10n.videoOff : l10n.videoOn,
                           onPressed: () {
-                            setState(() => _isVideoEnabled = !_isVideoEnabled);
-                            callNotifier.toggleVideo();
+                            final next = !_isVideoEnabled;
+                            callManager.setVideoEnabled(next);
+                            setState(() => _isVideoEnabled = next);
                           },
                           backgroundColor:
                               _isVideoEnabled ? Colors.white24 : Colors.white,
@@ -322,15 +467,23 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                       else
                         // Speaker Toggle (for audio calls)
                         _ControlButton(
-                          icon: _isSpeakerOn ? Icons.volume_up : Icons.volume_off,
-                          label: _isSpeakerOn ? l10n.speakerOn : l10n.speakerOff,
-                          onPressed: () {
-                            callNotifier.toggleSpeaker();
-                            setState(() => _isSpeakerOn = !_isSpeakerOn);
+                          icon: _isSpeakerOn
+                              ? Icons.volume_up
+                              : Icons.volume_off,
+                          label: _isSpeakerOn
+                              ? l10n.speakerOn
+                              : l10n.speakerOff,
+                          onPressed: () async {
+                            final next = !_isSpeakerOn;
+                            await callManager.setSpeakerOn(next);
+                            if (mounted) {
+                              setState(() => _isSpeakerOn = next);
+                            }
                           },
                           backgroundColor:
                               _isSpeakerOn ? Colors.white : Colors.white24,
-                          iconColor: _isSpeakerOn ? Colors.black : Colors.white,
+                          iconColor:
+                              _isSpeakerOn ? Colors.black : Colors.white,
                         ),
                     ],
                   ),
@@ -338,7 +491,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
               ),
 
               // Switch Camera Button (video calls only)
-              if (widget.call.callType == CallType.video && !_isEnding && !webrtcService.isDisposed)
+              if (isVideoCall && !_isEnding && _isVideoEnabled)
                 Positioned(
                   bottom: 150,
                   right: 20,
@@ -347,50 +500,70 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                     backgroundColor: Colors.white24,
                     child: const Icon(Icons.cameraswitch, color: Colors.white),
                     onPressed: () {
-                      callNotifier.switchCamera();
+                      callManager.switchCamera();
                     },
                   ),
                 ),
 
-              // Reconnecting banner
-              if (_connState == CallUiState.reconnecting)
-                Positioned(
-                  top: 80,
-                  left: 20,
-                  right: 20,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.orange.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 16, height: 16,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white,
+              // Reconnecting banner — slides down from the top with a small
+              // CircularProgressIndicator. Auto-hides on reconnect, or after
+              // 15s ends the call. We keep the SlideTransition mounted (so it
+              // can animate out cleanly) but hide it from the semantics tree
+              // and pointer hits while [_isReconnecting] is false.
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: IgnorePointer(
+                  ignoring: !_isReconnecting,
+                  child: SlideTransition(
+                  position: _reconnectSlide,
+                  child: Material(
+                    color: Theme.of(context).colorScheme.errorContainer,
+                    child: SizedBox(
+                      height: 44,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Theme.of(context)
+                                    .colorScheme
+                                    .onErrorContainer,
+                              ),
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Reconnecting...',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-                        ),
-                      ],
+                          const SizedBox(width: 8),
+                          Text(
+                            'Reconnecting…',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onErrorContainer,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+                  ),
                 ),
+              ),
 
               // Duration limit warning banner (1 min remaining)
               if (_durationWarningRemaining != null)
                 Positioned(
-                  top: _connState == CallUiState.reconnecting ? 130 : 80,
+                  top: _connState == CallUiState.reconnecting ? 80 : 80,
                   left: 20,
                   right: 20,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFD700).withOpacity(0.95),
                       borderRadius: BorderRadius.circular(8),
@@ -421,7 +594,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                   right: 0,
                   child: Center(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(16),
@@ -431,7 +605,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
                         children: [
                           Icon(Icons.mic_off, color: Colors.white70, size: 16),
                           SizedBox(width: 4),
-                          Text('Muted', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                          Text('Muted',
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12)),
                         ],
                       ),
                     ),
@@ -531,6 +707,61 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen> {
       }),
     );
   }
+
+  /// Small pill badge in the top-right that maps LiveKit's per-peer
+  /// [ConnectionQuality] to a single 18×18 icon with a long-press tooltip.
+  /// Hidden when quality is unknown.
+  Widget _buildQualityBadge(BuildContext context) {
+    final IconData icon;
+    final Color color;
+    final double iconSize;
+    final String tooltip;
+    switch (_lkQuality) {
+      case lk.ConnectionQuality.excellent:
+        icon = Icons.circle;
+        color = Colors.green;
+        iconSize = 10;
+        tooltip = 'Excellent quality';
+        break;
+      case lk.ConnectionQuality.good:
+        icon = Icons.circle;
+        color = Colors.amber;
+        iconSize = 10;
+        tooltip = 'Good quality';
+        break;
+      case lk.ConnectionQuality.poor:
+        icon = Icons.warning_amber_rounded;
+        color = Colors.orange;
+        iconSize = 14;
+        tooltip = 'Poor quality';
+        break;
+      case lk.ConnectionQuality.lost:
+        icon = Icons.signal_wifi_off;
+        color = Colors.red;
+        iconSize = 14;
+        tooltip = 'Connection lost';
+        break;
+      case lk.ConnectionQuality.unknown:
+        return const SizedBox.shrink();
+    }
+
+    return Tooltip(
+      message: tooltip,
+      triggerMode: TooltipTriggerMode.longPress,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        decoration: BoxDecoration(
+          color: Theme.of(context)
+              .colorScheme
+              .surfaceContainerHighest
+              .withValues(alpha: 0.85),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Icon(icon, size: iconSize, color: color),
+      ),
+    );
+  }
+
 }
 
 class _ControlButton extends StatelessWidget {
@@ -580,4 +811,3 @@ class _ControlButton extends StatelessWidget {
     );
   }
 }
-
