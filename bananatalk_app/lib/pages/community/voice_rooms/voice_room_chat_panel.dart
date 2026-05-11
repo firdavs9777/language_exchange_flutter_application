@@ -7,7 +7,12 @@ import 'package:bananatalk_app/services/voice_room_manager.dart';
 
 class VoiceRoomChatPanel extends ConsumerStatefulWidget {
   final ScrollController scrollController;
-  const VoiceRoomChatPanel({super.key, required this.scrollController});
+  final VoidCallback? onClose;
+  const VoiceRoomChatPanel({
+    super.key,
+    required this.scrollController,
+    this.onClose,
+  });
 
   @override
   ConsumerState<VoiceRoomChatPanel> createState() => _VoiceRoomChatPanelState();
@@ -63,15 +68,37 @@ class _VoiceRoomChatPanelState extends ConsumerState<VoiceRoomChatPanel> {
               ),
             ),
           ),
-          Text(
-            l10n.voiceRoomChat,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
+          // Title row with close button
+          SizedBox(
+            height: 32,
+            child: Row(
+              children: [
+                const SizedBox(width: 40), // balance the close button
+                Expanded(
+                  child: Text(
+                    l10n.voiceRoomChat,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 20,
+                    icon: const Icon(Icons.close, color: Colors.white70),
+                    onPressed: widget.onClose,
+                    tooltip: 'Close',
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Expanded(
             child: messages.isEmpty
                 ? Center(

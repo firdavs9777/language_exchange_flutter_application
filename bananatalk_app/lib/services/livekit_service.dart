@@ -64,6 +64,12 @@ class LiveKitService {
       roomOptions: const RoomOptions(
         adaptiveStream: true,
         dynacast: true,
+        // Keep the mic capture session alive across mute toggles so iOS
+        // doesn't switch the AVAudioSession between SoloAmbient and
+        // PlayAndRecord on every press (causes ~200ms of audio churn).
+        defaultAudioCaptureOptions: AudioCaptureOptions(
+          stopAudioCaptureOnMute: false,
+        ),
       ),
     );
     _room = room;
@@ -80,7 +86,12 @@ class LiveKitService {
         'remotes=${room.remoteParticipants.length}',
       );
 
-      await room.localParticipant?.setMicrophoneEnabled(enableMicrophone);
+      await room.localParticipant?.setMicrophoneEnabled(
+        enableMicrophone,
+        audioCaptureOptions: const AudioCaptureOptions(
+          stopAudioCaptureOnMute: false,
+        ),
+      );
       if (enableCamera) {
         await room.localParticipant?.setCameraEnabled(true);
       }
@@ -96,7 +107,12 @@ class LiveKitService {
 
   Future<void> setMicrophoneEnabled(bool enabled) async {
     debugPrint('[LK] setMicrophoneEnabled=$enabled');
-    await _room?.localParticipant?.setMicrophoneEnabled(enabled);
+    await _room?.localParticipant?.setMicrophoneEnabled(
+      enabled,
+      audioCaptureOptions: const AudioCaptureOptions(
+        stopAudioCaptureOnMute: false,
+      ),
+    );
   }
 
   Future<void> setCameraEnabled(bool enabled) async {

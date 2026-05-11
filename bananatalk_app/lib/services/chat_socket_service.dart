@@ -448,13 +448,13 @@ class ChatSocketService {
 
     // ============ Voice Room Events ============
 
-    // Participant joined the room
-    _socket?.on('voiceroom:participant-joined', (data) {
+    // Participant joined the room (backend emits 'voiceroom:user_joined')
+    _socket?.on('voiceroom:user_joined', (data) {
       _safeAdd(_voiceRoomParticipantJoinedController, data);
     });
 
-    // Participant left the room
-    _socket?.on('voiceroom:participant-left', (data) {
+    // Participant left the room (backend emits 'voiceroom:user_left')
+    _socket?.on('voiceroom:user_left', (data) {
       _safeAdd(_voiceRoomParticipantLeftController, data);
     });
 
@@ -478,8 +478,8 @@ class ChatSocketService {
       _safeAdd(_voiceRoomMuteController, data);
     });
 
-    // Participant raised/lowered hand
-    _socket?.on('voiceroom:hand-raised', (data) {
+    // Participant raised/lowered hand (backend emits 'voiceroom:hand_raised')
+    _socket?.on('voiceroom:hand_raised', (data) {
       _safeAdd(_voiceRoomHandRaisedController, data);
     });
 
