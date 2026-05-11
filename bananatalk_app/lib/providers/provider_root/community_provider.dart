@@ -330,7 +330,19 @@ class CommunityService {
       );
 
       if (response.success && response.data != null) {
-        final dataList = response.data['data'] as List? ?? [];
+        // ApiClient returns the full body when the response has both
+        // `data` and `pagination` keys. The waves endpoint's `data` is
+        // itself an object: { waves: [...], unreadCount: N }.
+        // Older endpoints used `data: [...]` directly, so support both.
+        final inner = response.data['data'];
+        final List dataList;
+        if (inner is List) {
+          dataList = inner;
+        } else if (inner is Map && inner['waves'] is List) {
+          dataList = inner['waves'] as List;
+        } else {
+          dataList = const [];
+        }
         return dataList
             .map((item) => Wave.fromJson(item as Map<String, dynamic>))
             .toList();
