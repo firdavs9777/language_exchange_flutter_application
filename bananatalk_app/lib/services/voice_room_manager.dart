@@ -21,9 +21,22 @@ class VoiceRoomChatMessage {
   });
 
   factory VoiceRoomChatMessage.fromJson(Map<String, dynamic> json) {
+    // Backend sends { roomId, message, user: {_id, name, images}, timestamp }.
+    // Older clients may receive flat {userId, userName} — accept both.
+    String userId = json['userId']?.toString() ?? '';
+    String userName = json['userName']?.toString() ?? '';
+    final user = json['user'];
+    if (user is Map) {
+      if (userId.isEmpty) {
+        userId = user['_id']?.toString() ?? user['id']?.toString() ?? '';
+      }
+      if (userName.isEmpty) {
+        userName = user['name']?.toString() ?? '';
+      }
+    }
     return VoiceRoomChatMessage(
-      userId: json['userId']?.toString() ?? '',
-      userName: json['userName']?.toString() ?? 'Unknown',
+      userId: userId,
+      userName: userName.isEmpty ? 'Unknown' : userName,
       message: json['message']?.toString() ?? '',
       timestamp: json['timestamp'] != null
           ? DateTime.tryParse(json['timestamp'].toString()) ?? DateTime.now()
@@ -217,16 +230,26 @@ class VoiceRoomManager {
       onStateChanged?.call();
     });
 
-    // Hand raised
+    // Hand raised — backend emits { roomId, user: {_id, name, images} }
+    // with no explicit isRaised flag (presence of event = raised toggle).
+    // Accept both nested user and legacy flat {userId, isRaised}.
     _handRaisedSub = _chatSocketService!.onVoiceRoomHandRaised.listen((data) {
-      final participantId = data['userId']?.toString() ?? '';
-      final isRaised = data['isRaised'] == true;
-      if (participantId.isEmpty) return;
-      final i = _participants.indexWhere((p) => p.id == participantId);
-      if (i != -1) {
-        _participants[i] = _participants[i].copyWith(isHandRaised: isRaised);
-        onStateChanged?.call();
+      String participantId = data['userId']?.toString() ?? '';
+      final user = data['user'];
+      if (participantId.isEmpty && user is Map) {
+        participantId = user['_id']?.toString() ?? user['id']?.toString() ?? '';
       }
+      if (participantId.isEmpty) return;
+      // Toggle isRaised: if the client sent an explicit flag, honor it;
+      // otherwise flip the current state for this participant.
+      final i = _participants.indexWhere((p) => p.id == participantId);
+      if (i == -1) return;
+      final explicit = data['isRaised'];
+      final bool isRaised = explicit is bool
+          ? explicit
+          : !(_participants[i].isHandRaised);
+      _participants[i] = _participants[i].copyWith(isHandRaised: isRaised);
+      onStateChanged?.call();
     });
 
     // Chat message
@@ -451,7 +474,7 @@ class VoiceRoomManager {
   void toggleHandRaised() {
     _isHandRaised = !_isHandRaised;
 
-    _socket?.emit('voiceroom:raise-hand', {
+    _socket?.emit('voiceroom:raise_hand', {
       'roomId': _currentRoom?.id,
       'isRaised': _isHandRaised,
     });
@@ -491,22 +514,36 @@ class VoiceRoomManager {
     });
   }
 
-  /// End the room (host only). Disconnects LiveKit, fires the REST
-  /// `POST /voicerooms/:id/end` (backend marks status='ended', emits
-  /// voiceroom:ended to subscribers + globally so every client list
-  /// drops the row), and clears local state.
-  void endRoom() {
+  /// End the room (host only). Returns true on success, false if the
+  /// backend rejected the call. On failure, local state is preserved so
+  /// the host can retry. On success, performs full local cleanup.
+  Future<bool> endRoom() async {
     debugPrint('[VR] endRoom id=${_currentRoom?.id}');
     final roomId = _currentRoom?.id;
-    if (roomId == null) return;
+    if (roomId == null) return false;
+
+    // Tell backend "ignore my upcoming disconnect's grace timer" so the
+    // moment we tear down LiveKit, no participant gets promoted to host
+    // of a room that's about to end.
+    _socket?.emit('voiceroom:end-intent', {'roomId': roomId});
+
+    try {
+      final res = await ApiClient().post('voicerooms/$roomId/end');
+      if (!res.success) {
+        debugPrint('[VR] endRoom POST failed: ${res.error}');
+        return false;
+      }
+    } catch (e) {
+      debugPrint('[VR] endRoom threw: $e');
+      return false;
+    }
+
+    // Backend has marked ended + force-closed LiveKit + emitted sockets.
+    // Safe to tear down local transport now (idempotent if LiveKit already
+    // booted us).
     unawaited(_liveKit.disconnect());
-    // REST is authoritative for ending the room — the backend marks it
-    // 'ended' and fans out voiceroom:ended over sockets. Fire-and-forget
-    // so the local UI clears immediately; if the request fails the
-    // room will linger as 'active' in DB and the host can retry from
-    // the rooms tab.
-    unawaited(ApiClient().post('voicerooms/$roomId/end'));
     _cleanup();
+    return true;
   }
 
   void _cleanup() {
