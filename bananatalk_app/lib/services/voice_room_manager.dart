@@ -88,6 +88,10 @@ class VoiceRoomManager {
   bool _isReconnecting = false;
   bool get isReconnecting => _isReconnecting;
 
+  // Set briefly when we've handled a room-ended signal so a duplicate
+  // (e.g. rejoin ack + late ended event) doesn't double-fire onRoomEnded.
+  bool _handlingEnd = false;
+
   // Callbacks
   Function(String newHostId, String? previousHostId)? onHostChanged;
   Function(RoomParticipant)? onParticipantJoined;
@@ -155,6 +159,9 @@ class VoiceRoomManager {
           if (ackData is Map) {
             final m = Map<String, dynamic>.from(ackData);
             if (m['ended'] == true || m['ok'] == false) {
+              if (_handlingEnd) return;
+              _handlingEnd = true;
+              Future.delayed(const Duration(seconds: 1), () => _handlingEnd = false);
               onRoomEnded?.call();
               _cleanup();
               return;
@@ -262,6 +269,9 @@ class VoiceRoomManager {
 
     // Room ended
     _endedSub = _chatSocketService!.onVoiceRoomEnded.listen((data) {
+      if (_handlingEnd) return;
+      _handlingEnd = true;
+      Future.delayed(const Duration(seconds: 1), () => _handlingEnd = false);
       onRoomEnded?.call();
       _cleanup();
     });
