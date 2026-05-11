@@ -179,9 +179,18 @@ class VoiceRoomNotifier extends ChangeNotifier {
       _state = _state.copyWith(isLoading: false);
       notifyListeners();
     } catch (e) {
+      final msg = e.toString();
+      String friendly;
+      if (msg.contains('410') ||
+          msg.toLowerCase().contains('ended') ||
+          msg.contains('404')) {
+        friendly = 'This room has ended';
+      } else {
+        friendly = 'Failed to join room';
+      }
       _state = _state.copyWith(
         isLoading: false,
-        error: e.toString(),
+        error: friendly,
       );
       notifyListeners();
       rethrow;
