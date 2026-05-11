@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
+import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/widgets/community/voice_room_card.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
@@ -35,11 +38,24 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
   String? _selectedTopic;
   String? _selectedCategory;
 
+  StreamSubscription<dynamic>? _roomEndedSub;
+
   @override
   void initState() {
     super.initState();
     _roomsFuture = _fetchWithFilters();
     _loadScheduled();
+    // Any client ending a room emits voiceroom:ended globally — drop the
+    // stale row from our list without waiting for a manual pull-to-refresh.
+    _roomEndedSub = ChatSocketService().onVoiceRoomEnded.listen((_) {
+      if (mounted) _refreshRooms();
+    });
+  }
+
+  @override
+  void dispose() {
+    _roomEndedSub?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadScheduled() async {

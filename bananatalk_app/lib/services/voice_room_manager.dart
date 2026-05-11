@@ -491,10 +491,21 @@ class VoiceRoomManager {
     });
   }
 
-  /// End the room (host only)
+  /// End the room (host only). Disconnects LiveKit, fires the REST
+  /// `POST /voicerooms/:id/end` (backend marks status='ended', emits
+  /// voiceroom:ended to subscribers + globally so every client list
+  /// drops the row), and clears local state.
   void endRoom() {
-    _socket?.emit('voiceroom:end', {'roomId': _currentRoom?.id});
+    debugPrint('[VR] endRoom id=${_currentRoom?.id}');
+    final roomId = _currentRoom?.id;
+    if (roomId == null) return;
     unawaited(_liveKit.disconnect());
+    // REST is authoritative for ending the room — the backend marks it
+    // 'ended' and fans out voiceroom:ended over sockets. Fire-and-forget
+    // so the local UI clears immediately; if the request fails the
+    // room will linger as 'active' in DB and the host can retry from
+    // the rooms tab.
+    unawaited(ApiClient().post('voicerooms/$roomId/end'));
     _cleanup();
   }
 
