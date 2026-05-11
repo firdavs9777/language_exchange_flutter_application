@@ -8,8 +8,9 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
-    show CallUiState, CallQuality;
+    show CallManager, CallUiState, CallQuality;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
+import 'package:bananatalk_app/widgets/voice_room/room_ended_modal.dart';
 
 /// Maximum time (s) we tolerate a transient reconnect before auto-ending the
 /// call with a "Connection lost" snackbar. Matches the iOS dial-tone limit.
@@ -48,6 +49,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   late final Animation<Offset> _reconnectSlide;
   Timer? _reconnectGraceTimer;
 
+  // Cached so dispose() can null-out callbacks without touching ref
+  // (Riverpod disposes ConsumerStatefulElement before State.dispose runs).
+  CallManager? _cachedCallManager;
+
   @override
   void initState() {
     super.initState();
@@ -76,20 +81,25 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final callNotifier = ref.read(callProvider.notifier);
       final callManager = callNotifier.callManager;
+      _cachedCallManager = callManager;
 
-      callNotifier.setCallEndedCallback((call) {
-        if (mounted) {
-          setState(() {
-            _callEnded = true;
-            _isEnding = true;
-          });
-        }
-        // Brief delay so user sees "Call ended" before screen closes
-        Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) {
-            Navigator.of(context).pop();
-          }
+      callNotifier.setCallEndedCallback((call) async {
+        if (!mounted) return;
+        setState(() {
+          _callEnded = true;
+          _isEnding = true;
         });
+        // Brief settle so any animations finish before the modal appears.
+        await Future.delayed(const Duration(milliseconds: 250));
+        if (!mounted) return;
+        await showRoomEndedModal(
+          context,
+          reason: 'Call ended',
+          subtitle: call.duration != null
+              ? 'Duration: ${_formatDuration(call.duration!)}'
+              : null,
+        );
+        if (mounted) Navigator.of(context).pop();
       });
 
       // Setup callback to track when call connects
@@ -197,19 +207,25 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   @override
   void dispose() {
     _reconnectGraceTimer?.cancel();
-    // Null out the CallManager callbacks we wired directly so we don't leak
-    // a closure that captures this disposed State. The provider-mediated
-    // callbacks (setConnectionStateCallback, setCallQualityCallback, etc.)
-    // are owned by CallNotifier and managed there.
-    final callManager =
-        ref.read(callProvider.notifier).callManager;
-    callManager.onPeerReconnecting = null;
-    callManager.onPeerReconnected = null;
-    callManager.onPeerMuteChanged = null;
-    callManager.onPeerVideoChanged = null;
-    callManager.liveKit.onConnectionQualityChanged = null;
+    // Use cached CallManager — Riverpod disposes ConsumerStatefulElement before
+    // State.dispose() runs, so ref.read() here throws "Cannot use ref after the
+    // widget was disposed".
+    final callManager = _cachedCallManager;
+    if (callManager != null) {
+      callManager.onPeerReconnecting = null;
+      callManager.onPeerReconnected = null;
+      callManager.onPeerMuteChanged = null;
+      callManager.onPeerVideoChanged = null;
+      callManager.liveKit.onConnectionQualityChanged = null;
+    }
     _reconnectAnimController.dispose();
     super.dispose();
+  }
+
+  String _formatDuration(int seconds) {
+    final m = (seconds ~/ 60).toString().padLeft(2, '0');
+    final s = (seconds % 60).toString().padLeft(2, '0');
+    return '$m:$s';
   }
 
   void _showReconnectBanner() {
