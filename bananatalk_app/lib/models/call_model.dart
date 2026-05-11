@@ -29,6 +29,17 @@ class CallModel {
   final bool isPeerVideoEnabled;
   final CallConnectionState connectionState;
 
+  /// LiveKit access token for this peer in the call room. For incoming
+  /// calls this is delivered via FCM (Step 8 / B1 contract); for outgoing
+  /// it comes back from `POST /calls/initiate`. Null until populated.
+  final String? livekitToken;
+
+  /// LiveKit signaling URL. Pairs with [livekitToken].
+  final String? livekitUrl;
+
+  /// Server-assigned room name. Used for debugging only on the client.
+  final String? roomName;
+
   CallModel({
     required this.callId,
     required this.userId,
@@ -43,6 +54,9 @@ class CallModel {
     this.isPeerMuted = false,
     this.isPeerVideoEnabled = true,
     this.connectionState = CallConnectionState.connecting,
+    this.livekitToken,
+    this.livekitUrl,
+    this.roomName,
   });
 
   factory CallModel.fromJson(
@@ -78,6 +92,9 @@ class CallModel {
       direction: direction,
       status: CallStatus.ringing,
       startTime: DateTime.now(),
+      livekitToken: json['livekitToken']?.toString(),
+      livekitUrl: json['livekitUrl']?.toString(),
+      roomName: json['roomName']?.toString(),
     );
   }
 
@@ -110,6 +127,9 @@ class CallModel {
     bool? isPeerMuted,
     bool? isPeerVideoEnabled,
     CallConnectionState? connectionState,
+    String? livekitToken,
+    String? livekitUrl,
+    String? roomName,
   }) {
     return CallModel(
       callId: callId ?? this.callId,
@@ -125,6 +145,9 @@ class CallModel {
       isPeerMuted: isPeerMuted ?? this.isPeerMuted,
       isPeerVideoEnabled: isPeerVideoEnabled ?? this.isPeerVideoEnabled,
       connectionState: connectionState ?? this.connectionState,
+      livekitToken: livekitToken ?? this.livekitToken,
+      livekitUrl: livekitUrl ?? this.livekitUrl,
+      roomName: roomName ?? this.roomName,
     );
   }
 }
