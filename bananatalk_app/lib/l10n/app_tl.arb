@@ -1611,6 +1611,7 @@
   "voiceRoomEnd": "Tapusin ang kuwarto",
   "voiceRoomEndConfirm": "Tapusin ang kuwartong ito?",
   "voiceRoomEndConfirmBody": "Lahat ay ididiskonekta.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Alisin sa kuwarto",
   "voiceRoomKickConfirm": "Alisin si {name}?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

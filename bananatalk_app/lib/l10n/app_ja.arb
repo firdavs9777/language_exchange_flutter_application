@@ -1674,6 +1674,7 @@
   "voiceRoomEnd": "ルームを終了",
   "voiceRoomEndConfirm": "このルームを終了しますか？",
   "voiceRoomEndConfirmBody": "全員が切断されます。",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "ルームから退出させる",
   "voiceRoomKickConfirm": "{name}さんを退出させますか？",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

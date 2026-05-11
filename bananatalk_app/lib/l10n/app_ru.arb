@@ -1689,6 +1689,7 @@
   "voiceRoomEnd": "Завершить комнату",
   "voiceRoomEndConfirm": "Завершить эту комнату?",
   "voiceRoomEndConfirmBody": "Все будут отключены.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Удалить из комнаты",
   "voiceRoomKickConfirm": "Удалить {name}?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

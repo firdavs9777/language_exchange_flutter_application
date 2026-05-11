@@ -8796,6 +8796,12 @@ abstract class AppLocalizations {
   /// **'Everyone will be disconnected.'**
   String get voiceRoomEndConfirmBody;
 
+  /// Snackbar shown when POST /voicerooms/:id/end fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t end room. Please try again.'**
+  String get voiceRoomEndFailed;
+
   /// No description provided for @voiceRoomKick.
   ///
   /// In en, this message translates to:

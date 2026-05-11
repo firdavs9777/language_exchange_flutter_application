@@ -1517,6 +1517,7 @@
   "voiceRoomEnd": "Kết thúc phòng",
   "voiceRoomEndConfirm": "Kết thúc phòng này?",
   "voiceRoomEndConfirmBody": "Tất cả mọi người sẽ bị ngắt kết nối.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Xóa khỏi phòng",
   "voiceRoomKickConfirm": "Xóa {name}?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

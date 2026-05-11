@@ -4564,6 +4564,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get voiceRoomEndConfirmBody => '所有人将断开连接。';
 
   @override
+  String get voiceRoomEndFailed => 'Couldn\'t end room. Please try again.';
+
+  @override
   String get voiceRoomKick => '移出房间';
 
   @override
@@ -9561,6 +9564,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get voiceRoomEndConfirmBody => '所有人將斷開連線。';
+
+  @override
+  String get voiceRoomEndFailed => 'Couldn\'t end room. Please try again.';
 
   @override
   String get voiceRoomKick => '移出房間';

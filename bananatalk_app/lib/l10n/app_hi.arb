@@ -1675,6 +1675,7 @@
   "voiceRoomEnd": "रूम समाप्त करें",
   "voiceRoomEndConfirm": "यह रूम समाप्त करें?",
   "voiceRoomEndConfirmBody": "सभी का कनेक्शन टूट जाएगा।",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "रूम से हटाएं",
   "voiceRoomKickConfirm": "{name} को हटाएं?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

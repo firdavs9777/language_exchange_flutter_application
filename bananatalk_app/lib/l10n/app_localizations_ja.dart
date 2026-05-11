@@ -4564,6 +4564,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get voiceRoomEndConfirmBody => '全員が切断されます。';
 
   @override
+  String get voiceRoomEndFailed => 'Couldn\'t end room. Please try again.';
+
+  @override
   String get voiceRoomKick => 'ルームから退出させる';
 
   @override

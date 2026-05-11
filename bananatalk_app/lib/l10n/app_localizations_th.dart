@@ -4564,6 +4564,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get voiceRoomEndConfirmBody => 'ทุกคนจะถูกตัดการเชื่อมต่อ';
 
   @override
+  String get voiceRoomEndFailed => 'Couldn\'t end room. Please try again.';
+
+  @override
   String get voiceRoomKick => 'นำออกจากห้อง';
 
   @override

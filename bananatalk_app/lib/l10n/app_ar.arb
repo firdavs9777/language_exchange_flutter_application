@@ -1689,6 +1689,7 @@
   "voiceRoomEnd": "إنهاء الغرفة",
   "voiceRoomEndConfirm": "إنهاء هذه الغرفة؟",
   "voiceRoomEndConfirmBody": "سيتم قطع الاتصال بالجميع.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "إزالة من الغرفة",
   "voiceRoomKickConfirm": "إزالة {name}؟",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

@@ -1944,6 +1944,7 @@
   "voiceRoomEnd": "Termina stanza",
   "voiceRoomEndConfirm": "Terminare questa stanza?",
   "voiceRoomEndConfirmBody": "Tutti saranno disconnessi.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Rimuovi dalla stanza",
   "voiceRoomKickConfirm": "Rimuovere {name}?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

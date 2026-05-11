@@ -1696,6 +1696,7 @@
   "voiceRoomEnd": "방 종료",
   "voiceRoomEndConfirm": "이 방을 종료할까요?",
   "voiceRoomEndConfirmBody": "모든 참가자가 연결이 끊깁니다.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "방에서 내보내기",
   "voiceRoomKickConfirm": "{name}님을 내보낼까요?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

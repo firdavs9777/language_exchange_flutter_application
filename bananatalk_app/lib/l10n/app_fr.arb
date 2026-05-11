@@ -1944,6 +1944,7 @@
   "voiceRoomEnd": "Terminer le salon",
   "voiceRoomEndConfirm": "Terminer ce salon ?",
   "voiceRoomEndConfirmBody": "Tout le monde sera déconnecté.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Retirer du salon",
   "voiceRoomKickConfirm": "Retirer {name} ?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

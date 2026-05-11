@@ -1675,6 +1675,7 @@
   "voiceRoomEnd": "Encerrar sala",
   "voiceRoomEndConfirm": "Encerrar esta sala?",
   "voiceRoomEndConfirmBody": "Todos serão desconectados.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Remover da sala",
   "voiceRoomKickConfirm": "Remover {name}?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

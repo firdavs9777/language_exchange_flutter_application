@@ -4564,6 +4564,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get voiceRoomEndConfirmBody => 'Lahat ay ididiskonekta.';
 
   @override
+  String get voiceRoomEndFailed => 'Couldn\'t end room. Please try again.';
+
+  @override
   String get voiceRoomKick => 'Alisin sa kuwarto';
 
   @override

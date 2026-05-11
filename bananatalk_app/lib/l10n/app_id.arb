@@ -1517,6 +1517,7 @@
   "voiceRoomEnd": "Akhiri ruangan",
   "voiceRoomEndConfirm": "Akhiri ruangan ini?",
   "voiceRoomEndConfirmBody": "Semua orang akan terputus.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Keluarkan dari ruangan",
   "voiceRoomKickConfirm": "Keluarkan {name}?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

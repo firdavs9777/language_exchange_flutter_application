@@ -2234,6 +2234,10 @@
   "voiceRoomEnd": "End room",
   "voiceRoomEndConfirm": "End this room?",
   "voiceRoomEndConfirmBody": "Everyone will be disconnected.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
+  "@voiceRoomEndFailed": {
+    "description": "Snackbar shown when POST /voicerooms/:id/end fails"
+  },
   "voiceRoomKick": "Remove from room",
   "voiceRoomKickConfirm": "Remove {name}?",
   "@voiceRoomKickConfirm": {

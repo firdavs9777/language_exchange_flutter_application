@@ -82,30 +82,67 @@ Future<void> showHostMenu(BuildContext context, WidgetRef ref) async {
 
 Future<void> showEndRoomConfirm(BuildContext context, WidgetRef ref) async {
   final l10n = AppLocalizations.of(context)!;
+  final rootMessenger = ScaffoldMessenger.maybeOf(context);
+
   await showDialog<void>(
     context: context,
-    builder: (dialogContext) => AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: Text(l10n.voiceRoomEndConfirm),
-      content: Text(l10n.voiceRoomEndConfirmBody),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: Text(l10n.cancel),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            ref.read(voiceRoomProvider).endRoom();
+    barrierDismissible: false,
+    builder: (dialogContext) {
+      return StatefulBuilder(
+        builder: (statefulCtx, setLocalState) {
+          bool ending = false;
+
+          Future<void> handleEnd() async {
+            setLocalState(() => ending = true);
+            final ok = await ref.read(voiceRoomProvider).endRoom();
+            if (!dialogContext.mounted) return;
             Navigator.pop(dialogContext);
-            if (Navigator.of(context).canPop()) Navigator.pop(context);
-          },
-          child: Text(l10n.voiceRoomEnd),
-        ),
-      ],
-    ),
+            if (ok) {
+              // Pop the room screen too. The provider's onRoomEnded path
+              // already clears state; this just dismisses the screen.
+              if (context.mounted && Navigator.of(context).canPop()) {
+                Navigator.pop(context);
+              }
+            } else {
+              rootMessenger?.showSnackBar(
+                SnackBar(
+                  content: Text(l10n.voiceRoomEndFailed),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          }
+
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: Text(l10n.voiceRoomEndConfirm),
+            content: Text(l10n.voiceRoomEndConfirmBody),
+            actions: [
+              TextButton(
+                onPressed: ending ? null : () => Navigator.pop(dialogContext),
+                child: Text(l10n.cancel),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: ending ? null : handleEnd,
+                child: ending
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ),
+                      )
+                    : Text(l10n.voiceRoomEnd),
+              ),
+            ],
+          );
+        },
+      );
+    },
   );
 }

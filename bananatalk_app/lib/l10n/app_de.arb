@@ -1944,6 +1944,7 @@
   "voiceRoomEnd": "Raum beenden",
   "voiceRoomEndConfirm": "Diesen Raum beenden?",
   "voiceRoomEndConfirmBody": "Alle werden getrennt.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Aus Raum entfernen",
   "voiceRoomKickConfirm": "{name} entfernen?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

@@ -4564,6 +4564,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get voiceRoomEndConfirmBody => '모든 참가자가 연결이 끊깁니다.';
 
   @override
+  String get voiceRoomEndFailed => 'Couldn\'t end room. Please try again.';
+
+  @override
   String get voiceRoomKick => '방에서 내보내기';
 
   @override

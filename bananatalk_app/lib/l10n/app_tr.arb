@@ -1887,6 +1887,7 @@
   "voiceRoomEnd": "Odayı bitir",
   "voiceRoomEndConfirm": "Bu odayı bitir?",
   "voiceRoomEndConfirmBody": "Herkesin bağlantısı kesilecek.",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "Odadan çıkar",
   "voiceRoomKickConfirm": "{name} kişisini çıkar?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

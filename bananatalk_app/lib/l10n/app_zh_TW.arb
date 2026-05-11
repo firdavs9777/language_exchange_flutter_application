@@ -1640,6 +1640,7 @@
   "voiceRoomEnd": "結束房間",
   "voiceRoomEndConfirm": "確定結束此房間？",
   "voiceRoomEndConfirmBody": "所有人將斷開連線。",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "移出房間",
   "voiceRoomKickConfirm": "移出{name}？",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},

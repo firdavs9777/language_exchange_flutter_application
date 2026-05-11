@@ -1517,6 +1517,7 @@
   "voiceRoomEnd": "สิ้นสุดห้อง",
   "voiceRoomEndConfirm": "สิ้นสุดห้องนี้?",
   "voiceRoomEndConfirmBody": "ทุกคนจะถูกตัดการเชื่อมต่อ",
+  "voiceRoomEndFailed": "Couldn't end room. Please try again.",
   "voiceRoomKick": "นำออกจากห้อง",
   "voiceRoomKickConfirm": "นำ {name} ออก?",
   "@voiceRoomKickConfirm": {"placeholders": {"name": {"type": "String"}}},
