@@ -619,8 +619,8 @@ class CallManager with WidgetsBindingObserver {
           currentCall!.callType,
           accepting: true,
         );
-        rejectCall();
         onCallError?.call(err);
+        _cleanup();
         return;
       }
 
@@ -628,7 +628,7 @@ class CallManager with WidgetsBindingObserver {
       if (!res.success || res.data is! Map) {
         final err = res.error ?? 'Failed to accept call';
         onCallError?.call(err);
-        rejectCall();
+        _cleanup();
         return;
       }
 
@@ -638,7 +638,7 @@ class CallManager with WidgetsBindingObserver {
       if (token == null || url == null) {
         const err = 'Server accept response missing LiveKit token/url';
         onCallError?.call(err);
-        rejectCall();
+        _cleanup();
         return;
       }
 
@@ -669,7 +669,7 @@ class CallManager with WidgetsBindingObserver {
       onCallAccepted?.call(currentCall!);
     } catch (e) {
       debugPrint('❌ acceptCall error: $e');
-      rejectCall();
+      _cleanup();
     }
   }
 
