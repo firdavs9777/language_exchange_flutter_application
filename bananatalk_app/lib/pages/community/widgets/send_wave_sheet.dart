@@ -134,54 +134,117 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
     // Always allow sending while not in-flight; _send() falls back to a
     // friendly '👋' when neither a quick reply nor custom text is set.
     final canSend = !_isSending;
-    return CommunityDialogScaffold(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            l10n.sendWaveTo(widget.targetUserName),
-            style: context.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            alignment: WrapAlignment.center,
-            children: _quickReplies(l10n)
-                .map(
-                  (reply) => ChoiceChip(
+    // Keyboard inset — push the sheet up so the Send button + custom
+    // message field stay visible when the keyboard appears.
+    final keyboardInset = MediaQuery.of(context).viewInsets.bottom;
+    return Padding(
+      padding: EdgeInsets.only(bottom: keyboardInset),
+      child: CommunityDialogScaffold(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Drag handle
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: context.dividerColor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              Text(
+                l10n.sendWaveTo(widget.targetUserName),
+                style: context.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.center,
+                children: _quickReplies(l10n).map((reply) {
+                  final selected = _selectedQuickReply == reply;
+                  return ChoiceChip(
                     label: Text(reply),
-                    selected: _selectedQuickReply == reply,
-                    onSelected: (selected) => setState(() {
-                      _selectedQuickReply = selected ? reply : null;
+                    selected: selected,
+                    showCheckmark: false,
+                    labelStyle: TextStyle(
+                      color: selected ? Colors.white : context.textPrimary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    backgroundColor: context.containerColor,
+                    selectedColor: AppColors.primary,
+                    side: BorderSide(
+                      color: selected
+                          ? AppColors.primary
+                          : context.dividerColor,
+                    ),
+                    onSelected: (sel) => setState(() {
+                      _selectedQuickReply = sel ? reply : null;
                       _customController.clear();
                     }),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _customController,
+                onChanged: (_) =>
+                    setState(() => _selectedQuickReply = null),
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) {
+                  if (canSend) _send();
+                },
+                decoration: InputDecoration(
+                  hintText: l10n.waveCustomMessage,
+                  border: OutlineInputBorder(
+                    borderRadius: AppRadius.borderMD,
                   ),
-                )
-                .toList(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: canSend ? _send : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadius.borderMD,
+                    ),
+                  ),
+                  child: _isSending
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          ),
+                        )
+                      : Text(
+                          l10n.sendWave,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                ),
+              ),
+              const SizedBox(height: 8),
+            ],
           ),
-          const SizedBox(height: 12),
-          TextField(
-            controller: _customController,
-            onChanged: (_) => setState(() => _selectedQuickReply = null),
-            decoration: InputDecoration(
-              hintText: l10n.waveCustomMessage,
-              border: OutlineInputBorder(borderRadius: AppRadius.borderMD),
-            ),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: canSend ? _send : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
-            ),
-            child: Text(_isSending ? '…' : l10n.sendWave),
-          ),
-          const SizedBox(height: 8),
-        ],
+        ),
       ),
     );
   }
