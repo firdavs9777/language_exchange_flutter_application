@@ -106,14 +106,23 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
     } catch (e) {
       if (!mounted) return;
       Navigator.pop(context);
-      final isRateLimited = e.toString().toLowerCase().contains(
-        'too many waves',
-      );
+      final raw = e.toString();
+      final lower = raw.toLowerCase();
+      final isRateLimited = lower.contains('too many waves') ||
+          lower.contains('already waved');
+      // Surface the backend's actual error string when available so the
+      // user knows *why* it failed (e.g. "Cannot wave at yourself",
+      // "Cannot wave to this user", "User not found"). Fall back to the
+      // localized generic only if the exception message is empty/useless.
+      final backendMessage = raw.replaceFirst('Exception: ', '').trim();
+      final fallback = l10n.waveCouldntSend;
       showCommunitySnackBar(
         context,
         message: isRateLimited
             ? l10n.waveCooldown(widget.targetUserName, '24h')
-            : l10n.waveCouldntSend,
+            : (backendMessage.isEmpty || backendMessage == 'Failed to send wave'
+                ? fallback
+                : backendMessage),
         type: CommunitySnackBarType.error,
       );
     }
@@ -122,10 +131,9 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final canSend =
-        !_isSending &&
-        (_selectedQuickReply != null ||
-            _customController.text.trim().isNotEmpty);
+    // Always allow sending while not in-flight; _send() falls back to a
+    // friendly '👋' when neither a quick reply nor custom text is set.
+    final canSend = !_isSending;
     return CommunityDialogScaffold(
       child: Column(
         mainAxisSize: MainAxisSize.min,

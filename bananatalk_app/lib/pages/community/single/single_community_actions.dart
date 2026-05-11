@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -39,6 +40,18 @@ class SingleCommunityActions extends ConsumerWidget {
     if (ts == null) return false;
     final elapsed = DateTime.now().millisecondsSinceEpoch - ts;
     return elapsed < const Duration(hours: 24).inMilliseconds;
+  }
+
+  /// Human-readable "Xh Ym" left until the cooldown expires.
+  static Future<String> _cooldownRemaining(String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final ts = prefs.getInt('$waveCooldownPrefsPrefix$userId') ?? 0;
+    final remainMs = const Duration(hours: 24).inMilliseconds -
+        (DateTime.now().millisecondsSinceEpoch - ts);
+    if (remainMs <= 0) return '0m';
+    final d = Duration(milliseconds: remainMs);
+    if (d.inHours >= 1) return '${d.inHours}h ${d.inMinutes.remainder(60)}m';
+    return '${d.inMinutes}m';
   }
 
   @override
@@ -117,16 +130,26 @@ class SingleCommunityActions extends ConsumerWidget {
   ) {
     final color = cooldownActive ? Colors.grey[400]! : AppColors.primary;
     return InkWell(
-      onTap: cooldownActive
-          ? null
-          : () => showSendWaveSheet(
-              context,
-              targetUserId: community.id,
-              targetUserName: community.name,
-              targetUserCountry: community.location.country.isNotEmpty
-                  ? community.location.country
-                  : null,
-            ),
+      onTap: () async {
+        if (cooldownActive) {
+          final remaining = await _cooldownRemaining(community.id);
+          if (!context.mounted) return;
+          showCommunitySnackBar(
+            context,
+            message: 'You can wave at ${community.name} again in $remaining',
+            type: CommunitySnackBarType.info,
+          );
+          return;
+        }
+        showSendWaveSheet(
+          context,
+          targetUserId: community.id,
+          targetUserName: community.name,
+          targetUserCountry: community.location.country.isNotEmpty
+              ? community.location.country
+              : null,
+        );
+      },
       borderRadius: BorderRadius.circular(8),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
