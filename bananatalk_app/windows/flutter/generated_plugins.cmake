@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_sound
   flutter_webrtc
   geolocator_windows
+  livekit_client
   local_auth_windows
   permission_handler_windows
   share_plus

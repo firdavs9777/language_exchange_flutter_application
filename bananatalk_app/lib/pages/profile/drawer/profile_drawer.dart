@@ -26,6 +26,8 @@ import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/screens/livekit_test_screen.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -375,12 +377,32 @@ class LeftDrawer extends ConsumerWidget {
                         subtitle: appVersion.isEmpty
                             ? l10n.aboutBananatalk
                             : 'Version $appVersion',
-                        isLast: true,
+                        isLast: !kDebugMode,
                         onTap: () {
                           Navigator.pop(context);
                           showProfileAboutDialog(context, appVersion);
                         },
                       ),
+                      if (kDebugMode) ...[
+                        const DrawerDivider(),
+                        DrawerMenuItem(
+                          icon: Icons.bug_report_rounded,
+                          iconColor: const Color(0xFFFF6F00),
+                          title: 'LiveKit smoke test',
+                          subtitle: 'Debug-only: verify token + room join',
+                          isLast: true,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              AppPageRoute(
+                                builder: (context) =>
+                                    const LiveKitTestScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ],
                   ),
 

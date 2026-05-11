@@ -21,7 +21,7 @@ dependencies:
   shared_preferences: ^2.2.3
   google_fonts: 6.1.0
   geolocator: ^11.1.0
-  flutter_webrtc: ^1.2.0
+  flutter_webrtc: ^1.4.0
   permission_handler: ^11.0.1
 
   geocoding: ^3.0.0
@@ -58,7 +58,7 @@ dependencies:
   firebase_messaging: ^15.0.0
   flutter_local_notifications: ^16.3.0
   app_settings: ^5.1.1
-  device_info_plus: ^10.1.0
+  device_info_plus: ^12.3.0
   
   # Routing
   go_router: ^14.0.0
@@ -85,10 +85,11 @@ dependencies:
   flutter_callkit_incoming: ^2.0.4+1
 
   # Network connectivity
-  connectivity_plus: ^6.0.3
+  connectivity_plus: ^7.0.0
   flutter_map: ^8.2.2
   latlong2: ^0.9.1
   confetti: ^0.8.0
+  livekit_client: ^2.7.0
 
 #  flutter_facebook_auth: ^7.0.1
 
