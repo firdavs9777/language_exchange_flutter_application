@@ -339,7 +339,7 @@ class _WeeklyChart extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         SizedBox(
-          height: 68,
+          height: 72,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: List.generate(7, (i) {
@@ -351,8 +351,11 @@ class _WeeklyChart extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeOutCubic,
                         height: barHeight,
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(
@@ -371,6 +374,7 @@ class _WeeklyChart extends StatelessWidget {
                             alpha: isToday ? 1.0 : 0.55,
                           ),
                           fontSize: 10,
+                          height: 1.2,
                           fontWeight:
                               isToday ? FontWeight.bold : FontWeight.normal,
                         ),
