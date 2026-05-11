@@ -50,6 +50,13 @@ class VoiceRoomLiveKitManager {
   void Function()? onRoomReconnected;
   void Function()? onRoomDisconnected;
 
+  /// Fired when a remote participant publishes a `{type:'reaction', emoji}`
+  /// data packet. `participantId` is the sender's LiveKit identity (Mongo
+  /// user _id). LiveKit does NOT echo published data to the publisher, so
+  /// callers wanting the sender's own emoji visible must locally invoke the
+  /// same UI path after calling [sendReaction].
+  void Function(String participantId, String emoji)? onReactionReceived;
+
   // -- Getters --------------------------------------------------------------
 
   lk.Room? get room => _livekit.room;
@@ -81,6 +88,15 @@ class VoiceRoomLiveKitManager {
       enableCamera: false,
     );
 
+    // Voice rooms are group-conversation style: default to speakerphone so
+    // the listener can hear without holding the phone to their ear. Headsets
+    // (wired / Bluetooth) override this via the system route picker.
+    try {
+      await lk.Hardware.instance.setSpeakerphoneOn(true);
+    } catch (e) {
+      debugPrint('VoiceRoomLiveKitManager: setSpeakerphoneOn failed: $e');
+    }
+
     _wireRoomEvents();
   }
 
@@ -95,6 +111,19 @@ class VoiceRoomLiveKitManager {
   /// Toggle the local microphone. [muted] == true mutes; false unmutes.
   Future<void> setMuted(bool muted) async {
     await _livekit.setMicrophoneEnabled(!muted);
+  }
+
+  /// Broadcast an emoji reaction to every other participant over the
+  /// room's data channel as a lossy packet (real-time, drop-on-loss).
+  /// Payload shape: `{"type":"reaction","emoji":"<emoji>"}` UTF-8.
+  ///
+  /// LiveKit does not echo data to the publisher, so the caller must
+  /// also locally trigger the same UI affordance for self-display.
+  Future<void> sendReaction(String emoji) async {
+    final room = _livekit.room;
+    if (room == null) return;
+    final payload = utf8.encode(jsonEncode({'type': 'reaction', 'emoji': emoji}));
+    await room.localParticipant?.publishData(payload, reliable: false);
   }
 
   // -- Internal -------------------------------------------------------------
@@ -147,6 +176,22 @@ class VoiceRoomLiveKitManager {
     l.on<lk.RoomReconnectingEvent>((_) => onRoomReconnecting?.call());
     l.on<lk.RoomReconnectedEvent>((_) => onRoomReconnected?.call());
     l.on<lk.RoomDisconnectedEvent>((_) => onRoomDisconnected?.call());
+
+    l.on<lk.DataReceivedEvent>((event) {
+      try {
+        final decoded = jsonDecode(utf8.decode(event.data));
+        if (decoded is! Map<String, dynamic>) return;
+        if (decoded['type'] == 'reaction' && decoded['emoji'] is String) {
+          final senderId = event.participant?.identity ?? '';
+          if (senderId.isNotEmpty) {
+            onReactionReceived?.call(senderId, decoded['emoji'] as String);
+          }
+        }
+      } catch (_) {
+        // Malformed packet — ignore (other apps/features may use the same
+        // data channel with a different shape).
+      }
+    });
   }
 
   RoomParticipant _toRoomParticipant(lk.Participant p) {

@@ -6,6 +6,17 @@ import 'package:livekit_client/livekit_client.dart';
 import '../models/call_model.dart';
 import 'livekit_service.dart';
 
+/// iOS audio routing test matrix (manual verification after C2):
+///  - Audio call: earpiece default; tap speaker button -> speakerphone routes
+///  - Video call: speaker default; tap speaker button -> earpiece routes
+///  - Wired headset plugged in: audio routes to headset, speaker button
+///    disabled or no-op
+///  - AirPods / Bluetooth: picker accessible via control-centre or in-app;
+///    audio routes
+///  - Background -> foreground during call: audio session restores
+///  - Incoming call accepted via CallKit native UI: audio session is active
+///    before LiveKit join
+///
 /// Transport layer that adapts the LiveKit SDK to the n=2 (1:1 call) shape.
 ///
 /// `call_manager.dart` will be rewritten (task B3) to delegate room transport
@@ -113,6 +124,18 @@ class CallLiveKitManager {
       enableMicrophone: true,
       enableCamera: type == CallType.video,
     );
+
+    // iOS audio routing default: video calls default to speakerphone (the
+    // user is holding the phone in front of them); voice calls default to
+    // earpiece (held to the ear like a phone call). Bluetooth / wired
+    // headsets override this via the system route picker — LiveKit's audio
+    // session honours the active route. The user can also toggle via
+    // [CallManager.setSpeakerOn]. Swallow errors; routing is best-effort.
+    try {
+      await Hardware.instance.setSpeakerphoneOn(type == CallType.video);
+    } catch (e) {
+      debugPrint('CallLiveKitManager: setSpeakerphoneOn failed: $e');
+    }
 
     _wireRoomEvents();
 
