@@ -35,39 +35,56 @@ class VoiceRoomParticipantTile extends StatelessWidget {
           // Avatar with speaking / host / muted indicators
           Stack(
             children: [
-              Container(
-                width: 72,
-                height: 72,
+              // Outer AnimatedContainer renders the speaking ring. The
+              // 1.5dp border is always present so the avatar never
+              // shifts layout — only the border color + glow animate.
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.easeOut,
+                width: 75,
+                height: 75,
+                padding: const EdgeInsets.all(1.5),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                  border: Border.all(
+                    width: 1.5,
+                    color: participant.isSpeaking
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.transparent,
                   ),
-                  border: participant.isSpeaking
-                      ? Border.all(color: const Color(0xFF00BFA5), width: 3)
-                      : null,
                   boxShadow: participant.isSpeaking
                       ? [
                           BoxShadow(
-                            color: const Color(
-                              0xFF00BFA5,
-                            ).withValues(alpha: 0.4),
-                            blurRadius: 12,
-                            spreadRadius: 2,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.35),
+                            blurRadius: 10,
+                            spreadRadius: 1,
                           ),
                         ]
                       : null,
                 ),
-                child: ClipOval(
-                  child: participant.avatar.isNotEmpty
-                      ? Image.network(
-                          participant.avatar,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => _buildAvatarFallback(),
-                        )
-                      : _buildAvatarFallback(),
+                child: Container(
+                  width: 72,
+                  height: 72,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF00BFA5), Color(0xFF00ACC1)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: ClipOval(
+                    child: participant.avatar.isNotEmpty
+                        ? Image.network(
+                            participant.avatar,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                _buildAvatarFallback(),
+                          )
+                        : _buildAvatarFallback(),
+                  ),
                 ),
               ),
               // Host badge
