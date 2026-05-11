@@ -21,7 +21,6 @@ dependencies:
   shared_preferences: ^2.2.3
   google_fonts: 6.1.0
   geolocator: ^11.1.0
-  flutter_webrtc: ^1.4.0
   permission_handler: ^11.0.1
 
   geocoding: ^3.0.0

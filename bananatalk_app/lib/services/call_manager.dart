@@ -13,7 +13,6 @@ import 'package:bananatalk_app/services/call_livekit_manager.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
-import 'package:bananatalk_app/services/webrtc_service.dart';
 
 enum CallUiState {
   ringing,
@@ -33,24 +32,16 @@ const int freeCallWarningSeconds = 4 * 60;
 
 /// Call lifecycle and signalling controller.
 ///
-/// As of Step 8 / B3 this delegates media transport to [CallLiveKitManager]
-/// rather than the legacy mesh [WebRTCService]. The public API surface
+/// As of Step 8 this delegates media transport to [CallLiveKitManager]; the
+/// legacy mesh WebRTC service was removed in C3. The public API surface
 /// (singleton, callbacks, [initiateCall] / [acceptCall] / [rejectCall] /
-/// [endCall], etc.) is preserved so the UI does not need changes in this
-/// commit — B4 will swap the screen renderers, and C3 will delete the
-/// remaining mesh-only code paths.
+/// [endCall], etc.) is preserved for upstream callers.
 class CallManager with WidgetsBindingObserver {
   static final CallManager _instance = CallManager._internal();
   factory CallManager() => _instance;
   CallManager._internal();
 
   bool _appInForeground = true;
-
-  // Kept alive purely so [ActiveCallScreen] can still read
-  // `webrtcService.remoteRenderer/localRenderer/isDisposed` until B4 swaps
-  // those for LiveKit's [VideoTrackRenderer]. The renderers are no longer
-  // attached to any RTCPeerConnection — they exist as inert placeholders.
-  WebRTCService _webrtcService = WebRTCService();
 
   // LiveKit transport (B2). Recreated on each call boundary via [_cleanup]
   // so a fresh listener is bound per session.
@@ -102,13 +93,8 @@ class CallManager with WidgetsBindingObserver {
   CallUiState get connectionState => _connectionState;
   CallQuality get callQuality => _callQuality;
 
-  /// Retained for legacy UI reads (renderers, isDisposed). B4 swaps the
-  /// screens to [CallLiveKitManager.localVideoTrack] / `.remoteVideoTrack`
-  /// and this getter goes away in C3.
-  WebRTCService get webrtcService => _webrtcService;
-
-  /// LiveKit transport for the active call. UI may read this in B4 for
-  /// VideoTrackRenderer wiring.
+  /// LiveKit transport for the active call. UI reads this for
+  /// VideoTrackRenderer wiring (see ActiveCallScreen).
   CallLiveKitManager get liveKit => _liveKit;
 
   bool get isInitialized => _isInitialized;
@@ -145,14 +131,6 @@ class CallManager with WidgetsBindingObserver {
 
     _chatSocketService = chatSocketService;
     _socket = chatSocketService.socket;
-
-    // Renderers are inert (no PeerConnection) but the legacy ActiveCallScreen
-    // still references them. Once B4 lands they become unused and C3 deletes
-    // this whole field along with [WebRTCService] itself.
-    if (_webrtcService.isDisposed) {
-      _webrtcService = WebRTCService();
-    }
-    await _webrtcService.initialize();
 
     _removeSocketListeners();
     _setupSocketListeners();
@@ -494,9 +472,7 @@ class CallManager with WidgetsBindingObserver {
     try {
       // Permissions — same UX as before so existing error strings keep
       // surfacing through the UI's permission-handling flow.
-      final ok = await _webrtcService.requestPermissions(
-        callType == CallType.video,
-      );
+      final ok = await _ensureCallPermissions(callType == CallType.video);
       if (!ok) {
         final err = await _buildPermissionError(callType, accepting: false);
         onCallError?.call(err);
@@ -618,7 +594,7 @@ class CallManager with WidgetsBindingObserver {
     if (currentCall == null) return;
 
     try {
-      final ok = await _webrtcService.requestPermissions(
+      final ok = await _ensureCallPermissions(
         currentCall!.callType == CallType.video,
       );
       if (!ok) {
@@ -852,6 +828,32 @@ class CallManager with WidgetsBindingObserver {
     await setSpeakerOn(shouldEnable);
   }
 
+  /// Ensure microphone (and optionally camera) permissions are granted.
+  /// Returns true iff all required permissions are granted after the request.
+  /// Replaces the legacy mesh-WebRTC permissions helper that was retired in
+  /// C3 — same semantics, just inlined onto `permission_handler`.
+  Future<bool> _ensureCallPermissions(bool isVideo) async {
+    final micStatus = await Permission.microphone.status;
+    final cameraStatus = isVideo
+        ? await Permission.camera.status
+        : PermissionStatus.granted;
+
+    if (micStatus.isGranted && cameraStatus.isGranted) return true;
+
+    // Don't re-prompt if the user has permanently denied — UI surfaces a
+    // settings deep-link via _buildPermissionError instead.
+    if (micStatus.isPermanentlyDenied ||
+        (isVideo && cameraStatus.isPermanentlyDenied)) {
+      return false;
+    }
+
+    final statuses = await [
+      Permission.microphone,
+      if (isVideo) Permission.camera,
+    ].request();
+    return statuses.values.every((s) => s.isGranted);
+  }
+
   Future<String> _buildPermissionError(
     CallType callType, {
     required bool accepting,
@@ -979,14 +981,6 @@ class CallManager with WidgetsBindingObserver {
     final oldLiveKit = _liveKit;
     _liveKit = CallLiveKitManager();
     unawaited(oldLiveKit.disconnect());
-
-    // Legacy renderer placeholders — recreate so the next call's
-    // ActiveCallScreen has freshly-initialized renderers to read.
-    final oldRtc = _webrtcService;
-    _webrtcService = WebRTCService();
-    Future.delayed(const Duration(milliseconds: 300), () {
-      oldRtc.dispose();
-    });
 
     _localTeardownInFlight = false;
   }
