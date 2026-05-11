@@ -84,15 +84,28 @@ class CallKitService {
 
   /// Show the native incoming call screen.
   /// Returns the UUID used for this call (needed to end it later).
+  ///
+  /// [livekitToken], [livekitUrl] and [roomName] are optional LiveKit
+  /// pre-mint fields (Step 8 / B5) — when present they ride along in the
+  /// `extra` payload so the resumed app context can hydrate the CallModel
+  /// without an extra round-trip on accept.
   Future<String> showIncomingCall({
     required String callId,
     required String callerName,
     String? callerAvatar,
     bool isVideo = false,
+    String? livekitToken,
+    String? livekitUrl,
+    String? roomName,
   }) async {
     // Use callId as the UUID so we can reference it later
     final uuid = callId.isNotEmpty ? callId : const Uuid().v4();
     _activeCallUuid = uuid;
+
+    final extra = <String, dynamic>{'callId': callId};
+    if (livekitToken != null) extra['livekitToken'] = livekitToken;
+    if (livekitUrl != null) extra['livekitUrl'] = livekitUrl;
+    if (roomName != null) extra['roomName'] = roomName;
 
     final params = CallKitParams(
       id: uuid,
@@ -109,7 +122,7 @@ class CallKitService {
         subtitle: 'Missed call',
       ),
       duration: 45000, // Ring for 45 seconds then timeout
-      extra: {'callId': callId},
+      extra: extra,
       android: const AndroidParams(
         isCustomNotification: false,
         isShowLogo: false,

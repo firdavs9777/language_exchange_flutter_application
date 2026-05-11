@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/models/call_model.dart';
@@ -8,6 +7,13 @@ import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
+/// Incoming-call ring screen.
+///
+/// Step 8 / B5: accept/decline buttons delegate to [CallManager] directly
+/// (the LiveKit-aware B3 implementation). The token to join the room is
+/// already on `currentCall.livekitToken` when FCM delivered it; if not,
+/// [CallManager.acceptCall] mints a fresh one via `POST /calls/:id/accept`.
+/// No pre-screen ICE-server fetch happens any more.
 class IncomingCallScreen extends ConsumerWidget {
   final CallModel call;
 
@@ -16,6 +22,7 @@ class IncomingCallScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final isVideo = call.callType == CallType.video;
 
     return PopScope(
       canPop: false, // Prevent back button
@@ -25,13 +32,13 @@ class IncomingCallScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Header
+              // Header — prominent call-type label + icon
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
                     Text(
-                      call.callType == CallType.video
+                      isVideo
                           ? l10n.incomingVideoCall
                           : l10n.incomingAudioCall,
                       style: const TextStyle(
@@ -41,9 +48,7 @@ class IncomingCallScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 10),
                     Icon(
-                      call.callType == CallType.video
-                          ? Icons.videocam
-                          : Icons.phone,
+                      isVideo ? Icons.videocam : Icons.phone,
                       color: Colors.white,
                       size: 40,
                     ),
@@ -77,6 +82,28 @@ class IncomingCallScreen extends ConsumerWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 6),
+
+                  // Call type subtitle (e.g. "Video Call" / "Audio Call")
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isVideo ? Icons.videocam : Icons.phone,
+                        color: Colors.white70,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        isVideo ? l10n.videoCall : l10n.audioCall,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 10),
 
                   // Ringing Status
@@ -96,41 +123,60 @@ class IncomingCallScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Reject Button
+                    // Reject Button — delegate to CallManager (B3).
                     _CallActionButton(
                       icon: Icons.call_end,
                       label: l10n.declineCall,
                       color: Colors.red,
                       onPressed: () {
-                        CallManager().stopRingtone();
-                        ref.read(callProvider.notifier).rejectCall();
-                        Navigator.pop(context);
+                        CallManager().rejectCall();
+                        if (context.mounted) Navigator.pop(context);
                       },
                     ),
 
-                    // Accept Button
+                    // Accept Button — delegate to CallManager.acceptCall()
+                    // (B3). The LiveKit token is on `call.livekitToken`
+                    // (FCM-delivered) or will be re-minted by /accept.
                     _CallActionButton(
                       icon: Icons.call,
                       label: l10n.acceptCall,
                       color: Colors.green,
                       onPressed: () async {
-                        CallManager().stopRingtone();
-                        // Set VIP status for duration limit
+                        // Carry over the VIP flag so the duration limit logic
+                        // inside CallManager stays correct.
                         final authState = ref.read(authServiceProvider);
                         final currentUserId = authState.userId;
                         final isVip = ref.read(isVipProvider(currentUserId));
-                        ref.read(callProvider.notifier).setVipCall(isVip);
-                        await ref.read(callProvider.notifier).acceptCall();
+                        CallManager().setVipCall(isVip);
 
-                        // Navigate to active call screen
-                        if (context.mounted) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ActiveCallScreen(call: call),
-                            ),
-                          );
+                        try {
+                          await CallManager().acceptCall();
+                        } catch (e) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Failed to accept call: $e')),
+                            );
+                            Navigator.pop(context);
+                          }
+                          return;
                         }
+
+                        final accepted = CallManager().currentCall;
+                        if (!context.mounted) return;
+
+                        // If acceptCall tore the call down (permissions
+                        // denied, server error), bail out.
+                        if (accepted == null) {
+                          Navigator.pop(context);
+                          return;
+                        }
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ActiveCallScreen(call: accepted),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -186,4 +232,3 @@ class _CallActionButton extends StatelessWidget {
     );
   }
 }
-

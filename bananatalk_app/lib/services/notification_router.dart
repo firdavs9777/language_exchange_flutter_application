@@ -123,6 +123,13 @@ class NotificationRouter {
     final callerName = data['callerName']?.toString() ?? 'Unknown';
     final callerProfilePicture = data['callerProfilePicture']?.toString() ?? data['callerAvatar']?.toString();
     final callTypeStr = data['callType']?.toString() ?? 'audio';
+    // Step 8 / B5: pre-minted LiveKit fields delivered on the FCM payload by
+    // the B1 /calls/initiate endpoint. May be null on legacy payloads — in
+    // that case CallManager.acceptCall() falls back to /calls/:id/accept to
+    // mint a fresh token.
+    final livekitToken = data['livekitToken']?.toString();
+    final livekitUrl = data['livekitUrl']?.toString();
+    final roomName = data['roomName']?.toString();
 
     if (callId.isEmpty) {
       // No valid call data — just go home
@@ -139,6 +146,9 @@ class NotificationRouter {
       direction: CallDirection.incoming,
       status: CallStatus.ringing,
       startTime: DateTime.now(),
+      livekitToken: livekitToken,
+      livekitUrl: livekitUrl,
+      roomName: roomName,
     );
 
     // Store in CallManager so accept/reject socket events work

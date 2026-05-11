@@ -24,6 +24,13 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     final callerAvatar = message.data['callerProfilePicture'] ?? message.data['callerAvatar'];
     final callType = message.data['callType'] ?? 'audio';
     final callId = message.data['callId'] ?? '';
+    // Step 8 / B5: LiveKit token + url + room arrive on the FCM payload so the
+    // receiver can connect immediately on accept without an extra round-trip.
+    // Forwarded as `extra` to CallKit so the accept event resumes the app with
+    // them in hand (NotificationRouter rehydrates the CallModel from `data`).
+    final livekitToken = message.data['livekitToken']?.toString();
+    final livekitUrl = message.data['livekitUrl']?.toString();
+    final roomName = message.data['roomName']?.toString();
 
     // Use flutter_callkit_incoming for native call UI on both platforms.
     // On iOS this triggers CallKit (works on lock screen) — except in China
@@ -36,6 +43,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         callerName: callerName,
         callerAvatar: callerAvatar,
         isVideo: callType == 'video',
+        livekitToken: livekitToken,
+        livekitUrl: livekitUrl,
+        roomName: roomName,
       );
     }
   }
