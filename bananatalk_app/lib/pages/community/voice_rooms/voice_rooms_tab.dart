@@ -182,6 +182,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 72),
         child: FloatingActionButton.extended(
+          heroTag: 'voice_rooms_tab_create_fab',
           onPressed: _createRoom,
           backgroundColor: const Color(0xFF00BFA5),
           icon: const Icon(Icons.add_rounded, color: Colors.white),
