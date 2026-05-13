@@ -342,6 +342,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get getHelpAndSupport => 'Nhận trợ giúp và hỗ trợ';
 
   @override
+  String get aiTutorChangePersona => 'Change AI tutor';
+
+  @override
+  String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
+
+  @override
   String get aboutBananatalk => 'Về Bananatalk';
 
   @override

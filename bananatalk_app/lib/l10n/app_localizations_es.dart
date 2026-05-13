@@ -342,6 +342,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get getHelpAndSupport => 'Obtener ayuda y soporte';
 
   @override
+  String get aiTutorChangePersona => 'Change AI tutor';
+
+  @override
+  String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
+
+  @override
   String get aboutBananatalk => 'Acerca de Bananatalk';
 
   @override

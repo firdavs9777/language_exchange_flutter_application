@@ -6,8 +6,11 @@ import 'package:bananatalk_app/pages/ai/pronunciation/pronunciation_screen.dart'
 import 'package:bananatalk_app/pages/ai/translation/translation_screen.dart';
 import 'package:bananatalk_app/pages/ai/quiz/ai_quiz_screen.dart';
 import 'package:bananatalk_app/pages/ai/lesson_builder/lesson_builder_screen.dart';
+import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
+import 'package:bananatalk_app/pages/ai/tutor/tutor_home_screen.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -46,6 +49,10 @@ class AIMain extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // AI Tutor Hero — A1
+              _AITutorHero(),
+              Spacing.gapLG,
+
               // Hero Card
               _buildHeroCard(context, isVip),
               Spacing.gapXXL,
@@ -539,6 +546,82 @@ class AIMain extends ConsumerWidget {
           ),
         );
       }).toList(),
+    );
+  }
+}
+
+/// AI Tutor hero card — top of the AI tab. Routes to TutorHomeScreen
+/// when a persona is set, or to the PersonaPickerScreen for first-run.
+class _AITutorHero extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mem = ref.watch(tutorMemoryProvider);
+    return mem.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+      data: (memory) {
+        final hasPersona = memory.persona != null;
+        final avatar = hasPersona
+            ? (memory.persona == 'sensei'
+                ? '🤖'
+                : memory.persona == 'riko'
+                    ? '🐙'
+                    : '🐻')
+            : '🐻';
+        return InkWell(
+          borderRadius: AppRadius.borderMD,
+          onTap: () => Navigator.push(
+            context,
+            AppPageRoute(
+              builder: (_) => hasPersona
+                  ? const TutorHomeScreen()
+                  : const PersonaPickerScreen(),
+            ),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.primary.withValues(alpha: 0.18),
+                  AppColors.primary.withValues(alpha: 0.06),
+                ],
+              ),
+              borderRadius: AppRadius.borderMD,
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.25),
+              ),
+            ),
+            child: Row(
+              children: [
+                Text(avatar, style: const TextStyle(fontSize: 44)),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        hasPersona ? 'Your AI Tutor' : 'Meet your AI Tutor',
+                        style: context.titleMedium
+                            .copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        hasPersona
+                            ? "Tap to chat or see today's plan"
+                            : 'Pick a persona to get started',
+                        style: context.bodySmall
+                            .copyWith(color: context.textSecondary),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(Icons.chevron_right),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
