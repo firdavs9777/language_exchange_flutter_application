@@ -10691,6 +10691,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saving…'**
   String get aiTutorPronounceSaving;
+
+  /// Label for the 5th tutor mode chip — opens the Pronunciation Coach drill
+  ///
+  /// In en, this message translates to:
+  /// **'Pronounce'**
+  String get aiTutorChipPronounce;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

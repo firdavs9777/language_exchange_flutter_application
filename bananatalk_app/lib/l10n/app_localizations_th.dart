@@ -5691,4 +5691,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get aiTutorPronounceSaving => 'Saving…';
+
+  @override
+  String get aiTutorChipPronounce => 'Pronounce';
 }
