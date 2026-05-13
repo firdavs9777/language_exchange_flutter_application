@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/tutor_provider.dart';
 import '../../utils/theme_extensions.dart';
 import '../../core/theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Inline mini-lesson card the tutor drops in when teaching a small
 /// concept. Payload shape:
@@ -26,6 +27,7 @@ class _MiniLessonCardState extends ConsumerState<MiniLessonCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final title = widget.payload['title']?.toString() ?? '';
     final bullets =
         (widget.payload['bullets'] as List?)?.map((e) => e.toString()).toList() ??
@@ -52,7 +54,7 @@ class _MiniLessonCardState extends ConsumerState<MiniLessonCard> {
                 const Icon(Icons.school_outlined, size: 16, color: Colors.indigo),
                 const SizedBox(width: 6),
                 Text(
-                  'Mini-lesson',
+                  l10n.aiTutorCardMiniLesson,
                   style: context.bodySmall.copyWith(
                     color: Colors.indigo,
                     fontWeight: FontWeight.w600,
@@ -89,7 +91,7 @@ class _MiniLessonCardState extends ConsumerState<MiniLessonCard> {
                               );
                         },
                   icon: const Icon(Icons.edit),
-                  label: Text(_practiced ? 'Practicing…' : 'Try it'),
+                  label: Text(_practiced ? l10n.aiTutorCardPracticing : l10n.aiTutorCardTryIt),
                 ),
               ),
             ],

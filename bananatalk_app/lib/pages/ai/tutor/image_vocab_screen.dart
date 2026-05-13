@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../services/api_client.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// Describe-a-photo exercise.
 ///
@@ -63,9 +64,10 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
       });
       await _requestPrompt();
     } catch (e) {
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
         _loading = false;
-        _error = 'Could not open image: $e';
+        _error = l10n.aiTutorImagePickError(e.toString());
       });
     }
   }
@@ -183,7 +185,7 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Describe a photo')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.aiTutorImageVocabTitle)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -235,16 +237,17 @@ class _PickStage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (loading) return const Center(child: CircularProgressIndicator());
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text('📷', style: TextStyle(fontSize: 64)),
         const SizedBox(height: 12),
-        Text('Pick a photo to describe',
+        Text(l10n.aiTutorImagePickHeader,
             style: context.titleMedium.copyWith(fontWeight: FontWeight.w700)),
         const SizedBox(height: 8),
         Text(
-          'The AI will give you a prompt in your target language, then grade your description.',
+          l10n.aiTutorImagePickSubtitle,
           textAlign: TextAlign.center,
           style: context.bodySmall.copyWith(color: context.textSecondary),
         ),
@@ -255,7 +258,7 @@ class _PickStage extends StatelessWidget {
           child: FilledButton.icon(
             onPressed: onCamera,
             icon: const Icon(Icons.photo_camera),
-            label: const Text('Camera'),
+            label: Text(l10n.aiTutorImagePickCamera),
           ),
         ),
         const SizedBox(height: 12),
@@ -265,7 +268,7 @@ class _PickStage extends StatelessWidget {
           child: FilledButton.tonalIcon(
             onPressed: onGallery,
             icon: const Icon(Icons.photo_library),
-            label: const Text('Gallery'),
+            label: Text(l10n.aiTutorImagePickGallery),
           ),
         ),
         if (error != null) ...[
@@ -298,6 +301,7 @@ class _DescribeStage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final keyboardInset = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: EdgeInsets.only(bottom: keyboardInset),
@@ -353,7 +357,7 @@ class _DescribeStage extends StatelessWidget {
               minLines: 4,
               style: TextStyle(color: context.textPrimary),
               decoration: InputDecoration(
-                hintText: 'Type your description…',
+                hintText: l10n.aiTutorImageDescriptionHint,
                 hintStyle: TextStyle(color: context.textMuted),
                 filled: true,
                 fillColor: context.containerColor,
@@ -369,14 +373,14 @@ class _DescribeStage extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: onRetry,
-                    child: const Text('Different photo'),
+                    child: Text(l10n.aiTutorImageDifferentPhoto),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: FilledButton(
                     onPressed: onSubmit,
-                    child: const Text('Submit'),
+                    child: Text(l10n.aiTutorImageSubmit),
                   ),
                 ),
               ],
@@ -446,7 +450,7 @@ class _ResultStage extends StatelessWidget {
           ],
           if (grammarNotes.isNotEmpty) ...[
             const SizedBox(height: 16),
-            Text('Grammar notes',
+            Text(AppLocalizations.of(context)!.aiTutorImageGrammarNotes,
                 style: context.titleSmall.copyWith(fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             for (final g in grammarNotes)
@@ -479,7 +483,7 @@ class _ResultStage extends StatelessWidget {
           ],
           if (missingItems.isNotEmpty) ...[
             const SizedBox(height: 16),
-            Text('Things you missed',
+            Text(AppLocalizations.of(context)!.aiTutorImageThingsYouMissed,
                 style: context.titleSmall.copyWith(fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Wrap(
@@ -505,7 +509,7 @@ class _ResultStage extends StatelessWidget {
             child: FilledButton.icon(
               onPressed: onTryAnother,
               icon: const Icon(Icons.refresh),
-              label: const Text('Try another photo'),
+              label: Text(AppLocalizations.of(context)!.aiTutorImageTryAnother),
             ),
           ),
         ],

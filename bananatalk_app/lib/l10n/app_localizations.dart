@@ -1002,6 +1002,396 @@ abstract class AppLocalizations {
   /// **'Snap a picture and describe it — AI grades your vocab + grammar.'**
   String get aiTutorHomeDescribePhotoSubtitle;
 
+  /// No description provided for @aiTutorChatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with tutor'**
+  String get aiTutorChatTitle;
+
+  /// No description provided for @aiTutorChatVoiceOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice on'**
+  String get aiTutorChatVoiceOn;
+
+  /// No description provided for @aiTutorChatVoiceOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice off'**
+  String get aiTutorChatVoiceOff;
+
+  /// No description provided for @aiTutorChatStopRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get aiTutorChatStopRecording;
+
+  /// No description provided for @aiTutorChatHoldToTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to talk'**
+  String get aiTutorChatHoldToTalk;
+
+  /// No description provided for @aiTutorChatTranscribing.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribing…'**
+  String get aiTutorChatTranscribing;
+
+  /// No description provided for @aiTutorChatListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening…'**
+  String get aiTutorChatListening;
+
+  /// No description provided for @aiTutorChatInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message…'**
+  String get aiTutorChatInputHint;
+
+  /// No description provided for @aiTutorChatTypeReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your reply…'**
+  String get aiTutorChatTypeReplyHint;
+
+  /// No description provided for @aiTutorChatMicPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission needed for voice mode.'**
+  String get aiTutorChatMicPermissionDenied;
+
+  /// No description provided for @aiTutorChatTranscribeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t catch that — try again.'**
+  String get aiTutorChatTranscribeFailed;
+
+  /// No description provided for @aiTutorChatStartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to start: {error}'**
+  String aiTutorChatStartFailed(String error);
+
+  /// No description provided for @aiTutorRoleplayEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get aiTutorRoleplayEnd;
+
+  /// No description provided for @aiTutorRoleplayEndFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'End failed: {error}'**
+  String aiTutorRoleplayEndFailed(String error);
+
+  /// No description provided for @aiTutorRoleplayDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get aiTutorRoleplayDone;
+
+  /// No description provided for @aiTutorStoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read a story'**
+  String get aiTutorStoryTitle;
+
+  /// No description provided for @aiTutorStoryLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Length'**
+  String get aiTutorStoryLength;
+
+  /// No description provided for @aiTutorStoryTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get aiTutorStoryTheme;
+
+  /// No description provided for @aiTutorStoryWordCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words'**
+  String aiTutorStoryWordCount(int count);
+
+  /// No description provided for @aiTutorStoryWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing…'**
+  String get aiTutorStoryWriting;
+
+  /// No description provided for @aiTutorStoryGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate story'**
+  String get aiTutorStoryGenerate;
+
+  /// No description provided for @aiTutorStoryGenerateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not generate: {error}'**
+  String aiTutorStoryGenerateFailed(String error);
+
+  /// No description provided for @aiTutorStoryWordCountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI will use up to {n} words from your vocab list.'**
+  String aiTutorStoryWordCountHint(int n);
+
+  /// No description provided for @aiTutorStoryThemeFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get aiTutorStoryThemeFree;
+
+  /// No description provided for @aiTutorStoryThemeAdventure.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventure'**
+  String get aiTutorStoryThemeAdventure;
+
+  /// No description provided for @aiTutorStoryThemeMystery.
+  ///
+  /// In en, this message translates to:
+  /// **'Mystery'**
+  String get aiTutorStoryThemeMystery;
+
+  /// No description provided for @aiTutorStoryThemeRomance.
+  ///
+  /// In en, this message translates to:
+  /// **'Romance'**
+  String get aiTutorStoryThemeRomance;
+
+  /// No description provided for @aiTutorStoryThemeSciFi.
+  ///
+  /// In en, this message translates to:
+  /// **'Sci-fi'**
+  String get aiTutorStoryThemeSciFi;
+
+  /// No description provided for @aiTutorStoryThemeSliceOfLife.
+  ///
+  /// In en, this message translates to:
+  /// **'Slice of life'**
+  String get aiTutorStoryThemeSliceOfLife;
+
+  /// No description provided for @aiTutorStoryReaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get aiTutorStoryReaderTitle;
+
+  /// No description provided for @aiTutorStoryReaderVocab.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get aiTutorStoryReaderVocab;
+
+  /// No description provided for @aiTutorStoryReaderVocabUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary used'**
+  String get aiTutorStoryReaderVocabUsed;
+
+  /// No description provided for @aiTutorStoryReaderPart.
+  ///
+  /// In en, this message translates to:
+  /// **'Part {n}'**
+  String aiTutorStoryReaderPart(int n);
+
+  /// No description provided for @aiTutorStoryReaderWrongHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite — moving on'**
+  String get aiTutorStoryReaderWrongHint;
+
+  /// No description provided for @aiTutorStoryReaderNiceWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice work!'**
+  String get aiTutorStoryReaderNiceWork;
+
+  /// No description provided for @aiTutorStoryReaderScore.
+  ///
+  /// In en, this message translates to:
+  /// **'You got {correct}/{total} comprehension questions right.'**
+  String aiTutorStoryReaderScore(int correct, int total);
+
+  /// No description provided for @aiTutorStoryReaderDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get aiTutorStoryReaderDone;
+
+  /// No description provided for @aiTutorImageVocabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe a photo'**
+  String get aiTutorImageVocabTitle;
+
+  /// No description provided for @aiTutorImagePickHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a photo to describe'**
+  String get aiTutorImagePickHeader;
+
+  /// No description provided for @aiTutorImagePickSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI will give you a prompt in your target language, then grade your description.'**
+  String get aiTutorImagePickSubtitle;
+
+  /// No description provided for @aiTutorImagePickCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get aiTutorImagePickCamera;
+
+  /// No description provided for @aiTutorImagePickGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get aiTutorImagePickGallery;
+
+  /// No description provided for @aiTutorImagePickError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open image: {error}'**
+  String aiTutorImagePickError(String error);
+
+  /// No description provided for @aiTutorImageDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your description…'**
+  String get aiTutorImageDescriptionHint;
+
+  /// No description provided for @aiTutorImageDifferentPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Different photo'**
+  String get aiTutorImageDifferentPhoto;
+
+  /// No description provided for @aiTutorImageSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get aiTutorImageSubmit;
+
+  /// No description provided for @aiTutorImageGrammarNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar notes'**
+  String get aiTutorImageGrammarNotes;
+
+  /// No description provided for @aiTutorImageThingsYouMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Things you missed'**
+  String get aiTutorImageThingsYouMissed;
+
+  /// No description provided for @aiTutorImageTryAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Try another photo'**
+  String get aiTutorImageTryAnother;
+
+  /// No description provided for @aiTutorCardQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get aiTutorCardQuiz;
+
+  /// No description provided for @aiTutorCardVocab.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocab'**
+  String get aiTutorCardVocab;
+
+  /// No description provided for @aiTutorCardGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get aiTutorCardGrammar;
+
+  /// No description provided for @aiTutorCardReviewDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Review due'**
+  String get aiTutorCardReviewDue;
+
+  /// No description provided for @aiTutorCardMiniLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Mini-lesson'**
+  String get aiTutorCardMiniLesson;
+
+  /// No description provided for @aiTutorCardAddToVocab.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to vocab'**
+  String get aiTutorCardAddToVocab;
+
+  /// No description provided for @aiTutorCardAddedToVocab.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to vocab'**
+  String get aiTutorCardAddedToVocab;
+
+  /// No description provided for @aiTutorCardAdding.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding…'**
+  String get aiTutorCardAdding;
+
+  /// No description provided for @aiTutorCardReviewCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} card waiting for you} other{{count} cards waiting for you}}'**
+  String aiTutorCardReviewCount(int count);
+
+  /// No description provided for @aiTutorCardReviewNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Review now'**
+  String get aiTutorCardReviewNow;
+
+  /// No description provided for @aiTutorCardReviewStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting…'**
+  String get aiTutorCardReviewStarting;
+
+  /// No description provided for @aiTutorCardTryIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it'**
+  String get aiTutorCardTryIt;
+
+  /// No description provided for @aiTutorCardPracticing.
+  ///
+  /// In en, this message translates to:
+  /// **'Practicing…'**
+  String get aiTutorCardPracticing;
+
+  /// No description provided for @aiTutorPlanSrsReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review {count} SRS cards ({done} done)'**
+  String aiTutorPlanSrsReview(int count, int done);
+
+  /// No description provided for @aiTutorPlanGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice: {topic}'**
+  String aiTutorPlanGrammar(String topic);
+
+  /// No description provided for @aiTutorPlanChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat for {min} min ({done} so far)'**
+  String aiTutorPlanChat(int min, int done);
+
   /// No description provided for @aboutBananatalk.
   ///
   /// In en, this message translates to:

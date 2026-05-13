@@ -459,6 +459,231 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
 
   @override
+  String get aiTutorChatTitle => 'Chat with tutor';
+
+  @override
+  String get aiTutorChatVoiceOn => 'Voice on';
+
+  @override
+  String get aiTutorChatVoiceOff => 'Voice off';
+
+  @override
+  String get aiTutorChatStopRecording => 'Stop recording';
+
+  @override
+  String get aiTutorChatHoldToTalk => 'Hold to talk';
+
+  @override
+  String get aiTutorChatTranscribing => 'Transcribing…';
+
+  @override
+  String get aiTutorChatListening => 'Listening…';
+
+  @override
+  String get aiTutorChatInputHint => 'Type a message…';
+
+  @override
+  String get aiTutorChatTypeReplyHint => 'Type your reply…';
+
+  @override
+  String get aiTutorChatMicPermissionDenied => 'Microphone permission needed for voice mode.';
+
+  @override
+  String get aiTutorChatTranscribeFailed => 'Didn\'t catch that — try again.';
+
+  @override
+  String aiTutorChatStartFailed(String error) {
+    return 'Failed to start: $error';
+  }
+
+  @override
+  String get aiTutorRoleplayEnd => 'End';
+
+  @override
+  String aiTutorRoleplayEndFailed(String error) {
+    return 'End failed: $error';
+  }
+
+  @override
+  String get aiTutorRoleplayDone => 'Done';
+
+  @override
+  String get aiTutorStoryTitle => 'Read a story';
+
+  @override
+  String get aiTutorStoryLength => 'Length';
+
+  @override
+  String get aiTutorStoryTheme => 'Theme';
+
+  @override
+  String aiTutorStoryWordCount(int count) {
+    return '$count words';
+  }
+
+  @override
+  String get aiTutorStoryWriting => 'Writing…';
+
+  @override
+  String get aiTutorStoryGenerate => 'Generate story';
+
+  @override
+  String aiTutorStoryGenerateFailed(String error) {
+    return 'Could not generate: $error';
+  }
+
+  @override
+  String aiTutorStoryWordCountHint(int n) {
+    return 'The AI will use up to $n words from your vocab list.';
+  }
+
+  @override
+  String get aiTutorStoryThemeFree => 'Free';
+
+  @override
+  String get aiTutorStoryThemeAdventure => 'Adventure';
+
+  @override
+  String get aiTutorStoryThemeMystery => 'Mystery';
+
+  @override
+  String get aiTutorStoryThemeRomance => 'Romance';
+
+  @override
+  String get aiTutorStoryThemeSciFi => 'Sci-fi';
+
+  @override
+  String get aiTutorStoryThemeSliceOfLife => 'Slice of life';
+
+  @override
+  String get aiTutorStoryReaderTitle => 'Story';
+
+  @override
+  String get aiTutorStoryReaderVocab => 'Vocabulary';
+
+  @override
+  String get aiTutorStoryReaderVocabUsed => 'Vocabulary used';
+
+  @override
+  String aiTutorStoryReaderPart(int n) {
+    return 'Part $n';
+  }
+
+  @override
+  String get aiTutorStoryReaderWrongHint => 'Not quite — moving on';
+
+  @override
+  String get aiTutorStoryReaderNiceWork => 'Nice work!';
+
+  @override
+  String aiTutorStoryReaderScore(int correct, int total) {
+    return 'You got $correct/$total comprehension questions right.';
+  }
+
+  @override
+  String get aiTutorStoryReaderDone => 'Done';
+
+  @override
+  String get aiTutorImageVocabTitle => 'Describe a photo';
+
+  @override
+  String get aiTutorImagePickHeader => 'Pick a photo to describe';
+
+  @override
+  String get aiTutorImagePickSubtitle => 'The AI will give you a prompt in your target language, then grade your description.';
+
+  @override
+  String get aiTutorImagePickCamera => 'Camera';
+
+  @override
+  String get aiTutorImagePickGallery => 'Gallery';
+
+  @override
+  String aiTutorImagePickError(String error) {
+    return 'Could not open image: $error';
+  }
+
+  @override
+  String get aiTutorImageDescriptionHint => 'Type your description…';
+
+  @override
+  String get aiTutorImageDifferentPhoto => 'Different photo';
+
+  @override
+  String get aiTutorImageSubmit => 'Submit';
+
+  @override
+  String get aiTutorImageGrammarNotes => 'Grammar notes';
+
+  @override
+  String get aiTutorImageThingsYouMissed => 'Things you missed';
+
+  @override
+  String get aiTutorImageTryAnother => 'Try another photo';
+
+  @override
+  String get aiTutorCardQuiz => 'Quiz';
+
+  @override
+  String get aiTutorCardVocab => 'Vocab';
+
+  @override
+  String get aiTutorCardGrammar => 'Grammar';
+
+  @override
+  String get aiTutorCardReviewDue => 'Review due';
+
+  @override
+  String get aiTutorCardMiniLesson => 'Mini-lesson';
+
+  @override
+  String get aiTutorCardAddToVocab => 'Add to vocab';
+
+  @override
+  String get aiTutorCardAddedToVocab => 'Added to vocab';
+
+  @override
+  String get aiTutorCardAdding => 'Adding…';
+
+  @override
+  String aiTutorCardReviewCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cards waiting for you',
+      one: '$count card waiting for you',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiTutorCardReviewNow => 'Review now';
+
+  @override
+  String get aiTutorCardReviewStarting => 'Starting…';
+
+  @override
+  String get aiTutorCardTryIt => 'Try it';
+
+  @override
+  String get aiTutorCardPracticing => 'Practicing…';
+
+  @override
+  String aiTutorPlanSrsReview(int count, int done) {
+    return 'Review $count SRS cards ($done done)';
+  }
+
+  @override
+  String aiTutorPlanGrammar(String topic) {
+    return 'Practice: $topic';
+  }
+
+  @override
+  String aiTutorPlanChat(int min, int done) {
+    return 'Chat for $min min ($done so far)';
+  }
+
+  @override
   String get aboutBananatalk => 'Bananatalk Hakkında';
 
   @override

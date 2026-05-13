@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/tutor_provider.dart';
 import '../../utils/theme_extensions.dart';
 import '../../core/theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Inline quiz card the tutor can drop into chat.
 ///
@@ -52,7 +53,7 @@ class _QuizCardState extends ConsumerState<QuizCard> {
                 const Icon(Icons.help_outline, size: 16, color: AppColors.primary),
                 const SizedBox(width: 6),
                 Text(
-                  'Quiz',
+                  AppLocalizations.of(context)!.aiTutorCardQuiz,
                   style: context.bodySmall.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w600,

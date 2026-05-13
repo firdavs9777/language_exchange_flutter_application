@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../services/api_client.dart';
 import '../../utils/theme_extensions.dart';
 import '../../core/theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Inline vocab card the tutor drops into chat when it introduces a
 /// new word. Tapping "Add to vocab" POSTs the payload to the existing
@@ -55,6 +56,7 @@ class _VocabCardState extends ConsumerState<VocabCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final word = widget.payload['word']?.toString() ?? '';
     final ipa = widget.payload['ipa']?.toString();
     final definition = widget.payload['definition']?.toString() ?? '';
@@ -80,7 +82,7 @@ class _VocabCardState extends ConsumerState<VocabCard> {
                 const Icon(Icons.book_outlined, size: 16, color: AppColors.accent),
                 const SizedBox(width: 6),
                 Text(
-                  'Vocab',
+                  l10n.aiTutorCardVocab,
                   style: context.bodySmall.copyWith(
                     color: AppColors.accent,
                     fontWeight: FontWeight.w600,
@@ -124,8 +126,8 @@ class _VocabCardState extends ConsumerState<VocabCard> {
                 onPressed: (_adding || _added) ? null : _addToVocab,
                 icon: Icon(_added ? Icons.check : Icons.add),
                 label: Text(_added
-                    ? 'Added to vocab'
-                    : (_adding ? 'Adding…' : 'Add to vocab')),
+                    ? l10n.aiTutorCardAddedToVocab
+                    : (_adding ? l10n.aiTutorCardAdding : l10n.aiTutorCardAddToVocab)),
               ),
             ),
             if (_error != null) ...[
