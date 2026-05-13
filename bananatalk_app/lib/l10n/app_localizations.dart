@@ -10697,6 +10697,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pronounce'**
   String get aiTutorChipPronounce;
+
+  /// Daily-plan task label for pronunciation drills, shows progress like '0/1'
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Pronunciation drill ({completed}/1)} other{Pronunciation drills ({completed}/{count})}}'**
+  String aiTutorPlanPronunciation(int count, int completed);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

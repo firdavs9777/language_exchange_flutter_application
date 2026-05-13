@@ -5694,6 +5694,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiTutorChipPronounce => 'Pronounce';
+
+  @override
+  String aiTutorPlanPronunciation(int count, int completed) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Pronunciation drills ($completed/$count)',
+      one: 'Pronunciation drill ($completed/1)',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).

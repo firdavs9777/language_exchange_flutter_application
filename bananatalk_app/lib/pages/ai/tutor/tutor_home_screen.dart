@@ -201,6 +201,11 @@ class _PlanCard extends StatelessWidget {
           t.minutes ?? 5,
           (t.completed is num ? (t.completed as num).toInt() : 0),
         );
+      case 'tutor_pronunciation':
+        return l10n.aiTutorPlanPronunciation(
+          t.count ?? 1,
+          (t.completed is num ? (t.completed as num).toInt() : 0),
+        );
       default:
         return t.type;
     }

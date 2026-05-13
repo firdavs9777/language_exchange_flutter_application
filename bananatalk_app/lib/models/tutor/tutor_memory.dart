@@ -73,7 +73,7 @@ class DailyPlan {
 }
 
 class DailyPlanTask {
-  final String type; // 'srs_review' | 'grammar_drill' | 'tutor_chat'
+  final String type; // 'srs_review' | 'grammar_drill' | 'tutor_chat' | 'tutor_pronunciation'
   final int? count;
   final String? topic;
   final int? minutes;

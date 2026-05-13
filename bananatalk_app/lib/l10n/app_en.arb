@@ -2944,5 +2944,14 @@
   "@aiTutorPronounceSaving": { "description": "Button label while the summary is being submitted" },
 
   "aiTutorChipPronounce": "Pronounce",
-  "@aiTutorChipPronounce": { "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill" }
+  "@aiTutorChipPronounce": { "description": "Label for the 5th tutor mode chip — opens the Pronunciation Coach drill" },
+
+  "aiTutorPlanPronunciation": "{count, plural, =1{Pronunciation drill ({completed}/1)} other{Pronunciation drills ({completed}/{count})}}",
+  "@aiTutorPlanPronunciation": {
+    "description": "Daily-plan task label for pronunciation drills, shows progress like '0/1'",
+    "placeholders": {
+      "count":     {"type": "int"},
+      "completed": {"type": "int"}
+    }
+  }
 }
