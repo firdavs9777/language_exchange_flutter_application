@@ -21,7 +21,7 @@ Agents can't tick these off; add a new section at the bottom with date + note wh
 
 ### Step 11 follow-up (legacy)
 
-- [ ] **Decide fate of legacy `/speech/pronunciation/evaluate` endpoint.** Currently uploads user audio to Spaces. Dormant in the current Flutter main flow but reachable. Either: hide the old Pronunciation tile (Step 13 sunset) AND disable the endpoint, OR migrate the data and disable. Documented in §10 of `AI_STUDY_PROCESS.md`.
+- [ ] **Decide fate of legacy `/speech/pronunciation/evaluate` endpoint.** Currently uploads user audio to Spaces. Dormant in the current Flutter main flow but reachable. Either: hide the old Pronunciation tile (Step 13 sunset) AND disable the endpoint, OR migrate the data and disable. Documented in §10 of `AI_STUDY_PROCESS.md`. **Note:** the audio-retention liability is mitigated separately — Mongo TTL drops `PronunciationAttempt` records after 30 days and a nightly job purges the Spaces blobs before the TTL fires (see `jobs/pronunciationAudioPurgeJob.js` on the backend). So this remaining item is purely a product/UX decision about the legacy tile itself, not a privacy hold.
 
 ### Step 15 — Close the memory loop (deferred from review)
 

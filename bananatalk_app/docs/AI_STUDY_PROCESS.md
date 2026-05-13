@@ -298,7 +298,7 @@ Material disclosure for the privacy policy.
 **Sent to our own backend (BananaTalk):**
 - Same as above, plus session summaries, vocab additions, weak-area updates
 - For **chat voice mode** and the **new Pronounce chip**, user audio is kept in memory during processing only; the buffer is passed to Whisper and discarded — we don't write it to disk or upload it to S3/Spaces.
-- For the **legacy Pronunciation tile** (the VIP-only one in the "More AI tools" grid), user audio IS uploaded to DigitalOcean Spaces and a `userAudioUrl` is stored in a `PronunciationAttempt` record. This endpoint is dormant in the current main flow but still reachable; deprecating it is queued for the Step 13 sunset pass.
+- For the **legacy Pronunciation tile** (the VIP-only one in the "More AI tools" grid), user audio IS uploaded to DigitalOcean Spaces and a `userAudioUrl` is stored in a `PronunciationAttempt` record. Records are auto-dropped after **30 days** via a Mongo TTL index on `createdAt`. A nightly job (`jobs/pronunciationAudioPurgeJob.js`) deletes the corresponding Spaces blob ~3 days before the TTL fires so the audio is gone before the URL disappears (no orphaned blobs). The endpoint itself is dormant in the current main flow but still reachable; full deprecation is queued for the Step 13 sunset pass — the retention liability is mitigated either way.
 - Photos are kept in memory during processing only; we don't persist raw images.
 - All persisted data is keyed to the user's account and visible only to them.
 
@@ -312,7 +312,7 @@ Material disclosure for the privacy policy.
 
 **Retention summary:**
 - **User recording audio (chat voice + new Pronounce):** never persisted server-side (in-memory only).
-- **User recording audio (legacy Pronunciation tile):** stored in Spaces + Mongo `PronunciationAttempt` record indefinitely. Deprecation queued in Step 13.
+- **User recording audio (legacy Pronunciation tile):** Mongo `PronunciationAttempt` record auto-drops after 30 days (TTL index); Spaces blob is purged by a nightly job ~3 days before the record TTL fires. Endpoint deprecation still queued in Step 13, but retention is bounded at ≤30 days even without it.
 - **TTS audio:** cached up to 90 days post-last-use in Mongo + Spaces.
 - **OpenAI logs:** OpenAI retains API call logs (text, audio, images) for up to 30 days for abuse monitoring per their policy, then deletes them. Per their API policy, API call data is NOT used to train their models.
 - **Our backend logs:** rotated weekly. Audio bodies are never logged — multipart uploads go through multer's memory storage and never hit the JSON request-body logger.
