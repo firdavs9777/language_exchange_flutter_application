@@ -2971,5 +2971,11 @@
   "@aiTutorPronounceStartCustomTitle": { "description": "Title of the custom-sentence mode card on the start screen" },
 
   "aiTutorPronounceStartCustomSubtitle": "Type or paste a phrase you want to nail",
-  "@aiTutorPronounceStartCustomSubtitle": { "description": "Subtitle of the custom-sentence mode card" }
+  "@aiTutorPronounceStartCustomSubtitle": { "description": "Subtitle of the custom-sentence mode card" },
+
+  "aiTutorQuotaRemaining": "{count, plural, =1{1 left today} other{{count} left today}}",
+  "@aiTutorQuotaRemaining": {
+    "description": "Daily quota counter pill on tutor chip screens",
+    "placeholders": { "count": {"type": "int"} }
+  }
 }

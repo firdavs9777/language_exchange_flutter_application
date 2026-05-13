@@ -1,6 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
 
@@ -5742,4 +5742,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
+
+  @override
+  String aiTutorQuotaRemaining(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count left today',
+      one: '1 left today',
+    );
+    return '$_temp0';
+  }
 }

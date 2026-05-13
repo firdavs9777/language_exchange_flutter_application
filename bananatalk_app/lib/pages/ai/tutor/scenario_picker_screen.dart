@@ -6,6 +6,9 @@ import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/ai/tutor/roleplay_chat_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class ScenarioPickerScreen extends ConsumerWidget {
   const ScenarioPickerScreen({super.key});
@@ -14,8 +17,24 @@ class ScenarioPickerScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scenariosAsync = ref.watch(tutorScenariosProvider);
 
+    // Step 13A: fire tutor_chip_used once when the picker first builds.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
+      AnalyticsService.instance.tutorChipUsed(
+        chipName: 'roleplay', userTier: isVip ? 'vip' : 'free',
+      );
+    });
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Practice scenarios')),
+      appBar: AppBar(
+        title: const Text('Practice scenarios'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Center(child: TutorQuotaIndicator(featureKey: 'roleplay')),
+          ),
+        ],
+      ),
       body: scenariosAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('Could not load scenarios: $e')),

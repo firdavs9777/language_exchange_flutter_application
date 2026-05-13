@@ -35,6 +35,11 @@ class ApiClient {
   Function(String message)? onRateLimitError;
   Function(String message)? onAuthorizationError;
 
+  /// Called when the server returns 429 with body.error == 'quota_exceeded'.
+  /// Distinct from onRateLimitError — quota exhaustion routes to the
+  /// paywall, generic rate limit shows a toast. Step 13A.
+  Function(QuotaError quotaError)? onQuotaExceeded;
+
   // Callback for when token refresh completes (notify socket service)
   Function()? onTokenRefreshed;
 
@@ -229,13 +234,38 @@ class ApiClient {
         ? jsonDecode(response.body) as Map<String, dynamic>
         : <String, dynamic>{};
 
+    // Step 13A: extract top-level `quotas` block once. Routed through
+    // every ApiResponse construction via _build() so it's available
+    // uniformly on success and on errors that still include it.
+    final Map<String, dynamic>? bodyQuotas = body['quotas'] is Map
+        ? Map<String, dynamic>.from(body['quotas'])
+        : null;
+
+    ApiResponse build({
+      required bool success,
+      dynamic data,
+      String? error,
+      required int statusCode,
+      RateLimitInfo? rateLimitInfo,
+      QuotaError? quotaError,
+    }) =>
+        ApiResponse(
+          success: success,
+          data: data,
+          error: error,
+          statusCode: statusCode,
+          rateLimitInfo: rateLimitInfo,
+          quotaError: quotaError,
+          quotas: bodyQuotas,
+        );
+
     switch (response.statusCode) {
       case 200:
       case 201:
         // If response has pagination info, return full body to preserve it
         // Otherwise extract 'data' field if available
         final hasDataAndPagination = body.containsKey('data') && body.containsKey('pagination');
-        return ApiResponse(
+        return build(
           success: true,
           data: hasDataAndPagination ? body : (body['data'] ?? body),
           statusCode: response.statusCode,
@@ -244,7 +274,7 @@ class ApiClient {
       case 401:
         // Authentication error - token expired or invalid
         onAuthenticationError?.call();
-        return ApiResponse(
+        return build(
           success: false,
           error: body['error'] ?? 'Authentication required. Please log in again.',
           statusCode: 401,
@@ -254,17 +284,27 @@ class ApiClient {
         // Authorization error - user doesn't have permission
         final errorMessage = body['error'] ?? 'You don\'t have permission to do this';
         onAuthorizationError?.call(_getReadableAuthError(errorMessage));
-        return ApiResponse(
+        return build(
           success: false,
           error: _getReadableAuthError(errorMessage),
           statusCode: 403,
         );
 
       case 429:
-        // Rate limit exceeded
+        // Step 13A: two flavors — daily quota exhaustion vs standard rate limit.
+        if (body['error'] == 'quota_exceeded') {
+          final qe = QuotaError.fromJson(Map<String, dynamic>.from(body));
+          onQuotaExceeded?.call(qe);
+          return build(
+            success: false,
+            error: qe.message,
+            statusCode: 429,
+            quotaError: qe,
+          );
+        }
         final errorMessage = body['error'] ?? 'Too many requests. Please slow down.';
         onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
-        return ApiResponse(
+        return build(
           success: false,
           error: _getReadableRateLimitError(errorMessage),
           statusCode: 429,
@@ -272,7 +312,7 @@ class ApiClient {
         );
 
       case 404:
-        return ApiResponse(
+        return build(
           success: false,
           error: body['error'] ?? 'Resource not found',
           statusCode: 404,
@@ -281,14 +321,14 @@ class ApiClient {
       case 500:
       case 502:
       case 503:
-        return ApiResponse(
+        return build(
           success: false,
           error: 'Server error. Please try again later.',
           statusCode: response.statusCode,
         );
 
       default:
-        return ApiResponse(
+        return build(
           success: false,
           error: body['error'] ?? 'An error occurred',
           statusCode: response.statusCode,
@@ -627,12 +667,23 @@ class ApiResponse {
   final int statusCode;
   final RateLimitInfo? rateLimitInfo;
 
+  /// Top-level `quotas` block from the response body. Distinct from
+  /// `data` because the backend returns quotas at body root, not
+  /// inside body.data. Populated on /tutor/me and the 5 gated trigger
+  /// endpoints. Step 13A.
+  final Map<String, dynamic>? quotas;
+
+  /// Populated on 429 quota_exceeded responses. Null otherwise. Step 13A.
+  final QuotaError? quotaError;
+
   ApiResponse({
     required this.success,
     this.data,
     this.error,
     required this.statusCode,
     this.rateLimitInfo,
+    this.quotas,
+    this.quotaError,
   });
 
   bool get isRateLimited => statusCode == 429;
@@ -640,10 +691,35 @@ class ApiResponse {
   bool get isForbidden => statusCode == 403;
   bool get isNotFound => statusCode == 404;
   bool get isServerError => statusCode >= 500;
+  bool get isQuotaExceeded => statusCode == 429 && quotaError != null;
 
   @override
   String toString() =>
       'ApiResponse(success: $success, statusCode: $statusCode, error: $error)';
+}
+
+/// Step 13A: parsed body of a 429 quota_exceeded response.
+class QuotaError {
+  final String feature;
+  final DateTime? resetAt;
+  final String message;
+  final bool upgradeAvailable;
+
+  const QuotaError({
+    required this.feature,
+    required this.resetAt,
+    required this.message,
+    required this.upgradeAvailable,
+  });
+
+  factory QuotaError.fromJson(Map<String, dynamic> j) => QuotaError(
+        feature: j['feature']?.toString() ?? 'unknown',
+        resetAt: j['resetAt'] != null
+            ? DateTime.tryParse(j['resetAt'].toString())
+            : null,
+        message: j['message']?.toString() ?? "You've hit your daily limit.",
+        upgradeAvailable: j['upgradeAvailable'] == true,
+      );
 }
 
 /// Rate limit information

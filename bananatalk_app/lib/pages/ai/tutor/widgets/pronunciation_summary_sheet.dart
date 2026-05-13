@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/pronunciation_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 class PronunciationSummarySheet extends ConsumerStatefulWidget {
@@ -26,6 +28,11 @@ class _PronunciationSummarySheetState
     });
     try {
       await ref.read(pronunciationControllerProvider.notifier).finish();
+      // Step 13A: fire chip completion analytics on successful save.
+      final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
+      AnalyticsService.instance.tutorChipCompleted(
+        chipName: 'pronunciation', userTier: isVip ? 'vip' : 'free',
+      );
       if (!mounted) return;
       widget.onClose();
     } catch (e) {

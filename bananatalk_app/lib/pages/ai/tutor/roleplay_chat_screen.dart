@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/tutor_voice_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -117,6 +119,12 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
           ? raw['data'] as Map<String, dynamic>
           : raw;
       final updated = TutorSession.fromJson(inner);
+      // Step 13A: roleplay completion analytics — fired after the
+      // /end response with the score returns successfully.
+      final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
+      AnalyticsService.instance.tutorChipCompleted(
+        chipName: 'roleplay', userTier: isVip ? 'vip' : 'free',
+      );
       if (!mounted) return;
       await _voice.stopPlayback();
       await showModalBottomSheet<void>(

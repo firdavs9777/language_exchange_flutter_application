@@ -8,6 +8,7 @@ import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -200,14 +201,44 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       if (!mounted) return;
 
       if (verifyResult['success'] == true) {
-        // Refresh user data and limits
-        ref.invalidate(userProvider);
-        ref.invalidate(vipStatusProvider(widget.userId));
-        ref.invalidate(userLimitsProvider(widget.userId));
-
-        ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
-        _showSuccessDialog();
+        // Step 13A: webhook race fix. Apple/Google webhook may not have
+        // processed by the time we re-fetch /vip/status. Retry up to 3
+        // times over ~6 seconds. Only show success when backend
+        // confirms isVIP === true.
+        bool confirmedVip = false;
+        for (int attempt = 1; attempt <= 3; attempt++) {
+          ref.invalidate(userProvider);
+          ref.invalidate(vipStatusProvider(widget.userId));
+          ref.invalidate(userLimitsProvider(widget.userId));
+          try {
+            final status = await ref.read(vipStatusProvider(widget.userId).future);
+            if (status['isVIP'] == true) {
+              confirmedVip = true;
+              break;
+            }
+          } catch (_) {
+            // Soft-fail; retry until budget exhausted.
+          }
+          if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
+        }
+        if (!mounted) return;
+        if (confirmedVip) {
+          ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
+          AnalyticsService.instance.subscriptionPurchased(
+            plan: widget.plan.name,
+            platform: Platform.isIOS ? 'ios' : 'android',
+          );
+          _showSuccessDialog();
+        } else {
+          ref.read(purchaseStateProvider.notifier).state = PurchaseState.pending;
+          _showPendingDialog();
+        }
       } else {
+        AnalyticsService.instance.subscriptionPurchaseFailed(
+          plan: widget.plan.name,
+          platform: Platform.isIOS ? 'ios' : 'android',
+          errorCode: verifyResult['error']?.toString() ?? 'unknown',
+        );
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog('Purchase Verification Failed', verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
@@ -224,6 +255,24 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       _showErrorDialog('Purchase Error', e.toString().replaceAll('Exception: ', ''));
     }
+  }
+
+  void _showPendingDialog() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Almost there'),
+        content: const Text(
+          "Your subscription is processing — please try refreshing in a minute.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () { Navigator.pop(context); Navigator.pop(context); },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _processAndroidPurchase() async {
@@ -323,14 +372,37 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       if (!mounted) return;
 
       if (verifyResult['success'] == true) {
-        // Refresh user data and limits
-        ref.invalidate(userProvider);
-        ref.invalidate(vipStatusProvider(widget.userId));
-        ref.invalidate(userLimitsProvider(widget.userId));
-
-        ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
-        _showSuccessDialog();
+        // Step 13A: webhook race fix — same pattern as iOS path.
+        bool confirmedVip = false;
+        for (int attempt = 1; attempt <= 3; attempt++) {
+          ref.invalidate(userProvider);
+          ref.invalidate(vipStatusProvider(widget.userId));
+          ref.invalidate(userLimitsProvider(widget.userId));
+          try {
+            final status = await ref.read(vipStatusProvider(widget.userId).future);
+            if (status['isVIP'] == true) {
+              confirmedVip = true;
+              break;
+            }
+          } catch (_) {}
+          if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
+        }
+        if (!mounted) return;
+        if (confirmedVip) {
+          ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
+          AnalyticsService.instance.subscriptionPurchased(
+            plan: widget.plan.name, platform: 'android',
+          );
+          _showSuccessDialog();
+        } else {
+          ref.read(purchaseStateProvider.notifier).state = PurchaseState.pending;
+          _showPendingDialog();
+        }
       } else {
+        AnalyticsService.instance.subscriptionPurchaseFailed(
+          plan: widget.plan.name, platform: 'android',
+          errorCode: verifyResult['error']?.toString() ?? 'unknown',
+        );
         ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog('Purchase Verification Failed',

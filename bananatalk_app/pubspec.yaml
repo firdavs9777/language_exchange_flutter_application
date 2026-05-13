@@ -55,6 +55,7 @@ dependencies:
   # Firebase & Notifications
   firebase_core: ^3.0.0
   firebase_messaging: ^15.0.0
+  firebase_analytics: ^11.0.0
   flutter_local_notifications: ^16.3.0
   app_settings: ^5.1.1
   device_info_plus: ^12.3.0

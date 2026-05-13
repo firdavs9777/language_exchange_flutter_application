@@ -81,7 +81,8 @@ class PronunciationState {
 class PronunciationController extends StateNotifier<PronunciationState> {
   final TutorService _svc;
   final PronunciationVoiceService _voice;
-  PronunciationController(this._svc, this._voice)
+  final Ref _ref;
+  PronunciationController(this._svc, this._voice, this._ref)
       : super(const PronunciationState());
 
   /// Guards every state write — autoDispose can tear the controller down
@@ -252,6 +253,13 @@ class PronunciationController extends StateNotifier<PronunciationState> {
     }
     try {
       await _svc.submitPronunciationSummary(weakWords.take(5).toList());
+      // Step 13A: invalidate so the AI Tools tab re-fetches /tutor/me
+      // and the quota indicator reflects the post-increment count.
+      try {
+        _ref.invalidate(tutorMemoryAndQuotasProvider);
+      } catch (_) {
+        // Defensive — ref may be in a teardown state.
+      }
     } catch (e) {
       _safeSet(state.copyWith(errorMessage: e.toString()));
       rethrow;
@@ -273,5 +281,6 @@ final pronunciationControllerProvider = StateNotifierProvider.autoDispose<
   return PronunciationController(
     ref.read(tutorServiceProvider),
     ref.read(pronunciationVoiceServiceProvider),
+    ref,
   );
 });

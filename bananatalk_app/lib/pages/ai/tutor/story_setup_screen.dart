@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_reader_screen.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class StorySetupScreen extends ConsumerStatefulWidget {
   const StorySetupScreen({super.key});
@@ -18,6 +21,17 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   int _wordCount = 5;
   String _theme = 'free';
   bool _generating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
+      AnalyticsService.instance.tutorChipUsed(
+        chipName: 'story', userTier: isVip ? 'vip' : 'free',
+      );
+    });
+  }
 
   List<_ThemeOption> _themes(AppLocalizations l10n) => <_ThemeOption>[
         _ThemeOption('free', '🎲', l10n.aiTutorStoryThemeFree),
@@ -34,6 +48,8 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
       final story = await ref
           .read(tutorServiceProvider)
           .generateStory(wordCount: _wordCount, theme: _theme);
+      // Step 13A: refresh quota state after the gated action succeeded.
+      ref.invalidate(tutorMemoryAndQuotasProvider);
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -54,7 +70,15 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.aiTutorStoryTitle)),
+      appBar: AppBar(
+        title: Text(l10n.aiTutorStoryTitle),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Center(child: TutorQuotaIndicator(featureKey: 'story')),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

@@ -56,6 +56,10 @@ enum PurchaseState {
   purchasing,
   verifying,
   success,
+  /// Step 13A: server verified the receipt OK, but the Apple/Google
+  /// webhook hasn't yet flipped userMode to 'vip'. UI shows a
+  /// "subscription is processing" dialog rather than misleading success.
+  pending,
   error,
 }
 

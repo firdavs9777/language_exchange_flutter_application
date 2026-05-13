@@ -5,6 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart' show tutorMemoryAndQuotasProvider;
+import 'package:bananatalk_app/services/analytics_service.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -43,8 +47,25 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   String? _error;
   bool _loading = false;
 
+  /// Step 13A: cached tier for analytics.
+  String _userTier = 'free';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
+      AnalyticsService.instance.tutorChipUsed(
+        chipName: 'photo', userTier: _userTier,
+      );
+    });
+  }
+
   @override
   void dispose() {
+    AnalyticsService.instance.tutorChipCompleted(
+      chipName: 'photo', userTier: _userTier,
+    );
     _descCtl.dispose();
     super.dispose();
   }
@@ -76,6 +97,8 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
     if (_image == null) return;
     try {
       final body = await _postImage('tutor/image-vocab/describe');
+      // Step 13A: refresh quota state after the gated action succeeded.
+      ref.invalidate(tutorMemoryAndQuotasProvider);
       if (!mounted) return;
       setState(() {
         _prompt = (body['prompt'] as String?) ?? 'Describe what you see.';
@@ -185,7 +208,15 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.aiTutorImageVocabTitle)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.aiTutorImageVocabTitle),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Center(child: TutorQuotaIndicator(featureKey: 'photo')),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
