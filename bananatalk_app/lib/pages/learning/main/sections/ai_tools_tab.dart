@@ -17,6 +17,7 @@ import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
+import 'package:bananatalk_app/pages/ai/tutor/pronunciation_session_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -397,7 +398,7 @@ class _AITutorHero extends ConsumerWidget {
   }
 }
 
-/// Four tutor-mode chips: Chat / Roleplay / Story / Photo.
+/// Five tutor-mode chips: Chat / Roleplay / Story / Photo / Pronounce.
 /// Each routes directly to its destination — but bounces through the
 /// persona picker first if the user hasn't picked a persona yet.
 class _TutorModeChips extends ConsumerWidget {
@@ -437,6 +438,14 @@ class _TutorModeChips extends ConsumerWidget {
             emoji: '📷',
             label: l10n.aiTutorChipPhoto,
             onTap: () => _open(context, ref, const ImageVocabScreen()),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _ModeChip(
+            emoji: '🎙️',
+            label: l10n.aiTutorChipPronounce,
+            onTap: () => _open(context, ref, const PronunciationSessionScreen()),
           ),
         ),
       ],

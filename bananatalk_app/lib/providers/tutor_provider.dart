@@ -1,10 +1,85 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/tutor/tutor_memory.dart';
 import '../models/tutor/tutor_session.dart';
 import '../models/tutor/tutor_story.dart';
 import '../services/api_client.dart';
+
+class PronunciationSentence {
+  final String sentence;
+  final String level;
+  final String targetLanguage;
+  final String ttsAudioUrl;
+
+  const PronunciationSentence({
+    required this.sentence,
+    required this.level,
+    required this.targetLanguage,
+    required this.ttsAudioUrl,
+  });
+
+  factory PronunciationSentence.fromJson(Map<String, dynamic> j) =>
+      PronunciationSentence(
+        sentence: j['sentence']?.toString() ?? '',
+        level: j['level']?.toString() ?? 'A1',
+        targetLanguage: j['targetLanguage']?.toString() ?? 'en',
+        ttsAudioUrl: j['ttsAudioUrl']?.toString() ?? '',
+      );
+}
+
+class PronunciationWordScore {
+  final String word;
+  final String status; // 'ok' | 'wrong' | 'missing'
+  final List<Map<String, dynamic>>? charDiff;
+
+  const PronunciationWordScore({
+    required this.word,
+    required this.status,
+    this.charDiff,
+  });
+
+  factory PronunciationWordScore.fromJson(Map<String, dynamic> j) {
+    final cd = j['charDiff'];
+    List<Map<String, dynamic>>? parsed;
+    if (cd is List) {
+      parsed = cd
+          .whereType<Map>()
+          .map((e) => e.cast<String, dynamic>())
+          .toList();
+    }
+    return PronunciationWordScore(
+      word: j['word']?.toString() ?? '',
+      status: j['status']?.toString() ?? 'missing',
+      charDiff: parsed,
+    );
+  }
+}
+
+class PronunciationScore {
+  final int overallScore;
+  final String transcript;
+  final List<PronunciationWordScore> wordScores;
+
+  const PronunciationScore({
+    required this.overallScore,
+    required this.transcript,
+    required this.wordScores,
+  });
+
+  factory PronunciationScore.fromJson(Map<String, dynamic> j) =>
+      PronunciationScore(
+        overallScore: (j['overallScore'] as num?)?.toInt() ?? 0,
+        transcript: j['transcript']?.toString() ?? '',
+        wordScores: ((j['wordScores'] as List?) ?? const [])
+            .whereType<Map>()
+            .map((e) => PronunciationWordScore.fromJson(
+                  e.cast<String, dynamic>(),
+                ))
+            .toList(),
+      );
+}
 
 /// Thin wrapper around [ApiClient] for the tutor endpoints.
 ///
@@ -133,6 +208,51 @@ class TutorService {
     }
     return const {};
   }
+
+  /// POST /tutor/pronunciation/sentence — returns a level-tuned target
+  /// sentence + TTS URL. Pass [custom] to skip GPT and just TTS your
+  /// own text.
+  Future<PronunciationSentence> fetchPronunciationSentence({String? custom}) async {
+    final body = <String, dynamic>{'preferWeakWords': true};
+    if (custom != null && custom.trim().isNotEmpty) body['custom'] = custom.trim();
+    final res = await _api.post('tutor/pronunciation/sentence', body: body);
+    if (!res.success || res.data == null) {
+      throw StateError(res.error ?? 'Failed to fetch sentence');
+    }
+    return PronunciationSentence.fromJson(_dataObj(res.data));
+  }
+
+  /// POST /tutor/pronunciation/score — multipart audio upload, returns
+  /// word-by-word score + transcript.
+  Future<PronunciationScore> scorePronunciationAttempt({
+    required String audioFilePath,
+    required String targetSentence,
+  }) async {
+    // Match the existing tutor_voice_service pattern: don't override
+    // contentType — let http_parser infer from the file extension.
+    final multipart = await http.MultipartFile.fromPath('audio', audioFilePath);
+    final res = await _api.postMultipart(
+      'tutor/pronunciation/score',
+      files: [multipart],
+      fields: {'targetSentence': targetSentence},
+    );
+    if (!res.success || res.data == null) {
+      throw StateError(res.error ?? 'Failed to score');
+    }
+    return PronunciationScore.fromJson(_dataObj(res.data));
+  }
+
+  /// POST /tutor/pronunciation/summary — flushes session weak words
+  /// back into TutorMemory.weakAreas (pronunciation:<word> prefix).
+  Future<void> submitPronunciationSummary(List<String> weakWords) async {
+    final res = await _api.post(
+      'tutor/pronunciation/summary',
+      body: {'weakWords': weakWords},
+    );
+    if (!res.success) {
+      throw StateError(res.error ?? 'Failed to submit summary');
+    }
+  }
 }
 
 final tutorServiceProvider = Provider<TutorService>((_) => TutorService());
@@ -171,14 +291,32 @@ class TutorChatController extends StateNotifier<TutorChatState> {
   final TutorService _svc;
   TutorChatController(this._svc) : super(const TutorChatState());
 
+  /// Safe state setter — silently skips if the notifier was disposed
+  /// (autoDispose can kick in mid-await when the screen unmounts).
+  /// Without this, an in-flight session-start/sendMessage that resolves
+  /// after dispose triggers a Flutter assertion when listeners try to
+  /// rebuild a defunct element.
+  void _safeSet(TutorChatState next) {
+    if (!mounted) return;
+    state = next;
+  }
+
   Future<void> start() async {
-    final s = await _svc.startSession();
-    state = TutorChatState(session: s);
+    try {
+      final s = await _svc.startSession();
+      _safeSet(TutorChatState(session: s));
+    } catch (e) {
+      _safeSet(state.copyWith(error: e.toString()));
+    }
   }
 
   Future<void> startRoleplay(String scenarioId) async {
-    final s = await _svc.startRoleplay(scenarioId);
-    state = TutorChatState(session: s);
+    try {
+      final s = await _svc.startRoleplay(scenarioId);
+      _safeSet(TutorChatState(session: s));
+    } catch (e) {
+      _safeSet(state.copyWith(error: e.toString()));
+    }
   }
 
   /// Optimistically appends the user message, calls send, then appends the
@@ -205,7 +343,7 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         ),
       ],
     );
-    state = state.copyWith(session: optimistic, sending: true, error: null);
+    _safeSet(state.copyWith(session: optimistic, sending: true, error: null));
 
     try {
       final reply = await _svc.sendMessage(s.id, content);
@@ -217,9 +355,9 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         summary: s.summary,
         messages: [...optimistic.messages, reply],
       );
-      state = state.copyWith(session: updated, sending: false);
+      _safeSet(state.copyWith(session: updated, sending: false));
     } catch (e) {
-      state = state.copyWith(sending: false, error: e.toString());
+      _safeSet(state.copyWith(sending: false, error: e.toString()));
     }
   }
 
