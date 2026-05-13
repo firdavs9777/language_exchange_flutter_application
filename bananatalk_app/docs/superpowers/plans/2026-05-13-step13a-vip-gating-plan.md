@@ -5,18 +5,51 @@
 **Goal:** Add per-user daily quotas to the 5 tutor chips (Chat, Roleplay, Story, Photo, Pronounce) on top of the existing tier-aware rate limit. Free/regular users get small daily caps; VIP gets unlimited. Quota exhaustion routes the user into a persona-aware paywall. Install Firebase Analytics. Fix the post-purchase webhook race. Bundle the AudioCache orphan-blob purge job.
 
 **Architecture:**
-- **Backend:** Extend the existing `regularUserLimitations` / `visitorLimitations` daily-counter pattern with 5 new field pairs per tier. New `User.consumeQuota(userId, featureKey)` static does **atomic check-and-increment** via a `findOneAndUpdate` pipeline-update with `$expr` filter — race-safe across concurrent devices. A new `middleware/checkTutorQuota.js` factory wraps this, gates the 5 chip trigger endpoints, and returns `429 {error: 'quota_exceeded', ...}` on cap. Env-var `AI_QUOTA_ENABLED` is the emergency kill switch.
-- **Flutter:** Extend `ApiClient._handleResponse` 429 branch to detect `error: 'quota_exceeded'` and route to a new `onQuotaExceeded` callback (separate from the existing `onRateLimitError` for normal rate limits). New `TutorQuotaState` notifier holds the 5 chip counters, populated from a new `quota` block in `/tutor/me` and from per-request response bodies. New `TutorQuotaIndicator` widget (compact view modeled on `VisitorUsageIndicator`) shows "N left today" in the chip UI once the user crosses 50% used. Persona-aware paywall sheet (new variant of `VipUpgradeSheet`) opens on quota_exceeded. Webhook race fixed via retry-with-backoff in `VipPaymentScreen`. Firebase Analytics installed + thin `AnalyticsService` wrapper fires 7 events.
+- **Backend:** Extend the existing `regularUserLimitations` / `visitorLimitations` daily-counter pattern with 5 new field pairs per tier. New `User.consumeQuota(userId, featureKey)` static does **atomic check-and-increment** via a `findOneAndUpdate` pipeline-update with `$expr` filter — race-safe across concurrent devices. The op also returns a full quotas snapshot in the same DB round trip so handlers don't refetch. A new `middleware/checkTutorQuota.js` factory wraps this, gates 4 of the 5 chip trigger endpoints, and returns `429 {error: 'quota_exceeded', ...}` on cap. The 5th endpoint (`/sessions/:id/message`) uses a specialized session-aware middleware that bypasses the chat quota when the underlying session's mode is `'roleplay'` — the roleplay quota was consumed at session-start, messages within a roleplay session are free. Env-var `AI_QUOTA_ENABLED` is the emergency kill switch. Middleware fails closed on internal errors (503).
+- **Flutter:** Extend `ApiClient._handleResponse` to extract `body['quotas']` as a top-level field on `ApiResponse` (separate from `body['data']`); the 429 branch detects `error: 'quota_exceeded'` and routes to a new `onQuotaExceeded` callback. New `TutorQuotaState` is exposed via a public `tutorQuotaProvider` (Provider) backed by a private `_tutorMemoryAndQuotasProvider` (FutureProvider) — invalidating the private provider after a gated action triggers a re-fetch of `/tutor/me` that refreshes both memory and quotas. New `TutorQuotaIndicator` widget (compact pill, modeled on `VisitorUsageIndicator`) shows "N left today" in the chip UI once usage ≥ 50%. Persona-aware paywall sheet opens via the existing `callOverlayNavigatorKey` overlay. Webhook race fixed via retry-with-backoff in `VipPaymentScreen`. Firebase Analytics installed + thin `AnalyticsService` wrapper fires 8 typed events.
 
 **Tech Stack:** Node.js / Express / Mongoose / MongoDB (backend); Flutter / Riverpod / flutter_riverpod / Firebase Analytics (mobile). No new vendor relationships — RevenueCat is NOT used; existing Apple App Store Server Notifications + Google Play RTDN webhooks stay as-is.
 
-**Spec reference:** This plan is the spec. (No prior brainstorming spec — locked decisions were handed down directly from the product owner in the session that produced this plan.)
+**Spec reference:** This plan is the spec.
 
-**Branches:** `feat/step13a-vip-gating` on both repos (`/Users/davis/Desktop/Personal/language_exchange_backend_application` and `/Users/davis/Desktop/Personal/language_exchange_flutter_application/bananatalk_app`).
+**Branches:** `feat/step13a-vip-gating` on both repos.
 
 **Estimated commits:** 10 (B1-B5 backend, F1-F4 Flutter, G1 glue).
 
-**Pacing:** Drive uninterrupted through tasks per the user's recorded preference (`feedback_pacing.md`). Surface only at G1 or on a genuine blocker.
+**Pacing:** Drive uninterrupted through tasks per the user's recorded preference. Surface only at G1 or on a genuine blocker.
+
+---
+
+## Revision notes (vs. first draft)
+
+This is revision 2 of the plan; the first draft was reviewed and 13 issues were called out. Each is annotated in line via `<!-- Issue N -->` HTML comments where the fix lands. Summary:
+
+1. **F3 rewritten** linearly, no stream-of-consciousness — final design only.
+2. **`quotas` extraction bug fixed** — F1 now adds `quotas` as a separate top-level field on `ApiResponse`, populated from `body['quotas']` directly. `res.data['quotas']` was a bug because `_handleResponse` already extracts `body['data']` into `ApiResponse.data`.
+3. **F2 Prerequisite step added** — verify Firebase Console has Analytics enabled + config files include Analytics tokens before installing the package.
+4. **Roleplay session-aware bypass implemented in B4** — message-route middleware now looks up `session.mode` and skips the chat quota if the session is a roleplay. Appendix C deleted; behavior matches locked decision #1.
+5. **`_shownToday` renamed to `_shownThisSession`** with documented dedup scope (per-app-session, not per-day).
+6. **B4 no longer refetches user docs** — `consumeQuota` returns `{ allowed, used, cap, resetAt, snapshot }` in one DB round trip. Middleware stores both on `req.tutorQuotaResult`. Controllers use `req.tutorQuotaResult.snapshot`. `getMyMemory` uses `req.user.getQuotasSnapshot()` directly.
+7. **Global navigator wiring uses `callOverlayNavigatorKey`** (existing global key at `lib/router/app_router.dart:118` for overlay screens above GoRouter). No new key invented.
+8. **"Edge cases handled" section added** near top of plan with one-liners for time zone changes, multi-day chat sessions, and backend-down fail-closed behavior.
+9. **Co-Authored-By trailers removed** from all drafted commit messages.
+10. **G1 smoke test specificity tightened** — iOS physical + Android physical only (no simulator).
+11. **Task 0 verifies clean working trees** before branching.
+12. **`tutor_chip_completed` (8th event) added** to `AnalyticsService`. Firing wired in F4 at the meaningful end-of-flow action per chip.
+13. **`flutter pub get` moved** from F2 Step 1 to F2's verification step.
+
+---
+
+## Edge cases handled
+
+<!-- Issue 8 -->
+
+- **Time zone changes / device clock skew.** Server is the single source of truth for "what day is it" — `consumeQuota` computes UTC midnight server-side. Client never decides reset. Acceptable known asymmetry (Seoul resets at local 9 AM, São Paulo at local 9 PM); user-local midnight is a v2 enhancement, not in this wave.
+- **Multi-day chat sessions.** Each `consumeQuota` call re-checks reset freshness via the pipeline update's `$lt: [lastReset, startOfTodayUTC]` clause. A message at Monday 23:55 UTC counts against Monday; the next at Tuesday 00:05 UTC triggers reset and counts against Tuesday. No client-side rollover.
+- **Backend down / quota check failure.** `checkTutorQuota` middleware wraps `consumeQuota` in try/catch — internal errors return **503 `{error: 'quota_check_failed', message: 'Try again in a moment.', retryAfter: 5}`**, not `next()`. **Fail closed**, not open. Brief outage feels worse than free unlimited usage for the duration. Documented in B3.
+- **VIP grace ends mid-roleplay.** Roleplay quota is consumed once at session-start (`POST /sessions/roleplay`). The chat-message middleware checks the session's `mode` and bypasses the chat quota when `mode === 'roleplay'`. So a user mid-roleplay whose grace expires can finish the conversation — no per-message quota check ever runs. New session start applies the new tier.
+- **Race condition on quota increment across devices.** `consumeQuota` uses atomic `findOneAndUpdate` with `$expr` filter — the filter only matches if (we're in a new day) OR (counter < cap). Two concurrent requests at counter=cap-1: one passes the filter and increments to cap; the second sees counter=cap (post-first-update), filter fails, returns `allowed: false` immediately. No double-increment.
+- **Refund handling.** No new code — existing `/purchases/*/webhook` handlers + `subscriptionExpiryJob.js` already call `user.deactivateVIP()` which flips `userMode` to `'regular'`. The next request through `checkTutorQuota` reads fresh `userMode` and the regular-tier caps apply.
 
 ---
 
@@ -25,63 +58,57 @@
 ### Backend (`/Users/davis/Desktop/Personal/language_exchange_backend_application`)
 
 **Create:**
-- `middleware/checkTutorQuota.js` — quota gate factory + the AI_QUOTA_ENABLED short-circuit
+- `middleware/checkTutorQuota.js` — quota gate factory + `checkChatQuotaSessionAware` for the message route + AI_QUOTA_ENABLED short-circuit + fail-closed error handling
 - `jobs/audioCacheOrphanPurgeJob.js` — mirror of `pronunciationAudioPurgeJob.js`, scoped to `AudioCache`
 
 **Modify:**
-- `models/User.js` — add 5 counter+reset field pairs to both `regularUserLimitations` and `visitorLimitations`; add `User.consumeQuota` static; add `User.getQuotasSnapshot` instance method
-- `config/limitations.js` — add per-tier `tutorDailyQuotas` block; add `AI_QUOTA_ENABLED` env-var read
-- `routes/tutor.js` — attach `checkTutorQuota(featureKey)` to the 5 chip trigger endpoints
-- `controllers/tutor.js` — extend `getMyMemory` response to include `quotas` block; extend the 5 trigger handlers to attach `quotas` block to success response
-- `jobs/scheduler.js` — register `scheduleAudioCacheOrphanPurge()` (2:15 AM KST so it doesn't collide with the 2:00 AM pronunciation purge)
+- `models/User.js` — add 5 counter+reset field pairs to both `regularUserLimitations` and `visitorLimitations`; add `User.consumeQuota` static (returns `{allowed, used, cap, resetAt, snapshot}`); add `User.getQuotasSnapshot` instance method
+- `config/limitations.js` — add per-tier `tutorDailyQuotas` block; export `AI_QUOTA_ENABLED` env var
+- `routes/tutor.js` — attach `checkTutorQuota(featureKey)` to 4 routes; attach `checkChatQuotaSessionAware` to the message route
+- `controllers/tutor.js` — `getMyMemory` calls `req.user.getQuotasSnapshot()` directly; the 5 trigger handlers attach `req.tutorQuotaResult.snapshot` to their `quotas` field
+- `jobs/scheduler.js` — register `scheduleAudioCacheOrphanPurge()` (2:15 AM KST)
 
 **Reuse (no change):**
-- `routes/purchases.js` + `controllers/iosPurchase.js` + `controllers/androidPurchase.js` — webhook pipeline stays as-is
-- `jobs/subscriptionExpiryJob.js` — handles VIP expiry + grace period (no change)
+- `routes/purchases.js` + `controllers/iosPurchase.js` + `controllers/androidPurchase.js` — webhook pipeline stays
+- `jobs/subscriptionExpiryJob.js` — handles VIP expiry + grace period
 - `services/storageService.js#deleteFromSpaces` — used by both purge jobs
 - `models/AudioCache.js` — has the 90-day TTL already
 
 ### Flutter (`/Users/davis/Desktop/Personal/language_exchange_flutter_application/bananatalk_app`)
 
 **Create:**
-- `lib/services/analytics_service.dart` — thin Firebase Analytics wrapper with 7 typed event methods
-- `lib/providers/tutor_quota_provider.dart` — `StateNotifierProvider` holding the 5 chip counters
-- `lib/widgets/tutor/tutor_quota_indicator.dart` — compact "N left today" pill widget; mirrors `VisitorUsageIndicator` compact view
-- `lib/widgets/tutor/persona_upgrade_sheet.dart` — persona-aware variant of `VipUpgradeSheet` with Nana/Sensei/Riko copy
+- `lib/services/analytics_service.dart` — thin Firebase Analytics wrapper with **8 typed event methods**
+- `lib/providers/tutor_quota_provider.dart` — private `_tutorMemoryAndQuotasProvider` + public `tutorQuotaProvider`
+- `lib/widgets/tutor/tutor_quota_indicator.dart` — compact "N left today" pill widget
+- `lib/widgets/tutor/persona_upgrade_sheet.dart` — persona-aware paywall variant
 
 **Modify:**
 - `pubspec.yaml` — add `firebase_analytics: ^11.0.0`
-- `lib/main.dart` — initialize `FirebaseAnalytics.instance` in the existing Firebase init block
-- `lib/services/api_client.dart` — extend `_handleResponse` 429 branch to detect `quota_exceeded` and call new `onQuotaExceeded` callback; add `isQuotaExceeded` getter + `quotaError` payload to `ApiResponse`
-- `lib/pages/ai/tutor/tutor_chat_screen.dart` — show `TutorQuotaIndicator` once usage ≥ 50%
-- `lib/pages/ai/tutor/pronunciation_session_screen.dart` — same
-- `lib/pages/ai/tutor/scenario_picker_screen.dart` + `story_setup_screen.dart` + `image_vocab_screen.dart` — same (just the indicator; trigger is once per chip)
-- `lib/pages/vip/vip_payment_screen.dart` — replace the success-path single invalidate with retry-with-backoff (3 attempts × ~2s)
-- `lib/widgets/vip_locked_feature.dart` — keep existing `VipUpgradeSheet`; new persona sheet is a sibling
-- `lib/main.dart` (or wherever ApiClient is initialized) — wire global `onQuotaExceeded` handler that opens `PersonaUpgradeSheet`
+- `lib/main.dart` — initialize `FirebaseAnalytics.instance` in the existing Firebase block; wire `ApiClient.onQuotaExceeded` using `callOverlayNavigatorKey`
+- `lib/services/api_client.dart` — extract `body['quotas']` into a top-level `ApiResponse.quotas` field; in the 429 branch detect `quota_exceeded` and route to `onQuotaExceeded`
+- `lib/providers/tutor_provider.dart` — `TutorService.getMemory()` returns a Dart record `({memory, quotas})`; refactor `tutorMemoryProvider` to read from the new private provider; 5 controllers invalidate the private provider after gated actions
+- `lib/pages/ai/tutor/{tutor_chat_screen,pronunciation_session_screen,scenario_picker_screen,story_setup_screen,image_vocab_screen}.dart` — show `TutorQuotaIndicator` + fire `tutor_chip_used` on entry + fire `tutor_chip_completed` at end-of-flow
+- `lib/pages/vip/vip_payment_screen.dart` — replace single invalidate with 3-attempt retry-with-backoff + fire analytics events
 
 **Reuse (no change):**
 - `lib/providers/provider_root/vip_provider.dart` — `vipStatusProvider` + `isVipProvider` stay
-- `lib/services/api_client.dart` ApiResponse class structure
-- `lib/widgets/visitor_usage_indicator.dart` — the compact view pattern; copied, not extended (so the visitor flow stays untouched)
+- `lib/widgets/visitor_usage_indicator.dart` — compact-view styling pattern is copied (not extended)
+- `lib/widgets/vip_locked_feature.dart` — existing `VipUpgradeSheet` stays; persona sheet is a sibling
+- `lib/router/app_router.dart` — `callOverlayNavigatorKey` reused for the global paywall overlay
 
 ---
 
-## Critical decisions made in this plan
+## Critical decisions
 
-1. **Atomic check-and-increment via pipeline update.** Existing `User.incrementMessageCount` uses synchronous `this.field += 1; this.save()` — race-prone if two devices hit at the same moment. For the new quotas we **establish a new atomic pattern** via `findOneAndUpdate({_id, $expr}, [pipeline])` so concurrent requests can't double-increment past the cap. Documented in B2; existing helpers are NOT refactored in this wave.
-
-2. **Pre-increment in middleware, not post-success in controller.** The atomic op combines check + increment in one DB round trip — there's no clean way to "check now, increment later" while preserving atomicity. So the count goes up the moment the request enters the controller. **If the downstream AI call fails, we do NOT decrement.** Rationale: decrementing on failure re-opens abuse (spam-fail loops), and well-behaved users with rare AI failures will see at most ~1 lost slot/day.
-
-3. **UTC daily reset, not user-local midnight.** Matches existing `messagesSentToday` pattern. The `User.quietHours.timezone` field stays unused for this wave. Flagged as a v2 enhancement in `docs/manual-todos.md` if users complain.
-
-4. **`AI_QUOTA_ENABLED=false` is a full bypass, not a "fail-open."** When the env var is unset OR `'false'`, `checkTutorQuota` calls `next()` without touching the DB. No counter increment, no cap check. Treats the entire quota system as feature-flagged.
-
-5. **Server is single source of truth for daily reset.** Client never decides "is it a new day." `User.consumeQuota` computes UTC midnight server-side. Client receives `quotas: {chat: {used, cap, resetAt}, ...}` in responses.
-
-6. **VIP path = early return.** `User.consumeQuota` short-circuits when `userMode === 'vip' && isVipActive`: returns `{allowed: true, used: 0, cap: Infinity, resetAt: null}` without touching counters. VIP users get zero DB write cost on AI calls.
-
-7. **AudioCache orphan purge bundled here.** Was queued in `manual-todos.md`. Mirroring `pronunciationAudioPurgeJob.js` is trivial enough to fold in. Removes the item from the queued-engineering list in the same commit.
+1. **Atomic check-and-increment via pipeline update.** Existing `User.incrementMessageCount` uses synchronous `this.field += 1; this.save()` — race-prone. For the new quotas we establish a new atomic pattern. Existing helpers are NOT refactored in this wave.
+2. **Pre-increment in middleware, no decrement on AI failure.** Locked decision. If a downstream AI call fails, the counter is NOT rolled back. Rationale: prevents spam-fail abuse. Documented user-facing trade-off.
+3. **UTC daily reset, not user-local midnight.** Matches existing pattern. `User.quietHours.timezone` stays unused. Flagged for v2 in `docs/manual-todos.md` if friction surfaces.
+4. **`AI_QUOTA_ENABLED=false` is a full bypass.** When the env var is `'false'` (or any non-`'true'` value), middleware calls `next()` with no DB write. No counter increment, no cap check. Treats the entire quota system as feature-flagged.
+5. **`consumeQuota` is the sole DB authority for tier + cap.** Server is the source of truth — clients never compute "is it a new day" or "what's my cap." Snapshot is returned alongside the cap check result in one DB round trip; controllers don't refetch. <!-- Issue 6 -->
+6. **VIP path = early return.** Short-circuits when active VIP detected; returns a pre-computed all-unlimited snapshot with zero DB writes.
+7. **AudioCache orphan purge bundled here.** Mirroring `pronunciationAudioPurgeJob.js` is trivial enough to fold in. Removes the item from the queued-engineering list in the same commit.
+8. **Roleplay session-aware bypass.** Once a roleplay session is started, every message within it bypasses the chat quota check. Implemented via a specialized `checkChatQuotaSessionAware` middleware that reads `session.mode` before applying. <!-- Issue 4 -->
+9. **Fail closed on quota-check errors.** 503 with retry hint, NOT free unlimited. Bounded outage > unbounded cost. <!-- Issue 8 -->
 
 ---
 
@@ -89,7 +116,21 @@
 
 **Files:** none
 
-- [ ] **Step 1: Create branches on both repos.**
+- [ ] **Step 1: Verify clean working trees on both repos.** <!-- Issue 11 -->
+
+```bash
+cd /Users/davis/Desktop/Personal/language_exchange_backend_application
+git status --short
+# Expected: no output (clean working tree)
+
+cd /Users/davis/Desktop/Personal/language_exchange_flutter_application/bananatalk_app
+git status --short
+# Expected: no output. If any files show up, STOP — investigate (uncommitted WIP) before branching.
+```
+
+If either is dirty, surface to the user before continuing. Do NOT auto-stash.
+
+- [ ] **Step 2: Create branches on both repos.**
 
 ```bash
 cd /Users/davis/Desktop/Personal/language_exchange_backend_application
@@ -130,9 +171,9 @@ Inside the `regularUserLimitations` schema object, after `translationsToday` / `
 
 - [ ] **Step 2: Add the same 5 pairs to `visitorLimitations`.**
 
-Identical fields, identical names. (Existing visitor counters use slightly different naming like `messagesSent` without `Today` — but for the tutor counters keep the `Today` suffix in both blocks for consistency with the new pattern.)
+Identical fields, identical names. Keep the `Today` suffix in both blocks for consistency.
 
-- [ ] **Step 3: Verify syntax.**
+- [ ] **Step 3: Verify.**
 
 ```bash
 node -c models/User.js
@@ -158,20 +199,22 @@ counter+reset pairs:
 Matches the existing daily-counter naming convention exactly.
 Default 0 / Date.now so the fields are populated for every
 existing user without a migration.
-
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
 )"
 ```
 
 ---
 
-## Task B2: Atomic `User.consumeQuota` static + getQuotasSnapshot instance method
+## Task B2: Atomic `User.consumeQuota` + `getQuotasSnapshot`
 
 **Files:**
 - Modify: `models/User.js`
 
-- [ ] **Step 1: Add the field-key map at the top of the file (after the existing requires).**
+`consumeQuota` does the atomic check-and-increment AND returns a full snapshot from the same `findOneAndUpdate` result. <!-- Issue 6 -->
+
+- [ ] **Step 1: Add the feature-key map.**
+
+Near the top of the file (after the existing requires):
 
 ```javascript
 // Maps the public feature key (used by middleware + API responses) to the
@@ -183,146 +226,37 @@ const TUTOR_QUOTA_FIELDS = {
   photo:         { counter: 'photoVocabToday',          reset: 'lastPhotoVocabReset' },
   pronunciation: { counter: 'pronunciationDrillsToday', reset: 'lastPronunciationDrillReset' },
 };
+
+const TUTOR_QUOTA_KEYS = Object.keys(TUTOR_QUOTA_FIELDS);
 ```
 
-- [ ] **Step 2: Add the `consumeQuota` static method.**
-
-At the bottom of `User.js`, before `module.exports`, add:
+- [ ] **Step 2: Add `getQuotasSnapshot` instance method.**
 
 ```javascript
 /**
- * Atomic check-and-increment for a tutor-chip quota.
+ * Snapshot of all 5 tutor chip quotas for this user. Pure read; does
+ * not mutate counters. Computes resetAt and remaining fresh from
+ * stored values + the current UTC date.
  *
- * VIP users with an active subscription short-circuit with allowed=true
- * and no DB write. Regular and visitor users hit an atomic
- * findOneAndUpdate with a pipeline update that:
- *   - resets the counter to 1 if lastReset is before today's UTC midnight
- *   - else increments the counter if it's below the cap
- *   - else fails the filter and returns null (quota exhausted)
- *
- * @param {String} userId
- * @param {String} featureKey  one of 'chat'|'roleplay'|'story'|'photo'|'pronunciation'
- * @returns {Promise<{allowed: boolean, used: number, cap: number, resetAt: Date|null}>}
- */
-UserSchema.statics.consumeQuota = async function(userId, featureKey) {
-  const LIMITS = require('../config/limitations');
-  const fields = TUTOR_QUOTA_FIELDS[featureKey];
-  if (!fields) throw new Error(`Unknown featureKey: ${featureKey}`);
-
-  // Compute today's UTC midnight + tomorrow's UTC midnight for resetAt.
-  const now = new Date();
-  const startOfTodayUTC = new Date(Date.UTC(
-    now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()
-  ));
-  const startOfTomorrowUTC = new Date(startOfTodayUTC.getTime() + 24 * 60 * 60 * 1000);
-
-  // First, a cheap read to determine tier + check VIP active. We need the
-  // tier before we know which cap applies. Read just the fields we need.
-  const user = await this.findById(userId)
-    .select('userMode vipSubscription.isActive vipSubscription.endDate')
-    .lean();
-  if (!user) {
-    return { allowed: false, used: 0, cap: 0, resetAt: startOfTomorrowUTC };
-  }
-
-  // VIP fast path — no DB write, no counter touch.
-  if (user.userMode === 'vip'
-      && user.vipSubscription?.isActive
-      && user.vipSubscription?.endDate
-      && new Date(user.vipSubscription.endDate) > now) {
-    return { allowed: true, used: 0, cap: Infinity, resetAt: null };
-  }
-
-  // Determine tier + cap. visitor and regular both consume the same
-  // schema sub-doc shape; just different field names + caps.
-  const tier = user.userMode === 'visitor' ? 'visitor' : 'regular';
-  const tierLimits = LIMITS[tier]?.tutorDailyQuotas || {};
-  const cap = tierLimits[featureKey];
-  if (cap === undefined || cap === null) {
-    // No cap configured for this tier+feature — fail closed.
-    return { allowed: false, used: 0, cap: 0, resetAt: startOfTomorrowUTC };
-  }
-  if (cap === -1 || cap === Infinity) {
-    // Sentinel for unlimited — allow without touching counter.
-    return { allowed: true, used: 0, cap: Infinity, resetAt: null };
-  }
-
-  const limitationsPath = tier === 'visitor' ? 'visitorLimitations' : 'regularUserLimitations';
-  const counterPath = `${limitationsPath}.${fields.counter}`;
-  const resetPath = `${limitationsPath}.${fields.reset}`;
-
-  // Atomic check-and-increment.
-  const updated = await this.findOneAndUpdate(
-    {
-      _id: userId,
-      $expr: {
-        $or: [
-          { $lt: [`$${resetPath}`, startOfTodayUTC] }, // stale → will reset to 1
-          { $lt: [{ $ifNull: [`$${counterPath}`, 0] }, cap] }, // under cap → increment
-        ],
-      },
-    },
-    [{
-      $set: {
-        [counterPath]: {
-          $cond: [
-            { $lt: [`$${resetPath}`, startOfTodayUTC] },
-            1,
-            { $add: [{ $ifNull: [`$${counterPath}`, 0] }, 1] },
-          ],
-        },
-        [resetPath]: {
-          $cond: [
-            { $lt: [`$${resetPath}`, startOfTodayUTC] },
-            '$$NOW',
-            `$${resetPath}`,
-          ],
-        },
-      },
-    }],
-    { new: true, projection: { [counterPath]: 1, [resetPath]: 1 } }
-  );
-
-  if (!updated) {
-    // Filter didn't match → cap is hit and we're not in a new day.
-    return { allowed: false, used: cap, cap, resetAt: startOfTomorrowUTC };
-  }
-
-  const used = updated.get(counterPath);
-  return { allowed: true, used, cap, resetAt: startOfTomorrowUTC };
-};
-```
-
-- [ ] **Step 3: Add the `getQuotasSnapshot` instance method.**
-
-Returns the current state of all 5 quotas in one shot — used by `/tutor/me` and by controllers to attach `quotas` to response bodies.
-
-```javascript
-/**
- * Snapshot of all 5 tutor chip quotas for this user.
- * Does NOT mutate counters; pure read. Computes resetAt and remaining
- * fresh from the stored counters.
+ * VIP users: returns all-unlimited entries with unlimited: true.
  */
 UserSchema.methods.getQuotasSnapshot = function() {
   const LIMITS = require('../config/limitations');
-
   const now = new Date();
   const startOfTodayUTC = new Date(Date.UTC(
     now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()
   ));
   const startOfTomorrowUTC = new Date(startOfTodayUTC.getTime() + 24 * 60 * 60 * 1000);
 
-  // VIP → all unlimited, no counters relevant.
   const isVipActive = this.userMode === 'vip'
     && this.vipSubscription?.isActive
     && this.vipSubscription?.endDate
     && new Date(this.vipSubscription.endDate) > now;
+
   if (isVipActive) {
-    return Object.fromEntries(
-      Object.keys(TUTOR_QUOTA_FIELDS).map(k => [k, {
-        used: 0, cap: null, remaining: null, resetAt: null, unlimited: true,
-      }])
-    );
+    return Object.fromEntries(TUTOR_QUOTA_KEYS.map(k => [k, {
+      used: 0, cap: null, remaining: null, resetAt: null, unlimited: true,
+    }]));
   }
 
   const tier = this.userMode === 'visitor' ? 'visitor' : 'regular';
@@ -348,7 +282,122 @@ UserSchema.methods.getQuotasSnapshot = function() {
 };
 ```
 
-- [ ] **Step 4: Verify syntax.**
+- [ ] **Step 3: Add `consumeQuota` static method.**
+
+At the bottom of `User.js`, before `module.exports`:
+
+```javascript
+/**
+ * Atomic check-and-increment for a tutor-chip quota. Returns BOTH the
+ * per-feature result AND the freshly-computed full snapshot in one DB
+ * round trip — callers should NOT refetch the user document.
+ *
+ * @param {String} userId
+ * @param {String} featureKey
+ * @returns {Promise<{allowed: boolean, used: number, cap: number, resetAt: Date|null, snapshot: object}>}
+ */
+UserSchema.statics.consumeQuota = async function(userId, featureKey) {
+  const LIMITS = require('../config/limitations');
+  const fields = TUTOR_QUOTA_FIELDS[featureKey];
+  if (!fields) throw new Error(`Unknown featureKey: ${featureKey}`);
+
+  const now = new Date();
+  const startOfTodayUTC = new Date(Date.UTC(
+    now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()
+  ));
+  const startOfTomorrowUTC = new Date(startOfTodayUTC.getTime() + 24 * 60 * 60 * 1000);
+
+  // Light tier-check read.
+  const probe = await this.findById(userId)
+    .select('userMode vipSubscription.isActive vipSubscription.endDate')
+    .lean();
+  if (!probe) {
+    return { allowed: false, used: 0, cap: 0, resetAt: startOfTomorrowUTC, snapshot: null };
+  }
+
+  // VIP fast path — no DB write, pre-computed snapshot.
+  const isVipActive = probe.userMode === 'vip'
+    && probe.vipSubscription?.isActive
+    && probe.vipSubscription?.endDate
+    && new Date(probe.vipSubscription.endDate) > now;
+  if (isVipActive) {
+    const vipSnapshot = Object.fromEntries(TUTOR_QUOTA_KEYS.map(k => [k, {
+      used: 0, cap: null, remaining: null, resetAt: null, unlimited: true,
+    }]));
+    return {
+      allowed: true, used: 0, cap: Infinity, resetAt: null, snapshot: vipSnapshot,
+    };
+  }
+
+  const tier = probe.userMode === 'visitor' ? 'visitor' : 'regular';
+  const tierLimits = LIMITS[tier]?.tutorDailyQuotas || {};
+  const cap = tierLimits[featureKey];
+  if (cap === undefined || cap === null) {
+    return { allowed: false, used: 0, cap: 0, resetAt: startOfTomorrowUTC, snapshot: null };
+  }
+  if (cap === -1 || cap === Infinity) {
+    // Unlimited for this feature in this tier — allow without touching counter.
+    const passthrough = await this.findById(userId);
+    return {
+      allowed: true, used: 0, cap: Infinity, resetAt: null,
+      snapshot: passthrough?.getQuotasSnapshot() || null,
+    };
+  }
+
+  const limitationsPath = tier === 'visitor' ? 'visitorLimitations' : 'regularUserLimitations';
+  const counterPath = `${limitationsPath}.${fields.counter}`;
+  const resetPath = `${limitationsPath}.${fields.reset}`;
+
+  // Atomic check-and-increment + return updated doc.
+  const updated = await this.findOneAndUpdate(
+    {
+      _id: userId,
+      $expr: {
+        $or: [
+          { $lt: [`$${resetPath}`, startOfTodayUTC] },
+          { $lt: [{ $ifNull: [`$${counterPath}`, 0] }, cap] },
+        ],
+      },
+    },
+    [{
+      $set: {
+        [counterPath]: {
+          $cond: [
+            { $lt: [`$${resetPath}`, startOfTodayUTC] },
+            1,
+            { $add: [{ $ifNull: [`$${counterPath}`, 0] }, 1] },
+          ],
+        },
+        [resetPath]: {
+          $cond: [
+            { $lt: [`$${resetPath}`, startOfTodayUTC] },
+            '$$NOW',
+            `$${resetPath}`,
+          ],
+        },
+      },
+    }],
+    { new: true }
+  );
+
+  if (!updated) {
+    // Filter didn't match → cap hit, not new day. Need a snapshot still.
+    const current = await this.findById(userId);
+    return {
+      allowed: false, used: cap, cap, resetAt: startOfTomorrowUTC,
+      snapshot: current?.getQuotasSnapshot() || null,
+    };
+  }
+
+  const used = updated.get(counterPath);
+  return {
+    allowed: true, used, cap, resetAt: startOfTomorrowUTC,
+    snapshot: updated.getQuotasSnapshot(),
+  };
+};
+```
+
+- [ ] **Step 4: Verify.**
 
 ```bash
 node -c models/User.js
@@ -359,77 +408,69 @@ node -c models/User.js
 ```bash
 git add models/User.js
 git commit -m "$(cat <<'EOF'
-feat(vip): atomic consumeQuota static + getQuotasSnapshot helper
+feat(vip): atomic consumeQuota + getQuotasSnapshot helpers
 
-User.consumeQuota does atomic check-and-increment in one round
-trip via findOneAndUpdate + $expr filter + pipeline update. If
-two devices hit concurrently, the second one's filter fails
-(counter already at cap from the first) and gets allowed=false
-without double-incrementing.
+User.consumeQuota does atomic check-and-increment via
+findOneAndUpdate + $expr filter + pipeline update. Returns both
+the per-feature result AND the full 5-chip snapshot from the
+same round trip so callers don't refetch.
 
-VIP active users short-circuit with allowed=true and zero DB
-writes. Visitor and regular tiers share the same schema sub-doc
-shape, just different field names + caps.
+VIP users short-circuit with allowed=true and a pre-computed
+all-unlimited snapshot. Non-VIP unlimited-feature tier
+(theoretical) passthroughs with a fresh snapshot.
 
-User.getQuotasSnapshot returns a pure read of all 5 quota states
-for use by /tutor/me and controller response augmentation. Honors
-the same UTC-daily-reset semantics without mutating counters.
+User.getQuotasSnapshot is a pure-read instance method that
+computes UTC-daily-reset-aware used / remaining / resetAt for
+all 5 chips. Used by getMyMemory directly off req.user.
 
-NOTE: established a new race-safe pattern. Existing helpers like
-incrementMessageCount still use the older sync pattern — not
-refactored in this wave.
-
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+NOTE: established a new race-safe pattern. Existing helpers
+like incrementMessageCount still use the older sync pattern —
+not refactored in this wave.
 EOF
 )"
 ```
 
 ---
 
-## Task B3: limitations.js caps + AI_QUOTA_ENABLED env + middleware
+## Task B3: limitations.js caps + AI_QUOTA_ENABLED + checkTutorQuota middleware
 
 **Files:**
 - Modify: `config/limitations.js`
 - Create: `middleware/checkTutorQuota.js`
 
-- [ ] **Step 1: Add `tutorDailyQuotas` block to each tier in `config/limitations.js`.**
+- [ ] **Step 1: Add `tutorDailyQuotas` per tier.**
 
-Inside each tier object (`visitor`, `regular`, `vip`), add:
+Inside each tier (`visitor`, `regular`, `vip`) in `config/limitations.js`:
 
 ```javascript
   tutorDailyQuotas: {
-    chat:          /* tier-specific value, see below */,
-    roleplay:      /* tier-specific value */,
-    story:         /* tier-specific value */,
-    photo:         /* tier-specific value */,
-    pronunciation: /* tier-specific value */,
+    chat:          /* tier-specific */,
+    roleplay:      /* tier-specific */,
+    story:         /* tier-specific */,
+    photo:         /* tier-specific */,
+    pronunciation: /* tier-specific */,
   },
 ```
 
-**Values per tier (locked):**
+Values (locked):
 
 | Chip | visitor | regular | vip |
 |---|---|---|---|
-| chat | 3 | 10 | -1 (unlimited) |
+| chat | 3 | 10 | -1 |
 | roleplay | 0 | 1 | -1 |
 | story | 0 | 1 | -1 |
 | photo | 0 | 2 | -1 |
 | pronunciation | 0 | 1 | -1 |
 
-`-1` is the existing sentinel for "unlimited" — `User.consumeQuota` already treats it that way.
+`-1` = unlimited (existing sentinel).
 
-- [ ] **Step 2: Add the feature flag read.**
-
-Anywhere near the top of `config/limitations.js`, export:
+- [ ] **Step 2: Export the feature flag.**
 
 ```javascript
-// Emergency kill switch. When false (or unset), the new tutor-quota
+// Emergency kill switch. When 'false' (or unset), the new tutor-quota
 // middleware short-circuits to next() with no DB write and no check.
-// Use to disable quota enforcement during incidents without a deploy.
 exports.AI_QUOTA_ENABLED = String(process.env.AI_QUOTA_ENABLED || 'true').toLowerCase() === 'true';
 ```
-
-Note the default `'true'`: once this lands, the gate is ON by default. Set `AI_QUOTA_ENABLED=false` in `.env` to disable.
 
 - [ ] **Step 3: Create the middleware.**
 
@@ -437,72 +478,140 @@ Note the default `'true'`: once this lands, the gate is ON by default. Set `AI_Q
 
 ```javascript
 const asyncHandler = require('./async');
+const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
+const AITutorSession = require('../models/AITutorSession');
 const { AI_QUOTA_ENABLED } = require('../config/limitations');
 
 /**
- * Express middleware factory. Returns a middleware that atomically
- * checks-and-increments the per-user daily quota for the given tutor
- * feature. On cap-hit returns:
- *
- *   429 {
- *     success: false,
- *     error: 'quota_exceeded',
- *     feature: <featureKey>,
- *     resetAt: <UTC ISO timestamp>,
- *     message: <user-facing copy>,
- *     upgradeAvailable: true,
- *   }
- *
- * Flutter's ApiClient detects this shape and routes to the persona
- * paywall instead of the generic rate-limit dialog.
- *
- * Bypasses entirely when AI_QUOTA_ENABLED is false (emergency kill).
- * Admin users always bypass.
- *
- * @param {String} featureKey  'chat'|'roleplay'|'story'|'photo'|'pronunciation'
+ * Build the standard 429 quota_exceeded response.
  */
-const checkTutorQuota = (featureKey) => asyncHandler(async (req, res, next) => {
+function buildQuotaExceededResponse(featureKey, resetAt) {
+  return {
+    success: false,
+    error: 'quota_exceeded',
+    feature: featureKey,
+    resetAt: resetAt?.toISOString() || null,
+    message: "You've used today's free quota for this feature. Upgrade to keep going.",
+    upgradeAvailable: true,
+  };
+}
+
+/**
+ * Generic factory — used by 4 of the 5 chip routes (roleplay-start,
+ * story-generate, image-vocab-describe, pronunciation-summary).
+ *
+ * The chat-message route uses checkChatQuotaSessionAware below
+ * because it needs to bypass the chat quota for messages within
+ * an active roleplay session.
+ *
+ * Fails CLOSED on internal errors (503), not open. Brief outage
+ * beats free unlimited usage.
+ */
+exports.checkTutorQuota = (featureKey) => asyncHandler(async (req, res, next) => {
   if (!AI_QUOTA_ENABLED) return next();
   if (req.user?.role === 'admin') return next();
-  if (!req.user?.id) return next(); // protect should have caught this, but fail safe
+  if (!req.user?.id) return next();
 
-  const result = await User.consumeQuota(req.user.id, featureKey);
-
-  if (!result.allowed) {
-    return res.status(429).json({
+  let result;
+  try {
+    result = await User.consumeQuota(req.user.id, featureKey);
+  } catch (err) {
+    console.error(`[checkTutorQuota:${featureKey}] consumeQuota failed:`, err);
+    return res.status(503).json({
       success: false,
-      error: 'quota_exceeded',
-      feature: featureKey,
-      resetAt: result.resetAt?.toISOString() || null,
-      message: "You've used today's free quota for this feature. Upgrade to keep going.",
-      upgradeAvailable: true,
+      error: 'quota_check_failed',
+      message: 'Try again in a moment.',
+      retryAfter: 5,
     });
   }
 
-  // Stash for controllers that want to attach updated quotas to their
-  // 200 response without re-querying.
+  if (!result.allowed) {
+    return res.status(429).json(buildQuotaExceededResponse(featureKey, result.resetAt));
+  }
+
+  // Both per-feature result AND full snapshot stashed for controllers.
   req.tutorQuotaResult = { ...result, feature: featureKey };
   next();
 });
 
-module.exports = { checkTutorQuota };
+/**
+ * Specialized middleware for POST /tutor/sessions/:id/message.
+ *
+ * If the underlying session.mode === 'roleplay', the chat quota
+ * is bypassed entirely — the roleplay quota was already consumed at
+ * session-start, all messages within the session are free. This
+ * implements locked decision #1 (don't cut a user off mid-roleplay
+ * if VIP grace expires).
+ *
+ * If session.mode is anything else (chat / default), applies the
+ * standard chat quota check.
+ */
+exports.checkChatQuotaSessionAware = asyncHandler(async (req, res, next) => {
+  if (!AI_QUOTA_ENABLED) return next();
+  if (req.user?.role === 'admin') return next();
+  if (!req.user?.id) return next();
+
+  const sessionId = req.params.id;
+  if (!sessionId) return next(new ErrorResponse('Missing session id', 400));
+
+  let session;
+  try {
+    session = await AITutorSession.findById(sessionId).select('user mode').lean();
+  } catch (err) {
+    console.error('[checkChatQuotaSessionAware] session lookup failed:', err);
+    return res.status(503).json({
+      success: false,
+      error: 'quota_check_failed',
+      message: 'Try again in a moment.',
+      retryAfter: 5,
+    });
+  }
+
+  if (!session) return next(new ErrorResponse('Session not found', 404));
+  if (session.user.toString() !== req.user.id.toString()) {
+    return next(new ErrorResponse('Not authorized', 403));
+  }
+
+  if (session.mode === 'roleplay') {
+    // Roleplay session — quota was consumed at session-start. Free pass.
+    return next();
+  }
+
+  let result;
+  try {
+    result = await User.consumeQuota(req.user.id, 'chat');
+  } catch (err) {
+    console.error('[checkChatQuotaSessionAware] consumeQuota failed:', err);
+    return res.status(503).json({
+      success: false,
+      error: 'quota_check_failed',
+      message: 'Try again in a moment.',
+      retryAfter: 5,
+    });
+  }
+
+  if (!result.allowed) {
+    return res.status(429).json(buildQuotaExceededResponse('chat', result.resetAt));
+  }
+
+  req.tutorQuotaResult = { ...result, feature: 'chat' };
+  next();
+});
 ```
 
-- [ ] **Step 4: Add `AI_QUOTA_ENABLED` to `.env.example` (if it exists).**
+- [ ] **Step 4: Add `AI_QUOTA_ENABLED` to `.env.example` if it exists.**
 
 ```bash
-ls .env.example 2>/dev/null && echo "exists" || echo "absent — skip"
+ls .env.example 2>/dev/null && echo "exists" || echo "absent — note in commit msg"
 ```
 
 If present, append:
 ```
 # Step 13A: gate the 5 AI tutor chips with per-user daily quotas.
-# Set to 'false' to disable enforcement (counters still increment).
+# Set to 'false' to disable enforcement.
 AI_QUOTA_ENABLED=true
 ```
-
-If absent, just document in commit message that operators must set this in their `.env`.
 
 - [ ] **Step 5: Verify.**
 
@@ -522,43 +631,51 @@ config/limitations.js gets a tutorDailyQuotas block per tier:
   regular   {chat:10, roleplay:1, story:1, photo:2, pronunciation:1}
   vip       all -1 (unlimited sentinel)
 
-New middleware/checkTutorQuota.js factory wraps User.consumeQuota
-in an Express middleware. Returns the documented 429 quota_exceeded
-shape on cap-hit so the Flutter client can route to the persona
-paywall.
+New middleware/checkTutorQuota.js exports two factories:
 
-AI_QUOTA_ENABLED env var (default true) short-circuits the middleware
-to next() when set to 'false'. Emergency kill switch — no deploy
-needed to disable enforcement.
+- checkTutorQuota(featureKey) — generic, used by the 4 simple chip
+  routes (roleplay-start, story-generate, image-vocab-describe,
+  pronunciation-summary).
+- checkChatQuotaSessionAware — used by /sessions/:id/message. Reads
+  session.mode; if 'roleplay', bypasses the chat quota entirely
+  (roleplay was already consumed at session-start). Otherwise
+  applies the standard chat quota check.
 
-Admin users always bypass.
+Returns the documented 429 quota_exceeded shape on cap-hit.
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+Fails CLOSED on consumeQuota / session-lookup errors — returns 503
+with a retry hint, NOT next(). Brief outage beats free unlimited.
+
+AI_QUOTA_ENABLED env var (default true) short-circuits both
+middlewares to next() when set to 'false'. Admin users always
+bypass.
 EOF
 )"
 ```
 
 ---
 
-## Task B4: Wire middleware to 5 routes + augment responses with `quotas`
+## Task B4: Wire middleware to 5 routes + handlers use stashed snapshot
 
 **Files:**
 - Modify: `routes/tutor.js`
 - Modify: `controllers/tutor.js`
 
-- [ ] **Step 1: Attach `checkTutorQuota(featureKey)` to the 5 chip trigger routes in `routes/tutor.js`.**
+No user-doc refetch anywhere in this task. <!-- Issue 6 -->
 
-Add to the destructured imports at top:
+- [ ] **Step 1: Attach middleware to the 5 trigger routes in `routes/tutor.js`.**
+
+Add to the destructured controller import block:
 
 ```javascript
-const { checkTutorQuota } = require('../middleware/checkTutorQuota');
+const { checkTutorQuota, checkChatQuotaSessionAware } = require('../middleware/checkTutorQuota');
 ```
 
-Then on each of the 5 trigger routes, insert `checkTutorQuota(...)` between `protect` (already applied via `router.use`) and the existing middleware/handler. **Trigger points per locked decision:**
+Then on each trigger route:
 
 ```javascript
-// Chat: count at message-send
-router.post('/sessions/:id/message', checkTutorQuota('chat'), tutorMessageLimiter, sendMessage);
+// Chat: session-aware (bypasses for roleplay messages)
+router.post('/sessions/:id/message', checkChatQuotaSessionAware, tutorMessageLimiter, sendMessage);
 
 // Roleplay: count at session-start
 router.post('/sessions/roleplay', checkTutorQuota('roleplay'), startRoleplaySession);
@@ -566,26 +683,25 @@ router.post('/sessions/roleplay', checkTutorQuota('roleplay'), startRoleplaySess
 // Story: count at generation
 router.post('/stories/generate', checkTutorQuota('story'), generateStory);
 
-// Photo: count at describe (the entry point; grade reuses the same upload)
+// Photo: count at describe (NOT grade — same session)
 router.post('/image-vocab/describe', checkTutorQuota('photo'), imageUpload.single('image'), imageVocabDescribe);
 
-// Pronounce: count at summary-save (the end-of-session action; matches "1 drill = 1 quota tick")
+// Pronounce: count at summary-save
 router.post('/pronunciation/summary', checkTutorQuota('pronunciation'), submitPronunciationSummary);
 ```
 
-**Note: `/image-vocab/grade` is NOT gated.** Per the brief, photo counts at describe-success. Grade is the follow-up action on the same uploaded image — counting it again would double-count one photo session.
+- [ ] **Step 2: Update `getMyMemory` to use `req.user.getQuotasSnapshot()` directly.** <!-- Issue 6 -->
 
-- [ ] **Step 2: Augment `getMyMemory` to include quotas snapshot.**
-
-In `controllers/tutor.js`, find `exports.getMyMemory` (lines ~47-50). Replace with:
+In `controllers/tutor.js`, replace the existing `getMyMemory` body:
 
 ```javascript
 exports.getMyMemory = asyncHandler(async (req, res) => {
   const mem = await ensureMemory(req.user._id);
-  const user = await User.findById(req.user._id).select(
-    'userMode regularUserLimitations visitorLimitations vipSubscription.isActive vipSubscription.endDate'
-  );
-  const quotas = user ? user.getQuotasSnapshot() : null;
+  // req.user is the full Mongoose User doc populated by protect middleware.
+  // Instance method works directly — no refetch.
+  const quotas = req.user.getQuotasSnapshot
+    ? req.user.getQuotasSnapshot()
+    : null;
   res.status(200).json({
     success: true,
     data: mem,
@@ -594,28 +710,25 @@ exports.getMyMemory = asyncHandler(async (req, res) => {
 });
 ```
 
-(`User` must already be required at top of `controllers/tutor.js` — confirm before editing. If not, add `const User = require('../models/User');`.)
+**Verification step (must confirm before relying on this):** open `middleware/auth.js` (or wherever `protect` is defined) and confirm `req.user` is a full Mongoose document (not `.lean()`). If `protect` uses `.lean()`, this code path returns `null` for quotas because instance methods don't exist on lean objects. In that case, **STOP** and surface to the user — either change `protect` to drop `.lean()`, OR add a single `User.findById(req.user._id)` here. (Existing code calls `user.isVIP()` elsewhere, which is an instance method — strong signal `protect` does NOT use `.lean()`. Confirm anyway.)
 
-- [ ] **Step 3: Augment the 5 trigger handlers to include updated `quotas` in their 200/201 responses.**
+- [ ] **Step 3: Update the 5 trigger handlers to attach `req.tutorQuotaResult.snapshot` to their success response.** <!-- Issue 6 -->
 
-For each of the 5 trigger handlers (`sendMessage`, `startRoleplaySession`, `generateStory`, `imageVocabDescribe`, `submitPronunciationSummary`), find the success `res.status(...).json({ success: true, data: ... })` line and add a `quotas` field. Pattern:
+For each of `sendMessage`, `startRoleplaySession`, `generateStory`, `imageVocabDescribe`, `submitPronunciationSummary`, find the final `res.status(...).json({ success: true, data: ... })` call and add:
 
 ```javascript
-// At the end of the successful handler, just before res.json:
-let quotas = null;
-if (req.tutorQuotaResult) {
-  // Cheap: re-snapshot the user since consumeQuota already wrote.
-  const fresh = await User.findById(req.user._id).select(
-    'userMode regularUserLimitations visitorLimitations vipSubscription.isActive vipSubscription.endDate'
-  );
-  quotas = fresh ? fresh.getQuotasSnapshot() : null;
-}
-res.status(200).json({ success: true, data: <existing-data>, quotas });
+res.status(200).json({
+  success: true,
+  data: <existing-data>,
+  quotas: req.tutorQuotaResult?.snapshot || null,
+});
 ```
 
-The `quotas` field is `null` when the route wasn't gated (e.g., legacy routes) or when AI_QUOTA_ENABLED was off.
+The `quotas` field is `null` when:
+- AI_QUOTA_ENABLED was off (middleware bypassed; `req.tutorQuotaResult` unset)
+- The route is for a roleplay message (session-aware middleware bypassed without setting `tutorQuotaResult`)
 
-This adds one extra DB round-trip per AI call. Acceptable: the call already takes 2-5s for the OpenAI hop, +20ms for a projected user-find is invisible.
+Both cases are correct: the client should show the indicator only when there's data to show.
 
 - [ ] **Step 4: Verify.**
 
@@ -623,21 +736,36 @@ This adds one extra DB round-trip per AI call. Acceptable: the call already take
 node -c routes/tutor.js && node -c controllers/tutor.js
 ```
 
-- [ ] **Step 5: Smoke test via curl.**
+- [ ] **Step 5: Curl smoke (with backend running and `AI_QUOTA_ENABLED=true`).**
 
 ```bash
-TOKEN="<paste a regular-tier user token>"
-# First call — should succeed and include quotas in response
-curl -s -X POST https://localhost:5000/api/v1/tutor/pronunciation/summary \
-  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
-  -d '{"weakWords":["test"]}' | jq '.quotas.pronunciation'
-# Expected: { "used": 1, "cap": 1, "remaining": 0, "resetAt": "...", "unlimited": false }
+TOKEN="<regular-tier user token, 0 today usage>"
 
-# Second call — should 429 with quota_exceeded
-curl -s -X POST https://localhost:5000/api/v1/tutor/pronunciation/summary \
+# First call — succeeds, quotas in response
+curl -s -X POST http://localhost:5000/api/v1/tutor/pronunciation/summary \
   -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
-  -d '{"weakWords":["test"]}' | jq
-# Expected: { "success": false, "error": "quota_exceeded", "feature": "pronunciation", ... }
+  -d '{"weakWords":["test"]}' | jq '{success, used: .quotas.pronunciation.used, cap: .quotas.pronunciation.cap}'
+# Expected: success=true, used=1, cap=1
+
+# Second call — 429 quota_exceeded
+curl -s -X POST http://localhost:5000/api/v1/tutor/pronunciation/summary \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"weakWords":["test"]}' | jq '{success, error, feature, message}'
+# Expected: success=false, error='quota_exceeded', feature='pronunciation'
+
+# Start a roleplay (consumes roleplay quota)
+curl -s -X POST http://localhost:5000/api/v1/tutor/sessions/roleplay \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"scenarioId":"<valid id>"}' | jq '.quotas.roleplay'
+# Expected: { "used": 1, "cap": 1, ... }
+
+# Send a message in that roleplay session — should NOT consume chat quota
+SESSION_ID="<id from previous response>"
+curl -s -X POST http://localhost:5000/api/v1/tutor/sessions/$SESSION_ID/message \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"content":"Hello"}' | jq '{success, chatUsed: .quotas.chat.used}'
+# Expected: success=true, quotas: null  (because session-aware middleware bypassed,
+#           so no tutorQuotaResult was set)
 ```
 
 - [ ] **Step 6: Commit.**
@@ -645,24 +773,30 @@ curl -s -X POST https://localhost:5000/api/v1/tutor/pronunciation/summary \
 ```bash
 git add routes/tutor.js controllers/tutor.js
 git commit -m "$(cat <<'EOF'
-feat(vip): gate 5 tutor chip endpoints + return quotas in responses
+feat(vip): gate 5 tutor chip endpoints + roleplay session bypass
 
 Trigger points per locked product decision:
-  Chat          → POST /sessions/:id/message
-  Roleplay      → POST /sessions/roleplay
-  Story         → POST /stories/generate
-  Photo         → POST /image-vocab/describe (NOT /grade — same session)
-  Pronounce     → POST /pronunciation/summary
+  Chat (non-roleplay) → POST /sessions/:id/message
+  Roleplay            → POST /sessions/roleplay  (session-start only)
+  Story               → POST /stories/generate
+  Photo               → POST /image-vocab/describe (NOT /grade)
+  Pronounce           → POST /pronunciation/summary
 
-Each route gets checkTutorQuota('<key>') ahead of its handler. On
-cap-hit the middleware responds 429 quota_exceeded; on allowed
-the controller adds the fresh quotas snapshot to its 200 response
-so the client can update the counter UI without a separate fetch.
+The /sessions/:id/message route uses checkChatQuotaSessionAware
+which reads the underlying session.mode. If 'roleplay', the chat
+quota is bypassed — the roleplay quota was already consumed at
+session-start, so messages within the session are free even if
+VIP grace expires mid-conversation. This implements locked
+decision #1 (don't cut users off mid-roleplay).
 
-GET /tutor/me also returns the quotas block so the AI Study tab
-shows accurate counters on first load.
+Controllers use req.tutorQuotaResult.snapshot directly for the
+quotas response field — no extra DB refetch. getMyMemory uses
+req.user.getQuotasSnapshot() (req.user is the full Mongoose doc
+from protect; verified during implementation).
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+quotas field is null when AI_QUOTA_ENABLED is off OR when the
+route was bypassed (roleplay messages) — both are correct
+"nothing to show" signals to the client.
 EOF
 )"
 ```
@@ -674,7 +808,6 @@ EOF
 **Files:**
 - Create: `jobs/audioCacheOrphanPurgeJob.js`
 - Modify: `jobs/scheduler.js`
-- Modify (cross-repo): `bananatalk_app/docs/manual-todos.md` (separate commit on Flutter — done in F4 or G1; backend commit just creates the job)
 
 - [ ] **Step 1: Create the purge job.**
 
@@ -684,16 +817,14 @@ EOF
 /**
  * AudioCache Orphan-Blob Purge Job
  *
- * Mirror of jobs/pronunciationAudioPurgeJob.js but scoped to the
- * AudioCache collection (TTS audio caching).
+ * Mirror of jobs/pronunciationAudioPurgeJob.js scoped to AudioCache
+ * (TTS audio caching).
  *
- * AudioCache has a 90-day Mongo TTL on lastAccessedAt — Mongo
- * auto-drops the metadata record. This job runs ~3 days before the
- * TTL fires and deletes the underlying Spaces blob so the audio is
- * gone BEFORE the URL disappears (no orphaned blobs).
+ * AudioCache has a 90-day Mongo TTL on lastAccessedAt — Mongo auto-drops
+ * the metadata. This job runs ~3 days before the TTL fires and deletes
+ * the underlying Spaces blob so audio is gone BEFORE the URL disappears.
  *
- * Idempotency: once audioUrl is set to null, subsequent runs skip
- * the record. Safe to retry.
+ * Idempotent: once audioUrl is null, subsequent runs skip the record.
  */
 
 const AudioCache = require('../models/AudioCache');
@@ -747,11 +878,15 @@ module.exports = { purgeAudioCacheOrphans };
 
 - [ ] **Step 2: Wire into `jobs/scheduler.js`.**
 
-Find the existing `schedulePronunciationAudioPurge` block (around line 343-368). Add a parallel scheduler function:
+Find the existing `schedulePronunciationAudioPurge` block. Add the require at the top:
 
 ```javascript
 const { purgeAudioCacheOrphans } = require('./audioCacheOrphanPurgeJob');
+```
 
+Add the scheduler function:
+
+```javascript
 const scheduleAudioCacheOrphanPurge = () => {
   const runJob = async () => {
     console.log('\n⏰ Running scheduled AudioCache orphan purge...');
@@ -763,18 +898,18 @@ const scheduleAudioCacheOrphanPurge = () => {
     setTimeout(runJob, 24 * 60 * 60 * 1000);
   };
 
-  // 2:15 AM KST so it doesn't collide with the 2:00 AM pronunciation purge
+  // 2:15 AM KST — staggered 15min after the pronunciation purge.
   const msUntilNextRun = getMillisecondsUntil(2, 15);
   console.log(`📅 AudioCache orphan purge scheduled in ${Math.round(msUntilNextRun / 1000 / 60 / 60)} hours`);
   setTimeout(runJob, msUntilNextRun);
 };
 ```
 
-Then inside `startScheduler()` (around line 418, right after `schedulePronunciationAudioPurge()`):
+Inside `startScheduler()`, right after the pronunciation purge call:
 
 ```javascript
   schedulePronunciationAudioPurge();
-  scheduleAudioCacheOrphanPurge();   // <-- NEW
+  scheduleAudioCacheOrphanPurge();   // ← NEW
 ```
 
 - [ ] **Step 3: Verify.**
@@ -782,8 +917,6 @@ Then inside `startScheduler()` (around line 418, right after `schedulePronunciat
 ```bash
 node -c jobs/audioCacheOrphanPurgeJob.js && node -c jobs/scheduler.js && npm test 2>&1 | tail -3
 ```
-
-Existing 15 pronunciation-scoring tests should still pass.
 
 - [ ] **Step 4: Commit.**
 
@@ -794,51 +927,37 @@ feat(privacy): AudioCache orphan-blob purge job
 
 Mirrors jobs/pronunciationAudioPurgeJob.js. AudioCache has a 90-day
 Mongo TTL on lastAccessedAt; without a Spaces cleanup job the
-underlying mp3 blobs persist indefinitely. New
-jobs/audioCacheOrphanPurgeJob.js runs nightly at 2:15 AM KST,
-finds records older than 87 days with audioUrl still set,
-deletes the Spaces blob and nulls the URL.
+underlying mp3 blobs persist indefinitely. New job runs nightly at
+2:15 AM KST, finds records older than 87 days with audioUrl still
+set, deletes the Spaces blob and nulls the URL.
 
-Idempotent, batch-capped, slot-staggered 15 minutes after the
-pronunciation purge to avoid simultaneous bursts.
+Idempotent, batch-capped at 1000/run, slot-staggered 15 minutes
+after the pronunciation purge to avoid simultaneous bursts.
 
-Closes the queued-engineering item from docs/manual-todos.md
+Closes the queued-engineering item in docs/manual-todos.md
 (cleanup landed in the Flutter doc commit).
-
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
 )"
 ```
 
 ---
 
-## Task F1: ApiClient `quota_exceeded` detection + `onQuotaExceeded` callback
+## Task F1: ApiClient `quotas` extraction + `quota_exceeded` detection
 
 **Files:**
 - Modify: `lib/services/api_client.dart`
 
 Working dir: `/Users/davis/Desktop/Personal/language_exchange_flutter_application/bananatalk_app`
 
-- [ ] **Step 1: Extend the `ApiClient` constructor + class fields to accept `onQuotaExceeded`.**
+<!-- Issue 2: quotas at body level needs its own field on ApiResponse, separate from body['data'] -->
 
-Find the existing callback fields (search for `onRateLimitError`). Add a parallel:
+- [ ] **Step 1: Add `QuotaError` data class.**
 
-```dart
-/// Called when the server returns 429 with body.error == 'quota_exceeded'.
-/// Distinct from onRateLimitError — quota exhaustion routes to the
-/// paywall, generic rate limit shows a toast.
-final void Function(QuotaError quotaError)? onQuotaExceeded;
-```
-
-Add to the constructor's param list + initialization.
-
-- [ ] **Step 2: Add the `QuotaError` data class.**
-
-Near the bottom of the file (with the other ApiResponse helper classes):
+Near the bottom of `api_client.dart` (with the other helper classes):
 
 ```dart
 class QuotaError {
-  final String feature;       // 'chat'|'roleplay'|'story'|'photo'|'pronunciation'
+  final String feature;
   final DateTime? resetAt;
   final String message;
   final bool upgradeAvailable;
@@ -859,26 +978,78 @@ class QuotaError {
 }
 ```
 
-- [ ] **Step 3: Extend `ApiResponse`.**
+- [ ] **Step 2: Extend `ApiResponse`.**
 
-Add a `quotaError` field + `isQuotaExceeded` getter:
+Add two new fields:
 
 ```dart
 class ApiResponse {
   // ... existing fields ...
+
+  /// Top-level `quotas` block from the response body, present on /tutor/me
+  /// and the 5 gated trigger endpoints. Distinct from `data` because the
+  /// server returns it at body root, not inside body.data.
+  final Map<String, dynamic>? quotas;
+
+  /// Populated on 429 quota_exceeded responses. Null for everything else.
   final QuotaError? quotaError;
 
-  // ... existing getters ...
   bool get isQuotaExceeded => statusCode == 429 && quotaError != null;
 
   ApiResponse({
-    // existing params
+    // existing params,
+    this.quotas,
     this.quotaError,
   });
 }
 ```
 
-- [ ] **Step 4: Modify the 429 branch in `_handleResponse` (around line 263-272).**
+- [ ] **Step 3: Add `onQuotaExceeded` callback to ApiClient.**
+
+Find the existing callback fields (search for `onRateLimitError`). Add a parallel field:
+
+```dart
+/// Called when the server returns 429 with body.error == 'quota_exceeded'.
+/// Distinct from onRateLimitError — quota exhaustion routes to the
+/// paywall, generic rate limit shows a toast.
+final void Function(QuotaError quotaError)? onQuotaExceeded;
+```
+
+Wire through the constructor's parameter list.
+
+- [ ] **Step 4: Extract `body['quotas']` in `_handleResponse`.**
+
+In `_handleResponse` (around line 225+), after parsing `body`, add (before any return statement):
+
+```dart
+final Map<String, dynamic>? bodyQuotas =
+    body['quotas'] is Map ? Map<String, dynamic>.from(body['quotas']) : null;
+```
+
+Then **every** `return ApiResponse(...)` in this method passes `quotas: bodyQuotas`. Easiest: a small helper:
+
+```dart
+ApiResponse _build({
+  required bool success,
+  dynamic data,
+  String? error,
+  required int statusCode,
+  RateLimitInfo? rateLimitInfo,
+  QuotaError? quotaError,
+}) => ApiResponse(
+  success: success,
+  data: data,
+  error: error,
+  statusCode: statusCode,
+  rateLimitInfo: rateLimitInfo,
+  quotaError: quotaError,
+  quotas: bodyQuotas,
+);
+```
+
+Use `_build(...)` everywhere a new `ApiResponse(...)` is currently constructed in `_handleResponse`. (Yes, it's mechanical; do them all.)
+
+- [ ] **Step 5: Update the 429 branch to detect `quota_exceeded`.**
 
 Replace:
 
@@ -899,12 +1070,11 @@ With:
 
 ```dart
 case 429:
-  // Two flavors of 429: standard rate limit (per-minute throttle) vs.
-  // daily quota exhaustion (specific to the AI tutor chips).
+  // Two flavors: standard rate limit vs. daily quota exhaustion.
   if (body['error'] == 'quota_exceeded') {
     final qe = QuotaError.fromJson(Map<String, dynamic>.from(body));
     onQuotaExceeded?.call(qe);
-    return ApiResponse(
+    return _build(
       success: false,
       error: qe.message,
       statusCode: 429,
@@ -913,7 +1083,7 @@ case 429:
   }
   final errorMessage = body['error'] ?? 'Too many requests. Please slow down.';
   onRateLimitError?.call(_getReadableRateLimitError(errorMessage));
-  return ApiResponse(
+  return _build(
     success: false,
     error: _getReadableRateLimitError(errorMessage),
     statusCode: 429,
@@ -921,97 +1091,121 @@ case 429:
   );
 ```
 
-- [ ] **Step 5: Analyze.**
+- [ ] **Step 6: Verify.**
 
 ```bash
 flutter analyze lib/services/api_client.dart 2>&1 | tail -3
 ```
 
-Expected: `No issues found!`
+Expected: no errors specific to this file.
 
-- [ ] **Step 6: Commit.**
+- [ ] **Step 7: Commit.**
 
 ```bash
 git add lib/services/api_client.dart
 git commit -m "$(cat <<'EOF'
-feat(vip): ApiClient detects 429 quota_exceeded and routes to paywall
+feat(vip): ApiClient extracts quotas + detects quota_exceeded
 
-Two 429 flavors now distinguished by body.error:
-  'quota_exceeded' → onQuotaExceeded callback (paywall)
-  anything else    → onRateLimitError callback (toast, unchanged)
+ApiResponse gains two new fields:
+- quotas (Map?) — top-level body.quotas block, populated by every
+  response that includes it (/tutor/me + 5 gated trigger
+  endpoints). Distinct from .data because the server returns
+  quotas at body root, not inside body.data.
+- quotaError (QuotaError?) — populated only on 429 quota_exceeded.
 
-New QuotaError data class carries feature, resetAt, message,
-upgradeAvailable. ApiResponse gains an isQuotaExceeded getter
-+ quotaError field for call sites that want to handle the
-case locally rather than through the global callback.
+_handleResponse extracts body['quotas'] once at the top and routes
+it through every ApiResponse construction via a small _build()
+helper to keep wiring uniform.
 
-Global wiring of onQuotaExceeded lands in F4 alongside the
-persona-aware paywall sheet.
+The 429 branch now distinguishes:
+  body.error == 'quota_exceeded' → onQuotaExceeded callback (paywall)
+  anything else                  → onRateLimitError (toast, unchanged)
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+Global wiring of onQuotaExceeded lands in F4 alongside the persona
+paywall sheet.
 EOF
 )"
 ```
 
 ---
 
-## Task F2: Firebase Analytics + AnalyticsService wrapper
+## Task F2: Firebase Analytics + AnalyticsService wrapper (8 events)
 
 **Files:**
 - Modify: `pubspec.yaml`
 - Modify: `lib/main.dart`
 - Create: `lib/services/analytics_service.dart`
 
-- [ ] **Step 1: Add `firebase_analytics` to dependencies.**
+<!-- Issue 3: prereq check before install -->
+<!-- Issue 12: 8th event added -->
+<!-- Issue 13: pub get moved to verification step -->
 
-In `pubspec.yaml`, in the `# Firebase & Notifications` section right after `firebase_messaging`:
+- [ ] **Step 0: PREREQUISITE — verify Firebase Console has Analytics enabled and config files include Analytics tokens.**
+
+This is a manual gate. Before touching code:
+
+```bash
+# 1. iOS: check that GoogleService-Info.plist has the Analytics keys.
+#    The file should contain GOOGLE_APP_ID + ANDROID_CLIENT_ID + others;
+#    if you grep for "IS_ANALYTICS_ENABLED" the value should be present.
+grep -E "IS_ANALYTICS_ENABLED|GOOGLE_APP_ID" ios/Runner/GoogleService-Info.plist
+
+# 2. Android: check that google-services.json includes an "analytics_service" block.
+grep -E "analytics_service|analytics_property" android/app/google-services.json
+```
+
+**Expected:**
+- iOS file has `GOOGLE_APP_ID` (always) AND `IS_ANALYTICS_ENABLED` set to `true` (or absent — Firebase default is enabled).
+- Android file mentions `analytics_service` or `analytics_property`.
+
+**If either is missing:**
+1. STOP. Open https://console.firebase.google.com → bananatalk project → Project Settings.
+2. Confirm Analytics is enabled at the project level (not just SDK level).
+3. Re-download `GoogleService-Info.plist` and `google-services.json` from the Firebase Console.
+4. Replace the bundled files.
+5. Re-run the grep checks before proceeding.
+
+Surface to the user if Firebase Console access is needed — agent cannot complete this step autonomously.
+
+- [ ] **Step 1: Add `firebase_analytics` to `pubspec.yaml`.**
+
+In the `# Firebase & Notifications` section, right after `firebase_messaging`:
 
 ```yaml
   firebase_analytics: ^11.0.0
 ```
 
-Run:
-
-```bash
-flutter pub get
-```
-
-Expected: no errors. (If version pinning is fragile, drop the caret and pin exactly to whatever firebase_core ^3.0.0 resolves to.)
+(Don't run `pub get` yet — it's the verification step below.)
 
 - [ ] **Step 2: Initialize in `lib/main.dart`.**
 
-In the existing Firebase init block (lines ~37-46), after `await Firebase.initializeApp();`, add:
-
-```dart
-    // Step 13A: Analytics. Initialized after Firebase.initializeApp().
-    // No collection until the user gives consent? — App is already
-    // collecting tokens for messaging, so analytics fits the same
-    // posture. Privacy policy update in docs/manual-todos.md covers this.
-    final analytics = FirebaseAnalytics.instance;
-    await analytics.setAnalyticsCollectionEnabled(true);
-```
-
-Add the import at the top of `main.dart`:
+Add the import at the top:
 
 ```dart
 import 'package:firebase_analytics/firebase_analytics.dart';
 ```
 
-- [ ] **Step 3: Create the AnalyticsService wrapper.**
+In the existing Firebase init block (lines ~37-46), after `await Firebase.initializeApp();`:
 
-`lib/services/analytics_service.dart`:
+```dart
+    // Step 13A: Analytics. Initialized after Firebase.initializeApp().
+    final analytics = FirebaseAnalytics.instance;
+    await analytics.setAnalyticsCollectionEnabled(true);
+```
+
+- [ ] **Step 3: Create `lib/services/analytics_service.dart`.**
 
 ```dart
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 
 /// Thin Firebase Analytics wrapper for Step 13A VIP-gating events.
-/// Methods are typed and intent-named so call sites can't misspell
-/// event names or forget required params.
+/// Methods are typed so call sites can't misspell event names or
+/// forget required params.
 ///
 /// All methods are async-fire-and-forget; we never await analytics
-/// from the UI thread. If a call fails (analytics SDK error, no
-/// network), debug-print and move on — never block the user.
+/// from the UI thread. On SDK error, debug-print and move on —
+/// never block the user.
 class AnalyticsService {
   AnalyticsService._();
   static final AnalyticsService instance = AnalyticsService._();
@@ -1019,7 +1213,6 @@ class AnalyticsService {
 
   Future<void> _log(String name, Map<String, Object?> params) async {
     try {
-      // Firebase Analytics rejects null param values; drop them.
       final clean = <String, Object>{};
       params.forEach((k, v) {
         if (v != null) clean[k] = v;
@@ -1034,6 +1227,15 @@ class AnalyticsService {
 
   Future<void> tutorChipUsed({required String chipName, required String userTier}) =>
       _log('tutor_chip_used', {'chip_name': chipName, 'user_tier': userTier});
+
+  /// Fired at the meaningful end-of-flow action for each chip:
+  ///   Chat        → session end (user navigates away or explicit end)
+  ///   Roleplay    → end-of-session score request
+  ///   Story       → reaching the final comprehension question / score screen
+  ///   Photo       → after the describe response is rendered + user dismisses
+  ///   Pronounce   → Save & Close on the summary sheet
+  Future<void> tutorChipCompleted({required String chipName, required String userTier}) =>
+      _log('tutor_chip_completed', {'chip_name': chipName, 'user_tier': userTier});
 
   Future<void> quotaRemainingShown({required String chipName, required int remainingCount}) =>
       _log('quota_remaining_shown', {'chip_name': chipName, 'remaining_count': remainingCount});
@@ -1063,11 +1265,14 @@ class AnalyticsService {
 }
 ```
 
-- [ ] **Step 4: Verify.**
+- [ ] **Step 4: Verify (install + analyze).** <!-- Issue 13 -->
 
 ```bash
-flutter pub get && flutter analyze lib/services/analytics_service.dart lib/main.dart 2>&1 | tail -3
+flutter pub get
+flutter analyze lib/services/analytics_service.dart lib/main.dart 2>&1 | tail -3
 ```
+
+Expected: `flutter pub get` resolves cleanly; analyze shows no errors specific to these files.
 
 - [ ] **Step 5: Commit.**
 
@@ -1081,49 +1286,78 @@ Adds firebase_analytics ^11.0.0 (companion to existing firebase_core
 block; collection enabled by default.
 
 lib/services/analytics_service.dart wraps FirebaseAnalytics in a
-singleton with 7 typed methods, one per Step 13A event:
-  tutor_chip_used / quota_remaining_shown / quota_hit /
+singleton with 8 typed methods, one per Step 13A event:
+  tutor_chip_used / tutor_chip_completed /
+  quota_remaining_shown / quota_hit /
   paywall_shown / paywall_cta_tapped /
   subscription_purchased / subscription_purchase_failed
+
+tutor_chip_completed fires at the meaningful end-of-flow action per
+chip (Chat session end, Roleplay end-of-session score, Story score
+screen, Photo describe-then-dismiss, Pronounce Save & Close) so we
+can compute entry → completion funnel rates.
 
 All methods are async-fire-and-forget — analytics never blocks UI.
 SDK errors are debug-printed and swallowed.
 
-Event firing in subsequent commits (F3 + F4).
-
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+Event firing in F3 (quota_remaining_shown) + F4 (everything else).
 EOF
 )"
 ```
 
 ---
 
-## Task F3: Tutor quota state + counter UI widget + wire into chip screens
+## Task F3: Tutor quota state + counter UI widget
+
+<!-- Issue 1: F3 rewritten linearly, final design only -->
+<!-- Issue 5: _shownToday renamed to _shownThisSession -->
 
 **Files:**
+- Modify: `lib/providers/tutor_provider.dart`
 - Create: `lib/providers/tutor_quota_provider.dart`
 - Create: `lib/widgets/tutor/tutor_quota_indicator.dart`
-- Modify: `lib/pages/ai/tutor/tutor_chat_screen.dart`
-- Modify: `lib/pages/ai/tutor/pronunciation_session_screen.dart`
-- Modify: `lib/pages/ai/tutor/scenario_picker_screen.dart`
-- Modify: `lib/pages/ai/tutor/story_setup_screen.dart`
-- Modify: `lib/pages/ai/tutor/image_vocab_screen.dart`
+- Modify: `lib/l10n/app_en.arb`
+- Modify: the 5 chip screens (`tutor_chat_screen`, `pronunciation_session_screen`, `scenario_picker_screen`, `story_setup_screen`, `image_vocab_screen`)
 
-- [ ] **Step 1: Create the quota provider.**
+**Final design:**
+- `TutorService.getMemory()` returns a Dart record `({TutorMemory memory, Map<String, dynamic>? quotas})`.
+- Private `_tutorMemoryAndQuotasProvider` (FutureProvider.autoDispose) holds the record.
+- Public `tutorMemoryProvider` reads from the private one, exposing just the memory (backward-compat for existing call sites).
+- Public `tutorQuotaProvider` (plain Provider) reads from the private one, exposing a typed `TutorQuotaState`.
+- After each successful gated action, the corresponding controller calls `ref.invalidate(_tutorMemoryAndQuotasProvider)` to trigger a re-fetch.
+- `TutorQuotaIndicator` reads `tutorQuotaProvider` and renders the compact pill once usage ≥ 50% for the given chip.
 
-`lib/providers/tutor_quota_provider.dart`:
+- [ ] **Step 1: Modify `TutorService.getMemory()` to return a record.**
+
+In `lib/providers/tutor_provider.dart`, change the existing `getMemory` to:
+
+```dart
+Future<({TutorMemory memory, Map<String, dynamic>? quotas})> getMemory() async {
+  final res = await _api.get('tutor/me');
+  if (!res.success || res.data == null) {
+    throw StateError(res.error ?? 'Failed to load tutor memory');
+  }
+  return (
+    memory: TutorMemory.fromJson(_dataObj(res.data)),
+    quotas: res.quotas,   // <— from F1
+  );
+}
+```
+
+- [ ] **Step 2: Refactor `tutorMemoryProvider` + create `tutorQuotaProvider`.**
+
+Create `lib/providers/tutor_quota_provider.dart`:
 
 ```dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 
-/// Per-chip daily quota state. Updated from API response bodies
-/// (the backend includes a `quotas` block on /tutor/me and on the
-/// 5 trigger endpoints' success responses).
 class TutorQuotaInfo {
   final int used;
-  final int? cap;          // null when unlimited (VIP)
-  final int? remaining;    // null when unlimited
+  final int? cap;        // null when unlimited (VIP)
+  final int? remaining;  // null when unlimited
   final DateTime? resetAt;
   final bool unlimited;
 
@@ -1143,11 +1377,10 @@ class TutorQuotaInfo {
     unlimited: j['unlimited'] == true,
   );
 
-  /// True once the user has hit 50% of their cap (used for triggering
-  /// the counter UI). Always false for unlimited.
+  /// True once usage ≥ 50% of cap. Hides for unlimited.
   bool get shouldShowIndicator {
     if (unlimited || cap == null || cap == 0) return false;
-    return used * 2 >= cap!; // used >= cap/2, integer-safe
+    return used * 2 >= cap!;
   }
 }
 
@@ -1160,196 +1393,115 @@ class TutorQuotaState {
 
   const TutorQuotaState({this.chat, this.roleplay, this.story, this.photo, this.pronunciation});
 
+  static const empty = TutorQuotaState();
+
   TutorQuotaInfo? get(String key) {
     switch (key) {
-      case 'chat': return chat;
-      case 'roleplay': return roleplay;
-      case 'story': return story;
-      case 'photo': return photo;
+      case 'chat':          return chat;
+      case 'roleplay':      return roleplay;
+      case 'story':         return story;
+      case 'photo':         return photo;
       case 'pronunciation': return pronunciation;
       default: return null;
     }
   }
 
-  TutorQuotaState copyWithFromMap(Map<String, dynamic>? quotasJson) {
-    if (quotasJson == null) return this;
+  factory TutorQuotaState.fromMap(Map<String, dynamic>? quotasJson) {
+    if (quotasJson == null) return empty;
     TutorQuotaInfo? parse(String k) {
       final v = quotasJson[k];
       return v is Map<String, dynamic> ? TutorQuotaInfo.fromJson(v) : null;
     }
     return TutorQuotaState(
-      chat:          parse('chat')          ?? chat,
-      roleplay:      parse('roleplay')      ?? roleplay,
-      story:         parse('story')         ?? story,
-      photo:         parse('photo')         ?? photo,
-      pronunciation: parse('pronunciation') ?? pronunciation,
+      chat:          parse('chat'),
+      roleplay:      parse('roleplay'),
+      story:         parse('story'),
+      photo:         parse('photo'),
+      pronunciation: parse('pronunciation'),
     );
   }
 }
 
-class TutorQuotaController extends StateNotifier<TutorQuotaState> {
-  TutorQuotaController() : super(const TutorQuotaState());
+/// Per-app-session dedup set for the quota_remaining_shown event.
+/// Resets when the app process restarts — we intentionally do NOT
+/// persist this across restarts. v1 acceptable.
+final _shownThisSession = <String>{};
 
-  // Track which chips have already fired the quota_remaining_shown
-  // analytics event today so we don't double-fire on every screen
-  // build past the 50% threshold.
-  final Set<String> _shownToday = {};
-
-  /// Merge in a `quotas` payload from any API response.
-  void updateFrom(Map<String, dynamic>? quotasJson) {
-    if (quotasJson == null) return;
-    final next = state.copyWithFromMap(quotasJson);
-    state = next;
-
-    // Fire quota_remaining_shown once per chip per session when
-    // crossing the 50% threshold.
-    for (final key in ['chat', 'roleplay', 'story', 'photo', 'pronunciation']) {
-      final info = next.get(key);
-      if (info != null && info.shouldShowIndicator && !_shownToday.contains(key)) {
-        _shownToday.add(key);
-        AnalyticsService.instance.quotaRemainingShown(
-          chipName: key,
-          remainingCount: info.remaining ?? 0,
-        );
-      }
+void _maybeFireRemainingShown(TutorQuotaState state) {
+  for (final key in ['chat', 'roleplay', 'story', 'photo', 'pronunciation']) {
+    final info = state.get(key);
+    if (info != null && info.shouldShowIndicator && !_shownThisSession.contains(key)) {
+      _shownThisSession.add(key);
+      AnalyticsService.instance.quotaRemainingShown(
+        chipName: key,
+        remainingCount: info.remaining ?? 0,
+      );
     }
   }
 }
 
-final tutorQuotaProvider =
-    StateNotifierProvider<TutorQuotaController, TutorQuotaState>(
-  (_) => TutorQuotaController(),
-);
-```
-
-- [ ] **Step 2: Hook ApiClient responses to update the provider.**
-
-The cleanest place is wherever responses are first received. Two options: extend ApiClient with a hook, or extract `quotas` at each call site. **Decision:** add a single global hook in `lib/main.dart` (or wherever ApiClient is constructed) that the tutor service methods can call. Simpler change: extract at the call site in `lib/providers/tutor_provider.dart`'s `TutorService` methods.
-
-Find each of these methods in `TutorService` (in `lib/providers/tutor_provider.dart`) and after the existing `_dataObj(res.data)` extraction, also call:
-
-```dart
-// In each tutor service method that gates a chip (sendMessage,
-// startRoleplay, generateStory, image-vocab describe, submitSummary,
-// getMemory):
-final rawBody = res.data is Map ? res.data as Map<String, dynamic> : null;
-final quotasJson = rawBody?['quotas'];
-// Push to provider via a callback the caller has wired. Easiest:
-// the controller that called the service does the dispatch:
-//   ref.read(tutorQuotaProvider.notifier).updateFrom(quotasJson);
-```
-
-Because `TutorService` is a plain class (not a ConsumerWidget), it can't access Riverpod directly. The **clean pattern**: have each method return a `(result, quotas)` tuple — or extend `ApiResponse` with a `quotas` getter. Since we already control `ApiResponse`, that's simpler. Actually simplest of all: **the controllers that call these services** are already Riverpod-aware, so they can read `res.data['quotas']` once they have the raw response.
-
-For this plan: add a generic `quotas` extractor on `ApiResponse`:
-
-```dart
-// In api_client.dart, ApiResponse class:
-Map<String, dynamic>? get quotas {
-  if (data is Map) {
-    final m = data as Map;
-    if (m['quotas'] is Map) return Map<String, dynamic>.from(m['quotas']);
-  }
-  return null;
-}
-```
-
-(Wait — `_handleResponse` extracts `data` from `body['data']` already. So `quotas` lives at the body level, not inside data. Need to verify in B4 that the backend response shape is `{success, data: {...}, quotas: {...}}` not nested. ✅ confirmed in B4 step 2.)
-
-The provider call site lives in each controller. Add this snippet to `TutorChatController.send` (in `lib/providers/tutor_provider.dart`) and the parallel methods in `PronunciationController` and any other controllers that hit the gated endpoints:
-
-```dart
-// Just before _safeSet on success path:
-ref.read(tutorQuotaProvider.notifier).updateFrom(res.quotas);
-```
-
-(`ref` here is the controller's stored `Ref` — for StateNotifier-based controllers, store a `Ref` in the constructor.)
-
-**Note:** retrofitting `Ref` into existing controllers might be invasive. Simpler retrofit: have the `TutorService` static methods return the raw `ApiResponse` (or expose `lastQuotas` as a stream), and the screen `ConsumerStatefulWidget` that called the controller reads quotas separately by watching `/tutor/me`.
-
-For this plan, choose the cleanest: **The controllers stay unchanged. The screens that show the chip UI directly fetch `/tutor/me` via a provider when needed**, OR after a successful action they invalidate a `tutorMemoryProvider` to re-fetch including the fresh quotas block. This is a tiny extra HTTP round-trip (~50ms) but keeps the change contained.
-
-Specifically: extend `tutorMemoryProvider` (FutureProvider) in `tutor_provider.dart` so its response includes the quotas, and the new `tutorQuotaProvider` reads from `tutorMemoryProvider` instead of being a StateNotifier. Simpler. Replace the StateNotifier above with:
-
-```dart
+/// Public provider — reads from the private memory+quotas provider.
+/// Fires quota_remaining_shown analytics on first sight of ≥ 50% per chip.
 final tutorQuotaProvider = Provider<TutorQuotaState>((ref) {
-  final memAsync = ref.watch(tutorMemoryProvider);
-  return memAsync.when(
-    data: (mem) {
-      // tutorMemoryProvider needs to be extended to return both memory
-      // and quotas; OR a sibling tutorQuotasResponseProvider could carry
-      // just the quotas. The simplest: extend the existing service
-      // method getMemory() to also call a new getQuotas() endpoint OR
-      // return a tuple.
-      // For this plan: revisit the data model. See note below.
-      return const TutorQuotaState();
+  final asyncResult = ref.watch(tutorMemoryAndQuotasProvider);
+  return asyncResult.maybeWhen(
+    data: (r) {
+      final state = TutorQuotaState.fromMap(r.quotas);
+      _maybeFireRemainingShown(state);
+      return state;
     },
-    loading: () => const TutorQuotaState(),
-    error: (_, __) => const TutorQuotaState(),
+    orElse: () => TutorQuotaState.empty,
   );
 });
 ```
 
-**OK, the cleanest data path:**
+- [ ] **Step 3: Add the private provider + refactor existing `tutorMemoryProvider`.**
 
-1. Backend `/tutor/me` returns `{success, data: <memory>, quotas: <snapshot>}` — already designed in B4.
-2. Modify `TutorService.getMemory` to return a record/tuple `(TutorMemory, Map<String, dynamic>? quotas)` OR a wrapper class. The cleanest in Dart 3 is a record:
+In `lib/providers/tutor_provider.dart`, find the existing `tutorMemoryProvider` definition (around line 140-150):
 
 ```dart
-// In TutorService:
-Future<({TutorMemory memory, Map<String, dynamic>? quotas})> getMemory() async {
-  final res = await _api.get('tutor/me');
-  if (!res.success || res.data == null) {
-    throw StateError(res.error ?? 'Failed to load tutor memory');
-  }
-  return (
-    memory: TutorMemory.fromJson(_dataObj(res.data)),
-    quotas: res.quotas,
-  );
-}
+final tutorMemoryProvider = FutureProvider<TutorMemory>((ref) {
+  return ref.read(tutorServiceProvider).getMemory();
+});
 ```
 
-3. Modify `tutorMemoryProvider` to use this and feed both into separate providers:
+Replace with:
 
 ```dart
-final _tutorMemoryAndQuotasProvider = FutureProvider.autoDispose<
+/// Internal — holds the raw response (memory + quotas) so we can
+/// fan it out to two public providers without making two HTTP calls.
+final tutorMemoryAndQuotasProvider = FutureProvider.autoDispose<
     ({TutorMemory memory, Map<String, dynamic>? quotas})>((ref) {
   return ref.read(tutorServiceProvider).getMemory();
 });
 
+/// Public — backward-compatible memory-only view.
 final tutorMemoryProvider = FutureProvider<TutorMemory>((ref) async {
-  final result = await ref.watch(_tutorMemoryAndQuotasProvider.future);
-  return result.memory;
-});
-
-final tutorQuotaProvider = Provider<TutorQuotaState>((ref) {
-  final asyncResult = ref.watch(_tutorMemoryAndQuotasProvider);
-  return asyncResult.maybeWhen(
-    data: (r) => const TutorQuotaState().copyWithFromMap(r.quotas),
-    orElse: () => const TutorQuotaState(),
-  );
+  final r = await ref.watch(tutorMemoryAndQuotasProvider.future);
+  return r.memory;
 });
 ```
 
-And to refresh after a successful action, the controller invalidates the private `_tutorMemoryAndQuotasProvider`:
+(Naming note: I dropped the leading underscore on `tutorMemoryAndQuotasProvider` because Dart treats `_` as library-private — and the consumer in `tutor_quota_provider.dart` is a different file. Effectively still "internal" but accessible across files within the same package.)
+
+- [ ] **Step 4: Invalidate the private provider in each of the 5 gated controllers after a successful action.**
+
+Controllers needing the invalidation:
+- `TutorChatController.send` (sendMessage success) — `tutor_provider.dart`
+- `TutorChatController.startRoleplay` (roleplay session-start success) — `tutor_provider.dart`
+- `StoryController.generate` (story generate success) — wherever that lives
+- `ImageVocabController.describe` (describe success) — wherever that lives
+- `PronunciationController.finish` (summary save success) — `pronunciation_provider.dart`
+
+Each controller already has access to a `Ref` (passed in its constructor — confirm before adding; if not, add it). After the `_safeSet` of the success state, add:
 
 ```dart
-ref.invalidate(_tutorMemoryAndQuotasProvider);
+ref.invalidate(tutorMemoryAndQuotasProvider);
 ```
 
-This is the cleanest path for this plan. Use this approach.
+(Import the provider from `tutor_provider.dart` if needed.)
 
-- [ ] **Step 3: Wire invalidation in each of the 5 controllers after successful gated actions.**
-
-For each successful response on a gated endpoint (Chat send, Roleplay start, Story generate, Photo describe, Pronounce summary), add right after the success state update:
-
-```dart
-ref.invalidate(_tutorMemoryAndQuotasProvider);
-```
-
-(Add a `Ref` to the controller's constructor if it doesn't have one. Existing controllers like `TutorChatController` already take a `Ref` indirectly via the provider builder — check before adding.)
-
-- [ ] **Step 4: Create the indicator widget.**
+- [ ] **Step 5: Create the indicator widget.**
 
 `lib/widgets/tutor/tutor_quota_indicator.dart`:
 
@@ -1359,13 +1511,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Compact pill widget showing "N left today" for one tutor chip's quota.
-/// Renders nothing when the user is VIP (unlimited) or below the 50%
-/// threshold. Mirrors the style of VisitorUsageIndicator.compact.
+/// Compact "N left today" pill. Renders nothing for VIP / below 50% used.
 class TutorQuotaIndicator extends ConsumerWidget {
-  /// 'chat'|'roleplay'|'story'|'photo'|'pronunciation'
   final String featureKey;
   final IconData icon;
 
@@ -1409,7 +1557,9 @@ class TutorQuotaIndicator extends ConsumerWidget {
 }
 ```
 
-Add the l10n key to `lib/l10n/app_en.arb`:
+- [ ] **Step 6: Add the l10n key.**
+
+In `lib/l10n/app_en.arb`:
 
 ```json
 "aiTutorQuotaRemaining": "{count, plural, =1{1 left today} other{{count} left today}}",
@@ -1419,56 +1569,69 @@ Add the l10n key to `lib/l10n/app_en.arb`:
 }
 ```
 
-- [ ] **Step 5: Wire the indicator into the 5 chip screens.**
+- [ ] **Step 7: Wire the indicator into the 5 chip screens.**
 
-For each of `tutor_chat_screen.dart`, `pronunciation_session_screen.dart`, `scenario_picker_screen.dart`, `story_setup_screen.dart`, `image_vocab_screen.dart`: add `TutorQuotaIndicator(featureKey: '<key>')` to the AppBar's `actions:` list (or wherever fits the screen's layout — for Pronounce it's already a busy AppBar; insert before the existing volume icon).
+For each screen, add `TutorQuotaIndicator(featureKey: '<key>')` to its `AppBar.actions` (or wherever fits):
 
-- [ ] **Step 6: Verify.**
+| File | featureKey |
+|---|---|
+| `tutor_chat_screen.dart` | `'chat'` |
+| `scenario_picker_screen.dart` | `'roleplay'` |
+| `story_setup_screen.dart` | `'story'` |
+| `image_vocab_screen.dart` | `'photo'` |
+| `pronunciation_session_screen.dart` | `'pronunciation'` |
+
+Insert before any existing AppBar actions where it makes visual sense.
+
+- [ ] **Step 8: Verify.**
 
 ```bash
-flutter gen-l10n && flutter analyze lib/providers/tutor_quota_provider.dart lib/widgets/tutor/tutor_quota_indicator.dart 2>&1 | tail -3
+flutter gen-l10n && flutter analyze lib/providers/tutor_quota_provider.dart lib/widgets/tutor/tutor_quota_indicator.dart lib/providers/tutor_provider.dart 2>&1 | tail -5
 ```
 
-- [ ] **Step 7: Commit.**
+Expected: no errors in these files. (Pre-existing info-level lints elsewhere are fine.)
+
+- [ ] **Step 9: Commit.**
 
 ```bash
 git add lib/providers/tutor_quota_provider.dart lib/widgets/tutor/tutor_quota_indicator.dart lib/providers/tutor_provider.dart lib/pages/ai/tutor/ lib/l10n/
 git commit -m "$(cat <<'EOF'
 feat(vip): tutor quota state + "N left today" indicator on 5 chips
 
-TutorService.getMemory now returns a record (memory, quotas).
-A private _tutorMemoryAndQuotasProvider feeds the existing
-tutorMemoryProvider and a new tutorQuotaProvider in parallel —
-so re-fetching the memory also refreshes the quotas without
-adding an extra HTTP round-trip.
+Architecture:
+- TutorService.getMemory() returns Dart record (memory, quotas).
+- New tutorMemoryAndQuotasProvider (FutureProvider) holds the
+  raw record so two public providers can fan out without
+  making two HTTP calls.
+- Existing tutorMemoryProvider refactored to read from the new
+  private provider — no breaking change for downstream callers.
+- New tutorQuotaProvider (Provider) exposes typed TutorQuotaState.
+- After each successful gated controller action, the controller
+  invalidates tutorMemoryAndQuotasProvider so the indicator
+  reflects the post-increment count.
 
-After each successful gated action (Chat send / Roleplay start /
-Story generate / Photo describe / Pronounce summary), the
-controller invalidates the private provider so the AppBar
-indicator updates to the post-increment value.
-
-TutorQuotaIndicator (compact pill) renders only once a chip
-crosses 50% used. Hides entirely for VIP. Mirrors the existing
-VisitorUsageIndicator.compact style. Crossing 50% also fires
-the quota_remaining_shown analytics event once per chip per
-session (deduped in TutorQuotaController).
-
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+TutorQuotaIndicator: compact pill, shown only when usage ≥ 50%
+for that chip. Hides for VIP (unlimited). Crossing the 50%
+threshold once per app session fires quota_remaining_shown
+(dedup via _shownThisSession set; intentionally not persisted
+across app restarts — v1 acceptable).
 EOF
 )"
 ```
 
 ---
 
-## Task F4: Persona-aware paywall + global wiring + webhook race fix + analytics events
+## Task F4: Persona paywall + global wiring + webhook race + analytics
+
+<!-- Issue 7: uses existing callOverlayNavigatorKey -->
+<!-- Issue 12: tutor_chip_completed firing wired here -->
 
 **Files:**
 - Create: `lib/widgets/tutor/persona_upgrade_sheet.dart`
-- Modify: `lib/main.dart` (or wherever ApiClient is constructed; wire `onQuotaExceeded`)
-- Modify: `lib/pages/vip/vip_payment_screen.dart` (retry-with-backoff)
-- Modify: `lib/pages/ai/tutor/*` chip screens to fire `tutor_chip_used` + `quota_hit` analytics
-- Modify: `lib/widgets/vip_locked_feature.dart` (fire `paywall_shown` + `paywall_cta_tapped`)
-- Modify: `bananatalk_app/docs/manual-todos.md` (drop the AudioCache item)
+- Modify: `lib/main.dart` (wire `ApiClient.onQuotaExceeded` using existing `callOverlayNavigatorKey`)
+- Modify: `lib/pages/vip/vip_payment_screen.dart` (retry-with-backoff + fire purchase events)
+- Modify: the 5 chip screens (fire `tutor_chip_used` on entry + `tutor_chip_completed` at end-of-flow)
+- Modify: `docs/manual-todos.md` (drop the AudioCache item)
 
 - [ ] **Step 1: Create the persona-aware paywall sheet.**
 
@@ -1482,14 +1645,13 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// Persona-aware variant of VipUpgradeSheet. Shown when a free user
-/// hits a tutor quota cap. Copy matches the user's selected persona
-/// (Nana/Sensei/Riko) — falls back to generic if no persona set.
+/// Persona-aware variant of VipUpgradeSheet. Copy matches the user's
+/// selected persona — falls back to generic if persona is unset.
+/// Fires paywall_shown on first build, paywall_cta_tapped on Upgrade.
 class PersonaUpgradeSheet extends ConsumerWidget {
-  final String triggerChip; // 'chat'|'roleplay'|'story'|'photo'|'pronunciation'
-  final String reason;      // 'quota_exceeded'|'locked_feature'
+  final String triggerChip;
+  final String reason; // 'quota_exceeded' | 'locked_feature'
 
   const PersonaUpgradeSheet({
     super.key,
@@ -1515,7 +1677,6 @@ class PersonaUpgradeSheet extends ConsumerWidget {
     final memAsync = ref.watch(tutorMemoryProvider);
     final persona = memAsync.valueOrNull?.persona;
 
-    // Fire paywall_shown once when this sheet first builds.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       AnalyticsService.instance.paywallShown(triggerChip: triggerChip, reason: reason);
     });
@@ -1583,18 +1744,26 @@ class PersonaUpgradeSheet extends ConsumerWidget {
 }
 ```
 
-- [ ] **Step 2: Wire `ApiClient.onQuotaExceeded` globally.**
+- [ ] **Step 2: Wire `ApiClient.onQuotaExceeded` globally using `callOverlayNavigatorKey`.** <!-- Issue 7 -->
 
-Wherever `ApiClient()` is constructed (it's a singleton — find the construction site, likely in a `main.dart`-adjacent service). Add:
+In `lib/main.dart`, import the overlay key:
+
+```dart
+import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
+import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
+```
+
+Then wherever `ApiClient()` is constructed/configured (find it via `grep -n "ApiClient(" lib/`), add the callback:
 
 ```dart
 ApiClient(
   // existing params...
   onQuotaExceeded: (qe) {
-    final ctx = _appNavigatorKey.currentContext; // existing global nav key
-    if (ctx == null) return;
+    final overlayCtx = callOverlayNavigatorKey.currentContext;
+    if (overlayCtx == null) return;
     showModalBottomSheet(
-      context: ctx,
+      context: overlayCtx,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (_) => PersonaUpgradeSheet(triggerChip: qe.feature),
@@ -1604,27 +1773,29 @@ ApiClient(
 );
 ```
 
-(If a global navigator key doesn't already exist, use the existing GoRouter root context.)
+(`tier: 'free'` is hardcoded because by definition only non-VIP users hit `quota_exceeded`. Refine to actually read `userMode` from `userProvider` if you want visitor/regular precision — minor.)
 
 - [ ] **Step 3: Webhook-race retry-with-backoff in `vip_payment_screen.dart`.**
 
-Find lines 202-214 (success path). Replace with:
+Find the success path (lines ~202-214). Replace with:
 
 ```dart
 if (verifyResult['success'] == true) {
-  // Webhook race fix: the Apple/Google webhook may not have landed
-  // by the time we re-fetch /vip/status. Retry up to 3 times over
-  // ~6 seconds, each time waiting 2 seconds and re-invalidating.
-  // Only flip to success when the backend confirms userMode === 'vip'.
+  // Webhook race fix: Apple/Google webhook may not have processed by
+  // the time we re-fetch /vip/status. Retry up to 3 times over ~6 sec.
   bool confirmedVip = false;
   for (int attempt = 1; attempt <= 3; attempt++) {
     ref.invalidate(userProvider);
     ref.invalidate(vipStatusProvider(widget.userId));
     ref.invalidate(userLimitsProvider(widget.userId));
-    final status = await ref.read(vipStatusProvider(widget.userId).future);
-    if (status['isVIP'] == true) {
-      confirmedVip = true;
-      break;
+    try {
+      final status = await ref.read(vipStatusProvider(widget.userId).future);
+      if (status['isVIP'] == true) {
+        confirmedVip = true;
+        break;
+      }
+    } catch (_) {
+      // Soft-fail; retry until budget exhausted.
     }
     if (attempt < 3) await Future.delayed(const Duration(seconds: 2));
   }
@@ -1632,12 +1803,11 @@ if (verifyResult['success'] == true) {
   if (confirmedVip) {
     ref.read(purchaseStateProvider.notifier).state = PurchaseState.success;
     AnalyticsService.instance.subscriptionPurchased(
-      plan: widget.plan, platform: Platform.isIOS ? 'ios' : 'android',
+      plan: widget.plan,
+      platform: Platform.isIOS ? 'ios' : 'android',
     );
     _showSuccessDialog();
   } else {
-    // Verification succeeded but backend hasn't reflected VIP yet.
-    // Show a softer dialog instead of misleading "Welcome to VIP."
     ref.read(purchaseStateProvider.notifier).state = PurchaseState.pending;
     _showPendingDialog();
   }
@@ -1647,11 +1817,11 @@ if (verifyResult['success'] == true) {
     platform: Platform.isIOS ? 'ios' : 'android',
     errorCode: verifyResult['error']?.toString() ?? 'unknown',
   );
-  // ...existing error handling
+  // ... existing error handling
 }
 ```
 
-`_showPendingDialog` is a new method on the State class:
+Add `_showPendingDialog`:
 
 ```dart
 void _showPendingDialog() {
@@ -1675,55 +1845,69 @@ void _showPendingDialog() {
 
 If `PurchaseState.pending` doesn't exist, add it to the enum.
 
-- [ ] **Step 4: Fire `tutor_chip_used` from each chip screen on entry.**
+- [ ] **Step 4: Fire `tutor_chip_used` on entry to each chip screen.**
 
-In each of the 5 chip screens' `initState` (or equivalent first-build hook), add:
+In each chip screen's `initState` (or first build hook):
 
 ```dart
 WidgetsBinding.instance.addPostFrameCallback((_) {
   if (!mounted) return;
   final isVip = ref.read(isVipProvider(widget.userId));
   AnalyticsService.instance.tutorChipUsed(
-    chipName: '<chip>',  // 'chat'|'roleplay'|'story'|'photo'|'pronunciation'
-    userTier: isVip ? 'vip' : 'free', // 'regular' if you have that distinction
+    chipName: '<chip>',  // chat / roleplay / story / photo / pronunciation
+    userTier: isVip ? 'vip' : 'free',
   );
 });
 ```
 
-Note: `userTier` is derived from `isVipProvider` since the frontend doesn't differentiate visitor/regular in this provider — adjust to read `userProvider.userMode` if you want the full visitor/regular/vip split.
+- [ ] **Step 5: Fire `tutor_chip_completed` at end-of-flow.** <!-- Issue 12 -->
 
-- [ ] **Step 5: Remove the AudioCache item from manual-todos.md.**
+| Chip | Where to fire | Trigger |
+|---|---|---|
+| Chat | `tutor_chat_screen.dart` — `dispose()` | Screen torn down |
+| Roleplay | wherever end-of-session score is requested | After `gradeScenario` returns |
+| Story | `story_reader_screen.dart` — when score screen renders | First build of the score view |
+| Photo | `image_vocab_screen.dart` — when user dismisses describe screen | dispose() of describe view |
+| Pronounce | `pronunciation_session_screen.dart` — `PronunciationSummarySheet._save()` success | After `finish()` resolves |
 
-In `docs/manual-todos.md`, find the bullet under Queued engineering → Architecture prep:
+Pattern per call site:
 
-```markdown
-- [ ] **(30 min) AudioCache orphan blob purge.** ...
+```dart
+AnalyticsService.instance.tutorChipCompleted(
+  chipName: '<chip>',
+  userTier: <derived as in step 4>,
+);
 ```
 
-Delete the entire bullet.
+For dispose-based call sites, read the user tier in `initState` and cache it on the State object — `ref.read` from `dispose` is allowed but reading providers feels awkward; caching is cleaner.
 
-- [ ] **Step 6: Verify.**
+- [ ] **Step 6: Remove the AudioCache item from manual-todos.md.**
+
+In `docs/manual-todos.md`, find the bullet under Queued engineering → Architecture prep beginning `**(30 min) AudioCache orphan blob purge.**` — delete the entire bullet.
+
+- [ ] **Step 7: Verify.**
 
 ```bash
-flutter analyze 2>&1 | grep -E "(persona_upgrade_sheet|vip_payment_screen|tutor_quota_indicator)" | head -10
+flutter analyze 2>&1 | grep -E "(persona_upgrade_sheet|vip_payment_screen|tutor_quota|api_client)" | head -10
 # Expected: no errors specific to these files
 ```
 
-- [ ] **Step 7: Commit.**
+- [ ] **Step 8: Commit.**
 
 ```bash
-git add lib/widgets/tutor/persona_upgrade_sheet.dart lib/main.dart lib/pages/vip/vip_payment_screen.dart lib/pages/ai/tutor/ lib/widgets/vip_locked_feature.dart docs/manual-todos.md
+git add lib/widgets/tutor/persona_upgrade_sheet.dart lib/main.dart lib/pages/vip/vip_payment_screen.dart lib/pages/ai/tutor/ docs/manual-todos.md
 git commit -m "$(cat <<'EOF'
-feat(vip): persona paywall + global wiring + webhook race fix + events
+feat(vip): persona paywall + global wiring + webhook race + events
 
 PersonaUpgradeSheet — new bottom-sheet variant with Nana/Sensei/Riko
-copy lines based on the user's selected persona. Falls back to
-generic copy when persona is unset. Fires paywall_shown on first
-build and paywall_cta_tapped on Upgrade button.
+copy lines. Falls back to generic copy when persona is unset.
+Fires paywall_shown on first build and paywall_cta_tapped on
+Upgrade button.
 
-Global ApiClient.onQuotaExceeded hookup opens the persona sheet
-when any tutor service call returns 429 quota_exceeded. Also
-fires quota_hit analytics event with the chip name + tier.
+Global ApiClient.onQuotaExceeded uses the existing
+callOverlayNavigatorKey (lib/router/app_router.dart:118) which
+sits above GoRouter in the widget tree — paywall sheets appear
+on top of any route. Also fires quota_hit analytics.
 
 Webhook race fix in VipPaymentScreen: replace single
 invalidate-and-flip-success with a 3-attempt retry loop
@@ -1732,82 +1916,80 @@ when backend confirms userMode === 'vip'; on timeout show a
 "subscription is processing" dialog instead of misleading
 success-then-revert.
 
-Each chip screen fires tutor_chip_used on entry with the chip
-name + user tier. VipPaymentScreen fires subscription_purchased
-on confirmed success and subscription_purchase_failed on
+Each chip screen fires tutor_chip_used on entry and
+tutor_chip_completed at its meaningful end-of-flow action
+(see analytics_service.dart docstring for per-chip trigger
+points). VipPaymentScreen fires subscription_purchased on
+confirmed success and subscription_purchase_failed on
 verification failure.
 
 Closes the AudioCache orphan-blob item in manual-todos.md
 (implementation landed in backend B5).
-
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 EOF
 )"
 ```
 
 ---
 
-## Task G1: Glue — manual smoke test checklist + merge
+## Task G1: Glue — manual smoke test + merge
 
-**Files:** none (this is a meta-task)
+<!-- Issue 10: physical devices only -->
 
-This isn't a code commit — it's the verification gate before merging.
+**Files:** none (this is the merge gate)
 
-- [ ] **Step 1: Backend smoke (run `npm run dev` locally with `AI_QUOTA_ENABLED=true`).**
+- [ ] **Step 1: Backend smoke (`npm run dev`, `AI_QUOTA_ENABLED=true`).**
 
 ```bash
-TOKEN_REGULAR="<token of a regular-tier user with 0 today usage>"
-TOKEN_VIP="<token of an active-VIP user>"
+TOKEN_REGULAR="<regular-tier token, 0 today usage>"
+TOKEN_VIP="<active-VIP token>"
 
-# A. Regular user — Pronounce drill quota is 1/day. First call succeeds.
-curl -s -X POST http://localhost:5000/api/v1/tutor/pronunciation/summary \
-  -H "Authorization: Bearer $TOKEN_REGULAR" \
-  -H "Content-Type: application/json" \
-  -d '{"weakWords":["test"]}' | jq '{success, used: .quotas.pronunciation.used, cap: .quotas.pronunciation.cap}'
-# Expected: success=true, used=1, cap=1
+# A. Regular Pronounce — first succeeds, second 429.
+# (see B4 step 5 for the curl chain)
 
-# B. Same user, same day. Second call → 429 quota_exceeded.
-curl -s -X POST http://localhost:5000/api/v1/tutor/pronunciation/summary \
-  -H "Authorization: Bearer $TOKEN_REGULAR" \
-  -H "Content-Type: application/json" \
-  -d '{"weakWords":["test"]}' | jq '{success, error, feature}'
-# Expected: success=false, error='quota_exceeded', feature='pronunciation'
-
-# C. VIP user, same call. Bypasses cap; quotas.unlimited=true.
+# B. VIP unlimited.
 curl -s -X POST http://localhost:5000/api/v1/tutor/pronunciation/summary \
   -H "Authorization: Bearer $TOKEN_VIP" \
   -H "Content-Type: application/json" \
   -d '{"weakWords":["test"]}' | jq '.quotas.pronunciation.unlimited'
 # Expected: true
 
-# D. Feature flag off. Restart server with AI_QUOTA_ENABLED=false. Regular
-#    user hits the same endpoint twice — both succeed, no 429.
+# C. Roleplay session-aware bypass — see B4 step 5.
+
+# D. Feature flag off.
 AI_QUOTA_ENABLED=false npm run dev &
-# (run two POSTs as in A) → both should return success=true.
+# Two pronounce-summary POSTs as regular → both should succeed, no 429.
+
+# E. Backend error fail-closed.
+# Manually break consumeQuota temporarily (e.g., throw) → request returns 503.
 ```
 
-- [ ] **Step 2: Flutter smoke (on a real device or sim).**
+- [ ] **Step 2: Flutter smoke on TWO real devices: iOS physical + Android physical.** <!-- Issue 10 -->
 
-Walk:
-1. AI Study tab → Pronounce chip → start drill → finish 1 session (Save & Close)
-2. Try to start a second drill same day → expect persona-aware paywall sheet (with whatever persona the test user has selected)
-3. Confirm the sheet copy matches the persona, NOT "Quota exceeded"
-4. Tap "Upgrade to VIP" → arrives at VipPlansScreen → confirm `paywall_cta_tapped` fires (check `adb logcat | grep firebase` or Firebase DebugView)
-5. Tap a real plan + complete purchase (sandbox iOS or test Google Play). Confirm:
+Sandbox purchases on simulator/emulator are flaky and don't exercise the actual webhook race. Use real hardware.
+
+For each device:
+
+1. AI Study tab → Pronounce chip → start drill → finish 1 session → Save & Close
+2. Try to start a second drill same day → expect persona-aware paywall sheet
+3. Confirm sheet copy matches selected persona, NOT "Quota exceeded"
+4. Tap "Upgrade to VIP" → arrives at VipPlansScreen → confirm `paywall_cta_tapped` fires (Firebase DebugView)
+5. Tap a real plan + complete purchase (sandbox iOS or test Google Play account):
    - Success dialog only appears after backend confirms `isVIP: true`
-   - On the 3rd retry if not VIP, the "processing" dialog appears instead
-6. After purchase, re-enter Pronounce chip. Expect: no quota indicator, no paywall, full access.
-7. Manually flip `AI_QUOTA_ENABLED=false` on the backend, restart, and confirm a free user can hit the endpoint repeatedly with no 429.
+   - If 3rd retry fails, "processing" dialog appears instead
+6. After purchase, re-enter Pronounce chip → no quota indicator, no paywall, full access
+7. Flip `AI_QUOTA_ENABLED=false` on the backend, restart, retry as free user → no 429
 
-- [ ] **Step 3: Analytics verification.**
+- [ ] **Step 3: Analytics verification (Firebase Console → Analytics → DebugView).**
 
-Open Firebase Console → Analytics → DebugView. Confirm these events appear during the smoke flow:
-- `tutor_chip_used` (on chip entry)
-- `quota_remaining_shown` (when crossing 50% — only fires for chips with cap ≥ 2, so basically just `chat`)
-- `quota_hit` (on first 429)
-- `paywall_shown` (when persona sheet appears)
-- `paywall_cta_tapped` (on Upgrade tap)
-- `subscription_purchased` (on confirmed VIP)
+During the smoke flow, confirm these events appear:
+- `tutor_chip_used` (chip entry)
+- `tutor_chip_completed` (end-of-flow)
+- `quota_remaining_shown` (when crossing 50% — only fires for chips with cap ≥ 2, mainly chat)
+- `quota_hit` (first 429)
+- `paywall_shown` (persona sheet appears)
+- `paywall_cta_tapped` (Upgrade tap)
+- `subscription_purchased` (confirmed VIP)
+- `subscription_purchase_failed` (if you simulate a failure)
 
 - [ ] **Step 4: Final analyze + push both branches.**
 
@@ -1824,39 +2006,36 @@ git push -u origin feat/step13a-vip-gating
 
 ```bash
 gh pr create --title "feat: Step 13A VIP gating + analytics + webhook race fix" \
-  --body "Step 13A wave. See docs/superpowers/plans/2026-05-13-step13a-vip-gating-plan.md for full details."
+  --body "Step 13A. See docs/superpowers/plans/2026-05-13-step13a-vip-gating-plan.md."
 ```
 
-For the backend PR, separate command in that repo.
+Same on backend.
 
 ---
 
 ## Cadence guidance
 
-- **B1 → B5 land first on the backend branch**, in order. After B4 the backend is functionally complete (quotas + middleware + gated routes). B5 is independent — could ship in its own PR but bundling here keeps the wave atomic.
-- **F1 lands first on the Flutter branch** — gives downstream tasks a stable `ApiClient` shape to wire against.
-- **F2 + F3 can be authored in parallel** but commit F2 first (analytics) so F3's `quota_remaining_shown` event has somewhere to fire.
+- **B1 → B5 land first** on backend, in order. After B4 the backend is functionally complete; B5 is independent but bundled here for atomicity.
+- **F1 lands first on Flutter** — downstream tasks need the new `ApiResponse.quotas` field shape.
+- **F2 and F3 can be authored in parallel** but commit F2 first so F3's `quota_remaining_shown` event has somewhere to fire.
 - **F4 is the final Flutter task** — depends on F1-F3 + B1-B5 all being on `main` (or at least pushed) so the smoke test can hit a real backend.
-- **G1 smoke test is the merge gate.** Do not merge either branch until both smokes pass.
+- **G1 smoke test is the merge gate.** Do not merge either branch until both physical-device smokes pass.
 
 ## Risk + rollback
 
-- **Highest-risk change: B2 atomic consumeQuota.** New pattern, no existing test framework on backend other than `node:test`. Rollback: revert B2 + B3 + B4 (sequential cherry-pick revert). Reverting B2 alone leaves the middleware broken (`User.consumeQuota` undefined). The 3 commits should land together or roll back together.
-- **Mid-risk: F4 webhook race fix.** If the 3-attempt loop ever blocks the UI thread or the `vipStatusProvider` future never resolves, the user is stuck on a spinner. Mitigation: each attempt has an explicit 2s timeout via `Future.delayed`; if `ref.read(future)` itself hangs, the loop completes anyway after ~6s. Rollback: revert F4 — leaves the old single-invalidate-then-success behavior with its known race.
-- **Low-risk: B5 AudioCache purge.** Isolated job; failures log and continue. Worst case: orphan blobs continue accumulating (current state). Rollback: delete `jobs/audioCacheOrphanPurgeJob.js` + revert the scheduler.js wiring.
-- **Emergency kill switch.** If quota enforcement breaks in production after deploy: set `AI_QUOTA_ENABLED=false` in the backend `.env` and restart. All quota checks immediately bypass without a code rollback.
-- **Pre-deploy DB note.** The TTL/index additions in B1 are Mongoose-managed and auto-build on first connection. No migration script. Existing users get `default: 0` / `default: Date.now()` on first read of the new fields. **No backfill needed.**
+- **Highest-risk change: B2 `consumeQuota`.** New atomic pattern, no automated test framework on backend beyond `node:test`. Rollback: revert B2 + B3 + B4 (sequential cherry-pick revert). The 3 commits should land together or roll back together.
+- **Mid-risk: F4 webhook race fix.** If the 3-attempt loop hangs or `vipStatusProvider` future never resolves, user is stuck on a spinner. Each attempt has explicit 2s `Future.delayed`; the soft-fail catch ensures loop completes. Rollback: revert F4 — leaves the old single-invalidate behavior.
+- **Mid-risk: F1 `_build()` refactor.** Every `ApiResponse(...)` construction in `_handleResponse` is mechanically rewritten. Risk: a missed call site. Mitigation: `flutter analyze` will catch any obvious miss; manual scan during PR review is the fallback. Rollback: revert F1.
+- **Low-risk: B5 AudioCache purge.** Isolated job; failures log and continue. Rollback: delete the file + revert scheduler wiring.
+- **Emergency kill switch.** Set `AI_QUOTA_ENABLED=false` in backend `.env` and restart. All quota checks bypass without a code rollback.
+- **Pre-deploy DB note.** The TTL/index additions in B1 + the schema fields are Mongoose-managed and populated by defaults on first read. No migration script. No backfill needed.
 
 ---
 
 ## Appendix A — Why "count at describe-success" for Photo
 
-Photo flow: user uploads image → `/image-vocab/describe` returns AI description → optionally `/image-vocab/grade` for self-test → end. The "1 photo" unit is one successful describe; grading the same photo is a free follow-up that doesn't justify another quota tick. Counting at `/grade` would penalize users for self-checking their work.
+Photo flow: user uploads image → `/image-vocab/describe` returns AI description → optionally `/image-vocab/grade` for self-test → end. The "1 photo" unit is one successful describe; grading is a free follow-up on the same image.
 
 ## Appendix B — Why "count at summary-save" for Pronounce
 
-A Pronounce session is 5 sentences. The user is committed once they tap Save & Close on the summary sheet. Counting at `/pronunciation/sentence` (first sentence fetch) would tick the quota even if the user immediately backs out. Counting at `/pronunciation/score` would over-count (5 per session). Counting at `/pronunciation/summary` matches "one completed drill = one quota tick" cleanly.
-
-## Appendix C — VIP grace-period mid-session
-
-User's VIP grace ends mid-roleplay session. Each new `/sessions/:id/message` rechecks `userMode + vipSubscription.isActive + endDate` via `User.consumeQuota`. The instant grace expires, the next message hits the regular-tier cap. If they're already at the cap, they get 429 quota_exceeded mid-roleplay. **This is the documented edge case from the brief — Decision #1.** The plan does NOT add a "complete the current message free" exception. Rationale: complexity not worth the kindness. If the user complains, we can add a 1-message-grace as a hotfix.
+A Pronounce session is 5 sentences. Counting at the first sentence-fetch would tick even if the user immediately backs out. Counting at `/pronunciation/score` would over-count (5 per session). Counting at `/pronunciation/summary` matches "one completed drill = one quota tick" cleanly.
