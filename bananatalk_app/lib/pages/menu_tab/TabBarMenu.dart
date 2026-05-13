@@ -13,7 +13,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
-  /// Default to Community tab (index 0)
+  /// Default to AI Study tab (index 0).
+  /// Tab order: AI Study (0) / Community (1) / Chats (2) / Moments (3) / Profile (4).
   const TabsScreen({super.key, this.initialIndex = 0});
 
   final int initialIndex;
@@ -25,7 +26,8 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   late int _selectedPageIndex;
 
-  // Cache pages to preserve state across tab switches
+  // Cache pages to preserve state across tab switches.
+  // Order must mirror the _buildNavItem block + _getTabColor switch below.
   late final List<Widget> _pages;
 
   @override
@@ -33,9 +35,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     super.initState();
     _selectedPageIndex = widget.initialIndex;
     _pages = [
+      const LearningMain(),
       const CommunityMain(),
       ChatMain(tabRefreshNotifier: _tabRefreshNotifier),
-      const LearningMain(),
       MomentsMain(),
       const ProfileMain(),
     ];
@@ -51,7 +53,8 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _selectPage(int index) {
     HapticFeedback.selectionClick();
 
-    if (index == 1 || index == 4) {
+    // Refresh badge counts when entering Chats or Profile (badge-bearing tabs).
+    if (index == 2 || index == 4) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
     }
 
@@ -127,24 +130,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                       children: [
                         _buildNavItem(
                           index: 0,
+                          icon: Icons.menu_book_outlined,
+                          activeIcon: Icons.menu_book_rounded,
+                          label: AppLocalizations.of(context)!.study,
+                          isDark: isDark,
+                        ),
+                        _buildNavItem(
+                          index: 1,
                           icon: Icons.explore_outlined,
                           activeIcon: Icons.explore_rounded,
                           label: AppLocalizations.of(context)!.community,
                           isDark: isDark,
                         ),
                         _buildNavItem(
-                          index: 1,
+                          index: 2,
                           icon: Icons.chat_bubble_outline_rounded,
                           activeIcon: Icons.chat_bubble_rounded,
                           label: AppLocalizations.of(context)!.chats,
                           badgeCount: messageCount,
-                          isDark: isDark,
-                        ),
-                        _buildNavItem(
-                          index: 2,
-                          icon: Icons.menu_book_outlined,
-                          activeIcon: Icons.menu_book_rounded,
-                          label: AppLocalizations.of(context)!.study,
                           isDark: isDark,
                         ),
                         _buildNavItem(
@@ -285,9 +288,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   Color _getTabColor(int index) {
     switch (index) {
-      case 0: return const Color(0xFF00BFA5); // Community — teal
-      case 1: return const Color(0xFF667EEA); // Chat — indigo
-      case 2: return const Color(0xFF8B5CF6); // Study — purple
+      case 0: return const Color(0xFF8B5CF6); // AI Study — purple
+      case 1: return const Color(0xFF00BFA5); // Community — teal
+      case 2: return const Color(0xFF667EEA); // Chat — indigo
       case 3: return const Color(0xFFFF6B6B); // Moments — coral
       case 4: return const Color(0xFFF59E0B); // Profile — amber
       default: return AppColors.primary;
