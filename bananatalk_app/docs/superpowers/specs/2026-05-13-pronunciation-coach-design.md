@@ -137,7 +137,6 @@ class). The backend skips GPT generation in that path and just runs TTS.
 {
   "success": true,
   "data": {
-    "sentenceId": "abc123",
     "sentence": "I walked to the park yesterday.",
     "level": "A1",
     "targetLanguage": "en",
@@ -196,6 +195,13 @@ class). The backend skips GPT generation in that path and just runs TTS.
   user are silently dropped (never penalized).
 - `charDiff` is `null` for `ok` and `missing` statuses; present only on
   `wrong` so the client can render the per-character strikethrough.
+- **`missing` is intentionally overloaded** — it covers both literal
+  omissions (no aligned transcript word) and severe substitutions
+  (ratio < 0.6, e.g. "doodle" for "park"). The product call: when the
+  spoken word is *that* different from the target, a character-level
+  diff is meaningless noise, so we treat it the same as silence.
+  The summary copy ("We didn't hear …") is conditional on the
+  *whole-transcript* empty case, not per-word.
 
 **Errors:**
 - 401 unauth
@@ -262,6 +268,9 @@ check):**
 - `init()` — `loading` → fetch sentence #1 → `ready`
 - `tapRecord()` — `ready` → start `flutter_sound` recorder → `recording`
 - `tapStop()` — `recording` → stop recorder → `scoring` → POST `/score` → `scored`
+  on success. On failure, transition to `scored` with `lastScore == null`
+  and `errorMessage` set; the UI renders an inline retry button that
+  re-fires `/score` without re-recording.
 - `retry()` — `scored` → bump `attempts` → `ready` (same sentence)
 - `next()` — `scored` → `currentIndex++` → if 5, transition to `summary`;
   else fetch next sentence → `ready`
@@ -312,6 +321,10 @@ Implemented in `services/pronunciationScoring.js` as a pure function.
   "ill," not "I" + "will." Acceptable for v1.
 - Homophones: Whisper transcribes phonetically; "their / there / they're"
   may be scored as ok even if the user said the wrong one. Acceptable.
+- Numerals: Whisper may transcribe "3" or "three" depending on context,
+  and the comparison is naive — `"3"` vs `"three"` will score wrong.
+  The sentence generator prefers spelled-out numbers at low levels to
+  sidestep this.
 - This is **spelling accuracy**, not phonetic accuracy. UI copy will say
   "Pronunciation accuracy" since that's still the user-facing concept,
   but the spec is honest about the underlying signal.
