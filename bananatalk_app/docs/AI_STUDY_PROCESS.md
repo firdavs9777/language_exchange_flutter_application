@@ -431,3 +431,13 @@ The big design constraint: every new feature should plug into the memory loop (�
 ---
 
 That's the whole picture. The pieces are designed to be independently useful but collectively form a single tutor that knows you across all of them. The memory loop in §3 is the actual differentiator; everything else is execution on top of that.
+
+---
+
+## Doc maintenance
+
+This doc is the source of truth for AI Study. **Last updated: 2026-05-13** (post Step 11 + review-pass cleanup).
+
+**When you ship a wave that changes any section, update this doc in the same PR.** If you ship a feature that contradicts this doc, **the doc wins — fix the code, not the doc** — unless you've explicitly changed your mind about the product direction, in which case update both.
+
+When in doubt: §3 (the memory loop) is the spine of the product story. Keep that table honest — every claim there is either ✅ wired, ⚠️ partial, or ❌ aspirational. Tagging it accurately is more important than tagging it favorably.
