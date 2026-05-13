@@ -255,6 +255,9 @@ class _MessageBubble extends StatelessWidget {
       'quiz_card' => QuizCard(payload: message.payload ?? const {}),
       'vocab_card' => VocabCard(payload: message.payload ?? const {}),
       'grammar_card' => GrammarCard(payload: message.payload ?? const {}),
+      'srs_due_card' => SrsDueCard(payload: message.payload ?? const {}),
+      'mini_lesson_card' =>
+        MiniLessonCard(payload: message.payload ?? const {}),
       _ => _TextBubble(text: message.content, isUser: isUser),
     };
 
