@@ -784,48 +784,65 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                   ],
                 ),
 
-                // Explanation
-                if (error.explanation.isNotEmpty) ...[
+                // Why? — anchor the "reasoning" of the correction.
+                // Combines rule + explanation into one prominent block
+                // so the user gets the "because" instead of just the fix.
+                if (error.hasRule || error.explanation.isNotEmpty) ...[
                   const SizedBox(height: 12),
-                  Text(
-                    error.explanation,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[700],
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-
-                // Rule
-                if (error.hasRule) ...[
-                  const SizedBox(height: 10),
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.blue.withOpacity(0.1)),
+                      color: Colors.blue.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.blue.withValues(alpha: 0.15),
+                      ),
                     ),
-                    child: Row(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.lightbulb_outline,
-                          size: 16,
-                          color: Colors.blue[600],
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.lightbulb_outline,
+                              size: 16,
+                              color: Colors.blue[700],
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'Why?',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.blue[700],
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
+                        if (error.hasRule) ...[
+                          const SizedBox(height: 6),
+                          Text(
                             error.rule!,
                             style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.blue[700],
-                              fontStyle: FontStyle.italic,
+                              fontSize: 13,
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
                             ),
                           ),
-                        ),
+                        ],
+                        if (error.explanation.isNotEmpty) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            error.explanation,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[800],
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),
