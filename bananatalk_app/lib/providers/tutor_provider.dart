@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/tutor/tutor_memory.dart';
 import '../models/tutor/tutor_session.dart';
+import '../models/tutor/tutor_story.dart';
 import '../services/api_client.dart';
 
 /// Thin wrapper around [ApiClient] for the tutor endpoints.
@@ -79,6 +80,18 @@ class TutorService {
     return list
         .map((e) => TutorScenario.fromJson(e as Map<String, dynamic>))
         .toList();
+  }
+
+  /// POST /tutor/stories/generate — returns the freshly generated story.
+  Future<TutorStory> generateStory({int wordCount = 5, String theme = 'free'}) async {
+    final res = await _api.post(
+      'tutor/stories/generate',
+      body: {'wordCount': wordCount, 'theme': theme},
+    );
+    if (!res.success || res.data == null) {
+      throw StateError(res.error ?? 'Failed to generate story');
+    }
+    return TutorStory.fromJson(_dataObj(res.data));
   }
 
   /// POST /tutor/sessions/roleplay — start a scenario session.
