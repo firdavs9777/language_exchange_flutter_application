@@ -277,28 +277,36 @@ Material disclosure for the privacy policy.
 
 **Sent to OpenAI (as the AI provider):**
 - All chat / roleplay text (user and AI sides) — needed for completions
-- Voice samples from chat voice mode and Pronounce — Whisper transcribes them server-side at OpenAI
+- Voice samples from chat voice mode and the new Pronounce chip — Whisper transcribes them server-side at OpenAI
 - Photos from Photo chip — GPT-4o vision processes them
 - Generated sentences for Pronounce, generated stories — needed for the model call
 - User's proficiency level, native language, weak areas — included in system prompts so the AI personalizes responses
 
 **Sent to our own backend (BananaTalk):**
 - Same as above, plus session summaries, vocab additions, weak-area updates
-- Audio files are kept in memory during processing only; we don't persist raw audio to disk or S3
-- Photos are kept in memory during processing only; we don't persist raw images
-- All persisted data is keyed to the user's account and visible only to them
+- For **chat voice mode** and the **new Pronounce chip**, user audio is kept in memory during processing only; the buffer is passed to Whisper and discarded — we don't write it to disk or upload it to S3/Spaces.
+- For the **legacy Pronunciation tile** (the VIP-only one in the "More AI tools" grid), user audio IS uploaded to DigitalOcean Spaces and a `userAudioUrl` is stored in a `PronunciationAttempt` record. This endpoint is dormant in the current main flow but still reachable; deprecating it is queued for the Step 13 sunset pass.
+- Photos are kept in memory during processing only; we don't persist raw images.
+- All persisted data is keyed to the user's account and visible only to them.
+
+**Cached on our side (DigitalOcean Spaces):**
+- **AI-generated TTS audio** — every sentence the tutor speaks is uploaded to Spaces and a metadata pointer cached in Mongo (`AudioCache`). Two reasons: the same sentence said by the same persona at the same speed is byte-identical, so caching saves the OpenAI TTS spend (~$0.006 per sentence); and Spaces serves the audio over a CDN which is faster than re-streaming from OpenAI.
+- **Cache TTL:** Mongo metadata is dropped after 90 days of unuse (TTL index on `lastAccessedAt`). Spaces CDN headers say `max-age=31536000` (1 year), but the actual object is only kept as long as the Mongo entry references it. There's no explicit delete-from-Spaces job today — orphaned objects stay until manually swept.
 
 **What stays on the device:**
-- TTS reference audio played to the user (downloaded from our CDN-cached URL; not re-uploaded)
-- The user's recording before they tap "stop" (cancelled audio is just discarded locally)
+- TTS reference audio played to the user (downloaded from the cached Spaces URL; not re-uploaded).
+- The user's recording before they tap "stop" (cancelled audio is just discarded locally). The recording file *does* land in iOS/Android's temporary directory while being uploaded; the OS reclaims the temp dir on its own schedule.
 
-**Retention:**
-- Per OpenAI's API policy: API calls (which is what we use) are not used to train OpenAI's models. Logs are retained by OpenAI for up to 30 days for abuse monitoring, then deleted.
-- Our backend logs are retained per the standard app log policy (rotated weekly).
+**Retention summary:**
+- **User recording audio (chat voice + new Pronounce):** never persisted server-side (in-memory only).
+- **User recording audio (legacy Pronunciation tile):** stored in Spaces + Mongo `PronunciationAttempt` record indefinitely. Deprecation queued in Step 13.
+- **TTS audio:** cached up to 90 days post-last-use in Mongo + Spaces.
+- **OpenAI logs:** OpenAI retains API call logs (text, audio, images) for up to 30 days for abuse monitoring per their policy, then deletes them. Per their API policy, API call data is NOT used to train their models.
+- **Our backend logs:** rotated weekly. Audio bodies are never logged — multipart uploads go through multer's memory storage and never hit the JSON request-body logger.
 
-**Users learning English to date Koreans, take note:** your voice samples are processed by a third party (OpenAI). They're not stored long-term and not used for training, but they do leave the device. If you don't want that, voice mode is off by default — text mode never sends audio anywhere.
+**Users learning English to date Koreans, take note:** your voice samples leave the device. For chat voice + new Pronounce they pass through our server in memory only and go to OpenAI for transcription. For the legacy Pronunciation tile they're also stored on our Spaces bucket. If that's a concern, voice mode is off by default in chat — text mode never sends audio anywhere — and the legacy Pronunciation tile is being retired.
 
-A more detailed privacy policy update lands when the App Store review for the Step 9 wave goes through. This section is the developer-facing version.
+A more detailed privacy policy update lands when the App Store review for the Step 9 + Step 11 waves goes through. This section is the developer-facing version.
 
 ---
 
