@@ -10703,6 +10703,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{Pronunciation drill ({completed}/1)} other{Pronunciation drills ({completed}/{count})}}'**
   String aiTutorPlanPronunciation(int count, int completed);
+
+  /// Headline at the top of the Pronunciation Coach start screen
+  ///
+  /// In en, this message translates to:
+  /// **'How do you want to practice?'**
+  String get aiTutorPronounceStartHeadline;
+
+  /// Subheadline below the start-screen headline
+  ///
+  /// In en, this message translates to:
+  /// **'Pick one to begin a 5-sentence drill.'**
+  String get aiTutorPronounceStartSubhead;
+
+  /// Title of the AI-generated mode card on the start screen
+  ///
+  /// In en, this message translates to:
+  /// **'AI generates sentences'**
+  String get aiTutorPronounceStartAITitle;
+
+  /// Subtitle of the AI mode card
+  ///
+  /// In en, this message translates to:
+  /// **'Level-tuned, biased toward your tricky words'**
+  String get aiTutorPronounceStartAISubtitle;
+
+  /// Title of the custom-sentence mode card on the start screen
+  ///
+  /// In en, this message translates to:
+  /// **'Use my own sentence'**
+  String get aiTutorPronounceStartCustomTitle;
+
+  /// Subtitle of the custom-sentence mode card
+  ///
+  /// In en, this message translates to:
+  /// **'Type or paste a phrase you want to nail'**
+  String get aiTutorPronounceStartCustomSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

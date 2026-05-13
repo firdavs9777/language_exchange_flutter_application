@@ -111,6 +111,26 @@ class PronunciationController extends StateNotifier<PronunciationState> {
     }
   }
 
+  /// Custom-mode entry: skip AI sentence generation on the first
+  /// sentence, seed an empty placeholder attempt, and open the
+  /// custom-draft TextField immediately. submitCustom() will fetch
+  /// the TTS-only response once the user types.
+  void initCustomMode() {
+    const empty = PronunciationSentence(
+      sentence: '',
+      level: 'A1',
+      targetLanguage: 'en',
+      ttsAudioUrl: '',
+    );
+    _safeSet(state.copyWith(
+      session: const [SentenceAttempt(sentence: empty)],
+      currentIndex: 0,
+      status: PronStatus.ready,
+      customDraftOpen: true,
+      clearError: true,
+    ));
+  }
+
   Future<void> tapRecord() async {
     if (state.status != PronStatus.ready) return;
     final granted = await _voice.requestMicPermission();

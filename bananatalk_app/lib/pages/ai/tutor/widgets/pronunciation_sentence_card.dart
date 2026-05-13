@@ -53,7 +53,9 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
   void didUpdateWidget(covariant PronunciationSentenceCard old) {
     super.didUpdateWidget(old);
     // Auto-play TTS once when a new sentence becomes ready.
+    // Skip empty sentence (custom mode before the user types anything).
     if (widget.status == PronStatus.ready &&
+        widget.attempt.sentence.sentence.isNotEmpty &&
         widget.attempt.sentence.sentence != _lastAutoPlayedSentence) {
       _lastAutoPlayedSentence = widget.attempt.sentence.sentence;
       WidgetsBinding.instance
@@ -170,6 +172,12 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
   Widget _buildPrimaryActionRow(BuildContext context, AppLocalizations l10n) {
     switch (widget.status) {
       case PronStatus.ready:
+        // Custom mode before the user has typed anything: no sentence to
+        // record yet, so hide the mic. The TextField in _buildCustomField
+        // is the active surface.
+        if (widget.attempt.sentence.sentence.isEmpty) {
+          return const SizedBox.shrink();
+        }
         return _BigRoundButton(
           icon: Icons.mic_rounded,
           label: l10n.aiTutorPronounceTapToRecord,

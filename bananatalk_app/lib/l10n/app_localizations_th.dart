@@ -5705,4 +5705,22 @@ class AppLocalizationsTh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiTutorPronounceStartHeadline => 'How do you want to practice?';
+
+  @override
+  String get aiTutorPronounceStartSubhead => 'Pick one to begin a 5-sentence drill.';
+
+  @override
+  String get aiTutorPronounceStartAITitle => 'AI generates sentences';
+
+  @override
+  String get aiTutorPronounceStartAISubtitle => 'Level-tuned, biased toward your tricky words';
+
+  @override
+  String get aiTutorPronounceStartCustomTitle => 'Use my own sentence';
+
+  @override
+  String get aiTutorPronounceStartCustomSubtitle => 'Type or paste a phrase you want to nail';
 }

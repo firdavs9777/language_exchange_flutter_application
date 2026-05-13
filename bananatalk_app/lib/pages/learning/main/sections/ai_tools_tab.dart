@@ -17,7 +17,7 @@ import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_setup_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
-import 'package:bananatalk_app/pages/ai/tutor/pronunciation_session_screen.dart';
+import 'package:bananatalk_app/pages/ai/tutor/pronunciation_start_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -445,7 +445,7 @@ class _TutorModeChips extends ConsumerWidget {
           child: _ModeChip(
             emoji: '🎙️',
             label: l10n.aiTutorChipPronounce,
-            onTap: () => _open(context, ref, const PronunciationSessionScreen()),
+            onTap: () => _open(context, ref, const PronunciationStartScreen()),
           ),
         ),
       ],
