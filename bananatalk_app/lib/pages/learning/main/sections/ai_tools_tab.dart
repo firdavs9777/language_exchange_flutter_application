@@ -441,12 +441,13 @@ class _TutorModeChips extends ConsumerWidget {
   void _open(BuildContext context, WidgetRef ref, Widget destination) {
     final mem = ref.read(tutorMemoryProvider).valueOrNull;
     if (mem?.persona == null) {
-      // First-time user — picker pushes the user to TutorHomeScreen on
-      // success. They can then tap the chip again to reach the
-      // destination. Acceptable one-time friction.
+      // First-time user — picker preserves the intended destination so
+      // they land on the feature they picked, not on TutorHomeScreen.
       Navigator.push(
         context,
-        AppPageRoute(builder: (_) => const PersonaPickerScreen()),
+        AppPageRoute(
+          builder: (_) => PersonaPickerScreen(destinationAfterPick: destination),
+        ),
       );
       return;
     }

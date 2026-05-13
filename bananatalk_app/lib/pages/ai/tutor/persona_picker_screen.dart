@@ -8,7 +8,18 @@ import 'tutor_home_screen.dart';
 
 class PersonaPickerScreen extends ConsumerStatefulWidget {
   final bool isFirstRun;
-  const PersonaPickerScreen({super.key, this.isFirstRun = true});
+
+  /// Optional widget to navigate to after a persona is picked.
+  /// When null, falls back to [TutorHomeScreen] (the original behavior).
+  /// Used by AI Tools tab chips so a first-time tap on, say, 🎭 Roleplay
+  /// lands the user in Roleplay after picking — not on TutorHome.
+  final Widget? destinationAfterPick;
+
+  const PersonaPickerScreen({
+    super.key,
+    this.isFirstRun = true,
+    this.destinationAfterPick,
+  });
 
   @override
   ConsumerState<PersonaPickerScreen> createState() => _PersonaPickerScreenState();
@@ -24,7 +35,9 @@ class _PersonaPickerScreenState extends ConsumerState<PersonaPickerScreen> {
       ref.invalidate(tutorMemoryProvider);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const TutorHomeScreen()),
+        MaterialPageRoute(
+          builder: (_) => widget.destinationAfterPick ?? const TutorHomeScreen(),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
