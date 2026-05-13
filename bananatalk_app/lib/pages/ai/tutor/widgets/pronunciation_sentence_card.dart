@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_theme.dart';
-import '../../../../l10n/app_localizations.dart';
-import '../../../../providers/pronunciation_provider.dart';
-import '../../../../providers/tutor_provider.dart' show PronunciationWordScore;
-import '../../../../utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/pronunciation_provider.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart'
+    show PronunciationWordScore;
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Renders the active sentence and the primary action button for the
 /// current state. The scored render (word-level + char strikethrough)

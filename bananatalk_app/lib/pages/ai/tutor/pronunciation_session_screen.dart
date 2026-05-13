@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../l10n/app_localizations.dart';
-import '../../../providers/pronunciation_provider.dart';
-import 'widgets/pronunciation_sentence_card.dart';
-import 'widgets/pronunciation_summary_sheet.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_sentence_card.dart';
+import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_summary_sheet.dart';
+import 'package:bananatalk_app/providers/pronunciation_provider.dart';
 
 class PronunciationSessionScreen extends ConsumerStatefulWidget {
   /// When true, the first sentence is opened in the custom-draft mode

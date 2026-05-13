@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_theme.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../../utils/theme_extensions.dart';
-import 'pronunciation_session_screen.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/ai/tutor/pronunciation_session_screen.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Entry screen for the Pronunciation Coach drill.
 ///

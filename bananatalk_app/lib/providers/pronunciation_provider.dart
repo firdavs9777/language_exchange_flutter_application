@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../services/pronunciation_voice_service.dart';
-import 'tutor_provider.dart';
+import 'package:bananatalk_app/services/pronunciation_voice_service.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart';
 
 enum PronStatus {
   loading,
