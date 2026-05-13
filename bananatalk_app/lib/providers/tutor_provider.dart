@@ -171,14 +171,32 @@ class TutorChatController extends StateNotifier<TutorChatState> {
   final TutorService _svc;
   TutorChatController(this._svc) : super(const TutorChatState());
 
+  /// Safe state setter — silently skips if the notifier was disposed
+  /// (autoDispose can kick in mid-await when the screen unmounts).
+  /// Without this, an in-flight session-start/sendMessage that resolves
+  /// after dispose triggers a Flutter assertion when listeners try to
+  /// rebuild a defunct element.
+  void _safeSet(TutorChatState next) {
+    if (!mounted) return;
+    state = next;
+  }
+
   Future<void> start() async {
-    final s = await _svc.startSession();
-    state = TutorChatState(session: s);
+    try {
+      final s = await _svc.startSession();
+      _safeSet(TutorChatState(session: s));
+    } catch (e) {
+      _safeSet(state.copyWith(error: e.toString()));
+    }
   }
 
   Future<void> startRoleplay(String scenarioId) async {
-    final s = await _svc.startRoleplay(scenarioId);
-    state = TutorChatState(session: s);
+    try {
+      final s = await _svc.startRoleplay(scenarioId);
+      _safeSet(TutorChatState(session: s));
+    } catch (e) {
+      _safeSet(state.copyWith(error: e.toString()));
+    }
   }
 
   /// Optimistically appends the user message, calls send, then appends the
@@ -205,7 +223,7 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         ),
       ],
     );
-    state = state.copyWith(session: optimistic, sending: true, error: null);
+    _safeSet(state.copyWith(session: optimistic, sending: true, error: null));
 
     try {
       final reply = await _svc.sendMessage(s.id, content);
@@ -217,9 +235,9 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         summary: s.summary,
         messages: [...optimistic.messages, reply],
       );
-      state = state.copyWith(session: updated, sending: false);
+      _safeSet(state.copyWith(session: updated, sending: false));
     } catch (e) {
-      state = state.copyWith(sending: false, error: e.toString());
+      _safeSet(state.copyWith(sending: false, error: e.toString()));
     }
   }
 
