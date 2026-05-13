@@ -6345,7 +6345,7 @@ abstract class AppLocalizations {
   /// No description provided for @study.
   ///
   /// In en, this message translates to:
-  /// **'Study'**
+  /// **'AI Study'**
   String get study;
 
   /// No description provided for @followerMoments.

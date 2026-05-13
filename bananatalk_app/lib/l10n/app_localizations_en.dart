@@ -3247,7 +3247,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get seeAll => 'See All';
 
   @override
-  String get study => 'Study';
+  String get study => 'AI Study';
 
   @override
   String get followerMoments => 'Follower Moments';
