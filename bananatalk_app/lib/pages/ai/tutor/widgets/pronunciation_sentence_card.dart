@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../providers/pronunciation_provider.dart';
+import '../../../../providers/tutor_provider.dart' show PronunciationWordScore;
 import '../../../../utils/theme_extensions.dart';
 
 /// Renders the active sentence and the primary action button for the
@@ -79,14 +80,30 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    widget.attempt.sentence.sentence,
-                    textAlign: TextAlign.center,
-                    style: context.titleLarge.copyWith(
-                      fontWeight: FontWeight.w600,
-                      height: 1.4,
-                    ),
-                  ),
+                  child: widget.status == PronStatus.scored &&
+                          widget.attempt.lastScore != null
+                      ? Column(
+                          children: [
+                            _ScoreHeader(
+                              score: widget.attempt.lastScore!.overallScore,
+                              transcript:
+                                  widget.attempt.lastScore!.transcript,
+                            ),
+                            const SizedBox(height: 24),
+                            _ScoredSentenceText(
+                              wordScores:
+                                  widget.attempt.lastScore!.wordScores,
+                            ),
+                          ],
+                        )
+                      : Text(
+                          widget.attempt.sentence.sentence,
+                          textAlign: TextAlign.center,
+                          style: context.titleLarge.copyWith(
+                            fontWeight: FontWeight.w600,
+                            height: 1.4,
+                          ),
+                        ),
                 ),
               ),
             ),
@@ -192,6 +209,118 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
       default:
         return const SizedBox.shrink();
     }
+  }
+}
+
+class _ScoredSentenceText extends StatelessWidget {
+  final List<PronunciationWordScore> wordScores;
+  const _ScoredSentenceText({required this.wordScores});
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        for (final w in wordScores) _wordSpan(context, w),
+      ],
+    );
+  }
+
+  Widget _wordSpan(BuildContext context, PronunciationWordScore w) {
+    Color color;
+    switch (w.status) {
+      case 'ok':
+        color = Colors.green.shade600;
+        break;
+      case 'wrong':
+        color = Colors.orange.shade700;
+        break;
+      case 'missing':
+      default:
+        color = Colors.red.shade600;
+        break;
+    }
+
+    // 'wrong' words get per-char strikethrough on mismatched letters.
+    if (w.status == 'wrong' && w.charDiff != null && w.charDiff!.isNotEmpty) {
+      return RichText(
+        text: TextSpan(
+          style: context.titleLarge.copyWith(
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+          children: [
+            for (final c in w.charDiff!)
+              TextSpan(
+                text: c['char']?.toString() ?? '',
+                style: (c['match'] == true)
+                    ? null
+                    : TextStyle(
+                        color: Colors.red.shade700,
+                        decoration: TextDecoration.lineThrough,
+                        decorationColor: Colors.red.shade700,
+                        decorationThickness: 2,
+                      ),
+              ),
+          ],
+        ),
+      );
+    }
+
+    // 'missing' gets a faint strikethrough across the whole word.
+    final isMissing = w.status == 'missing';
+    return Text(
+      w.word,
+      style: context.titleLarge.copyWith(
+        fontWeight: FontWeight.w600,
+        color: color,
+        decoration: isMissing ? TextDecoration.lineThrough : null,
+        decorationColor: isMissing ? Colors.red.shade300 : null,
+      ),
+    );
+  }
+}
+
+class _ScoreHeader extends StatelessWidget {
+  final int score;
+  final String transcript;
+  const _ScoreHeader({required this.score, required this.transcript});
+
+  Color _scoreColor() {
+    if (score >= 80) return Colors.green.shade600;
+    if (score >= 50) return Colors.orange.shade700;
+    return Colors.red.shade600;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0, end: score.toDouble()),
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeOutCubic,
+          builder: (_, value, __) => Text(
+            value.toInt().toString(),
+            style: context.displayLarge.copyWith(
+              fontWeight: FontWeight.w800,
+              color: _scoreColor(),
+            ),
+          ),
+        ),
+        if (transcript.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(
+            '"$transcript"',
+            textAlign: TextAlign.center,
+            style: context.bodyMedium.copyWith(color: context.textSecondary),
+          ),
+        ],
+      ],
+    );
   }
 }
 
