@@ -348,6 +348,117 @@ class AppLocalizationsIt extends AppLocalizations {
   String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
 
   @override
+  String aiTutorHeroTitleSet(String name) {
+    return 'Your AI Tutor · $name';
+  }
+
+  @override
+  String get aiTutorHeroTitleNew => 'Meet your AI Tutor';
+
+  @override
+  String get aiTutorHeroSubtitleSet => 'Tap to chat or see today\'s plan';
+
+  @override
+  String aiTutorHeroSubtitleLast(String summary) {
+    return 'Last time: $summary';
+  }
+
+  @override
+  String get aiTutorHeroSubtitleNew => 'Pick a persona — Nana, Sensei, or Riko';
+
+  @override
+  String get aiTutorChipChat => 'Chat';
+
+  @override
+  String get aiTutorChipRoleplay => 'Roleplay';
+
+  @override
+  String get aiTutorChipStory => 'Story';
+
+  @override
+  String get aiTutorChipPhoto => 'Photo';
+
+  @override
+  String get aiToolsMoreSection => 'More AI tools';
+
+  @override
+  String get aiConversationPartnerTile => 'AI Conversation';
+
+  @override
+  String get aiConversationPartnerTileSubtitle => 'Practice with an AI partner';
+
+  @override
+  String get aiTutorPickerTitle => 'Pick your AI tutor';
+
+  @override
+  String get aiTutorPickerHeader => 'Who do you want to learn with?';
+
+  @override
+  String get aiTutorPickerSubtitle => 'You can change this anytime in settings.';
+
+  @override
+  String get aiTutorPersonaNanaTagline => 'Warm + encouraging';
+
+  @override
+  String get aiTutorPersonaNanaSample => 'I\'ll cheer you on, no pressure.';
+
+  @override
+  String get aiTutorPersonaSenseiTagline => 'Precise + exam-focused';
+
+  @override
+  String get aiTutorPersonaSenseiSample => 'We will master the rules.';
+
+  @override
+  String get aiTutorPersonaRikoTagline => 'Playful + slangy';
+
+  @override
+  String get aiTutorPersonaRikoSample => 'lol let\'s vibe and learn';
+
+  @override
+  String aiTutorPickerSaveError(String error) {
+    return 'Could not save: $error';
+  }
+
+  @override
+  String get aiTutorHomeTitle => 'AI Tutor';
+
+  @override
+  String get aiTutorHomeChangeTutor => 'Change tutor';
+
+  @override
+  String get aiTutorHomeGreetingDefault => 'Hey! Ready to learn together?';
+
+  @override
+  String get aiTutorHomeTodaysPlan => 'Today\'s plan';
+
+  @override
+  String get aiTutorHomePlanEmpty => 'No plan for today — start a chat to begin.';
+
+  @override
+  String get aiTutorHomeStartChat => 'Start chat';
+
+  @override
+  String get aiTutorHomeRecent => 'Recent';
+
+  @override
+  String get aiTutorHomePracticeScenarios => 'Practice scenarios';
+
+  @override
+  String get aiTutorHomePracticeScenariosSubtitle => 'Roleplay real-world conversations — restaurant, interview, hotel…';
+
+  @override
+  String get aiTutorHomeReadStory => 'Read a story';
+
+  @override
+  String get aiTutorHomeReadStorySubtitle => 'AI writes a short story using your vocab — with quick comprehension checks.';
+
+  @override
+  String get aiTutorHomeDescribePhoto => 'Describe a photo';
+
+  @override
+  String get aiTutorHomeDescribePhotoSubtitle => 'Snap a picture and describe it — AI grades your vocab + grammar.';
+
+  @override
   String get aboutBananatalk => 'Informazioni su Bananatalk';
 
   @override

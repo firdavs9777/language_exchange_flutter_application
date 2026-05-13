@@ -792,6 +792,216 @@ abstract class AppLocalizations {
   /// **'Switch to Nana, Sensei or Riko'**
   String get aiTutorChangePersonaSubtitle;
 
+  /// No description provided for @aiTutorHeroTitleSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Your AI Tutor · {name}'**
+  String aiTutorHeroTitleSet(String name);
+
+  /// No description provided for @aiTutorHeroTitleNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Meet your AI Tutor'**
+  String get aiTutorHeroTitleNew;
+
+  /// No description provided for @aiTutorHeroSubtitleSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to chat or see today\'s plan'**
+  String get aiTutorHeroSubtitleSet;
+
+  /// No description provided for @aiTutorHeroSubtitleLast.
+  ///
+  /// In en, this message translates to:
+  /// **'Last time: {summary}'**
+  String aiTutorHeroSubtitleLast(String summary);
+
+  /// No description provided for @aiTutorHeroSubtitleNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a persona — Nana, Sensei, or Riko'**
+  String get aiTutorHeroSubtitleNew;
+
+  /// No description provided for @aiTutorChipChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get aiTutorChipChat;
+
+  /// No description provided for @aiTutorChipRoleplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay'**
+  String get aiTutorChipRoleplay;
+
+  /// No description provided for @aiTutorChipStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get aiTutorChipStory;
+
+  /// No description provided for @aiTutorChipPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get aiTutorChipPhoto;
+
+  /// No description provided for @aiToolsMoreSection.
+  ///
+  /// In en, this message translates to:
+  /// **'More AI tools'**
+  String get aiToolsMoreSection;
+
+  /// No description provided for @aiConversationPartnerTile.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Conversation'**
+  String get aiConversationPartnerTile;
+
+  /// No description provided for @aiConversationPartnerTileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice with an AI partner'**
+  String get aiConversationPartnerTileSubtitle;
+
+  /// No description provided for @aiTutorPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick your AI tutor'**
+  String get aiTutorPickerTitle;
+
+  /// No description provided for @aiTutorPickerHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Who do you want to learn with?'**
+  String get aiTutorPickerHeader;
+
+  /// No description provided for @aiTutorPickerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You can change this anytime in settings.'**
+  String get aiTutorPickerSubtitle;
+
+  /// No description provided for @aiTutorPersonaNanaTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm + encouraging'**
+  String get aiTutorPersonaNanaTagline;
+
+  /// No description provided for @aiTutorPersonaNanaSample.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll cheer you on, no pressure.'**
+  String get aiTutorPersonaNanaSample;
+
+  /// No description provided for @aiTutorPersonaSenseiTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Precise + exam-focused'**
+  String get aiTutorPersonaSenseiTagline;
+
+  /// No description provided for @aiTutorPersonaSenseiSample.
+  ///
+  /// In en, this message translates to:
+  /// **'We will master the rules.'**
+  String get aiTutorPersonaSenseiSample;
+
+  /// No description provided for @aiTutorPersonaRikoTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Playful + slangy'**
+  String get aiTutorPersonaRikoTagline;
+
+  /// No description provided for @aiTutorPersonaRikoSample.
+  ///
+  /// In en, this message translates to:
+  /// **'lol let\'s vibe and learn'**
+  String get aiTutorPersonaRikoSample;
+
+  /// No description provided for @aiTutorPickerSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save: {error}'**
+  String aiTutorPickerSaveError(String error);
+
+  /// No description provided for @aiTutorHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Tutor'**
+  String get aiTutorHomeTitle;
+
+  /// No description provided for @aiTutorHomeChangeTutor.
+  ///
+  /// In en, this message translates to:
+  /// **'Change tutor'**
+  String get aiTutorHomeChangeTutor;
+
+  /// No description provided for @aiTutorHomeGreetingDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey! Ready to learn together?'**
+  String get aiTutorHomeGreetingDefault;
+
+  /// No description provided for @aiTutorHomeTodaysPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s plan'**
+  String get aiTutorHomeTodaysPlan;
+
+  /// No description provided for @aiTutorHomePlanEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No plan for today — start a chat to begin.'**
+  String get aiTutorHomePlanEmpty;
+
+  /// No description provided for @aiTutorHomeStartChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Start chat'**
+  String get aiTutorHomeStartChat;
+
+  /// No description provided for @aiTutorHomeRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get aiTutorHomeRecent;
+
+  /// No description provided for @aiTutorHomePracticeScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice scenarios'**
+  String get aiTutorHomePracticeScenarios;
+
+  /// No description provided for @aiTutorHomePracticeScenariosSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay real-world conversations — restaurant, interview, hotel…'**
+  String get aiTutorHomePracticeScenariosSubtitle;
+
+  /// No description provided for @aiTutorHomeReadStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Read a story'**
+  String get aiTutorHomeReadStory;
+
+  /// No description provided for @aiTutorHomeReadStorySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI writes a short story using your vocab — with quick comprehension checks.'**
+  String get aiTutorHomeReadStorySubtitle;
+
+  /// No description provided for @aiTutorHomeDescribePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe a photo'**
+  String get aiTutorHomeDescribePhoto;
+
+  /// No description provided for @aiTutorHomeDescribePhotoSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Snap a picture and describe it — AI grades your vocab + grammar.'**
+  String get aiTutorHomeDescribePhotoSubtitle;
+
   /// No description provided for @aboutBananatalk.
   ///
   /// In en, this message translates to:

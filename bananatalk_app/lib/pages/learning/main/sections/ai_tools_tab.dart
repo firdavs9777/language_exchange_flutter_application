@@ -53,7 +53,7 @@ class AIToolsTab extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // More AI tools — grid of legacy AI tools (now demoted under the tutor)
-            _buildSectionHeader(context, 'More AI tools'),
+            _buildSectionHeader(context, AppLocalizations.of(context)!.aiToolsMoreSection),
             const SizedBox(height: 12),
             _buildFeaturesGrid(context, isVip, isDark),
             const SizedBox(height: 24),
@@ -114,8 +114,9 @@ class AIToolsTab extends ConsumerWidget {
   Widget _buildFeaturesGrid(BuildContext context, bool isVip, bool isDark) {
     final l10n = AppLocalizations.of(context)!;
     final features = [
-      _AIFeature(Icons.chat_bubble_outline_rounded, 'AI Conversation', 'Practice with an AI partner',
-          const Color(0xFF6366F1), false,
+      _AIFeature(Icons.chat_bubble_outline_rounded, l10n.aiConversationPartnerTile,
+          l10n.aiConversationPartnerTileSubtitle,
+          const Color(0xFF6366F1), true,
           () => Navigator.push(context, AppPageRoute(builder: (_) => const AIConversationScreen()))),
       _AIFeature(Icons.menu_book_rounded, l10n.aiLessons, l10n.learnWithAI, const Color(0xFF8B5CF6), true,
           () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonsScreen()))),
@@ -301,6 +302,7 @@ const _personaNames = {'nana': 'Nana', 'sensei': 'Sensei', 'riko': 'Riko'};
 class _AITutorHero extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final memAsync = ref.watch(tutorMemoryProvider);
     final isDark = context.isDarkMode;
 
@@ -358,7 +360,9 @@ class _AITutorHero extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        hasPersona ? 'Your AI Tutor · $name' : 'Meet your AI Tutor',
+                        hasPersona
+                            ? l10n.aiTutorHeroTitleSet(name ?? 'Nana')
+                            : l10n.aiTutorHeroTitleNew,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -370,9 +374,9 @@ class _AITutorHero extends ConsumerWidget {
                       Text(
                         hasPersona
                             ? (lastSummary != null
-                                ? 'Last time: $lastSummary'
-                                : 'Tap to chat or see today\'s plan')
-                            : 'Pick a persona — Nana, Sensei, or Riko',
+                                ? l10n.aiTutorHeroSubtitleLast(lastSummary)
+                                : l10n.aiTutorHeroSubtitleSet)
+                            : l10n.aiTutorHeroSubtitleNew,
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.88),
                           fontSize: 13,
@@ -401,12 +405,13 @@ class _TutorModeChips extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       children: [
         Expanded(
           child: _ModeChip(
             emoji: '💬',
-            label: 'Chat',
+            label: l10n.aiTutorChipChat,
             onTap: () => _open(context, ref, const TutorChatScreen()),
           ),
         ),
@@ -414,7 +419,7 @@ class _TutorModeChips extends ConsumerWidget {
         Expanded(
           child: _ModeChip(
             emoji: '🎭',
-            label: 'Roleplay',
+            label: l10n.aiTutorChipRoleplay,
             onTap: () => _open(context, ref, const ScenarioPickerScreen()),
           ),
         ),
@@ -422,7 +427,7 @@ class _TutorModeChips extends ConsumerWidget {
         Expanded(
           child: _ModeChip(
             emoji: '📖',
-            label: 'Story',
+            label: l10n.aiTutorChipStory,
             onTap: () => _open(context, ref, const StorySetupScreen()),
           ),
         ),
@@ -430,7 +435,7 @@ class _TutorModeChips extends ConsumerWidget {
         Expanded(
           child: _ModeChip(
             emoji: '📷',
-            label: 'Photo',
+            label: l10n.aiTutorChipPhoto,
             onTap: () => _open(context, ref, const ImageVocabScreen()),
           ),
         ),
@@ -441,12 +446,13 @@ class _TutorModeChips extends ConsumerWidget {
   void _open(BuildContext context, WidgetRef ref, Widget destination) {
     final mem = ref.read(tutorMemoryProvider).valueOrNull;
     if (mem?.persona == null) {
-      // First-time user — picker pushes the user to TutorHomeScreen on
-      // success. They can then tap the chip again to reach the
-      // destination. Acceptable one-time friction.
+      // First-time user — picker preserves the intended destination so
+      // they land on the feature they picked, not on TutorHomeScreen.
       Navigator.push(
         context,
-        AppPageRoute(builder: (_) => const PersonaPickerScreen()),
+        AppPageRoute(
+          builder: (_) => PersonaPickerScreen(destinationAfterPick: destination),
+        ),
       );
       return;
     }

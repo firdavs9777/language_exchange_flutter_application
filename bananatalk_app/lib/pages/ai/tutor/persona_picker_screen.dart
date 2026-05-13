@@ -4,11 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/tutor_provider.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 import 'tutor_home_screen.dart';
 
 class PersonaPickerScreen extends ConsumerStatefulWidget {
   final bool isFirstRun;
-  const PersonaPickerScreen({super.key, this.isFirstRun = true});
+
+  /// Optional widget to navigate to after a persona is picked.
+  /// When null, falls back to [TutorHomeScreen] (the original behavior).
+  /// Used by AI Tools tab chips so a first-time tap on, say, 🎭 Roleplay
+  /// lands the user in Roleplay after picking — not on TutorHome.
+  final Widget? destinationAfterPick;
+
+  const PersonaPickerScreen({
+    super.key,
+    this.isFirstRun = true,
+    this.destinationAfterPick,
+  });
 
   @override
   ConsumerState<PersonaPickerScreen> createState() => _PersonaPickerScreenState();
@@ -24,31 +36,35 @@ class _PersonaPickerScreenState extends ConsumerState<PersonaPickerScreen> {
       ref.invalidate(tutorMemoryProvider);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const TutorHomeScreen()),
+        MaterialPageRoute(
+          builder: (_) => widget.destinationAfterPick ?? const TutorHomeScreen(),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
       setState(() => _selecting = null);
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not save: $e')),
+        SnackBar(content: Text(l10n.aiTutorPickerSaveError(e.toString()))),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final entries = <_Persona>[
-      _Persona('nana', '🐻', 'Nana', 'Warm + encouraging',
-          "I'll cheer you on, no pressure."),
-      _Persona('sensei', '🤖', 'Sensei', 'Precise + exam-focused',
-          'We will master the rules.'),
-      _Persona('riko', '🐙', 'Riko', 'Playful + slangy',
-          "lol let's vibe and learn"),
+      _Persona('nana', '🐻', 'Nana', l10n.aiTutorPersonaNanaTagline,
+          l10n.aiTutorPersonaNanaSample),
+      _Persona('sensei', '🤖', 'Sensei', l10n.aiTutorPersonaSenseiTagline,
+          l10n.aiTutorPersonaSenseiSample),
+      _Persona('riko', '🐙', 'Riko', l10n.aiTutorPersonaRikoTagline,
+          l10n.aiTutorPersonaRikoSample),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pick your AI tutor'),
+        title: Text(l10n.aiTutorPickerTitle),
         leading: widget.isFirstRun
             ? null
             : IconButton(
@@ -63,13 +79,13 @@ class _PersonaPickerScreenState extends ConsumerState<PersonaPickerScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Who do you want to learn with?',
+                l10n.aiTutorPickerHeader,
                 style: context.titleLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Text(
-                'You can change this anytime in settings.',
+                l10n.aiTutorPickerSubtitle,
                 style: context.bodyMedium.copyWith(color: context.textSecondary),
                 textAlign: TextAlign.center,
               ),
