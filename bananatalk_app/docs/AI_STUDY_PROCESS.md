@@ -215,9 +215,9 @@ These coexist with the new tutor chips. Some overlap (especially old Pronunciati
 
 The tutor memory holds a daily plan: a list of tiny tasks for today (e.g., "5-min chat", "3 SRS reviews", "1 grammar drill"). The plan auto-generates the first time the user opens the tutor each day.
 
-The daily plan is **visible** in the tutor home screen (tap the persona hero card) and tasks complete automatically as the user uses chips — e.g., spending 5 minutes in tutor chat marks the chat task as done. There's no shame screen if the user skips a day; the plan just regenerates tomorrow.
+The daily plan is **visible** in the tutor home screen (tap the persona hero card) and tasks complete automatically as the user uses chips — e.g., spending 5 minutes in tutor chat marks the chat task as done, and finishing a 5-sentence Pronounce drill ticks the pronunciation task. There's no shame screen if the user skips a day; the plan just regenerates tomorrow.
 
-**Known gap:** the Pronounce chip doesn't currently have a corresponding `tutor_pronunciation` task type, so doing a drill doesn't tick the plan. Adding it is queued.
+**Today's task types:** `srs_review`, `grammar_drill`, `tutor_chat`, `tutor_pronunciation`. (See §3 for the known semantic-mismatch bug: `grammar_drill` can pick up a `pronunciation:` prefixed topic — queued for the Step 13 sunset wave.)
 
 This is intentionally low-pressure. The plan is a *suggestion surface*, not a streak-killing obligation. A push-notification wave is planned (§14) to handle the "return tomorrow" pull without resorting to shame mechanics.
 
