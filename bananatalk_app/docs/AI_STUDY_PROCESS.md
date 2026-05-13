@@ -336,22 +336,36 @@ We don't have conversion data yet. Here's what we know and what we don't.
 | Image description (GPT-4o vision) | ~$0.08 per photo |
 | Pronounce (Whisper + TTS + GPT) | ~$0.05 per session |
 | TTS for chat voice mode | ~$0.03 |
-| **Total** | **~$0.30 / user / month** |
+| **Moderate-use total** | **~$0.30 / user / month** |
 
-Heavy users (multiple sessions a day) hit ~$1/month. Light users (once a week) ~$0.10.
+Heavy users (multiple sessions a day) hit ~$1/month. Light users (once a week) ~$0.10. The $0.30 figure is moderate-use — blended cost across a real user base with a long tail of power users likely sits somewhere between $0.40-$0.60. Use the moderate figure for sizing prep, not for break-even.
 
 **What we don't know:**
 - Actual conversion rate from free → VIP
 - Actual CAC (we have App Store conversion, not paid-channel data)
 - Actual retention curve (D7, D30, D90)
 - Actual VIP MRR cohort behavior
+- The blended free-vs-power-user cost mix
 
 **Break-even math (placeholder, not real):**
-At a $7.99/month VIP price, every paying user covers ~26 free users' AI costs. So if conversion is **above ~4%** of free → paid, the AI cost line is in the black before any other revenue.
 
-But: this ignores hosting, storage, CDN, App Store fees, support cost, our own time. Real break-even is conversion × LTV vs. fully-loaded cost per acquired user. We don't have those numbers yet.
+A $7.99/month VIP subscription does NOT net us $7.99. Apple and Google take their cut off the top:
 
-The point of this section is to be honest about what we don't know. As soon as we have 90 days of conversion data, fill this in for real.
+- **Year 1 of a subscription:** 30% platform fee → we net **$5.59**
+- **Year 2+ (same subscriber renewing):** 15% platform fee → we net **$6.79**
+
+If we assume blended cost of ~$0.40 per free user per month and a Year-1 net of $5.59 per paying user:
+
+- Every paying user covers **~14 free users' AI costs** (was ~26 at the gross $7.99 number — that math was wrong)
+- Break-even conversion rate is **above ~7%** of free → paid in Year 1, falling to ~6% in Year 2+ as the platform fee drops
+
+Sense-check those numbers: typical freemium SaaS converts at 2-5%. **7% conversion to cover AI costs alone is ambitious** — meaning either: (a) the moderate-use cost estimate is too low and we need to tighten that, (b) we need a higher VIP price, (c) we need a daily quota to floor AI cost per free user, or (d) we accept a cost-recovery shortfall on the AI line and rely on other revenue (Community premium features, sponsorships, ads).
+
+This is also why the VIP/free split rethink (queued for Step 13) matters — moving the cost-heavy new tutor chips behind a daily quota for free users would dramatically lower the blended free-user cost and push break-even back below the 7% threshold.
+
+And: this ignores hosting, storage, CDN, support cost, our own time. The real fully-loaded number is higher.
+
+The point of this section is to be honest about what we don't know. As soon as we have 90 days of conversion + cohort data, fill this in for real.
 
 ---
 
