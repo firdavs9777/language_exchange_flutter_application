@@ -115,7 +115,7 @@ class AIToolsTab extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final features = [
       _AIFeature(Icons.chat_bubble_outline_rounded, 'AI Conversation', 'Practice with an AI partner',
-          const Color(0xFF6366F1), false,
+          const Color(0xFF6366F1), true,
           () => Navigator.push(context, AppPageRoute(builder: (_) => const AIConversationScreen()))),
       _AIFeature(Icons.menu_book_rounded, l10n.aiLessons, l10n.learnWithAI, const Color(0xFF8B5CF6), true,
           () => Navigator.push(context, AppPageRoute(builder: (_) => const LessonsScreen()))),
