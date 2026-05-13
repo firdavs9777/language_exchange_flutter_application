@@ -5,6 +5,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_sentence_card.dart';
 import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_summary_sheet.dart';
 import 'package:bananatalk_app/providers/pronunciation_provider.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class PronunciationSessionScreen extends ConsumerStatefulWidget {
   /// When true, the first sentence is opened in the custom-draft mode
@@ -79,6 +80,10 @@ class _PronunciationSessionScreenState
             PronunciationState.sessionLength,
           )),
           actions: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: Center(child: TutorQuotaIndicator(featureKey: 'pronunciation')),
+            ),
             if (state.status == PronStatus.ready ||
                 state.status == PronStatus.scored)
               IconButton(

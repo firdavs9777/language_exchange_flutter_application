@@ -88,12 +88,18 @@ class PronunciationScore {
 class TutorService {
   final ApiClient _api = ApiClient();
 
-  Future<TutorMemory> getMemory() async {
+  /// Step 13A: returns both memory + the top-level quotas block from
+  /// the response so a single /tutor/me call can hydrate the memory
+  /// provider AND the quota provider without a second HTTP round trip.
+  Future<({TutorMemory memory, Map<String, dynamic>? quotas})> getMemory() async {
     final res = await _api.get('tutor/me');
     if (!res.success || res.data == null) {
       throw StateError(res.error ?? 'Failed to load tutor memory');
     }
-    return TutorMemory.fromJson(_dataObj(res.data));
+    return (
+      memory: TutorMemory.fromJson(_dataObj(res.data)),
+      quotas: res.quotas,
+    );
   }
 
   Future<TutorMemory> setPersona(String persona) async {
@@ -257,8 +263,18 @@ class TutorService {
 
 final tutorServiceProvider = Provider<TutorService>((_) => TutorService());
 
-final tutorMemoryProvider = FutureProvider<TutorMemory>((ref) {
+/// Internal — holds the raw record (memory + quotas) so we can
+/// fan it out to two public providers without making two HTTP calls.
+/// Step 13A.
+final tutorMemoryAndQuotasProvider = FutureProvider.autoDispose<
+    ({TutorMemory memory, Map<String, dynamic>? quotas})>((ref) {
   return ref.read(tutorServiceProvider).getMemory();
+});
+
+/// Public — backward-compatible memory-only view.
+final tutorMemoryProvider = FutureProvider<TutorMemory>((ref) async {
+  final r = await ref.watch(tutorMemoryAndQuotasProvider.future);
+  return r.memory;
 });
 
 final tutorDailyPlanProvider = FutureProvider<DailyPlan?>((ref) {
@@ -289,7 +305,18 @@ class TutorChatState {
 
 class TutorChatController extends StateNotifier<TutorChatState> {
   final TutorService _svc;
-  TutorChatController(this._svc) : super(const TutorChatState());
+  final Ref _ref;
+  TutorChatController(this._svc, this._ref) : super(const TutorChatState());
+
+  /// Invalidate the memory+quotas provider so the chip UI re-fetches
+  /// the latest quotas after a successful gated action. Step 13A.
+  void _refreshQuotas() {
+    try {
+      _ref.invalidate(tutorMemoryAndQuotasProvider);
+    } catch (_) {
+      // Defensive — ref may be in a teardown state.
+    }
+  }
 
   /// Safe state setter — silently skips if the notifier was disposed
   /// (autoDispose can kick in mid-await when the screen unmounts).
@@ -314,6 +341,7 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     try {
       final s = await _svc.startRoleplay(scenarioId);
       _safeSet(TutorChatState(session: s));
+      _refreshQuotas();
     } catch (e) {
       _safeSet(state.copyWith(error: e.toString()));
     }
@@ -356,6 +384,7 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         messages: [...optimistic.messages, reply],
       );
       _safeSet(state.copyWith(session: updated, sending: false));
+      _refreshQuotas();
     } catch (e) {
       _safeSet(state.copyWith(sending: false, error: e.toString()));
     }
@@ -370,5 +399,5 @@ class TutorChatController extends StateNotifier<TutorChatState> {
 
 final tutorChatControllerProvider =
     StateNotifierProvider.autoDispose<TutorChatController, TutorChatState>((ref) {
-  return TutorChatController(ref.read(tutorServiceProvider));
+  return TutorChatController(ref.read(tutorServiceProvider), ref);
 });

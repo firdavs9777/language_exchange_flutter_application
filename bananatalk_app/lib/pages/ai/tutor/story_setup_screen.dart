@@ -6,6 +6,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/ai/tutor/story_reader_screen.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class StorySetupScreen extends ConsumerStatefulWidget {
   const StorySetupScreen({super.key});
@@ -34,6 +35,8 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
       final story = await ref
           .read(tutorServiceProvider)
           .generateStory(wordCount: _wordCount, theme: _theme);
+      // Step 13A: refresh quota state after the gated action succeeded.
+      ref.invalidate(tutorMemoryAndQuotasProvider);
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -54,7 +57,15 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.aiTutorStoryTitle)),
+      appBar: AppBar(
+        title: Text(l10n.aiTutorStoryTitle),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Center(child: TutorQuotaIndicator(featureKey: 'story')),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

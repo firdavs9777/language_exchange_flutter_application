@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/ai/tutor/roleplay_chat_screen.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class ScenarioPickerScreen extends ConsumerWidget {
   const ScenarioPickerScreen({super.key});
@@ -15,7 +16,15 @@ class ScenarioPickerScreen extends ConsumerWidget {
     final scenariosAsync = ref.watch(tutorScenariosProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Practice scenarios')),
+      appBar: AppBar(
+        title: const Text('Practice scenarios'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Center(child: TutorQuotaIndicator(featureKey: 'roleplay')),
+          ),
+        ],
+      ),
       body: scenariosAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('Could not load scenarios: $e')),

@@ -8,6 +8,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/tutor/quiz_card.dart';
+import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 import 'package:bananatalk_app/widgets/tutor/vocab_card.dart';
 import 'package:bananatalk_app/widgets/tutor/grammar_card.dart';
 import 'package:bananatalk_app/widgets/tutor/srs_due_card.dart';
@@ -148,6 +149,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
       appBar: AppBar(
         title: Text(l10n.aiTutorChatTitle),
         actions: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Center(child: TutorQuotaIndicator(featureKey: 'chat')),
+          ),
           IconButton(
             tooltip: _voiceMode ? l10n.aiTutorChatVoiceOn : l10n.aiTutorChatVoiceOff,
             icon: Icon(_voiceMode ? Icons.volume_up : Icons.volume_off),
