@@ -342,6 +342,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get getHelpAndSupport => '도움말 및 지원 받기';
 
   @override
+  String get aiTutorChangePersona => 'Change AI tutor';
+
+  @override
+  String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
+
+  @override
   String get aboutBananatalk => 'Bananatalk 정보';
 
   @override

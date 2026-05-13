@@ -780,6 +780,18 @@ abstract class AppLocalizations {
   /// **'Get help and support'**
   String get getHelpAndSupport;
 
+  /// No description provided for @aiTutorChangePersona.
+  ///
+  /// In en, this message translates to:
+  /// **'Change AI tutor'**
+  String get aiTutorChangePersona;
+
+  /// No description provided for @aiTutorChangePersonaSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Nana, Sensei or Riko'**
+  String get aiTutorChangePersonaSubtitle;
+
   /// No description provided for @aboutBananatalk.
   ///
   /// In en, this message translates to:

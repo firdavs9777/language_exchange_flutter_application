@@ -27,6 +27,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/screens/livekit_test_screen.dart';
+import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -351,6 +352,22 @@ class LeftDrawer extends ConsumerWidget {
                         onTap: () {
                           Navigator.pop(context);
                           _showHelpCenterDialog(context);
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.smart_toy_rounded,
+                        iconColor: const Color(0xFF00BFA5),
+                        title: l10n.aiTutorChangePersona,
+                        subtitle: l10n.aiTutorChangePersonaSubtitle,
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            AppPageRoute(
+                              builder: (_) => const PersonaPickerScreen(isFirstRun: false),
+                            ),
+                          );
                         },
                       ),
                       const DrawerDivider(),

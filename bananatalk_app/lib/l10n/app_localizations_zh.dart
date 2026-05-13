@@ -342,6 +342,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get getHelpAndSupport => '获取帮助和支持';
 
   @override
+  String get aiTutorChangePersona => 'Change AI tutor';
+
+  @override
+  String get aiTutorChangePersonaSubtitle => 'Switch to Nana, Sensei or Riko';
+
+  @override
   String get aboutBananatalk => '关于 Bananatalk';
 
   @override
