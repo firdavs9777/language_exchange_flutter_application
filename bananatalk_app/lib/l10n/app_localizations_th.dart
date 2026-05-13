@@ -5632,4 +5632,48 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get learningProgressWeeklyChartTitle => '7 วันที่ผ่านมา';
+
+  @override
+  String get aiTutorPronounceLoading => 'Picking a sentence for you…';
+
+  @override
+  String get aiTutorPronounceTapToRecord => 'Tap to record';
+
+  @override
+  String get aiTutorPronounceTapToStop => 'Tap to stop';
+
+  @override
+  String get aiTutorPronounceTranscribing => 'Listening to you…';
+
+  @override
+  String get aiTutorPronounceTryAgain => 'Try Again';
+
+  @override
+  String get aiTutorPronounceNext => 'Next';
+
+  @override
+  String get aiTutorPronounceUseYourOwn => 'Use my own ✏️';
+
+  @override
+  String get aiTutorPronounceCustomHint => 'Type a sentence you want to practice';
+
+  @override
+  String get aiTutorPronounceCustomCancel => 'Cancel';
+
+  @override
+  String get aiTutorPronounceCustomUse => 'Use';
+
+  @override
+  String get aiTutorPronounceQuitConfirm => 'Quit drill? Your progress won\'t be saved.';
+
+  @override
+  String get aiTutorPronounceQuitYes => 'Yes';
+
+  @override
+  String get aiTutorPronounceQuitNo => 'No';
+
+  @override
+  String aiTutorPronounceSentenceOf(int current, int total) {
+    return 'Sentence $current of $total';
+  }
 }

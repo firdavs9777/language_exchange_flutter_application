@@ -2878,5 +2878,53 @@
   },
 
   "learningProgressWeeklyChartTitle": "Last 7 days",
-  "@learningProgressWeeklyChartTitle": { "description": "Title for the weekly progress chart" }
+  "@learningProgressWeeklyChartTitle": { "description": "Title for the weekly progress chart" },
+
+  "aiTutorPronounceLoading": "Picking a sentence for you…",
+  "@aiTutorPronounceLoading": { "description": "Loading indicator while fetching a new sentence in the Pronunciation Coach" },
+
+  "aiTutorPronounceTapToRecord": "Tap to record",
+  "@aiTutorPronounceTapToRecord": { "description": "Call-to-action below the record button" },
+
+  "aiTutorPronounceTapToStop": "Tap to stop",
+  "@aiTutorPronounceTapToStop": { "description": "Call-to-action while a recording is active" },
+
+  "aiTutorPronounceTranscribing": "Listening to you…",
+  "@aiTutorPronounceTranscribing": { "description": "Progress label while audio is being transcribed and scored" },
+
+  "aiTutorPronounceTryAgain": "Try Again",
+  "@aiTutorPronounceTryAgain": { "description": "Retry the current sentence after seeing the score" },
+
+  "aiTutorPronounceNext": "Next",
+  "@aiTutorPronounceNext": { "description": "Advance to the next sentence after seeing the score" },
+
+  "aiTutorPronounceUseYourOwn": "Use my own ✏️",
+  "@aiTutorPronounceUseYourOwn": { "description": "Escape hatch — let the user type a custom sentence to practice" },
+
+  "aiTutorPronounceCustomHint": "Type a sentence you want to practice",
+  "@aiTutorPronounceCustomHint": { "description": "Placeholder for the custom-sentence text field" },
+
+  "aiTutorPronounceCustomCancel": "Cancel",
+  "@aiTutorPronounceCustomCancel": { "description": "Cancel button on the custom-sentence form" },
+
+  "aiTutorPronounceCustomUse": "Use",
+  "@aiTutorPronounceCustomUse": { "description": "Submit button on the custom-sentence form" },
+
+  "aiTutorPronounceQuitConfirm": "Quit drill? Your progress won't be saved.",
+  "@aiTutorPronounceQuitConfirm": { "description": "Confirm dialog shown when user tries to leave mid-drill" },
+
+  "aiTutorPronounceQuitYes": "Yes",
+  "@aiTutorPronounceQuitYes": { "description": "Confirm-quit button" },
+
+  "aiTutorPronounceQuitNo": "No",
+  "@aiTutorPronounceQuitNo": { "description": "Cancel-quit button" },
+
+  "aiTutorPronounceSentenceOf": "Sentence {current} of {total}",
+  "@aiTutorPronounceSentenceOf": {
+    "description": "Progress indicator at the top of the drill",
+    "placeholders": {
+      "current": {"type": "int"},
+      "total":   {"type": "int"}
+    }
+  }
 }

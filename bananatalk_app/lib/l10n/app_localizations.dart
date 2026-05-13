@@ -10577,6 +10577,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last 7 days'**
   String get learningProgressWeeklyChartTitle;
+
+  /// Loading indicator while fetching a new sentence in the Pronunciation Coach
+  ///
+  /// In en, this message translates to:
+  /// **'Picking a sentence for you…'**
+  String get aiTutorPronounceLoading;
+
+  /// Call-to-action below the record button
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to record'**
+  String get aiTutorPronounceTapToRecord;
+
+  /// Call-to-action while a recording is active
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to stop'**
+  String get aiTutorPronounceTapToStop;
+
+  /// Progress label while audio is being transcribed and scored
+  ///
+  /// In en, this message translates to:
+  /// **'Listening to you…'**
+  String get aiTutorPronounceTranscribing;
+
+  /// Retry the current sentence after seeing the score
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get aiTutorPronounceTryAgain;
+
+  /// Advance to the next sentence after seeing the score
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get aiTutorPronounceNext;
+
+  /// Escape hatch — let the user type a custom sentence to practice
+  ///
+  /// In en, this message translates to:
+  /// **'Use my own ✏️'**
+  String get aiTutorPronounceUseYourOwn;
+
+  /// Placeholder for the custom-sentence text field
+  ///
+  /// In en, this message translates to:
+  /// **'Type a sentence you want to practice'**
+  String get aiTutorPronounceCustomHint;
+
+  /// Cancel button on the custom-sentence form
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get aiTutorPronounceCustomCancel;
+
+  /// Submit button on the custom-sentence form
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get aiTutorPronounceCustomUse;
+
+  /// Confirm dialog shown when user tries to leave mid-drill
+  ///
+  /// In en, this message translates to:
+  /// **'Quit drill? Your progress won\'t be saved.'**
+  String get aiTutorPronounceQuitConfirm;
+
+  /// Confirm-quit button
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get aiTutorPronounceQuitYes;
+
+  /// Cancel-quit button
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get aiTutorPronounceQuitNo;
+
+  /// Progress indicator at the top of the drill
+  ///
+  /// In en, this message translates to:
+  /// **'Sentence {current} of {total}'**
+  String aiTutorPronounceSentenceOf(int current, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
