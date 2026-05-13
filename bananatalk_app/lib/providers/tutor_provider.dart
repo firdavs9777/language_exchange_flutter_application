@@ -68,6 +68,31 @@ class TutorService {
     }
   }
 
+  /// GET /tutor/scenarios — list available roleplay scenarios.
+  Future<List<TutorScenario>> listScenarios() async {
+    final res = await _api.get('tutor/scenarios');
+    if (!res.success || res.data == null) return [];
+    final raw = res.data;
+    final list = raw is List
+        ? raw
+        : (raw is Map ? (raw['data'] as List? ?? const []) : const []);
+    return list
+        .map((e) => TutorScenario.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  /// POST /tutor/sessions/roleplay — start a scenario session.
+  Future<TutorSession> startRoleplay(String scenarioId) async {
+    final res = await _api.post(
+      'tutor/sessions/roleplay',
+      body: {'scenarioId': scenarioId},
+    );
+    if (!res.success || res.data == null) {
+      throw StateError(res.error ?? 'Failed to start roleplay');
+    }
+    return TutorSession.fromJson(_dataObj(res.data));
+  }
+
   Future<List<TutorSession>> listSessions({int limit = 10}) async {
     final res = await _api.get(
       'tutor/sessions',
@@ -111,6 +136,10 @@ final tutorRecentSessionsProvider = FutureProvider<List<TutorSession>>((ref) {
   return ref.read(tutorServiceProvider).listSessions();
 });
 
+final tutorScenariosProvider = FutureProvider<List<TutorScenario>>((ref) {
+  return ref.read(tutorServiceProvider).listScenarios();
+});
+
 class TutorChatState {
   final TutorSession? session;
   final bool sending;
@@ -131,6 +160,11 @@ class TutorChatController extends StateNotifier<TutorChatState> {
 
   Future<void> start() async {
     final s = await _svc.startSession();
+    state = TutorChatState(session: s);
+  }
+
+  Future<void> startRoleplay(String scenarioId) async {
+    final s = await _svc.startRoleplay(scenarioId);
     state = TutorChatState(session: s);
   }
 
