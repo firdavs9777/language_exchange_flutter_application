@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/services/ai_service.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -27,6 +28,10 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
   bool _isTranslating = false;
   EnhancedTranslation? _result;
   String? _error;
+
+  // Save-to-vocab state (per-translation, resets when _result changes).
+  bool _saving = false;
+  bool _saved = false;
 
   List<Language> _languages = [];
   bool _isLoadingLanguages = true;
@@ -122,6 +127,9 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
 
     setState(() {
       _isTranslating = false;
+      // New translation = fresh save state.
+      _saved = false;
+      _saving = false;
       if (result['success'] == true && result['data'] != null) {
         final data = result['data'];
         if (data is EnhancedTranslation) {
@@ -426,7 +434,17 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               IconButton(
                 icon: const Icon(Icons.copy_rounded, size: 20),
                 color: context.iconColor,
+                tooltip: 'Copy',
                 onPressed: () => _copyToClipboard(_result!.translation),
+              ),
+              IconButton(
+                icon: Icon(
+                  _saved ? Icons.bookmark_added : Icons.bookmark_add_outlined,
+                  size: 20,
+                  color: _saved ? AppColors.primary : context.iconColor,
+                ),
+                tooltip: _saved ? 'Saved to vocab' : 'Save to vocab',
+                onPressed: (_saving || _saved) ? null : _saveToVocab,
               ),
             ],
           ),
@@ -438,6 +456,45 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
         ],
       ),
     );
+  }
+
+  /// POST the current translation as a new Vocabulary entry so the
+  /// user can keep practicing it via SRS. Best-effort — surfaces success
+  /// or error via a snackbar and flips the bookmark icon on success.
+  Future<void> _saveToVocab() async {
+    if (_result == null || _sourceLanguage == null || _targetLanguage == null) {
+      return;
+    }
+    setState(() => _saving = true);
+    try {
+      final res = await ApiClient().post('learning/vocabulary', body: {
+        'word': _result!.translation,
+        'translation': _textController.text.trim(),
+        'language': _targetLanguage!.code,
+        'sourceLanguage': _sourceLanguage!.code,
+      });
+      if (!mounted) return;
+      if (res.success) {
+        setState(() {
+          _saving = false;
+          _saved = true;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Saved to your vocab list')),
+        );
+      } else {
+        setState(() => _saving = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res.error ?? 'Could not save')),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not save: $e')),
+      );
+    }
   }
 
   Widget _buildBreakdownSection() {
