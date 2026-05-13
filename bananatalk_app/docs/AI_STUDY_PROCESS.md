@@ -402,7 +402,7 @@ The tab is intentionally a focused "me + AI" surface. Social pressure lives else
 Not promises — the active shortlist:
 
 - **Step 12 — Memory loop: mastery + decay.** Today weak areas accumulate forever. Add a per-topic mastery score that rises on success and falls on failure; weak areas = mastery < 50. Unlocks "you mastered N words this week" celebration. Fixes the "park is forever weak" bug.
-- **Step 13 — VIP rethink + legacy sunset.** Replace lock with daily quota for free users on tutor chips; VIP unlocks unlimited + all legacy tools. Hide the old Pronunciation tile (deprecated by the new chip). Add analytics events so future sunset decisions are data-driven.
+- **Step 13 — VIP rethink + legacy sunset.** Replace lock with daily quota for free users on tutor chips; VIP unlocks unlimited + all legacy tools. Retire the old Pronunciation tile — deprecated by the new chip; specific UX flow TBD (hide entirely / submenu / migrate users). Add analytics events so future sunset decisions are data-driven.
 - **Step 14 — Story persistence + My Stories library.** Stories are currently throwaway. Persisting them unlocks re-reading for spaced repetition, sharing as social posts, and "My Stories" as a return-to-app hook. Bonus: add a "First conversation" / "Coffee date" story theme that leans into BananaTalk's language-exchange DNA.
 - **Push notifications wave.** No streak shame, but the tutor should be able to send a personalized morning nudge in the user's native language — "Want to nail 'park' today?" energy. Deferred from Step 9.
 - **Listening Dictation chip** — AI speaks a sentence, user types what they hear, AI grades. Natural sixth chip.
