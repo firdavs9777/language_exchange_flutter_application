@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -39,6 +40,8 @@ Future<void> main() async {
   try {
     await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    // Step 13A: Analytics. Initialized after Firebase.initializeApp().
+    await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
     await AdService().initialize();
   } catch (e, stack) {
     debugPrint('❌ Firebase/Ads initialization failed: $e');
