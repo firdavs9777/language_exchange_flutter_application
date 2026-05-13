@@ -159,9 +159,9 @@ Take a photo, the AI tells you what's in it in your target language. Then option
 
 A 5-sentence pronunciation drill.
 
-**Two entry paths from the chip's first screen:**
-- **AI-generated sentences** (default) — the AI generates 5 level-appropriate sentences in your target language, biased toward your weak words
-- **Use my own ✏️** — type or paste any sentence (a phrase from a textbook, song lyric, anything). The AI skips generation and just runs TTS so you can practice. This is a power-user feature; surfaced both on the start screen and on every recording screen.
+**Two ways to pick the target sentence:**
+- **AI-generated** (default) — the AI generates 5 level-appropriate sentences in your target language, biased toward your weak words. Loads automatically when you tap the chip.
+- **Use my own ✏️** — type or paste any sentence (a phrase from a textbook, song lyric, anything). The AI skips generation and just runs TTS so you can practice. The button is visible on the ready state of every sentence, so the user can switch in or out at any point during a drill. A dedicated start-screen entry point (so users see both options upfront) is queued as a Step 12+ polish item.
 
 **Per-sentence flow:**
 1. Sentence appears, TTS auto-plays once (so the user hears the "right" pronunciation)
