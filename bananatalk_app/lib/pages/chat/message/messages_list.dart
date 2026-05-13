@@ -6,10 +6,10 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/call/call_history_bubble.dart';
 import 'package:bananatalk_app/widgets/correction_message_bubble.dart';
 import 'package:bananatalk_app/models/call_record_model.dart';
-import 'message_bubble.dart';
-import 'typing_indicator.dart';
-import 'conversation_empty_state.dart';
-import '../error/chat_error_widget.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble.dart';
+import 'package:bananatalk_app/pages/chat/message/typing_indicator.dart';
+import 'package:bananatalk_app/pages/chat/message/conversation_empty_state.dart';
+import 'package:bananatalk_app/pages/chat/error/chat_error_widget.dart';
 
 class ChatMessagesList extends StatelessWidget {
   final bool isLoading;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../models/tutor/tutor_session.dart';
-import '../../../providers/tutor_provider.dart';
-import '../../../services/api_client.dart';
-import '../../../services/tutor_voice_service.dart';
-import '../../../utils/theme_extensions.dart';
-import '../../../core/theme/app_theme.dart';
-import '../../../l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/tutor_voice_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Roleplay chat — almost the same as TutorChatScreen but:
 /// - Shows the scenario goal banner at the top

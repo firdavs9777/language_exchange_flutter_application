@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:livekit_client/livekit_client.dart';
 
-import '../models/call_model.dart';
-import 'livekit_service.dart';
+import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/services/livekit_service.dart';
 
 /// iOS audio routing test matrix (manual verification after C2):
 ///  - Audio call: earpiece default; tap speaker button -> speakerphone routes

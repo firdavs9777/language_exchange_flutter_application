@@ -14,18 +14,18 @@ import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/translation_bottom_sheet.dart';
 import 'package:bananatalk_app/widgets/correction_bottom_sheet.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
-import '../header/user_avatar.dart';
+import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'bubble/bubble_actions_menu.dart';
-import 'bubble/system_bubble.dart';
-import 'message_bubble/text_message_view.dart';
-import 'message_bubble/image_message_view.dart';
-import 'message_bubble/voice_message_view.dart';
-import 'message_bubble/gif_message_view.dart';
+import 'package:bananatalk_app/pages/chat/message/bubble/bubble_actions_menu.dart';
+import 'package:bananatalk_app/pages/chat/message/bubble/system_bubble.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/text_message_view.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/image_message_view.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/voice_message_view.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/gif_message_view.dart';
 
 class ChatMessageBubble extends ConsumerStatefulWidget {
   final Message message;

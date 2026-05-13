@@ -13,7 +13,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/linkified_text.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'reply_preview.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/reply_preview.dart';
 
 /// Renders media messages: image, video, audio, document, location.
 ///

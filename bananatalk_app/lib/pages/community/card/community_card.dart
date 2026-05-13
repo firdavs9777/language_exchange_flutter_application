@@ -3,9 +3,9 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'community_card_avatar.dart';
-import 'community_card_meta.dart';
-import 'community_card_actions.dart';
+import 'package:bananatalk_app/pages/community/card/community_card_avatar.dart';
+import 'package:bananatalk_app/pages/community/card/community_card_meta.dart';
+import 'package:bananatalk_app/pages/community/card/community_card_actions.dart';
 
 export 'community_card_avatar.dart';
 export 'community_card_meta.dart';

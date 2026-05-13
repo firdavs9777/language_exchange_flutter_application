@@ -34,9 +34,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 
-import 'about_dialog.dart';
-import 'drawer_section.dart';
-import 'logout_dialog.dart';
+import 'package:bananatalk_app/pages/profile/drawer/about_dialog.dart';
+import 'package:bananatalk_app/pages/profile/drawer/drawer_section.dart';
+import 'package:bananatalk_app/pages/profile/drawer/logout_dialog.dart';
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/upload_task.dart';
-import '../services/upload_queue_service.dart';
-import '../providers/provider_models/story_model.dart';
+import 'package:bananatalk_app/models/upload_task.dart';
+import 'package:bananatalk_app/services/upload_queue_service.dart';
+import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
 /// State class for upload manager
 class UploadManagerState {

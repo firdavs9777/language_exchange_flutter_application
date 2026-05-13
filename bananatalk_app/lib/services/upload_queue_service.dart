@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/upload_task.dart';
-import '../providers/provider_root/moments_providers.dart';
-import '../services/stories_service.dart';
-import '../providers/provider_models/story_model.dart';
+import 'package:bananatalk_app/models/upload_task.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
 /// Service for managing background upload queue
 /// Handles moments and stories uploads with persistence and retry logic

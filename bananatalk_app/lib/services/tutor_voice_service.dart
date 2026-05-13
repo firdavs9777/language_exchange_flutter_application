@@ -8,7 +8,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'api_client.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 
 /// Records short voice utterances, posts them to the tutor STT endpoint,
 /// and plays back TTS audio for assistant replies.

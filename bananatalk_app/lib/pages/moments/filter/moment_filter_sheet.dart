@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'moment_filter_model.dart';
-import 'filter_chips.dart';
-import 'filter_sort_section.dart';
-import 'filter_language_section.dart';
-import 'filter_category_section.dart';
-import 'filter_mood_section.dart';
+import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
+import 'package:bananatalk_app/pages/moments/filter/filter_chips.dart';
+import 'package:bananatalk_app/pages/moments/filter/filter_sort_section.dart';
+import 'package:bananatalk_app/pages/moments/filter/filter_language_section.dart';
+import 'package:bananatalk_app/pages/moments/filter/filter_category_section.dart';
+import 'package:bananatalk_app/pages/moments/filter/filter_mood_section.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
