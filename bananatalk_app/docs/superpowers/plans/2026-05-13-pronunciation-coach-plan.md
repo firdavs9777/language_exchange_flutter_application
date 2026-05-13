@@ -573,24 +573,29 @@ exports.scorePronunciationAttempt = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('targetSentence is required', 400));
   }
 
-  // Transcribe via existing speechService.
-  let transcript;
+  // Transcribe via existing speechService. NOTE: transcribeAudio returns
+  // an OBJECT { text, language, duration } — destructure .text for the scorer.
+  let transcribed;
   try {
-    transcript = await speechService.transcribeAudio({
+    transcribed = await speechService.transcribeAudio({
       audioBuffer: file.buffer,
-      mimeType: file.mimetype,
-      filename: file.originalname || 'pronunciation.aac',
     });
   } catch (err) {
     return next(new ErrorResponse('Transcription failed', 502));
   }
+  const transcript = (transcribed && transcribed.text) || '';
 
   const result = scorePronunciation(transcript, targetSentence);
   res.json({ success: true, data: result });
 });
 ```
 
-Note: check the actual signature of `speechService.transcribeAudio` in `services/speechService.js` and adjust the call to match. If it takes a different arg shape (e.g., a file path), follow the existing tutor chat pattern in the controller for the `transcribeVoice` handler.
+Note: verify the actual signature of `speechService.transcribeAudio` in
+`services/speechService.js`. Per the existing implementation, it accepts
+`{audioBuffer, audioFile, language, userId}` and returns
+`{text, language, duration}`. If your version differs, mirror what the
+existing `transcribeVoice` handler in `controllers/tutor.js` does for the
+chat voice path — it's already proven against this service.
 
 - [ ] **Step 2: Wire the route (reuse existing audio multer config)**
 
@@ -1488,7 +1493,7 @@ class _PronunciationSentenceCardState
                   child: Text(
                     widget.attempt.sentence.sentence,
                     textAlign: TextAlign.center,
-                    style: context.headlineSmall.copyWith(
+                    style: context.titleLarge.copyWith(
                       fontWeight: FontWeight.w600,
                       height: 1.4,
                     ),
@@ -1727,7 +1732,7 @@ class _ScoredSentenceText extends StatelessWidget {
     if (w.status != 'wrong' || w.charDiff == null) {
       return Text(
         w.word,
-        style: context.headlineSmall.copyWith(
+        style: context.titleLarge.copyWith(
           fontWeight: FontWeight.w600,
           color: color,
         ),
@@ -1737,7 +1742,7 @@ class _ScoredSentenceText extends StatelessWidget {
     // Render character-by-character with strikethrough on mismatches.
     return RichText(
       text: TextSpan(
-        style: context.headlineSmall.copyWith(
+        style: context.titleLarge.copyWith(
           fontWeight: FontWeight.w600,
           color: color,
         ),
@@ -1834,7 +1839,7 @@ Expanded(
             : Text(
                 widget.attempt.sentence.sentence,
                 textAlign: TextAlign.center,
-                style: context.headlineSmall.copyWith(
+                style: context.titleLarge.copyWith(
                   fontWeight: FontWeight.w600,
                   height: 1.4,
                 ),
@@ -1947,7 +1952,7 @@ class _PronunciationSummarySheetState
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(l10n.aiTutorPronounceSummaryTitle,
-              style: context.headlineSmall.copyWith(fontWeight: FontWeight.w700)),
+              style: context.titleLarge.copyWith(fontWeight: FontWeight.w700)),
           const SizedBox(height: 16),
           Text(l10n.aiTutorPronounceSummaryAvg, style: context.bodyMedium),
           const SizedBox(height: 4),
