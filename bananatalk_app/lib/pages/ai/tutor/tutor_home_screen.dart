@@ -175,7 +175,7 @@ class _PlanCard extends StatelessWidget {
                         size: 20,
                       ),
                       const SizedBox(width: 8),
-                      Expanded(child: Text(_taskLabel(t), style: context.bodyMedium)),
+                      Expanded(child: Text(_taskLabel(context, t), style: context.bodyMedium)),
                     ],
                   ),
                 ),
@@ -186,14 +186,21 @@ class _PlanCard extends StatelessWidget {
     );
   }
 
-  String _taskLabel(DailyPlanTask t) {
+  String _taskLabel(BuildContext context, DailyPlanTask t) {
+    final l10n = AppLocalizations.of(context)!;
     switch (t.type) {
       case 'srs_review':
-        return 'Review ${t.count ?? 0} SRS cards (${t.completed} done)';
+        return l10n.aiTutorPlanSrsReview(
+          t.count ?? 0,
+          (t.completed is num ? (t.completed as num).toInt() : 0),
+        );
       case 'grammar_drill':
-        return 'Practice: ${t.topic ?? "grammar"}';
+        return l10n.aiTutorPlanGrammar(t.topic ?? 'grammar');
       case 'tutor_chat':
-        return 'Chat for ${t.minutes ?? 5} min (${t.completed} so far)';
+        return l10n.aiTutorPlanChat(
+          t.minutes ?? 5,
+          (t.completed is num ? (t.completed as num).toInt() : 0),
+        );
       default:
         return t.type;
     }

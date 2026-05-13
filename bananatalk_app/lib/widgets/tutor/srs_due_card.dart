@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/tutor_provider.dart';
 import '../../utils/theme_extensions.dart';
 import '../../core/theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Inline SRS-due card the tutor drops in when the user has cards
 /// waiting. Payload shape:
@@ -26,6 +27,7 @@ class _SrsDueCardState extends ConsumerState<SrsDueCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final dueCount = (widget.payload['dueCount'] as num?)?.toInt() ?? 0;
     final preview = (widget.payload['preview'] as List?) ?? const [];
 
@@ -49,7 +51,7 @@ class _SrsDueCardState extends ConsumerState<SrsDueCard> {
                 const Icon(Icons.refresh, size: 16, color: Colors.orange),
                 const SizedBox(width: 6),
                 Text(
-                  'Review due',
+                  l10n.aiTutorCardReviewDue,
                   style: context.bodySmall.copyWith(
                     color: Colors.orange,
                     fontWeight: FontWeight.w600,
@@ -59,7 +61,7 @@ class _SrsDueCardState extends ConsumerState<SrsDueCard> {
             ),
             const SizedBox(height: 8),
             Text(
-              '$dueCount card${dueCount == 1 ? '' : 's'} waiting for you',
+              l10n.aiTutorCardReviewCount(dueCount),
               style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
             ),
             if (preview.isNotEmpty) ...[
@@ -108,7 +110,7 @@ class _SrsDueCardState extends ConsumerState<SrsDueCard> {
                             );
                       },
                 icon: const Icon(Icons.play_arrow),
-                label: Text(_tapped ? 'Starting…' : 'Review now'),
+                label: Text(_tapped ? l10n.aiTutorCardReviewStarting : l10n.aiTutorCardReviewNow),
               ),
             ),
           ],

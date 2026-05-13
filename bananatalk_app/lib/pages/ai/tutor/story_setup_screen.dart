@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/tutor_provider.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 import 'story_reader_screen.dart';
 
 class StorySetupScreen extends ConsumerStatefulWidget {
@@ -18,14 +19,14 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   String _theme = 'free';
   bool _generating = false;
 
-  static const _themes = <_ThemeOption>[
-    _ThemeOption('free', '🎲', 'Free'),
-    _ThemeOption('adventure', '🗺️', 'Adventure'),
-    _ThemeOption('mystery', '🔍', 'Mystery'),
-    _ThemeOption('romance', '💌', 'Romance'),
-    _ThemeOption('sci_fi', '🚀', 'Sci-fi'),
-    _ThemeOption('slice_of_life', '☕', 'Slice of life'),
-  ];
+  List<_ThemeOption> _themes(AppLocalizations l10n) => <_ThemeOption>[
+        _ThemeOption('free', '🎲', l10n.aiTutorStoryThemeFree),
+        _ThemeOption('adventure', '🗺️', l10n.aiTutorStoryThemeAdventure),
+        _ThemeOption('mystery', '🔍', l10n.aiTutorStoryThemeMystery),
+        _ThemeOption('romance', '💌', l10n.aiTutorStoryThemeRomance),
+        _ThemeOption('sci_fi', '🚀', l10n.aiTutorStoryThemeSciFi),
+        _ThemeOption('slice_of_life', '☕', l10n.aiTutorStoryThemeSliceOfLife),
+      ];
 
   Future<void> _generate() async {
     setState(() => _generating = true);
@@ -40,8 +41,9 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
       );
     } catch (e) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not generate: $e')),
+        SnackBar(content: Text(l10n.aiTutorStoryGenerateFailed(e.toString()))),
       );
     } finally {
       if (mounted) setState(() => _generating = false);
@@ -50,15 +52,16 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Read a story')),
+      appBar: AppBar(title: Text(l10n.aiTutorStoryTitle)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Length',
+              Text(l10n.aiTutorStoryLength,
                   style: context.titleSmall.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 8),
               Row(
@@ -66,7 +69,7 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
                   for (final n in [3, 5, 10]) ...[
                     Expanded(
                       child: _ChoiceTile(
-                        label: '$n words',
+                        label: l10n.aiTutorStoryWordCount(n),
                         selected: _wordCount == n,
                         onTap: () => setState(() => _wordCount = n),
                       ),
@@ -76,14 +79,14 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
                 ],
               ),
               const SizedBox(height: 20),
-              Text('Theme',
+              Text(l10n.aiTutorStoryTheme,
                   style: context.titleSmall.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  for (final t in _themes)
+                  for (final t in _themes(l10n))
                     _ThemeChip(
                       option: t,
                       selected: _theme == t.id,
@@ -106,7 +109,9 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
                           ),
                         )
                       : const Icon(Icons.auto_stories),
-                  label: Text(_generating ? 'Writing…' : 'Generate story'),
+                  label: Text(_generating
+                      ? l10n.aiTutorStoryWriting
+                      : l10n.aiTutorStoryGenerate),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
@@ -117,7 +122,7 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'The AI will use up to $_wordCount words from your vocab list.',
+                l10n.aiTutorStoryWordCountHint(_wordCount),
                 style: context.bodySmall.copyWith(color: context.textSecondary),
                 textAlign: TextAlign.center,
               ),

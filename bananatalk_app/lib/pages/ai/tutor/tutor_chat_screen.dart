@@ -6,6 +6,7 @@ import '../../../providers/tutor_provider.dart';
 import '../../../services/tutor_voice_service.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../widgets/tutor/quiz_card.dart';
 import '../../../widgets/tutor/vocab_card.dart';
 import '../../../widgets/tutor/grammar_card.dart';
@@ -40,8 +41,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
         _scrollToBottom();
       } catch (e) {
         if (!mounted) return;
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to start: $e')),
+          SnackBar(content: Text(l10n.aiTutorChatStartFailed(e.toString()))),
         );
       }
     });
@@ -90,8 +92,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
         _scrollToBottom();
         _maybeSpeakLatestReply();
       } else {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Didn't catch that — try again.")),
+          SnackBar(content: Text(l10n.aiTutorChatTranscribeFailed)),
         );
       }
       return;
@@ -100,8 +103,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     final ok = await _voice.startRecording();
     if (!ok) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Microphone permission needed for voice mode.')),
+        SnackBar(content: Text(l10n.aiTutorChatMicPermissionDenied)),
       );
       return;
     }
@@ -136,15 +140,16 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tutorChatControllerProvider);
     final messages = state.session?.messages ?? const <TutorMessage>[];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat with tutor'),
+        title: Text(l10n.aiTutorChatTitle),
         actions: [
           IconButton(
-            tooltip: _voiceMode ? 'Voice on' : 'Voice off',
+            tooltip: _voiceMode ? l10n.aiTutorChatVoiceOn : l10n.aiTutorChatVoiceOff,
             icon: Icon(_voiceMode ? Icons.volume_up : Icons.volume_off),
             onPressed: () {
               setState(() => _voiceMode = !_voiceMode);
@@ -193,8 +198,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                         ? Icons.stop
                         : (_transcribing ? Icons.hourglass_empty : Icons.mic)),
                     tooltip: _recording
-                        ? 'Stop recording'
-                        : (_transcribing ? 'Transcribing…' : 'Hold to talk'),
+                        ? l10n.aiTutorChatStopRecording
+                        : (_transcribing
+                            ? l10n.aiTutorChatTranscribing
+                            : l10n.aiTutorChatHoldToTalk),
                     style: IconButton.styleFrom(
                       backgroundColor: _recording
                           ? Colors.red.withValues(alpha: 0.2)
@@ -212,8 +219,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                       style: TextStyle(color: context.textPrimary),
                       decoration: InputDecoration(
                         hintText: _recording
-                            ? 'Listening…'
-                            : (_transcribing ? 'Transcribing…' : 'Type a message…'),
+                            ? l10n.aiTutorChatListening
+                            : (_transcribing
+                                ? l10n.aiTutorChatTranscribing
+                                : l10n.aiTutorChatInputHint),
                         hintStyle: TextStyle(color: context.textMuted),
                         filled: true,
                         fillColor: context.containerColor,

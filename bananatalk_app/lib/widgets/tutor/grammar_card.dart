@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/theme_extensions.dart';
 import '../../core/theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Inline grammar card the tutor drops into chat when explaining a
 /// rule. Pure stateless display — variable-length examples list, each
@@ -36,7 +37,7 @@ class GrammarCard extends StatelessWidget {
                 const Icon(Icons.menu_book_outlined, size: 16, color: Colors.purple),
                 const SizedBox(width: 6),
                 Text(
-                  'Grammar',
+                  AppLocalizations.of(context)!.aiTutorCardGrammar,
                   style: context.bodySmall.copyWith(
                     color: Colors.purple,
                     fontWeight: FontWeight.w600,

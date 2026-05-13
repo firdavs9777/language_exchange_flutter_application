@@ -7,6 +7,7 @@ import '../../../services/api_client.dart';
 import '../../../services/tutor_voice_service.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// Roleplay chat — almost the same as TutorChatScreen but:
 /// - Shows the scenario goal banner at the top
@@ -80,8 +81,9 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
     final ok = await _voice.startRecording();
     if (!ok) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Microphone permission needed for voice mode.')),
+        SnackBar(content: Text(l10n.aiTutorChatMicPermissionDenied)),
       );
       return;
     }
@@ -133,8 +135,9 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       Navigator.pop(context); // back to scenario picker
     } catch (e) {
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('End failed: $e')),
+        SnackBar(content: Text(l10n.aiTutorRoleplayEndFailed(e.toString()))),
       );
     } finally {
       if (mounted) setState(() => _ending = false);
@@ -151,6 +154,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tutorChatControllerProvider);
     final messages = state.session?.messages ?? const <TutorMessage>[];
 
@@ -159,7 +163,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
         title: Text('${widget.scenario.emoji}  ${widget.scenario.title}'),
         actions: [
           IconButton(
-            tooltip: _voiceMode ? 'Voice on' : 'Voice off',
+            tooltip: _voiceMode ? l10n.aiTutorChatVoiceOn : l10n.aiTutorChatVoiceOff,
             icon: Icon(_voiceMode ? Icons.volume_up : Icons.volume_off),
             onPressed: () {
               setState(() => _voiceMode = !_voiceMode);
@@ -168,7 +172,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
           ),
           TextButton(
             onPressed: _ending ? null : _endScenario,
-            child: Text(_ending ? '…' : 'End'),
+            child: Text(_ending ? '…' : l10n.aiTutorRoleplayEnd),
           ),
         ],
       ),
@@ -257,7 +261,9 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
                     icon: Icon(_recording
                         ? Icons.stop
                         : (_transcribing ? Icons.hourglass_empty : Icons.mic)),
-                    tooltip: _recording ? 'Stop recording' : 'Hold to talk',
+                    tooltip: _recording
+                        ? l10n.aiTutorChatStopRecording
+                        : l10n.aiTutorChatHoldToTalk,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -270,10 +276,10 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
                       style: TextStyle(color: context.textPrimary),
                       decoration: InputDecoration(
                         hintText: _recording
-                            ? 'Listening…'
+                            ? l10n.aiTutorChatListening
                             : (_transcribing
-                                ? 'Transcribing…'
-                                : 'Type your reply…'),
+                                ? l10n.aiTutorChatTranscribing
+                                : l10n.aiTutorChatTypeReplyHint),
                         hintStyle: TextStyle(color: context.textMuted),
                         filled: true,
                         fillColor: context.containerColor,
@@ -348,7 +354,7 @@ class _ScoreSheet extends StatelessWidget {
           const SizedBox(height: 20),
           FilledButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Done'),
+            child: Text(AppLocalizations.of(context)!.aiTutorRoleplayDone),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../models/tutor/tutor_story.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// Paragraph-by-paragraph reveal — answering the comprehension Q
 /// correctly unlocks the next paragraph. Wrong answer gives one
@@ -41,10 +42,11 @@ class _StoryReaderScreenState extends State<StoryReaderScreen> {
     });
     if (optionIdx != q.correctIdx) {
       // brief shake-feedback via snackbar
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Not quite — moving on'),
-          duration: Duration(seconds: 1),
+        SnackBar(
+          content: Text(l10n.aiTutorStoryReaderWrongHint),
+          duration: const Duration(seconds: 1),
         ),
       );
     }
@@ -52,6 +54,7 @@ class _StoryReaderScreenState extends State<StoryReaderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final s = widget.story;
     final totalQs = s.paragraphs.where((p) => p.question != null).length;
     final correctCount = _picks.entries.where((e) {
@@ -61,10 +64,10 @@ class _StoryReaderScreenState extends State<StoryReaderScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Story'),
+        title: Text(l10n.aiTutorStoryReaderTitle),
         actions: [
           IconButton(
-            tooltip: 'Vocabulary',
+            tooltip: l10n.aiTutorStoryReaderVocab,
             icon: Icon(_showVocab ? Icons.menu_book : Icons.menu_book_outlined),
             onPressed: () => setState(() => _showVocab = !_showVocab),
           ),
@@ -102,7 +105,7 @@ class _StoryReaderScreenState extends State<StoryReaderScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Vocabulary used',
+                  Text(l10n.aiTutorStoryReaderVocabUsed,
                       style: context.bodySmall
                           .copyWith(fontWeight: FontWeight.w700)),
                   const SizedBox(height: 6),
@@ -152,12 +155,12 @@ class _StoryReaderScreenState extends State<StoryReaderScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Nice work!',
+                  Text(l10n.aiTutorStoryReaderNiceWork,
                       style: context.titleMedium
                           .copyWith(fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
                   Text(
-                    'You got $correctCount/$totalQs comprehension questions right.',
+                    l10n.aiTutorStoryReaderScore(correctCount, totalQs),
                     style: context.bodyMedium,
                   ),
                 ],
@@ -169,7 +172,7 @@ class _StoryReaderScreenState extends State<StoryReaderScreen> {
               child: FilledButton.tonalIcon(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.done),
-                label: const Text('Done'),
+                label: Text(l10n.aiTutorStoryReaderDone),
               ),
             ),
           ],
@@ -205,7 +208,7 @@ class _ParagraphCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Part $index',
+          Text(AppLocalizations.of(context)!.aiTutorStoryReaderPart(index),
               style: context.bodySmall.copyWith(
                 color: AppColors.primary,
                 fontWeight: FontWeight.w600,
