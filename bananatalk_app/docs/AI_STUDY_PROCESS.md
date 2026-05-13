@@ -63,11 +63,24 @@ Read this section twice. Everything else in AI Study is in service of this.
 
 Every tutor chip **reads** from the same shared memory before the AI runs. Every chip also **writes** back to it. That's the loop.
 
-Concrete example: a user does a 5-sentence Pronunciation drill on Monday and struggles with "park." The Pronounce chip writes `pronunciation:park` into their weak-areas list. Tuesday they open Chat — Nana's system prompt is built fresh and includes that fact, so Nana will naturally use "park" in conversation ("Did you go to the park yesterday?"). The user practices the word in context. If Pronunciation feeds Chat, Chat feeds Story (next-generated story will weave in "park"), Story feeds Photo (the AI suggests photographing parks for vocab practice), and so on.
+Concrete example: a user does a 5-sentence Pronunciation drill on Monday and struggles with "park." The Pronounce chip writes `pronunciation:park` into their weak-areas list. Tuesday they open Chat — Nana's system prompt is built fresh and includes that fact in the context block, so Nana will naturally reference "park" in conversation. The user practices the word in context. **(*) The further claims — that Story will weave in "park" the next day and Photo will suggest photographing parks — are NOT wired today; they're queued for Step 15.** What IS wired:
 
-The user never sees any of this. They just feel like the tutor "remembers" them across every interaction. That's the differentiated experience.
+| Loop step | Status | Notes |
+|---|---|---|
+| Pronounce → writes `pronunciation:<word>` to weakAreas | ✅ Wired | Step 11 (`submitPronunciationSummary` handler) |
+| weakAreas → Chat system prompt | ⚠️ Partial | Weak areas are injected into the prompt as a flat list. The `pronunciation:` prefix is currently NOT semantically interpreted — Nana sees "park" tagged as weak but doesn't know it's specifically a pronunciation issue vs grammar gap. Filter+semantic-tagging is queued for Step 15. |
+| weakAreas → Story word selection | ❌ Aspirational | Story service only pulls from the user's Vocabulary collection. Weak words don't bias generation today. (*) |
+| weakAreas → Photo prompts | ❌ Aspirational | Image-vocab describes whatever the user uploads. No weak-area bias. (*) |
+| weakAreas → daily plan `grammar_drill` task | ✅ Wired (with a known bug) | The top weak area becomes the drill topic — but `pronunciation:` prefixed topics leak through. Will be fixed in Step 13's daily-plan rework. |
+| Pronounce → daily plan `tutor_pronunciation` task | ✅ Wired | Tick happens on Save & Close (Step 11). |
 
-Other language apps have streaks, XP, leaderboards. They don't have a unified cross-feature memory. That's the moat.
+The user never sees any of this. They just feel like the tutor "remembers" them across every interaction. **Today the "feels like memory" effect is real for Chat. For Story and Photo it's aspirational — closing those last two loops is the explicit goal of Step 15.**
+
+(*) See `docs/manual-todos.md` § Step 15 for the queued work.
+
+Most language apps make you start from zero in every feature: the chatbot doesn't know what you missed in your lesson, the speaking practice doesn't know your vocab list, the grammar drill doesn't know what tripped you up last week. BananaTalk's tutor knows you across every interaction — the more you use any one chip, the better every other chip gets for you. That compounding personalization is the moat.
+
+(Honest caveat per the table above: today the compounding is real for Chat, partial for the daily plan, and aspirational for Story and Photo. Closing the last two loops is the explicit goal of Step 15.)
 
 A known gap today: the memory only goes up, never down. If you mispronounce "park" once and then nail it 20 times, the AI still treats it as weak. A mastery-decay system is planned as the next backend wave (see §14 Roadmap).
 

@@ -23,6 +23,15 @@ Agents can't tick these off; add a new section at the bottom with date + note wh
 
 - [ ] **Decide fate of legacy `/speech/pronunciation/evaluate` endpoint.** Currently uploads user audio to Spaces. Dormant in the current Flutter main flow but reachable. Either: hide the old Pronunciation tile (Step 13 sunset) AND disable the endpoint, OR migrate the data and disable. Documented in §10 of `AI_STUDY_PROCESS.md`.
 
+### Step 15 — Close the memory loop (deferred from review)
+
+The §3 doc table marks these as "aspirational" — they're documented as the future-state moat but aren't wired yet. Per the user's review of `AI_STUDY_PROCESS.md`, these are explicitly out of scope for the current cleanup pass and queued for their own wave:
+
+- [ ] **Filter + semantically interpret `pronunciation:` prefix in Chat's system prompt.** Today `services/tutorService.js#buildSystemPrompt` (line ~49) injects weakAreas as a flat string. The prefix is invisible to the AI. Either filter pronunciation-tagged items out, or tag them in the prompt as "pronunciation weakness — encourage saying these words out loud."
+- [ ] **Story generation should bias toward weak areas.** Today `services/tutorStoryService.js` only pulls from the `Vocabulary` collection. Pronunciation-weak words don't appear in stories unless they're also in vocab. Either merge weakAreas into the candidate word pool, or pass them as a separate "extra priority" list to the AI.
+- [ ] **Photo chip should bias prompts toward weak areas.** Today `services/tutorImageVocabService.js` describes whatever the user uploads with zero weak-area awareness. Could either: (a) tell the AI to highlight any weak-area words it spots in the photo, or (b) proactively suggest "try photographing a [weak word]" between photos.
+- [ ] **Fix daily-plan `grammar_drill` topic leakage.** `tutorService.js#generateDailyPlan` picks the top weak area as the grammar drill topic — but if the top area is `pronunciation:park`, the grammar drill task ends up with a pronunciation topic, which is a semantic mismatch. Filter the prefix when selecting grammar drill topics. This is a small bug; group it with the Step 13 sunset wave instead of Step 15 if convenient.
+
 ---
 
 ## Completed
