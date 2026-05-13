@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -19,6 +21,17 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   int _wordCount = 5;
   String _theme = 'free';
   bool _generating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
+      AnalyticsService.instance.tutorChipUsed(
+        chipName: 'story', userTier: isVip ? 'vip' : 'free',
+      );
+    });
+  }
 
   List<_ThemeOption> _themes(AppLocalizations l10n) => <_ThemeOption>[
         _ThemeOption('free', '🎲', l10n.aiTutorStoryThemeFree),

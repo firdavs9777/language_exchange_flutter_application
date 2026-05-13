@@ -5,6 +5,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_sentence_card.dart';
 import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_summary_sheet.dart';
 import 'package:bananatalk_app/providers/pronunciation_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class PronunciationSessionScreen extends ConsumerStatefulWidget {
@@ -27,6 +29,10 @@ class _PronunciationSessionScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      final isVip = ref.read(userProvider).valueOrNull?.isVip == true;
+      AnalyticsService.instance.tutorChipUsed(
+        chipName: 'pronunciation', userTier: isVip ? 'vip' : 'free',
+      );
       final ctrl = ref.read(pronunciationControllerProvider.notifier);
       if (widget.startInCustomMode) {
         ctrl.initCustomMode();

@@ -4,8 +4,10 @@ import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/language_service.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/screens/incoming_call_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -58,6 +60,21 @@ Future<void> main() async {
     final chatSocketService = ChatSocketService();
     apiClient.onTokenRefreshed = () {
       chatSocketService.refreshConnection();
+    };
+
+    // Step 13A: route 429 quota_exceeded responses to the persona paywall
+    // sheet via the existing call-overlay navigator key (sits above
+    // GoRouter so the sheet appears on top of any route).
+    apiClient.onQuotaExceeded = (qe) {
+      final overlayCtx = callOverlayNavigatorKey.currentContext;
+      if (overlayCtx == null) return;
+      showModalBottomSheet(
+        context: overlayCtx,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (_) => PersonaUpgradeSheet(triggerChip: qe.feature),
+      );
+      AnalyticsService.instance.quotaHit(chipName: qe.feature, tier: 'free');
     };
 
     if (token != null &&

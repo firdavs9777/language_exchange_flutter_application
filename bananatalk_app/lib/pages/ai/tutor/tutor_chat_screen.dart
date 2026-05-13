@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/tutor_voice_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -31,10 +33,16 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   bool _transcribing = false;
   int _lastSpokenIndex = -1;
 
+  /// Cached tier for analytics — read once in initState so we can
+  /// fire tutor_chip_completed from dispose() without ref access.
+  String _userTier = 'free';
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
+      AnalyticsService.instance.tutorChipUsed(chipName: 'chat', userTier: _userTier);
       try {
         await ref.read(tutorChatControllerProvider.notifier).start();
         if (!mounted) return;
@@ -128,6 +136,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
 
   @override
   void dispose() {
+    AnalyticsService.instance.tutorChipCompleted(chipName: 'chat', userTier: _userTier);
     // Fire-and-forget end so memory updates on background.
     final state = ref.read(tutorChatControllerProvider);
     if (state.session != null) {

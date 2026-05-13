@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_story.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -8,18 +11,37 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 /// Paragraph-by-paragraph reveal — answering the comprehension Q
 /// correctly unlocks the next paragraph. Wrong answer gives one
 /// retry hint, then unlocks anyway so the user isn't blocked.
-class StoryReaderScreen extends StatefulWidget {
+class StoryReaderScreen extends ConsumerStatefulWidget {
   final TutorStory story;
   const StoryReaderScreen({super.key, required this.story});
 
   @override
-  State<StoryReaderScreen> createState() => _StoryReaderScreenState();
+  ConsumerState<StoryReaderScreen> createState() => _StoryReaderScreenState();
 }
 
-class _StoryReaderScreenState extends State<StoryReaderScreen> {
+class _StoryReaderScreenState extends ConsumerState<StoryReaderScreen> {
   int _unlockedIndex = 0; // last paragraph the user can SEE
   final Map<int, int> _picks = {}; // paragraph index → option index picked
   bool _showVocab = false;
+
+  /// Step 13A: cached tier for analytics; fire chip_completed on dispose.
+  String _userTier = 'free';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
+    });
+  }
+
+  @override
+  void dispose() {
+    AnalyticsService.instance.tutorChipCompleted(
+      chipName: 'story', userTier: _userTier,
+    );
+    super.dispose();
+  }
 
   bool _allAnswered() {
     for (int i = 0; i < widget.story.paragraphs.length; i++) {

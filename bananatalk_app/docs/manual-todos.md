@@ -58,7 +58,6 @@ The §3 status table in `AI_STUDY_PROCESS.md` marks these as ❌ aspirational. T
 
 - [ ] **(30 min) Implement OpenAI provider abstraction for future model swap.** Today `services/aiProviderService.js` is OpenAI-only. If model pricing shifts or Claude / Gemini becomes more attractive for one of our use cases (e.g., Whisper alternatives, cheaper vision), swapping is a multi-file change touching every caller. A thin abstraction layer (`callLLM({provider, model, ...})` with provider implementations behind a switch) means future swaps are a config change. Not urgent — flagged as preparation so it doesn't surface as urgent later under cost pressure.
 
-- [ ] **(30 min) AudioCache orphan blob purge.** Mirror `jobs/pronunciationAudioPurgeJob.js`. `AudioCache` Mongo TTL drops records at 90 days; Spaces blobs persist indefinitely. Add a ~87-day Spaces purge job (3-day buffer before Mongo TTL, same pattern as pronunciation purge). Same pattern, different collection. Flagged during the Task 2 storage audit but punted out of scope at the time. Not urgent — at current scale (~1K users), orphan audio is <10GB; becomes worth fixing before 10K DAU.
 
 ### Legacy endpoint cleanup (downstream of the product decision above)
 
