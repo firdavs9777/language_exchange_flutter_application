@@ -9,6 +9,7 @@ import '../../../core/theme/app_theme.dart';
 import 'tutor_chat_screen.dart';
 import 'persona_picker_screen.dart';
 import 'scenario_picker_screen.dart';
+import 'story_setup_screen.dart';
 
 const _personaAvatars = {'nana': '🐻', 'sensei': '🤖', 'riko': '🐙'};
 const _personaNames = {'nana': 'Nana', 'sensei': 'Sensei', 'riko': 'Riko'};
@@ -72,6 +73,8 @@ class TutorHomeScreen extends ConsumerWidget {
                 const _StartChatButton(),
                 const SizedBox(height: 12),
                 const _PracticeScenariosCard(),
+                const SizedBox(height: 12),
+                const _StoryCard(),
                 const SizedBox(height: 24),
                 _RecentSessions(sessionsAsync: sessionsAsync),
               ],
@@ -244,6 +247,50 @@ class _PracticeScenariosCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       'Roleplay real-world conversations — restaurant, interview, hotel…',
+                      style: context.bodySmall
+                          .copyWith(color: context.textSecondary),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _StoryCard extends StatelessWidget {
+  const _StoryCard();
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.indigo.withValues(alpha: 0.10),
+      borderRadius: AppRadius.borderMD,
+      child: InkWell(
+        borderRadius: AppRadius.borderMD,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const StorySetupScreen()),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            children: [
+              const Text('📖', style: TextStyle(fontSize: 36)),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Read a story',
+                        style: context.titleSmall
+                            .copyWith(fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 2),
+                    Text(
+                      'AI writes a short story using your vocab — with quick comprehension checks.',
                       style: context.bodySmall
                           .copyWith(color: context.textSecondary),
                     ),
