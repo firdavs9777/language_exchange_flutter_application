@@ -3,11 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/tutor/tutor_session.dart';
 import '../../../providers/tutor_provider.dart';
+import '../../../services/tutor_voice_service.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../widgets/tutor/quiz_card.dart';
 import '../../../widgets/tutor/vocab_card.dart';
 import '../../../widgets/tutor/grammar_card.dart';
+import '../../../widgets/tutor/srs_due_card.dart';
+import '../../../widgets/tutor/mini_lesson_card.dart';
 
 class TutorChatScreen extends ConsumerStatefulWidget {
   const TutorChatScreen({super.key});
@@ -19,7 +22,12 @@ class TutorChatScreen extends ConsumerStatefulWidget {
 class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   final _controller = TextEditingController();
   final _scrollCtl = ScrollController();
+  final _voice = TutorVoiceService();
   bool _started = false;
+  bool _voiceMode = false;
+  bool _recording = false;
+  bool _transcribing = false;
+  int _lastSpokenIndex = -1;
 
   @override
   void initState() {
@@ -57,6 +65,60 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     _controller.clear();
     await ref.read(tutorChatControllerProvider.notifier).send(text);
     _scrollToBottom();
+    _maybeSpeakLatestReply();
+  }
+
+  Future<void> _toggleRecord() async {
+    final sessionId = ref.read(tutorChatControllerProvider).session?.id;
+    if (sessionId == null) return;
+
+    if (_recording) {
+      final path = await _voice.stopRecording();
+      setState(() {
+        _recording = false;
+        _transcribing = true;
+      });
+      if (path == null) {
+        setState(() => _transcribing = false);
+        return;
+      }
+      final text = await _voice.transcribe(sessionId, path);
+      if (!mounted) return;
+      setState(() => _transcribing = false);
+      if (text != null && text.trim().isNotEmpty) {
+        await ref.read(tutorChatControllerProvider.notifier).send(text.trim());
+        _scrollToBottom();
+        _maybeSpeakLatestReply();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Didn't catch that — try again.")),
+        );
+      }
+      return;
+    }
+
+    final ok = await _voice.startRecording();
+    if (!ok) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Microphone permission needed for voice mode.')),
+      );
+      return;
+    }
+    setState(() => _recording = true);
+  }
+
+  void _maybeSpeakLatestReply() {
+    if (!_voiceMode) return;
+    final session = ref.read(tutorChatControllerProvider).session;
+    if (session == null) return;
+    final idx = session.messages.length - 1;
+    final last = session.messages.isNotEmpty ? session.messages.last : null;
+    if (last == null || last.role != 'assistant') return;
+    if (idx == _lastSpokenIndex) return;
+    _lastSpokenIndex = idx;
+    // Fire and forget; failures degrade silently to text-only.
+    _voice.speakAndPlay(session.id, messageIndex: idx);
   }
 
   @override
@@ -66,6 +128,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     if (state.session != null) {
       ref.read(tutorChatControllerProvider.notifier).end();
     }
+    _voice.dispose();
     _controller.dispose();
     _scrollCtl.dispose();
     super.dispose();
@@ -77,7 +140,19 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     final messages = state.session?.messages ?? const <TutorMessage>[];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Chat with tutor')),
+      appBar: AppBar(
+        title: const Text('Chat with tutor'),
+        actions: [
+          IconButton(
+            tooltip: _voiceMode ? 'Voice on' : 'Voice off',
+            icon: Icon(_voiceMode ? Icons.volume_up : Icons.volume_off),
+            onPressed: () {
+              setState(() => _voiceMode = !_voiceMode);
+              if (!_voiceMode) _voice.stopPlayback();
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
@@ -111,15 +186,34 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
               padding: const EdgeInsets.all(12),
               child: Row(
                 children: [
+                  IconButton.filledTonal(
+                    onPressed:
+                        (state.sending || _transcribing) ? null : _toggleRecord,
+                    icon: Icon(_recording
+                        ? Icons.stop
+                        : (_transcribing ? Icons.hourglass_empty : Icons.mic)),
+                    tooltip: _recording
+                        ? 'Stop recording'
+                        : (_transcribing ? 'Transcribing…' : 'Hold to talk'),
+                    style: IconButton.styleFrom(
+                      backgroundColor: _recording
+                          ? Colors.red.withValues(alpha: 0.2)
+                          : null,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: TextField(
                       controller: _controller,
                       minLines: 1,
                       maxLines: 4,
+                      enabled: !_recording && !_transcribing,
                       onSubmitted: (_) => _send(),
                       style: TextStyle(color: context.textPrimary),
                       decoration: InputDecoration(
-                        hintText: 'Type a message…',
+                        hintText: _recording
+                            ? 'Listening…'
+                            : (_transcribing ? 'Transcribing…' : 'Type a message…'),
                         hintStyle: TextStyle(color: context.textMuted),
                         filled: true,
                         fillColor: context.containerColor,
@@ -132,7 +226,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                   ),
                   const SizedBox(width: 8),
                   IconButton.filled(
-                    onPressed: state.sending ? null : _send,
+                    onPressed:
+                        (state.sending || _recording || _transcribing)
+                            ? null
+                            : _send,
                     icon: const Icon(Icons.send),
                   ),
                 ],
