@@ -5,23 +5,23 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'app_localizations_ar.dart';
-import 'app_localizations_de.dart';
-import 'app_localizations_en.dart';
-import 'app_localizations_es.dart';
-import 'app_localizations_fr.dart';
-import 'app_localizations_hi.dart';
-import 'app_localizations_id.dart';
-import 'app_localizations_it.dart';
-import 'app_localizations_ja.dart';
-import 'app_localizations_ko.dart';
-import 'app_localizations_pt.dart';
-import 'app_localizations_ru.dart';
-import 'app_localizations_th.dart';
-import 'app_localizations_tl.dart';
-import 'app_localizations_tr.dart';
-import 'app_localizations_vi.dart';
-import 'app_localizations_zh.dart';
+import 'package:bananatalk_app/l10n/app_localizations_ar.dart';
+import 'package:bananatalk_app/l10n/app_localizations_de.dart';
+import 'package:bananatalk_app/l10n/app_localizations_en.dart';
+import 'package:bananatalk_app/l10n/app_localizations_es.dart';
+import 'package:bananatalk_app/l10n/app_localizations_fr.dart';
+import 'package:bananatalk_app/l10n/app_localizations_hi.dart';
+import 'package:bananatalk_app/l10n/app_localizations_id.dart';
+import 'package:bananatalk_app/l10n/app_localizations_it.dart';
+import 'package:bananatalk_app/l10n/app_localizations_ja.dart';
+import 'package:bananatalk_app/l10n/app_localizations_ko.dart';
+import 'package:bananatalk_app/l10n/app_localizations_pt.dart';
+import 'package:bananatalk_app/l10n/app_localizations_ru.dart';
+import 'package:bananatalk_app/l10n/app_localizations_th.dart';
+import 'package:bananatalk_app/l10n/app_localizations_tl.dart';
+import 'package:bananatalk_app/l10n/app_localizations_tr.dart';
+import 'package:bananatalk_app/l10n/app_localizations_vi.dart';
+import 'package:bananatalk_app/l10n/app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -10703,6 +10703,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{Pronunciation drill ({completed}/1)} other{Pronunciation drills ({completed}/{count})}}'**
   String aiTutorPlanPronunciation(int count, int completed);
+
+  /// Headline at the top of the Pronunciation Coach start screen
+  ///
+  /// In en, this message translates to:
+  /// **'How do you want to practice?'**
+  String get aiTutorPronounceStartHeadline;
+
+  /// Subheadline below the start-screen headline
+  ///
+  /// In en, this message translates to:
+  /// **'Pick one to begin a 5-sentence drill.'**
+  String get aiTutorPronounceStartSubhead;
+
+  /// Title of the AI-generated mode card on the start screen
+  ///
+  /// In en, this message translates to:
+  /// **'AI generates sentences'**
+  String get aiTutorPronounceStartAITitle;
+
+  /// Subtitle of the AI mode card
+  ///
+  /// In en, this message translates to:
+  /// **'Level-tuned, biased toward your tricky words'**
+  String get aiTutorPronounceStartAISubtitle;
+
+  /// Title of the custom-sentence mode card on the start screen
+  ///
+  /// In en, this message translates to:
+  /// **'Use my own sentence'**
+  String get aiTutorPronounceStartCustomTitle;
+
+  /// Subtitle of the custom-sentence mode card
+  ///
+  /// In en, this message translates to:
+  /// **'Type or paste a phrase you want to nail'**
+  String get aiTutorPronounceStartCustomSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

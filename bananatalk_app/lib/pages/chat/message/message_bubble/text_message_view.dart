@@ -11,7 +11,7 @@ import 'package:bananatalk_app/widgets/linkified_text.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/message/bubble/word_long_press_handler.dart';
 import 'package:any_link_preview/any_link_preview.dart';
-import 'reply_preview.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/reply_preview.dart';
 
 /// Renders text messages including:
 ///   - Deleted-message placeholder

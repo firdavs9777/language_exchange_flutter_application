@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
-import 'rank_badge.dart';
-import 'friend_indicator.dart';
+import 'package:bananatalk_app/pages/learning/leaderboard/widgets/rank_badge.dart';
+import 'package:bananatalk_app/pages/learning/leaderboard/widgets/friend_indicator.dart';
 
 class LeaderboardRow extends StatelessWidget {
   final int rank;

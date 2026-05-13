@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/tutor_provider.dart';
-import '../../utils/theme_extensions.dart';
-import '../../core/theme/app_theme.dart';
-import '../../l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Inline quiz card the tutor can drop into chat.
 ///

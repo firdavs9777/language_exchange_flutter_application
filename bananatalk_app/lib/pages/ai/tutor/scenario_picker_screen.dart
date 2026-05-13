@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../models/tutor/tutor_session.dart';
-import '../../../providers/tutor_provider.dart';
-import '../../../utils/theme_extensions.dart';
-import '../../../core/theme/app_theme.dart';
-import 'roleplay_chat_screen.dart';
+import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/pages/ai/tutor/roleplay_chat_screen.dart';
 
 class ScenarioPickerScreen extends ConsumerWidget {
   const ScenarioPickerScreen({super.key});

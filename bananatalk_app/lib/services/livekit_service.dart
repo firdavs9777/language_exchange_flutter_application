@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:livekit_client/livekit_client.dart';
 
-import 'api_client.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 
 /// Thin wrapper around `livekit_client`'s [Room].
 ///

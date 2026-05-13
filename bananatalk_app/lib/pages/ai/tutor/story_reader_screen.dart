@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/tutor/tutor_story.dart';
-import '../../../utils/theme_extensions.dart';
-import '../../../core/theme/app_theme.dart';
-import '../../../l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/tutor/tutor_story.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Paragraph-by-paragraph reveal — answering the comprehension Q
 /// correctly unlocks the next paragraph. Wrong answer gives one

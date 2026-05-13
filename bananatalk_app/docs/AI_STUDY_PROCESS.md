@@ -63,11 +63,24 @@ Read this section twice. Everything else in AI Study is in service of this.
 
 Every tutor chip **reads** from the same shared memory before the AI runs. Every chip also **writes** back to it. That's the loop.
 
-Concrete example: a user does a 5-sentence Pronunciation drill on Monday and struggles with "park." The Pronounce chip writes `pronunciation:park` into their weak-areas list. Tuesday they open Chat — Nana's system prompt is built fresh and includes that fact, so Nana will naturally use "park" in conversation ("Did you go to the park yesterday?"). The user practices the word in context. If Pronunciation feeds Chat, Chat feeds Story (next-generated story will weave in "park"), Story feeds Photo (the AI suggests photographing parks for vocab practice), and so on.
+Concrete example: a user does a 5-sentence Pronunciation drill on Monday and struggles with "park." The Pronounce chip writes `pronunciation:park` into their weak-areas list. Tuesday they open Chat — Nana's system prompt is built fresh and includes that fact in the context block, so Nana will naturally reference "park" in conversation. The user practices the word in context. **(*) The further claims — that Story will weave in "park" the next day and Photo will suggest photographing parks — are NOT wired today; they're queued for Step 15.** What IS wired:
 
-The user never sees any of this. They just feel like the tutor "remembers" them across every interaction. That's the differentiated experience.
+| Loop step | Status | Notes |
+|---|---|---|
+| Pronounce → writes `pronunciation:<word>` to weakAreas | ✅ Wired | Step 11 (`submitPronunciationSummary` handler) |
+| weakAreas → Chat system prompt | ⚠️ Partial | Weak areas are injected into the prompt as a flat list. The `pronunciation:` prefix is currently NOT semantically interpreted — Nana sees "park" tagged as weak but doesn't know it's specifically a pronunciation issue vs grammar gap. Filter+semantic-tagging is queued for Step 15. |
+| weakAreas → Story word selection | ❌ Aspirational | Story service only pulls from the user's Vocabulary collection. Weak words don't bias generation today. (*) |
+| weakAreas → Photo prompts | ❌ Aspirational | Image-vocab describes whatever the user uploads. No weak-area bias. (*) |
+| weakAreas → daily plan `grammar_drill` task | ✅ Wired | Top non-pronunciation weak area becomes the drill topic. If the user has only pronunciation-tagged weak areas, the grammar_drill task is skipped that day and will return naturally once a grammar/vocab weak area is logged. |
+| Pronounce → daily plan `tutor_pronunciation` task | ✅ Wired | Tick happens on Save & Close (Step 11). |
 
-Other language apps have streaks, XP, leaderboards. They don't have a unified cross-feature memory. That's the moat.
+The user never sees any of this. They just feel like the tutor "remembers" them across every interaction. **Today the "feels like memory" effect is real for Chat. For Story and Photo it's aspirational — closing those last two loops is the explicit goal of Step 15.**
+
+(*) See `docs/manual-todos.md` § Step 15 for the queued work.
+
+Most language apps make you start from zero in every feature: the chatbot doesn't know what you missed in your lesson, the speaking practice doesn't know your vocab list, the grammar drill doesn't know what tripped you up last week. BananaTalk's tutor knows you across every interaction — the more you use any one chip, the better every other chip gets for you. That compounding personalization is the moat.
+
+(Honest caveat per the table above: today the compounding is real for Chat, partial for the daily plan, and aspirational for Story and Photo. Closing the last two loops is the explicit goal of Step 15.)
 
 A known gap today: the memory only goes up, never down. If you mispronounce "park" once and then nail it 20 times, the AI still treats it as weak. A mastery-decay system is planned as the next backend wave (see §14 Roadmap).
 
@@ -159,9 +172,9 @@ Take a photo, the AI tells you what's in it in your target language. Then option
 
 A 5-sentence pronunciation drill.
 
-**Two ways to pick the target sentence:**
-- **AI-generated** (default) — the AI generates 5 level-appropriate sentences in your target language, biased toward your weak words. Loads automatically when you tap the chip.
-- **Use my own ✏️** — type or paste any sentence (a phrase from a textbook, song lyric, anything). The AI skips generation and just runs TTS so you can practice. The button is visible on the ready state of every sentence, so the user can switch in or out at any point during a drill. A dedicated start-screen entry point (so users see both options upfront) is queued as a Step 12+ polish item.
+**Two ways to pick the target sentence — chosen on a dedicated start screen:**
+- **AI generates sentences** (default option, biggest tap target) — the AI generates 5 level-appropriate sentences in your target language, biased toward your weak words.
+- **Use my own sentence ✏️** — type or paste any sentence (a phrase from a textbook, song lyric, anything). The AI skips generation and just runs TTS so you can practice. Once a drill is in progress in either mode, the "Use my own" button stays visible on the ready state of every sentence so the user can switch mid-drill.
 
 **Per-sentence flow:**
 1. Sentence appears, TTS auto-plays once (so the user hears the "right" pronunciation)
@@ -202,9 +215,9 @@ These coexist with the new tutor chips. Some overlap (especially old Pronunciati
 
 The tutor memory holds a daily plan: a list of tiny tasks for today (e.g., "5-min chat", "3 SRS reviews", "1 grammar drill"). The plan auto-generates the first time the user opens the tutor each day.
 
-The daily plan is **visible** in the tutor home screen (tap the persona hero card) and tasks complete automatically as the user uses chips — e.g., spending 5 minutes in tutor chat marks the chat task as done. There's no shame screen if the user skips a day; the plan just regenerates tomorrow.
+The daily plan is **visible** in the tutor home screen (tap the persona hero card) and tasks complete automatically as the user uses chips — e.g., spending 5 minutes in tutor chat marks the chat task as done, and finishing a 5-sentence Pronounce drill ticks the pronunciation task. There's no shame screen if the user skips a day; the plan just regenerates tomorrow.
 
-**Known gap:** the Pronounce chip doesn't currently have a corresponding `tutor_pronunciation` task type, so doing a drill doesn't tick the plan. Adding it is queued.
+**Today's task types:** `srs_review`, `grammar_drill`, `tutor_chat`, `tutor_pronunciation`. The `grammar_drill` task picks its topic from the user's non-pronunciation weakAreas; if none exist, the task is skipped that day.
 
 This is intentionally low-pressure. The plan is a *suggestion surface*, not a streak-killing obligation. A push-notification wave is planned (§14) to handle the "return tomorrow" pull without resorting to shame mechanics.
 
@@ -277,28 +290,36 @@ Material disclosure for the privacy policy.
 
 **Sent to OpenAI (as the AI provider):**
 - All chat / roleplay text (user and AI sides) — needed for completions
-- Voice samples from chat voice mode and Pronounce — Whisper transcribes them server-side at OpenAI
+- Voice samples from chat voice mode and the new Pronounce chip — Whisper transcribes them server-side at OpenAI
 - Photos from Photo chip — GPT-4o vision processes them
 - Generated sentences for Pronounce, generated stories — needed for the model call
 - User's proficiency level, native language, weak areas — included in system prompts so the AI personalizes responses
 
 **Sent to our own backend (BananaTalk):**
 - Same as above, plus session summaries, vocab additions, weak-area updates
-- Audio files are kept in memory during processing only; we don't persist raw audio to disk or S3
-- Photos are kept in memory during processing only; we don't persist raw images
-- All persisted data is keyed to the user's account and visible only to them
+- For **chat voice mode** and the **new Pronounce chip**, user audio is kept in memory during processing only; the buffer is passed to Whisper and discarded — we don't write it to disk or upload it to S3/Spaces.
+- For the **legacy Pronunciation tile** (the VIP-only one in the "More AI tools" grid), user audio IS uploaded to DigitalOcean Spaces and a `userAudioUrl` is stored in a `PronunciationAttempt` record. Records are auto-dropped after **30 days** via a Mongo TTL index on `createdAt`. A nightly job (`jobs/pronunciationAudioPurgeJob.js`) deletes the corresponding Spaces blob ~3 days before the TTL fires so the audio is gone before the URL disappears (no orphaned blobs). The endpoint itself is dormant in the current main flow but still reachable; full deprecation is queued for the Step 13 sunset pass — the retention liability is mitigated either way.
+- Photos are kept in memory during processing only; we don't persist raw images.
+- All persisted data is keyed to the user's account and visible only to them.
+
+**Cached on our side (DigitalOcean Spaces):**
+- **AI-generated TTS audio** — every sentence the tutor speaks is uploaded to Spaces and a metadata pointer cached in Mongo (`AudioCache`). Two reasons: the same sentence said by the same persona at the same speed is byte-identical, so caching saves the OpenAI TTS spend (~$0.006 per sentence); and Spaces serves the audio over a CDN which is faster than re-streaming from OpenAI.
+- **Cache TTL:** Mongo metadata is dropped after 90 days of unuse (TTL index on `lastAccessedAt`). Spaces CDN headers say `max-age=31536000` (1 year), but the actual object is only kept as long as the Mongo entry references it. There's no explicit delete-from-Spaces job today — orphaned objects stay until manually swept.
 
 **What stays on the device:**
-- TTS reference audio played to the user (downloaded from our CDN-cached URL; not re-uploaded)
-- The user's recording before they tap "stop" (cancelled audio is just discarded locally)
+- TTS reference audio played to the user (downloaded from the cached Spaces URL; not re-uploaded).
+- The user's recording before they tap "stop" (cancelled audio is just discarded locally). The recording file *does* land in iOS/Android's temporary directory while being uploaded; the OS reclaims the temp dir on its own schedule.
 
-**Retention:**
-- Per OpenAI's API policy: API calls (which is what we use) are not used to train OpenAI's models. Logs are retained by OpenAI for up to 30 days for abuse monitoring, then deleted.
-- Our backend logs are retained per the standard app log policy (rotated weekly).
+**Retention summary:**
+- **User recording audio (chat voice + new Pronounce):** never persisted server-side (in-memory only).
+- **User recording audio (legacy Pronunciation tile):** Mongo `PronunciationAttempt` record auto-drops after 30 days (TTL index); Spaces blob is purged by a nightly job ~3 days before the record TTL fires. Endpoint deprecation still queued in Step 13, but retention is bounded at ≤30 days even without it.
+- **TTS audio:** cached up to 90 days post-last-use in Mongo + Spaces.
+- **OpenAI logs:** OpenAI retains API call logs (text, audio, images) for up to 30 days for abuse monitoring per their policy, then deletes them. Per their API policy, API call data is NOT used to train their models.
+- **Our backend logs:** rotated weekly. Audio bodies are never logged — multipart uploads go through multer's memory storage and never hit the JSON request-body logger.
 
-**Users learning English to date Koreans, take note:** your voice samples are processed by a third party (OpenAI). They're not stored long-term and not used for training, but they do leave the device. If you don't want that, voice mode is off by default — text mode never sends audio anywhere.
+**Users learning English to date Koreans, take note:** your voice samples leave the device. For chat voice + new Pronounce they pass through our server in memory only and go to OpenAI for transcription. For the legacy Pronunciation tile they're also stored on our Spaces bucket. If that's a concern, voice mode is off by default in chat — text mode never sends audio anywhere — and the legacy Pronunciation tile is being retired.
 
-A more detailed privacy policy update lands when the App Store review for the Step 9 wave goes through. This section is the developer-facing version.
+A more detailed privacy policy update lands when the App Store review for the Step 9 + Step 11 waves goes through. This section is the developer-facing version.
 
 ---
 
@@ -328,22 +349,36 @@ We don't have conversion data yet. Here's what we know and what we don't.
 | Image description (GPT-4o vision) | ~$0.08 per photo |
 | Pronounce (Whisper + TTS + GPT) | ~$0.05 per session |
 | TTS for chat voice mode | ~$0.03 |
-| **Total** | **~$0.30 / user / month** |
+| **Moderate-use total** | **~$0.30 / user / month** |
 
-Heavy users (multiple sessions a day) hit ~$1/month. Light users (once a week) ~$0.10.
+Heavy users (multiple sessions a day) hit ~$1/month. Light users (once a week) ~$0.10. The $0.30 figure is moderate-use — blended cost across a real user base with a long tail of power users likely sits somewhere between $0.40-$0.60. Use the moderate figure for sizing prep, not for break-even.
 
 **What we don't know:**
 - Actual conversion rate from free → VIP
 - Actual CAC (we have App Store conversion, not paid-channel data)
 - Actual retention curve (D7, D30, D90)
 - Actual VIP MRR cohort behavior
+- The blended free-vs-power-user cost mix
 
 **Break-even math (placeholder, not real):**
-At a $7.99/month VIP price, every paying user covers ~26 free users' AI costs. So if conversion is **above ~4%** of free → paid, the AI cost line is in the black before any other revenue.
 
-But: this ignores hosting, storage, CDN, App Store fees, support cost, our own time. Real break-even is conversion × LTV vs. fully-loaded cost per acquired user. We don't have those numbers yet.
+A $7.99/month VIP subscription does NOT net us $7.99. Apple and Google take their cut off the top:
 
-The point of this section is to be honest about what we don't know. As soon as we have 90 days of conversion data, fill this in for real.
+- **Year 1 of a subscription:** 30% platform fee → we net **$5.59**
+- **Year 2+ (same subscriber renewing):** 15% platform fee → we net **$6.79**
+
+If we assume blended cost of ~$0.40 per free user per month and a Year-1 net of $5.59 per paying user:
+
+- Every paying user covers **~14 free users' AI costs** (was ~26 at the gross $7.99 number — that math was wrong)
+- Break-even conversion rate is **above ~7%** of free → paid in Year 1, falling to ~6% in Year 2+ as the platform fee drops
+
+Sense-check those numbers: typical freemium SaaS converts at 2-5%. **7% conversion to cover AI costs alone is ambitious** — meaning either: (a) the moderate-use cost estimate is too low and we need to tighten that, (b) we need a higher VIP price, (c) we need a daily quota to floor AI cost per free user, or (d) we accept a cost-recovery shortfall on the AI line and rely on other revenue (Community premium features, sponsorships, ads).
+
+This is also why the VIP/free split rethink (queued for Step 13) matters — moving the cost-heavy new tutor chips behind a daily quota for free users would dramatically lower the blended free-user cost and push break-even back below the 7% threshold.
+
+And: this ignores hosting, storage, CDN, support cost, our own time. The real fully-loaded number is higher.
+
+The point of this section is to be honest about what we don't know. As soon as we have 90 days of conversion + cohort data, fill this in for real.
 
 ---
 
@@ -396,3 +431,13 @@ The big design constraint: every new feature should plug into the memory loop (�
 ---
 
 That's the whole picture. The pieces are designed to be independently useful but collectively form a single tutor that knows you across all of them. The memory loop in §3 is the actual differentiator; everything else is execution on top of that.
+
+---
+
+## Doc maintenance
+
+This doc is the source of truth for AI Study. **Last updated: 2026-05-13** (post Step 11 + review-pass cleanup).
+
+**When you ship a wave that changes any section, update this doc in the same PR.** If you ship a feature that contradicts this doc, **the doc wins — fix the code, not the doc** — unless you've explicitly changed your mind about the product direction, in which case update both.
+
+When in doubt: §3 (the memory loop) is the spine of the product story. Keep that table honest — every claim there is either ✅ wired, ⚠️ partial, or ❌ aspirational. Tagging it accurately is more important than tagging it favorably.

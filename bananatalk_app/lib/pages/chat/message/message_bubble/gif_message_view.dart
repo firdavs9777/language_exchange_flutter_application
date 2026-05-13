@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'reply_preview.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/reply_preview.dart';
 
 /// Renders GIF messages.
 ///

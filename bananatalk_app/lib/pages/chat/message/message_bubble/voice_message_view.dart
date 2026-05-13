@@ -7,7 +7,7 @@ import 'package:bananatalk_app/widgets/voice_message_player.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'reply_preview.dart';
+import 'package:bananatalk_app/pages/chat/message/message_bubble/reply_preview.dart';
 
 /// Renders voice (and audio) messages.
 ///

@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../l10n/app_localizations.dart';
-import '../../../providers/pronunciation_provider.dart';
-import 'widgets/pronunciation_sentence_card.dart';
-import 'widgets/pronunciation_summary_sheet.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_sentence_card.dart';
+import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_summary_sheet.dart';
+import 'package:bananatalk_app/providers/pronunciation_provider.dart';
 
 class PronunciationSessionScreen extends ConsumerStatefulWidget {
-  const PronunciationSessionScreen({super.key});
+  /// When true, the first sentence is opened in the custom-draft mode
+  /// (user types their own) instead of being AI-generated. Used by the
+  /// start screen's "Use my own" branch.
+  final bool startInCustomMode;
+
+  const PronunciationSessionScreen({super.key, this.startInCustomMode = false});
 
   @override
   ConsumerState<PronunciationSessionScreen> createState() =>
@@ -21,7 +26,12 @@ class _PronunciationSessionScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      ref.read(pronunciationControllerProvider.notifier).init();
+      final ctrl = ref.read(pronunciationControllerProvider.notifier);
+      if (widget.startInCustomMode) {
+        ctrl.initCustomMode();
+      } else {
+        ctrl.init();
+      }
     });
   }
 

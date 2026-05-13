@@ -26,11 +26,11 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 
-import 'single_community_header.dart';
-import 'single_community_actions.dart';
-import 'single_community_overview.dart';
-import 'single_community_about.dart';
-import 'single_community_moments.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_header.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_actions.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_overview.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_about.dart';
+import 'package:bananatalk_app/pages/community/single/single_community_moments.dart';
 
 // ---------------------------------------------------------------------------
 // Public entry point – name preserved for existing navigation call sites.

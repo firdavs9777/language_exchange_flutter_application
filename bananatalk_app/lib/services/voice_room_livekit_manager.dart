@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
 
-import '../models/community/voice_room_model.dart';
-import 'api_client.dart';
-import 'livekit_service.dart';
+import 'package:bananatalk_app/models/community/voice_room_model.dart';
+import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/livekit_service.dart';
 
 /// Transport layer that adapts the LiveKit SDK to the participant + event
 /// shape the existing `VoiceRoomManager` exposes to the UI.

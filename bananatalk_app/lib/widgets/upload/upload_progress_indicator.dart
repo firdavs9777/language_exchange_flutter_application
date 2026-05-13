@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../models/upload_task.dart';
-import '../../providers/upload_manager_provider.dart';
+import 'package:bananatalk_app/models/upload_task.dart';
+import 'package:bananatalk_app/providers/upload_manager_provider.dart';
 
 /// Floating upload progress indicator
 /// Shows a compact pill when uploading, expandable to show all tasks

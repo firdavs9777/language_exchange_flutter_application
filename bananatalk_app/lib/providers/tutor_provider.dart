@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/tutor/tutor_memory.dart';
-import '../models/tutor/tutor_session.dart';
-import '../models/tutor/tutor_story.dart';
-import '../services/api_client.dart';
+import 'package:bananatalk_app/models/tutor/tutor_memory.dart';
+import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/models/tutor/tutor_story.dart';
+import 'package:bananatalk_app/services/api_client.dart';
 
 class PronunciationSentence {
   final String sentence;

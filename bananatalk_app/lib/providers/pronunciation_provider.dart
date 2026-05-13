@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../services/pronunciation_voice_service.dart';
-import 'tutor_provider.dart';
+import 'package:bananatalk_app/services/pronunciation_voice_service.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart';
 
 enum PronStatus {
   loading,
@@ -109,6 +109,26 @@ class PronunciationController extends StateNotifier<PronunciationState> {
         errorMessage: e.toString(),
       ));
     }
+  }
+
+  /// Custom-mode entry: skip AI sentence generation on the first
+  /// sentence, seed an empty placeholder attempt, and open the
+  /// custom-draft TextField immediately. submitCustom() will fetch
+  /// the TTS-only response once the user types.
+  void initCustomMode() {
+    const empty = PronunciationSentence(
+      sentence: '',
+      level: 'A1',
+      targetLanguage: 'en',
+      ttsAudioUrl: '',
+    );
+    _safeSet(state.copyWith(
+      session: const [SentenceAttempt(sentence: empty)],
+      currentIndex: 0,
+      status: PronStatus.ready,
+      customDraftOpen: true,
+      clearError: true,
+    ));
   }
 
   Future<void> tapRecord() async {

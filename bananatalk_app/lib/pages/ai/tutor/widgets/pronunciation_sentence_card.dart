@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_theme.dart';
-import '../../../../l10n/app_localizations.dart';
-import '../../../../providers/pronunciation_provider.dart';
-import '../../../../providers/tutor_provider.dart' show PronunciationWordScore;
-import '../../../../utils/theme_extensions.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/pronunciation_provider.dart';
+import 'package:bananatalk_app/providers/tutor_provider.dart'
+    show PronunciationWordScore;
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Renders the active sentence and the primary action button for the
 /// current state. The scored render (word-level + char strikethrough)
@@ -53,7 +54,9 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
   void didUpdateWidget(covariant PronunciationSentenceCard old) {
     super.didUpdateWidget(old);
     // Auto-play TTS once when a new sentence becomes ready.
+    // Skip empty sentence (custom mode before the user types anything).
     if (widget.status == PronStatus.ready &&
+        widget.attempt.sentence.sentence.isNotEmpty &&
         widget.attempt.sentence.sentence != _lastAutoPlayedSentence) {
       _lastAutoPlayedSentence = widget.attempt.sentence.sentence;
       WidgetsBinding.instance
@@ -170,6 +173,12 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
   Widget _buildPrimaryActionRow(BuildContext context, AppLocalizations l10n) {
     switch (widget.status) {
       case PronStatus.ready:
+        // Custom mode before the user has typed anything: no sentence to
+        // record yet, so hide the mic. The TextField in _buildCustomField
+        // is the active surface.
+        if (widget.attempt.sentence.sentence.isEmpty) {
+          return const SizedBox.shrink();
+        }
         return _BigRoundButton(
           icon: Icons.mic_rounded,
           label: l10n.aiTutorPronounceTapToRecord,

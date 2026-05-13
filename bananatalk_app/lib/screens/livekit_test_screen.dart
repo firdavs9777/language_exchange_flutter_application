@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:livekit_client/livekit_client.dart';
 
-import '../services/livekit_service.dart';
+import 'package:bananatalk_app/services/livekit_service.dart';
 
 /// Smoke-test screen for LiveKit.
 ///

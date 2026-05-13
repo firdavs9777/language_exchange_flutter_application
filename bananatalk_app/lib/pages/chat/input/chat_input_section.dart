@@ -6,9 +6,9 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'chat_input_bar.dart';
-import '../panels/chat_media_panel.dart';
-import '../panels/chat_sticker_panel.dart';
+import 'package:bananatalk_app/pages/chat/input/chat_input_bar.dart';
+import 'package:bananatalk_app/pages/chat/panels/chat_media_panel.dart';
+import 'package:bananatalk_app/pages/chat/panels/chat_sticker_panel.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 class ChatInputSection extends ConsumerWidget {
