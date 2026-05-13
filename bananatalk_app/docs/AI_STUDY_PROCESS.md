@@ -71,7 +71,7 @@ Concrete example: a user does a 5-sentence Pronunciation drill on Monday and str
 | weakAreas → Chat system prompt | ⚠️ Partial | Weak areas are injected into the prompt as a flat list. The `pronunciation:` prefix is currently NOT semantically interpreted — Nana sees "park" tagged as weak but doesn't know it's specifically a pronunciation issue vs grammar gap. Filter+semantic-tagging is queued for Step 15. |
 | weakAreas → Story word selection | ❌ Aspirational | Story service only pulls from the user's Vocabulary collection. Weak words don't bias generation today. (*) |
 | weakAreas → Photo prompts | ❌ Aspirational | Image-vocab describes whatever the user uploads. No weak-area bias. (*) |
-| weakAreas → daily plan `grammar_drill` task | ✅ Wired (with a known bug) | The top weak area becomes the drill topic — but `pronunciation:` prefixed topics leak through. Will be fixed in Step 13's daily-plan rework. |
+| weakAreas → daily plan `grammar_drill` task | ✅ Wired | Top non-pronunciation weak area becomes the drill topic. If the user has only pronunciation-tagged weak areas, the grammar_drill task is skipped that day and will return naturally once a grammar/vocab weak area is logged. |
 | Pronounce → daily plan `tutor_pronunciation` task | ✅ Wired | Tick happens on Save & Close (Step 11). |
 
 The user never sees any of this. They just feel like the tutor "remembers" them across every interaction. **Today the "feels like memory" effect is real for Chat. For Story and Photo it's aspirational — closing those last two loops is the explicit goal of Step 15.**
@@ -217,7 +217,7 @@ The tutor memory holds a daily plan: a list of tiny tasks for today (e.g., "5-mi
 
 The daily plan is **visible** in the tutor home screen (tap the persona hero card) and tasks complete automatically as the user uses chips — e.g., spending 5 minutes in tutor chat marks the chat task as done, and finishing a 5-sentence Pronounce drill ticks the pronunciation task. There's no shame screen if the user skips a day; the plan just regenerates tomorrow.
 
-**Today's task types:** `srs_review`, `grammar_drill`, `tutor_chat`, `tutor_pronunciation`. (See §3 for the known semantic-mismatch bug: `grammar_drill` can pick up a `pronunciation:` prefixed topic — queued for the Step 13 sunset wave.)
+**Today's task types:** `srs_review`, `grammar_drill`, `tutor_chat`, `tutor_pronunciation`. The `grammar_drill` task picks its topic from the user's non-pronunciation weakAreas; if none exist, the task is skipped that day.
 
 This is intentionally low-pressure. The plan is a *suggestion surface*, not a streak-killing obligation. A push-notification wave is planned (§14) to handle the "return tomorrow" pull without resorting to shame mechanics.
 
