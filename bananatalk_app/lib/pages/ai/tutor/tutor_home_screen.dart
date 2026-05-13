@@ -6,6 +6,7 @@ import '../../../models/tutor/tutor_session.dart';
 import '../../../providers/tutor_provider.dart';
 import '../../../utils/theme_extensions.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 import 'tutor_chat_screen.dart';
 import 'persona_picker_screen.dart';
 import 'scenario_picker_screen.dart';
@@ -20,16 +21,17 @@ class TutorHomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final memoryAsync = ref.watch(tutorMemoryProvider);
     final planAsync = ref.watch(tutorDailyPlanProvider);
     final sessionsAsync = ref.watch(tutorRecentSessionsProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AI Tutor'),
+        title: Text(l10n.aiTutorHomeTitle),
         actions: [
           IconButton(
-            tooltip: 'Change tutor',
+            tooltip: l10n.aiTutorHomeChangeTutor,
             icon: const Icon(Icons.swap_horiz),
             onPressed: () => Navigator.push(
               context,
@@ -95,6 +97,7 @@ class _HeroGreeting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final avatar = _personaAvatars[memory.persona] ?? '🐻';
     final name = _personaNames[memory.persona] ?? 'Nana';
     final lastSummary = memory.recentChatSummaries.isNotEmpty
@@ -119,8 +122,8 @@ class _HeroGreeting extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   lastSummary != null
-                      ? 'Last time: $lastSummary'
-                      : "Hey! Ready to learn together?",
+                      ? l10n.aiTutorHeroSubtitleLast(lastSummary)
+                      : l10n.aiTutorHomeGreetingDefault,
                   style: context.bodyMedium.copyWith(color: context.textSecondary),
                 ),
               ],
@@ -138,6 +141,7 @@ class _PlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -152,13 +156,12 @@ class _PlanCard extends StatelessWidget {
         error: (e, _) => Text('Plan unavailable: $e'),
         data: (plan) {
           if (plan == null || plan.tasks.isEmpty) {
-            return Text('No plan for today — start a chat to begin.',
-                style: context.bodyMedium);
+            return Text(l10n.aiTutorHomePlanEmpty, style: context.bodyMedium);
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Today's plan",
+              Text(l10n.aiTutorHomeTodaysPlan,
                   style: context.titleSmall.copyWith(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               for (final t in plan.tasks)
@@ -202,6 +205,7 @@ class _StartChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SizedBox(
       height: 52,
       child: ElevatedButton.icon(
@@ -210,7 +214,7 @@ class _StartChatButton extends StatelessWidget {
           MaterialPageRoute(builder: (_) => const TutorChatScreen()),
         ),
         icon: const Icon(Icons.chat_bubble_outline),
-        label: const Text('Start chat'),
+        label: Text(l10n.aiTutorHomeStartChat),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
@@ -244,12 +248,12 @@ class _PracticeScenariosCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Practice scenarios',
+                    Text(AppLocalizations.of(context)!.aiTutorHomePracticeScenarios,
                         style: context.titleSmall
                             .copyWith(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 2),
                     Text(
-                      'Roleplay real-world conversations — restaurant, interview, hotel…',
+                      AppLocalizations.of(context)!.aiTutorHomePracticeScenariosSubtitle,
                       style: context.bodySmall
                           .copyWith(color: context.textSecondary),
                     ),
@@ -288,12 +292,12 @@ class _StoryCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Read a story',
+                    Text(AppLocalizations.of(context)!.aiTutorHomeReadStory,
                         style: context.titleSmall
                             .copyWith(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 2),
                     Text(
-                      'AI writes a short story using your vocab — with quick comprehension checks.',
+                      AppLocalizations.of(context)!.aiTutorHomeReadStorySubtitle,
                       style: context.bodySmall
                           .copyWith(color: context.textSecondary),
                     ),
@@ -332,12 +336,12 @@ class _ImageVocabCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Describe a photo',
+                    Text(AppLocalizations.of(context)!.aiTutorHomeDescribePhoto,
                         style: context.titleSmall
                             .copyWith(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 2),
                     Text(
-                      'Snap a picture and describe it — AI grades your vocab + grammar.',
+                      AppLocalizations.of(context)!.aiTutorHomeDescribePhotoSubtitle,
                       style: context.bodySmall
                           .copyWith(color: context.textSecondary),
                     ),
@@ -367,7 +371,7 @@ class _RecentSessions extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Recent',
+            Text(AppLocalizations.of(context)!.aiTutorHomeRecent,
                 style: context.titleSmall.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             for (final s in sessions.take(5))
