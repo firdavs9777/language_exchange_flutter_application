@@ -10661,6 +10661,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sentence {current} of {total}'**
   String aiTutorPronounceSentenceOf(int current, int total);
+
+  /// Title on the end-of-drill summary sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Drill complete'**
+  String get aiTutorPronounceSummaryTitle;
+
+  /// Label above the average-score number on the summary sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Average score'**
+  String get aiTutorPronounceSummaryAvg;
+
+  /// Label above the list of weakest words on the summary sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Words to practice'**
+  String get aiTutorPronounceSummaryWeak;
+
+  /// Primary action on the summary sheet — POSTs weak words and pops the drill
+  ///
+  /// In en, this message translates to:
+  /// **'Save & Close'**
+  String get aiTutorPronounceSaveClose;
+
+  /// Button label while the summary is being submitted
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get aiTutorPronounceSaving;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

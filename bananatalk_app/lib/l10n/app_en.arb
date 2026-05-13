@@ -2926,5 +2926,20 @@
       "current": {"type": "int"},
       "total":   {"type": "int"}
     }
-  }
+  },
+
+  "aiTutorPronounceSummaryTitle": "Drill complete",
+  "@aiTutorPronounceSummaryTitle": { "description": "Title on the end-of-drill summary sheet" },
+
+  "aiTutorPronounceSummaryAvg": "Average score",
+  "@aiTutorPronounceSummaryAvg": { "description": "Label above the average-score number on the summary sheet" },
+
+  "aiTutorPronounceSummaryWeak": "Words to practice",
+  "@aiTutorPronounceSummaryWeak": { "description": "Label above the list of weakest words on the summary sheet" },
+
+  "aiTutorPronounceSaveClose": "Save & Close",
+  "@aiTutorPronounceSaveClose": { "description": "Primary action on the summary sheet — POSTs weak words and pops the drill" },
+
+  "aiTutorPronounceSaving": "Saving…",
+  "@aiTutorPronounceSaving": { "description": "Button label while the summary is being submitted" }
 }

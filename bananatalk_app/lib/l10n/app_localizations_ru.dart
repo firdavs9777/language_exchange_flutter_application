@@ -5695,4 +5695,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String aiTutorPronounceSentenceOf(int current, int total) {
     return 'Sentence $current of $total';
   }
+
+  @override
+  String get aiTutorPronounceSummaryTitle => 'Drill complete';
+
+  @override
+  String get aiTutorPronounceSummaryAvg => 'Average score';
+
+  @override
+  String get aiTutorPronounceSummaryWeak => 'Words to practice';
+
+  @override
+  String get aiTutorPronounceSaveClose => 'Save & Close';
+
+  @override
+  String get aiTutorPronounceSaving => 'Saving…';
 }

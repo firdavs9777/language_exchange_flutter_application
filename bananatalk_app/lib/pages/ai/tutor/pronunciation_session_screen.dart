@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../providers/pronunciation_provider.dart';
 import 'widgets/pronunciation_sentence_card.dart';
+import 'widgets/pronunciation_summary_sheet.dart';
 
 class PronunciationSessionScreen extends ConsumerStatefulWidget {
   const PronunciationSessionScreen({super.key});
@@ -139,8 +140,11 @@ class _PronunciationSessionScreenState
           onCancelCustom: ctrl.closeCustomDraft,
         );
       case PronStatus.summary:
-        // Built in Task 9 — placeholder so the screen still compiles.
-        return const Center(child: Text('Summary — wiring next'));
+        return PronunciationSummarySheet(
+          onClose: () {
+            if (Navigator.canPop(context)) Navigator.of(context).pop();
+          },
+        );
     }
   }
 }
