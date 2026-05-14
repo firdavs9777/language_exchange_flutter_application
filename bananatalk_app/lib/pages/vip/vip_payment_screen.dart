@@ -100,12 +100,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     try {
       await _processMockupPayment();
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         isProcessing = false;
       });
-
-      if (!mounted) return;
-
       _showErrorDialog('Payment Error', 'An error occurred: ${e.toString()}');
     }
   }
@@ -160,11 +158,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
+        if (!mounted) return;
         setState(() {
           isProcessing = false;
         });
-        if (!mounted) return;
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Purchase was canceled or failed. Please try again.'),
@@ -194,11 +191,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       );
 
 
+      if (!mounted) return;
       setState(() {
         isProcessing = false;
       });
-
-      if (!mounted) return;
 
       if (verifyResult['success'] == true) {
         // Step 13A: webhook race fix. Apple/Google webhook may not have
@@ -244,15 +240,13 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         _showErrorDialog('Purchase Verification Failed', verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
       }
     } catch (e) {
-      setState(() {
-        isProcessing = false;
-      });
-
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
       ref.read(purchaseErrorProvider.notifier).state = e.toString();
 
       if (!mounted) return;
-
+      setState(() {
+        isProcessing = false;
+      });
       _showErrorDialog('Purchase Error', e.toString().replaceAll('Exception: ', ''));
     }
   }
@@ -329,11 +323,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
+        if (!mounted) return;
         setState(() {
           isProcessing = false;
         });
-        if (!mounted) return;
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Purchase was canceled or failed. Please try again.'),
@@ -365,11 +358,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       );
 
 
+      if (!mounted) return;
       setState(() {
         isProcessing = false;
       });
-
-      if (!mounted) return;
 
       if (verifyResult['success'] == true) {
         // Step 13A: webhook race fix — same pattern as iOS path.
@@ -409,15 +401,13 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             verifyResult['error'] ?? 'Could not verify purchase with server. Please contact support.');
       }
     } catch (e) {
-      setState(() {
-        isProcessing = false;
-      });
-
       ref.read(purchaseStateProvider.notifier).state = PurchaseState.error;
       ref.read(purchaseErrorProvider.notifier).state = e.toString();
 
       if (!mounted) return;
-
+      setState(() {
+        isProcessing = false;
+      });
       _showErrorDialog(
           'Purchase Error', e.toString().replaceAll('Exception: ', ''));
     }
@@ -437,11 +427,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       paymentMethod: selectedPaymentMethod!,
     );
 
+    if (!mounted) return;
     setState(() {
       isProcessing = false;
     });
-
-    if (!mounted) return;
 
     if (result['success']) {
       _showSuccessDialog();
