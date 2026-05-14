@@ -20,14 +20,19 @@ class _NotificationPreferencesScreenState
   bool _isLoading = true;
   String? _error;
 
+  // Step 16 — added newFollower, comment, vipRenewalWarning. Ordered
+  // by category: chat → social → voice rooms → discovery → VIP.
   static const List<String> _keys = [
     'chat',
+    'newFollower',
+    'comment',
     'wave',
     'voiceRoomStart',
     'scheduledRoomReminder',
     'followerMoment',
     'visitorAlert',
     'matchAlert',
+    'vipRenewalWarning',
   ];
 
   @override
@@ -110,6 +115,12 @@ class _NotificationPreferencesScreenState
       'followerMoment' => l10n.notifPrefFollowerMoment,
       'visitorAlert' => l10n.notifPrefVisitorAlert,
       'matchAlert' => l10n.notifPrefMatchAlert,
+      // Step 16 — hardcoded English fallbacks; l10n keys queued as a
+      // follow-up alongside the new push types. The .arb file would
+      // need notifPrefNewFollower / notifPrefComment / notifPrefVipRenewalWarning.
+      'newFollower' => 'New follower',
+      'comment' => 'Comments',
+      'vipRenewalWarning' => 'VIP renewal reminders',
       _ => key,
     };
   }
