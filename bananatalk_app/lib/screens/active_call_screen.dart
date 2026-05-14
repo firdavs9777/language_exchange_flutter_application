@@ -8,7 +8,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
-    show CallUiState, CallQuality;
+    show CallManager, CallUiState, CallQuality;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
 
 /// Maximum time (s) we tolerate a transient reconnect before auto-ending the
@@ -48,9 +48,15 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   late final Animation<Offset> _reconnectSlide;
   Timer? _reconnectGraceTimer;
 
+  /// Cached CallManager so dispose() can null out callbacks without
+  /// going through `ref` (ref is invalid once ConsumerStatefulElement
+  /// is being unmounted — see tutor_chat_screen for the same pattern).
+  CallManager? _cachedCallManager;
+
   @override
   void initState() {
     super.initState();
+    _cachedCallManager = ref.read(callProvider.notifier).callManager;
     // Default: speaker ON for video calls, OFF for audio calls
     _isSpeakerOn = widget.call.callType == CallType.video;
     _isVideoEnabled = widget.call.callType == CallType.video;
@@ -201,13 +207,14 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     // a closure that captures this disposed State. The provider-mediated
     // callbacks (setConnectionStateCallback, setCallQualityCallback, etc.)
     // are owned by CallNotifier and managed there.
-    final callManager =
-        ref.read(callProvider.notifier).callManager;
-    callManager.onPeerReconnecting = null;
-    callManager.onPeerReconnected = null;
-    callManager.onPeerMuteChanged = null;
-    callManager.onPeerVideoChanged = null;
-    callManager.liveKit.onConnectionQualityChanged = null;
+    final callManager = _cachedCallManager;
+    if (callManager != null) {
+      callManager.onPeerReconnecting = null;
+      callManager.onPeerReconnected = null;
+      callManager.onPeerMuteChanged = null;
+      callManager.onPeerVideoChanged = null;
+      callManager.liveKit.onConnectionQualityChanged = null;
+    }
     _reconnectAnimController.dispose();
     super.dispose();
   }

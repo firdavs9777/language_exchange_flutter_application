@@ -37,9 +37,15 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   /// fire tutor_chip_completed from dispose() without ref access.
   String _userTier = 'free';
 
+  /// Cached chat controller so dispose() can flush the end-session
+  /// event without going through `ref` (ref is invalid once the
+  /// ConsumerStatefulElement is being unmounted).
+  TutorChatController? _chatNotifier;
+
   @override
   void initState() {
     super.initState();
+    _chatNotifier = ref.read(tutorChatControllerProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
       AnalyticsService.instance.tutorChipUsed(chipName: 'chat', userTier: _userTier);
@@ -137,10 +143,11 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   @override
   void dispose() {
     AnalyticsService.instance.tutorChipCompleted(chipName: 'chat', userTier: _userTier);
-    // Fire-and-forget end so memory updates on background.
-    final state = ref.read(tutorChatControllerProvider);
-    if (state.session != null) {
-      ref.read(tutorChatControllerProvider.notifier).end();
+    // Fire-and-forget end via the cached notifier — ref.read here would
+    // throw because the ConsumerStatefulElement is mid-unmount.
+    final n = _chatNotifier;
+    if (n != null && n.mounted && n.state.session != null) {
+      n.end();
     }
     _voice.dispose();
     _controller.dispose();
