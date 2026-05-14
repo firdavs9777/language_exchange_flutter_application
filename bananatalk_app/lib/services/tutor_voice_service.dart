@@ -112,14 +112,25 @@ class TutorVoiceService {
     }
   }
 
+  /// Monotonic token bumped on every speakAndPlay / stopPlayback so an
+  /// in-flight TTS HTTP request can be cancelled mid-await — without it,
+  /// the user toggles voice OFF, _player.stop() is a no-op (nothing is
+  /// playing yet), then the TTS response arrives and playUrl starts
+  /// audio anyway. Each speakAndPlay captures its token; if the field
+  /// has moved by the time the request resolves, the playback is
+  /// skipped.
+  int _playGen = 0;
+
   /// Ask the backend to TTS the most-recent (or specified) assistant
   /// message and play it. Returns the audioUrl on success.
   Future<String?> speakAndPlay(String sessionId, {int? messageIndex}) async {
+    final gen = ++_playGen;
     try {
       final res = await ApiClient().post(
         'tutor/sessions/$sessionId/speak',
         body: messageIndex != null ? {'messageIndex': messageIndex} : null,
       );
+      if (gen != _playGen) return null; // cancelled by stopPlayback / newer call
       if (!res.success || res.data == null) return null;
       final raw = res.data;
       final data = raw is Map<String, dynamic>
@@ -129,7 +140,8 @@ class TutorVoiceService {
           : <String, dynamic>{};
       final url = data['audioUrl']?.toString();
       if (url == null || url.isEmpty) return null;
-      await playUrl(url);
+      if (gen != _playGen) return null;
+      await playUrl(url, gen: gen);
       return url;
     } catch (e) {
       debugPrint('[tutorVoice] speakAndPlay failed: $e');
@@ -137,10 +149,14 @@ class TutorVoiceService {
     }
   }
 
-  Future<void> playUrl(String url) async {
+  Future<void> playUrl(String url, {int? gen}) async {
     try {
       _isPlaying = true;
       await _player.setUrl(url);
+      if (gen != null && gen != _playGen) {
+        _isPlaying = false;
+        return; // cancelled between setUrl and play
+      }
       await _player.play();
       _player.playerStateStream.firstWhere((s) => s.processingState == ProcessingState.completed)
           .then((_) => _isPlaying = false);
@@ -151,6 +167,7 @@ class TutorVoiceService {
   }
 
   Future<void> stopPlayback() async {
+    _playGen++; // invalidate any in-flight speakAndPlay
     try {
       await _player.stop();
     } catch (_) {}
