@@ -75,8 +75,24 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
   Future<void> _send() async {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
+    final notifier = ref.read(tutorChatControllerProvider.notifier);
+    if (notifier.state.session == null) {
+      // Start hasn't finished yet — block send rather than silently
+      // swallowing the user's text.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Still starting the scenario — try again in a moment.')),
+      );
+      return;
+    }
     _controller.clear();
-    await ref.read(tutorChatControllerProvider.notifier).send(text);
+    await notifier.send(text);
+    if (!mounted) return;
+    final err = ref.read(tutorChatControllerProvider).error;
+    if (err != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Send failed: $err')),
+      );
+    }
     _scrollToBottom();
     _maybeSpeakLatestReply();
   }
