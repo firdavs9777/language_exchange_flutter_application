@@ -79,19 +79,38 @@ class LiveKitService {
         'localId=${room.localParticipant?.identity} '
         'remotes=${room.remoteParticipants.length}',
       );
-
-      await room.localParticipant?.setMicrophoneEnabled(enableMicrophone);
-      if (enableCamera) {
-        await room.localParticipant?.setCameraEnabled(true);
-      }
-      debugPrint(
-        '[LK] tracks published: mic=$enableMicrophone cam=$enableCamera',
-      );
     } catch (e, st) {
       debugPrint('[LK] connect FAILED: $e\n$st');
+      try {
+        await room.disconnect();
+        await room.dispose();
+      } catch (_) {}
       _room = null;
       rethrow;
     }
+
+    // Mic/cam publish errors (e.g. iOS simulator mic NotAllowedError) must
+    // not tear down a healthy room — the connection itself is fine, the
+    // user just won't have an outbound audio/video track. Surface the
+    // failure as a log; callers can inspect localParticipant tracks if
+    // they need to gate behavior.
+    if (enableMicrophone) {
+      try {
+        await room.localParticipant?.setMicrophoneEnabled(true);
+      } catch (e) {
+        debugPrint('[LK] mic publish failed (room still connected): $e');
+      }
+    }
+    if (enableCamera) {
+      try {
+        await room.localParticipant?.setCameraEnabled(true);
+      } catch (e) {
+        debugPrint('[LK] cam publish failed (room still connected): $e');
+      }
+    }
+    debugPrint(
+      '[LK] tracks publish attempted: mic=$enableMicrophone cam=$enableCamera',
+    );
   }
 
   Future<void> setMicrophoneEnabled(bool enabled) async {
