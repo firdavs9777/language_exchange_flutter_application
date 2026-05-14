@@ -74,6 +74,37 @@ class NotificationRouter {
           if (userId != null) targetPath = '/profile/$userId';
           break;
 
+        // Step 16 — wave deep-link to the waver's profile.
+        case 'wave':
+          final waverId = data['userId']?.toString();
+          if (waverId != null) targetPath = '/profile/$waverId';
+          break;
+
+        // Step 16 — three previously-silent comment notification types
+        // (backend fires them but the Flutter router had no case → tap
+        // fell through to home). All deep-link to the moment.
+        case 'comment_reply':
+        case 'comment_reaction':
+        case 'comment_mention':
+          final momentId = data['momentId']?.toString();
+          if (momentId != null) targetPath = '/moment/$momentId';
+          break;
+
+        // Step 16 — forward-compat. No /story route in GoRouter today
+        // (stories use Navigator.push). Fall back to the commenter's
+        // profile so the tap goes somewhere meaningful.
+        case 'story_comment':
+          final commenterId = data['commenterId']?.toString();
+          if (commenterId != null) targetPath = '/profile/$commenterId';
+          break;
+
+        // Step 16 — VIP renewal warning. No /vip route in GoRouter;
+        // VisitorUpgradeScreen is reached via Navigator.push only.
+        // Tap opens the app to home; push body tells user to renew.
+        case 'vip_renewal_warning':
+          // intentional fall-through with no targetPath
+          break;
+
         case 'incoming_call':
           debugPrint('📞 Incoming call notification tapped');
           _handleIncomingCallNotification(data);
