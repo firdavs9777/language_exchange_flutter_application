@@ -25,9 +25,11 @@ class PronunciationVoiceService {
   Future<String> startRecording() async {
     await _ensureRecorder();
     final tmp = await getTemporaryDirectory();
+    // Codec.aacMP4 → .m4a. Whisper rejects raw aacADTS (.aac) with
+    // 400 "Invalid file format". MP4-wrapped AAC is on its accepted list.
     final path =
-        '${tmp.path}/pronunciation_${DateTime.now().millisecondsSinceEpoch}.aac';
-    await _recorder!.startRecorder(toFile: path, codec: Codec.aacADTS);
+        '${tmp.path}/pronunciation_${DateTime.now().millisecondsSinceEpoch}.m4a';
+    await _recorder!.startRecorder(toFile: path, codec: Codec.aacMP4);
     _currentRecordingPath = path;
     return path;
   }

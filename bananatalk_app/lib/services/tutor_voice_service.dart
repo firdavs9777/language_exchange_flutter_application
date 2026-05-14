@@ -48,6 +48,11 @@ class TutorVoiceService {
 
   /// Begin recording to a temp .m4a file. Returns false if permissions
   /// were denied or recorder init failed.
+  ///
+  /// Codec.aacMP4 (NOT aacADTS) — Whisper rejects raw AAC streams with
+  /// 400 "Invalid file format" because aacADTS isn't in its accepted
+  /// container list. The MP4 wrapper is what makes the file .m4a, which
+  /// Whisper does accept.
   Future<bool> startRecording() async {
     if (_isRecording) return true;
     final ok = await ensureRecorder();
@@ -55,11 +60,11 @@ class TutorVoiceService {
 
     final tmpDir = await getTemporaryDirectory();
     _currentPath =
-        '${tmpDir.path}/tutor_voice_${DateTime.now().millisecondsSinceEpoch}.aac';
+        '${tmpDir.path}/tutor_voice_${DateTime.now().millisecondsSinceEpoch}.m4a';
 
     await _recorder!.startRecorder(
       toFile: _currentPath,
-      codec: Codec.aacADTS,
+      codec: Codec.aacMP4,
       bitRate: 96000,
       sampleRate: 44100,
     );
